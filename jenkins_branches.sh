@@ -8,10 +8,10 @@ VENV_PATH="${HOME}/venv/${JOB_NAME}"
 
 pip install -q ghtools
 
-REPO="alphagov/url-arbiter"
+REPO="alphagov/publishing-api"
 gh-status "$REPO" "$GIT_COMMIT" pending -d "\"Build #${BUILD_NUMBER} is running on Jenkins\"" -u "$BUILD_URL" >/dev/null
 
-if ./test.sh; then
+if ./jenkins.sh; then
   gh-status "$REPO" "$GIT_COMMIT" success -d "\"Build #${BUILD_NUMBER} succeeded on Jenkins\"" -u "$BUILD_URL" >/dev/null
   exit 0
 else
