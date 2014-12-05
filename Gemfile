@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'airbrake', '4.0.0'
 gem 'logstasher', '0.5.3'
-gem 'rails', '4.1.5'
+gem 'rails', '4.1.8'
 gem 'rails-api', '0.3.1'
 gem 'sqlite3', '1.3.10'
 gem 'unicorn', '4.8.3'
