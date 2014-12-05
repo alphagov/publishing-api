@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'logstasher', '0.5.3'
 gem 'rails', '4.1.5'
 gem 'rails-api', '0.3.1'
 gem 'sqlite3', '1.3.10'
