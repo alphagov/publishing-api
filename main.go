@@ -4,11 +4,15 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/codegangsta/negroni"
+	"github.com/meatballhat/negroni-logrus"
 	"gopkg.in/unrolled/render.v1"
 )
 
 var (
+	loggingMiddleware = negronilogrus.NewCustomMiddleware(
+		logrus.InfoLevel, &logrus.JSONFormatter{}, "publishing-api")
 	port     = getEnvDefault("PORT", "3000")
 	renderer = render.New(render.Options{})
 )
@@ -22,6 +26,7 @@ func main() {
 	httpMux.HandleFunc("/healthcheck", HealthCheckHandler)
 
 	middleware := negroni.New()
+	middleware.Use(loggingMiddleware)
 	middleware.UseHandler(httpMux)
 	middleware.Run(":" + port)
 }
