@@ -9,6 +9,7 @@ import (
 )
 
 var (
+	port     = getEnvDefault("PORT", "3000")
 	renderer = render.New(render.Options{})
 )
 
@@ -22,5 +23,14 @@ func main() {
 
 	middleware := negroni.New()
 	middleware.UseHandler(httpMux)
-	middleware.Run(":3000")
+	middleware.Run(":" + port)
+}
+
+func getEnvDefault(key string, defaultVal string) string {
+	val := os.Getenv(key)
+	if val == "" {
+		return defaultVal
+	}
+
+	return val
 }
