@@ -3,7 +3,6 @@ package main_test
 import (
 	"io/ioutil"
 	"net/http"
-	"net/http/httptest"
 	"strings"
 	"testing"
 
@@ -14,10 +13,6 @@ import (
 func TestPublishingApi(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "PublishingApi Suite")
-}
-
-func testHandlerServer(handler http.HandlerFunc) *httptest.Server {
-	return httptest.NewServer(http.HandlerFunc(handler))
 }
 
 func readResponseBody(response *http.Response) (string, error) {

@@ -21,9 +21,14 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	renderer.JSON(w, http.StatusOK, map[string]string{"status": "OK"})
 }
 
-func main() {
+func BuildHTTPMux() *http.ServeMux {
 	httpMux := http.NewServeMux()
 	httpMux.HandleFunc("/healthcheck", HealthCheckHandler)
+	return httpMux
+}
+
+func main() {
+	httpMux := BuildHTTPMux()
 
 	middleware := negroni.New()
 	middleware.Use(loggingMiddleware)
