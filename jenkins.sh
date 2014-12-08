@@ -2,3 +2,4 @@
 set -e
 
 git clean -fdx
+make
