@@ -21,6 +21,19 @@ var _ = Describe("URLArbiter", func() {
 		Expect(response.Path).To(Equal("/foo/bar"))
 		Expect(response.PublishingApp).To(Equal("foo_publisher"))
 	})
+
+	It("responds with a conflict error if the path is already reserved", func() {
+		testServer := buildTestServer(http.StatusConflict, `{
+"path":"/foo/bar",
+"publishing_app":"foo_publisher",
+"errors":{"path":["is already reserved by the 'foo_publisher' app"]}
+}`)
+		arbiter := NewURLArbiter(testServer.URL)
+
+		response, err := arbiter.Register("/foo/bar", "foo_publishing")
+		Expect(err).To(Equal(ConflictPathAlreadyReserved))
+		Expect(response.Errors).ToNot(BeEmpty())
+	})
 })
 
 func buildTestServer(status int, body string) *httptest.Server {

@@ -3,10 +3,12 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
-	"time"
 )
+
+var ConflictPathAlreadyReserved = errors.New("path is already reserved")
 
 type URLArbiter struct {
 	client  *http.Client
@@ -16,9 +18,8 @@ type URLArbiter struct {
 type URLArbiterResponse struct {
 	publishingApp
 
-	Path      string    `json:"path"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	Path   string              `json:"path"`
+	Errors map[string][]string `json:"errors"`
 }
 
 type publishingApp struct {
@@ -55,6 +56,12 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 	var arbiterResponse URLArbiterResponse
 	if err := json.Unmarshal(responseBody, &arbiterResponse); err != nil {
 		return URLArbiterResponse{}, err
+	}
+
+	// Read the response body and then check the status code so we can
+	// return the errors from the response.
+	if response.StatusCode == http.StatusConflict {
+		return arbiterResponse, ConflictPathAlreadyReserved
 	}
 
 	return arbiterResponse, nil
