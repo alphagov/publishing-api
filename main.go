@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"os"
 
@@ -21,14 +23,38 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	renderer.JSON(w, http.StatusOK, map[string]string{"status": "OK"})
 }
 
-func BuildHTTPMux() *http.ServeMux {
+func ContentStoreHandler(arbiterURL string) http.HandlerFunc {
+	arbiter := NewURLArbiter(arbiterURL)
+
+	return func(w http.ResponseWriter, r *http.Request) {
+		path := r.URL.Path[len("/content"):]
+
+		requestBody, err := ReadRequestBody(r)
+		if err != nil {
+			renderer.JSON(w, http.StatusInternalServerError, err)
+			return
+		}
+
+		var contentStoreRequest *ContentStoreRequest
+		if err := json.Unmarshal(requestBody, &contentStoreRequest); err != nil {
+			renderer.JSON(w, http.StatusInternalServerError, err)
+			return
+		}
+
+		arbiter.Register(path, contentStoreRequest.PublishingApp)
+	}
+}
+
+func BuildHTTPMux(arbiterURL string) *http.ServeMux {
 	httpMux := http.NewServeMux()
 	httpMux.HandleFunc("/healthcheck", HealthCheckHandler)
+	httpMux.HandleFunc("/content/", ContentStoreHandler(arbiterURL))
 	return httpMux
 }
 
 func main() {
-	httpMux := BuildHTTPMux()
+	// TODO: apply this using an environment variable.
+	httpMux := BuildHTTPMux("dummy.arbiter.url.com")
 
 	middleware := negroni.New()
 	middleware.Use(loggingMiddleware)
@@ -43,4 +69,11 @@ func getEnvDefault(key string, defaultVal string) string {
 	}
 
 	return val
+}
+
+func ReadRequestBody(request *http.Request) ([]byte, error) {
+	body, err := ioutil.ReadAll(request.Body)
+	defer request.Body.Close()
+
+	return body, err
 }
