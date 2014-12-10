@@ -16,13 +16,13 @@ type URLArbiter struct {
 }
 
 type URLArbiterResponse struct {
-	publishingApp
+	PublishingApplication
 
 	Path   string              `json:"path"`
 	Errors map[string][]string `json:"errors"`
 }
 
-type publishingApp struct {
+type PublishingApplication struct {
 	PublishingApp string `json:"publishing_app"`
 }
 
@@ -35,7 +35,7 @@ func NewURLArbiter(rootURL string) *URLArbiter {
 
 func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterResponse, error) {
 	url := u.rootURL + "/paths" + path
-	requestBody := publishingApp{PublishingApp: publishingAppName}
+	requestBody := PublishingApplication{PublishingApp: publishingAppName}
 	jsonRequestBody, _ := json.Marshal(requestBody)
 
 	request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
