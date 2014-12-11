@@ -24,15 +24,17 @@ const (
 
 var _ = Describe("Integration Testing", func() {
 	var (
-		client       = &http.Client{}
-		requestOrder = make(chan TestRequestLabel, 2)
-
+		client            *http.Client
+		requestOrder      chan TestRequestLabel
 		testContentStore  *httptest.Server
 		testPublishingAPI *httptest.Server
 		testURLArbiter    *httptest.Server
 	)
 
 	BeforeEach(func() {
+		client = &http.Client{}
+		requestOrder = make(chan TestRequestLabel, 2)
+
 		testContentStore = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			requestOrder <- ContentStoreRequestLabel
 
@@ -47,7 +49,7 @@ var _ = Describe("Integration Testing", func() {
                 "app": "or format",
                 "specific": "data..."
               }
-            }`)
+           }`)
 		}))
 		testURLArbiter = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			requestOrder <- URLArbiterRequestLabel
@@ -108,6 +110,41 @@ var _ = Describe("Integration Testing", func() {
           }
         }`))
 		Expect(err).To(BeNil())
+	})
+
+	Describe("disabled HTTP methods", func() {
+		var url string
+
+		BeforeEach(func() {
+			url = testPublishingAPI.URL + "/content/disabled/http/methods"
+		})
+
+		It("should not allow GET requets", func() {
+			response, err := client.Get(url)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
+		})
+
+		It("should not allow POST requets", func() {
+			response, err := client.Post(url, "application/json", bytes.NewBufferString(`{"foo": "bar"}`))
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
+		})
+
+		It("should not allow HEAD requets", func() {
+			response, err := client.Head(url)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
+		})
+
+		It("should not allow DELETE requets", func() {
+			request, err := http.NewRequest("DELETE", url, nil)
+			Expect(err).To(BeNil())
+
+			response, err := client.Do(request)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
+		})
 	})
 })
 

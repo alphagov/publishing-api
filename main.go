@@ -36,6 +36,12 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 	contentStore := httputil.NewSingleHostReverseProxy(parsedContentStoreURL)
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "PUT" {
+			responseBody := `{"errors":{"method": "only PUT HTTP methods are allowed"}}`
+			renderer.JSON(w, http.StatusMethodNotAllowed, responseBody)
+			return
+		}
+
 		path := r.URL.Path[len("/content"):]
 
 		requestBody, err := ioutil.ReadAll(r.Body)
