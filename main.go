@@ -111,6 +111,9 @@ func getEnvDefault(key string, defaultVal string) string {
 	return val
 }
 
+// Use this function to wrap httputil.NewSingleHostReverseProxy
+// proxies. It sets the host of the request to the host of the
+// destination server.
 func requestHostToDestinationHost(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		r.Host = r.URL.Host
