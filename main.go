@@ -16,9 +16,12 @@ import (
 )
 
 var (
+	arbiterHost      = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
+	contentStoreHost = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
+	port             = getEnvDefault("PORT", "3000")
+
 	loggingMiddleware = negronilogrus.NewCustomMiddleware(
 		logrus.InfoLevel, &logrus.JSONFormatter{}, "publishing-api")
-	port     = getEnvDefault("PORT", "3000")
 	renderer = render.New(render.Options{})
 )
 
@@ -90,8 +93,7 @@ func BuildHTTPMux(arbiterURL, contentStoreURL string) *http.ServeMux {
 }
 
 func main() {
-	// TODO: apply this using an environment variable.
-	httpMux := BuildHTTPMux("dummy.arbiter.url.com", "dummy.content.store.com")
+	httpMux := BuildHTTPMux(arbiterHost, contentStoreHost)
 
 	middleware := negroni.New()
 	middleware.Use(loggingMiddleware)
