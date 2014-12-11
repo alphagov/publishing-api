@@ -36,7 +36,8 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 	}
 
 	arbiter := NewURLArbiter(arbiterURL)
-	contentStore := httputil.NewSingleHostReverseProxy(parsedContentStoreURL)
+	contentStoreProxy := httputil.NewSingleHostReverseProxy(parsedContentStoreURL)
+	contentStoreHostRewriter := requestHostToDestinationHost(contentStoreProxy)
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "PUT" {
@@ -81,7 +82,7 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 			return
 		}
 
-		contentStore.ServeHTTP(w, r)
+		contentStoreHostRewriter.ServeHTTP(w, r)
 	}
 }
 
@@ -108,4 +109,11 @@ func getEnvDefault(key string, defaultVal string) string {
 	}
 
 	return val
+}
+
+func requestHostToDestinationHost(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		r.Host = r.URL.Host
+		handler.ServeHTTP(w, r)
+	})
 }
