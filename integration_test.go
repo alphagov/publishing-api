@@ -76,6 +76,16 @@ var _ = Describe("Integration Testing", func() {
 		close(requestOrder)
 	})
 
+	It("has a healthcheck endpoint which responds with a status of OK", func() {
+		response, err := http.Get(testPublishingAPI.URL + "/healthcheck")
+		Expect(err).To(BeNil())
+		Expect(response.StatusCode).To(Equal(http.StatusOK))
+
+		body, err := readResponseBody(response)
+		Expect(err).To(BeNil())
+		Expect(body).To(Equal(`{"status":"OK"}`))
+	})
+
 	It("registers a path with URL arbiter and then publishes the content to the content store", func() {
 		jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
 			BasePath:      "/foo/bar",
