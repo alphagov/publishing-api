@@ -12,7 +12,7 @@ import (
 
 var _ = Describe("Healthcheck", func() {
 	It("responds with a status of OK", func() {
-		httpMux := BuildHTTPMux("dummy.arbiter.url.com")
+		httpMux := BuildHTTPMux("dummy.arbiter.url.com", "dummy.content.store.com")
 		testServer := httptest.NewServer(httpMux)
 		defer testServer.Close()
 
