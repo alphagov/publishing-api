@@ -54,14 +54,8 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 			return
 		}
 
-		requestBodyBuffer, err := ioutil.ReadAll(bytes.NewBuffer(requestBody))
-		if err != nil {
-			renderer.JSON(w, http.StatusInternalServerError, err)
-			return
-		}
-
 		var contentStoreRequest *ContentStoreRequest
-		if err := json.Unmarshal(requestBodyBuffer, &contentStoreRequest); err != nil {
+		if err := json.Unmarshal(requestBody, &contentStoreRequest); err != nil {
 			renderer.JSON(w, http.StatusInternalServerError, err)
 			return
 		}
