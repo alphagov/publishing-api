@@ -70,9 +70,17 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 		// replacing the original body with itself.
 		r.Body = ioutil.NopCloser(bytes.NewBuffer(requestBody))
 
-		_, err = arbiter.Register(path, contentStoreRequest.PublishingApp)
+		urlArbiterResponse, err := arbiter.Register(path, contentStoreRequest.PublishingApp)
 		if err != nil {
-			renderer.JSON(w, http.StatusInternalServerError, err)
+			switch err {
+			case ConflictPathAlreadyReserved:
+				renderer.JSON(w, http.StatusConflict, urlArbiterResponse)
+			case UnprocessableEntity:
+				renderer.JSON(w, 422, urlArbiterResponse) // Unprocessable Entity.
+			default:
+				renderer.JSON(w, http.StatusInternalServerError, err)
+			}
+
 			return
 		}
 

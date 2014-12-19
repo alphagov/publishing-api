@@ -86,6 +86,77 @@ var _ = Describe("Integration Testing", func() {
 		Expect(body).To(Equal(`{"status":"OK"}`))
 	})
 
+	Describe("URL arbiter error responses", func() {
+		var (
+			URLArbiterReturnStatus   int
+			URLArbiterReturnResponse string
+		)
+
+		BeforeEach(func() {
+			testURLArbiter = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(URLArbiterReturnStatus)
+				fmt.Fprintln(w, URLArbiterReturnResponse)
+			}))
+
+			testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
+		})
+
+		AfterEach(func() {
+			testURLArbiter.Close()
+			testPublishingAPI.Close()
+		})
+
+		It("should return a 422 status with the original response", func() {
+			URLArbiterReturnStatus = 422
+			URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b","c"]}}`
+
+			jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
+				BasePath:      "/foo/bar",
+				PublishingApp: "foo_publisher",
+				UpdateType:    "publish",
+			})
+			Expect(err).To(BeNil())
+
+			url := testPublishingAPI.URL + "/content" + "/foo/bar"
+
+			request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
+			Expect(err).To(BeNil())
+
+			response, err := client.Do(request)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(422))
+
+			body, err := ReadHTTPBody(response.Body)
+			Expect(err).To(BeNil())
+			Expect(body).To(Equal([]uint8(URLArbiterReturnResponse)))
+		})
+
+		It("should return a 409 status with the original response", func() {
+			URLArbiterReturnStatus = 409
+			URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b"]}}`
+
+			jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
+				BasePath:      "/foo/bar",
+				PublishingApp: "foo_publisher",
+				UpdateType:    "publish",
+			})
+			Expect(err).To(BeNil())
+
+			url := testPublishingAPI.URL + "/content" + "/foo/bar"
+
+			request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
+			Expect(err).To(BeNil())
+
+			response, err := client.Do(request)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(409))
+
+			body, err := ReadHTTPBody(response.Body)
+			Expect(err).To(BeNil())
+			Expect(body).To(Equal([]uint8(URLArbiterReturnResponse)))
+		})
+	})
+
 	It("registers a path with URL arbiter and then publishes the content to the content store", func() {
 		jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
 			BasePath:      "/foo/bar",

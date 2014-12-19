@@ -8,7 +8,10 @@ import (
 	"net/http"
 )
 
-var ConflictPathAlreadyReserved = errors.New("path is already reserved")
+var (
+	ConflictPathAlreadyReserved = errors.New("path is already reserved")
+	UnprocessableEntity         = errors.New("request was well-formed but was unable to be followed due to semantic errors")
+)
 
 type URLArbiter struct {
 	client  *http.Client
@@ -60,7 +63,10 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 
 	// Read the response body and then check the status code so we can
 	// return the errors from the response.
-	if response.StatusCode == http.StatusConflict {
+	switch response.StatusCode {
+	case 422: // Unprocessable Entity.
+		return arbiterResponse, UnprocessableEntity
+	case http.StatusConflict:
 		return arbiterResponse, ConflictPathAlreadyReserved
 	}
 
