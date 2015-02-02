@@ -21,6 +21,7 @@ var (
 	arbiterHost      = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
 	contentStoreHost = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
 	port             = getEnvDefault("PORT", "3000")
+	requestLogDest   = getEnvDefault("REQUEST_LOG", "STDOUT")
 
 	renderer = render.New(render.Options{})
 )
@@ -103,7 +104,7 @@ func BuildHTTPMux(arbiterURL, contentStoreURL string) *http.ServeMux {
 func main() {
 	httpMux := BuildHTTPMux(arbiterHost, contentStoreHost)
 
-	requestLogger, err := request_logger.New("STDOUT")
+	requestLogger, err := request_logger.New(requestLogDest)
 	if err != nil {
 		log.Fatal(err)
 	}
