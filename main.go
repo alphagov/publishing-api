@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"os"
 
+	"github.com/alext/tablecloth"
 	"github.com/codegangsta/negroni"
 	"gopkg.in/unrolled/render.v1"
 
@@ -112,7 +113,18 @@ func main() {
 	middleware := negroni.New()
 	middleware.Use(requestLogger)
 	middleware.UseHandler(httpMux)
-	middleware.Run(":" + port)
+
+	// Set working dir for tablecloth if available. This is to allow restarts
+	// to pick up new versions.  See
+	// http://godoc.org/github.com/alext/tablecloth#pkg-variables for details
+	if wd := os.Getenv("GOVUK_APP_ROOT"); wd != "" {
+		tablecloth.WorkingDir = wd
+	}
+
+	err = tablecloth.ListenAndServe(":"+port, middleware)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func getEnvDefault(key string, defaultVal string) string {
