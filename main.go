@@ -4,16 +4,16 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"os"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/codegangsta/negroni"
-	"github.com/meatballhat/negroni-logrus"
 	"gopkg.in/unrolled/render.v1"
 
+	"github.com/alphagov/publishing-api/request_logger"
 	"github.com/alphagov/publishing-api/urlarbiter"
 )
 
@@ -22,8 +22,6 @@ var (
 	contentStoreHost = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
 	port             = getEnvDefault("PORT", "3000")
 
-	loggingMiddleware = negronilogrus.NewCustomMiddleware(
-		logrus.InfoLevel, &logrus.JSONFormatter{}, "publishing-api")
 	renderer = render.New(render.Options{})
 )
 
@@ -105,8 +103,13 @@ func BuildHTTPMux(arbiterURL, contentStoreURL string) *http.ServeMux {
 func main() {
 	httpMux := BuildHTTPMux(arbiterHost, contentStoreHost)
 
+	requestLogger, err := request_logger.New("STDOUT")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	middleware := negroni.New()
-	middleware.Use(loggingMiddleware)
+	middleware.Use(requestLogger)
 	middleware.UseHandler(httpMux)
 	middleware.Run(":" + port)
 }
