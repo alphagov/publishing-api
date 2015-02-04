@@ -1,20 +1,26 @@
-package main_test
+package urlarbiter_test
 
 import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"testing"
 
-	. "github.com/alphagov/publishing-api"
+	"github.com/alphagov/publishing-api/urlarbiter"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
+func TestURLArbiter(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "URL arbiter client")
+}
+
 var _ = Describe("URLArbiter", func() {
 	It("should register a path successfully when the path is available", func() {
 		testServer := buildTestServer(http.StatusOK, `{"path":"/foo/bar","publishing_app":"foo_publisher"}`)
-		arbiter := NewURLArbiter(testServer.URL)
+		arbiter := urlarbiter.NewURLArbiter(testServer.URL)
 
 		response, err := arbiter.Register("/foo/bar", "foo_publishing")
 		Expect(err).To(BeNil())
@@ -28,10 +34,10 @@ var _ = Describe("URLArbiter", func() {
 "publishing_app":"foo_publisher",
 "errors":{"path":["is already reserved by the 'foo_publisher' app"]}
 }`)
-		arbiter := NewURLArbiter(testServer.URL)
+		arbiter := urlarbiter.NewURLArbiter(testServer.URL)
 
 		response, err := arbiter.Register("/foo/bar", "foo_publishing")
-		Expect(err).To(Equal(ConflictPathAlreadyReserved))
+		Expect(err).To(Equal(urlarbiter.ConflictPathAlreadyReserved))
 		Expect(response.Errors).ToNot(BeEmpty())
 	})
 })
