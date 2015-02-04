@@ -56,7 +56,12 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 
 		var contentStoreRequest *ContentStoreRequest
 		if err := json.Unmarshal(requestBody, &contentStoreRequest); err != nil {
-			renderer.JSON(w, http.StatusInternalServerError, err)
+			switch err.(type) {
+			case *json.SyntaxError:
+				renderer.JSON(w, http.StatusBadRequest, err)
+			default:
+				renderer.JSON(w, http.StatusInternalServerError, err)
+			}
 			return
 		}
 
