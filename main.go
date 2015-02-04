@@ -13,6 +13,8 @@ import (
 	"github.com/codegangsta/negroni"
 	"github.com/meatballhat/negroni-logrus"
 	"gopkg.in/unrolled/render.v1"
+
+	"github.com/alphagov/publishing-api/urlarbiter"
 )
 
 var (
@@ -35,7 +37,7 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 		panic(err)
 	}
 
-	arbiter := NewURLArbiter(arbiterURL)
+	arbiter := urlarbiter.NewURLArbiter(arbiterURL)
 	contentStoreProxy := httputil.NewSingleHostReverseProxy(parsedContentStoreURL)
 	contentStoreHostRewriter := requestHostToDestinationHost(contentStoreProxy)
 
@@ -78,9 +80,9 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 		urlArbiterResponse, err := arbiter.Register(path, contentStoreRequest.PublishingApp)
 		if err != nil {
 			switch err {
-			case ConflictPathAlreadyReserved:
+			case urlarbiter.ConflictPathAlreadyReserved:
 				renderer.JSON(w, http.StatusConflict, urlArbiterResponse)
-			case UnprocessableEntity:
+			case urlarbiter.UnprocessableEntity:
 				renderer.JSON(w, 422, urlArbiterResponse) // Unprocessable Entity.
 			default:
 				renderer.JSON(w, http.StatusInternalServerError, err)

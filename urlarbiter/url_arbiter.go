@@ -1,10 +1,9 @@
-package main
+package urlarbiter
 
 import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"net/http"
 )
 
@@ -51,13 +50,8 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 		return URLArbiterResponse{}, err
 	}
 
-	responseBody, err := readResponseBody(response)
-	if err != nil {
-		return URLArbiterResponse{}, err
-	}
-
 	var arbiterResponse URLArbiterResponse
-	if err := json.Unmarshal(responseBody, &arbiterResponse); err != nil {
+	if err := json.NewDecoder(response.Body).Decode(&arbiterResponse); err != nil {
 		return URLArbiterResponse{}, err
 	}
 
@@ -71,11 +65,4 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 	}
 
 	return arbiterResponse, nil
-}
-
-func readResponseBody(response *http.Response) ([]byte, error) {
-	body, err := ioutil.ReadAll(response.Body)
-	defer response.Body.Close()
-
-	return body, err
 }
