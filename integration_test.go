@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 
 	. "github.com/alphagov/publishing-api"
 
@@ -226,6 +227,16 @@ var _ = Describe("Integration Testing", func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
 		})
+	})
+
+	It("returns a 400 error if given invalid JSON", func() {
+		url := testPublishingAPI.URL + "/content" + "/foo/bar"
+		request, err := http.NewRequest("PUT", url, strings.NewReader("i'm not json"))
+		Expect(err).To(BeNil())
+
+		response, err := client.Do(request)
+		Expect(err).To(BeNil())
+		Expect(response.StatusCode).To(Equal(http.StatusBadRequest))
 	})
 })
 
