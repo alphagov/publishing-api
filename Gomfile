@@ -1,6 +1,4 @@
-gom 'github.com/Sirupsen/logrus', :commit => '965349de21e7b1e9e80b6ae02e093f1522516ef3'
 gom 'github.com/codegangsta/negroni', :commit => 'c64702ca03d0f858ab7866638b69e85f0d4c6ee7'
-gom 'github.com/meatballhat/negroni-logrus', :commit => 'd5e114d7a445f7a3652cf807d3f83d5dceb8de26'
 gom 'github.com/onsi/ginkgo', :commit => '75d0cd9c7ee52e99b13e6ccfd9e58b4f92b7795e'
 gom 'github.com/onsi/gomega', :commit => '835b5e4242c715976b98ed6bc6ece1d9c7879f66'
 gom 'gopkg.in/unrolled/render.v1', :commit => '40ac5716c7e0bffcc440aac649ea4b880a5d7735'
