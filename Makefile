@@ -15,7 +15,7 @@ vendor: deps
 	ln -s $(CURDIR) _vendor/src/$(REPO_PATH)
 
 test: vendor
-	gom test -v $(REPO_PATH)
+	gom test -v ./...
 
 build: vendor
 	gom build -o $(BINARY)
