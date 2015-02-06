@@ -28,7 +28,8 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 func BuildHTTPMux(arbiterURL, contentStoreURL string) *http.ServeMux {
 	httpMux := http.NewServeMux()
 	httpMux.HandleFunc("/healthcheck", HealthCheckHandler)
-	httpMux.HandleFunc("/content/", ContentStoreHandler(arbiterURL, contentStoreURL))
+	contentStoreHandler := NewContentStoreHandler(arbiterURL, contentStoreURL)
+	httpMux.HandleFunc("/content/", contentStoreHandler.PutContentItem)
 	return httpMux
 }
 
