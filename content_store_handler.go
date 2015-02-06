@@ -1,13 +1,12 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"net/http"
-	"net/http/httputil"
-	"net/url"
 
+	"github.com/alphagov/publishing-api/contentstore"
 	"github.com/alphagov/publishing-api/urlarbiter"
 )
 
@@ -18,14 +17,8 @@ type ContentStoreRequest struct {
 }
 
 func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
-	parsedContentStoreURL, err := url.Parse(contentStoreURL)
-	if err != nil {
-		panic(err)
-	}
-
 	arbiter := urlarbiter.NewURLArbiter(arbiterURL)
-	contentStoreProxy := httputil.NewSingleHostReverseProxy(parsedContentStoreURL)
-	contentStoreHostRewriter := requestHostToDestinationHost(contentStoreProxy)
+	contentStore := contentstore.NewClient(contentStoreURL)
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "PUT" {
@@ -53,16 +46,6 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 			return
 		}
 
-		// Due to the way that Go works, we can't read from the
-		// http.Request body twice. This is because http.Request.Body
-		// implements io.ReadCloser which closes itself once read. To
-		// get around this it's possible to copy the raw bytes from
-		// the body into a buffer and overlay two separate
-		// bytes.NewBuffer instances. Here we're implementing the same
-		// io.ReadCloser interface on top of our bytes.NewBuffer and
-		// replacing the original body with itself.
-		r.Body = ioutil.NopCloser(bytes.NewBuffer(requestBody))
-
 		urlArbiterResponse, err := arbiter.Register(path, contentStoreRequest.PublishingApp)
 		if err != nil {
 			switch err {
@@ -77,16 +60,14 @@ func ContentStoreHandler(arbiterURL, contentStoreURL string) http.HandlerFunc {
 			return
 		}
 
-		contentStoreHostRewriter.ServeHTTP(w, r)
-	}
-}
+		resp, err := contentStore.PutContentItem(path, requestBody)
+		if err != nil {
+			renderer.JSON(w, http.StatusInternalServerError, err)
+		}
+		defer resp.Body.Close()
 
-// Use this function to wrap httputil.NewSingleHostReverseProxy
-// proxies. It sets the host of the request to the host of the
-// destination server.
-func requestHostToDestinationHost(handler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		r.Host = r.URL.Host
-		handler.ServeHTTP(w, r)
-	})
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(resp.StatusCode)
+		io.Copy(w, resp.Body)
+	}
 }
