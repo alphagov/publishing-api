@@ -54,17 +54,8 @@ func (cs *ContentStoreHandler) PutContentItem(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	urlArbiterResponse, err := cs.arbiter.Register(path, contentStoreRequest.PublishingApp)
-	if err != nil {
-		switch err {
-		case urlarbiter.ConflictPathAlreadyReserved:
-			renderer.JSON(w, http.StatusConflict, urlArbiterResponse)
-		case urlarbiter.UnprocessableEntity:
-			renderer.JSON(w, 422, urlArbiterResponse) // Unprocessable Entity.
-		default:
-			renderer.JSON(w, http.StatusInternalServerError, err)
-		}
-
+	if !cs.registerWithURLArbiter(path, contentStoreRequest.PublishingApp, w) {
+		// errors already written to ResponseWriter
 		return
 	}
 
@@ -77,4 +68,23 @@ func (cs *ContentStoreHandler) PutContentItem(w http.ResponseWriter, r *http.Req
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(resp.StatusCode)
 	io.Copy(w, resp.Body)
+}
+
+// Register the given path and publishing app with the URL arbiter.  Returns
+// true on success.  On failure, writes an error to the ResponseWriter, and
+// returns false
+func (cs *ContentStoreHandler) registerWithURLArbiter(path, publishingApp string, w http.ResponseWriter) bool {
+	urlArbiterResponse, err := cs.arbiter.Register(path, publishingApp)
+	if err != nil {
+		switch err {
+		case urlarbiter.ConflictPathAlreadyReserved:
+			renderer.JSON(w, http.StatusConflict, urlArbiterResponse)
+		case urlarbiter.UnprocessableEntity:
+			renderer.JSON(w, 422, urlArbiterResponse) // Unprocessable Entity.
+		default:
+			renderer.JSON(w, http.StatusInternalServerError, err)
+		}
+		return false
+	}
+	return true
 }
