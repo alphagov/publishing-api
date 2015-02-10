@@ -188,42 +188,6 @@ var _ = Describe("Integration Testing", func() {
 			Expect(err).To(BeNil())
 		})
 
-		Describe("disabled HTTP methods", func() {
-			var client = &http.Client{}
-			var url string
-
-			BeforeEach(func() {
-				url = testPublishingAPI.URL + "/content/disabled/http/methods"
-			})
-
-			It("should not allow GET requets", func() {
-				response, err := client.Get(url)
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
-			})
-
-			It("should not allow POST requets", func() {
-				response, err := client.Post(url, "application/json", bytes.NewBufferString(`{"foo": "bar"}`))
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
-			})
-
-			It("should not allow HEAD requets", func() {
-				response, err := client.Head(url)
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
-			})
-
-			It("should not allow DELETE requets", func() {
-				request, err := http.NewRequest("DELETE", url, nil)
-				Expect(err).To(BeNil())
-
-				response, err := client.Do(request)
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
-			})
-		})
-
 		It("returns a 400 error if given invalid JSON", func() {
 			url := testPublishingAPI.URL + "/content" + "/foo/bar"
 			response := DoRequest("PUT", url, []byte("i'm not json"))

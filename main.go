@@ -7,6 +7,7 @@ import (
 
 	"github.com/alext/tablecloth"
 	"github.com/codegangsta/negroni"
+	"github.com/gorilla/mux"
 	"gopkg.in/unrolled/render.v1"
 
 	"github.com/alphagov/publishing-api/request_logger"
@@ -25,11 +26,11 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	renderer.JSON(w, http.StatusOK, map[string]string{"status": "OK"})
 }
 
-func BuildHTTPMux(arbiterURL, contentStoreURL string) *http.ServeMux {
-	httpMux := http.NewServeMux()
-	httpMux.HandleFunc("/healthcheck", HealthCheckHandler)
+func BuildHTTPMux(arbiterURL, contentStoreURL string) http.Handler {
+	httpMux := mux.NewRouter()
+	httpMux.Methods("GET").Path("/healthcheck").HandlerFunc(HealthCheckHandler)
 	contentStoreHandler := NewContentStoreHandler(arbiterURL, contentStoreURL)
-	httpMux.HandleFunc("/content/", contentStoreHandler.PutContentItem)
+	httpMux.Methods("PUT").PathPrefix("/content/").HandlerFunc(contentStoreHandler.PutContentItem)
 	return httpMux
 }
 
