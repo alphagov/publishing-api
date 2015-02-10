@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 
 	. "github.com/alphagov/publishing-api"
 
@@ -25,7 +24,6 @@ const (
 
 var _ = Describe("Integration Testing", func() {
 	var (
-		client            *http.Client
 		requestOrder      chan TestRequestLabel
 		testContentStore  *httptest.Server
 		testPublishingAPI *httptest.Server
@@ -33,7 +31,6 @@ var _ = Describe("Integration Testing", func() {
 	)
 
 	BeforeEach(func() {
-		client = &http.Client{}
 		requestOrder = make(chan TestRequestLabel, 2)
 
 		testContentStore = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -121,11 +118,7 @@ var _ = Describe("Integration Testing", func() {
 
 				url := testPublishingAPI.URL + "/content" + "/foo/bar"
 
-				request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
-				Expect(err).To(BeNil())
-
-				response, err := client.Do(request)
-				Expect(err).To(BeNil())
+				response := DoRequest("PUT", url, jsonRequestBody)
 				Expect(response.StatusCode).To(Equal(422))
 
 				body, err := ReadHTTPBody(response.Body)
@@ -144,11 +137,7 @@ var _ = Describe("Integration Testing", func() {
 
 				url := testPublishingAPI.URL + "/content" + "/foo/bar"
 
-				request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
-				Expect(err).To(BeNil())
-
-				response, err := client.Do(request)
-				Expect(err).To(BeNil())
+				response := DoRequest("PUT", url, jsonRequestBody)
 				Expect(response.StatusCode).To(Equal(409))
 
 				body, err := ReadHTTPBody(response.Body)
@@ -165,11 +154,8 @@ var _ = Describe("Integration Testing", func() {
 
 			url := testPublishingAPI.URL + "/content" + "/foo/bar"
 
-			request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
-			Expect(err).To(BeNil())
+			response := DoRequest("PUT", url, jsonRequestBody)
 
-			response, err := client.Do(request)
-			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(http.StatusOK))
 
 			// Testing for order.
@@ -192,6 +178,7 @@ var _ = Describe("Integration Testing", func() {
 		})
 
 		Describe("disabled HTTP methods", func() {
+			var client = &http.Client{}
 			var url string
 
 			BeforeEach(func() {
@@ -228,15 +215,22 @@ var _ = Describe("Integration Testing", func() {
 
 		It("returns a 400 error if given invalid JSON", func() {
 			url := testPublishingAPI.URL + "/content" + "/foo/bar"
-			request, err := http.NewRequest("PUT", url, strings.NewReader("i'm not json"))
-			Expect(err).To(BeNil())
-
-			response, err := client.Do(request)
-			Expect(err).To(BeNil())
+			response := DoRequest("PUT", url, []byte("i'm not json"))
 			Expect(response.StatusCode).To(Equal(http.StatusBadRequest))
 		})
 	})
 })
+
+func DoRequest(verb string, url string, body []byte) (*http.Response) {
+	var client = &http.Client{}
+
+	request, err := http.NewRequest(verb, url, bytes.NewBuffer(body))
+	Expect(err).To(BeNil())
+
+	response, err := client.Do(request)
+	Expect(err).To(BeNil())
+	return response
+}
 
 func ReadHTTPBody(HTTPBody io.ReadCloser) ([]byte, error) {
 	body, err := ioutil.ReadAll(HTTPBody)
