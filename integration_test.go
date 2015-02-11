@@ -24,54 +24,15 @@ const (
 
 var _ = Describe("Integration Testing", func() {
 	var (
-		requestOrder      chan TestRequestLabel
-		testContentStore  *httptest.Server
 		testPublishingAPI *httptest.Server
-		testURLArbiter    *httptest.Server
 	)
 
 	BeforeEach(func() {
-		requestOrder = make(chan TestRequestLabel, 2)
-
-		testContentStore = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			requestOrder <- ContentStoreRequestLabel
-
-			w.WriteHeader(http.StatusOK)
-			fmt.Fprintln(w, `{
-              "base_path": "/foo/bar",
-              "title": "Content Title",
-              "description": "Short description of content",
-              "format": "the format of this content",
-              "locale": "en",
-              "details": {
-                "app": "or format",
-                "specific": "data..."
-              }
-           }`)
-		}))
-		testURLArbiter = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			requestOrder <- URLArbiterRequestLabel
-
-			defer GinkgoRecover()
-
-			Expect(r.URL.Path).To(Equal("/paths/foo/bar"))
-			Expect(r.Method).To(Equal("PUT"))
-
-			body, err := ReadHTTPBody(r.Body)
-			Expect(err).To(BeNil())
-			Expect(body).To(MatchJSON(`{"publishing_app":"foo_publisher"}`))
-
-			w.WriteHeader(http.StatusOK)
-			fmt.Fprintln(w, `{"path":"/foo/bar","publishing_app":"foo_publisher"}`)
-		}))
-		testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
+		testPublishingAPI = httptest.NewServer(BuildHTTPMux("", ""))
 	})
 
 	AfterEach(func() {
-		testContentStore.Close()
-		testURLArbiter.Close()
 		testPublishingAPI.Close()
-		close(requestOrder)
 	})
 
 	Describe("GET /healthcheck", func() {
@@ -87,6 +48,56 @@ var _ = Describe("Integration Testing", func() {
 	})
 
 	Describe("PUT /content", func() {
+		var (
+			requestOrder      chan TestRequestLabel
+			testContentStore  *httptest.Server
+			testURLArbiter    *httptest.Server
+		)
+
+		BeforeEach(func() {
+			requestOrder = make(chan TestRequestLabel, 2)
+
+			testContentStore = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				requestOrder <- ContentStoreRequestLabel
+
+				w.WriteHeader(http.StatusOK)
+				fmt.Fprintln(w, `{
+	              "base_path": "/foo/bar",
+	              "title": "Content Title",
+	              "description": "Short description of content",
+	              "format": "the format of this content",
+	              "locale": "en",
+	              "details": {
+	                "app": "or format",
+	                "specific": "data..."
+	              }
+	           }`)
+			}))
+			testURLArbiter = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				requestOrder <- URLArbiterRequestLabel
+
+				defer GinkgoRecover()
+
+				Expect(r.URL.Path).To(Equal("/paths/foo/bar"))
+				Expect(r.Method).To(Equal("PUT"))
+
+				body, err := ReadHTTPBody(r.Body)
+				Expect(err).To(BeNil())
+				Expect(body).To(MatchJSON(`{"publishing_app":"foo_publisher"}`))
+
+				w.WriteHeader(http.StatusOK)
+				fmt.Fprintln(w, `{"path":"/foo/bar","publishing_app":"foo_publisher"}`)
+			}))
+			testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
+		})
+
+		AfterEach(func() {
+			testContentStore.Close()
+			testURLArbiter.Close()
+			testPublishingAPI.Close()
+			close(requestOrder)
+		})
+
 		Describe("URL arbiter error responses", func() {
 			var (
 				URLArbiterReturnStatus   int
