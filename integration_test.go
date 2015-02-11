@@ -77,40 +77,87 @@ var _ = Describe("Integration Testing", func() {
 		close(requestOrder)
 	})
 
-	It("has a healthcheck endpoint which responds with a status of OK", func() {
-		response, err := http.Get(testPublishingAPI.URL + "/healthcheck")
-		Expect(err).To(BeNil())
-		Expect(response.StatusCode).To(Equal(http.StatusOK))
+	Describe("GET /healthcheck", func() {
+		It("has a healthcheck endpoint which responds with a status of OK", func() {
+			response, err := http.Get(testPublishingAPI.URL + "/healthcheck")
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(http.StatusOK))
 
-		body, err := readResponseBody(response)
-		Expect(err).To(BeNil())
-		Expect(body).To(Equal(`{"status":"OK"}`))
+			body, err := readResponseBody(response)
+			Expect(err).To(BeNil())
+			Expect(body).To(Equal(`{"status":"OK"}`))
+		})
 	})
 
-	Describe("URL arbiter error responses", func() {
-		var (
-			URLArbiterReturnStatus   int
-			URLArbiterReturnResponse string
-		)
+	Describe("PUT /content", func() {
+		Describe("URL arbiter error responses", func() {
+			var (
+				URLArbiterReturnStatus   int
+				URLArbiterReturnResponse string
+			)
 
-		BeforeEach(func() {
-			testURLArbiter = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				w.WriteHeader(URLArbiterReturnStatus)
-				fmt.Fprintln(w, URLArbiterReturnResponse)
-			}))
+			BeforeEach(func() {
+				testURLArbiter = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					w.WriteHeader(URLArbiterReturnStatus)
+					fmt.Fprintln(w, URLArbiterReturnResponse)
+				}))
 
-			testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
+				testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
+			})
+
+			AfterEach(func() {
+				testURLArbiter.Close()
+				testPublishingAPI.Close()
+			})
+
+			It("should return a 422 status with the original response", func() {
+				URLArbiterReturnStatus = 422
+				URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b","c"]}}`
+
+				jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
+					PublishingApp: "foo_publisher",
+				})
+				Expect(err).To(BeNil())
+
+				url := testPublishingAPI.URL + "/content" + "/foo/bar"
+
+				request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
+				Expect(err).To(BeNil())
+
+				response, err := client.Do(request)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(422))
+
+				body, err := ReadHTTPBody(response.Body)
+				Expect(err).To(BeNil())
+				Expect(body).To(Equal([]uint8(URLArbiterReturnResponse)))
+			})
+
+			It("should return a 409 status with the original response", func() {
+				URLArbiterReturnStatus = 409
+				URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b"]}}`
+
+				jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
+					PublishingApp: "foo_publisher",
+				})
+				Expect(err).To(BeNil())
+
+				url := testPublishingAPI.URL + "/content" + "/foo/bar"
+
+				request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
+				Expect(err).To(BeNil())
+
+				response, err := client.Do(request)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(409))
+
+				body, err := ReadHTTPBody(response.Body)
+				Expect(err).To(BeNil())
+				Expect(body).To(Equal([]uint8(URLArbiterReturnResponse)))
+			})
 		})
 
-		AfterEach(func() {
-			testURLArbiter.Close()
-			testPublishingAPI.Close()
-		})
-
-		It("should return a 422 status with the original response", func() {
-			URLArbiterReturnStatus = 422
-			URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b","c"]}}`
-
+		It("registers a path with URL arbiter and then publishes the content to the content store", func() {
 			jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
 				PublishingApp: "foo_publisher",
 			})
@@ -123,114 +170,71 @@ var _ = Describe("Integration Testing", func() {
 
 			response, err := client.Do(request)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(422))
+			Expect(response.StatusCode).To(Equal(http.StatusOK))
+
+			// Testing for order.
+			Expect(<-requestOrder).To(Equal(URLArbiterRequestLabel))
+			Expect(<-requestOrder).To(Equal(ContentStoreRequestLabel))
 
 			body, err := ReadHTTPBody(response.Body)
+			Expect(body).To(MatchJSON(`{
+	          "base_path": "/foo/bar",
+	          "title": "Content Title",
+	          "description": "Short description of content",
+	          "format": "the format of this content",
+	          "locale": "en",
+	          "details": {
+	            "app": "or format",
+	            "specific": "data..."
+	          }
+	        }`))
 			Expect(err).To(BeNil())
-			Expect(body).To(Equal([]uint8(URLArbiterReturnResponse)))
 		})
 
-		It("should return a 409 status with the original response", func() {
-			URLArbiterReturnStatus = 409
-			URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b"]}}`
+		Describe("disabled HTTP methods", func() {
+			var url string
 
-			jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
-				PublishingApp: "foo_publisher",
+			BeforeEach(func() {
+				url = testPublishingAPI.URL + "/content/disabled/http/methods"
 			})
-			Expect(err).To(BeNil())
 
+			It("should not allow GET requets", func() {
+				response, err := client.Get(url)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
+			})
+
+			It("should not allow POST requets", func() {
+				response, err := client.Post(url, "application/json", bytes.NewBufferString(`{"foo": "bar"}`))
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
+			})
+
+			It("should not allow HEAD requets", func() {
+				response, err := client.Head(url)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
+			})
+
+			It("should not allow DELETE requets", func() {
+				request, err := http.NewRequest("DELETE", url, nil)
+				Expect(err).To(BeNil())
+
+				response, err := client.Do(request)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
+			})
+		})
+
+		It("returns a 400 error if given invalid JSON", func() {
 			url := testPublishingAPI.URL + "/content" + "/foo/bar"
-
-			request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
+			request, err := http.NewRequest("PUT", url, strings.NewReader("i'm not json"))
 			Expect(err).To(BeNil())
 
 			response, err := client.Do(request)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(409))
-
-			body, err := ReadHTTPBody(response.Body)
-			Expect(err).To(BeNil())
-			Expect(body).To(Equal([]uint8(URLArbiterReturnResponse)))
+			Expect(response.StatusCode).To(Equal(http.StatusBadRequest))
 		})
-	})
-
-	It("registers a path with URL arbiter and then publishes the content to the content store", func() {
-		jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
-			PublishingApp: "foo_publisher",
-		})
-		Expect(err).To(BeNil())
-
-		url := testPublishingAPI.URL + "/content" + "/foo/bar"
-
-		request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
-		Expect(err).To(BeNil())
-
-		response, err := client.Do(request)
-		Expect(err).To(BeNil())
-		Expect(response.StatusCode).To(Equal(http.StatusOK))
-
-		// Testing for order.
-		Expect(<-requestOrder).To(Equal(URLArbiterRequestLabel))
-		Expect(<-requestOrder).To(Equal(ContentStoreRequestLabel))
-
-		body, err := ReadHTTPBody(response.Body)
-		Expect(body).To(MatchJSON(`{
-          "base_path": "/foo/bar",
-          "title": "Content Title",
-          "description": "Short description of content",
-          "format": "the format of this content",
-          "locale": "en",
-          "details": {
-            "app": "or format",
-            "specific": "data..."
-          }
-        }`))
-		Expect(err).To(BeNil())
-	})
-
-	Describe("disabled HTTP methods", func() {
-		var url string
-
-		BeforeEach(func() {
-			url = testPublishingAPI.URL + "/content/disabled/http/methods"
-		})
-
-		It("should not allow GET requets", func() {
-			response, err := client.Get(url)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
-		})
-
-		It("should not allow POST requets", func() {
-			response, err := client.Post(url, "application/json", bytes.NewBufferString(`{"foo": "bar"}`))
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
-		})
-
-		It("should not allow HEAD requets", func() {
-			response, err := client.Head(url)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
-		})
-
-		It("should not allow DELETE requets", func() {
-			request, err := http.NewRequest("DELETE", url, nil)
-			Expect(err).To(BeNil())
-
-			response, err := client.Do(request)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(http.StatusMethodNotAllowed))
-		})
-	})
-
-	It("returns a 400 error if given invalid JSON", func() {
-		url := testPublishingAPI.URL + "/content" + "/foo/bar"
-		request, err := http.NewRequest("PUT", url, strings.NewReader("i'm not json"))
-		Expect(err).To(BeNil())
-
-		response, err := client.Do(request)
-		Expect(err).To(BeNil())
-		Expect(response.StatusCode).To(Equal(http.StatusBadRequest))
 	})
 })
 
