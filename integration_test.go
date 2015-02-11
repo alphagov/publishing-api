@@ -60,6 +60,9 @@ var _ = Describe("Integration Testing", func() {
 			testContentStore = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				requestOrder <- ContentStoreRequestLabel
 
+				Expect(r.URL.Path).To(Equal("/content/foo/bar"))
+				Expect(r.Method).To(Equal("PUT"))
+
 				w.WriteHeader(http.StatusOK)
 				fmt.Fprintln(w, `{
 	              "base_path": "/foo/bar",
