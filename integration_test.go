@@ -49,9 +49,9 @@ var _ = Describe("Integration Testing", func() {
 
 	Describe("PUT /content", func() {
 		var (
-			requestOrder      chan TestRequestLabel
-			testContentStore  *httptest.Server
-			testURLArbiter    *httptest.Server
+			requestOrder     chan TestRequestLabel
+			testContentStore *httptest.Server
+			testURLArbiter   *httptest.Server
 		)
 
 		BeforeEach(func() {
@@ -232,7 +232,7 @@ var _ = Describe("Integration Testing", func() {
 	})
 })
 
-func DoRequest(verb string, url string, body []byte) (*http.Response) {
+func DoRequest(verb string, url string, body []byte) *http.Response {
 	var client = &http.Client{}
 
 	request, err := http.NewRequest(verb, url, bytes.NewBuffer(body))
