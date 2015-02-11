@@ -31,6 +31,7 @@ func BuildHTTPMux(arbiterURL, contentStoreURL string) http.Handler {
 	httpMux.Methods("GET").Path("/healthcheck").HandlerFunc(HealthCheckHandler)
 	contentStoreHandler := NewContentStoreHandler(arbiterURL, contentStoreURL)
 	httpMux.Methods("PUT").PathPrefix("/content/").HandlerFunc(contentStoreHandler.PutContentStoreRequest)
+	httpMux.Methods("PUT").PathPrefix("/publish-intent/").HandlerFunc(contentStoreHandler.PutContentStoreRequest)
 	return httpMux
 }
 
