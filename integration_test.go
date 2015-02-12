@@ -127,7 +127,6 @@ var _ = Describe("Integration Testing", func() {
 					URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b","c"]}}`
 
 					jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
-						BasePath:      "/foo/bar",
 						PublishingApp: "foo_publisher",
 					})
 					Expect(err).To(BeNil())
@@ -147,7 +146,6 @@ var _ = Describe("Integration Testing", func() {
 					URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b"]}}`
 
 					jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
-						BasePath:      "/foo/bar",
 						PublishingApp: "foo_publisher",
 					})
 					Expect(err).To(BeNil())
@@ -165,7 +163,6 @@ var _ = Describe("Integration Testing", func() {
 
 			It("registers a path with URL arbiter and then publishes the content to the content store", func() {
 				jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
-					BasePath:      "/foo/bar",
 					PublishingApp: "foo_publisher",
 				})
 				Expect(err).To(BeNil())

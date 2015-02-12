@@ -6,12 +6,13 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/gorilla/mux"
+
 	"github.com/alphagov/publishing-api/contentstore"
 	"github.com/alphagov/publishing-api/urlarbiter"
 )
 
 type ContentStoreRequest struct {
-	BasePath      string `json:"base_path"`
 	PublishingApp string `json:"publishing_app"`
 }
 
@@ -28,6 +29,8 @@ func NewContentStoreHandler(arbiterURL, contentStoreURL string) *ContentStoreHan
 }
 
 func (cs *ContentStoreHandler) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	urlParameters := mux.Vars(r)
+
 	requestBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, err)
@@ -45,7 +48,7 @@ func (cs *ContentStoreHandler) PutContentStoreRequest(w http.ResponseWriter, r *
 		return
 	}
 
-	if !cs.registerWithURLArbiter(contentStoreRequest.BasePath, contentStoreRequest.PublishingApp, w) {
+	if !cs.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
 		// errors already written to ResponseWriter
 		return
 	}
