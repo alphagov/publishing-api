@@ -30,25 +30,27 @@ var _ = Describe("URLArbiter", func() {
 		testServer.Close()
 	})
 
-	It("should PUT some JSON to the content-store", func() {
-		responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
-		testServer.AppendHandlers(
-			ghttp.CombineHandlers(
-				ghttp.VerifyRequest("PUT", "/foo/bar"),
-				ghttp.VerifyContentType("application/json"),
-				verifyRequestBody("Something"),
-				ghttp.RespondWith(http.StatusOK, responseBody, http.Header{"Content-Type": []string{"application/json"}}),
-			),
-		)
+	Describe("PutRequest", func() {
+		It("should PUT some JSON to the content-store", func() {
+			responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
+			testServer.AppendHandlers(
+				ghttp.CombineHandlers(
+					ghttp.VerifyRequest("PUT", "/foo/bar"),
+					ghttp.VerifyContentType("application/json"),
+					verifyRequestBody("Something"),
+					ghttp.RespondWith(http.StatusOK, responseBody, http.Header{"Content-Type": []string{"application/json"}}),
+				),
+			)
 
-		client := contentstore.NewClient(testServer.URL())
+			client := contentstore.NewClient(testServer.URL())
 
-		response, err := client.PutRequest("/foo/bar", []byte("Something"))
+			response, err := client.PutRequest("/foo/bar", []byte("Something"))
 
-		Expect(testServer.ReceivedRequests()).To(HaveLen(1))
+			Expect(testServer.ReceivedRequests()).To(HaveLen(1))
 
-		Expect(err).To(BeNil())
-		Expect(response.StatusCode).To(Equal(http.StatusOK))
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(http.StatusOK))
+		})
 	})
 })
 
