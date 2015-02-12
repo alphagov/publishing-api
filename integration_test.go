@@ -202,6 +202,45 @@ var _ = Describe("Integration Testing", func() {
 			})
 		})
 	}
+
+	Describe("GET /publish-intent", func() {
+		var (
+			testContentStore *httptest.Server
+		)
+
+		BeforeEach(func() {
+			testContentStore = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				defer GinkgoRecover()
+
+				Expect(r.URL.Path).To(Equal("/publish-intent/foo/bar"))
+				Expect(r.Method).To(Equal("GET"))
+
+				w.WriteHeader(http.StatusOK)
+				fmt.Fprintln(w, `{
+					"some": "json",
+					"representing a": "publish-intent"
+				 }`)
+			}))
+			testPublishingAPI = httptest.NewServer(BuildHTTPMux("", testContentStore.URL))
+		})
+
+		AfterEach(func() {
+			testContentStore.Close()
+		})
+
+		It("passes back the JSON", func() {
+			url := testPublishingAPI.URL + "/publish-intent/foo/bar"
+			response := DoRequest("GET", url, nil)
+			Expect(response.StatusCode).To(Equal(http.StatusOK))
+
+			body, err := ReadHTTPBody(response.Body)
+			Expect(body).To(MatchJSON(`{
+					"some": "json",
+					"representing a": "publish-intent"
+				}`))
+			Expect(err).To(BeNil())
+		})
+	})
 })
 
 func DoRequest(verb string, url string, body []byte) *http.Response {

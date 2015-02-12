@@ -32,6 +32,7 @@ func BuildHTTPMux(arbiterURL, contentStoreURL string) http.Handler {
 	contentStoreHandler := NewContentStoreHandler(arbiterURL, contentStoreURL)
 	httpMux.Methods("PUT").PathPrefix("/content/").HandlerFunc(contentStoreHandler.PutContentStoreRequest)
 	httpMux.Methods("PUT").PathPrefix("/publish-intent/").HandlerFunc(contentStoreHandler.PutContentStoreRequest)
+	httpMux.Methods("GET").PathPrefix("/publish-intent/").HandlerFunc(contentStoreHandler.GetContentStoreRequest)
 	return httpMux
 }
 

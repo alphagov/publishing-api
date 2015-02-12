@@ -52,6 +52,27 @@ var _ = Describe("URLArbiter", func() {
 			Expect(response.StatusCode).To(Equal(http.StatusOK))
 		})
 	})
+
+	Describe("GetRequest", func() {
+		It("should perform a GET request to content-store", func() {
+			responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
+			testServer.AppendHandlers(
+				ghttp.CombineHandlers(
+					ghttp.VerifyRequest("GET", "/foo/bar"),
+					ghttp.RespondWith(http.StatusOK, responseBody, http.Header{"Content-Type": []string{"application/json"}}),
+				),
+			)
+
+			client := contentstore.NewClient(testServer.URL())
+
+			response, err := client.GetRequest("/foo/bar")
+
+			Expect(testServer.ReceivedRequests()).To(HaveLen(1))
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(http.StatusOK))
+		})
+	})
 })
 
 func verifyRequestBody(expectedBody string) http.HandlerFunc {

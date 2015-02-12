@@ -79,3 +79,15 @@ func (cs *ContentStoreHandler) registerWithURLArbiter(path, publishingApp string
 	}
 	return true
 }
+
+func (cs *ContentStoreHandler) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	resp, err := cs.contentStore.GetRequest(r.URL.Path)
+	if err != nil {
+		renderer.JSON(w, http.StatusInternalServerError, err)
+	}
+	defer resp.Body.Close()
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
+}

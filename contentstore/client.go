@@ -35,3 +35,14 @@ func (p *ContentStoreClient) PutRequest(path string, data []byte) (*http.Respons
 
 	return p.client.Do(req)
 }
+
+func (p *ContentStoreClient) GetRequest(path string) (*http.Response, error) {
+	url := p.rootURL + path
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return p.client.Do(req)
+}
