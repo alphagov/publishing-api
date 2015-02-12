@@ -4,7 +4,7 @@ BINARY := publishing-api
 ORG_PATH := github.com/alphagov
 REPO_PATH := $(ORG_PATH)/$(BINARY)
 
-all: test build
+all: check_fmt test build
 
 deps:
 	gom install
@@ -25,3 +25,6 @@ run: build
 
 clean:
 	rm -rf bin $(BINARY) _vendor
+
+check_fmt:
+	./check_fmt.sh
