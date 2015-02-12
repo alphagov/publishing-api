@@ -11,6 +11,7 @@ import (
 )
 
 type ContentStoreRequest struct {
+	BasePath      string `json:"base_path"`
 	PublishingApp string `json:"publishing_app"`
 }
 
@@ -26,9 +27,7 @@ func NewContentStoreHandler(arbiterURL, contentStoreURL string) *ContentStoreHan
 	}
 }
 
-func (cs *ContentStoreHandler) PutContentItem(w http.ResponseWriter, r *http.Request) {
-	path := r.URL.Path[len("/content"):]
-
+func (cs *ContentStoreHandler) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
 	requestBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, err)
@@ -46,12 +45,12 @@ func (cs *ContentStoreHandler) PutContentItem(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	if !cs.registerWithURLArbiter(path, contentStoreRequest.PublishingApp, w) {
+	if !cs.registerWithURLArbiter(contentStoreRequest.BasePath, contentStoreRequest.PublishingApp, w) {
 		// errors already written to ResponseWriter
 		return
 	}
 
-	resp, err := cs.contentStore.PutContentItem(path, requestBody)
+	resp, err := cs.contentStore.PutRequest(r.URL.Path, requestBody)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, err)
 	}

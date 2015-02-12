@@ -23,8 +23,8 @@ func NewClient(rootURL string) *ContentStoreClient {
 	}
 }
 
-func (p *ContentStoreClient) PutContentItem(basePath string, data []byte) (*http.Response, error) {
-	url := p.rootURL + "/content" + basePath
+func (p *ContentStoreClient) PutRequest(path string, data []byte) (*http.Response, error) {
+	url := p.rootURL + path
 
 	reqBody := ioutil.NopCloser(bytes.NewBuffer(data))
 	req, err := http.NewRequest("PUT", url, reqBody)

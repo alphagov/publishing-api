@@ -30,11 +30,11 @@ var _ = Describe("URLArbiter", func() {
 		testServer.Close()
 	})
 
-	It("should submit a content item to the content-store", func() {
+	It("should PUT some JSON to the content-store", func() {
 		responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
 		testServer.AppendHandlers(
 			ghttp.CombineHandlers(
-				ghttp.VerifyRequest("PUT", "/content/foo/bar"),
+				ghttp.VerifyRequest("PUT", "/foo/bar"),
 				ghttp.VerifyContentType("application/json"),
 				verifyRequestBody("Something"),
 				ghttp.RespondWith(http.StatusOK, responseBody, http.Header{"Content-Type": []string{"application/json"}}),
@@ -43,7 +43,7 @@ var _ = Describe("URLArbiter", func() {
 
 		client := contentstore.NewClient(testServer.URL())
 
-		response, err := client.PutContentItem("/foo/bar", []byte("Something"))
+		response, err := client.PutRequest("/foo/bar", []byte("Something"))
 
 		Expect(testServer.ReceivedRequests()).To(HaveLen(1))
 
