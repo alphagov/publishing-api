@@ -91,3 +91,15 @@ func (cs *ContentStoreHandler) GetContentStoreRequest(w http.ResponseWriter, r *
 	w.WriteHeader(resp.StatusCode)
 	io.Copy(w, resp.Body)
 }
+
+func (cs *ContentStoreHandler) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	resp, err := cs.contentStore.DeleteRequest(r.URL.Path)
+	if err != nil {
+		renderer.JSON(w, http.StatusInternalServerError, err)
+	}
+	defer resp.Body.Close()
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
+}

@@ -46,3 +46,14 @@ func (p *ContentStoreClient) GetRequest(path string) (*http.Response, error) {
 
 	return p.client.Do(req)
 }
+
+func (p *ContentStoreClient) DeleteRequest(path string) (*http.Response, error) {
+	url := p.rootURL + path
+
+	req, err := http.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return p.client.Do(req)
+}

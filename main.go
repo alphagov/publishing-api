@@ -33,6 +33,7 @@ func BuildHTTPMux(arbiterURL, contentStoreURL string) http.Handler {
 	httpMux.Methods("PUT").PathPrefix("/content/").HandlerFunc(contentStoreHandler.PutContentStoreRequest)
 	httpMux.Methods("PUT").PathPrefix("/publish-intent/").HandlerFunc(contentStoreHandler.PutContentStoreRequest)
 	httpMux.Methods("GET").PathPrefix("/publish-intent/").HandlerFunc(contentStoreHandler.GetContentStoreRequest)
+	httpMux.Methods("DELETE").PathPrefix("/publish-intent/").HandlerFunc(contentStoreHandler.DeleteContentStoreRequest)
 	return httpMux
 }
 
