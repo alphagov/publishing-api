@@ -30,8 +30,8 @@ var _ = Describe("URLArbiter", func() {
 		testServer.Close()
 	})
 
-	Describe("PutRequest", func() {
-		It("should PUT some JSON to the content-store", func() {
+	Describe("DoRequest with a body", func() {
+		It("should send the body on the path with the HTTP method to content-store", func() {
 			responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
 			testServer.AppendHandlers(
 				ghttp.CombineHandlers(
@@ -44,7 +44,7 @@ var _ = Describe("URLArbiter", func() {
 
 			client := contentstore.NewClient(testServer.URL())
 
-			response, err := client.PutRequest("/foo/bar", []byte("Something"))
+			response, err := client.DoRequest("PUT", "/foo/bar", []byte("Something"))
 
 			Expect(testServer.ReceivedRequests()).To(HaveLen(1))
 
@@ -53,8 +53,8 @@ var _ = Describe("URLArbiter", func() {
 		})
 	})
 
-	Describe("GetRequest", func() {
-		It("should perform a GET request to content-store", func() {
+	Describe("DoRequest without a body", func() {
+		It("should send a request to the path with the HTTP method to content-store", func() {
 			responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
 			testServer.AppendHandlers(
 				ghttp.CombineHandlers(
@@ -65,28 +65,7 @@ var _ = Describe("URLArbiter", func() {
 
 			client := contentstore.NewClient(testServer.URL())
 
-			response, err := client.GetRequest("/foo/bar")
-
-			Expect(testServer.ReceivedRequests()).To(HaveLen(1))
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(http.StatusOK))
-		})
-	})
-
-	Describe("DeleteRequest", func() {
-		It("should perform a DELETE request to content-store", func() {
-			responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
-			testServer.AppendHandlers(
-				ghttp.CombineHandlers(
-					ghttp.VerifyRequest("DELETE", "/foo/bar"),
-					ghttp.RespondWith(http.StatusOK, responseBody, http.Header{"Content-Type": []string{"application/json"}}),
-				),
-			)
-
-			client := contentstore.NewClient(testServer.URL())
-
-			response, err := client.DeleteRequest("/foo/bar")
+			response, err := client.DoRequest("GET", "/foo/bar", nil)
 
 			Expect(testServer.ReceivedRequests()).To(HaveLen(1))
 

@@ -50,15 +50,7 @@ func (cs *ContentStoreHandler) PutContentStoreRequest(w http.ResponseWriter, r *
 		return
 	}
 
-	resp, err := cs.contentStore.PutRequest(r.URL.Path, requestBody)
-	if err != nil {
-		renderer.JSON(w, http.StatusInternalServerError, err)
-	}
-	defer resp.Body.Close()
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
+	cs.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
 }
 
 // Register the given path and publishing app with the URL arbiter.  Returns
@@ -81,19 +73,16 @@ func (cs *ContentStoreHandler) registerWithURLArbiter(path, publishingApp string
 }
 
 func (cs *ContentStoreHandler) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	resp, err := cs.contentStore.GetRequest(r.URL.Path)
-	if err != nil {
-		renderer.JSON(w, http.StatusInternalServerError, err)
-	}
-	defer resp.Body.Close()
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
+	cs.doContentStoreRequest("GET", r.URL.Path, nil, w)
 }
 
 func (cs *ContentStoreHandler) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	resp, err := cs.contentStore.DeleteRequest(r.URL.Path)
+	cs.doContentStoreRequest("DELETE", r.URL.Path, nil, w)
+}
+
+// data will be nil for requests without bodies
+func (cs *ContentStoreHandler) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
+	resp, err := cs.contentStore.DoRequest(httpMethod, path, data)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, err)
 	}
