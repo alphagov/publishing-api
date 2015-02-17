@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/gorilla/mux"
+
 	"github.com/alphagov/publishing-api/contentstore"
 	"github.com/alphagov/publishing-api/urlarbiter"
 )
@@ -26,14 +28,8 @@ func NewContentStoreHandler(arbiterURL, contentStoreURL string) *ContentStoreHan
 	}
 }
 
-func (cs *ContentStoreHandler) PutContentItem(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "PUT" {
-		responseBody := `{"errors":{"method": "only PUT HTTP methods are allowed"}}`
-		renderer.JSON(w, http.StatusMethodNotAllowed, responseBody)
-		return
-	}
-
-	path := r.URL.Path[len("/content"):]
+func (cs *ContentStoreHandler) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	urlParameters := mux.Vars(r)
 
 	requestBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -52,20 +48,12 @@ func (cs *ContentStoreHandler) PutContentItem(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	if !cs.registerWithURLArbiter(path, contentStoreRequest.PublishingApp, w) {
+	if !cs.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
 		// errors already written to ResponseWriter
 		return
 	}
 
-	resp, err := cs.contentStore.PutContentItem(path, requestBody)
-	if err != nil {
-		renderer.JSON(w, http.StatusInternalServerError, err)
-	}
-	defer resp.Body.Close()
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
+	cs.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
 }
 
 // Register the given path and publishing app with the URL arbiter.  Returns
@@ -85,4 +73,25 @@ func (cs *ContentStoreHandler) registerWithURLArbiter(path, publishingApp string
 		return false
 	}
 	return true
+}
+
+func (cs *ContentStoreHandler) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	cs.doContentStoreRequest("GET", r.URL.Path, nil, w)
+}
+
+func (cs *ContentStoreHandler) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	cs.doContentStoreRequest("DELETE", r.URL.Path, nil, w)
+}
+
+// data will be nil for requests without bodies
+func (cs *ContentStoreHandler) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
+	resp, err := cs.contentStore.DoRequest(httpMethod, path, data)
+	if err != nil {
+		renderer.JSON(w, http.StatusInternalServerError, err)
+	}
+	defer resp.Body.Close()
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
 }

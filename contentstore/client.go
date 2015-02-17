@@ -3,6 +3,7 @@ package contentstore
 import (
 	"bytes"
 	"errors"
+	"io"
 	"io/ioutil"
 	"net/http"
 )
@@ -23,15 +24,24 @@ func NewClient(rootURL string) *ContentStoreClient {
 	}
 }
 
-func (p *ContentStoreClient) PutContentItem(basePath string, data []byte) (*http.Response, error) {
-	url := p.rootURL + "/content" + basePath
+// data will be nil for requests without bodies
+func (p *ContentStoreClient) DoRequest(httpMethod string, path string, data []byte) (*http.Response, error) {
+	url := p.rootURL + path
+	var reqBody io.Reader
 
-	reqBody := ioutil.NopCloser(bytes.NewBuffer(data))
-	req, err := http.NewRequest("PUT", url, reqBody)
+	if data != nil {
+		reqBody = ioutil.NopCloser(bytes.NewBuffer(data))
+	}
+
+	req, err := http.NewRequest(httpMethod, url, reqBody)
+
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Content-Type", "application/json")
+
+	if data != nil {
+		req.Header.Set("Content-Type", "application/json")
+	}
 
 	return p.client.Do(req)
 }

@@ -1,4 +1,6 @@
 gom 'github.com/codegangsta/negroni', :commit => 'c64702ca03d0f858ab7866638b69e85f0d4c6ee7'
+gom 'github.com/gorilla/mux', :commit => 'e444e69cbd2e2e3e0749a2f3c717cec491552bbf'
+gom 'github.com/gorilla/context', :commit => '215affda49addc4c8ef7e2534915df2c8c35c6cd'
 gom 'gopkg.in/unrolled/render.v1', :commit => '40ac5716c7e0bffcc440aac649ea4b880a5d7735'
 gom 'github.com/alext/tablecloth', :commit => '7f49e40'
 

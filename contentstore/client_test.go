@@ -30,25 +30,48 @@ var _ = Describe("URLArbiter", func() {
 		testServer.Close()
 	})
 
-	It("should submit a content item to the content-store", func() {
-		responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
-		testServer.AppendHandlers(
-			ghttp.CombineHandlers(
-				ghttp.VerifyRequest("PUT", "/content/foo/bar"),
-				ghttp.VerifyContentType("application/json"),
-				verifyRequestBody("Something"),
-				ghttp.RespondWith(http.StatusOK, responseBody, http.Header{"Content-Type": []string{"application/json"}}),
-			),
-		)
+	Describe("DoRequest with a body", func() {
+		It("should send the body on the path with the HTTP method to content-store", func() {
+			responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
+			testServer.AppendHandlers(
+				ghttp.CombineHandlers(
+					ghttp.VerifyRequest("PUT", "/foo/bar"),
+					ghttp.VerifyContentType("application/json"),
+					verifyRequestBody("Something"),
+					ghttp.RespondWith(http.StatusOK, responseBody, http.Header{"Content-Type": []string{"application/json"}}),
+				),
+			)
 
-		client := contentstore.NewClient(testServer.URL())
+			client := contentstore.NewClient(testServer.URL())
 
-		response, err := client.PutContentItem("/foo/bar", []byte("Something"))
+			response, err := client.DoRequest("PUT", "/foo/bar", []byte("Something"))
 
-		Expect(testServer.ReceivedRequests()).To(HaveLen(1))
+			Expect(testServer.ReceivedRequests()).To(HaveLen(1))
 
-		Expect(err).To(BeNil())
-		Expect(response.StatusCode).To(Equal(http.StatusOK))
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(http.StatusOK))
+		})
+	})
+
+	Describe("DoRequest without a body", func() {
+		It("should send a request to the path with the HTTP method to content-store", func() {
+			responseBody := `{"base_path":"/foo/bar","remaining_fields":"omitted"}`
+			testServer.AppendHandlers(
+				ghttp.CombineHandlers(
+					ghttp.VerifyRequest("GET", "/foo/bar"),
+					ghttp.RespondWith(http.StatusOK, responseBody, http.Header{"Content-Type": []string{"application/json"}}),
+				),
+			)
+
+			client := contentstore.NewClient(testServer.URL())
+
+			response, err := client.DoRequest("GET", "/foo/bar", nil)
+
+			Expect(testServer.ReceivedRequests()).To(HaveLen(1))
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(http.StatusOK))
+		})
 	})
 })
 
