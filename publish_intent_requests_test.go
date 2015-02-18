@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 
 	. "github.com/alphagov/publishing-api"
+	. "github.com/alphagov/publishing-api/sharedbehaviours"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -62,7 +63,7 @@ var _ = Describe("Publish Intent Requests", func() {
 				Expect(r.URL.Path).To(Equal("/paths/foo/bar"))
 				Expect(r.Method).To(Equal("PUT"))
 
-				body, err := readHTTPBody(r.Body)
+				body, err := ReadHTTPBody(r.Body)
 				Expect(err).To(BeNil())
 				Expect(body).To(MatchJSON(`{"publishing_app":"foo_publisher"}`))
 
@@ -79,62 +80,36 @@ var _ = Describe("Publish Intent Requests", func() {
 			close(requestOrder)
 		})
 
-		Describe("URL arbiter error responses", func() {
-			var (
-				URLArbiterReturnStatus   int
-				URLArbiterReturnResponse string
-			)
+		Context("when URL Arbiter errs", func() {
+			testContext := TestContext{}
+			urlArbiterResponse := URLArbiterResponse{}
 
 			BeforeEach(func() {
 				testURLArbiter = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-					w.WriteHeader(URLArbiterReturnStatus)
-					fmt.Fprintln(w, URLArbiterReturnResponse)
+					w.WriteHeader(urlArbiterResponse.Code)
+					fmt.Fprintln(w, urlArbiterResponse.Body)
 				}))
 
 				testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
+				testContext.Endpoint = testPublishingAPI.URL + "/publish-intent/foo/bar"
 			})
 
 			AfterEach(func() {
 				testURLArbiter.Close()
 				testPublishingAPI.Close()
 			})
+			It("returns a 422 status with the original response", func() {
+				urlArbiterResponse.Code = 422
+				urlArbiterResponse.Body = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b","c"]}}`
 
-			It("should return a 422 status with the original response", func() {
-				URLArbiterReturnStatus = 422
-				URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b","c"]}}`
-
-				jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
-					PublishingApp: "foo_publisher",
-				})
-				Expect(err).To(BeNil())
-
-				url := testPublishingAPI.URL + "/publish-intent/foo/bar"
-
-				response := doRequest("PUT", url, jsonRequestBody)
-				Expect(response.StatusCode).To(Equal(422))
-
-				body, err := readHTTPBody(response.Body)
-				Expect(err).To(BeNil())
-				Expect(body).To(Equal([]uint8(URLArbiterReturnResponse)))
+				AssertURLArbiterResponseIsReturned(&testContext, &urlArbiterResponse)
 			})
 
-			It("should return a 409 status with the original response", func() {
-				URLArbiterReturnStatus = 409
-				URLArbiterReturnResponse = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b"]}}`
+			It("returns a 409 status with the original response", func() {
+				urlArbiterResponse.Code = 409
+				urlArbiterResponse.Body = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b","c"]}}`
 
-				jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
-					PublishingApp: "foo_publisher",
-				})
-				Expect(err).To(BeNil())
-
-				url := testPublishingAPI.URL + "/publish-intent/foo/bar"
-
-				response := doRequest("PUT", url, jsonRequestBody)
-				Expect(response.StatusCode).To(Equal(409))
-
-				body, err := readHTTPBody(response.Body)
-				Expect(err).To(BeNil())
-				Expect(body).To(Equal([]uint8(URLArbiterReturnResponse)))
+				AssertURLArbiterResponseIsReturned(&testContext, &urlArbiterResponse)
 			})
 		})
 
@@ -146,7 +121,7 @@ var _ = Describe("Publish Intent Requests", func() {
 
 			url := testPublishingAPI.URL + "/publish-intent/foo/bar"
 
-			response := doRequest("PUT", url, jsonRequestBody)
+			response := DoRequest("PUT", url, jsonRequestBody)
 
 			Expect(response.StatusCode).To(Equal(http.StatusOK))
 
@@ -154,7 +129,7 @@ var _ = Describe("Publish Intent Requests", func() {
 			Expect(<-requestOrder).To(Equal(URLArbiterRequestLabel))
 			Expect(<-requestOrder).To(Equal(ContentStoreRequestLabel))
 
-			body, err := readHTTPBody(response.Body)
+			body, err := ReadHTTPBody(response.Body)
 			Expect(body).To(MatchJSON(`{
 					"base_path": "/foo/bar",
 					"title": "Content Title",
@@ -171,7 +146,7 @@ var _ = Describe("Publish Intent Requests", func() {
 
 		It("returns a 400 error if given invalid JSON", func() {
 			url := testPublishingAPI.URL + "/publish-intent/foo/bar"
-			response := doRequest("PUT", url, []byte("i'm not json"))
+			response := DoRequest("PUT", url, []byte("i'm not json"))
 			Expect(response.StatusCode).To(Equal(http.StatusBadRequest))
 		})
 	})
@@ -212,10 +187,10 @@ var _ = Describe("Publish Intent Requests", func() {
 
 		It("passes back the JSON", func() {
 			url := testPublishingAPI.URL + "/publish-intent/foo/bar"
-			response := doRequest("GET", url, nil)
+			response := DoRequest("GET", url, nil)
 			Expect(response.StatusCode).To(Equal(http.StatusOK))
 
-			body, err := readHTTPBody(response.Body)
+			body, err := ReadHTTPBody(response.Body)
 			Expect(body).To(MatchJSON(`{
 					"some": "json",
 					"representing a": "publish-intent"

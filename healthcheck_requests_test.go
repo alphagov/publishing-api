@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 
 	. "github.com/alphagov/publishing-api"
+	. "github.com/alphagov/publishing-api/sharedbehaviours"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -28,7 +29,7 @@ var _ = Describe("GET /healthcheck", func() {
 		Expect(err).To(BeNil())
 		Expect(response.StatusCode).To(Equal(http.StatusOK))
 
-		body, err := readResponseBody(response)
+		body, err := ReadResponseBody(response)
 		Expect(err).To(BeNil())
 		Expect(body).To(Equal(`{"status":"OK"}`))
 	})
