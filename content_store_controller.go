@@ -12,23 +12,23 @@ import (
 	"github.com/alphagov/publishing-api/urlarbiter"
 )
 
-type ContentStoreRequest struct {
-	PublishingApp string `json:"publishing_app"`
-}
-
-type ContentStoreHandler struct {
+type ContentStoreController struct {
 	arbiter      *urlarbiter.URLArbiter
 	contentStore *contentstore.ContentStoreClient
 }
 
-func NewContentStoreHandler(arbiterURL, contentStoreURL string) *ContentStoreHandler {
-	return &ContentStoreHandler{
+type ContentStoreRequest struct {
+	PublishingApp string `json:"publishing_app"`
+}
+
+func NewContentStoreController(arbiterURL, contentStoreURL string) *ContentStoreController {
+	return &ContentStoreController{
 		arbiter:      urlarbiter.NewURLArbiter(arbiterURL),
 		contentStore: contentstore.NewClient(contentStoreURL),
 	}
 }
 
-func (cs *ContentStoreHandler) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+func (cs *ContentStoreController) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
 	urlParameters := mux.Vars(r)
 
 	requestBody, err := ioutil.ReadAll(r.Body)
@@ -59,7 +59,7 @@ func (cs *ContentStoreHandler) PutContentStoreRequest(w http.ResponseWriter, r *
 // Register the given path and publishing app with the URL arbiter.  Returns
 // true on success.  On failure, writes an error to the ResponseWriter, and
 // returns false
-func (cs *ContentStoreHandler) registerWithURLArbiter(path, publishingApp string, w http.ResponseWriter) bool {
+func (cs *ContentStoreController) registerWithURLArbiter(path, publishingApp string, w http.ResponseWriter) bool {
 	urlArbiterResponse, err := cs.arbiter.Register(path, publishingApp)
 	if err != nil {
 		switch err {
@@ -75,16 +75,16 @@ func (cs *ContentStoreHandler) registerWithURLArbiter(path, publishingApp string
 	return true
 }
 
-func (cs *ContentStoreHandler) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+func (cs *ContentStoreController) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
 	cs.doContentStoreRequest("GET", r.URL.Path, nil, w)
 }
 
-func (cs *ContentStoreHandler) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+func (cs *ContentStoreController) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
 	cs.doContentStoreRequest("DELETE", r.URL.Path, nil, w)
 }
 
 // data will be nil for requests without bodies
-func (cs *ContentStoreHandler) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
+func (cs *ContentStoreController) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
 	resp, err := cs.contentStore.DoRequest(httpMethod, path, data)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, err)

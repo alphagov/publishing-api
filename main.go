@@ -29,11 +29,11 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 func BuildHTTPMux(arbiterURL, contentStoreURL string) http.Handler {
 	httpMux := mux.NewRouter()
 	httpMux.Methods("GET").Path("/healthcheck").HandlerFunc(HealthCheckHandler)
-	contentStoreHandler := NewContentStoreHandler(arbiterURL, contentStoreURL)
-	httpMux.Methods("PUT").Path("/content{base_path:/.*}").HandlerFunc(contentStoreHandler.PutContentStoreRequest)
-	httpMux.Methods("PUT").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreHandler.PutContentStoreRequest)
-	httpMux.Methods("GET").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreHandler.GetContentStoreRequest)
-	httpMux.Methods("DELETE").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreHandler.DeleteContentStoreRequest)
+	contentStoreController := NewContentStoreController(arbiterURL, contentStoreURL)
+	httpMux.Methods("PUT").Path("/content{base_path:/.*}").HandlerFunc(contentStoreController.PutContentStoreRequest)
+	httpMux.Methods("PUT").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.PutContentStoreRequest)
+	httpMux.Methods("GET").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.GetContentStoreRequest)
+	httpMux.Methods("DELETE").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.DeleteContentStoreRequest)
 	return httpMux
 }
 
