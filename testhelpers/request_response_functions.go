@@ -1,4 +1,4 @@
-package sharedbehaviours
+package testhelpers
 
 import (
 	"bytes"

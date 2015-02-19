@@ -1,201 +1,117 @@
 package main_test
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 
 	. "github.com/alphagov/publishing-api"
-	. "github.com/alphagov/publishing-api/sharedbehaviours"
+	. "github.com/alphagov/publishing-api/testhelpers"
 
 	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("Publish Intent Requests", func() {
-	var (
-		testPublishingAPI *httptest.Server
-	)
+	urlArbiterRequestExpectations := HTTPTestServerRequest{}
+	contentStoreRequestExpectations := HTTPTestServerRequest{}
 
-	BeforeEach(func() {
-		testPublishingAPI = httptest.NewServer(BuildHTTPMux("", ""))
-	})
+	urlArbiterResponseStubs := HTTPTestServerResponse{}
+	contentStoreResponseStubs := HTTPTestServerResponse{}
 
-	AfterEach(func() {
-		testPublishingAPI.Close()
-	})
+	publishingAPIResponseToClient := HTTPTestServerResponse{}
 
-	Describe("PUT /publish-intent", func() {
+	Describe("/publish-intent", func() {
 		var (
-			requestOrder     chan TestRequestLabel
-			testContentStore *httptest.Server
-			testURLArbiter   *httptest.Server
-		)
+			// requestOrder         chan TestRequestLabel
+			testURLArbiter   = BuildHTTPTestServer(&urlArbiterRequestExpectations, &urlArbiterResponseStubs)
+			testContentStore = BuildHTTPTestServer(&contentStoreRequestExpectations, &contentStoreResponseStubs)
 
-		BeforeEach(func() {
-			requestOrder = make(chan TestRequestLabel, 2)
-
-			testContentStore = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				requestOrder <- ContentStoreRequestLabel
-
-				Expect(r.URL.Path).To(Equal("/publish-intent/foo/bar"))
-				Expect(r.Method).To(Equal("PUT"))
-
-				w.WriteHeader(http.StatusOK)
-				fmt.Fprintln(w, `{
-						"base_path": "/foo/bar",
-						"title": "Content Title",
-						"description": "Short description of content",
-						"format": "the format of this content",
-						"locale": "en",
-						"details": {
-						"app": "or format",
-						"specific": "data..."
-						}
-					 }`)
-			}))
-			testURLArbiter = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				requestOrder <- URLArbiterRequestLabel
-
-				defer GinkgoRecover()
-
-				Expect(r.URL.Path).To(Equal("/paths/foo/bar"))
-				Expect(r.Method).To(Equal("PUT"))
-
-				body, err := ReadHTTPBody(r.Body)
-				Expect(err).To(BeNil())
-				Expect(body).To(MatchJSON(`{"publishing_app":"foo_publisher"}`))
-
-				w.WriteHeader(http.StatusOK)
-				fmt.Fprintln(w, `{"path":"/foo/bar","publishing_app":"foo_publisher"}`)
-			}))
 			testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
-		})
+			endpoint          = testPublishingAPI.URL + "/publish-intent/foo/bar"
 
-		AfterEach(func() {
-			testContentStore.Close()
-			testURLArbiter.Close()
-			testPublishingAPI.Close()
-			close(requestOrder)
-		})
-
-		Context("when URL Arbiter errs", func() {
-			testContext := TestContext{}
-			urlArbiterResponse := URLArbiterResponse{}
-
-			BeforeEach(func() {
-				testURLArbiter = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-					w.WriteHeader(urlArbiterResponse.Code)
-					fmt.Fprintln(w, urlArbiterResponse.Body)
-				}))
-
-				testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
-				testContext.Endpoint = testPublishingAPI.URL + "/publish-intent/foo/bar"
-			})
-
-			AfterEach(func() {
-				testURLArbiter.Close()
-				testPublishingAPI.Close()
-			})
-			It("returns a 422 status with the original response", func() {
-				urlArbiterResponse.Code = 422
-				urlArbiterResponse.Body = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b","c"]}}`
-
-				AssertURLArbiterResponseIsReturned(&testContext, &urlArbiterResponse)
-			})
-
-			It("returns a 409 status with the original response", func() {
-				urlArbiterResponse.Code = 409
-				urlArbiterResponse.Body = `{"publishing_app":"foo_publisher","path":"/foo","errors":{"a":["b","c"]}}`
-
-				AssertURLArbiterResponseIsReturned(&testContext, &urlArbiterResponse)
-			})
-		})
-
-		It("registers a path with URL arbiter and then publishes the content to the content store", func() {
-			jsonRequestBody, err := json.Marshal(&ContentStoreRequest{
-				PublishingApp: "foo_publisher",
-			})
-			Expect(err).To(BeNil())
-
-			url := testPublishingAPI.URL + "/publish-intent/foo/bar"
-
-			response := DoRequest("PUT", url, jsonRequestBody)
-
-			Expect(response.StatusCode).To(Equal(http.StatusOK))
-
-			// Testing for order.
-			Expect(<-requestOrder).To(Equal(URLArbiterRequestLabel))
-			Expect(<-requestOrder).To(Equal(ContentStoreRequestLabel))
-
-			body, err := ReadHTTPBody(response.Body)
-			Expect(body).To(MatchJSON(`{
-					"base_path": "/foo/bar",
-					"title": "Content Title",
-					"description": "Short description of content",
-					"format": "the format of this content",
-					"locale": "en",
-					"details": {
-					"app": "or format",
-					"specific": "data..."
-					}
-				}`))
-			Expect(err).To(BeNil())
-		})
-
-		It("returns a 400 error if given invalid JSON", func() {
-			url := testPublishingAPI.URL + "/publish-intent/foo/bar"
-			response := DoRequest("PUT", url, []byte("i'm not json"))
-			Expect(response.StatusCode).To(Equal(http.StatusBadRequest))
-		})
-	})
-
-	Describe("GET /publish-intent", func() {
-		var (
-			testPublishingAPI *httptest.Server
-			testContentStore  *httptest.Server
+			contentItemJSON = `{
+          "base_path": "/foo/bar",
+          "title": "Content Title",
+          "description": "Short description of content",
+          "format": "the format of this content",
+          "locale": "en",
+          "details": {
+          "app": "or format",
+          "specific": "data..."
+          }
+        }`
+			contentItemPayload = []byte(contentItemJSON)
+			errorResponse      = `{"publishing_app":"foo_publisher","path":"/foo/bar","errors":{"a":["b","c"]}}`
 		)
+		// requestOrder = make(chan TestRequestLabel, 2)
 
-		BeforeEach(func() {
-			testPublishingAPI = httptest.NewServer(BuildHTTPMux("", ""))
+		Context("PUT", func() {
+			Context("when URL arbiter errs", func() {
+				BeforeEach(func() {
+					urlArbiterResponseStubs.Body = errorResponse
+					publishingAPIResponseToClient.Body = errorResponse
+				})
+
+				It("returns a 422 status with the original response", func() {
+					urlArbiterResponseStubs.Code = 422
+
+					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
+
+					publishingAPIResponseToClient = HTTPTestServerResponse{Code: 422}
+					AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
+				})
+
+				It("returns a 409 status with the original response", func() {
+					urlArbiterResponseStubs.Code = 409
+
+					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
+
+					publishingAPIResponseToClient = HTTPTestServerResponse{Code: 409}
+					AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
+				})
+			})
+
+			Context("when URL arbiter and Content Store return OK", func() {
+				BeforeEach(func() {
+					urlArbiterResponseStubs.Code = http.StatusOK
+					contentStoreResponseStubs.Code = http.StatusOK
+					contentStoreResponseStubs.Body = contentItemJSON
+				})
+
+				It("registers a path with URL arbiter and then publishes the content to the content store", func() {
+					contentStoreRequestExpectations.Path = "/publish-intent/foo/bar"
+					contentStoreRequestExpectations.Method = "PUT"
+					contentStoreRequestExpectations.Body = contentItemJSON
+
+					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
+
+					publishingAPIResponseToClient = HTTPTestServerResponse{Code: http.StatusOK, Body: contentItemJSON}
+					AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &publishingAPIResponseToClient)
+				})
+			})
+
+			It("returns a 400 error if given invalid JSON", func() {
+				actualResponse := DoRequest("PUT", endpoint, []byte("i'm not json"))
+
+				publishingAPIResponseToClient = HTTPTestServerResponse{Code: http.StatusBadRequest}
+				AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
+			})
 		})
 
-		AfterEach(func() {
-			testPublishingAPI.Close()
-		})
+		Context("GET", func() {
+			It("passes back the JSON", func() {
+				contentStoreRequestExpectations.Path = "/publish-intent/foo/bar"
+				contentStoreRequestExpectations.Method = "GET"
+				contentStoreRequestExpectations.Body = ""
 
-		BeforeEach(func() {
-			testContentStore = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				defer GinkgoRecover()
+				var publishIntentJSON = `{"some": "json", "representing a": "publish-intent"}`
+				contentStoreResponseStubs.Code = http.StatusOK
+				contentStoreResponseStubs.Body = publishIntentJSON
 
-				Expect(r.URL.Path).To(Equal("/publish-intent/foo/bar"))
-				Expect(r.Method).To(Equal("GET"))
+				actualResponse := DoRequest("GET", endpoint, nil)
 
-				w.WriteHeader(http.StatusOK)
-				fmt.Fprintln(w, `{
-					"some": "json",
-					"representing a": "publish-intent"
-				 }`)
-			}))
-			testPublishingAPI = httptest.NewServer(BuildHTTPMux("", testContentStore.URL))
-		})
-
-		AfterEach(func() {
-			testContentStore.Close()
-		})
-
-		It("passes back the JSON", func() {
-			url := testPublishingAPI.URL + "/publish-intent/foo/bar"
-			response := DoRequest("GET", url, nil)
-			Expect(response.StatusCode).To(Equal(http.StatusOK))
-
-			body, err := ReadHTTPBody(response.Body)
-			Expect(body).To(MatchJSON(`{
-					"some": "json",
-					"representing a": "publish-intent"
-				}`))
-			Expect(err).To(BeNil())
+				publishingAPIResponseToClient = HTTPTestServerResponse{Code: http.StatusOK, Body: publishIntentJSON}
+				AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
+			})
 		})
 	})
 })

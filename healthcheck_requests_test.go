@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 
 	. "github.com/alphagov/publishing-api"
-	. "github.com/alphagov/publishing-api/sharedbehaviours"
+	. "github.com/alphagov/publishing-api/testhelpers"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
