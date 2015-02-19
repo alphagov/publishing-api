@@ -8,29 +8,15 @@ import (
 	. "github.com/alphagov/publishing-api/testhelpers"
 
 	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("GET /healthcheck", func() {
-	var (
-		testPublishingAPI *httptest.Server
-	)
-
-	BeforeEach(func() {
-		testPublishingAPI = httptest.NewServer(BuildHTTPMux("", ""))
-	})
-
-	AfterEach(func() {
-		testPublishingAPI.Close()
-	})
-
 	It("has a healthcheck endpoint which responds with a status of OK", func() {
-		response, err := http.Get(testPublishingAPI.URL + "/healthcheck")
-		Expect(err).To(BeNil())
-		Expect(response.StatusCode).To(Equal(http.StatusOK))
+		var testPublishingAPI = httptest.NewServer(BuildHTTPMux("", ""))
 
-		body, err := ReadResponseBody(response)
-		Expect(err).To(BeNil())
-		Expect(body).To(Equal(`{"status":"OK"}`))
+		actualResponse := DoRequest("GET", testPublishingAPI.URL+"/healthcheck", nil)
+
+		var expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: `{"status":"OK"}`}
+		AssertSameResponse(actualResponse, &expectedResponse)
 	})
 })
