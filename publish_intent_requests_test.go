@@ -22,22 +22,22 @@ var _ = Describe("Publish Intent Requests", func() {
 			testContentStore = BuildHTTPTestServer(&contentStoreRequestExpectations, &contentStoreResponseStubs, ContentStoreRequestLabel)
 
 			testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
-			endpoint          = testPublishingAPI.URL + "/publish-intent/foo/bar"
+			endpoint          = testPublishingAPI.URL + "/publish-intent/vat-rates"
 
 			contentItemJSON = `{
-          "base_path": "/foo/bar",
-          "title": "Content Title",
-          "description": "Short description of content",
-          "format": "the format of this content",
-          "locale": "en",
-          "details": {
-          "app": "or format",
-          "specific": "data..."
-          }
-        }`
+		          "base_path": "/vat-rates",
+		          "title": "VAT Rates",
+		          "description": "VAT rates for goods and services",
+		          "format": "guide",
+		          "locale": "en",
+		          "details": {
+			          "app": "or format",
+			          "specific": "data..."
+		          }
+		        }`
 			contentItemPayload      = []byte(contentItemJSON)
-			urlArbiterResponse      = `{"path":"/foo/bar","publishing_app":"foo_publisher"}`
-			urlArbiterErrorResponse = `{"publishing_app":"foo_publisher","path":"/foo/bar","errors":{"a":["b","c"]}}`
+			urlArbiterResponse      = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
+			urlArbiterErrorResponse = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is already taken"]}}`
 		)
 
 		BeforeEach(func() {
@@ -86,14 +86,12 @@ var _ = Describe("Publish Intent Requests", func() {
 
 		Context("GET", func() {
 			It("passes back the JSON", func() {
-				contentStoreRequestExpectations = HTTPTestRequest{Path: "/publish-intent/foo/bar", Method: "GET", Body: ""}
-
-				var publishIntentJSON = `{"some": "json", "representing a": "publish-intent"}`
-				contentStoreResponseStubs = HTTPTestResponse{Code: http.StatusOK, Body: publishIntentJSON}
+				contentStoreRequestExpectations = HTTPTestRequest{Path: "/publish-intent/vat-rates", Method: "GET", Body: ""}
+				contentStoreResponseStubs = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 
 				actualResponse := DoRequest("GET", endpoint, nil)
 
-				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: publishIntentJSON}
+				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 				AssertSameResponse(actualResponse, &expectedResponse)
 			})
 		})

@@ -22,22 +22,22 @@ var _ = Describe("Content Item Requests", func() {
 			testContentStore = BuildHTTPTestServer(&contentStoreRequestExpectations, &contentStoreResponseStubs, ContentStoreRequestLabel)
 
 			testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
-			endpoint          = testPublishingAPI.URL + "/content/foo/bar"
+			endpoint          = testPublishingAPI.URL + "/content/vat-rates"
 
 			contentItemJSON = `{
-					"base_path": "/foo/bar",
-					"title": "Content Title",
-					"description": "Short description of content",
-					"format": "the format of this content",
-					"locale": "en",
-					"details": {
-					"app": "or format",
-					"specific": "data..."
-					}
-				}`
+          "base_path": "/vat-rates",
+          "title": "VAT Rates",
+          "description": "VAT rates for goods and services",
+          "format": "guide",
+          "locale": "en",
+          "details": {
+	          "app": "or format",
+	          "specific": "data..."
+          }
+        }`
 			contentItemPayload      = []byte(contentItemJSON)
-			urlArbiterResponse      = `{"path":"/foo/bar","publishing_app":"foo_publisher"}`
-			urlArbiterErrorResponse = `{"publishing_app":"foo_publisher","path":"/foo/bar","errors":{"a":["b","c"]}}`
+			urlArbiterResponse      = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
+			urlArbiterErrorResponse = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is already taken"]}}`
 		)
 
 		BeforeEach(func() {
