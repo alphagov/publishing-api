@@ -20,10 +20,11 @@ type HTTPTestServerRequest struct {
 	Body   string
 }
 
-func BuildHTTPTestServer(request *HTTPTestServerRequest, response *HTTPTestServerResponse) *httptest.Server {
+func BuildHTTPTestServer(request *HTTPTestServerRequest, response *HTTPTestServerResponse, requestLabel TestRequestLabel) *httptest.Server {
 	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// requestOrder <- ContentStoreRequestLabel
 		defer GinkgoRecover()
+
+		TestRequestTracker <- requestLabel
 
 		if request.Path != "" {
 			Expect(r.URL.Path).To(Equal(request.Path))

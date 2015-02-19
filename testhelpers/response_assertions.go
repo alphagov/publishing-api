@@ -17,5 +17,9 @@ func AssertSameResponse(actualResponse *http.Response, expectedResponse *HTTPTes
 }
 
 func AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse *http.Response, expectedResponse *HTTPTestServerResponse) {
+	// Test request order
+	Expect(<-TestRequestTracker).To(Equal(URLArbiterRequestLabel))
+	Expect(<-TestRequestTracker).To(Equal(ContentStoreRequestLabel))
+
 	AssertSameResponse(actualResponse, expectedResponse)
 }

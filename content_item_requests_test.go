@@ -21,9 +21,8 @@ var _ = Describe("Content Item Requests", func() {
 
 	Describe("PUT /content", func() {
 		var (
-			// requestOrder         chan TestRequestLabel
-			testURLArbiter   = BuildHTTPTestServer(&urlArbiterRequestExpectations, &urlArbiterResponseStubs)
-			testContentStore = BuildHTTPTestServer(&contentStoreRequestExpectations, &contentStoreResponseStubs)
+			testURLArbiter   = BuildHTTPTestServer(&urlArbiterRequestExpectations, &urlArbiterResponseStubs, URLArbiterRequestLabel)
+			testContentStore = BuildHTTPTestServer(&contentStoreRequestExpectations, &contentStoreResponseStubs, ContentStoreRequestLabel)
 
 			testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
 			endpoint          = testPublishingAPI.URL + "/content/foo/bar"
@@ -42,7 +41,10 @@ var _ = Describe("Content Item Requests", func() {
 			contentItemPayload = []byte(contentItemJSON)
 			errorResponse      = `{"publishing_app":"foo_publisher","path":"/foo/bar","errors":{"a":["b","c"]}}`
 		)
-		// requestOrder = make(chan TestRequestLabel, 2)
+
+		BeforeEach(func() {
+			TestRequestTracker = make(chan TestRequestLabel, 2)
+		})
 
 		Context("when URL arbiter errs", func() {
 			BeforeEach(func() {
