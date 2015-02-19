@@ -11,13 +11,10 @@ import (
 )
 
 var _ = Describe("Content Item Requests", func() {
-	urlArbiterRequestExpectations := HTTPTestRequest{}
-	contentStoreRequestExpectations := HTTPTestRequest{}
-
-	urlArbiterResponseStubs := HTTPTestResponse{}
-	contentStoreResponseStubs := HTTPTestResponse{}
-
-	publishingAPIResponseToClient := HTTPTestResponse{}
+	var (
+		urlArbiterRequestExpectations, contentStoreRequestExpectations       HTTPTestRequest
+		urlArbiterResponseStubs, contentStoreResponseStubs, expectedResponse HTTPTestResponse
+	)
 
 	Describe("PUT /content", func() {
 		var (
@@ -38,8 +35,9 @@ var _ = Describe("Content Item Requests", func() {
 					"specific": "data..."
 					}
 				}`
-			contentItemPayload = []byte(contentItemJSON)
-			errorResponse      = `{"publishing_app":"foo_publisher","path":"/foo/bar","errors":{"a":["b","c"]}}`
+			contentItemPayload      = []byte(contentItemJSON)
+			urlArbiterResponse      = `{"path":"/foo/bar","publishing_app":"foo_publisher"}`
+			urlArbiterErrorResponse = `{"publishing_app":"foo_publisher","path":"/foo/bar","errors":{"a":["b","c"]}}`
 		)
 
 		BeforeEach(func() {
@@ -47,54 +45,41 @@ var _ = Describe("Content Item Requests", func() {
 		})
 
 		Context("when URL arbiter errs", func() {
-			BeforeEach(func() {
-				urlArbiterResponseStubs.Body = errorResponse
-				publishingAPIResponseToClient.Body = errorResponse
-			})
-
 			It("returns a 422 status with the original response", func() {
-				urlArbiterResponseStubs.Code = 422
+				urlArbiterResponseStubs = HTTPTestResponse{Code: 422, Body: urlArbiterErrorResponse}
 
 				actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-				publishingAPIResponseToClient = HTTPTestResponse{Code: 422}
-				AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
+				expectedResponse = HTTPTestResponse{Code: 422, Body: urlArbiterErrorResponse}
+				AssertSameResponse(actualResponse, &expectedResponse)
 			})
 
 			It("returns a 409 status with the original response", func() {
-				urlArbiterResponseStubs.Code = 409
+				urlArbiterResponseStubs = HTTPTestResponse{Code: 409, Body: urlArbiterErrorResponse}
 
 				actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-				publishingAPIResponseToClient = HTTPTestResponse{Code: 409}
-				AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
+				expectedResponse = HTTPTestResponse{Code: 409, Body: urlArbiterErrorResponse}
+				AssertSameResponse(actualResponse, &expectedResponse)
 			})
 		})
 
-		Context("when URL arbiter and Content Store return OK", func() {
-			BeforeEach(func() {
-				urlArbiterResponseStubs.Code = http.StatusOK
-				contentStoreResponseStubs.Code = http.StatusOK
-				contentStoreResponseStubs.Body = contentItemJSON
-			})
+		It("registers a path with URL arbiter and then publishes the content to the content store", func() {
+			urlArbiterResponseStubs = HTTPTestResponse{Code: http.StatusOK, Body: urlArbiterResponse}
+			contentStoreResponseStubs = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
+			contentStoreRequestExpectations = HTTPTestRequest{Path: "/content/vat-rates", Method: "PUT", Body: contentItemJSON}
 
-			It("registers a path with URL arbiter and then publishes the content to the content store", func() {
-				contentStoreRequestExpectations.Path = "/content/foo/bar"
-				contentStoreRequestExpectations.Method = "PUT"
-				contentStoreRequestExpectations.Body = contentItemJSON
+			actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-				actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
-
-				publishingAPIResponseToClient = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
-				AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &publishingAPIResponseToClient)
-			})
+			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
+			AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &expectedResponse)
 		})
 
 		It("returns a 400 error if given invalid JSON", func() {
 			actualResponse := DoRequest("PUT", endpoint, []byte("i'm not json"))
 
-			publishingAPIResponseToClient = HTTPTestResponse{Code: http.StatusBadRequest}
-			AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
+			expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
+			AssertSameResponse(actualResponse, &expectedResponse)
 		})
 	})
 })
