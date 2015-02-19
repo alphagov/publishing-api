@@ -11,13 +11,13 @@ import (
 )
 
 var _ = Describe("Content Item Requests", func() {
-	urlArbiterRequestExpectations := HTTPTestServerRequest{}
-	contentStoreRequestExpectations := HTTPTestServerRequest{}
+	urlArbiterRequestExpectations := HTTPTestRequest{}
+	contentStoreRequestExpectations := HTTPTestRequest{}
 
-	urlArbiterResponseStubs := HTTPTestServerResponse{}
-	contentStoreResponseStubs := HTTPTestServerResponse{}
+	urlArbiterResponseStubs := HTTPTestResponse{}
+	contentStoreResponseStubs := HTTPTestResponse{}
 
-	publishingAPIResponseToClient := HTTPTestServerResponse{}
+	publishingAPIResponseToClient := HTTPTestResponse{}
 
 	Describe("PUT /content", func() {
 		var (
@@ -57,7 +57,7 @@ var _ = Describe("Content Item Requests", func() {
 
 				actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-				publishingAPIResponseToClient = HTTPTestServerResponse{Code: 422}
+				publishingAPIResponseToClient = HTTPTestResponse{Code: 422}
 				AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
 			})
 
@@ -66,7 +66,7 @@ var _ = Describe("Content Item Requests", func() {
 
 				actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-				publishingAPIResponseToClient = HTTPTestServerResponse{Code: 409}
+				publishingAPIResponseToClient = HTTPTestResponse{Code: 409}
 				AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
 			})
 		})
@@ -85,7 +85,7 @@ var _ = Describe("Content Item Requests", func() {
 
 				actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-				publishingAPIResponseToClient = HTTPTestServerResponse{Code: http.StatusOK, Body: contentItemJSON}
+				publishingAPIResponseToClient = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 				AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &publishingAPIResponseToClient)
 			})
 		})
@@ -93,7 +93,7 @@ var _ = Describe("Content Item Requests", func() {
 		It("returns a 400 error if given invalid JSON", func() {
 			actualResponse := DoRequest("PUT", endpoint, []byte("i'm not json"))
 
-			publishingAPIResponseToClient = HTTPTestServerResponse{Code: http.StatusBadRequest}
+			publishingAPIResponseToClient = HTTPTestResponse{Code: http.StatusBadRequest}
 			AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
 		})
 	})

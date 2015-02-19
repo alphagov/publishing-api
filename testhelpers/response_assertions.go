@@ -6,7 +6,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func AssertSameResponse(actualResponse *http.Response, expectedResponse *HTTPTestServerResponse) {
+func AssertSameResponse(actualResponse *http.Response, expectedResponse *HTTPTestResponse) {
 	Expect(actualResponse.StatusCode).To(Equal(expectedResponse.Code))
 
 	if expectedResponse.Body != "" {
@@ -16,7 +16,7 @@ func AssertSameResponse(actualResponse *http.Response, expectedResponse *HTTPTes
 	}
 }
 
-func AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse *http.Response, expectedResponse *HTTPTestServerResponse) {
+func AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse *http.Response, expectedResponse *HTTPTestResponse) {
 	// Test request order
 	Expect(<-TestRequestTracker).To(Equal(URLArbiterRequestLabel))
 	Expect(<-TestRequestTracker).To(Equal(ContentStoreRequestLabel))

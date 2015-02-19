@@ -11,13 +11,13 @@ import (
 )
 
 var _ = Describe("Publish Intent Requests", func() {
-	urlArbiterRequestExpectations := HTTPTestServerRequest{}
-	contentStoreRequestExpectations := HTTPTestServerRequest{}
+	urlArbiterRequestExpectations := HTTPTestRequest{}
+	contentStoreRequestExpectations := HTTPTestRequest{}
 
-	urlArbiterResponseStubs := HTTPTestServerResponse{}
-	contentStoreResponseStubs := HTTPTestServerResponse{}
+	urlArbiterResponseStubs := HTTPTestResponse{}
+	contentStoreResponseStubs := HTTPTestResponse{}
 
-	publishingAPIResponseToClient := HTTPTestServerResponse{}
+	publishingAPIResponseToClient := HTTPTestResponse{}
 
 	Describe("/publish-intent", func() {
 		var (
@@ -58,7 +58,7 @@ var _ = Describe("Publish Intent Requests", func() {
 
 					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-					publishingAPIResponseToClient = HTTPTestServerResponse{Code: 422}
+					publishingAPIResponseToClient = HTTPTestResponse{Code: 422}
 					AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
 				})
 
@@ -67,7 +67,7 @@ var _ = Describe("Publish Intent Requests", func() {
 
 					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-					publishingAPIResponseToClient = HTTPTestServerResponse{Code: 409}
+					publishingAPIResponseToClient = HTTPTestResponse{Code: 409}
 					AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
 				})
 			})
@@ -86,7 +86,7 @@ var _ = Describe("Publish Intent Requests", func() {
 
 					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-					publishingAPIResponseToClient = HTTPTestServerResponse{Code: http.StatusOK, Body: contentItemJSON}
+					publishingAPIResponseToClient = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 					AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &publishingAPIResponseToClient)
 				})
 			})
@@ -94,24 +94,21 @@ var _ = Describe("Publish Intent Requests", func() {
 			It("returns a 400 error if given invalid JSON", func() {
 				actualResponse := DoRequest("PUT", endpoint, []byte("i'm not json"))
 
-				publishingAPIResponseToClient = HTTPTestServerResponse{Code: http.StatusBadRequest}
+				publishingAPIResponseToClient = HTTPTestResponse{Code: http.StatusBadRequest}
 				AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
 			})
 		})
 
 		Context("GET", func() {
 			It("passes back the JSON", func() {
-				contentStoreRequestExpectations.Path = "/publish-intent/foo/bar"
-				contentStoreRequestExpectations.Method = "GET"
-				contentStoreRequestExpectations.Body = ""
+				contentStoreRequestExpectations = HTTPTestRequest{Path: "/publish-intent/foo/bar", Method: "GET", Body: ""}
 
 				var publishIntentJSON = `{"some": "json", "representing a": "publish-intent"}`
-				contentStoreResponseStubs.Code = http.StatusOK
-				contentStoreResponseStubs.Body = publishIntentJSON
+				contentStoreResponseStubs = HTTPTestResponse{Code: http.StatusOK, Body: publishIntentJSON}
 
 				actualResponse := DoRequest("GET", endpoint, nil)
 
-				publishingAPIResponseToClient = HTTPTestServerResponse{Code: http.StatusOK, Body: publishIntentJSON}
+				publishingAPIResponseToClient = HTTPTestResponse{Code: http.StatusOK, Body: publishIntentJSON}
 				AssertSameResponse(actualResponse, &publishingAPIResponseToClient)
 			})
 		})

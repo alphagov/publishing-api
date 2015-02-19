@@ -9,18 +9,18 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-type HTTPTestServerResponse struct {
+type HTTPTestResponse struct {
 	Code int
 	Body string
 }
 
-type HTTPTestServerRequest struct {
+type HTTPTestRequest struct {
 	Path   string
 	Method string
 	Body   string
 }
 
-func BuildHTTPTestServer(request *HTTPTestServerRequest, response *HTTPTestServerResponse, requestLabel TestRequestLabel) *httptest.Server {
+func BuildHTTPTestServer(request *HTTPTestRequest, response *HTTPTestResponse, requestLabel TestRequestLabel) *httptest.Server {
 	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer GinkgoRecover()
 
