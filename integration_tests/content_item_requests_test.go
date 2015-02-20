@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	. "github.com/alphagov/publishing-api"
+	"github.com/alphagov/publishing-api"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -56,7 +56,7 @@ var _ = Describe("Content Item Requests", func() {
 			ghttp.RespondWithPtr(&contentStoreResponseCode, &contentStoreResponseBody),
 		))
 
-		testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL(), testContentStore.URL()))
+		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testContentStore.URL()))
 		endpoint = testPublishingAPI.URL + "/content/vat-rates"
 	})
 

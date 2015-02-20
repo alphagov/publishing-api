@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	. "github.com/alphagov/publishing-api"
+	"github.com/alphagov/publishing-api"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -43,7 +43,7 @@ var _ = Describe("Publish Intent Requests", func() {
 		testURLArbiter = ghttp.NewServer()
 		testContentStore = ghttp.NewServer()
 
-		testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL(), testContentStore.URL()))
+		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testContentStore.URL()))
 		endpoint = testPublishingAPI.URL + "/publish-intent/vat-rates"
 	})
 
