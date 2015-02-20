@@ -1,4 +1,4 @@
-package testhelpers
+package integration
 
 type TestRequestLabel int
 

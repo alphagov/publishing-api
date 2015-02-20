@@ -1,11 +1,10 @@
-package main_test
+package integration
 
 import (
 	"net/http"
 	"net/http/httptest"
 
 	. "github.com/alphagov/publishing-api"
-	. "github.com/alphagov/publishing-api/testhelpers"
 
 	. "github.com/onsi/ginkgo"
 )
