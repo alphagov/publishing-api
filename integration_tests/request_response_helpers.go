@@ -10,14 +10,14 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func ReadResponseBody(response *http.Response) (string, error) {
+func readResponseBody(response *http.Response) (string, error) {
 	body, err := ioutil.ReadAll(response.Body)
 	defer response.Body.Close()
 
 	return strings.TrimSpace(string(body)), err
 }
 
-func DoRequest(verb string, url string, body []byte) *http.Response {
+func doRequest(verb string, url string, body []byte) *http.Response {
 	var client = &http.Client{}
 
 	request, err := http.NewRequest(verb, url, bytes.NewBuffer(body))
@@ -29,7 +29,7 @@ func DoRequest(verb string, url string, body []byte) *http.Response {
 	return response
 }
 
-func ReadHTTPBody(HTTPBody io.ReadCloser) ([]byte, error) {
+func readHTTPBody(HTTPBody io.ReadCloser) ([]byte, error) {
 	body, err := ioutil.ReadAll(HTTPBody)
 	defer HTTPBody.Close()
 

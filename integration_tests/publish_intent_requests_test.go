@@ -79,26 +79,26 @@ var _ = Describe("Publish Intent Requests", func() {
 					urlArbiterResponseCode = 422
 					urlArbiterResponseBody = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is not valid"]}}`
 
-					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
+					actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
 					Expect(testURLArbiter.ReceivedRequests()).Should(HaveLen(1))
 					Expect(testContentStore.ReceivedRequests()).Should(BeEmpty())
 
 					expectedResponse = HTTPTestResponse{Code: 422, Body: urlArbiterResponseBody}
-					AssertSameResponse(actualResponse, &expectedResponse)
+					assertSameResponse(actualResponse, &expectedResponse)
 				})
 
 				It("returns a 409 status with the original response", func() {
 					urlArbiterResponseCode = 409
 					urlArbiterResponseBody = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is already taken"]}}`
 
-					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
+					actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
 					Expect(testURLArbiter.ReceivedRequests()).Should(HaveLen(1))
 					Expect(testContentStore.ReceivedRequests()).Should(BeEmpty())
 
 					expectedResponse = HTTPTestResponse{Code: 409, Body: urlArbiterResponseBody}
-					AssertSameResponse(actualResponse, &expectedResponse)
+					assertSameResponse(actualResponse, &expectedResponse)
 				})
 			})
 
@@ -106,23 +106,23 @@ var _ = Describe("Publish Intent Requests", func() {
 				urlArbiterResponseCode, urlArbiterResponseBody = http.StatusOK, urlArbiterResponse
 				contentStoreResponseCode, contentStoreResponseBody = http.StatusOK, contentItemJSON
 
-				actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
+				actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
 				Expect(testURLArbiter.ReceivedRequests()).Should(HaveLen(1))
 				Expect(testContentStore.ReceivedRequests()).Should(HaveLen(1))
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
-				AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &expectedResponse)
+				assertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &expectedResponse)
 			})
 
 			It("returns a 400 error if given invalid JSON", func() {
-				actualResponse := DoRequest("PUT", endpoint, []byte("i'm not json"))
+				actualResponse := doRequest("PUT", endpoint, []byte("i'm not json"))
 
 				Expect(testURLArbiter.ReceivedRequests()).Should(BeEmpty())
 				Expect(testURLArbiter.ReceivedRequests()).Should(BeEmpty())
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
-				AssertSameResponse(actualResponse, &expectedResponse)
+				assertSameResponse(actualResponse, &expectedResponse)
 			})
 		})
 
@@ -140,13 +140,13 @@ var _ = Describe("Publish Intent Requests", func() {
 			It("passes back the JSON", func() {
 				contentStoreResponseCode, contentStoreResponseBody = http.StatusOK, contentItemJSON
 
-				actualResponse := DoRequest("GET", endpoint, nil)
+				actualResponse := doRequest("GET", endpoint, nil)
 
 				Expect(testURLArbiter.ReceivedRequests()).Should(BeEmpty())
 				Expect(testContentStore.ReceivedRequests()).Should(HaveLen(1))
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
-				AssertSameResponse(actualResponse, &expectedResponse)
+				assertSameResponse(actualResponse, &expectedResponse)
 			})
 		})
 	})
