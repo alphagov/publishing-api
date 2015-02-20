@@ -7,69 +7,109 @@ import (
 	. "github.com/alphagov/publishing-api"
 
 	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/ghttp"
 )
 
 var _ = Describe("Publish Intent Requests", func() {
 	var (
-		urlArbiterRequestExpectations, contentStoreRequestExpectations       HTTPTestRequest
-		urlArbiterResponseStubs, contentStoreResponseStubs, expectedResponse HTTPTestResponse
+		contentItemJSON = `{
+      "base_path": "/vat-rates",
+      "title": "VAT Rates",
+      "description": "VAT rates for goods and services",
+      "format": "guide",
+      "publishing_app": "mainstream_publisher",
+      "locale": "en",
+      "details": {
+        "app": "or format",
+        "specific": "data..."
+      }
+    }`
+		contentItemPayload = []byte(contentItemJSON)
+		urlArbiterResponse = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
+
+		testPublishingAPI                *httptest.Server
+		testURLArbiter, testContentStore *ghttp.Server
+
+		urlArbiterResponseCode, contentStoreResponseCode           int
+		urlArbiterResponseBody, contentStoreResponseBody, endpoint string
+
+		expectedResponse HTTPTestResponse
 	)
 
+	BeforeEach(func() {
+		TestRequestOrderTracker = make(chan TestRequestLabel, 2)
+
+		testURLArbiter = ghttp.NewServer()
+		testContentStore = ghttp.NewServer()
+
+		testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL(), testContentStore.URL()))
+		endpoint = testPublishingAPI.URL + "/publish-intent/vat-rates"
+	})
+
+	AfterEach(func() {
+		testURLArbiter.Close()
+		testContentStore.Close()
+		testPublishingAPI.Close()
+		close(TestRequestOrderTracker)
+	})
+
 	Describe("/publish-intent", func() {
-		var (
-			testURLArbiter   = BuildHTTPTestServer(&urlArbiterRequestExpectations, &urlArbiterResponseStubs, URLArbiterRequestLabel)
-			testContentStore = BuildHTTPTestServer(&contentStoreRequestExpectations, &contentStoreResponseStubs, ContentStoreRequestLabel)
-
-			testPublishingAPI = httptest.NewServer(BuildHTTPMux(testURLArbiter.URL, testContentStore.URL))
-			endpoint          = testPublishingAPI.URL + "/publish-intent/vat-rates"
-
-			contentItemJSON = `{
-		          "base_path": "/vat-rates",
-		          "title": "VAT Rates",
-		          "description": "VAT rates for goods and services",
-		          "format": "guide",
-		          "locale": "en",
-		          "details": {
-			          "app": "or format",
-			          "specific": "data..."
-		          }
-		        }`
-			contentItemPayload      = []byte(contentItemJSON)
-			urlArbiterResponse      = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
-			urlArbiterErrorResponse = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is already taken"]}}`
-		)
-
-		BeforeEach(func() {
-			TestRequestTracker = make(chan TestRequestLabel, 2)
-		})
-
 		Context("PUT", func() {
+			BeforeEach(func() {
+				testURLArbiter.AppendHandlers(ghttp.CombineHandlers(
+					trackRequest(URLArbiterRequestLabel),
+					ghttp.VerifyRequest("PUT", "/paths/vat-rates"),
+					ghttp.VerifyJSON(`{"publishing_app": "mainstream_publisher"}`),
+					ghttp.RespondWithPtr(&urlArbiterResponseCode, &urlArbiterResponseBody),
+				))
+
+				testContentStore.AppendHandlers(
+					ghttp.CombineHandlers(
+						trackRequest(ContentStoreRequestLabel),
+						ghttp.VerifyRequest("PUT", "/publish-intent/vat-rates"),
+						ghttp.VerifyJSON(contentItemJSON),
+						ghttp.RespondWithPtr(&contentStoreResponseCode, &contentStoreResponseBody),
+					),
+				)
+			})
+
 			Context("when URL arbiter errs", func() {
 				It("returns a 422 status with the original response", func() {
-					urlArbiterResponseStubs = HTTPTestResponse{Code: 422, Body: urlArbiterErrorResponse}
+					urlArbiterResponseCode = 422
+					urlArbiterResponseBody = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is not valid"]}}`
 
 					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-					expectedResponse = HTTPTestResponse{Code: 422, Body: urlArbiterErrorResponse}
+					Expect(testURLArbiter.ReceivedRequests()).Should(HaveLen(1))
+					Expect(testContentStore.ReceivedRequests()).Should(BeEmpty())
+
+					expectedResponse = HTTPTestResponse{Code: 422, Body: urlArbiterResponseBody}
 					AssertSameResponse(actualResponse, &expectedResponse)
 				})
 
 				It("returns a 409 status with the original response", func() {
-					urlArbiterResponseStubs = HTTPTestResponse{Code: 409, Body: urlArbiterErrorResponse}
+					urlArbiterResponseCode = 409
+					urlArbiterResponseBody = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is already taken"]}}`
 
 					actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
 
-					expectedResponse = HTTPTestResponse{Code: 409, Body: urlArbiterErrorResponse}
+					Expect(testURLArbiter.ReceivedRequests()).Should(HaveLen(1))
+					Expect(testContentStore.ReceivedRequests()).Should(BeEmpty())
+
+					expectedResponse = HTTPTestResponse{Code: 409, Body: urlArbiterResponseBody}
 					AssertSameResponse(actualResponse, &expectedResponse)
 				})
 			})
 
 			It("registers a path with URL arbiter and then publishes the content to the content store", func() {
-				urlArbiterResponseStubs = HTTPTestResponse{Code: http.StatusOK, Body: urlArbiterResponse}
-				contentStoreResponseStubs = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
-				contentStoreRequestExpectations = HTTPTestRequest{Path: "/publish-intent/vat-rates", Method: "PUT", Body: contentItemJSON}
+				urlArbiterResponseCode, urlArbiterResponseBody = http.StatusOK, urlArbiterResponse
+				contentStoreResponseCode, contentStoreResponseBody = http.StatusOK, contentItemJSON
 
 				actualResponse := DoRequest("PUT", endpoint, contentItemPayload)
+
+				Expect(testURLArbiter.ReceivedRequests()).Should(HaveLen(1))
+				Expect(testContentStore.ReceivedRequests()).Should(HaveLen(1))
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 				AssertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &expectedResponse)
@@ -78,17 +118,32 @@ var _ = Describe("Publish Intent Requests", func() {
 			It("returns a 400 error if given invalid JSON", func() {
 				actualResponse := DoRequest("PUT", endpoint, []byte("i'm not json"))
 
+				Expect(testURLArbiter.ReceivedRequests()).Should(BeEmpty())
+				Expect(testURLArbiter.ReceivedRequests()).Should(BeEmpty())
+
 				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
 				AssertSameResponse(actualResponse, &expectedResponse)
 			})
 		})
 
 		Context("GET", func() {
+			BeforeEach(func() {
+				testContentStore.AppendHandlers(
+					ghttp.CombineHandlers(
+						trackRequest(ContentStoreRequestLabel),
+						ghttp.VerifyRequest("GET", "/publish-intent/vat-rates"),
+						ghttp.RespondWithPtr(&contentStoreResponseCode, &contentStoreResponseBody),
+					),
+				)
+			})
+
 			It("passes back the JSON", func() {
-				contentStoreRequestExpectations = HTTPTestRequest{Path: "/publish-intent/vat-rates", Method: "GET", Body: ""}
-				contentStoreResponseStubs = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
+				contentStoreResponseCode, contentStoreResponseBody = http.StatusOK, contentItemJSON
 
 				actualResponse := DoRequest("GET", endpoint, nil)
+
+				Expect(testURLArbiter.ReceivedRequests()).Should(BeEmpty())
+				Expect(testContentStore.ReceivedRequests()).Should(HaveLen(1))
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 				AssertSameResponse(actualResponse, &expectedResponse)

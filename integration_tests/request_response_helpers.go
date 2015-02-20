@@ -22,6 +22,7 @@ func DoRequest(verb string, url string, body []byte) *http.Response {
 
 	request, err := http.NewRequest(verb, url, bytes.NewBuffer(body))
 	Expect(err).To(BeNil())
+	request.Header.Add("Content-Type", "application/json")
 
 	response, err := client.Do(request)
 	Expect(err).To(BeNil())
