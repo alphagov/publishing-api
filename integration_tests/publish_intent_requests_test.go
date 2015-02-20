@@ -81,8 +81,8 @@ var _ = Describe("Publish Intent Requests", func() {
 
 					actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
-					Expect(testURLArbiter.ReceivedRequests()).Should(HaveLen(1))
-					Expect(testContentStore.ReceivedRequests()).Should(BeEmpty())
+					Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
+					Expect(testContentStore.ReceivedRequests()).To(BeEmpty())
 
 					expectedResponse = HTTPTestResponse{Code: 422, Body: urlArbiterResponseBody}
 					assertSameResponse(actualResponse, &expectedResponse)
@@ -94,8 +94,8 @@ var _ = Describe("Publish Intent Requests", func() {
 
 					actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
-					Expect(testURLArbiter.ReceivedRequests()).Should(HaveLen(1))
-					Expect(testContentStore.ReceivedRequests()).Should(BeEmpty())
+					Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
+					Expect(testContentStore.ReceivedRequests()).To(BeEmpty())
 
 					expectedResponse = HTTPTestResponse{Code: 409, Body: urlArbiterResponseBody}
 					assertSameResponse(actualResponse, &expectedResponse)
@@ -108,8 +108,8 @@ var _ = Describe("Publish Intent Requests", func() {
 
 				actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
-				Expect(testURLArbiter.ReceivedRequests()).Should(HaveLen(1))
-				Expect(testContentStore.ReceivedRequests()).Should(HaveLen(1))
+				Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
+				Expect(testContentStore.ReceivedRequests()).To(HaveLen(1))
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 				assertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &expectedResponse)
@@ -118,8 +118,8 @@ var _ = Describe("Publish Intent Requests", func() {
 			It("returns a 400 error if given invalid JSON", func() {
 				actualResponse := doRequest("PUT", endpoint, []byte("i'm not json"))
 
-				Expect(testURLArbiter.ReceivedRequests()).Should(BeEmpty())
-				Expect(testURLArbiter.ReceivedRequests()).Should(BeEmpty())
+				Expect(testURLArbiter.ReceivedRequests()).To(BeEmpty())
+				Expect(testURLArbiter.ReceivedRequests()).To(BeEmpty())
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
 				assertSameResponse(actualResponse, &expectedResponse)
@@ -142,8 +142,8 @@ var _ = Describe("Publish Intent Requests", func() {
 
 				actualResponse := doRequest("GET", endpoint, nil)
 
-				Expect(testURLArbiter.ReceivedRequests()).Should(BeEmpty())
-				Expect(testContentStore.ReceivedRequests()).Should(HaveLen(1))
+				Expect(testURLArbiter.ReceivedRequests()).To(BeEmpty())
+				Expect(testContentStore.ReceivedRequests()).To(HaveLen(1))
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 				assertSameResponse(actualResponse, &expectedResponse)
