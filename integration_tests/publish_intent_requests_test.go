@@ -117,7 +117,7 @@ var _ = Describe("Publish Intent Requests", func() {
 				actualResponse := doRequest("PUT", endpoint, []byte("i'm not json"))
 
 				Expect(testURLArbiter.ReceivedRequests()).To(BeEmpty())
-				Expect(testURLArbiter.ReceivedRequests()).To(BeEmpty())
+				Expect(testContentStore.ReceivedRequests()).To(BeEmpty())
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
 				assertSameResponse(actualResponse, &expectedResponse)
