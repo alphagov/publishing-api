@@ -38,6 +38,7 @@ func (controller *ContentStoreController) PutDraftContentStoreRequest(w http.Res
 			// errors already written to ResponseWriter
 			return
 		}
+		controller.doDraftContentStoreRequest("PUT", "/content"+urlParameters["base_path"], requestBody, w)
 	}
 }
 
@@ -95,6 +96,18 @@ func (controller *ContentStoreController) DeleteContentStoreRequest(w http.Respo
 // data will be nil for requests without bodies
 func (controller *ContentStoreController) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
 	resp, err := controller.liveContentStore.DoRequest(httpMethod, path, data)
+	if err != nil {
+		renderer.JSON(w, http.StatusInternalServerError, err)
+	}
+	defer resp.Body.Close()
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
+}
+
+func (controller *ContentStoreController) doDraftContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
+	resp, err := controller.draftContentStore.DoRequest(httpMethod, path, data)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, err)
 	}

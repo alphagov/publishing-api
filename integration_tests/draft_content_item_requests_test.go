@@ -107,7 +107,7 @@ var _ = Describe("Draft Content Item Requests", func() {
 			})
 		})
 
-		PIt("registers a path with URL arbiter and then publishes the content only to the draft content store", func() {
+		It("registers a path with URL arbiter and then publishes the content only to the draft content store", func() {
 			urlArbiterResponseCode, urlArbiterResponseBody = http.StatusOK, urlArbiterResponse
 			draftContentStoreResponseCode, draftContentStoreResponseBody = http.StatusOK, contentItemJSON
 
@@ -122,7 +122,7 @@ var _ = Describe("Draft Content Item Requests", func() {
 			assertRequestOrder(URLArbiterRequestLabel, DraftContentStoreRequestLabel)
 		})
 
-		PIt("returns a 400 error if given invalid JSON", func() {
+		It("returns a 400 error if given invalid JSON", func() {
 			actualResponse := doRequest("PUT", endpoint, []byte("i'm not json"))
 
 			Expect(testURLArbiter.ReceivedRequests()).To(BeZero())
