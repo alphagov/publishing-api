@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 
@@ -31,39 +32,24 @@ func NewContentStoreController(arbiterURL, liveContentStoreURL, draftContentStor
 }
 
 func (controller *ContentStoreController) PutDraftContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	urlParameters := mux.Vars(r)
-
-	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
-		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
-			return
-		}
-		controller.doDraftContentStoreRequest("PUT", "/content"+urlParameters["base_path"], requestBody, w)
-	}
+	controller.registerWithURLArbiterAndForward(w, r, func(path string, requestBody []byte) {
+		controller.doDraftContentStoreRequest("PUT", strings.Replace(path, "draft-", "", -1), requestBody, w)
+	})
 }
 
 func (controller *ContentStoreController) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	urlParameters := mux.Vars(r)
-
-	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
-		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
-			return
-		}
+	controller.registerWithURLArbiterAndForward(w, r, func(path string, requestBody []byte) {
 		// TODO: PUT to both content stores concurrently
 		// for now, we ignore the response from draft content store for storing live content, hence `w` is nil
-		controller.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
-		controller.doDraftContentStoreRequest("PUT", r.URL.Path, requestBody, nil)
-	}
+		controller.doContentStoreRequest("PUT", path, requestBody, w)
+		controller.doDraftContentStoreRequest("PUT", path, requestBody, nil)
+	})
 }
 
 func (controller *ContentStoreController) PutPublishIntentRequest(w http.ResponseWriter, r *http.Request) {
-	urlParameters := mux.Vars(r)
-
-	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
-		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
-			return
-		}
-		controller.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
-	}
+	controller.registerWithURLArbiterAndForward(w, r, func(path string, requestBody []byte) {
+		controller.doContentStoreRequest("PUT", path, requestBody, w)
+	})
 }
 
 func (controller *ContentStoreController) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
@@ -72,6 +58,18 @@ func (controller *ContentStoreController) GetContentStoreRequest(w http.Response
 
 func (controller *ContentStoreController) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
 	controller.doContentStoreRequest("DELETE", r.URL.Path, nil, w)
+}
+
+func (controller *ContentStoreController) registerWithURLArbiterAndForward(w http.ResponseWriter, r *http.Request,
+	afterRegister func(path string, requestBody []byte)) {
+
+	urlParameters := mux.Vars(r)
+	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
+		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
+			return
+		}
+		afterRegister(r.URL.Path, requestBody)
+	}
 }
 
 // Register the given path and publishing app with the URL arbiter.  Returns
