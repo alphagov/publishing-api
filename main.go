@@ -14,22 +14,23 @@ import (
 )
 
 var (
-	arbiterHost          = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
-	liveContentStoreHost = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
-	port                 = getEnvDefault("PORT", "3093")
-	requestLogDest       = getEnvDefault("REQUEST_LOG", "STDOUT")
+	arbiterHost           = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
+	liveContentStoreHost  = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
+	draftContentStoreHost = getEnvDefault("DRAFT_CONTENT_STORE", "http://draft-content-store.dev.gov.uk")
+	port                  = getEnvDefault("PORT", "3093")
+	requestLogDest        = getEnvDefault("REQUEST_LOG", "STDOUT")
 
 	renderer = render.New(render.Options{})
 )
 
-func BuildHTTPMux(arbiterURL, liveContentStoreURL string) http.Handler {
+func BuildHTTPMux(arbiterURL, liveContentStoreURL, draftContentStoreURL string) http.Handler {
 	httpMux := mux.NewRouter()
 
 	httpMux.Methods("GET").Path("/healthcheck").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		renderer.JSON(w, http.StatusOK, map[string]string{"status": "OK"})
 	})
 
-	contentStoreController := NewContentStoreController(arbiterURL, liveContentStoreURL)
+	contentStoreController := NewContentStoreController(arbiterURL, liveContentStoreURL, draftContentStoreURL)
 	httpMux.Methods("PUT").Path("/content{base_path:/.*}").HandlerFunc(contentStoreController.PutContentStoreRequest)
 	httpMux.Methods("PUT").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.PutContentStoreRequest)
 	httpMux.Methods("GET").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.GetContentStoreRequest)
@@ -39,7 +40,7 @@ func BuildHTTPMux(arbiterURL, liveContentStoreURL string) http.Handler {
 }
 
 func main() {
-	httpMux := BuildHTTPMux(arbiterHost, liveContentStoreHost)
+	httpMux := BuildHTTPMux(arbiterHost, liveContentStoreHost, draftContentStoreHost)
 
 	requestLogger, err := request_logger.New(requestLogDest)
 	if err != nil {

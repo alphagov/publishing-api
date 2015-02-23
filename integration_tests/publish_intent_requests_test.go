@@ -26,11 +26,11 @@ var _ = Describe("Publish Intent Requests", func() {
 		publishIntentPayload = []byte(publishIntentJSON)
 		urlArbiterResponse   = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
 
-		testPublishingAPI                    *httptest.Server
-		testURLArbiter, testLiveContentStore *ghttp.Server
+		testPublishingAPI                                           *httptest.Server
+		testURLArbiter, testLiveContentStore, testDraftContentStore *ghttp.Server
 
-		urlArbiterResponseCode, liveContentStoreResponseCode           int
-		urlArbiterResponseBody, liveContentStoreResponseBody, endpoint string
+		urlArbiterResponseCode, draftContentStoreResponseCode, liveContentStoreResponseCode           int
+		urlArbiterResponseBody, draftContentStoreResponseBody, liveContentStoreResponseBody, endpoint string
 
 		expectedResponse HTTPTestResponse
 	)
@@ -40,13 +40,15 @@ var _ = Describe("Publish Intent Requests", func() {
 
 		testURLArbiter = ghttp.NewServer()
 		testLiveContentStore = ghttp.NewServer()
+		testDraftContentStore = ghttp.NewServer()
 
-		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL()))
+		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL(), testDraftContentStore.URL()))
 		endpoint = testPublishingAPI.URL + "/publish-intent/vat-rates"
 	})
 
 	AfterEach(func() {
 		testURLArbiter.Close()
+		testDraftContentStore.Close()
 		testLiveContentStore.Close()
 		testPublishingAPI.Close()
 		close(TestRequestOrderTracker)
@@ -60,6 +62,14 @@ var _ = Describe("Publish Intent Requests", func() {
 					ghttp.VerifyRequest("PUT", "/paths/vat-rates"),
 					ghttp.VerifyJSON(`{"publishing_app": "mainstream_publisher"}`),
 					ghttp.RespondWithPtr(&urlArbiterResponseCode, &urlArbiterResponseBody),
+				))
+
+				testDraftContentStore = ghttp.NewServer()
+				testDraftContentStore.AppendHandlers(ghttp.CombineHandlers(
+					trackRequest(DraftContentStoreRequestLabel),
+					ghttp.VerifyRequest("PUT", "/content/vat-rates"),
+					ghttp.VerifyJSON(publishIntentJSON),
+					ghttp.RespondWithPtr(&draftContentStoreResponseCode, &draftContentStoreResponseBody),
 				))
 
 				testLiveContentStore.AppendHandlers(
@@ -80,6 +90,7 @@ var _ = Describe("Publish Intent Requests", func() {
 					actualResponse := doRequest("PUT", endpoint, publishIntentPayload)
 
 					Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
+					Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
 					Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
 					expectedResponse = HTTPTestResponse{Code: 422, Body: urlArbiterResponseBody}
@@ -93,6 +104,7 @@ var _ = Describe("Publish Intent Requests", func() {
 					actualResponse := doRequest("PUT", endpoint, publishIntentPayload)
 
 					Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
+					Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
 					Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
 					expectedResponse = HTTPTestResponse{Code: 409, Body: urlArbiterResponseBody}
@@ -107,6 +119,7 @@ var _ = Describe("Publish Intent Requests", func() {
 				actualResponse := doRequest("PUT", endpoint, publishIntentPayload)
 
 				Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
+				Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
 				Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: publishIntentJSON}
@@ -118,7 +131,8 @@ var _ = Describe("Publish Intent Requests", func() {
 				actualResponse := doRequest("PUT", endpoint, []byte("i'm not json"))
 
 				Expect(testURLArbiter.ReceivedRequests()).To(BeEmpty())
-				Expect(testContentStore.ReceivedRequests()).To(BeEmpty())
+				Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
+				Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
 				assertSameResponse(actualResponse, &expectedResponse)

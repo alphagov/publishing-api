@@ -7,6 +7,7 @@ type TestRequestLabel int
 const (
 	URLArbiterRequestLabel TestRequestLabel = iota
 	LiveContentStoreRequestLabel
+	DraftContentStoreRequestLabel
 )
 
 var TestRequestOrderTracker chan TestRequestLabel

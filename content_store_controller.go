@@ -13,18 +13,20 @@ import (
 )
 
 type ContentStoreController struct {
-	arbiter      *urlarbiter.URLArbiter
-	contentStore *contentstore.ContentStoreClient
+	arbiter           *urlarbiter.URLArbiter
+	liveContentStore  *contentstore.ContentStoreClient
+	draftContentStore *contentstore.ContentStoreClient
 }
 
 type ContentStoreRequest struct {
 	PublishingApp string `json:"publishing_app"`
 }
 
-func NewContentStoreController(arbiterURL, liveContentStoreURL string) *ContentStoreController {
+func NewContentStoreController(arbiterURL, liveContentStoreURL, draftContentStoreURL string) *ContentStoreController {
 	return &ContentStoreController{
-		arbiter:      urlarbiter.NewURLArbiter(arbiterURL),
-		contentStore: contentstore.NewClient(liveContentStoreURL),
+		arbiter:           urlarbiter.NewURLArbiter(arbiterURL),
+		liveContentStore:  contentstore.NewClient(liveContentStoreURL),
+		draftContentStore: contentstore.NewClient(draftContentStoreURL),
 	}
 }
 
@@ -85,7 +87,7 @@ func (controller *ContentStoreController) DeleteContentStoreRequest(w http.Respo
 
 // data will be nil for requests without bodies
 func (controller *ContentStoreController) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
-	resp, err := controller.contentStore.DoRequest(httpMethod, path, data)
+	resp, err := controller.liveContentStore.DoRequest(httpMethod, path, data)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, err)
 	}
