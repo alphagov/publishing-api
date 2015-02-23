@@ -28,11 +28,11 @@ var _ = Describe("Content Item Requests", func() {
 		contentItemPayload = []byte(contentItemJSON)
 		urlArbiterResponse = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
 
-		testPublishingAPI                *httptest.Server
-		testURLArbiter, testContentStore *ghttp.Server
+		testPublishingAPI                    *httptest.Server
+		testURLArbiter, testLiveContentStore *ghttp.Server
 
-		urlArbiterResponseCode, contentStoreResponseCode           int
-		urlArbiterResponseBody, contentStoreResponseBody, endpoint string
+		urlArbiterResponseCode, liveContentStoreResponseCode           int
+		urlArbiterResponseBody, liveContentStoreResponseBody, endpoint string
 
 		expectedResponse HTTPTestResponse
 	)
@@ -48,21 +48,21 @@ var _ = Describe("Content Item Requests", func() {
 			ghttp.RespondWithPtr(&urlArbiterResponseCode, &urlArbiterResponseBody),
 		))
 
-		testContentStore = ghttp.NewServer()
-		testContentStore.AppendHandlers(ghttp.CombineHandlers(
-			trackRequest(ContentStoreRequestLabel),
+		testLiveContentStore = ghttp.NewServer()
+		testLiveContentStore.AppendHandlers(ghttp.CombineHandlers(
+			trackRequest(LiveContentStoreRequestLabel),
 			ghttp.VerifyRequest("PUT", "/content/vat-rates"),
 			ghttp.VerifyJSON(contentItemJSON),
-			ghttp.RespondWithPtr(&contentStoreResponseCode, &contentStoreResponseBody),
+			ghttp.RespondWithPtr(&liveContentStoreResponseCode, &liveContentStoreResponseBody),
 		))
 
-		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testContentStore.URL()))
+		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL()))
 		endpoint = testPublishingAPI.URL + "/content/vat-rates"
 	})
 
 	AfterEach(func() {
 		testURLArbiter.Close()
-		testContentStore.Close()
+		testLiveContentStore.Close()
 		testPublishingAPI.Close()
 		close(TestRequestOrderTracker)
 	})
@@ -76,7 +76,7 @@ var _ = Describe("Content Item Requests", func() {
 				actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
 				Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
-				Expect(testContentStore.ReceivedRequests()).To(BeEmpty())
+				Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
 				expectedResponse = HTTPTestResponse{Code: 422, Body: urlArbiterResponseBody}
 				assertSameResponse(actualResponse, &expectedResponse)
@@ -89,7 +89,7 @@ var _ = Describe("Content Item Requests", func() {
 				actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
 				Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
-				Expect(testContentStore.ReceivedRequests()).To(BeEmpty())
+				Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
 				expectedResponse = HTTPTestResponse{Code: 409, Body: urlArbiterResponseBody}
 				assertSameResponse(actualResponse, &expectedResponse)
@@ -98,12 +98,12 @@ var _ = Describe("Content Item Requests", func() {
 
 		It("registers a path with URL arbiter and then publishes the content to the content store", func() {
 			urlArbiterResponseCode, urlArbiterResponseBody = http.StatusOK, urlArbiterResponse
-			contentStoreResponseCode, contentStoreResponseBody = http.StatusOK, contentItemJSON
+			liveContentStoreResponseCode, liveContentStoreResponseBody = http.StatusOK, contentItemJSON
 
 			actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
 			Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
-			Expect(testContentStore.ReceivedRequests()).To(HaveLen(1))
+			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
 
 			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 			assertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &expectedResponse)
@@ -113,7 +113,7 @@ var _ = Describe("Content Item Requests", func() {
 			actualResponse := doRequest("PUT", endpoint, []byte("i'm not json"))
 
 			Expect(testURLArbiter.ReceivedRequests()).To(BeZero())
-			Expect(testContentStore.ReceivedRequests()).To(BeZero())
+			Expect(testLiveContentStore.ReceivedRequests()).To(BeZero())
 
 			expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
 			assertSameResponse(actualResponse, &expectedResponse)

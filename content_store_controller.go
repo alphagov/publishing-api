@@ -21,10 +21,10 @@ type ContentStoreRequest struct {
 	PublishingApp string `json:"publishing_app"`
 }
 
-func NewContentStoreController(arbiterURL, contentStoreURL string) *ContentStoreController {
+func NewContentStoreController(arbiterURL, liveContentStoreURL string) *ContentStoreController {
 	return &ContentStoreController{
 		arbiter:      urlarbiter.NewURLArbiter(arbiterURL),
-		contentStore: contentstore.NewClient(contentStoreURL),
+		contentStore: contentstore.NewClient(liveContentStoreURL),
 	}
 }
 
