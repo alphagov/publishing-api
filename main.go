@@ -31,6 +31,7 @@ func BuildHTTPMux(arbiterURL, liveContentStoreURL, draftContentStoreURL string) 
 	})
 
 	contentStoreController := NewContentStoreController(arbiterURL, liveContentStoreURL, draftContentStoreURL)
+	httpMux.Methods("PUT").Path("/draft-content{base_path:/.*}").HandlerFunc(contentStoreController.PutDraftContentStoreRequest)
 	httpMux.Methods("PUT").Path("/content{base_path:/.*}").HandlerFunc(contentStoreController.PutContentStoreRequest)
 	httpMux.Methods("PUT").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.PutPublishIntentRequest)
 	httpMux.Methods("GET").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.GetContentStoreRequest)

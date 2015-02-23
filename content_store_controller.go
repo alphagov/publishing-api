@@ -30,6 +30,17 @@ func NewContentStoreController(arbiterURL, liveContentStoreURL, draftContentStor
 	}
 }
 
+func (controller *ContentStoreController) PutDraftContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	urlParameters := mux.Vars(r)
+
+	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
+		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
+			// errors already written to ResponseWriter
+			return
+		}
+	}
+}
+
 func (controller *ContentStoreController) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
 	urlParameters := mux.Vars(r)
 
