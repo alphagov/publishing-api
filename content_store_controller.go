@@ -28,7 +28,7 @@ func NewContentStoreController(arbiterURL, liveContentStoreURL string) *ContentS
 	}
 }
 
-func (cs *ContentStoreController) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+func (controller *ContentStoreController) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
 	urlParameters := mux.Vars(r)
 
 	requestBody, err := ioutil.ReadAll(r.Body)
@@ -48,19 +48,19 @@ func (cs *ContentStoreController) PutContentStoreRequest(w http.ResponseWriter, 
 		return
 	}
 
-	if !cs.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
+	if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
 		// errors already written to ResponseWriter
 		return
 	}
 
-	cs.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
+	controller.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
 }
 
 // Register the given path and publishing app with the URL arbiter.  Returns
 // true on success.  On failure, writes an error to the ResponseWriter, and
 // returns false
-func (cs *ContentStoreController) registerWithURLArbiter(path, publishingApp string, w http.ResponseWriter) bool {
-	urlArbiterResponse, err := cs.arbiter.Register(path, publishingApp)
+func (controller *ContentStoreController) registerWithURLArbiter(path, publishingApp string, w http.ResponseWriter) bool {
+	urlArbiterResponse, err := controller.arbiter.Register(path, publishingApp)
 	if err != nil {
 		switch err {
 		case urlarbiter.ConflictPathAlreadyReserved:
@@ -75,17 +75,17 @@ func (cs *ContentStoreController) registerWithURLArbiter(path, publishingApp str
 	return true
 }
 
-func (cs *ContentStoreController) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	cs.doContentStoreRequest("GET", r.URL.Path, nil, w)
+func (controller *ContentStoreController) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	controller.doContentStoreRequest("GET", r.URL.Path, nil, w)
 }
 
-func (cs *ContentStoreController) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	cs.doContentStoreRequest("DELETE", r.URL.Path, nil, w)
+func (controller *ContentStoreController) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	controller.doContentStoreRequest("DELETE", r.URL.Path, nil, w)
 }
 
 // data will be nil for requests without bodies
-func (cs *ContentStoreController) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
-	resp, err := cs.contentStore.DoRequest(httpMethod, path, data)
+func (controller *ContentStoreController) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
+	resp, err := controller.contentStore.DoRequest(httpMethod, path, data)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, err)
 	}
