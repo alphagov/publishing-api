@@ -33,29 +33,25 @@ func NewContentStoreController(arbiterURL, liveContentStoreURL, draftContentStor
 func (controller *ContentStoreController) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
 	urlParameters := mux.Vars(r)
 
-	requestBody, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		renderer.JSON(w, http.StatusInternalServerError, err)
-		return
-	}
-
-	var contentStoreRequest *ContentStoreRequest
-	if err := json.Unmarshal(requestBody, &contentStoreRequest); err != nil {
-		switch err.(type) {
-		case *json.SyntaxError:
-			renderer.JSON(w, http.StatusBadRequest, err)
-		default:
-			renderer.JSON(w, http.StatusInternalServerError, err)
+	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
+		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
+			// errors already written to ResponseWriter
+			return
 		}
-		return
+		controller.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
 	}
+}
 
-	if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
-		// errors already written to ResponseWriter
-		return
+func (controller *ContentStoreController) PutPublishIntentRequest(w http.ResponseWriter, r *http.Request) {
+	urlParameters := mux.Vars(r)
+
+	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
+		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
+			// errors already written to ResponseWriter
+			return
+		}
+		controller.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
 	}
-
-	controller.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
 }
 
 // Register the given path and publishing app with the URL arbiter.  Returns
@@ -96,4 +92,25 @@ func (controller *ContentStoreController) doContentStoreRequest(httpMethod strin
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(resp.StatusCode)
 	io.Copy(w, resp.Body)
+}
+
+func (controller *ContentStoreController) readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreRequest) {
+	requestBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		renderer.JSON(w, http.StatusInternalServerError, err)
+		return nil, nil
+	}
+
+	var contentStoreRequest *ContentStoreRequest
+	if err := json.Unmarshal(requestBody, &contentStoreRequest); err != nil {
+		switch err.(type) {
+		case *json.SyntaxError:
+			renderer.JSON(w, http.StatusBadRequest, err)
+		default:
+			renderer.JSON(w, http.StatusInternalServerError, err)
+		}
+		return nil, nil
+	}
+
+	return requestBody, contentStoreRequest
 }
