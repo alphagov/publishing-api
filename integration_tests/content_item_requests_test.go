@@ -106,7 +106,8 @@ var _ = Describe("Content Item Requests", func() {
 			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
 
 			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
-			assertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &expectedResponse)
+			assertSameResponse(actualResponse, &expectedResponse)
+			assertRequestOrder(URLArbiterRequestLabel, LiveContentStoreRequestLabel)
 		})
 
 		It("returns a 400 error if given invalid JSON", func() {
