@@ -38,7 +38,7 @@ var _ = Describe("Content Item Requests", func() {
 	)
 
 	BeforeEach(func() {
-		TestRequestOrderTracker = make(chan TestRequestLabel, 2)
+		TestRequestOrderTracker = make(chan TestRequestLabel, 3)
 
 		testURLArbiter = ghttp.NewServer()
 		testURLArbiter.AppendHandlers(ghttp.CombineHandlers(
@@ -70,6 +70,7 @@ var _ = Describe("Content Item Requests", func() {
 
 	AfterEach(func() {
 		testURLArbiter.Close()
+		testDraftContentStore.Close()
 		testLiveContentStore.Close()
 		testPublishingAPI.Close()
 		close(TestRequestOrderTracker)
@@ -106,8 +107,9 @@ var _ = Describe("Content Item Requests", func() {
 			})
 		})
 
-		PIt("registers a path with URL arbiter and then publishes the content to the live and draft content store", func() {
+		It("registers a path with URL arbiter and then publishes the content to the live and draft content store", func() {
 			urlArbiterResponseCode, urlArbiterResponseBody = http.StatusOK, urlArbiterResponse
+			draftContentStoreResponseCode, draftContentStoreResponseBody = http.StatusOK, contentItemJSON
 			liveContentStoreResponseCode, liveContentStoreResponseBody = http.StatusOK, contentItemJSON
 
 			actualResponse := doRequest("PUT", endpoint, contentItemPayload)
@@ -118,7 +120,7 @@ var _ = Describe("Content Item Requests", func() {
 
 			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 			assertSameResponse(actualResponse, &expectedResponse)
-			assertRequestOrder(URLArbiterRequestLabel, LiveContentStoreRequestLabel)
+			assertRequestOrder(URLArbiterRequestLabel, LiveContentStoreRequestLabel, DraftContentStoreRequestLabel)
 		})
 
 		It("returns a 400 error if given invalid JSON", func() {

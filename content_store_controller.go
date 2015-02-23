@@ -35,7 +35,6 @@ func (controller *ContentStoreController) PutDraftContentStoreRequest(w http.Res
 
 	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
 		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
-			// errors already written to ResponseWriter
 			return
 		}
 		controller.doDraftContentStoreRequest("PUT", "/content"+urlParameters["base_path"], requestBody, w)
@@ -47,10 +46,12 @@ func (controller *ContentStoreController) PutContentStoreRequest(w http.Response
 
 	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
 		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
-			// errors already written to ResponseWriter
 			return
 		}
+		// TODO: PUT to both content stores concurrently
+		// for now, we ignore the response from draft content store for storing live content, hence `w` is nil
 		controller.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
+		controller.doDraftContentStoreRequest("PUT", r.URL.Path, requestBody, nil)
 	}
 }
 
@@ -59,11 +60,18 @@ func (controller *ContentStoreController) PutPublishIntentRequest(w http.Respons
 
 	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
 		if !controller.registerWithURLArbiter(urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
-			// errors already written to ResponseWriter
 			return
 		}
 		controller.doContentStoreRequest("PUT", r.URL.Path, requestBody, w)
 	}
+}
+
+func (controller *ContentStoreController) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	controller.doContentStoreRequest("GET", r.URL.Path, nil, w)
+}
+
+func (controller *ContentStoreController) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
+	controller.doContentStoreRequest("DELETE", r.URL.Path, nil, w)
 }
 
 // Register the given path and publishing app with the URL arbiter.  Returns
@@ -85,21 +93,14 @@ func (controller *ContentStoreController) registerWithURLArbiter(path, publishin
 	return true
 }
 
-func (controller *ContentStoreController) GetContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	controller.doContentStoreRequest("GET", r.URL.Path, nil, w)
-}
-
-func (controller *ContentStoreController) DeleteContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	controller.doContentStoreRequest("DELETE", r.URL.Path, nil, w)
-}
-
 // data will be nil for requests without bodies
 func (controller *ContentStoreController) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
 	resp, err := controller.liveContentStore.DoRequest(httpMethod, path, data)
+	defer resp.Body.Close()
+
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, err)
 	}
-	defer resp.Body.Close()
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(resp.StatusCode)
@@ -108,14 +109,17 @@ func (controller *ContentStoreController) doContentStoreRequest(httpMethod strin
 
 func (controller *ContentStoreController) doDraftContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
 	resp, err := controller.draftContentStore.DoRequest(httpMethod, path, data)
-	if err != nil {
-		renderer.JSON(w, http.StatusInternalServerError, err)
-	}
 	defer resp.Body.Close()
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
+	if w != nil {
+		if err != nil {
+			renderer.JSON(w, http.StatusInternalServerError, err)
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(resp.StatusCode)
+		io.Copy(w, resp.Body)
+	}
 }
 
 func (controller *ContentStoreController) readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreRequest) {
