@@ -15,11 +15,12 @@ import (
 )
 
 var (
-	arbiterHost           = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
-	liveContentStoreHost  = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
-	draftContentStoreHost = getEnvDefault("DRAFT_CONTENT_STORE", "http://draft-content-store.dev.gov.uk")
-	port                  = getEnvDefault("PORT", "3093")
-	requestLogDest        = getEnvDefault("REQUEST_LOG", "STDOUT")
+	arbiterHost          = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
+	liveContentStoreHost = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
+	port                 = getEnvDefault("PORT", "3093")
+	requestLogDest       = getEnvDefault("REQUEST_LOG", "STDOUT")
+
+	draftContentStoreHost = os.Getenv("DRAFT_CONTENT_STORE")
 
 	renderer = render.New(render.Options{})
 )
