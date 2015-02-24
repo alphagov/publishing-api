@@ -32,23 +32,23 @@ func NewContentStoreController(arbiterURL, liveContentStoreURL, draftContentStor
 }
 
 func (controller *ContentStoreController) PutDraftContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	controller.registerWithURLArbiterAndForward(w, r, func(path string, requestBody []byte) {
-		controller.doDraftContentStoreRequest("PUT", strings.Replace(path, "draft-", "", -1), requestBody, w)
+	controller.registerWithURLArbiterAndForward(w, r, func(basePath string, requestBody []byte) {
+		controller.doDraftContentStoreRequest("PUT", strings.Replace(basePath, "draft-", "", -1), requestBody, w)
 	})
 }
 
 func (controller *ContentStoreController) PutContentStoreRequest(w http.ResponseWriter, r *http.Request) {
-	controller.registerWithURLArbiterAndForward(w, r, func(path string, requestBody []byte) {
+	controller.registerWithURLArbiterAndForward(w, r, func(basePath string, requestBody []byte) {
 		// TODO: PUT to both content stores concurrently
 		// for now, we ignore the response from draft content store for storing live content, hence `w` is nil
-		controller.doContentStoreRequest("PUT", path, requestBody, w)
-		controller.doDraftContentStoreRequest("PUT", path, requestBody, nil)
+		controller.doContentStoreRequest("PUT", basePath, requestBody, w)
+		controller.doDraftContentStoreRequest("PUT", basePath, requestBody, nil)
 	})
 }
 
 func (controller *ContentStoreController) PutPublishIntentRequest(w http.ResponseWriter, r *http.Request) {
-	controller.registerWithURLArbiterAndForward(w, r, func(path string, requestBody []byte) {
-		controller.doContentStoreRequest("PUT", path, requestBody, w)
+	controller.registerWithURLArbiterAndForward(w, r, func(basePath string, requestBody []byte) {
+		controller.doContentStoreRequest("PUT", basePath, requestBody, w)
 	})
 }
 
@@ -61,7 +61,7 @@ func (controller *ContentStoreController) DeleteContentStoreRequest(w http.Respo
 }
 
 func (controller *ContentStoreController) registerWithURLArbiterAndForward(w http.ResponseWriter, r *http.Request,
-	afterRegister func(path string, requestBody []byte)) {
+	afterRegister func(basePath string, requestBody []byte)) {
 
 	urlParameters := mux.Vars(r)
 	if requestBody, contentStoreRequest := controller.readRequest(w, r); contentStoreRequest != nil {
@@ -75,8 +75,8 @@ func (controller *ContentStoreController) registerWithURLArbiterAndForward(w htt
 // Register the given path and publishing app with the URL arbiter.  Returns
 // true on success.  On failure, writes an error to the ResponseWriter, and
 // returns false
-func (controller *ContentStoreController) registerWithURLArbiter(path, publishingApp string, w http.ResponseWriter) bool {
-	urlArbiterResponse, err := controller.arbiter.Register(path, publishingApp)
+func (controller *ContentStoreController) registerWithURLArbiter(basePath, publishingApp string, w http.ResponseWriter) bool {
+	urlArbiterResponse, err := controller.arbiter.Register(basePath, publishingApp)
 	if err != nil {
 		switch err {
 		case urlarbiter.ConflictPathAlreadyReserved:
@@ -92,8 +92,8 @@ func (controller *ContentStoreController) registerWithURLArbiter(path, publishin
 }
 
 // data will be nil for requests without bodies
-func (controller *ContentStoreController) doContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
-	resp, err := controller.liveContentStore.DoRequest(httpMethod, path, data)
+func (controller *ContentStoreController) doContentStoreRequest(httpMethod string, basePath string, data []byte, w http.ResponseWriter) {
+	resp, err := controller.liveContentStore.DoRequest(httpMethod, basePath, data)
 	defer resp.Body.Close()
 
 	if err != nil {
@@ -105,8 +105,8 @@ func (controller *ContentStoreController) doContentStoreRequest(httpMethod strin
 	io.Copy(w, resp.Body)
 }
 
-func (controller *ContentStoreController) doDraftContentStoreRequest(httpMethod string, path string, data []byte, w http.ResponseWriter) {
-	resp, err := controller.draftContentStore.DoRequest(httpMethod, path, data)
+func (controller *ContentStoreController) doDraftContentStoreRequest(httpMethod string, basePath string, data []byte, w http.ResponseWriter) {
+	resp, err := controller.draftContentStore.DoRequest(httpMethod, basePath, data)
 	defer resp.Body.Close()
 
 	if w != nil {
