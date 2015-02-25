@@ -11,11 +11,11 @@ import (
 	"github.com/onsi/gomega/ghttp"
 )
 
-var _ = Describe("Content Item Requests", func() {
+var _ = Describe("Draft Content Item Requests", func() {
 	var (
 		contentItemJSON = `{
       "base_path": "/vat-rates",
-      "title": "VAT Rates",
+      "title": "Draft VAT Rates",
       "description": "VAT rates for goods and services",
       "format": "guide",
       "publishing_app": "mainstream_publisher",
@@ -29,10 +29,10 @@ var _ = Describe("Content Item Requests", func() {
 		urlArbiterResponse = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
 
 		testPublishingAPI                                           *httptest.Server
-		testURLArbiter, testDraftContentStore, testLiveContentStore *ghttp.Server
+		testURLArbiter, testLiveContentStore, testDraftContentStore *ghttp.Server
 
-		urlArbiterResponseCode, draftContentStoreResponseCode, liveContentStoreResponseCode           int
-		urlArbiterResponseBody, draftContentStoreResponseBody, liveContentStoreResponseBody, endpoint string
+		urlArbiterResponseCode, liveContentStoreResponseCode, draftContentStoreResponseCode           int
+		urlArbiterResponseBody, liveContentStoreResponseBody, draftContentStoreResponseBody, endpoint string
 
 		expectedResponse HTTPTestResponse
 	)
@@ -65,7 +65,7 @@ var _ = Describe("Content Item Requests", func() {
 		))
 
 		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL(), testDraftContentStore.URL()))
-		endpoint = testPublishingAPI.URL + "/content/vat-rates"
+		endpoint = testPublishingAPI.URL + "/draft-content/vat-rates"
 	})
 
 	AfterEach(func() {
@@ -76,9 +76,9 @@ var _ = Describe("Content Item Requests", func() {
 		close(TestRequestOrderTracker)
 	})
 
-	Describe("PUT /content", func() {
+	Describe("PUT /draft-content", func() {
 		Context("when URL arbiter errs", func() {
-			It("returns a 422 status with the original response", func() {
+			It("returns a 422 status with the original response and doesn't store content", func() {
 				urlArbiterResponseCode = 422
 				urlArbiterResponseBody = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is not valid"]}}`
 
@@ -92,7 +92,7 @@ var _ = Describe("Content Item Requests", func() {
 				assertSameResponse(actualResponse, &expectedResponse)
 			})
 
-			It("returns a 409 status with the original response", func() {
+			It("returns a 409 status with the original response and doesn't store content", func() {
 				urlArbiterResponseCode = 409
 				urlArbiterResponseBody = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is already taken"]}}`
 
@@ -107,20 +107,19 @@ var _ = Describe("Content Item Requests", func() {
 			})
 		})
 
-		It("registers a path with URL arbiter and then publishes the content to the live and draft content store", func() {
+		It("registers a path with URL arbiter and then publishes the content only to the draft content store", func() {
 			urlArbiterResponseCode, urlArbiterResponseBody = http.StatusOK, urlArbiterResponse
 			draftContentStoreResponseCode, draftContentStoreResponseBody = http.StatusOK, contentItemJSON
-			liveContentStoreResponseCode, liveContentStoreResponseBody = http.StatusOK, contentItemJSON
 
 			actualResponse := doRequest("PUT", endpoint, contentItemPayload)
 
 			Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
 			Expect(testDraftContentStore.ReceivedRequests()).To(HaveLen(1))
-			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
+			Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
 			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 			assertSameResponse(actualResponse, &expectedResponse)
-			assertRequestOrder(URLArbiterRequestLabel, LiveContentStoreRequestLabel, DraftContentStoreRequestLabel)
+			assertRequestOrder(URLArbiterRequestLabel, DraftContentStoreRequestLabel)
 		})
 
 		It("returns a 400 error if given invalid JSON", func() {

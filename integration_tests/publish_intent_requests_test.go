@@ -26,11 +26,11 @@ var _ = Describe("Publish Intent Requests", func() {
 		publishIntentPayload = []byte(publishIntentJSON)
 		urlArbiterResponse   = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
 
-		testPublishingAPI                *httptest.Server
-		testURLArbiter, testContentStore *ghttp.Server
+		testPublishingAPI                                           *httptest.Server
+		testURLArbiter, testLiveContentStore, testDraftContentStore *ghttp.Server
 
-		urlArbiterResponseCode, contentStoreResponseCode           int
-		urlArbiterResponseBody, contentStoreResponseBody, endpoint string
+		urlArbiterResponseCode, draftContentStoreResponseCode, liveContentStoreResponseCode           int
+		urlArbiterResponseBody, draftContentStoreResponseBody, liveContentStoreResponseBody, endpoint string
 
 		expectedResponse HTTPTestResponse
 	)
@@ -39,15 +39,17 @@ var _ = Describe("Publish Intent Requests", func() {
 		TestRequestOrderTracker = make(chan TestRequestLabel, 2)
 
 		testURLArbiter = ghttp.NewServer()
-		testContentStore = ghttp.NewServer()
+		testLiveContentStore = ghttp.NewServer()
+		testDraftContentStore = ghttp.NewServer()
 
-		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testContentStore.URL()))
+		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL(), testDraftContentStore.URL()))
 		endpoint = testPublishingAPI.URL + "/publish-intent/vat-rates"
 	})
 
 	AfterEach(func() {
 		testURLArbiter.Close()
-		testContentStore.Close()
+		testDraftContentStore.Close()
+		testLiveContentStore.Close()
 		testPublishingAPI.Close()
 		close(TestRequestOrderTracker)
 	})
@@ -62,12 +64,20 @@ var _ = Describe("Publish Intent Requests", func() {
 					ghttp.RespondWithPtr(&urlArbiterResponseCode, &urlArbiterResponseBody),
 				))
 
-				testContentStore.AppendHandlers(
+				testDraftContentStore = ghttp.NewServer()
+				testDraftContentStore.AppendHandlers(ghttp.CombineHandlers(
+					trackRequest(DraftContentStoreRequestLabel),
+					ghttp.VerifyRequest("PUT", "/content/vat-rates"),
+					ghttp.VerifyJSON(publishIntentJSON),
+					ghttp.RespondWithPtr(&draftContentStoreResponseCode, &draftContentStoreResponseBody),
+				))
+
+				testLiveContentStore.AppendHandlers(
 					ghttp.CombineHandlers(
-						trackRequest(ContentStoreRequestLabel),
+						trackRequest(LiveContentStoreRequestLabel),
 						ghttp.VerifyRequest("PUT", "/publish-intent/vat-rates"),
 						ghttp.VerifyJSON(publishIntentJSON),
-						ghttp.RespondWithPtr(&contentStoreResponseCode, &contentStoreResponseBody),
+						ghttp.RespondWithPtr(&liveContentStoreResponseCode, &liveContentStoreResponseBody),
 					),
 				)
 			})
@@ -80,7 +90,8 @@ var _ = Describe("Publish Intent Requests", func() {
 					actualResponse := doRequest("PUT", endpoint, publishIntentPayload)
 
 					Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
-					Expect(testContentStore.ReceivedRequests()).To(BeEmpty())
+					Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
+					Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
 					expectedResponse = HTTPTestResponse{Code: 422, Body: urlArbiterResponseBody}
 					assertSameResponse(actualResponse, &expectedResponse)
@@ -93,7 +104,8 @@ var _ = Describe("Publish Intent Requests", func() {
 					actualResponse := doRequest("PUT", endpoint, publishIntentPayload)
 
 					Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
-					Expect(testContentStore.ReceivedRequests()).To(BeEmpty())
+					Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
+					Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
 					expectedResponse = HTTPTestResponse{Code: 409, Body: urlArbiterResponseBody}
 					assertSameResponse(actualResponse, &expectedResponse)
@@ -102,22 +114,25 @@ var _ = Describe("Publish Intent Requests", func() {
 
 			It("registers a path with URL arbiter and then forwards the publish intent to the content store", func() {
 				urlArbiterResponseCode, urlArbiterResponseBody = http.StatusOK, urlArbiterResponse
-				contentStoreResponseCode, contentStoreResponseBody = http.StatusOK, publishIntentJSON
+				liveContentStoreResponseCode, liveContentStoreResponseBody = http.StatusOK, publishIntentJSON
 
 				actualResponse := doRequest("PUT", endpoint, publishIntentPayload)
 
 				Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
-				Expect(testContentStore.ReceivedRequests()).To(HaveLen(1))
+				Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
+				Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: publishIntentJSON}
-				assertPathIsRegisteredAndContentStoreResponseIsReturned(actualResponse, &expectedResponse)
+				assertSameResponse(actualResponse, &expectedResponse)
+				assertRequestOrder(URLArbiterRequestLabel, LiveContentStoreRequestLabel)
 			})
 
 			It("returns a 400 error if given invalid JSON", func() {
 				actualResponse := doRequest("PUT", endpoint, []byte("i'm not json"))
 
 				Expect(testURLArbiter.ReceivedRequests()).To(BeEmpty())
-				Expect(testContentStore.ReceivedRequests()).To(BeEmpty())
+				Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
+				Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
 				assertSameResponse(actualResponse, &expectedResponse)
@@ -126,22 +141,22 @@ var _ = Describe("Publish Intent Requests", func() {
 
 		Context("GET", func() {
 			BeforeEach(func() {
-				testContentStore.AppendHandlers(
+				testLiveContentStore.AppendHandlers(
 					ghttp.CombineHandlers(
-						trackRequest(ContentStoreRequestLabel),
+						trackRequest(LiveContentStoreRequestLabel),
 						ghttp.VerifyRequest("GET", "/publish-intent/vat-rates"),
-						ghttp.RespondWithPtr(&contentStoreResponseCode, &contentStoreResponseBody),
+						ghttp.RespondWithPtr(&liveContentStoreResponseCode, &liveContentStoreResponseBody),
 					),
 				)
 			})
 
 			It("passes back the JSON", func() {
-				contentStoreResponseCode, contentStoreResponseBody = http.StatusOK, publishIntentJSON
+				liveContentStoreResponseCode, liveContentStoreResponseBody = http.StatusOK, publishIntentJSON
 
 				actualResponse := doRequest("GET", endpoint, nil)
 
 				Expect(testURLArbiter.ReceivedRequests()).To(BeEmpty())
-				Expect(testContentStore.ReceivedRequests()).To(HaveLen(1))
+				Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
 
 				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: publishIntentJSON}
 				assertSameResponse(actualResponse, &expectedResponse)

@@ -10,36 +10,41 @@ import (
 	"github.com/gorilla/mux"
 	"gopkg.in/unrolled/render.v1"
 
+	"github.com/alphagov/publishing-api/controllers"
 	"github.com/alphagov/publishing-api/request_logger"
 )
 
 var (
-	arbiterHost      = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
-	contentStoreHost = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
-	port             = getEnvDefault("PORT", "3093")
-	requestLogDest   = getEnvDefault("REQUEST_LOG", "STDOUT")
+	arbiterHost           = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
+	liveContentStoreHost  = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
+	draftContentStoreHost = getEnvDefault("DRAFT_CONTENT_STORE", "http://draft-content-store.dev.gov.uk")
+	port                  = getEnvDefault("PORT", "3093")
+	requestLogDest        = getEnvDefault("REQUEST_LOG", "STDOUT")
 
 	renderer = render.New(render.Options{})
 )
 
-func BuildHTTPMux(arbiterURL, contentStoreURL string) http.Handler {
+func BuildHTTPMux(arbiterURL, liveContentStoreURL, draftContentStoreURL string) http.Handler {
 	httpMux := mux.NewRouter()
 
 	httpMux.Methods("GET").Path("/healthcheck").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		renderer.JSON(w, http.StatusOK, map[string]string{"status": "OK"})
 	})
 
-	contentStoreController := NewContentStoreController(arbiterURL, contentStoreURL)
-	httpMux.Methods("PUT").Path("/content{base_path:/.*}").HandlerFunc(contentStoreController.PutContentStoreRequest)
-	httpMux.Methods("PUT").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.PutContentStoreRequest)
-	httpMux.Methods("GET").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.GetContentStoreRequest)
-	httpMux.Methods("DELETE").Path("/publish-intent{base_path:/.*}").HandlerFunc(contentStoreController.DeleteContentStoreRequest)
+	contentItemsController := controllers.NewContentItemsController(arbiterURL, liveContentStoreURL, draftContentStoreURL)
+	httpMux.Methods("PUT").Path("/draft-content{base_path:/.*}").HandlerFunc(contentItemsController.PutDraftContentItem)
+	httpMux.Methods("PUT").Path("/content{base_path:/.*}").HandlerFunc(contentItemsController.PutLiveContentItem)
+
+	publishIntentsController := controllers.NewPublishIntentsController(arbiterURL, liveContentStoreURL)
+	httpMux.Methods("PUT").Path("/publish-intent{base_path:/.*}").HandlerFunc(publishIntentsController.PutPublishIntent)
+	httpMux.Methods("GET").Path("/publish-intent{base_path:/.*}").HandlerFunc(publishIntentsController.GetPublishIntent)
+	httpMux.Methods("DELETE").Path("/publish-intent{base_path:/.*}").HandlerFunc(publishIntentsController.DeletePublishIntent)
 
 	return httpMux
 }
 
 func main() {
-	httpMux := BuildHTTPMux(arbiterHost, contentStoreHost)
+	httpMux := BuildHTTPMux(arbiterHost, liveContentStoreHost, draftContentStoreHost)
 
 	requestLogger, err := request_logger.New(requestLogDest)
 	if err != nil {
