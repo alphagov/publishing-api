@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 	"strings"
+	"sync"
 
 	"github.com/alphagov/publishing-api/contentstore"
 	"github.com/alphagov/publishing-api/urlarbiter"
@@ -30,9 +31,17 @@ func (c *ContentItemsController) PutDraftContentItem(w http.ResponseWriter, r *h
 
 func (c *ContentItemsController) PutLiveContentItem(w http.ResponseWriter, r *http.Request) {
 	registerWithURLArbiterAndForward(c.arbiter, w, r, func(basePath string, requestBody []byte) {
-		// TODO: PUT to both content stores concurrently
-		doContentStoreRequest(c.liveContentStore, "PUT", basePath, requestBody, w)
-		// for now, we ignore the response from draft content store for storing live content, hence `w` is nil
-		doContentStoreRequest(c.draftContentStore, "PUT", basePath, requestBody, nil)
+		var wg sync.WaitGroup
+		wg.Add(2)
+		go func() {
+			defer wg.Done()
+			doContentStoreRequest(c.liveContentStore, "PUT", basePath, requestBody, w)
+		}()
+		go func() {
+			defer wg.Done()
+			// for now, we ignore the response from draft content store for storing live content, hence `w` is nil
+			doContentStoreRequest(c.draftContentStore, "PUT", basePath, requestBody, nil)
+		}()
+		wg.Wait()
 	})
 }
