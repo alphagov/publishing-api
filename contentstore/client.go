@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 var (
@@ -25,7 +26,13 @@ func NewClient(rootURL string) *ContentStoreClient {
 }
 
 // data will be nil for requests without bodies
-func (p *ContentStoreClient) DoRequest(httpMethod string, path string, data []byte) (*http.Response, error) {
+func (p *ContentStoreClient) DoRequest(httpMethod, path string, data []byte) (*http.Response, error) {
+	if len(p.rootURL) == 0 {
+		// FIXME: remove once we have a draft content store wherever publishing-api is present.
+		// return a dummy OK response if the client doesn't know which server to call
+		return dummyOKResponse(), nil
+	}
+
 	url := p.rootURL + path
 	var reqBody io.Reader
 
@@ -44,4 +51,13 @@ func (p *ContentStoreClient) DoRequest(httpMethod string, path string, data []by
 	}
 
 	return p.client.Do(req)
+}
+
+// FIXME: remove once we have a draft content store wherever publishing-api is present.
+func dummyOKResponse() *http.Response {
+	return &http.Response{
+		Status:     "200 OK",
+		StatusCode: 200,
+		Body:       ioutil.NopCloser(strings.NewReader("Draft content-store not configured. This is a dummy response")),
+	}
 }
