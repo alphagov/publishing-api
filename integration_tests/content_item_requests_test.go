@@ -120,7 +120,12 @@ var _ = Describe("Content Item Requests", func() {
 
 			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
 			assertSameResponse(actualResponse, &expectedResponse)
-			assertRequestOrder(URLArbiterRequestLabel, LiveContentStoreRequestLabel, DraftContentStoreRequestLabel)
+
+			// assert that url-arbiter is called before making requests to content stores. communication
+			// with live and draft content stores happens in parallel, so can't assert on their order.
+			Expect(<-TestRequestOrderTracker).To(Equal(URLArbiterRequestLabel))
+			Expect(<-TestRequestOrderTracker > URLArbiterRequestLabel).To(BeTrue())
+			Expect(<-TestRequestOrderTracker > URLArbiterRequestLabel).To(BeTrue())
 		})
 
 		It("returns a 400 error if given invalid JSON", func() {
