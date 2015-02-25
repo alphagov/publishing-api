@@ -24,7 +24,7 @@ func NewContentItemsController(arbiterURL, liveContentStoreURL, draftContentStor
 
 func (c *ContentItemsController) PutDraftContentItem(w http.ResponseWriter, r *http.Request) {
 	registerWithURLArbiterAndForward(c.arbiter, w, r, func(basePath string, requestBody []byte) {
-		doContentStoreRequest(c.draftContentStore, "PUT", strings.Replace(basePath, "draft-", "", -1), requestBody, w)
+		doContentStoreRequest(c.draftContentStore, "PUT", strings.Replace(basePath, "/draft-content/", "/content/", 1), requestBody, w)
 	})
 }
 
