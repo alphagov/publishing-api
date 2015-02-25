@@ -16,7 +16,7 @@ import (
 var (
 	arbiterHost      = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
 	contentStoreHost = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
-	port             = getEnvDefault("PORT", "3000")
+	port             = getEnvDefault("PORT", "3093")
 	requestLogDest   = getEnvDefault("REQUEST_LOG", "STDOUT")
 
 	renderer = render.New(render.Options{})
