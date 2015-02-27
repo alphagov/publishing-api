@@ -10,12 +10,13 @@ import (
 	"github.com/gorilla/mux"
 	"gopkg.in/unrolled/render.v1"
 
+	"github.com/alphagov/plek/go"
 	"github.com/alphagov/publishing-api/controllers"
 	"github.com/alphagov/publishing-api/request_logger"
 )
 
 var (
-	arbiterHost          = getEnvDefault("URL_ARBITER", "http://url-arbiter.dev.gov.uk")
+	arbiterHost          = plek.Find("url-arbiter")
 	liveContentStoreHost = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
 	port                 = getEnvDefault("PORT", "3093")
 	requestLogDest       = getEnvDefault("REQUEST_LOG", "STDOUT")
