@@ -135,7 +135,8 @@ var _ = Describe("Content Item Requests", func() {
 			Expect(testDraftContentStore.ReceivedRequests()).To(BeZero())
 			Expect(testLiveContentStore.ReceivedRequests()).To(BeZero())
 
-			expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
+			expectedResponseBody := `{"message": "Invalid JSON in request body"}`
+			expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest, Body: expectedResponseBody}
 			assertSameResponse(actualResponse, &expectedResponse)
 		})
 	})

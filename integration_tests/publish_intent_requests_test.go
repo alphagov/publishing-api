@@ -134,7 +134,8 @@ var _ = Describe("Publish Intent Requests", func() {
 				Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
 				Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
-				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
+				expectedResponseBody := `{"message": "Invalid JSON in request body"}`
+				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest, Body: expectedResponseBody}
 				assertSameResponse(actualResponse, &expectedResponse)
 			})
 		})

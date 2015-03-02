@@ -18,6 +18,10 @@ type ContentStoreRequest struct {
 	PublishingApp string `json:"publishing_app"`
 }
 
+type ErrorResponse struct {
+	Message string `json:"message"`
+}
+
 func registerWithURLArbiterAndForward(urlArbiter *urlarbiter.URLArbiter, w http.ResponseWriter, r *http.Request,
 	afterRegister func(basePath string, requestBody []byte)) {
 
@@ -80,7 +84,7 @@ func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreR
 	if err := json.Unmarshal(requestBody, &contentStoreRequest); err != nil {
 		switch err.(type) {
 		case *json.SyntaxError:
-			renderer.JSON(w, http.StatusBadRequest, err)
+			renderer.JSON(w, http.StatusBadRequest, ErrorResponse{Message: "Invalid JSON in request body"})
 		default:
 			renderer.JSON(w, http.StatusInternalServerError, err)
 		}
