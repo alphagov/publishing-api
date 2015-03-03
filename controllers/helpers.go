@@ -26,7 +26,8 @@ func registerWithURLArbiterAndForward(urlArbiter *urlarbiter.URLArbiter, w http.
 	afterRegister func(basePath string, requestBody []byte)) {
 
 	urlParameters := mux.Vars(r)
-	if requestBody, contentStoreRequest := readRequest(w, r); contentStoreRequest != nil {
+	requestBody, contentStoreRequest := readRequest(w, r)
+	if contentStoreRequest != nil {
 		if !registerWithURLArbiter(urlArbiter, urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
 			return
 		}
