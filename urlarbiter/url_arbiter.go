@@ -8,6 +8,7 @@ import (
 )
 
 var (
+	UnexpectedResponse          = errors.New("unexpected response")
 	ConflictPathAlreadyReserved = errors.New("path is already reserved")
 	UnprocessableEntity         = errors.New("request was well-formed but was unable to be followed due to semantic errors")
 )
@@ -57,14 +58,16 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 		return URLArbiterResponse{}, err
 	}
 
-	// Read the response body and then check the status code so we can
-	// return the errors from the response.
-	switch response.StatusCode {
-	case 422: // Unprocessable Entity.
-		return arbiterResponse, UnprocessableEntity
-	case http.StatusConflict:
-		return arbiterResponse, ConflictPathAlreadyReserved
+	if response.StatusCode >= 200 && response.StatusCode < 300 {
+		return arbiterResponse, nil
+	} else {
+		switch response.StatusCode {
+		case 422: // Unprocessable Entity.
+			return arbiterResponse, UnprocessableEntity
+		case http.StatusConflict:
+			return arbiterResponse, ConflictPathAlreadyReserved
+		default:
+			return arbiterResponse, UnexpectedResponse
+		}
 	}
-
-	return arbiterResponse, nil
 }

@@ -46,7 +46,8 @@ func registerWithURLArbiter(urlArbiter *urlarbiter.URLArbiter, path, publishingA
 		case urlarbiter.UnprocessableEntity:
 			renderer.JSON(w, 422, urlArbiterResponse)
 		default:
-			renderer.JSON(w, http.StatusInternalServerError, err)
+			message := "Unexpected error whilst registering with url-arbiter"
+			renderer.JSON(w, http.StatusInternalServerError, ErrorResponse{Message: message})
 		}
 		return false
 	}
