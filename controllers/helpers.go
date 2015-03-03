@@ -66,7 +66,7 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 
 	if w != nil {
 		if err != nil {
-			renderer.JSON(w, http.StatusInternalServerError, err)
+			renderer.JSON(w, http.StatusInternalServerError, ErrorResponse{Message: "Unexpected error in request to content-store"})
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
@@ -78,7 +78,7 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreRequest) {
 	requestBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		renderer.JSON(w, http.StatusInternalServerError, err)
+		renderer.JSON(w, http.StatusInternalServerError, ErrorResponse{Message: "Unexpected error in reading your request body"})
 		return nil, nil
 	}
 
@@ -88,7 +88,7 @@ func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreR
 		case *json.SyntaxError:
 			renderer.JSON(w, http.StatusBadRequest, ErrorResponse{Message: "Invalid JSON in request body"})
 		default:
-			renderer.JSON(w, http.StatusInternalServerError, err)
+			renderer.JSON(w, http.StatusInternalServerError, ErrorResponse{Message: "Unexpected error unmarshalling your request body to JSON"})
 		}
 		return nil, nil
 	}
