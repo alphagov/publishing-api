@@ -44,7 +44,7 @@ func registerWithURLArbiter(urlArbiter *urlarbiter.URLArbiter, path, publishingA
 		case urlarbiter.ConflictPathAlreadyReserved:
 			renderer.JSON(w, http.StatusConflict, urlArbiterResponse)
 		case urlarbiter.UnprocessableEntity:
-			renderer.JSON(w, 422, urlArbiterResponse) // Unprocessable Entity.
+			renderer.JSON(w, 422, urlArbiterResponse)
 		default:
 			renderer.JSON(w, http.StatusInternalServerError, err)
 		}
