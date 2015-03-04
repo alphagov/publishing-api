@@ -110,6 +110,21 @@ var _ = Describe("Publish Intent Requests", func() {
 					expectedResponse = HTTPTestResponse{Code: 409, Body: urlArbiterResponseBody}
 					assertSameResponse(actualResponse, &expectedResponse)
 				})
+
+				It("returns a 500 error with a custom response", func() {
+					urlArbiterResponseCode = 418
+					urlArbiterResponseBody = `{ "message": "I'm a teapot"}`
+
+					actualResponse := doRequest("PUT", endpoint, publishIntentPayload)
+
+					Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
+					Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
+					Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
+
+					expectedResponseBody := `{"message": "Unexpected error whilst registering with url-arbiter: Unexpected response status: 418"}`
+					expectedResponse = HTTPTestResponse{Code: 500, Body: expectedResponseBody}
+					assertSameResponse(actualResponse, &expectedResponse)
+				})
 			})
 
 			It("registers a path with URL arbiter and then forwards the publish intent to the content store", func() {
@@ -134,7 +149,8 @@ var _ = Describe("Publish Intent Requests", func() {
 				Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
 				Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
-				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest}
+				expectedResponseBody := `{"message": "Invalid JSON in request body: invalid character 'i' looking for beginning of value"}`
+				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest, Body: expectedResponseBody}
 				assertSameResponse(actualResponse, &expectedResponse)
 			})
 		})

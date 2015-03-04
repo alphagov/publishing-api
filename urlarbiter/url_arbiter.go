@@ -5,11 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strconv"
 )
 
 var (
-	ConflictPathAlreadyReserved = errors.New("path is already reserved")
-	UnprocessableEntity         = errors.New("request was well-formed but was unable to be followed due to semantic errors")
+	ConflictPathAlreadyReserved = errors.New("Path is already reserved")
+	UnprocessableEntity         = errors.New("Request was well-formed but was unable to be followed due to semantic errors")
 )
 
 type URLArbiter struct {
@@ -57,14 +58,16 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 		return URLArbiterResponse{}, err
 	}
 
-	// Read the response body and then check the status code so we can
-	// return the errors from the response.
-	switch response.StatusCode {
-	case 422: // Unprocessable Entity.
-		return arbiterResponse, UnprocessableEntity
-	case http.StatusConflict:
-		return arbiterResponse, ConflictPathAlreadyReserved
+	if response.StatusCode >= 200 && response.StatusCode < 300 {
+		return arbiterResponse, nil
+	} else {
+		switch response.StatusCode {
+		case 422: // Unprocessable Entity.
+			return arbiterResponse, UnprocessableEntity
+		case http.StatusConflict:
+			return arbiterResponse, ConflictPathAlreadyReserved
+		default:
+			return arbiterResponse, errors.New("Unexpected response status: " + strconv.Itoa(response.StatusCode))
+		}
 	}
-
-	return arbiterResponse, nil
 }

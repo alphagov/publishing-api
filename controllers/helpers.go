@@ -18,11 +18,22 @@ type ContentStoreRequest struct {
 	PublishingApp string `json:"publishing_app"`
 }
 
+type ErrorResponse struct {
+	Message string `json:"message"`
+}
+
+func NewErrorResponse(message string, err error) *ErrorResponse {
+	return &ErrorResponse{
+		Message: message + ": " + err.Error(),
+	}
+}
+
 func registerWithURLArbiterAndForward(urlArbiter *urlarbiter.URLArbiter, w http.ResponseWriter, r *http.Request,
 	afterRegister func(basePath string, requestBody []byte)) {
 
 	urlParameters := mux.Vars(r)
-	if requestBody, contentStoreRequest := readRequest(w, r); contentStoreRequest != nil {
+	requestBody, contentStoreRequest := readRequest(w, r)
+	if contentStoreRequest != nil {
 		if !registerWithURLArbiter(urlArbiter, urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
 			return
 		}
@@ -40,9 +51,10 @@ func registerWithURLArbiter(urlArbiter *urlarbiter.URLArbiter, path, publishingA
 		case urlarbiter.ConflictPathAlreadyReserved:
 			renderer.JSON(w, http.StatusConflict, urlArbiterResponse)
 		case urlarbiter.UnprocessableEntity:
-			renderer.JSON(w, 422, urlArbiterResponse) // Unprocessable Entity.
+			renderer.JSON(w, 422, urlArbiterResponse)
 		default:
-			renderer.JSON(w, http.StatusInternalServerError, err)
+			message := "Unexpected error whilst registering with url-arbiter"
+			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse(message, err))
 		}
 		return false
 	}
@@ -60,7 +72,7 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 
 	if w != nil {
 		if err != nil {
-			renderer.JSON(w, http.StatusInternalServerError, err)
+			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in request to content-store", err))
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
@@ -72,7 +84,7 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreRequest) {
 	requestBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		renderer.JSON(w, http.StatusInternalServerError, err)
+		renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in reading your request body", err))
 		return nil, nil
 	}
 
@@ -80,9 +92,9 @@ func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreR
 	if err := json.Unmarshal(requestBody, &contentStoreRequest); err != nil {
 		switch err.(type) {
 		case *json.SyntaxError:
-			renderer.JSON(w, http.StatusBadRequest, err)
+			renderer.JSON(w, http.StatusBadRequest, NewErrorResponse("Invalid JSON in request body", err))
 		default:
-			renderer.JSON(w, http.StatusInternalServerError, err)
+			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error unmarshalling your request body to JSON", err))
 		}
 		return nil, nil
 	}
