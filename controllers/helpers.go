@@ -22,6 +22,12 @@ type ErrorResponse struct {
 	Message string `json:"message"`
 }
 
+func NewErrorResponse(message string, err error) *ErrorResponse {
+	return &ErrorResponse{
+		Message: message + ": " + err.Error(),
+	}
+}
+
 func registerWithURLArbiterAndForward(urlArbiter *urlarbiter.URLArbiter, w http.ResponseWriter, r *http.Request,
 	afterRegister func(basePath string, requestBody []byte)) {
 
@@ -48,7 +54,7 @@ func registerWithURLArbiter(urlArbiter *urlarbiter.URLArbiter, path, publishingA
 			renderer.JSON(w, 422, urlArbiterResponse)
 		default:
 			message := "Unexpected error whilst registering with url-arbiter"
-			renderer.JSON(w, http.StatusInternalServerError, ErrorResponse{Message: message})
+			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse(message, err))
 		}
 		return false
 	}
@@ -66,7 +72,7 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 
 	if w != nil {
 		if err != nil {
-			renderer.JSON(w, http.StatusInternalServerError, ErrorResponse{Message: "Unexpected error in request to content-store"})
+			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in request to content-store", err))
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
@@ -78,7 +84,7 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreRequest) {
 	requestBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		renderer.JSON(w, http.StatusInternalServerError, ErrorResponse{Message: "Unexpected error in reading your request body"})
+		renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in reading your request body", err))
 		return nil, nil
 	}
 
@@ -86,9 +92,9 @@ func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreR
 	if err := json.Unmarshal(requestBody, &contentStoreRequest); err != nil {
 		switch err.(type) {
 		case *json.SyntaxError:
-			renderer.JSON(w, http.StatusBadRequest, ErrorResponse{Message: "Invalid JSON in request body"})
+			renderer.JSON(w, http.StatusBadRequest, NewErrorResponse("Invalid JSON in request body", err))
 		default:
-			renderer.JSON(w, http.StatusInternalServerError, ErrorResponse{Message: "Unexpected error unmarshalling your request body to JSON"})
+			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error unmarshalling your request body to JSON", err))
 		}
 		return nil, nil
 	}

@@ -121,7 +121,7 @@ var _ = Describe("Publish Intent Requests", func() {
 					Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
 					Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
-					expectedResponseBody := `{"message": "Unexpected error whilst registering with url-arbiter"}`
+					expectedResponseBody := `{"message": "Unexpected error whilst registering with url-arbiter: Unexpected response status: 418"}`
 					expectedResponse = HTTPTestResponse{Code: 500, Body: expectedResponseBody}
 					assertSameResponse(actualResponse, &expectedResponse)
 				})
@@ -149,7 +149,7 @@ var _ = Describe("Publish Intent Requests", func() {
 				Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
 				Expect(testLiveContentStore.ReceivedRequests()).To(BeEmpty())
 
-				expectedResponseBody := `{"message": "Invalid JSON in request body"}`
+				expectedResponseBody := `{"message": "Invalid JSON in request body: invalid character 'i' looking for beginning of value"}`
 				expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest, Body: expectedResponseBody}
 				assertSameResponse(actualResponse, &expectedResponse)
 			})

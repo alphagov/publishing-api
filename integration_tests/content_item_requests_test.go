@@ -135,7 +135,7 @@ var _ = Describe("Content Item Requests", func() {
 			Expect(testDraftContentStore.ReceivedRequests()).To(BeZero())
 			Expect(testLiveContentStore.ReceivedRequests()).To(BeZero())
 
-			expectedResponseBody := `{"message": "Invalid JSON in request body"}`
+			expectedResponseBody := `{"message": "Invalid JSON in request body: invalid character 'i' looking for beginning of value"}`
 			expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest, Body: expectedResponseBody}
 			assertSameResponse(actualResponse, &expectedResponse)
 		})
