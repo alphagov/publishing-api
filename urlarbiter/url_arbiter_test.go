@@ -40,6 +40,16 @@ var _ = Describe("URLArbiter", func() {
 		Expect(response.PublishingApp).To(Equal("foo_publisher"))
 	})
 
+	It("doesn't error trying to parse response as JSON if the response Content-Type is not application/json", func() {
+		testServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-type", "text/html")
+		}))
+		arbiter := urlarbiter.NewURLArbiter(testServer.URL)
+
+		_, err := arbiter.Register("/foo/bar", "foo_publishing")
+		Expect(err).To(BeNil())
+	})
+
 	It("responds with a conflict error if the path is already reserved", func() {
 		testServer := buildTestServer(http.StatusConflict, `{
 "path":"/foo/bar",

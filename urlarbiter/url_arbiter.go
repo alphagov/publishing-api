@@ -53,9 +53,11 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 		return URLArbiterResponse{}, err
 	}
 
-	var arbiterResponse URLArbiterResponse
-	if err := json.NewDecoder(response.Body).Decode(&arbiterResponse); err != nil {
-		return URLArbiterResponse{}, err
+	arbiterResponse := URLArbiterResponse{}
+	if response.Header.Get("Content-Type") == "application/json" {
+		if err := json.NewDecoder(response.Body).Decode(&arbiterResponse); err != nil {
+			return URLArbiterResponse{}, err
+		}
 	}
 
 	if response.StatusCode >= 200 && response.StatusCode < 300 {
