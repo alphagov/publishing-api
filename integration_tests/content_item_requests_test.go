@@ -139,5 +139,15 @@ var _ = Describe("Content Item Requests", func() {
 			expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest, Body: expectedResponseBody}
 			assertSameResponse(actualResponse, &expectedResponse)
 		})
+
+		It("returns Content-Type header as received from content-store", func() {
+			testLiveContentStore.SetHandler(0,
+				ghttp.RespondWithPtr(&liveContentStoreResponseCode, &liveContentStoreResponseBody, http.Header{"Content-Type": []string{"text/html"}}))
+
+			actualResponse := doRequest("PUT", endpoint, contentItemPayload)
+
+			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
+			Expect(actualResponse.Header.Get("Content-Type")).To(Equal("text/html"))
+		})
 	})
 })

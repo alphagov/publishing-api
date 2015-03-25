@@ -75,7 +75,7 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in request to content-store", err))
 			return
 		}
-		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
 		w.WriteHeader(resp.StatusCode)
 		io.Copy(w, resp.Body)
 	}
