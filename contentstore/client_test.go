@@ -37,6 +37,7 @@ var _ = Describe("URLArbiter", func() {
 				ghttp.CombineHandlers(
 					ghttp.VerifyRequest("PUT", "/foo/bar"),
 					ghttp.VerifyContentType("application/json"),
+					ghttp.VerifyHeaderKV("Accept", "application/json"),
 					verifyRequestBody("Something"),
 					ghttp.RespondWith(http.StatusOK, responseBody, http.Header{"Content-Type": []string{"application/json"}}),
 				),
