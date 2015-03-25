@@ -45,7 +45,7 @@ var _ = Describe("Draft Content Item Requests", func() {
 			trackRequest(URLArbiterRequestLabel),
 			ghttp.VerifyRequest("PUT", "/paths/vat-rates"),
 			ghttp.VerifyJSON(`{"publishing_app": "mainstream_publisher"}`),
-			ghttp.RespondWithPtr(&urlArbiterResponseCode, &urlArbiterResponseBody),
+			ghttp.RespondWithPtr(&urlArbiterResponseCode, &urlArbiterResponseBody, http.Header{"Content-Type": []string{"application/json"}}),
 		))
 
 		testDraftContentStore = ghttp.NewServer()
