@@ -42,11 +42,11 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 	jsonRequestBody, _ := json.Marshal(requestBody)
 
 	request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
-	request.Header.Set("Content-Type", "application/json")
-
 	if err != nil {
 		return URLArbiterResponse{}, err
 	}
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("Accept", "application/json")
 
 	response, err := u.client.Do(request)
 	if err != nil {

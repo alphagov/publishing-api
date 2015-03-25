@@ -10,6 +10,7 @@ import (
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/ghttp"
 )
 
 func TestURLArbiter(t *testing.T) {
@@ -18,6 +19,17 @@ func TestURLArbiter(t *testing.T) {
 }
 
 var _ = Describe("URLArbiter", func() {
+	It("sets appropriate headers in request to url-arbiter", func() {
+		testURLArbiter := ghttp.NewServer()
+		testURLArbiter.AppendHandlers(ghttp.CombineHandlers(
+			ghttp.VerifyHeaderKV("Content-Type", "application/json"),
+			ghttp.VerifyHeaderKV("Accept", "application/json"),
+		))
+		arbiterClient := urlarbiter.NewURLArbiter(testURLArbiter.URL())
+
+		arbiterClient.Register("/foo/bar", "foo_publishing")
+	})
+
 	It("should register a path successfully when the path is available", func() {
 		testServer := buildTestServer(http.StatusOK, `{"path":"/foo/bar","publishing_app":"foo_publisher"}`)
 		arbiter := urlarbiter.NewURLArbiter(testServer.URL)
