@@ -46,6 +46,7 @@ func (p *ContentStoreClient) DoRequest(httpMethod, path string, data []byte) (*h
 		return nil, err
 	}
 
+	req.Header.Set("Accept", "application/json")
 	if data != nil {
 		req.Header.Set("Content-Type", "application/json")
 	}

@@ -10,6 +10,7 @@ import (
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/ghttp"
 )
 
 func TestURLArbiter(t *testing.T) {
@@ -18,6 +19,17 @@ func TestURLArbiter(t *testing.T) {
 }
 
 var _ = Describe("URLArbiter", func() {
+	It("sets appropriate headers in request to url-arbiter", func() {
+		testURLArbiter := ghttp.NewServer()
+		testURLArbiter.AppendHandlers(ghttp.CombineHandlers(
+			ghttp.VerifyHeaderKV("Content-Type", "application/json"),
+			ghttp.VerifyHeaderKV("Accept", "application/json"),
+		))
+		arbiterClient := urlarbiter.NewURLArbiter(testURLArbiter.URL())
+
+		arbiterClient.Register("/foo/bar", "foo_publishing")
+	})
+
 	It("should register a path successfully when the path is available", func() {
 		testServer := buildTestServer(http.StatusOK, `{"path":"/foo/bar","publishing_app":"foo_publisher"}`)
 		arbiter := urlarbiter.NewURLArbiter(testServer.URL)
@@ -26,6 +38,16 @@ var _ = Describe("URLArbiter", func() {
 		Expect(err).To(BeNil())
 		Expect(response.Path).To(Equal("/foo/bar"))
 		Expect(response.PublishingApp).To(Equal("foo_publisher"))
+	})
+
+	It("doesn't error trying to parse response as JSON if the response Content-Type is not application/json", func() {
+		testServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-type", "text/html")
+		}))
+		arbiter := urlarbiter.NewURLArbiter(testServer.URL)
+
+		_, err := arbiter.Register("/foo/bar", "foo_publishing")
+		Expect(err).To(BeNil())
 	})
 
 	It("responds with a conflict error if the path is already reserved", func() {

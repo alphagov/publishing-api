@@ -45,7 +45,7 @@ var _ = Describe("Content Item Requests", func() {
 			trackRequest(URLArbiterRequestLabel),
 			ghttp.VerifyRequest("PUT", "/paths/vat-rates"),
 			ghttp.VerifyJSON(`{"publishing_app": "mainstream_publisher"}`),
-			ghttp.RespondWithPtr(&urlArbiterResponseCode, &urlArbiterResponseBody),
+			ghttp.RespondWithPtr(&urlArbiterResponseCode, &urlArbiterResponseBody, http.Header{"Content-Type": []string{"application/json"}}),
 		))
 
 		testDraftContentStore = ghttp.NewServer()
@@ -138,6 +138,16 @@ var _ = Describe("Content Item Requests", func() {
 			expectedResponseBody := `{"message": "Invalid JSON in request body: invalid character 'i' looking for beginning of value"}`
 			expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest, Body: expectedResponseBody}
 			assertSameResponse(actualResponse, &expectedResponse)
+		})
+
+		It("returns Content-Type header as received from content-store", func() {
+			testLiveContentStore.SetHandler(0,
+				ghttp.RespondWithPtr(&liveContentStoreResponseCode, &liveContentStoreResponseBody, http.Header{"Content-Type": []string{"text/html"}}))
+
+			actualResponse := doRequest("PUT", endpoint, contentItemPayload)
+
+			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
+			Expect(actualResponse.Header.Get("Content-Type")).To(Equal("text/html"))
 		})
 	})
 })

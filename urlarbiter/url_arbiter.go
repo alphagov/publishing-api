@@ -42,20 +42,22 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 	jsonRequestBody, _ := json.Marshal(requestBody)
 
 	request, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonRequestBody))
-	request.Header.Set("Content-Type", "application/json")
-
 	if err != nil {
 		return URLArbiterResponse{}, err
 	}
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("Accept", "application/json")
 
 	response, err := u.client.Do(request)
 	if err != nil {
 		return URLArbiterResponse{}, err
 	}
 
-	var arbiterResponse URLArbiterResponse
-	if err := json.NewDecoder(response.Body).Decode(&arbiterResponse); err != nil {
-		return URLArbiterResponse{}, err
+	arbiterResponse := URLArbiterResponse{}
+	if response.Header.Get("Content-Type") == "application/json" {
+		if err := json.NewDecoder(response.Body).Decode(&arbiterResponse); err != nil {
+			return URLArbiterResponse{}, err
+		}
 	}
 
 	if response.StatusCode >= 200 && response.StatusCode < 300 {
