@@ -14,14 +14,16 @@ var (
 )
 
 type ContentStoreClient struct {
-	client  *http.Client
-	rootURL string
+	client           *http.Client
+	rootURL          string
+	DraftStoreClient bool
 }
 
-func NewClient(rootURL string) *ContentStoreClient {
+func NewClient(rootURL string, draftStoreClient bool) *ContentStoreClient {
 	return &ContentStoreClient{
-		client:  &http.Client{},
-		rootURL: rootURL,
+		client:           &http.Client{},
+		rootURL:          rootURL,
+		DraftStoreClient: draftStoreClient,
 	}
 }
 
