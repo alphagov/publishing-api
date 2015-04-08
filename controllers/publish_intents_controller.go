@@ -15,7 +15,7 @@ type PublishIntentsController struct {
 func NewPublishIntentsController(arbiterURL, liveContentStoreURL string) *PublishIntentsController {
 	return &PublishIntentsController{
 		arbiter:          urlarbiter.NewURLArbiter(arbiterURL),
-		liveContentStore: contentstore.NewClient(liveContentStoreURL),
+		liveContentStore: contentstore.NewClient(liveContentStoreURL, false),
 	}
 }
 

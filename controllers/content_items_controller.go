@@ -18,8 +18,8 @@ type ContentItemsController struct {
 func NewContentItemsController(arbiterURL, liveContentStoreURL, draftContentStoreURL string) *ContentItemsController {
 	return &ContentItemsController{
 		arbiter:           urlarbiter.NewURLArbiter(arbiterURL),
-		liveContentStore:  contentstore.NewClient(liveContentStoreURL),
-		draftContentStore: contentstore.NewClient(draftContentStoreURL),
+		liveContentStore:  contentstore.NewClient(liveContentStoreURL, false),
+		draftContentStore: contentstore.NewClient(draftContentStoreURL, true),
 	}
 }
 

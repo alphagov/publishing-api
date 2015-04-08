@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/alphagov/publishing-api/contentstore"
 	"github.com/alphagov/publishing-api/urlarbiter"
@@ -75,9 +76,14 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in request to content-store", err))
 			return
 		}
-		w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
-		w.WriteHeader(resp.StatusCode)
-		io.Copy(w, resp.Body)
+
+		if resp.StatusCode == http.StatusBadGateway && contentStoreClient.DraftStoreClient && os.Getenv("SUPPRESS_DRAFT_STORE_502_ERROR") == "1" {
+			w.WriteHeader(http.StatusOK)
+		} else {
+			w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
+			w.WriteHeader(resp.StatusCode)
+			io.Copy(w, resp.Body)
+		}
 	}
 }
 
