@@ -3,6 +3,7 @@ package integration
 import (
 	"net/http"
 	"net/http/httptest"
+	"os"
 
 	"github.com/alphagov/publishing-api"
 
@@ -132,6 +133,21 @@ var _ = Describe("Draft Content Item Requests", func() {
 			expectedResponseBody := `{"message": "Invalid JSON in request body: invalid character 'i' looking for beginning of value"}`
 			expectedResponse = HTTPTestResponse{Code: http.StatusBadRequest, Body: expectedResponseBody}
 			assertSameResponse(actualResponse, &expectedResponse)
+		})
+
+		Describe("with SUPPRESS_DRAFT_STORE_502_ERROR set to 1", func() {
+			It("returns a 200 OK when draft content store is not running", func() {
+				os.Setenv("SUPPRESS_DRAFT_STORE_502_ERROR", "1")
+				defer os.Unsetenv("SUPPRESS_DRAFT_STORE_502_ERROR")
+
+				urlArbiterResponseCode, urlArbiterResponseBody = http.StatusOK, urlArbiterResponse
+				draftContentStoreResponseCode, draftContentStoreResponseBody = http.StatusBadGateway, ``
+
+				actualResponse := doRequest("PUT", endpoint, contentItemPayload)
+
+				expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: ""}
+				assertSameResponse(actualResponse, &expectedResponse)
+			})
 		})
 	})
 })
