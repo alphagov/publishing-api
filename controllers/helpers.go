@@ -89,6 +89,7 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 
 func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreRequest) {
 	requestBody, err := ioutil.ReadAll(r.Body)
+	defer r.Body.Close()
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in reading your request body", err))
 		return nil, nil
