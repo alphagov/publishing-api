@@ -49,6 +49,9 @@ func (u *URLArbiter) Register(path, publishingAppName string) (URLArbiterRespons
 	request.Header.Set("Accept", "application/json")
 
 	response, err := u.client.Do(request)
+	if response != nil {
+		defer response.Body.Close()
+	}
 	if err != nil {
 		return URLArbiterResponse{}, err
 	}
