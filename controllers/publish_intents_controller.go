@@ -26,14 +26,17 @@ func (c *PublishIntentsController) PutPublishIntent(w http.ResponseWriter, r *ht
 			handleURLArbiterResponse(urlArbiterResponse, err, w)
 			return
 		}
-		doContentStoreRequest(c.liveContentStore, "PUT", r.URL.Path, requestBody, w)
+		resp, err := c.liveContentStore.DoRequest("PUT", r.URL.Path, requestBody)
+		handleContentStoreResponse(resp, err, w)
 	}
 }
 
 func (c *PublishIntentsController) GetPublishIntent(w http.ResponseWriter, r *http.Request) {
-	doContentStoreRequest(c.liveContentStore, "GET", r.URL.Path, nil, w)
+	resp, err := c.liveContentStore.DoRequest("GET", r.URL.Path, nil)
+	handleContentStoreResponse(resp, err, w)
 }
 
 func (c *PublishIntentsController) DeletePublishIntent(w http.ResponseWriter, r *http.Request) {
-	doContentStoreRequest(c.liveContentStore, "DELETE", r.URL.Path, nil, w)
+	resp, err := c.liveContentStore.DoRequest("DELETE", r.URL.Path, nil)
+	handleContentStoreResponse(resp, err, w)
 }

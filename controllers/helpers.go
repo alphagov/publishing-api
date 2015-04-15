@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/alphagov/publishing-api/contentstore"
 	"github.com/alphagov/publishing-api/urlarbiter"
 	"github.com/gorilla/mux"
 	"gopkg.in/unrolled/render.v1"
@@ -43,11 +42,7 @@ func handleURLArbiterResponse(urlArbiterResponse urlarbiter.URLArbiterResponse, 
 	}
 }
 
-// data will be nil for requests without bodies
-func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
-	httpMethod string, path string, data []byte, w http.ResponseWriter) {
-
-	resp, err := contentStoreClient.DoRequest(httpMethod, path, data)
+func handleContentStoreResponse(resp *http.Response, err error, w http.ResponseWriter) {
 	if resp != nil {
 		defer resp.Body.Close()
 	}
@@ -58,13 +53,9 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 			return
 		}
 
-		if resp.StatusCode == http.StatusBadGateway && contentStoreClient.DraftStoreClient && os.Getenv("SUPPRESS_DRAFT_STORE_502_ERROR") == "1" {
-			w.WriteHeader(http.StatusOK)
-		} else {
-			w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
-			w.WriteHeader(resp.StatusCode)
-			io.Copy(w, resp.Body)
-		}
+		w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
+		w.WriteHeader(resp.StatusCode)
+		io.Copy(w, resp.Body)
 	}
 }
 
