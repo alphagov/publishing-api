@@ -5,7 +5,6 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
 
 	"github.com/alphagov/publishing-api/urlarbiter"
 	"github.com/gorilla/mux"
