@@ -4,6 +4,7 @@ gom 'github.com/gorilla/context', :commit => '215affda49addc4c8ef7e2534915df2c8c
 gom 'gopkg.in/unrolled/render.v1', :commit => '40ac5716c7e0bffcc440aac649ea4b880a5d7735'
 gom 'github.com/alext/tablecloth', :commit => '7f49e40'
 gom 'github.com/alphagov/plek/go', :commit => 'f5da97e'
+gom 'github.com/dwilkie/gobrake', :commit => '716d910'
 
 # Testing
 gom 'github.com/onsi/ginkgo', :commit => '75d0cd9c7ee52e99b13e6ccfd9e58b4f92b7795e'
