@@ -22,7 +22,8 @@ func NewPublishIntentsController(arbiterURL, liveContentStoreURL string) *Publis
 func (c *PublishIntentsController) PutPublishIntent(w http.ResponseWriter, r *http.Request) {
 	requestBody, contentStoreRequest := readRequest(w, r)
 	if contentStoreRequest != nil {
-		if !registerWithURLArbiter(c.arbiter, extractBasePath(r), contentStoreRequest.PublishingApp, w) {
+		if urlArbiterResponse, err := c.arbiter.Register(extractBasePath(r), contentStoreRequest.PublishingApp); err != nil {
+			handleURLArbiterResponse(urlArbiterResponse, err, w)
 			return
 		}
 		doContentStoreRequest(c.liveContentStore, "PUT", r.URL.Path, requestBody, w)

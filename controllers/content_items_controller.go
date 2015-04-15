@@ -26,7 +26,8 @@ func NewContentItemsController(arbiterURL, liveContentStoreURL, draftContentStor
 func (c *ContentItemsController) PutDraftContentItem(w http.ResponseWriter, r *http.Request) {
 	requestBody, contentStoreRequest := readRequest(w, r)
 	if contentStoreRequest != nil {
-		if !registerWithURLArbiter(c.arbiter, extractBasePath(r), contentStoreRequest.PublishingApp, w) {
+		if urlArbiterResponse, err := c.arbiter.Register(extractBasePath(r), contentStoreRequest.PublishingApp); err != nil {
+			handleURLArbiterResponse(urlArbiterResponse, err, w)
 			return
 		}
 		doContentStoreRequest(c.draftContentStore, "PUT", strings.Replace(r.URL.Path, "/draft-content/", "/content/", 1), requestBody, w)
@@ -36,7 +37,8 @@ func (c *ContentItemsController) PutDraftContentItem(w http.ResponseWriter, r *h
 func (c *ContentItemsController) PutLiveContentItem(w http.ResponseWriter, r *http.Request) {
 	requestBody, contentStoreRequest := readRequest(w, r)
 	if contentStoreRequest != nil {
-		if !registerWithURLArbiter(c.arbiter, extractBasePath(r), contentStoreRequest.PublishingApp, w) {
+		if urlArbiterResponse, err := c.arbiter.Register(extractBasePath(r), contentStoreRequest.PublishingApp); err != nil {
+			handleURLArbiterResponse(urlArbiterResponse, err, w)
 			return
 		}
 

@@ -29,11 +29,7 @@ func NewErrorResponse(message string, err error) *ErrorResponse {
 	}
 }
 
-// Register the given path and publishing app with the URL arbiter.  Returns
-// true on success.  On failure, writes an error to the ResponseWriter, and
-// returns false
-func registerWithURLArbiter(urlArbiter *urlarbiter.URLArbiter, path, publishingApp string, w http.ResponseWriter) bool {
-	urlArbiterResponse, err := urlArbiter.Register(path, publishingApp)
+func handleURLArbiterResponse(urlArbiterResponse urlarbiter.URLArbiterResponse, err error, w http.ResponseWriter) {
 	if err != nil {
 		switch err {
 		case urlarbiter.ConflictPathAlreadyReserved:
@@ -44,9 +40,7 @@ func registerWithURLArbiter(urlArbiter *urlarbiter.URLArbiter, path, publishingA
 			message := "Unexpected error whilst registering with url-arbiter"
 			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse(message, err))
 		}
-		return false
 	}
-	return true
 }
 
 // data will be nil for requests without bodies
