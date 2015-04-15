@@ -65,7 +65,7 @@ var _ = Describe("Draft Content Item Requests", func() {
 			ghttp.RespondWithPtr(&liveContentStoreResponseCode, &liveContentStoreResponseBody),
 		))
 
-		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL(), testDraftContentStore.URL()))
+		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL(), testDraftContentStore.URL(), nil))
 		endpoint = testPublishingAPI.URL + "/draft-content/vat-rates"
 	})
 

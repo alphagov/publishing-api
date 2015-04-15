@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/alphagov/publishing-api/errornotifier"
 	"github.com/alphagov/publishing-api/urlarbiter"
 	"github.com/gorilla/mux"
 	"gopkg.in/unrolled/render.v1"
@@ -27,7 +28,9 @@ func NewErrorResponse(message string, err error) *ErrorResponse {
 	}
 }
 
-func handleURLArbiterResponse(urlArbiterResponse urlarbiter.URLArbiterResponse, err error, w http.ResponseWriter) {
+func handleURLArbiterResponse(urlArbiterResponse urlarbiter.URLArbiterResponse, err error,
+	w http.ResponseWriter, r *http.Request, errbitNotifier errornotifier.Notifier) {
+
 	if err != nil {
 		switch err {
 		case urlarbiter.ConflictPathAlreadyReserved:
@@ -41,7 +44,9 @@ func handleURLArbiterResponse(urlArbiterResponse urlarbiter.URLArbiterResponse, 
 	}
 }
 
-func handleContentStoreResponse(resp *http.Response, err error, w http.ResponseWriter) {
+func handleContentStoreResponse(resp *http.Response, err error, w http.ResponseWriter,
+	r *http.Request, errbitNotifier errornotifier.Notifier) {
+
 	if resp != nil {
 		defer resp.Body.Close()
 	}
@@ -63,7 +68,7 @@ func extractBasePath(r *http.Request) string {
 	return urlParameters["base_path"]
 }
 
-func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreRequest) {
+func readRequest(w http.ResponseWriter, r *http.Request, errbitNotifier errornotifier.Notifier) ([]byte, *ContentStoreRequest) {
 	requestBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in reading your request body", err))
