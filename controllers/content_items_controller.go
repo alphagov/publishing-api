@@ -24,24 +24,33 @@ func NewContentItemsController(arbiterURL, liveContentStoreURL, draftContentStor
 }
 
 func (c *ContentItemsController) PutDraftContentItem(w http.ResponseWriter, r *http.Request) {
-	registerWithURLArbiterAndForward(c.arbiter, w, r, func(basePath string, requestBody []byte) {
-		doContentStoreRequest(c.draftContentStore, "PUT", strings.Replace(basePath, "/draft-content/", "/content/", 1), requestBody, w)
-	})
+	requestBody, contentStoreRequest := readRequest(w, r)
+	if contentStoreRequest != nil {
+		if !registerWithURLArbiter(c.arbiter, extractBasePath(r), contentStoreRequest.PublishingApp, w) {
+			return
+		}
+		doContentStoreRequest(c.draftContentStore, "PUT", strings.Replace(r.URL.Path, "/draft-content/", "/content/", 1), requestBody, w)
+	}
 }
 
 func (c *ContentItemsController) PutLiveContentItem(w http.ResponseWriter, r *http.Request) {
-	registerWithURLArbiterAndForward(c.arbiter, w, r, func(basePath string, requestBody []byte) {
+	requestBody, contentStoreRequest := readRequest(w, r)
+	if contentStoreRequest != nil {
+		if !registerWithURLArbiter(c.arbiter, extractBasePath(r), contentStoreRequest.PublishingApp, w) {
+			return
+		}
+
 		var wg sync.WaitGroup
 		wg.Add(2)
 		go func() {
 			defer wg.Done()
-			doContentStoreRequest(c.liveContentStore, "PUT", basePath, requestBody, w)
+			doContentStoreRequest(c.liveContentStore, "PUT", r.URL.Path, requestBody, w)
 		}()
 		go func() {
 			defer wg.Done()
 			// for now, we ignore the response from draft content store for storing live content, hence `w` is nil
-			doContentStoreRequest(c.draftContentStore, "PUT", basePath, requestBody, nil)
+			doContentStoreRequest(c.draftContentStore, "PUT", r.URL.Path, requestBody, nil)
 		}()
 		wg.Wait()
-	})
+	}
 }

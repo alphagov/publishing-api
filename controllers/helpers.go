@@ -29,19 +29,6 @@ func NewErrorResponse(message string, err error) *ErrorResponse {
 	}
 }
 
-func registerWithURLArbiterAndForward(urlArbiter *urlarbiter.URLArbiter, w http.ResponseWriter, r *http.Request,
-	afterRegister func(basePath string, requestBody []byte)) {
-
-	urlParameters := mux.Vars(r)
-	requestBody, contentStoreRequest := readRequest(w, r)
-	if contentStoreRequest != nil {
-		if !registerWithURLArbiter(urlArbiter, urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
-			return
-		}
-		afterRegister(r.URL.Path, requestBody)
-	}
-}
-
 // Register the given path and publishing app with the URL arbiter.  Returns
 // true on success.  On failure, writes an error to the ResponseWriter, and
 // returns false
@@ -85,6 +72,11 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 			io.Copy(w, resp.Body)
 		}
 	}
+}
+
+func extractBasePath(r *http.Request) string {
+	urlParameters := mux.Vars(r)
+	return urlParameters["base_path"]
 }
 
 func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreRequest) {
