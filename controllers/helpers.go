@@ -29,7 +29,7 @@ func NewErrorResponse(message string, err error) *ErrorResponse {
 }
 
 func handleURLArbiterResponse(urlArbiterResponse urlarbiter.URLArbiterResponse, err error,
-	w http.ResponseWriter, r *http.Request, errbitNotifier errornotifier.Notifier) {
+	w http.ResponseWriter, r *http.Request, errorNotifier errornotifier.Notifier) {
 
 	if err != nil {
 		switch err {
@@ -40,15 +40,15 @@ func handleURLArbiterResponse(urlArbiterResponse urlarbiter.URLArbiterResponse, 
 		default:
 			message := "Unexpected error whilst registering with url-arbiter"
 			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse(message, err))
-			if errbitNotifier != nil {
-				errbitNotifier.Notify(err, r)
+			if errorNotifier != nil {
+				errorNotifier.Notify(err, r)
 			}
 		}
 	}
 }
 
 func handleContentStoreResponse(resp *http.Response, err error, w http.ResponseWriter,
-	r *http.Request, errbitNotifier errornotifier.Notifier) {
+	r *http.Request, errorNotifier errornotifier.Notifier) {
 
 	if resp != nil {
 		defer resp.Body.Close()
@@ -57,8 +57,8 @@ func handleContentStoreResponse(resp *http.Response, err error, w http.ResponseW
 	if w != nil {
 		if err != nil {
 			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in request to content-store", err))
-			if errbitNotifier != nil {
-				errbitNotifier.Notify(err, r)
+			if errorNotifier != nil {
+				errorNotifier.Notify(err, r)
 			}
 			return
 		}
@@ -74,12 +74,12 @@ func extractBasePath(r *http.Request) string {
 	return urlParameters["base_path"]
 }
 
-func readRequest(w http.ResponseWriter, r *http.Request, errbitNotifier errornotifier.Notifier) ([]byte, *ContentStoreRequest) {
+func readRequest(w http.ResponseWriter, r *http.Request, errorNotifier errornotifier.Notifier) ([]byte, *ContentStoreRequest) {
 	requestBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in reading your request body", err))
-		if errbitNotifier != nil {
-			errbitNotifier.Notify(err, r)
+		if errorNotifier != nil {
+			errorNotifier.Notify(err, r)
 		}
 		return nil, nil
 	}
@@ -91,8 +91,8 @@ func readRequest(w http.ResponseWriter, r *http.Request, errbitNotifier errornot
 			renderer.JSON(w, http.StatusBadRequest, NewErrorResponse("Invalid JSON in request body", err))
 		default:
 			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error unmarshalling your request body to JSON", err))
-			if errbitNotifier != nil {
-				errbitNotifier.Notify(err, r)
+			if errorNotifier != nil {
+				errorNotifier.Notify(err, r)
 			}
 		}
 		return nil, nil

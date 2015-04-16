@@ -26,24 +26,24 @@ var (
 
 	renderer = render.New(render.Options{})
 
-	errbitHost     = os.Getenv("ERRBIT_HOST")
-	errbitApiKey   = os.Getenv("ERRBIT_API_KEY")
-	errbitEnvName  = os.Getenv("ERRBIT_ENVIRONMENT_NAME")
-	errbitNotifier errornotifier.Notifier
+	errbitHost    = os.Getenv("ERRBIT_HOST")
+	errbitApiKey  = os.Getenv("ERRBIT_API_KEY")
+	errbitEnvName = os.Getenv("ERRBIT_ENVIRONMENT_NAME")
+	errorNotifier errornotifier.Notifier
 )
 
-func BuildHTTPMux(arbiterURL, liveContentStoreURL, draftContentStoreURL string, errbitNotifier errornotifier.Notifier) http.Handler {
+func BuildHTTPMux(arbiterURL, liveContentStoreURL, draftContentStoreURL string, errorNotifier errornotifier.Notifier) http.Handler {
 	httpMux := mux.NewRouter()
 
 	httpMux.Methods("GET").Path("/healthcheck").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		renderer.JSON(w, http.StatusOK, map[string]string{"status": "OK"})
 	})
 
-	contentItemsController := controllers.NewContentItemsController(arbiterURL, liveContentStoreURL, draftContentStoreURL, errbitNotifier)
+	contentItemsController := controllers.NewContentItemsController(arbiterURL, liveContentStoreURL, draftContentStoreURL, errorNotifier)
 	httpMux.Methods("PUT").Path("/draft-content{base_path:/.*}").HandlerFunc(contentItemsController.PutDraftContentItem)
 	httpMux.Methods("PUT").Path("/content{base_path:/.*}").HandlerFunc(contentItemsController.PutLiveContentItem)
 
-	publishIntentsController := controllers.NewPublishIntentsController(arbiterURL, liveContentStoreURL, errbitNotifier)
+	publishIntentsController := controllers.NewPublishIntentsController(arbiterURL, liveContentStoreURL, errorNotifier)
 	httpMux.Methods("PUT").Path("/publish-intent{base_path:/.*}").HandlerFunc(publishIntentsController.PutPublishIntent)
 	httpMux.Methods("GET").Path("/publish-intent{base_path:/.*}").HandlerFunc(publishIntentsController.GetPublishIntent)
 	httpMux.Methods("DELETE").Path("/publish-intent{base_path:/.*}").HandlerFunc(publishIntentsController.DeletePublishIntent)
@@ -53,15 +53,15 @@ func BuildHTTPMux(arbiterURL, liveContentStoreURL, draftContentStoreURL string, 
 
 func main() {
 	if errbitHost != "" && errbitApiKey != "" && errbitEnvName != "" {
-		errbitNotifier = errornotifier.NewErrbitNotifier(errbitHost, errbitApiKey, errbitEnvName)
+		errorNotifier = errornotifier.NewErrbitNotifier(errbitHost, errbitApiKey, errbitEnvName)
 	}
 
-	httpMux := BuildHTTPMux(arbiterURL, liveContentStoreURL, draftContentStoreURL, errbitNotifier)
+	httpMux := BuildHTTPMux(arbiterURL, liveContentStoreURL, draftContentStoreURL, errorNotifier)
 
 	requestLogger, err := request_logger.New(requestLogDest)
 	if err != nil {
-		if errbitNotifier != nil {
-			errbitNotifier.Notify(err, &http.Request{})
+		if errorNotifier != nil {
+			errorNotifier.Notify(err, &http.Request{})
 		}
 		log.Fatal(err)
 	}
@@ -79,8 +79,8 @@ func main() {
 
 	err = tablecloth.ListenAndServe(":"+port, middleware)
 	if err != nil {
-		if errbitNotifier != nil {
-			errbitNotifier.Notify(err, &http.Request{})
+		if errorNotifier != nil {
+			errorNotifier.Notify(err, &http.Request{})
 		}
 		log.Fatal(err)
 	}
