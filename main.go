@@ -26,7 +26,7 @@ var (
 
 	renderer = render.New(render.Options{})
 
-	errbitHost    = os.Getenv("ERRBIT_HOST")
+	errbitHost    = plek.FindURL("errbit").Host
 	errbitApiKey  = os.Getenv("ERRBIT_API_KEY")
 	errbitEnvName = os.Getenv("ERRBIT_ENVIRONMENT_NAME")
 	errorNotifier errornotifier.Notifier
