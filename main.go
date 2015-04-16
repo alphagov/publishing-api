@@ -60,6 +60,9 @@ func main() {
 
 	requestLogger, err := request_logger.New(requestLogDest)
 	if err != nil {
+		if errbitNotifier != nil {
+			errbitNotifier.Notify(err, &http.Request{})
+		}
 		log.Fatal(err)
 	}
 
@@ -76,6 +79,9 @@ func main() {
 
 	err = tablecloth.ListenAndServe(":"+port, middleware)
 	if err != nil {
+		if errbitNotifier != nil {
+			errbitNotifier.Notify(err, &http.Request{})
+		}
 		log.Fatal(err)
 	}
 }
