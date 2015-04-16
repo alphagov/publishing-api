@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	arbiterHost         = plek.Find("url-arbiter")
+	arbiterURL          = plek.Find("url-arbiter")
 	liveContentStoreURL = getEnvDefault("CONTENT_STORE", "http://content-store.dev.gov.uk")
 	port                = getEnvDefault("PORT", "3093")
 	requestLogDest      = getEnvDefault("REQUEST_LOG", "STDOUT")
@@ -56,7 +56,7 @@ func main() {
 		errbitNotifier = errornotifier.NewErrbitNotifier(errbitHost, errbitApiKey, errbitEnvName)
 	}
 
-	httpMux := BuildHTTPMux(arbiterHost, liveContentStoreURL, draftContentStoreURL, errbitNotifier)
+	httpMux := BuildHTTPMux(arbiterURL, liveContentStoreURL, draftContentStoreURL, errbitNotifier)
 
 	requestLogger, err := request_logger.New(requestLogDest)
 	if err != nil {
