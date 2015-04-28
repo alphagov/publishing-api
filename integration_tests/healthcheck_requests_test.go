@@ -11,7 +11,7 @@ import (
 
 var _ = Describe("GET /healthcheck", func() {
 	It("has a healthcheck endpoint which responds with a status of OK", func() {
-		var testPublishingAPI = httptest.NewServer(main.BuildHTTPMux("", "", ""))
+		var testPublishingAPI = httptest.NewServer(main.BuildHTTPMux("", "", "", nil))
 
 		actualResponse := doRequest("GET", testPublishingAPI.URL+"/healthcheck", nil)
 

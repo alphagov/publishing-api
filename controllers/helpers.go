@@ -5,9 +5,8 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
 
-	"github.com/alphagov/publishing-api/contentstore"
+	"github.com/alphagov/publishing-api/errornotifier"
 	"github.com/alphagov/publishing-api/urlarbiter"
 	"github.com/gorilla/mux"
 	"gopkg.in/unrolled/render.v1"
@@ -29,24 +28,9 @@ func NewErrorResponse(message string, err error) *ErrorResponse {
 	}
 }
 
-func registerWithURLArbiterAndForward(urlArbiter *urlarbiter.URLArbiter, w http.ResponseWriter, r *http.Request,
-	afterRegister func(basePath string, requestBody []byte)) {
+func handleURLArbiterResponse(urlArbiterResponse urlarbiter.URLArbiterResponse, err error,
+	w http.ResponseWriter, r *http.Request, errorNotifier errornotifier.Notifier) {
 
-	urlParameters := mux.Vars(r)
-	requestBody, contentStoreRequest := readRequest(w, r)
-	if contentStoreRequest != nil {
-		if !registerWithURLArbiter(urlArbiter, urlParameters["base_path"], contentStoreRequest.PublishingApp, w) {
-			return
-		}
-		afterRegister(r.URL.Path, requestBody)
-	}
-}
-
-// Register the given path and publishing app with the URL arbiter.  Returns
-// true on success.  On failure, writes an error to the ResponseWriter, and
-// returns false
-func registerWithURLArbiter(urlArbiter *urlarbiter.URLArbiter, path, publishingApp string, w http.ResponseWriter) bool {
-	urlArbiterResponse, err := urlArbiter.Register(path, publishingApp)
 	if err != nil {
 		switch err {
 		case urlarbiter.ConflictPathAlreadyReserved:
@@ -56,17 +40,16 @@ func registerWithURLArbiter(urlArbiter *urlarbiter.URLArbiter, path, publishingA
 		default:
 			message := "Unexpected error whilst registering with url-arbiter"
 			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse(message, err))
+			if errorNotifier != nil {
+				errorNotifier.Notify(err, r)
+			}
 		}
-		return false
 	}
-	return true
 }
 
-// data will be nil for requests without bodies
-func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
-	httpMethod string, path string, data []byte, w http.ResponseWriter) {
+func handleContentStoreResponse(resp *http.Response, err error, w http.ResponseWriter,
+	r *http.Request, errorNotifier errornotifier.Notifier) {
 
-	resp, err := contentStoreClient.DoRequest(httpMethod, path, data)
 	if resp != nil {
 		defer resp.Body.Close()
 	}
@@ -74,24 +57,31 @@ func doContentStoreRequest(contentStoreClient *contentstore.ContentStoreClient,
 	if w != nil {
 		if err != nil {
 			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in request to content-store", err))
+			if errorNotifier != nil {
+				errorNotifier.Notify(err, r)
+			}
 			return
 		}
 
-		if resp.StatusCode == http.StatusBadGateway && contentStoreClient.DraftStoreClient && os.Getenv("SUPPRESS_DRAFT_STORE_502_ERROR") == "1" {
-			w.WriteHeader(http.StatusOK)
-		} else {
-			w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
-			w.WriteHeader(resp.StatusCode)
-			io.Copy(w, resp.Body)
-		}
+		w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
+		w.WriteHeader(resp.StatusCode)
+		io.Copy(w, resp.Body)
 	}
 }
 
-func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreRequest) {
+func extractBasePath(r *http.Request) string {
+	urlParameters := mux.Vars(r)
+	return urlParameters["base_path"]
+}
+
+func readRequest(w http.ResponseWriter, r *http.Request, errorNotifier errornotifier.Notifier) ([]byte, *ContentStoreRequest) {
 	requestBody, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	if err != nil {
 		renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error in reading your request body", err))
+		if errorNotifier != nil {
+			errorNotifier.Notify(err, r)
+		}
 		return nil, nil
 	}
 
@@ -102,6 +92,9 @@ func readRequest(w http.ResponseWriter, r *http.Request) ([]byte, *ContentStoreR
 			renderer.JSON(w, http.StatusBadRequest, NewErrorResponse("Invalid JSON in request body", err))
 		default:
 			renderer.JSON(w, http.StatusInternalServerError, NewErrorResponse("Unexpected error unmarshalling your request body to JSON", err))
+			if errorNotifier != nil {
+				errorNotifier.Notify(err, r)
+			}
 		}
 		return nil, nil
 	}

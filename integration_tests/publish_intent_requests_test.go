@@ -42,7 +42,7 @@ var _ = Describe("Publish Intent Requests", func() {
 		testLiveContentStore = ghttp.NewServer()
 		testDraftContentStore = ghttp.NewServer()
 
-		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL(), testDraftContentStore.URL()))
+		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL(), testDraftContentStore.URL(), nil))
 		endpoint = testPublishingAPI.URL + "/publish-intent/vat-rates"
 	})
 

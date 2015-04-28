@@ -43,7 +43,7 @@ var _ = Describe("URLArbiter", func() {
 				),
 			)
 
-			client := contentstore.NewClient(testServer.URL(), false)
+			client := contentstore.NewClient(testServer.URL())
 
 			response, err := client.DoRequest("PUT", "/foo/bar", []byte("Something"))
 
@@ -64,7 +64,7 @@ var _ = Describe("URLArbiter", func() {
 				),
 			)
 
-			client := contentstore.NewClient(testServer.URL(), false)
+			client := contentstore.NewClient(testServer.URL())
 
 			response, err := client.DoRequest("GET", "/foo/bar", nil)
 
