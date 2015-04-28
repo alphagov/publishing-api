@@ -2,7 +2,7 @@
 
 BINARY := publishing-api
 ORG_PATH := github.com/alphagov
-REPO_PATH := $(ORG_PATH)/$(BINARY)
+IMPORT_PATH := $(ORG_PATH)/publishing-api
 VENDOR_STAMP := _vendor/stamp
 
 all: check_fmt test build
@@ -24,11 +24,9 @@ clean:
 check_fmt:
 	./check_fmt.sh
 
-$(VENDOR_STAMP): Gomfile _vendor/src/$(REPO_PATH)
+$(VENDOR_STAMP): Gomfile
+	rm -rf _vendor/src/$(IMPORT_PATH)
+	mkdir -p _vendor/src/$(ORG_PATH)
+	ln -s $(CURDIR) _vendor/src/$(IMPORT_PATH)
 	gom install
 	touch $(VENDOR_STAMP)
-
-_vendor/src/$(REPO_PATH):
-	rm -rf _vendor/src/$(ORG_PATH)
-	mkdir -p _vendor/src/$(ORG_PATH)
-	ln -s $(CURDIR) _vendor/src/$(REPO_PATH)
