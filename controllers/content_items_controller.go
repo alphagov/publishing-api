@@ -35,7 +35,7 @@ func (c *ContentItemsController) PutDraftContentItem(w http.ResponseWriter, r *h
 			return
 		}
 		resp, err := c.draftContentStore.DoRequest("PUT", strings.Replace(r.URL.Path, "/draft-content/", "/content/", 1), requestBody)
-		if resp.StatusCode == http.StatusBadGateway && os.Getenv("SUPPRESS_DRAFT_STORE_502_ERROR") == "1" {
+		if err == nil && resp.StatusCode == http.StatusBadGateway && os.Getenv("SUPPRESS_DRAFT_STORE_502_ERROR") == "1" {
 			w.WriteHeader(http.StatusOK)
 		} else {
 			handleContentStoreResponse(resp, err, w, r, c.errorNotifier)
@@ -61,7 +61,7 @@ func (c *ContentItemsController) PutLiveContentItem(w http.ResponseWriter, r *ht
 		go func() {
 			defer wg.Done()
 			resp, err := c.draftContentStore.DoRequest("PUT", r.URL.Path, requestBody)
-			if resp.StatusCode == http.StatusBadGateway && os.Getenv("SUPPRESS_DRAFT_STORE_502_ERROR") == "1" {
+			if err == nil && resp.StatusCode == http.StatusBadGateway && os.Getenv("SUPPRESS_DRAFT_STORE_502_ERROR") == "1" {
 				w.WriteHeader(http.StatusOK)
 			} else {
 				// for now, we ignore the response from draft content store for storing live content, hence `w` is nil
