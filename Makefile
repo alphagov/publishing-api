@@ -27,6 +27,6 @@ check_fmt:
 $(VENDOR_STAMP): Gomfile
 	rm -rf _vendor/src/$(IMPORT_PATH)
 	mkdir -p _vendor/src/$(ORG_PATH)
-	ln -s $(CURDIR) _vendor/src/$(IMPORT_PATH)
+	ln -s ../../../.. _vendor/src/$(IMPORT_PATH)
 	gom install
 	touch $(VENDOR_STAMP)
