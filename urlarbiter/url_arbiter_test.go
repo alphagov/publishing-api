@@ -80,7 +80,7 @@ var _ = Describe("URLArbiter", func() {
 
 func buildTestServer(status int, body string) *httptest.Server {
 	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-type", "application/json")
+		w.Header().Set("Content-type", "application/json; charset=utf-8")
 		w.WriteHeader(status)
 		fmt.Fprintln(w, body)
 	}))
