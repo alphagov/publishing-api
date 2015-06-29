@@ -51,16 +51,18 @@ func (c *ContentItemsController) PutLiveContentItem(w http.ResponseWriter, r *ht
 			return
 		}
 
+		requestBodyWithoutAccessLimiting := stripAccessLimitingMetadata(requestBody)
+
 		var wg sync.WaitGroup
 		wg.Add(2)
 		go func() {
 			defer wg.Done()
-			resp, err := c.liveContentStore.DoRequest("PUT", r.URL.Path, requestBody)
+			resp, err := c.liveContentStore.DoRequest("PUT", r.URL.Path, requestBodyWithoutAccessLimiting)
 			handleContentStoreResponse(resp, err, w, r, c.errorNotifier)
 		}()
 		go func() {
 			defer wg.Done()
-			resp, err := c.draftContentStore.DoRequest("PUT", r.URL.Path, requestBody)
+			resp, err := c.draftContentStore.DoRequest("PUT", r.URL.Path, requestBodyWithoutAccessLimiting)
 			if err == nil && resp.StatusCode == http.StatusBadGateway && os.Getenv("SUPPRESS_DRAFT_STORE_502_ERROR") == "1" {
 				w.WriteHeader(http.StatusOK)
 			} else {
