@@ -2,6 +2,7 @@ package integration
 
 import (
 	"bytes"
+	"encoding/json"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -15,6 +16,13 @@ func readResponseBody(response *http.Response) (string, error) {
 	defer response.Body.Close()
 
 	return strings.TrimSpace(string(body)), err
+}
+
+func doJSONRequest(verb string, url string, object interface{}) *http.Response {
+	jsonPayload, err := json.Marshal(object)
+	Expect(err).To(BeNil())
+
+	return doRequest(verb, url, jsonPayload)
 }
 
 func doRequest(verb string, url string, body []byte) *http.Response {
