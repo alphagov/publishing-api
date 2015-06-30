@@ -25,6 +25,12 @@ var _ = Describe("Draft Content Item Requests", func() {
 			"app":      "or format",
 			"specific": "data...",
 		},
+		"access_limited": map[string]interface{}{
+			"users": []string{
+				"f17250b0-7540-0131-f036-005056030202",
+				"74c7d700-5b4a-0131-7a8e-005056030037",
+			},
+		},
 	}
 
 	var testPublishingAPI *httptest.Server
@@ -99,7 +105,7 @@ var _ = Describe("Draft Content Item Requests", func() {
 			})
 		})
 
-		It("registers a path with URL arbiter and then publishes the content only to the draft content store", func() {
+		It("registers a path with URL arbiter and then publishes the content only to the draft content store including access limiting information", func() {
 			testDraftContentStore.AppendHandlers(ghttp.CombineHandlers(
 				trackRequest(DraftContentStoreRequestLabel),
 				ghttp.VerifyRequest("PUT", "/content/vat-rates"),
