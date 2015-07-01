@@ -101,3 +101,17 @@ func readRequest(w http.ResponseWriter, r *http.Request, errorNotifier errornoti
 
 	return requestBody, contentStoreRequest
 }
+
+func stripAccessLimitingMetadata(body []byte) []byte {
+	// This helper doesn't do any error handling as
+	// the request has already been passed through
+	// helpers#readRequest which does appropriate
+	// error handling.
+	var unmarshalled map[string]interface{}
+	json.Unmarshal(body, &unmarshalled)
+
+	delete(unmarshalled, "access_limited")
+
+	withoutAccessLimitedField, _ := json.Marshal(unmarshalled)
+	return withoutAccessLimitedField
+}

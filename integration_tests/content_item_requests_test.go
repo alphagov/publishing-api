@@ -1,6 +1,7 @@
 package integration
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 
@@ -12,56 +13,60 @@ import (
 )
 
 var _ = Describe("Content Item Requests", func() {
-	var (
-		contentItemJSON = `{
-      "base_path": "/vat-rates",
-      "title": "VAT Rates",
-      "description": "VAT rates for goods and services",
-      "format": "guide",
-      "publishing_app": "mainstream_publisher",
-      "locale": "en",
-      "details": {
-        "app": "or format",
-        "specific": "data..."
-      }
-    }`
-		contentItemPayload = []byte(contentItemJSON)
-		urlArbiterResponse = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
+	contentItemWithAccessLimiting := map[string]interface{}{
+		"base_path":      "/vat-rates",
+		"title":          "VAT Rates",
+		"description":    "VAT rates for goods and services",
+		"format":         "guide",
+		"publishing_app": "mainstream_publisher",
+		"locale":         "en",
+		"details": map[string]interface{}{
+			"app":      "or format",
+			"specific": "data...",
+		},
+		"access_limited": map[string]interface{}{
+			"users": []string{
+				"f17250b0-7540-0131-f036-005056030202",
+				"74c7d700-5b4a-0131-7a8e-005056030037",
+			},
+		},
+	}
 
-		testPublishingAPI                                           *httptest.Server
-		testURLArbiter, testDraftContentStore, testLiveContentStore *ghttp.Server
+	contentItem := make(map[string]interface{})
 
-		urlArbiterResponseCode, draftContentStoreResponseCode, liveContentStoreResponseCode           int
-		urlArbiterResponseBody, draftContentStoreResponseBody, liveContentStoreResponseBody, endpoint string
+	for k, v := range contentItemWithAccessLimiting {
+		if k != "access_limited" {
+			contentItem[k] = v
+		}
+	}
 
-		expectedResponse HTTPTestResponse
-	)
+	var testPublishingAPI *httptest.Server
+	var testURLArbiter, testDraftContentStore, testLiveContentStore *ghttp.Server
+	var endpoint string
+
+	var expectedResponse HTTPTestResponse
+
+	// Mock server configurations. A default is set in the BeforeEach, but can be
+	// overridden if needed in your test.
+	var urlArbiterResponseCode int
+	var urlArbiterResponseBody string
 
 	BeforeEach(func() {
+		// URL arbiter mock server - default response (override in your test if needed)
+		urlArbiterResponseCode = http.StatusOK
+		urlArbiterResponseBody = `{"path":"/vat-rates","publishing_app":"mainstream_publisher"}`
+
 		TestRequestOrderTracker = make(chan TestRequestLabel, 3)
 
 		testURLArbiter = ghttp.NewServer()
+		testDraftContentStore = ghttp.NewServer()
+		testLiveContentStore = ghttp.NewServer()
+
 		testURLArbiter.AppendHandlers(ghttp.CombineHandlers(
 			trackRequest(URLArbiterRequestLabel),
 			ghttp.VerifyRequest("PUT", "/paths/vat-rates"),
 			ghttp.VerifyJSON(`{"publishing_app": "mainstream_publisher"}`),
 			ghttp.RespondWithPtr(&urlArbiterResponseCode, &urlArbiterResponseBody, http.Header{"Content-Type": []string{"application/json"}}),
-		))
-
-		testDraftContentStore = ghttp.NewServer()
-		testDraftContentStore.AppendHandlers(ghttp.CombineHandlers(
-			trackRequest(DraftContentStoreRequestLabel),
-			ghttp.VerifyRequest("PUT", "/content/vat-rates"),
-			ghttp.VerifyJSON(contentItemJSON),
-			ghttp.RespondWithPtr(&draftContentStoreResponseCode, &draftContentStoreResponseBody),
-		))
-
-		testLiveContentStore = ghttp.NewServer()
-		testLiveContentStore.AppendHandlers(ghttp.CombineHandlers(
-			trackRequest(LiveContentStoreRequestLabel),
-			ghttp.VerifyRequest("PUT", "/content/vat-rates"),
-			ghttp.VerifyJSON(contentItemJSON),
-			ghttp.RespondWithPtr(&liveContentStoreResponseCode, &liveContentStoreResponseBody),
 		))
 
 		testPublishingAPI = httptest.NewServer(main.BuildHTTPMux(testURLArbiter.URL(), testLiveContentStore.URL(), testDraftContentStore.URL(), nil))
@@ -82,7 +87,7 @@ var _ = Describe("Content Item Requests", func() {
 				urlArbiterResponseCode = 422
 				urlArbiterResponseBody = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is not valid"]}}`
 
-				actualResponse := doRequest("PUT", endpoint, contentItemPayload)
+				actualResponse := doJSONRequest("PUT", endpoint, contentItem)
 
 				Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
 				Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
@@ -96,7 +101,7 @@ var _ = Describe("Content Item Requests", func() {
 				urlArbiterResponseCode = 409
 				urlArbiterResponseBody = `{"path":"/vat-rates","publishing_app":"mainstream_publisher","errors":{"base_path":["is already taken"]}}`
 
-				actualResponse := doRequest("PUT", endpoint, contentItemPayload)
+				actualResponse := doJSONRequest("PUT", endpoint, contentItem)
 
 				Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
 				Expect(testDraftContentStore.ReceivedRequests()).To(BeEmpty())
@@ -108,17 +113,28 @@ var _ = Describe("Content Item Requests", func() {
 		})
 
 		It("registers a path with URL arbiter and then publishes the content to the live and draft content store", func() {
-			urlArbiterResponseCode, urlArbiterResponseBody = http.StatusOK, urlArbiterResponse
-			draftContentStoreResponseCode, draftContentStoreResponseBody = http.StatusOK, contentItemJSON
-			liveContentStoreResponseCode, liveContentStoreResponseBody = http.StatusOK, contentItemJSON
+			testDraftContentStore.AppendHandlers(ghttp.CombineHandlers(
+				trackRequest(DraftContentStoreRequestLabel),
+				ghttp.VerifyRequest("PUT", "/content/vat-rates"),
+				ghttp.VerifyJSONRepresenting(contentItem),
+				ghttp.RespondWithJSONEncoded(http.StatusOK, contentItem),
+			))
 
-			actualResponse := doRequest("PUT", endpoint, contentItemPayload)
+			testLiveContentStore.AppendHandlers(ghttp.CombineHandlers(
+				trackRequest(LiveContentStoreRequestLabel),
+				ghttp.VerifyRequest("PUT", "/content/vat-rates"),
+				ghttp.VerifyJSONRepresenting(contentItem),
+				ghttp.RespondWithJSONEncoded(http.StatusOK, contentItem),
+			))
+
+			actualResponse := doJSONRequest("PUT", endpoint, contentItem)
 
 			Expect(testURLArbiter.ReceivedRequests()).To(HaveLen(1))
 			Expect(testDraftContentStore.ReceivedRequests()).To(HaveLen(1))
 			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
 
-			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: contentItemJSON}
+			expectedBody, _ := json.Marshal(contentItem)
+			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: string(expectedBody[:])}
 			assertSameResponse(actualResponse, &expectedResponse)
 
 			// assert that url-arbiter is called before making requests to content stores. communication
@@ -141,13 +157,38 @@ var _ = Describe("Content Item Requests", func() {
 		})
 
 		It("returns Content-Type header as received from content-store", func() {
-			testLiveContentStore.SetHandler(0,
-				ghttp.RespondWithPtr(&liveContentStoreResponseCode, &liveContentStoreResponseBody, http.Header{"Content-Type": []string{"text/html"}}))
+			testDraftContentStore.AppendHandlers(
+				ghttp.RespondWithJSONEncoded(http.StatusOK, contentItem),
+			)
+			testLiveContentStore.AppendHandlers(
+				ghttp.RespondWithJSONEncoded(http.StatusOK, contentItem, http.Header{"Content-Type": []string{"text/html"}}),
+			)
 
-			actualResponse := doRequest("PUT", endpoint, contentItemPayload)
+			actualResponse := doJSONRequest("PUT", endpoint, contentItem)
 
 			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
 			Expect(actualResponse.Header.Get("Content-Type")).To(Equal("text/html"))
+		})
+
+		It("strips access limiting metadata from the document", func() {
+			testDraftContentStore.AppendHandlers(ghttp.CombineHandlers(
+				ghttp.VerifyJSONRepresenting(contentItem),
+				ghttp.RespondWithJSONEncoded(http.StatusOK, contentItem),
+			))
+
+			testLiveContentStore.AppendHandlers(ghttp.CombineHandlers(
+				ghttp.VerifyJSONRepresenting(contentItem),
+				ghttp.RespondWithJSONEncoded(http.StatusOK, contentItem),
+			))
+
+			actualResponse := doJSONRequest("PUT", endpoint, contentItemWithAccessLimiting)
+
+			Expect(testDraftContentStore.ReceivedRequests()).To(HaveLen(1))
+			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
+
+			expectedBody, _ := json.Marshal(contentItem)
+			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: string(expectedBody[:])}
+			assertSameResponse(actualResponse, &expectedResponse)
 		})
 	})
 })
