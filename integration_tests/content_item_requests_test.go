@@ -169,5 +169,26 @@ var _ = Describe("Content Item Requests", func() {
 			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
 			Expect(actualResponse.Header.Get("Content-Type")).To(Equal("text/html"))
 		})
+
+		It("strips access limiting metadata from the document", func() {
+			testDraftContentStore.AppendHandlers(ghttp.CombineHandlers(
+				ghttp.VerifyJSONRepresenting(contentItem),
+				ghttp.RespondWithJSONEncoded(http.StatusOK, contentItem),
+			))
+
+			testLiveContentStore.AppendHandlers(ghttp.CombineHandlers(
+				ghttp.VerifyJSONRepresenting(contentItem),
+				ghttp.RespondWithJSONEncoded(http.StatusOK, contentItem),
+			))
+
+			actualResponse := doJSONRequest("PUT", endpoint, contentItemWithAccessLimiting)
+
+			Expect(testDraftContentStore.ReceivedRequests()).To(HaveLen(1))
+			Expect(testLiveContentStore.ReceivedRequests()).To(HaveLen(1))
+
+			expectedBody, _ := json.Marshal(contentItem)
+			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: string(expectedBody[:])}
+			assertSameResponse(actualResponse, &expectedResponse)
+		})
 	})
 })
