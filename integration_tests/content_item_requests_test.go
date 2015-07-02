@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"time"
 
 	"github.com/alphagov/publishing-api"
 
@@ -189,6 +191,31 @@ var _ = Describe("Content Item Requests", func() {
 			expectedBody, _ := json.Marshal(contentItem)
 			expectedResponse = HTTPTestResponse{Code: http.StatusOK, Body: string(expectedBody[:])}
 			assertSameResponse(actualResponse, &expectedResponse)
+		})
+
+		Context("with SUPPRESS_DRAFT_STORE_502_ERROR set to 1", func() {
+			It("returns the live content-store response when the draft content store is not running", func() {
+				os.Setenv("SUPPRESS_DRAFT_STORE_502_ERROR", "1")
+				defer os.Unsetenv("SUPPRESS_DRAFT_STORE_502_ERROR")
+
+				testDraftContentStore.AppendHandlers(ghttp.RespondWith(http.StatusBadGateway, ``))
+
+				testLiveContentStore.AppendHandlers(ghttp.CombineHandlers(
+					ghttp.VerifyJSONRepresenting(contentItem),
+					http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+						// Sleep to ensure that the draft request wins the race.
+						time.Sleep(20 * time.Millisecond)
+						w.Header().Set("Content-Type", "application/json")
+						w.WriteHeader(http.StatusCreated)
+						w.Write([]byte("{}\n"))
+					}),
+				))
+
+				actualResponse := doJSONRequest("PUT", endpoint, contentItem)
+
+				expectedResponse = HTTPTestResponse{Code: http.StatusCreated, Body: "{}\n"}
+				assertSameResponse(actualResponse, &expectedResponse)
+			})
 		})
 	})
 })
