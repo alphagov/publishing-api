@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
-	"time"
 
 	"github.com/alphagov/publishing-api"
 
@@ -198,13 +197,23 @@ var _ = Describe("Content Item Requests", func() {
 				os.Setenv("SUPPRESS_DRAFT_STORE_502_ERROR", "1")
 				defer os.Unsetenv("SUPPRESS_DRAFT_STORE_502_ERROR")
 
-				testDraftContentStore.AppendHandlers(ghttp.RespondWith(http.StatusBadGateway, ``))
+				semaphore := make(chan struct{})
+
+				testDraftContentStore.AppendHandlers(
+					http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+						w.WriteHeader(http.StatusBadGateway)
+
+						// Set semaphore to ensure draft request wins the race.
+						semaphore <- struct{}{}
+					}),
+				)
 
 				testLiveContentStore.AppendHandlers(ghttp.CombineHandlers(
 					ghttp.VerifyJSONRepresenting(contentItem),
 					http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-						// Sleep to ensure that the draft request wins the race.
-						time.Sleep(20 * time.Millisecond)
+						// Block on semaphore being sent by draft handler
+						<-semaphore
+
 						w.Header().Set("Content-Type", "application/json")
 						w.WriteHeader(http.StatusCreated)
 						w.Write([]byte("{}\n"))
