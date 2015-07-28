@@ -53,5 +53,27 @@ RSpec.describe "live content item requests", :type => :request do
         expect(response.body).to eq(url_arbiter_response_body)
       end
     end
+
+    context "when the path is taken" do
+      let(:url_arbiter_response_body) {
+        url_arbiter_data_for("/vat-rates",
+          "publishing_app" => "whitehall",
+          "errors" => {
+            "path" => ["is already reserved by the whitehall application"]
+          }
+        ).to_json
+      }
+
+      before do
+        url_arbiter_has_registration_for("/vat-rates", "whitehall")
+      end
+
+      it "returns a 409 with the URL arbiter's response body" do
+        put "/content/vat-rates", content_item.to_json
+
+        expect(response.status).to eq(409)
+        expect(response.body).to eq(url_arbiter_response_body)
+      end
+    end
   end
 end
