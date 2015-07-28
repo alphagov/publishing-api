@@ -65,6 +65,9 @@ func (c *ContentItemsController) PutLiveContentItem(w http.ResponseWriter, r *ht
 			resp, err := c.draftContentStore.DoRequest("PUT", r.URL.Path, requestBodyWithoutAccessLimiting)
 			if err == nil && resp.StatusCode == http.StatusBadGateway && os.Getenv("SUPPRESS_DRAFT_STORE_502_ERROR") == "1" {
 				// Ignore response.  The response from the live content-store will be passed through.
+				if resp != nil {
+					resp.Body.Close()
+				}
 			} else {
 				// for now, we ignore the response from draft content store for storing live content, hence `w` is nil
 				handleContentStoreResponse(resp, err, nil, r, c.errorNotifier)
