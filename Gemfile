@@ -31,3 +31,4 @@ end
 
 
 gem 'unicorn', '~> 4.9.0'
+gem 'logstasher', '0.6.2'
