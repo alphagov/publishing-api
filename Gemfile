@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use SCSS for stylesheets
@@ -13,6 +12,8 @@ gem 'logstasher', '0.6.2'
 gem 'plek', '~> 1.10'
 gem 'airbrake', '~> 4.2.1'
 
+gem 'govuk-client-url_arbiter', "0.0.2"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -21,4 +22,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.3'
   gem 'simplecov', '0.10.0', require: false
   gem 'simplecov-rcov', '0.2.3', require: false
+end
+
+group :test do
+  gem "webmock"
 end
