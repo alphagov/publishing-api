@@ -40,3 +40,6 @@ group :development, :test do
   gem 'simplecov', '0.10.0', require: false
   gem 'simplecov-rcov', '0.2.3', require: false
 end
+
+gem 'plek', '~> 1.10'
+gem 'airbrake', '~> 4.2.1'
