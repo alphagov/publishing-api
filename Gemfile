@@ -32,3 +32,6 @@ end
 
 gem 'unicorn', '~> 4.9.0'
 gem 'logstasher', '0.6.2'
+group :development, :test do
+  gem 'rspec-rails', '~> 3.3'
+end
