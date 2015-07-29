@@ -26,5 +26,5 @@ PublishingAPI.register_service(
 
 PublishingAPI.register_service(
   name: :live_content_store,
-  client: ContentStoreWriter.new(Plek.find('live-content-store'))
+  client: ContentStoreWriter.new(Plek.find('content-store'))
 )

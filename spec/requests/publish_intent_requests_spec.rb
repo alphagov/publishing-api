@@ -24,7 +24,7 @@ RSpec.describe "Publish intent requests", :type => :request do
 
   before do
     stub_default_url_arbiter_responses
-    stub_request(:put, %r{live-content-store.*/publish-intent/.*})
+    stub_request(:put, %r{^content-store.*/publish-intent/.*})
   end
 
   describe "PUT /publish-intent" do
@@ -57,7 +57,7 @@ RSpec.describe "Publish intent requests", :type => :request do
 
   describe "GET /publish-intent/base-path" do
     it "passes the JSON through from the content store" do
-      stubbed_get = stub_request(:get, %r{live-content-store.*/publish-intent/vat-rates})
+      stubbed_get = stub_request(:get, %r{^content-store.*/publish-intent/vat-rates})
         .to_return(body: content_item.to_json)
 
       get "/publish-intent/vat-rates"
@@ -70,7 +70,7 @@ RSpec.describe "Publish intent requests", :type => :request do
 
   describe "DELETE /publish-intent/base-path" do
     it "passes the JSON through from the content store" do
-      stubbed_delete = stub_request(:delete, %r{live-content-store.*/publish-intent/vat-rates})
+      stubbed_delete = stub_request(:delete, %r{^content-store.*/publish-intent/vat-rates})
         .to_return(body: {}.to_json)
 
       delete "/publish-intent/vat-rates"
