@@ -68,6 +68,12 @@ RSpec.describe "live content item requests", :type => :request do
       expect(response.body).to eq(content_item.to_json)
     end
 
+    it "returns a 400 if the JSON is invalid" do
+      put "/content/vat-rates", "not a JSON"
+
+      expect(response.status).to eq(400)
+    end
+
     context "when the path is invalid" do
       let(:url_arbiter_response_body) {
         url_arbiter_data_for("/vat-rates",
