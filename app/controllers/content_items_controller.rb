@@ -1,4 +1,6 @@
 class ContentItemsController < ApplicationController
+  include URLArbitration
+
   def put_live_content_item
     with_url_arbitration do
       with_502_suppression do
@@ -27,29 +29,12 @@ class ContentItemsController < ApplicationController
 
 private
 
-  def with_url_arbitration(&block)
-    url_arbiter.reserve_path(
-      base_path,
-      publishing_app: content_item[:publishing_app]
-    )
-
-    block.call
-  rescue GOVUK::Client::Errors::UnprocessableEntity => e
-    render json: e.response, status: 422
-  rescue GOVUK::Client::Errors::Conflict => e
-    render json: e.response, status: 409
-  end
-
   def with_502_suppression(&block)
     block.call
   rescue GdsApi::HTTPServerError => e
     unless e.code == 502 && ENV["SUPPRESS_DRAFT_STORE_502_ERROR"]
       raise e
     end
-  end
-
-  def url_arbiter
-    PublishingAPI.services(:url_arbiter)
   end
 
   def draft_content_store
