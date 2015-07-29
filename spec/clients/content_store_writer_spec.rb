@@ -55,4 +55,15 @@ RSpec.describe ContentStoreWriter do
       expect(put_request).to have_been_requested
     end
   end
+
+  describe "#get_publish_intent" do
+    it "gets the publish intent from the given content store" do
+      stub_request(:get, "#{content_store_host}/publish-intent#{base_path}")
+        .to_return(body: publish_intent.to_json)
+
+      response = content_store_writer.get_publish_intent(base_path)
+
+      expect(response).to eq(publish_intent)
+    end
+  end
 end

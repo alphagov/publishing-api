@@ -1,6 +1,8 @@
 class PublishIntentsController < ApplicationController
   include URLArbitration
 
+  before_filter :parse_content_item, only: [:create_or_update]
+
   def create_or_update
     with_url_arbitration do
       live_content_store.put_publish_intent(
@@ -10,6 +12,10 @@ class PublishIntentsController < ApplicationController
 
       render json: content_item
     end
+  end
+
+  def show
+    render json: live_content_store.get_publish_intent(base_path)
   end
 
 private

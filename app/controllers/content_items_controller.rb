@@ -1,6 +1,8 @@
 class ContentItemsController < ApplicationController
   include URLArbitration
 
+  before_filter :parse_content_item
+
   def put_live_content_item
     with_url_arbitration do
       with_502_suppression do
