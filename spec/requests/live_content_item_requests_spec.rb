@@ -103,6 +103,26 @@ RSpec.describe "live content item requests", :type => :request do
       put_content_item(body: content_item_with_access_limiting.to_json)
     end
 
+    context "when draft content store is not running but draft 502s are suppressed" do
+      before do
+        @draft_store_502_setting = ENV["SUPPRESS_DRAFT_STORE_502_ERROR"]
+        ENV["SUPPRESS_DRAFT_STORE_502_ERROR"] = "1"
+        stub_request(:put, %r{^http://draft-content-store.*/content/.*})
+          .to_return(status: 502)
+      end
+
+      it "returns the normal 200 response" do
+        begin
+          put_content_item
+
+          expect(response.status).to eq(200)
+          expect(response.body).to eq(content_item.to_json)
+        ensure
+          ENV["SUPPRESS_DRAFT_STORE_502_ERROR"] = @draft_store_502_setting
+        end
+      end
+    end
+
     context "when the path is invalid" do
       let(:url_arbiter_response_body) {
         url_arbiter_data_for("/vat-rates",

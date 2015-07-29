@@ -5,7 +5,14 @@ class ContentItemsController < ApplicationController
       publishing_app: content_item[:publishing_app]
     )
 
-    draft_content_store.put_content_item(content_item)
+    begin
+      draft_content_store.put_content_item(content_item)
+    rescue GdsApi::HTTPServerError => e
+      unless e.code == 502 && ENV["SUPPRESS_DRAFT_STORE_502_ERROR"]
+        raise e
+      end
+    end
+
     response = live_content_store.put_content_item(content_item)
 
     render json: content_item, content_type: response.headers[:content_type]
