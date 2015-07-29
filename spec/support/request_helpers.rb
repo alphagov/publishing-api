@@ -75,7 +75,7 @@ module RequestHelpers
   end
 
   def check_content_type_header
-    it "passes through the Content-Type header from the live content store" do
+    it "passes through the Content-Type header from the content store" do
       stub_request(:put, %r{.*content-store.*/content/.*}).to_return(headers: {
         "Content-Type" => "application/vnd.ms-powerpoint"
       })
