@@ -36,7 +36,10 @@ RSpec.describe ContentStoreWriter do
       put_request = stub_request(:put, "#{content_store_host}/content#{base_path}")
         .with(body: content_item.to_json)
 
-      content_store_writer.put_content_item(content_item)
+      content_store_writer.put_content_item(
+        base_path: base_path,
+        content_item: content_item,
+      )
 
       expect(put_request).to have_been_requested
     end

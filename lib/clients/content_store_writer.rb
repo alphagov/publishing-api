@@ -2,8 +2,7 @@ require "gds_api/base"
 require "active_support/core_ext/hash/keys"
 
 class ContentStoreWriter < GdsApi::Base
-  def put_content_item(content_item)
-    base_path = content_item[:base_path]
+  def put_content_item(base_path:, content_item:)
     put_json!("#{endpoint}/content#{base_path}", content_item)
   end
 

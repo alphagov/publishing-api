@@ -6,10 +6,16 @@ class ContentItemsController < ApplicationController
   def put_live_content_item
     with_url_arbitration do
       with_502_suppression do
-        draft_content_store.put_content_item(content_item)
+        draft_content_store.put_content_item(
+          base_path: base_path,
+          content_item: content_item,
+        )
       end
 
-      live_response = live_content_store.put_content_item(content_item)
+      live_response = live_content_store.put_content_item(
+        base_path: base_path,
+        content_item: content_item,
+      )
 
       render json: content_item, content_type: live_response.headers[:content_type]
     end
@@ -18,7 +24,10 @@ class ContentItemsController < ApplicationController
   def put_draft_content_item
     with_url_arbitration do
       draft_response = with_502_suppression do
-        draft_content_store.put_content_item(content_item)
+        draft_content_store.put_content_item(
+          base_path: base_path,
+          content_item: content_item,
+        )
       end
 
       if draft_response

@@ -8,9 +8,13 @@ end
 RSpec.describe "Content item requests", :type => :request do
   include GOVUK::Client::TestHelpers::URLArbiter
 
+  let(:base_path) {
+    "/vat-rates"
+  }
+
   let(:content_item) {
     {
-      base_path: "/vat-rates",
+      base_path: base_path,
       title: "VAT Rates",
       description: "VAT rates for goods and services",
       format: "guide",
@@ -60,7 +64,11 @@ RSpec.describe "Content item requests", :type => :request do
     it "sends to draft content store after registering the URL" do
       expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
       expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
-        .with(content_item).ordered
+        .with(
+          base_path: base_path,
+          content_item: content_item,
+        )
+        .ordered
 
       put_content_item
     end
@@ -68,7 +76,10 @@ RSpec.describe "Content item requests", :type => :request do
     it "sends to live content store after registering the URL" do
       expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
       expect(PublishingAPI.services(:live_content_store)).to receive(:put_content_item)
-        .with(content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item,
+        )
         .and_return(stub_json_response)
         .ordered
 
@@ -77,10 +88,16 @@ RSpec.describe "Content item requests", :type => :request do
 
     it "strips access limiting metadata from the document" do
       expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
-        .with(content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item,
+        )
 
       expect(PublishingAPI.services(:live_content_store)).to receive(:put_content_item)
-        .with(content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item,
+        )
         .and_return(stub_json_response)
 
       put_content_item(body: content_item_with_access_limiting.to_json)
@@ -102,7 +119,10 @@ RSpec.describe "Content item requests", :type => :request do
     it "sends to draft content store after registering the URL" do
       expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
       expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
-        .with(content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item,
+        )
         .and_return(stub_json_response)
         .ordered
 
@@ -118,7 +138,10 @@ RSpec.describe "Content item requests", :type => :request do
 
     it "strips access limiting metadata from the document" do
       expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
-        .with(content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item,
+        )
         .and_return(stub_json_response)
 
       put_content_item(body: content_item_with_access_limiting.to_json)
