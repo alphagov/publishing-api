@@ -48,7 +48,7 @@ RSpec.describe "live content item requests", :type => :request do
         publishing_app: content_item[:publishing_app]
       )
 
-      put "/content/vat-rates", content_item.to_json
+      put_content_item
     end
 
     it "sends to draft content store after registering the URL" do
@@ -56,7 +56,7 @@ RSpec.describe "live content item requests", :type => :request do
       expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
         .with(content_item).ordered
 
-      put "/content/vat-rates", content_item.to_json
+      put_content_item
     end
 
     it "sends to live content store after registering the URL" do
@@ -66,18 +66,18 @@ RSpec.describe "live content item requests", :type => :request do
         .and_return(stub_json_response)
         .ordered
 
-      put "/content/vat-rates", content_item.to_json
+      put_content_item
     end
 
     it "responds with the content item as a 200" do
-      put "/content/vat-rates", content_item.to_json
+      put_content_item
 
       expect(response.status).to eq(200)
       expect(response.body).to eq(content_item.to_json)
     end
 
     it "returns a 400 if the JSON is invalid" do
-      put "/content/vat-rates", "not a JSON"
+      put_content_item(body: "not a JSON")
 
       expect(response.status).to eq(400)
     end
@@ -108,7 +108,7 @@ RSpec.describe "live content item requests", :type => :request do
       end
 
       it "returns a 422 with the URL arbiter's response body" do
-        put "/content/vat-rates", content_item.to_json
+        put_content_item
 
         expect(response.status).to eq(422)
         expect(response.body).to eq(url_arbiter_response_body)
@@ -130,7 +130,7 @@ RSpec.describe "live content item requests", :type => :request do
       end
 
       it "returns a 409 with the URL arbiter's response body" do
-        put "/content/vat-rates", content_item.to_json
+        put_content_item
 
         expect(response.status).to eq(409)
         expect(response.body).to eq(url_arbiter_response_body)
