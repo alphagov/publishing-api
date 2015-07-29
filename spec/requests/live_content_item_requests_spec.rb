@@ -92,6 +92,17 @@ RSpec.describe "live content item requests", :type => :request do
       expect(response["Content-Type"]).to include("application/vnd.ms-powerpoint")
     end
 
+    it "strips access limiting metadata from the document" do
+      expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
+        .with(content_item)
+
+      expect(PublishingAPI.services(:live_content_store)).to receive(:put_content_item)
+        .with(content_item)
+        .and_return(stub_json_response)
+
+      put_content_item(body: content_item_with_access_limiting.to_json)
+    end
+
     context "when the path is invalid" do
       let(:url_arbiter_response_body) {
         url_arbiter_data_for("/vat-rates",

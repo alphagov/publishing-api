@@ -28,4 +28,8 @@ private
   def live_content_store
     PublishingAPI.services(:live_content_store)
   end
+
+  def content_item
+    super.except(:access_limited)
+  end
 end
