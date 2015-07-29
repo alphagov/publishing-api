@@ -66,4 +66,14 @@ RSpec.describe ContentStoreWriter do
       expect(response).to eq(publish_intent)
     end
   end
+
+  describe "#delete_publish_intent" do
+    it "deletes the publish intent from the given content store" do
+      stubbed_delete = stub_request(:delete, "#{content_store_host}/publish-intent#{base_path}")
+
+      content_store_writer.delete_publish_intent(base_path)
+
+      expect(stubbed_delete).to have_been_requested
+    end
+  end
 end

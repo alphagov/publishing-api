@@ -18,6 +18,11 @@ class PublishIntentsController < ApplicationController
     render json: live_content_store.get_publish_intent(base_path)
   end
 
+  def destroy
+    live_content_store.delete_publish_intent(base_path)
+    render json: {}
+  end
+
 private
 
   def live_content_store

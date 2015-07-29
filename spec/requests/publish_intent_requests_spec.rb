@@ -67,4 +67,17 @@ RSpec.describe "Publish intent requests", :type => :request do
       expect(response.body).to eq(content_item.to_json)
     end
   end
+
+  describe "DELETE /publish-intent/base-path" do
+    it "passes the JSON through from the content store" do
+      stubbed_delete = stub_request(:delete, %r{live-content-store.*/publish-intent/vat-rates})
+        .to_return(body: {}.to_json)
+
+      delete "/publish-intent/vat-rates"
+
+      expect(stubbed_delete).to have_been_requested
+      expect(response.status).to eq(200)
+      expect(response.body).to eq({}.to_json)
+    end
+  end
 end
