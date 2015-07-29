@@ -55,6 +55,21 @@ module RequestHelpers
         expect(response.body).to eq(url_arbiter_response_body)
       end
     end
+
+    context "when the URL arbiter has an internal error" do
+      before do
+        stub_request(:put, /url-arbiter/).to_return(status: 506)
+      end
+
+      it "returns a 500 with a custom error message" do
+        put_content_item
+
+        expect(response.status).to eq(500)
+        expect(response.body).to eq({
+          message: "Unexpected error whilst registering with url-arbiter: 506 Variant Also Negotiates"
+        }.to_json)
+      end
+    end
   end
 
   def check_200_response

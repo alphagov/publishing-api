@@ -10,6 +10,10 @@ module URLArbitration
     render json: e.response, status: 422
   rescue GOVUK::Client::Errors::Conflict => e
     render json: e.response, status: 409
+  rescue GOVUK::Client::Errors::HTTPError => e
+    render json: {
+      message: "Unexpected error whilst registering with url-arbiter: #{e.message}"
+    }, status: 500
   end
 
   def url_arbiter
