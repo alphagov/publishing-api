@@ -30,7 +30,44 @@ RSpec.describe "live content item requests", :type => :request do
     )
   }
 
+  before do
+    stub_default_url_arbiter_responses
+    stub_request(:put, %r{.*content-store.*/content/.*})
+  end
+
   describe "PUT /content" do
+    it "registers with the URL with the URL arbiter" do
+      expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).with(
+        "/vat-rates",
+        publishing_app: content_item[:publishing_app]
+      )
+
+      put "/content/vat-rates", content_item.to_json
+    end
+
+    it "sends to draft content store after registering the URL" do
+      expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
+      expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
+        .with(content_item).ordered
+
+      put "/content/vat-rates", content_item.to_json
+    end
+
+    it "sends to live content store after registering the URL" do
+      expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
+      expect(PublishingAPI.services(:live_content_store)).to receive(:put_content_item)
+        .with(content_item).ordered
+
+      put "/content/vat-rates", content_item.to_json
+    end
+
+    it "responds with the content item as a 200" do
+      put "/content/vat-rates", content_item.to_json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(content_item.to_json)
+    end
+
     context "when the path is invalid" do
       let(:url_arbiter_response_body) {
         url_arbiter_data_for("/vat-rates",

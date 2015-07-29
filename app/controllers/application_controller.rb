@@ -10,7 +10,7 @@ private
   end
 
   def content_item
-    @content_item ||= JSON.parse(request.body.read)
+    @content_item ||= JSON.parse(request.body.read).deep_symbolize_keys
   rescue JSON::ParserError
     head :bad_request
   end
