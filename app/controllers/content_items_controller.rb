@@ -6,9 +6,9 @@ class ContentItemsController < ApplicationController
     )
 
     draft_content_store.put_content_item(content_item)
-    live_content_store.put_content_item(content_item)
+    response = live_content_store.put_content_item(content_item)
 
-    render json: content_item
+    render json: content_item, content_type: response.headers[:content_type]
   rescue GOVUK::Client::Errors::UnprocessableEntity => e
     render json: e.response, status: 422
   rescue GOVUK::Client::Errors::Conflict => e

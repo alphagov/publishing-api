@@ -30,6 +30,12 @@ RSpec.describe "live content item requests", :type => :request do
     )
   }
 
+  let(:stub_json_response) {
+    double(:json_response, body: "", headers: {
+      content_type: "application/json; charset=utf-8",
+    })
+  }
+
   before do
     stub_default_url_arbiter_responses
     stub_request(:put, %r{.*content-store.*/content/.*})
@@ -56,7 +62,9 @@ RSpec.describe "live content item requests", :type => :request do
     it "sends to live content store after registering the URL" do
       expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
       expect(PublishingAPI.services(:live_content_store)).to receive(:put_content_item)
-        .with(content_item).ordered
+        .with(content_item)
+        .and_return(stub_json_response)
+        .ordered
 
       put "/content/vat-rates", content_item.to_json
     end
@@ -72,6 +80,16 @@ RSpec.describe "live content item requests", :type => :request do
       put "/content/vat-rates", "not a JSON"
 
       expect(response.status).to eq(400)
+    end
+
+    it "passes through the Content-Type header from the live content store" do
+      stub_request(:put, %r{.*content-store.*/content/.*}).to_return(headers: {
+        "Content-Type" => "application/vnd.ms-powerpoint"
+      })
+
+      put_content_item
+
+      expect(response["Content-Type"]).to include("application/vnd.ms-powerpoint")
     end
 
     context "when the path is invalid" do
@@ -118,5 +136,9 @@ RSpec.describe "live content item requests", :type => :request do
         expect(response.body).to eq(url_arbiter_response_body)
       end
     end
+  end
+
+  def put_content_item(body: content_item.to_json)
+    put "/content/vat-rates", body
   end
 end
