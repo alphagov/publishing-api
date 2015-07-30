@@ -8,16 +8,17 @@ class ContentItemsController < ApplicationController
       with_502_suppression do
         draft_content_store.put_content_item(
           base_path: base_path,
-          content_item: content_item,
+          content_item: content_item_without_access_limiting,
         )
       end
 
       live_response = live_content_store.put_content_item(
         base_path: base_path,
-        content_item: content_item,
+        content_item: content_item_without_access_limiting,
       )
 
-      render json: content_item, content_type: live_response.headers[:content_type]
+      render json: content_item_without_access_limiting,
+             content_type: live_response.headers[:content_type]
     end
   end
 
@@ -56,7 +57,7 @@ private
     PublishingAPI.services(:live_content_store)
   end
 
-  def content_item
-    super.except(:access_limited)
+  def content_item_without_access_limiting
+    @content_item_without_access_limiting ||= content_item.except(:access_limited)
   end
 end

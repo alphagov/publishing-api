@@ -136,11 +136,11 @@ RSpec.describe "Content item requests", :type => :request do
       put_content_item
     end
 
-    it "strips access limiting metadata from the document" do
+    it "leaves access limiting metadata in the document" do
       expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
-          content_item: content_item,
+          content_item: content_item_with_access_limiting,
         )
         .and_return(stub_json_response)
 
