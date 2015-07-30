@@ -49,9 +49,10 @@ RSpec.describe "Publish intent requests", :type => :request do
 
     it "does not send anything to the draft content store" do
       expect(PublishingAPI.services(:draft_content_store)).to receive(:put_publish_intent).never
-      expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
 
       put_content_item
+
+      expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
     end
   end
 
