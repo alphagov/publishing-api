@@ -2,6 +2,7 @@ class ContentItemsController < ApplicationController
   include URLArbitration
 
   before_filter :parse_content_item
+  before_filter :validate_routing_key_fields, only: [:put_live_content_item]
 
   def put_live_content_item
     with_url_arbitration do
@@ -65,5 +66,11 @@ private
 
   def content_item_without_access_limiting
     @content_item_without_access_limiting ||= content_item.except(:access_limited)
+  end
+
+  def validate_routing_key_fields
+    unless [:format, :update_type].all? {|field| content_item[field] =~ /\A[a-z0-9_]+\z/i}
+      head :unprocessable_entity
+    end
   end
 end
