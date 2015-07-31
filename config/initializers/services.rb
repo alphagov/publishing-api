@@ -28,3 +28,14 @@ PublishingAPI.register_service(
   name: :live_content_store,
   client: ContentStoreWriter.new(Plek.find('content-store'))
 )
+
+if ENV['DISABLE_QUEUE_PUBLISHER'] || (Rails.env.test? && ENV['ENABLE_QUEUE_IN_TEST_MODE'].blank?)
+  rabbitmq_config = {noop: true}
+else
+  rabbitmq_config = YAML.load_file(Rails.root.join("config", "rabbitmq.yml"))[Rails.env].symbolize_keys
+end
+
+PublishingAPI.register_service(
+  name: :queue_publisher,
+  client: QueuePublisher.new(rabbitmq_config)
+)
