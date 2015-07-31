@@ -7,6 +7,7 @@ end
 
 RSpec.describe "Content item requests", :type => :request do
   include GOVUK::Client::TestHelpers::URLArbiter
+  include MessageQueueHelpers
 
   let(:base_path) {
     "/vat-rates"
@@ -15,15 +16,24 @@ RSpec.describe "Content item requests", :type => :request do
   let(:content_item) {
     {
       base_path: base_path,
-      title: "VAT Rates",
+      title: "VAT rates",
       description: "VAT rates for goods and services",
       format: "guide",
+      need_ids: ["100123", "100124"],
+      public_updated_at: "2014-05-14T13:00:06Z",
       publishing_app: "mainstream_publisher",
+      rendering_app: "mainstream_frontend",
       locale: "en",
       details: {
-        app: "or format",
-        specific: "data...",
+        body: "<p>Soemthing about VAT</p>\n",
       },
+      routes: [
+        {
+          path: "/vat-rates",
+          type: "exact",
+        }
+      ],
+      update_type: "major",
     }
   }
 
@@ -56,6 +66,29 @@ RSpec.describe "Content item requests", :type => :request do
     check_400_on_invalid_json
     check_content_type_header
     check_draft_content_store_502_suppression
+
+    before :all do
+      @config = YAML.load_file(Rails.root.join("config", "rabbitmq.yml"))[Rails.env].symbolize_keys
+      @old_publisher = PublishingAPI.services(:queue_publisher)
+      PublishingAPI.register_service(name: :queue_publisher, client: QueuePublisher.new(@config))
+    end
+
+    after :all do
+      PublishingAPI.register_service(name: :queue_publisher, client: @old_publisher)
+    end
+
+    around :each do |example|
+      conn = Bunny.new(@config)
+      conn.start
+      read_channel = conn.create_channel
+      ex = read_channel.topic(@config.fetch(:exchange), passive: true)
+      @queue = read_channel.queue("", :exclusive => true)
+      @queue.bind(ex, routing_key: '#')
+
+      example.run
+
+      read_channel.close
+    end
 
     def put_content_item(body: content_item.to_json)
       put "/content/vat-rates", body
@@ -102,6 +135,55 @@ RSpec.describe "Content item requests", :type => :request do
 
       put_content_item(body: content_item_with_access_limiting.to_json)
     end
+
+    it 'should place a message on the queue using the private representation of the content item' do
+      put_content_item
+      _, properties, payload = wait_for_message_on(@queue)
+      expect(properties[:content_type]).to eq('application/json')
+      message = JSON.parse(payload)
+      expect(message['title']).to eq('VAT rates')
+
+      # Check for a private field
+      expect(message).to have_key('publishing_app')
+    end
+
+    it 'should include the update_type in the output json' do
+      put_content_item
+      _, _, payload = wait_for_message_on(@queue)
+      message = JSON.parse(payload)
+
+      expect(message).to have_key('update_type')
+    end
+
+    it 'routing key depends on format and update type' do
+      put_content_item(body: content_item.merge(update_type: "minor").to_json)
+      delivery_info, _, payload = wait_for_message_on(@queue)
+      expect(delivery_info.routing_key).to eq('guide.minor')
+
+      put_content_item(body: content_item.merge(format: "detailed_guide").to_json)
+      delivery_info, _, payload = wait_for_message_on(@queue)
+      expect(delivery_info.routing_key).to eq('detailed_guide.major')
+    end
+
+    it 'publishes a message for a redirect update' do
+      redirect_content_item = {
+        base_path: "/crb-checks",
+        format: "redirect",
+        public_updated_at: "2014-05-14T13:00:06Z",
+        publishing_app: "publisher",
+        redirects: [
+          {
+            path: "/crb-checks",
+            type: "prefix",
+            destination: "/dbs-checks"
+          },
+        ],
+        update_type: "major",
+      }
+      put_content_item(body: redirect_content_item.to_json)
+      delivery_info, _, _ = wait_for_message_on(@queue)
+      expect(delivery_info.routing_key).to eq('redirect.major')
+    end
   end
 
   describe "PUT /draft-content" do
@@ -145,6 +227,12 @@ RSpec.describe "Content item requests", :type => :request do
         .and_return(stub_json_response)
 
       put_content_item(body: content_item_with_access_limiting.to_json)
+    end
+
+    it "doesn't send any messages" do
+      expect(PublishingAPI.services(:queue_publisher)).not_to receive(:send_message)
+
+      put_content_item
     end
   end
 end

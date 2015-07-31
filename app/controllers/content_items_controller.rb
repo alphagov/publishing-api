@@ -17,6 +17,8 @@ class ContentItemsController < ApplicationController
         content_item: content_item_without_access_limiting,
       )
 
+      queue_publisher.send_message(content_item_without_access_limiting)
+
       render json: content_item_without_access_limiting,
              content_type: live_response.headers[:content_type]
     end
@@ -55,6 +57,10 @@ private
 
   def live_content_store
     PublishingAPI.services(:live_content_store)
+  end
+
+  def queue_publisher
+    PublishingAPI.services(:queue_publisher)
   end
 
   def content_item_without_access_limiting
