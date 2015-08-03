@@ -1,6 +1,6 @@
 # Publishing API
 
-This is a Go application that proxies requests to multiple content-stores. Our
+This is a Rails application that proxies requests to multiple content-stores. Our
 use case for this is to keep two copies of the frontend of GOV.UK running: one
 which the public sees and another which is only used by people working on
 content to review work in progress.
@@ -14,11 +14,10 @@ content-store.
 
 - [alphagov/url-arbiter](https://github.com/alphagov/url-arbiter) - publishing-api will take over content-store's job of updating url-arbiter. This is to prevent race conditions as two content-stores try to register with the same url-arbiter.
 - [alphagov/content-store](https://github.com/alphagov/content-store) - publishing-api's function is to proxy requests to multiple content-stores (eg a draft and a live content-store)
-- [gom](https://github.com/mattn/gom) - to vendorise dependencies
 
 ### Running the application
 
-`make run`
+`./startup.sh`
 
 Dependencies will be dowloaded and installed and the app should start up on
 port 3093. Currently on GOV.UK machines it also be available at
@@ -27,11 +26,7 @@ port 3093. Currently on GOV.UK machines it also be available at
 
 ## Running the test suite
 
-You can run the tests locally with: `make`. This will use the gom tool to
-vendorise dependencies into a folder within the project.
-
-You can download the gom tool by running:
-`go get github.com/mattn/gom`.
+You can run the tests locally with: `rake`.
 
 ### Example API requests
 
