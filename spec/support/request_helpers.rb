@@ -122,4 +122,17 @@ module RequestHelpers
       end
     end
   end
+
+  def check_forwards_locale_extension
+    context "with a translation URL" do
+      let(:base_path) { "/vat-rates.pl" }
+
+      it "passes through the locale extension" do
+        expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
+          .with(hash_including(base_path: base_path))
+
+        put_content_item
+      end
+    end
+  end
 end
