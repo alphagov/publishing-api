@@ -56,9 +56,10 @@ RSpec.describe "Content item requests", :type => :request do
     check_400_on_invalid_json
     check_content_type_header
     check_draft_content_store_502_suppression
+    check_forwards_locale_extension
 
     def put_content_item(body: content_item.to_json)
-      put "/content/vat-rates", body
+      put "/content#{base_path}", body
     end
 
     it "sends to draft content store after registering the URL" do
@@ -111,9 +112,10 @@ RSpec.describe "Content item requests", :type => :request do
     check_400_on_invalid_json
     check_content_type_header
     check_draft_content_store_502_suppression
+    check_forwards_locale_extension
 
     def put_content_item(body: content_item.to_json)
-      put "/draft-content/vat-rates", body
+      put "/draft-content#{base_path}", body
     end
 
     it "sends to draft content store after registering the URL" do
