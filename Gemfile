@@ -15,6 +15,9 @@ gem "airbrake", "~> 4.2.1"
 gem "govuk-client-url_arbiter", "0.0.2"
 gem "gds-api-adapters", "22.0.0"
 
+gem 'bunny', '2.0.0'
+gem 'whenever', '0.9.4', :require => false
+
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug"

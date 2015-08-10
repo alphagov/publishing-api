@@ -1,0 +1,15 @@
+defaults: &defaults
+  host: localhost
+  port: 5672
+  vhost: /
+  user: publishing_api
+  pass: publishing_api
+  recover_from_connection_close: true
+
+development:
+  <<: *defaults
+  exchange: published_documents
+
+test:
+  <<: *defaults
+  exchange: published_documents_test

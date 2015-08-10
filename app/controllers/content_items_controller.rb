@@ -2,6 +2,7 @@ class ContentItemsController < ApplicationController
   include URLArbitration
 
   before_filter :parse_content_item
+  before_filter :validate_routing_key_fields, only: [:put_live_content_item]
 
   def put_live_content_item
     with_url_arbitration do
@@ -16,6 +17,8 @@ class ContentItemsController < ApplicationController
         base_path: base_path,
         content_item: content_item_without_access_limiting,
       )
+
+      queue_publisher.send_message(content_item_without_access_limiting)
 
       render json: content_item_without_access_limiting,
              content_type: live_response.headers[:content_type]
@@ -57,7 +60,17 @@ private
     PublishingAPI.services(:live_content_store)
   end
 
+  def queue_publisher
+    PublishingAPI.services(:queue_publisher)
+  end
+
   def content_item_without_access_limiting
     @content_item_without_access_limiting ||= content_item.except(:access_limited)
+  end
+
+  def validate_routing_key_fields
+    unless [:format, :update_type].all? {|field| content_item[field] =~ /\A[a-z0-9_]+\z/i}
+      head :unprocessable_entity
+    end
   end
 end
