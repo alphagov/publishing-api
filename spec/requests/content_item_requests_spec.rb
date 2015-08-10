@@ -15,7 +15,6 @@ RSpec.describe "Content item requests", :type => :request do
 
   let(:content_item) {
     {
-      base_path: base_path,
       title: "VAT rates",
       description: "VAT rates for goods and services",
       format: "guide",
@@ -143,6 +142,7 @@ RSpec.describe "Content item requests", :type => :request do
       expect(properties[:content_type]).to eq('application/json')
       message = JSON.parse(payload)
       expect(message['title']).to eq('VAT rates')
+      expect(message['base_path']).to eq(base_path)
 
       # Check for a private field
       expect(message).to have_key('publishing_app')
