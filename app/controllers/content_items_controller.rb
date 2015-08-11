@@ -18,7 +18,7 @@ class ContentItemsController < ApplicationController
         content_item: content_item_without_access_limiting,
       )
 
-      queue_publisher.send_message(content_item_without_access_limiting)
+      queue_publisher.send_message(content_item_with_base_path)
 
       render json: content_item_without_access_limiting,
              content_type: live_response.headers[:content_type]
@@ -66,6 +66,10 @@ private
 
   def content_item_without_access_limiting
     @content_item_without_access_limiting ||= content_item.except(:access_limited)
+  end
+
+  def content_item_with_base_path
+    content_item_without_access_limiting.merge(base_path: base_path)
   end
 
   def validate_routing_key_fields
