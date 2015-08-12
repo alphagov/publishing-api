@@ -66,6 +66,7 @@ RSpec.describe "Content item requests", :type => :request do
     check_content_type_header
     check_draft_content_store_502_suppression
     check_forwards_locale_extension
+    check_accepts_root_path
 
     before :all do
       @config = YAML.load_file(Rails.root.join("config", "rabbitmq.yml"))[Rails.env].symbolize_keys
@@ -195,6 +196,7 @@ RSpec.describe "Content item requests", :type => :request do
     check_content_type_header
     check_draft_content_store_502_suppression
     check_forwards_locale_extension
+    check_accepts_root_path
 
     def put_content_item(body: content_item.to_json)
       put "/draft-content#{base_path}", body

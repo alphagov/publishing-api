@@ -8,6 +8,10 @@ end
 RSpec.describe "Publish intent requests", :type => :request do
   include GOVUK::Client::TestHelpers::URLArbiter
 
+  let(:base_path) {
+    "/vat-rates"
+  }
+
   let(:content_item) {
     {
       publish_time: (Time.zone.now + 3.hours).iso8601,
@@ -15,7 +19,7 @@ RSpec.describe "Publish intent requests", :type => :request do
       rendering_app: "frontend",
       routers: [
         {
-          path: "/vat-rates",
+          path: base_path,
           type: "exact",
         }
       ],
@@ -33,9 +37,10 @@ RSpec.describe "Publish intent requests", :type => :request do
     check_200_response
     check_400_on_invalid_json
     check_draft_content_store_502_suppression
+    check_accepts_root_path
 
     def put_content_item(body: content_item.to_json)
-      put "/publish-intent/vat-rates", body
+      put "/publish-intent#{base_path}", body
     end
 
     it "sends to live content store after registering the URL" do

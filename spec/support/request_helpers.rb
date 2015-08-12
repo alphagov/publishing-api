@@ -135,4 +135,17 @@ module RequestHelpers
       end
     end
   end
+
+  def check_accepts_root_path
+    context "with the root path as a base_path" do
+      let(:base_path) { "/" }
+
+      it "creates the content item" do
+        put_content_item
+
+        expect(response.status).to eq(200)
+        expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once
+      end
+    end
+  end
 end
