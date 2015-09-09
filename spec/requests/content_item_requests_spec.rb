@@ -199,6 +199,27 @@ RSpec.describe "Content item requests", :type => :request do
       expected_payload = deep_stringify_keys(content_item.merge("base_path" => base_path))
       expect(Event.first.payload).to eq(expected_payload)
     end
+
+    context "invalid content item" do
+      let(:error_details) { {errors: {update_type: "invalid"}} }
+
+      before do
+        stub_request(:put, %r{.*content-store.*/content/.*})
+          .to_return(
+            status: 422,
+            body: error_details.to_json,
+            headers: {"Content-type" => "application/json"}
+          )
+      end
+
+      it "logs the event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(1)
+        expect(response.status).to eq(422)
+        expect(response.body).to eq(error_details.to_json)
+      end
+    end
   end
 
   describe "PUT /draft-content" do
@@ -250,6 +271,27 @@ RSpec.describe "Content item requests", :type => :request do
       expect(PublishingAPI.services(:queue_publisher)).not_to receive(:send_message)
 
       put_content_item
+    end
+
+    context "invalid content item" do
+      let(:error_details) { {errors: {update_type: "invalid"}} }
+
+      before do
+        stub_request(:put, %r{.*content-store.*/content/.*})
+          .to_return(
+            status: 422,
+            body: error_details.to_json,
+            headers: {"Content-type" => "application/json"}
+          )
+      end
+
+      it "logs an event in the event log" do
+        put_content_item
+
+        expect(response.status).to eq(422)
+        expect(response.body).to eq(error_details.to_json)
+        expect(Event.count).to eq(1)
+      end
     end
 
     it "logs a 'PutDraftContentWithLinks' event in the event log" do

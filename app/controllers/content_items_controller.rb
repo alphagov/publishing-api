@@ -3,6 +3,7 @@ class ContentItemsController < ApplicationController
 
   before_filter :parse_content_item
   before_filter :validate_routing_key_fields, only: [:put_live_content_item]
+  rescue_from GdsApi::HTTPClientError, with: :propagate_error
 
   def put_live_content_item
     with_url_arbitration do
@@ -47,6 +48,9 @@ class ContentItemsController < ApplicationController
   end
 
 private
+  def propagate_error(exception)
+    render status: exception.code, json: exception.error_details
+  end
 
   def with_502_suppression(&block)
     block.call
