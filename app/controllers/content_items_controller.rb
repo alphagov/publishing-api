@@ -7,7 +7,7 @@ class ContentItemsController < ApplicationController
   def put_live_content_item
     with_url_arbitration do
       with_502_suppression do
-        EventLogger.new.log('PutContent', nil, content_item.merge("base_path" => base_path))
+        EventLogger.new.log('PutContentWithLinks', nil, content_item.merge("base_path" => base_path))
 
         draft_content_store.put_content_item(
           base_path: base_path,
@@ -29,7 +29,7 @@ class ContentItemsController < ApplicationController
 
   def put_draft_content_item
     with_url_arbitration do
-      EventLogger.new.log('PutDraftContent', nil, content_item.merge("base_path" => base_path))
+      EventLogger.new.log('PutDraftContentWithLinks', nil, content_item.merge("base_path" => base_path))
 
       draft_response = with_502_suppression do
         draft_content_store.put_content_item(

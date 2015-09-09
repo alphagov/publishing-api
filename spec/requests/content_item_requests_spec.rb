@@ -191,10 +191,10 @@ RSpec.describe "Content item requests", :type => :request do
       expect(delivery_info.routing_key).to eq('redirect.major')
     end
 
-    it "logs a 'PutContent' event in the event log" do
+    it "logs a 'PutContentWithLinks' event in the event log" do
       put_content_item
       expect(Event.count).to eq(1)
-      expect(Event.first.action).to eq('PutContent')
+      expect(Event.first.action).to eq('PutContentWithLinks')
       expect(Event.first.user_uid).to eq(nil)
       expected_payload = deep_stringify_keys(content_item.merge("base_path" => base_path))
       expect(Event.first.payload).to eq(expected_payload)
@@ -252,10 +252,10 @@ RSpec.describe "Content item requests", :type => :request do
       put_content_item
     end
 
-    it "logs a 'PutDraftContent' event in the event log" do
+    it "logs a 'PutDraftContentWithLinks' event in the event log" do
       put_content_item
       expect(Event.count).to eq(1)
-      expect(Event.first.action).to eq('PutDraftContent')
+      expect(Event.first.action).to eq('PutDraftContentWithLinks')
       expect(Event.first.user_uid).to eq(nil)
       expected_payload = deep_stringify_keys(content_item.merge("base_path" => base_path))
       expect(Event.first.payload).to eq(expected_payload)
