@@ -5,6 +5,8 @@ class PublishIntentsController < ApplicationController
 
   def create_or_update
     with_url_arbitration do
+      EventLogger.new.log('PutPublishIntent', nil, content_item.merge("base_path" => base_path))
+
       live_content_store.put_publish_intent(
         base_path: base_path,
         publish_intent: content_item
@@ -19,6 +21,8 @@ class PublishIntentsController < ApplicationController
   end
 
   def destroy
+    EventLogger.new.log('DeletePublishIntent', nil, {"base_path" => base_path})
+
     live_content_store.delete_publish_intent(base_path)
     render json: {}
   end

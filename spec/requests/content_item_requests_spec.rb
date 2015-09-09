@@ -9,6 +9,10 @@ RSpec.describe "Content item requests", :type => :request do
   include GOVUK::Client::TestHelpers::URLArbiter
   include MessageQueueHelpers
 
+  def deep_stringify_keys(hash)
+    JSON.parse(hash.to_json)
+  end
+
   let(:base_path) {
     "/vat-rates"
   }
@@ -186,6 +190,15 @@ RSpec.describe "Content item requests", :type => :request do
       delivery_info, _, _ = wait_for_message_on(@queue)
       expect(delivery_info.routing_key).to eq('redirect.major')
     end
+
+    it "logs a 'PutContent' event in the event log" do
+      put_content_item
+      expect(Event.count).to eq(1)
+      expect(Event.first.action).to eq('PutContent')
+      expect(Event.first.user_uid).to eq(nil)
+      expected_payload = deep_stringify_keys(content_item.merge("base_path" => base_path))
+      expect(Event.first.payload).to eq(expected_payload)
+    end
   end
 
   describe "PUT /draft-content" do
@@ -237,6 +250,15 @@ RSpec.describe "Content item requests", :type => :request do
       expect(PublishingAPI.services(:queue_publisher)).not_to receive(:send_message)
 
       put_content_item
+    end
+
+    it "logs a 'PutDraftContent' event in the event log" do
+      put_content_item
+      expect(Event.count).to eq(1)
+      expect(Event.first.action).to eq('PutDraftContent')
+      expect(Event.first.user_uid).to eq(nil)
+      expected_payload = deep_stringify_keys(content_item.merge("base_path" => base_path))
+      expect(Event.first.payload).to eq(expected_payload)
     end
   end
 end
