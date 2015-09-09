@@ -1,13 +1,19 @@
-development:
+default: &default
   adapter: postgresql
   encoding: unicode
-  database: publishing_api_development
   pool: 5
   template: template0
 
+development:
+  <<: *default
+  database: publishing_api_development
+
 test:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: publishing_api_test
-  pool: 5
-  template: template0
+
+production:
+  <<: *default
+  database: publishing_api_production
+  username: publishing_api
+  password: <%= ENV['DATABASE_PASSWORD'] %>
