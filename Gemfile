@@ -11,6 +11,7 @@ gem "unicorn", "~> 4.9.0"
 gem "logstasher", "0.6.2"
 gem "plek", "~> 1.10"
 gem "airbrake", "~> 4.2.1"
+gem "pg"
 
 gem "govuk-client-url_arbiter", "0.0.2"
 gem "gds-api-adapters", "22.0.0"
@@ -29,6 +30,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "database_cleaner"
   gem "webmock"
   gem "timecop"
 end
