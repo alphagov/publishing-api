@@ -16,9 +16,8 @@ class PublishIntentsController < ApplicationController
   end
 
   def destroy
-    EventLogger.new.log('DeletePublishIntent', nil, {"base_path" => base_path})
-
-    live_content_store.delete_publish_intent(base_path)
+    event = EventLogger.new.log('DeletePublishIntent', nil, {"base_path" => base_path})
+    Command::DeletePublishIntent.new(event).call
     render json: {}
   end
 
