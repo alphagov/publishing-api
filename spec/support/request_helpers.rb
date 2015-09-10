@@ -89,18 +89,6 @@ module RequestHelpers
     end
   end
 
-  def check_content_type_header
-    it "passes through the Content-Type header from the content store" do
-      stub_request(:put, %r{.*content-store.*/content/.*}).to_return(headers: {
-        "Content-Type" => "application/vnd.ms-powerpoint"
-      })
-
-      put_content_item
-
-      expect(response["Content-Type"]).to include("application/vnd.ms-powerpoint")
-    end
-  end
-
   def check_draft_content_store_502_suppression
     context "when draft content store is not running but draft 502s are suppressed" do
       before do

@@ -67,7 +67,6 @@ RSpec.describe "Content item requests", :type => :request do
     check_url_registration_failures
     check_200_response
     check_400_on_invalid_json
-    check_content_type_header
     check_draft_content_store_502_suppression
     check_forwards_locale_extension
     check_accepts_root_path
@@ -227,7 +226,6 @@ RSpec.describe "Content item requests", :type => :request do
     check_url_registration_failures
     check_200_response
     check_400_on_invalid_json
-    check_content_type_header
     check_draft_content_store_502_suppression
     check_forwards_locale_extension
     check_accepts_root_path
