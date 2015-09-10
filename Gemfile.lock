@@ -226,3 +226,6 @@ DEPENDENCIES
   web-console (~> 2.0)
   webmock
   whenever (= 0.9.4)
+
+BUNDLED WITH
+   1.10.5

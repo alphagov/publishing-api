@@ -19,18 +19,21 @@ gem "gds-api-adapters", "22.0.0"
 gem 'bunny', '2.0.0'
 gem 'whenever', '0.9.4', :require => false
 
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem "web-console", "~> 2.0"
+end
+
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug"
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem "web-console", "~> 2.0"
-  gem "rspec-rails", "~> 3.3"
-  gem "simplecov", "0.10.0", require: false
-  gem "simplecov-rcov", "0.2.3", require: false
 end
 
 group :test do
   gem "database_cleaner"
   gem "webmock"
   gem "timecop"
+  gem "rspec-rails", "~> 3.3"
+  gem "simplecov", "0.10.0", require: false
+  gem "simplecov-rcov", "0.2.3", require: false
 end
