@@ -2,18 +2,13 @@ class PublishIntentsController < ApplicationController
   include URLArbitration
 
   before_filter :parse_content_item, only: [:create_or_update]
+  rescue_from GdsApi::HTTPClientError, with: :propagate_error
+  rescue_from UrlArbitrationError, with: :propagate_error
 
   def create_or_update
-    with_url_arbitration do
-      EventLogger.new.log('PutPublishIntent', nil, content_item.merge("base_path" => base_path))
-
-      live_content_store.put_publish_intent(
-        base_path: base_path,
-        publish_intent: content_item
-      )
-
-      render json: content_item
-    end
+    event = EventLogger.new.log('PutPublishIntent', nil, content_item.merge("base_path" => base_path))
+    Command::PutPublishIntent.new(event).call
+    render json: content_item
   end
 
   def show
@@ -28,6 +23,10 @@ class PublishIntentsController < ApplicationController
   end
 
 private
+
+  def propagate_error(exception)
+    render status: exception.code, json: exception.error_details
+  end
 
   def live_content_store
     PublishingAPI.services(:live_content_store)
