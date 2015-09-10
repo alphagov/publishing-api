@@ -33,6 +33,7 @@ group :test do
   gem "database_cleaner"
   gem "webmock"
   gem "timecop"
+  gem "rspec"
   gem "rspec-rails", "~> 3.3"
   gem "simplecov", "0.10.0", require: false
   gem "simplecov-rcov", "0.2.3", require: false
