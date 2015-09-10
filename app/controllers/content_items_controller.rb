@@ -13,22 +13,9 @@ class ContentItemsController < ApplicationController
   end
 
   def put_draft_content_item
-    with_url_arbitration do
-      EventLogger.new.log('PutDraftContentWithLinks', nil, content_item.merge("base_path" => base_path))
-
-      draft_response = with_502_suppression do
-        draft_content_store.put_content_item(
-          base_path: base_path,
-          content_item: content_item,
-        )
-      end
-
-      if draft_response
-        render json: content_item, content_type: draft_response.headers[:content_type]
-      else
-        render json: content_item
-      end
-    end
+    event = event_logger.log('PutDraftContentWithLinks', nil, content_item.merge("base_path" => base_path))
+    Command::PutDraftContentWithLinks.new(event).call
+    render json: content_item
   end
 
 private
