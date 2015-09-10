@@ -4,28 +4,12 @@ class ContentItemsController < ApplicationController
   before_filter :parse_content_item
   before_filter :validate_routing_key_fields, only: [:put_live_content_item]
   rescue_from GdsApi::HTTPClientError, with: :propagate_error
+  rescue_from UrlArbitrationError, with: :propagate_error
 
   def put_live_content_item
-    with_url_arbitration do
-      with_502_suppression do
-        EventLogger.new.log('PutContentWithLinks', nil, content_item.merge("base_path" => base_path))
-
-        draft_content_store.put_content_item(
-          base_path: base_path,
-          content_item: content_item_without_access_limiting,
-        )
-      end
-
-      live_response = live_content_store.put_content_item(
-        base_path: base_path,
-        content_item: content_item_without_access_limiting,
-      )
-
-      queue_publisher.send_message(content_item_with_base_path)
-
-      render json: content_item_without_access_limiting,
-             content_type: live_response.headers[:content_type]
-    end
+    event = event_logger.log('PutContentWithLinks', nil, content_item.merge("base_path" => base_path))
+    Command::PutContentWithLinks.new(event).call
+    render json: content_item
   end
 
   def put_draft_content_item
@@ -48,6 +32,10 @@ class ContentItemsController < ApplicationController
   end
 
 private
+  def event_logger
+    EventLogger.new
+  end
+
   def propagate_error(exception)
     render status: exception.code, json: exception.error_details
   end
