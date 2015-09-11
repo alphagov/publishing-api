@@ -12,7 +12,7 @@ class PublishIntentsController < ApplicationController
   end
 
   def show
-    render json: live_content_store.get_publish_intent(base_path)
+    render json: Query::GetPublishIntent.new(base_path).call
   end
 
   def destroy
@@ -25,9 +25,5 @@ private
 
   def propagate_error(exception)
     render status: exception.code, json: exception.error_details
-  end
-
-  def live_content_store
-    PublishingAPI.services(:live_content_store)
   end
 end
