@@ -1,17 +1,5 @@
-class Command::PutPublishIntent
+class Command::PutPublishIntent < Command::BaseCommand
   attr_reader :event
-
-  def initialize(event)
-    @event = event
-  end
-
-  def base_path
-    event.payload['base_path']
-  end
-
-  def content_item
-    event.payload.deep_symbolize_keys.except(:base_path)
-  end
 
   def call
     url_arbiter.reserve_path(
@@ -25,15 +13,5 @@ class Command::PutPublishIntent
     )
   rescue GOVUK::Client::Errors::HTTPError => e
     raise UrlArbitrationError.new(e)
-  end
-
-private
-
-  def live_content_store
-    PublishingAPI.services(:live_content_store)
-  end
-
-  def url_arbiter
-    PublishingAPI.services(:url_arbiter)
   end
 end

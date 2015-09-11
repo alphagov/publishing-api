@@ -1,18 +1,4 @@
-class Command::PutDraftContentWithLinks
-  attr_reader :event
-
-  def initialize(event)
-    @event = event
-  end
-
-  def base_path
-    event.payload['base_path']
-  end
-
-  def content_item
-    event.payload.deep_symbolize_keys.except(:base_path)
-  end
-
+class Command::PutDraftContentWithLinks < Command::BaseCommand
   def call
     url_arbiter.reserve_path(
       base_path,
@@ -32,23 +18,8 @@ class Command::PutDraftContentWithLinks
   end
 
 private
+
   def should_suppress?(error)
     ENV["SUPPRESS_DRAFT_STORE_502_ERROR"] && error.code == 502
-  end
-
-  def draft_content_store
-    PublishingAPI.services(:draft_content_store)
-  end
-
-  def live_content_store
-    PublishingAPI.services(:live_content_store)
-  end
-
-  def queue_publisher
-    PublishingAPI.services(:queue_publisher)
-  end
-
-  def url_arbiter
-    PublishingAPI.services(:url_arbiter)
   end
 end
