@@ -1,5 +1,4 @@
 class ContentItemsController < ApplicationController
-  include URLArbitration
 
   before_filter :parse_content_item
   before_filter :validate_routing_key_fields, only: [:put_live_content_item]
@@ -17,20 +16,9 @@ class ContentItemsController < ApplicationController
   end
 
 private
+
   def command_processor
     CommandProcessor.new(base_path, nil, content_item)
-  end
-
-  def propagate_error(exception)
-    render status: exception.code, json: exception.error_details
-  end
-
-  def with_502_suppression(&block)
-    block.call
-  rescue GdsApi::HTTPServerError => e
-    unless e.code == 502 && ENV["SUPPRESS_DRAFT_STORE_502_ERROR"]
-      raise e
-    end
   end
 
   def validate_routing_key_fields

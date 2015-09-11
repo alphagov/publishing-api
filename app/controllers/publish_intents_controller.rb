@@ -1,5 +1,4 @@
 class PublishIntentsController < ApplicationController
-  include URLArbitration
 
   before_filter :parse_content_item, only: [:create_or_update]
   rescue_from GdsApi::HTTPClientError, with: :propagate_error
