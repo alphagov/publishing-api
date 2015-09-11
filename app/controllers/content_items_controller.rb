@@ -7,20 +7,18 @@ class ContentItemsController < ApplicationController
   rescue_from UrlArbitrationError, with: :propagate_error
 
   def put_live_content_item
-    event = event_logger.log('PutContentWithLinks', nil, content_item.merge("base_path" => base_path))
-    Command::PutContentWithLinks.new(event).call
+    command_processor.put_content_with_links
     render json: content_item
   end
 
   def put_draft_content_item
-    event = event_logger.log('PutDraftContentWithLinks', nil, content_item.merge("base_path" => base_path))
-    Command::PutDraftContentWithLinks.new(event).call
+    command_processor.put_draft_content_with_links
     render json: content_item
   end
 
 private
-  def event_logger
-    EventLogger.new
+  def command_processor
+    CommandProcessor.new(base_path, nil, content_item)
   end
 
   def propagate_error(exception)
@@ -33,26 +31,6 @@ private
     unless e.code == 502 && ENV["SUPPRESS_DRAFT_STORE_502_ERROR"]
       raise e
     end
-  end
-
-  def draft_content_store
-    PublishingAPI.services(:draft_content_store)
-  end
-
-  def live_content_store
-    PublishingAPI.services(:live_content_store)
-  end
-
-  def queue_publisher
-    PublishingAPI.services(:queue_publisher)
-  end
-
-  def content_item_without_access_limiting
-    @content_item_without_access_limiting ||= content_item.except(:access_limited)
-  end
-
-  def content_item_with_base_path
-    content_item_without_access_limiting.merge(base_path: base_path)
   end
 
   def validate_routing_key_fields
