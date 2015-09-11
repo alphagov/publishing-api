@@ -6,8 +6,7 @@ class PublishIntentsController < ApplicationController
   rescue_from UrlArbitrationError, with: :propagate_error
 
   def create_or_update
-    event = EventLogger.new.log('PutPublishIntent', nil, content_item.merge("base_path" => base_path))
-    Command::PutPublishIntent.new(event).call
+    command_processor.put_publish_intent
     render json: content_item
   end
 
@@ -16,12 +15,15 @@ class PublishIntentsController < ApplicationController
   end
 
   def destroy
-    event = EventLogger.new.log('DeletePublishIntent', nil, {"base_path" => base_path})
-    Command::DeletePublishIntent.new(event).call
+    command_processor.delete_publish_intent
     render json: {}
   end
 
 private
+
+  def command_processor
+    CommandProcessor.new(base_path, nil, content_item || {})
+  end
 
   def propagate_error(exception)
     render status: exception.code, json: exception.error_details

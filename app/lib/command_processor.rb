@@ -17,7 +17,17 @@ class CommandProcessor
     Command::PutDraftContentWithLinks.new(event).call
   end
 
-  private
+  def put_publish_intent
+    event = log_event('PutPublishIntent')
+    Command::PutPublishIntent.new(event).call
+  end
+
+  def delete_publish_intent
+    event = log_event('DeletePublishIntent')
+    Command::DeletePublishIntent.new(event).call
+  end
+
+private
 
   def item_with_base_path
     @item.merge(base_path: base_path)
