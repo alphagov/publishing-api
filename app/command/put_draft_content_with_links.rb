@@ -20,6 +20,6 @@ class Command::PutDraftContentWithLinks < Command::BaseCommand
 private
 
   def should_suppress?(error)
-    ENV["SUPPRESS_DRAFT_STORE_502_ERROR"] && error.code == 502
+    PublishingAPI.swallow_draft_connection_errors && error.code == 502
   end
 end

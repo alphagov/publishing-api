@@ -92,8 +92,8 @@ module RequestHelpers
   def check_draft_content_store_502_suppression
     context "when draft content store is not running but draft 502s are suppressed" do
       before do
-        @draft_store_502_setting = ENV["SUPPRESS_DRAFT_STORE_502_ERROR"]
-        ENV["SUPPRESS_DRAFT_STORE_502_ERROR"] = "1"
+        @swallow_draft_errors = PublishingAPI.swallow_draft_connection_errors
+        PublishingAPI.swallow_draft_connection_errors = true
         stub_request(:put, %r{^http://draft-content-store.*/content/.*})
           .to_return(status: 502)
       end
@@ -105,7 +105,7 @@ module RequestHelpers
           expect(response.status).to eq(200)
           expect(response.body).to eq(content_item.to_json)
         ensure
-          ENV["SUPPRESS_DRAFT_STORE_502_ERROR"] = @draft_store_502_setting
+          PublishingAPI.swallow_draft_connection_errors = @swallow_draft_errors
         end
       end
     end

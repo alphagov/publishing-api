@@ -1,6 +1,9 @@
 require "govuk/client/url_arbiter"
 
 module PublishingAPI
+  # To be set in dev mode so that this can run when the draft content store isn't running.
+  cattr_accessor :swallow_draft_connection_errors
+
   def self.register_service(name:, client:)
     @services ||= {}
 
@@ -39,3 +42,7 @@ PublishingAPI.register_service(
   name: :queue_publisher,
   client: QueuePublisher.new(rabbitmq_config)
 )
+
+if Rails.env.development?
+  PublishingAPI.swallow_draft_connection_errors = true
+end

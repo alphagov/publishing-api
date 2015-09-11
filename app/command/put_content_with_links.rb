@@ -27,7 +27,7 @@ class Command::PutContentWithLinks < Command::BaseCommand
 private
 
   def should_suppress?(error)
-    ENV["SUPPRESS_DRAFT_STORE_502_ERROR"] && error.code == 502
+    PublishingAPI.swallow_draft_connection_errors && error.code == 502
   end
 
   def content_item_without_access_limiting
