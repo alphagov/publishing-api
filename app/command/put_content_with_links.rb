@@ -10,7 +10,7 @@ class Command::PutContentWithLinks < Command::BaseCommand
       content_item: content_item_without_access_limiting,
     )
 
-    live_response = live_content_store.put_content_item(
+    live_content_store.put_content_item(
       base_path: base_path,
       content_item: content_item_without_access_limiting,
     )

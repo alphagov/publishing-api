@@ -5,7 +5,7 @@ class Command::PutDraftContentWithLinks < Command::BaseCommand
       publishing_app: content_item[:publishing_app]
     )
 
-    draft_response = draft_content_store.put_content_item(
+    draft_content_store.put_content_item(
       base_path: base_path,
       content_item: content_item,
     )
