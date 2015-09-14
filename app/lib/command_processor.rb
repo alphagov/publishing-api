@@ -8,26 +8,30 @@ class CommandProcessor
   end
 
   def put_content_with_links
-    event = log_event('PutContentWithLinks')
-    Command::PutContentWithLinks.new(event).call
+    dispatch(Command::PutContentWithLinks)
   end
 
   def put_draft_content_with_links
-    event = log_event('PutDraftContentWithLinks')
-    Command::PutDraftContentWithLinks.new(event).call
+    dispatch(Command::PutDraftContentWithLinks)
   end
 
   def put_publish_intent
-    event = log_event('PutPublishIntent')
-    Command::PutPublishIntent.new(event).call
+    dispatch(Command::PutPublishIntent)
   end
 
   def delete_publish_intent
-    event = log_event('DeletePublishIntent')
-    Command::DeletePublishIntent.new(event).call
+    dispatch(Command::DeletePublishIntent)
   end
 
 private
+  def dispatch(command_class)
+    event = log_event(command_name(command_class))
+    command_class.new(event).call
+  end
+
+  def command_name(command_class)
+    command_class.name.split("::")[-1]
+  end
 
   def item_with_base_path
     @item.merge(base_path: base_path)
