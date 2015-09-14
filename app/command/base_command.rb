@@ -30,5 +30,4 @@ private
   def url_arbiter
     PublishingAPI.services(:url_arbiter)
   end
-
 end
