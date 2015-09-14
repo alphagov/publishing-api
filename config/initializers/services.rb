@@ -10,7 +10,7 @@ module PublishingAPI
     @services[name] = client
   end
 
-  def self.services(name)
+  def self.service(name)
     @services[name] or raise ServiceNotRegisteredException.new(name)
   end
 

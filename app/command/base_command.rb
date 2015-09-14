@@ -14,20 +14,19 @@ class Command::BaseCommand
   end
 
 private
-
   def draft_content_store
-    PublishingAPI.services(:draft_content_store)
+    PublishingAPI.service(:draft_content_store)
   end
 
   def live_content_store
-    PublishingAPI.services(:live_content_store)
+    PublishingAPI.service(:live_content_store)
   end
 
   def queue_publisher
-    PublishingAPI.services(:queue_publisher)
+    PublishingAPI.service(:queue_publisher)
   end
 
   def url_arbiter
-    PublishingAPI.services(:url_arbiter)
+    PublishingAPI.service(:url_arbiter)
   end
 end

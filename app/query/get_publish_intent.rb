@@ -12,6 +12,6 @@ class Query::GetPublishIntent
 private
 
   def live_content_store
-    PublishingAPI.services(:live_content_store)
+    PublishingAPI.service(:live_content_store)
   end
 end

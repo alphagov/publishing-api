@@ -1,7 +1,7 @@
 module RequestHelpers
   def check_url_registration_happens
     it "registers with the URL with the URL arbiter" do
-      expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).with(
+      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).with(
         "/vat-rates",
         publishing_app: content_item[:publishing_app]
       )
@@ -116,7 +116,7 @@ module RequestHelpers
       let(:base_path) { "/vat-rates.pl" }
 
       it "passes through the locale extension" do
-        expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(hash_including(base_path: base_path))
 
         put_content_item
