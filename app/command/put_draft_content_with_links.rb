@@ -1,23 +1,15 @@
 class Command::PutDraftContentWithLinks < Command::BaseCommand
   def call
-    url_arbiter.reserve_path(
-      base_path,
-      publishing_app: content_item[:publishing_app]
-    )
+    Adapters::UrlArbiter.new(services: services).call(base_path, content_item[:publishing_app])
+    Adapters::DraftContentStore.new(services: services).call(base_path, content_item)
 
-    draft_content_store.put_content_item(
-      base_path: base_path,
-      content_item: content_item,
-    )
-
-    content_item
-  rescue GdsApi::HTTPServerError => e
-    raise e unless should_suppress?(e)
-  rescue GOVUK::Client::Errors::HTTPError => e
-    raise UrlArbitrationError.new(e)
+    Command::Success.new(content_item)
   end
 
 private
+  def content_item
+    payload.deep_symbolize_keys.except(:base_path)
+  end
 
   def should_suppress?(error)
     PublishingAPI.swallow_draft_connection_errors && error.code == 502

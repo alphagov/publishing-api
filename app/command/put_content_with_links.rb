@@ -1,33 +1,17 @@
 class Command::PutContentWithLinks < Command::BaseCommand
   def call
-    url_arbiter.reserve_path(
-      base_path,
-      publishing_app: content_item[:publishing_app]
-    )
-
-    draft_content_store.put_content_item(
-      base_path: base_path,
-      content_item: content_item_without_access_limiting,
-    )
-
-    live_content_store.put_content_item(
-      base_path: base_path,
-      content_item: content_item_without_access_limiting,
-    )
+    Adapters::UrlArbiter.new(services: services).call(base_path, content_item[:publishing_app])
+    Adapters::DraftContentStore.new(services: services).call(base_path, content_item_without_access_limiting)
+    Adapters::ContentStore.new(services: services).call(base_path, content_item_without_access_limiting)
 
     queue_publisher.send_message(content_item_with_base_path)
 
-    content_item_without_access_limiting
-  rescue GdsApi::HTTPServerError => e
-    raise e unless should_suppress?(e)
-  rescue GOVUK::Client::Errors::HTTPError => e
-    raise UrlArbitrationError.new(e)
+    Command::Success.new(content_item_without_access_limiting)
   end
 
 private
-
-  def should_suppress?(error)
-    PublishingAPI.swallow_draft_connection_errors && error.code == 502
+  def content_item
+    payload.deep_symbolize_keys.except(:base_path)
   end
 
   def content_item_without_access_limiting

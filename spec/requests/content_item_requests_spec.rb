@@ -59,7 +59,8 @@ RSpec.describe "Content item requests", :type => :request do
 
   before do
     stub_default_url_arbiter_responses
-    stub_request(:put, %r{.*content-store.*/content/.*})
+    stub_request(:put, Plek.find('content-store') + "/content#{base_path}")
+    stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}")
   end
 
   describe "PUT /content" do
@@ -211,12 +212,50 @@ RSpec.describe "Content item requests", :type => :request do
           )
       end
 
-      it "logs the event in the event log" do
+      it "does not log the event in the event log" do
         put_content_item
 
-        expect(Event.count).to eq(1)
+        expect(Event.count).to eq(0)
         expect(response.status).to eq(422)
         expect(response.body).to eq(error_details.to_json)
+      end
+    end
+
+    context "draft content store times out" do
+      before do
+        stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
+      end
+
+      it "does not log an event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(0)
+      end
+
+      it "returns an error" do
+        put_content_item
+
+        expect(response.status).to eq(500)
+        expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from draft content store: GdsApi::TimedOutException"})
+      end
+    end
+
+    context "content store times out" do
+      before do
+        stub_request(:put, Plek.find('content-store') + "/content#{base_path}").to_timeout
+      end
+
+      it "does not log an event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(0)
+      end
+
+      it "returns an error" do
+        put_content_item
+
+        expect(response.status).to eq(500)
+        expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from content store: GdsApi::TimedOutException"})
       end
     end
   end
@@ -283,12 +322,36 @@ RSpec.describe "Content item requests", :type => :request do
           )
       end
 
-      it "logs an event in the event log" do
+      it "does not log an event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(0)
+      end
+
+      it "returns an error" do
         put_content_item
 
         expect(response.status).to eq(422)
         expect(response.body).to eq(error_details.to_json)
-        expect(Event.count).to eq(1)
+      end
+    end
+
+    context "draft content store times out" do
+      before do
+        stub_request(:put, %r{.*content-store.*/content/.*}).to_timeout
+      end
+
+      it "does not log an event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(0)
+      end
+
+      it "returns an error" do
+        put_content_item
+
+        expect(response.status).to eq(500)
+        expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from draft content store: GdsApi::TimedOutException"})
       end
     end
 
