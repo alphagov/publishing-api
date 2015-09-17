@@ -1,31 +1,22 @@
 class PublishIntentsController < ApplicationController
-  include URLArbitration
-
   before_filter :parse_content_item, only: [:create_or_update]
 
   def create_or_update
-    with_url_arbitration do
-      live_content_store.put_publish_intent(
-        base_path: base_path,
-        publish_intent: content_item
-      )
-
-      render json: content_item
-    end
+    response = command_processor.put_publish_intent(content_item.merge(base_path: base_path))
+    render status: response.code, json: response.as_json
   end
 
   def show
-    render json: live_content_store.get_publish_intent(base_path)
+    render json: Query::GetPublishIntent.new(base_path).call
   end
 
   def destroy
-    live_content_store.delete_publish_intent(base_path)
-    render json: {}
+    response = command_processor.delete_publish_intent("base_path" => base_path)
+    render status: response.code, json: response.as_json
   end
 
 private
-
-  def live_content_store
-    PublishingAPI.services(:live_content_store)
+  def command_processor
+    CommandProcessor.new(nil)
   end
 end

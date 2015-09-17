@@ -25,6 +25,7 @@ module PublishingAPI
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
+    config.autoload_paths << "#{config.root}/app"
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
   end

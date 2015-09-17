@@ -1,7 +1,7 @@
 module RequestHelpers
   def check_url_registration_happens
     it "registers with the URL with the URL arbiter" do
-      expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).with(
+      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).with(
         "/vat-rates",
         publishing_app: content_item[:publishing_app]
       )
@@ -89,23 +89,11 @@ module RequestHelpers
     end
   end
 
-  def check_content_type_header
-    it "passes through the Content-Type header from the content store" do
-      stub_request(:put, %r{.*content-store.*/content/.*}).to_return(headers: {
-        "Content-Type" => "application/vnd.ms-powerpoint"
-      })
-
-      put_content_item
-
-      expect(response["Content-Type"]).to include("application/vnd.ms-powerpoint")
-    end
-  end
-
   def check_draft_content_store_502_suppression
     context "when draft content store is not running but draft 502s are suppressed" do
       before do
-        @draft_store_502_setting = ENV["SUPPRESS_DRAFT_STORE_502_ERROR"]
-        ENV["SUPPRESS_DRAFT_STORE_502_ERROR"] = "1"
+        @swallow_draft_errors = PublishingAPI.swallow_draft_connection_errors
+        PublishingAPI.swallow_draft_connection_errors = true
         stub_request(:put, %r{^http://draft-content-store.*/content/.*})
           .to_return(status: 502)
       end
@@ -117,7 +105,7 @@ module RequestHelpers
           expect(response.status).to eq(200)
           expect(response.body).to eq(content_item.to_json)
         ensure
-          ENV["SUPPRESS_DRAFT_STORE_502_ERROR"] = @draft_store_502_setting
+          PublishingAPI.swallow_draft_connection_errors = @swallow_draft_errors
         end
       end
     end
@@ -128,7 +116,7 @@ module RequestHelpers
       let(:base_path) { "/vat-rates.pl" }
 
       it "passes through the locale extension" do
-        expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(hash_including(base_path: base_path))
 
         put_content_item

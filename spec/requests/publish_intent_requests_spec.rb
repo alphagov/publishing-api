@@ -43,9 +43,17 @@ RSpec.describe "Publish intent requests", :type => :request do
       put "/publish-intent#{base_path}", body
     end
 
+    def deep_stringify_keys(hash)
+      JSON.parse(hash.to_json)
+    end
+
+    let(:expected_event_payload) {
+      deep_stringify_keys(content_item.merge("base_path" => base_path))
+    }
+
     it "sends to live content store after registering the URL" do
-      expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
-      expect(PublishingAPI.services(:live_content_store)).to receive(:put_publish_intent)
+      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_publish_intent)
         .with(base_path: "/vat-rates", publish_intent: content_item)
         .ordered
 
@@ -53,11 +61,19 @@ RSpec.describe "Publish intent requests", :type => :request do
     end
 
     it "does not send anything to the draft content store" do
-      expect(PublishingAPI.services(:draft_content_store)).to receive(:put_publish_intent).never
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_publish_intent).never
 
       put_content_item
 
       expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
+    end
+
+    it "logs a 'PutPublishIntent' event in the event log" do
+      put_content_item
+      expect(Event.count).to eq(1)
+      expect(Event.first.action).to eq('PutPublishIntent')
+      expect(Event.first.user_uid).to eq(nil)
+      expect(Event.first.payload).to eq(expected_event_payload)
     end
   end
 
@@ -84,6 +100,17 @@ RSpec.describe "Publish intent requests", :type => :request do
       expect(stubbed_delete).to have_been_requested
       expect(response.status).to eq(200)
       expect(response.body).to eq({}.to_json)
+    end
+
+    it "logs a 'DeletePublishIntent' event in the event log" do
+      stub_request(:delete, %r{^content-store.*/publish-intent/vat-rates})
+        .to_return(body: {}.to_json)
+      delete "/publish-intent/vat-rates"
+
+      expect(Event.count).to eq(1)
+      expect(Event.first.action).to eq('DeletePublishIntent')
+      expect(Event.first.user_uid).to eq(nil)
+      expect(Event.first.payload).to eq("base_path" => "/vat-rates")
     end
   end
 end

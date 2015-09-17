@@ -9,6 +9,10 @@ RSpec.describe "Content item requests", :type => :request do
   include GOVUK::Client::TestHelpers::URLArbiter
   include MessageQueueHelpers
 
+  def deep_stringify_keys(hash)
+    JSON.parse(hash.to_json)
+  end
+
   let(:base_path) {
     "/vat-rates"
   }
@@ -55,7 +59,8 @@ RSpec.describe "Content item requests", :type => :request do
 
   before do
     stub_default_url_arbiter_responses
-    stub_request(:put, %r{.*content-store.*/content/.*})
+    stub_request(:put, Plek.find('content-store') + "/content#{base_path}")
+    stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}")
   end
 
   describe "PUT /content" do
@@ -63,14 +68,13 @@ RSpec.describe "Content item requests", :type => :request do
     check_url_registration_failures
     check_200_response
     check_400_on_invalid_json
-    check_content_type_header
     check_draft_content_store_502_suppression
     check_forwards_locale_extension
     check_accepts_root_path
 
     before :all do
       @config = YAML.load_file(Rails.root.join("config", "rabbitmq.yml"))[Rails.env].symbolize_keys
-      @old_publisher = PublishingAPI.services(:queue_publisher)
+      @old_publisher = PublishingAPI.service(:queue_publisher)
       PublishingAPI.register_service(name: :queue_publisher, client: QueuePublisher.new(@config))
     end
 
@@ -96,8 +100,8 @@ RSpec.describe "Content item requests", :type => :request do
     end
 
     it "sends to draft content store after registering the URL" do
-      expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
-      expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
           content_item: content_item,
@@ -108,8 +112,8 @@ RSpec.describe "Content item requests", :type => :request do
     end
 
     it "sends to live content store after registering the URL" do
-      expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
-      expect(PublishingAPI.services(:live_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
           content_item: content_item,
@@ -121,13 +125,13 @@ RSpec.describe "Content item requests", :type => :request do
     end
 
     it "strips access limiting metadata from the document" do
-      expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
           content_item: content_item,
         )
 
-      expect(PublishingAPI.services(:live_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
           content_item: content_item,
@@ -186,6 +190,74 @@ RSpec.describe "Content item requests", :type => :request do
       delivery_info, _, _ = wait_for_message_on(@queue)
       expect(delivery_info.routing_key).to eq('redirect.major')
     end
+
+    it "logs a 'PutContentWithLinks' event in the event log" do
+      put_content_item
+      expect(Event.count).to eq(1)
+      expect(Event.first.action).to eq('PutContentWithLinks')
+      expect(Event.first.user_uid).to eq(nil)
+      expected_payload = deep_stringify_keys(content_item.merge("base_path" => base_path))
+      expect(Event.first.payload).to eq(expected_payload)
+    end
+
+    context "invalid content item" do
+      let(:error_details) { {errors: {update_type: "invalid"}} }
+
+      before do
+        stub_request(:put, %r{.*content-store.*/content/.*})
+          .to_return(
+            status: 422,
+            body: error_details.to_json,
+            headers: {"Content-type" => "application/json"}
+          )
+      end
+
+      it "does not log the event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(0)
+        expect(response.status).to eq(422)
+        expect(response.body).to eq(error_details.to_json)
+      end
+    end
+
+    context "draft content store times out" do
+      before do
+        stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
+      end
+
+      it "does not log an event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(0)
+      end
+
+      it "returns an error" do
+        put_content_item
+
+        expect(response.status).to eq(500)
+        expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from draft content store: GdsApi::TimedOutException"})
+      end
+    end
+
+    context "content store times out" do
+      before do
+        stub_request(:put, Plek.find('content-store') + "/content#{base_path}").to_timeout
+      end
+
+      it "does not log an event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(0)
+      end
+
+      it "returns an error" do
+        put_content_item
+
+        expect(response.status).to eq(500)
+        expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from content store: GdsApi::TimedOutException"})
+      end
+    end
   end
 
   describe "PUT /draft-content" do
@@ -193,7 +265,6 @@ RSpec.describe "Content item requests", :type => :request do
     check_url_registration_failures
     check_200_response
     check_400_on_invalid_json
-    check_content_type_header
     check_draft_content_store_502_suppression
     check_forwards_locale_extension
     check_accepts_root_path
@@ -203,8 +274,8 @@ RSpec.describe "Content item requests", :type => :request do
     end
 
     it "sends to draft content store after registering the URL" do
-      expect(PublishingAPI.services(:url_arbiter)).to receive(:reserve_path).ordered
-      expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
           content_item: content_item,
@@ -216,14 +287,14 @@ RSpec.describe "Content item requests", :type => :request do
     end
 
     it "does not send anything to the live content store" do
-      expect(PublishingAPI.services(:live_content_store)).to receive(:put_content_item).never
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
       expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
 
       put_content_item
     end
 
     it "leaves access limiting metadata in the document" do
-      expect(PublishingAPI.services(:draft_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
           content_item: content_item_with_access_limiting,
@@ -234,9 +305,63 @@ RSpec.describe "Content item requests", :type => :request do
     end
 
     it "doesn't send any messages" do
-      expect(PublishingAPI.services(:queue_publisher)).not_to receive(:send_message)
+      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       put_content_item
+    end
+
+    context "invalid content item" do
+      let(:error_details) { {errors: {update_type: "invalid"}} }
+
+      before do
+        stub_request(:put, %r{.*content-store.*/content/.*})
+          .to_return(
+            status: 422,
+            body: error_details.to_json,
+            headers: {"Content-type" => "application/json"}
+          )
+      end
+
+      it "does not log an event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(0)
+      end
+
+      it "returns an error" do
+        put_content_item
+
+        expect(response.status).to eq(422)
+        expect(response.body).to eq(error_details.to_json)
+      end
+    end
+
+    context "draft content store times out" do
+      before do
+        stub_request(:put, %r{.*content-store.*/content/.*}).to_timeout
+      end
+
+      it "does not log an event in the event log" do
+        put_content_item
+
+        expect(Event.count).to eq(0)
+      end
+
+      it "returns an error" do
+        put_content_item
+
+        expect(response.status).to eq(500)
+        expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from draft content store: GdsApi::TimedOutException"})
+      end
+    end
+
+    it "logs a 'PutDraftContentWithLinks' event in the event log" do
+      put_content_item
+      expect(Event.count).to eq(1)
+      expect(Event.first.action).to eq('PutDraftContentWithLinks')
+      expect(Event.first.user_uid).to eq(nil)
+      expected_payload = deep_stringify_keys(content_item.merge("base_path" => base_path))
+      expect(Event.first.payload).to eq(expected_payload)
     end
   end
 end

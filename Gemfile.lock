@@ -137,6 +137,10 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rspec (3.3.0)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
     rspec-core (3.3.2)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.1)
@@ -216,6 +220,7 @@ DEPENDENCIES
   pg
   plek (~> 1.10)
   rails (= 4.2.3)
+  rspec
   rspec-rails (~> 3.3)
   sass-rails (~> 5.0)
   simplecov (= 0.10.0)
@@ -226,3 +231,6 @@ DEPENDENCIES
   web-console (~> 2.0)
   webmock
   whenever (= 0.9.4)
+
+BUNDLED WITH
+   1.10.5
