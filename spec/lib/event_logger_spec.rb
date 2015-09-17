@@ -16,4 +16,32 @@ RSpec.describe EventLogger do
     expect(Event.first.user_uid).to eq(user_uid)
     expect(Event.first.payload).to eq(payload)
   end
+
+  it "executes a provided block passing the event" do
+    ran_block = false
+    event = nil
+    EventLogger.new.log(action, user_uid, payload) do |e|
+      ran_block = true
+      event = e
+    end
+    expect(ran_block).to eq(true)
+    expect(event).to be_a(Event)
+  end
+
+  it "returns the return value of the block" do
+    value = EventLogger.new.log(action, user_uid, payload) do
+      "yes"
+    end
+    expect(value).to eq("yes")
+  end
+
+  it "does not record an event if the block raises an uncaught exception" do
+    expect {
+      EventLogger.new.log(action, user_uid, payload) do
+        raise "unchecked error"
+      end
+    }.to raise_error("unchecked error")
+    expect(Event.count).to eq(0)
+  end
+
 end
