@@ -3,4 +3,6 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+require 'pact/tasks'
+
 Rails.application.load_tasks
