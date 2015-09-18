@@ -3,6 +3,8 @@ require 'webmock'
 require 'pact/provider/rspec'
 require "govuk/client/test_helpers/url_arbiter"
 
+WebMock.disable!
+
 Pact.configure do | config |
   config.reports_dir = "spec/reports/pacts"
   config.include GOVUK::Client::TestHelpers::URLArbiter
@@ -17,6 +19,14 @@ Pact.service_provider "Publishing API" do
 end
 
 Pact.provider_states_for "GDS API Adapters" do
+  set_up do
+    WebMock.enable!
+  end
+
+  tear_down do
+    WebMock.disable!
+  end
+
   provider_state "a publish intent exists at /test-intent in the live content store" do
     set_up do
       DatabaseCleaner.clean_with :truncation

@@ -32,7 +32,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "webmock"
+  gem "webmock", require: false
   gem "timecop"
   gem "rspec"
   gem "rspec-rails", "~> 3.3"
