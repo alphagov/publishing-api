@@ -55,6 +55,38 @@ port 3093. Currently on GOV.UK machines it also be available at
 
 You can run the tests locally with: `rake`.
 
+## Running the contract tests
+
+The publishing API also has contract tests which verify that the service
+behaves in the way expected by its clients. We use a library called
+[`pact`](https://github.com/realestate-com-au/pact) which follows the *consumer driven contract testing* pattern. What this means is:
+
+* the expected interactions are defined in the [publishing_api_test.rb in gds-api-adapters](https://github.com/alphagov/gds-api-adapters/blob/master/test/publishing_api_test.rb#L19)
+* when these tests are run they output a pactfile which is stashed as an [archived artefact in CI](https://ci-new.alphagov.co.uk/job/govuk_gds_api_adapters/lastSuccessfulBuild/artifact/spec/pacts/gds_api_adapters-publishing_api.json)
+* the build of publishing api will use this archived artefact to test the publishing-api service
+
+When running in development, you can run the pact verification tests using:
+
+```
+$ bundle exec pact:verify
+```
+
+This will read the local file defined at:
+
+```
+../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json
+```
+
+You can also run the tests using the pact file from the master build in ci using
+
+```
+$ PACT_CI_API_KEY=****** bundle exec pact:verify:master
+```
+
+This will fetch the pact file from the ci server over http.
+
+The pacts are not currently run as part of the default rake task.
+
 ### Example API requests
 
 ``` sh
