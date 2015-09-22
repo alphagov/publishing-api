@@ -16,7 +16,7 @@ class Command::Error < StandardError
   end
 
   def valid_code?(code)
-    [400, 409, 422, 500].include?(code)
+    [400, 404, 409, 422, 500].include?(code)
   end
 
   def as_json

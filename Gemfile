@@ -27,11 +27,12 @@ end
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug"
+  gem "pact"
+  gem "database_cleaner"
 end
 
 group :test do
-  gem "database_cleaner"
-  gem "webmock"
+  gem "webmock", require: false
   gem "timecop"
   gem "rspec"
   gem "rspec-rails", "~> 3.3"
