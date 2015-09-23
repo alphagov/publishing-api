@@ -167,64 +167,66 @@ RSpec.describe "Content item requests", :type => :request do
       expect(Event.first.payload).to eq(expected_payload)
     end
 
-    it "creates the DraftContentItem derived representation" do
-      put_content_item(body: content_item.to_json)
-      expect(DraftContentItem.count).to eq(1)
-      item = DraftContentItem.first
-      expect(item.base_path).to eq(base_path)
-      expect(item.content_id).to eq(content_item[:content_id])
-      expect(item.details).to eq(content_item[:details].deep_stringify_keys)
-      expect(item.format).to eq(content_item[:format])
-      expect(item.locale).to eq(content_item[:locale])
-      expect(item.publishing_app).to eq(content_item[:publishing_app])
-      expect(item.rendering_app).to eq(content_item[:rendering_app])
-      expect(item.public_updated_at).to eq(content_item[:public_updated_at])
-      expect(item.description).to eq(content_item[:description])
-      expect(item.title).to eq(content_item[:title])
-      expect(item.routes).to eq(content_item[:routes].map(&:deep_stringify_keys))
-      expect(item.metadata["need_ids"]).to eq(content_item[:need_ids])
-      expect(item.metadata["phase"]).to eq(content_item[:phase])
-      expect(item.access_limited).to eq(content_item[:access_limited].deep_stringify_keys)
-    end
-
-    it "gives the DraftContentItem a version number of 1" do
-      put_content_item
-      expect(DraftContentItem.first.version).to eq(1)
-    end
-
-    context "a DraftContentItem already exists" do
-      before {
-        DraftContentItem.create(
-          title: "An existing title",
-          content_id: content_item[:content_id],
-          locale: content_item[:locale],
-          details: content_item[:details],
-          metadata: {},
-          base_path: base_path,
-          version: 1
-        )
-      }
-
-      it "updates the existing draft content item" do
-        put_content_item
+    describe "updating the DraftContentItem derived representation" do
+      it "creates the DraftContentItem derived representation" do
+        put_content_item(body: content_item.to_json)
         expect(DraftContentItem.count).to eq(1)
-        expect(DraftContentItem.last.title).to eq(content_item[:title])
+        item = DraftContentItem.first
+        expect(item.base_path).to eq(base_path)
+        expect(item.content_id).to eq(content_item[:content_id])
+        expect(item.details).to eq(content_item[:details].deep_stringify_keys)
+        expect(item.format).to eq(content_item[:format])
+        expect(item.locale).to eq(content_item[:locale])
+        expect(item.publishing_app).to eq(content_item[:publishing_app])
+        expect(item.rendering_app).to eq(content_item[:rendering_app])
+        expect(item.public_updated_at).to eq(content_item[:public_updated_at])
+        expect(item.description).to eq(content_item[:description])
+        expect(item.title).to eq(content_item[:title])
+        expect(item.routes).to eq(content_item[:routes].map(&:deep_stringify_keys))
+        expect(item.metadata["need_ids"]).to eq(content_item[:need_ids])
+        expect(item.metadata["phase"]).to eq(content_item[:phase])
+        expect(item.access_limited).to eq(content_item[:access_limited].deep_stringify_keys)
       end
 
-      it "increments the version number to 2" do
+      it "gives the DraftContentItem a version number of 1" do
         put_content_item
-        expect(DraftContentItem.first.version).to eq(2)
+        expect(DraftContentItem.first.version).to eq(1)
       end
 
-      it "allows the base_path to be changed" do
-        new_base_path = "/something-else"
-        stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
+      context "a DraftContentItem already exists" do
+        before {
+          DraftContentItem.create(
+            title: "An existing title",
+            content_id: content_item[:content_id],
+            locale: content_item[:locale],
+            details: content_item[:details],
+            metadata: {},
+            base_path: base_path,
+            version: 1
+          )
+        }
 
-        put "/draft-content#{new_base_path}", content_item.to_json
+        it "updates the existing draft content item" do
+          put_content_item
+          expect(DraftContentItem.count).to eq(1)
+          expect(DraftContentItem.last.title).to eq(content_item[:title])
+        end
 
-        expect(response.status).to eq(200)
-        expect(DraftContentItem.count).to eq(1)
-        expect(DraftContentItem.first.base_path).to eq(new_base_path)
+        it "increments the version number to 2" do
+          put_content_item
+          expect(DraftContentItem.first.version).to eq(2)
+        end
+
+        it "allows the base_path to be changed" do
+          new_base_path = "/something-else"
+          stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
+
+          put "/draft-content#{new_base_path}", content_item.to_json
+
+          expect(response.status).to eq(200)
+          expect(DraftContentItem.count).to eq(1)
+          expect(DraftContentItem.first.base_path).to eq(new_base_path)
+        end
       end
     end
 
