@@ -11,6 +11,7 @@ class AddDerivedRepresentations < ActiveRecord::Migration
       t.string :format
       t.datetime :public_updated_at
 
+      t.json :access_limited
       t.json :metadata
       t.json :details
       t.json :routes

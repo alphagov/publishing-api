@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150922125847) do
     t.string   "description"
     t.string   "format"
     t.datetime "public_updated_at"
+    t.json     "access_limited"
     t.json     "metadata"
     t.json     "details"
     t.json     "routes"
