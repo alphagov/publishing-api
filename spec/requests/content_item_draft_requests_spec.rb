@@ -137,6 +137,12 @@ RSpec.describe "Content item requests", :type => :request do
         expect(response.status).to eq(422)
         expect(response.body).to eq(error_details.to_json)
       end
+
+      it "does not create any derived representation" do
+        put_content_item
+        expect(DraftContentItem.count).to eq(0)
+        expect(Link.count).to eq(0)
+      end
     end
 
     context "draft content store times out" do
@@ -228,6 +234,17 @@ RSpec.describe "Content item requests", :type => :request do
           expect(DraftContentItem.first.base_path).to eq(new_base_path)
         end
       end
+
+      context "content item without content id" do
+        let(:content_item_without_content_id) {
+          content_item.except(:content_id)
+        }
+
+        it "does not update the DraftContentItem derived representation" do
+          put_content_item(body: content_item_without_content_id.to_json)
+          expect(DraftContentItem.count).to eq(0)
+        end
+      end
     end
 
     describe "updating the links derived representation" do
@@ -253,6 +270,17 @@ RSpec.describe "Content item requests", :type => :request do
         it "increments the version number to 2" do
           put_content_item
           expect(Link.first.version).to eq(2)
+        end
+      end
+
+      context "content item without content id" do
+        let(:content_item_without_content_id) {
+          content_item.except(:content_id)
+        }
+
+        it "does not update the Links derived representation" do
+          put_content_item(body: content_item_without_content_id.to_json)
+          expect(Link.count).to eq(0)
         end
       end
     end
