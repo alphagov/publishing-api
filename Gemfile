@@ -29,9 +29,6 @@ group :development, :test do
   gem "byebug"
   gem "pact"
   gem "database_cleaner"
-end
-
-group :test do
   gem "webmock", require: false
   gem "timecop"
   gem "rspec"
