@@ -38,6 +38,9 @@ RSpec.describe "Content item requests", :type => :request do
           type: "exact",
         }
       ],
+      links: {
+        organisations: ["f17250b0-7540-0131-f036-005056030221"]
+      },
       update_type: "major",
       access_limited: {
         users: [
@@ -222,6 +225,33 @@ RSpec.describe "Content item requests", :type => :request do
         expect(response.status).to eq(200)
         expect(DraftContentItem.count).to eq(1)
         expect(DraftContentItem.first.base_path).to eq(new_base_path)
+      end
+    end
+
+    describe "updating the links derived representation" do
+      it "creates the Links derived representation" do
+        put_content_item
+        expect(Link.count).to eq(1)
+      end
+
+      it "gives the Links derived representation a version of 1" do
+        put_content_item
+        expect(Link.first.version).to eq(1)
+      end
+
+      context "a Link record already exists" do
+        before { Link.create(content_id: content_item[:content_id], links: {}, version: 1) }
+
+        it "updates the existing link record" do
+          put_content_item
+          expect(Link.count).to eq(1)
+          expect(Link.last.links).to eq(content_item[:links].deep_stringify_keys)
+        end
+
+        it "increments the version number to 2" do
+          put_content_item
+          expect(Link.first.version).to eq(2)
+        end
       end
     end
   end

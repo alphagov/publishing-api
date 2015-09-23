@@ -2,6 +2,7 @@ class Command::PutDraftContentWithLinks < Command::BaseCommand
   def call
     if content_item[:content_id]
       create_or_update_draft_content_item!
+      create_or_update_links!
     end
 
     Adapters::UrlArbiter.new(services: services).call(base_path, content_item[:publishing_app])
@@ -61,5 +62,16 @@ private
 
   def metadata
     content_item.except(*content_item_top_level_fields)
+  end
+
+  def create_or_update_links!
+    existing = Link.find_by(content_id: content_id)
+    if existing
+      existing.update_attributes(links: content_item[:links])
+      existing.version += 1
+      existing.save!
+    else
+      Link.create!(content_id: content_id, links: content_item[:links], version: 1)
+    end
   end
 end
