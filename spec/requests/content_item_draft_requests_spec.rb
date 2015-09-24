@@ -64,12 +64,6 @@ RSpec.describe "Content item requests", :type => :request do
   end
 
   describe "PUT /draft-content" do
-    check_200_response
-    check_400_on_invalid_json
-    check_draft_content_store_502_suppression
-    check_forwards_locale_extension
-    check_accepts_root_path
-
     def put_content_item(body: content_item.to_json)
       put "/draft-content#{base_path}", body
     end
