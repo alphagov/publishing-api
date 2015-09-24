@@ -1,17 +1,6 @@
-require "rails_helper"
-require "govuk/client/test_helpers/url_arbiter"
+require "request_helper"
 
-RSpec.configure do |c|
-  c.extend RequestHelpers
-end
-
-RSpec.describe "Publish intent requests", :type => :request do
-  include GOVUK::Client::TestHelpers::URLArbiter
-
-  let(:base_path) {
-    "/vat-rates"
-  }
-
+RSpec.describe "Publish intent requests", type: :request do
   let(:content_item) {
     {
       publish_time: (Time.zone.now + 3.hours).iso8601,
@@ -27,13 +16,12 @@ RSpec.describe "Publish intent requests", :type => :request do
   }
 
   before do
-    stub_default_url_arbiter_responses
     stub_request(:put, %r{^content-store.*/publish-intent/.*})
   end
 
   describe "PUT /publish-intent" do
-    check_url_registration_happens
-    check_url_registration_failures
+    url_registration_happens
+    url_registration_failures_422
     returns_200_response
     returns_400_on_invalid_json
     suppresses_draft_content_store_502s
