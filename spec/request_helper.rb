@@ -1,10 +1,16 @@
 require "rails_helper"
 require "govuk/client/test_helpers/url_arbiter"
 
-
 RSpec.configure do |c|
-  c.extend RequestHelpers
-  c.include RequestHelpers
+  c.include RequestHelpers::Mocks
+  c.include RequestHelpers::Actions
+
+  c.extend RequestHelpers::DerivedRepresentations
+  c.extend RequestHelpers::DownstreamRequests
+  c.extend RequestHelpers::DownstreamTimeouts
+  c.extend RequestHelpers::EndpointBehaviour
+  c.extend RequestHelpers::EventLogging
+
   c.include GOVUK::Client::TestHelpers::URLArbiter
 
   c.before do
