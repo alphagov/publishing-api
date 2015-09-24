@@ -66,8 +66,6 @@ RSpec.describe "Content item live requests", :type => :request do
   end
 
   describe "PUT /content" do
-    check_url_registration_happens
-    check_url_registration_failures
     check_200_response
     check_400_on_invalid_json
     check_draft_content_store_502_suppression
@@ -99,48 +97,6 @@ RSpec.describe "Content item live requests", :type => :request do
 
     def put_content_item(body: content_item.to_json)
       put "/content#{base_path}", body
-    end
-
-    it "sends to draft content store after registering the URL" do
-      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
-      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item,
-        )
-        .ordered
-
-      put_content_item
-    end
-
-    it "sends to live content store after registering the URL" do
-      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
-      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item,
-        )
-        .and_return(stub_json_response)
-        .ordered
-
-      put_content_item
-    end
-
-    it "strips access limiting metadata from the document" do
-      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item,
-        )
-
-      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item,
-        )
-        .and_return(stub_json_response)
-
-      put_content_item(body: content_item_with_access_limiting.to_json)
     end
 
     it 'should place a message on the queue using the private representation of the content item' do

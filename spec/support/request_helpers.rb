@@ -222,4 +222,18 @@ module RequestHelpers
       end
     end
   end
+
+  def sends_to_draft_content_store
+    it "sends to draft content store after registering the URL" do
+      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item,
+        )
+        .ordered
+
+      put_content_item
+    end
+  end
 end

@@ -64,8 +64,6 @@ RSpec.describe "Content item requests", :type => :request do
   end
 
   describe "PUT /draft-content" do
-    check_url_registration_happens
-    check_url_registration_failures
     check_200_response
     check_400_on_invalid_json
     check_draft_content_store_502_suppression
@@ -76,60 +74,10 @@ RSpec.describe "Content item requests", :type => :request do
       put "/draft-content#{base_path}", body
     end
 
-    it "sends to draft content store after registering the URL" do
-      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
-      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item,
-        )
-        .and_return(stub_json_response)
-        .ordered
-
-      put_content_item
-    end
-
-    it "does not send anything to the live content store" do
-      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
-      expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
-
-      put_content_item
-    end
-
-    it "leaves access limiting metadata in the document" do
-      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item,
-        )
-        .and_return(stub_json_response)
-
-      put_content_item(body: content_item.to_json)
-    end
-
     it "doesn't send any messages" do
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       put_content_item
-    end
-
-    context "draft content store times out" do
-      before do
-        stub_request(:put, %r{.*content-store.*/content/.*}).to_timeout
-      end
-
-      it "does not log an event in the event log" do
-        put_content_item
-
-        expect(Event.count).to eq(0)
-      end
-
-      it "returns an error" do
-        put_content_item
-
-        expect(response.status).to eq(500)
-        expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from draft content store: GdsApi::TimedOutException"})
-      end
     end
 
     it "logs a 'PutDraftContentWithLinks' event in the event log" do
