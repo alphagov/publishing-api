@@ -364,34 +364,6 @@ RSpec.describe "Content item live requests", :type => :request do
       end
     end
 
-    context "invalid content item" do
-      let(:error_details) { {errors: {update_type: "invalid"}} }
-
-      before do
-        stub_request(:put, %r{.*content-store.*/content/.*})
-          .to_return(
-            status: 422,
-            body: error_details.to_json,
-            headers: {"Content-type" => "application/json"}
-          )
-      end
-
-      it "does not log the event in the event log" do
-        put_content_item
-
-        expect(Event.count).to eq(0)
-        expect(response.status).to eq(422)
-        expect(response.body).to eq(error_details.to_json)
-      end
-
-      it "does not create any derived representation" do
-        put_content_item
-        expect(DraftContentItem.count).to eq(0)
-        expect(LiveContentItem.count).to eq(0)
-        expect(Link.count).to eq(0)
-      end
-    end
-
     context "draft content store times out" do
       before do
         stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
