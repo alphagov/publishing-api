@@ -71,15 +71,6 @@ RSpec.describe "Content item live requests", :type => :request do
     end
 
 
-    it "logs a 'PutContentWithLinks' event in the event log" do
-      put_content_item
-      expect(Event.count).to eq(1)
-      expect(Event.first.action).to eq('PutContentWithLinks')
-      expect(Event.first.user_uid).to eq(nil)
-      expected_payload = deep_stringify_keys(content_item.merge("base_path" => base_path))
-      expect(Event.first.payload).to eq(expected_payload)
-    end
-
     it "creates the LiveContentItem derived representation" do
       put_content_item
       expect(LiveContentItem.count).to eq(1)

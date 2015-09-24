@@ -68,14 +68,6 @@ RSpec.describe "Content item requests", :type => :request do
       put "/draft-content#{base_path}", body
     end
 
-    it "logs a 'PutDraftContentWithLinks' event in the event log" do
-      put_content_item
-      expect(Event.count).to eq(1)
-      expect(Event.first.action).to eq('PutDraftContentWithLinks')
-      expect(Event.first.user_uid).to eq(nil)
-      expected_payload = deep_stringify_keys(content_item.merge("base_path" => base_path))
-      expect(Event.first.payload).to eq(expected_payload)
-    end
 
     describe "updating the DraftContentItem derived representation" do
       it "creates the DraftContentItem derived representation" do
