@@ -74,12 +74,6 @@ RSpec.describe "Content item requests", :type => :request do
       put "/draft-content#{base_path}", body
     end
 
-    it "doesn't send any messages" do
-      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
-
-      put_content_item
-    end
-
     it "logs a 'PutDraftContentWithLinks' event in the event log" do
       put_content_item
       expect(Event.count).to eq(1)

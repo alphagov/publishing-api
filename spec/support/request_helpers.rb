@@ -39,6 +39,23 @@ module RequestHelpers
     )
   end
 
+  def redirect_content_item
+    {
+      base_path: "/crb-checks",
+      format: "redirect",
+      public_updated_at: "2014-05-14T13:00:06Z",
+      publishing_app: "publisher",
+      redirects: [
+        {
+          path: "/crb-checks",
+          type: "prefix",
+          destination: "/dbs-checks"
+        },
+      ],
+      update_type: "major",
+    }
+  end
+
   def put_content_item(body: content_item.to_json)
     put request_path, body
   end
