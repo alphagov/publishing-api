@@ -364,42 +364,5 @@ RSpec.describe "Content item live requests", :type => :request do
       end
     end
 
-    context "draft content store times out" do
-      before do
-        stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
-      end
-
-      it "does not log an event in the event log" do
-        put_content_item
-
-        expect(Event.count).to eq(0)
-      end
-
-      it "returns an error" do
-        put_content_item
-
-        expect(response.status).to eq(500)
-        expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from draft content store: GdsApi::TimedOutException"})
-      end
-    end
-
-    context "content store times out" do
-      before do
-        stub_request(:put, Plek.find('content-store') + "/content#{base_path}").to_timeout
-      end
-
-      it "does not log an event in the event log" do
-        put_content_item
-
-        expect(Event.count).to eq(0)
-      end
-
-      it "returns an error" do
-        put_content_item
-
-        expect(response.status).to eq(500)
-        expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from content store: GdsApi::TimedOutException"})
-      end
-    end
   end
 end
