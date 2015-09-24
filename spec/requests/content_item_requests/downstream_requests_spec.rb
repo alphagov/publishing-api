@@ -11,8 +11,8 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item) { content_item_without_access_limiting }
     let(:request_path) { "/content#{base_path}" }
 
-    check_url_registration_happens
-    check_url_registration_failures
+    url_registration_happens
+    url_registration_failures_422
     sends_to_draft_content_store
 
     it "sends to live content store after registering the URL" do
@@ -50,8 +50,8 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item) { content_item_with_access_limiting }
     let(:request_path) { "/draft-content#{base_path}" }
 
-    check_url_registration_happens
-    check_url_registration_failures
+    url_registration_happens
+    url_registration_failures_422
     sends_to_draft_content_store
 
     it "does not send anything to the live content store" do

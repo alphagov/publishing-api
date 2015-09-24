@@ -60,7 +60,7 @@ module RequestHelpers
     put request_path, body
   end
 
-  def check_url_registration_happens
+  def url_registration_happens
     it "registers with the URL with the URL arbiter" do
       expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).with(
         "/vat-rates",
@@ -71,7 +71,7 @@ module RequestHelpers
     end
   end
 
-  def check_url_registration_failures
+  def url_registration_failures_422
     context "when the path is invalid" do
       let(:url_arbiter_response_body) {
         url_arbiter_data_for("/vat-rates",
@@ -133,7 +133,7 @@ module RequestHelpers
     end
   end
 
-  def check_200_response
+  def returns_200_response
     it "responds with the content item as a 200" do
       put_content_item
 
@@ -142,7 +142,7 @@ module RequestHelpers
     end
   end
 
-  def check_400_on_invalid_json
+  def returns_400_on_invalid_json
     it "returns a 400 if the JSON is invalid" do
       put_content_item(body: "not a JSON")
 
@@ -150,7 +150,7 @@ module RequestHelpers
     end
   end
 
-  def check_draft_content_store_502_suppression
+  def suppresses_draft_content_store_502s
     context "when draft content store is not running but draft 502s are suppressed" do
       before do
         @swallow_draft_errors = PublishingAPI.swallow_draft_connection_errors
@@ -172,7 +172,7 @@ module RequestHelpers
     end
   end
 
-  def check_forwards_locale_extension
+  def forwards_locale_extension
     context "with a translation URL" do
       let(:base_path) { "/vat-rates.pl" }
 
@@ -185,7 +185,7 @@ module RequestHelpers
     end
   end
 
-  def check_accepts_root_path
+  def accepts_root_path
     context "with the root path as a base_path" do
       let(:base_path) { "/" }
 

@@ -34,10 +34,10 @@ RSpec.describe "Publish intent requests", :type => :request do
   describe "PUT /publish-intent" do
     check_url_registration_happens
     check_url_registration_failures
-    check_200_response
-    check_400_on_invalid_json
-    check_draft_content_store_502_suppression
-    check_accepts_root_path
+    returns_200_response
+    returns_400_on_invalid_json
+    suppresses_draft_content_store_502s
+    accepts_root_path
 
     def put_content_item(body: content_item.to_json)
       put "/publish-intent#{base_path}", body
