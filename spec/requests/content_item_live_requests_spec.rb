@@ -207,40 +207,5 @@ RSpec.describe "Content item live requests", :type => :request do
         expect(Link.first.version).to eq(2)
       end
     end
-
-    context "content item without a content id" do
-      let(:content_item) {
-        {
-          title: "VAT rates",
-          description: "VAT rates for goods and services",
-          format: "guide",
-          need_ids: ["100123", "100124"],
-          public_updated_at: "2014-05-14T13:00:06Z",
-          publishing_app: "mainstream_publisher",
-          rendering_app: "mainstream_frontend",
-          locale: "en",
-          phase: "beta",
-          details: {
-            body: "<p>Soemthing about VAT</p>\n",
-          },
-          routes: [
-            {
-              path: "/vat-rates",
-              type: "exact",
-            }
-          ],
-          update_type: "major",
-        }
-      }
-
-      # TODO: alternately, we record derived representations and key them on base_path
-      it "does not record any derived representations" do
-        put_content_item
-        expect(DraftContentItem.count).to eq(0)
-        expect(LiveContentItem.count).to eq(0)
-        expect(Link.count).to eq(0)
-      end
-    end
-
   end
 end

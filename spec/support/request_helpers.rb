@@ -253,4 +253,14 @@ module RequestHelpers
       put_content_item
     end
   end
+
+  def creates_no_derived_representations
+    it "does not create any derived representations" do
+      put_content_item
+
+      expect(DraftContentItem.count).to eq(0)
+      expect(LiveContentItem.count).to eq(0)
+      expect(Link.count).to eq(0)
+    end
+  end
 end

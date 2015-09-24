@@ -10,6 +10,14 @@ RSpec.describe "Endpoint behaviour", type: :request do
     suppresses_draft_content_store_502s
     forwards_locale_extension
     accepts_root_path
+
+    context "without a content id" do
+      let(:content_item) {
+        super().except(:content_id)
+      }
+
+      creates_no_derived_representations
+    end
   end
 
   context "/draft-content" do
@@ -21,5 +29,13 @@ RSpec.describe "Endpoint behaviour", type: :request do
     suppresses_draft_content_store_502s
     forwards_locale_extension
     accepts_root_path
+
+    context "without a content id" do
+      let(:content_item) {
+        super().except(:content_id)
+      }
+
+      creates_no_derived_representations
+    end
   end
 end

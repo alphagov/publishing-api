@@ -24,13 +24,7 @@ RSpec.describe "Invalid content requests", type: :request do
       expect(response.body).to eq(error_details.to_json)
     end
 
-    it "does not create any derived representations" do
-      put_content_item
-
-      expect(DraftContentItem.count).to eq(0)
-      expect(LiveContentItem.count).to eq(0)
-      expect(Link.count).to eq(0)
-    end
+    creates_no_derived_representations
   end
 
   context "/draft-content" do
@@ -45,10 +39,6 @@ RSpec.describe "Invalid content requests", type: :request do
       expect(response.body).to eq(error_details.to_json)
     end
 
-    it "does not create any derived representations" do
-      put_content_item
-      expect(DraftContentItem.count).to eq(0)
-      expect(Link.count).to eq(0)
-    end
+    creates_no_derived_representations
   end
 end
