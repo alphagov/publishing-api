@@ -81,6 +81,7 @@ private
       public_updated_at
       description
       title
+      redirects
       routes
     )
   end

@@ -56,6 +56,7 @@ module RequestHelpers
         expect(item.description).to eq(content_item[:description])
         expect(item.title).to eq(content_item[:title])
         expect(item.routes).to eq(content_item[:routes].map(&:deep_stringify_keys))
+        expect(item.redirects).to eq(content_item[:redirects].map(&:deep_stringify_keys))
         expect(item.metadata["need_ids"]).to eq(content_item[:need_ids])
         expect(item.metadata["phase"]).to eq(content_item[:phase])
 

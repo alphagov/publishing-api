@@ -15,6 +15,7 @@ class AddDerivedRepresentations < ActiveRecord::Migration
       t.json :metadata
       t.json :details
       t.json :routes
+      t.json :redirects
       t.string :publishing_app
       t.string :rendering_app
     end
@@ -34,6 +35,7 @@ class AddDerivedRepresentations < ActiveRecord::Migration
       t.json :metadata
       t.json :details
       t.json :routes
+      t.json :redirects
       t.string :publishing_app
       t.string :rendering_app
     end

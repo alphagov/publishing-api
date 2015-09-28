@@ -28,6 +28,13 @@ module RequestHelpers
             type: "exact",
           }
         ],
+        redirects: [
+          {
+            path: "/old-vat-rates",
+            type: "exact",
+            destination: "/vat-rates",
+          }
+        ],
         update_type: "major",
       }
     end

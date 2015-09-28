@@ -55,6 +55,7 @@ private
       public_updated_at
       publishing_app
       rendering_app
+      redirects
       routes
       title
     )

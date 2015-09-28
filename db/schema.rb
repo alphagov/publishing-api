@@ -16,6 +16,30 @@ ActiveRecord::Schema.define(version: 20150922125847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "content_items", force: :cascade do |t|
+    t.string   "content_id"
+    t.string   "base_path"
+    t.integer  "version",              default: 0
+    t.string   "state",                default: "draft"
+    t.string   "title"
+    t.string   "description"
+    t.string   "format"
+    t.string   "locale"
+    t.datetime "public_updated_at"
+    t.json     "details",                                null: false
+    t.string   "publishing_app"
+    t.string   "rendering_app"
+    t.json     "routes"
+    t.json     "redirects"
+    t.json     "access_limited"
+    t.string   "phase"
+    t.string   "analytics_identifier"
+    t.json     "need_ids"
+    t.string   "update_type"
+  end
+
+  add_index "content_items", ["content_id", "state", "locale"], name: "index_list_items_on_content_id_state_and_locale", unique: true, using: :btree
+
   create_table "draft_content_items", force: :cascade do |t|
     t.string   "content_id"
     t.string   "locale"
@@ -29,6 +53,7 @@ ActiveRecord::Schema.define(version: 20150922125847) do
     t.json     "metadata"
     t.json     "details"
     t.json     "routes"
+    t.json     "redirects"
     t.string   "publishing_app"
     t.string   "rendering_app"
   end
@@ -63,6 +88,7 @@ ActiveRecord::Schema.define(version: 20150922125847) do
     t.json     "metadata"
     t.json     "details"
     t.json     "routes"
+    t.json     "redirects"
     t.string   "publishing_app"
     t.string   "rendering_app"
   end
