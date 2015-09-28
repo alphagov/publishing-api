@@ -1,1 +1,4 @@
-Timecop.freeze(Time.zone.now)
+
+RSpec.configuration.after :each do
+  Timecop.return
+end
