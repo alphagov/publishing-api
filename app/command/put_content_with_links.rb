@@ -95,5 +95,4 @@ private
       LinkSet.create!(content_id: content_id, links: content_item[:links], version: 1)
     end
   end
-
 end
