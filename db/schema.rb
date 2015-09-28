@@ -43,13 +43,13 @@ ActiveRecord::Schema.define(version: 20150922125847) do
     t.datetime "updated_at"
   end
 
-  create_table "links", force: :cascade do |t|
+  create_table "link_sets", force: :cascade do |t|
     t.string  "content_id"
     t.integer "version",    null: false
     t.json    "links"
   end
 
-  add_index "links", ["content_id"], name: "index_links_on_content_id", unique: true, using: :btree
+  add_index "link_sets", ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
 
   create_table "live_content_items", force: :cascade do |t|
     t.string   "content_id"

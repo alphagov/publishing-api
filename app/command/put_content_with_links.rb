@@ -86,13 +86,13 @@ private
   end
 
   def create_or_update_links!
-    existing = Link.find_by(content_id: content_id)
+    existing = LinkSet.find_by(content_id: content_id)
     if existing
       existing.update_attributes(links: content_item[:links])
       existing.version += 1
       existing.save!
     else
-      Link.create!(content_id: content_id, links: content_item[:links], version: 1)
+      LinkSet.create!(content_id: content_id, links: content_item[:links], version: 1)
     end
   end
 

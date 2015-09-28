@@ -6,33 +6,33 @@ module RequestHelpers
 
         expect(DraftContentItem.count).to eq(0)
         expect(LiveContentItem.count).to eq(0)
-        expect(Link.count).to eq(0)
+        expect(LinkSet.count).to eq(0)
       end
     end
 
     def creates_a_link_representation
-      it "creates the Links derived representation" do
+      it "creates the LinkSet derived representation" do
         put_content_item
-        expect(Link.count).to eq(1)
+        expect(LinkSet.count).to eq(1)
       end
 
-      it "gives the Links derived representation a version of 1" do
+      it "gives the LinkSet derived representation a version of 1" do
         put_content_item
-        expect(Link.first.version).to eq(1)
+        expect(LinkSet.first.version).to eq(1)
       end
 
-      context "a Link record already exists" do
-        before { Link.create(content_id: content_item[:content_id], links: {}, version: 1) }
+      context "a LinkSet record already exists" do
+        before { LinkSet.create(content_id: content_item[:content_id], links: {}, version: 1) }
 
         it "updates the existing link record" do
           put_content_item
-          expect(Link.count).to eq(1)
-          expect(Link.last.links).to eq(content_item[:links].deep_stringify_keys)
+          expect(LinkSet.count).to eq(1)
+          expect(LinkSet.last.links).to eq(content_item[:links].deep_stringify_keys)
         end
 
         it "increments the version number to 2" do
           put_content_item
-          expect(Link.first.version).to eq(2)
+          expect(LinkSet.first.version).to eq(2)
         end
       end
     end
