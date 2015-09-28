@@ -11,10 +11,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908145609) do
+ActiveRecord::Schema.define(version: 20150922125847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "content_items", force: :cascade do |t|
+    t.string   "content_id"
+    t.string   "base_path"
+    t.integer  "version",              default: 0
+    t.string   "state",                default: "draft"
+    t.string   "title"
+    t.string   "description"
+    t.string   "format"
+    t.string   "locale"
+    t.datetime "public_updated_at"
+    t.json     "details",                                null: false
+    t.string   "publishing_app"
+    t.string   "rendering_app"
+    t.json     "routes"
+    t.json     "redirects"
+    t.json     "access_limited"
+    t.string   "phase"
+    t.string   "analytics_identifier"
+    t.json     "need_ids"
+    t.string   "update_type"
+  end
+
+  add_index "content_items", ["content_id", "state", "locale"], name: "index_list_items_on_content_id_state_and_locale", unique: true, using: :btree
+
+  create_table "draft_content_items", force: :cascade do |t|
+    t.string   "content_id"
+    t.string   "locale"
+    t.integer  "version",           null: false
+    t.string   "base_path"
+    t.string   "title"
+    t.string   "description"
+    t.string   "format"
+    t.datetime "public_updated_at"
+    t.json     "access_limited"
+    t.json     "metadata"
+    t.json     "details"
+    t.json     "routes"
+    t.json     "redirects"
+    t.string   "publishing_app"
+    t.string   "rendering_app"
+  end
+
+  add_index "draft_content_items", ["content_id", "locale"], name: "index_draft_content_items_on_content_id_and_locale", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "action",     null: false
@@ -23,5 +67,32 @@ ActiveRecord::Schema.define(version: 20150908145609) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "link_sets", force: :cascade do |t|
+    t.string  "content_id"
+    t.integer "version",    null: false
+    t.json    "links"
+  end
+
+  add_index "link_sets", ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
+
+  create_table "live_content_items", force: :cascade do |t|
+    t.string   "content_id"
+    t.string   "locale"
+    t.integer  "version",           null: false
+    t.string   "base_path"
+    t.string   "title"
+    t.string   "description"
+    t.string   "format"
+    t.datetime "public_updated_at"
+    t.json     "metadata"
+    t.json     "details"
+    t.json     "routes"
+    t.json     "redirects"
+    t.string   "publishing_app"
+    t.string   "rendering_app"
+  end
+
+  add_index "live_content_items", ["content_id", "locale"], name: "index_live_content_items_on_content_id_and_locale", unique: true, using: :btree
 
 end
