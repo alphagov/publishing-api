@@ -1,4 +1,4 @@
-require "request_helper"
+require "rails_helper"
 
 RSpec.describe "Event logging", type: :request do
   context "/content" do

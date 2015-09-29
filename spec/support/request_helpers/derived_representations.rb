@@ -124,3 +124,5 @@ module RequestHelpers
     end
   end
 end
+
+RSpec.configuration.extend RequestHelpers::DerivedRepresentations, :type => :request

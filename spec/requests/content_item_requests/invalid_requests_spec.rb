@@ -1,4 +1,4 @@
-require "request_helper"
+require "rails_helper"
 
 RSpec.describe "Invalid content requests", type: :request do
   let(:error_details) { {errors: {update_type: "invalid"}} }

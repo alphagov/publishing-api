@@ -43,3 +43,5 @@ module RequestHelpers
     end
   end
 end
+
+RSpec.configuration.extend RequestHelpers::DownstreamTimeouts, :type => :request

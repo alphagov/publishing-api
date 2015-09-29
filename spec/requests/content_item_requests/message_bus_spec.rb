@@ -1,4 +1,4 @@
-require "request_helper"
+require "rails_helper"
 
 RSpec.describe "Message bus", type: :request do
   include MessageQueueHelpers
