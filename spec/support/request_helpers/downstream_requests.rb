@@ -22,6 +22,7 @@ module RequestHelpers
         }
 
         before do
+          Timecop.freeze # So that timestamps match between expectation and stub.
           url_arbiter_returns_validation_error_for("/vat-rates",
             "path" => ["is not valid"]
           )
@@ -46,6 +47,7 @@ module RequestHelpers
         }
 
         before do
+          Timecop.freeze # So that timestamps match between expectation and stub.
           url_arbiter_has_registration_for("/vat-rates", "whitehall")
         end
 
