@@ -68,3 +68,5 @@ module RequestHelpers
     end
   end
 end
+
+RSpec.configuration.include RequestHelpers::Mocks, :type => :request

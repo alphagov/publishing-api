@@ -1,4 +1,4 @@
-require "request_helper"
+require "rails_helper"
 
 RSpec.describe "Publish intent requests", type: :request do
   let(:content_item) {

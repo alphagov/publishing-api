@@ -14,3 +14,5 @@ module RequestHelpers
     end
   end
 end
+
+RSpec.configuration.extend RequestHelpers::EventLogging, :type => :request

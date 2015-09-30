@@ -5,3 +5,5 @@ module RequestHelpers
     end
   end
 end
+
+RSpec.configuration.include RequestHelpers::Actions, :type => :request

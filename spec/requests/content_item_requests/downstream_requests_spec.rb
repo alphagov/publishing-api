@@ -1,4 +1,4 @@
-require "request_helper"
+require "rails_helper"
 
 RSpec.describe "Downstream requests", type: :request do
   let(:json_response) {
