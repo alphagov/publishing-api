@@ -17,7 +17,7 @@ RSpec.describe "Invalid content requests", type: :request do
     let(:request_path) { "/content#{base_path}" }
 
     it "does not log an event in the event log" do
-      put_content_item
+      do_request
 
       expect(Event.count).to eq(0)
       expect(response.status).to eq(422)
@@ -32,7 +32,7 @@ RSpec.describe "Invalid content requests", type: :request do
     let(:request_path) { "/draft-content#{base_path}" }
 
     it "does not log an event in the event log" do
-      put_content_item
+      do_request
 
       expect(Event.count).to eq(0)
       expect(response.status).to eq(422)

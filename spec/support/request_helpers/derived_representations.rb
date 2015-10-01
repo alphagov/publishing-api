@@ -2,7 +2,7 @@ module RequestHelpers
   module DerivedRepresentations
     def creates_no_derived_representations
       it "does not create any derived representations" do
-        put_content_item
+        do_request
 
         expect(DraftContentItem.count).to eq(0)
         expect(LiveContentItem.count).to eq(0)
@@ -12,12 +12,12 @@ module RequestHelpers
 
     def creates_a_link_representation
       it "creates the LinkSet derived representation" do
-        put_content_item
+        do_request
         expect(LinkSet.count).to eq(1)
       end
 
       it "gives the LinkSet derived representation a version of 1" do
-        put_content_item
+        do_request
         expect(LinkSet.first.version).to eq(1)
       end
 
@@ -25,13 +25,13 @@ module RequestHelpers
         before { LinkSet.create(content_id: content_item[:content_id], links: {}, version: 1) }
 
         it "updates the existing link record" do
-          put_content_item
+          do_request
           expect(LinkSet.count).to eq(1)
           expect(LinkSet.last.links).to eq(content_item[:links].deep_stringify_keys)
         end
 
         it "increments the version number to 2" do
-          put_content_item
+          do_request
           expect(LinkSet.first.version).to eq(2)
         end
       end
@@ -39,7 +39,7 @@ module RequestHelpers
 
     def creates_a_content_item_representation(representation_class, access_limited: false, immutable_base_path: false)
       it "creates the #{representation_class} derived representation" do
-        put_content_item(body: content_item.to_json)
+        do_request(body: content_item.to_json)
 
         expect(representation_class.count).to eq(1)
 
@@ -66,7 +66,7 @@ module RequestHelpers
       end
 
       it "gives the first #{representation_class} a version number of 1" do
-        put_content_item
+        do_request
 
         expect(representation_class.first.version).to eq(1)
       end
@@ -85,14 +85,14 @@ module RequestHelpers
         end
 
         it "updates the existing #{representation_class}" do
-          put_content_item
+          do_request
 
           expect(representation_class.count).to eq(1)
           expect(representation_class.last.title).to eq(content_item[:title])
         end
 
         it "increments the version number to 2" do
-          put_content_item
+          do_request
           expect(representation_class.first.version).to eq(2)
         end
 

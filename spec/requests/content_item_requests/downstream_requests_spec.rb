@@ -25,7 +25,7 @@ RSpec.describe "Downstream requests", type: :request do
         .and_return(json_response)
         .ordered
 
-      put_content_item
+      do_request
     end
 
     it "strips access limiting metadata from the document" do
@@ -42,7 +42,7 @@ RSpec.describe "Downstream requests", type: :request do
         )
         .and_return(json_response)
 
-      put_content_item(body: content_item_with_access_limiting.to_json)
+      do_request(body: content_item_with_access_limiting.to_json)
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe "Downstream requests", type: :request do
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
       expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
 
-      put_content_item
+      do_request
     end
 
     it "leaves access limiting metadata in the document" do
@@ -69,7 +69,7 @@ RSpec.describe "Downstream requests", type: :request do
         )
         .and_return(json_response)
 
-      put_content_item(body: content_item.to_json)
+      do_request(body: content_item.to_json)
     end
   end
 end

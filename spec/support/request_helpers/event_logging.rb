@@ -2,7 +2,7 @@ module RequestHelpers
   module EventLogging
     def logs_event(event_class_name)
       it "logs a '#{event_class_name}' event in the event log" do
-        put_content_item
+        do_request
 
         expect(Event.count).to eq(1)
         expect(Event.first.action).to eq(event_class_name)

@@ -31,7 +31,7 @@ RSpec.describe "Message bus", type: :request do
     let(:request_path) { "/content#{base_path}" }
 
     it 'should place a message on the queue using the private representation of the content item' do
-      put_content_item
+      do_request
 
       _, properties, payload = wait_for_message_on(@queue)
       expect(properties[:content_type]).to eq('application/json')
@@ -45,7 +45,7 @@ RSpec.describe "Message bus", type: :request do
     end
 
     it 'should include the update_type in the output json' do
-      put_content_item
+      do_request
 
       _, _, payload = wait_for_message_on(@queue)
       message = JSON.parse(payload)
@@ -53,17 +53,17 @@ RSpec.describe "Message bus", type: :request do
     end
 
     it 'routing key depends on format and update type' do
-      put_content_item(body: content_item.merge(update_type: "minor").to_json)
+      do_request(body: content_item.merge(update_type: "minor").to_json)
       delivery_info, _, payload = wait_for_message_on(@queue)
       expect(delivery_info.routing_key).to eq('guide.minor')
 
-      put_content_item(body: content_item.merge(format: "detailed_guide").to_json)
+      do_request(body: content_item.merge(format: "detailed_guide").to_json)
       delivery_info, _, payload = wait_for_message_on(@queue)
       expect(delivery_info.routing_key).to eq('detailed_guide.major')
     end
 
     it 'publishes a message for a redirect update' do
-      put_content_item(body: redirect_content_item.to_json)
+      do_request(body: redirect_content_item.to_json)
 
       delivery_info, _, _ = wait_for_message_on(@queue)
       expect(delivery_info.routing_key).to eq('redirect.major')
@@ -77,7 +77,7 @@ RSpec.describe "Message bus", type: :request do
     it "doesn't send any messages" do
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
-      put_content_item
+      do_request
     end
   end
 end

@@ -27,7 +27,7 @@ RSpec.describe "Publish intent requests", type: :request do
     suppresses_draft_content_store_502s
     accepts_root_path
 
-    def put_content_item(body: content_item.to_json)
+    def do_request(body: content_item.to_json)
       put "/publish-intent#{base_path}", body
     end
 
@@ -45,19 +45,19 @@ RSpec.describe "Publish intent requests", type: :request do
         .with(base_path: "/vat-rates", publish_intent: content_item)
         .ordered
 
-      put_content_item
+      do_request
     end
 
     it "does not send anything to the draft content store" do
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_publish_intent).never
 
-      put_content_item
+      do_request
 
       expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
     end
 
     it "logs a 'PutPublishIntent' event in the event log" do
-      put_content_item
+      do_request
       expect(Event.count).to eq(1)
       expect(Event.first.action).to eq('PutPublishIntent')
       expect(Event.first.user_uid).to eq(nil)
