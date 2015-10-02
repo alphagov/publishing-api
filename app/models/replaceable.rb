@@ -14,6 +14,12 @@ module Replaceable
         )
       )
       item.save!
+    rescue ActiveRecord::StatementInvalid => e
+      if !item.persisted? && e.original_exception.is_a?(PG::UniqueViolation)
+        raise Command::Retry.new("Race condition in create_or_replace, retrying (original error: '#{e.message}')")
+      else
+        raise
+      end
     end
 
     private

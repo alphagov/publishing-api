@@ -44,4 +44,26 @@ RSpec.shared_examples Replaceable do
       expect(described_class.first.version).to eq(1)
     end
   end
+
+  describe "retrying on race condition when inserting" do
+    # There is a race condition when inserting a new entry. Between the read
+    # query which is to check whether an item exists and the write of the new
+    # item if none was found, another process may have simultaneously inserted
+    # an item.
+    #
+    # In this scenario one of the transactions will hit a unique constraint
+    # violation. The transaction should be retried from the beginning (including
+    # creating a new event in the event log). We can signal to the EventLogger
+    # class that we want to do this by raising a Command::Retry exception.
+
+    let(:content_id) { SecureRandom.uuid }
+
+    it "raises a Command::Retry in case of a duplicate constraint violation" do
+      expect {
+        described_class.create_or_replace(payload) do |existing|
+          create(described_class, content_id: payload[:content_id], locale: payload[:locale])
+        end
+      }.to raise_error(Command::Retry)
+    end
+  end
 end
