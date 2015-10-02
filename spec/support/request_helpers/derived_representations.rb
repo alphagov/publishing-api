@@ -10,7 +10,7 @@ module RequestHelpers
       end
     end
 
-    def creates_a_link_representation
+    def creates_a_link_representation(expected_attributes: )
       it "creates the LinkSet derived representation" do
         do_request
         expect(LinkSet.count).to eq(1)
@@ -22,12 +22,12 @@ module RequestHelpers
       end
 
       context "a LinkSet record already exists" do
-        before { LinkSet.create(content_id: content_item[:content_id], links: {}, version: 1) }
+        before { LinkSet.create(content_id: expected_attributes[:content_id], links: {}, version: 1) }
 
         it "updates the existing link record" do
           do_request
           expect(LinkSet.count).to eq(1)
-          expect(LinkSet.last.links).to eq(content_item[:links].deep_stringify_keys)
+          expect(LinkSet.last.links).to eq(expected_attributes[:links].deep_stringify_keys)
         end
 
         it "increments the version number to 2" do
@@ -37,31 +37,31 @@ module RequestHelpers
       end
     end
 
-    def creates_a_content_item_representation(representation_class, access_limited: false, immutable_base_path: false)
+    def creates_a_content_item_representation(representation_class, expected_attributes:, access_limited: false, immutable_base_path: false)
       it "creates the #{representation_class} derived representation" do
-        do_request(body: content_item.to_json)
+        do_request
 
         expect(representation_class.count).to eq(1)
 
         item = representation_class.first
 
         expect(item.base_path).to eq(base_path)
-        expect(item.content_id).to eq(content_item[:content_id])
-        expect(item.details).to eq(content_item[:details].deep_stringify_keys)
-        expect(item.format).to eq(content_item[:format])
-        expect(item.locale).to eq(content_item[:locale])
-        expect(item.publishing_app).to eq(content_item[:publishing_app])
-        expect(item.rendering_app).to eq(content_item[:rendering_app])
-        expect(item.public_updated_at).to eq(content_item[:public_updated_at])
-        expect(item.description).to eq(content_item[:description])
-        expect(item.title).to eq(content_item[:title])
-        expect(item.routes).to eq(content_item[:routes].map(&:deep_stringify_keys))
-        expect(item.redirects).to eq(content_item[:redirects].map(&:deep_stringify_keys))
-        expect(item.metadata["need_ids"]).to eq(content_item[:need_ids])
-        expect(item.metadata["phase"]).to eq(content_item[:phase])
+        expect(item.content_id).to eq(expected_attributes[:content_id])
+        expect(item.details).to eq(expected_attributes[:details].deep_stringify_keys)
+        expect(item.format).to eq(expected_attributes[:format])
+        expect(item.locale).to eq(expected_attributes[:locale])
+        expect(item.publishing_app).to eq(expected_attributes[:publishing_app])
+        expect(item.rendering_app).to eq(expected_attributes[:rendering_app])
+        expect(item.public_updated_at).to eq(expected_attributes[:public_updated_at])
+        expect(item.description).to eq(expected_attributes[:description])
+        expect(item.title).to eq(expected_attributes[:title])
+        expect(item.routes).to eq(expected_attributes[:routes].map(&:deep_stringify_keys))
+        expect(item.redirects).to eq(expected_attributes[:redirects].map(&:deep_stringify_keys))
+        expect(item.metadata["need_ids"]).to eq(expected_attributes[:need_ids])
+        expect(item.metadata["phase"]).to eq(expected_attributes[:phase])
 
         if access_limited
-          expect(item.access_limited).to eq(content_item[:access_limited].deep_stringify_keys)
+          expect(item.access_limited).to eq(expected_attributes[:access_limited].deep_stringify_keys)
         end
       end
 
@@ -75,9 +75,9 @@ module RequestHelpers
         before do
           representation_class.create(
             title: "An existing title",
-            content_id: content_item[:content_id],
-            locale: content_item[:locale],
-            details: content_item[:details],
+            content_id: expected_attributes[:content_id],
+            locale: expected_attributes[:locale],
+            details: expected_attributes[:details],
             metadata: {},
             base_path: base_path,
             version: 1
@@ -88,7 +88,7 @@ module RequestHelpers
           do_request
 
           expect(representation_class.count).to eq(1)
-          expect(representation_class.last.title).to eq(content_item[:title])
+          expect(representation_class.last.title).to eq(expected_attributes[:title])
         end
 
         it "increments the version number to 2" do
@@ -100,7 +100,7 @@ module RequestHelpers
           new_base_path = "/something-else"
 
           it "reports a validation error if attempting to change base_path" do
-            put request_path.gsub(base_path, new_base_path), content_item.to_json
+            put request_path.gsub(base_path, new_base_path), request_body
 
             expect(response.status).to eq(400)
             expect(JSON.parse(response.body)).to eq({"errors" => {"base_path" => "cannot change once item is live"}})
@@ -113,7 +113,7 @@ module RequestHelpers
 
             stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
 
-            put request_path.gsub(base_path, new_base_path), content_item.to_json
+            put request_path.gsub(base_path, new_base_path), request_body
 
             expect(response.status).to eq(200)
             expect(representation_class.count).to eq(1)

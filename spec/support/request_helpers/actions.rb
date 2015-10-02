@@ -1,6 +1,6 @@
 module RequestHelpers
   module Actions
-    def do_request(body: content_item.to_json)
+    def do_request(body: request_body)
       put request_path, body
     end
   end

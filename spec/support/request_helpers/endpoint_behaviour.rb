@@ -5,7 +5,7 @@ module RequestHelpers
         do_request
 
         expect(response.status).to eq(200)
-        expect(response.body).to eq(content_item.to_json)
+        expect(response.body).to eq(request_body)
       end
     end
 
@@ -31,7 +31,7 @@ module RequestHelpers
             do_request
 
             expect(response.status).to eq(200)
-            expect(response.body).to eq(content_item.to_json)
+            expect(response.body).to eq(request_body)
           ensure
             PublishingAPI.swallow_draft_connection_errors = @swallow_draft_errors
           end

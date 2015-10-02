@@ -27,7 +27,7 @@ RSpec.describe "Message bus", type: :request do
   end
 
   context "/content" do
-    let(:content_item) { content_item_without_access_limiting }
+    let(:request_body) { content_item_without_access_limiting.to_json }
     let(:request_path) { "/content#{base_path}" }
 
     it 'should place a message on the queue using the private representation of the content item' do
@@ -52,14 +52,24 @@ RSpec.describe "Message bus", type: :request do
       expect(message).to have_key('update_type')
     end
 
-    it 'routing key depends on format and update type' do
-      do_request(body: content_item.merge(update_type: "minor").to_json)
-      delivery_info, _, payload = wait_for_message_on(@queue)
-      expect(delivery_info.routing_key).to eq('guide.minor')
+    context "minor update type" do
+      let(:request_body) { content_item_without_access_limiting.merge(update_type: "minor").to_json }
 
-      do_request(body: content_item.merge(format: "detailed_guide").to_json)
-      delivery_info, _, payload = wait_for_message_on(@queue)
-      expect(delivery_info.routing_key).to eq('detailed_guide.major')
+      it 'uses the update type for the routing key' do
+        do_request
+        delivery_info, _, payload = wait_for_message_on(@queue)
+        expect(delivery_info.routing_key).to eq('guide.minor')
+      end
+    end
+
+    context "detailed_guide format" do
+      let(:request_body) { content_item_without_access_limiting.merge(format: "detailed_guide").to_json }
+
+      it "uses the format for the routing key" do
+        do_request
+        delivery_info, _, payload = wait_for_message_on(@queue)
+        expect(delivery_info.routing_key).to eq('detailed_guide.major')
+      end
     end
 
     it 'publishes a message for a redirect update' do
@@ -71,7 +81,7 @@ RSpec.describe "Message bus", type: :request do
   end
 
   context "/draft-content" do
-    let(:content_item) { content_item_with_access_limiting }
+    let(:request_body) { content_item_with_access_limiting }
     let(:request_path) { "/draft-content#{base_path}" }
 
     it "doesn't send any messages" do
