@@ -7,7 +7,7 @@ module RequestHelpers
           publishing_app: content_item[:publishing_app]
         )
 
-        put_content_item
+        do_request
       end
     end
 
@@ -29,7 +29,7 @@ module RequestHelpers
         end
 
         it "returns a 422 with the URL arbiter's response body" do
-          put_content_item
+          do_request
 
           expect(response.status).to eq(422)
           expect(response.body).to eq(url_arbiter_response_body)
@@ -52,7 +52,7 @@ module RequestHelpers
         end
 
         it "returns a 409 with the URL arbiter's response body" do
-          put_content_item
+          do_request
 
           expect(response.status).to eq(409)
           expect(response.body).to eq(url_arbiter_response_body)
@@ -65,7 +65,7 @@ module RequestHelpers
         end
 
         it "returns a 500 with a custom error message" do
-          put_content_item
+          do_request
 
           expect(response.status).to eq(500)
           expect(response.body).to eq({
@@ -85,7 +85,7 @@ module RequestHelpers
           )
           .ordered
 
-        put_content_item
+        do_request
       end
     end
   end

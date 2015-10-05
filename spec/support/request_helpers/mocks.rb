@@ -1,12 +1,18 @@
 module RequestHelpers
   module Mocks
+    extend self
+
     def base_path
       "/vat-rates"
     end
 
+    def content_id
+      "582e1d3f-690e-4115-a948-e05b3c6b3d88"
+    end
+
     def content_item_without_access_limiting
       {
-        content_id: "582e1d3f-690e-4115-a948-e05b3c6b3d88",
+        content_id: content_id,
         title: "VAT rates",
         description: "VAT rates for goods and services",
         format: "guide",
@@ -18,9 +24,6 @@ module RequestHelpers
         phase: "beta",
         details: {
           body: "<p>Something about VAT</p>\n",
-        },
-        links: {
-          organisations: ["f17250b0-7540-0131-f036-005056030221"]
         },
         routes: [
           {
@@ -36,6 +39,15 @@ module RequestHelpers
           }
         ],
         update_type: "major",
+      }.merge(links_attributes)
+    end
+
+    def links_attributes
+      {
+        content_id: content_id,
+        links: {
+          organisations: ["f17250b0-7540-0131-f036-005056030221"]
+        },
       }
     end
 

@@ -14,6 +14,12 @@ RSpec.describe "Publish intent requests", type: :request do
       ],
     }
   }
+  let(:request_body) {
+    content_item.to_json
+  }
+  let(:request_path) {
+    "/publish-intent#{base_path}"
+  }
 
   before do
     stub_request(:put, %r{^content-store.*/publish-intent/.*})
@@ -26,10 +32,6 @@ RSpec.describe "Publish intent requests", type: :request do
     returns_400_on_invalid_json
     suppresses_draft_content_store_502s
     accepts_root_path
-
-    def put_content_item(body: content_item.to_json)
-      put "/publish-intent#{base_path}", body
-    end
 
     def deep_stringify_keys(hash)
       JSON.parse(hash.to_json)
@@ -45,19 +47,19 @@ RSpec.describe "Publish intent requests", type: :request do
         .with(base_path: "/vat-rates", publish_intent: content_item)
         .ordered
 
-      put_content_item
+      do_request
     end
 
     it "does not send anything to the draft content store" do
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_publish_intent).never
 
-      put_content_item
+      do_request
 
       expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
     end
 
     it "logs a 'PutPublishIntent' event in the event log" do
-      put_content_item
+      do_request
       expect(Event.count).to eq(1)
       expect(Event.first.action).to eq('PutPublishIntent')
       expect(Event.first.user_uid).to eq(nil)

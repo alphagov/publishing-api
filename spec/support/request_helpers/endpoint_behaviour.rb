@@ -2,16 +2,16 @@ module RequestHelpers
   module EndpointBehaviour
     def returns_200_response
       it "responds with the content item as a 200" do
-        put_content_item
+        do_request
 
         expect(response.status).to eq(200)
-        expect(response.body).to eq(content_item.to_json)
+        expect(response.body).to eq(request_body)
       end
     end
 
     def returns_400_on_invalid_json
       it "returns a 400 if the JSON is invalid" do
-        put_content_item(body: "not a JSON")
+        do_request(body: "not a JSON")
 
         expect(response.status).to eq(400)
       end
@@ -28,10 +28,10 @@ module RequestHelpers
 
         it "returns the normal 200 response" do
           begin
-            put_content_item
+            do_request
 
             expect(response.status).to eq(200)
-            expect(response.body).to eq(content_item.to_json)
+            expect(response.body).to eq(request_body)
           ensure
             PublishingAPI.swallow_draft_connection_errors = @swallow_draft_errors
           end
@@ -47,7 +47,7 @@ module RequestHelpers
           expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
             .with(hash_including(base_path: base_path))
 
-          put_content_item
+          do_request
         end
       end
     end
@@ -57,7 +57,7 @@ module RequestHelpers
         let(:base_path) { "/" }
 
         it "creates the content item" do
-          put_content_item
+          do_request
 
           expect(response.status).to eq(200)
           expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once

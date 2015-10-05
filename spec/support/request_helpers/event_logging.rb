@@ -1,14 +1,14 @@
 module RequestHelpers
   module EventLogging
-    def logs_event(event_class_name)
+    def logs_event(event_class_name, expected_payload:)
       it "logs a '#{event_class_name}' event in the event log" do
-        put_content_item
+        do_request
 
         expect(Event.count).to eq(1)
         expect(Event.first.action).to eq(event_class_name)
         expect(Event.first.user_uid).to eq(nil)
 
-        expected_payload = content_item.merge("base_path" => base_path).deep_stringify_keys
+        expected_payload = expected_payload.deep_stringify_keys.merge("base_path" => base_path)
         expect(Event.first.payload).to eq(expected_payload)
       end
     end

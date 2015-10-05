@@ -7,13 +7,13 @@ module RequestHelpers
         end
 
         it "does not log an event in the event log" do
-          put_content_item
+          do_request
 
           expect(Event.count).to eq(0)
         end
 
         it "returns an error" do
-          put_content_item
+          do_request
 
           expect(response.status).to eq(500)
           expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from draft content store: GdsApi::TimedOutException"})
@@ -28,13 +28,13 @@ module RequestHelpers
         end
 
         it "does not log an event in the event log" do
-          put_content_item
+          do_request
 
           expect(Event.count).to eq(0)
         end
 
         it "returns an error" do
-          put_content_item
+          do_request
 
           expect(response.status).to eq(500)
           expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from content store: GdsApi::TimedOutException"})
