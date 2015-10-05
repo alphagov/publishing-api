@@ -37,32 +37,19 @@ private
   end
 
   def create_or_update_live_content_item!
-    existing = LiveContentItem.find_by(content_id: content_id, locale: content_item[:locale])
-    if existing
-      if existing.base_path != base_path
+    LiveContentItem.create_or_replace(content_item_attributes) do |existing|
+      if existing.persisted? && existing.base_path != base_path
         raise Command::Error.new(
           code: 400,
           message: "Cannot change base path",
           error_details: { errors: { base_path: "cannot change once item is live" } }
         )
       end
-      existing.update_attributes(content_item_attributes)
-      existing.version += 1
-      existing.save!
-    else
-      LiveContentItem.create!(content_item_attributes.merge(version: 1))
     end
   end
 
   def create_or_update_draft_content_item!
-    existing = DraftContentItem.find_by(content_id: content_id, locale: content_item[:locale])
-    if existing
-      existing.update_attributes(content_item_attributes)
-      existing.version += 1
-      existing.save!
-    else
-      DraftContentItem.create!(content_item_attributes.merge(version: 1))
-    end
+    DraftContentItem.create_or_replace(content_item_attributes)
   end
 
   def content_item_attributes

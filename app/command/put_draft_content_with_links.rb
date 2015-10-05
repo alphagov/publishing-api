@@ -29,14 +29,7 @@ private
   end
 
   def create_or_update_draft_content_item!
-    existing = DraftContentItem.find_by(content_id: content_id, locale: content_item[:locale])
-    if existing
-      existing.update_attributes(content_item_attributes)
-      existing.version += 1
-      existing.save!
-    else
-      DraftContentItem.create!(content_item_attributes.merge(version: 1))
-    end
+    DraftContentItem.create_or_replace(content_item_attributes)
   end
 
   def content_item_attributes
