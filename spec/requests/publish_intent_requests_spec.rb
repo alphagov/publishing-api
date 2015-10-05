@@ -17,6 +17,9 @@ RSpec.describe "Publish intent requests", type: :request do
   let(:request_body) {
     content_item.to_json
   }
+  let(:request_path) {
+    "/publish-intent#{base_path}"
+  }
 
   before do
     stub_request(:put, %r{^content-store.*/publish-intent/.*})
@@ -29,10 +32,6 @@ RSpec.describe "Publish intent requests", type: :request do
     returns_400_on_invalid_json
     suppresses_draft_content_store_502s
     accepts_root_path
-
-    def do_request(body: request_body)
-      put "/publish-intent#{base_path}", body
-    end
 
     def deep_stringify_keys(hash)
       JSON.parse(hash.to_json)
