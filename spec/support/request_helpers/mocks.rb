@@ -78,6 +78,12 @@ module RequestHelpers
         update_type: "major",
       }
     end
+
+    def v2_content_item
+      content_item_with_access_limiting
+        .except(:links)
+        .merge(base_path: base_path)
+    end
   end
 end
 

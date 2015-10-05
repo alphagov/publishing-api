@@ -6,6 +6,10 @@ class CommandProcessor
     @event_logger = event_logger
   end
 
+  def put_content(payload)
+    dispatch(Command::V2::PutContent, payload)
+  end
+
   def put_content_with_links(payload)
     dispatch(Command::PutContentWithLinks, payload)
   end

@@ -40,7 +40,7 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
-  provider_state "both content stores and url-arbiter empty" do
+  provider_state "both content stores and the url-arbiter are empty" do
     set_up do
       DatabaseCleaner.clean_with :truncation
 
