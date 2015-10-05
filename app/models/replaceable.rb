@@ -31,6 +31,7 @@ module Replaceable
       end
       item.assign_attributes_with_defaults(payload)
       item.save!
+      item
     rescue ActiveRecord::StatementInvalid => e
       if !item.persisted? && e.original_exception.is_a?(PG::UniqueViolation)
         raise Command::Retry.new("Race condition in create_or_replace, retrying (original error: '#{e.message}')")

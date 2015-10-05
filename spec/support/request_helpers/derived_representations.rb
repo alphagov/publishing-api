@@ -37,7 +37,11 @@ module RequestHelpers
       end
     end
 
-    def creates_a_content_item_representation(representation_class, expected_attributes:, access_limited: false, immutable_base_path: false)
+    def creates_a_content_item_representation(representation_class, expected_attributes_proc:, access_limited: false)
+      let(:expected_attributes) {
+        instance_exec(&expected_attributes_proc)
+      }
+
       it "creates the #{representation_class} derived representation" do
         do_request
 
@@ -95,30 +99,60 @@ module RequestHelpers
           do_request
           expect(representation_class.first.version).to eq(2)
         end
+      end
+    end
 
-        if immutable_base_path
+    def prevents_base_path_from_being_changed(representation_class)
+      context "a #{representation_class} already exists" do
+        before do
+          representation_class.create!(
+            title: "An existing title",
+            content_id: expected_attributes[:content_id],
+            locale: expected_attributes[:locale],
+            details: expected_attributes[:details],
+            metadata: {},
+            base_path: base_path,
+            version: 1
+          )
+        end
+
+        it "reports a validation error if attempting to change base_path" do
           new_base_path = "/something-else"
 
-          it "reports a validation error if attempting to change base_path" do
-            put request_path.gsub(base_path, new_base_path), request_body
+          put request_path.gsub(base_path, new_base_path), request_body
 
-            expect(response.status).to eq(400)
-            expect(JSON.parse(response.body)).to eq({"errors" => {"base_path" => "cannot change once item is live"}})
-            expect(representation_class.count).to eq(1)
-            expect(representation_class.first.base_path).to eq(base_path)
-          end
-        else
-          it "allows the base_path to be changed" do
-            new_base_path = "/something-else"
+          expect(response.status).to eq(400)
+          expect(JSON.parse(response.body)).to eq({"errors" => {"base_path" => "cannot change once item is live"}})
+          expect(representation_class.count).to eq(1)
+          expect(representation_class.first.base_path).to eq(base_path)
+        end
+      end
+    end
 
-            stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
+    def allows_base_path_to_be_changed(representation_class)
+      context "a #{representation_class} already exists" do
+        before do
+          representation_class.create!(
+            title: "An existing title",
+            content_id: expected_attributes[:content_id],
+            locale: expected_attributes[:locale],
+            details: expected_attributes[:details],
+            metadata: {},
+            base_path: base_path,
+            version: 1
+          )
+        end
 
-            put request_path.gsub(base_path, new_base_path), request_body
+        it "allows the base_path to be changed" do
+          new_base_path = "/something-else"
 
-            expect(response.status).to eq(200)
-            expect(representation_class.count).to eq(1)
-            expect(representation_class.first.base_path).to eq(new_base_path)
-          end
+          stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
+
+          put request_path.gsub(base_path, new_base_path), request_body
+
+          expect(response.status).to eq(200)
+          expect(representation_class.count).to eq(1)
+          expect(representation_class.first.base_path).to eq(new_base_path)
         end
       end
     end

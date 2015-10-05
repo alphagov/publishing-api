@@ -27,6 +27,11 @@ RSpec.shared_examples Replaceable do
       described_class.create_or_replace(payload)
       expect(described_class.first.version).to eq(2)
     end
+
+    it "returns the updated item" do
+      item = described_class.create_or_replace(payload)
+      expect(item).to be_a(described_class)
+    end
   end
 
   context "no item exists with that content_id" do
@@ -42,6 +47,11 @@ RSpec.shared_examples Replaceable do
     it "sets the version number to 1" do
       described_class.create_or_replace(payload)
       expect(described_class.first.version).to eq(1)
+    end
+
+    it "returns the created item" do
+      item = described_class.create_or_replace(payload)
+      expect(item).to be_a(described_class)
     end
   end
 
