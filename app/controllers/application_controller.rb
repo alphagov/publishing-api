@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
+  class BadRequest < StandardError; end
+
   rescue_from Command::Error, with: :respond_with_command_error
+  rescue_from BadRequest do
+    head :bad_request
+  end
 
 private
   def respond_with_command_error(error)
@@ -10,11 +15,13 @@ private
     "/#{params[:base_path]}"
   end
 
-  def parse_content_item
-    @content_item = JSON.parse(request.body.read).deep_symbolize_keys
+  def payload
+    @payload ||= JSON.parse(request.body.read).deep_symbolize_keys
   rescue JSON::ParserError
-    head :bad_request
+    raise BadRequest
   end
 
-  attr_reader :content_item
+  def content_item
+    payload
+  end
 end

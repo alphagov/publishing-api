@@ -1,5 +1,4 @@
 class ContentItemsController < ApplicationController
-  before_filter :parse_content_item
   before_filter :validate_routing_key_fields, only: [:put_live_content_item]
 
   def put_live_content_item

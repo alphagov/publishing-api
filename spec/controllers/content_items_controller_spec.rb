@@ -39,18 +39,25 @@ RSpec.describe ContentItemsController do
     end
 
     describe "validating the fields used for the message routing key" do
+      valid_routing_keys = %w(
+        word
+        alpha12numeric
+        under_score
+        mixedCASE
+      )
+      invalid_routing_keys = [
+        'no spaces',
+        'dashed-item',
+        'puncutation!',
+      ]
+
       [
         "format",
         "update_type",
       ].each do |field|
-        it "requires #{field} to be suitable as a routing_key" do
-          %w(
-            word
-            alpha12numeric
-            under_score
-            mixedCASE
-          ).each do |value|
-            content_item = base_content_item.merge(field => value)
+        valid_routing_keys.each do |routing_key|
+          it "should respond with 200 if #{field} has value '#{routing_key}'" do
+            content_item = base_content_item.merge(field => routing_key)
 
             raw_json_put(
               action: :put_live_content_item,
@@ -60,13 +67,11 @@ RSpec.describe ContentItemsController do
 
             expect(response.status).to eq(200)
           end
+        end
 
-          [
-            'no spaces',
-            'dashed-item',
-            'puncutation!',
-          ].each do |value|
-            content_item = base_content_item.merge(field => value)
+        invalid_routing_keys.each do |routing_key|
+          it "should respond with 422 if #{field} has value '#{routing_key}'" do
+            content_item = base_content_item.merge(field => routing_key)
 
             raw_json_put(
               action: :put_live_content_item,
