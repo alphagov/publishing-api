@@ -36,8 +36,4 @@ private
   def command_name(command_class)
     command_class.name.split("::")[-1]
   end
-
-  def item_with_base_path
-    @item.merge(base_path: base_path)
-  end
 end
