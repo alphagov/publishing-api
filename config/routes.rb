@@ -13,5 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
+  post '/v2/content/:content_id/publish', to: 'content_items#publish'
+
   get '/healthcheck', :to => proc { [200, {}, ['OK']] }
 end

@@ -26,6 +26,10 @@ class CommandProcessor
     dispatch(Command::DeletePublishIntent, payload)
   end
 
+  def publish(payload)
+    dispatch(Command::Publish, payload)
+  end
+
 private
   def dispatch(command_class, payload)
     event_logger.log(command_name(command_class), user_id, payload) do |event|
