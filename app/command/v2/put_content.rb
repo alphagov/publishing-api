@@ -4,18 +4,18 @@ class Command::V2::PutContent < Command::BaseCommand
   def call
     create_or_update_draft_content_item!
 
-    Adapters::UrlArbiter.new(services: services).call(base_path, content_item["publishing_app"])
+    Adapters::UrlArbiter.new(services: services).call(base_path, content_item[:publishing_app])
     Adapters::DraftContentStore.new(services: services).call(base_path, content_item)
     Command::Success.new({})
   end
 
 private
   def content_item
-    payload
+    payload.deep_symbolize_keys
   end
 
   def content_id
-    content_item["content_id"]
+    content_item.fetch(:content_id)
   end
 
   def create_or_update_draft_content_item!
@@ -23,7 +23,7 @@ private
   end
 
   def content_item_attributes
-    content_item.slice(*content_item_top_level_fields).merge("metadata" => metadata)
+    content_item.slice(*content_item_top_level_fields).merge(metadata: metadata)
   end
 
   def metadata
@@ -31,7 +31,7 @@ private
   end
 
   def content_item_top_level_fields
-    %w(
+    %I(
       access_limited
       base_path
       content_id

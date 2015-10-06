@@ -18,7 +18,6 @@ FactoryGirl.define do
     redirects []
     update_type "major"
 
-    initialize_with { attributes.deep_stringify_keys }
     skip_create
 
     trait :access_limited do

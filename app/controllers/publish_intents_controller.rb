@@ -11,7 +11,7 @@ class PublishIntentsController < ApplicationController
   end
 
   def destroy
-    response = command_processor.delete_publish_intent("base_path" => base_path)
+    response = command_processor.delete_publish_intent(base_path: base_path)
     render status: response.code, json: response.as_json
   end
 

@@ -1,7 +1,7 @@
 module V2
   class ContentItemsController < ApplicationController
     def put_content
-      response = command_processor.put_content(payload.merge("content_id" => params[:content_id]))
+      response = command_processor.put_content(payload.merge(content_id: params[:content_id]))
       render status: response.code, json: response.as_json
     end
 
@@ -11,7 +11,7 @@ module V2
     end
 
     def payload
-      @payload ||= JSON.parse(request.body.read)
+      @payload ||= JSON.parse(request.body.read).deep_symbolize_keys
     rescue JSON::ParserError
       head :bad_request
     end

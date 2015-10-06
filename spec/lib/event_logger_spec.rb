@@ -5,7 +5,7 @@ RSpec.describe EventLogger do
   let(:action) {"create draft"}
   let(:payload) {
     {
-      "stuff" => "1234"
+      stuff: "1234"
     }
   }
 

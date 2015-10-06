@@ -12,7 +12,8 @@ RSpec.describe LiveContentItem do
 
   let(:new_attributes) {
     {
-      "content_id" => content_id, "title" => "New title"
+      content_id: content_id,
+      title: "New title"
     }
   }
 

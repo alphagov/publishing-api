@@ -1,7 +1,7 @@
 module RequestHelpers
   module DownstreamRequests
     def url_registration_happens
-      it "registers with the URL with the URL arbiter" do
+      it "registers the URL with the URL arbiter" do
         expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).with(
           "/vat-rates",
           publishing_app: content_item[:publishing_app]
