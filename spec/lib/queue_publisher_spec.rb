@@ -84,6 +84,23 @@ RSpec.describe QueuePublisher do
         queue_publisher.send_message(content_item)
       end
 
+      context "content item using string keys" do
+        let(:content_item) { super().stringify_keys }
+
+        it "correctly calculates routing key" do
+          expect(mock_exchange).to receive(:publish).with(anything, hash_including(:routing_key => "#{content_item['format']}.#{content_item['update_type']}"))
+
+          queue_publisher.send_message(content_item)
+        end
+      end
+
+      it "allows the routing key to be overridden" do
+        custom_routing_key = "my_routing.key"
+        expect(mock_exchange).to receive(:publish).with(anything, hash_including(:routing_key => custom_routing_key))
+
+        queue_publisher.send_message(content_item, routing_key: custom_routing_key)
+      end
+
       it "sends the message as persistent" do
         expect(mock_exchange).to receive(:publish).with(anything, hash_including(:persistent => true))
 

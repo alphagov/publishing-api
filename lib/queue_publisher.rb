@@ -19,10 +19,15 @@ class QueuePublisher
   class PublishFailedError < StandardError
   end
 
-  def send_message(content_item)
+  def send_message(content_item, routing_key: nil)
     return if @noop
-    routing_key = "#{content_item[:format]}.#{content_item[:update_type]}"
+    routing_key ||= routing_key(content_item)
     publish_message(routing_key, content_item, content_type: 'application/json', persistent: true)
+  end
+
+  def routing_key(content_item)
+    normalised = content_item.symbolize_keys
+    "#{normalised[:format]}.#{normalised[:update_type]}"
   end
 
   def send_heartbeat
