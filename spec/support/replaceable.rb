@@ -1,6 +1,6 @@
 RSpec.shared_examples Replaceable do
   let(:payload) {
-    build(described_class).as_json.symbolize_keys.except(:format, :routes).merge(content_id: content_id, title: "New title")
+    build(described_class).as_json.except("format", "routes").merge(new_attributes)
   }
 
   context "an item exists with that content_id" do
@@ -14,13 +14,12 @@ RSpec.shared_examples Replaceable do
       item = described_class.first
       expect(item.content_id).to eq(content_id)
       expect(item.id).to eq(existing.id)
-      expect(item.title).to eq("New title")
+      verify_new_attributes_set
     end
 
     it "does not preserve any information from the existing item" do
       described_class.create_or_replace(payload)
-      expect(described_class.first.format).to be_nil
-      expect(described_class.first.routes).to be_nil
+      verify_old_attributes_not_preserved
     end
 
     it "increases the version number" do
@@ -41,7 +40,7 @@ RSpec.shared_examples Replaceable do
       described_class.create_or_replace(payload)
       expect(described_class.count).to eq(1)
       expect(described_class.first.content_id).to eq(content_id)
-      expect(described_class.first.title).to eq("New title")
+      verify_new_attributes_set
     end
 
     it "sets the version number to 1" do
@@ -71,7 +70,7 @@ RSpec.shared_examples Replaceable do
     it "raises a Command::Retry in case of a duplicate constraint violation" do
       expect {
         described_class.create_or_replace(payload) do |existing|
-          create(described_class, content_id: payload[:content_id], locale: payload[:locale])
+          create(described_class, payload.slice(*described_class.query_keys))
         end
       }.to raise_error(Command::Retry)
     end
