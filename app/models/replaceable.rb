@@ -25,7 +25,7 @@ module Replaceable
   class_methods do
     def create_or_replace(payload)
       payload = payload.stringify_keys
-      item = self.lock.find_or_initialize_by(content_id: payload["content_id"], locale: payload["locale"])
+      item = self.lock.find_or_initialize_by(payload.slice(*self.query_keys))
       if block_given?
         yield(item)
       end
