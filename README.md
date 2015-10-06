@@ -68,7 +68,7 @@ behaves in the way expected by its clients. We use a library called
 When running in development, you can run the pact verification tests using:
 
 ```
-$ bundle exec pact:verify
+$ bundle exec rake pact:verify
 ```
 
 This will read the local file defined at:
