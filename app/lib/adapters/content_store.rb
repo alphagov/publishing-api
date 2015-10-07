@@ -16,9 +16,19 @@ module Adapters
     rescue GdsApi::HTTPServerError => e
       raise Command::Error.new(code: e.code, message: e.message)
     rescue GdsApi::HTTPClientError => e
-      raise Command::Error.new(code: e.code, error_details: e.error_details)
+      raise Command::Error.new(code: e.code, error_details: convert_error_details(e))
     rescue GdsApi::BaseError => e
       raise Command::Error.new(code: 500, message: "Unexpected error from content store: #{e.message}")
+    end
+
+  private
+    def convert_error_details(upstream_error)
+      {
+        error: {
+          code: upstream_error.code,
+          fields: upstream_error.error_details.fetch('errors', {})
+        }
+      }
     end
   end
 end
