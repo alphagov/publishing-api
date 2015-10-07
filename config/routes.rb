@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
     namespace :v2 do
       put "/content/:content_id", to: "content_items#put_content"
+      get "/content/:content_id", to: "content_items#show"
     end
   end
 

@@ -8,11 +8,27 @@ module RequestHelpers
       end
     end
 
+    def returns_404_response
+      it "responds with the content item as a 404" do
+        do_request
+
+        expect(response.status).to eq(404)
+      end
+    end
+
     def responds_with_request_body
       it "responds with a body that matches the request body" do
         do_request
 
         expect(response.body).to eq(request_body)
+      end
+    end
+
+    def responds_with_content_item_body
+      it "responds with a body of the content_item" do
+        do_request
+
+        expect(response.body).to eq(content_item.to_json)
       end
     end
 

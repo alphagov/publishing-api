@@ -66,4 +66,24 @@ RSpec.describe "Endpoint behaviour", type: :request do
       creates_no_derived_representations
     end
   end
+
+  context "/v2/content/:content_id" do
+    let(:content_id) { "foo" }
+    let(:request_body) { "" }
+    let(:request_path) { "/v2/content/#{content_id}" }
+    let(:request_method) { :get }
+
+    context "when the content item exists" do
+      let!(:content_item) {
+        FactoryGirl.create(:draft_content_item, content_id: content_id)
+      }
+
+      returns_200_response
+      responds_with_content_item_body
+    end
+
+    context "when the content item does not exist" do
+      returns_404_response
+    end
+  end
 end
