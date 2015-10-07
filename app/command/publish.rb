@@ -2,6 +2,7 @@ class Command::Publish < Command::BaseCommand
   attr_reader :live_item, :link_set
 
   def call
+    validate!
     @live_item = LiveContentItem.create_or_replace(draft_item.attributes.except("access_limited"))
     @link_set = LinkSet.find_by(content_id: content_id)
 
@@ -13,8 +14,20 @@ class Command::Publish < Command::BaseCommand
   end
 
 private
+  def validate!
+    raise Command::Error.new(
+      code: 400,
+      message: "update_type is required",
+      error_details: { errors: { update_type: "is required" } }
+    ) unless update_type.present?
+  end
+
   def content_id
     payload["content_id"]
+  end
+
+  def update_type
+    payload['update_type']
   end
 
   def draft_item
@@ -34,7 +47,7 @@ private
   end
 
   def send_to_message_queue!
-    message_payload = live_payload.merge(update_type: payload['update_type'])
+    message_payload = live_payload.merge(update_type: update_type)
     queue_publisher.send_message(message_payload)
   end
 

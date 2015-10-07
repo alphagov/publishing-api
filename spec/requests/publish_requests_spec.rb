@@ -58,6 +58,16 @@ RSpec.describe "POST /v2/publish", type: :request do
         expect(message).to eq(expected_live_content_item_hash.as_json.merge("update_type" => payload['update_type']))
       end
     end
-  end
 
+    context "update_type is absent" do
+      let(:payload) { {} }
+
+      it "reports an error" do
+        do_request
+
+        expect(response.status).to eq(400)
+        expect(JSON.parse(response.body)).to match(hash_including("errors" => {"update_type" => "is required"}))
+      end
+    end
+  end
 end
