@@ -30,10 +30,22 @@ module Replaceable
         yield(item)
       end
       item.assign_attributes_with_defaults(payload)
-      item.save!
+
+      if item.new_record?
+        retrying_on_unique_constraint_violation do
+          item.save!
+        end
+      else
+        item.save!
+      end
+
       item
+    end
+
+    def retrying_on_unique_constraint_violation(&block)
+      yield
     rescue ActiveRecord::StatementInvalid => e
-      if !item.persisted? && e.original_exception.is_a?(PG::UniqueViolation)
+      if e.original_exception.is_a?(PG::UniqueViolation)
         raise Command::Retry.new("Race condition in create_or_replace, retrying (original error: '#{e.message}')")
       else
         raise
