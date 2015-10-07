@@ -8,7 +8,7 @@ class Presenters::ContentItemPresenter
   end
 
   def present
-    raw_json.except("metadata").merge(raw_json['metadata'])
+    raw_json.except("metadata", "id").merge(raw_json['metadata'])
   end
 
   def raw_json

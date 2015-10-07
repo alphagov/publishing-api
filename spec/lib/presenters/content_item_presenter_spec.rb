@@ -15,9 +15,13 @@ RSpec.describe Presenters::ContentItemPresenter do
     expect(presented).not_to have_key("metadata")
   end
 
+  it "removes the id key" do
+    expect(presented).not_to have_key("id")
+  end
+
   it "exports all other fields" do
     content_item.attributes.each do |key, value|
-      next if key == 'metadata'
+      next if ['metadata', 'id'].include?(key)
       expect(presented[key]).to eq(value)
     end
   end

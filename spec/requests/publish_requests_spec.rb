@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "POST /v2/publish", type: :request do
   context "a draft content item exists" do
     let(:draft_content_item) { create(:draft_content_item) }
-    let(:draft_content_item_attributes) { draft_content_item.attributes.deep_symbolize_keys }
+    let(:draft_content_item_attributes) { draft_content_item.attributes.deep_symbolize_keys.except(:id) }
     let(:expected_live_content_item_derived_representation) {
       draft_content_item_attributes
         .merge(draft_content_item_attributes[:metadata])
