@@ -31,25 +31,25 @@ module Replaceable
       end
       item.assign_attributes_with_defaults(payload)
 
-      if item.new_record?
-        retrying_on_unique_constraint_violation do
-          item.save!
-        end
+      retry_strategy = if item.new_record?
+        method(:retrying_on_unique_constraint_violation)
       else
-        item.save!
+        method(:without_retry)
       end
+
+      retry_strategy.call { item.save! }
 
       item
     end
 
     def retrying_on_unique_constraint_violation(&block)
       yield
-    rescue ActiveRecord::StatementInvalid => e
-      if e.original_exception.is_a?(PG::UniqueViolation)
-        raise Command::Retry.new("Race condition in create_or_replace, retrying (original error: '#{e.message}')")
-      else
-        raise
-      end
+    rescue ActiveRecord::RecordNotUnique => e
+      raise Command::Retry.new("Race condition in create_or_replace, retrying (original error: '#{e.message}')")
+    end
+
+    def without_retry(&block)
+      yield
     end
   end
 end
