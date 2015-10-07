@@ -1,6 +1,9 @@
 require "rails_helper"
+require "support/shared_context/message_queue_test_mode"
 
 RSpec.describe "POST /v2/publish", type: :request do
+  include MessageQueueHelpers
+
   context "a draft content item exists" do
     let(:draft_content_item) { create(:draft_content_item) }
     let(:draft_content_item_attributes) { draft_content_item.attributes.deep_symbolize_keys.except(:id) }
@@ -10,15 +13,18 @@ RSpec.describe "POST /v2/publish", type: :request do
         .except(:metadata, :access_limited)
     }
     let(:expected_live_content_item_hash) {
-      expected_live_content_item_derived_representation.deep_stringify_keys.merge("links" => link_set.links)
+      expected_live_content_item_derived_representation
+        .deep_stringify_keys
+        .merge(
+          "links" => link_set.links,
+        )
     }
 
     let(:content_id) { draft_content_item.content_id }
-    let(:link_set) { create(:link_set, content_id: content_id) }
+    let!(:link_set) { create(:link_set, content_id: content_id) }
     let(:request_path) { "/v2/content/#{content_id}/publish"}
     let(:payload) {
       {
-        "change_note" => "This is the change note",
         "update_type" => "major",
       }
     }
@@ -40,11 +46,18 @@ RSpec.describe "POST /v2/publish", type: :request do
       do_request
     end
 
-    it "sends the item combined with the current link set on the message queue" do
-      expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-        .with(expected_live_content_item_hash)
+    describe "message queue integration" do
+      include_context "using the message queue in test mode"
 
-      do_request
+      it "sends the item combined with the current link set on the message queue" do
+        do_request
+        delivery_info, _, message_json = wait_for_message_on(@queue)
+        expect(delivery_info.routing_key).to eq("#{draft_content_item.format}.#{payload['update_type']}")
+
+        message = JSON.parse(message_json)
+        expect(message).to eq(expected_live_content_item_hash.as_json.merge("update_type" => payload['update_type']))
+      end
     end
   end
+
 end
