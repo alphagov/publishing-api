@@ -3,9 +3,10 @@ module Replaceable
 
   included do
     def assign_attributes_with_defaults(attributes)
-      new_attributes = self.class.column_defaults.symbolize_keys
+      new_attributes = self.class.column_defaults.symbolize_keys.except(:id)
         .merge(attributes)
         .merge(attribute_overrides)
+        .merge(attributes.symbolize_keys)
       assign_attributes(new_attributes)
     end
 
@@ -13,7 +14,6 @@ module Replaceable
     def attribute_overrides
       {
         version: increment_version,
-        id: self.id
       }
     end
 
@@ -28,7 +28,7 @@ module Replaceable
       if block_given?
         yield(item)
       end
-      item.assign_attributes_with_defaults(payload)
+      item.assign_attributes_with_defaults(payload.except("id"))
 
       retry_strategy = if item.new_record?
         method(:retrying_on_unique_constraint_violation)

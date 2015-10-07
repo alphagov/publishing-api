@@ -25,9 +25,14 @@ RSpec.shared_examples Replaceable do
       verify_old_attributes_not_preserved
     end
 
-    it "increases the version number" do
-      described_class.create_or_replace(payload)
+    it "increases the version number if none was specified in the payload" do
+      described_class.create_or_replace(payload.except("version"))
       expect(described_class.first.version).to eq(2)
+    end
+
+    it "uses the provided version number in preference to calculating one if provided" do
+      described_class.create_or_replace(payload.merge("version" => 99))
+      expect(described_class.first.version).to eq(99)
     end
 
     it "returns the updated item" do
@@ -49,6 +54,11 @@ RSpec.shared_examples Replaceable do
     it "sets the version number to 1" do
       described_class.create_or_replace(payload)
       expect(described_class.first.version).to eq(1)
+    end
+
+    it "uses the provided version number in preference to calculating one if provided" do
+      described_class.create_or_replace(payload.merge("version" => 99))
+      expect(described_class.first.version).to eq(99)
     end
 
     it "returns the created item" do
