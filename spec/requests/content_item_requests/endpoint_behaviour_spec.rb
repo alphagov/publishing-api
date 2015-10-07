@@ -8,6 +8,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:request_method) { :put }
 
     returns_200_response
+    responds_with_request_body
     returns_400_on_invalid_json
     suppresses_draft_content_store_502s
     forwards_locale_extension
@@ -29,6 +30,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:request_method) { :put }
 
     returns_200_response
+    responds_with_request_body
     returns_400_on_invalid_json
     suppresses_draft_content_store_502s
     forwards_locale_extension
@@ -50,6 +52,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:request_method) { :put }
 
     returns_200_response
+    responds_with_request_body
     returns_400_on_invalid_json
     suppresses_draft_content_store_502s
     forwards_locale_extension

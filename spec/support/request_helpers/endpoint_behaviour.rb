@@ -5,6 +5,13 @@ module RequestHelpers
         do_request
 
         expect(response.status).to eq(200)
+      end
+    end
+
+    def responds_with_request_body
+      it "responds with a body that matches the request body" do
+        do_request
+
         expect(response.body).to eq(request_body)
       end
     end

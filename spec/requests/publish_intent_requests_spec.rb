@@ -30,6 +30,7 @@ RSpec.describe "Publish intent requests", type: :request do
     url_registration_happens
     url_registration_failures_422
     returns_200_response
+    responds_with_request_body
     returns_400_on_invalid_json
     suppresses_draft_content_store_502s
     accepts_root_path
