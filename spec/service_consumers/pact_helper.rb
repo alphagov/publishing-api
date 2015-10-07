@@ -21,6 +21,7 @@ end
 Pact.provider_states_for "GDS API Adapters" do
   set_up do
     WebMock.enable!
+    WebMock.reset!
   end
 
   tear_down do
