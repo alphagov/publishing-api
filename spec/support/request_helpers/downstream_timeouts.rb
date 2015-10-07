@@ -16,7 +16,12 @@ module RequestHelpers
           do_request
 
           expect(response.status).to eq(500)
-          expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from draft content store: GdsApi::TimedOutException"})
+          expect(JSON.parse(response.body)).to eq(
+            "error" => {
+              "code" => 500,
+              "message" => "Unexpected error from draft content store: GdsApi::TimedOutException"
+            }
+          )
         end
       end
     end
@@ -37,7 +42,12 @@ module RequestHelpers
           do_request
 
           expect(response.status).to eq(500)
-          expect(JSON.parse(response.body)).to eq({"message" => "Unexpected error from content store: GdsApi::TimedOutException"})
+          expect(JSON.parse(response.body)).to eq(
+            "error" => {
+              "code" => 500,
+              "message" => "Unexpected error from content store: GdsApi::TimedOutException"
+            }
+          )
         end
       end
     end

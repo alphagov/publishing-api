@@ -8,9 +8,18 @@ class Command::Error < StandardError
     @error_details = if error_details
       error_details
     elsif message
-      { "message" => message }
+      {
+        "error" => {
+          "code" => code,
+          "message" => message,
+        }
+      }
     else
-      {}
+      {
+        "error" => {
+          "code" => code,
+        }
+      }
     end
     super(message || error_details.to_s)
   end

@@ -69,7 +69,10 @@ module RequestHelpers
 
           expect(response.status).to eq(500)
           expect(response.body).to eq({
-            message: "Unexpected error whilst registering with url-arbiter: 506 Variant Also Negotiates"
+            "error" => {
+              "code" => 500,
+              "message" => "Unexpected error whilst registering with url-arbiter: 506 Variant Also Negotiates"
+            }
           }.to_json)
         end
       end
