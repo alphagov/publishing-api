@@ -55,6 +55,12 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "/test-item has been reserved in url-arbiter by the Publisher application" do
+    set_up do
+      url_arbiter_has_registration_for("/test-item", "Publisher")
+    end
+  end
+
   provider_state "a content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       DatabaseCleaner.clean_with :truncation
