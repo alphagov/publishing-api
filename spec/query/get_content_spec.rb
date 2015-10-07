@@ -11,4 +11,14 @@ RSpec.describe Query::GetContent do
   it "returns the latest content item for a given content_id" do
     expect(subject.call.content_id).to eq("foo")
   end
+
+  context "when the content item does not exist" do
+    subject { described_class.new("missing") }
+
+    it "returns an error object" do
+      expect {
+        subject.call
+      }.to raise_error(Command::Error, /with content_id: missing/)
+    end
+  end
 end
