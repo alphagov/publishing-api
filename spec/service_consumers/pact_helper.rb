@@ -54,4 +54,28 @@ Pact.provider_states_for "GDS API Adapters" do
         .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
     end
   end
+
+  provider_state "a content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      DatabaseCleaner.clean_with :truncation
+
+      FactoryGirl.create(
+        :draft_content_item,
+        base_path: "/robots.txt",
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        title: "Instructions for crawler robots",
+        description: "robots.txt provides rules for which parts of GOV.UK are permitted to be crawled by different bots.",
+        format: "special_route",
+        public_updated_at: "2015-07-30T13:58:11+00:00",
+        publishing_app: "static",
+        rendering_app: "static",
+        routes: [
+          {
+            path: "/robots.txt",
+            type: "exact"
+          },
+        ],
+      )
+    end
+  end
 end
