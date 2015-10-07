@@ -90,4 +90,15 @@ RSpec.describe "Message bus", type: :request do
       do_request
     end
   end
+
+  context "/v2/content" do
+    let(:request_body) { v2_content_item }
+    let(:request_path) { "/v2/content/#{content_id}" }
+
+    it "doesn't send any messages" do
+      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+      do_request
+    end
+  end
 end

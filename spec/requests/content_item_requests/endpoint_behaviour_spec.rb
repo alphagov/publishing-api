@@ -40,4 +40,24 @@ RSpec.describe "Endpoint behaviour", type: :request do
       creates_no_derived_representations
     end
   end
+
+  context "/v2/content" do
+    let(:content_item) { v2_content_item }
+    let(:request_body) { content_item.to_json }
+    let(:request_path) { "/v2/content/#{content_id}" }
+
+    returns_200_response
+    returns_400_on_invalid_json
+    suppresses_draft_content_store_502s
+    forwards_locale_extension
+    accepts_root_path
+
+    context "without a content id" do
+      let(:request_body) {
+        content_item.except(:content_id)
+      }
+
+      creates_no_derived_representations
+    end
+  end
 end

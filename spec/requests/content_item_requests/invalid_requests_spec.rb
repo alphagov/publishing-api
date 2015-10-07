@@ -41,4 +41,19 @@ RSpec.describe "Invalid content requests", type: :request do
 
     creates_no_derived_representations
   end
+
+  context "/v2/content" do
+    let(:request_body) { v2_content_item.to_json }
+    let(:request_path) { "/v2/content/#{content_id}" }
+
+    it "does not log an event in the event log" do
+      do_request
+
+      expect(Event.count).to eq(0)
+      expect(response.status).to eq(422)
+      expect(response.body).to eq(error_details.to_json)
+    end
+
+    creates_no_derived_representations
+  end
 end

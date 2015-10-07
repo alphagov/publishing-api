@@ -6,7 +6,7 @@ class Command::V2::PutContent < Command::BaseCommand
 
     Adapters::UrlArbiter.new(services: services).call(base_path, content_item[:publishing_app])
     Adapters::DraftContentStore.new(services: services).call(base_path, content_item)
-    Command::Success.new({})
+    Command::Success.new(content_item)
   end
 
 private

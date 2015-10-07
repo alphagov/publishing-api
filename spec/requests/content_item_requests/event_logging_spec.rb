@@ -14,4 +14,11 @@ RSpec.describe "Event logging", type: :request do
 
     logs_event('PutDraftContentWithLinks', expected_payload: RequestHelpers::Mocks.content_item_with_access_limiting)
   end
+
+  context "/v2/content" do
+    let(:request_body) { v2_content_item.to_json }
+    let(:request_path) { "/v2/content/#{content_id}" }
+
+    logs_event('PutContent', expected_payload: RequestHelpers::Mocks.v2_content_item)
+  end
 end

@@ -15,4 +15,11 @@ RSpec.describe "Downstream timeouts", type: :request do
 
     behaves_well_when_draft_content_store_times_out
   end
+
+  context "/v2/content" do
+    let(:request_body) { v2_content_item.to_json }
+    let(:request_path) { "/v2/content/#{content_id}" }
+
+    behaves_well_when_draft_content_store_times_out
+  end
 end
