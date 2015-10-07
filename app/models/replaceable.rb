@@ -23,7 +23,7 @@ module Replaceable
   end
 
   class_methods do
-    def create_or_replace(payload)
+    def create_or_replace(payload, &block)
       payload = payload.stringify_keys
       item = self.lock.find_or_initialize_by(payload.slice(*self.query_keys))
       if block_given?
