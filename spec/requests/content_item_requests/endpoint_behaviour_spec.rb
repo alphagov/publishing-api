@@ -5,6 +5,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_item) { content_item_without_access_limiting }
     let(:request_body) { content_item.to_json }
     let(:request_path) { "/content#{base_path}" }
+    let(:request_method) { :put }
 
     returns_200_response
     returns_400_on_invalid_json
@@ -25,6 +26,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_item) { content_item_with_access_limiting }
     let(:request_body) { content_item.to_json }
     let(:request_path) { "/draft-content#{base_path}" }
+    let(:request_method) { :put }
 
     returns_200_response
     returns_400_on_invalid_json
@@ -45,6 +47,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_item) { v2_content_item }
     let(:request_body) { content_item.to_json }
     let(:request_path) { "/v2/content/#{content_id}" }
+    let(:request_method) { :put }
 
     returns_200_response
     returns_400_on_invalid_json

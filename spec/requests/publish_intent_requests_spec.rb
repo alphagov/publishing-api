@@ -20,6 +20,7 @@ RSpec.describe "Publish intent requests", type: :request do
   let(:request_path) {
     "/publish-intent#{base_path}"
   }
+  let(:request_method) { :put }
 
   before do
     stub_request(:put, %r{^content-store.*/publish-intent/.*})

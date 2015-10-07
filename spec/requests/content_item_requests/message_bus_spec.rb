@@ -29,6 +29,7 @@ RSpec.describe "Message bus", type: :request do
   context "/content" do
     let(:request_body) { content_item_without_access_limiting.to_json }
     let(:request_path) { "/content#{base_path}" }
+    let(:request_method) { :put }
 
     it 'should place a message on the queue using the private representation of the content item' do
       do_request
@@ -83,6 +84,7 @@ RSpec.describe "Message bus", type: :request do
   context "/draft-content" do
     let(:request_body) { content_item_with_access_limiting }
     let(:request_path) { "/draft-content#{base_path}" }
+    let(:request_method) { :put }
 
     it "doesn't send any messages" do
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
@@ -94,6 +96,7 @@ RSpec.describe "Message bus", type: :request do
   context "/v2/content" do
     let(:request_body) { v2_content_item }
     let(:request_path) { "/v2/content/#{content_id}" }
+    let(:request_method) { :put }
 
     it "doesn't send any messages" do
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
