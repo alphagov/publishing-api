@@ -11,9 +11,9 @@ Rails.application.routes.draw do
       put "/content/:content_id", to: "content_items#put_content"
       get "/content/:content_id", to: "content_items#show"
     end
-  end
 
-  post '/v2/content/:content_id/publish', to: 'content_items#publish'
+    post '/v2/content/:content_id/publish', to: 'content_items#publish'
+  end
 
   get '/healthcheck', :to => proc { [200, {}, ['OK']] }
 end
