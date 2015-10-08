@@ -6,6 +6,11 @@ Rails.application.routes.draw do
     put "/publish-intent(/*base_path)", to: "publish_intents#create_or_update"
     get "/publish-intent(/*base_path)", to: "publish_intents#show"
     delete "/publish-intent(/*base_path)", to: "publish_intents#destroy"
+
+    namespace :v2 do
+      put "/content/:content_id", to: "content_items#put_content"
+      get "/content/:content_id", to: "content_items#show"
+    end
   end
 
   get '/healthcheck', :to => proc { [200, {}, ['OK']] }

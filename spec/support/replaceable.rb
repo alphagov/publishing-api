@@ -1,10 +1,13 @@
 RSpec.shared_examples Replaceable do
   let(:payload) {
-    build(described_class).as_json.except("format", "routes").merge(new_attributes)
+    build(described_class)
+      .as_json
+      .deep_symbolize_keys
+      .except(:format, :routes)
+      .merge(new_attributes)
   }
 
   context "an item exists with that content_id" do
-
     let(:existing) { create(described_class) }
     let(:content_id) { existing.content_id }
 

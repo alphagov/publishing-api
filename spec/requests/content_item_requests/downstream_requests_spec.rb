@@ -11,6 +11,7 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item) { content_item_without_access_limiting }
     let(:request_body) { content_item.to_json }
     let(:request_path) { "/content#{base_path}" }
+    let(:request_method) { :put }
 
     url_registration_happens
     url_registration_failures_422
@@ -51,6 +52,36 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item) { content_item_with_access_limiting }
     let(:request_body) { content_item.to_json }
     let(:request_path) { "/draft-content#{base_path}" }
+    let(:request_method) { :put }
+
+    url_registration_happens
+    url_registration_failures_422
+    sends_to_draft_content_store
+
+    it "does not send anything to the live content store" do
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
+      expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
+
+      do_request
+    end
+
+    it "leaves access limiting metadata in the document" do
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item,
+        )
+        .and_return(json_response)
+
+      do_request(body: content_item.to_json)
+    end
+  end
+
+  context "/v2/content" do
+    let(:content_item) { v2_content_item }
+    let(:request_body) { content_item.to_json }
+    let(:request_path) { "/v2/content/#{content_id}" }
+    let(:request_method) { :put }
 
     url_registration_happens
     url_registration_failures_422

@@ -1,7 +1,7 @@
 module RequestHelpers
   module DownstreamRequests
     def url_registration_happens
-      it "registers with the URL with the URL arbiter" do
+      it "registers the URL with the URL arbiter" do
         expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).with(
           "/vat-rates",
           publishing_app: content_item[:publishing_app]
@@ -37,13 +37,16 @@ module RequestHelpers
       end
 
       context "when the path is taken" do
-        let(:url_arbiter_response_body) {
-          url_arbiter_data_for("/vat-rates",
-            "publishing_app" => "whitehall",
-            "errors" => {
-              "path" => ["is already reserved by the whitehall application"]
+        let(:expected_error_response_body) {
+          {
+            "error" => {
+              "code" => 409,
+              "message" => "/vat-rates is reserved",
+              "fields" => {
+                "base_path" => ["is already reserved by the whitehall application"]
+              }
             }
-          ).to_json
+          }.to_json
         }
 
         before do
@@ -55,7 +58,7 @@ module RequestHelpers
           do_request
 
           expect(response.status).to eq(409)
-          expect(response.body).to eq(url_arbiter_response_body)
+          expect(response.body).to eq(expected_error_response_body)
         end
       end
 

@@ -11,7 +11,7 @@ class Command::BaseCommand
   end
 
   def base_path
-    payload['base_path']
+    payload[:base_path]
   end
 
 private

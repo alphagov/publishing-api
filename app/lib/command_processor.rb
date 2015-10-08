@@ -6,6 +6,10 @@ class CommandProcessor
     @event_logger = event_logger
   end
 
+  def put_content(payload)
+    dispatch(Command::V2::PutContent, payload)
+  end
+
   def put_content_with_links(payload)
     dispatch(Command::PutContentWithLinks, payload)
   end
@@ -31,9 +35,5 @@ private
 
   def command_name(command_class)
     command_class.name.split("::")[-1]
-  end
-
-  def item_with_base_path
-    @item.merge(base_path: base_path)
   end
 end

@@ -15,6 +15,7 @@ RSpec.describe "Invalid content requests", type: :request do
   context "/content" do
     let(:request_body) { content_item_without_access_limiting.to_json }
     let(:request_path) { "/content#{base_path}" }
+    let(:request_method) { :put }
 
     it "does not log an event in the event log" do
       do_request
@@ -30,6 +31,23 @@ RSpec.describe "Invalid content requests", type: :request do
   context "/draft-content" do
     let(:request_body) { content_item_with_access_limiting.to_json }
     let(:request_path) { "/draft-content#{base_path}" }
+    let(:request_method) { :put }
+
+    it "does not log an event in the event log" do
+      do_request
+
+      expect(Event.count).to eq(0)
+      expect(response.status).to eq(422)
+      expect(response.body).to eq(error_details.to_json)
+    end
+
+    creates_no_derived_representations
+  end
+
+  context "/v2/content" do
+    let(:request_body) { v2_content_item.to_json }
+    let(:request_path) { "/v2/content/#{content_id}" }
+    let(:request_method) { :put }
 
     it "does not log an event in the event log" do
       do_request

@@ -78,7 +78,7 @@ GEM
       rest-client (~> 1.8.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    govuk-client-url_arbiter (0.0.2)
+    govuk-client-url_arbiter (0.0.3)
       multi_json (~> 1.0)
       plek (~> 1.8)
       rest-client (~> 1.6)
@@ -259,7 +259,7 @@ DEPENDENCIES
   database_cleaner
   factory_girl_rails (= 4.5.0)
   gds-api-adapters (= 22.0.0)
-  govuk-client-url_arbiter (= 0.0.2)
+  govuk-client-url_arbiter (= 0.0.3)
   logstasher (= 0.6.2)
   pact
   pg
@@ -276,6 +276,3 @@ DEPENDENCIES
   web-console (~> 2.0)
   webmock
   whenever (= 0.9.4)
-
-BUNDLED WITH
-   1.10.6

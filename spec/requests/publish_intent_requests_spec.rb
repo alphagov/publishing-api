@@ -20,6 +20,7 @@ RSpec.describe "Publish intent requests", type: :request do
   let(:request_path) {
     "/publish-intent#{base_path}"
   }
+  let(:request_method) { :put }
 
   before do
     stub_request(:put, %r{^content-store.*/publish-intent/.*})
@@ -29,16 +30,13 @@ RSpec.describe "Publish intent requests", type: :request do
     url_registration_happens
     url_registration_failures_422
     returns_200_response
+    responds_with_request_body
     returns_400_on_invalid_json
     suppresses_draft_content_store_502s
     accepts_root_path
 
-    def deep_stringify_keys(hash)
-      JSON.parse(hash.to_json)
-    end
-
     let(:expected_event_payload) {
-      deep_stringify_keys(content_item.merge("base_path" => base_path))
+      content_item.merge(base_path: base_path)
     }
 
     it "sends to live content store after registering the URL" do
@@ -100,7 +98,7 @@ RSpec.describe "Publish intent requests", type: :request do
       expect(Event.count).to eq(1)
       expect(Event.first.action).to eq('DeletePublishIntent')
       expect(Event.first.user_uid).to eq(nil)
-      expect(Event.first.payload).to eq("base_path" => "/vat-rates")
+      expect(Event.first.payload).to eq(base_path: "/vat-rates")
     end
   end
 end

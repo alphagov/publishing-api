@@ -27,7 +27,7 @@ module RequestHelpers
         it "updates the existing link record" do
           do_request
           expect(LinkSet.count).to eq(1)
-          expect(LinkSet.last.links).to eq(expected_attributes[:links].deep_stringify_keys)
+          expect(LinkSet.last.links).to eq(expected_attributes[:links])
         end
 
         it "increments the version number to 2" do
@@ -51,7 +51,7 @@ module RequestHelpers
 
         expect(item.base_path).to eq(base_path)
         expect(item.content_id).to eq(expected_attributes[:content_id])
-        expect(item.details).to eq(expected_attributes[:details].deep_stringify_keys)
+        expect(item.details).to eq(expected_attributes[:details])
         expect(item.format).to eq(expected_attributes[:format])
         expect(item.locale).to eq(expected_attributes[:locale])
         expect(item.publishing_app).to eq(expected_attributes[:publishing_app])
@@ -59,13 +59,13 @@ module RequestHelpers
         expect(item.public_updated_at).to eq(expected_attributes[:public_updated_at])
         expect(item.description).to eq(expected_attributes[:description])
         expect(item.title).to eq(expected_attributes[:title])
-        expect(item.routes).to eq(expected_attributes[:routes].map(&:deep_stringify_keys))
-        expect(item.redirects).to eq(expected_attributes[:redirects].map(&:deep_stringify_keys))
-        expect(item.metadata["need_ids"]).to eq(expected_attributes[:need_ids])
-        expect(item.metadata["phase"]).to eq(expected_attributes[:phase])
+        expect(item.routes).to eq(expected_attributes[:routes])
+        expect(item.redirects).to eq(expected_attributes[:redirects])
+        expect(item.metadata[:need_ids]).to eq(expected_attributes[:need_ids])
+        expect(item.metadata[:phase]).to eq(expected_attributes[:phase])
 
         if access_limited
-          expect(item.access_limited).to eq(expected_attributes[:access_limited].deep_stringify_keys)
+          expect(item.access_limited).to eq(expected_attributes[:access_limited])
         end
       end
 

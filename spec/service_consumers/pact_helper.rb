@@ -21,6 +21,7 @@ end
 Pact.provider_states_for "GDS API Adapters" do
   set_up do
     WebMock.enable!
+    WebMock.reset!
   end
 
   tear_down do
@@ -40,17 +41,52 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
-  provider_state "both content stores and url-arbiter empty" do
+  [
+    "both content stores and url-arbiter empty",
+    "both content stores and the url-arbiter are empty"
+  ].each do |provide_state_title|
+    provider_state provide_state_title do
+      set_up do
+        DatabaseCleaner.clean_with :truncation
+
+        stub_default_url_arbiter_responses
+        stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
+        stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
+        stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
+          .to_return(status: 404, body: "{}", headers: {"Content-Type" => "application/json"} )
+        stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
+          .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
+      end
+    end
+  end
+
+  provider_state "/test-item has been reserved in url-arbiter by the Publisher application" do
+    set_up do
+      url_arbiter_has_registration_for("/test-item", "Publisher")
+    end
+  end
+
+  provider_state "a content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       DatabaseCleaner.clean_with :truncation
 
-      stub_default_url_arbiter_responses
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
-      stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-        .to_return(status: 404, body: "{}", headers: {"Content-Type" => "application/json"} )
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
+      FactoryGirl.create(
+        :draft_content_item,
+        base_path: "/robots.txt",
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        title: "Instructions for crawler robots",
+        description: "robots.txt provides rules for which parts of GOV.UK are permitted to be crawled by different bots.",
+        format: "special_route",
+        public_updated_at: "2015-07-30T13:58:11+00:00",
+        publishing_app: "static",
+        rendering_app: "static",
+        routes: [
+          {
+            path: "/robots.txt",
+            type: "exact"
+          },
+        ],
+      )
     end
   end
 end

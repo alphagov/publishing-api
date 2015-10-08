@@ -12,11 +12,47 @@ module Adapters
         publishing_app: publishing_app
       )
     rescue GOVUK::Client::Errors::BaseError => e
-      if e.is_a?(GOVUK::Client::Errors::HTTPError) && [422, 409].include?(e.code)
+      if e.is_a?(GOVUK::Client::Errors::Conflict)
+        raise_already_in_use!(e)
+      elsif e.is_a?(GOVUK::Client::Errors::HTTPError) && [422, 409].include?(e.code)
         raise Command::Error.new(code: e.code, error_details: e.response)
+      elsif e.is_a?(GOVUK::Client::Errors::InvalidPath)
+        raise_invalid_path!(e)
       else
         raise Command::Error.new(code: 500, message: "Unexpected error whilst registering with url-arbiter: #{e}")
       end
+    end
+
+  private
+    def raise_already_in_use!(e)
+      path_errors = e.response.fetch("errors").fetch("path")
+      message = "#{e.response.fetch("path")} is reserved"
+
+      error_details = {
+        error: {
+          code: 409,
+          message: message,
+          fields: {
+            base_path: path_errors,
+          },
+        }
+      }
+
+      raise Command::Error.new(code: 409, error_details: error_details)
+    end
+
+    def raise_invalid_path!(e)
+      error_details = {
+        error: {
+          code: 422,
+          message: e.message,
+          fields: {
+            base_path: ["is invalid"]
+          }
+        }
+      }
+
+      raise Command::Error.new(code: 422, error_details: error_details)
     end
   end
 end
