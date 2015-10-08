@@ -7,7 +7,7 @@ RSpec.describe "Event logging", type: :request do
     let(:request_method) { :put }
 
     logs_event('PutContentWithLinks', expected_payload_proc: ->{
-      content_item_without_access_limiting.deep_stringify_keys.merge("base_path" => base_path)
+      content_item_without_access_limiting.deep_symbolize_keys.merge(base_path: base_path)
     })
   end
 
@@ -16,7 +16,7 @@ RSpec.describe "Event logging", type: :request do
     let(:request_path) { "/draft-content#{base_path}" }
     let(:request_method) { :put }
 
-    logs_event('PutDraftContentWithLinks', expected_payload_proc: ->{ content_item_with_access_limiting.deep_stringify_keys.merge("base_path" => base_path) })
+    logs_event('PutDraftContentWithLinks', expected_payload_proc: ->{ content_item_with_access_limiting.deep_symbolize_keys.merge(base_path: base_path) })
   end
 
   context "/v2/content" do
@@ -24,6 +24,6 @@ RSpec.describe "Event logging", type: :request do
     let(:request_path) { "/v2/content/#{content_id}" }
     let(:request_method) { :put }
 
-    logs_event('PutContent', expected_payload: RequestHelpers::Mocks.v2_content_item)
+    logs_event('PutContent', expected_payload_proc: -> { v2_content_item } )
   end
 end

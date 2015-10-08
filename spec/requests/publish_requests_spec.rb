@@ -12,9 +12,9 @@ RSpec.describe "POST /v2/publish", type: :request do
   }
   let(:expected_live_content_item_hash) {
     expected_live_content_item_derived_representation
-      .deep_stringify_keys
+      .deep_symbolize_keys
       .merge(
-        "links" => link_set.links,
+        links: link_set.links,
       )
   }
 
@@ -23,7 +23,7 @@ RSpec.describe "POST /v2/publish", type: :request do
   let(:request_path) { "/v2/content/#{content_id}/publish"}
   let(:payload) {
     {
-      "update_type" => "major",
+      update_type: "major",
     }
   }
   let(:request_body) { payload.to_json }
@@ -35,7 +35,7 @@ RSpec.describe "POST /v2/publish", type: :request do
   context "a draft content item exists with version 1" do
     let(:draft_content_item) { create(:draft_content_item, version: 1) }
 
-    logs_event("Publish", expected_payload_proc: ->{ payload.merge("content_id" => content_id) })
+    logs_event("Publish", expected_payload_proc: ->{ payload.merge(content_id: content_id) })
 
     it "creates the LiveContentItem derived representation" do
       do_request
@@ -46,7 +46,7 @@ RSpec.describe "POST /v2/publish", type: :request do
 
       expect(item.base_path).to eq(base_path)
       expect(item.content_id).to eq(expected_live_content_item_derived_representation[:content_id])
-      expect(item.details).to eq(expected_live_content_item_derived_representation[:details].deep_stringify_keys)
+      expect(item.details).to eq(expected_live_content_item_derived_representation[:details].deep_symbolize_keys)
       expect(item.format).to eq(expected_live_content_item_derived_representation[:format])
       expect(item.locale).to eq(expected_live_content_item_derived_representation[:locale])
       expect(item.publishing_app).to eq(expected_live_content_item_derived_representation[:publishing_app])
@@ -54,10 +54,10 @@ RSpec.describe "POST /v2/publish", type: :request do
       expect(item.public_updated_at).to eq(expected_live_content_item_derived_representation[:public_updated_at])
       expect(item.description).to eq(expected_live_content_item_derived_representation[:description])
       expect(item.title).to eq(expected_live_content_item_derived_representation[:title])
-      expect(item.routes).to eq(expected_live_content_item_derived_representation[:routes].map(&:deep_stringify_keys))
-      expect(item.redirects).to eq(expected_live_content_item_derived_representation[:redirects].map(&:deep_stringify_keys))
-      expect(item.metadata["need_ids"]).to eq(expected_live_content_item_derived_representation[:need_ids])
-      expect(item.metadata["phase"]).to eq(expected_live_content_item_derived_representation[:phase])
+      expect(item.routes).to eq(expected_live_content_item_derived_representation[:routes].map(&:deep_symbolize_keys))
+      expect(item.redirects).to eq(expected_live_content_item_derived_representation[:redirects].map(&:deep_symbolize_keys))
+      expect(item.metadata[:need_ids]).to eq(expected_live_content_item_derived_representation[:need_ids])
+      expect(item.metadata[:phase]).to eq(expected_live_content_item_derived_representation[:phase])
     end
 
     it "gives the new LiveContentItem the same version number as the draft item" do
@@ -127,10 +127,10 @@ RSpec.describe "POST /v2/publish", type: :request do
       it "sends the item combined with the current link set on the message queue" do
         do_request
         delivery_info, _, message_json = wait_for_message_on(@queue)
-        expect(delivery_info.routing_key).to eq("#{draft_content_item.format}.#{payload['update_type']}")
+        expect(delivery_info.routing_key).to eq("#{draft_content_item.format}.#{payload[:update_type]}")
 
         message = JSON.parse(message_json)
-        expect(message).to eq(expected_live_content_item_hash.as_json.merge("update_type" => payload['update_type']))
+        expect(message).to eq(expected_live_content_item_hash.as_json.merge("update_type" => payload[:update_type]))
       end
     end
 

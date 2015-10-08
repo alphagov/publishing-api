@@ -26,7 +26,7 @@ RSpec.shared_examples Replaceable do
     end
 
     it "increases the version number if none was specified in the payload" do
-      described_class.create_or_replace(payload.except("version"))
+      described_class.create_or_replace(payload.except(:version))
       expect(described_class.first.version).to eq(2)
     end
 

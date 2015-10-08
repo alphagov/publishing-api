@@ -33,11 +33,11 @@ private
   end
 
   def content_id
-    payload["content_id"]
+    payload[:content_id]
   end
 
   def update_type
-    payload['update_type']
+    payload[:update_type]
   end
 
   def draft_item
@@ -46,7 +46,7 @@ private
 
   def link_set_hash
     if link_set.present?
-      {"links" => link_set.links}
+      {links: link_set.links.deep_symbolize_keys}
     else
       {}
     end
