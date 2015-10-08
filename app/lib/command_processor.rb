@@ -27,7 +27,7 @@ class CommandProcessor
   end
 
   def publish(payload)
-    dispatch(Command::Publish, payload)
+    dispatch(Command::V2::Publish, payload)
   end
 
 private

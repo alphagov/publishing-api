@@ -1,4 +1,4 @@
-class Command::Publish < Command::BaseCommand
+class Command::V2::Publish < Command::BaseCommand
   attr_reader :live_item, :link_set
 
   def call

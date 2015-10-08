@@ -9,6 +9,11 @@ module V2
       render status: response.code, json: response.as_json
     end
 
+    def publish
+      response = command_processor.publish(payload.merge(content_id: params[:content_id]))
+      render status: response.code, json: response.as_json
+    end
+
   private
     def command_processor
       CommandProcessor.new(nil)
