@@ -1,0 +1,2 @@
+class CommandRetryError < StandardError
+end

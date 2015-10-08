@@ -15,11 +15,11 @@ module Adapters
       if e.is_a?(GOVUK::Client::Errors::Conflict)
         raise_already_in_use!(e)
       elsif e.is_a?(GOVUK::Client::Errors::HTTPError) && [422, 409].include?(e.code)
-        raise Command::Error.new(code: e.code, error_details: e.response)
+        raise CommandError.new(code: e.code, error_details: e.response)
       elsif e.is_a?(GOVUK::Client::Errors::InvalidPath)
         raise_invalid_path!(e)
       else
-        raise Command::Error.new(code: 500, message: "Unexpected error whilst registering with url-arbiter: #{e}")
+        raise CommandError.new(code: 500, message: "Unexpected error whilst registering with url-arbiter: #{e}")
       end
     end
 
@@ -38,7 +38,7 @@ module Adapters
         }
       }
 
-      raise Command::Error.new(code: 409, error_details: error_details)
+      raise CommandError.new(code: 409, error_details: error_details)
     end
 
     def raise_invalid_path!(e)
@@ -52,7 +52,7 @@ module Adapters
         }
       }
 
-      raise Command::Error.new(code: 422, error_details: error_details)
+      raise CommandError.new(code: 422, error_details: error_details)
     end
   end
 end

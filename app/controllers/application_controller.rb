@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   class BadRequest < StandardError; end
 
-  rescue_from Command::Error, with: :respond_with_command_error
+  rescue_from CommandError, with: :respond_with_command_error
   rescue_from BadRequest do
     head :bad_request
   end

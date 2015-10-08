@@ -17,7 +17,7 @@ class Query::GetContent
           message: "Could not find content item with content_id: #{content_id}"
         }
       }
-      raise Command::Error.new(code: 404, error_details: error_details)
+      raise CommandError.new(code: 404, error_details: error_details)
     end
   end
 end

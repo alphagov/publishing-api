@@ -45,7 +45,7 @@ module Replaceable
     def retrying_on_unique_constraint_violation(&block)
       yield
     rescue ActiveRecord::RecordNotUnique => e
-      raise Command::Retry.new("Race condition in create_or_replace, retrying (original error: '#{e.message}')")
+      raise CommandRetryError.new("Race condition in create_or_replace, retrying (original error: '#{e.message}')")
     end
 
     def without_retry(&block)

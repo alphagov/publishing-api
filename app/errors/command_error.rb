@@ -1,4 +1,4 @@
-class Command::Error < StandardError
+class CommandError < StandardError
   attr_reader :code, :error_details
 
   # error_details: Hash(field_name: String => [error_messages]: Array(String))

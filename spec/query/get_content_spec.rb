@@ -18,7 +18,7 @@ RSpec.describe Query::GetContent do
     it "returns an error object" do
       expect {
         subject.call
-      }.to raise_error(Command::Error, /with content_id: missing/)
+      }.to raise_error(CommandError, /with content_id: missing/)
     end
   end
 end

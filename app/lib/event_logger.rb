@@ -8,11 +8,11 @@ class EventLogger
           yield(event)
         end
       end
-    rescue Command::Retry => e
+    rescue CommandRetryError => e
       if (tries -= 1) > 0
         retry
       else
-        raise Command::Error.new(code: 500, message: "Too many retries - #{e.message}")
+        raise CommandError.new(code: 500, message: "Too many retries - #{e.message}")
       end
     end
   end

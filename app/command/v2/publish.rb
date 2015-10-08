@@ -4,7 +4,7 @@ class Command::V2::Publish < Command::BaseCommand
   def call
     validate!
     @live_item = LiveContentItem.create_or_replace(draft_item.attributes.except("access_limited")) do |live_item|
-      raise Command::Error.new(code: 400, message: "This item is already published") if live_item.version == draft_item.version
+      raise CommandError.new(code: 400, message: "This item is already published") if live_item.version == draft_item.version
     end
     @link_set = LinkSet.find_by(content_id: content_id)
 
@@ -17,7 +17,7 @@ class Command::V2::Publish < Command::BaseCommand
 
 private
   def validate!
-    raise Command::Error.new(
+    raise CommandError.new(
       code: 422,
       message: "update_type is required",
       error_details: {
@@ -41,7 +41,7 @@ private
   end
 
   def draft_item
-    DraftContentItem.find_by(content_id: content_id) or raise Command::Error.new(code: 404, message: "Item with content_id #{content_id} does not exist")
+    DraftContentItem.find_by(content_id: content_id) or raise CommandError.new(code: 404, message: "Item with content_id #{content_id} does not exist")
   end
 
   def link_set_hash

@@ -14,11 +14,11 @@ module Adapters
         content_item: content_item.except(:access_limited),
       )
     rescue GdsApi::HTTPServerError => e
-      raise Command::Error.new(code: e.code, message: e.message)
+      raise CommandError.new(code: e.code, message: e.message)
     rescue GdsApi::HTTPClientError => e
-      raise Command::Error.new(code: e.code, error_details: convert_error_details(e))
+      raise CommandError.new(code: e.code, error_details: convert_error_details(e))
     rescue GdsApi::BaseError => e
-      raise Command::Error.new(code: 500, message: "Unexpected error from content store: #{e.message}")
+      raise CommandError.new(code: 500, message: "Unexpected error from content store: #{e.message}")
     end
 
   private
