@@ -147,6 +147,9 @@ module RequestHelpers
           new_base_path = "/something-else"
 
           stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
+          if representation_class == LiveContentItem
+            stub_request(:put, Plek.find('content-store') + "/content#{new_base_path}")
+          end
 
           put request_path.gsub(base_path, new_base_path), request_body
 
