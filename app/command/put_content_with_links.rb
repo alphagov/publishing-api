@@ -37,15 +37,7 @@ private
   end
 
   def create_or_update_live_content_item!
-    LiveContentItem.create_or_replace(content_item_attributes) do |existing|
-      if existing.persisted? && existing.base_path != base_path
-        raise Command::Error.new(
-          code: 400,
-          message: "Cannot change base path",
-          error_details: { errors: { base_path: "cannot change once item is live" } }
-        )
-      end
-    end
+    LiveContentItem.create_or_replace(content_item_attributes)
   end
 
   def create_or_update_draft_content_item!

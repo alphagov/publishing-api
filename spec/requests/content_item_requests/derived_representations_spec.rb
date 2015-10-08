@@ -8,7 +8,7 @@ RSpec.describe "Derived representations", type: :request do
 
     creates_a_link_representation(expected_attributes: RequestHelpers::Mocks.links_attributes)
     creates_a_content_item_representation(LiveContentItem, expected_attributes_proc: -> { content_item_without_access_limiting })
-    prevents_base_path_from_being_changed(LiveContentItem)
+    allows_base_path_to_be_changed(LiveContentItem)
   end
 
   context "/draft-content" do
