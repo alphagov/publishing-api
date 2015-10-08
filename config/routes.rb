@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     namespace :v2 do
       put "/content/:content_id", to: "content_items#put_content"
       get "/content/:content_id", to: "content_items#show"
+      post "/content/:content_id/publish", to: "content_items#publish"
     end
+
   end
 
   get '/healthcheck', :to => proc { [200, {}, ['OK']] }

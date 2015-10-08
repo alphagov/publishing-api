@@ -1,8 +1,7 @@
 class PublishIntentsController < ApplicationController
-  before_filter :parse_content_item, only: [:create_or_update]
-
   def create_or_update
-    response = command_processor.put_publish_intent(content_item.merge(base_path: base_path))
+    item = content_item.merge(base_path: base_path)
+    response = command_processor.put_publish_intent(item)
     render status: response.code, json: response.as_json
   end
 

@@ -1,30 +1,10 @@
 require "rails_helper"
+require "support/shared_context/message_queue_test_mode"
 
 RSpec.describe "Message bus", type: :request do
   include MessageQueueHelpers
 
-  before :all do
-    @config = YAML.load_file(Rails.root.join("config", "rabbitmq.yml"))[Rails.env].symbolize_keys
-    @old_publisher = PublishingAPI.service(:queue_publisher)
-    PublishingAPI.register_service(name: :queue_publisher, client: QueuePublisher.new(@config))
-  end
-
-  after :all do
-    PublishingAPI.register_service(name: :queue_publisher, client: @old_publisher)
-  end
-
-  around :each do |example|
-    conn = Bunny.new(@config)
-    conn.start
-    read_channel = conn.create_channel
-    ex = read_channel.topic(@config.fetch(:exchange), passive: true)
-    @queue = read_channel.queue("", :exclusive => true)
-    @queue.bind(ex, routing_key: '#')
-
-    example.run
-
-    read_channel.close
-  end
+  include_context "using the message queue in test mode"
 
   context "/content" do
     let(:request_body) { content_item_without_access_limiting.to_json }

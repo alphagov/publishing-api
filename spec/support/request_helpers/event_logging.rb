@@ -1,6 +1,6 @@
 module RequestHelpers
   module EventLogging
-    def logs_event(event_class_name, expected_payload:)
+    def logs_event(event_class_name, expected_payload_proc:)
       it "logs a '#{event_class_name}' event in the event log" do
         do_request
 
@@ -8,8 +8,7 @@ module RequestHelpers
         expect(Event.first.action).to eq(event_class_name)
         expect(Event.first.user_uid).to eq(nil)
 
-        expected_payload = expected_payload.merge(base_path: base_path)
-        expect(Event.first.payload).to eq(expected_payload)
+        expect(Event.first.payload).to eq(instance_exec(&expected_payload_proc))
       end
     end
   end
