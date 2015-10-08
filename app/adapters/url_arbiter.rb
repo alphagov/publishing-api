@@ -1,13 +1,7 @@
 module Adapters
   class UrlArbiter
-    attr_reader :url_arbiter
-
-    def initialize(services: PublishingAPI)
-      @url_arbiter = services.service(:url_arbiter)
-    end
-
     def call(base_path, publishing_app)
-      url_arbiter.reserve_path(
+      PublishingAPI.service(:url_arbiter).reserve_path(
         base_path,
         publishing_app: publishing_app
       )

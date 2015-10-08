@@ -6,9 +6,9 @@ class Command::PutContentWithLinks < Command::BaseCommand
       create_or_update_links!
     end
 
-    Adapters::UrlArbiter.new(services: PublishingAPI).call(base_path, content_item[:publishing_app])
-    Adapters::DraftContentStore.new(services: PublishingAPI).call(base_path, content_item_without_access_limiting)
-    Adapters::ContentStore.new(services: PublishingAPI).call(base_path, content_item_without_access_limiting)
+    Adapters::UrlArbiter.new.call(base_path, content_item[:publishing_app])
+    Adapters::DraftContentStore.new.call(base_path, content_item_without_access_limiting)
+    Adapters::ContentStore.new.call(base_path, content_item_without_access_limiting)
 
     PublishingAPI.service(:queue_publisher).send_message(content_item_with_base_path)
 

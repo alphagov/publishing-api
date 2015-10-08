@@ -1,6 +1,6 @@
 class Command::PutPublishIntent < Command::BaseCommand
   def call
-    Adapters::UrlArbiter.new(services: PublishingAPI).call(base_path, payload[:publishing_app])
+    Adapters::UrlArbiter.new.call(base_path, payload[:publishing_app])
 
     publish_intent = payload.except(:base_path).deep_symbolize_keys
 

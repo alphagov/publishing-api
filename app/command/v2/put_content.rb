@@ -4,8 +4,8 @@ class Command::V2::PutContent < Command::BaseCommand
   def call
     create_or_update_draft_content_item!
 
-    Adapters::UrlArbiter.new(services: PublishingAPI).call(base_path, content_item[:publishing_app])
-    Adapters::DraftContentStore.new(services: PublishingAPI).call(base_path, content_item)
+    Adapters::UrlArbiter.new.call(base_path, content_item[:publishing_app])
+    Adapters::DraftContentStore.new.call(base_path, content_item)
     Command::Success.new(content_item)
   end
 

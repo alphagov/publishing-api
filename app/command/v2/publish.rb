@@ -8,7 +8,7 @@ class Command::V2::Publish < Command::BaseCommand
     end
     @link_set = LinkSet.find_by(content_id: content_id)
 
-    Adapters::ContentStore.new(services: PublishingAPI).call(live_item.base_path, live_payload)
+    Adapters::ContentStore.new.call(live_item.base_path, live_payload)
 
     send_to_message_queue!
 
