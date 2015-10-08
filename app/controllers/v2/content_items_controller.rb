@@ -1,7 +1,5 @@
 module V2
   class ContentItemsController < ApplicationController
-    before_filter :parse_content_item, only: [:put_content]
-
     def show
       render json: Query::GetContent.new(params[:content_id]).call
     end
