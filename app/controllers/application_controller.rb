@@ -21,7 +21,7 @@ private
     raise BadRequest
   end
 
-  def content_item
-    payload
+  def with_event_logging(command_class, payload, &block)
+    EventLogger.log_command(command_class, payload, &block)
   end
 end

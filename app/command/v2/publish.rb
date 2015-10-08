@@ -8,7 +8,7 @@ class Command::V2::Publish < Command::BaseCommand
     end
     @link_set = LinkSet.find_by(content_id: content_id)
 
-    Adapters::ContentStore.new(services: services).call(live_item.base_path, live_payload)
+    Adapters::ContentStore.new(services: PublishingAPI).call(live_item.base_path, live_payload)
 
     send_to_message_queue!
 
@@ -58,7 +58,7 @@ private
 
   def send_to_message_queue!
     message_payload = live_payload.merge(update_type: update_type)
-    queue_publisher.send_message(message_payload)
+    PublishingAPI.service(:queue_publisher).send_message(message_payload)
   end
 
 end

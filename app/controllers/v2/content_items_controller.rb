@@ -5,18 +5,24 @@ module V2
     end
 
     def put_content
-      response = command_processor.put_content(content_item.merge(content_id: params[:content_id]))
+      response = with_event_logging(Command::V2::PutContent, content_item) do
+        Command::V2::PutContent.call(content_item)
+      end
+
       render status: response.code, json: response.as_json
     end
 
     def publish
-      response = command_processor.publish(payload.merge(content_id: params[:content_id]))
+      response = with_event_logging(Command::V2::Publish, content_item) do
+        Command::V2::Publish.call(content_item)
+      end
+
       render status: response.code, json: response.as_json
     end
 
   private
-    def command_processor
-      CommandProcessor.new(nil)
+    def content_item
+      payload.merge(content_id: params[:content_id])
     end
   end
 end

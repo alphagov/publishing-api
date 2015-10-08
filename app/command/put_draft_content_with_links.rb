@@ -5,8 +5,8 @@ class Command::PutDraftContentWithLinks < Command::PutContentWithLinks
       create_or_update_links!
     end
 
-    Adapters::UrlArbiter.new(services: services).call(base_path, content_item[:publishing_app])
-    Adapters::DraftContentStore.new(services: services).call(base_path, content_item)
+    Adapters::UrlArbiter.new(services: PublishingAPI).call(base_path, content_item[:publishing_app])
+    Adapters::DraftContentStore.new(services: PublishingAPI).call(base_path, content_item)
 
     Command::Success.new(content_item)
   end
