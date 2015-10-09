@@ -1,6 +1,6 @@
 class PublishIntentsController < ApplicationController
   def show
-    render json: Query::GetPublishIntent.new(base_path).call
+    render json: Queries::GetPublishIntent.new(base_path).call
   end
 
   def create_or_update

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Query::GetContent do
+RSpec.describe Queries::GetContent do
   before do
     FactoryGirl.create(:draft_content_item, content_id: "foo")
     FactoryGirl.create(:draft_content_item, content_id: "bar")

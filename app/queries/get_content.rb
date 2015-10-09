@@ -1,4 +1,4 @@
-class Query::GetContent
+class Queries::GetContent
   attr_reader :content_id
 
   def initialize(content_id)

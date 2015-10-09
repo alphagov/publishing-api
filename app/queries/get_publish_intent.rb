@@ -1,4 +1,4 @@
-class Query::GetPublishIntent
+class Queries::GetPublishIntent
   attr_reader :base_path
 
   def initialize(base_path)

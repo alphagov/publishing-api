@@ -1,7 +1,7 @@
 module V2
   class ContentItemsController < ApplicationController
     def show
-      render json: Query::GetContent.new(params[:content_id]).call
+      render json: Queries::GetContent.new(params[:content_id]).call
     end
 
     def put_content
