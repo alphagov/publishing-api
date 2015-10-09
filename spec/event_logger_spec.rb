@@ -27,13 +27,13 @@ RSpec.describe EventLogger do
     expect(Event.count).to eq(0)
   end
 
-  it "rolls back the transaction and retries if a CommandRetryError is thrown" do
+  it "rolls back the transaction and retries if a CommandRetryableError is thrown" do
     call_counter = 0
     EventLogger.log_command(command_class, payload) do
       if call_counter == 0
         LiveContentItem.create(content_id: "1234", locale: "en", version: 1)
         call_counter += 1
-        raise CommandRetryError
+        raise CommandRetryableError
       else
         # The original transaction should have been rolled back, so there should be no
         # corresponding LiveContentItem in the database
@@ -48,9 +48,9 @@ RSpec.describe EventLogger do
     expect(LiveContentItem.count).to eq(1)
   end
 
-  it "retries three times in case if a CommandRetryError is thrown, then raises CommandError" do
+  it "retries three times in case if a CommandRetryableError is thrown, then raises CommandError" do
     command = double()
-    error = CommandRetryError.new("something went wrong")
+    error = CommandRetryableError.new("something went wrong")
     expect(command).to receive(:do_something).exactly(3).times.and_raise(error)
     expect {
       EventLogger.log_command(command_class, payload) do

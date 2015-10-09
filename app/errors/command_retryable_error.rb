@@ -1,0 +1,2 @@
+class CommandRetryableError < StandardError
+end

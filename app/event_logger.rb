@@ -10,7 +10,7 @@ module EventLogger
       end
 
       response
-    rescue CommandRetryError => e
+    rescue CommandRetryableError => e
       if (tries -= 1) > 0
         retry
       else

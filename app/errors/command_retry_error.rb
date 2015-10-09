@@ -1,2 +1,0 @@
-class CommandRetryError < StandardError
-end
