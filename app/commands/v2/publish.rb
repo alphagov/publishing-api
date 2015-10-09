@@ -1,6 +1,6 @@
 module Commands
   module V2
-    class Publish < Commands::BaseCommand
+    class Publish < BaseCommand
       attr_reader :live_item, :link_set
 
       def call
@@ -14,7 +14,7 @@ module Commands
 
         send_to_message_queue!
 
-        Commands::Success.new(content_id: content_id)
+        Success.new(content_id: content_id)
       end
 
     private
