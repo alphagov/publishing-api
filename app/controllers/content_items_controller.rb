@@ -6,7 +6,7 @@ class ContentItemsController < ApplicationController
       Commands::PutContentWithLinks.call(content_item)
     end
 
-    render status: response.code, json: response.as_json
+    render status: response.code, json: response
   end
 
   def put_draft_content_item
@@ -14,7 +14,7 @@ class ContentItemsController < ApplicationController
       Commands::PutDraftContentWithLinks.call(content_item)
     end
 
-    render status: response.code, json: response.as_json
+    render status: response.code, json: response
   end
 
 private

@@ -28,7 +28,7 @@ class CommandError < StandardError
     [400, 404, 409, 422, 500].include?(code)
   end
 
-  def as_json
+  def as_json(options = nil)
     @error_details
   end
 

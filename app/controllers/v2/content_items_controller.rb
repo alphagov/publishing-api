@@ -9,7 +9,7 @@ module V2
         Commands::V2::PutContent.call(content_item)
       end
 
-      render status: response.code, json: response.as_json
+      render status: response.code, json: response
     end
 
     def publish
@@ -17,7 +17,7 @@ module V2
         Commands::V2::Publish.call(content_item)
       end
 
-      render status: response.code, json: response.as_json
+      render status: response.code, json: response
     end
 
   private

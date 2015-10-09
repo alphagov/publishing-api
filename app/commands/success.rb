@@ -11,7 +11,7 @@ module Commands
       200
     end
 
-    def as_json
+    def as_json(options = nil)
       data
     end
 

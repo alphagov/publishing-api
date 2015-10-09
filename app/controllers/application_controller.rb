@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
 private
   def respond_with_command_error(error)
-    render status: error.code, json: error.as_json
+    render status: error.code, json: error
   end
 
   def base_path

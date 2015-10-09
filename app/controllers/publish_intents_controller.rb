@@ -8,7 +8,7 @@ class PublishIntentsController < ApplicationController
       Commands::PutPublishIntent.call(content_item)
     end
 
-    render status: response.code, json: response.as_json
+    render status: response.code, json: response
   end
 
   def destroy
@@ -16,7 +16,7 @@ class PublishIntentsController < ApplicationController
       Commands::DeletePublishIntent.call(base_path: base_path)
     end
 
-    render status: response.code, json: response.as_json
+    render status: response.code, json: response
   end
 
 private
