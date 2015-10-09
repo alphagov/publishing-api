@@ -104,5 +104,32 @@ RSpec.describe "Downstream requests", type: :request do
 
       do_request(body: content_item.to_json)
     end
+
+    context "when a link set exists for the content item" do
+      it "includes links in the payload sent to draft content store" do
+        link_set = create(:link_set, content_id: content_item[:content_id])
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item.merge(links: link_set.links),
+          )
+          .and_return(json_response)
+
+        do_request(body: content_item.to_json)
+      end
+    end
+
+    context "when a link set does not exist for the content item" do
+      it "sends the payload without links to the draft content store" do
+        expect(LinkSet.count).to eq(0)
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item
+          )
+          .and_return(json_response)
+        do_request(body: content_item.to_json)
+      end
+    end
   end
 end

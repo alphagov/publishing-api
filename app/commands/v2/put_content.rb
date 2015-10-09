@@ -5,7 +5,7 @@ module Commands
         create_or_update_draft_content_item!
 
         Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
-        Adapters::DraftContentStore.call(base_path, content_item)
+        Adapters::DraftContentStore.call(base_path, draft_payload)
         Success.new(content_item)
       end
 
@@ -28,6 +28,22 @@ module Commands
 
       def metadata
         content_item.except(*DraftContentItem::TOP_LEVEL_FIELDS)
+      end
+
+      def link_set
+        @link_set ||= LinkSet.find_by(content_id: content_id)
+      end
+
+      def link_set_hash
+        if link_set.present?
+          {links: link_set.links}
+        else
+          {}
+        end
+      end
+
+      def draft_payload
+        content_item.merge(link_set_hash)
       end
     end
   end
