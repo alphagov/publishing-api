@@ -1,4 +1,4 @@
-class Command::PutContentWithLinks < Command::BaseCommand
+class Commands::PutContentWithLinks < Commands::BaseCommand
   def call
     if content_item[:content_id]
       create_or_update_live_content_item!
@@ -12,7 +12,7 @@ class Command::PutContentWithLinks < Command::BaseCommand
 
     PublishingAPI.service(:queue_publisher).send_message(content_item_with_base_path)
 
-    Command::Success.new(content_item_without_access_limiting)
+    Commands::Success.new(content_item_without_access_limiting)
   end
 
 private

@@ -1,4 +1,4 @@
-class Command::PutPublishIntent < Command::BaseCommand
+class Commands::PutPublishIntent < Commands::BaseCommand
   def call
     Adapters::UrlArbiter.new.call(base_path, payload[:publishing_app])
 
@@ -9,6 +9,6 @@ class Command::PutPublishIntent < Command::BaseCommand
       publish_intent: publish_intent
     )
 
-    Command::Success.new(publish_intent)
+    Commands::Success.new(publish_intent)
   end
 end

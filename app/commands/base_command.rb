@@ -1,4 +1,4 @@
-class Command::BaseCommand
+class Commands::BaseCommand
   def self.call(payload)
     self.new(payload).call
   end

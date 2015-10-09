@@ -1,12 +1,12 @@
-Command::V2 = Module.new unless defined?(Command::V2)
+Commands::V2 = Module.new unless defined?(Commands::V2)
 
-class Command::V2::PutContent < Command::BaseCommand
+class Commands::V2::PutContent < Commands::BaseCommand
   def call
     create_or_update_draft_content_item!
 
     Adapters::UrlArbiter.new.call(base_path, content_item[:publishing_app])
     Adapters::DraftContentStore.new.call(base_path, content_item)
-    Command::Success.new(content_item)
+    Commands::Success.new(content_item)
   end
 
 private

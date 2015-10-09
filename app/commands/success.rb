@@ -1,4 +1,4 @@
-class Command::Success
+class Commands::Success
   attr_reader :data, :message
 
   def initialize(data, message: "OK")

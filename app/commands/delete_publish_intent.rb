@@ -1,8 +1,8 @@
-class Command::DeletePublishIntent < Command::BaseCommand
+class Commands::DeletePublishIntent < Commands::BaseCommand
   def call
     PublishingAPI.service(:live_content_store).delete_publish_intent(base_path)
 
-    Command::Success.new({})
+    Commands::Success.new({})
   rescue GdsApi::HTTPServerError => e
     raise CommandError.new(code: e.code, message: e.message)
   rescue GdsApi::HTTPClientError => e
