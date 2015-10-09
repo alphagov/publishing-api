@@ -11,7 +11,7 @@ module Commands
 
     private
       def content_item
-        payload.deep_symbolize_keys
+        payload
       end
 
       def content_id

@@ -18,7 +18,7 @@ module Commands
 
   private
     def content_item
-      @content_item ||= payload.deep_symbolize_keys.except(:base_path)
+      payload.except(:base_path)
     end
 
     def content_id
@@ -26,7 +26,7 @@ module Commands
     end
 
     def content_item_without_access_limiting
-      @content_item_without_access_limiting ||= content_item.except(:access_limited)
+      content_item.except(:access_limited)
     end
 
     def content_item_with_base_path
