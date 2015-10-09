@@ -1,4 +1,4 @@
-class Command::Error < StandardError
+class CommandError < StandardError
   attr_reader :code, :error_details
 
   # error_details: Hash(field_name: String => [error_messages]: Array(String))
@@ -28,7 +28,7 @@ class Command::Error < StandardError
     [400, 404, 409, 422, 500].include?(code)
   end
 
-  def as_json
+  def as_json(options = nil)
     @error_details
   end
 

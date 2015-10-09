@@ -76,16 +76,16 @@ RSpec.shared_examples Replaceable do
     # In this scenario one of the transactions will hit a unique constraint
     # violation. The transaction should be retried from the beginning (including
     # creating a new event in the event log). We can signal to the EventLogger
-    # class that we want to do this by raising a Command::Retry exception.
+    # class that we want to do this by raising a CommandRetryableError exception.
 
     let(:content_id) { SecureRandom.uuid }
 
-    it "raises a Command::Retry in case of a duplicate constraint violation" do
+    it "raises a CommandRetryableError in case of a duplicate constraint violation" do
       expect {
         described_class.create_or_replace(payload) do |existing|
           create(described_class, payload.slice(*described_class.query_keys))
         end
-      }.to raise_error(Command::Retry)
+      }.to raise_error(CommandRetryableError)
     end
   end
 end

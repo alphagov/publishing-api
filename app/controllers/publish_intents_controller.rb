@@ -1,21 +1,26 @@
 class PublishIntentsController < ApplicationController
-  def create_or_update
-    item = content_item.merge(base_path: base_path)
-    response = command_processor.put_publish_intent(item)
-    render status: response.code, json: response.as_json
+  def show
+    render json: Queries::GetPublishIntent.call(base_path)
   end
 
-  def show
-    render json: Query::GetPublishIntent.new(base_path).call
+  def create_or_update
+    response = with_event_logging(Commands::PutPublishIntent, content_item) do
+      Commands::PutPublishIntent.call(content_item)
+    end
+
+    render status: response.code, json: response
   end
 
   def destroy
-    response = command_processor.delete_publish_intent(base_path: base_path)
-    render status: response.code, json: response.as_json
+    response = with_event_logging(Commands::DeletePublishIntent, base_path: base_path) do
+      Commands::DeletePublishIntent.call(base_path: base_path)
+    end
+
+    render status: response.code, json: response
   end
 
 private
-  def command_processor
-    CommandProcessor.new(nil)
+  def content_item
+    payload.merge(base_path: base_path)
   end
 end

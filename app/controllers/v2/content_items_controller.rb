@@ -1,22 +1,28 @@
 module V2
   class ContentItemsController < ApplicationController
     def show
-      render json: Query::GetContent.new(params[:content_id]).call
+      render json: Queries::GetContent.call(params[:content_id])
     end
 
     def put_content
-      response = command_processor.put_content(content_item.merge(content_id: params[:content_id]))
-      render status: response.code, json: response.as_json
+      response = with_event_logging(Commands::V2::PutContent, content_item) do
+        Commands::V2::PutContent.call(content_item)
+      end
+
+      render status: response.code, json: response
     end
 
     def publish
-      response = command_processor.publish(payload.merge(content_id: params[:content_id]))
-      render status: response.code, json: response.as_json
+      response = with_event_logging(Commands::V2::Publish, content_item) do
+        Commands::V2::Publish.call(content_item)
+      end
+
+      render status: response.code, json: response
     end
 
   private
-    def command_processor
-      CommandProcessor.new(nil)
+    def content_item
+      payload.merge(content_id: params[:content_id])
     end
   end
 end

@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::Base
   class BadRequest < StandardError; end
 
-  rescue_from Command::Error, with: :respond_with_command_error
+  rescue_from CommandError, with: :respond_with_command_error
   rescue_from BadRequest do
     head :bad_request
   end
 
 private
   def respond_with_command_error(error)
-    render status: error.code, json: error.as_json
+    render status: error.code, json: error
   end
 
   def base_path
@@ -21,7 +21,7 @@ private
     raise BadRequest
   end
 
-  def content_item
-    payload
+  def with_event_logging(command_class, payload, &block)
+    EventLogger.log_command(command_class, payload, &block)
   end
 end
