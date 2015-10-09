@@ -11,7 +11,7 @@ module Commands
         link_set = LinkSet.find_by(content_id: content_id)
 
         item_for_content_store = live_payload(live_content_item, link_set)
-        Adapters::ContentStore.new.call(live_content_item.base_path, item_for_content_store)
+        Adapters::ContentStore.call(live_content_item.base_path, item_for_content_store)
 
         send_to_message_queue!(item_for_content_store)
 

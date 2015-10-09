@@ -1,6 +1,6 @@
 module Adapters
   class UrlArbiter
-    def call(base_path, publishing_app)
+    def self.call(base_path, publishing_app)
       PublishingAPI.service(:url_arbiter).reserve_path(
         base_path,
         publishing_app: publishing_app
@@ -18,7 +18,7 @@ module Adapters
     end
 
   private
-    def raise_already_in_use!(e)
+    def self.raise_already_in_use!(e)
       path_errors = e.response.fetch("errors").fetch("path")
       message = "#{e.response.fetch("path")} is reserved"
 
@@ -35,7 +35,7 @@ module Adapters
       raise CommandError.new(code: 409, error_details: error_details)
     end
 
-    def raise_invalid_path!(e)
+    def self.raise_invalid_path!(e)
       error_details = {
         error: {
           code: 422,

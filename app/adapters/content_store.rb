@@ -2,7 +2,7 @@
 # to
 module Adapters
   class ContentStore
-    def call(base_path, content_item)
+    def self.call(base_path, content_item)
       PublishingAPI.service(:live_content_store).put_content_item(
         base_path: base_path,
         content_item: content_item.except(:access_limited),
@@ -16,7 +16,7 @@ module Adapters
     end
 
   private
-    def convert_error_details(upstream_error)
+    def self.convert_error_details(upstream_error)
       {
         error: {
           code: upstream_error.code,

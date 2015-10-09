@@ -4,8 +4,8 @@ module Commands
       def call
         create_or_update_draft_content_item!
 
-        Adapters::UrlArbiter.new.call(base_path, content_item[:publishing_app])
-        Adapters::DraftContentStore.new.call(base_path, content_item)
+        Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
+        Adapters::DraftContentStore.call(base_path, content_item)
         Success.new(content_item)
       end
 

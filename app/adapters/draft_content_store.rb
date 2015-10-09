@@ -1,6 +1,6 @@
 module Adapters
   class DraftContentStore
-    def call(base_path, content_item)
+    def self.call(base_path, content_item)
       PublishingAPI.service(:draft_content_store).put_content_item(
         base_path: base_path,
         content_item: content_item,
@@ -14,7 +14,7 @@ module Adapters
     end
 
   private
-    def should_suppress?(error)
+    def self.should_suppress?(error)
       PublishingAPI.swallow_draft_connection_errors && error.code == 502
     end
   end

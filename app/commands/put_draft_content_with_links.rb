@@ -6,8 +6,8 @@ module Commands
         create_or_update_links!
       end
 
-      Adapters::UrlArbiter.new.call(base_path, content_item[:publishing_app])
-      Adapters::DraftContentStore.new.call(base_path, content_item)
+      Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
+      Adapters::DraftContentStore.call(base_path, content_item)
 
       Success.new(content_item)
     end

@@ -7,9 +7,9 @@ module Commands
         create_or_update_links!
       end
 
-      Adapters::UrlArbiter.new.call(base_path, content_item[:publishing_app])
-      Adapters::DraftContentStore.new.call(base_path, content_item_without_access_limiting)
-      Adapters::ContentStore.new.call(base_path, content_item_without_access_limiting)
+      Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
+      Adapters::DraftContentStore.call(base_path, content_item_without_access_limiting)
+      Adapters::ContentStore.call(base_path, content_item_without_access_limiting)
 
       PublishingAPI.service(:queue_publisher).send_message(content_item_with_base_path)
 
