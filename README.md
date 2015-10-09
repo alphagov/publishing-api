@@ -10,6 +10,10 @@ Normal publishing requests are forwarded to both the live and draft
 content-stores, whereas draft documents would only be forwarded to the draft
 content-store.
 
+Decisions about the design of the publishing api are recorded as [architecture
+decision records](http://thinkrelevance.com/blog/2011/11/15/documenting-
+architecture-decisions) in the [`doc/arch`](doc/arch) folder.
+
 ### Dependencies
 
 - [alphagov/url-arbiter](https://github.com/alphagov/url-arbiter) - publishing-api will take over content-store's job of updating url-arbiter. This is to prevent race conditions as two content-stores try to register with the same url-arbiter.
