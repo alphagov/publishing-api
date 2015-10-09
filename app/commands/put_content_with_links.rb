@@ -33,6 +33,10 @@ module Commands
       content_item_without_access_limiting.merge(base_path: base_path)
     end
 
+    def content_item_top_level_fields
+      LiveContentItem::TOP_LEVEL_FIELDS
+    end
+
     def metadata
       content_item_without_access_limiting.except(*content_item_top_level_fields)
     end
@@ -47,23 +51,6 @@ module Commands
 
     def content_item_attributes
       content_item_with_base_path.slice(*content_item_top_level_fields).merge(metadata: metadata)
-    end
-
-    def content_item_top_level_fields
-      %I(
-        base_path
-        content_id
-        details
-        format
-        locale
-        publishing_app
-        rendering_app
-        public_updated_at
-        description
-        title
-        redirects
-        routes
-      )
     end
 
     def create_or_update_links!

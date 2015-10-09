@@ -23,29 +23,11 @@ module Commands
       end
 
       def content_item_attributes
-        content_item.slice(*content_item_top_level_fields).merge(metadata: metadata)
+        content_item.slice(*DraftContentItem::TOP_LEVEL_FIELDS).merge(metadata: metadata)
       end
 
       def metadata
-        content_item.except(*content_item_top_level_fields)
-      end
-
-      def content_item_top_level_fields
-        %I(
-          access_limited
-          base_path
-          content_id
-          description
-          details
-          format
-          locale
-          public_updated_at
-          publishing_app
-          redirects
-          rendering_app
-          routes
-          title
-        )
+        content_item.except(*DraftContentItem::TOP_LEVEL_FIELDS)
       end
     end
   end

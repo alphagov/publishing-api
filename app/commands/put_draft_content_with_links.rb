@@ -18,7 +18,7 @@ module Commands
     end
 
     def content_item_top_level_fields
-      super << :access_limited
+      DraftContentItem::TOP_LEVEL_FIELDS
     end
   end
 end
