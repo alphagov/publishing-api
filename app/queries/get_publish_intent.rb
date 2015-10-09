@@ -1,19 +1,7 @@
 module Queries
-  class GetPublishIntent
-    attr_reader :base_path
-
-    def initialize(base_path)
-      @base_path = base_path
-    end
-
-    def call
-      live_content_store.get_publish_intent(base_path)
-    end
-
-  private
-
-    def live_content_store
-      PublishingAPI.service(:live_content_store)
+  module GetPublishIntent
+    def self.call(base_path)
+      PublishingAPI.service(:live_content_store).get_publish_intent(base_path)
     end
   end
 end

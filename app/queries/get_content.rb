@@ -1,12 +1,6 @@
 module Queries
-  class GetContent
-    attr_reader :content_id
-
-    def initialize(content_id)
-      @content_id = content_id
-    end
-
-    def call
+  module GetContent
+    def self.call(content_id)
       content_item = DraftContentItem.find_by(content_id: content_id)
 
       if content_item
