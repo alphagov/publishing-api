@@ -133,5 +133,33 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      DatabaseCleaner.clean_with :truncation
 
+      FactoryGirl.create(:link_set,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        links: {
+          organisations: ["20583132-1619-4c68-af24-77583172c070"],
+        },
+      )
+    end
+  end
+
+  provider_state "empty links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      DatabaseCleaner.clean_with :truncation
+
+      FactoryGirl.create(:link_set,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        links: {},
+      )
+    end
+  end
+
+  provider_state "no links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      DatabaseCleaner.clean_with :truncation
+    end
+  end
 end
