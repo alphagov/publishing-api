@@ -6,10 +6,7 @@ module Commands
 
         link_set = LinkSet.create_or_replace(link_params.except(:links)) do |link_set|
           link_set.version += 1
-
-          link_set.links = link_set.links
-            .merge(link_params.fetch(:links))
-            .reject {|_, links| links.empty? }
+          link_set.links = merge_links(link_set.links, link_params.fetch(:links))
         end
 
         Success.new(links: link_set.links)
@@ -34,6 +31,12 @@ module Commands
 
       def link_params
         payload
+      end
+
+      def merge_links(base_links, new_links)
+        base_links
+          .merge(new_links)
+          .reject {|_, links| links.empty? }
       end
     end
   end
