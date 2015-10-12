@@ -26,4 +26,12 @@ RSpec.describe "Event logging", type: :request do
 
     logs_event('PutContent', expected_payload_proc: -> { v2_content_item } )
   end
+
+  context "/v2/links" do
+    let(:request_body) { links_attributes.to_json }
+    let(:request_path) { "/v2/links/#{content_id}" }
+    let(:request_method) { :put }
+
+    logs_event('PutLinkSet', expected_payload_proc: -> { links_attributes } )
+  end
 end
