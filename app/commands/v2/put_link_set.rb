@@ -4,17 +4,13 @@ module Commands
       def call
         validate!
 
-        content_id = link_params.fetch(:content_id)
+        link_set = LinkSet.create_or_replace(link_params.except(:links)) do |link_set|
+          link_set.version += 1
 
-        link_set = LinkSet.find_or_initialize_by(content_id: content_id)
-
-        link_set.version += 1
-
-        link_set.links = link_set.links
-          .merge(link_params.fetch(:links))
-          .reject {|_, links| links.empty? }
-
-        link_set.save!
+          link_set.links = link_set.links
+            .merge(link_params.fetch(:links))
+            .reject {|_, links| links.empty? }
+        end
 
         Success.new(links: link_set.links)
       end
