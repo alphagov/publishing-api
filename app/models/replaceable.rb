@@ -13,12 +13,8 @@ module Replaceable
   private
     def attribute_overrides
       {
-        version: increment_version,
+        version: self.version + 1,
       }
-    end
-
-    def increment_version
-      (self.version || 0) + 1
     end
   end
 
