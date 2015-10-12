@@ -62,7 +62,7 @@ RSpec.describe "Message bus", type: :request do
   end
 
   context "/draft-content" do
-    let(:request_body) { content_item_with_access_limiting }
+    let(:request_body) { content_item_with_access_limiting.to_json }
     let(:request_path) { "/draft-content#{base_path}" }
     let(:request_method) { :put }
 
@@ -70,11 +70,13 @@ RSpec.describe "Message bus", type: :request do
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       do_request
+
+      expect(response.status).to eq(200)
     end
   end
 
   context "/v2/content" do
-    let(:request_body) { v2_content_item }
+    let(:request_body) { v2_content_item.to_json }
     let(:request_path) { "/v2/content/#{content_id}" }
     let(:request_method) { :put }
 
@@ -82,6 +84,10 @@ RSpec.describe "Message bus", type: :request do
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       do_request
+
+      expect(response.status).to eq(200)
+    end
+  end
     end
   end
 end
