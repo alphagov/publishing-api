@@ -1,5 +1,6 @@
 class LiveContentItem < ActiveRecord::Base
   include Replaceable
+  include DefaultAttributes
   include SymbolizeJSON
 
   TOP_LEVEL_FIELDS = [
