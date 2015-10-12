@@ -8,6 +8,8 @@ module Commands
 
         link_set = LinkSet.find_or_initialize_by(content_id: content_id)
 
+        link_set.version += 1
+
         link_set.links = link_set.links
           .merge(link_params.fetch(:links))
           .reject {|_, links| links.empty? }
