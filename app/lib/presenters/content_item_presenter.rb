@@ -1,17 +1,13 @@
 module Presenters
-  class ContentItemPresenter
-    attr_reader :content_item
+  module ContentItemPresenter
+    def self.present(content_item_hash)
+      metadata = content_item_hash.fetch(:metadata)
+      public_updated_at = content_item_hash.fetch(:public_updated_at).iso8601
 
-    def initialize(content_item)
-      @content_item = content_item
-    end
-
-    def present
-      raw_json.except("metadata", "id").merge(raw_json['metadata']).deep_symbolize_keys
-    end
-
-    def raw_json
-      content_item.as_json
+      content_item_hash
+        .except(:metadata, :id, :version)
+        .merge(metadata)
+        .merge(public_updated_at: public_updated_at)
     end
   end
 end
