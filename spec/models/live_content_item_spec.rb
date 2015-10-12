@@ -7,7 +7,7 @@ RSpec.describe LiveContentItem do
 
   def verify_old_attributes_not_preserved
     expect(described_class.first.format).to be_nil
-    expect(described_class.first.routes).to be_nil
+    expect(described_class.first.routes).to eq([])
   end
 
   let(:new_attributes) {
