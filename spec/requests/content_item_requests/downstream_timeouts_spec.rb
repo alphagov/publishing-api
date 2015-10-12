@@ -25,4 +25,17 @@ RSpec.describe "Downstream timeouts", type: :request do
 
     behaves_well_when_draft_content_store_times_out
   end
+
+  context "/v2/links" do
+    let(:request_body) { links_attributes.to_json }
+    let(:request_path) { "/v2/links/#{content_id}" }
+    let(:request_method) { :put }
+
+    before do
+      FactoryGirl.create(:draft_content_item, v2_content_item.slice(*DraftContentItem::TOP_LEVEL_FIELDS))
+      FactoryGirl.create(:live_content_item, v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS))
+    end
+
+    behaves_well_when_draft_content_store_times_out
+  end
 end
