@@ -15,11 +15,16 @@ module Commands
       end
 
       def create_or_update_draft_content_item!
-        DraftContentItem.create_or_replace(content_item_attributes)
+        DraftContentItem.create_or_replace(content_item_attributes) do |item|
+          item.assign_attributes_with_defaults(content_item_attributes)
+        end
       end
 
       def content_item_attributes
-        payload.slice(*DraftContentItem::TOP_LEVEL_FIELDS).merge(metadata: metadata)
+        payload
+          .slice(*DraftContentItem::TOP_LEVEL_FIELDS)
+          .merge(metadata: metadata)
+          .except(:version)
       end
 
       def metadata

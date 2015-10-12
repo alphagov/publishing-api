@@ -4,8 +4,12 @@ module Commands
       def call
         validate!
 
-        live_content_item = LiveContentItem.create_or_replace(draft_item.attributes.except("access_limited")) do |live_item|
-          raise CommandError.new(code: 400, message: "This item is already published") if live_item.version == draft_item.version
+        live_content_item = LiveContentItem.create_or_replace(draft_item.attributes.except("access_limited", "version")) do |live_item|
+          if live_item.version == draft_item.version
+            raise CommandError.new(code: 400, message: "This item is already published")
+          else
+            live_item.version = draft_item.version
+          end
         end
 
         item_for_content_store = live_payload(live_content_item)
