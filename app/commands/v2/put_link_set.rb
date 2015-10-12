@@ -4,22 +4,17 @@ module Commands
       def call
         validate!
 
-        content_id = links_params.fetch(:content_id)
+        content_id = link_params.fetch(:content_id)
 
-        if (link_set = LinkSet.find_by(content_id: content_id))
-          link_set.links = link_set.links
-            .merge(links_params.fetch(:links))
-            .reject {|_, links| links.empty? }
+        link_set = LinkSet.find_or_initialize_by(content_id: content_id)
 
-          link_set.save!
+        link_set.links = link_set.links
+          .merge(link_params.fetch(:links))
+          .reject {|_, links| links.empty? }
 
-          Success.new(links: link_set.links)
-        else
-          raise CommandError.new(
-            code: 404,
-            message: "Link set with content_id '#{content_id}' not found"
-          )
-        end
+        link_set.save!
+
+        Success.new(links: link_set.links)
       end
 
     private
@@ -36,10 +31,10 @@ module Commands
               }
             }
           }
-        ) unless links_params[:links].present?
+        ) unless link_params[:links].present?
       end
 
-      def links_params
+      def link_params
         payload
       end
     end
