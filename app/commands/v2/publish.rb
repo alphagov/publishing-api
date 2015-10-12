@@ -8,9 +8,7 @@ module Commands
           raise CommandError.new(code: 400, message: "This item is already published") if live_item.version == draft_item.version
         end
 
-        link_set = LinkSet.find_by(content_id: content_id)
-
-        item_for_content_store = live_payload(live_content_item, link_set)
+        item_for_content_store = live_payload(live_content_item)
         Adapters::ContentStore.call(live_content_item.base_path, item_for_content_store)
 
         send_to_message_queue!(item_for_content_store)
@@ -52,16 +50,9 @@ module Commands
         end
       end
 
-      def link_set_hash(link_set)
-        if link_set.present?
-          {links: link_set.links}
-        else
-          {}
-        end
-      end
-
-      def live_payload(live_item, link_set)
-        Presenters::ContentItemPresenter.new(live_item).present.merge(link_set_hash(link_set))
+      def live_payload(live_item)
+        live_item_hash = LinkSetMerger.merge_links_into(live_item)
+        Presenters::ContentItemPresenter.present(live_item_hash)
       end
 
       def send_to_message_queue!(item_for_content_store)
