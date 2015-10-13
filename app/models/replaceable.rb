@@ -1,35 +1,16 @@
 module Replaceable
   extend ActiveSupport::Concern
 
-  included do
-    def assign_attributes_with_defaults(attributes)
-      new_attributes = self.class.column_defaults.symbolize_keys
-        .merge(attribute_overrides)
-        .merge(attributes.symbolize_keys)
-        .except(:id)
-      assign_attributes(new_attributes)
-    end
-
-  private
-    def attribute_overrides
-      {
-        version: increment_version,
-      }
-    end
-
-    def increment_version
-      (self.version || 0) + 1
-    end
-  end
-
   class_methods do
     def create_or_replace(payload, &block)
       payload = payload.deep_symbolize_keys
+
       item = self.lock.find_or_initialize_by(payload.slice(*self.query_keys))
+      item.assign_attributes(payload.except(:id))
+
       if block_given?
         yield(item)
       end
-      item.assign_attributes_with_defaults(payload.except(:id))
 
       retry_strategy = if item.new_record?
         method(:retrying_on_unique_constraint_violation)

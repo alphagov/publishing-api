@@ -2,11 +2,15 @@ module RequestHelpers
   module DerivedRepresentations
     def creates_no_derived_representations
       it "does not create any derived representations" do
+        draft_count = DraftContentItem.count
+        live_count = LiveContentItem.count
+        link_count = LinkSet.count
+
         do_request
 
-        expect(DraftContentItem.count).to eq(0)
-        expect(LiveContentItem.count).to eq(0)
-        expect(LinkSet.count).to eq(0)
+        expect(DraftContentItem.count).to eq(draft_count)
+        expect(LiveContentItem.count).to eq(live_count)
+        expect(LinkSet.count).to eq(link_count)
       end
     end
 

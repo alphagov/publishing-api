@@ -28,4 +28,12 @@ RSpec.describe "Derived representations", type: :request do
 
     creates_a_content_item_representation(DraftContentItem, expected_attributes_proc: -> { v2_content_item }, access_limited: true)
   end
+
+  context "/v2/links" do
+    let(:request_body) { links_attributes.to_json }
+    let(:request_path) { "/v2/links/#{content_id}" }
+    let(:request_method) { :put }
+
+    creates_a_link_representation(expected_attributes: RequestHelpers::Mocks.links_attributes)
+  end
 end

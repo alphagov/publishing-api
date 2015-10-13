@@ -20,19 +20,11 @@ RSpec.shared_examples Replaceable do
       verify_new_attributes_set
     end
 
-    it "does not preserve any information from the existing item" do
-      described_class.create_or_replace(payload)
-      verify_old_attributes_not_preserved
-    end
-
-    it "increases the version number if none was specified in the payload" do
-      described_class.create_or_replace(payload.except(:version))
-      expect(described_class.first.version).to eq(2)
-    end
-
-    it "uses the provided version number in preference to calculating one if provided" do
-      described_class.create_or_replace(payload.merge("version" => 99))
-      expect(described_class.first.version).to eq(99)
+    it "provides a mechanism to mutate the object before it is saved" do
+      described_class.create_or_replace(payload) do |item|
+        item.version = 123
+      end
+      expect(described_class.last.version).to eq(123)
     end
 
     it "returns the updated item" do

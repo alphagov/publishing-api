@@ -1,5 +1,6 @@
 class LinkSet < ActiveRecord::Base
   include Replaceable
+  include DefaultAttributes
   include SymbolizeJSON
 
 private
