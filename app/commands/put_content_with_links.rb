@@ -56,7 +56,7 @@ module Commands
     def content_item_attributes
       content_item_with_base_path
         .slice(*content_item_top_level_fields)
-        .merge(metadata: metadata)
+        .merge(metadata: metadata, mutable_base_path: true)
         .except(:version)
     end
 

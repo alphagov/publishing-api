@@ -3,6 +3,8 @@ class LiveContentItem < ActiveRecord::Base
   include DefaultAttributes
   include SymbolizeJSON
 
+  validates_with BasePathValidator
+
   TOP_LEVEL_FIELDS = [
     :base_path,
     :content_id,

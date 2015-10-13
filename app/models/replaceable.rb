@@ -1,6 +1,16 @@
 module Replaceable
   extend ActiveSupport::Concern
 
+  included do
+    class_eval do
+      attr_accessor :mutable_base_path
+    end
+
+    def mutable_base_path?
+      mutable_base_path
+    end
+  end
+
   class_methods do
     def create_or_replace(payload, &block)
       payload = payload.deep_symbolize_keys

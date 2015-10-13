@@ -3,6 +3,8 @@ class DraftContentItem < ActiveRecord::Base
   include DefaultAttributes
   include SymbolizeJSON
 
+  validates_with BasePathValidator
+
   TOP_LEVEL_FIELDS = (LiveContentItem::TOP_LEVEL_FIELDS + [
     :access_limited,
   ]).freeze
