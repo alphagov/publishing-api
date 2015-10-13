@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post "/content/:content_id/publish", to: "content_items#publish"
 
       get "/links/:content_id", to: "link_sets#get_links"
+      put "/links/:content_id", to: "link_sets#put_links"
     end
   end
 

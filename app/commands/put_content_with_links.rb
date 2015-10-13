@@ -42,19 +42,28 @@ module Commands
     end
 
     def create_or_update_live_content_item!
-      LiveContentItem.create_or_replace(content_item_attributes)
+      LiveContentItem.create_or_replace(content_item_attributes) do |item|
+        item.assign_attributes_with_defaults(content_item_attributes)
+      end
     end
 
     def create_or_update_draft_content_item!
-      DraftContentItem.create_or_replace(content_item_attributes)
+      DraftContentItem.create_or_replace(content_item_attributes) do |item|
+        item.assign_attributes_with_defaults(content_item_attributes)
+      end
     end
 
     def content_item_attributes
-      content_item_with_base_path.slice(*content_item_top_level_fields).merge(metadata: metadata)
+      content_item_with_base_path
+        .slice(*content_item_top_level_fields)
+        .merge(metadata: metadata)
+        .except(:version)
     end
 
     def create_or_update_links!
-      LinkSet.create_or_replace(content_id: content_id, links: content_item[:links])
+      LinkSet.create_or_replace(content_id: content_id, links: content_item[:links]) do |link_set|
+        link_set.version += 1
+      end
     end
   end
 end
