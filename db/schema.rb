@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20151012095129) do
   create_table "link_sets", force: :cascade do |t|
     t.string  "content_id"
     t.integer "version",    default: 0,  null: false
-    t.json    "links",      default: {}, null: false
+    t.json    "links",      default: {}
   end
 
   add_index "link_sets", ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
