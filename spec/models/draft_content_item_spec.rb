@@ -7,6 +7,11 @@ RSpec.describe DraftContentItem do
     expect(described_class.first.title).to eq("New title")
   end
 
+  def validates_base_path
+    create(:live_content_item, content_id: '123', base_path: '/foo')
+    build(:draft_content_item, content_id: '123', base_path: '/bar').should_not be_valid
+  end
+
   let(:new_attributes) {
     {
       content_id: content_id,
