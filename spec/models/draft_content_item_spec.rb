@@ -16,4 +16,5 @@ RSpec.describe DraftContentItem do
 
   it_behaves_like Replaceable
   it_behaves_like DefaultAttributes
+  it_behaves_like ImmutableBasePath
 end

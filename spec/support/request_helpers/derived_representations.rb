@@ -133,10 +133,12 @@ module RequestHelpers
       end
     end
 
-    def allows_base_path_to_be_changed(representation_class)
-      context "a #{representation_class} already exists" do
+    def allows_draft_base_path_to_be_changed
+      context "a live content item already exists" do
+        let(:new_base_path) { "/something-else" }
+
         before do
-          representation_class.create!(
+          DraftContentItem.create!(
             title: "An existing title",
             content_id: expected_attributes[:content_id],
             locale: expected_attributes[:locale],
@@ -145,21 +147,57 @@ module RequestHelpers
             base_path: base_path,
             version: 1
           )
+
+          LiveContentItem.create!(
+            title: "An existing title",
+            content_id: expected_attributes[:content_id],
+            locale: expected_attributes[:locale],
+            details: expected_attributes[:details],
+            metadata: {},
+            base_path: base_path,
+            version: 1
+          )
+
+          stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
         end
 
         it "allows the base_path to be changed" do
-          new_base_path = "/something-else"
+          new_path = request_path.gsub(base_path, "/something-else")
 
-          stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
-          if representation_class == LiveContentItem
-            stub_request(:put, Plek.find('content-store') + "/content#{new_base_path}")
-          end
-
-          put request_path.gsub(base_path, new_base_path), request_body
+          put new_path, request_body
 
           expect(response.status).to eq(200)
-          expect(representation_class.count).to eq(1)
-          expect(representation_class.first.base_path).to eq(new_base_path)
+          expect(DraftContentItem.first.base_path).to eq(new_base_path)
+        end
+      end
+    end
+
+    def allows_live_base_path_to_be_changed
+      context "a live content item already exists" do
+        let(:new_base_path) { "/something-else" }
+
+        before do
+          LiveContentItem.create!(
+            title: "An existing title",
+            content_id: expected_attributes[:content_id],
+            locale: expected_attributes[:locale],
+            details: expected_attributes[:details],
+            metadata: {},
+            base_path: base_path,
+            version: 1
+          )
+
+          stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
+          stub_request(:put, Plek.find('content-store') + "/content#{new_base_path}")
+        end
+
+        it "allows the base_path to be changed" do
+          new_path = request_path.gsub(base_path, new_base_path)
+
+          put new_path, request_body
+
+          expect(response.status).to eq(200)
+          expect(LiveContentItem.first.base_path).to eq(new_base_path)
         end
       end
     end
