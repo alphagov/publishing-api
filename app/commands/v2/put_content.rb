@@ -7,6 +7,8 @@ module Commands
         Adapters::UrlArbiter.call(base_path, payload[:publishing_app])
         Adapters::DraftContentStore.call(base_path, draft_payload(content_item))
         Success.new(payload)
+      rescue ActiveRecord::RecordInvalid => e
+        raise_command_error(e)
       end
 
     private
@@ -34,6 +36,23 @@ module Commands
       def draft_payload(content_item)
         draft_item_hash = LinkSetMerger.merge_links_into(content_item)
         Presenters::ContentItemPresenter.present(draft_item_hash)
+      end
+
+      def raise_command_error(e)
+        errors = e.record.errors
+        full_message = errors.full_messages.join
+
+        raise CommandError.new(
+          code: 422,
+          message: full_message,
+          error_details: {
+            error: {
+              code: 422,
+              message: full_message,
+              fields: errors.to_hash
+            }
+          }
+        )
       end
     end
   end
