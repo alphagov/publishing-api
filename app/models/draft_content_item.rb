@@ -2,8 +2,7 @@ class DraftContentItem < ActiveRecord::Base
   include Replaceable
   include DefaultAttributes
   include SymbolizeJSON
-
-  validates_with BasePathValidator
+  include ImmutableBasePath
 
   TOP_LEVEL_FIELDS = (LiveContentItem::TOP_LEVEL_FIELDS + [
     :access_limited,
