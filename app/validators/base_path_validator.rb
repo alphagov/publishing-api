@@ -4,7 +4,7 @@ class BasePathValidator < ActiveModel::Validator
       live_item = LiveContentItem.find_by(content_id: record.content_id)
 
       if live_item.present? && live_item.base_path != record.base_path
-        record.errors.add(:base_path, 'is immutable for published items')
+        record.errors.add(:base_path, 'cannot be changed for published items')
       end
     end
   end

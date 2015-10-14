@@ -29,7 +29,7 @@ RSpec.describe Commands::V2::PutContent do
 
         it 'raises an error' do
           expect { Commands::V2::PutContent.call(updated_payload) }.to raise_error(
-            CommandError, 'Base path is immutable for published items')
+            CommandError, 'Base path cannot be changed for published items')
         end
       end
 
