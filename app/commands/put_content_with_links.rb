@@ -1,17 +1,19 @@
 module Commands
   class PutContentWithLinks < BaseCommand
-    def call
+    def call(downstream: true)
       if content_item[:content_id]
         create_or_update_live_content_item!
         create_or_update_draft_content_item!
         create_or_update_links!
       end
 
-      Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
-      Adapters::DraftContentStore.call(base_path, content_item_without_access_limiting)
-      Adapters::ContentStore.call(base_path, content_item_without_access_limiting)
+      if downstream
+        Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
+        Adapters::DraftContentStore.call(base_path, content_item_without_access_limiting)
+        Adapters::ContentStore.call(base_path, content_item_without_access_limiting)
 
-      PublishingAPI.service(:queue_publisher).send_message(content_item_with_base_path)
+        PublishingAPI.service(:queue_publisher).send_message(content_item_with_base_path)
+      end
 
       Success.new(content_item_without_access_limiting)
     end

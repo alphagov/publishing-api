@@ -1,13 +1,15 @@
 module Commands
   class PutDraftContentWithLinks < PutContentWithLinks
-    def call
+    def call(downstream: true)
       if content_item[:content_id]
         create_or_update_draft_content_item!
         create_or_update_links!
       end
 
-      Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
-      Adapters::DraftContentStore.call(base_path, content_item)
+      if downstream
+        Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
+        Adapters::DraftContentStore.call(base_path, content_item)
+      end
 
       Success.new(content_item)
     end
