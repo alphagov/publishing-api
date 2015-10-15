@@ -73,5 +73,17 @@ ActiveRecord::Schema.define(version: 20151016145941) do
   add_index "live_content_items", ["content_id", "locale"], name: "index_live_content_items_on_content_id_and_locale", unique: true, using: :btree
   add_index "live_content_items", ["draft_content_item_id"], name: "index_live_content_items_on_draft_content_item_id", using: :btree
 
+<<<<<<< HEAD
   add_foreign_key "live_content_items", "draft_content_items"
+=======
+  create_table "url_reservations", force: :cascade do |t|
+    t.string   "path",           null: false
+    t.string   "publishing_app", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "url_reservations", ["path"], name: "index_url_reservations_on_path", unique: true, using: :btree
+
+>>>>>>> Add UrlReservation model including validation.
 end
