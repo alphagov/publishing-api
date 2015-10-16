@@ -13,6 +13,7 @@ class DraftContentItem < ActiveRecord::Base
   validates :content_id, presence: true
   validate :content_ids_match
   validates :version, presence: true
+  validates_with VersionValidator::Draft
 
 private
   def self.query_keys

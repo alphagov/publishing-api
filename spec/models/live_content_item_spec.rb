@@ -37,11 +37,11 @@ RSpec.describe LiveContentItem do
     end
 
     context "given a version number greater than the draft" do
-      let(:draft) { create(:draft_content_item, version: 6) }
+      let(:live) { FactoryGirl.create(:live_content_item, version: 6) }
 
       it "is invalid" do
-        live_item = build(:live_content_item, draft_content_item: draft, version: 7)
-        expect(live_item).to be_invalid
+        live.version = 7
+        expect(live).to be_invalid
       end
     end
   end

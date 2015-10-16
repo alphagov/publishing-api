@@ -35,6 +35,16 @@ RSpec.describe DraftContentItem do
       subject.version = nil
       expect(subject).to be_invalid
     end
+
+    context "given a version number less than the live" do
+      let(:live) { FactoryGirl.create(:live_content_item, version: 6) }
+      let(:draft) { live.draft_content_item }
+
+      it "is invalid" do
+        draft.version = 5
+        expect(draft).to be_invalid
+      end
+    end
   end
 
   let!(:existing) { create(described_class) }
