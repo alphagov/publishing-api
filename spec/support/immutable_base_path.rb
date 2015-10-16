@@ -1,14 +1,11 @@
 RSpec.shared_examples ImmutableBasePath do
   describe 'validations' do
-    it 'is valid for the default factory' do
-      expect(subject).to be_valid
-    end
-
     context 'when a live content item exists' do
       before do
-        create(:live_content_item, content_id: '123', base_path: '/foo')
+        create(:live_content_item,
+               content_id: subject.content_id,
+               base_path: '/foo')
 
-        subject.content_id = '123'
         subject.base_path = '/bar'
       end
 

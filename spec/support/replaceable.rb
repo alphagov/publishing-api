@@ -1,16 +1,5 @@
 RSpec.shared_examples Replaceable do
-  let(:payload) {
-    build(described_class)
-      .as_json
-      .deep_symbolize_keys
-      .except(:format, :routes)
-      .merge(new_attributes)
-  }
-
   context "an item exists with that content_id" do
-    let(:existing) { create(described_class) }
-    let(:content_id) { existing.content_id }
-
     it "replaces an existing instance by content id" do
       described_class.create_or_replace(payload)
       expect(described_class.count).to eq(1)
@@ -22,9 +11,9 @@ RSpec.shared_examples Replaceable do
 
     it "provides a mechanism to mutate the object before it is saved" do
       described_class.create_or_replace(payload) do |item|
-        item.version = 123
+        set_new_attributes(item)
       end
-      expect(described_class.last.version).to eq(123)
+      verify_new_attributes_set
     end
 
     it "returns the updated item" do
@@ -34,8 +23,6 @@ RSpec.shared_examples Replaceable do
   end
 
   context "no item exists with that content_id" do
-    let(:content_id) { SecureRandom.uuid }
-
     it "creates a new instance" do
       described_class.create_or_replace(payload)
       expect(described_class.count).to eq(1)
@@ -46,11 +33,6 @@ RSpec.shared_examples Replaceable do
     it "sets the version number to 1" do
       described_class.create_or_replace(payload)
       expect(described_class.first.version).to eq(1)
-    end
-
-    it "uses the provided version number in preference to calculating one if provided" do
-      described_class.create_or_replace(payload.merge("version" => 99))
-      expect(described_class.first.version).to eq(99)
     end
 
     it "returns the created item" do
@@ -70,7 +52,10 @@ RSpec.shared_examples Replaceable do
     # creating a new event in the event log). We can signal to the EventLogger
     # class that we want to do this by raising a CommandRetryableError exception.
 
-    let(:content_id) { SecureRandom.uuid }
+    before do
+      existing.destroy
+      draft.destroy if defined?(draft)
+    end
 
     it "raises a CommandRetryableError in case of a duplicate constraint violation" do
       expect {

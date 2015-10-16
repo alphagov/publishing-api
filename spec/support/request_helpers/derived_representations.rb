@@ -81,7 +81,10 @@ module RequestHelpers
 
       context "a #{representation_class} already exists" do
         before do
-          representation_class.create(
+          factory_name = representation_class.to_s.underscore.to_sym
+
+          FactoryGirl.create(
+            factory_name,
             title: "An existing title",
             content_id: expected_attributes[:content_id],
             locale: expected_attributes[:locale],
@@ -138,17 +141,8 @@ module RequestHelpers
         let(:new_base_path) { "/something-else" }
 
         before do
-          DraftContentItem.create!(
-            title: "An existing title",
-            content_id: expected_attributes[:content_id],
-            locale: expected_attributes[:locale],
-            details: expected_attributes[:details],
-            metadata: {},
-            base_path: base_path,
-            version: 1
-          )
-
-          LiveContentItem.create!(
+          FactoryGirl.create(
+            :live_content_item,
             title: "An existing title",
             content_id: expected_attributes[:content_id],
             locale: expected_attributes[:locale],
@@ -177,7 +171,8 @@ module RequestHelpers
         let(:new_base_path) { "/something-else" }
 
         before do
-          LiveContentItem.create!(
+          FactoryGirl.create(
+            :live_content_item,
             title: "An existing title",
             content_id: expected_attributes[:content_id],
             locale: expected_attributes[:locale],

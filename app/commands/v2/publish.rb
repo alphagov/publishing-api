@@ -4,7 +4,7 @@ module Commands
       def call
         validate!
 
-        live_content_item = LiveContentItem.create_or_replace(draft_item.attributes.except("access_limited", "version")) do |live_item|
+        live_content_item = LiveContentItem.create_or_replace(live_item_attributes) do |live_item|
           if live_item.version == draft_item.version
             raise CommandError.new(code: 400, message: "This item is already published")
           else
@@ -43,6 +43,13 @@ module Commands
 
       def update_type
         payload[:update_type]
+      end
+
+      def live_item_attributes
+        attributes = draft_item
+          .attributes
+          .except("access_limited", "version")
+          .merge(draft_content_item: draft_item)
       end
 
       def draft_item
