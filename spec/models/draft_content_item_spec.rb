@@ -30,6 +30,11 @@ RSpec.describe DraftContentItem do
       subject.content_id = "something else"
       expect(subject).to be_invalid
     end
+
+    it "requires a version" do
+      subject.version = nil
+      expect(subject).to be_invalid
+    end
   end
 
   let!(:existing) { create(described_class) }
