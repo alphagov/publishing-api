@@ -36,5 +36,14 @@ FactoryGirl.define do
         }
       ]
     }
+    after(:build) do |live_content_item|
+      draft = FactoryGirl.build(
+        :draft_content_item,
+        content_id: live_content_item.content_id,
+        version: live_content_item.version
+      )
+
+      live_content_item.draft_content_item = draft
+    end
   end
 end

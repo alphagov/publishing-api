@@ -2,8 +2,8 @@ module Commands
   class PutContentWithLinks < BaseCommand
     def call(downstream: true)
       if content_item[:content_id]
-        create_or_update_live_content_item!
-        create_or_update_draft_content_item!
+        draft_content_item = create_or_update_draft_content_item!
+        create_or_update_live_content_item!(draft_content_item)
         create_or_update_links!
       end
 
@@ -43,9 +43,13 @@ module Commands
       content_item_without_access_limiting.except(*content_item_top_level_fields)
     end
 
-    def create_or_update_live_content_item!
-      LiveContentItem.create_or_replace(content_item_attributes) do |item|
-        item.assign_attributes_with_defaults(content_item_attributes)
+    def create_or_update_live_content_item!(draft_content_item)
+      attributes = content_item_attributes.merge(
+        draft_content_item: draft_content_item
+      )
+
+      LiveContentItem.create_or_replace(attributes) do |item|
+        item.assign_attributes_with_defaults(attributes)
       end
     end
 

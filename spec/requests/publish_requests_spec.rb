@@ -34,7 +34,7 @@ RSpec.describe "POST /v2/publish", type: :request do
   end
 
   context "a draft content item exists with version 1" do
-    let(:draft_content_item) { create(:draft_content_item, version: 1) }
+    let(:draft_content_item) { FactoryGirl.create(:draft_content_item, version: 1) }
 
     logs_event("Publish", expected_payload_proc: ->{ payload.merge(content_id: content_id) })
 
@@ -99,9 +99,8 @@ RSpec.describe "POST /v2/publish", type: :request do
     end
 
     context "the draft content item is already published" do
-      let!(:live_content_item) {
-        create(:live_content_item, draft_content_item.attributes.except("id", "access_limited"))
-      }
+      let!(:live_content_item) { FactoryGirl.create(:live_content_item) }
+      let!(:draft_content_item) { live_content_item.draft_content_item }
 
       it "reports an error" do
         expect(live_content_item.version).to eq(draft_content_item.version)

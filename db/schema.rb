@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012095129) do
+ActiveRecord::Schema.define(version: 20151014133602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,20 +55,22 @@ ActiveRecord::Schema.define(version: 20151012095129) do
   create_table "live_content_items", force: :cascade do |t|
     t.string   "content_id"
     t.string   "locale"
-    t.integer  "version",           default: 0,  null: false
+    t.integer  "version",               default: 0,  null: false
     t.string   "base_path"
     t.string   "title"
     t.string   "description"
     t.string   "format"
     t.datetime "public_updated_at"
-    t.json     "metadata",          default: {}
-    t.json     "details",           default: {}
-    t.json     "routes",            default: []
-    t.json     "redirects",         default: []
+    t.json     "metadata",              default: {}
+    t.json     "details",               default: {}
+    t.json     "routes",                default: []
+    t.json     "redirects",             default: []
     t.string   "publishing_app"
     t.string   "rendering_app"
+    t.integer  "draft_content_item_id",              null: false
   end
 
   add_index "live_content_items", ["content_id", "locale"], name: "index_live_content_items_on_content_id_and_locale", unique: true, using: :btree
+  add_index "live_content_items", ["draft_content_item_id"], name: "index_live_content_items_on_draft_content_item_id", using: :btree
 
 end

@@ -19,8 +19,22 @@ class LiveContentItem < ActiveRecord::Base
     :title,
   ].freeze
 
+  belongs_to :draft_content_item
+
+  validates :draft_content_item, presence: true
+  validates :content_id, presence: true
+  validate :content_ids_match
+  validates :version, presence: true
+  validates_with VersionValidator::Live
+
 private
   def self.query_keys
     [:content_id, :locale]
+  end
+
+  def content_ids_match
+    if draft_content_item && draft_content_item.content_id != content_id
+      errors.add(:content_id, "id mismatch between draft and live content items")
+    end
   end
 end

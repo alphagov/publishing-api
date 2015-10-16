@@ -104,8 +104,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       DatabaseCleaner.clean_with :truncation
 
-      draft_item = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
-      FactoryGirl.create(:live_content_item, draft_item.attributes.except("id", "access_limited"))
+      FactoryGirl.create(:live_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
       stub_default_url_arbiter_responses
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
     end
