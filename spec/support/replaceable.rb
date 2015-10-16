@@ -41,6 +41,14 @@ RSpec.shared_examples Replaceable do
     end
   end
 
+  # We should not let users of our API specify the version number for the
+  # record to be saved. This should be handled by our application as it is
+  # a workflow consideration.
+  it "does not assign a version from the payload if one is provided" do
+    described_class.create_or_replace(payload.merge(version: 123))
+    expect(described_class.last.version).to_not eq(123)
+  end
+
   describe "retrying on race condition when inserting" do
     # There is a race condition when inserting a new entry. Between the read
     # query which is to check whether an item exists and the write of the new
