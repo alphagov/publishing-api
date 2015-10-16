@@ -22,8 +22,6 @@ RSpec.describe LiveContentItem do
     end
 
     it "requires a content_id" do
-      subject.draft_content_item.update!(content_id: nil)
-
       subject.content_id = nil
       expect(subject).to be_invalid
     end

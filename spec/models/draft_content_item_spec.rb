@@ -11,6 +11,17 @@ RSpec.describe DraftContentItem do
     expect(described_class.first.title).to eq("New title")
   end
 
+  describe "validations" do
+    it "is valid for the default factory" do
+      expect(subject).to be_valid
+    end
+
+    it "requires a content_id" do
+      subject.content_id = nil
+      expect(subject).to be_invalid
+    end
+  end
+
   let!(:existing) { create(described_class) }
   let!(:content_id) { existing.content_id }
 

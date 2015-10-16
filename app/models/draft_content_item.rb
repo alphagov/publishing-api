@@ -8,6 +8,8 @@ class DraftContentItem < ActiveRecord::Base
     :access_limited,
   ]).freeze
 
+  validates :content_id, presence: true
+
 private
   def self.query_keys
     [:content_id, :locale]
