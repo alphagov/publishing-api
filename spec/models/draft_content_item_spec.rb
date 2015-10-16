@@ -45,6 +45,14 @@ RSpec.describe DraftContentItem do
         expect(draft).to be_invalid
       end
     end
+
+    it "requires that the version number be higher than its predecessor" do
+      subject.version = 5
+      subject.save!
+
+      subject.version = 4
+      expect(subject).to be_invalid
+    end
   end
 
   let!(:existing) { create(described_class) }
