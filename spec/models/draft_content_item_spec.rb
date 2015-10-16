@@ -20,6 +20,16 @@ RSpec.describe DraftContentItem do
       subject.content_id = nil
       expect(subject).to be_invalid
     end
+
+    it "requires that the content_ids match" do
+      FactoryGirl.create(
+        :live_content_item,
+        draft_content_item: subject
+      )
+
+      subject.content_id = "something else"
+      expect(subject).to be_invalid
+    end
   end
 
   let!(:existing) { create(described_class) }
