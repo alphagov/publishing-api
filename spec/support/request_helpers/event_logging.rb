@@ -12,6 +12,19 @@ module RequestHelpers
 
         expect(Event.first.payload).to eq(instance_exec(&expected_payload_proc))
       end
+
+      context "with the authenticated user header set" do
+        it "logs the user uuid from the header" do
+          do_request(headers: {
+            "HTTP_X_GOVUK_AUTHENTICATED_USER" => "user-uuid-1234"
+          })
+
+          expect(response.status).to eq(200)
+
+          expect(Event.count).to eq(1)
+          expect(Event.first.user_uid).to eq("user-uuid-1234")
+        end
+      end
     end
 
     def does_not_log_event
