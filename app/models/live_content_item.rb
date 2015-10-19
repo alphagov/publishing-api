@@ -34,6 +34,12 @@ class LiveContentItem < ActiveRecord::Base
     raise UnassignableVersionError, message
   end
 
+  def refreshed_draft_item
+    if draft_content_item
+      DraftContentItem.find_by(content_id: draft_content_item.content_id) || draft_content_item
+    end
+  end
+
 private
   def self.query_keys
     [:content_id, :locale]
@@ -46,7 +52,7 @@ private
   end
 
   def copy_version_from_draft
-    self[:version] = draft_content_item.version if draft_content_item
+    self[:version] = refreshed_draft_item.version if draft_content_item
   end
 
   class ::UnassignableVersionError < StandardError; end

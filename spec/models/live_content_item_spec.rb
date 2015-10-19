@@ -46,8 +46,22 @@ RSpec.describe LiveContentItem do
         subject.version = 123
       }.to raise_error(UnassignableVersionError)
     end
-  end
 
+    describe "comparing versions when the draft content item is stale" do
+      let(:live) { FactoryGirl.create(:live_content_item) }
+      let(:draft) { live.draft_content_item }
+
+      before do
+        another_instance = described_class.find(live.id)
+        another_instance.draft_content_item.save!
+      end
+
+      it "sets the live version from the latest persisted draft version" do
+        live.save!
+        expect(live.version).to eq(DraftContentItem.last.version)
+      end
+    end
+  end
 
   let(:existing) { FactoryGirl.create(:live_content_item) }
 

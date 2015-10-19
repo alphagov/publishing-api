@@ -72,6 +72,22 @@ RSpec.describe DraftContentItem do
       subject.version = 4
       expect(subject).to be_invalid
     end
+
+    describe "comparing versions when the live content item is stale" do
+      let(:live) { FactoryGirl.create(:live_content_item) }
+      let(:draft) { live.draft_content_item }
+
+      before do
+        another_instance = described_class.find(draft.id)
+        another_instance.save!
+        another_instance.live_content_item.save!
+      end
+
+      it "checks the version of live against the database" do
+        expect(draft).to be_invalid,
+          "The live version has not been checked against the persisted record."
+      end
+    end
   end
 
   let(:existing) { FactoryGirl.create(:draft_content_item) }

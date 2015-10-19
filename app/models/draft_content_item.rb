@@ -17,6 +17,12 @@ class DraftContentItem < ActiveRecord::Base
   validates :version, presence: true
   validates_with VersionValidator::Draft
 
+  def refreshed_live_item
+    if live_content_item
+      LiveContentItem.find_by(content_id: live_content_item.content_id) || live_content_item
+    end
+  end
+
 private
   def self.query_keys
     [:content_id, :locale]

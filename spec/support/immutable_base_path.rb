@@ -2,7 +2,7 @@ RSpec.shared_examples ImmutableBasePath do
   describe 'validations' do
     context 'when a live content item exists' do
       before do
-        create(:live_content_item,
+        FactoryGirl.create(:live_content_item,
                content_id: subject.content_id,
                base_path: '/foo')
 
