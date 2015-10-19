@@ -29,8 +29,8 @@ RSpec.describe "POST /v2/publish", type: :request do
   }
   let(:request_body) { payload.to_json }
 
-  def do_request(body: request_body)
-    post request_path, body
+  def do_request(body: request_body, headers: {})
+    post request_path, body, headers
   end
 
   context "a draft content item exists with version 1" do
