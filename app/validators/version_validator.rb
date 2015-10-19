@@ -13,8 +13,8 @@ module VersionValidator
     def versions_cant_go_backwards(draft_item)
       return unless draft_item.version && draft_item.version_was
 
-      if draft_item.version < draft_item.version_was
-        difference = "(#{draft_item.version} < #{draft_item.version_was})"
+      if draft_item.version <= draft_item.version_was
+        difference = "(#{draft_item.version} <= #{draft_item.version_was})"
         message = "cannot be less than the previous version #{difference}"
 
         draft_item.errors.add(:version, message)

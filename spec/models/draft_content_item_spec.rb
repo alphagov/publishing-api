@@ -45,16 +45,22 @@ RSpec.describe DraftContentItem do
       expect(subject).to be_invalid
     end
 
-    context "given a version number less than the live" do
+    describe "version comparison between draft and live" do
       let(:live) { FactoryGirl.create(:live_content_item, draft_version: 6) }
       let(:draft) { live.draft_content_item }
 
-      # Draft versions are auto-incremented before_validation.
-      it "is invalid" do
+      it "is invalid if the draft version is less than the live version" do
         draft.version = 4
         expect(draft).to be_invalid
+      end
 
+      it "is invalid if the draft version is equal to the live version" do
         draft.version = 5
+        expect(draft).to be_invalid
+      end
+
+      it "is valid if the draft version is greater than the live version" do
+        draft.version = 6
         expect(draft).to be_valid
       end
     end
