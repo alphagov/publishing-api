@@ -8,7 +8,17 @@ RSpec.describe LiveContentItem do
   end
 
   def verify_new_attributes_set
-    expect(described_class.first.title).to eq("New title")
+    expect(described_class.last.title).to eq("New title")
+  end
+
+  describe "versioning" do
+    it "copies the version from the draft content item on save" do
+      draft = subject.draft_content_item
+      draft.update!(version: 5) # <-- this actually sets it to 6
+
+      subject.save!
+      expect(subject.reload.version).to eq(6)
+    end
   end
 
   describe "validations" do
@@ -31,33 +41,39 @@ RSpec.describe LiveContentItem do
       expect(subject).to be_invalid
     end
 
-    it "requires a version" do
-      subject.version = nil
-      expect(subject).to be_invalid
-    end
-
-    context "given a version number greater than the draft" do
-      let(:live) { FactoryGirl.create(:live_content_item, version: 6) }
-
-      it "is invalid" do
-        live.version = 7
-        expect(live).to be_invalid
-      end
+    it "does not allow you to change the record's version" do
+      expect {
+        subject.version = 123
+      }.to raise_error(UnassignableVersionError)
     end
   end
 
 
-  let(:existing) { create(described_class) }
+  let(:existing) { FactoryGirl.create(:live_content_item) }
+
   let(:draft) { existing.draft_content_item }
   let(:content_id) { existing.content_id }
-
   let(:payload) do
-    build(described_class)
+    FactoryGirl.build(:live_content_item)
     .as_json
+    .symbolize_keys
     .merge(
       content_id: content_id,
       title: "New title",
       draft_content_item: draft
+    )
+  end
+
+  let(:another_draft) { FactoryGirl.create(:draft_content_item) }
+  let(:another_content_id) { another_draft.content_id }
+  let(:another_payload) do
+    FactoryGirl.build(:live_content_item)
+    .as_json
+    .symbolize_keys
+    .merge(
+      content_id: another_content_id,
+      title: "New title",
+      draft_content_item: another_draft
     )
   end
 

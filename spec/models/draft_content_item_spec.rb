@@ -8,7 +8,21 @@ RSpec.describe DraftContentItem do
   end
 
   def verify_new_attributes_set
-    expect(described_class.first.title).to eq("New title")
+    expect(described_class.last.title).to eq("New title")
+  end
+
+  describe "versioning" do
+    it "increments the version number when the record is saved" do
+      subject.version = 5
+      subject.save!
+
+      expect(subject.reload.version).to eq(6)
+    end
+
+    it "sets the version to 1 on first save" do
+      subject.save!
+      expect(subject.reload.version).to eq(1)
+    end
   end
 
   describe "validations" do
@@ -31,18 +45,17 @@ RSpec.describe DraftContentItem do
       expect(subject).to be_invalid
     end
 
-    it "requires a version" do
-      subject.version = nil
-      expect(subject).to be_invalid
-    end
-
     context "given a version number less than the live" do
-      let(:live) { FactoryGirl.create(:live_content_item, version: 6) }
+      let(:live) { FactoryGirl.create(:live_content_item, draft_version: 6) }
       let(:draft) { live.draft_content_item }
 
+      # Draft versions are auto-incremented before_validation.
       it "is invalid" do
-        draft.version = 5
+        draft.version = 4
         expect(draft).to be_invalid
+
+        draft.version = 5
+        expect(draft).to be_valid
       end
     end
 
@@ -55,16 +68,24 @@ RSpec.describe DraftContentItem do
     end
   end
 
-  let!(:existing) { create(described_class) }
-  let!(:content_id) { existing.content_id }
+  let(:existing) { FactoryGirl.create(:draft_content_item) }
 
-  let!(:payload) do
-    build(described_class)
+  let(:content_id) { existing.content_id }
+  let(:payload) do
+    FactoryGirl.build(:draft_content_item)
     .as_json
+    .symbolize_keys
     .merge(
       content_id: content_id,
       title: "New title"
     )
+  end
+
+  let(:another_payload) do
+    FactoryGirl.build(:draft_content_item)
+    .as_json
+    .symbolize_keys
+    .merge(title: "New title")
   end
 
   it_behaves_like Replaceable

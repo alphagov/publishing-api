@@ -90,8 +90,7 @@ module RequestHelpers
             locale: expected_attributes[:locale],
             details: expected_attributes[:details],
             metadata: {},
-            base_path: base_path,
-            version: 1
+            base_path: base_path
           )
         end
 
@@ -118,8 +117,7 @@ module RequestHelpers
             locale: expected_attributes[:locale],
             details: expected_attributes[:details],
             metadata: {},
-            base_path: base_path,
-            version: 1
+            base_path: base_path
           )
         end
 
@@ -148,8 +146,7 @@ module RequestHelpers
             locale: expected_attributes[:locale],
             details: expected_attributes[:details],
             metadata: {},
-            base_path: base_path,
-            version: 1
+            base_path: base_path
           )
 
           stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")
@@ -178,8 +175,7 @@ module RequestHelpers
             locale: expected_attributes[:locale],
             details: expected_attributes[:details],
             metadata: {},
-            base_path: base_path,
-            version: 1
+            base_path: base_path
           )
 
           stub_request(:put, Plek.find('draft-content-store') + "/content#{new_base_path}")

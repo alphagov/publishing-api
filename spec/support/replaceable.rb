@@ -24,19 +24,17 @@ RSpec.shared_examples Replaceable do
 
   context "no item exists with that content_id" do
     it "creates a new instance" do
-      described_class.create_or_replace(payload)
-      expect(described_class.count).to eq(1)
-      expect(described_class.first.content_id).to eq(content_id)
+      expect {
+        described_class.create_or_replace(another_payload)
+      }.to change(described_class, :count).by(1)
+
+      content_id = another_payload.fetch(:content_id)
+      expect(described_class.last.content_id).to eq(content_id)
       verify_new_attributes_set
     end
 
-    it "sets the version number to 1" do
-      described_class.create_or_replace(payload)
-      expect(described_class.first.version).to eq(1)
-    end
-
     it "returns the created item" do
-      item = described_class.create_or_replace(payload)
+      item = described_class.create_or_replace(another_payload)
       expect(item).to be_a(described_class)
     end
   end

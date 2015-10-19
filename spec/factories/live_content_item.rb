@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :live_content_item do
+  factory :live_content_item do |args|
     content_id { SecureRandom.uuid }
     base_path "/vat-rates"
     title "VAT rates"
@@ -9,7 +9,6 @@ FactoryGirl.define do
     publishing_app "mainstream_publisher"
     rendering_app "mainstream_frontend"
     locale "en"
-    version 1
     details {
       { body: "<p>Something about VAT</p>\n", }
     }
@@ -36,11 +35,16 @@ FactoryGirl.define do
         }
       ]
     }
-    after(:build) do |live_content_item|
+
+    transient do
+      draft_version 1
+    end
+
+    after(:build) do |live_content_item, evaluator|
       draft = FactoryGirl.build(
         :draft_content_item,
         content_id: live_content_item.content_id,
-        version: live_content_item.version
+        version: evaluator.draft_version - 1
       )
 
       live_content_item.draft_content_item = draft

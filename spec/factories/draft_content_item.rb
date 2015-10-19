@@ -9,7 +9,6 @@ FactoryGirl.define do
     publishing_app "mainstream_publisher"
     rendering_app "mainstream_frontend"
     locale "en"
-    version 1
     details {
       { body: "<p>Something about VAT</p>\n", }
     }
