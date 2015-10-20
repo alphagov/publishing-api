@@ -68,56 +68,37 @@ RSpec.describe "POST /v2/publish", type: :request do
     end
   end
 
-  context "a draft content item exists with version 2" do
-    let(:draft_content_item) { create(:draft_content_item, version: 2) }
-
-    context "a LiveContentItem exists with version 1" do
-      before do
-        LiveContentItem.create(
-          title: "An existing title",
-          content_id: expected_live_content_item_derived_representation[:content_id],
-          locale: expected_live_content_item_derived_representation[:locale],
-          details: expected_live_content_item_derived_representation[:details],
-          metadata: {},
-          base_path: base_path,
-          version: 1
-        )
-      end
-
-      it "updates the existing LiveContentItem" do
-        do_request
-
-        expect(LiveContentItem.count).to eq(1)
-        expect(LiveContentItem.last.title).to eq(expected_live_content_item_derived_representation[:title])
-      end
-
-      it "gives the updated LiveContentItem the same version number as the draft item" do
-        do_request
-
-        expect(LiveContentItem.first.version).to eq(draft_content_item.version)
-      end
+  context "a draft exists with version 2, a live exists with version 1" do
+    let(:live_content_item) do
+      FactoryGirl.create(:live_content_item)
     end
 
-    context "the draft content item is already published" do
-      let!(:live_content_item) { FactoryGirl.create(:live_content_item) }
-      let!(:draft_content_item) { live_content_item.draft_content_item }
+    let(:draft_content_item) do
+      # Saving the draft content item triggers the auto-increment.
+      live_content_item.draft_content_item.update!(title: "An existing title")
+      live_content_item.draft_content_item
+    end
 
-      it "reports an error" do
-        expect(live_content_item.version).to eq(draft_content_item.version)
-
+    it "updates the existing LiveContentItem" do
+      expect {
         do_request
+      }.to_not change(LiveContentItem, :count)
 
-        expect(response.status).to eq(400)
-        expect(JSON.parse(response.body)).to match("error" => hash_including("message" => /already published/))
-      end
+      expect(LiveContentItem.last.title).to eq("An existing title")
+    end
+
+    it "gives the updated LiveContentItem the same version number as the draft item" do
+      do_request
+
+      expect(LiveContentItem.first.version).to eq(draft_content_item.version)
     end
 
     it "sends item to live content store including links" do
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: draft_content_item.base_path,
-          content_item: expected_live_content_item_hash
-        )
+      .with(
+        base_path: draft_content_item.base_path,
+        content_item: expected_live_content_item_hash
+      )
       do_request
     end
 
@@ -143,6 +124,20 @@ RSpec.describe "POST /v2/publish", type: :request do
         expect(response.status).to eq(422)
         expect(JSON.parse(response.body)).to match("error" => hash_including("fields" => {"update_type" => ["is required"]}))
       end
+    end
+  end
+
+  context "the draft content item is already published" do
+    let!(:live_content_item) { FactoryGirl.create(:live_content_item) }
+    let!(:draft_content_item) { live_content_item.draft_content_item }
+
+    it "reports an error" do
+      expect(live_content_item.version).to eq(draft_content_item.version)
+
+      do_request
+
+      expect(response.status).to eq(400)
+      expect(JSON.parse(response.body)).to match("error" => hash_including("message" => /already published/))
     end
   end
 end

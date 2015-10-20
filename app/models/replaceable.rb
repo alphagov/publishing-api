@@ -6,7 +6,7 @@ module Replaceable
       payload = payload.deep_symbolize_keys
 
       item = self.lock.find_or_initialize_by(payload.slice(*self.query_keys))
-      item.assign_attributes(payload.except(:id))
+      item.assign_attributes(payload.except(:id, :version))
 
       if block_given?
         yield(item)

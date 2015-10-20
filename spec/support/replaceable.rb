@@ -24,21 +24,27 @@ RSpec.shared_examples Replaceable do
 
   context "no item exists with that content_id" do
     it "creates a new instance" do
-      described_class.create_or_replace(payload)
-      expect(described_class.count).to eq(1)
-      expect(described_class.first.content_id).to eq(content_id)
+      expect {
+        described_class.create_or_replace(another_payload)
+      }.to change(described_class, :count).by(1)
+
+      content_id = another_payload.fetch(:content_id)
+      expect(described_class.last.content_id).to eq(content_id)
       verify_new_attributes_set
     end
 
-    it "sets the version number to 1" do
-      described_class.create_or_replace(payload)
-      expect(described_class.first.version).to eq(1)
-    end
-
     it "returns the created item" do
-      item = described_class.create_or_replace(payload)
+      item = described_class.create_or_replace(another_payload)
       expect(item).to be_a(described_class)
     end
+  end
+
+  # We should not let users of our API specify the version number for the
+  # record to be saved. This should be handled by our application as it is
+  # a workflow consideration.
+  it "does not assign a version from the payload if one is provided" do
+    described_class.create_or_replace(payload.merge(version: 123))
+    expect(described_class.last.version).to_not eq(123)
   end
 
   describe "retrying on race condition when inserting" do

@@ -8,7 +8,21 @@ RSpec.describe DraftContentItem do
   end
 
   def verify_new_attributes_set
-    expect(described_class.first.title).to eq("New title")
+    expect(described_class.last.title).to eq("New title")
+  end
+
+  describe "versioning" do
+    it "increments the version number when the record is saved" do
+      subject.version = 5
+      subject.save!
+
+      expect(subject.reload.version).to eq(6)
+    end
+
+    it "sets the version to 1 on first save" do
+      subject.save!
+      expect(subject.reload.version).to eq(1)
+    end
   end
 
   describe "validations" do
@@ -31,32 +45,69 @@ RSpec.describe DraftContentItem do
       expect(subject).to be_invalid
     end
 
-    it "requires a version" do
-      subject.version = nil
+    describe "version comparison between draft and live" do
+      let(:live) { FactoryGirl.create(:live_content_item, draft_version: 6) }
+      let(:draft) { live.draft_content_item }
+
+      it "is invalid if the draft version is less than the live version" do
+        draft.version = 4
+        expect(draft).to be_invalid
+      end
+
+      it "is invalid if the draft version is equal to the live version" do
+        draft.version = 5
+        expect(draft).to be_invalid
+      end
+
+      it "is valid if the draft version is greater than the live version" do
+        draft.version = 6
+        expect(draft).to be_valid
+      end
+    end
+
+    it "requires that the version number be higher than its predecessor" do
+      subject.version = 5
+      subject.save!
+
+      subject.version = 4
       expect(subject).to be_invalid
     end
 
-    context "given a version number less than the live" do
-      let(:live) { FactoryGirl.create(:live_content_item, version: 6) }
+    describe "comparing versions when the live content item is stale" do
+      let(:live) { FactoryGirl.create(:live_content_item) }
       let(:draft) { live.draft_content_item }
 
-      it "is invalid" do
-        draft.version = 5
-        expect(draft).to be_invalid
+      before do
+        another_instance = described_class.find(draft.id)
+        another_instance.save!
+        another_instance.live_content_item.save!
+      end
+
+      it "checks the version of live against the database" do
+        expect(draft).to be_invalid,
+          "The live version has not been checked against the persisted record."
       end
     end
   end
 
-  let!(:existing) { create(described_class) }
-  let!(:content_id) { existing.content_id }
+  let(:existing) { FactoryGirl.create(:draft_content_item) }
 
-  let!(:payload) do
-    build(described_class)
+  let(:content_id) { existing.content_id }
+  let(:payload) do
+    FactoryGirl.build(:draft_content_item)
     .as_json
+    .symbolize_keys
     .merge(
       content_id: content_id,
       title: "New title"
     )
+  end
+
+  let(:another_payload) do
+    FactoryGirl.build(:draft_content_item)
+    .as_json
+    .symbolize_keys
+    .merge(title: "New title")
   end
 
   it_behaves_like Replaceable
