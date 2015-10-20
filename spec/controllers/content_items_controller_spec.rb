@@ -5,12 +5,12 @@ RSpec.describe ContentItemsController do
   include GOVUK::Client::TestHelpers::URLArbiter
 
   let(:base_path) {
-    "/vat-rates"
+    "vat-rates"
   }
 
   let(:base_content_item) {
     {
-      base_path: base_path,
+      base_path: "/#{base_path}",
       title: "VAT rates",
       description: "VAT rates for goods and services",
       format: "guide",
