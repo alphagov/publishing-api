@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Endpoint behaviour", type: :request do
   context "/content" do
-    let(:content_item) { content_item_without_access_limiting }
-    let(:request_body) { content_item.to_json }
+    let(:content_item) { content_item_params }
+    let(:request_body) { content_item_params.to_json }
     let(:request_path) { "/content#{base_path}" }
     let(:request_method) { :put }
 
@@ -24,8 +24,8 @@ RSpec.describe "Endpoint behaviour", type: :request do
   end
 
   context "/draft-content" do
-    let(:content_item) { content_item_with_access_limiting }
-    let(:request_body) { content_item.to_json }
+    let(:content_item) { content_item_params }
+    let(:request_body) { content_item_params.to_json }
     let(:request_path) { "/draft-content#{base_path}" }
     let(:request_method) { :put }
 

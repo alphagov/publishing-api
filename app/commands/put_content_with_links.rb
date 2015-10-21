@@ -9,13 +9,13 @@ module Commands
 
       if downstream
         Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
-        Adapters::DraftContentStore.call(base_path, content_item_without_access_limiting)
-        Adapters::ContentStore.call(base_path, content_item_without_access_limiting)
+        Adapters::DraftContentStore.call(base_path, content_item_for_content_store)
+        Adapters::ContentStore.call(base_path, content_item_for_content_store)
 
-        PublishingAPI.service(:queue_publisher).send_message(content_item_with_base_path)
+        PublishingAPI.service(:queue_publisher).send_message(content_item_for_message_bus)
       end
 
-      Success.new(content_item_without_access_limiting)
+      Success.new(content_item)
     end
 
   private
@@ -27,12 +27,12 @@ module Commands
       content_item[:content_id]
     end
 
-    def content_item_without_access_limiting
-      content_item.except(:access_limited)
+    def content_item_for_content_store
+      content_item.except(:access_limited, :update_type)
     end
 
-    def content_item_with_base_path
-      content_item_without_access_limiting.merge(base_path: base_path)
+    def content_item_for_message_bus
+      content_item.except(:access_limited).merge(base_path: base_path)
     end
 
     def content_item_top_level_fields
@@ -40,7 +40,7 @@ module Commands
     end
 
     def metadata
-      content_item_without_access_limiting.except(*content_item_top_level_fields)
+      content_item.except(:access_limited).except(*content_item_top_level_fields)
     end
 
     def create_or_update_live_content_item!(draft_content_item)
@@ -60,7 +60,7 @@ module Commands
     end
 
     def content_item_attributes
-      content_item_with_base_path
+      payload
         .slice(*content_item_top_level_fields)
         .merge(metadata: metadata, mutable_base_path: true)
         .except(:version)

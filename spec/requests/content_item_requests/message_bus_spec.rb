@@ -8,7 +8,7 @@ RSpec.describe "Message bus", type: :request do
   include_context "using the message queue in test mode"
 
   context "/content" do
-    let(:request_body) { content_item_without_access_limiting.to_json }
+    let(:request_body) { content_item_params.to_json }
     let(:request_path) { "/content#{base_path}" }
     let(:request_method) { :put }
 
@@ -35,7 +35,7 @@ RSpec.describe "Message bus", type: :request do
     end
 
     context "minor update type" do
-      let(:request_body) { content_item_without_access_limiting.merge(update_type: "minor").to_json }
+      let(:request_body) { content_item_params.merge(update_type: "minor").to_json }
 
       it 'uses the update type for the routing key' do
         do_request
@@ -45,7 +45,7 @@ RSpec.describe "Message bus", type: :request do
     end
 
     context "detailed_guide format" do
-      let(:request_body) { content_item_without_access_limiting.merge(format: "detailed_guide").to_json }
+      let(:request_body) { content_item_params.merge(format: "detailed_guide").to_json }
 
       it "uses the format for the routing key" do
         do_request
@@ -63,7 +63,7 @@ RSpec.describe "Message bus", type: :request do
   end
 
   context "/draft-content" do
-    let(:request_body) { content_item_with_access_limiting.to_json }
+    let(:request_body) { content_item_params.to_json }
     let(:request_path) { "/draft-content#{base_path}" }
     let(:request_method) { :put }
 

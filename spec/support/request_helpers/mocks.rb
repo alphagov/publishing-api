@@ -10,7 +10,7 @@ module RequestHelpers
       "582e1d3f-690e-4115-a948-e05b3c6b3d88"
     end
 
-    def content_item_without_access_limiting
+    def content_item_params
       {
         content_id: content_id,
         title: "VAT rates",
@@ -39,6 +39,12 @@ module RequestHelpers
           }
         ],
         update_type: "major",
+        access_limited: {
+          users: [
+            "f17250b0-7540-0131-f036-005056030202",
+            "74c7d700-5b4a-0131-7a8e-005056030037",
+          ],
+        },
       }.merge(links_attributes)
     end
 
@@ -49,17 +55,6 @@ module RequestHelpers
           organisations: ["f17250b0-7540-0131-f036-005056030221"]
         },
       }
-    end
-
-    def content_item_with_access_limiting
-      content_item_without_access_limiting.merge(
-        access_limited: {
-          users: [
-            "f17250b0-7540-0131-f036-005056030202",
-            "74c7d700-5b4a-0131-7a8e-005056030037",
-          ],
-        },
-      )
     end
 
     def redirect_content_item
@@ -80,7 +75,7 @@ module RequestHelpers
     end
 
     def v2_content_item
-      content_item_with_access_limiting
+      content_item_params
         .except(:links)
         .merge(base_path: base_path)
     end

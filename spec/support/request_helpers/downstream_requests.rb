@@ -4,7 +4,7 @@ module RequestHelpers
       it "registers the URL with the URL arbiter" do
         expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).with(
           "/vat-rates",
-          publishing_app: content_item[:publishing_app]
+          publishing_app: content_item_params[:publishing_app]
         )
 
         do_request
@@ -87,7 +87,7 @@ module RequestHelpers
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(
             base_path: base_path,
-            content_item: content_item,
+            content_item: content_item_for_draft_content_store,
           )
           .ordered
 
@@ -102,7 +102,7 @@ module RequestHelpers
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
           .with(
             base_path: base_path,
-            content_item: content_item.except(:access_limited),
+            content_item: content_item_for_live_content_store,
           )
 
         do_request
