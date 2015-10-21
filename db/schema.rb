@@ -74,13 +74,13 @@ ActiveRecord::Schema.define(version: 20151016145941) do
   add_index "live_content_items", ["draft_content_item_id"], name: "index_live_content_items_on_draft_content_item_id", using: :btree
 
   create_table "url_reservations", force: :cascade do |t|
-    t.string   "path",           null: false
+    t.string   "base_path",      null: false
     t.string   "publishing_app", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "url_reservations", ["path"], name: "index_url_reservations_on_path", unique: true, using: :btree
+  add_index "url_reservations", ["base_path"], name: "index_url_reservations_on_base_path", unique: true, using: :btree
 
   add_foreign_key "live_content_items", "draft_content_items"
 end

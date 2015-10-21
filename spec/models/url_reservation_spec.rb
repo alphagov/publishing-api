@@ -4,30 +4,30 @@ RSpec.describe UrlReservation, :type => :model do
   describe "validations" do
     let(:reservation) { build(:url_reservation) }
 
-    describe "on path" do
+    describe "on base_path" do
 
       it "is required" do
-        reservation.path = ''
+        reservation.base_path = ''
         expect(reservation).not_to be_valid
-        expect(reservation.errors[:path].size).to eq(1)
+        expect(reservation.errors[:base_path].size).to eq(1)
       end
 
-      it "is a valid absolute URL path" do
-        reservation.path = "not a URL"
+      it "is a valid absolute URL base_path" do
+        reservation.base_path = "not a URL"
         expect(reservation).not_to be_valid
-        expect(reservation.errors[:path].size).to eq(1)
+        expect(reservation.errors[:base_path].size).to eq(1)
       end
 
       it "is unique" do
-        create(:url_reservation, :path => "/foo/bar")
-        reservation.path = "/foo/bar"
+        create(:url_reservation, :base_path => "/foo/bar")
+        reservation.base_path = "/foo/bar"
         expect(reservation).not_to be_valid
-        expect(reservation.errors[:path].size).to eq(1)
+        expect(reservation.errors[:base_path].size).to eq(1)
       end
 
       it "has a db level uniqueness constraint" do
-        create(:url_reservation, :path => "/foo/bar")
-        reservation.path = "/foo/bar"
+        create(:url_reservation, :base_path => "/foo/bar")
+        reservation.base_path = "/foo/bar"
         expect {
           reservation.save! :validate => false
         }.to raise_error(ActiveRecord::RecordNotUnique)
@@ -50,9 +50,9 @@ RSpec.describe UrlReservation, :type => :model do
     end
   end
 
-  it "supports paths longer than 255 chars" do
+  it "supports base_paths longer than 255 chars" do
     reservation = build(:url_reservation)
-    reservation.path = "/" + 'x' * 300
+    reservation.base_path = "/" + 'x' * 300
     expect {
       reservation.save!
     }.not_to raise_error

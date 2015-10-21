@@ -21,7 +21,7 @@ RSpec.describe Commands::V2::PutContent do
 
     describe 'validation' do
       before do
-        create(:url_reservation, publishing_app: payload[:publishing_app], path: base_path)
+        create(:url_reservation, publishing_app: payload[:publishing_app], base_path: base_path)
         create(:live_content_item, content_id: content_id, base_path: base_path)
       end
 

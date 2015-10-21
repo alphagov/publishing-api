@@ -4,7 +4,7 @@ module Commands
       def call
         content_item = create_or_update_draft_content_item!
 
-        UrlReservation.reserve_path!(base_path, content_item[:publishing_app])
+        UrlReservation.reserve_base_path!(base_path, content_item[:publishing_app])
         Adapters::UrlArbiter.call(base_path, payload[:publishing_app])
         Adapters::DraftContentStore.call(base_path, draft_payload(content_item))
         Success.new(payload)
