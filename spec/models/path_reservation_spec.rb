@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe UrlReservation, :type => :model do
+RSpec.describe PathReservation, :type => :model do
   describe "validations" do
-    let(:reservation) { build(:url_reservation) }
+    let(:reservation) { build(:path_reservation) }
 
     describe "on base_path" do
 
@@ -19,14 +19,14 @@ RSpec.describe UrlReservation, :type => :model do
       end
 
       it "is unique" do
-        create(:url_reservation, :base_path => "/foo/bar")
+        create(:path_reservation, :base_path => "/foo/bar")
         reservation.base_path = "/foo/bar"
         expect(reservation).not_to be_valid
         expect(reservation.errors[:base_path].size).to eq(1)
       end
 
       it "has a db level uniqueness constraint" do
-        create(:url_reservation, :base_path => "/foo/bar")
+        create(:path_reservation, :base_path => "/foo/bar")
         reservation.base_path = "/foo/bar"
         expect {
           reservation.save! :validate => false
@@ -51,7 +51,7 @@ RSpec.describe UrlReservation, :type => :model do
   end
 
   it "supports base_paths longer than 255 chars" do
-    reservation = build(:url_reservation)
+    reservation = build(:path_reservation)
     reservation.base_path = "/" + 'x' * 300
     expect {
       reservation.save!

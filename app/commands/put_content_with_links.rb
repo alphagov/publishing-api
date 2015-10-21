@@ -7,7 +7,7 @@ module Commands
         create_or_update_links!
       end
 
-      UrlReservation.reserve_base_path!(base_path, content_item[:publishing_app])
+      PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
       if downstream
         Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])

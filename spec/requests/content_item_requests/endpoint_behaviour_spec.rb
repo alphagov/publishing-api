@@ -13,7 +13,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     suppresses_draft_content_store_502s
     forwards_locale_extension
     accepts_root_path
-    validates_url_ownership
+    validates_path_ownership
 
     context "without a content id" do
       let(:request_body) {
@@ -36,7 +36,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     suppresses_draft_content_store_502s
     forwards_locale_extension
     accepts_root_path
-    validates_url_ownership
+    validates_path_ownership
 
     context "without a content id" do
       let(:request_body) {
@@ -59,7 +59,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     suppresses_draft_content_store_502s
     forwards_locale_extension
     accepts_root_path
-    validates_url_ownership
+    validates_path_ownership
 
     context "without a content id" do
       let(:request_body) {

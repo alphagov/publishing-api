@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get "/publish-intent(/*base_path)", to: "publish_intents#show"
     delete "/publish-intent(/*base_path)", to: "publish_intents#destroy"
 
-    put "/paths(/*base_path)", to: "url_reservations#reserve_url"
+    put "/paths(/*base_path)", to: "path_reservations#reserve_path"
 
     namespace :v2 do
       put "/content/:content_id", to: "content_items#put_content"

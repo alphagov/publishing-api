@@ -88,34 +88,33 @@ module RequestHelpers
       end
     end
 
-
-    def validates_url_ownership
+    def validates_path_ownership
       context "base_path has not already been registered" do
         it "reserves the path for this publishing app" do
           do_request
 
-          expect(UrlReservation.count).to eq(1)
-          expect(UrlReservation.first.base_path).to eq(base_path)
-          expect(UrlReservation.first.publishing_app).to eq(content_item[:publishing_app])
+          expect(PathReservation.count).to eq(1)
+          expect(PathReservation.first.base_path).to eq(base_path)
+          expect(PathReservation.first.publishing_app).to eq(content_item[:publishing_app])
         end
       end
 
       context "base_path has already been registered" do
         it "should be successful if the publishing app matches" do
-          expect{ do_request }.to change(UrlReservation, :count).by(1)
-          expect(UrlReservation.last.base_path).to eq(base_path)
-          expect(UrlReservation.last.publishing_app).to eq(content_item[:publishing_app])
+          expect{ do_request }.to change(PathReservation, :count).by(1)
+          expect(PathReservation.last.base_path).to eq(base_path)
+          expect(PathReservation.last.publishing_app).to eq(content_item[:publishing_app])
         end
 
         context "with a different publishing app" do
           before do
-            create(:url_reservation, base_path: base_path, publishing_app: "something else")
+            create(:path_reservation, base_path: base_path, publishing_app: "something else")
           end
 
           it "should be unsuccessful if the publishing app does not match" do
-            expect{ do_request }.not_to change(UrlReservation, :count)
+            expect{ do_request }.not_to change(PathReservation, :count)
             expect(response.status).to eq(422)
-            expect(UrlReservation.last.publishing_app).to eq("something else")
+            expect(PathReservation.last.publishing_app).to eq("something else")
           end
         end
       end

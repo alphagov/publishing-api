@@ -1,4 +1,4 @@
-class UrlReservation < ActiveRecord::Base
+class PathReservation < ActiveRecord::Base
   validates :base_path, :uniqueness => true, :absolute_path => true
   validates :publishing_app, :presence => true
   validates_with PublishingAppValidator

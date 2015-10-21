@@ -25,7 +25,7 @@ RSpec.describe "PUT /paths", type: :request do
     it "reserves a new path" do
       expect {
         do_request
-      }.to change(UrlReservation, :count).by(1)
+      }.to change(PathReservation, :count).by(1)
     end
 
   end
