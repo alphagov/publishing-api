@@ -8,15 +8,15 @@ module Commands
 
       if downstream
         Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
-        Adapters::DraftContentStore.call(base_path, content_item)
+        Adapters::DraftContentStore.call(base_path, content_item_for_content_store)
       end
 
       Success.new(content_item)
     end
 
   private
-    def content_item_with_base_path
-      content_item.merge(base_path: base_path)
+    def content_item_for_content_store
+      content_item.except(:update_type)
     end
 
     def content_item_top_level_fields

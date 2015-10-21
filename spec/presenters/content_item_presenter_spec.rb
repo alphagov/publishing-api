@@ -8,6 +8,7 @@ RSpec.describe Presenters::ContentItemPresenter do
 
   it "includes the metadata fields in the top level of the presented item" do
     content_item_metadata.keys.each do |key|
+      next if key == :update_type
       expect(presented[key]).to eq(content_item_metadata[key])
     end
   end
@@ -24,6 +25,10 @@ RSpec.describe Presenters::ContentItemPresenter do
     expect(presented).not_to have_key(:version)
   end
 
+  it "removes the update_type" do
+    expect(presented).not_to have_key(:update_type)
+  end
+
   it "exports date fields as ISO 8601" do
     expect(presented[:public_updated_at]).to be_a(String)
     expect(presented[:public_updated_at]).to eq(content_item_hash[:public_updated_at].iso8601)
@@ -31,7 +36,7 @@ RSpec.describe Presenters::ContentItemPresenter do
 
   it "exports all other fields" do
     content_item_hash.each do |key, value|
-      next if [:metadata, :id, :version, :public_updated_at].include?(key)
+      next if [:metadata, :id, :version, :public_updated_at, :update_type].include?(key)
       expect(presented[key]).to eq(value)
     end
   end

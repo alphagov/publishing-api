@@ -21,6 +21,7 @@ FactoryGirl.define do
       {
         need_ids: ["100123", "100124"],
         phase: "beta",
+        update_type: "minor",
       }
     }
     routes {

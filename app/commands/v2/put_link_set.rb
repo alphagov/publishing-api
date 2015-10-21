@@ -14,10 +14,8 @@ module Commands
         end
 
         if (live_content_item = LiveContentItem.find_by(content_id: link_params.fetch(:content_id)))
-          content_store_payload = content_store_payload(live_content_item)
-
-          Adapters::ContentStore.call(live_content_item.base_path, content_store_payload)
-          PublishingAPI.service(:queue_publisher).send_message(content_store_payload)
+          Adapters::ContentStore.call(live_content_item.base_path, content_store_payload(live_content_item))
+          PublishingAPI.service(:queue_publisher).send_message(message_bus_payload(live_content_item))
         end
 
         Success.new(links: link_set.links)
@@ -52,8 +50,11 @@ module Commands
 
       def content_store_payload(content_item)
         content_item_hash = LinkSetMerger.merge_links_into(content_item)
-        content_item_hash = content_item_hash.merge(update_type: "links")
         Presenters::ContentItemPresenter.present(content_item_hash)
+      end
+
+      def message_bus_payload(content_item)
+        content_store_payload(content_item).merge(update_type: "links")
       end
     end
   end
