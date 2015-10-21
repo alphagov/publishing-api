@@ -25,12 +25,6 @@ class LiveContentItem < ActiveRecord::Base
   validates :content_id, presence: true
   validate :content_ids_match
 
-  def refreshed_draft_item
-    if draft_content_item
-      DraftContentItem.find_by(content_id: draft_content_item.content_id, locale: locale) || draft_content_item
-    end
-  end
-
 private
   def self.query_keys
     [:content_id, :locale]

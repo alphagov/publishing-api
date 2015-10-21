@@ -32,21 +32,6 @@ RSpec.describe LiveContentItem do
     end
   end
 
-  describe "#refreshed_draft_item" do
-    let(:content_id) { SecureRandom.uuid }
-
-    let!(:arabic_live) { FactoryGirl.create(:live_content_item, locale: "ar", content_id: content_id) }
-    let!(:arabic_draft) { arabic_live.draft_content_item }
-
-    let!(:english_live) { FactoryGirl.create(:live_content_item, locale: "en", content_id: content_id) }
-    let!(:english_draft) { english_live.draft_content_item }
-
-    it "finds the corresponding draft item scoped correctly to locale" do
-      expect(english_live.refreshed_draft_item).to eq(english_draft)
-      expect(arabic_live.refreshed_draft_item).to eq(arabic_draft)
-    end
-  end
-
   let(:existing) { FactoryGirl.create(:live_content_item) }
 
   let(:draft) { existing.draft_content_item }
