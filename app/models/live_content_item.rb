@@ -21,18 +21,9 @@ class LiveContentItem < ActiveRecord::Base
 
   belongs_to :draft_content_item
 
-  before_validation :copy_version_from_draft
-
   validates :draft_content_item, presence: true
   validates :content_id, presence: true
   validate :content_ids_match
-  validates :version, presence: true
-  validates_with VersionValidator::Live
-
-  def version=(_)
-    message = "Cannot set version manually. It is automatically set from the draft."
-    raise UnassignableVersionError, message
-  end
 
   def refreshed_draft_item
     if draft_content_item
@@ -50,10 +41,4 @@ private
       errors.add(:content_id, "id mismatch between draft and live content items")
     end
   end
-
-  def copy_version_from_draft
-    self[:version] = refreshed_draft_item.version if draft_content_item
-  end
-
-  class ::UnassignableVersionError < StandardError; end
 end

@@ -35,7 +35,11 @@ RSpec.describe "POST /v2/publish", type: :request do
   end
 
   context "a draft content item exists with version 1" do
-    let(:draft_content_item) { FactoryGirl.create(:draft_content_item, version: 1) }
+    let(:draft_content_item) { FactoryGirl.create(:draft_content_item) }
+
+    before do
+      FactoryGirl.create(:version, target: draft_content_item, number: 1)
+    end
 
     logs_event("Publish", expected_payload_proc: ->{ payload.merge(content_id: content_id) })
 
@@ -65,7 +69,10 @@ RSpec.describe "POST /v2/publish", type: :request do
     it "gives the new LiveContentItem the same version number as the draft item" do
       do_request
 
-      expect(LiveContentItem.first.version).to eq(draft_content_item.version)
+      live_version = Version.find_by!(target: LiveContentItem.first)
+      draft_version = Version.find_by!(target: draft_content_item)
+
+      expect(live_version.number).to eq(draft_version.number)
     end
   end
 
@@ -80,6 +87,11 @@ RSpec.describe "POST /v2/publish", type: :request do
       live_content_item.draft_content_item
     end
 
+    before do
+      FactoryGirl.create(:version, target: live_content_item, number: 1)
+      FactoryGirl.create(:version, target: draft_content_item, number: 2)
+    end
+
     it "updates the existing LiveContentItem" do
       expect {
         do_request
@@ -91,7 +103,10 @@ RSpec.describe "POST /v2/publish", type: :request do
     it "gives the updated LiveContentItem the same version number as the draft item" do
       do_request
 
-      expect(LiveContentItem.first.version).to eq(draft_content_item.version)
+      live_version = Version.find_by!(target: LiveContentItem.first)
+      draft_version = Version.find_by!(target: draft_content_item)
+
+      expect(live_version.number).to eq(draft_version.number)
     end
 
     it "sends item to live content store including links" do
@@ -129,11 +144,19 @@ RSpec.describe "POST /v2/publish", type: :request do
   end
 
   context "the draft content item is already published" do
-    let!(:live_content_item) { FactoryGirl.create(:live_content_item) }
-    let!(:draft_content_item) { live_content_item.draft_content_item }
+    let(:live_content_item) { FactoryGirl.create(:live_content_item) }
+    let(:draft_content_item) { live_content_item.draft_content_item }
+
+    before do
+      FactoryGirl.create(:version, target: live_content_item, number: 1)
+      FactoryGirl.create(:version, target: draft_content_item, number: 1)
+    end
 
     it "reports an error" do
-      expect(live_content_item.version).to eq(draft_content_item.version)
+      draft_version = Version.find_by!(target: draft_content_item)
+      live_version = Version.find_by!(target: live_content_item)
+
+      expect(live_version.number).to eq(draft_version.number)
 
       do_request
 
@@ -148,6 +171,12 @@ RSpec.describe "POST /v2/publish", type: :request do
     let!(:french_draft) { FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "fr") }
     let!(:english_draft) { FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "en") }
     let!(:arabic_draft) { FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "ar") }
+
+    before do
+      FactoryGirl.create(:version, target: french_draft, number: 1)
+      FactoryGirl.create(:version, target: english_draft, number: 1)
+      FactoryGirl.create(:version, target: arabic_draft, number: 1)
+    end
 
     context "when a locale is specified in the payload" do
       let(:payload) {

@@ -22,11 +22,21 @@ module RequestHelpers
 
       it "gives the LinkSet derived representation a version of 1" do
         do_request
-        expect(LinkSet.first.version).to eq(1)
+
+        version = Version.find_by!(target: LinkSet.first)
+        expect(version.number).to eq(1)
       end
 
       context "a LinkSet record already exists" do
-        before { LinkSet.create(content_id: expected_attributes[:content_id], links: {}, version: 1) }
+        before do
+          link_set = FactoryGirl.create(
+            :link_set,
+            content_id: expected_attributes[:content_id],
+            links: {}
+          )
+
+          FactoryGirl.create(:version, target: link_set, number: 1)
+        end
 
         it "updates the existing link record" do
           do_request
@@ -36,7 +46,9 @@ module RequestHelpers
 
         it "increments the version number to 2" do
           do_request
-          expect(LinkSet.first.version).to eq(2)
+
+          version = Version.find_by!(target: LinkSet.first)
+          expect(version.number).to eq(2)
         end
       end
     end
@@ -76,14 +88,15 @@ module RequestHelpers
       it "gives the first #{representation_class} a version number of 1" do
         do_request
 
-        expect(representation_class.first.version).to eq(1)
+        version = Version.find_by!(target: representation_class.first)
+        expect(version.number).to eq(1)
       end
 
       context "a #{representation_class} already exists" do
         before do
           factory_name = representation_class.to_s.underscore.to_sym
 
-          FactoryGirl.create(
+          item = FactoryGirl.create(
             factory_name,
             title: "An existing title",
             content_id: expected_attributes[:content_id],
@@ -92,6 +105,12 @@ module RequestHelpers
             metadata: {},
             base_path: base_path
           )
+
+          FactoryGirl.create(:version, target: item, number: 1)
+
+          if item.respond_to?(:draft_content_item)
+            FactoryGirl.create(:version, target: item.draft_content_item, number: 1)
+          end
         end
 
         it "updates the existing #{representation_class}" do
@@ -103,7 +122,9 @@ module RequestHelpers
 
         it "increments the version number to 2" do
           do_request
-          expect(representation_class.first.version).to eq(2)
+
+          version = Version.find_by!(target: representation_class.first)
+          expect(version.number).to eq(2)
         end
       end
     end
