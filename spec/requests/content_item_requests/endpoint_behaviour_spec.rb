@@ -80,6 +80,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
 
       returns_200_response
       responds_with_content_item_body
+      responds_with_correct_locale_content_item
     end
 
     context "when the content item does not exist" do

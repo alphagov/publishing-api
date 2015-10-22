@@ -17,4 +17,15 @@ RSpec.describe Queries::GetContent do
       }.to raise_error(CommandError, /with content_id: missing/)
     end
   end
+
+  context "when a locale is specified" do
+    before do
+      FactoryGirl.create(:draft_content_item, content_id: "foo", locale: "ar")
+    end
+
+    it "returns the content item in the specified locale" do
+      expect(subject.call("foo").locale).to eq("en")
+      expect(subject.call("foo", "ar").locale).to eq("ar")
+    end
+  end
 end

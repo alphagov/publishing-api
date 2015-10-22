@@ -1,7 +1,12 @@
 module Queries
   module GetContent
-    def self.call(content_id)
-      content_item = DraftContentItem.find_by(content_id: content_id)
+    def self.call(content_id, locale = nil)
+      locale ||= DraftContentItem::DEFAULT_LOCALE
+
+      content_item = DraftContentItem.find_by(
+        content_id: content_id,
+        locale: locale
+      )
 
       if content_item
         content_item
