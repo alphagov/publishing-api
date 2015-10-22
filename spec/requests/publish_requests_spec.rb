@@ -141,4 +141,45 @@ RSpec.describe "POST /v2/publish", type: :request do
       expect(JSON.parse(response.body)).to match("error" => hash_including("message" => /already published/))
     end
   end
+
+  context "a draft content item exists in multiple locales" do
+    let(:content_id) { SecureRandom.uuid }
+
+    let!(:french_draft) { FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "fr") }
+    let!(:english_draft) { FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "en") }
+    let!(:arabic_draft) { FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "ar") }
+
+    context "when a locale is specified in the payload" do
+      let(:payload) {
+        {
+          update_type: "major",
+          locale: "fr"
+        }
+      }
+
+      it "publishes the content item for the specified locale" do
+        expect {
+          do_request
+        }.to change(LiveContentItem, :count).by(1)
+
+        live_item = LiveContentItem.last
+
+        expect(live_item.locale).to eq("fr")
+        expect(live_item.draft_content_item).to eq(french_draft)
+      end
+    end
+
+    context "when no locale is specified in the payload" do
+      it "publishes the english content item" do
+        expect {
+          do_request
+        }.to change(LiveContentItem, :count).by(1)
+
+        live_item = LiveContentItem.last
+
+        expect(live_item.locale).to eq("en")
+        expect(live_item.draft_content_item).to eq(english_draft)
+      end
+    end
+  end
 end

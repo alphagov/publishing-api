@@ -1,4 +1,6 @@
 class DraftContentItem < ActiveRecord::Base
+  DEFAULT_LOCALE = "en".freeze
+
   include Replaceable
   include DefaultAttributes
   include SymbolizeJSON
