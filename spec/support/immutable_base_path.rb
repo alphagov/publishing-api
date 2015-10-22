@@ -20,6 +20,19 @@ RSpec.shared_examples ImmutableBasePath do
           expect(subject).to be_valid
         end
       end
+
+      it 'scopes the content item by locale correctly' do
+        FactoryGirl.create(
+          :live_content_item,
+          content_id: subject.content_id,
+          base_path: '/baz',
+          locale: 'ar'
+        )
+
+        subject.base_path = '/foo'
+
+        expect(subject).to be_valid
+      end
     end
   end
 end
