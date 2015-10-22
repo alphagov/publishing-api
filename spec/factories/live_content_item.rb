@@ -45,7 +45,8 @@ FactoryGirl.define do
       draft = FactoryGirl.build(
         :draft_content_item,
         content_id: live_content_item.content_id,
-        version: evaluator.draft_version - 1
+        version: evaluator.draft_version - 1,
+        locale: live_content_item.locale
       )
 
       live_content_item.draft_content_item = draft
