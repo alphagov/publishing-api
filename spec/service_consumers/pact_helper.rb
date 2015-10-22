@@ -161,4 +161,13 @@ Pact.provider_states_for "GDS API Adapters" do
       DatabaseCleaner.clean_with :truncation
     end
   end
+
+  provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 and locale: fr" do
+    set_up do
+      DatabaseCleaner.clean_with :truncation
+
+      FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
+    end
+  end
 end
