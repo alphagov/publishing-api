@@ -62,6 +62,8 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "/test-item has been reserved in url-arbiter by the Publisher application" do
     set_up do
+      DatabaseCleaner.clean_with :truncation
+      FactoryGirl.create(:url_reservation, base_path: "/test-item", publishing_app: "Publisher")
       url_arbiter_has_registration_for("/test-item", "Publisher")
     end
   end
