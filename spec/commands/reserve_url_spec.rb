@@ -15,6 +15,7 @@ RSpec.describe Commands::ReserveUrl do
       }
 
       it "successfully reserves the path" do
+        expect(Adapters::UrlArbiter).to receive(:call).with("/foo", "Foo")
         expect(described_class.call(payload)).to be_a Commands::Success
       end
     end
