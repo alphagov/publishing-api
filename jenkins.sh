@@ -1,14 +1,13 @@
 #!/bin/bash
 
-REPO_NAME=${REPO_NAME:-"alphagov/publishing-api"}
+GH_STATUS_REPO_NAME=${INITIATING_REPO_NAME:-"alphagov/publishing-api"}
 CONTEXT_MESSAGE=${CONTEXT_MESSAGE:-"default"}
-GH_STATUS_GIT_COMMIT=${SCHEMA_GIT_COMMIT:-${GIT_COMMIT}}
+GH_STATUS_GIT_COMMIT=${INITIATING_GIT_COMMIT:-${GIT_COMMIT}}
 
 function github_status {
-  REPO_NAME="$1"
-  STATUS="$2"
-  MESSAGE="$3"
-  gh-status "$REPO_NAME" "$GH_STATUS_GIT_COMMIT" "$STATUS" -d "Build #${BUILD_NUMBER} ${MESSAGE}" -u "$BUILD_URL" -c "$CONTEXT_MESSAGE" >/dev/null
+  STATUS="$1"
+  MESSAGE="$2"
+  gh-status "$GH_STATUS_REPO_NAME" "$GH_STATUS_GIT_COMMIT" "$STATUS" -d "Build #${BUILD_NUMBER} ${MESSAGE}" -u "$BUILD_URL" -c "$CONTEXT_MESSAGE" >/dev/null
 }
 
 function error_handler {
@@ -21,12 +20,12 @@ function error_handler {
   else
     echo "Error on or near line ${parent_lineno}; exiting with status ${code}"
   fi
-  github_status "$REPO_NAME" error "errored on Jenkins"
+  github_status error "errored on Jenkins"
   exit "${code}"
 }
 
 trap 'error_handler ${LINENO}' ERR
-github_status "$REPO_NAME" pending "is running on Jenkins"
+github_status pending "is running on Jenkins"
 
 # Cleanup anything left from previous test runs
 git clean -fdx
@@ -42,8 +41,8 @@ bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment --without devel
 bundle exec rake db:drop db:create db:schema:load
 
 if bundle exec rake ${TEST_TASK:-"default"}; then
-  github_status "$REPO_NAME" success "succeeded on Jenkins"
+  github_status success "succeeded on Jenkins"
 else
-  github_status "$REPO_NAME" failure "failed on Jenkins"
+  github_status failure "failed on Jenkins"
   exit 1
 fi
