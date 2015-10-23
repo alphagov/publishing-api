@@ -57,41 +57,39 @@ port 3093. Currently on GOV.UK machines it also be available at
 
 ## Running the test suite
 
-You can run the tests locally with: `rake`.
+You can run the tests locally with: `bundle exec rake`.
 
 ## Running the contract tests
 
-The publishing API also has contract tests which verify that the service
+The publishing API includes contract tests which verify that the service
 behaves in the way expected by its clients. We use a library called
 [`pact`](https://github.com/realestate-com-au/pact) which follows the *consumer driven contract testing* pattern. What this means is:
 
 * the expected interactions are defined in the [publishing_api_test.rb in gds-api-adapters](https://github.com/alphagov/gds-api-adapters/blob/master/test/publishing_api_test.rb#L19)
-* when these tests are run they output a pactfile which is stashed as an [archived artefact in CI](https://ci-new.alphagov.co.uk/job/govuk_gds_api_adapters/lastSuccessfulBuild/artifact/spec/pacts/gds_api_adapters-publishing_api.json)
-* the build of publishing api will use this archived artefact to test the publishing-api service
+* when these tests are run they output a pactfile which is published to [the pact broker](https://pact-broker.dev.publishing.service.gov.uk/)
+* the build of publishing api will use this pactfile to test the publishing-api service
 
-When running in development, you can run the pact verification tests using:
+The pacts are verified as part of the main test suite run. This verifies
+against the pactfiles from both the latest release version, and the master
+branch.
+
+You can run the pact verification tests on their own using:
 
 ```
 $ bundle exec rake pact:verify
 ```
 
-This will read the local file defined at:
+### Running the contract tests when offline
 
-```
-../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json
-```
+If you need to run the contract tests when you don't have access to [the
+pact-broker](https://pact-broker.dev.publishing.service.gov.uk/), you can run
+them against a local file by setting the `USE_LOCAL_PACT` env variable. This
+will cause pact to look for the pactfile in
+`../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json`. You can
+additionally override this location by setting the `GDS_API_PACT_PATH`
+variable.
 
-You can also run the tests using the pact file from the master build in ci using
-
-```
-$ PACT_CI_API_KEY=****** bundle exec pact:verify:master
-```
-
-This will fetch the pact file from the ci server over http.
-
-The pacts are not currently run as part of the default rake task.
-
-### Example API requests
+## Example API requests
 
 ``` sh
 curl https://publishing-api-temp.production.alphagov.co.uk/content<base_path> -X PUT \

@@ -1,17 +1,29 @@
 unless Rails.env.production?
-  require 'pact/tasks'
 
-  # defines the task "pact:verify:master"
-  Pact::VerificationTask.new("master") do | pact |
-    pact.uri "https://pactcontract:#{ENV['PACT_CI_API_KEY']}@ci-new.alphagov.co.uk/job/govuk_gds_api_adapters/lastSuccessfulBuild/artifact/spec/pacts/gds_api_adapters-publishing_api.json"
-  end
+  desc "Verifies the pact files for latest release and master"
+  task "pact:verify" do
+    require 'pact/tasks/task_helper'
 
-  # This is just to generate a friendly warning message if the PACT_CI_API_KEY env var is not set
-  task :require_pact_ci_api_key do
-    unless ENV['PACT_CI_API_KEY']
-      raise "Environment variable 'PACT_CI_API_KEY' required. See https://ci-new.alphagov.co.uk/user/pactcontract/configure"
+    Pact::TaskHelper.handle_verification_failure do
+      Pact::TaskHelper.execute_pact_verify
+    end
+
+    unless ENV['USE_LOCAL_PACT'] # avoid running twice against the same pact file.
+      with_temporary_env('GDS_API_PACT_VERSION', "master") do
+        Pact::TaskHelper.handle_verification_failure do
+          Pact::TaskHelper.execute_pact_verify
+        end
+      end
     end
   end
 
-  task "pact:verify:master" => :require_pact_ci_api_key
+  task :default => "pact:verify"
+
+  def with_temporary_env(key, value)
+    original_value = ENV[key]
+    ENV[key] = value
+    yield
+  ensure
+    ENV[key] = original_value
+  end
 end
