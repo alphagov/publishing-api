@@ -36,7 +36,7 @@ class LiveContentItem < ActiveRecord::Base
 
   def refreshed_draft_item
     if draft_content_item
-      DraftContentItem.find_by(content_id: draft_content_item.content_id) || draft_content_item
+      DraftContentItem.find_by(content_id: draft_content_item.content_id, locale: locale) || draft_content_item
     end
   end
 

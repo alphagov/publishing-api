@@ -40,6 +40,16 @@ module RequestHelpers
       end
     end
 
+    def responds_with_correct_locale_content_item
+      it "responds with the body of the correct locale content item" do
+        FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "ar")
+
+        do_request
+
+        expect(response.body).to eq(content_item.to_json)
+      end
+    end
+
     def suppresses_draft_content_store_502s
       context "when draft content store is not running but draft 502s are suppressed" do
         before do

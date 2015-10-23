@@ -1,4 +1,6 @@
 class DraftContentItem < ActiveRecord::Base
+  DEFAULT_LOCALE = "en".freeze
+
   include Replaceable
   include DefaultAttributes
   include SymbolizeJSON
@@ -19,7 +21,7 @@ class DraftContentItem < ActiveRecord::Base
 
   def refreshed_live_item
     if live_content_item
-      LiveContentItem.find_by(content_id: live_content_item.content_id) || live_content_item
+      LiveContentItem.find_by(content_id: live_content_item.content_id, locale: locale) || live_content_item
     end
   end
 

@@ -4,16 +4,8 @@ module Commands
       def call
         validate!
 
-        live_content_item = LiveContentItem.create_or_replace(live_item_attributes) do |live_item|
-          if live_item.version == draft_item.version
-            raise CommandError.new(code: 400, message: "This item is already published")
-          end
-        end
-
-        item_for_content_store = live_payload(live_content_item)
-        Adapters::ContentStore.call(live_content_item.base_path, item_for_content_store)
-
-        send_to_message_queue!(item_for_content_store)
+        draft = lookup_content_item
+        publish_content_item(draft)
 
         Success.new(content_id: content_id)
       end
@@ -39,27 +31,48 @@ module Commands
         payload[:content_id]
       end
 
+      def locale
+        payload[:locale] || DraftContentItem::DEFAULT_LOCALE
+      end
+
       def update_type
         payload[:update_type]
       end
 
-      def live_item_attributes
-        attributes = draft_item
-          .attributes
-          .except("access_limited", "version")
-          .merge(draft_content_item: draft_item)
-      end
+      def lookup_content_item
+        draft = DraftContentItem.find_by(content_id: content_id, locale: locale)
 
-      def draft_item
-        if (draft_content_item = DraftContentItem.find_by(content_id: content_id))
-          draft_content_item
-        else
-          message = "Item with content_id #{content_id} does not exist"
+        unless draft
+          message = "Item with content_id #{content_id} and locale #{locale} does not exist"
           raise CommandError.new(code: 404, message: message)
         end
+
+        draft
       end
 
-      def live_payload(live_item)
+      def publish_content_item(draft_content_item)
+        attributes = build_live_attributes(draft_content_item)
+
+        live_content_item = LiveContentItem.create_or_replace(attributes) do |live_item|
+          if live_item.version == draft_content_item.version
+            raise CommandError.new(code: 400, message: "This item is already published")
+          end
+        end
+
+        item_for_content_store = content_store_payload(live_content_item)
+        Adapters::ContentStore.call(live_content_item.base_path, item_for_content_store)
+
+        send_to_message_queue!(item_for_content_store)
+      end
+
+      def build_live_attributes(draft_content_item)
+        attributes = draft_content_item
+          .attributes
+          .except("access_limited", "version")
+          .merge(draft_content_item: draft_content_item)
+      end
+
+      def content_store_payload(live_item)
         live_item_hash = LinkSetMerger.merge_links_into(live_item)
         Presenters::ContentItemPresenter.present(live_item_hash)
       end
