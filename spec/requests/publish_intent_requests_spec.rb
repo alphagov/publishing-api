@@ -27,8 +27,6 @@ RSpec.describe "Publish intent requests", type: :request do
   end
 
   describe "PUT /publish-intent" do
-    url_registration_happens
-    url_registration_failures_422
     returns_200_response
     responds_with_request_body
     returns_400_on_invalid_json
@@ -39,7 +37,7 @@ RSpec.describe "Publish intent requests", type: :request do
       content_item.merge(base_path: base_path)
     }
 
-    it "sends to live content store after registering the URL" do
+    it "sends to live content store" do
       expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_publish_intent)
         .with(base_path: "/vat-rates", publish_intent: content_item)
