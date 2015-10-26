@@ -78,6 +78,11 @@ RSpec.describe LiveContentItem do
           expect(subject.errors[:rendering_app].size).to eq(1)
         end
       end
+
+      it "requires a public_updated_at" do
+        subject.public_updated_at = nil
+        expect(subject).to be_invalid
+      end
     end
 
     context "when the content item is not 'renderable'" do
@@ -92,6 +97,11 @@ RSpec.describe LiveContentItem do
 
       it "does not require a rendering_app" do
         subject.rendering_app = ""
+        expect(subject).to be_valid
+      end
+
+      it "does not require a public_updated_at" do
+        subject.public_updated_at = nil
         expect(subject).to be_valid
       end
     end
