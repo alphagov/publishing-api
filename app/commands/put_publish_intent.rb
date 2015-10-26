@@ -2,7 +2,6 @@ module Commands
   class PutPublishIntent < BaseCommand
     def call
       PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
-      Adapters::UrlArbiter.call(base_path, payload[:publishing_app])
 
       publish_intent = payload.except(:base_path).deep_symbolize_keys
 

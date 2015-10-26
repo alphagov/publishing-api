@@ -38,7 +38,6 @@ RSpec.describe "Publish intent requests", type: :request do
     }
 
     it "sends to live content store" do
-      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_publish_intent)
         .with(base_path: "/vat-rates", publish_intent: content_item)
         .ordered

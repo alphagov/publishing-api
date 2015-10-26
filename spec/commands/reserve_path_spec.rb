@@ -1,21 +1,14 @@
 require "rails_helper"
-require "govuk/client/test_helpers/url_arbiter"
 
 RSpec.describe Commands::ReservePath do
-  include GOVUK::Client::TestHelpers::URLArbiter
 
   describe "call" do
-    before do
-      stub_default_url_arbiter_responses
-    end
-
     context "with a new base_path" do
       let(:payload) {
         { base_path: "/foo", publishing_app: "Foo" }
       }
 
       it "successfully reserves the path" do
-        expect(Adapters::UrlArbiter).to receive(:call).with("/foo", "Foo")
         expect(PathReservation).to receive(:reserve_base_path!).with("/foo", "Foo")
         expect(described_class.call(payload)).to be_a Commands::Success
       end

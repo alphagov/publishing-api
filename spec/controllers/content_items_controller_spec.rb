@@ -1,8 +1,6 @@
 require 'rails_helper'
-require "govuk/client/test_helpers/url_arbiter"
 
 RSpec.describe ContentItemsController do
-  include GOVUK::Client::TestHelpers::URLArbiter
 
   let(:base_path) {
     "vat-rates"
@@ -34,7 +32,6 @@ RSpec.describe ContentItemsController do
 
   describe 'put_live_content_item' do
     before do
-      stub_default_url_arbiter_responses
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
 
