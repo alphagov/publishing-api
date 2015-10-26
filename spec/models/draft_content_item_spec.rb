@@ -29,6 +29,11 @@ RSpec.describe DraftContentItem do
       expect(draft_item).to be_invalid
     end
 
+    it "requires a format" do
+      subject.format = ""
+      expect(subject).to be_invalid
+    end
+
     context "#base_path" do
       it "should be required" do
         subject.base_path = nil
