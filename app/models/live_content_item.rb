@@ -32,6 +32,7 @@ class LiveContentItem < ActiveRecord::Base
   validates :format, presence: true
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
+  validates :rendering_app, presence: true, dns_hostname: true, if: :renderable_content?
 
 private
   def self.query_keys

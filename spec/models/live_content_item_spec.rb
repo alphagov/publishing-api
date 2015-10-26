@@ -60,6 +60,24 @@ RSpec.describe LiveContentItem do
         subject.title = ""
         expect(subject).to be_invalid
       end
+
+      it "requires a rendering_app" do
+        subject.rendering_app = ""
+        expect(subject).to be_invalid
+      end
+
+      it "requires that the rendering_app is a valid DNS hostname" do
+        %w(word alpha12numeric dashed-item).each do |value|
+          subject.rendering_app = value
+          expect(subject).to be_valid
+        end
+
+        ['no spaces', 'puncutation!', 'mixedCASE'].each do |value|
+          subject.rendering_app = value
+          expect(subject).to be_invalid
+          expect(subject.errors[:rendering_app].size).to eq(1)
+        end
+      end
     end
 
     context "when the content item is not 'renderable'" do
@@ -69,6 +87,11 @@ RSpec.describe LiveContentItem do
 
       it "does not require a title" do
         subject.title = ""
+        expect(subject).to be_valid
+      end
+
+      it "does not require a rendering_app" do
+        subject.rendering_app = ""
         expect(subject).to be_valid
       end
     end
