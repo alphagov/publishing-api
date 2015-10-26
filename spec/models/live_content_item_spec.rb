@@ -57,6 +57,27 @@ RSpec.describe LiveContentItem do
         }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
+
+    context 'content_id' do
+      it "accepts a UUID" do
+        content_id = "a7c48dac-f1c6-45a8-b5c1-5c407d45826f"
+        subject.draft_content_item.content_id = content_id
+        subject.content_id = content_id
+        expect(subject).to be_valid
+      end
+
+      it "does not accept an arbitrary string" do
+        subject.draft_content_item.content_id = "bacon"
+        subject.content_id = "bacon"
+        expect(subject).not_to be_valid
+      end
+
+      it "does not accept an empty string" do
+        subject.draft_content_item.content_id = ""
+        subject.content_id = ""
+        expect(subject).not_to be_valid
+      end
+    end
   end
 
   let!(:existing) { FactoryGirl.create(:live_content_item) }

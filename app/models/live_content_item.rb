@@ -22,7 +22,7 @@ class LiveContentItem < ActiveRecord::Base
   belongs_to :draft_content_item
 
   validates :draft_content_item, presence: true
-  validates :content_id, presence: true
+  validates :content_id, presence: true, uuid: true
   validate :content_ids_match
   validates :base_path, absolute_path: true
 
