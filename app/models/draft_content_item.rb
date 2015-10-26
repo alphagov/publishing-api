@@ -16,6 +16,7 @@ class DraftContentItem < ActiveRecord::Base
   validate :content_ids_match
   validates :base_path, absolute_path: true
   validates :format, presence: true
+  validates :publishing_app, presence: true
 
 private
   def self.query_keys
