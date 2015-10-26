@@ -24,6 +24,7 @@ class LiveContentItem < ActiveRecord::Base
   validates :draft_content_item, presence: true
   validates :content_id, presence: true
   validate :content_ids_match
+  validates :base_path, absolute_path: true
 
 private
   def self.query_keys
