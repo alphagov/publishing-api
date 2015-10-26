@@ -69,7 +69,7 @@ module Commands
     end
 
     def create_or_update_links!
-      LinkSet.create_or_replace(content_id: content_id, links: content_item[:links]) do |link_set|
+      LinkSet.create_or_replace(content_id: content_id, links: content_item[:links] || {}) do |link_set|
         link_set.version += 1
       end
     end
