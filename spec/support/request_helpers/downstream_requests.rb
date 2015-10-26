@@ -82,7 +82,7 @@ module RequestHelpers
     end
 
     def sends_to_draft_content_store(with_arbitration: true)
-      it "sends to draft content store after registering the URL" do
+      it "sends to draft content store" do
         expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered if with_arbitration
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(
@@ -98,7 +98,7 @@ module RequestHelpers
     end
 
     def sends_to_live_content_store
-      it "sends to live content store after registering the URL" do
+      it "sends to live content store" do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
           .with(
             base_path: base_path,

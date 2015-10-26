@@ -2,7 +2,6 @@ require 'rails_helper'
 require "govuk/client/test_helpers/url_arbiter"
 
 RSpec.describe Commands::V2::PutContent do
-
   include GOVUK::Client::TestHelpers::URLArbiter
 
   describe 'call' do
@@ -21,6 +20,7 @@ RSpec.describe Commands::V2::PutContent do
 
     describe 'validation' do
       before do
+        create(:path_reservation, publishing_app: payload[:publishing_app], base_path: base_path)
         create(:live_content_item, content_id: content_id, base_path: base_path)
       end
 
@@ -30,6 +30,14 @@ RSpec.describe Commands::V2::PutContent do
         it 'raises an error' do
           expect { Commands::V2::PutContent.call(updated_payload) }.to raise_error(
             CommandError, 'Base path cannot be changed for published items')
+        end
+      end
+
+      context 'given a publishing_app change on a published item' do
+        let(:updated_payload) { payload.merge(publishing_app: 'new-publishing-app') }
+        it 'raises an error' do
+          expect { Commands::V2::PutContent.call(updated_payload) }.to raise_error(
+            CommandError, 'Base path is already registered by mainstream_publisher')
         end
       end
 

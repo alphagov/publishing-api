@@ -18,11 +18,9 @@ RSpec.describe "Downstream requests", type: :request do
     let(:request_path) { "/content#{base_path}" }
     let(:request_method) { :put }
 
-    url_registration_happens
-    url_registration_failures_422
     sends_to_draft_content_store
 
-    it "sends to live content store after registering the URL" do
+    it "sends to live content store" do
       expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         .with(
@@ -44,8 +42,6 @@ RSpec.describe "Downstream requests", type: :request do
     let(:request_path) { "/draft-content#{base_path}" }
     let(:request_method) { :put }
 
-    url_registration_happens
-    url_registration_failures_422
     sends_to_draft_content_store
     does_not_send_to_live_content_store
   end
@@ -58,8 +54,6 @@ RSpec.describe "Downstream requests", type: :request do
     let(:request_path) { "/v2/content/#{content_id}" }
     let(:request_method) { :put }
 
-    url_registration_happens
-    url_registration_failures_422
     sends_to_draft_content_store
     does_not_send_to_live_content_store
 
