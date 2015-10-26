@@ -186,6 +186,8 @@ RSpec.describe "POST /v2/publish", type: :request do
         }
       }
 
+      let(:base_path) { "/vat-rates.fr" }
+
       it "publishes the content item for the specified locale" do
         expect {
           do_request

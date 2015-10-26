@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20151026170157) do
     t.string   "rendering_app"
   end
 
+  add_index "draft_content_items", ["base_path"], name: "index_draft_content_items_on_base_path", unique: true, using: :btree
   add_index "draft_content_items", ["content_id", "locale"], name: "index_draft_content_items_on_content_id_and_locale", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 20151026170157) do
     t.integer  "draft_content_item_id",              null: false
   end
 
+  add_index "live_content_items", ["base_path"], name: "index_live_content_items_on_base_path", unique: true, using: :btree
   add_index "live_content_items", ["content_id", "locale"], name: "index_live_content_items_on_content_id_and_locale", unique: true, using: :btree
   add_index "live_content_items", ["draft_content_item_id"], name: "index_live_content_items_on_draft_content_item_id", using: :btree
 

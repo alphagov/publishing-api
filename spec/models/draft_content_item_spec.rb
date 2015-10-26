@@ -28,6 +28,33 @@ RSpec.describe DraftContentItem do
       draft_item.content_id = "something else"
       expect(draft_item).to be_invalid
     end
+
+    context "#base_path" do
+      it "should be required" do
+        subject.base_path = nil
+        expect(subject).not_to be_valid
+        expect(subject.errors[:base_path].size).to eq(1)
+
+        subject.base_path = ''
+        expect(subject).not_to be_valid
+        expect(subject.errors[:base_path].size).to eq(1)
+      end
+
+      it "should be an absolute path" do
+        subject.base_path = 'invalid//absolute/path/'
+        expect(subject).to_not be_valid
+        expect(subject.errors[:base_path].size).to eq(1)
+      end
+
+      it "should have a db level uniqueness constraint" do
+        FactoryGirl.create(:draft_content_item, base_path: "/foo")
+
+        subject.base_path = "/foo"
+        expect {
+          subject.save!
+        }.to raise_error(ActiveRecord::RecordNotUnique)
+      end
+    end
   end
 
   let!(:existing) { FactoryGirl.create(:draft_content_item) }

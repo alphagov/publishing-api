@@ -1,7 +1,10 @@
 FactoryGirl.define do
   factory :draft_content_item do
     content_id { SecureRandom.uuid }
-    base_path "/vat-rates"
+    base_path do
+      suffix = ".#{locale}" unless locale == "en"
+      "/vat-rates#{suffix}"
+    end
     title "VAT rates"
     description "VAT rates for goods and services"
     format "guide"

@@ -47,6 +47,7 @@ FactoryGirl.define do
         :draft_content_item,
         content_id: live_content_item.content_id,
         locale: live_content_item.locale,
+        base_path: live_content_item.base_path,
       )
 
       live_content_item.draft_content_item = draft
