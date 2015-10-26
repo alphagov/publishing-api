@@ -22,9 +22,11 @@ unless Rails.env.production?
   task "pact:verify:branch", [:branch_name] do |t, args|
     abort "Please provide a branch name. eg rake #{t.name}[my_feature_branch]" unless args[:branch_name]
 
+    pact_version = args[:branch_name] == "master" ? args[:branch_name] : "branch-#{args[:branch_name]}"
+
     require 'pact/tasks/task_helper'
 
-    with_temporary_env('GDS_API_PACT_VERSION', "branch-#{args[:branch_name]}") do
+    with_temporary_env('GDS_API_PACT_VERSION', pact_version) do
       Pact::TaskHelper.handle_verification_failure do
         Pact::TaskHelper.execute_pact_verify
       end
