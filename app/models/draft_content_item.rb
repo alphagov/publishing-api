@@ -12,7 +12,7 @@ class DraftContentItem < ActiveRecord::Base
 
   has_one :live_content_item
 
-  validates :content_id, presence: true
+  validates :content_id, presence: true, uuid: true
   validate :content_ids_match
   validates :base_path, absolute_path: true
 

@@ -4,13 +4,15 @@ RSpec.describe SymbolizeJSON do
   subject { FactoryGirl.build(:draft_content_item) }
 
   it "doesn't affect non-json columns" do
-    subject.content_id = "content_id"
+    content_id = SecureRandom.uuid
+
+    subject.content_id = content_id
     subject.public_updated_at = Date.new(2000, 1, 1)
 
     subject.save!
     subject.reload
 
-    expect(subject.content_id).to eq("content_id")
+    expect(subject.content_id).to eq(content_id)
     expect(subject.public_updated_at).to eq(Date.new(2000, 1, 1))
   end
 

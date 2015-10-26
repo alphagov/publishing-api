@@ -55,6 +55,23 @@ RSpec.describe DraftContentItem do
         }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
+
+    context 'content_id' do
+      it "accepts a UUID" do
+        subject.content_id = "a7c48dac-f1c6-45a8-b5c1-5c407d45826f"
+        expect(subject).to be_valid
+      end
+
+      it "does not accept an arbitrary string" do
+        subject.content_id = "bacon"
+        expect(subject).not_to be_valid
+      end
+
+      it "does not accept an empty string" do
+        subject.content_id = ""
+        expect(subject).not_to be_valid
+      end
+    end
   end
 
   let!(:existing) { FactoryGirl.create(:draft_content_item) }
