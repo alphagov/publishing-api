@@ -36,6 +36,11 @@ RSpec.describe LiveContentItem do
       expect(subject).to be_invalid
     end
 
+    it "requires a publishing_app" do
+      subject.publishing_app = ""
+      expect(subject).to be_invalid
+    end
+
     context "#base_path" do
       it "should be required" do
         subject.base_path = nil
