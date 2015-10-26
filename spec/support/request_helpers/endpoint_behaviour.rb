@@ -100,22 +100,25 @@ module RequestHelpers
       end
 
       context "base_path has already been registered" do
-        it "should be successful if the publishing app matches" do
-          expect{ do_request }.to change(PathReservation, :count).by(1)
-          expect(PathReservation.last.base_path).to eq(base_path)
-          expect(PathReservation.last.publishing_app).to eq(content_item[:publishing_app])
+        before do
+          create(:path_reservation, base_path: base_path, publishing_app: content_item[:publishing_app])
         end
 
-        context "with a different publishing app" do
-          before do
-            create(:path_reservation, base_path: base_path, publishing_app: "something else")
-          end
+        it "should be successful if the publishing app matches" do
+          expect{ do_request }.not_to change(PathReservation, :count)
+          expect(response.status).to eq(200)
+        end
+      end
 
-          it "should be unsuccessful if the publishing app does not match" do
-            expect{ do_request }.not_to change(PathReservation, :count)
-            expect(response.status).to eq(422)
-            expect(PathReservation.last.publishing_app).to eq("something else")
-          end
+      context "base_path has been registered with a different publishing app" do
+        before do
+          create(:path_reservation, base_path: base_path, publishing_app: "something else")
+        end
+
+        it "should be unsuccessful if the publishing app does not match" do
+          expect{ do_request }.not_to change(PathReservation, :count)
+          expect(response.status).to eq(422)
+          expect(PathReservation.last.publishing_app).to eq("something else")
         end
       end
     end
