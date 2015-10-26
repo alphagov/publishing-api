@@ -11,6 +11,16 @@ RSpec.describe DraftContentItem do
     expect(described_class.last.title).to eq("New title")
   end
 
+  describe ".renderable_content" do
+    let!(:guide) { FactoryGirl.create(:draft_content_item, format: "guide", base_path: "/foo") }
+    let!(:redirect) { FactoryGirl.create(:draft_content_item, format: "redirect", base_path: "/bar") }
+    let!(:gone) { FactoryGirl.create(:draft_content_item, format: "gone", base_path: "/baz") }
+
+    it "returns content items that do not have a format of 'redirect' or 'gone'" do
+      expect(described_class.renderable_content).to eq [guide]
+    end
+  end
+
   describe "validations" do
     it "is valid for the default factory" do
       expect(subject).to be_valid
@@ -37,6 +47,28 @@ RSpec.describe DraftContentItem do
     it "requires a publishing_app" do
       subject.publishing_app = ""
       expect(subject).to be_invalid
+    end
+
+    context "when the content item is 'renderable'" do
+      before do
+        subject.format = "guide"
+      end
+
+      it "requires a title" do
+        subject.title = ""
+        expect(subject).to be_invalid
+      end
+    end
+
+    context "when the content item is not 'renderable'" do
+      before do
+        subject.format = "redirect"
+      end
+
+      it "does not require a title" do
+        subject.title = ""
+        expect(subject).to be_valid
+      end
     end
 
     context "#base_path" do
