@@ -45,4 +45,16 @@ FactoryGirl.define do
       ]
     }
   end
+
+  factory :redirect_draft_content_item, class: DraftContentItem do
+    sequence(:base_path) {|n| "/test-redirect-#{n}" }
+    format "redirect"
+    routes []
+    redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => '/somewhere' }] }
+  end
+
+  factory :gone_draft_content_item, class: DraftContentItem do
+    sequence(:base_path) {|n| "/dodo-sanctuary-#{n}" }
+    format "gone"
+  end
 end
