@@ -53,7 +53,7 @@ module Commands
       LiveContentItem.create_or_replace(attributes) do |item|
         version = Version.find_or_initialize_by(target: item)
         version.copy_version_from(draft_content_item)
-        version.save!
+        version.save! if item.valid?
 
         item.assign_attributes_with_defaults(attributes)
       end
@@ -63,7 +63,7 @@ module Commands
       DraftContentItem.create_or_replace(content_item_attributes) do |item|
         version = Version.find_or_initialize_by(target: item)
         version.increment
-        version.save!
+        version.save! if item.valid?
 
         item.assign_attributes_with_defaults(content_item_attributes)
       end
@@ -80,7 +80,7 @@ module Commands
       LinkSet.create_or_replace(content_id: content_id, links: content_item[:links] || {}) do |link_set|
         version = Version.find_or_initialize_by(target: link_set)
         version.increment
-        version.save!
+        version.save! if link_set.valid?
       end
     end
   end

@@ -30,30 +30,21 @@ FactoryGirl.define do
     routes {
       [
         {
-          path: "/vat-rates",
+          path: base_path,
           type: "exact",
-        }
-      ]
-    }
-    redirects {
-      [
-        {
-          path: "/old-vat-rates",
-          type: "exact",
-          destination: "/vat-rates",
         }
       ]
     }
   end
 
-  factory :redirect_draft_content_item, class: DraftContentItem do
+  factory :redirect_draft_content_item, parent: :draft_content_item do
     sequence(:base_path) {|n| "/test-redirect-#{n}" }
     format "redirect"
     routes []
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => '/somewhere' }] }
   end
 
-  factory :gone_draft_content_item, class: DraftContentItem do
+  factory :gone_draft_content_item, parent: :draft_content_item do
     sequence(:base_path) {|n| "/dodo-sanctuary-#{n}" }
     format "gone"
   end

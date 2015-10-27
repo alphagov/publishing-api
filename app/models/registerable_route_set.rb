@@ -64,7 +64,7 @@ class RegisterableRouteSet < OpenStruct
       route_set.is_supplimentary_set = true
     end
     route_set.registerable_routes = route_attrs.map do |attrs|
-      RegisterableRoute.new(attrs.slice("path", "type"))
+      RegisterableRoute.new(attrs.slice(:path, :type))
     end
     route_set
   end

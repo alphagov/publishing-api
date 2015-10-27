@@ -8,9 +8,9 @@ RSpec.describe RegisterableRouteSet, :type => :model do
         base_path: "/path",
         rendering_app: "frontend",
         routes: [
-          { 'path' => '/path', 'type' => 'exact'},
-          { 'path' => '/path.json', 'type' => 'exact'},
-          { 'path' => '/path/subpath', 'type' => 'prefix'},
+          { path: '/path', type: 'exact'},
+          { path: '/path.json', type: 'exact'},
+          { path: '/path/subpath', type: 'prefix'},
         ],
         redirects: []
       )
@@ -30,8 +30,8 @@ RSpec.describe RegisterableRouteSet, :type => :model do
     it "constructs a route set from a redirect content item" do
       item = build(:redirect_draft_content_item, :base_path => "/path")
       item.redirects = [
-        { "path" => "/path", "type" => 'exact', "destination" => "/somewhere" },
-        { "path" => "/path/foo", "type" => "prefix", "destination" => "/somewhere-else" },
+        { path: "/path", type: 'exact', destination: "/somewhere" },
+        { path: "/path/foo", type: "prefix", destination: "/somewhere-else" },
       ]
 
       route_set = RegisterableRouteSet.from_content_item(item)
@@ -47,9 +47,9 @@ RSpec.describe RegisterableRouteSet, :type => :model do
     it "constructs a route set from a gone content item" do
       item = build(:gone_draft_content_item, :base_path => "/path")
       item.routes = [
-        { 'path' => '/path', 'type' => 'exact'},
-        { 'path' => '/path.json', 'type' => 'exact'},
-        { 'path' => '/path/subpath', 'type' => 'prefix'},
+        { path: '/path', type: 'exact'},
+        { path: '/path.json', type: 'exact'},
+        { path: '/path/subpath', type: 'prefix'},
       ]
 
       route_set = RegisterableRouteSet.from_content_item(item)

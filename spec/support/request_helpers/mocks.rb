@@ -27,17 +27,11 @@ module RequestHelpers
         },
         routes: [
           {
-            path: "/vat-rates",
+            path: base_path,
             type: "exact",
           }
         ],
-        redirects: [
-          {
-            path: "/old-vat-rates",
-            type: "exact",
-            destination: "/vat-rates",
-          }
-        ],
+        redirects: [],
         update_type: "major",
         access_limited: {
           users: [

@@ -62,7 +62,7 @@ module Commands
           else
             version = Version.find_or_initialize_by(target: live_item)
             version.copy_version_from(draft_content_item)
-            version.save!
+            version.save! if live_item.valid?
           end
         end
 

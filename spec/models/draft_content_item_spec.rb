@@ -13,8 +13,8 @@ RSpec.describe DraftContentItem do
 
   describe ".renderable_content" do
     let!(:guide) { FactoryGirl.create(:draft_content_item, format: "guide", base_path: "/foo") }
-    let!(:redirect) { FactoryGirl.create(:draft_content_item, format: "redirect", base_path: "/bar") }
-    let!(:gone) { FactoryGirl.create(:draft_content_item, format: "gone", base_path: "/baz") }
+    let!(:redirect) { FactoryGirl.create(:redirect_draft_content_item, base_path: "/bar") }
+    let!(:gone) { FactoryGirl.create(:gone_draft_content_item, base_path: "/baz") }
 
     it "returns content items that do not have a format of 'redirect' or 'gone'" do
       expect(described_class.renderable_content).to eq [guide]
@@ -84,9 +84,7 @@ RSpec.describe DraftContentItem do
     end
 
     context "when the content item is not 'renderable'" do
-      before do
-        subject.format = "redirect"
-      end
+      subject { FactoryGirl.build(:redirect_draft_content_item) }
 
       it "does not require a title" do
         subject.title = ""
@@ -117,14 +115,14 @@ RSpec.describe DraftContentItem do
 
       it "should be an absolute path" do
         subject.base_path = 'invalid//absolute/path/'
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
         expect(subject.errors[:base_path].size).to eq(1)
       end
 
       it "should have a db level uniqueness constraint" do
         FactoryGirl.create(:draft_content_item, base_path: "/foo")
+        subject = FactoryGirl.build(:redirect_draft_content_item, base_path: "/foo")
 
-        subject.base_path = "/foo"
         expect {
           subject.save!
         }.to raise_error(ActiveRecord::RecordNotUnique)
@@ -145,6 +143,88 @@ RSpec.describe DraftContentItem do
       it "does not accept an empty string" do
         subject.content_id = ""
         expect(subject).not_to be_valid
+      end
+    end
+
+    context 'with a route that is not below the base path' do
+      before do
+        subject.routes = [
+          { path: subject.base_path, type: 'exact' },
+          { path: '/wrong-path', type: 'exact' },
+        ]
+      end
+
+      it 'should be invalid' do
+        expect(subject).to be_invalid
+        expect(subject.errors[:routes]).to eq(["must be below the base path"])
+      end
+    end
+
+    context 'with an invalid type of route' do
+      before do
+        subject.routes= [{ path: subject.base_path, type: 'unsupported' }]
+      end
+
+      it 'should be invalid' do
+        expect(subject).to be_invalid
+        expect(subject.errors[:routes]).to eq(["are invalid"])
+      end
+    end
+
+    context 'with extra keys in a route entry' do
+      before do
+        subject.routes = [{ path: subject.base_path, type: 'exact', foo: 'bar' }]
+      end
+
+      it 'should be invalid' do
+        expect(subject).to be_invalid
+        expect(subject.errors[:routes]).to eq(["are invalid"])
+      end
+    end
+
+    context 'special cases for a redirect item' do
+      before :each do
+        subject.format = "redirect"
+        subject.routes = []
+        subject.redirects = [{ path: subject.base_path, type: "exact", destination: "/somewhere" }]
+      end
+
+      it "should not require a title" do
+        subject.title = nil
+        expect(subject).to be_valid
+      end
+
+      it "should not require a rendering_app" do
+        subject.rendering_app = nil
+        expect(subject).to be_valid
+      end
+
+      it "should be valid with a locale" do
+        subject.redirects << {"path" => subject.base_path + ".cy", "type" => "exact", "destination" => "/somewhere.cy"}
+        expect(subject).to be_valid
+      end
+
+      it "should be valid with a dashed locale" do
+        subject.redirects << {"path" => subject.base_path + ".es-419", "type" => "exact", "destination" => "/somewhere.es-419"}
+        expect(subject).to be_valid
+      end
+
+      it "should be invalid with an invalid redirect" do
+        subject.redirects = [{ path: "/vat-rates", type: "fooey", destination: "/somewhere" }]
+        expect(subject).not_to be_valid
+        expect(subject.errors[:redirects]).to eq(["are invalid"])
+      end
+
+      it "should be invalid with extra keys in a redirect entry" do
+        subject.redirects = [{ path: "/vat-rates", type: "exact", destination: "/somewhere", foo: "bar" }]
+        expect(subject).not_to be_valid
+        expect(subject.errors[:redirects]).to eq(["are invalid"])
+      end
+
+      it "should be invalid if given any routes" do
+        subject.routes = [{ path: subject.base_path, type: "exact" }]
+        expect(subject).not_to be_valid
+        expect(subject.errors[:routes]).to eq(["redirect items cannot have routes"])
       end
     end
   end

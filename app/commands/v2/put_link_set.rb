@@ -7,7 +7,7 @@ module Commands
         link_set = LinkSet.create_or_replace(link_params.except(:links)) do |link_set|
           version = Version.find_or_initialize_by(target: link_set)
           version.increment
-          version.save!
+          version.save! if link_set.valid?
 
           link_set.links = merge_links(link_set.links, link_params.fetch(:links))
         end

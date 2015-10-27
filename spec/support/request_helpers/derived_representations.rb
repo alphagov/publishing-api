@@ -158,6 +158,16 @@ module RequestHelpers
     def allows_draft_base_path_to_be_changed
       context "a live content item already exists" do
         let(:new_base_path) { "/something-else" }
+        let(:request_body) do
+          content_item_params.merge(
+            routes: [
+              {
+                path: new_base_path,
+                type: "exact"
+              }
+            ]
+          ).to_json
+        end
 
         before do
           FactoryGirl.create(
@@ -187,6 +197,16 @@ module RequestHelpers
     def allows_live_base_path_to_be_changed
       context "a live content item already exists" do
         let(:new_base_path) { "/something-else" }
+        let(:request_body) do
+          content_item_params.merge(
+            routes: [
+              {
+                path: new_base_path,
+                type: "exact"
+              }
+            ]
+          ).to_json
+        end
 
         before do
           FactoryGirl.create(
