@@ -15,11 +15,7 @@ FactoryGirl.define do
     details {
       { body: "<p>Something about VAT</p>\n", }
     }
-    access_limited {
-      {
-        users: [ SecureRandom.uuid ]
-      }
-    }
+    access_limited { }
     metadata {
       {
         need_ids: ["100123", "100124"],
@@ -47,5 +43,12 @@ FactoryGirl.define do
   factory :gone_draft_content_item, parent: :draft_content_item do
     sequence(:base_path) {|n| "/dodo-sanctuary-#{n}" }
     format "gone"
+  end
+
+  factory :access_limited_draft_content_item, parent: :draft_content_item do
+    sequence(:base_path) {|n| "/access-limited-#{n}" }
+    access_limited {
+      { users: [SecureRandom.uuid] }
+    }
   end
 end

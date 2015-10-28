@@ -26,6 +26,11 @@ class DraftContentItem < ActiveRecord::Base
   validates :public_updated_at, presence: true, if: :renderable_content?
   validate :route_set_is_valid
   validate :no_extra_route_keys
+  validate :access_limited_is_valid
+
+  def viewable_by?(user_uid)
+    !access_limited? || authorised_user_uids.include?(user_uid)
+  end
 
 private
   def self.query_keys
@@ -60,5 +65,23 @@ private
     if redirects.any? { |r| (r.keys - [:path, :type, :destination]).any? }
       errors.add(:redirects, "are invalid")
     end
+  end
+
+  def access_limited_is_valid
+    if access_limited? && (!access_limited_keys_valid? || !access_limited_values_valid?)
+      errors.set(:access_limited, ['is not valid'])
+    end
+  end
+
+  def access_limited_keys_valid?
+    access_limited.keys == [:users]
+  end
+
+  def access_limited_values_valid?
+    authorised_user_uids.is_a?(Array) && authorised_user_uids.all? { |id| id.is_a?(String) }
+  end
+
+  def authorised_user_uids
+    access_limited[:users]
   end
 end

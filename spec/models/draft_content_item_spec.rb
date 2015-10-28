@@ -227,6 +227,47 @@ RSpec.describe DraftContentItem do
         expect(subject.errors[:routes]).to eq(["redirect items cannot have routes"])
       end
     end
+
+    describe 'access limiting' do
+      it "validates the format of the access_limited hash" do
+        content_item = build(:draft_content_item, access_limited: { bad_key: []})
+        expect(content_item).not_to be_valid
+
+        content_item = build(:draft_content_item, access_limited: { users: { other: 'stuff'}})
+        expect(content_item).not_to be_valid
+      end
+
+      context 'a content item that is not access limited' do
+        let!(:content_item) { create(:draft_content_item) }
+
+        it 'is not access limited' do
+          expect(content_item.access_limited?).to be(false)
+        end
+
+        it 'is viewable by all' do
+          expect(content_item.viewable_by?(nil)).to be(true)
+          expect(content_item.viewable_by?('a-user-uid')).to be(true)
+        end
+      end
+
+      context 'an access-limited content item' do
+        let!(:content_item) { create(:access_limited_draft_content_item) }
+        let(:authorised_user_uid) { content_item.access_limited[:users].first }
+
+        it 'is access limited' do
+          expect(content_item.access_limited?).to be(true)
+        end
+
+        it 'is viewable by an authorised user' do
+          expect(content_item.viewable_by?(authorised_user_uid)).to be(true)
+        end
+
+        it 'is not viewable by an unauthorised user' do
+          expect(content_item.viewable_by?('unauthorised-user')).to be(false)
+          expect(content_item.viewable_by?(nil)).to be(false)
+        end
+      end
+    end
   end
 
   let!(:existing) { FactoryGirl.create(:draft_content_item) }
