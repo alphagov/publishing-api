@@ -35,7 +35,7 @@ module RequestHelpers
         update_type: "major",
         access_limited: {
           users: [
-            "f17250b0-7540-0131-f036-005056030202",
+            "bf3e4b4f-f02d-4658-95a7-df7c74cd0f50",
             "74c7d700-5b4a-0131-7a8e-005056030037",
           ],
         },
@@ -46,7 +46,7 @@ module RequestHelpers
       {
         content_id: content_id,
         links: {
-          organisations: ["f17250b0-7540-0131-f036-005056030221"]
+          organisations: ["bf3e4b4f-f02d-4658-95a7-df7c74cd0f50"]
         },
       }
     end
