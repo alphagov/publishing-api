@@ -24,11 +24,6 @@ RSpec.describe Version do
         draft_version.number = 6
         expect(draft_version).to be_valid
       end
-
-      it "is invalid if the live version is not equal to the draft version" do
-        live_version.number = 6
-        expect(live_version).to be_invalid
-      end
     end
 
     it "requires that the version number be higher than its predecessor" do
