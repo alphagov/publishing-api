@@ -26,6 +26,16 @@ RSpec.describe LinkSet do
   #   ]
   # }
 
+  it "sets links to {} by default" do
+    expect(described_class.new.links).to eq({})
+
+    subject.links = nil
+    subject.save!
+    subject.reload
+
+    expect(subject.links).to eq({})
+  end
+
   it 'allows hashes from strings to lists' do
     subject.links = {"related" => [SecureRandom.uuid]}
     expect(subject).to be_valid

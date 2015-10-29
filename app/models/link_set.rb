@@ -5,6 +5,10 @@ class LinkSet < ActiveRecord::Base
 
   validate :links_are_valid
 
+  def links=(links_hash)
+    super(links_hash || {})
+  end
+
 private
   def self.query_keys
     [:content_id]
