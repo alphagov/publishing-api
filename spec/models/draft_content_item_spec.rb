@@ -268,6 +268,24 @@ RSpec.describe DraftContentItem do
         end
       end
     end
+
+    context "locale" do
+      it "defaults to the default I18n locale" do
+        expect(described_class.new.locale).to eq(I18n.default_locale.to_s)
+      end
+
+      it "can be set as a supported I18n locale" do
+        subject.locale = 'fr'
+        expect(subject).to be_valid
+        expect(subject.locale).to eq('fr')
+      end
+
+      it "rejects non-supported locales" do
+        subject.locale = 'xyz'
+        expect(subject).to_not be_valid
+        expect(subject.errors[:locale].first).to eq('must be a supported locale')
+      end
+    end
   end
 
   let!(:existing) { FactoryGirl.create(:draft_content_item) }

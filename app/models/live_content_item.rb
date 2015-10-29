@@ -36,6 +36,10 @@ class LiveContentItem < ActiveRecord::Base
   validates :public_updated_at, presence: true, if: :renderable_content?
   validate :route_set_is_valid
   validate :no_extra_route_keys
+  validates :locale, inclusion: {
+    in: I18n.available_locales.map(&:to_s),
+    message: 'must be a supported locale'
+  }
 
 private
   def self.query_keys

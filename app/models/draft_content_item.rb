@@ -27,6 +27,10 @@ class DraftContentItem < ActiveRecord::Base
   validate :route_set_is_valid
   validate :no_extra_route_keys
   validate :access_limited_is_valid
+  validates :locale, inclusion: {
+    in: I18n.available_locales.map(&:to_s),
+    message: 'must be a supported locale'
+  }
 
   def viewable_by?(user_uid)
     !access_limited? || authorised_user_uids.include?(user_uid)
