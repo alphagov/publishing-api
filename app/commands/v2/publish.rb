@@ -54,8 +54,15 @@ module Commands
         attributes = build_live_attributes(draft_content_item)
 
         live_content_item = LiveContentItem.create_or_replace(attributes) do |live_item|
-          if live_item.version == draft_content_item.version
+          live_version = Version.find_or_initialize_by(target: live_item)
+          draft_version = Version.find_or_initialize_by(target: draft_content_item)
+
+          if live_version.number == draft_version.number
             raise CommandError.new(code: 400, message: "This item is already published")
+          else
+            version = Version.find_or_initialize_by(target: live_item)
+            version.copy_version_from(draft_content_item)
+            version.save!
           end
         end
 

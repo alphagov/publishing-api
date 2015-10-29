@@ -79,7 +79,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       DatabaseCleaner.clean_with :truncation
 
-      FactoryGirl.create(
+      draft = FactoryGirl.create(
         :draft_content_item,
         base_path: "/robots.txt",
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
@@ -96,6 +96,8 @@ Pact.provider_states_for "GDS API Adapters" do
           },
         ],
       )
+
+      FactoryGirl.create(:version, target: draft, number: 1)
     end
   end
 
@@ -103,7 +105,9 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       DatabaseCleaner.clean_with :truncation
 
-      FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      FactoryGirl.create(:version, target: draft, number: 1)
+
       stub_default_url_arbiter_responses
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
     end
@@ -113,7 +117,11 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       DatabaseCleaner.clean_with :truncation
 
-      FactoryGirl.create(:live_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      live = FactoryGirl.create(:live_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+
+      FactoryGirl.create(:version, target: live, number: 1)
+      FactoryGirl.create(:version, target: live.draft_content_item, number: 1)
+
       stub_default_url_arbiter_responses
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
     end
@@ -123,6 +131,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       DatabaseCleaner.clean_with :truncation
       draft_content_item = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      FactoryGirl.create(:version, target: draft_content_item, number: 1)
 
       error_response = {
         "errors" => {
@@ -175,7 +184,9 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       DatabaseCleaner.clean_with :truncation
 
-      FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
+      draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
+      FactoryGirl.create(:version, target: draft, number: 1)
+
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
     end
   end
@@ -184,9 +195,13 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       DatabaseCleaner.clean_with :truncation
 
-      FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "en")
-      FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
-      FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "ar")
+      english_draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "en")
+      french_draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
+      arabic_draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "ar")
+
+      FactoryGirl.create(:version, target: english_draft, number: 1)
+      FactoryGirl.create(:version, target: french_draft, number: 1)
+      FactoryGirl.create(:version, target: arabic_draft, number: 1)
     end
   end
 end

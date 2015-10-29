@@ -82,5 +82,13 @@ ActiveRecord::Schema.define(version: 20151026170157) do
 
   add_index "path_reservations", ["base_path"], name: "index_path_reservations_on_base_path", unique: true, using: :btree
 
+  create_table "versions", force: :cascade do |t|
+    t.integer  "target_id",               null: false
+    t.string   "target_type",             null: false
+    t.integer  "number",      default: 0, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   add_foreign_key "live_content_items", "draft_content_items"
 end

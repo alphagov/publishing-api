@@ -51,12 +51,20 @@ module Commands
       )
 
       LiveContentItem.create_or_replace(attributes) do |item|
+        version = Version.find_or_initialize_by(target: item)
+        version.copy_version_from(draft_content_item)
+        version.save!
+
         item.assign_attributes_with_defaults(attributes)
       end
     end
 
     def create_or_update_draft_content_item!
       DraftContentItem.create_or_replace(content_item_attributes) do |item|
+        version = Version.find_or_initialize_by(target: item)
+        version.increment
+        version.save!
+
         item.assign_attributes_with_defaults(content_item_attributes)
       end
     end
@@ -70,7 +78,9 @@ module Commands
 
     def create_or_update_links!
       LinkSet.create_or_replace(content_id: content_id, links: content_item[:links] || {}) do |link_set|
-        link_set.version += 1
+        version = Version.find_or_initialize_by(target: link_set)
+        version.increment
+        version.save!
       end
     end
   end

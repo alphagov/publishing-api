@@ -37,16 +37,16 @@ FactoryGirl.define do
       ]
     }
 
-    transient do
-      draft_version 1
-    end
-
     after(:build) do |live_content_item, evaluator|
+      if evaluator.draft_content_item
+        message = "You should use the draft_content_item already created from the live item"
+        raise ArgumentError, message
+      end
+
       draft = FactoryGirl.build(
         :draft_content_item,
         content_id: live_content_item.content_id,
-        version: evaluator.draft_version - 1,
-        locale: live_content_item.locale
+        locale: live_content_item.locale,
       )
 
       live_content_item.draft_content_item = draft
