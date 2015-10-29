@@ -44,6 +44,10 @@ class LiveContentItem < ActiveRecord::Base
     in: I18n.available_locales.map(&:to_s),
     message: 'must be a supported locale'
   }
+  validates :phase, inclusion: {
+    in: ['alpha', 'beta', 'live'],
+    message: 'must be either alpha, beta, or live'
+  }
 
 private
   def self.query_keys

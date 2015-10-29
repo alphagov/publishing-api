@@ -251,6 +251,30 @@ RSpec.describe LiveContentItem do
         expect(subject.errors[:locale].first).to eq('must be a supported locale')
       end
     end
+
+    context 'phase' do
+      it 'defaults to live' do
+        expect(described_class.new.phase).to eq('live')
+      end
+
+      %w(alpha beta live).each do |phase|
+        it "is valid with #{phase} phase" do
+          subject.phase = phase
+          expect(subject).to be_valid
+        end
+      end
+
+      it 'is invalid without a phase' do
+        subject.phase = nil
+        expect(subject).not_to be_valid
+        expect(subject.errors[:phase].size).to eq(1)
+      end
+
+      it 'is invalid with any other phase' do
+        subject.phase = 'not-a-correct-phase'
+        expect(subject).to_not be_valid
+      end
+    end
   end
 
   let!(:existing) { FactoryGirl.create(:live_content_item) }

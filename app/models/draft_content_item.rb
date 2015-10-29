@@ -31,6 +31,10 @@ class DraftContentItem < ActiveRecord::Base
     in: I18n.available_locales.map(&:to_s),
     message: 'must be a supported locale'
   }
+  validates :phase, inclusion: {
+    in: ['alpha', 'beta', 'live'],
+    message: 'must be either alpha, beta, or live'
+  }
 
   def viewable_by?(user_uid)
     !access_limited? || authorised_user_uids.include?(user_uid)
