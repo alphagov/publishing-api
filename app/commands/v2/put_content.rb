@@ -26,18 +26,14 @@ module Commands
       end
 
       def content_item_attributes
-        payload
-          .slice(*DraftContentItem::TOP_LEVEL_FIELDS)
-          .merge(metadata: metadata)
-          .except(:version)
-      end
-
-      def metadata
-        payload.except(*DraftContentItem::TOP_LEVEL_FIELDS)
+        payload.slice(*DraftContentItem::TOP_LEVEL_FIELDS)
       end
 
       def draft_payload(content_item)
+        content_item_fields = DraftContentItem::TOP_LEVEL_FIELDS + [:links]
         draft_item_hash = LinkSetMerger.merge_links_into(content_item)
+          .slice(*content_item_fields)
+
         Presenters::ContentItemPresenter.present(draft_item_hash)
       end
     end

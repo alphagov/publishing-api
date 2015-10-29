@@ -80,7 +80,10 @@ module Commands
       end
 
       def content_store_payload(live_item)
+        content_item_fields = LiveContentItem::TOP_LEVEL_FIELDS + [:links]
         live_item_hash = LinkSetMerger.merge_links_into(live_item)
+          .slice(*content_item_fields)
+
         Presenters::ContentItemPresenter.present(live_item_hash)
       end
 

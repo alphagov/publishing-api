@@ -41,10 +41,6 @@ module Commands
       LiveContentItem::TOP_LEVEL_FIELDS
     end
 
-    def metadata
-      content_item.except(:access_limited).except(*content_item_top_level_fields)
-    end
-
     def create_or_update_live_content_item!(draft_content_item)
       attributes = content_item_attributes.merge(
         draft_content_item: draft_content_item
@@ -72,8 +68,7 @@ module Commands
     def content_item_attributes
       payload
         .slice(*content_item_top_level_fields)
-        .merge(metadata: metadata, mutable_base_path: true)
-        .except(:version)
+        .merge(mutable_base_path: true)
     end
 
     def create_or_update_links!

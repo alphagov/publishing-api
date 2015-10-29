@@ -39,6 +39,7 @@ module RequestHelpers
             "74c7d700-5b4a-0131-7a8e-005056030037",
           ],
         },
+        analytics_identifier: "GDS01",
       }.merge(links_attributes)
     end
 

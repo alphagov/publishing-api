@@ -4,12 +4,11 @@ require "support/shared_context/message_queue_test_mode"
 RSpec.describe "POST /v2/publish", type: :request do
   include MessageQueueHelpers
 
-  let(:draft_content_item_attributes) { draft_content_item.attributes.deep_symbolize_keys.except(:id, :version) }
+  let(:draft_content_item_attributes) { draft_content_item.attributes.deep_symbolize_keys.except(:id, :version, :metadata) }
   let(:expected_live_content_item_derived_representation) {
     draft_content_item_attributes
-      .merge(draft_content_item_attributes[:metadata])
       .merge(public_updated_at: draft_content_item_attributes[:public_updated_at].iso8601)
-      .except(:metadata, :access_limited)
+      .except(:access_limited)
   }
   let(:expected_live_content_item_hash) {
     expected_live_content_item_derived_representation
@@ -62,8 +61,10 @@ RSpec.describe "POST /v2/publish", type: :request do
       expect(item.title).to eq(expected_live_content_item_derived_representation[:title])
       expect(item.routes).to eq(expected_live_content_item_derived_representation[:routes].map(&:deep_symbolize_keys))
       expect(item.redirects).to eq(expected_live_content_item_derived_representation[:redirects].map(&:deep_symbolize_keys))
-      expect(item.metadata[:need_ids]).to eq(expected_live_content_item_derived_representation[:need_ids])
-      expect(item.metadata[:phase]).to eq(expected_live_content_item_derived_representation[:phase])
+      expect(item.need_ids).to eq(expected_live_content_item_derived_representation[:need_ids])
+      expect(item.phase).to eq(expected_live_content_item_derived_representation[:phase])
+      expect(item.analytics_identifier).to eq(expected_live_content_item_derived_representation[:analytics_identifier])
+      expect(item.update_type).to eq(expected_live_content_item_derived_representation[:update_type])
     end
 
     it "gives the new LiveContentItem the same version number as the draft item" do

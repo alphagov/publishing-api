@@ -77,8 +77,10 @@ module RequestHelpers
         expect(item.title).to eq(expected_attributes[:title])
         expect(item.routes).to eq(expected_attributes[:routes])
         expect(item.redirects).to eq(expected_attributes[:redirects])
-        expect(item.metadata[:need_ids]).to eq(expected_attributes[:need_ids])
-        expect(item.metadata[:phase]).to eq(expected_attributes[:phase])
+        expect(item.need_ids).to eq(expected_attributes[:need_ids])
+        expect(item.phase).to eq(expected_attributes[:phase])
+        expect(item.analytics_identifier).to eq(expected_attributes[:analytics_identifier])
+        expect(item.update_type).to eq(expected_attributes[:update_type])
 
         if access_limited
           expect(item.access_limited).to eq(expected_attributes[:access_limited])
@@ -102,7 +104,6 @@ module RequestHelpers
             content_id: expected_attributes[:content_id],
             locale: expected_attributes[:locale],
             details: expected_attributes[:details],
-            metadata: {},
             base_path: base_path
           )
 
@@ -137,7 +138,6 @@ module RequestHelpers
             content_id: expected_attributes[:content_id],
             locale: expected_attributes[:locale],
             details: expected_attributes[:details],
-            metadata: {},
             base_path: base_path
           )
         end
@@ -176,7 +176,6 @@ module RequestHelpers
             content_id: expected_attributes[:content_id],
             locale: expected_attributes[:locale],
             details: expected_attributes[:details],
-            metadata: {},
             base_path: base_path
           )
 
@@ -215,7 +214,6 @@ module RequestHelpers
             content_id: expected_attributes[:content_id],
             locale: expected_attributes[:locale],
             details: expected_attributes[:details],
-            metadata: {},
             base_path: base_path
           )
 

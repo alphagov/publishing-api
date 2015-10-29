@@ -18,35 +18,47 @@ RSpec.describe SymbolizeJSON do
 
   context "json columns" do
     it "symbolizes hashes" do
-      subject.metadata = { foo: "bar" }
       subject.details = { "foo" => "bar" }
-
       subject.save!
       subject.reload
+      expect(subject.details).to eq(foo: "bar")
 
-      expect(subject.metadata).to eq(foo: "bar")
+      subject.details = { foo: "bar" }
+      subject.save!
+      subject.reload
       expect(subject.details).to eq(foo: "bar")
     end
 
-    it "symbolizes arrays" do
-      subject.metadata = [{ foo: "bar" }]
+    it "symbolizes arrays of hashes" do
       subject.details = [{ "foo" => "bar" }]
-
       subject.save!
       subject.reload
+      expect(subject.details).to eq([{ foo: "bar" }])
 
-      expect(subject.metadata).to eq([{ foo: "bar" }])
+      subject.details = [{ foo: "bar" }]
+      subject.save!
+      subject.reload
       expect(subject.details).to eq([{ foo: "bar" }])
     end
 
-    it "doesn't affect other JSON-compatible data types" do
-      subject.metadata = 123
-      subject.details = nil
+    it "doesn't symbolize arrays of strings" do
+      subject.details = ["foo"]
 
       subject.save!
       subject.reload
 
-      expect(subject.metadata).to eq(123)
+      expect(subject.details).to eq(["foo"])
+    end
+
+    it "doesn't affect other JSON-compatible data types" do
+      subject.details = 123
+      subject.save!
+      subject.reload
+      expect(subject.details).to eq(123)
+
+      subject.details = nil
+      subject.save!
+      subject.reload
       expect(subject.details).to eq(nil)
     end
   end

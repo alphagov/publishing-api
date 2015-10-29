@@ -11,27 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029102155) do
+ActiveRecord::Schema.define(version: 20151029110606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "draft_content_items", force: :cascade do |t|
     t.string   "content_id"
-    t.string   "locale",            default: "en"
-    t.integer  "version",           default: 0,    null: false
+    t.string   "locale",               default: "en"
+    t.integer  "version",              default: 0,      null: false
     t.string   "base_path"
     t.string   "title"
     t.string   "description"
     t.string   "format"
     t.datetime "public_updated_at"
-    t.json     "access_limited",    default: {}
-    t.json     "metadata",          default: {}
-    t.json     "details",           default: {}
-    t.json     "routes",            default: []
-    t.json     "redirects",         default: []
+    t.json     "access_limited",       default: {}
+    t.json     "metadata",             default: {}
+    t.json     "details",              default: {}
+    t.json     "routes",               default: []
+    t.json     "redirects",            default: []
     t.string   "publishing_app"
     t.string   "rendering_app"
+    t.json     "need_ids",             default: []
+    t.string   "update_type"
+    t.string   "phase",                default: "live"
+    t.string   "analytics_identifier"
   end
 
   add_index "draft_content_items", ["base_path"], name: "index_draft_content_items_on_base_path", unique: true, using: :btree
@@ -56,7 +60,7 @@ ActiveRecord::Schema.define(version: 20151029102155) do
   create_table "live_content_items", force: :cascade do |t|
     t.string   "content_id"
     t.string   "locale",                default: "en"
-    t.integer  "version",               default: 0,    null: false
+    t.integer  "version",               default: 0,      null: false
     t.string   "base_path"
     t.string   "title"
     t.string   "description"
@@ -68,7 +72,11 @@ ActiveRecord::Schema.define(version: 20151029102155) do
     t.json     "redirects",             default: []
     t.string   "publishing_app"
     t.string   "rendering_app"
-    t.integer  "draft_content_item_id",                null: false
+    t.integer  "draft_content_item_id",                  null: false
+    t.json     "need_ids",              default: []
+    t.string   "update_type"
+    t.string   "phase",                 default: "live"
+    t.string   "analytics_identifier"
   end
 
   add_index "live_content_items", ["base_path"], name: "index_live_content_items_on_base_path", unique: true, using: :btree

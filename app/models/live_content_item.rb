@@ -17,6 +17,10 @@ class LiveContentItem < ActiveRecord::Base
     :rendering_app,
     :routes,
     :title,
+    :analytics_identifier,
+    :phase,
+    :update_type,
+    :need_ids,
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w(redirect gone)

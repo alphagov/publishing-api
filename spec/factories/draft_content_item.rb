@@ -16,13 +16,10 @@ FactoryGirl.define do
       { body: "<p>Something about VAT</p>\n", }
     }
     access_limited { }
-    metadata {
-      {
-        need_ids: ["100123", "100124"],
-        phase: "beta",
-        update_type: "minor",
-      }
-    }
+    need_ids ["100123", "100124"]
+    phase "beta"
+    update_type "minor"
+    analytics_identifier "GDS01"
     routes {
       [
         {
