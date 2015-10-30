@@ -113,13 +113,46 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
     end
 
     it "must contain valid absolute paths" do
-      subject.routes = [
-        { path: subject.base_path, type: "exact" },
-        { path: "#{subject.base_path}/ not valid", type: "exact" },
-      ]
+      subject.redirects = [{ path: "#{subject.base_path}/ not valid", type: "exact", destination: "/foo" }]
 
       expect(subject).to be_invalid
-      expect(subject.errors[:routes]).to eq(["is not a valid absolute URL path"])
+      expect(subject.errors[:redirects]).to eq(["is not a valid absolute URL path"])
+    end
+
+    context "when the type is 'prefix'" do
+      it "must contain valid absolute paths for destinations" do
+        subject.redirects = [{ path: "#{subject.base_path}/foo", type: "prefix", destination: "not valid" }]
+
+        expect(subject).to be_invalid
+        expect(subject.errors[:redirects]).to eq(["is not a valid absolute URL path"])
+      end
+    end
+
+    context "when the type is 'exact'" do
+      it "is valid with an optional query string and fragment in destination" do
+        %w(/foo/bar /foo?bar=baz /foo/bar#baz).each do |destination|
+          subject.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
+          expect(subject).to be_valid
+        end
+      end
+
+      it "is invalid with an non-absolute url" do
+        ["foo/bar", "/url with spaces", "fdjkdfjkljsdaf"].each do |destination|
+          subject.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
+
+          expect(subject).to be_invalid
+          expect(subject.errors[:redirects]).to eq(["is not a valid redirect destination"])
+        end
+      end
+
+      it "is invalid with an external url" do
+        ["https://www.example.com/foo/bar", "https://www.gov.uk/foo/bar"].each do |destination|
+          subject.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
+
+          expect(subject).to be_invalid
+          expect(subject.errors[:redirects]).to eq(["is not a valid redirect destination"])
+        end
+      end
     end
 
     context "for a redirect item" do
