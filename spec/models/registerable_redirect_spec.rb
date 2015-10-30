@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe RegisterableRedirect, :type => :model do
   let(:factory_name) { :registerable_redirect }
-  it_behaves_like 'a valid registerable route'
 
   context "for a prefix redirect" do
     it 'validates destination is an absolute path' do

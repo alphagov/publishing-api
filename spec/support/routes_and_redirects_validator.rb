@@ -41,6 +41,16 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       expect(subject).to be_valid
     end
 
+    it "must contain valid absolute paths" do
+      subject.routes = [
+        { path: subject.base_path, type: "exact" },
+        { path: "#{subject.base_path}/ not valid", type: "exact" },
+      ]
+
+      expect(subject).to be_invalid
+      expect(subject.errors[:routes]).to eq(["is not a valid absolute URL path"])
+    end
+
     context "for a redirect item" do
       before do
         subject.format = "redirect"
@@ -100,6 +110,16 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
     it "is valid with a dashed locale" do
       subject.redirects = [{ path: "#{subject.base_path}.es-419", type: "exact", destination: "/foo" }]
       expect(subject).to be_valid
+    end
+
+    it "must contain valid absolute paths" do
+      subject.routes = [
+        { path: subject.base_path, type: "exact" },
+        { path: "#{subject.base_path}/ not valid", type: "exact" },
+      ]
+
+      expect(subject).to be_invalid
+      expect(subject.errors[:routes]).to eq(["is not a valid absolute URL path"])
     end
 
     context "for a redirect item" do
