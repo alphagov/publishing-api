@@ -86,13 +86,6 @@ RSpec.describe RegisterableRouteSet, :type => :model do
         expect(@route_set.errors[:registerable_routes].size).to eq(1)
       end
 
-      it "requires all routes to have a unique path" do
-        @route_set.registerable_routes << build(:registerable_route, :path => @route_set.base_path)
-
-        expect(@route_set).not_to be_valid
-        expect(@route_set.errors[:registerable_routes].size).to eq(1)
-      end
-
       it "requires the routes to include the base path" do
         @route_set.registerable_routes.first.path = "#{@route_set.base_path}/foo"
         expect(@route_set).to_not be_valid
@@ -103,19 +96,6 @@ RSpec.describe RegisterableRouteSet, :type => :model do
         @route_set.registerable_routes.first.path = "#{@route_set.base_path}/foo"
         @route_set.is_supplimentary_set = true
         expect(@route_set).to be_valid
-      end
-
-      context "a non-redirect item that includes some redirects" do
-        it "is valid with routes and redirects" do
-          @route_set.registerable_redirects << build(:registerable_redirect, :path => @route_set.base_path + ".json")
-          expect(@route_set).to be_valid
-        end
-
-        it "does not allow redirects to duplicate any of the routes" do
-          @route_set.registerable_redirects << build(:registerable_redirect, :path => @route_set.base_path)
-          expect(@route_set).not_to be_valid
-          expect(@route_set.errors[:registerable_redirects].size).to eq(1)
-        end
       end
     end
 
@@ -138,13 +118,6 @@ RSpec.describe RegisterableRouteSet, :type => :model do
         @route_set.registerable_routes = [build(:registerable_route, :path => @route_set.base_path)]
         expect(@route_set).not_to be_valid
         expect(@route_set.errors[:registerable_routes].size).to eq(1)
-      end
-
-      it "requires all redirects to have a unique path" do
-        @route_set.registerable_redirects << build(:registerable_redirect, :path => @route_set.base_path)
-
-        expect(@route_set).not_to be_valid
-        expect(@route_set.errors[:registerable_redirects].size).to eq(1)
       end
 
       it "requires the redirects to include the base path" do

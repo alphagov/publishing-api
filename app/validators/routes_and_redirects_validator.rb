@@ -10,6 +10,16 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
       RouteValidator.new.validate(record, :redirects, redirect)
       RedirectValidator.new.validate(record, redirect)
     end
+
+    paths = record.routes.map { |r| r[:path] }
+    unless paths == paths.uniq
+      record.errors[:routes] << "must have unique paths"
+    end
+
+    paths += record.redirects.map { |r| r[:path] }
+    unless paths == paths.uniq
+      record.errors[:redirects] << "must have unique paths"
+    end
   end
 
   class RouteValidator

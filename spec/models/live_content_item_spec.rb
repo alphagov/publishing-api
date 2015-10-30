@@ -166,6 +166,42 @@ RSpec.describe LiveContentItem do
       end
     end
 
+    it "requires all routes to have a unique path" do
+      subject.routes = [
+        { path: subject.base_path, type: "exact" },
+        { path: subject.base_path, type: "exact" },
+      ]
+
+      expect(subject).to be_invalid
+      expect(subject.errors[:routes].size).to eq(1)
+    end
+
+    it "requires all redirects to have a unique path" do
+      subject.redirects = [
+        { path: subject.base_path, type: "exact", destination: "/foo" },
+        { path: subject.base_path, type: "exact", destination: "/foo" },
+      ]
+
+      expect(subject).to be_invalid
+      expect(subject.errors[:redirects].size).to eq(1)
+    end
+
+    context "a non-redirect item that includes some redirects" do
+      it "is valid with routes and redirects" do
+        subject.routes = [{ path: subject.base_path, type: "exact" }]
+        subject.redirects = [{ path: subject.base_path + ".json", type: "exact", destination: "/foo" }]
+
+        expect(subject).to be_valid
+      end
+
+      it "does not allow redirects to duplicate any of the routes" do
+        subject.routes = [{ path: subject.base_path, type: "exact" }]
+        subject.redirects = [{ path: subject.base_path, type: "exact", destination: "/foo" }]
+
+        expect(subject).to be_invalid
+      end
+    end
+
     context 'with an invalid type of route' do
       before do
         subject.routes= [{ path: subject.base_path, type: 'unsupported' }]
