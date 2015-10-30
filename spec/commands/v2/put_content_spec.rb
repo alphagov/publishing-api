@@ -12,10 +12,11 @@ RSpec.describe Commands::V2::PutContent do
       FactoryGirl.build(:draft_content_item)
         .as_json
         .deep_symbolize_keys
-        .except(:routes)
-        .merge(content_id: content_id,
-               title: 'The title',
-               base_path: base_path)
+        .merge(
+          content_id: content_id,
+          title: 'The title',
+          base_path: base_path
+        )
     }
 
     describe 'validation' do

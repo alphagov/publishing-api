@@ -24,6 +24,14 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
     if record.format == "redirect" && record.routes.any?
       record.errors[:routes] << "redirect items cannot have routes"
     end
+
+    if record.format != "redirect" && record.routes.none? { |r| r[:path] == record.base_path }
+      record.errors[:routes] << "must include the base path"
+    end
+
+    if record.format == "redirect" && record.redirects.none? { |r| r[:path] == record.base_path }
+      record.errors[:redirects] << "must include the base path"
+    end
   end
 
   class RouteValidator

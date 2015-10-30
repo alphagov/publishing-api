@@ -218,11 +218,21 @@ RSpec.describe DraftContentItem do
       end
     end
 
+    it "requires some routes" do
+      subject.routes = []
+      expect(subject).to be_invalid
+    end
+
     context 'special cases for a redirect item' do
       before :each do
         subject.format = "redirect"
         subject.routes = []
         subject.redirects = [{ path: subject.base_path, type: "exact", destination: "/somewhere" }]
+      end
+
+      it "does not require any routes" do
+        subject.routes = []
+        expect(subject).to be_valid
       end
 
       it "should not require a title" do

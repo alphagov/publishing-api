@@ -24,7 +24,6 @@ class DraftContentItem < ActiveRecord::Base
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :renderable_content?
   validates :public_updated_at, presence: true, if: :renderable_content?
-  validate :route_set_is_valid
   validate :no_extra_route_keys
   validate :access_limited_is_valid
   validates :locale, inclusion: {
@@ -54,17 +53,6 @@ private
 
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(format)
-  end
-
-  def route_set_is_valid
-    unless base_path.present? && registerable_route_set.valid?
-      errors.set(:routes, registerable_route_set.errors[:registerable_routes])
-      errors.set(:redirects, registerable_route_set.errors[:registerable_redirects])
-    end
-  end
-
-  def registerable_route_set
-    @registerable_route_set ||= RegisterableRouteSet.from_content_item(self)
   end
 
   def no_extra_route_keys
