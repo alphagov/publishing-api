@@ -32,7 +32,7 @@ RSpec.describe LiveContentItem do
     end
   end
 
-  let(:existing) { FactoryGirl.create(:live_content_item) }
+  let!(:existing) { FactoryGirl.create(:live_content_item) }
 
   let(:draft) { existing.draft_content_item }
   let(:content_id) { existing.content_id }

@@ -1,8 +1,10 @@
 RSpec.shared_examples Replaceable do
   context "an item exists with that content_id" do
     it "replaces an existing instance by content id" do
-      described_class.create_or_replace(payload)
-      expect(described_class.count).to eq(1)
+      expect {
+        described_class.create_or_replace(payload)
+      }.not_to change(described_class, :count)
+
       item = described_class.first
       expect(item.content_id).to eq(content_id)
       expect(item.id).to eq(existing.id)
