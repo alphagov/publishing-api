@@ -1,8 +1,4 @@
 Rails.application.configure do
-  config.logstasher.enabled = true
-  config.logstasher.logger = Logger.new(Rails.root.join("log/production.json.log"))
-  config.logstasher.suppress_app_log = true
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -40,6 +36,7 @@ Rails.application.configure do
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.logger = ActiveSupport::TaggedLogging.new(Logger.new($stderr))
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -52,4 +49,10 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   # config.log_formatter = ::Logger::Formatter.new
+
+  $real_stdout = $stdout.clone
+  $stdout.reopen($stderr)
+  config.logstasher.enabled = true
+  config.logstasher.logger = Logger.new($real_stdout)
+  config.logstasher.suppress_app_log = true
 end
