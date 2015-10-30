@@ -8,7 +8,6 @@ class RegisterableRouteSet < OpenStruct
 
   include ActiveModel::Validations
 
-  validate :redirect_cannot_have_routes
   validate :registerable_routes_include_base_path, :if => :base_path_route_required?
   validate :registerable_redirects_include_base_path, :if => :is_redirect
 
@@ -83,12 +82,6 @@ private
     paths = registerable_redirects.map(&:path)
     unless paths.include?(base_path)
       errors[:registerable_redirects] << 'must include the base_path'
-    end
-  end
-
-  def redirect_cannot_have_routes
-    if self.is_redirect && self.registerable_routes.any?
-      errors[:registerable_routes] << 'redirect items cannot have routes'
     end
   end
 end

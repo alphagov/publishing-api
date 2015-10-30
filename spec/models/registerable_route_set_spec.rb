@@ -114,12 +114,6 @@ RSpec.describe RegisterableRouteSet, :type => :model do
         expect(@route_set).to be_valid
       end
 
-      it "requires no routes to be present" do
-        @route_set.registerable_routes = [build(:registerable_route, :path => @route_set.base_path)]
-        expect(@route_set).not_to be_valid
-        expect(@route_set.errors[:registerable_routes].size).to eq(1)
-      end
-
       it "requires the redirects to include the base path" do
         @route_set.registerable_redirects.first.path = "#{@route_set.base_path}/foo"
         expect(@route_set).to_not be_valid

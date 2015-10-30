@@ -20,6 +20,10 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
     unless paths == paths.uniq
       record.errors[:redirects] << "must have unique paths"
     end
+
+    if record.format == "redirect" && record.routes.any?
+      record.errors[:routes] << "redirect items cannot have routes"
+    end
   end
 
   class RouteValidator
