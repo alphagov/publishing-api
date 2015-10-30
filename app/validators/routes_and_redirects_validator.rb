@@ -31,6 +31,25 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
 
       validator = AbsolutePathValidator.new(attributes: attribute)
       validator.validate_each(record, attribute, path)
+
+      unless below_base_path?(path, record.base_path)
+        record.errors[attribute] << "path must be below the base path"
+      end
+    end
+
+  private
+    def below_base_path?(path, base_path)
+      return true if path.match(%r(^#{base_path}\.[\w-]+\z))
+
+      path_segments = segments(path)
+      base_segments = segments(base_path)
+
+      pairs = base_segments.zip(path_segments)
+      pairs.all? { |a, b| a == b }
+    end
+
+    def segments(path)
+      path.split('/').reject(&:blank?)
     end
   end
 

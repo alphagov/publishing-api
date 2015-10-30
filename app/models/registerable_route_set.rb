@@ -8,8 +8,7 @@ class RegisterableRouteSet < OpenStruct
 
   include ActiveModel::Validations
 
-  validate :all_routes_and_redirects_are_beneath_base_path,
-           :all_routes_and_redirects_have_unique_paths,
+  validate :all_routes_and_redirects_have_unique_paths,
            :redirect_cannot_have_routes
   validate :registerable_routes_include_base_path, :if => :base_path_route_required?
   validate :registerable_redirects_include_base_path, :if => :is_redirect
@@ -88,15 +87,6 @@ private
     end
   end
 
-  def all_routes_and_redirects_are_beneath_base_path
-    unless registerable_routes.all? {|route| base_path_with_extension?(route) || beneath_base_path?(route) }
-      errors[:registerable_routes] << 'must be below the base path'
-    end
-    unless registerable_redirects.all? {|redirect| base_path_with_extension?(redirect) || beneath_base_path?(redirect) }
-      errors[:registerable_redirects] << 'must be below the base path'
-    end
-  end
-
   def all_routes_and_redirects_have_unique_paths
     paths = registerable_routes.map(&:path)
     unless paths == paths.uniq
@@ -113,22 +103,5 @@ private
     if self.is_redirect && self.registerable_routes.any?
       errors[:registerable_routes] << 'redirect items cannot have routes'
     end
-  end
-
-  def base_path_with_extension?(route)
-    route.path.match(%r(^#{base_path}\.[\w-]+\z))
-  end
-
-  def beneath_base_path?(route)
-    base_segments = segments_for(route.path)[0,base_path_segments.size]
-    base_segments == base_path_segments
-  end
-
-  def base_path_segments
-    @base_path_segments ||= segments_for(base_path)
-  end
-
-  def segments_for(path)
-    path.split('/').reject(&:blank?)
   end
 end

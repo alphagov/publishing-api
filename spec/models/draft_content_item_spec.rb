@@ -156,7 +156,7 @@ RSpec.describe DraftContentItem do
 
       it 'should be invalid' do
         expect(subject).to be_invalid
-        expect(subject.errors[:routes]).to eq(["must be below the base path"])
+        expect(subject.errors[:routes]).to eq(["path must be below the base path"])
       end
     end
 
