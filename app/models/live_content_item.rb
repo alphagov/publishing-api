@@ -48,6 +48,7 @@ class LiveContentItem < ActiveRecord::Base
     in: ['alpha', 'beta', 'live'],
     message: 'must be either alpha, beta, or live'
   }
+  validates_with RoutesAndRedirectsValidator
 
 private
   def self.query_keys

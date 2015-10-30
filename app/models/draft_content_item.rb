@@ -35,6 +35,7 @@ class DraftContentItem < ActiveRecord::Base
     in: ['alpha', 'beta', 'live'],
     message: 'must be either alpha, beta, or live'
   }
+  validates_with RoutesAndRedirectsValidator
 
   def viewable_by?(user_uid)
     !access_limited? || authorised_user_uids.include?(user_uid)

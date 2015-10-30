@@ -8,8 +8,7 @@ class RegisterableRouteSet < OpenStruct
 
   include ActiveModel::Validations
 
-  validate :registerable_routes_and_redirects_are_valid,
-           :all_routes_and_redirects_are_beneath_base_path,
+  validate :all_routes_and_redirects_are_beneath_base_path,
            :all_routes_and_redirects_have_unique_paths,
            :redirect_cannot_have_routes
   validate :registerable_routes_include_base_path, :if => :base_path_route_required?
@@ -73,15 +72,6 @@ private
 
   def base_path_route_required?
     ! self.is_redirect && ! self.is_supplimentary_set
-  end
-
-  def registerable_routes_and_redirects_are_valid
-    unless registerable_routes.all?(&:valid?)
-      errors[:registerable_routes] << "are invalid"
-    end
-    unless registerable_redirects.all?(&:valid?)
-      errors[:registerable_redirects] << "are invalid"
-    end
   end
 
   def registerable_routes_include_base_path

@@ -173,7 +173,7 @@ RSpec.describe LiveContentItem do
 
       it 'should be invalid' do
         expect(subject).to be_invalid
-        expect(subject.errors[:routes]).to eq(["are invalid"])
+        expect(subject.errors[:routes]).to eq(["type must be either 'exact' or 'prefix'"])
       end
     end
 
@@ -216,9 +216,9 @@ RSpec.describe LiveContentItem do
       end
 
       it "should be invalid with an invalid redirect" do
-        subject.redirects = [{ path: "/vat-rates", type: "fooey", destination: "/somewhere" }]
+        subject.redirects = [{ path: "/vat-rates", type: "not_a_valid_type", destination: "/somewhere" }]
         expect(subject).not_to be_valid
-        expect(subject.errors[:redirects]).to eq(["are invalid"])
+        expect(subject.errors[:redirects]).to eq(["type must be either 'exact' or 'prefix'"])
       end
 
       it "should be invalid with extra keys in a redirect entry" do
