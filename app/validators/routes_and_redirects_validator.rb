@@ -11,6 +11,19 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
       RedirectValidator.new.validate(record, redirect)
     end
 
+    must_have_unique_paths(record)
+
+    if record.format == "redirect"
+      redirects_must_not_have_routes(record)
+      redirects_must_include_base_path(record)
+    else
+      routes_must_include_base_path(record)
+    end
+  end
+
+  private
+
+  def must_have_unique_paths(record)
     paths = record.routes.map { |r| r[:path] }
     unless paths == paths.uniq
       record.errors[:routes] << "must have unique paths"
@@ -20,17 +33,23 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
     unless paths == paths.uniq
       record.errors[:redirects] << "must have unique paths"
     end
+  end
 
-    if record.format == "redirect" && record.routes.any?
+  def redirects_must_not_have_routes(record)
+    if record.routes.any?
       record.errors[:routes] << "redirect items cannot have routes"
     end
+  end
 
-    if record.format != "redirect" && record.routes.none? { |r| r[:path] == record.base_path }
-      record.errors[:routes] << "must include the base path"
-    end
-
-    if record.format == "redirect" && record.redirects.none? { |r| r[:path] == record.base_path }
+  def redirects_must_include_base_path(record)
+    if record.redirects.none? { |r| r[:path] == record.base_path }
       record.errors[:redirects] << "must include the base path"
+    end
+  end
+
+  def routes_must_include_base_path(record)
+    if record.routes.none? { |r| r[:path] == record.base_path }
+      record.errors[:routes] << "must include the base path"
     end
   end
 
