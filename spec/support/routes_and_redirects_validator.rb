@@ -20,6 +20,16 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       expect(subject.errors[:routes]).to eq(["must have unique paths"])
     end
 
+    it "must have a type" do
+      subject.routes = [{ path: subject.base_path }]
+      expect(subject).to be_invalid
+    end
+
+    it "must have a path" do
+      subject.routes = [{ type: "exact" }]
+      expect(subject).to be_invalid
+    end
+
     it "must have a valid type" do
       subject.routes = [{ path: subject.base_path, type: "unsupported" }]
       expect(subject).to be_invalid
@@ -29,7 +39,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       subject.routes = [{ path: subject.base_path, type: "exact", foo: "bar" }]
 
       expect(subject).to be_invalid
-      expect(subject.errors[:routes]).to eq(["are invalid"])
+      expect(subject.errors[:routes]).to eq(["unsupported keys: foo"])
     end
 
     it "is valid with a dashed locale" do
@@ -109,7 +119,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       subject.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: "/foo", foo: "bar" }]
 
       expect(subject).to be_invalid
-      expect(subject.errors[:redirects]).to eq(["are invalid"])
+      expect(subject.errors[:redirects]).to eq(["unsupported keys: foo"])
     end
 
     it "is valid with a dashed locale" do

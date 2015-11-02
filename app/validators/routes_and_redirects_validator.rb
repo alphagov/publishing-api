@@ -66,7 +66,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
         record.errors[attribute] << "path must be present"
       end
 
-      unless %(exact prefix).include?(type)
+      unless type.present? && %(exact prefix).include?(type)
         record.errors[attribute] << "type must be either 'exact' or 'prefix'"
       end
 
@@ -78,7 +78,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
       validator = AbsolutePathValidator.new(attributes: attribute)
       validator.validate_each(record, attribute, path)
 
-      unless below_base_path?(path, record.base_path)
+      unless path.present? && below_base_path?(path, record.base_path)
         record.errors[attribute] << "path must be below the base path"
       end
     end
