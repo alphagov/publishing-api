@@ -2,6 +2,8 @@ module Commands
   module V2
     class PutContent < BaseCommand
       def call
+        validate_version_lock!
+
         content_item = create_or_update_draft_content_item!
 
         PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
@@ -10,6 +12,10 @@ module Commands
       end
 
     private
+      def validate_version_lock!
+        super(DraftContentItem, content_id, payload[:previous_version])
+      end
+
       def content_id
         payload.fetch(:content_id)
       end

@@ -13,6 +13,12 @@ class Version < ActiveRecord::Base
     self.number = version.number
   end
 
+  def conflicts_with?(previous_version_number)
+    return false if previous_version_number.nil?
+
+    self.number != previous_version_number
+  end
+
 private
 
   def numbers_must_increase

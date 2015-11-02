@@ -71,4 +71,42 @@ RSpec.describe Version do
       end
     end
   end
+
+  describe "#conflicts_with?(previous_version_number)" do
+    before do
+      subject.number = 2
+    end
+
+    context "when the previous version is lower than the current version" do
+      let(:previous_version_number) { subject.number - 1 }
+
+      it "conflicts" do
+        expect(subject.conflicts_with?(previous_version_number)).to eq(true)
+      end
+    end
+
+    context "when the previous version matches the current version number" do
+      let(:previous_version_number) { subject.number }
+
+      it "does not conflict" do
+        expect(subject.conflicts_with?(previous_version_number)).to eq(false)
+      end
+    end
+
+    context "when the previous version is larger than the current version number" do
+      let(:previous_version_number) { subject.number + 1 }
+
+      it "conflicts, and something really weird is going on" do
+        expect(subject.conflicts_with?(previous_version_number)).to eq(true)
+      end
+    end
+
+    context "when the previous version is absent" do
+      let(:previous_version_number) { nil }
+
+      it "does not conflict" do
+        expect(subject.conflicts_with?(previous_version_number)).to eq(false)
+      end
+    end
+  end
 end

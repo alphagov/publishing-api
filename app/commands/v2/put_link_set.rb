@@ -26,6 +26,11 @@ module Commands
 
     private
       def validate!
+        validate_links!
+        validate_version_lock!
+      end
+
+      def validate_links!
         raise CommandError.new(
           code: 422,
           message: "Links are required",
@@ -41,8 +46,12 @@ module Commands
         ) unless link_params[:links].present?
       end
 
+      def validate_version_lock!
+        super(LinkSet, link_params.fetch(:content_id), payload[:previous_version])
+      end
+
       def link_params
-        payload
+        payload.except(:previous_version)
       end
 
       def merge_links(base_links, new_links)
