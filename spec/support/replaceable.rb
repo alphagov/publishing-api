@@ -1,10 +1,14 @@
 RSpec.shared_examples Replaceable do
-  context "an item exists with that content_id" do
-    it "replaces an existing instance by content id" do
-      described_class.create_or_replace(payload)
-      expect(described_class.count).to eq(1)
+  context "an item exists with these query_keys" do
+    it "replaces an existing instance by query_keys" do
+      expect {
+        described_class.create_or_replace(payload)
+      }.not_to change(described_class, :count)
+
       item = described_class.first
-      expect(item.content_id).to eq(content_id)
+      described_class.query_keys do |key|
+        expect(item.send(key)).to eq(payload[key.to_s])
+      end
       expect(item.id).to eq(existing.id)
       verify_new_attributes_set
     end
@@ -28,8 +32,10 @@ RSpec.shared_examples Replaceable do
         described_class.create_or_replace(another_payload)
       }.to change(described_class, :count).by(1)
 
-      content_id = another_payload.fetch(:content_id)
-      expect(described_class.last.content_id).to eq(content_id)
+      instance = described_class.last
+      described_class.query_keys.each do |key|
+        expect(instance.send(key)).to eq(another_payload.fetch(key))
+      end
       verify_new_attributes_set
     end
 
@@ -42,9 +48,11 @@ RSpec.shared_examples Replaceable do
   # We should not let users of our API specify the version number for the
   # record to be saved. This should be handled by our application as it is
   # a workflow consideration.
-  it "does not assign a version from the payload if one is provided" do
-    described_class.create_or_replace(payload.merge(version: 123))
-    expect(described_class.last.version).to_not eq(123)
+  if described_class.column_names.include?("version")
+    it "does not assign a version from the payload if one is provided" do
+      described_class.create_or_replace(payload.merge(version: 123))
+      expect(described_class.last.version).to_not eq(123)
+    end
   end
 
   describe "retrying on race condition when inserting" do

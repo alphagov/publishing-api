@@ -30,7 +30,7 @@ RSpec.describe DraftContentItem do
     end
   end
 
-  let(:existing) { FactoryGirl.create(:draft_content_item) }
+  let!(:existing) { FactoryGirl.create(:draft_content_item) }
 
   let(:content_id) { existing.content_id }
   let(:payload) do
