@@ -72,6 +72,11 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
         subject.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: "/foo" }]
         expect(subject).to be_valid
       end
+
+      it "must include the base path" do
+        subject.routes = [{ path: "#{subject.base_path}/foo", type: "exact" }]
+        expect(subject).to be_invalid
+      end
     end
   end
 
@@ -158,10 +163,17 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
     context "for a redirect item" do
       before do
         subject.format = "redirect"
+        subject.redirects = [{ path: subject.base_path, type: "exact", destination: "/foo" }]
+        subject.routes = []
       end
 
       it "must not have routes" do
-        subject.routes = [{ path: subject.base_path, type: "exact" }]
+        subject.routes = [{ path: "#{subject.base_path}/foo", type: "exact" }]
+        expect(subject).to be_invalid
+      end
+
+      it "must include the base path" do
+        subject.redirects = [{ path: "#{subject.base_path}/bar", type: "exact", destination: "/bar" }]
         expect(subject).to be_invalid
       end
     end
