@@ -52,6 +52,7 @@ GEM
     byebug (5.0.0)
       columnize (= 0.9.0)
     chronic (0.10.2)
+    coderay (1.1.0)
     columnize (0.9.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -98,6 +99,7 @@ GEM
       PriorityQueue (~> 0.1.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    method_source (0.8.2)
     mime-types (2.6.2)
     mini_portile (0.6.2)
     minitest (5.8.0)
@@ -139,6 +141,13 @@ GEM
       thor
     pg (0.18.3)
     plek (1.11.0)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.2.0)
+      byebug (~> 5.0)
+      pry (~> 0.10)
     rack (1.6.4)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -212,6 +221,7 @@ GEM
     simplecov-html (0.10.0)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
+    slop (3.6.0)
     sprockets (3.3.4)
       rack (~> 1.0)
     sprockets-rails (2.3.3)
@@ -255,7 +265,6 @@ PLATFORMS
 DEPENDENCIES
   airbrake (~> 4.2.1)
   bunny (= 2.0.0)
-  byebug
   database_cleaner
   factory_girl_rails (= 4.5.0)
   gds-api-adapters (= 22.0.0)
@@ -264,6 +273,8 @@ DEPENDENCIES
   pact
   pg
   plek (~> 1.10)
+  pry
+  pry-byebug
   rails (= 4.2.4)
   rspec
   rspec-rails (~> 3.3)
