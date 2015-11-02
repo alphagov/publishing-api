@@ -70,6 +70,11 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
         record.errors[attribute] << "type must be either 'exact' or 'prefix'"
       end
 
+      unsupported_keys = additional_keys(route, attribute)
+      if unsupported_keys.any?
+        record.errors[attribute] << "unsupported keys: #{unsupported_keys.join(", ")}"
+      end
+
       validator = AbsolutePathValidator.new(attributes: attribute)
       validator.validate_each(record, attribute, path)
 
@@ -91,6 +96,15 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
 
     def segments(path)
       path.split('/').reject(&:blank?)
+    end
+
+    def additional_keys(route, attribute)
+      utilised_keys = route.keys.uniq
+
+      supported_keys = [:path, :type]
+      supported_keys << :destination if attribute == :redirects
+
+      utilised_keys - supported_keys
     end
   end
 

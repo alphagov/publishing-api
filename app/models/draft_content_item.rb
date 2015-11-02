@@ -24,7 +24,6 @@ class DraftContentItem < ActiveRecord::Base
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :renderable_content?
   validates :public_updated_at, presence: true, if: :renderable_content?
-  validate :no_extra_route_keys
   validate :access_limited_is_valid
   validates :locale, inclusion: {
     in: I18n.available_locales.map(&:to_s),
@@ -53,15 +52,6 @@ private
 
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(format)
-  end
-
-  def no_extra_route_keys
-    if routes.any? { |r| (r.keys - [:path, :type]).any? }
-      errors.add(:routes, "are invalid")
-    end
-    if redirects.any? { |r| (r.keys - [:path, :type, :destination]).any? }
-      errors.add(:redirects, "are invalid")
-    end
   end
 
   def access_limited_is_valid
