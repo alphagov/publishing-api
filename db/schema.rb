@@ -11,29 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026170157) do
+ActiveRecord::Schema.define(version: 20151029144554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "draft_content_items", force: :cascade do |t|
     t.string   "content_id"
-    t.string   "locale"
-    t.integer  "version",           default: 0,  null: false
+    t.string   "locale",               default: "en"
+    t.integer  "version",              default: 0,      null: false
     t.string   "base_path"
     t.string   "title"
     t.string   "description"
     t.string   "format"
     t.datetime "public_updated_at"
-    t.json     "access_limited",    default: {}
-    t.json     "metadata",          default: {}
-    t.json     "details",           default: {}
-    t.json     "routes",            default: []
-    t.json     "redirects",         default: []
+    t.json     "access_limited",       default: {}
+    t.json     "metadata",             default: {}
+    t.json     "details",              default: {}
+    t.json     "routes",               default: []
+    t.json     "redirects",            default: []
     t.string   "publishing_app"
     t.string   "rendering_app"
+    t.json     "need_ids",             default: []
+    t.string   "update_type"
+    t.string   "phase",                default: "live"
+    t.string   "analytics_identifier"
   end
 
+  add_index "draft_content_items", ["base_path"], name: "index_draft_content_items_on_base_path", unique: true, using: :btree
   add_index "draft_content_items", ["content_id", "locale"], name: "index_draft_content_items_on_content_id_and_locale", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
@@ -47,15 +52,15 @@ ActiveRecord::Schema.define(version: 20151026170157) do
   create_table "link_sets", force: :cascade do |t|
     t.string  "content_id"
     t.integer "version",    default: 0,  null: false
-    t.json    "links",      default: {}
+    t.json    "links",      default: {}, null: false
   end
 
   add_index "link_sets", ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
 
   create_table "live_content_items", force: :cascade do |t|
     t.string   "content_id"
-    t.string   "locale"
-    t.integer  "version",               default: 0,  null: false
+    t.string   "locale",                default: "en"
+    t.integer  "version",               default: 0,      null: false
     t.string   "base_path"
     t.string   "title"
     t.string   "description"
@@ -67,9 +72,14 @@ ActiveRecord::Schema.define(version: 20151026170157) do
     t.json     "redirects",             default: []
     t.string   "publishing_app"
     t.string   "rendering_app"
-    t.integer  "draft_content_item_id",              null: false
+    t.integer  "draft_content_item_id",                  null: false
+    t.json     "need_ids",              default: []
+    t.string   "update_type"
+    t.string   "phase",                 default: "live"
+    t.string   "analytics_identifier"
   end
 
+  add_index "live_content_items", ["base_path"], name: "index_live_content_items_on_base_path", unique: true, using: :btree
   add_index "live_content_items", ["content_id", "locale"], name: "index_live_content_items_on_content_id_and_locale", unique: true, using: :btree
   add_index "live_content_items", ["draft_content_item_id"], name: "index_live_content_items_on_draft_content_item_id", using: :btree
 

@@ -62,7 +62,7 @@ module Commands
           else
             version = Version.find_or_initialize_by(target: live_item)
             version.copy_version_from(draft_content_item)
-            version.save!
+            version.save! if live_item.valid?
           end
         end
 
@@ -80,7 +80,10 @@ module Commands
       end
 
       def content_store_payload(live_item)
+        content_item_fields = LiveContentItem::TOP_LEVEL_FIELDS + [:links]
         live_item_hash = LinkSetMerger.merge_links_into(live_item)
+          .slice(*content_item_fields)
+
         Presenters::ContentItemPresenter.present(live_item_hash)
       end
 

@@ -12,7 +12,7 @@ module SymbolizeJSON
   def self.symbolize(value)
     case value
     when Array
-      value.map { |element| element.deep_symbolize_keys }
+      value.map { |element| symbolize(element) }
     when Hash
       value.deep_symbolize_keys
     else

@@ -28,17 +28,19 @@ RSpec.describe EventLogger do
   end
 
   it "rolls back the transaction and retries if a CommandRetryableError is thrown" do
+    content_id = SecureRandom.uuid
+
     call_counter = 0
     EventLogger.log_command(command_class, payload) do
       if call_counter == 0
-        FactoryGirl.create(:live_content_item, content_id: "1234", locale: "en")
+        FactoryGirl.create(:live_content_item, content_id: content_id, locale: "en")
         call_counter += 1
         raise CommandRetryableError
       else
         # The original transaction should have been rolled back, so there should be no
         # corresponding LiveContentItem in the database
-        expect(LiveContentItem.where(content_id: "1234", locale: "en").count).to eq(0)
-        FactoryGirl.create(:live_content_item, content_id: "1234", locale: "en")
+        expect(LiveContentItem.where(content_id: content_id, locale: "en").count).to eq(0)
+        FactoryGirl.create(:live_content_item, content_id: content_id, locale: "en")
       end
     end
 

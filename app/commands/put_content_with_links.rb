@@ -41,10 +41,6 @@ module Commands
       LiveContentItem::TOP_LEVEL_FIELDS
     end
 
-    def metadata
-      content_item.except(:access_limited).except(*content_item_top_level_fields)
-    end
-
     def create_or_update_live_content_item!(draft_content_item)
       attributes = content_item_attributes.merge(
         draft_content_item: draft_content_item
@@ -53,7 +49,7 @@ module Commands
       LiveContentItem.create_or_replace(attributes) do |item|
         version = Version.find_or_initialize_by(target: item)
         version.copy_version_from(draft_content_item)
-        version.save!
+        version.save! if item.valid?
 
         item.assign_attributes_with_defaults(attributes)
       end
@@ -63,7 +59,7 @@ module Commands
       DraftContentItem.create_or_replace(content_item_attributes) do |item|
         version = Version.find_or_initialize_by(target: item)
         version.increment
-        version.save!
+        version.save! if item.valid?
 
         item.assign_attributes_with_defaults(content_item_attributes)
       end
@@ -72,15 +68,14 @@ module Commands
     def content_item_attributes
       payload
         .slice(*content_item_top_level_fields)
-        .merge(metadata: metadata, mutable_base_path: true)
-        .except(:version)
+        .merge(mutable_base_path: true)
     end
 
     def create_or_update_links!
-      LinkSet.create_or_replace(content_id: content_id, links: content_item[:links] || {}) do |link_set|
+      LinkSet.create_or_replace(content_id: content_id, links: content_item[:links]) do |link_set|
         version = Version.find_or_initialize_by(target: link_set)
         version.increment
-        version.save!
+        version.save! if link_set.valid?
       end
     end
   end

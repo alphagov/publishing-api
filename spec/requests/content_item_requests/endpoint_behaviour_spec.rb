@@ -71,7 +71,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
   end
 
   context "/v2/content/:content_id" do
-    let(:content_id) { "foo" }
+    let(:content_id) { SecureRandom.uuid }
     let(:request_body) { "" }
     let(:request_path) { "/v2/content/#{content_id}" }
     let(:request_method) { :get }

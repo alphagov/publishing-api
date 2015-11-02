@@ -23,18 +23,6 @@ RSpec.describe LinkSetMerger do
       end
     end
 
-    context "when a link set exists but has nil value in the links field (regression)" do
-      let!(:link_set) {
-        FactoryGirl.create(:link_set, content_id: content_id, links: nil)
-      }
-
-      it "does not merge the links" do
-        merged_result = subject.merge_links_into(content_item)
-
-        expect(merged_result.key?(:links)).to eq false
-      end
-    end
-
     context "when a link set does not exist" do
       it "returns a hash representing the content item" do
         merged_result = subject.merge_links_into(content_item)

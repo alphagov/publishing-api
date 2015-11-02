@@ -12,27 +12,15 @@ FactoryGirl.define do
     details {
       { body: "<p>Something about VAT</p>\n", }
     }
-    metadata {
-      {
-        need_ids: ["100123", "100124"],
-        phase: "beta",
-        update_type: "minor",
-      }
-    }
+    need_ids ["100123", "100124"]
+    phase "beta"
+    update_type "minor"
+    analytics_identifier "GDS01"
     routes {
       [
         {
-          path: "/vat-rates",
+          path: base_path,
           type: "exact",
-        }
-      ]
-    }
-    redirects {
-      [
-        {
-          path: "/old-vat-rates",
-          type: "exact",
-          destination: "/vat-rates",
         }
       ]
     }
@@ -47,9 +35,22 @@ FactoryGirl.define do
         :draft_content_item,
         content_id: live_content_item.content_id,
         locale: live_content_item.locale,
+        base_path: live_content_item.base_path,
       )
 
       live_content_item.draft_content_item = draft
     end
+  end
+
+  factory :redirect_live_content_item, parent: :live_content_item do
+    sequence(:base_path) {|n| "/test-redirect-#{n}" }
+    format "redirect"
+    routes []
+    redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => '/somewhere' }] }
+  end
+
+  factory :gone_live_content_item, parent: :live_content_item do
+    sequence(:base_path) {|n| "/dodo-sanctuary-#{n}" }
+    format "gone"
   end
 end

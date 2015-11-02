@@ -1,0 +1,2 @@
+class RegisterableGoneRoute < RegisterableRoute
+end

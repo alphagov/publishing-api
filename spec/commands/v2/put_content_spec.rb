@@ -9,10 +9,10 @@ RSpec.describe Commands::V2::PutContent do
     let(:base_path) { '/vat-rates' }
 
     let(:payload) {
-      build(DraftContentItem)
+      FactoryGirl.build(:draft_content_item)
         .as_json
         .deep_symbolize_keys
-        .except(:format, :routes)
+        .except(:routes)
         .merge(content_id: content_id,
                title: 'The title',
                base_path: base_path)
@@ -29,7 +29,7 @@ RSpec.describe Commands::V2::PutContent do
 
         it 'raises an error' do
           expect { Commands::V2::PutContent.call(updated_payload) }.to raise_error(
-            CommandError, 'Base path cannot be changed for published items')
+            CommandError, /Base path cannot be changed for published items/)
         end
       end
 
