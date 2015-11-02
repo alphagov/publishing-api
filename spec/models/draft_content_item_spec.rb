@@ -312,27 +312,34 @@ RSpec.describe DraftContentItem do
     end
   end
 
-  let!(:existing) { FactoryGirl.create(:draft_content_item) }
+  context "replaceable" do
+    let!(:existing) { FactoryGirl.create(:draft_content_item) }
 
-  let(:content_id) { existing.content_id }
-  let(:payload) do
-    FactoryGirl.build(:draft_content_item)
-    .as_json
-    .symbolize_keys
-    .merge(
-      content_id: content_id,
-      title: "New title"
-    )
+    let(:content_id) { existing.content_id }
+    let(:payload) do
+      FactoryGirl.build(:draft_content_item)
+      .as_json
+      .symbolize_keys
+      .merge(
+        content_id: content_id,
+        title: "New title"
+      )
+    end
+
+    let(:another_payload) do
+      FactoryGirl.build(:draft_content_item)
+      .as_json
+      .symbolize_keys
+      .merge(
+        title: "New title",
+        base_path: "/another_base_path",
+        routes: [{ path: "/another_base_path", type: "exact" }],
+      )
+    end
+
+    it_behaves_like Replaceable
   end
 
-  let(:another_payload) do
-    FactoryGirl.build(:draft_content_item)
-    .as_json
-    .symbolize_keys
-    .merge(title: "New title")
-  end
-
-  it_behaves_like Replaceable
   it_behaves_like DefaultAttributes
   it_behaves_like ImmutableBasePath
 end
