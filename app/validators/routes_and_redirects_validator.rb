@@ -2,53 +2,56 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
   def validate(record)
     return unless record.base_path.present?
 
-    record.routes.each do |route|
+    routes = record.routes || []
+    redirects = record.redirects || []
+
+    routes.each do |route|
       RouteValidator.new.validate(record, :routes, route)
     end
 
-    record.redirects.each do |redirect|
+    redirects.each do |redirect|
       RouteValidator.new.validate(record, :redirects, redirect)
       RedirectValidator.new.validate(record, redirect)
     end
 
-    must_have_unique_paths(record)
+    must_have_unique_paths(record, routes, redirects)
 
     if record.format == "redirect"
-      redirects_must_not_have_routes(record)
-      redirects_must_include_base_path(record)
+      redirects_must_not_have_routes(record, routes)
+      redirects_must_include_base_path(record, redirects)
     else
-      routes_must_include_base_path(record)
+      routes_must_include_base_path(record, routes)
     end
   end
 
   private
 
-  def must_have_unique_paths(record)
-    paths = record.routes.map { |r| r[:path] }
+  def must_have_unique_paths(record, routes, redirects)
+    paths = routes.map { |r| r[:path] }
     unless paths == paths.uniq
       record.errors[:routes] << "must have unique paths"
     end
 
-    paths += record.redirects.map { |r| r[:path] }
+    paths += redirects.map { |r| r[:path] }
     unless paths == paths.uniq
       record.errors[:redirects] << "must have unique paths"
     end
   end
 
-  def redirects_must_not_have_routes(record)
-    if record.routes.any?
+  def redirects_must_not_have_routes(record, routes)
+    if routes.any?
       record.errors[:routes] << "redirect items cannot have routes"
     end
   end
 
-  def redirects_must_include_base_path(record)
-    if record.redirects.none? { |r| r[:path] == record.base_path }
+  def redirects_must_include_base_path(record, redirects)
+    if redirects.none? { |r| r[:path] == record.base_path }
       record.errors[:redirects] << "must include the base path"
     end
   end
 
-  def routes_must_include_base_path(record)
-    if record.routes.none? { |r| r[:path] == record.base_path }
+  def routes_must_include_base_path(record, routes)
+    if routes.none? { |r| r[:path] == record.base_path }
       record.errors[:routes] << "must include the base path"
     end
   end

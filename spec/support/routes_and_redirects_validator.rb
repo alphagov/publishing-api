@@ -61,6 +61,11 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       expect(subject.errors[:routes]).to eq(["is not a valid absolute URL path"])
     end
 
+    it "does not throw an error when routes is nil rather than an empty array" do
+      subject.routes = nil
+      expect { subject.valid? }.to_not raise_error
+    end
+
     context "for a redirect item" do
       before do
         subject.format = "redirect"
@@ -134,6 +139,11 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       expect(subject.errors[:redirects]).to eq(["is not a valid absolute URL path"])
     end
 
+    it "does not throw an error when redirects is nil rather than an empty array" do
+      subject.redirects = nil
+      expect { subject.valid? }.to_not raise_error
+    end
+
     context "when the type is 'prefix'" do
       it "must contain valid absolute paths for destinations" do
         subject.redirects = [{ path: "#{subject.base_path}/foo", type: "prefix", destination: "not valid" }]
@@ -185,6 +195,11 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       it "must include the base path" do
         subject.redirects = [{ path: "#{subject.base_path}/bar", type: "exact", destination: "/bar" }]
         expect(subject).to be_invalid
+      end
+
+      it "does not throw an error when routes is nil rather than an empty array" do
+        subject.routes = nil
+        expect { subject.valid? }.to_not raise_error
       end
     end
 
