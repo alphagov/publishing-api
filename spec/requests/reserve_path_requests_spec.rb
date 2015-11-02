@@ -8,8 +8,8 @@ RSpec.describe "PUT /paths", type: :request do
     put request_path, body, headers
   end
 
-  context "with path /foo" do
-    let(:request_path) { "/paths/foo" }
+  context "with path /vat-rates" do
+    let(:request_path) { "/paths#{base_path}" }
     let(:payload) {
       {
         publishing_app: "publisher",
@@ -28,7 +28,6 @@ RSpec.describe "PUT /paths", type: :request do
       }.to change(PathReservation, :count).by(1)
     end
 
+    logs_event('ReservePath', expected_payload_proc: -> { payload.merge(base_path: base_path) } )
   end
 end
-
-
