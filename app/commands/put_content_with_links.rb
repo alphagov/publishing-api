@@ -5,6 +5,7 @@ module Commands
         draft_content_item = create_or_update_draft_content_item!
         create_or_update_live_content_item!(draft_content_item)
         create_or_update_links!
+        create_or_update_content_item_links!
       end
 
       PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
@@ -76,6 +77,10 @@ module Commands
         version.increment
         version.save! if link_set.valid?
       end
+    end
+
+    def create_or_update_content_item_links!
+      ContentItemLinkPopulator.create_or_replace(content_id, content_item[:links] || {})
     end
   end
 end
