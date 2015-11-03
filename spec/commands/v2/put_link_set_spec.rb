@@ -42,4 +42,15 @@ RSpec.describe Commands::V2::PutLinkSet do
       topics: [topic_uuid],
     )
   end
+
+  it "creates related ContentItemLinks" do
+    described_class.call(link_params)
+
+    first_link = ContentItemLink.first
+    second_link = ContentItemLink.last
+
+    expect(first_link.source).to eq content_id
+    expect(first_link.link_type).to eq "organisations"
+    expect(first_link.target).to eq new_uuid
+  end
 end
