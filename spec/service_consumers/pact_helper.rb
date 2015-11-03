@@ -103,8 +103,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
       draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
       FactoryGirl.create(:version, target: draft, number: 1)
-
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
     end
   end
 
@@ -116,30 +114,19 @@ Pact.provider_states_for "GDS API Adapters" do
 
       FactoryGirl.create(:version, target: live, number: 1)
       FactoryGirl.create(:version, target: live.draft_content_item, number: 1)
-
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
     end
   end
 
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 which does not have a publishing_app" do
     set_up do
       DatabaseCleaner.clean_with :truncation
-      draft_content_item = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
-      FactoryGirl.create(:version, target: draft_content_item, number: 1)
+      draft_content_item = FactoryGirl.create(:draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+      )
 
-      error_response = {
-        "errors" => {
-          "publishing_app"=>["can't be blank"],
-        }
-      }
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
-      stub_request(:put, Plek.find('content-store') + "/content#{draft_content_item.base_path}")
-        .to_return(status: 422, body: error_response.to_json, headers: {})
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
-      stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-        .to_return(status: 404, body: "{}", headers: {"Content-Type" => "application/json"} )
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
+      draft_content_item.update_columns(publishing_app: nil)
+
+      FactoryGirl.create(:version, target: draft_content_item, number: 1)
     end
   end
 
@@ -179,8 +166,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
       draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
       FactoryGirl.create(:version, target: draft, number: 1)
-
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
     end
   end
 
