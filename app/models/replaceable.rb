@@ -6,11 +6,6 @@ module Replaceable
       payload = payload.deep_symbolize_keys
 
       item = self.lock.find_or_initialize_by(payload.slice(*self.query_keys))
-      item.assign_attributes(payload.except(:id, :version))
-
-      if block_given?
-        yield(item)
-      end
 
       retry_strategy = if item.new_record?
         method(:retrying_on_unique_constraint_violation)
@@ -18,7 +13,15 @@ module Replaceable
         method(:without_retry)
       end
 
-      retry_strategy.call { item.save! }
+      retry_strategy.call do
+        item.assign_attributes(payload.except(:id, :version))
+
+        if block_given?
+          yield(item)
+        end
+
+        item.save! if item.changed?
+      end
 
       item
     end
