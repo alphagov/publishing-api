@@ -24,8 +24,6 @@ class DraftContentItem < ActiveRecord::Base
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :renderable_content?
   validates :public_updated_at, presence: true, if: :renderable_content?
-  validate :route_set_is_valid
-  validate :no_extra_route_keys
   validate :access_limited_is_valid
   validates :locale, inclusion: {
     in: I18n.available_locales.map(&:to_s),
@@ -35,6 +33,7 @@ class DraftContentItem < ActiveRecord::Base
     in: ['alpha', 'beta', 'live'],
     message: 'must be either alpha, beta, or live'
   }
+  validates_with RoutesAndRedirectsValidator
 
   def viewable_by?(user_uid)
     !access_limited? || authorised_user_uids.include?(user_uid)
@@ -53,26 +52,6 @@ private
 
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(format)
-  end
-
-  def route_set_is_valid
-    unless base_path.present? && registerable_route_set.valid?
-      errors.set(:routes, registerable_route_set.errors[:registerable_routes])
-      errors.set(:redirects, registerable_route_set.errors[:registerable_redirects])
-    end
-  end
-
-  def registerable_route_set
-    @registerable_route_set ||= RegisterableRouteSet.from_content_item(self)
-  end
-
-  def no_extra_route_keys
-    if routes.any? { |r| (r.keys - [:path, :type]).any? }
-      errors.add(:routes, "are invalid")
-    end
-    if redirects.any? { |r| (r.keys - [:path, :type, :destination]).any? }
-      errors.add(:redirects, "are invalid")
-    end
   end
 
   def access_limited_is_valid

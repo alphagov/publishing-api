@@ -152,88 +152,6 @@ RSpec.describe LiveContentItem do
       end
     end
 
-    context 'with a route that is not below the base path' do
-      before do
-        subject.routes = [
-          { path: subject.base_path, type: 'exact' },
-          { path: '/wrong-path', type: 'exact' },
-        ]
-      end
-
-      it 'should be invalid' do
-        expect(subject).to be_invalid
-        expect(subject.errors[:routes]).to eq(["must be below the base path"])
-      end
-    end
-
-    context 'with an invalid type of route' do
-      before do
-        subject.routes= [{ path: subject.base_path, type: 'unsupported' }]
-      end
-
-      it 'should be invalid' do
-        expect(subject).to be_invalid
-        expect(subject.errors[:routes]).to eq(["are invalid"])
-      end
-    end
-
-    context 'with extra keys in a route entry' do
-      before do
-        subject.routes = [{ path: subject.base_path, type: 'exact', foo: 'bar' }]
-      end
-
-      it 'should be invalid' do
-        expect(subject).to be_invalid
-        expect(subject.errors[:routes]).to eq(["are invalid"])
-      end
-    end
-
-    context 'special cases for a redirect item' do
-      before :each do
-        subject.format = "redirect"
-        subject.routes = []
-        subject.redirects = [{ path: subject.base_path, type: "exact", destination: "/somewhere" }]
-      end
-
-      it "should not require a title" do
-        subject.title = nil
-        expect(subject).to be_valid
-      end
-
-      it "should not require a rendering_app" do
-        subject.rendering_app = nil
-        expect(subject).to be_valid
-      end
-
-      it "should be valid with a locale" do
-        subject.redirects << {"path" => subject.base_path + ".cy", "type" => "exact", "destination" => "/somewhere.cy"}
-        expect(subject).to be_valid
-      end
-
-      it "should be valid with a dashed locale" do
-        subject.redirects << {"path" => subject.base_path + ".es-419", "type" => "exact", "destination" => "/somewhere.es-419"}
-        expect(subject).to be_valid
-      end
-
-      it "should be invalid with an invalid redirect" do
-        subject.redirects = [{ path: "/vat-rates", type: "fooey", destination: "/somewhere" }]
-        expect(subject).not_to be_valid
-        expect(subject.errors[:redirects]).to eq(["are invalid"])
-      end
-
-      it "should be invalid with extra keys in a redirect entry" do
-        subject.redirects = [{ path: "/vat-rates", type: "exact", destination: "/somewhere", foo: "bar" }]
-        expect(subject).not_to be_valid
-        expect(subject.errors[:redirects]).to eq(["are invalid"])
-      end
-
-      it "should be invalid if given any routes" do
-        subject.routes = [{ path: subject.base_path, type: "exact" }]
-        expect(subject).not_to be_valid
-        expect(subject.errors[:routes]).to eq(["redirect items cannot have routes"])
-      end
-    end
-
     context "locale" do
       it "defaults to the default I18n locale" do
         expect(described_class.new.locale).to eq(I18n.default_locale.to_s)
@@ -320,4 +238,5 @@ RSpec.describe LiveContentItem do
 
   it_behaves_like DefaultAttributes
   it_behaves_like ImmutableBasePath
+  it_behaves_like RoutesAndRedirectsValidator
 end
