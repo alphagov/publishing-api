@@ -71,12 +71,28 @@ RSpec.shared_examples Replaceable do
       draft.destroy if defined?(draft)
     end
 
-    it "raises a CommandRetryableError in case of a duplicate constraint violation" do
-      expect {
-        described_class.create_or_replace(payload) do |existing|
-          create(described_class, payload.slice(*described_class.query_keys))
-        end
-      }.to raise_error(CommandRetryableError)
+    context "for a single record" do
+      it "raises a CommandRetryableError in case of a duplicate constraint violation" do
+        expect {
+          described_class.create_or_replace(payload) do |existing|
+            create(described_class, payload.slice(*described_class.query_keys))
+          end
+        }.to raise_error(CommandRetryableError)
+      end
+    end
+
+    context "for an object graph" do
+      it "raises a CommandRetryableError in case of a duplicate constraint violation" do
+        expect {
+          described_class.create_or_replace(payload) do |existing|
+            create(described_class, payload.slice(*described_class.query_keys))
+
+            version = Version.new(target: existing)
+            version.increment
+            version.save!
+          end
+        }.to raise_error(CommandRetryableError)
+      end
     end
   end
 end
