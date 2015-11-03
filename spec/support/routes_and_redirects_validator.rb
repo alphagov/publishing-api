@@ -72,9 +72,9 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
         subject.routes = []
       end
 
-      it "can have redirects" do
-        subject.redirects = [{ path: subject.base_path, type: "exact", destination: "/foo" }]
-        expect(subject).to be_valid
+      it "must not have routes" do
+        subject.routes = [{ path: "#{subject.base_path}/foo", type: "exact" }]
+        expect(subject).to be_invalid
       end
     end
 
@@ -83,14 +83,19 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
         subject.format = "guide"
       end
 
-      it "can have redirects" do
-        subject.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: "/foo" }]
+      it "must have routes" do
+        subject.routes = [{ path: subject.base_path, type: "exact" }]
         expect(subject).to be_valid
       end
 
       it "must include the base path" do
         subject.routes = [{ path: "#{subject.base_path}/foo", type: "exact" }]
         expect(subject).to be_invalid
+      end
+
+      it "does not throw an error when routes is nil rather than an empty array" do
+        subject.routes = nil
+        expect { subject.valid? }.to_not raise_error
       end
     end
   end
@@ -183,23 +188,17 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
     context "for a redirect item" do
       before do
         subject.format = "redirect"
-        subject.redirects = [{ path: subject.base_path, type: "exact", destination: "/foo" }]
         subject.routes = []
       end
 
-      it "must not have routes" do
-        subject.routes = [{ path: "#{subject.base_path}/foo", type: "exact" }]
-        expect(subject).to be_invalid
+      it "must have redirects" do
+        subject.redirects = [{ path: subject.base_path, type: "exact", destination: "/foo" }]
+        expect(subject).to be_valid
       end
 
       it "must include the base path" do
         subject.redirects = [{ path: "#{subject.base_path}/bar", type: "exact", destination: "/bar" }]
         expect(subject).to be_invalid
-      end
-
-      it "does not throw an error when routes is nil rather than an empty array" do
-        subject.routes = nil
-        expect { subject.valid? }.to_not raise_error
       end
     end
 
@@ -208,9 +207,14 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
         subject.format = "guide"
       end
 
-      it "can have routes" do
-        subject.routes = [{ path: subject.base_path, type: "exact" }]
+      it "can have redirects" do
+        subject.redirects = [{ path: "#{subject.base_path}/bar", type: "exact", destination: "/bar" }]
         expect(subject).to be_valid
+      end
+
+      it "does not throw an error when redirects is nil rather than an empty array" do
+        subject.redirects = nil
+        expect { subject.valid? }.to_not raise_error
       end
     end
   end
