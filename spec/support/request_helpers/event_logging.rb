@@ -1,3 +1,5 @@
+require "json"
+
 module RequestHelpers
   module EventLogging
     def logs_event(event_class_name, expected_payload_proc:)
@@ -33,7 +35,14 @@ module RequestHelpers
 
         expect(Event.count).to eq(0)
         expect(response.status).to eq(422)
-        expect(response.body).to eq(error_details.to_json)
+
+        parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+        expect(parsed_response).to have_key(:error)
+        parsed_error = parsed_response.fetch(:error)
+
+        expect(parsed_error[:code]).to eq(422)
+        expect(parsed_error[:fields]).to eq(error_details.fetch(:errors))
       end
     end
   end
