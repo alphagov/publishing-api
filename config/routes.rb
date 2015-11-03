@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
       get "/links/:content_id", to: "link_sets#get_links"
       put "/links/:content_id", to: "link_sets#put_links"
+
+      get "/linked/:content_id", to: "link_sets#get_linked"
     end
   end
 

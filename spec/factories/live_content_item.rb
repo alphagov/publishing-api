@@ -29,7 +29,7 @@ FactoryGirl.define do
       after(:build) do |live_content_item, evaluator|
         draft = FactoryGirl.build(
           :draft_content_item,
-          live_content_item.as_json(only: %i[content_id locale base_path format routes redirects]),
+          live_content_item.as_json(only: %i[title content_id locale base_path format routes redirects]),
         )
 
         raise "Draft is not valid: #{draft.errors.full_messages}" unless draft.valid?
