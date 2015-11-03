@@ -1,14 +1,7 @@
 require "rails_helper"
-require "govuk/client/test_helpers/url_arbiter"
 
 RSpec.describe PathReservationsController, type: :controller do
-  include GOVUK::Client::TestHelpers::URLArbiter
-
   describe "reserve_path" do
-    before do
-      stub_default_url_arbiter_responses
-    end
-
     context "with a valid path reservation request" do
       let(:payload) {
         { publishing_app: "Foo" }

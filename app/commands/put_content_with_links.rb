@@ -10,7 +10,6 @@ module Commands
       PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
       if downstream
-        Adapters::UrlArbiter.call(base_path, content_item[:publishing_app])
         Adapters::DraftContentStore.call(base_path, content_item_for_content_store)
         Adapters::ContentStore.call(base_path, content_item_for_content_store)
 

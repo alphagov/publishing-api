@@ -1,8 +1,6 @@
 require 'rails_helper'
-require "govuk/client/test_helpers/url_arbiter"
 
 RSpec.describe Commands::V2::PutContent do
-  include GOVUK::Client::TestHelpers::URLArbiter
 
   describe 'call' do
     let(:content_id) { SecureRandom.uuid }
@@ -43,7 +41,6 @@ RSpec.describe Commands::V2::PutContent do
 
       context 'given a field change on a published item' do
         before do
-          stub_default_url_arbiter_responses
           stub_request(:put, %r{.*content-store.*/content/.*})
         end
 

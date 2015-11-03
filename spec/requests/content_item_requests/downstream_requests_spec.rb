@@ -21,7 +21,6 @@ RSpec.describe "Downstream requests", type: :request do
     sends_to_draft_content_store
 
     it "sends to live content store" do
-      expect(PublishingAPI.service(:url_arbiter)).to receive(:reserve_path).ordered
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
