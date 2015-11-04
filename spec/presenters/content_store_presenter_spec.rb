@@ -1,15 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Presenters::ContentItemPresenter do
+RSpec.describe Presenters::ContentStorePresenter do
   let(:content_item_hash) { create(:draft_content_item).as_json.deep_symbolize_keys }
   let(:presented) { subject.present(content_item_hash) }
 
   it "removes the id key" do
     expect(presented).not_to have_key(:id)
-  end
-
-  it "removes the version" do
-    expect(presented).not_to have_key(:version)
   end
 
   it "removes the update_type" do
@@ -28,8 +24,8 @@ RSpec.describe Presenters::ContentItemPresenter do
 
   it "exports all other fields" do
     content_item_hash.each do |key, value|
-      next if [:id, :version, :public_updated_at, :update_type].include?(key)
-      expect(presented[key]).to eq(value)
+      next if [:id, :public_updated_at, :update_type].include?(key)
+      expect(presented[key]).to eq(value), "#{key} is incorrect"
     end
   end
 end

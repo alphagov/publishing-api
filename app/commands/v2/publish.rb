@@ -62,6 +62,8 @@ module Commands
       def publish_content_item(draft_content_item)
         attributes = build_live_attributes(draft_content_item)
 
+        live_version = nil
+
         live_content_item = LiveContentItem.create_or_replace(attributes) do |live_item|
           live_version = Version.find_or_initialize_by(target: live_item)
           draft_version = Version.find_or_initialize_by(target: draft_content_item)
@@ -69,13 +71,12 @@ module Commands
           if live_version.number == draft_version.number
             raise CommandError.new(code: 400, message: "This item is already published")
           else
-            version = Version.find_or_initialize_by(target: live_item)
-            version.copy_version_from(draft_content_item)
-            version.save! if live_item.valid?
+            live_version.copy_version_from(draft_content_item)
+            live_version.save! if live_item.valid?
           end
         end
 
-        item_for_content_store = content_store_payload(live_content_item)
+        item_for_content_store = content_store_payload(live_content_item, live_version)
 
         ContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
@@ -93,12 +94,13 @@ module Commands
           .merge(draft_content_item: draft_content_item)
       end
 
-      def content_store_payload(live_item)
+      def content_store_payload(live_item, live_version)
         content_item_fields = LiveContentItem::TOP_LEVEL_FIELDS + [:links]
         live_item_hash = LinkSetMerger.merge_links_into(live_item)
           .slice(*content_item_fields)
+        live_item_hash = live_item_hash.merge(version: live_version.number)
 
-        Presenters::ContentItemPresenter.present(live_item_hash)
+        Presenters::ContentStorePresenter.present(live_item_hash)
       end
 
       def send_to_message_queue!(item_for_content_store)

@@ -4,14 +4,15 @@ module Commands
       def call
         validate_version_lock!
 
-        content_item = create_or_update_draft_content_item!
+        content_item, version = create_or_update_draft_content_item!
 
         PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
+        payload_for_draft_content_store = draft_payload(content_item, version)
         ContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
           base_path: base_path,
-          payload: draft_payload(content_item),
+          payload: payload_for_draft_content_store,
         )
 
         Success.new(payload)
@@ -27,25 +28,30 @@ module Commands
       end
 
       def create_or_update_draft_content_item!
-        DraftContentItem.create_or_replace(content_item_attributes) do |item|
+        version = nil
+
+        content_item = DraftContentItem.create_or_replace(content_item_attributes) do |item|
           version = Version.find_or_initialize_by(target: item)
           version.increment
           version.save! if item.valid?
 
           item.assign_attributes_with_defaults(content_item_attributes)
         end
+
+        [content_item, version]
       end
 
       def content_item_attributes
         payload.slice(*DraftContentItem::TOP_LEVEL_FIELDS)
       end
 
-      def draft_payload(content_item)
+      def draft_payload(content_item, version)
         content_item_fields = DraftContentItem::TOP_LEVEL_FIELDS + [:links]
         draft_item_hash = LinkSetMerger.merge_links_into(content_item)
           .slice(*content_item_fields)
+        draft_item_hash = draft_item_hash.merge(version: version.number)
 
-        Presenters::ContentItemPresenter.present(draft_item_hash)
+        Presenters::ContentStorePresenter.present(draft_item_hash)
       end
     end
   end

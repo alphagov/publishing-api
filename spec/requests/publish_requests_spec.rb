@@ -114,7 +114,7 @@ RSpec.describe "POST /v2/publish", type: :request do
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       .with(
         base_path: draft_content_item.base_path,
-        content_item: expected_live_content_item_hash
+        content_item: expected_live_content_item_hash.merge(version: 2)
       )
       do_request
     end
@@ -128,7 +128,13 @@ RSpec.describe "POST /v2/publish", type: :request do
         expect(delivery_info.routing_key).to eq("#{draft_content_item.format}.#{payload[:update_type]}")
 
         message = JSON.parse(message_json)
-        expect(message).to eq(expected_live_content_item_hash.as_json.merge("update_type" => payload[:update_type]))
+
+        expected_live_content_item_hash.merge!(
+          update_type: payload[:update_type],
+          version: 2
+        )
+
+        expect(message).to eq(expected_live_content_item_hash.as_json)
       end
     end
 

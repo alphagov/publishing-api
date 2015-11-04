@@ -1,5 +1,5 @@
 module Presenters
-  module ContentItemPresenter
+  module ContentStorePresenter
     def self.present(content_item_hash)
       content_item_hash = content_item_hash
                             .except(:id, :version, :update_type)
