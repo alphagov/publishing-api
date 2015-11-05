@@ -106,11 +106,11 @@ RSpec.describe DraftContentItem do
       it "should be required" do
         subject.base_path = nil
         expect(subject).not_to be_valid
-        expect(subject.errors[:base_path].size).to eq(1)
+        expect(subject.errors[:base_path].size).to eq(2)
 
         subject.base_path = ''
         expect(subject).not_to be_valid
-        expect(subject.errors[:base_path].size).to eq(1)
+        expect(subject.errors[:base_path].size).to eq(2)
       end
 
       it "should be an absolute path" do
