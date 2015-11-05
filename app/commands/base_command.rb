@@ -19,7 +19,7 @@ module Commands
 
     def self.raise_validation_command_error(e)
       errors = e.record.errors
-      full_message = errors.full_messages.join
+      full_message = errors.full_messages.join(', ')
 
       raise CommandError.new(
         code: 422,
