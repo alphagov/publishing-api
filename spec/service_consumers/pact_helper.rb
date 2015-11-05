@@ -226,7 +226,6 @@ Pact.provider_states_for "GDS API Adapters" do
       draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
       FactoryGirl.create(:version, target: draft, number: 3)
 
-      stub_default_url_arbiter_responses
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
     end
@@ -245,7 +244,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
       FactoryGirl.create(:version, target: linkset, number: 3)
 
-      stub_default_url_arbiter_responses
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
     end
