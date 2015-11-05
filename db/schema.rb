@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029144554) do
+ActiveRecord::Schema.define(version: 20151105154432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20151029144554) do
     t.string   "format"
     t.datetime "public_updated_at"
     t.json     "access_limited",       default: {}
-    t.json     "metadata",             default: {}
     t.json     "details",              default: {}
     t.json     "routes",               default: []
     t.json     "redirects",            default: []
@@ -66,7 +65,6 @@ ActiveRecord::Schema.define(version: 20151029144554) do
     t.string   "description"
     t.string   "format"
     t.datetime "public_updated_at"
-    t.json     "metadata",              default: {}
     t.json     "details",               default: {}
     t.json     "routes",                default: []
     t.json     "redirects",             default: []
