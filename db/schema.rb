@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029144554) do
+ActiveRecord::Schema.define(version: 20151102110431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "content_item_links", force: :cascade do |t|
+    t.string "source",    null: false
+    t.string "link_type"
+    t.string "target",    null: false
+  end
+
+  add_index "content_item_links", ["source", "target"], name: "index_content_item_links_on_source_and_target", using: :btree
 
   create_table "draft_content_items", force: :cascade do |t|
     t.string   "content_id"

@@ -21,6 +21,8 @@ module Commands
           PublishingAPI.service(:queue_publisher).send_message(message_bus_payload(live_content_item))
         end
 
+        create_or_update_content_item_links!
+
         Success.new(links: link_set.links)
       end
 
@@ -69,6 +71,10 @@ module Commands
 
       def message_bus_payload(content_item)
         live_content_store_payload(content_item).merge(update_type: "links")
+      end
+
+      def create_or_update_content_item_links!
+        ContentItemLinkPopulator.create_or_replace(link_params[:content_id], link_params[:links])
       end
     end
   end

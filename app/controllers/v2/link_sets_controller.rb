@@ -12,6 +12,10 @@ module V2
       render status: response.code, json: response
     end
 
+    def get_linked
+      render json: Queries::GetLinked.call(content_id, params.fetch(:link_type))
+    end
+
   private
     def links_params
       payload.merge(content_id: content_id)
