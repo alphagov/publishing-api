@@ -14,7 +14,12 @@ gem "airbrake", "~> 4.2.1"
 gem "pg"
 
 gem "govuk-client-url_arbiter", "0.0.3"
-gem "gds-api-adapters", "22.0.0"
+
+if ENV["API_DEV"]
+  gem "gds-api-adapters", path: "../gds-api-adapters"
+else
+  gem "gds-api-adapters", "25.1.0"
+end
 
 gem 'bunny', '2.0.0'
 gem 'whenever', '0.9.4', :require => false
