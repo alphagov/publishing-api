@@ -8,11 +8,11 @@ module Commands
 
         PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
-        payload_for_draft_content_store = draft_payload(content_item, version)
+        draft_payload = Presenters::ContentStorePresenter.present(content_item)
         ContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
           base_path: base_path,
-          payload: payload_for_draft_content_store,
+          payload: draft_payload,
         )
 
         Success.new(payload)
@@ -43,15 +43,6 @@ module Commands
 
       def content_item_attributes
         payload.slice(*DraftContentItem::TOP_LEVEL_FIELDS)
-      end
-
-      def draft_payload(content_item, version)
-        content_item_fields = DraftContentItem::TOP_LEVEL_FIELDS + [:links]
-        draft_item_hash = LinkSetMerger.merge_links_into(content_item)
-          .slice(*content_item_fields)
-        draft_item_hash = draft_item_hash.merge(version: version.number)
-
-        Presenters::ContentStorePresenter.present(draft_item_hash)
       end
     end
   end

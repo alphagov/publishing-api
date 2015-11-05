@@ -13,25 +13,23 @@ module Commands
         end
 
         if (draft_content_item = DraftContentItem.find_by(content_id: link_params.fetch(:content_id)))
-          draft_version = Version.find_by!(target: draft_content_item)
-          content_store_payload = draft_content_store_payload(draft_content_item, draft_version)
+          draft_payload = Presenters::ContentStorePresenter.present(draft_content_item)
           ContentStoreWorker.perform_async(
             content_store: Adapters::DraftContentStore,
             base_path: draft_content_item.base_path,
-            payload: content_store_payload,
+            payload: draft_payload,
           )
         end
 
         if (live_content_item = LiveContentItem.find_by(content_id: link_params.fetch(:content_id)))
-          live_version = Version.find_by!(target: live_content_item)
-          content_store_payload = live_content_store_payload(live_content_item, live_version)
+          live_payload = Presenters::ContentStorePresenter.present(live_content_item)
           ContentStoreWorker.perform_async(
             content_store: Adapters::ContentStore,
             base_path: live_content_item.base_path,
-            payload: content_store_payload,
+            payload: live_payload,
           )
 
-          message_bus_payload = message_bus_payload(live_content_item, live_version)
+          message_bus_payload = message_bus_payload(live_payload)
           PublishingAPI.service(:queue_publisher).send_message(message_bus_payload)
         end
 
@@ -74,27 +72,8 @@ module Commands
           .reject {|_, links| links.empty? }
       end
 
-      def draft_content_store_payload(content_item, version)
-        content_item_fields = DraftContentItem::TOP_LEVEL_FIELDS + [:links]
-        draft_item_hash = LinkSetMerger.merge_links_into(content_item)
-          .slice(*content_item_fields)
-        draft_item_hash = draft_item_hash.merge(version: version.number)
-
-        Presenters::ContentStorePresenter.present(draft_item_hash)
-      end
-
-      def live_content_store_payload(content_item, version)
-        content_item_fields = LiveContentItem::TOP_LEVEL_FIELDS + [:links]
-        live_item_hash = LinkSetMerger.merge_links_into(content_item)
-          .slice(*content_item_fields)
-        live_item_hash = live_item_hash.merge(version: version.number)
-
-        Presenters::ContentStorePresenter.present(live_item_hash)
-      end
-
-      def message_bus_payload(content_item, version)
-        live_content_store_payload(content_item, version)
-          .merge(update_type: "links")
+      def message_bus_payload(live_payload)
+        live_payload.merge(update_type: "links")
       end
     end
   end

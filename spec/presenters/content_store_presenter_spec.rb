@@ -1,31 +1,52 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::ContentStorePresenter do
-  let(:content_item_hash) { create(:draft_content_item).as_json.deep_symbolize_keys }
-  let(:presented) { subject.present(content_item_hash) }
+  let!(:content_item) { FactoryGirl.create(:draft_content_item) }
+  let!(:version) { FactoryGirl.create(:version, target: content_item, number: 1) }
+  let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
-  it "removes the id key" do
-    expect(presented).not_to have_key(:id)
+  it "presents the object graph for the content store" do
+    result = described_class.present(content_item)
+
+    expect(result).to eq(
+      content_id: content_item.content_id,
+      base_path: "/vat-rates",
+      version: 1,
+      access_limited: nil,
+      analytics_identifier: "GDS01",
+      description: "VAT rates for goods and services",
+      details: {:body=>"<p>Something about VAT</p>\n"},
+      format: "guide",
+      links: link_set.links,
+      locale: "en",
+      need_ids: ["100123", "100124"],
+      phase: "beta",
+      public_updated_at: "2014-05-14T13:00:06Z",
+      publishing_app: "mainstream_publisher",
+      redirects: [],
+      rendering_app: "mainstream_frontend",
+      routes: [{:path=>"/vat-rates", :type=>"exact"}],
+      title: "VAT rates",
+    )
   end
 
-  it "removes the update_type" do
-    expect(presented).not_to have_key(:update_type)
+  context "when the link_set is not present" do
+    before { link_set.destroy }
+
+    it "does not raise an error" do
+      expect {
+        described_class.present(content_item)
+      }.to_not raise_error
+    end
   end
 
-  it "exports date fields as ISO 8601" do
-    expect(presented[:public_updated_at]).to be_a(String)
-    expect(presented[:public_updated_at]).to eq(content_item_hash[:public_updated_at].iso8601)
-  end
+  context "when the public_updated_at is not present" do
+    let!(:content_item) { FactoryGirl.create(:gone_draft_content_item, public_updated_at: nil) }
 
-  it "does not require #public_updated_at" do
-    content_item_hash.delete(:public_updated_at)
-    expect(presented[:public_updated_at]).to eq nil
-  end
-
-  it "exports all other fields" do
-    content_item_hash.each do |key, value|
-      next if [:id, :public_updated_at, :update_type].include?(key)
-      expect(presented[key]).to eq(value), "#{key} is incorrect"
+    it "does not raise an error" do
+      expect {
+        described_class.present(content_item)
+      }.to_not raise_error
     end
   end
 end

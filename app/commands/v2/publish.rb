@@ -62,8 +62,6 @@ module Commands
       def publish_content_item(draft_content_item)
         attributes = build_live_attributes(draft_content_item)
 
-        live_version = nil
-
         live_content_item = LiveContentItem.create_or_replace(attributes) do |live_item|
           live_version = Version.find_or_initialize_by(target: live_item)
           draft_version = Version.find_or_initialize_by(target: draft_content_item)
@@ -76,15 +74,15 @@ module Commands
           end
         end
 
-        item_for_content_store = content_store_payload(live_content_item, live_version)
+        payload = Presenters::ContentStorePresenter.present(live_content_item)
 
         ContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           base_path: live_content_item.base_path,
-          payload: item_for_content_store,
+          payload: payload,
         )
 
-        send_to_message_queue!(item_for_content_store)
+        send_to_message_queue!(payload)
       end
 
       def build_live_attributes(draft_content_item)
@@ -92,15 +90,6 @@ module Commands
           .attributes
           .except("access_limited", "version")
           .merge(draft_content_item: draft_content_item)
-      end
-
-      def content_store_payload(live_item, live_version)
-        content_item_fields = LiveContentItem::TOP_LEVEL_FIELDS + [:links]
-        live_item_hash = LinkSetMerger.merge_links_into(live_item)
-          .slice(*content_item_fields)
-        live_item_hash = live_item_hash.merge(version: live_version.number)
-
-        Presenters::ContentStorePresenter.present(live_item_hash)
       end
 
       def send_to_message_queue!(item_for_content_store)
