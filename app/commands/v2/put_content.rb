@@ -7,7 +7,13 @@ module Commands
         content_item = create_or_update_draft_content_item!
 
         PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
-        Adapters::DraftContentStore.call(base_path, draft_payload(content_item))
+
+        ContentStoreWorker.perform_async(
+          content_store: Adapters::DraftContentStore,
+          base_path: base_path,
+          payload: draft_payload(content_item),
+        )
+
         Success.new(payload)
       end
 
