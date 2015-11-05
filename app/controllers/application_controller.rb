@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
     head :bad_request
   end
 
+  before_action do
+    # Force Rails to show text-error pages
+    request.env['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
+  end
+
 private
   def respond_with_command_error(error)
     render status: error.code, json: error
