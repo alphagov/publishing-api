@@ -12,6 +12,11 @@ module Commands
 
     private
       def validate!
+        validate_update_type!
+        validate_version_lock!
+      end
+
+      def validate_update_type!
         raise CommandError.new(
           code: 422,
           message: "update_type is required",
@@ -25,6 +30,10 @@ module Commands
             }
           }
         ) unless update_type.present?
+      end
+
+      def validate_version_lock!
+        super(DraftContentItem, content_id, payload[:previous_version])
       end
 
       def content_id

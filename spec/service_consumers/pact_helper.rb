@@ -233,4 +233,36 @@ Pact.provider_states_for "GDS API Adapters" do
       FactoryGirl.create(:version, target: arabic_draft, number: 1)
     end
   end
+
+  provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
+    set_up do
+      DatabaseCleaner.clean_with :truncation
+
+      draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      FactoryGirl.create(:version, target: draft, number: 3)
+
+      stub_default_url_arbiter_responses
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+    end
+  end
+
+  provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
+    set_up do
+      DatabaseCleaner.clean_with :truncation
+
+      FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+
+      linkset = FactoryGirl.create(:link_set,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        links: {},
+      )
+
+      FactoryGirl.create(:version, target: linkset, number: 3)
+
+      stub_default_url_arbiter_responses
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+    end
+  end
 end

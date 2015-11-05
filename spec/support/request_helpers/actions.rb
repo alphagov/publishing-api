@@ -6,6 +6,8 @@ module RequestHelpers
         put request_path, body, headers
       when :get
         get request_path, body, headers
+      when :post
+        post request_path, body, headers
       end
     end
   end

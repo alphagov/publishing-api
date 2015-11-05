@@ -33,5 +33,28 @@ module Commands
         }
       )
     end
+
+    def validate_version_lock!(versioned_item_class, content_id, previous_version_number)
+      current_versioned_item = versioned_item_class.find_by(content_id: content_id)
+      current_version = Version.find_by(target: current_versioned_item)
+
+      return unless current_versioned_item && current_version
+
+      conflict_error = CommandError.new(
+        code: 409,
+        message: "Conflict",
+        error_details: {
+          error: {
+            code: 409,
+            message: "Version conflict",
+            fields: {
+              previous_version: ["does not match"],
+            }
+          }
+        }
+      )
+
+      raise conflict_error if current_version.conflicts_with?(previous_version_number)
+    end
   end
 end
