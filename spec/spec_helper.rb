@@ -19,6 +19,7 @@
 
 require 'rspec'
 require 'database_cleaner'
+require 'pact/consumer/rspec'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -50,6 +51,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    WebMock.disable_net_connect!(allow_localhost: true)
   end
 
   config.around(:each) do |example|
@@ -58,3 +60,12 @@ RSpec.configure do |config|
     end
   end
 end
+
+Pact.service_consumer "Publishing API" do
+  has_pact_with "Content Store" do
+    mock_service :content_store do
+      port 3093
+    end
+  end
+end
+
