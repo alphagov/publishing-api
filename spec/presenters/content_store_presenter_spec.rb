@@ -1,33 +1,66 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::ContentStorePresenter do
-  let!(:content_item) { FactoryGirl.create(:draft_content_item) }
-  let!(:version) { FactoryGirl.create(:version, target: content_item, number: 1) }
-  let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
-  it "presents the object graph for the content store" do
-    result = described_class.present(content_item)
+  context "for a live content item" do
+    let!(:content_item) { FactoryGirl.create(:live_content_item) }
+    let!(:version) { FactoryGirl.create(:version, target: content_item, number: 1) }
+    let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
-    expect(result).to eq(
-      content_id: content_item.content_id,
-      base_path: "/vat-rates",
-      version: 1,
-      access_limited: nil,
-      analytics_identifier: "GDS01",
-      description: "VAT rates for goods and services",
-      details: {:body=>"<p>Something about VAT</p>\n"},
-      format: "guide",
-      links: link_set.links,
-      locale: "en",
-      need_ids: ["100123", "100124"],
-      phase: "beta",
-      public_updated_at: "2014-05-14T13:00:06Z",
-      publishing_app: "mainstream_publisher",
-      redirects: [],
-      rendering_app: "mainstream_frontend",
-      routes: [{:path=>"/vat-rates", :type=>"exact"}],
-      title: "VAT rates",
-    )
+    it "presents the object graph for the content store (excludes access_limited)" do
+      result = described_class.present(content_item)
+
+      expect(result).to eq(
+        content_id: content_item.content_id,
+        base_path: "/vat-rates",
+        version: 1,
+        analytics_identifier: "GDS01",
+        description: "VAT rates for goods and services",
+        details: {:body=>"<p>Something about VAT</p>\n"},
+        format: "guide",
+        links: link_set.links,
+        locale: "en",
+        need_ids: ["100123", "100124"],
+        phase: "beta",
+        public_updated_at: "2014-05-14T13:00:06Z",
+        publishing_app: "mainstream_publisher",
+        redirects: [],
+        rendering_app: "mainstream_frontend",
+        routes: [{:path=>"/vat-rates", :type=>"exact"}],
+        title: "VAT rates",
+      )
+    end
+  end
+
+  context "for a draft content item" do
+    let!(:content_item) { FactoryGirl.create(:draft_content_item) }
+    let!(:version) { FactoryGirl.create(:version, target: content_item, number: 1) }
+    let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
+
+    it "presents the object graph for the content store" do
+      result = described_class.present(content_item)
+
+      expect(result).to eq(
+        content_id: content_item.content_id,
+        base_path: "/vat-rates",
+        version: 1,
+        access_limited: nil,
+        analytics_identifier: "GDS01",
+        description: "VAT rates for goods and services",
+        details: {:body=>"<p>Something about VAT</p>\n"},
+        format: "guide",
+        links: link_set.links,
+        locale: "en",
+        need_ids: ["100123", "100124"],
+        phase: "beta",
+        public_updated_at: "2014-05-14T13:00:06Z",
+        publishing_app: "mainstream_publisher",
+        redirects: [],
+        rendering_app: "mainstream_frontend",
+        routes: [{:path=>"/vat-rates", :type=>"exact"}],
+        title: "VAT rates",
+      )
+    end
   end
 
   context "when the link_set is not present" do
