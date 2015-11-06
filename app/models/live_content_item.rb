@@ -32,7 +32,7 @@ class LiveContentItem < ActiveRecord::Base
   validates :draft_content_item, presence: true
   validates :content_id, presence: true, uuid: true
   validate :content_ids_match
-  validates :base_path, absolute_path: true
+  validates :base_path, presence: true, absolute_path: true
   validates :format, presence: true
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
