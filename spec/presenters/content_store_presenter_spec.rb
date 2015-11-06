@@ -64,23 +64,28 @@ RSpec.describe Presenters::ContentStorePresenter do
     end
   end
 
-  context "when the link_set is not present" do
-    before { link_set.destroy }
+  describe "conditional attributes" do
+    let!(:content_item) { FactoryGirl.create(:live_content_item) }
+    let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
-    it "does not raise an error" do
-      expect {
-        described_class.present(content_item)
-      }.to_not raise_error
+    context "when the link_set is not present" do
+      before { link_set.destroy }
+
+      it "does not raise an error" do
+        expect {
+          described_class.present(content_item)
+        }.to_not raise_error
+      end
     end
-  end
 
-  context "when the public_updated_at is not present" do
-    let!(:content_item) { FactoryGirl.create(:gone_draft_content_item, public_updated_at: nil) }
+    context "when the public_updated_at is not present" do
+      let!(:content_item) { FactoryGirl.create(:gone_draft_content_item, public_updated_at: nil) }
 
-    it "does not raise an error" do
-      expect {
-        described_class.present(content_item)
-      }.to_not raise_error
+      it "does not raise an error" do
+        expect {
+          described_class.present(content_item)
+        }.to_not raise_error
+      end
     end
   end
 end

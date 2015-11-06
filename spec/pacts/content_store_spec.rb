@@ -56,4 +56,6 @@ RSpec.describe "Pact with the Content Store", pact: true do
       client.put_content_item(base_path: "/vat-rates", content_item: body)
     }.to raise_error(GdsApi::HTTPConflict)
   end
+
+  pending "write pacts for /v1 endpoints to ensure message ordering"
 end

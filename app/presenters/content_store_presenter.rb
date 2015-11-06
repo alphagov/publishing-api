@@ -46,5 +46,23 @@ module Presenters
     def transmitted_at
       { transmitted_at: Time.new.to_f }
     end
+
+    class V1
+      def self.present(attributes, access_limited: true, update_type: true, transmitted_at: true)
+        unless access_limited
+          attributes = attributes.except(:access_limited)
+        end
+
+        unless update_type
+          attributes = attributes.except(:update_type)
+        end
+
+        if transmitted_at
+          attributes = attributes.merge(transmitted_at: Time.new.to_f)
+        end
+
+        attributes
+      end
+    end
   end
 end

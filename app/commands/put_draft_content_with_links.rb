@@ -9,16 +9,18 @@ module Commands
       PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
       if downstream
-        Adapters::DraftContentStore.call(base_path, content_item_for_content_store)
+        payload = Presenters::ContentStorePresenter::V1.present(
+          content_item,
+          update_type: false,
+          access_limited: true,
+        )
+        Adapters::DraftContentStore.call(base_path, payload)
       end
 
       Success.new(content_item)
     end
 
-  private
-    def content_item_for_content_store
-      content_item.except(:update_type).merge(transmitted_at: Time.new.to_f)
-    end
+    private
 
     def content_item_top_level_fields
       DraftContentItem::TOP_LEVEL_FIELDS

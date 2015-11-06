@@ -3,14 +3,20 @@ module Commands
     def call
       PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
-      publish_intent = payload.except(:base_path).deep_symbolize_keys
+      payload = Presenters::ContentStorePresenter::V1.present(publish_intent, transmitted_at: false)
 
       PublishingAPI.service(:live_content_store).put_publish_intent(
         base_path: base_path,
-        publish_intent: publish_intent
+        publish_intent: payload
       )
 
-      Success.new(publish_intent)
+      Success.new(payload)
+    end
+
+    private
+
+    def publish_intent
+      payload.except(:base_path).deep_symbolize_keys
     end
   end
 end
