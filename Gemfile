@@ -20,6 +20,7 @@ gem 'bunny', '2.0.0'
 gem 'whenever', '0.9.4', :require => false
 gem "sidekiq", "3.5.1"
 gem "sidekiq-logging-json", "0.0.14"
+gem "sidekiq-statsd", "0.1.5"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
