@@ -40,7 +40,6 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item_for_draft_content_store) {
       v2_content_item
         .except(:update_type)
-        .merge(version: 1)
     }
     let(:request_body) { v2_content_item.to_json }
     let(:request_path) { "/v2/content/#{content_id}" }
@@ -50,23 +49,24 @@ RSpec.describe "Downstream requests", type: :request do
     does_not_send_to_live_content_store
 
     context "when a link set exists for the content item" do
-      it "includes links in the payload sent to draft content store" do
-        link_set = create(:link_set, content_id: v2_content_item[:content_id])
-        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: content_item_for_draft_content_store.merge(links: link_set.links),
-          )
-          .and_return(json_response)
-
-        do_request(body: v2_content_item.to_json)
+      let(:link_set) do
+        FactoryGirl.create(
+          :link_set,
+          content_id: v2_content_item[:content_id]
+        )
       end
+
+      let(:content_item_for_draft_content_store) do
+        v2_content_item.except(:update_type).merge(links: link_set.links)
+      end
+
+      sends_to_draft_content_store
     end
   end
 
   context "/v2/links" do
     let(:content_item) {
-      v2_content_item.merge(version: 1, links: links_attributes[:links])
+      v2_content_item.merge(links: links_attributes[:links])
     }
     let(:content_item_for_draft_content_store) {
       content_item
@@ -125,8 +125,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     let(:content_item_for_live_content_store) {
       draft.attributes.deep_symbolize_keys
-        .except(:id, :access_limited, :update_type, :metadata)
-        .merge(version: 1)
+        .except(:id, :access_limited, :update_type, :metadata, :version)
     }
 
     sends_to_live_content_store

@@ -30,10 +30,14 @@ module Commands
 
     def content_item_for_content_store
       content_item.except(:access_limited, :update_type)
+        .merge(transmitted_at: Time.new.to_f)
     end
 
     def content_item_for_message_bus
-      content_item.except(:access_limited).merge(base_path: base_path)
+      content_item.except(:access_limited).merge(
+        base_path: base_path,
+        transmitted_at: Time.new.to_f,
+      )
     end
 
     def content_item_top_level_fields

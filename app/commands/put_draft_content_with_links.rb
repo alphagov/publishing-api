@@ -17,7 +17,7 @@ module Commands
 
   private
     def content_item_for_content_store
-      content_item.except(:update_type)
+      content_item.except(:update_type).merge(transmitted_at: Time.new.to_f)
     end
 
     def content_item_top_level_fields

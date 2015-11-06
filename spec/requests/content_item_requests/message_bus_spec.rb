@@ -108,19 +108,21 @@ RSpec.describe "Message bus", type: :request do
       end
 
       it "sends a message with a 'links' routing key" do
-        do_request
+        Timecop.freeze do
+          do_request
 
-        expect(response.status).to eq(200)
+          expect(response.status).to eq(200)
 
-        expected_payload = v2_content_item.except(:access_limited).merge(
-          links: links_attributes.fetch(:links),
-          update_type: "links",
-          version: 1,
-        ).to_json
+          expected_payload = v2_content_item.except(:access_limited).merge(
+            links: links_attributes.fetch(:links),
+            update_type: "links",
+            transmitted_at: Time.new.to_f,
+          ).to_json
 
-        delivery_info, _, payload = wait_for_message_on(@queue)
-        expect(delivery_info.routing_key).to eq("#{live_content_item.format}.links")
-        expect(JSON.parse(payload)).to eq(JSON.parse(expected_payload))
+          delivery_info, _, payload = wait_for_message_on(@queue)
+          expect(delivery_info.routing_key).to eq("#{live_content_item.format}.links")
+          expect(JSON.parse(payload)).to eq(JSON.parse(expected_payload))
+        end
       end
     end
 

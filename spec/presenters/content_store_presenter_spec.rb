@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::ContentStorePresenter do
+  around do |example|
+    Timecop.freeze { example.run }
+  end
 
   context "for a live content item" do
     let!(:content_item) { FactoryGirl.create(:live_content_item) }
-    let!(:version) { FactoryGirl.create(:version, target: content_item, number: 1) }
     let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
     it "presents the object graph for the content store (excludes access_limited)" do
@@ -13,7 +15,6 @@ RSpec.describe Presenters::ContentStorePresenter do
       expect(result).to eq(
         content_id: content_item.content_id,
         base_path: "/vat-rates",
-        version: 1,
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
         details: {:body=>"<p>Something about VAT</p>\n"},
@@ -28,13 +29,13 @@ RSpec.describe Presenters::ContentStorePresenter do
         rendering_app: "mainstream_frontend",
         routes: [{:path=>"/vat-rates", :type=>"exact"}],
         title: "VAT rates",
+        transmitted_at: Time.new.to_f,
       )
     end
   end
 
   context "for a draft content item" do
     let!(:content_item) { FactoryGirl.create(:draft_content_item) }
-    let!(:version) { FactoryGirl.create(:version, target: content_item, number: 1) }
     let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
     it "presents the object graph for the content store" do
@@ -43,7 +44,6 @@ RSpec.describe Presenters::ContentStorePresenter do
       expect(result).to eq(
         content_id: content_item.content_id,
         base_path: "/vat-rates",
-        version: 1,
         access_limited: nil,
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
@@ -59,6 +59,7 @@ RSpec.describe Presenters::ContentStorePresenter do
         rendering_app: "mainstream_frontend",
         routes: [{:path=>"/vat-rates", :type=>"exact"}],
         title: "VAT rates",
+        transmitted_at: Time.new.to_f,
       )
     end
   end

@@ -1,15 +1,12 @@
 module Presenters
   class ContentStorePresenter
     def self.present(content_item)
-      version = Version.find_by!(target: content_item)
       link_set = LinkSet.find_by(content_id: content_item.content_id)
-
-      new(content_item, version, link_set).present
+      new(content_item, link_set).present
     end
 
-    def initialize(content_item, version, link_set)
+    def initialize(content_item, link_set)
       self.content_item = content_item
-      self.version = version
       self.link_set = link_set
     end
 
@@ -19,12 +16,12 @@ module Presenters
         .except(:id, :update_type)
         .merge(public_updated_at)
         .merge(links)
-        .merge(version_number)
+        .merge(transmitted_at)
     end
 
     private
 
-    attr_accessor :content_item, :version, :link_set
+    attr_accessor :content_item, :link_set
 
     def symbolized_attributes
       content_item.as_json.deep_symbolize_keys
@@ -38,16 +35,16 @@ module Presenters
       end
     end
 
-    def version_number
-      { version: version.number }
-    end
-
     def public_updated_at
       if content_item.public_updated_at.present?
         { public_updated_at: content_item.public_updated_at.iso8601 }
       else
         {}
       end
+    end
+
+    def transmitted_at
+      { transmitted_at: Time.new.to_f }
     end
   end
 end
