@@ -46,20 +46,6 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
-  # FIXME: Remove this once https://github.com/alphagov/gds-api-adapters/pull/377 has been merged
-  provider_state "a publish intent exists at /test-intent in the live content store" do
-    set_up do
-      DatabaseCleaner.clean_with :truncation
-
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
-      stub_request(:delete, Plek.find('content-store') + "/publish-intent/test-intent")
-        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
-
-      # TBD: in theory we should create an event as well
-    end
-  end
-
   provider_state "no content exists" do
     set_up do
       DatabaseCleaner.clean_with :truncation
@@ -67,40 +53,13 @@ Pact.provider_states_for "GDS API Adapters" do
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
       stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-      .to_return(status: 404, body: "{}", headers: {"Content-Type" => "application/json"} )
+        .to_return(status: 404, body: "{}", headers: {"Content-Type" => "application/json"} )
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-      .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
-    end
-  end
-
-  # FIXME: Remove this once https://github.com/alphagov/gds-api-adapters/pull/377 has been merged
-  [
-    "both content stores and url-arbiter empty",
-    "both content stores and the url-arbiter are empty"
-  ].each do |provide_state_title|
-    provider_state provide_state_title do
-      set_up do
-        DatabaseCleaner.clean_with :truncation
-
-        stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
-        stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
-        stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-          .to_return(status: 404, body: "{}", headers: {"Content-Type" => "application/json"} )
-        stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-          .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
-      end
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
     end
   end
 
   provider_state "/test-item has been reserved by the Publisher application" do
-    set_up do
-      DatabaseCleaner.clean_with :truncation
-      FactoryGirl.create(:path_reservation, base_path: "/test-item", publishing_app: "publisher")
-    end
-  end
-
-  # FIXME: Remove this once https://github.com/alphagov/gds-api-adapters/pull/377 has been merged
-  provider_state "/test-item has been reserved in url-arbiter by the Publisher application" do
     set_up do
       DatabaseCleaner.clean_with :truncation
       FactoryGirl.create(:path_reservation, base_path: "/test-item", publishing_app: "publisher")
