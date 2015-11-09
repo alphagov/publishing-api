@@ -88,4 +88,59 @@ RSpec.describe Presenters::ContentStorePresenter do
       end
     end
   end
+
+  describe described_class::V1 do
+    let(:attributes) do
+      {
+        content_id: "content_id",
+        access_limited: "access_limited",
+        update_type: "update_type",
+      }
+    end
+
+    around do |example|
+      Timecop.freeze { example.run }
+    end
+
+    it "presents all attributes by default and mixes in transmitted_at" do
+      result = described_class.present(attributes)
+
+      expect(result).to eq(
+        content_id: "content_id",
+        access_limited: "access_limited",
+        update_type: "update_type",
+        transmitted_at: Time.new.to_f,
+      )
+    end
+
+    it "can optionally remove the access_limited attribute" do
+      result = described_class.present(attributes, access_limited: false)
+
+      expect(result).to eq(
+        content_id: "content_id",
+        update_type: "update_type",
+        transmitted_at: Time.new.to_f,
+      )
+    end
+
+    it "can optionally remove the update_type attribute" do
+      result = described_class.present(attributes, update_type: false)
+
+      expect(result).to eq(
+        content_id: "content_id",
+        access_limited: "access_limited",
+        transmitted_at: Time.new.to_f,
+      )
+    end
+
+    it "can optionally omit the transmitted_at" do
+      result = described_class.present(attributes, transmitted_at: false)
+
+      expect(result).to eq(
+        content_id: "content_id",
+        access_limited: "access_limited",
+        update_type: "update_type",
+      )
+    end
+  end
 end
