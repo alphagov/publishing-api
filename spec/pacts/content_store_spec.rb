@@ -57,5 +57,63 @@ RSpec.describe "Pact with the Content Store", pact: true do
     }.to raise_error(GdsApi::HTTPConflict)
   end
 
-  pending "write pacts for /v1 endpoints to ensure message ordering"
+  describe "V1" do
+    include RequestHelpers::Mocks
+
+    let(:attributes) { content_item_params }
+    let(:body) do
+      Presenters::ContentStorePresenter::V1.present(
+        attributes, access_limited: false, update_type: false
+      )
+    end
+
+    it "accepts in-order messages to the content store" do
+      content_store
+      .given("an in-order request was sent to the content store")
+      .upon_receiving("a request to create a content item originating from v1 endpoint")
+      .with(
+        method: :put,
+        path: "/content/vat-rates",
+        body: body,
+        headers: {
+          "Content-Type" => "application/json"
+        },
+      )
+      .will_respond_with(
+        status: 200,
+        body: {},
+        headers: {
+          "Content-Type" => "application/json; charset=utf-8"
+        },
+      )
+
+      response = client.put_content_item(base_path: "/vat-rates", content_item: body)
+      expect(response.code).to eq(200)
+    end
+
+    it "rejects out-of-order messages to the content store" do
+      content_store
+      .given("an out-of-order request was sent to the content store")
+      .upon_receiving("a request to create a content item originating from v1 endpoint")
+      .with(
+        method: :put,
+        path: "/content/vat-rates",
+        body: body,
+        headers: {
+          "Content-Type" => "application/json"
+        },
+      )
+      .will_respond_with(
+        status: 409,
+        body: {},
+        headers: {
+          "Content-Type" => "application/json; charset=utf-8"
+        },
+      )
+
+      expect {
+        client.put_content_item(base_path: "/vat-rates", content_item: body)
+      }.to raise_error(GdsApi::HTTPConflict)
+    end
+  end
 end
