@@ -40,4 +40,18 @@ unless Rails.env.production?
   ensure
     ENV[key] = original_value
   end
+
+  require 'pact_broker/client/tasks'
+
+  def configure_pact_broker_location(task)
+    task.pact_broker_base_url = ENV.fetch("PACT_BROKER_BASE_URL")
+    if ENV['PACT_BROKER_USERNAME']
+      task.pact_broker_basic_auth =  { username: ENV['PACT_BROKER_USERNAME'], password: ENV['PACT_BROKER_PASSWORD']}
+    end
+  end
+
+  PactBroker::Client::PublicationTask.new("branch") do |task|
+    task.consumer_version = ENV.fetch("PACT_TARGET_BRANCH")
+    configure_pact_broker_location(task)
+  end
 end

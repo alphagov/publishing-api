@@ -41,6 +41,10 @@ bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment --without devel
 bundle exec rake db:drop db:create db:schema:load
 
 if bundle exec rake ${TEST_TASK:-"default"}; then
+  if [ -n "$PACT_TARGET_BRANCH" ]; then
+    bundle exec rake pact:publish:branch
+  fi
+
   github_status success "succeeded on Jenkins"
 else
   github_status failure "failed on Jenkins"
