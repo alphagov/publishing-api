@@ -2,15 +2,22 @@ require "rails_helper"
 
 RSpec.describe "Pact with the Content Store", pact: true do
   include Pact::Consumer::RSpec
-  let!(:content_item) { FactoryGirl.create(:live_content_item) }
-  let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
+  include RequestHelpers::Mocks
+
+  let!(:content_item) { FactoryGirl.create(:live_content_item, content_id: content_id) }
+  let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_id) }
 
   let(:client) { ContentStoreWriter.new("http://localhost:3093") }
   let(:body) { Presenters::ContentStorePresenter.present(content_item) }
+  let(:request_time) { Time.at(1000000000.0000001) }
+
+  around do |example|
+    Timecop.freeze(request_time) { example.run }
+  end
 
   it "accepts in-order messages to the content store" do
     content_store
-    .given("an in-order request was sent to the content store")
+    .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000.0000000")
     .upon_receiving("a request to create a content item")
     .with(
       method: :put,
@@ -34,7 +41,7 @@ RSpec.describe "Pact with the Content Store", pact: true do
 
   it "rejects out-of-order messages to the content store" do
     content_store
-    .given("an out-of-order request was sent to the content store")
+    .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000.0000002")
     .upon_receiving("a request to create a content item")
     .with(
       method: :put,
@@ -58,8 +65,6 @@ RSpec.describe "Pact with the Content Store", pact: true do
   end
 
   describe "V1" do
-    include RequestHelpers::Mocks
-
     let(:attributes) { content_item_params }
     let(:body) do
       Presenters::ContentStorePresenter::V1.present(
@@ -69,7 +74,7 @@ RSpec.describe "Pact with the Content Store", pact: true do
 
     it "accepts in-order messages to the content store" do
       content_store
-      .given("an in-order request was sent to the content store")
+      .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000.0000000")
       .upon_receiving("a request to create a content item originating from v1 endpoint")
       .with(
         method: :put,
@@ -93,7 +98,7 @@ RSpec.describe "Pact with the Content Store", pact: true do
 
     it "rejects out-of-order messages to the content store" do
       content_store
-      .given("an out-of-order request was sent to the content store")
+      .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000.0000002")
       .upon_receiving("a request to create a content item originating from v1 endpoint")
       .with(
         method: :put,
