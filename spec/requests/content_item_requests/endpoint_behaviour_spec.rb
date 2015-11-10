@@ -81,9 +81,13 @@ RSpec.describe "Endpoint behaviour", type: :request do
         FactoryGirl.create(:draft_content_item, content_id: content_id)
       }
 
+      before do
+        FactoryGirl.create(:version, target: content_item, number: 2)
+      end
+
       returns_200_response
-      responds_with_content_item_body
-      responds_with_correct_locale_content_item
+      responds_with_presented_content_item
+      responds_with_presented_correct_locale_content_item
     end
 
     context "when the content item does not exist" do

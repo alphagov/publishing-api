@@ -9,7 +9,7 @@ module Queries
       )
 
       if content_item
-        content_item
+        Presenters::Queries::ContentItemPresenter.present(content_item)
       else
         error_details = {
           error: {
