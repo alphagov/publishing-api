@@ -12,11 +12,12 @@ module Presenters
       end
 
       def present
-        content_item.as_json.deep_symbolize_keys
+        content_item.as_json
+          .symbolize_keys
           .merge(version: version.number)
       end
 
-      private
+    private
 
       attr_accessor :content_item, :version
     end

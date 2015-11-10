@@ -12,11 +12,12 @@ module Presenters
       end
 
       def present
-        link_set.as_json.deep_symbolize_keys
+        link_set.as_json
+          .symbolize_keys
           .merge(version: version.number)
       end
 
-      private
+    private
 
       attr_accessor :link_set, :version
     end
