@@ -1,4 +1,8 @@
 class LinkSet < ActiveRecord::Base
+  # This has been introduced for avoiding clashes with the `Link` column.
+  # Remove this line when dropping the column.
+  has_many :content_item_links, :class_name => 'Link', dependent: :destroy
+
   include Replaceable
   include DefaultAttributes
   include SymbolizeJSON
