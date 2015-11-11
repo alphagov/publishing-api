@@ -40,13 +40,17 @@ module Commands
 
       return unless current_versioned_item && current_version
 
+      friendly_message = "A version conflict occurred. The version you've sent " +
+        "(#{previous_version_number.inspect}) is not the same as the current " +
+        "version of the content item (#{current_version.number.inspect})."
+
       conflict_error = CommandError.new(
         code: 409,
         message: "Conflict",
         error_details: {
           error: {
             code: 409,
-            message: "Version conflict",
+            message: friendly_message,
             fields: {
               previous_version: ["does not match"],
             }
