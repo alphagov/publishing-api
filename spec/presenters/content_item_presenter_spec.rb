@@ -21,6 +21,11 @@ RSpec.describe Presenters::ContentItemPresenter do
     expect(presented[:public_updated_at]).to eq(content_item_hash[:public_updated_at].iso8601)
   end
 
+  it "does not require #public_updated_at" do
+    content_item_hash.delete(:public_updated_at)
+    expect(presented[:public_updated_at]).to eq nil
+  end
+
   it "exports all other fields" do
     content_item_hash.each do |key, value|
       next if [:id, :version, :public_updated_at, :update_type].include?(key)
