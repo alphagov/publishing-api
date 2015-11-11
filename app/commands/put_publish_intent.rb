@@ -13,8 +13,7 @@ module Commands
       Success.new(payload)
     end
 
-    private
-
+  private
     def publish_intent
       payload.except(:base_path).deep_symbolize_keys
     end

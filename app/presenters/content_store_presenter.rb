@@ -13,18 +13,17 @@ module Presenters
     def present
       symbolized_attributes
         .slice(*content_item.class::TOP_LEVEL_FIELDS)
-        .except(:id, :update_type)
+        .except(:update_type)
         .merge(public_updated_at)
         .merge(links)
         .merge(transmitted_at)
     end
 
-    private
-
+  private
     attr_accessor :content_item, :link_set
 
     def symbolized_attributes
-      content_item.as_json.deep_symbolize_keys
+      content_item.as_json.symbolize_keys
     end
 
     def links
@@ -49,17 +48,9 @@ module Presenters
 
     class V1
       def self.present(attributes, access_limited: true, update_type: true, transmitted_at: true)
-        unless access_limited
-          attributes = attributes.except(:access_limited)
-        end
-
-        unless update_type
-          attributes = attributes.except(:update_type)
-        end
-
-        if transmitted_at
-          attributes = attributes.merge(transmitted_at: Time.new.to_f)
-        end
+        attributes = attributes.except(:access_limited) unless access_limited
+        attributes = attributes.except(:update_type) unless update_type
+        attributes = attributes.merge(transmitted_at: Time.new.to_f) if transmitted_at
 
         attributes
       end

@@ -68,4 +68,3 @@ Pact.service_consumer "Publishing API" do
     end
   end
 end
-

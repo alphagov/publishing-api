@@ -20,8 +20,7 @@ module Commands
       Success.new(content_item)
     end
 
-    private
-
+  private
     def content_item_top_level_fields
       DraftContentItem::TOP_LEVEL_FIELDS
     end

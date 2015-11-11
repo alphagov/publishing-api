@@ -45,8 +45,12 @@ unless Rails.env.production?
 
   def configure_pact_broker_location(task)
     task.pact_broker_base_url = ENV.fetch("PACT_BROKER_BASE_URL")
+
     if ENV['PACT_BROKER_USERNAME']
-      task.pact_broker_basic_auth =  { username: ENV['PACT_BROKER_USERNAME'], password: ENV['PACT_BROKER_PASSWORD']}
+      task.pact_broker_basic_auth = {
+        username: ENV['PACT_BROKER_USERNAME'],
+        password: ENV['PACT_BROKER_PASSWORD']
+      }
     end
   end
 

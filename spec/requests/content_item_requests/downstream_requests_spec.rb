@@ -1,12 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Downstream requests", type: :request do
-  let(:json_response) {
-    double(:json_response, body: "", headers: {
-      content_type: "application/json; charset=utf-8",
-    })
-  }
-
   context "/content" do
     let(:content_item_for_draft_content_store) {
       content_item_params
