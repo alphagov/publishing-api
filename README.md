@@ -33,6 +33,20 @@ A more detailed specification of how to configure RabbitMQ can be found in the
 [puppet manifest](https://github.gds/gds/puppet/blob/master/modules/govuk/manifests/apps/publishing_api/rabbitmq.pp)
 for the publishing API.
 
+Publishing API also requires a Redis instance to be installed.
+
+For Ubuntu:
+
+```
+sudo apt-get install redis-server
+```
+
+For OSX:
+
+```
+brew install redis-server
+```
+
 Publishing to the message queue can be disabled by setting the
 `DISABLE_QUEUE_PUBLISHER` environment variable.
 
