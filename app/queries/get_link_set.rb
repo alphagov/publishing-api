@@ -2,7 +2,7 @@ module Queries
   module GetLinkSet
     def self.call(content_id)
       if (link_set = LinkSet.find_by(content_id: content_id))
-        link_set
+        Presenters::Queries::LinkSetPresenter.present(link_set)
       else
         error_details = {
           error: {
