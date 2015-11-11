@@ -7,7 +7,7 @@ module RequestHelpers
             .with(
               base_path: base_path,
               content_item: content_item_for_draft_content_store
-                .merge(transmitted_at: Time.new.to_f),
+                .merge(transmitted_at: DateTime.now.strftime("%s%9N"))
             )
             .ordered
 
@@ -25,7 +25,7 @@ module RequestHelpers
             .with(
               base_path: base_path,
               content_item: content_item_for_live_content_store
-                .merge(transmitted_at: Time.new.to_f),
+                .merge(transmitted_at: DateTime.now.strftime("%s%9N"))
             )
 
           do_request

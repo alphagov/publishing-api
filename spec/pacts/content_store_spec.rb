@@ -9,7 +9,7 @@ RSpec.describe "Pact with the Content Store", pact: true do
 
   let(:client) { ContentStoreWriter.new("http://localhost:3093") }
   let(:body) { Presenters::ContentStorePresenter.present(content_item) }
-  let(:request_time) { Time.at(1000000000.0000001) }
+  let(:request_time) { Time.at(2000000000) }
 
   around do |example|
     Timecop.freeze(request_time) { example.run }
@@ -18,7 +18,7 @@ RSpec.describe "Pact with the Content Store", pact: true do
   context "when a content item exists that has an older transmitted_at than the request" do
     before do
       content_store
-        .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000.0000000")
+        .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000000000000")
         .upon_receiving("a request to create a content item")
         .with(
           method: :put,
@@ -46,7 +46,7 @@ RSpec.describe "Pact with the Content Store", pact: true do
   context "when a content item exists that has a newer transmitted_at than the request" do
     before do
       content_store
-        .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000.0000002")
+        .given("a content item exists with base_path /vat-rates and transmitted_at 3000000000000000000")
         .upon_receiving("a request to create a content item")
         .with(
           method: :put,
@@ -83,7 +83,7 @@ RSpec.describe "Pact with the Content Store", pact: true do
     context "when a content item exists that has an older transmitted_at than the request" do
       before do
         content_store
-          .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000.0000000")
+          .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000000000000")
           .upon_receiving("a request to create a content item originating from v1 endpoint")
           .with(
             method: :put,
@@ -111,7 +111,7 @@ RSpec.describe "Pact with the Content Store", pact: true do
     context "when a content item exists that has a newer transmitted_at than the request" do
       before do
         content_store
-          .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000.0000002")
+          .given("a content item exists with base_path /vat-rates and transmitted_at 3000000000000000000")
           .upon_receiving("a request to create a content item originating from v1 endpoint")
           .with(
             method: :put,

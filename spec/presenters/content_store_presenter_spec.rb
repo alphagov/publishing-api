@@ -29,7 +29,7 @@ RSpec.describe Presenters::ContentStorePresenter do
         rendering_app: "mainstream_frontend",
         routes: [{ path: "/vat-rates", type: "exact" }],
         title: "VAT rates",
-        transmitted_at: Time.new.to_f,
+        transmitted_at: DateTime.now.strftime("%s%9N"),
       )
     end
   end
@@ -59,7 +59,7 @@ RSpec.describe Presenters::ContentStorePresenter do
         rendering_app: "mainstream_frontend",
         routes: [{ path: "/vat-rates", type: "exact" }],
         title: "VAT rates",
-        transmitted_at: Time.new.to_f,
+        transmitted_at: DateTime.now.strftime("%s%9N"),
       )
     end
   end
@@ -109,7 +109,7 @@ RSpec.describe Presenters::ContentStorePresenter do
         content_id: "content_id",
         access_limited: "access_limited",
         update_type: "update_type",
-        transmitted_at: Time.new.to_f,
+        transmitted_at: DateTime.now.strftime("%s%9N"),
       )
     end
 
@@ -119,7 +119,7 @@ RSpec.describe Presenters::ContentStorePresenter do
       expect(result).to eq(
         content_id: "content_id",
         update_type: "update_type",
-        transmitted_at: Time.new.to_f,
+        transmitted_at: DateTime.now.strftime("%s%9N"),
       )
     end
 
@@ -129,7 +129,7 @@ RSpec.describe Presenters::ContentStorePresenter do
       expect(result).to eq(
         content_id: "content_id",
         access_limited: "access_limited",
-        transmitted_at: Time.new.to_f,
+        transmitted_at: DateTime.now.strftime("%s%9N"),
       )
     end
 
