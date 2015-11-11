@@ -14,7 +14,7 @@ RSpec.describe "POST /v2/publish", type: :request do
     expected_live_content_item_derived_representation
       .deep_symbolize_keys
       .merge(
-        links: link_set.links,
+        links: link_set.hashed_links,
       )
       .except(:update_type)
   }

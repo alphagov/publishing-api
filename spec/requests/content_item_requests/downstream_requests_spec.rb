@@ -51,7 +51,7 @@ RSpec.describe "Downstream requests", type: :request do
       end
 
       let(:content_item_for_draft_content_store) do
-        v2_content_item.except(:update_type).merge(links: link_set.links)
+        v2_content_item.except(:update_type).merge(links: link_set.hashed_links)
       end
 
       sends_to_draft_content_store

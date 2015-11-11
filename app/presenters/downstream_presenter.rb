@@ -27,7 +27,7 @@ module Presenters
 
     def links
       if link_set
-        { links: link_set.links }
+        { links: link_set.hashed_links }
       else
         {}
       end

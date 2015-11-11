@@ -9,7 +9,21 @@ module Commands
           version.increment
           version.save! if link_set.valid?
 
-          link_set.links = merge_links(link_set.links, link_params.fetch(:links))
+          links_hash = link_params.fetch(:links)
+
+          links_hash.each do |link_type, target_content_ids|
+            if target_content_ids.empty?
+              link_set.links.where(link_type: link_type).delete_all
+            else
+              old_target_ids = link_set.links.where(link_type: link_type).pluck(:target_content_id)
+
+              ids_to_be_deleted = old_target_ids - target_content_ids
+              link_set.links.where(link_type: link_type, target_content_id: ids_to_be_deleted).delete_all
+
+              ids_to_be_created = target_content_ids - old_target_ids
+              link_set.links.where(link_type: link_type, target_content_id: ids_to_be_created).create
+            end
+          end
         end
 
         if (draft_content_item = DraftContentItem.find_by(content_id: link_params.fetch(:content_id)))
@@ -33,7 +47,7 @@ module Commands
           PublishingAPI.service(:queue_publisher).send_message(queue_payload)
         end
 
-        Success.new(links: link_set.links)
+        Success.new(links: link_set.hashed_links)
       end
 
     private
@@ -64,12 +78,6 @@ module Commands
 
       def link_params
         payload.except(:previous_version)
-      end
-
-      def merge_links(base_links, new_links)
-        base_links
-          .merge(new_links)
-          .reject {|_, links| links.empty? }
       end
     end
   end
