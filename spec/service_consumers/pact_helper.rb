@@ -248,4 +248,11 @@ Pact.provider_states_for "GDS API Adapters" do
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
     end
   end
+
+  provider_state "there is content with format 'topic'" do
+    set_up do
+      FactoryGirl.create(:draft_content_item, title: 'Content Item A', base_path: '/a-base-path', format: 'topic')
+      FactoryGirl.create(:draft_content_item, title: 'Content Item B', base_path: '/another-base-path', format: 'topic')
+    end
+  end
 end

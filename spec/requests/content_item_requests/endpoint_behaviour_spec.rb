@@ -47,7 +47,15 @@ RSpec.describe "Endpoint behaviour", type: :request do
     end
   end
 
-  context "/v2/content" do
+  context "GET /v2/content" do
+    let(:request_path) { "/v2/content?content_format=topic&fields[]=title&fields[]=description" }
+    let(:request_body) { "" }
+    let(:request_method) { :get }
+
+    returns_200_response
+  end
+
+  context "GET /v2/content/:content_id" do
     let(:content_item) { v2_content_item }
     let(:request_body) { content_item.to_json }
     let(:request_path) { "/v2/content/#{content_id}" }

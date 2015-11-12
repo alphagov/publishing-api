@@ -1,5 +1,11 @@
 module V2
   class ContentItemsController < ApplicationController
+    def index
+      content_format = params.fetch(:content_format)
+      fields = params.fetch(:fields)
+      render json: Queries::GetContentCollection.new(content_format: content_format, fields: fields).call
+    end
+
     def show
       render json: Queries::GetContent.call(params[:content_id], params[:locale])
     end

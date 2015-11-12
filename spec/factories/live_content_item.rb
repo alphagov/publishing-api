@@ -33,10 +33,10 @@ FactoryGirl.define do
 
       draft = FactoryGirl.build(
         :draft_content_item,
-        content_id: live_content_item.content_id,
-        locale: live_content_item.locale,
-        base_path: live_content_item.base_path,
+        live_content_item.as_json(only: %i[content_id locale base_path format routes redirects]),
       )
+
+      raise "Draft is not valid: #{draft.errors.full_messages}" unless draft.valid?
 
       live_content_item.draft_content_item = draft
     end
