@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     put "/paths(/*base_path)", to: "path_reservations#reserve_path"
 
     namespace :v2 do
+      get "/content", to: "content_items#index"
       put "/content/:content_id", to: "content_items#put_content"
       get "/content/:content_id", to: "content_items#show"
       post "/content/:content_id/publish", to: "content_items#publish"
