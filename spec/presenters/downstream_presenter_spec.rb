@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Presenters::ContentStorePresenter do
+RSpec.describe Presenters::DownstreamPresenter do
   around do |example|
     Timecop.freeze { example.run }
   end
@@ -30,6 +30,7 @@ RSpec.describe Presenters::ContentStorePresenter do
         routes: [{ path: "/vat-rates", type: "exact" }],
         title: "VAT rates",
         transmitted_at: DateTime.now.strftime("%s%9N"),
+        update_type: "minor",
       )
     end
   end
@@ -60,6 +61,7 @@ RSpec.describe Presenters::ContentStorePresenter do
         routes: [{ path: "/vat-rates", type: "exact" }],
         title: "VAT rates",
         transmitted_at: DateTime.now.strftime("%s%9N"),
+        update_type: "minor",
       )
     end
   end

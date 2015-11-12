@@ -3,7 +3,7 @@ module Commands
     def call
       PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
-      payload = Presenters::ContentStorePresenter::V1.present(publish_intent, transmitted_at: false)
+      payload = Presenters::DownstreamPresenter::V1.present(publish_intent, transmitted_at: false)
 
       PublishingAPI.service(:live_content_store).put_publish_intent(
         base_path: base_path,

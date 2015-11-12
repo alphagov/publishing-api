@@ -74,15 +74,15 @@ module Commands
           end
         end
 
-        payload = Presenters::ContentStorePresenter.present(live_content_item)
-
+        live_payload = Presenters::ContentStorePresenter.present(live_content_item)
         ContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           base_path: live_content_item.base_path,
-          payload: payload,
+          payload: live_payload,
         )
 
-        send_to_message_queue!(payload)
+        queue_payload = Presenters::MessageQueuePresenter.present(live_content_item, update_type: update_type)
+        PublishingAPI.service(:queue_publisher).send_message(queue_payload)
       end
 
       def build_live_attributes(draft_content_item)
@@ -90,11 +90,6 @@ module Commands
           .attributes
           .except("access_limited", "version")
           .merge(draft_content_item: draft_content_item)
-      end
-
-      def send_to_message_queue!(item_for_content_store)
-        message_payload = item_for_content_store.merge(update_type: update_type)
-        PublishingAPI.service(:queue_publisher).send_message(message_payload)
       end
     end
   end

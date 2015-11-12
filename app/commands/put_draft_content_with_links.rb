@@ -9,7 +9,7 @@ module Commands
       PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
       if downstream
-        payload = Presenters::ContentStorePresenter::V1.present(
+        payload = Presenters::DownstreamPresenter::V1.present(
           content_item,
           update_type: false,
           access_limited: true,

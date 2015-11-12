@@ -10,7 +10,7 @@ module Commands
       PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
       if downstream
-        content_store_payload = Presenters::ContentStorePresenter::V1.present(
+        content_store_payload = Presenters::DownstreamPresenter::V1.present(
           content_item,
           access_limited: false,
           update_type: false
@@ -19,7 +19,7 @@ module Commands
         Adapters::DraftContentStore.call(base_path, content_store_payload)
         Adapters::ContentStore.call(base_path, content_store_payload)
 
-        message_bus_payload = Presenters::ContentStorePresenter::V1.present(
+        message_bus_payload = Presenters::DownstreamPresenter::V1.present(
           payload,
           access_limited: false,
         )

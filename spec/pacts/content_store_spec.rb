@@ -75,7 +75,7 @@ RSpec.describe "Pact with the Content Store", pact: true do
   describe "V1" do
     let(:attributes) { content_item_params }
     let(:body) do
-      Presenters::ContentStorePresenter::V1.present(
+      Presenters::DownstreamPresenter::V1.present(
         attributes, access_limited: false, update_type: false
       )
     end

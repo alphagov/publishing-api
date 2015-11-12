@@ -29,8 +29,8 @@ module Commands
             payload: live_payload,
           )
 
-          message_bus_payload = message_bus_payload(live_payload)
-          PublishingAPI.service(:queue_publisher).send_message(message_bus_payload)
+          queue_payload = Presenters::MessageQueuePresenter.present(live_content_item, update_type: "links")
+          PublishingAPI.service(:queue_publisher).send_message(queue_payload)
         end
 
         Success.new(links: link_set.links)
@@ -70,10 +70,6 @@ module Commands
         base_links
           .merge(new_links)
           .reject {|_, links| links.empty? }
-      end
-
-      def message_bus_payload(live_payload)
-        live_payload.merge(update_type: "links")
       end
     end
   end
