@@ -42,14 +42,14 @@ module Presenters
     end
 
     def transmitted_at
-      { transmitted_at: DateTime.now.strftime("%s%9N") }
+      { transmitted_at: DateTime.now.to_s(:nanoseconds) }
     end
 
     class V1
       def self.present(attributes, access_limited: true, update_type: true, transmitted_at: true)
         attributes = attributes.except(:access_limited) unless access_limited
         attributes = attributes.except(:update_type) unless update_type
-        attributes = attributes.merge(transmitted_at: DateTime.now.strftime("%s%9N")) if transmitted_at
+        attributes = attributes.merge(transmitted_at: DateTime.now.to_s(:nanoseconds)) if transmitted_at
 
         attributes
       end

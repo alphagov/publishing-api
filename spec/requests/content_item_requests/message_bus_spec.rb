@@ -116,7 +116,7 @@ RSpec.describe "Message bus", type: :request do
           expected_payload = v2_content_item.except(:access_limited).merge(
             links: links_attributes.fetch(:links),
             update_type: "links",
-            transmitted_at: DateTime.now.strftime("%s%9N"),
+            transmitted_at: DateTime.now.to_s(:nanoseconds),
           ).to_json
 
           delivery_info, _, payload = wait_for_message_on(@queue)
