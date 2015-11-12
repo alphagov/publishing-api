@@ -88,7 +88,7 @@ GEM
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     find_a_port (1.0.1)
-    gds-api-adapters (22.0.0)
+    gds-api-adapters (25.1.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -104,6 +104,9 @@ GEM
     hitimes (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.3)
     kgio (2.9.3)
@@ -123,6 +126,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.8.0)
     multi_json (1.11.2)
+    multi_xml (0.5.5)
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -158,6 +162,10 @@ GEM
       rspec (>= 2.14)
       term-ansicolor (~> 1.0)
       thor
+    pact_broker-client (1.0.0)
+      httparty
+      json
+      pact
     pg (0.18.3)
     plek (1.11.0)
     pry (0.10.3)
@@ -168,7 +176,7 @@ GEM
       byebug (~> 5.0)
       pry (~> 0.10)
     rack (1.6.4)
-    rack-cache (1.2)
+    rack-cache (1.5.1)
       rack (>= 0.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -304,10 +312,11 @@ DEPENDENCIES
   bunny (= 2.0.0)
   database_cleaner
   factory_girl_rails (= 4.5.0)
-  gds-api-adapters (= 22.0.0)
+  gds-api-adapters (= 25.1.0)
   govuk-client-url_arbiter (= 0.0.3)
   logstasher (= 0.6.2)
   pact
+  pact_broker-client
   pg
   plek (~> 1.10)
   pry

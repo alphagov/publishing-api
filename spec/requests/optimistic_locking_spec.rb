@@ -97,7 +97,12 @@ RSpec.describe "Optimistic locking", type: :request do
 
   context "PUT /v2/links" do
     before do
-      FactoryGirl.create(:live_content_item, content_id: content_id)
+      live = FactoryGirl.create(:live_content_item, content_id: content_id)
+      draft = live.draft_content_item
+
+      FactoryGirl.create(:version, target: live, number: 2)
+      FactoryGirl.create(:version, target: draft, number: 2)
+
       existing_link_set = FactoryGirl.create(:link_set, links_attributes)
       @existing_version = FactoryGirl.create(:version,
         target: existing_link_set,

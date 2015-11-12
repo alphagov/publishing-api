@@ -8,6 +8,8 @@ module RequestHelpers
         get request_path, body, headers
       when :post
         post request_path, body, headers
+      else
+        raise "Unsupported request_method"
       end
     end
   end

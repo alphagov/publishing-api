@@ -10,10 +10,20 @@ module Commands
       PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
       if downstream
-        Adapters::DraftContentStore.call(base_path, content_item_for_content_store)
-        Adapters::ContentStore.call(base_path, content_item_for_content_store)
+        content_store_payload = Presenters::DownstreamPresenter::V1.present(
+          content_item,
+          access_limited: false,
+          update_type: false
+        )
 
-        PublishingAPI.service(:queue_publisher).send_message(content_item_for_message_bus)
+        Adapters::DraftContentStore.call(base_path, content_store_payload)
+        Adapters::ContentStore.call(base_path, content_store_payload)
+
+        message_bus_payload = Presenters::DownstreamPresenter::V1.present(
+          payload,
+          access_limited: false,
+        )
+        PublishingAPI.service(:queue_publisher).send_message(message_bus_payload)
       end
 
       Success.new(content_item)
@@ -26,14 +36,6 @@ module Commands
 
     def content_id
       content_item[:content_id]
-    end
-
-    def content_item_for_content_store
-      content_item.except(:access_limited, :update_type)
-    end
-
-    def content_item_for_message_bus
-      content_item.except(:access_limited).merge(base_path: base_path)
     end
 
     def content_item_top_level_fields

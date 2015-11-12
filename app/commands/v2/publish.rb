@@ -69,21 +69,20 @@ module Commands
           if live_version.number == draft_version.number
             raise CommandError.new(code: 400, message: "This item is already published")
           else
-            version = Version.find_or_initialize_by(target: live_item)
-            version.copy_version_from(draft_content_item)
-            version.save! if live_item.valid?
+            live_version.copy_version_from(draft_content_item)
+            live_version.save! if live_item.valid?
           end
         end
 
-        item_for_content_store = content_store_payload(live_content_item)
-
+        live_payload = Presenters::ContentStorePresenter.present(live_content_item)
         ContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           base_path: live_content_item.base_path,
-          payload: item_for_content_store,
+          payload: live_payload,
         )
 
-        send_to_message_queue!(item_for_content_store)
+        queue_payload = Presenters::MessageQueuePresenter.present(live_content_item, update_type: update_type)
+        PublishingAPI.service(:queue_publisher).send_message(queue_payload)
       end
 
       def build_live_attributes(draft_content_item)
@@ -91,19 +90,6 @@ module Commands
           .attributes
           .except("access_limited", "version")
           .merge(draft_content_item: draft_content_item)
-      end
-
-      def content_store_payload(live_item)
-        content_item_fields = LiveContentItem::TOP_LEVEL_FIELDS + [:links]
-        live_item_hash = LinkSetMerger.merge_links_into(live_item)
-          .slice(*content_item_fields)
-
-        Presenters::ContentItemPresenter.present(live_item_hash)
-      end
-
-      def send_to_message_queue!(item_for_content_store)
-        message_payload = item_for_content_store.merge(update_type: update_type)
-        PublishingAPI.service(:queue_publisher).send_message(message_payload)
       end
     end
   end

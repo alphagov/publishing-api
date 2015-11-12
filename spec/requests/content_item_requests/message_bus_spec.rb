@@ -100,25 +100,36 @@ RSpec.describe "Message bus", type: :request do
         FactoryGirl.create(:live_content_item, v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS))
       }
 
+      before do
+        draft = live_content_item.draft_content_item
+
+        FactoryGirl.create(:version, target: draft, number: 1)
+        FactoryGirl.create(:version, target: live_content_item, number: 1)
+      end
+
       it "sends a message with a 'links' routing key" do
-        do_request
+        Timecop.freeze do
+          do_request
 
-        expect(response.status).to eq(200)
+          expect(response.status).to eq(200)
 
-        expected_payload = v2_content_item.except(:access_limited).merge(
-          links: links_attributes.fetch(:links),
-          update_type: "links",
-        ).to_json
+          expected_payload = v2_content_item.except(:access_limited).merge(
+            links: links_attributes.fetch(:links),
+            update_type: "links",
+            transmitted_at: DateTime.now.to_s(:nanoseconds),
+          ).to_json
 
-        delivery_info, _, payload = wait_for_message_on(@queue)
-        expect(delivery_info.routing_key).to eq("#{live_content_item.format}.links")
-        expect(JSON.parse(payload)).to eq(JSON.parse(expected_payload))
+          delivery_info, _, payload = wait_for_message_on(@queue)
+          expect(delivery_info.routing_key).to eq("#{live_content_item.format}.links")
+          expect(JSON.parse(payload)).to eq(JSON.parse(expected_payload))
+        end
       end
     end
 
     context "with a draft content item" do
       let!(:draft_content_item) {
-        FactoryGirl.create(:draft_content_item, v2_content_item.slice(*DraftContentItem::TOP_LEVEL_FIELDS))
+        draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*DraftContentItem::TOP_LEVEL_FIELDS))
+        FactoryGirl.create(:version, target: draft, number: 1)
       }
 
       it "doesn't send any messages" do

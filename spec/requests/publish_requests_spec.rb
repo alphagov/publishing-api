@@ -111,24 +111,34 @@ RSpec.describe "POST /v2/publish", type: :request do
     end
 
     it "sends item to live content store including links" do
-      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-      .with(
-        base_path: draft_content_item.base_path,
-        content_item: expected_live_content_item_hash
-      )
-      do_request
+      Timecop.freeze do
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+        .with(
+          base_path: draft_content_item.base_path,
+          content_item: expected_live_content_item_hash
+            .merge(transmitted_at: DateTime.now.to_s(:nanoseconds))
+        )
+        do_request
+      end
     end
 
     describe "message queue integration" do
       include_context "using the message queue in test mode"
 
       it "sends the item combined with the current link set on the message queue" do
-        do_request
-        delivery_info, _, message_json = wait_for_message_on(@queue)
-        expect(delivery_info.routing_key).to eq("#{draft_content_item.format}.#{payload[:update_type]}")
+        Timecop.freeze do
+          do_request
+          delivery_info, _, message_json = wait_for_message_on(@queue)
+          expect(delivery_info.routing_key).to eq("#{draft_content_item.format}.#{payload[:update_type]}")
 
-        message = JSON.parse(message_json)
-        expect(message).to eq(expected_live_content_item_hash.as_json.merge("update_type" => payload[:update_type]))
+          message = JSON.parse(message_json)
+
+          expected_live_content_item_hash.merge!(
+            update_type: payload[:update_type],
+            transmitted_at: DateTime.now.to_s(:nanoseconds),
+          )
+          expect(message).to eq(expected_live_content_item_hash.as_json)
+        end
       end
     end
 

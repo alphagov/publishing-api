@@ -13,21 +13,24 @@ module Commands
         end
 
         if (draft_content_item = DraftContentItem.find_by(content_id: link_params.fetch(:content_id)))
+          draft_payload = Presenters::ContentStorePresenter.present(draft_content_item)
           ContentStoreWorker.perform_async(
             content_store: Adapters::DraftContentStore,
             base_path: draft_content_item.base_path,
-            payload: draft_content_store_payload(draft_content_item),
+            payload: draft_payload,
           )
         end
 
         if (live_content_item = LiveContentItem.find_by(content_id: link_params.fetch(:content_id)))
+          live_payload = Presenters::ContentStorePresenter.present(live_content_item)
           ContentStoreWorker.perform_async(
             content_store: Adapters::ContentStore,
             base_path: live_content_item.base_path,
-            payload: live_content_store_payload(live_content_item),
+            payload: live_payload,
           )
 
-          PublishingAPI.service(:queue_publisher).send_message(message_bus_payload(live_content_item))
+          queue_payload = Presenters::MessageQueuePresenter.present(live_content_item, update_type: "links")
+          PublishingAPI.service(:queue_publisher).send_message(queue_payload)
         end
 
         Success.new(links: link_set.links)
@@ -67,26 +70,6 @@ module Commands
         base_links
           .merge(new_links)
           .reject {|_, links| links.empty? }
-      end
-
-      def draft_content_store_payload(content_item)
-        content_item_fields = DraftContentItem::TOP_LEVEL_FIELDS + [:links]
-        draft_item_hash = LinkSetMerger.merge_links_into(content_item)
-          .slice(*content_item_fields)
-
-        Presenters::ContentItemPresenter.present(draft_item_hash)
-      end
-
-      def live_content_store_payload(content_item)
-        content_item_fields = LiveContentItem::TOP_LEVEL_FIELDS + [:links]
-        live_item_hash = LinkSetMerger.merge_links_into(content_item)
-          .slice(*content_item_fields)
-
-        Presenters::ContentItemPresenter.present(live_item_hash)
-      end
-
-      def message_bus_payload(content_item)
-        live_content_store_payload(content_item).merge(update_type: "links")
       end
     end
   end
