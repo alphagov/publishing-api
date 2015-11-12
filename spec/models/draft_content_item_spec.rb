@@ -60,6 +60,11 @@ RSpec.describe DraftContentItem do
       end
 
       it "requires a rendering_app" do
+        subject.rendering_app = nil
+        expect(subject).to be_invalid
+      end
+
+      it "requires a rendering_app to have a valid hostname" do
         subject.rendering_app = ""
         expect(subject).to be_invalid
       end
