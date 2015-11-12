@@ -25,7 +25,7 @@ RSpec.describe V2::ContentItemsController do
       end
     end
 
-    context "with a non-existant content_id" do
+    context "for a non-existent content item" do
       it "responds with 404" do
         get :show, content_id: "missing"
 
@@ -35,7 +35,6 @@ RSpec.describe V2::ContentItemsController do
   end
 
   describe "put_content" do
-
     context "with valid request params for a new content item" do
       before do
         content_item_hash = @draft.as_json
@@ -106,7 +105,7 @@ RSpec.describe V2::ContentItemsController do
       end
     end
 
-    context "with a non-existant content_id" do
+    context "for a non-existent content item" do
       it "responds with 404" do
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = { update_type: "major" }.to_json
