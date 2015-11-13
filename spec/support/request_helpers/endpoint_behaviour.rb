@@ -34,9 +34,10 @@ module RequestHelpers
 
     def responds_with_presented_content_item
       it "responds with the presentation of the content item and version" do
-        presented_content_item = Presenters::Queries::ContentItemPresenter.present(content_item)
-
         do_request
+
+        updated_content_item = DraftContentItem.find_by!(content_id: content_id)
+        presented_content_item = Presenters::Queries::ContentItemPresenter.present(updated_content_item)
 
         expect(response.body).to eq(presented_content_item.to_json)
       end
@@ -75,8 +76,10 @@ module RequestHelpers
           begin
             do_request
 
+            parsed_response_body = JSON.parse(response.body)
             expect(response.status).to eq(200)
-            expect(response.body).to eq(request_body)
+            expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
+            expect(parsed_response_body["title"]).to eq(content_item[:title])
           ensure
             PublishingAPI.swallow_draft_connection_errors = @swallow_draft_errors
           end
