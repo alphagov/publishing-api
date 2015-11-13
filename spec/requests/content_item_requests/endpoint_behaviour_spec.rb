@@ -55,14 +55,14 @@ RSpec.describe "Endpoint behaviour", type: :request do
     returns_200_response
   end
 
-  context "GET /v2/content/:content_id" do
+  context "PUT /v2/content/:content_id" do
     let(:content_item) { v2_content_item }
     let(:request_body) { content_item.to_json }
     let(:request_path) { "/v2/content/#{content_id}" }
     let(:request_method) { :put }
 
     returns_200_response
-    responds_with_request_body
+    responds_with_presented_content_item
     returns_400_on_invalid_json
     suppresses_draft_content_store_502s
     forwards_locale_extension
