@@ -14,12 +14,19 @@ module Presenters
       def present
         content_item.as_json
           .symbolize_keys
-          .merge(version: version.number)
+          .merge(
+            version: version.number,
+            publication_state: publication_state,
+          )
       end
 
     private
 
       attr_accessor :content_item, :version
+
+      def publication_state
+        content_item.live_content_item.present? ? 'live' : 'draft'
+      end
     end
   end
 end

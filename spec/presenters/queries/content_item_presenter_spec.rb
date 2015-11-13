@@ -17,5 +17,9 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     it "exposes the version number of the content item" do
       expect(@result.fetch(:version)).to eq(101)
     end
+
+    it "exposes the publication state of the content item" do
+      expect(@result.fetch(:publication_state)).to eq("draft")
+    end
   end
 end
