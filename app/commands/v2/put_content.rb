@@ -15,7 +15,8 @@ module Commands
           payload: draft_payload,
         )
 
-        Success.new(payload)
+        response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
+        Success.new(response_hash)
       end
 
     private
