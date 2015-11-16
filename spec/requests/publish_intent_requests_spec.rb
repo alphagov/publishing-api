@@ -4,7 +4,7 @@ RSpec.describe "Publish intent requests", type: :request do
   let(:content_item) {
     {
       publish_time: (Time.zone.now + 3.hours).iso8601,
-      publishing_app: "mainstream_publisher",
+      publishing_app: "publisher",
       rendering_app: "frontend",
       routers: [
         {
