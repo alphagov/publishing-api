@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116112638) do
+ActiveRecord::Schema.define(version: 20151116114008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20151116112638) do
 
   create_table "link_sets", force: :cascade do |t|
     t.string "content_id"
-    t.json   "links",      default: {}, null: false
   end
 
   add_index "link_sets", ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
