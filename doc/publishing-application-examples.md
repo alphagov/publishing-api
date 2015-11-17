@@ -18,7 +18,18 @@ The `User#uid` value can then be sent as a request parameter when drafting conte
 
 The Publishing API prescribes a draft-to-live workflow where the publishing application submits new draft content, this content may then be updated via the same endpoint and finally the content item can be published in a discreet endpoint request.
 
-![Publishing API drafting and publishing content flow](./images/publishing-api-put-content-flow.png)
+```
+  Publishing Application                                 Publishing API
+
+  [ Initial draft ] -----------------------------------> [ PUT /v2/content/:content_id ]
+                           Responds with version                       |
+                    <--------------------------------------------------
+
+  [ Updated draft ] -----------------------------------> [ PUT /v2/content/:content_id ]
+          |
+          |            Publish request
+           --------------------------------------------> [ POST /v2/content/:content_id/publish ]
+```
 
 ## Configuring the Publishing API for use in a publishing application
 
@@ -120,7 +131,29 @@ The response will indicate any errors that may have occurred in making the reque
 The response body contains the current version of the content item for GET and PUT `/v2/content/:content_id` endpoints. This allows the publishing application to track the updated draft version, this is can in turn be used in an optional previous_version request parameter to prevent conflicting updates from overwriting content. ie.
 
 
-![Publishing API content versioning flow](./images/publishing-api-content-versioning-flow.png)
+```
+  Publishing Application                                 Publishing API
+
+  [ Initial draft ] -----------------------------------> [ PUT /v2/content/:content_id ]
+                                                                       |
+                    Responds with version 1                            |
+                    <--------------------------------------------------
+
+  [ Update version 1 ] ------ previous_version: 1 -----> [ PUT /v2/content/:content_id ]
+                                                                       |
+                    Responds with version 2                            |
+                    <--------------------------------------------------
+
+                    This next request to update will fail since version increment.
+
+  [ Update version 1 ] ------ previous_version: 1 -----> [ PUT /v2/content/:content_id ]
+
+                    This next request to update will succeed.
+
+  [ Update version 2 ] ------ previous_version: 2 -----> [ PUT /v2/content/:content_id ]
+```
+
+
 
 [GET endpoints also exist for content and links](https://gov-uk.atlassian.net/wiki/display/TECH/Publishing+Platform) should the publishing application wish to make a request for the current state of these items in the Publishing API.
 
@@ -138,7 +171,20 @@ When making a request to publish, the current draft item of the same content_id 
 It’s worth noting that the internal versioning of the Publishing API only tracks the version of draft updates, this means that publishing apps are responsible for maintaining versioning of published content, for example the Publishing API may contain draft versions 1 to 10 of a content item.
 This item may have been published at version 5 and 10, the publishing application may wish to represent this as version 1 and version 2 as these are the significant publishings of the content:
 
-![Publishing API content publishing flow](./images/publishing-api-content-publishing-flow.png)
+```
+  Publishing Application                                 Publishing API
+
+  [ Initial draft ] -----------------------------------> [ Draft version 1 ]
+
+  [ Updated draft ] -----------------------------------> [ Draft version 2 ]
+          |
+          |            Publish request
+           --------------------------------------------> [ Draft version 2 ] --> [ Published version 2 ]
+                                                                                            |
+  [ Published version 1 ] <-----------------------------------------------------------------
+
+```
+
 
 ---
 
