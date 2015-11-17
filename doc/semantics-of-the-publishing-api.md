@@ -270,7 +270,7 @@ element in this array is a JSON object that contains the properties *path*,
 *type* and *destination*. No other properties are supported. The *type* must be
 set to one of either *exact* or *prefix*.
 
-An *exact type* denotes that the *path* should checked for an exact match
+An *exact type* denotes that the *path* should be checked for an exact match
 against the user’s request URL when determining whether a redirect should occur.
 A *prefix type* denotes that any subpath under the specified path should be
 redirected to the destination. You can think of these as “exact” and “fuzzy”
