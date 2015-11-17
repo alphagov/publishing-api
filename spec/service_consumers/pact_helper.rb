@@ -131,11 +131,9 @@ Pact.provider_states_for "GDS API Adapters" do
 
       link_set = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        links: {
-          organisations: ["20583132-1619-4c68-af24-77583172c070"],
-        },
       )
       FactoryGirl.create(:version, target: link_set, number: 2)
+      FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: "20583132-1619-4c68-af24-77583172c070")
     end
   end
 
@@ -145,7 +143,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
       link_set = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        links: {},
       )
       FactoryGirl.create(:version, target: link_set, number: 2)
     end
@@ -201,7 +198,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
       linkset = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        links: {},
       )
 
       FactoryGirl.create(:version, target: linkset, number: 3)
