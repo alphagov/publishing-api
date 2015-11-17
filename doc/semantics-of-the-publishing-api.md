@@ -162,8 +162,8 @@ Example: *government-frontend*
 Required: Conditionally
 
 The `rendering_app` identifies the front-end application that is responsible for
-rendering the content item. Front-end applications will provide this string when
-querying the content store.
+rendering the content item. The router will use this information to direct
+users' requests to the appropriate front-end application.
 
 The `rendering_app` is required except in cases where the content item is
 non-renderable (see [**format**](#format)).
