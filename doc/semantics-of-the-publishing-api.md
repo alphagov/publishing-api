@@ -33,6 +33,10 @@ a content item share a `content_id`
 `content_ids` are [UUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier)
 and will not be accepted by the Publishing API otherwise.
 
+Note: Previously, the `base_path` was a content item's main identifier. This is
+no longer the case. It has been changed to `content_id` because `base_paths` had
+a tendency to change.
+
 ---
 
 ### base_path
