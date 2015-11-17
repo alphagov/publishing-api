@@ -78,11 +78,11 @@ module Commands
         version.increment
         version.save! if link_set.valid?
 
-        link_set.content_item_links.delete_all
+        link_set.links.delete_all
 
         content_item[:links].each do |link_type, links|
           links.each do |link|
-            link_set.content_item_links.create(
+            link_set.links.create(
               link_type: link_type,
               target_content_id: link,
             )

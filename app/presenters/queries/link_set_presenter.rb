@@ -14,9 +14,10 @@ module Presenters
       def present
         link_set.as_json
           .symbolize_keys
-          .except(:links)
-          .merge(version: version.number)
-          .merge(links: link_set.hashed_links)
+          .merge({
+            version: version.number,
+            links: link_set.hashed_links,
+          })
       end
 
     private
