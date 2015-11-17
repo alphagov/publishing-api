@@ -85,7 +85,7 @@ Example: *VAT rates*
 Required: Conditionally
 
 The `title` names the content item. It is required except in cases where the
-content item is non-renderable (see **format**).
+content item is non-renderable (see [**format**](#format)).
 
 ---
 
@@ -126,7 +126,7 @@ is the time that will appear alongside the content item in the front-end to
 inform users of the time at which that particular content item was updated.
 
 The `public_updated_at` is required except in cases where the content item is
-non-renderable (see **format**). This will not be set automatically and must be
+non-renderable (see [**format**](#format)). This will not be set automatically and must be
 provided by the publishing application.
 
 Note: This is subject to change. It may be that we automatically set
@@ -166,7 +166,7 @@ rendering the content item. Front-end applications will provide this string when
 querying the content store.
 
 The `rendering_app` is required except in cases where the content item is
-non-renderable (see **format**).
+non-renderable (see [**format**](#format)).
 
 ---
 
@@ -282,7 +282,7 @@ and they must include the `base_path` of content_item in the *path* property, at
 the very least.
 
 Redirects are subject to the same requirement as routes in that their paths must
-reside under the `base_path` of the content item (see **routes**).
+reside under the `base_path` of the content item (see [**routes**](#routes)).
 
 Note: Collectively, routes and redirects must have unique paths. The Publishing
 API will not accept content items where the routes and redirects conflict with
@@ -380,7 +380,7 @@ store and also to the live content store if the content item has previously been
 published.
 
 An update to the `links` causes a message to be placed on the message queue.
-This message will have a special update_type of links (see **update_type**).
+This message will have a special update_type of links (see [**update_type**](#update_type)).
 This queue is consumed by the Rummager application in order to reindex the
 appropriate content when `links` change for a content item.
 
