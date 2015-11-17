@@ -12,6 +12,10 @@ used. That document can be found
 
 ---
 
+### **Required Fields**
+
+---
+
 ### content_id
 
 Example: *d296ea8e-31ad-4e0b-9deb-026da695bb65*
@@ -78,6 +82,30 @@ for more information.
 
 ---
 
+### publishing_app
+
+Example: *collections-publisher*
+
+Required: Yes
+
+The `publishing_app` identifies the application that is responsible for
+publishing the content item. When a content item is created, its `base_path` is
+registered to the `publishing_app`. The path may not be used by a content item
+that was created with a different `publishing_app`.
+
+The `publishing_app` can then be used to filter content items appropriately when
+requests are made to the Publishing API. The `publishing_app` is also used as a
+means of auditing which applications are making use of the publishing pipeline.
+
+Note: `publishing_app` should be hyphenated as this is the convention used in
+the Router API.
+
+---
+
+### **Conditionally Required**
+
+---
+
 ### title
 
 Example: *VAT rates*
@@ -86,32 +114,6 @@ Required: Conditionally
 
 The `title` names the content item. It is required except in cases where the
 content item is non-renderable (see [**format**](#format)).
-
----
-
-### description
-
-Example: *VAT rates for goods and services*
-
-Required: No
-
-The `description` captures a short explanation of the content item. It is sent
-downstream to the content store and may be displayed at the discretion of the
-front-end application, when the content item is rendered.
-
----
-
-### need_ids
-
-Example: *["1234", "1235"]*
-
-Required: No
-
-The `needs_ids` are the identifiers of [user needs](https://www.gov.uk/design-principles)
-that are entered through the [Maslow Application](https://github.com/alphagov/maslow).
-They are passed through to the content store, untouched by the pipeline. The
-front-end applications can then use the `needs_ids` to present pages to users,
-such as [this one](https://www.gov.uk/info/overseas-passports).
 
 ---
 
@@ -135,26 +137,6 @@ speak to the Publishing Platform team if you have questions about this.
 
 ---
 
-### publishing_app
-
-Example: *collections-publisher*
-
-Required: Yes
-
-The `publishing_app` identifies the application that is responsible for
-publishing the content item. When a content item is created, its `base_path` is
-registered to the `publising_app`. The path may not be used by a content item
-that was created with a different `publishing_app`.
-
-The `publishing_app` can then be used to filter content items appropriately when
-requests are made to the Publishing API. The `publishing_app` is also used as a
-means of auditing which applications are making use of the publishing pipeline.
-
-Note: `publishing_app` should be hyphenated as this is the convention used in
-the Router API.
-
----
-
 ### rendering_app
 
 Example: *government-frontend*
@@ -167,42 +149,6 @@ users' requests to the appropriate front-end application.
 
 The `rendering_app` is required except in cases where the content item is
 non-renderable (see [**format**](#format)).
-
----
-
-### locale
-
-Example: *en*
-
-Required: No
-
-The `locale` is the language in which the content item is written. Front-end
-applications will optionally provide this string when querying the content store
-in order to retrieve content items in a given `locale`.
-
-A list of valid locales can be viewed in the Publishing API [here](https://github.com/alphagov/publishing-api/blob/master/config/application.rb#L32-L37).
-This field is not required and if a `locale` is not provided, it will be set to
-*en* automatically.
-
----
-
-### phase
-
-Examples: *alpha, beta, live*
-
-Required: No
-
-The `phase` is an optional field that may be used to indicate the ‘Service
-Design Phase’ of the content item. The phase must be one of either *alpha*,
-*beta* or *live*. If the `phase` is not specified, the Publishing API will
-default it to *live*.
-
-Content items will be published to the content store regardless of their
-`phase`.  If a content item has a `phase` of either *alpha* or *beta*, a visual
-component will be added to the front-end to show this (assuming the front-end
-application for that format supports this).
-
-There is more information on what each of the phases mean [here](https://www.gov.uk/service-manual/phases).
 
 ---
 
@@ -325,6 +271,72 @@ together with the `format` of the content item (e.g. *policy.major*)
 
 ---
 
+### **Optional Fields**
+
+---
+
+### description
+
+Example: *VAT rates for goods and services*
+
+Required: No
+
+The `description` captures a short explanation of the content item. It is sent
+downstream to the content store and may be displayed at the discretion of the
+front-end application, when the content item is rendered.
+
+---
+
+### need_ids
+
+Example: *["1234", "1235"]*
+
+Required: No
+
+The `needs_ids` are the identifiers of [user needs](https://www.gov.uk/design-principles)
+that are entered through the [Maslow Application](https://github.com/alphagov/maslow).
+They are passed through to the content store, untouched by the pipeline. The
+front-end applications can then use the `needs_ids` to present pages to users,
+such as [this one](https://www.gov.uk/info/overseas-passports).
+
+---
+
+### locale
+
+Example: *en*
+
+Required: No
+
+The `locale` is the language in which the content item is written. Front-end
+applications will optionally provide this string when querying the content store
+in order to retrieve content items in a given `locale`.
+
+A list of valid locales can be viewed in the Publishing API [here](https://github.com/alphagov/publishing-api/blob/master/config/application.rb#L32-L37).
+This field is not required and if a `locale` is not provided, it will be set to
+*en* automatically.
+
+---
+
+### phase
+
+Examples: *alpha, beta, live*
+
+Required: No
+
+The `phase` is an optional field that may be used to indicate the ‘Service
+Design Phase’ of the content item. The phase must be one of either *alpha*,
+*beta* or *live*. If the `phase` is not specified, the Publishing API will
+default it to *live*.
+
+Content items will be published to the content store regardless of their
+`phase`.  If a content item has a `phase` of either *alpha* or *beta*, a visual
+component will be added to the front-end to show this (assuming the front-end
+application for that format supports this).
+
+There is more information on what each of the phases mean [here](https://www.gov.uk/service-manual/phases).
+
+---
+
 ### access_limited
 
 Example: *{ users: ["bf3e4b4f-f02d-4658-95a7-df7c74cd0f50"] }*
@@ -367,6 +379,8 @@ that information about user activity can be tracked for the content item.
 ### links
 
 Example: *{ “related”: [“8242a29f-8ad1-4fbe-9f71-f9e57ea5f1ea”] }*
+
+Required: No
 
 The `links` contain the [UUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier)
 of other content items that this content item links to. For example, if a
