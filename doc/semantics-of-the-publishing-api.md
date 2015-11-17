@@ -137,7 +137,7 @@ speak to the Publishing Platform team if you have questions about this.
 
 ### publishing_app
 
-Example: *publisher*
+Example: *collections-publisher*
 
 Required: Yes
 
@@ -157,7 +157,7 @@ the Router API.
 
 ### rendering_app
 
-Example: *mainstream_frontend*
+Example: *government-frontend*
 
 Required: Conditionally
 
