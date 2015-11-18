@@ -22,8 +22,10 @@ The Publishing API prescribes a draft-to-live workflow where the publishing appl
   Publishing Application                                 Publishing API
 
   [ Initial draft ] -----------------------------------> [ PUT /v2/content/:content_id ]
-                           Responds with version                       |
-                    <--------------------------------------------------
+                                                                       |
+               Responds with updated content item including version    |
+           <-----------------------------------------------------------
+
 
   [ Updated draft ] -----------------------------------> [ PUT /v2/content/:content_id ]
           |
@@ -46,9 +48,11 @@ A trivial example of how to configure a publishing application to use the publis
 ## Drafting a content item from a publishing app
 
 Publishing applications should use the `PUT /v2/content/:content_id` endpoint to add content.
-Please refer to the [syntactic documentation]() and [semantic documentation]() for further details.
+Please refer to the [syntactic documentation](https://gov-uk.atlassian.net/wiki/display/TECH/Publishing+Platform) and [semantic documentation](./semantics-of-the-publishing-api.md) for further details.
 
 The publishing application is responsible for the generation of a content_id, the primary identifier for content in the publishing API and content store. The convention is to use SecureRandom.uuid to generate a valid content_id.
+
+Details of how the payload should be constructed including required fields can be found in [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas) where each format is defined for both publishing and frontend applications. For example the payload for a case study would need to provide `body` and `first_public_at` attributes along with other mandatory attributes such as `content_id` and `base_path`.
 
 Using the publishing API v2 client adapter with a valid content_id and payload, the following example would make the request.
 
