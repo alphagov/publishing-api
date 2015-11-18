@@ -99,7 +99,7 @@ The response body would contain a presentation of the saved content item includi
   "version":"1"}
 ```
 
-which could then be used to update the model instance:
+which could then be used to update the local model instance in the publishing application:
 
 ```
   parsed_response = JSON.parse(response.body)
