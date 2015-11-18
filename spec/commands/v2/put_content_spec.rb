@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe Commands::V2::PutContent do
 
   describe 'call' do
+    before do
+      stub_request(:put, %r{.*content-store.*/content/.*})
+    end
+
     let(:content_id) { SecureRandom.uuid }
     let(:base_path) { '/vat-rates' }
 
@@ -27,7 +31,7 @@ RSpec.describe Commands::V2::PutContent do
         let(:updated_payload) { payload.merge(base_path: '/vatrates') }
 
         it 'raises an error' do
-          expect { Commands::V2::PutContent.call(updated_payload) }.to raise_error(
+          expect { described_class.call(updated_payload) }.to raise_error(
             CommandError, /Base path cannot be changed for published items/)
         end
       end
@@ -35,24 +39,25 @@ RSpec.describe Commands::V2::PutContent do
       context 'given a publishing_app change on a published item' do
         let(:updated_payload) { payload.merge(publishing_app: 'new-publishing-app') }
         it 'raises an error' do
-          expect { Commands::V2::PutContent.call(updated_payload) }.to raise_error(
+          expect { described_class.call(updated_payload) }.to raise_error(
             CommandError, 'Base path is already registered by mainstream_publisher')
         end
       end
 
       context 'given a field change on a published item' do
-        before do
-          stub_request(:put, %r{.*content-store.*/content/.*})
-        end
-
         let(:updated_payload) { payload.merge(title: 'A better title') }
 
         it 'passes validation' do
-          expect(Commands::Success).to receive(:new).with(updated_payload)
+          expect(Commands::Success).to receive(:new)
 
-          Commands::V2::PutContent.call(updated_payload)
+          described_class.call(updated_payload)
         end
       end
+    end
+
+    it "presents the updated content in the response body" do
+      result = described_class.call(payload)
+      expect(result.data[:version]).to eq(1)
     end
   end
 end
