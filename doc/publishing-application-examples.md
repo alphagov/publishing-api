@@ -171,6 +171,7 @@ POST /v2/940b88db-8f15-4859-b5b2-4761ba62a067/publish?locale=fr
 ```
 
 When making a request to publish, the current draft item of the same content_id and locale is used as the basis of the payload send downstream to the live content store.
+There are typically two different `update_type` values which will be sent with the request to publish a content item. `major` which implies the update will be announced to the public eg. via email alerts or a change of publishing timestamps and possibly change notes. `minor` which implies the change should not be announced as above.
 
 It’s worth noting that the internal versioning of the Publishing API only tracks the version of draft updates, this means that publishing apps are responsible for maintaining versioning of published content, for example the Publishing API may contain draft versions 1 to 10 of a content item.
 This item may have been published at version 5 and 10, the publishing application may wish to represent this as version 1 and version 2 as these are the significant publishings of the content:
