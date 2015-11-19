@@ -53,11 +53,31 @@ class LiveContentItem < ActiveRecord::Base
     true
   end
 
+  # Postgres's JSON columns have problems storing literal strings, so these
+  # getter/setter overrides wrap and unwrap those strings in hashes.
+  def description=(value)
+    if value.is_a?(String)
+      super(string: value)
+    else
+      super
+    end
+  end
+
+  def description
+    value = super
+
+    if value.is_a?(Hash) && value.key?(:string)
+      value.fetch(:string)
+    else
+      value
+    end
+  end
+
+private
   def self.query_keys
     [:content_id, :locale]
   end
 
-private
   def content_ids_match
     if draft_content_item && draft_content_item.content_id != content_id
       errors.add(:content_id, "id mismatch between draft and live content items")
