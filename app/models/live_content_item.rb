@@ -46,6 +46,8 @@ class LiveContentItem < ActiveRecord::Base
     message: 'must be either alpha, beta, or live'
   }
   validates_with RoutesAndRedirectsValidator
+  validates :description, well_formed_content_types: { must_include: "text/html" }
+  validates :details, well_formed_content_types: { must_include: "text/html" }
 
   def published?
     true

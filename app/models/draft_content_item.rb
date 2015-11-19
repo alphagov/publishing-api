@@ -35,6 +35,9 @@ class DraftContentItem < ActiveRecord::Base
   }
   validates_with RoutesAndRedirectsValidator
 
+  validates :description, well_formed_content_types: { must_include: "text/html" }
+  validates :details, well_formed_content_types: { must_include: "text/html" }
+
   def viewable_by?(user_uid)
     !access_limited? || authorised_user_uids.include?(user_uid)
   end
