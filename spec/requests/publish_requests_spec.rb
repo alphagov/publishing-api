@@ -4,7 +4,17 @@ require "support/shared_context/message_queue_test_mode"
 RSpec.describe "POST /v2/publish", type: :request do
   include MessageQueueHelpers
 
-  let(:draft_content_item_attributes) { draft_content_item.attributes.deep_symbolize_keys.except(:id, :version, :metadata) }
+  let(:draft_content_item_attributes) do
+    attributes = draft_content_item
+      .attributes
+      .deep_symbolize_keys
+      .except(:id, :version, :metadata, :old_description)
+
+    attributes.merge(
+      description: attributes.delete(:description).fetch(:string)
+    )
+  end
+
   let(:expected_live_content_item_derived_representation) {
     draft_content_item_attributes
       .merge(public_updated_at: draft_content_item_attributes[:public_updated_at].iso8601)
