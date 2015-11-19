@@ -30,6 +30,8 @@ module Commands
 
       def create_or_update_draft_content_item!
         DraftContentItem.create_or_replace(content_item_attributes) do |item|
+          clear_space_for(item) if item.new_record?
+
           version = Version.find_or_initialize_by(target: item)
           version.increment
           version.save! if item.valid?

@@ -48,6 +48,8 @@ module Commands
       )
 
       LiveContentItem.create_or_replace(attributes) do |item|
+        clear_space_for(item) if item.new_record?
+
         version = Version.find_or_initialize_by(target: item)
         version.copy_version_from(draft_content_item)
         version.save! if item.valid?

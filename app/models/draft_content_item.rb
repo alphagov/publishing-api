@@ -39,6 +39,10 @@ class DraftContentItem < ActiveRecord::Base
     !access_limited? || authorised_user_uids.include?(user_uid)
   end
 
+  def draft_or_redirect?
+    ["gone", "redirect"].include?(format)
+  end
+
 private
   def self.query_keys
     [:content_id, :locale]
