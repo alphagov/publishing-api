@@ -174,4 +174,44 @@ RSpec.describe "Message bus", type: :request do
       end
     end
   end
+
+  describe "content type inlining" do
+    let(:request_body) { { update_type: "major" }.to_json }
+    let(:request_path) { "/v2/content/#{content_id}/publish" }
+    let(:request_method) { :post }
+
+    before do
+      draft = FactoryGirl.create(:draft_content_item, v2_content_item.merge(
+        description: [
+          { content_type: "text/html", content: v2_content_item.fetch(:description) },
+          { content_type: "text/plain", content: "plain content" },
+        ],
+        details: {
+          body: [
+            { content_type: "text/html", content: v2_content_item.fetch(:details).fetch(:body) },
+            { content_type: "text/plain", content: "plain content" },
+          ]
+        }
+      ))
+      FactoryGirl.create(:version, target: draft, number: 1)
+    end
+
+    it "inlines the 'text/html' content type for 'description' and 'details'" do
+      Timecop.freeze do
+        do_request
+
+        expect(response.status).to eq(200)
+
+        expected_payload = v2_content_item.except(:access_limited).merge(
+          update_type: "major",
+          transmitted_at: DateTime.now.to_s(:nanoseconds),
+        ).to_json
+
+        delivery_info, _, payload = wait_for_message_on(@queue)
+
+        expect(delivery_info.routing_key).to eq("guide.major")
+        expect(JSON.parse(payload)).to eq(JSON.parse(expected_payload))
+      end
+    end
+  end
 end

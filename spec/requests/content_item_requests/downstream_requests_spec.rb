@@ -142,4 +142,27 @@ RSpec.describe "Downstream requests", type: :request do
 
     sends_to_live_content_store
   end
+
+  describe "inlining the 'text/html' content type for downstream requests" do
+    let(:request_body) do
+      v2_content_item.merge(
+        description: [
+          { content_type: "text/html", content: v2_content_item.fetch(:description) },
+          { content_type: "text/plain", content: "plain content" },
+        ],
+        details: {
+          body: [
+            { content_type: "text/html", content: v2_content_item.fetch(:details).fetch(:body) },
+            { content_type: "text/plain", content: "plain content" },
+          ]
+        }
+      ).to_json
+    end
+    let(:request_path) { "/v2/content/#{content_id}" }
+    let(:request_method) { :put }
+
+    let(:content_item_for_draft_content_store) { v2_content_item.except(:update_type) }
+
+    sends_to_draft_content_store
+  end
 end
