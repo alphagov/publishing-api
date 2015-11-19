@@ -48,6 +48,10 @@ class LiveContentItem < ActiveRecord::Base
   }
   validates_with RoutesAndRedirectsValidator
 
+  def draft_or_redirect?
+    ["gone", "redirect"].include?(format)
+  end
+
 private
   def self.query_keys
     [:content_id, :locale]

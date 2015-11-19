@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Commands::V2::PutContent do
-
   describe 'call' do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
@@ -58,6 +57,84 @@ RSpec.describe Commands::V2::PutContent do
     it "presents the updated content in the response body" do
       result = described_class.call(payload)
       expect(result.data[:version]).to eq(1)
+    end
+
+    context "when there's an existing gone on the path already" do
+      before do
+        create(:gone_draft_content_item, base_path: base_path)
+      end
+
+      it "replaces the existing content" do
+        described_class.call(payload)
+
+        stored_content_item = DraftContentItem.find_by(base_path: base_path)
+        expect(stored_content_item.content_id).to eq(content_id)
+      end
+    end
+
+    context "when there's an existing redirect on the path already" do
+      before do
+        create(:redirect_draft_content_item, base_path: base_path)
+      end
+
+      it "replaces the existing content" do
+        described_class.call(payload)
+
+        stored_content_item = DraftContentItem.find_by(base_path: base_path)
+        expect(stored_content_item.content_id).to eq(content_id)
+      end
+    end
+
+    context "when a gone item wants to replace a content item" do
+      before do
+        create(:draft_content_item, base_path: base_path)
+      end
+
+      let(:payload) {
+        FactoryGirl.build(:gone_draft_content_item,
+          content_id: content_id,
+          base_path: base_path
+        ).as_json.deep_symbolize_keys
+      }
+
+      it "replaces the existing content" do
+        described_class.call(payload)
+
+        stored_content_item = DraftContentItem.find_by(base_path: base_path)
+        expect(stored_content_item.content_id).to eq(content_id)
+      end
+    end
+
+    context "when a redirect item wants to replace a content item" do
+      before do
+        create(:draft_content_item, base_path: base_path)
+      end
+
+      let(:payload) {
+        FactoryGirl.build(:redirect_draft_content_item,
+          content_id: content_id,
+          base_path: base_path
+        ).as_json.deep_symbolize_keys
+      }
+
+      it "replaces the existing content" do
+        described_class.call(payload)
+
+        stored_content_item = DraftContentItem.find_by(base_path: base_path)
+        expect(stored_content_item.content_id).to eq(content_id)
+      end
+    end
+
+    context "when a content item wants to replace a content item" do
+      before do
+        create(:draft_content_item, base_path: base_path)
+      end
+
+      it "does not replace the existing content" do
+        expect {
+          described_class.call(payload)
+        }.to raise_error(CommandRetryableError)
+      end
     end
   end
 end

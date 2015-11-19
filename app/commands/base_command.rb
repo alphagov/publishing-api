@@ -60,5 +60,13 @@ module Commands
 
       raise conflict_error if current_version.conflicts_with?(previous_version_number)
     end
+
+    def clear_space_for(new_content)
+      if (existing_content = DraftContentItem.find_by(base_path: new_content.base_path))
+        if existing_content.draft_or_redirect? || new_content.draft_or_redirect?
+          existing_content.destroy
+        end
+      end
+    end
   end
 end
