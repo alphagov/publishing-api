@@ -1,5 +1,7 @@
 module Presenters
   class DownstreamPresenter
+    RESOLVER = ContentTypeResolver.new("text/html")
+
     def self.present(content_item)
       link_set = LinkSet.find_by(content_id: content_item.content_id)
       new(content_item, link_set).present
@@ -16,6 +18,8 @@ module Presenters
         .merge(public_updated_at)
         .merge(links)
         .merge(transmitted_at)
+        .merge(description)
+        .merge(details)
     end
 
   private
@@ -47,6 +51,14 @@ module Presenters
 
     def transmitted_at
       { transmitted_at: DateTime.now.to_s(:nanoseconds) }
+    end
+
+    def description
+      { description: RESOLVER.resolve(content_item.description) }
+    end
+
+    def details
+      { details: RESOLVER.resolve(content_item.details) }
     end
 
     class V1
