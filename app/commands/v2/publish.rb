@@ -90,6 +90,12 @@ module Commands
           .attributes
           .except("access_limited", "version")
           .merge(draft_content_item: draft_content_item)
+
+        unless attributes[:public_updated_at] || update_type != "major"
+          attributes = attributes.merge(public_updated_at: DateTime.now)
+        end
+
+        attributes
       end
     end
   end

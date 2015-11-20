@@ -24,7 +24,7 @@ RSpec.describe "POST /v2/publish", type: :request do
   let(:request_path) { "/v2/content/#{content_id}/publish"}
   let(:payload) {
     {
-      update_type: "major",
+      update_type: "major"
     }
   }
   let(:request_body) { payload.to_json }
@@ -56,7 +56,7 @@ RSpec.describe "POST /v2/publish", type: :request do
       expect(item.locale).to eq(expected_live_content_item_derived_representation[:locale])
       expect(item.publishing_app).to eq(expected_live_content_item_derived_representation[:publishing_app])
       expect(item.rendering_app).to eq(expected_live_content_item_derived_representation[:rendering_app])
-      expect(item.public_updated_at).to eq(expected_live_content_item_derived_representation[:public_updated_at])
+      expect(item.public_updated_at).to be_within(1.second).of(DateTime.now)
       expect(item.description).to eq(expected_live_content_item_derived_representation[:description])
       expect(item.title).to eq(expected_live_content_item_derived_representation[:title])
       expect(item.routes).to eq(expected_live_content_item_derived_representation[:routes].map(&:deep_symbolize_keys))
@@ -116,7 +116,8 @@ RSpec.describe "POST /v2/publish", type: :request do
         .with(
           base_path: draft_content_item.base_path,
           content_item: expected_live_content_item_hash
-            .merge(transmitted_at: DateTime.now.to_s(:nanoseconds))
+            .merge(transmitted_at: DateTime.now.to_s(:nanoseconds),
+                   public_updated_at: DateTime.now.in_time_zone.iso8601)
         )
         do_request
       end
@@ -136,6 +137,7 @@ RSpec.describe "POST /v2/publish", type: :request do
           expected_live_content_item_hash.merge!(
             update_type: payload[:update_type],
             transmitted_at: DateTime.now.to_s(:nanoseconds),
+            public_updated_at: DateTime.now.in_time_zone.iso8601
           )
           expect(message).to eq(expected_live_content_item_hash.as_json)
         end

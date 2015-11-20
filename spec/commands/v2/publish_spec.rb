@@ -2,12 +2,13 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::Publish do
   describe "call" do
+    let(:draft_item) { FactoryGirl.create(:draft_content_item, content_id: content_id) }
+    let(:content_id) { SecureRandom.uuid }
+
     before do
-      previous = FactoryGirl.create(:draft_content_item, content_id: content_id)
-      FactoryGirl.create(:version, target: previous, number: 2)
+      FactoryGirl.create(:version, target: draft_item, number: 2)
     end
 
-    let(:content_id) { SecureRandom.uuid }
     let(:payload) do
       {
         content_id: content_id,
@@ -28,7 +29,6 @@ RSpec.describe Commands::V2::Publish do
 
 
     context "with a stale version" do
-
       let(:payload) do
         {
           content_id: content_id,
@@ -47,9 +47,87 @@ RSpec.describe Commands::V2::Publish do
     context "with a valid payload" do
       it "creates or replaces a live content item" do
         stub_request(:put, %r{.*content-store.*/content/.*})
+
         expect {
           described_class.call(payload)
         }.to change(LiveContentItem, :count).by(1)
+      end
+
+      context "with no public_updated_at in the payload" do
+        before do
+          stub_request(:put, %r{.*content-store.*/content/.*})
+        end
+
+        context "for a major update" do
+          it "updates the public_updated_at time" do
+            Timecop.freeze do
+              described_class.call(payload)
+
+              expect(LiveContentItem.last.public_updated_at).to be_within(1.second).of(Time.zone.now)
+            end
+          end
+        end
+
+        context "for a minor update" do
+          let!(:another_content_id) { SecureRandom.uuid }
+          let!(:live_item) do
+            FactoryGirl.create(:live_content_item, content_id: another_content_id, base_path: "/hat-rates")
+          end
+
+          let!(:payload) do
+            {
+              content_id: another_content_id,
+              update_type: "minor",
+              previous_version: 2
+            }
+          end
+
+          before do
+            FactoryGirl.create(:version, target: live_item.draft_content_item, number: 2)
+          end
+
+          it "preserves the public_updated_at value from the last live item" do
+            described_class.call(payload)
+
+            expect(LiveContentItem.last.public_updated_at).to eq(live_item.public_updated_at)
+          end
+        end
+      end
+
+      context "with public_updated_at in the payload" do
+        before do
+          stub_request(:put, %r{.*content-store.*/content/.*})
+        end
+
+        let(:public_updated_at) { Time.zone.now.iso8601 }
+
+        let(:payload) do
+          {
+            content_id: content_id,
+            previous_version: 2,
+            public_updated_at: public_updated_at
+          }
+        end
+
+        context "for a major update" do
+          it "uses the public_updated_at time" do
+            payload[:update_type] = "major"
+
+            described_class.call(payload)
+
+            expect(LiveContentItem.last.public_updated_at.iso8601).to eq(public_updated_at)
+          end
+        end
+
+        context "for a minor update" do
+          it "uses the public_updated_at time" do
+            payload[:update_type] = "major"
+
+            described_class.call(payload)
+
+            expect(LiveContentItem.last.public_updated_at.iso8601).to eq(public_updated_at)
+          end
+        end
       end
 
       it "sends a payload downstream asynchronously" do
@@ -58,6 +136,7 @@ RSpec.describe Commands::V2::Publish do
           transmitted_at: Time.now.to_s(:nanoseconds),
           title: "Something something"
         }.to_json
+
         allow(Presenters::ContentStorePresenter)
           .to receive(:present)
           .and_return(presentation)
