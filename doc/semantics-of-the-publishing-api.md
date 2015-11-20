@@ -273,7 +273,7 @@ There is no need to set this manually. All of these `update_types` form part of
 the routing key when the content item document is placed on the message queue,
 together with the `format` of the content item (e.g. *policy.major*)
 
-The *major* `update_type` is the only `update_type` that will trigger email
+The *major* `update_type` is the only `update_type` that currently triggers email
 alerts to be sent to users.
 
 ---
@@ -306,7 +306,8 @@ When front-end applications make requests to the content store, they must supply
 the user they are making the request on behalf of if the content item is
 restricted. An authentication proxy, that sits in front of the content store,
 will reject the request if the supplied [UUID](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)
-is not in the list of `access_limited` *users* for the content item.
+is not in the list of `access_limited` *users* for the content item. An example
+of this header can be seen [here](https://github.com/alphagov/content-store/pull/129).
 
 ---
 
