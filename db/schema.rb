@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20151124113325) do
     t.string   "update_type"
     t.string   "phase",                default: "live"
     t.string   "analytics_identifier"
-    t.json     "description"
+    t.json     "description",          default: {"value"=>nil}
   end
 
   add_index "draft_content_items", ["base_path"], name: "index_draft_content_items_on_base_path", unique: true, using: :btree
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20151124113325) do
     t.string   "update_type"
     t.string   "phase",                 default: "live"
     t.string   "analytics_identifier"
-    t.json     "description"
+    t.json     "description",           default: {"value"=>nil}
   end
 
   add_index "live_content_items", ["base_path"], name: "index_live_content_items_on_base_path", unique: true, using: :btree
