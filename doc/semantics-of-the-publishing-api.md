@@ -24,21 +24,21 @@ Required: Yes
 
 The `content_id` is the content item’s main identifier and it forms its identity
 as it travels through the pipeline. This is why requests to create and query
-content items tend to be keyed by `content_id` in the URL of the request.
+content items are keyed by `content_id` in the URL of the request.
 
 Each `content_id` refers to a single piece of content, with a couple of caveats:
 
-- `content_ids` are shared across locales – the English and French versions of a
+- Content IDs are shared across locales – the English and French versions of a
 content item share a `content_id`
 
 - `content_ids` are shared across publish states – the draft and live versions of
 a content item share a `content_id`
 
-`content_ids` are [UUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier)
+`content_ids` are [UUIDs](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)
 and will not be accepted by the Publishing API otherwise.
 
 Note: Previously, the `base_path` was a content item's main identifier. This is
-no longer the case. It has been changed to `content_id` because `base_paths` had
+no longer the case. It has been changed to `content_id` because base paths had
 a tendency to change.
 
 ---
@@ -65,8 +65,8 @@ Required: Yes
 
 The `format` specifies the data format of the content item as per the
 [GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
-It is used downstream to render the content item in the manner
-it was intended.
+It is used downstream to render the content item according a specific layout for
+that `format`.
 
 If the `format` is one of either *redirect* or *gone*, the content item is
 considered non-renderable and this waives the requirement for some of the other
@@ -88,17 +88,17 @@ Example: *collections-publisher*
 
 Required: Yes
 
-The `publishing_app` identifies the application that is responsible for
-publishing the content item. When a content item is created, its `base_path` is
-registered to the `publishing_app`. The path may not be used by a content item
-that was created with a different `publishing_app`.
+The `publishing_app` identifies the application that published the content item.
+When a content item is created, its `base_path` is registered to the
+`publishing_app`. The path may not be used by a content item that was created
+with a different `publishing_app`.
 
-The `publishing_app` can then be used to filter content items appropriately when
-requests are made to the Publishing API. The `publishing_app` is also used as a
-means of auditing which applications are making use of the publishing pipeline.
+The `publishing_app` can then be used to filter content items when requests are
+made to the Publishing API. The `publishing_app` is also used as a means of
+auditing which applications are making use of the publishing pipeline.
 
-Note: `publishing_app` should be hyphenated as this is the convention used in
-the Router API.
+Note: The value of the `publishing_app` field should be hyphenated as this is
+the convention used in the Router API.
 
 ---
 
@@ -125,7 +125,8 @@ Required: Conditionally
 
 The `public_updated_at` records the last time the content item was updated. This
 is the time that will appear alongside the content item in the front-end to
-inform users of the time at which that particular content item was updated.
+inform users of the time at which that particular content item was updated. The
+`public_updated_at` must use the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601).
 
 The `public_updated_at` is required except in cases where the content item is
 non-renderable (see [**format**](#format)). This will not be set automatically and must be
@@ -165,7 +166,8 @@ determine which fields appear in the details and which are required. The details
 can contain arbitrary JSON that will be stored against the content item.
 
 Not all `formats` have required fields and so details is not required unless the
-`format` demands it. If it is not set, it will default to an empty JSON object.
+`format` demands it. If it is not set, it will default to an empty JSON object
+as specified in the GOV.UK content schemas.
 
 ---
 
@@ -181,11 +183,11 @@ that contains the properties *path* and *type*. No other properties are
 supported.  The *type* must be set to *exact* to denote that the route maps to
 an exact path on the GOV.UK website.
 
-The `routes` are generally required, except for the case when the content item
+The `routes` are required, except for the case when the content item
 has a `format` of *redirect*. In this case, the `routes` must not be present as
 it doesn’t make sense to have routes for a redirect. When the `format` is
 anything except *redirect*, the routes must include the `base_path` of the
-content item, at the very least.
+content item.
 
 If additional `routes` are specified other than the one for the `base_path`, all
 of these `routes` must reside under the `base_path`. Here is an example:
@@ -219,13 +221,12 @@ set to one of either *exact* or *prefix*.
 An *exact type* denotes that the *path* should be checked for an exact match
 against the user’s request URL when determining whether a redirect should occur.
 A *prefix type* denotes that any subpath under the specified path should be
-redirected to the destination. You can think of these as “exact” and “fuzzy”
+redirected to the destination. You can think of these as “exact” and “wildcard”
 matches, respectively.
 
-The `redirects` are generally optional, except for the case when the content
+The `redirects` are optional, except for the case when the content
 item has a `format` of *redirect*. In this case, the redirects must be present
-and they must include the `base_path` of content_item in the *path* property, at
-the very least.
+and they must include the `base_path` of content_item in the *path* property.
 
 Redirects are subject to the same requirement as routes in that their paths must
 reside under the `base_path` of the content item (see [**routes**](#routes)).
@@ -242,21 +243,24 @@ Example: *major*
 
 Required: Conditionally
 
-The `update_type` is an indicator of how much the content item has changed since
-the last time it was published. This field is required when publishing the
-content item.
+The `update_type` is an indicator of the importance of the change to the content
+item since the last time it was published. This field is required when
+publishing the content item.
 
 There’s no restriction on what the `update_type` should be, but at present we
 use:
 
-- *minor* - for minor edits that probably won’t be of interest to users
+- *minor* - for minor edits that won’t be important to users
 
-- *major* - for major edits that probably will be of interest to users
+- *major* - for major edits that will be important to users
 
 - *republish* - for when the content item needs to be re-sent to downstream
 systems
 
 - *links* - for when only the links of the content item have changed
+
+Please discuss with the Publishing Platform team if you'd like to introduce new
+`update_types`.
 
 An example case for when a republish `update_type` should be used is when there
 had previously been a problem with a downstream system and that system did not
@@ -268,6 +272,9 @@ The *links* `update_type` is set automatically when the /links endpoint is used.
 There is no need to set this manually. All of these `update_types` form part of
 the routing key when the content item document is placed on the message queue,
 together with the `format` of the content item (e.g. *policy.major*)
+
+The *major* `update_type` is the only `update_type` that will trigger email
+alerts to be sent to users.
 
 ---
 
@@ -294,10 +301,10 @@ Example: *["1234", "1235"]*
 Required: No
 
 The `needs_ids` are the identifiers of [user needs](https://www.gov.uk/design-principles)
-that are entered through the [Maslow Application](https://github.com/alphagov/maslow).
+that are entered through the [Maslow application](https://github.com/alphagov/maslow).
 They are passed through to the content store, untouched by the pipeline. The
-front-end applications can then use the `needs_ids` to present pages to users,
-such as [this one](https://www.gov.uk/info/overseas-passports).
+front-end applications can then use the `needs_ids` to present pages to users
+that show how effectively users' needs are being met. [Here is an example](https://www.gov.uk/info/overseas-passports).
 
 ---
 
@@ -311,7 +318,7 @@ The `locale` is the language in which the content item is written. Front-end
 applications will optionally provide this string when querying the content store
 in order to retrieve content items in a given `locale`.
 
-A list of valid locales can be viewed in the Publishing API [here](https://github.com/alphagov/publishing-api/blob/master/config/application.rb#L32-L37).
+A list of valid locales can be viewed in the Publishing API [here](https://github.com/alphagov/publishing-api/blob/9caeccc856ad372e332f56d64d0a96ab5df76b27/config/application.rb#L32-L37).
 This field is not required and if a `locale` is not provided, it will be set to
 *en* automatically.
 
@@ -346,11 +353,13 @@ Required: No
 The `access_limited` field determines who should be granted access to the
 content item before it has been published. At the point of publish the content
 item is public and everyone has access to it. This field should be used when a
-content item needs to be drafted, but it should not be visible on
-content-preview (and become public knowledge) until a publish occurs.
+content item needs to be drafted but it should not be visible on
+content-preview (except for authorised users) until a publish occurs. Typically,
+members of the organisation that created the content are in the list of
+authorised users.
 
 The value of this field should be set to a JSON object that contains the key
-*users* and a value that is an array of [UUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier).
+*users* and a value that is an array of [UUIDs](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97).
 These are the users that should be granted access to the content item. At
 present, the only supported key is *users*.  If `access_limited` is not set, no
 access restriction will be placed on the content item.
@@ -358,8 +367,8 @@ access restriction will be placed on the content item.
 When front-end applications make requests to the content store, they must supply
 the user they are making the request on behalf of if the content item is
 restricted. An authentication proxy, that sits in front of the content store,
-will reject the request if the supplied UUID is not in the list of
-`access_limited` *users* for the content item.
+will reject the request if the supplied [UUID](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)
+is not in the list of `access_limited` *users* for the content item.
 
 ---
 
@@ -382,7 +391,7 @@ Example: *{ “related”: [“8242a29f-8ad1-4fbe-9f71-f9e57ea5f1ea”] }*
 
 Required: No
 
-The `links` contain the [UUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier)
+The `links` contain the [UUIDs](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)
 of other content items that this content item links to. For example, if a
 content item has some attachments or contacts that it references, these content
 items should appear in the `links` of the content item.
@@ -395,6 +404,7 @@ published.
 
 An update to the `links` causes a message to be placed on the message queue.
 This message will have a special update_type of links (see [**update_type**](#update_type)).
+Email alerts will not be sent when the update_type is links.
 This queue is consumed by the Rummager application in order to reindex the
 appropriate content when `links` change for a content item.
 
