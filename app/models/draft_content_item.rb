@@ -39,22 +39,23 @@ class DraftContentItem < ActiveRecord::Base
   validates :details, well_formed_content_types: { must_include: "text/html" }
 
   # Postgres's JSON columns have problems storing literal strings, so these
-  # getter/setter overrides wrap and unwrap those strings in hashes.
+  # getter/setter wrap the description in a JSON object.
   def description=(value)
-    if value.is_a?(String)
-      super(string: value)
-    else
-      super
-    end
+    super(value: value)
   end
 
   def description
-    value = super
+    super.fetch(:value)
+  end
 
-    if value.is_a?(Hash) && value.key?(:string)
-      value.fetch(:string)
+  def attributes
+    attributes = super
+    description = attributes.delete("description")
+
+    if description
+      attributes.merge("description" => description.fetch("value"))
     else
-      value
+      attributes
     end
   end
 
