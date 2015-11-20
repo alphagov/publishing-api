@@ -64,14 +64,14 @@ compact, but it means that JSON objects could store additional information if
 required, such as a Govspeak version. It was noted that this option may not
 be the easiest for Publishing Applications to work with.
 
-Option 2 was refuted on the basis that it doesn't clearly demonstrate which
+Option 2 was rejected on the basis that it doesn't clearly demonstrate which
 fields genuinely contain multiple representations, compared with those that
 could contain other properties. The Publishing API is responsible for only
 forwarding the text/html content type and ambiguity in the representation means
 that it would have to make a lot of assumptions about which fields contain
 multiple representations.
 
-Option 3 was refuted on the basis that it's more-or-less equivalent to Option 1,
+Option 3 was rejected on the basis that it's more-or-less equivalent to Option 1,
 but it lacks the ability to include additional properties in the future if
 required. Also, it isn't significantly easier for Publishing Applications to
 work with to justify choosing this option over Option 1.
