@@ -8,6 +8,6 @@ class ContentStoreWorker
     base_path = args.fetch(:base_path)
     payload = args.fetch(:payload)
 
-    content_store.call(base_path, payload)
+    content_store.put_content_item(base_path, payload)
   end
 end
