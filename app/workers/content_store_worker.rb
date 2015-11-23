@@ -9,5 +9,20 @@ class ContentStoreWorker
     payload = args.fetch(:payload)
 
     content_store.put_content_item(base_path, payload)
+  rescue => e
+    handle_error(e)
+  end
+
+private
+
+  def handle_error(error)
+    if !error.is_a?(CommandError)
+      raise error
+    elsif error.code >= 500
+      raise error
+    else
+      explanation = "The message is a duplicate and does not need to be retried"
+      Airbrake.notify_or_ignore(error, parameters: { explanation: explanation })
+    end
   end
 end
