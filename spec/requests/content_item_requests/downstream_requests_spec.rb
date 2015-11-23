@@ -119,6 +119,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     let(:content_item_for_live_content_store) {
       draft.attributes.deep_symbolize_keys
+        .merge(public_updated_at: Time.zone.now.iso8601)
         .except(:id, :access_limited, :update_type, :metadata, :version)
     }
 
