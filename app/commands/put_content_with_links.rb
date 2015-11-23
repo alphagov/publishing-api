@@ -16,8 +16,8 @@ module Commands
           update_type: false
         )
 
-        Adapters::DraftContentStore.call(base_path, content_store_payload)
-        Adapters::ContentStore.call(base_path, content_store_payload)
+        Adapters::DraftContentStore.put_content_item(base_path, content_store_payload)
+        Adapters::ContentStore.put_content_item(base_path, content_store_payload)
 
         message_bus_payload = Presenters::DownstreamPresenter::V1.present(
           payload,

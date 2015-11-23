@@ -14,7 +14,7 @@ module Commands
           update_type: false,
           access_limited: true,
         )
-        Adapters::DraftContentStore.call(base_path, payload)
+        Adapters::DraftContentStore.put_content_item(base_path, payload)
       end
 
       Success.new(content_item)

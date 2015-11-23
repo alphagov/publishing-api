@@ -1,6 +1,6 @@
 module Adapters
   class DraftContentStore
-    def self.call(base_path, content_item)
+    def self.put_content_item(base_path, content_item)
       PublishingAPI.service(:draft_content_store).put_content_item(
         base_path: base_path,
         content_item: content_item,
