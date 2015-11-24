@@ -63,7 +63,7 @@ module Commands
 
     def clear_space_for(new_content)
       if (existing_content = DraftContentItem.find_by(base_path: new_content.base_path))
-        if existing_content.draft_or_redirect? || new_content.draft_or_redirect?
+        if existing_content.gone_unpublishing_or_redirect? || new_content.gone_unpublishing_or_redirect?
           existing_content.destroy
         end
       end

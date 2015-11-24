@@ -39,8 +39,8 @@ class DraftContentItem < ActiveRecord::Base
     !access_limited? || authorised_user_uids.include?(user_uid)
   end
 
-  def draft_or_redirect?
-    ["gone", "redirect"].include?(format)
+  def gone_unpublishing_or_redirect?
+    ["gone", "unpublishing", "redirect"].include?(format)
   end
 
 private
