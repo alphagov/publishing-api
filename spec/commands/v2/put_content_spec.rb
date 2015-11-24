@@ -85,6 +85,19 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
+    context "when there's an existing unpublishing on the path already" do
+      before do
+        create(:draft_content_item, base_path: base_path, format: "unpublishing")
+      end
+
+      it "replaces the existing content" do
+        described_class.call(payload)
+
+        stored_content_item = DraftContentItem.find_by(base_path: base_path)
+        expect(stored_content_item.content_id).to eq(content_id)
+      end
+    end
+
     context "when a gone item wants to replace a content item" do
       before do
         create(:draft_content_item, base_path: base_path)
@@ -112,6 +125,27 @@ RSpec.describe Commands::V2::PutContent do
 
       let(:payload) {
         FactoryGirl.build(:redirect_draft_content_item,
+          content_id: content_id,
+          base_path: base_path
+        ).as_json.deep_symbolize_keys
+      }
+
+      it "replaces the existing content" do
+        described_class.call(payload)
+
+        stored_content_item = DraftContentItem.find_by(base_path: base_path)
+        expect(stored_content_item.content_id).to eq(content_id)
+      end
+    end
+
+    context "when an unpublishing item wants to replace a content item" do
+      before do
+        create(:draft_content_item, base_path: base_path)
+      end
+
+      let(:payload) {
+        FactoryGirl.build(:draft_content_item,
+          format: "unpublishing",
           content_id: content_id,
           base_path: base_path
         ).as_json.deep_symbolize_keys

@@ -48,8 +48,8 @@ class LiveContentItem < ActiveRecord::Base
   }
   validates_with RoutesAndRedirectsValidator
 
-  def draft_or_redirect?
-    ["gone", "redirect"].include?(format)
+  def gone_unpublishing_or_redirect?
+    ["gone", "unpublishing", "redirect"].include?(format)
   end
 
 private
