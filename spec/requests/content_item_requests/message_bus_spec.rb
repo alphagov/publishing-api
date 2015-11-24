@@ -165,12 +165,22 @@ RSpec.describe "Message bus", type: :request do
         expected_payload = v2_content_item.except(:access_limited).merge(
           update_type: "major",
           transmitted_at: DateTime.now.to_s(:nanoseconds),
+          public_updated_at: DateTime.now,
         ).to_json
 
         delivery_info, _, payload = wait_for_message_on(@queue)
 
         expect(delivery_info.routing_key).to eq("guide.major")
-        expect(JSON.parse(payload)).to eq(JSON.parse(expected_payload))
+
+        expected = JSON.parse(expected_payload)
+        actual = JSON.parse(payload)
+
+        expect(actual.except("public_updated_at")).to eq(
+          expected.except("public_updated_at")
+        )
+
+        expect(Time.parse(actual["public_updated_at"]))
+          .to be_within(1.second).of(Time.zone.now)
       end
     end
   end
@@ -205,12 +215,22 @@ RSpec.describe "Message bus", type: :request do
         expected_payload = v2_content_item.except(:access_limited).merge(
           update_type: "major",
           transmitted_at: DateTime.now.to_s(:nanoseconds),
+          public_updated_at: DateTime.now,
         ).to_json
 
         delivery_info, _, payload = wait_for_message_on(@queue)
 
         expect(delivery_info.routing_key).to eq("guide.major")
-        expect(JSON.parse(payload)).to eq(JSON.parse(expected_payload))
+
+        expected = JSON.parse(expected_payload)
+        actual = JSON.parse(payload)
+
+        expect(actual.except("public_updated_at")).to eq(
+          expected.except("public_updated_at")
+        )
+
+        expect(Time.parse(actual["public_updated_at"]))
+          .to be_within(1.second).of(Time.zone.now)
       end
     end
   end
