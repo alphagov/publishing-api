@@ -22,6 +22,7 @@ class Version < ActiveRecord::Base
 private
 
   def numbers_must_increase
+    return unless persisted?
     return unless number <= number_was
 
     mismatch = "(#{number} <= #{number_was})"

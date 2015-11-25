@@ -5,10 +5,11 @@ RSpec.describe Version do
 
   describe "validations" do
     describe "version comparison between draft and live" do
-      let!(:live_content_item) { FactoryGirl.create(:live_content_item) }
-      let(:draft_content_item) { live_content_item.draft_content_item }
-      let!(:draft_version) { FactoryGirl.create(:version, target: draft_content_item, number: 5) }
+      let!(:live_content_item) { FactoryGirl.create(:live_content_item, :with_draft) }
       let!(:live_version) { FactoryGirl.create(:version, target: live_content_item, number: 5) }
+
+      let(:draft_content_item) { live_content_item.draft_content_item }
+      let(:draft_version) { FactoryGirl.create(:version, target: draft_content_item, number: 5) }
 
       it "is invalid if the draft version is less than the live version" do
         draft_version.number = 4
@@ -24,6 +25,16 @@ RSpec.describe Version do
         draft_version.number = 6
         expect(draft_version).to be_valid
       end
+
+      context "when there is no draft content item or version" do
+        let!(:live_content_item) { FactoryGirl.create(:live_content_item) }
+        let!(:live_version) { FactoryGirl.create(:version, target: live_content_item, number: 5) }
+
+        it "is valid" do
+          live_version.number = 123
+          expect(live_version).to be_valid
+        end
+      end
     end
 
     it "requires that the version number be higher than its predecessor" do
@@ -32,11 +43,15 @@ RSpec.describe Version do
 
       subject.number = 4
       expect(subject).to be_invalid
+
+      subject.number = 5
+      expect(subject).to be_invalid
     end
   end
 
   it "starts version numbers on 0" do
     expect(subject.number).to be_zero
+    expect(subject).to be_valid
   end
 
   describe "#increment" do
