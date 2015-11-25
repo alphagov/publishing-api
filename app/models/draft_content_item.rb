@@ -39,10 +39,6 @@ class DraftContentItem < ActiveRecord::Base
     !access_limited? || authorised_user_uids.include?(user_uid)
   end
 
-  def substitute?
-    %w(gone redirect unpublishing).include?(format)
-  end
-
   def published?
     live_content_item.present?
   end

@@ -16,7 +16,7 @@ module SubstitutionHelper
       return unless existing_content_item
 
       mismatch = (existing_content_item.content_id != draft_content_item.content_id)
-      allowed_to_substitute = (draft_content_item.substitute? || existing_content_item.substitute?)
+      allowed_to_substitute = (substitute?(draft_content_item) || substitute?(existing_content_item))
 
       if mismatch && allowed_to_substitute
         existing_version = Version.find_by(target: existing_content_item)
@@ -33,6 +33,10 @@ module SubstitutionHelper
       return unless live_content_item
 
       live_content_item.update!(draft_content_item: nil)
+    end
+
+    def substitute?(content_item)
+      %w(gone redirect unpublishing).include?(content_item.format)
     end
   end
 end
