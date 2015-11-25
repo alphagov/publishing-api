@@ -96,54 +96,146 @@ RSpec.describe "Optimistic locking", type: :request do
   end
 
   context "PUT /v2/links" do
-    before do
-      live = FactoryGirl.create(:live_content_item, content_id: content_id)
-      draft = live.draft_content_item
-
-      FactoryGirl.create(:version, target: live, number: 2)
-      FactoryGirl.create(:version, target: draft, number: 2)
-
-      existing_link_set = FactoryGirl.create(:link_set, links_attributes)
-      @existing_version = FactoryGirl.create(:version,
-        target: existing_link_set,
-        number: 2,
-      )
-    end
-
     let(:request_path) { "/v2/links/#{content_id}" }
     let(:request_method) { :put }
 
-    context "with a matching previous_version" do
-      let(:request_body) {
-        links_attributes.merge(
-          previous_version: 2,
-        ).to_json
-      }
+    context "when a draft content item exists without a live item" do
+      before do
+        draft = FactoryGirl.create(:draft_content_item, content_id: content_id)
+        FactoryGirl.create(:version, target: draft)
+        existing_link_set = FactoryGirl.create(:link_set, links_attributes)
+        @existing_version = FactoryGirl.create(
+          :version,
+          target: existing_link_set,
+          number: 2,
+        )
+      end
 
-      it "updates the link set" do
-        do_request
+      context "with a matching previous_version" do
+        let(:request_body) {
+          links_attributes.merge(
+            previous_version: 2,
+          ).to_json
+        }
 
-        expect(response.status).to eq(200)
-        expect(@existing_version.reload.number).to eq(3)
-        expect(WebMock).to have_requested(:put, /draft-content-store/)
-        expect(WebMock).to have_requested(:put, %r{http://content-store})
+        it "updates the link set" do
+          do_request
+
+          expect(response.status).to eq(200)
+          expect(@existing_version.reload.number).to eq(3)
+          expect(WebMock).to have_requested(:put, /draft-content-store/)
+        end
+      end
+
+      context "with a mismatched previous_version" do
+        let(:request_body) {
+          links_attributes.merge(
+            previous_version: 1,
+          ).to_json
+        }
+
+        it "does not update the link set" do
+          do_request
+
+          expect(response.status).to eq(409)
+          expect(@existing_version.reload.number).to eq(2)
+          expect(WebMock).not_to have_requested(:put, /draft-content-store/)
+        end
       end
     end
 
-    context "with a mismatched previous_version" do
-      let(:request_body) {
-        links_attributes.merge(
-          previous_version: 1,
-        ).to_json
-      }
+    context "when a live content item exists without a draft item" do
+      before do
+        live = FactoryGirl.create(:live_content_item, content_id: content_id)
+        FactoryGirl.create(:version, target: live)
+        existing_link_set = FactoryGirl.create(:link_set, links_attributes)
+        @existing_version = FactoryGirl.create(
+          :version,
+          target: existing_link_set,
+          number: 2,
+        )
+      end
 
-      it "does not update the link set" do
-        do_request
+      context "with a matching previous_version" do
+        let(:request_body) {
+          links_attributes.merge(
+            previous_version: 2,
+          ).to_json
+        }
 
-        expect(response.status).to eq(409)
-        expect(@existing_version.reload.number).to eq(2)
-        expect(WebMock).not_to have_requested(:put, /draft-content-store/)
-        expect(WebMock).not_to have_requested(:put, %r{http://content-store})
+        it "updates the link set" do
+          do_request
+
+          expect(response.status).to eq(200)
+          expect(@existing_version.reload.number).to eq(3)
+          expect(WebMock).to have_requested(:put, %r{http://content-store})
+        end
+      end
+
+      context "with a mismatched previous_version" do
+        let(:request_body) {
+          links_attributes.merge(
+            previous_version: 1,
+          ).to_json
+        }
+
+        it "does not update the link set" do
+          do_request
+
+          expect(response.status).to eq(409)
+          expect(@existing_version.reload.number).to eq(2)
+          expect(WebMock).not_to have_requested(:put, %r{http://content-store})
+        end
+      end
+    end
+
+    context "when both a draft and live content item exist" do
+      before do
+        live = FactoryGirl.create(:live_content_item, :with_draft, content_id: content_id)
+        draft = live.draft_content_item
+
+        FactoryGirl.create(:version, target: live)
+        FactoryGirl.create(:version, target: draft)
+
+        existing_link_set = FactoryGirl.create(:link_set, links_attributes)
+        @existing_version = FactoryGirl.create(:version,
+          target: existing_link_set,
+          number: 2,
+        )
+      end
+
+      context "with a matching previous_version" do
+        let(:request_body) {
+          links_attributes.merge(
+            previous_version: 2,
+          ).to_json
+        }
+
+        it "updates the link set" do
+          do_request
+
+          expect(response.status).to eq(200)
+          expect(@existing_version.reload.number).to eq(3)
+          expect(WebMock).to have_requested(:put, /draft-content-store/)
+          expect(WebMock).to have_requested(:put, %r{http://content-store})
+        end
+      end
+
+      context "with a mismatched previous_version" do
+        let(:request_body) {
+          links_attributes.merge(
+            previous_version: 1,
+          ).to_json
+        }
+
+        it "does not update the link set" do
+          do_request
+
+          expect(response.status).to eq(409)
+          expect(@existing_version.reload.number).to eq(2)
+          expect(WebMock).not_to have_requested(:put, /draft-content-store/)
+          expect(WebMock).not_to have_requested(:put, %r{http://content-store})
+        end
       end
     end
   end

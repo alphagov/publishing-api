@@ -25,20 +25,17 @@ FactoryGirl.define do
       ]
     }
 
-    after(:build) do |live_content_item, evaluator|
-      if evaluator.draft_content_item
-        message = "You should use the draft_content_item already created from the live item"
-        raise ArgumentError, message
+    trait :with_draft do
+      after(:build) do |live_content_item, evaluator|
+        draft = FactoryGirl.build(
+          :draft_content_item,
+          live_content_item.as_json(only: %i[content_id locale base_path format routes redirects]),
+        )
+
+        raise "Draft is not valid: #{draft.errors.full_messages}" unless draft.valid?
+
+        live_content_item.draft_content_item = draft
       end
-
-      draft = FactoryGirl.build(
-        :draft_content_item,
-        live_content_item.as_json(only: %i[content_id locale base_path format routes redirects]),
-      )
-
-      raise "Draft is not valid: #{draft.errors.full_messages}" unless draft.valid?
-
-      live_content_item.draft_content_item = draft
     end
   end
 

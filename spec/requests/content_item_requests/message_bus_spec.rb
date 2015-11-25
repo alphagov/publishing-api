@@ -97,7 +97,11 @@ RSpec.describe "Message bus", type: :request do
 
     context "with a live content item" do
       let!(:live_content_item) {
-        FactoryGirl.create(:live_content_item, v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS))
+        FactoryGirl.create(
+          :live_content_item,
+          :with_draft,
+          v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS)
+        )
       }
 
       before do

@@ -68,7 +68,6 @@ RSpec.shared_examples Replaceable do
 
     before do
       existing.destroy
-      draft.destroy if defined?(draft)
     end
 
     context "for a single record" do

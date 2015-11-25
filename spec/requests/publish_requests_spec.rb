@@ -79,7 +79,7 @@ RSpec.describe "POST /v2/publish", type: :request do
 
   context "a draft exists with version 2, a live exists with version 1" do
     let(:live_content_item) do
-      FactoryGirl.create(:live_content_item)
+      FactoryGirl.create(:live_content_item, :with_draft)
     end
 
     let(:draft_content_item) do
@@ -157,7 +157,7 @@ RSpec.describe "POST /v2/publish", type: :request do
   end
 
   context "the draft content item is already published" do
-    let(:live_content_item) { FactoryGirl.create(:live_content_item) }
+    let(:live_content_item) { FactoryGirl.create(:live_content_item, :with_draft) }
     let(:draft_content_item) { live_content_item.draft_content_item }
 
     before do

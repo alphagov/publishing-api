@@ -32,7 +32,7 @@ RSpec.describe DraftContentItem do
     end
 
     it "requires that the content_ids match between draft and live" do
-      live_item = FactoryGirl.create(:live_content_item)
+      live_item = FactoryGirl.create(:live_content_item, :with_draft)
       draft_item = live_item.draft_content_item
 
       draft_item.content_id = "something else"

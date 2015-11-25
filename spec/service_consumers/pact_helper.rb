@@ -105,7 +105,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       DatabaseCleaner.clean_with :truncation
 
-      live = FactoryGirl.create(:live_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      live = FactoryGirl.create(:live_content_item, :with_draft, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
       FactoryGirl.create(:version, target: live, number: 1)
       FactoryGirl.create(:version, target: live.draft_content_item, number: 1)

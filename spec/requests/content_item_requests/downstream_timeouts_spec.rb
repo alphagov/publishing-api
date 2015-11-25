@@ -32,7 +32,11 @@ RSpec.describe "Downstream timeouts", type: :request do
     let(:request_method) { :put }
 
     before do
-      live = FactoryGirl.create(:live_content_item, v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS))
+      live = FactoryGirl.create(
+        :live_content_item,
+        :with_draft,
+        v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS)
+      )
       draft = live.draft_content_item
 
       draft.update!(access_limited: v2_content_item.fetch(:access_limited))

@@ -84,9 +84,24 @@ RSpec.describe "Downstream requests", type: :request do
       does_not_send_to_live_content_store
     end
 
-    context "when draft and live content items exists for the link set" do
+    context "when only a live content item exists for the link set" do
       before do
         live = FactoryGirl.create(:live_content_item, v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS))
+        FactoryGirl.create(:version, target: live, number: 1)
+      end
+
+      does_not_send_to_draft_content_store
+      sends_to_live_content_store
+    end
+
+    context "when draft and live content items exists for the link set" do
+      before do
+        live = FactoryGirl.create(
+          :live_content_item,
+          :with_draft,
+          v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS)
+        )
+
         draft = live.draft_content_item
 
         draft.update!(access_limited: v2_content_item.fetch(:access_limited))
