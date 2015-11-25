@@ -52,6 +52,10 @@ class LiveContentItem < ActiveRecord::Base
     ["gone", "unpublishing", "redirect"].include?(format)
   end
 
+  def published?
+    true
+  end
+
 private
   def self.query_keys
     [:content_id, :locale]
