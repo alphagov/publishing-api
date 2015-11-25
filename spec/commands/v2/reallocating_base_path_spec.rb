@@ -223,5 +223,95 @@ RSpec.describe "Reallocating base paths of content items" do
       end
     end
 
+    describe "/v1 put_content_with_links" do
+      let(:command) { Commands::PutContentWithLinks }
+
+      context "when a base path is reserved by a not-yet-published regular content item" do
+        before do
+          FactoryGirl.create(:draft_content_item, base_path: base_path)
+        end
+
+        it "cannot be replaced by another regular content item" do
+          expect {
+            command.call(regular_payload)
+          }.to raise_error(CommandRetryableError)
+        end
+
+        it "can be replaced by a 'substitute' content item" do
+          command.call(substitute_payload)
+
+          stored_content_item = DraftContentItem.find_by(base_path: base_path)
+          expect(stored_content_item.content_id).to eq(content_id)
+        end
+      end
+
+      context "when a base path is reserved by a published regular content item" do
+        before do
+          FactoryGirl.create(:live_content_item, :with_draft, base_path: base_path)
+        end
+
+        it "cannot be replaced by another regular content item" do
+          expect {
+            command.call(regular_payload)
+          }.to raise_error(CommandRetryableError)
+        end
+
+        it "replaces both the draft and live content items" do
+          command.call(substitute_payload)
+
+          stored_draft_item = DraftContentItem.find_by(base_path: base_path)
+          stored_live_item = LiveContentItem.find_by(base_path: base_path)
+
+          expect(stored_draft_item.content_id).to eq(content_id)
+          expect(stored_live_item.content_id).to eq(content_id)
+        end
+      end
+
+      context "when a base path is reserved by a not-yet-published 'substitute' content item" do
+        before do
+          FactoryGirl.create(:redirect_draft_content_item, base_path: base_path)
+        end
+
+        it "can be replaced by a regular content item" do
+          command.call(regular_payload)
+
+          stored_content_item = DraftContentItem.find_by(base_path: base_path)
+          expect(stored_content_item.content_id).to eq(content_id)
+        end
+
+        it "can be replaced by another 'substitute' content item" do
+          command.call(substitute_payload)
+
+          stored_content_item = DraftContentItem.find_by(base_path: base_path)
+          expect(stored_content_item.content_id).to eq(content_id)
+        end
+      end
+
+      context "when a base path is reserved by a published 'substitute' content item" do
+        before do
+          FactoryGirl.create(:redirect_live_content_item, :with_draft, base_path: base_path)
+        end
+
+        it "replaces both the draft and live content items" do
+          command.call(regular_payload)
+
+          stored_draft_item = DraftContentItem.find_by(base_path: base_path)
+          stored_live_item = LiveContentItem.find_by(base_path: base_path)
+
+          expect(stored_draft_item.content_id).to eq(content_id)
+          expect(stored_live_item.content_id).to eq(content_id)
+        end
+
+        it "can be replaced by another 'substitute' content item" do
+          command.call(substitute_payload)
+
+          stored_draft_item = DraftContentItem.find_by(base_path: base_path)
+          stored_live_item = LiveContentItem.find_by(base_path: base_path)
+
+          expect(stored_draft_item.content_id).to eq(content_id)
+          expect(stored_live_item.content_id).to eq(content_id)
+        end
+      end
+    end
   end
 end
