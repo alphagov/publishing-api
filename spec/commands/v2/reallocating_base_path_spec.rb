@@ -23,7 +23,7 @@ RSpec.describe "Reallocating base paths of content items" do
     ).as_json.deep_symbolize_keys
   end
 
-  context "when a base path is reserved by a not-yet-published regular content item" do
+  context "when a base path is occupied by a not-yet-published regular content item" do
     before do
       FactoryGirl.create(:draft_content_item, base_path: base_path)
     end
@@ -42,7 +42,7 @@ RSpec.describe "Reallocating base paths of content items" do
     end
   end
 
-  context "when a base path is reserved by a published regular content item" do
+  context "when a base path is occupied by a published regular content item" do
     before do
       FactoryGirl.create(:live_content_item, :with_draft, base_path: base_path)
     end
@@ -64,7 +64,7 @@ RSpec.describe "Reallocating base paths of content items" do
     end
   end
 
-  context "when a base path is reserved by a not-yet-published 'substitute' content item" do
+  context "when a base path is occupied by a not-yet-published 'substitute' content item" do
     before do
       FactoryGirl.create(:redirect_draft_content_item, base_path: base_path)
     end
@@ -84,7 +84,7 @@ RSpec.describe "Reallocating base paths of content items" do
     end
   end
 
-  context "when a base path is reserved by a published 'substitute' content item" do
+  context "when a base path is occupied by a published 'substitute' content item" do
     before do
       FactoryGirl.create(:redirect_live_content_item, :with_draft, base_path: base_path)
     end
@@ -226,7 +226,7 @@ RSpec.describe "Reallocating base paths of content items" do
     describe "/v1 put_content_with_links" do
       let(:command) { Commands::PutContentWithLinks }
 
-      context "when a base path is reserved by a not-yet-published regular content item" do
+      context "when a base path is occupied by a not-yet-published regular content item" do
         before do
           FactoryGirl.create(:draft_content_item, base_path: base_path)
         end
@@ -245,7 +245,7 @@ RSpec.describe "Reallocating base paths of content items" do
         end
       end
 
-      context "when a base path is reserved by a published regular content item" do
+      context "when a base path is occupied by a published regular content item" do
         before do
           FactoryGirl.create(:live_content_item, :with_draft, base_path: base_path)
         end
@@ -267,7 +267,7 @@ RSpec.describe "Reallocating base paths of content items" do
         end
       end
 
-      context "when a base path is reserved by a not-yet-published 'substitute' content item" do
+      context "when a base path is occupied by a not-yet-published 'substitute' content item" do
         before do
           FactoryGirl.create(:redirect_draft_content_item, base_path: base_path)
         end
@@ -287,7 +287,7 @@ RSpec.describe "Reallocating base paths of content items" do
         end
       end
 
-      context "when a base path is reserved by a published 'substitute' content item" do
+      context "when a base path is occupied by a published 'substitute' content item" do
         before do
           FactoryGirl.create(:redirect_live_content_item, :with_draft, base_path: base_path)
         end
