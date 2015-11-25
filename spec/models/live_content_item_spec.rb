@@ -26,11 +26,6 @@ RSpec.describe LiveContentItem do
       expect(subject).to be_valid
     end
 
-    it "requires a draft_content_item" do
-      subject.draft_content_item = nil
-      expect(subject).to be_invalid
-    end
-
     it "requires a content_id" do
       subject.content_id = nil
       expect(subject).to be_invalid
@@ -134,19 +129,16 @@ RSpec.describe LiveContentItem do
     context 'content_id' do
       it "accepts a UUID" do
         content_id = "a7c48dac-f1c6-45a8-b5c1-5c407d45826f"
-        subject.draft_content_item.content_id = content_id
         subject.content_id = content_id
         expect(subject).to be_valid
       end
 
       it "does not accept an arbitrary string" do
-        subject.draft_content_item.content_id = "bacon"
         subject.content_id = "bacon"
         expect(subject).not_to be_valid
       end
 
       it "does not accept an empty string" do
-        subject.draft_content_item.content_id = ""
         subject.content_id = ""
         expect(subject).not_to be_valid
       end

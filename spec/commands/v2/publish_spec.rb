@@ -9,6 +9,10 @@ RSpec.describe Commands::V2::Publish do
       FactoryGirl.create(:version, target: draft_item, number: 2)
     end
 
+    around do |example|
+      Timecop.freeze { example.run }
+    end
+
     let(:payload) do
       {
         content_id: content_id,
@@ -60,25 +64,22 @@ RSpec.describe Commands::V2::Publish do
 
         context "for a major update" do
           it "updates the public_updated_at time" do
-            Timecop.freeze do
-              described_class.call(payload)
+            described_class.call(payload)
 
-              expect(LiveContentItem.last.public_updated_at).to be_within(1.second).of(Time.zone.now)
-            end
+            expect(LiveContentItem.last.public_updated_at).to be_within(1.second).of(Time.zone.now)
           end
         end
 
         context "for a minor update" do
           let!(:another_content_id) { SecureRandom.uuid }
           let!(:live_item) do
-            FactoryGirl.create(:live_content_item, content_id: another_content_id, base_path: "/hat-rates")
+            FactoryGirl.create(:live_content_item, :with_draft, content_id: another_content_id, base_path: "/hat-rates")
           end
 
           let!(:payload) do
             {
               content_id: another_content_id,
               update_type: "minor",
-              previous_version: 2
             }
           end
 

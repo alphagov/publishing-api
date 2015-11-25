@@ -12,7 +12,7 @@ module Queries
 
       content_items.map do |content_item|
         hash = content_item.as_json(only: fields)
-        publication_state = content_item.live_content_item.present? ? 'live' : 'draft'
+        publication_state = content_item.published? ? 'live' : 'draft'
         hash['publication_state'] = publication_state
         hash
       end
@@ -21,10 +21,16 @@ module Queries
   private
 
     def content_items
-      DraftContentItem
-        .includes(:live_content_item)
+      draft_items = DraftContentItem
+        .where(format: [content_format, "placeholder_#{content_format}"])
+        .select(*fields + %i[id content_id])
+
+      live_items = LiveContentItem
+        .where.not(content_id: draft_items.map(&:content_id))
         .where(format: [content_format, "placeholder_#{content_format}"])
         .select(*fields + %i[id])
+
+      draft_items + live_items
     end
 
     def validate_fields!

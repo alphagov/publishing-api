@@ -98,8 +98,11 @@ module RequestHelpers
         before do
           factory_name = representation_class.to_s.underscore.to_sym
 
+          live = (representation_class == LiveContentItem)
+
           item = FactoryGirl.create(
             factory_name,
+            (:with_draft if live),
             title: "An existing title",
             content_id: expected_attributes[:content_id],
             locale: expected_attributes[:locale],
@@ -109,7 +112,7 @@ module RequestHelpers
 
           FactoryGirl.create(:version, target: item, number: 1)
 
-          if item.respond_to?(:draft_content_item)
+          if live
             FactoryGirl.create(:version, target: item.draft_content_item, number: 1)
           end
         end

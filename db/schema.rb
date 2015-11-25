@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105154759) do
+ActiveRecord::Schema.define(version: 20151124113325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20151105154759) do
     t.json     "redirects",             default: []
     t.string   "publishing_app"
     t.string   "rendering_app"
-    t.integer  "draft_content_item_id",                  null: false
+    t.integer  "draft_content_item_id"
     t.json     "need_ids",              default: []
     t.string   "update_type"
     t.string   "phase",                 default: "live"
@@ -95,5 +95,4 @@ ActiveRecord::Schema.define(version: 20151105154759) do
     t.datetime "updated_at",              null: false
   end
 
-  add_foreign_key "live_content_items", "draft_content_items"
 end
