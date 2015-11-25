@@ -6,15 +6,23 @@ module Presenters
         new(link_set, version).present
       end
 
-      def initialize(link_set, version)
+      def initialize(link_set, version = nil)
         self.link_set = link_set
         self.version = version
       end
 
       def present
-        link_set.as_json
-          .symbolize_keys
-          .merge(version: version.number)
+        base = link_set.as_json.symbolize_keys
+
+        if version
+          base.merge(version: version.number)
+        else
+          base
+        end
+      end
+
+      def links
+        present[:links]
       end
 
     private

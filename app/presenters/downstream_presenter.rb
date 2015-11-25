@@ -27,10 +27,14 @@ module Presenters
 
     def links
       if link_set
-        { links: link_set.links }
+        { links: link_set_presenter.links }
       else
         {}
       end
+    end
+
+    def link_set_presenter
+      Presenters::Queries::LinkSetPresenter.new(link_set)
     end
 
     def public_updated_at
