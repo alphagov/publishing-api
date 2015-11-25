@@ -196,7 +196,9 @@ An *exact type* denotes that the *path* should be checked for an exact match
 against the user’s request URL when determining whether a redirect should occur.
 A *prefix type* denotes that any subpath under the specified path should be
 redirected to the destination. You can think of these as “exact” and “wildcard”
-matches, respectively.
+matches, respectively. Although *prefix* types are supported, they are
+discouraged. Please speak to the Publishing Platform team if you'd like to make
+use of this feature.
 
 The `redirects` are optional, except for the case when the content
 item has a `format` of *redirect*. In this case, the redirects must be present
