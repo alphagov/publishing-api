@@ -33,7 +33,8 @@ module Commands
           PublishingAPI.service(:queue_publisher).send_message(queue_payload)
         end
 
-        Success.new(links: link_set.links)
+        presented = Presenters::Queries::LinkSetPresenter.new(link_set).present
+        Success.new(presented)
       end
 
     private
