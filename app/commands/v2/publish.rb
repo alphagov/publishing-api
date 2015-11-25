@@ -63,6 +63,8 @@ module Commands
         attributes = build_live_attributes(draft_content_item)
 
         live_content_item = LiveContentItem.create_or_replace(attributes) do |live_item|
+          SubstitutionHelper.clear_space!(live_item, LiveContentItem)
+
           live_version = Version.find_or_initialize_by(target: live_item)
           draft_version = Version.find_or_initialize_by(target: draft_content_item)
 

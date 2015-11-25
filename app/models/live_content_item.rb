@@ -47,8 +47,8 @@ class LiveContentItem < ActiveRecord::Base
   }
   validates_with RoutesAndRedirectsValidator
 
-  def gone_unpublishing_or_redirect?
-    ["gone", "unpublishing", "redirect"].include?(format)
+  def substitute?
+    %w(gone redirect unpublishing).include?(format)
   end
 
   def published?
