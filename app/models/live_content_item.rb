@@ -29,7 +29,6 @@ class LiveContentItem < ActiveRecord::Base
 
   scope :renderable_content, -> { where.not(format: NON_RENDERABLE_FORMATS) }
 
-  validates :draft_content_item, presence: true
   validates :content_id, presence: true, uuid: true
   validate :content_ids_match
   validates :base_path, presence: true, absolute_path: true
