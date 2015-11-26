@@ -66,8 +66,8 @@ module RequestHelpers
     def suppresses_draft_content_store_502s
       context "when draft content store is not running but draft 502s are suppressed" do
         before do
-          @swallow_draft_errors = PublishingAPI.swallow_draft_connection_errors
-          PublishingAPI.swallow_draft_connection_errors = true
+          @swallow_connection_errors = PublishingAPI.swallow_connection_errors
+          PublishingAPI.swallow_connection_errors = true
           stub_request(:put, %r{^http://draft-content-store.*/content/.*})
             .to_return(status: 502)
         end
@@ -81,7 +81,7 @@ module RequestHelpers
             expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
             expect(parsed_response_body["title"]).to eq(content_item[:title])
           ensure
-            PublishingAPI.swallow_draft_connection_errors = @swallow_draft_errors
+            PublishingAPI.swallow_connection_errors = @swallow_connection_errors
           end
         end
       end
