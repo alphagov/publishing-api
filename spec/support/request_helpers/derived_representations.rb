@@ -29,10 +29,8 @@ module RequestHelpers
 
       context "a LinkSet record already exists" do
         before do
-          link_set = FactoryGirl.create(
-            :link_set,
+          link_set = FactoryGirl.create(:link_set,
             content_id: expected_attributes[:content_id],
-            links: {}
           )
 
           FactoryGirl.create(:version, target: link_set, number: 1)
@@ -41,7 +39,8 @@ module RequestHelpers
         it "updates the existing link record" do
           do_request
           expect(LinkSet.count).to eq(1)
-          expect(LinkSet.last.links).to eq(expected_attributes[:links])
+          links = Presenters::Queries::LinkSetPresenter.new(LinkSet.last).links
+          expect(links).to eq(expected_attributes[:links])
         end
 
         it "increments the version number to 2" do

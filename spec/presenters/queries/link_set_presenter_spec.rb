@@ -18,13 +18,37 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
     end
   end
 
-  describe "#links" do
-    it "exposes the version of the link set" do
-      link_set = create(:link_set, links: { "topics" => ["778decfb-3e9c-490d-bbd5-9eeb76ee9016"]})
+  context "#links" do
+    describe "returns the links as a hash, grouping them by their link_type" do
+      let(:link_set) { FactoryGirl.create(:link_set) }
 
-      presenter = Presenters::Queries::LinkSetPresenter.new(link_set)
+      it "returns and empty hash when no links are present" do
+        links = link_set_presenter(link_set).links
+        expect(links).to eq({})
+      end
 
-      expect(presenter.links).to eq({ topics: ["778decfb-3e9c-490d-bbd5-9eeb76ee9016"] })
+      it "returns a hash, grouping links by their link_type" do
+        org_content_id_1 = SecureRandom.uuid
+        org_content_id_2 = SecureRandom.uuid
+        rel_content_id_1 = SecureRandom.uuid
+
+        org_link1 = FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_1)
+        org_link2 = FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_2)
+        related_link = FactoryGirl.create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id_1)
+
+        links = link_set_presenter(link_set).links
+
+        expect(links[:organisations]).to match_array(
+          [ org_content_id_1, org_content_id_2 ]
+        )
+        expect(links[:related_links]).to match_array(
+          [ rel_content_id_1 ]
+        )
+      end
     end
   end
+end
+
+def link_set_presenter(link_set)
+  Presenters::Queries::LinkSetPresenter.new(link_set)
 end

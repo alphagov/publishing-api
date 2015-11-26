@@ -12,7 +12,10 @@ module Presenters
       end
 
       def present
-        base = link_set.as_json.symbolize_keys
+        base = {
+          content_id: link_set.content_id,
+          links: links,
+        }
 
         if version
           base.merge(version: version.number)
@@ -22,7 +25,20 @@ module Presenters
       end
 
       def links
-        present[:links]
+        # This method presents LinkSet#links as a hash.
+        # Where keys are link types and their values are arrays of target content ids.
+        # ie:
+        # {
+        #   related: [ UUID, UUID ],
+        #   organisations: [ UUID ],
+        # }
+
+        link_set.links.map.with_object({}) do |link, hash|
+          type = link.link_type.to_sym
+
+          hash[type] ||= []
+          hash[type] << link.target_content_id
+        end
       end
 
     private
