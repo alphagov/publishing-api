@@ -1,4 +1,6 @@
 class LinkSet < ActiveRecord::Base
+  has_many :links, dependent: :destroy
+
   include Replaceable
   include DefaultAttributes
   include SymbolizeJSON
