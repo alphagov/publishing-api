@@ -51,11 +51,11 @@ class LiveContentItem < ActiveRecord::Base
     true
   end
 
-private
   def self.query_keys
     [:content_id, :locale]
   end
 
+private
   def content_ids_match
     if draft_content_item && draft_content_item.content_id != content_id
       errors.add(:content_id, "id mismatch between draft and live content items")

@@ -9,11 +9,11 @@ class LinkSet < ActiveRecord::Base
     super(links_hash || {})
   end
 
-private
   def self.query_keys
     [:content_id]
   end
 
+private
   def links_are_valid
     # Test that the `links` attribute, if set, is a hash from strings to lists
     # of UUIDs
