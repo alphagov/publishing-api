@@ -9,7 +9,6 @@ class PathReservation < ActiveRecord::Base
     self.create_or_replace(base_path: base_path, publishing_app: publishing_app)
   end
 
-private
   def self.query_keys
     [:base_path]
   end
