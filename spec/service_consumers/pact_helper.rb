@@ -27,6 +27,7 @@ Pact.provider_states_for "GDS API Adapters" do
   set_up do
     WebMock.enable!
     WebMock.reset!
+    DatabaseCleaner.clean_with :truncation
   end
 
   tear_down do
@@ -35,8 +36,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a publish intent exists at /test-intent" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
       stub_request(:delete, Plek.find('content-store') + "/publish-intent/test-intent")
@@ -48,8 +47,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "no content exists" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
       stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
@@ -61,15 +58,12 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "/test-item has been reserved by the Publisher application" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
       FactoryGirl.create(:path_reservation, base_path: "/test-item", publishing_app: "publisher")
     end
   end
 
   provider_state "a content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       draft = FactoryGirl.create(
         :draft_content_item,
         base_path: "/robots.txt",
@@ -94,16 +88,23 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      FactoryGirl.create(:version, target: draft, number: 1)
+    end
+  end
+
+  provider_state "a French content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      draft = FactoryGirl.create(:draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        locale: "fr",
+      )
       FactoryGirl.create(:version, target: draft, number: 1)
     end
   end
 
   provider_state "a published content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
 
       live = FactoryGirl.create(:live_content_item, :with_draft, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
@@ -114,7 +115,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 which does not have a publishing_app" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
       draft_content_item = FactoryGirl.create(:draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
@@ -127,8 +127,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "organisation links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       link_set = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
@@ -139,8 +137,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "empty links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       link_set = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
@@ -150,14 +146,12 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "no links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
+      # no-op
     end
   end
 
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 and locale: fr" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
       FactoryGirl.create(:version, target: draft, number: 1)
     end
@@ -165,8 +159,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a content item exists in multiple locales with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       english_draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "en")
       french_draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
       arabic_draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "ar")
@@ -179,8 +171,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
       FactoryGirl.create(:version, target: draft, number: 3)
 
@@ -191,8 +181,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
-      DatabaseCleaner.clean_with :truncation
-
       draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
       FactoryGirl.create(:version, target: draft, number: 1)
 

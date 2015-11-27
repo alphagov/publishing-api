@@ -36,6 +36,51 @@ RSpec.describe "Discard draft requests", type: :request do
         expect(response.status).to eq(200), response.body
       end
 
+      describe "optional locale parameter" do
+        let!(:french_draft_content_item) do
+          FactoryGirl.create(:draft_content_item,
+            content_id: content_id,
+            title: "draft",
+            locale: "fr",
+          )
+        end
+
+        before do
+          stub_request(:delete, Plek.find('draft-content-store') + "/content#{french_draft_content_item.base_path}")
+        end
+
+        let(:request_body) { { locale: "fr" }.to_json }
+
+        returns_200_response
+        logs_event("DiscardDraft", expected_payload_proc: -> { {
+          content_id: "582e1d3f-690e-4115-a948-e05b3c6b3d88",
+          locale: "fr",
+        } })
+        does_not_send_to_live_content_store
+
+        it "only deletes the French draft content item" do
+          do_request
+
+          english_draft = DraftContentItem.find_by(content_id: content_id, locale: "en")
+          french_draft = DraftContentItem.find_by(content_id: content_id, locale: "fr")
+
+          expect(english_draft).to be_present
+          expect(french_draft).to be_nil
+        end
+
+        it "only deletes the French content item from the draft content store" do
+          expect(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
+            .with(french_draft_content_item.base_path)
+
+          expect(PublishingAPI.service(:draft_content_store)).not_to receive(:delete_content_item)
+            .with(draft_content_item.base_path)
+
+          do_request
+
+          expect(response.status).to eq(200), response.body
+        end
+      end
+
       context "and a live content item exists" do
         let!(:live_content_item) do
           FactoryGirl.create(:live_content_item,
