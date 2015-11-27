@@ -1,6 +1,6 @@
 module RequestHelpers
   module DownstreamRequests
-    def sends_to_draft_content_store(with_arbitration: true)
+    def sends_to_draft_content_store
       it "sends to draft content store" do
         Timecop.freeze do
           expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
