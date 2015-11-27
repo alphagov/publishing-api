@@ -6,8 +6,16 @@ RSpec.describe Commands::V2::PutLinkSet do
   let(:old_uuid) { SecureRandom.uuid }
   let(:new_uuid) { SecureRandom.uuid }
   let(:topic_uuid) { SecureRandom.uuid }
-
-  let(:link_params) {
+  let(:first_set) {
+    {
+      content_id: content_id,
+      links: {
+        organisations: [old_uuid],
+        topics: [topic_uuid],
+      }
+    }
+  }
+  let(:second_set) {
     {
       content_id: content_id,
       links: {
@@ -17,13 +25,7 @@ RSpec.describe Commands::V2::PutLinkSet do
   }
 
   before do
-    @existing_link_set = FactoryGirl.create(:link_set,
-      content_id: content_id,
-      links: {
-        organisations: [old_uuid],
-        topics: [topic_uuid],
-      }
-    )
+    described_class.call(first_set)
   end
 
   it "validates the link params" do
@@ -35,11 +37,9 @@ RSpec.describe Commands::V2::PutLinkSet do
   end
 
   it "updates the LinkSet on disk" do
-    described_class.call(link_params)
+    described_class.call(second_set)
+    stored_content_ids = Link.all.map(&:target_content_id)
 
-    expect(@existing_link_set.reload.links).to eq(
-      organisations: [new_uuid],
-      topics: [topic_uuid],
-    )
+    expect(stored_content_ids).to match_array([new_uuid, topic_uuid])
   end
 end

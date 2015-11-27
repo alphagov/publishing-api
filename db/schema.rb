@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124113325) do
+ActiveRecord::Schema.define(version: 20151126135748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,10 +49,21 @@ ActiveRecord::Schema.define(version: 20151124113325) do
 
   create_table "link_sets", force: :cascade do |t|
     t.string "content_id"
-    t.json   "links",      default: {}, null: false
+    t.json   "legacy_links", default: {}, null: false
   end
 
   add_index "link_sets", ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
+
+  create_table "links", force: :cascade do |t|
+    t.integer  "link_set_id"
+    t.string   "target_content_id", null: false
+    t.string   "link_type",         null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "links", ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id", using: :btree
+  add_index "links", ["link_set_id"], name: "index_links_on_link_set_id", using: :btree
 
   create_table "live_content_items", force: :cascade do |t|
     t.string   "content_id"
@@ -95,4 +106,5 @@ ActiveRecord::Schema.define(version: 20151124113325) do
     t.datetime "updated_at",              null: false
   end
 
+  add_foreign_key "links", "link_sets"
 end

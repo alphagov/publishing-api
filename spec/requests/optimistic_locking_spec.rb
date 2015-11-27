@@ -103,7 +103,13 @@ RSpec.describe "Optimistic locking", type: :request do
       before do
         draft = FactoryGirl.create(:draft_content_item, content_id: content_id)
         FactoryGirl.create(:version, target: draft)
-        existing_link_set = FactoryGirl.create(:link_set, links_attributes)
+        existing_link_set = FactoryGirl.create(:link_set,
+          content_id: "582e1d3f-690e-4115-a948-e05b3c6b3d88"
+        )
+        FactoryGirl.create(:link,
+          link_set: existing_link_set,
+          target_content_id: "bf3e4b4f-f02d-4658-95a7-df7c74cd0f50"
+        )
         @existing_version = FactoryGirl.create(
           :version,
           target: existing_link_set,
@@ -148,7 +154,13 @@ RSpec.describe "Optimistic locking", type: :request do
       before do
         live = FactoryGirl.create(:live_content_item, content_id: content_id)
         FactoryGirl.create(:version, target: live)
-        existing_link_set = FactoryGirl.create(:link_set, links_attributes)
+        existing_link_set = FactoryGirl.create(:link_set,
+          content_id: "582e1d3f-690e-4115-a948-e05b3c6b3d88"
+        )
+        FactoryGirl.create(:link,
+          link_set: existing_link_set,
+          target_content_id: "bf3e4b4f-f02d-4658-95a7-df7c74cd0f50"
+        )
         @existing_version = FactoryGirl.create(
           :version,
           target: existing_link_set,
@@ -196,8 +208,13 @@ RSpec.describe "Optimistic locking", type: :request do
 
         FactoryGirl.create(:version, target: live)
         FactoryGirl.create(:version, target: draft)
-
-        existing_link_set = FactoryGirl.create(:link_set, links_attributes)
+        existing_link_set = FactoryGirl.create(:link_set,
+          content_id: "582e1d3f-690e-4115-a948-e05b3c6b3d88"
+        )
+        FactoryGirl.create(:link,
+          link_set: existing_link_set,
+          target_content_id: "bf3e4b4f-f02d-4658-95a7-df7c74cd0f50"
+        )
         @existing_version = FactoryGirl.create(:version,
           target: existing_link_set,
           number: 2,
