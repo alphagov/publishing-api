@@ -100,6 +100,37 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
   end
 
+  describe "content type resolution" do
+    let!(:content_item) { FactoryGirl.create(:live_content_item) }
+
+    describe "description" do
+      it "inlines the 'text/html' content type" do
+        content_item.description = [
+          { content_type: "text/html", content: "<p>content</p>" },
+          { content_type: "text/plain", content: "content" },
+        ]
+
+        result = described_class.present(content_item)
+        expect(result.fetch(:description)).to eq("<p>content</p>")
+      end
+    end
+
+    describe "details" do
+      it "inlines the 'text/html' content type" do
+        content_item.details = {
+          body: [
+            { content_type: "text/html", content: "<p>content</p>" },
+            { content_type: "text/plain", content: "content" },
+          ]
+        }
+
+        result = described_class.present(content_item)
+        description = result.fetch(:details).fetch(:body)
+        expect(description).to eq("<p>content</p>")
+      end
+    end
+  end
+
   describe described_class::V1 do
     let(:attributes) do
       {
