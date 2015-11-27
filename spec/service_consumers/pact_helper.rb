@@ -93,6 +93,16 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "a French content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      draft = FactoryGirl.create(:draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        locale: "fr",
+      )
+      FactoryGirl.create(:version, target: draft, number: 1)
+    end
+  end
+
   provider_state "a published content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
 
