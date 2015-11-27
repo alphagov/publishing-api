@@ -21,7 +21,9 @@ module Commands
               link_set.links.where(link_type: link_type, target_content_id: ids_to_be_deleted).delete_all
 
               ids_to_be_created = target_content_ids - old_target_ids
-              link_set.links.where(link_type: link_type, target_content_id: ids_to_be_created).create!
+              ids_to_be_created.each do |target_content_id|
+                link_set.links.create!(link_type: link_type, target_content_id: target_content_id)
+              end
             end
           end
         end
