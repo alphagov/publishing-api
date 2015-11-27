@@ -6,9 +6,14 @@ class ContentStoreWorker
 
     content_store = args.fetch(:content_store).constantize
     base_path = args.fetch(:base_path)
-    payload = args.fetch(:payload)
 
-    content_store.put_content_item(base_path, payload)
+    if args[:delete]
+      content_store.delete_content_item(base_path)
+    else
+      payload = args.fetch(:payload)
+      content_store.put_content_item(base_path, payload)
+    end
+
   rescue => e
     handle_error(e)
   end

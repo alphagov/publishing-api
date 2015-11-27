@@ -19,7 +19,7 @@ module RequestHelpers
           expect(JSON.parse(response.body)).to eq(
             "error" => {
               "code" => 500,
-              "message" => "Unexpected error from draft content store: GdsApi::TimedOutException"
+              "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
             }
           )
         end
@@ -45,7 +45,7 @@ module RequestHelpers
           expect(JSON.parse(response.body)).to eq(
             "error" => {
               "code" => 500,
-              "message" => "Unexpected error from content store: GdsApi::TimedOutException"
+              "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
             }
           )
         end

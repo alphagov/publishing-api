@@ -26,6 +26,14 @@ module V2
       render status: response.code, json: response
     end
 
+    def discard_draft
+      response = with_event_logging(Commands::V2::DiscardDraft, content_item) do
+        Commands::V2::DiscardDraft.call(content_item)
+      end
+
+      render status: response.code, json: response
+    end
+
   private
     def content_item
       payload.merge(content_id: params[:content_id])

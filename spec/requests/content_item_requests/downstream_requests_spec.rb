@@ -82,7 +82,7 @@ RSpec.describe "Downstream requests", type: :request do
         FactoryGirl.create(:version, target: draft, number: 1)
       end
 
-      sends_to_draft_content_store(with_arbitration: false)
+      sends_to_draft_content_store
       does_not_send_to_live_content_store
     end
 
@@ -112,7 +112,7 @@ RSpec.describe "Downstream requests", type: :request do
         FactoryGirl.create(:version, target: live, number: 1)
       end
 
-      sends_to_draft_content_store(with_arbitration: false)
+      sends_to_draft_content_store
       sends_to_live_content_store
     end
 

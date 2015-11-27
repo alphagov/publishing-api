@@ -21,6 +21,10 @@ class ContentStoreWriter < GdsApi::ContentStore
     delete_json!(publish_intent_url(base_path))
   end
 
+  def delete_content_item(base_path)
+    delete_json!(content_item_url(base_path))
+  end
+
 private
 
   def publish_intent_url(base_path)

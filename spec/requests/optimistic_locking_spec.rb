@@ -51,6 +51,24 @@ RSpec.describe "Optimistic locking", type: :request do
           expect(WebMock).to have_requested(:put, %r{http://content-store})
         end
       end
+
+      context "POST /v2/content/:content_id/discard-draft" do
+        let(:request_path) { "/v2/content/#{content_id}/discard-draft" }
+        let(:request_method) { :post }
+        let(:request_body) {
+          {
+            previous_version: 2,
+          }.to_json
+        }
+
+        it "discards the existing draft" do
+          do_request
+
+          expect(response.status).to eq(200)
+          expect(DraftContentItem.where(content_id: content_id).count).to eq(0)
+          expect(WebMock).to have_requested(:delete, %r{http://draft-content-store})
+        end
+      end
     end
 
     context "with a mismatched previous_version" do
@@ -90,6 +108,24 @@ RSpec.describe "Optimistic locking", type: :request do
           expect(response.status).to eq(409)
           expect(LiveContentItem.where(content_id: content_id).count).to eq(0)
           expect(WebMock).not_to have_requested(:put, %r{http://content-store})
+        end
+      end
+
+      context "POST /v2/content/:content_id/discard-draft" do
+        let(:request_path) { "/v2/content/#{content_id}/discard-draft" }
+        let(:request_method) { :post }
+        let(:request_body) {
+          {
+            previous_version: 1,
+          }.to_json
+        }
+
+        it "does not discard the existing draft" do
+          do_request
+
+          expect(response.status).to eq(409)
+          expect(DraftContentItem.where(content_id: content_id).count).to eq(1)
+          expect(WebMock).not_to have_requested(:delete, %r{http://draft-content-store})
         end
       end
     end
