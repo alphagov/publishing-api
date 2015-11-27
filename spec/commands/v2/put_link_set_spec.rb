@@ -1,45 +1,88 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::PutLinkSet do
-  let(:content_id) { "a5f715f9-a0b3-4186-823d-d31f6af4b060" }
+  describe "#call" do
+    it "requires links to be sent" do
+      link_params_with_missing_links = {}
 
-  let(:old_uuid) { SecureRandom.uuid }
-  let(:new_uuid) { SecureRandom.uuid }
-  let(:topic_uuid) { SecureRandom.uuid }
-  let(:first_set) {
-    {
-      content_id: content_id,
-      links: {
-        organisations: [old_uuid],
-        topics: [topic_uuid],
-      }
-    }
-  }
-  let(:second_set) {
-    {
-      content_id: content_id,
-      links: {
-        organisations: [new_uuid],
-      }
-    }
-  }
+      expect {
+        put_link_set(link_params_with_missing_links)
+      }.to raise_error(CommandError, "Links are required")
+    end
 
-  before do
-    described_class.call(first_set)
-  end
+    it "creates one links" do
+      link_set = create(:link_set)
+      link_content_id = SecureRandom.uuid
 
-  it "validates the link params" do
-    link_params_with_missing_links = {}
+      put_link_set(
+        content_id: link_set.content_id,
+        links: {
+          topics: [link_content_id]
+        }
+      )
 
-    expect {
-      described_class.call(link_params_with_missing_links)
-    }.to raise_error(CommandError, "Links are required")
-  end
+      expect(link_set.links.map(&:target_content_id)).to eql([link_content_id])
+    end
 
-  it "updates the LinkSet on disk" do
-    described_class.call(second_set)
-    stored_content_ids = Link.all.map(&:target_content_id)
+    it "creates multiple new links" do
+      link_set = create(:link_set)
+      link_content_ids = [SecureRandom.uuid, SecureRandom.uuid]
 
-    expect(stored_content_ids).to match_array([new_uuid, topic_uuid])
+      put_link_set(
+        content_id: link_set.content_id,
+        links: {
+          topics: link_content_ids
+        }
+      )
+
+      expect(link_set.links.map(&:target_content_id)).to eql(link_content_ids)
+    end
+
+    it "deletes all links from an existing link set" do
+      link_set = create(:link_set)
+      link = create(:link, link_set: link_set, link_type: "topics")
+
+      put_link_set(
+        content_id: link_set.content_id,
+        links: {
+          topics: []
+        }
+      )
+
+      expect { link.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it "deletes some links from an existing link set" do
+      link_set = create(:link_set)
+      link_to_keep = create(:link, link_set: link_set, link_type: "topics")
+      link_to_be_deleted = create(:link, link_set: link_set, link_type: "topics")
+
+      put_link_set(
+        content_id: link_set.content_id,
+        links: {
+          topics: [link_to_keep.target_content_id],
+        }
+      )
+
+      expect(link_set.links.map(&:target_content_id)).to eql([link_to_keep.target_content_id])
+    end
+
+    it "does nothing when the links haven't changed" do
+      link_set = create(:link_set)
+      link_to_keep = create(:link, link_set: link_set, link_type: "topics")
+
+      put_link_set(
+        content_id: link_set.content_id,
+        links: {
+          topics: [link_to_keep.target_content_id],
+        }
+      )
+
+      expect(link_set.links.map(&:target_content_id)).to eql([link_to_keep.target_content_id])
+    end
+
+    def put_link_set(links)
+      Commands::V2::PutLinkSet.call(links)
+    end
   end
 end
