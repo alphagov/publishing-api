@@ -9,7 +9,6 @@ module RequestHelpers
               content_item: content_item_for_draft_content_store
                 .merge(transmitted_at: DateTime.now.to_s(:nanoseconds))
             )
-            .ordered
 
           do_request
 
