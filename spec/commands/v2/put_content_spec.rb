@@ -76,6 +76,7 @@ RSpec.describe Commands::V2::PutContent do
           described_class.call(updated_payload)
 
           expect(version.reload.number).to eq(3)
+          expect(draft.reload.format).to eq("redirect")
         end
       end
     end
