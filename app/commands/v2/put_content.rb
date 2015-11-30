@@ -32,11 +32,11 @@ module Commands
         DraftContentItem.create_or_replace(content_item_attributes) do |item|
           SubstitutionHelper.clear_draft!(item)
 
+          item.assign_attributes_with_defaults(content_item_attributes)
+
           version = Version.find_or_initialize_by(target: item)
           version.increment
           version.save! if item.valid?
-
-          item.assign_attributes_with_defaults(content_item_attributes)
         end
       end
 
