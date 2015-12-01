@@ -46,16 +46,39 @@ class LiveContentItem < ActiveRecord::Base
     message: 'must be either alpha, beta, or live'
   }
   validates_with RoutesAndRedirectsValidator
+  validates :description, well_formed_content_types: { must_include: "text/html" }
+  validates :details, well_formed_content_types: { must_include: "text/html" }
 
   def published?
     true
   end
 
+  # Postgres's JSON columns have problems storing literal strings, so these
+  # getter/setter wrap the description in a JSON object.
+  def description=(value)
+    super(value: value)
+  end
+
+  def description
+    super.fetch(:value)
+  end
+
+  def attributes
+    attributes = super
+    description = attributes.delete("description")
+
+    if description
+      attributes.merge("description" => description.fetch("value"))
+    else
+      attributes
+    end
+  end
+
+private
   def self.query_keys
     [:content_id, :locale]
   end
 
-private
   def content_ids_match
     if draft_content_item && draft_content_item.content_id != content_id
       errors.add(:content_id, "id mismatch between draft and live content items")
