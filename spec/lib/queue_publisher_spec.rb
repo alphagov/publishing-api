@@ -62,7 +62,7 @@ RSpec.describe QueuePublisher do
           title: "VAT Rates",
           description: "VAT rates for goods and services",
           format: "guide",
-          publishing_app: "mainstream_publisher",
+          publishing_app: "publisher",
           locale: "en",
           details: {
             app: "or format",

@@ -39,7 +39,7 @@ RSpec.describe Commands::V2::PutContent do
         let(:updated_payload) { payload.merge(publishing_app: "new-publishing-app") }
         it "raises an error" do
           expect { described_class.call(updated_payload) }.to raise_error(
-            CommandError, "Base path is already registered by mainstream_publisher")
+            CommandError, 'Base path is already registered by publisher')
         end
       end
 
