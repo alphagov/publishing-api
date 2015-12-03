@@ -22,6 +22,7 @@ module Queries
 
     def content_items
       draft_items = DraftContentItem
+        .includes(:live_content_item)
         .where(format: [content_format, "placeholder_#{content_format}"])
         .select(*fields + %i[id content_id])
 
