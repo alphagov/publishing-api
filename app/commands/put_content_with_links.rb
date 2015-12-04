@@ -82,7 +82,11 @@ module Commands
         version.increment
         version.save! if link_set.valid?
 
-        link_set.links.delete_all
+        # The "alpha_taxonomy" is a prototype for the new taxonomy on GOV.UK. It
+        # is being managed exclusively via the V2 API. While in the migration,
+        # we need to prevent these tags from being overwritten.
+        protected_tag_types = ['alpha_taxons']
+        link_set.links.where('link_type NOT IN (?)', protected_tag_types).delete_all
 
         if content_item[:links]
           content_item[:links].each do |link_type, links|
