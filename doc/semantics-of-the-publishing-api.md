@@ -8,7 +8,7 @@ This document explains the semantics of Publishing API V2. This includes:
 
 There is another document that explains the syntax for how the API should be
 used. That document can be found
-[here](https://docs.google.com/document/d/1zYFZFZ2TLzasgX4SZTxuQhLzqRYCk4hWKBTcb8QFIRA/edit).
+[here](https://github.com/alphagov/publishing-api/blob/master/doc/publishing-api-syntactic-usage.md).
 
 ---
 
