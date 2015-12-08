@@ -97,3 +97,18 @@ links a JSON Object containing arrays of links keyed by link type eg.
   ```
 
  - `previous_version` (optional but advised) is used to ensure the request is updating the latest version of this link set.
+
+## `POST /v2/content/:content_id/discard-draft`
+
+[Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_discard_draft_content_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
+
+ - Deletes the draft content item
+ - Creates a new draft from the live item if one exists
+ - Validates that the incoming request is attempting to discard the correct internal version of the content item. Responds with 409 when version validation fails
+ - Sends the draft content item payload to the content store with a transmission timestamp to validate message ordering
+ - By default, the request will discard the draft content item with a locale of 'en'
+
+Required request parameters:
+ - `content_id` the primary identifier for the draft content item to be discarded
+ - `previous_version` (optional but advised) is used to ensure the request is discarding the latest version of the draft
+ - `locale` (optional) is used to discard a specific draft content item where there are multiple translations (defaults to 'en')
