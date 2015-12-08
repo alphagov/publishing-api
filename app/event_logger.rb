@@ -1,6 +1,6 @@
 module EventLogger
   def self.log_command(command_class, payload, &block)
-    tries = 3
+    tries = 5
     begin
       response = nil
 
@@ -19,7 +19,7 @@ module EventLogger
       if (tries -= 1) > 0
         retry
       else
-        raise CommandError.new(code: 500, message: "Too many retries - #{e.message}")
+        raise CommandError.new(code: 400, message: "Too many retries - #{e.message}")
       end
     end
   end

@@ -50,10 +50,10 @@ RSpec.describe EventLogger do
     expect(LiveContentItem.count).to eq(1)
   end
 
-  it "retries three times in case if a CommandRetryableError is thrown, then raises CommandError" do
+  it "retries five times in case if a CommandRetryableError is thrown, then raises CommandError" do
     command = double()
     error = CommandRetryableError.new("something went wrong")
-    expect(command).to receive(:do_something).exactly(3).times.and_raise(error)
+    expect(command).to receive(:do_something).exactly(5).times.and_raise(error)
     expect {
       EventLogger.log_command(command_class, payload) do
         command.do_something
