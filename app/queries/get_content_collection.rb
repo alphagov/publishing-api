@@ -2,9 +2,10 @@ module Queries
   class GetContentCollection
     attr_reader :content_format, :fields
 
-    def initialize(content_format:, fields:)
+    def initialize(content_format:, fields:, publishing_app: nil)
       @content_format = content_format
       @fields = fields
+      @publishing_app = publishing_app
     end
 
     def call
@@ -26,10 +27,14 @@ module Queries
         .where(format: [content_format, "placeholder_#{content_format}"])
         .select(*fields + %i[id content_id])
 
+      draft_items = draft_items.where(publishing_app: @publishing_app) if @publishing_app.present?
+
       live_items = LiveContentItem
         .where.not(content_id: draft_items.map(&:content_id))
         .where(format: [content_format, "placeholder_#{content_format}"])
         .select(*fields + %i[id])
+
+      live_items = live_items.where(publishing_app: @publishing_app) if @publishing_app.present?
 
       draft_items + live_items
     end
