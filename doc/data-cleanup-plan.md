@@ -30,6 +30,9 @@ task here: https://github.com/alphagov/content-store/blob/data-cleanup/lib/tasks
 4) Reuse/generate content ids where missing the live content store using the
 rake task here: https://github.com/alphagov/content-store/blob/data-cleanup/lib/tasks/data_hygiene/missing_attributes.rake
 
+4b) Resolve content_id mismatches between draft and live content stores using the
+rake task here: https://github.com/alphagov/content-store/blob/content-id-mismatches/lib/tasks/data_hygiene/draft_content_id_cleanup.rake
+
 **Note**: This task relies in the output file from step 3).
 
 5) Generate public_updated_at timestamps where missing in both content stores
