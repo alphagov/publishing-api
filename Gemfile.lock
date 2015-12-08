@@ -175,6 +175,8 @@ GEM
     pry-byebug (3.2.0)
       byebug (~> 5.0)
       pry (~> 0.10)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     rack (1.6.4)
     rack-cache (1.5.1)
       rack (>= 0.4)
@@ -321,6 +323,7 @@ DEPENDENCIES
   plek (~> 1.10)
   pry
   pry-byebug
+  pry-rails
   rails (= 4.2.5)
   rspec
   rspec-rails (~> 3.3)

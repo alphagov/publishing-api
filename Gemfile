@@ -35,6 +35,7 @@ end
 group :development, :test do
   gem "pry"
   gem "pry-byebug"
+  gem "pry-rails"
   gem "pact"
   gem "database_cleaner"
   gem "webmock", require: false
