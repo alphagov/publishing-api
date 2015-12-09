@@ -2,7 +2,6 @@ class LiveContentItem < ActiveRecord::Base
   include Replaceable
   include DefaultAttributes
   include SymbolizeJSON
-  include ImmutableBasePath
 
   TOP_LEVEL_FIELDS = [
     :base_path,

@@ -264,7 +264,6 @@ RSpec.describe DraftContentItem do
   end
 
   it_behaves_like DefaultAttributes
-  it_behaves_like ImmutableBasePath
   it_behaves_like RoutesAndRedirectsValidator
   it_behaves_like WellFormedContentTypesValidator
 end

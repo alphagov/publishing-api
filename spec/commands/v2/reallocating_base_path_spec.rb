@@ -314,4 +314,42 @@ RSpec.describe "Reallocating base paths of content items" do
       end
     end
   end
+
+  describe "moving an item to a new path" do
+    let(:new_base_path) { "/new-vat-rates" }
+    let(:existing) {
+      FactoryGirl.create(:draft_content_item,
+        content_id: content_id,
+        base_path: base_path
+      )
+    }
+
+    let(:payload) {
+      existing.as_json.deep_symbolize_keys.tap do |payload|
+        payload[:base_path] = new_base_path
+        payload[:routes][0][:path] = new_base_path
+      end
+    }
+
+    context "when the item has not been published" do
+      it "can be updated to point to a different path" do
+        command.call(payload)
+        expect(DraftContentItem.find_by(content_id: content_id).base_path).to eq(new_base_path)
+      end
+    end
+
+    context "when the item has previously been published" do
+      let(:existing) {
+        FactoryGirl.create(:live_content_item,
+          content_id: content_id,
+          base_path: base_path
+        )
+      }
+
+      it "can be updated to point to a different path" do
+        command.call(payload)
+        expect(DraftContentItem.find_by(content_id: content_id).base_path).to eq(new_base_path)
+      end
+    end
+  end
 end
