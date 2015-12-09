@@ -201,4 +201,12 @@ Pact.provider_states_for "GDS API Adapters" do
       FactoryGirl.create(:draft_content_item, title: 'Content Item B', base_path: '/another-base-path', format: 'topic')
     end
   end
+
+  provider_state "there is content with format 'topic' for multiple publishing apps" do
+    set_up do
+      FactoryGirl.create(:draft_content_item, title: 'Content Item A', base_path: '/a-base-path', format: 'topic')
+      FactoryGirl.create(:draft_content_item, title: 'Content Item B', base_path: '/another-base-path', format: 'topic')
+      FactoryGirl.create(:draft_content_item, title: 'Content Item C', base_path: '/yet-another-base-path', format: 'topic', publishing_app: 'whitehall')
+    end
+  end
 end
