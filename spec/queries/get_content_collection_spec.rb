@@ -60,4 +60,34 @@ RSpec.describe Queries::GetContentCollection do
       }.to raise_error(CommandError)
     end
   end
+
+  context "filtering by publishing_app" do
+    before do
+      create(:draft_content_item, base_path: '/a', format: 'topic', publishing_app: 'publisher')
+      create(:draft_content_item, base_path: '/b',  format: 'topic', publishing_app: 'publisher')
+      create(:draft_content_item, base_path: '/c',  format: 'topic', publishing_app: 'whitehall')
+    end
+
+    it "returns items corresponding to the publishing_app parameter if present" do
+      expect(Queries::GetContentCollection.new(
+        content_format: 'topic',
+        fields: ['publishing_app'],
+        publishing_app: 'publisher'
+      ).call).to eq([
+        { "publishing_app" => "publisher", "publication_state" => "draft" },
+        { "publishing_app" => "publisher", "publication_state" => "draft" }
+      ])
+    end
+
+    it "returns items for all apps if publishing_app is not present" do
+      expect(Queries::GetContentCollection.new(
+        content_format: 'topic',
+        fields: ['publishing_app']
+      ).call).to eq([
+        { "publishing_app" => "publisher", "publication_state" => "draft" },
+        { "publishing_app" => "publisher", "publication_state" => "draft" },
+        { "publishing_app" => "whitehall", "publication_state" => "draft" }
+      ])
+    end
+  end
 end

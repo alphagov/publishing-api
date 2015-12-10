@@ -3,7 +3,8 @@ module V2
     def index
       content_format = params.fetch(:content_format)
       fields = params.fetch(:fields)
-      render json: Queries::GetContentCollection.new(content_format: content_format, fields: fields).call
+      publishing_app = params[:publishing_app]  # can be blank
+      render json: Queries::GetContentCollection.new(content_format: content_format, fields: fields, publishing_app: publishing_app).call
     end
 
     def show
