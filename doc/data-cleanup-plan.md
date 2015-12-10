@@ -18,49 +18,75 @@ requests that came in whilst the system was rebuilding are re-applied.
 
 This outlines the steps that we plan to take to remedy this situation:
 
-1) Fix the HMRC content id issues in draft and live content store using the
-migration here: https://github.com/alphagov/content-store/blob/master/db/migrate/20151207120531_update_blank_hmrc_manuals_content_ids.rb
+1. Deduplicate draft and live content items
 
-2) De-duplicate content items in draft and live content stores using the
-rake task here: https://github.com/alphagov/content-store/blob/master/lib/tasks/data_hygiene/content_item_deduplicator.rake
+`bundle exec rake data_hygiene:content_items:deduplicate`
 
-3) Generate content ids where missing in the draft content store using the rake
-task here: https://github.com/alphagov/content-store/blob/data-cleanup/lib/tasks/data_hygiene/missing_attributes.rake
 
-4) Reuse/generate content ids where missing the live content store using the
-rake task here: https://github.com/alphagov/content-store/blob/data-cleanup/lib/tasks/data_hygiene/missing_attributes.rake
+2. Generate content ids for draft content items
 
-4b) Resolve content_id mismatches between draft and live content stores using the
-rake task here: https://github.com/alphagov/content-store/blob/content-id-mismatches/lib/tasks/data_hygiene/draft_content_id_cleanup.rake
+`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:generate_content_id`
 
-**Note**: This task relies in the output file from step 3).
 
-5) Generate public_updated_at timestamps where missing in both content stores
-using the rake task here: https://github.com/alphagov/content-store/blob/data-cleanup/lib/tasks/data_hygiene/missing_attributes.rake
+3. Reuse/generate content ids where missing the live content store
 
-6) Perform a data export from the draft and live content stores using the rake
-task here: https://github.com/alphagov/content-store/blob/data-cleanup/lib/tasks/data_hygiene/export_data.rake
+`bundle exec rake data_hygiene:reuse_content_id IMPORT_PATH=./tmp/generated_content_ids.txt`
 
-**Note**: At the point that this task begins, it is important that a note be made of
-the latest event's timestamp in the publishing api. This will be used later to
-re-apply events that were applied after the data dump was initiated.
 
-7) Perform a data import from the draft and live data dumps into the publishing
-api using the rake task here: https://github.com/alphagov/publishing-api/blob/master/lib/tasks/import_data.rake
+4. Generate public_updated_at timestamps where missing in both content stores
 
-**Note**: This should be applied against a clean database. It should not be applied
-against the live database as it takes a significant amount of time to run.
+`bundle exec rake data_hygiene:assign_public_updated_at`
 
-8) Perform a data export from the live publishing api for events since the
+`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:assign_public_updated_at`
+
+
+5. Fix base_paths with missing locale suffix
+
+`bundle exec rake data_hygiene:locale_base_path_cleanup:cleanup`
+
+`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:locale_base_path_cleanup:cleanup`
+
+
+6. Make a note of the created_at timestamp of the last Event recorded in the publishing-api
+
+
+7. Perform a data export from the live content store
+
+`bundle exec rake data_hygiene:export_content_items:all`
+
+
+8. Resolve content_id mismatches between draft and live content stores using the exported data from step 8
+
+`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:draft_content_id_cleanup:cleanup FILE_PATH=./tmp/content_items_2015-12-xx_xx-xx-xx.json`
+
+
+9. Perform a data export from the draft content store
+
+`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:export_content_items:all`
+
+
+**Note** The following steps need to be performed against a reset publishing api database:
+
+1. Perform a data import from the live data dump into the publishing api
+
+`bundle exec rake import_content_items[./../content-store/tmp/content_items_2015-12-xx_xx-xx-xx.json,'live']`
+
+2. Perform a data import from the draft data dump into the publishing api
+
+`bundle exec rake import_content_items[./../content-store/tmp/content_items_2015-12-xx_xx-xx-xx.json,'draft']`
+
+
+
+3. Perform a data export from the live publishing api for events since the
 timestamp noted in step 6) using the rake task here: https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
 
 **Note**: This should be carried out at a quiet time when the publishing api is not
 receiving traffic (weekend?).
 
-9) Re-apply the events to the local publishing api from the file generated in
+4. Re-apply the events to the local publishing api from the file generated in
 step 8) using the rake task here: https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
 
-10) Backup the live publishing api database
+5. Backup the live publishing api database
 
-11) Perform a sql dump of the local publishing api database and replace the live
+6. Perform a sql dump of the local publishing api database and replace the live
 publishing api with this via a sql load
