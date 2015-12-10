@@ -18,75 +18,74 @@ requests that came in whilst the system was rebuilding are re-applied.
 
 This outlines the steps that we plan to take to remedy this situation:
 
-1. Deduplicate draft and live content items
+  1. Deduplicate draft and live content items
 
-`bundle exec rake data_hygiene:content_items:deduplicate`
-
-
-2. Generate content ids for draft content items
-
-`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:generate_content_id`
+  `bundle exec rake data_hygiene:content_items:deduplicate`
 
 
-3. Reuse/generate content ids where missing the live content store
+  2. Generate content ids for draft content items
 
-`bundle exec rake data_hygiene:reuse_content_id IMPORT_PATH=./tmp/generated_content_ids.txt`
-
-
-4. Generate public_updated_at timestamps where missing in both content stores
-
-`bundle exec rake data_hygiene:assign_public_updated_at`
-
-`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:assign_public_updated_at`
+  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:generate_content_id`
 
 
-5. Fix base_paths with missing locale suffix
+  3. Reuse/generate content ids where missing the live content store
 
-`bundle exec rake data_hygiene:locale_base_path_cleanup:cleanup`
-
-`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:locale_base_path_cleanup:cleanup`
+  `bundle exec rake data_hygiene:reuse_content_id IMPORT_PATH=./tmp/generated_content_ids.txt`
 
 
-6. Make a note of the created_at timestamp of the last Event recorded in the publishing-api
+  4. Generate public_updated_at timestamps where missing in both content stores
+
+  `bundle exec rake data_hygiene:assign_public_updated_at`
+
+  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:assign_public_updated_at`
 
 
-7. Perform a data export from the live content store
+  5. Fix base_paths with missing locale suffix
 
-`bundle exec rake data_hygiene:export_content_items:all`
+  `bundle exec rake data_hygiene:locale_base_path_cleanup:cleanup`
 
-
-8. Resolve content_id mismatches between draft and live content stores using the exported data from step 8
-
-`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:draft_content_id_cleanup:cleanup FILE_PATH=./tmp/content_items_2015-12-xx_xx-xx-xx.json`
+  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:locale_base_path_cleanup:cleanup`
 
 
-9. Perform a data export from the draft content store
-
-`MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:export_content_items:all`
+  6. Make a note of the created_at timestamp of the last Event recorded in the publishing-api
 
 
-**Note** The following steps need to be performed against a reset publishing api database:
+  7. Perform a data export from the live content store
 
-1. Perform a data import from the live data dump into the publishing api
-
-`bundle exec rake import_content_items[./../content-store/tmp/content_items_2015-12-xx_xx-xx-xx.json,'live']`
-
-2. Perform a data import from the draft data dump into the publishing api
-
-`bundle exec rake import_content_items[./../content-store/tmp/content_items_2015-12-xx_xx-xx-xx.json,'draft']`
+  `bundle exec rake data_hygiene:export_content_items:all`
 
 
+  8. Resolve content_id mismatches between draft and live content stores using the exported data from step 8
 
-3. Perform a data export from the live publishing api for events since the
-timestamp noted in step 6) using the rake task here: https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
+  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:draft_content_id_cleanup:cleanup FILE_PATH=./tmp/content_items_2015-12-xx_xx-xx-xx.json`
 
-**Note**: This should be carried out at a quiet time when the publishing api is not
+
+  9. Perform a data export from the draft content store
+
+  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:export_content_items:all`
+
+
+  **Note** The following steps need to be performed against a reset publishing api database:
+
+  1. Perform a data import from the live data dump into the publishing api
+
+  `bundle exec rake import_content_items[./../content-store/tmp/content_items_2015-12-xx_xx-xx-xx.json,'live']`
+
+  2. Perform a data import from the draft data dump into the publishing api
+
+  `bundle exec rake import_content_items[./../content-store/tmp/content_items_2015-12-xx_xx-xx-xx.json,'draft']`
+
+
+
+  3. Perform a data export from the live publishing api for events since the timestamp noted in step 6) using the rake task here:     https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
+
+  **Note**: This should be carried out at a quiet time when the publishing api is not
 receiving traffic (weekend?).
 
-4. Re-apply the events to the local publishing api from the file generated in
+  4. Re-apply the events to the local publishing api from the file generated in
 step 8) using the rake task here: https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
 
-5. Backup the live publishing api database
+  5. Backup the live publishing api database
 
-6. Perform a sql dump of the local publishing api database and replace the live
+  6. Perform a sql dump of the local publishing api database and replace the live
 publishing api with this via a sql load
