@@ -323,7 +323,6 @@ RSpec.describe "Reallocating base paths of content items" do
         base_path: base_path
       )
     }
-
     let(:payload) {
       existing.as_json.deep_symbolize_keys.tap do |payload|
         payload[:base_path] = new_base_path
@@ -332,8 +331,12 @@ RSpec.describe "Reallocating base paths of content items" do
     }
 
     context "when the item has not been published" do
-      it "can be updated to point to a different path" do
+      it "creates a draft at the new path and a deletes the draft at the old path" do
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
+          .with(base_path)
         command.call(payload)
+
         expect(DraftContentItem.find_by(content_id: content_id).base_path).to eq(new_base_path)
       end
     end

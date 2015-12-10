@@ -17,6 +17,8 @@ module Commands
           )
         end
 
+        handle_path_change(content_item)
+
         response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
         Success.new(response_hash)
       end
@@ -44,6 +46,26 @@ module Commands
 
       def content_item_attributes
         payload.slice(*DraftContentItem::TOP_LEVEL_FIELDS)
+      end
+
+      def handle_path_change(content_item)
+        path_change = content_item.previous_changes[:base_path]
+        if path_change.present? && path_change[0].present?
+          if content_item.live_content_item.present?
+            RedirectHelper.create_redirect(
+              publishing_app: content_item.publishing_app,
+              old_base_path: path_change[0],
+              new_base_path: path_change[1],
+              locale: content_item.locale,
+            )
+          else
+            ContentStoreWorker.perform_async(
+              content_store: Adapters::DraftContentStore,
+              base_path: path_change[0],
+              delete: true,
+            )
+          end
+        end
       end
     end
   end
