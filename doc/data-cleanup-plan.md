@@ -25,7 +25,7 @@ This outlines the steps that we plan to take to remedy this situation:
 
   2. Generate content ids for draft content items
 
-  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:generate_content_id`
+  `bundle exec rake data_hygiene:generate_content_id`
 
 
   3. Reuse/generate content ids where missing the live content store
@@ -35,34 +35,42 @@ This outlines the steps that we plan to take to remedy this situation:
 
   4. Generate public_updated_at timestamps where missing in both content stores
 
+  **draft content store**
+  
   `bundle exec rake data_hygiene:assign_public_updated_at`
 
-  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:assign_public_updated_at`
+  **live content store**
+  
+  `bundle exec rake data_hygiene:assign_public_updated_at`
 
 
   5. Fix base_paths with missing locale suffix
 
+  **draft content store**
+  
   `bundle exec rake data_hygiene:locale_base_path_cleanup:cleanup`
 
-  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:locale_base_path_cleanup:cleanup`
+  **live content store**
+  
+  `bundle exec rake data_hygiene:locale_base_path_cleanup:cleanup`
 
 
   6. Make a note of the created_at timestamp of the last Event recorded in the publishing-api
 
 
-  7. Perform a data export from the live content store
+  7. Perform a data export from the **live content store**
 
   `bundle exec rake data_hygiene:export_content_items:all`
 
 
   8. Resolve content_id mismatches between draft and live content stores using the exported data from step 8
 
-  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:draft_content_id_cleanup:cleanup FILE_PATH=./tmp/content_items_2015-12-xx_xx-xx-xx.json`
+  `bundle exec rake data_hygiene:draft_content_id_cleanup:cleanup FILE_PATH=./tmp/content_items_2015-12-xx_xx-xx-xx.json`
 
 
-  9. Perform a data export from the draft content store
+  9. Perform a data export from the **draft content store**
 
-  `MONGODB_URI=mongodb://localhost/draft_content_store_development bundle exec rake data_hygiene:export_content_items:all`
+  `bundle exec rake data_hygiene:export_content_items:all`
 
 
   **Note** The following steps need to be performed against a reset publishing api database:
