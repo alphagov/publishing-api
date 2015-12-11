@@ -2,31 +2,45 @@ require "json"
 
 module Tasks
   class ImportPathReservations
-    def initialize(file:, total_lines:, stdout:)
+    def initialize(file:, total_lines:, stdout:, create_reservations: false)
       @file = file
       @total_lines = total_lines
       @stdout = stdout
+      @create_reservations = create_reservations
     end
 
     def import_all
-      PathReservation.delete_all
+      File.open("tmp/new_path_reservations.txt", "w") do |report_file|
 
-      file.each.with_index(1) do |json, index|
-        parsed_json = JSON.parse(json).deep_symbolize_keys
+        file.each.with_index(1) do |json, index|
+          parsed_json = JSON.parse(json).deep_symbolize_keys
 
-        updated_at = parsed_json.fetch(:updated_at)
-        created_at = parsed_json.fetch(:created_at)
-        publishing_app = parsed_json.fetch(:publishing_app)
-        path = parsed_json.fetch(:path)
+          updated_at = parsed_json.fetch(:updated_at)
+          created_at = parsed_json.fetch(:created_at)
+          publishing_app = parsed_json.fetch(:publishing_app)
+          base_path = parsed_json.fetch(:base_path)
 
-        PathReservation.create!(
-          publishing_app: publishing_app,
-          base_path: path,
-          created_at: created_at,
-          updated_at: updated_at,
-        )
+          path_reservation = PathReservation.find_by(base_path: base_path)
 
-        print_progress(index, total_lines)
+          unless path_reservation
+            report_file.puts "#{publishing_app},#{base_path}"
+
+            if @create_reservations
+              path_item = {
+                publishing_app: publishing_app,
+                base_path: base_path,
+                created_at: created_at,
+                updated_at: updated_at
+              }
+
+              response = EventLogger.log_command(Commands::ReservePath, path_item) do
+                Commands::ReservePath.call(path_item)
+              end
+            end
+          end
+
+          print_progress(index, total_lines)
+        end
       end
 
       stdout.puts
