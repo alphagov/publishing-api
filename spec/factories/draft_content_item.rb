@@ -31,10 +31,13 @@ FactoryGirl.define do
   end
 
   factory :redirect_draft_content_item, parent: :draft_content_item do
+    transient do
+      destination "/somewhere"
+    end
     sequence(:base_path) {|n| "/test-redirect-#{n}" }
     format "redirect"
     routes []
-    redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => '/somewhere' }] }
+    redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => destination }] }
   end
 
   factory :gone_draft_content_item, parent: :draft_content_item do
