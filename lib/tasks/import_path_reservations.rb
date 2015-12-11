@@ -10,37 +10,37 @@ module Tasks
     end
 
     def import_all
-      file.each.with_index(1) do |json, index|
-        parsed_json = JSON.parse(json).deep_symbolize_keys
+      File.open("tmp/new_path_reservations.txt", "w") do |report_file|
 
-        updated_at = parsed_json.fetch(:updated_at)
-        created_at = parsed_json.fetch(:created_at)
-        publishing_app = parsed_json.fetch(:publishing_app)
-        base_path = parsed_json.fetch(:base_path)
+        file.each.with_index(1) do |json, index|
+          parsed_json = JSON.parse(json).deep_symbolize_keys
 
-        path_reservation = PathReservation.find_by(base_path: base_path)
+          updated_at = parsed_json.fetch(:updated_at)
+          created_at = parsed_json.fetch(:created_at)
+          publishing_app = parsed_json.fetch(:publishing_app)
+          base_path = parsed_json.fetch(:base_path)
 
-        unless path_reservation
-          puts
-          puts "Will create path #{base_path}"
+          path_reservation = PathReservation.find_by(base_path: base_path)
 
-          if @create_reservations
-            path_item = {
-              publishing_app: publishing_app,
-              base_path: base_path,
-              created_at: created_at,
-              updated_at: updated_at
-            }
+          unless path_reservation
+            report_file.puts "#{publishing_app},#{base_path}"
 
-            response = EventLogger.log_command(Commands::ReservePath, path_item) do
-              Commands::ReservePath.call(path_item)
+            if @create_reservations
+              path_item = {
+                publishing_app: publishing_app,
+                base_path: base_path,
+                created_at: created_at,
+                updated_at: updated_at
+              }
+
+              response = EventLogger.log_command(Commands::ReservePath, path_item) do
+                Commands::ReservePath.call(path_item)
+              end
             end
-
-            puts response.code
           end
-        end
 
-        print_progress(index, total_lines)
+          print_progress(index, total_lines)
+        end
       end
 
       stdout.puts
