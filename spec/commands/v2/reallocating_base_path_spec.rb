@@ -342,16 +342,41 @@ RSpec.describe "Reallocating base paths of content items" do
     end
 
     context "when the item has previously been published" do
-      let(:existing) {
+      before do
         FactoryGirl.create(:live_content_item,
           content_id: content_id,
-          base_path: base_path
+          base_path: base_path,
+          draft_content_item: existing,
         )
-      }
-
-      it "can be updated to point to a different path" do
+      end
+      it "put_content creates a draft at the new path and a draft redirect from the old path" do
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(base_path: new_base_path, content_item: hash_including(format: existing.format))
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(base_path: base_path, content_item: hash_including(format: "redirect"))
         command.call(payload)
+
         expect(DraftContentItem.find_by(content_id: content_id).base_path).to eq(new_base_path)
+        redirect = DraftContentItem.find_by(base_path: base_path)
+        expect(redirect.format).to eq("redirect")
+        expect(redirect.redirects[0][:destination]).to eq(new_base_path)
+      end
+
+      it "publishing creates the live item at the new path and a live redirect from the old path" do
+        FactoryGirl.create(:version, target: existing, number: 1)
+        existing.update(base_path: new_base_path, routes: payload[:routes])
+        redirect = FactoryGirl.create(:redirect_draft_content_item, base_path: base_path, destination: new_base_path)
+        FactoryGirl.create(:version, target: redirect, number: 1)
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(base_path: new_base_path, content_item: hash_including(format: existing.format))
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(base_path: base_path, content_item: hash_including(format: "redirect"))
+        Commands::V2::Publish.call(content_id: content_id, update_type: "major")
+
+        expect(LiveContentItem.find_by(content_id: content_id).base_path).to eq(new_base_path)
+        redirect = LiveContentItem.find_by(base_path: base_path)
+        expect(redirect.format).to eq("redirect")
+        expect(redirect.redirects[0][:destination]).to eq(new_base_path)
       end
     end
   end

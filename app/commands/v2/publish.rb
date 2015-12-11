@@ -86,6 +86,7 @@ module Commands
 
           queue_payload = Presenters::MessageQueuePresenter.present(live_content_item, update_type: update_type)
           PublishingAPI.service(:queue_publisher).send_message(queue_payload)
+          handle_path_change(live_content_item)
         end
       end
 
@@ -100,6 +101,18 @@ module Commands
         end
 
         attributes
+      end
+
+      def handle_path_change(live_content_item)
+        path_change = live_content_item.previous_changes[:base_path]
+        if path_change.present? && path_change[0].present?
+          draft_redirect = DraftContentItem.find_by(format: "redirect", base_path: path_change[0])
+          self.class.call(
+            content_id: draft_redirect.content_id,
+            locale: draft_redirect.locale,
+            update_type: "major"
+          ) if draft_redirect.present?
+        end
       end
     end
   end
