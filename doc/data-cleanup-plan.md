@@ -56,19 +56,25 @@ This outlines the steps that we plan to take to remedy this situation:
 
 
   6. Make a note of the created_at timestamp of the last Event recorded in the publishing-api
+  `rails runner "puts Event.last.created_at"`
 
 
-  7. Perform a data export from the **live content store**
+  7. Export all path reservations from the publishing api
+  
+  `bundle exec rake export_path_reservations[tmp/path_reservations.json]`
+  
+
+  8. Perform a data export from the **live content store**
 
   `bundle exec rake data_hygiene:export_content_items:all`
 
 
-  8. Resolve content_id mismatches between draft and live content stores using the exported data from step 8
+  9. Resolve content_id mismatches between draft and live content stores using the exported data from step 8
 
   `bundle exec rake data_hygiene:draft_content_id_cleanup:cleanup FILE_PATH=./tmp/content_items_2015-12-xx_xx-xx-xx.json`
 
 
-  9. Perform a data export from the **draft content store**
+  10. Perform a data export from the **draft content store**
 
   `bundle exec rake data_hygiene:export_content_items:all`
 
