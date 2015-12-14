@@ -23,7 +23,9 @@ module Queries
   private
 
     def validate_presence_of_item!
-      return if DraftContentItem.where(content_id: target_content_id).any?
+      return if DraftContentItem.exists?(content_id: target_content_id) ||
+                LiveContentItem.exists?(content_id: target_content_id)
+
 
       raise CommandError.new(code: 404, error_details: {
         error: {
