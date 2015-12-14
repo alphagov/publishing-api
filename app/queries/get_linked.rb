@@ -23,7 +23,9 @@ module Queries
   private
 
     def validate_presence_of_item!
-      return if DraftContentItem.where(content_id: target_content_id).any?
+      return if DraftContentItem.exists?(content_id: target_content_id) ||
+                LiveContentItem.exists?(content_id: target_content_id)
+
 
       raise CommandError.new(code: 404, error_details: {
         error: {
@@ -35,12 +37,20 @@ module Queries
 
     def validate_fields!
       invalid_fields = fields - permitted_fields
-      return unless invalid_fields.any?
+      return if invalid_fields.empty? && fields.any?
 
-      raise CommandError.new(code: 400, error_details: {
+      if fields.empty?
+        code = 422
+        message = "Fields must be provided"
+      else
+        code = 400
+        message = "Invalid column field(s): #{invalid_fields.to_sentence}"
+      end
+
+      raise CommandError.new(code: code, error_details: {
         error: {
-          code: 400,
-          message: "Invalid column name(s): #{invalid_fields.to_sentence}"
+          code: code,
+          message: message
         }
       })
     end

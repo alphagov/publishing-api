@@ -20,11 +20,23 @@ RSpec.describe V2::LinkSetsController do
       end
     end
 
+    context "called with empty fields parameter" do
+      it "is unsuccessful" do
+        get :get_linked, {
+          content_id: content_id,
+          link_type: "topic",
+          fields: []
+        }
+
+        expect(response.status).to eq(422)
+      end
+    end
+
     context "called without providing link_type parameter" do
       before do
         get :get_linked, {
           content_id: content_id,
-          fields: []
+          fields: ["content_id"]
         }
       end
 
@@ -38,7 +50,7 @@ RSpec.describe V2::LinkSetsController do
         get :get_linked, {
           content_id: content_id,
           link_type: "topic",
-          fields: []
+          fields: ["content_id"]
         }
       end
 
@@ -52,7 +64,7 @@ RSpec.describe V2::LinkSetsController do
         get :get_linked, {
           content_id: SecureRandom.uuid,
           link_type: "topic",
-          fields: []
+          fields: ["content_id"]
         }
       end
 
