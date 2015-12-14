@@ -26,6 +26,8 @@ format
  - `title` required unless format is redirect or gone
  - `public_updated_at` required unless format is redirect or gone
  - `phase` must be one of alpha, beta, live
+
+### Optional request params:
  - `locale` (optional, defaults to en) must be one of I18n.available_locales
 Requests to update an existing draft content item:
  - `previous_version` (optional but advised) is used to ensure the request is updating the latest version of this draft. ie. optimistic locking.
@@ -38,9 +40,11 @@ Requests to update an existing draft content item:
  - Exposes the content version in the response.
  - Responds with 404 if no content exists for the given content_id and locale.
 
-Required request params:
+### Required request params:
  - `content_id` the primary identifier for the requested content.
- - `locale` (optional) query parameter for content in a specific locale.
+
+### Optional request params:
+ - `locale` query parameter for content in a specific locale.
 
 ## `POST /v2/content/:content_id/publish`
 
@@ -55,9 +59,10 @@ Required request params:
 ### Required request params:
  - `content_id` the primary identifier for the content to publish.
  - `update_type` must be one of major, minor, republish, links
+
+### Optional request params:
  - `locale` (optional) specifies the locale of the content item to be published.
  - `previous_version` (optional but advised) is used to ensure the request is publishing the latest version of this draft. ie. optimistic locking.
-
 
 ## `GET /v2/links/:content_id`
 
@@ -67,7 +72,7 @@ Required request params:
  - Presents the version of the link set in the response.
  - Responds with 404 if no links are available for this content_id.
 
-Required request params:
+### Required request params:
  - `content_id` the primary identifier for the content associated with the requested link set.
 
 ## `PUT /v2/links/:content_id`
@@ -85,7 +90,7 @@ Required request params:
  - Sends the live content payload to the message queue.
  - Returns created or updated link set links in the response.
 
-Required request parameters:
+### Required request parameters:
  - `content_id` the primary identifier for the content associated with the link set to be created or updated.
 links a JSON Object containing arrays of links keyed by link type eg.
   ```
@@ -96,6 +101,7 @@ links a JSON Object containing arrays of links keyed by link type eg.
     }
   ```
 
+### Optional request params:
  - `previous_version` (optional but advised) is used to ensure the request is updating the latest version of this link set.
 
 ## `POST /v2/content/:content_id/discard-draft`
@@ -108,7 +114,9 @@ links a JSON Object containing arrays of links keyed by link type eg.
  - Sends the draft content item payload to the content store with a transmission timestamp to validate message ordering
  - By default, the request will discard the draft content item with a locale of 'en'
 
-Required request parameters:
+### Required request parameters:
  - `content_id` the primary identifier for the draft content item to be discarded
+
+### Optional request params:
  - `previous_version` (optional but advised) is used to ensure the request is discarding the latest version of the draft
  - `locale` (optional) is used to discard a specific draft content item where there are multiple translations (defaults to 'en')
