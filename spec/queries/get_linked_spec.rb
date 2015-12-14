@@ -13,7 +13,7 @@ RSpec.describe Queries::GetLinked do
           Queries::GetLinked.new(
             content_id: non_existing_content_id,
             link_type: "organisations",
-            fields: [],
+            fields: ["title"],
           ).call
         }.to raise_error(CommandError)
       end
@@ -30,7 +30,7 @@ RSpec.describe Queries::GetLinked do
             Queries::GetLinked.new(
               content_id: target_content_id,
               link_type: "organisations",
-              fields: [],
+              fields: ["title"],
             ).call
           ).to eq([ ])
         end
@@ -82,16 +82,6 @@ RSpec.describe Queries::GetLinked do
           end
         end
 
-        context "no fields requested" do
-          it "returns array of empty hashes" do
-            expect(
-              Queries::GetLinked.new(
-                content_id: target_content_id,
-                link_type: "organisations",
-                fields: [])
-              .call
-            ).to eq([ {}, {} ])
-          end
         end
       end
     end
