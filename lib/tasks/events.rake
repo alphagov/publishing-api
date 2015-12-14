@@ -1,3 +1,4 @@
+
 namespace :events do
   desc "Exports events from a given timestamp to tmp/events.json"
   task export: :environment do
@@ -20,11 +21,17 @@ namespace :events do
     hash_events.each do |hash|
       action = hash.fetch("action")
       payload = hash.fetch("payload")
-      command = "Commands::#{action}".constantize
+
+      begin
+        command = "Commands::#{action}".constantize
+      rescue NameError
+        command = "Commands::V2::#{action}".constantize
+      end
+
 
       begin
         response = EventLogger.log_command(command, payload) do
-          command.call(payload)
+          command.call(payload.deep_symbolize_keys, downstream: false)
         end
 
         if response.code == 200

@@ -8,12 +8,14 @@ module Commands
 
         PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
-        draft_payload = Presenters::ContentStorePresenter.present(content_item)
-        ContentStoreWorker.perform_async(
-          content_store: Adapters::DraftContentStore,
-          base_path: base_path,
-          payload: draft_payload,
-        )
+        if downstream
+          draft_payload = Presenters::ContentStorePresenter.present(content_item)
+          ContentStoreWorker.perform_async(
+            content_store: Adapters::DraftContentStore,
+            base_path: base_path,
+            payload: draft_payload,
+          )
+        end
 
         response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
         Success.new(response_hash)

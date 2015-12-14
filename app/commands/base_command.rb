@@ -1,17 +1,18 @@
 module Commands
   class BaseCommand
-    def self.call(payload)
-      self.new(payload).call
+    def self.call(payload, downstream: true)
+      self.new(payload, downstream: downstream).call
     rescue ActiveRecord::RecordInvalid => e
       raise_validation_command_error(e)
     end
 
-    def initialize(payload)
+    def initialize(payload, downstream: true)
       @payload = payload
+      @downstream = downstream
     end
 
   private
-    attr_reader :payload
+    attr_reader :payload, :downstream
 
     def base_path
       payload[:base_path]

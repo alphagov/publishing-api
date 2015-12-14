@@ -1,7 +1,9 @@
 module Commands
   class DeletePublishIntent < BaseCommand
     def call
-      PublishingAPI.service(:live_content_store).delete_publish_intent(base_path)
+      if downstream
+        PublishingAPI.service(:live_content_store).delete_publish_intent(base_path)
+      end
 
       Success.new({})
     rescue GdsApi::HTTPServerError => e

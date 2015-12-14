@@ -31,21 +31,25 @@ module Commands
       def update_draft_from_live
         draft.update_attributes(live.attributes.except("id", "draft_content_item_id"))
 
-        ContentStoreWorker.perform_async(
-          content_store: Adapters::DraftContentStore,
-          base_path: draft.base_path,
-          payload: Presenters::ContentStorePresenter.present(live),
-        )
+        if downstream
+          ContentStoreWorker.perform_async(
+            content_store: Adapters::DraftContentStore,
+            base_path: draft.base_path,
+            payload: Presenters::ContentStorePresenter.present(live),
+          )
+        end
       end
 
       def delete_draft
         draft.destroy
 
-        ContentStoreWorker.perform_async(
-          content_store: Adapters::DraftContentStore,
-          base_path: draft.base_path,
-          delete: true,
-        )
+        if downstream
+          ContentStoreWorker.perform_async(
+            content_store: Adapters::DraftContentStore,
+            base_path: draft.base_path,
+            delete: true,
+          )
+        end
       end
 
       def draft
