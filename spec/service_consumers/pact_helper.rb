@@ -209,4 +209,22 @@ Pact.provider_states_for "GDS API Adapters" do
       FactoryGirl.create(:draft_content_item, title: 'Content Item C', base_path: '/yet-another-base-path', format: 'topic', publishing_app: 'whitehall')
     end
   end
+
+  provider_state "there are two documents with a 'topic' link to another document" do
+    set_up do
+      content_id1 = "6cb2cf8c-670f-4de3-97d5-6ad9114581c7"
+      content_id2 = "08dfd5c3-d935-4e81-88fd-cfe65b78893d"
+      content_id3 = "e2961462-bc37-48e9-bb98-c981ef1a2d59"
+
+      FactoryGirl.create(:live_content_item, :with_draft, content_id: content_id1)
+      FactoryGirl.create(:live_content_item, content_id: content_id2, base_path: '/item-a')
+      FactoryGirl.create(:live_content_item, content_id: content_id3, base_path: '/item-b')
+
+      link_set1 = FactoryGirl.create(:link_set, content_id: content_id2)
+      link_set2 = FactoryGirl.create(:link_set, content_id: content_id3)
+
+      FactoryGirl.create(:link, link_set: link_set1, link_type: "topic", target_content_id: content_id1)
+      FactoryGirl.create(:link, link_set: link_set2, link_type: "topic", target_content_id: content_id1)
+    end
+  end
 end
