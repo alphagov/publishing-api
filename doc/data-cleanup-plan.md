@@ -110,3 +110,15 @@ step 8) using the rake task here: https://github.com/alphagov/publishing-api/blo
 
   7. Perform a sql dump of the local publishing api database and replace the live
 publishing api with this via a sql load
+
+  Dump the local database:
+  
+  ```
+  pg_dump -c -C -f publishing_api_development.sql publishing_api_development
+  ```
+
+  Update the sql dump with the correct database name and user:
+  
+  ```
+  cat publishing_api_development.sql | sed s/publishing_api_development/publishing_api_production/g | sed s/vagrant/publishing_api/g > publishing_api_production.sql
+  ```
