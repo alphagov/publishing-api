@@ -120,3 +120,15 @@ links a JSON Object containing arrays of links keyed by link type eg.
 ### Optional request params:
  - `previous_version` (optional but advised) is used to ensure the request is discarding the latest version of the draft
  - `locale` (optional) is used to discard a specific draft content item where there are multiple translations (defaults to 'en')
+
+## `GET /v2/linked/:content_id`
+
+ [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_return_the_items_linked_to_it_given_no_content_exists)
+
+  - Retrieves all content items with a link of the specified link_type to the content item with given content_id
+  - Returns only the content items' fields that have been requested with the query
+
+### Required request params:
+  - `content_id` the primary identifier for the content associated with the requested link set.
+  - `link_type` the type of link between the documents
+  - `fields[]` an array of fields that are validated against `DraftContentItem` column fields. Any invalid requested field will raise a `400`.
