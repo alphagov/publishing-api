@@ -1,6 +1,6 @@
 module Commands
   class PutContentWithLinks < BaseCommand
-    def call(downstream: true)
+    def call
       if content_item[:content_id]
         draft_content_item = create_or_update_draft_content_item!
         create_or_update_live_content_item!(draft_content_item)
