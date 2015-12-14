@@ -26,7 +26,7 @@ module Tasks
             updated_at: updated_at,
           )
 
-          command_class.new(content_item_hash).call(downstream: false)
+          command_class.call(content_item_hash, downstream: false)
         end
 
         print_progress(index, total_lines)
