@@ -120,5 +120,11 @@ publishing api with this via a sql load
   Update the sql dump with the correct database name and user:
   
   ```
-  cat publishing_api_development.sql | sed s/publishing_api_development/publishing_api_production/g | sed s/vagrant/publishing_api/g > publishing_api_production.sql
+  cat foo_db.sql | sed s/foo_db/bar_db/g | sed s/vagrant/publishing_api/g > bar_db.sql
+  ```
+
+  Run the database import:
+  
+  ```
+  psql -c "select pg_terminate_backend(pid) from pg_stat_activity where datname='bar_db';" && psql -q -f bar_db.sql
   ```
