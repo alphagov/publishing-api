@@ -56,6 +56,7 @@ This outlines the steps that we plan to take to remedy this situation:
 
 
   6. Make a note of the created_at timestamp of the last Event recorded in the publishing-api
+
   `rails runner "puts Event.last.created_at"`
 
 
@@ -89,22 +90,21 @@ This outlines the steps that we plan to take to remedy this situation:
 
   `rake import_content_items[./../content-store/tmp/content_items_2015-12-xx_xx-xx-xx.json,'draft']`
 
+  3. Re-apply the exported path reservations
+  
+  `rake import_path_reservations[tmp/path_reservations.json]`
 
-  3. Perform a data export from the live publishing api for events since the timestamp noted in step 6) using the rake task here:     https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
+  4. Perform a data export from the live publishing api for events since the timestamp noted in step 6) using the rake task here:     https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
 
   **Note**: This should be carried out at a quiet time when the publishing api is not
 receiving traffic (weekend?).
 
   `rake events:export TIMESTAMP="2015-12-11 12:30:00"`
 
-  4. Re-apply the events to the local publishing api from the file generated in
+  5. Re-apply the events to the local publishing api from the file generated in
 step 8) using the rake task here: https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
 
   `rake events:import`
-
-  5. Re-apply the exported path reservations
-  
-  `rake import_path_reservations[tmp/path_reservations.json]`
 
   6. Backup the live publishing api database
 
