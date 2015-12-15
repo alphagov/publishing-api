@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include GDS::SSO::ControllerMethods
+
   class BadRequest < StandardError; end
 
   rescue_from CommandError, with: :respond_with_command_error

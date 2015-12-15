@@ -111,6 +111,20 @@ ActiveRecord::Schema.define(version: 20160115162121) do
 
   add_index "path_reservations", ["base_path"], name: "index_path_reservations_on_base_path", unique: true, using: :btree
 
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "uid"
+    t.string   "organisation_slug"
+    t.string   "organisation_content_id"
+    t.string   "app_name"
+    t.text     "permissions"
+    t.boolean  "remotely_signed_out",     default: false
+    t.boolean  "disabled",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "versions", force: :cascade do |t|
     t.integer  "target_id",               null: false
     t.string   "target_type",             null: false
