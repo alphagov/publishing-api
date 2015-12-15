@@ -73,7 +73,6 @@ module Commands
     def content_item_attributes
       payload
         .slice(*content_item_top_level_fields)
-        .merge(mutable_base_path: true)
     end
 
     def create_or_update_links!
