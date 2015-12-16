@@ -100,33 +100,45 @@ This outlines the steps that we plan to take to remedy this situation:
 receiving traffic (weekend?).
 
   `rake events:export TIMESTAMP="2015-12-11 12:30:00"`
+  
 
-  5. Re-apply the events to the local publishing api from the file generated in
+  5. Re-apply the events to the publishing api import from the file generated in
 step 8) using the rake task here: https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
 
   `rake events:import`
   
-  6. Make another note of the last event in the import database.
+  
+  9. Make a note of the last event timestamp in the publishing api import database
   
   `rails runner "puts Event.last.created_at"`
+
+  
+  10. Stop the publishing-api application for all backends using fabric scripts
+  
+  ```
+  fab <env> node_type:backend app.stop:publishing-api
+  ```
+  
+  11. Make another export of events from the production publishing api database from the timestamp captured 2 steps previously
+  
+  `rake events:export TIMESTAMP="2015-12-11 17:30:00"`
+  
+  12. Re-apply the events to the publishing api import database to cover any events missed in the major event import replay
+
+  `rake events:import`
+
+  12. Backup the import publishing api database
+  
+  ```
+  pg_dump -c -C -f publishing_api_import.sql publishing_api_import
+  ```
 
   7. Backup the live publishing api database
 
   ```
   pg_dump -c -C -f publishing_api_production.sql publishing_api_production
   ```
-  
-  8. Backup the import publishing api database
-  
-  ```
-  pg_dump -c -C -f publishing_api_import.sql publishing_api_import
-  ```
 
-  9. Stop the publishing-api application for all backends using fabric scripts
-  
-  ```
-  fab <env> node_type:backend app.stop:publishing-api
-  ```
 
   10. Rename production and import publishing api databases
   
