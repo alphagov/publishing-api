@@ -105,26 +105,40 @@ receiving traffic (weekend?).
 step 8) using the rake task here: https://github.com/alphagov/publishing-api/blob/master/lib/tasks/events.rake
 
   `rake events:import`
+  
+  6. Make another note of the last event in the import database.
+  
+  `rails runner "puts Event.last.created_at"`
 
-  6. Backup the live publishing api database
+  7. Backup the live publishing api database
 
-  7. Perform a sql dump of the local publishing api database and replace the live
-publishing api with this via a sql load
-
-  Dump the local database:
+  ```
+  pg_dump -c -C -f publishing_api_production.sql publishing_api_production
+  ```
+  
+  8. Backup the import publishing api database
   
   ```
-  pg_dump -c -C -f publishing_api_development.sql publishing_api_development
+  pg_dump -c -C -f publishing_api_import.sql publishing_api_import
   ```
 
-  Update the sql dump with the correct database name and user:
+  9. Stop the publishing-api application for all backends using fabric scripts
   
   ```
-  cat foo_db.sql | sed s/foo_db/bar_db/g | sed s/vagrant/publishing_api/g > bar_db.sql
+  fab <env> node_type:backend app.stop:publishing-api
   ```
 
-  Run the database import:
+  10. Rename production and import publishing api databases
   
   ```
-  psql -c "select pg_terminate_backend(pid) from pg_stat_activity where datname='bar_db';" && psql -q -f bar_db.sql
+  psql template1
+  
+  template1=# select pg_terminate_backend(pid) from pg_stat_activity where datname='publishing_api_production';ALTER DATABASE publishing_api_production RENAME TO publishing_api_production_replaced;select pg_terminate_backend(pid) from pg_stat_activity where datname='publishing_api_import';ALTER DATABASE publishing_api_import RENAME TO publishing_api_production;
   ```
+  
+  11. Start the publishing-api backends
+  
+  ```
+  fab <env> node_type:backend app.start:publishing-api
+  ```
+  
