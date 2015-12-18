@@ -14,8 +14,8 @@ module Queries
       content_items.map do |content_item|
         hash = Presenters::Queries::ContentItemPresenter.new(
           content_item,
-          draft_versions[content_item.id],
-          live_versions[content_item.live_content_item.try(:id)]
+          draft_version(content_item),
+          live_version(content_item)
         )
         hash.present.as_json(only: output_fields)
       end
@@ -65,6 +65,24 @@ module Queries
 
     def permitted_fields
       DraftContentItem.column_names
+    end
+
+    def draft_version(item)
+      case item
+      when DraftContentItem
+        @draft_versions[item.id]
+      when LiveContentItem
+        @draft_versions[item.draft_content_item.try(:id)]
+      end
+    end
+
+    def live_version(item)
+      case item
+      when DraftContentItem
+        @live_versions[item.live_content_item.try(:id)]
+      when LiveContentItem
+        @live_versions[item.id]
+      end
     end
   end
 end
