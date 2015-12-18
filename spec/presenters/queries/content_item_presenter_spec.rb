@@ -56,5 +56,15 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         expect(result.fetch(:live_version)).to eq(100)
       end
     end
+
+    context "with a live version only" do
+      let(:content_item) { FactoryGirl.create(:live_content_item, content_id: content_id ) }
+      let!(:version) { FactoryGirl.create(:version, target: content_item, number: 100) }
+      let(:result) { Presenters::Queries::ContentItemPresenter.new(content_item, nil, version).present }
+
+      it "shows the publication state of the content item as live" do
+        expect(result.fetch(:publication_state)).to eq("live")
+      end
+    end
   end
 end

@@ -17,9 +17,11 @@ module Presenters
         content_item.as_json
           .symbolize_keys
           .merge(
-            version: version.number,
             publication_state: publication_state,
-          ).tap { |h| h[:live_version] = live_version.number if live_version.present? }
+          ).tap do |h| 
+            h[:live_version] = live_version.number if live_version.present?
+            h[:version] = version.number if version.present?
+          end
       end
 
     private
@@ -29,6 +31,8 @@ module Presenters
       def publication_state
         if live_version.nil?
           'draft'
+        elsif version.nil?
+          'live'
         else
           version.number > live_version.number ? 'redrafted' : 'live'
         end
