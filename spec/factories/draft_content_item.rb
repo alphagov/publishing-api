@@ -28,6 +28,12 @@ FactoryGirl.define do
         }
       ]
     }
+
+    trait :with_version do
+      after(:create) do |item, evaluator|
+        FactoryGirl.create(:version, target: item)
+      end
+    end
   end
 
   factory :redirect_draft_content_item, parent: :draft_content_item do
