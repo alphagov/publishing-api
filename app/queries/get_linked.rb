@@ -13,14 +13,18 @@ module Queries
       validate_fields!
 
       content_items.map do |content_item|
-        hash = content_item.as_json(only: fields)
-        publication_state = content_item.published? ? 'live' : 'draft'
-        hash['publication_state'] = publication_state if fields.any?
-        hash
+        hash = Presenters::Queries::ContentItemPresenter.new(
+          content_item,
+          draft_versions[content_item.id],
+          live_versions[content_item.live_content_item.try(:id)]
+        )
+        hash.present.as_json(only: output_fields)
       end
     end
 
   private
+
+    attr_reader :live_versions, :draft_versions
 
     def validate_presence_of_item!
       return if DraftContentItem.exists?(content_id: target_content_id) ||
@@ -66,7 +70,16 @@ module Queries
                                   .where(content_id: content_ids)
                                   .where.not(content_id: draft_items.map(&:content_id))
 
+      @draft_versions = Version.in_bulk(draft_items, DraftContentItem)
+      @live_versions = Version.in_bulk(
+        draft_items.map(&:live_content_item) + live_items_without_draft, LiveContentItem
+      )
+
       draft_items + live_items_without_draft
+    end
+
+    def output_fields
+      fields.map(&:to_sym) << :publication_state
     end
 
     def permitted_fields
