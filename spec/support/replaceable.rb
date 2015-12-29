@@ -65,6 +65,14 @@ RSpec.shared_examples Replaceable do
     # violation. The transaction should be retried from the beginning (including
     # creating a new event in the event log). We can signal to the EventLogger
     # class that we want to do this by raising a CommandRetryableError exception.
+    #
+    # Note that we also have an ActiveRecord validation for base_path in order to
+    # provide better error messaging to upstream applications and prevent retrying
+    # when the violation is not from a race condition.
+    #
+    # These ActiveRecord validations don't protect against this race condition,
+    # so this test checks for that case by triggering an ActiveRecord::RecordNotUnique (db)
+    # rather than an ActiveRecord::RecordInvalid (ruby).
 
     before do
       existing.destroy
@@ -74,21 +82,7 @@ RSpec.shared_examples Replaceable do
       it "raises a CommandRetryableError in case of a duplicate constraint violation" do
         expect {
           described_class.create_or_replace(payload) do |existing|
-            create(described_class, payload.slice(*described_class.query_keys))
-          end
-        }.to raise_error(CommandRetryableError)
-      end
-    end
-
-    context "for an object graph" do
-      it "raises a CommandRetryableError in case of a duplicate constraint violation" do
-        expect {
-          described_class.create_or_replace(payload) do |existing|
-            create(described_class, payload.slice(*described_class.query_keys))
-
-            version = Version.new(target: existing)
-            version.increment
-            version.save!
+            allow(existing).to receive(:save!).and_raise(ActiveRecord::RecordNotUnique.new("DB constraint violated"))
           end
         }.to raise_error(CommandRetryableError)
       end

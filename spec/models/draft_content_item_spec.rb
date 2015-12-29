@@ -129,7 +129,7 @@ RSpec.describe DraftContentItem do
         subject = FactoryGirl.build(:redirect_draft_content_item, base_path: "/foo")
 
         expect {
-          subject.save!
+          subject.save(validate: false)
         }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end

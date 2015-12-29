@@ -121,7 +121,7 @@ RSpec.describe LiveContentItem do
         subject = FactoryGirl.build(:redirect_live_content_item, base_path: "/foo")
 
         expect {
-          subject.save!
+          subject.save(validate: false)
         }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
