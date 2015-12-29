@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe Queries::GetContentCollection do
   it "returns the content items of the given format" do
-    create(:draft_content_item, base_path: '/a', format: 'topic')
-    create(:draft_content_item, base_path: '/b',  format: 'topic')
-    create(:draft_content_item, base_path: '/c',  format: 'mainstream_browse_page')
+    create(:draft_content_item, :with_version, base_path: '/a', format: 'topic')
+    create(:draft_content_item, :with_version, base_path: '/b',  format: 'topic')
+    create(:draft_content_item, :with_version, base_path: '/c',  format: 'mainstream_browse_page')
 
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
@@ -16,8 +16,8 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   it "returns the content items of the given format, and placeholder_format" do
-    create(:draft_content_item, base_path: '/a', format: 'topic')
-    create(:draft_content_item, base_path: '/b', format: 'placeholder_topic')
+    create(:draft_content_item, :with_version, base_path: '/a', format: 'topic')
+    create(:draft_content_item, :with_version, base_path: '/b', format: 'placeholder_topic')
 
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
@@ -29,8 +29,8 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   it "includes the publishing state of the item" do
-    create(:draft_content_item, base_path: '/draft', format: 'topic')
-    item = create(:live_content_item, base_path: '/live',  format: 'topic')
+    create(:draft_content_item, :with_version, base_path: '/draft', format: 'topic')
+    create(:live_content_item, :with_version, :with_draft_version, base_path: '/live',  format: 'topic')
 
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
@@ -63,9 +63,9 @@ RSpec.describe Queries::GetContentCollection do
 
   context "filtering by publishing_app" do
     before do
-      create(:draft_content_item, base_path: '/a', format: 'topic', publishing_app: 'publisher')
-      create(:draft_content_item, base_path: '/b',  format: 'topic', publishing_app: 'publisher')
-      create(:draft_content_item, base_path: '/c',  format: 'topic', publishing_app: 'whitehall')
+      create(:draft_content_item, :with_version, base_path: '/a', format: 'topic', publishing_app: 'publisher')
+      create(:draft_content_item, :with_version, base_path: '/b',  format: 'topic', publishing_app: 'publisher')
+      create(:draft_content_item, :with_version, base_path: '/c',  format: 'topic', publishing_app: 'whitehall')
     end
 
     it "returns items corresponding to the publishing_app parameter if present" do

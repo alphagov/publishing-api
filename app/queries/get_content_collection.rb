@@ -12,14 +12,18 @@ module Queries
       validate_fields!
 
       content_items.map do |content_item|
-        hash = content_item.as_json(only: fields)
-        publication_state = content_item.published? ? 'live' : 'draft'
-        hash['publication_state'] = publication_state
-        hash
+        hash = Presenters::Queries::ContentItemPresenter.new(
+          content_item,
+          draft_version(content_item),
+          live_version(content_item)
+        )
+        hash.present.as_json(only: output_fields)
       end
     end
 
   private
+
+    attr_reader :live_versions, :draft_versions
 
     def content_items
       draft_items = DraftContentItem
@@ -36,6 +40,10 @@ module Queries
 
       live_items = live_items.where(publishing_app: @publishing_app) if @publishing_app.present?
 
+      @draft_versions = Version.in_bulk(draft_items, DraftContentItem)
+      @live_versions = Version.in_bulk(
+        draft_items.map(&:live_content_item) + live_items, LiveContentItem
+      )
       draft_items + live_items
     end
 
@@ -51,8 +59,30 @@ module Queries
       })
     end
 
+    def output_fields
+      fields.map(&:to_sym) << :publication_state
+    end
+
     def permitted_fields
       DraftContentItem.column_names
+    end
+
+    def draft_version(item)
+      case item
+      when DraftContentItem
+        @draft_versions[item.id]
+      when LiveContentItem
+        @draft_versions[item.draft_content_item.try(:id)]
+      end
+    end
+
+    def live_version(item)
+      case item
+      when DraftContentItem
+        @live_versions[item.live_content_item.try(:id)]
+      when LiveContentItem
+        @live_versions[item.id]
+      end
     end
   end
 end

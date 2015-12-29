@@ -124,4 +124,15 @@ RSpec.describe Version do
       end
     end
   end
+
+  describe "::in_bulk" do
+    it "returns a hash of Versions for a set of items, keyed by item id" do
+      items = 5.times.map do |i|
+        FactoryGirl.create(:draft_content_item, :with_version, base_path: "/page-#{i}")
+      end
+      
+      versions = Version.in_bulk(items, DraftContentItem)
+      expect(versions.keys).to eq(items.map(&:id))
+    end
+  end
 end

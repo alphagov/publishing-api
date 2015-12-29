@@ -19,6 +19,11 @@ class Version < ActiveRecord::Base
     self.number != previous_version_number
   end
 
+  def self.in_bulk(items, type)
+    id_list = items.reject(&:blank?).map(&:id)
+    self.where(target: id_list, target_type: type.to_s).index_by(&:target_id)
+  end
+
 private
 
   def numbers_must_increase

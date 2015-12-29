@@ -63,11 +63,11 @@ RSpec.describe Queries::GetLinked do
 
       context "content items link to the wanted content item" do
         before do
-          create(:live_content_item, :with_draft, content_id: content_id, title: "VAT and VATy things")
+          create(:live_content_item, :with_version, :with_draft_version, content_id: content_id, title: "VAT and VATy things")
           link_set = create(:link_set, content_id: content_id)
           create(:link, link_set: link_set, link_type: "organisations", target_content_id: target_content_id)
 
-          content_item = create(:live_content_item, :with_draft, base_path: '/vatty', content_id: SecureRandom.uuid, title: "Another VATTY thing")
+          content_item = create(:live_content_item, :with_version, :with_draft_version, base_path: '/vatty', content_id: SecureRandom.uuid, title: "Another VATTY thing")
           link_set = create(:link_set, content_id: content_item.content_id)
           create(:link, link_set: link_set, link_type: "organisations", target_content_id: target_content_id)
 
@@ -100,11 +100,11 @@ RSpec.describe Queries::GetLinked do
         before do
           create(:live_content_item, :with_draft, content_id: another_target_content_id, base_path: "/send-now")
 
-          create(:draft_content_item, content_id: content_id, title: "HMRC documents")
+          create(:draft_content_item, :with_version, content_id: content_id, title: "HMRC documents")
           link_set = create(:link_set, content_id: content_id)
           create(:link, link_set: link_set, link_type: "organisations", target_content_id: another_target_content_id)
 
-          content_item = create(:draft_content_item, base_path: '/other-hmrc-document', content_id: SecureRandom.uuid, title: "Another HMRC document")
+          content_item = create(:draft_content_item, :with_version, base_path: '/other-hmrc-document', content_id: SecureRandom.uuid, title: "Another HMRC document")
           link_set = create(:link_set, content_id: content_item.content_id)
           create(:link, link_set: link_set, link_type: "organisations", target_content_id: another_target_content_id)
 

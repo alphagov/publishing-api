@@ -25,6 +25,12 @@ FactoryGirl.define do
       ]
     }
 
+    trait :with_version do
+      after(:create) do |item, evaluator|
+        FactoryGirl.create(:version, target: item)
+      end
+    end
+
     trait :with_draft do
       after(:build) do |live_content_item, evaluator|
         draft = FactoryGirl.build(
@@ -35,6 +41,13 @@ FactoryGirl.define do
         raise "Draft is not valid: #{draft.errors.full_messages}" unless draft.valid?
 
         live_content_item.draft_content_item = draft
+      end
+    end
+
+    trait :with_draft_version do
+      with_draft
+      after(:create) do |live_content_item, evaluator|
+        FactoryGirl.create(:version, target: live_content_item.draft_content_item)
       end
     end
   end
