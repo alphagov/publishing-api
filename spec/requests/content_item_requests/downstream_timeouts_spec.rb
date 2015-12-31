@@ -39,7 +39,10 @@ RSpec.describe "Downstream timeouts", type: :request do
       )
       draft = live.draft_content_item
 
-      draft.update!(access_limited: v2_content_item.fetch(:access_limited))
+      FactoryGirl.create(:access_limit,
+        target: draft,
+        users: v2_content_item.fetch(:access_limited).fetch(:users)
+      )
 
       FactoryGirl.create(:version, target: draft, number: 1)
       FactoryGirl.create(:version, target: live, number: 1)

@@ -15,7 +15,6 @@ FactoryGirl.define do
     details {
       { body: "<p>Something about VAT</p>\n", }
     }
-    access_limited { }
     need_ids ["100123", "100124"]
     phase "beta"
     update_type "minor"
@@ -30,7 +29,7 @@ FactoryGirl.define do
     }
 
     trait :with_version do
-      after(:create) do |item, evaluator|
+      after(:create) do |item, _|
         FactoryGirl.create(:version, target: item)
       end
     end
@@ -53,8 +52,9 @@ FactoryGirl.define do
 
   factory :access_limited_draft_content_item, parent: :draft_content_item do
     sequence(:base_path) {|n| "/access-limited-#{n}" }
-    access_limited {
-      { users: [SecureRandom.uuid] }
-    }
+
+    after(:create) do |item, _|
+      FactoryGirl.create(:access_limit, target: item)
+    end
   end
 end

@@ -11,6 +11,8 @@ module Commands
           delete_draft
         end
 
+        delete_access_limit
+
         Success.new(content_id: content_id)
       end
 
@@ -29,12 +31,7 @@ module Commands
       end
 
       def update_draft_from_live
-        live_attributes = live.attributes.except("id", "draft_content_item_id")
-        safe_attributes = live_attributes.merge(
-          "access_limited" => {}
-        )
-
-        draft.update_attributes(safe_attributes)
+        draft.update_attributes(live.attributes.except("id", "draft_content_item_id"))
 
         if downstream
           ContentStoreWorker.perform_async(
@@ -55,6 +52,10 @@ module Commands
             delete: true,
           )
         end
+      end
+
+      def delete_access_limit
+        AccessLimit.find_by(target: draft).try(:destroy)
       end
 
       def draft

@@ -14,7 +14,7 @@ module Replaceable
       end
 
       retry_strategy.call do
-        item.assign_attributes(payload.except(:id, :version))
+        item.assign_attributes(payload.except(:id, :version, :access_limited))
 
         if block_given?
           yield(item)

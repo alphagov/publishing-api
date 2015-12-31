@@ -6,7 +6,7 @@ module Adapters
       CommandError.with_error_handling do
         PublishingAPI.service(:live_content_store).put_content_item(
           base_path: base_path,
-          content_item: content_item.except(:access_limited),
+          content_item: content_item,
         )
       end
     end

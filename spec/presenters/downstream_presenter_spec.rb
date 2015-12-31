@@ -9,7 +9,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     let!(:content_item) { FactoryGirl.create(:live_content_item) }
     let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
-    it "presents the object graph for the content store (excludes access_limited)" do
+    it "presents the object graph for the content store" do
       result = described_class.present(content_item)
 
       expect(result).to eq(
@@ -45,7 +45,6 @@ RSpec.describe Presenters::DownstreamPresenter do
       expect(result).to eq(
         content_id: content_item.content_id,
         base_path: "/vat-rates",
-        access_limited: nil,
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
         details: { body: "<p>Something about VAT</p>\n" },
@@ -119,16 +118,6 @@ RSpec.describe Presenters::DownstreamPresenter do
       expect(result).to eq(
         content_id: "content_id",
         access_limited: "access_limited",
-        update_type: "update_type",
-        transmitted_at: DateTime.now.to_s(:nanoseconds),
-      )
-    end
-
-    it "can optionally remove the access_limited attribute" do
-      result = described_class.present(attributes, access_limited: false)
-
-      expect(result).to eq(
-        content_id: "content_id",
         update_type: "update_type",
         transmitted_at: DateTime.now.to_s(:nanoseconds),
       )

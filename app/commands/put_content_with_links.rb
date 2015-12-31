@@ -11,8 +11,7 @@ module Commands
 
       if downstream
         content_store_payload = Presenters::DownstreamPresenter::V1.present(
-          content_item,
-          access_limited: false,
+          content_item.except(:access_limited),
           update_type: false
         )
 
@@ -21,7 +20,6 @@ module Commands
 
         message_bus_payload = Presenters::DownstreamPresenter::V1.present(
           payload,
-          access_limited: false,
         )
         PublishingAPI.service(:queue_publisher).send_message(message_bus_payload)
       end

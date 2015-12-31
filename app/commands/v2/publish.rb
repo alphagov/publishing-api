@@ -93,7 +93,7 @@ module Commands
       def build_live_attributes(draft_content_item)
         attributes = draft_content_item
           .attributes
-          .except("access_limited", "version")
+          .except("version")
           .merge(draft_content_item: draft_content_item)
 
         unless attributes[:public_updated_at] || update_type != "major"
