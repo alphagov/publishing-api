@@ -31,7 +31,9 @@ RSpec.describe "Reallocating base paths of content items" do
     it "cannot be replaced by another regular content item" do
       expect {
         command.call(regular_payload)
-      }.to raise_error(CommandRetryableError)
+      }.to raise_error(CommandError) { |error|
+        expect(error.code).to eq(422)
+      }
     end
 
     it "can be replaced by a 'substitute' content item" do
@@ -50,7 +52,9 @@ RSpec.describe "Reallocating base paths of content items" do
     it "cannot be replaced by another regular content item" do
       expect {
         command.call(regular_payload)
-      }.to raise_error(CommandRetryableError)
+      }.to raise_error(CommandError) { |error|
+        expect(error.code).to eq(422)
+      }
     end
 
     it "can be replaced by a 'substitute' content item" do
@@ -132,7 +136,9 @@ RSpec.describe "Reallocating base paths of content items" do
       it "raises an error" do
         expect {
           command.call(payload)
-        }.to raise_error(CommandRetryableError)
+        }.to raise_error(CommandError) { |error|
+          expect(error.code).to eq(422)
+        }
       end
     end
 
@@ -234,7 +240,9 @@ RSpec.describe "Reallocating base paths of content items" do
         it "cannot be replaced by another regular content item" do
           expect {
             command.call(regular_payload)
-          }.to raise_error(CommandRetryableError)
+          }.to raise_error(CommandError) { |error|
+            expect(error.code).to eq(422)
+          }
         end
 
         it "can be replaced by a 'substitute' content item" do
@@ -253,7 +261,9 @@ RSpec.describe "Reallocating base paths of content items" do
         it "cannot be replaced by another regular content item" do
           expect {
             command.call(regular_payload)
-          }.to raise_error(CommandRetryableError)
+          }.to raise_error(CommandError) { |error|
+            expect(error.code).to eq(422)
+          }
         end
 
         it "replaces both the draft and live content items" do
