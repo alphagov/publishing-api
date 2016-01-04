@@ -7,15 +7,22 @@ class ExtractAccessLimiting < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+    add_index :access_limits, [:target_type, :target_id], name: "index_access_limits_on_target"
+
     DraftContentItem.where("access_limited::text <> '{}'::text").each do |limited_draft|
-      AccessLimit.create(
+      users = limited_draft.access_limited[:users]
+
+      AccessLimit.create!(
         target: limited_draft,
-        users: limited_draft.access_limited[:users],
+        users: users,
       )
+
+      puts "AccessLimit created for #{limited_draft.content_id} (#{users.size} users)"
     end
   end
 
   def down
+    remove_index :access_limits, name: "index_access_limits_on_target"
     drop_table :access_limits
   end
 end

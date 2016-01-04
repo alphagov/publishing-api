@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20151231125222) do
     t.datetime "updated_at",               null: false
   end
 
+  add_index "access_limits", ["target_type", "target_id"], name: "index_access_limits_on_target", using: :btree
+
   create_table "draft_content_items", force: :cascade do |t|
     t.string   "content_id"
     t.string   "locale",               default: "en"
