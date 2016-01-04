@@ -5,13 +5,13 @@ module Commands
         validate_version_lock!
         raise_error_if_missing_draft!
 
+        delete_access_limit
+
         if live
           update_draft_from_live
         else
           delete_draft
         end
-
-        delete_access_limit
 
         Success.new(content_id: content_id)
       end
