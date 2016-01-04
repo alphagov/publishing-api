@@ -76,7 +76,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
     let(:attributes) { content_item_params }
     let(:body) do
       Presenters::DownstreamPresenter::V1.present(
-        attributes, access_limited: false, update_type: false
+        attributes, update_type: false
       )
     end
 

@@ -2,17 +2,26 @@ module Commands
   class PutDraftContentWithLinks < PutContentWithLinks
     def call
       if content_item[:content_id]
-        create_or_update_draft_content_item!
+        draft_content_item = create_or_update_draft_content_item!
         create_or_update_links!
       end
 
       PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
       if downstream
+        if (access_limit = AccessLimit.find_by(target: draft_content_item))
+          attributes = content_item.merge(
+            access_limited: {
+              users: access_limit.users
+            }
+          )
+        else
+          attributes = content_item
+        end
+
         payload = Presenters::DownstreamPresenter::V1.present(
-          content_item,
+          attributes,
           update_type: false,
-          access_limited: true,
         )
         Adapters::DraftContentStore.put_content_item(base_path, payload)
       end
@@ -21,8 +30,30 @@ module Commands
     end
 
   private
-    def content_item_top_level_fields
-      DraftContentItem::TOP_LEVEL_FIELDS
+
+    def create_or_update_draft_content_item!
+      DraftContentItem.create_or_replace(content_item_attributes) do |item|
+        SubstitutionHelper.clear_draft!(item)
+
+        if item.valid?
+          version = Version.find_or_initialize_by(target: item)
+          version.increment
+          version.save!
+
+          if access_limit_params && (users = access_limit_params[:users])
+            AccessLimit.create(
+              target: item,
+              users: users
+            )
+          end
+        end
+
+        item.assign_attributes_with_defaults(content_item_attributes)
+      end
+    end
+
+    def access_limit_params
+      payload[:access_limited]
     end
   end
 end

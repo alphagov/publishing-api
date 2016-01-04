@@ -5,11 +5,11 @@ class DraftContentItem < ActiveRecord::Base
   include DefaultAttributes
   include SymbolizeJSON
 
-  TOP_LEVEL_FIELDS = (LiveContentItem::TOP_LEVEL_FIELDS + [
-    :access_limited,
-  ]).freeze
+  TOP_LEVEL_FIELDS = LiveContentItem::TOP_LEVEL_FIELDS
 
   NON_RENDERABLE_FORMATS = %w(redirect gone)
+
+  deprecated_columns :access_limited
 
   has_one :live_content_item
 
@@ -23,7 +23,6 @@ class DraftContentItem < ActiveRecord::Base
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :renderable_content?
   validates :public_updated_at, presence: true, if: :renderable_content?
-  validate :access_limited_is_valid
   validates :locale, inclusion: {
     in: I18n.available_locales.map(&:to_s),
     message: 'must be a supported locale'
@@ -58,10 +57,6 @@ class DraftContentItem < ActiveRecord::Base
     end
   end
 
-  def viewable_by?(user_uid)
-    !access_limited? || authorised_user_uids.include?(user_uid)
-  end
-
   def published?
     live_content_item.present?
   end
@@ -79,23 +74,5 @@ private
 
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(format)
-  end
-
-  def access_limited_is_valid
-    if access_limited? && (!access_limited_keys_valid? || !access_limited_values_valid?)
-      errors.set(:access_limited, ['is not valid'])
-    end
-  end
-
-  def access_limited_keys_valid?
-    access_limited.keys == [:users]
-  end
-
-  def access_limited_values_valid?
-    authorised_user_uids.is_a?(Array) && authorised_user_uids.all? { |id| id.is_a?(String) }
-  end
-
-  def authorised_user_uids
-    access_limited[:users]
   end
 end

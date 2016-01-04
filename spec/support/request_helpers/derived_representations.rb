@@ -81,9 +81,8 @@ module RequestHelpers
         expect(item.analytics_identifier).to eq(expected_attributes[:analytics_identifier])
         expect(item.update_type).to eq(expected_attributes[:update_type])
 
-        if access_limited
-          expect(item.access_limited).to eq(expected_attributes[:access_limited])
-        end
+
+        expect(AccessLimit.viewable?(item)).to eq(!access_limited)
       end
 
       it "gives the first #{representation_class} a version number of 1" do

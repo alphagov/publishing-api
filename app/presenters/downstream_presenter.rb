@@ -15,6 +15,7 @@ module Presenters
         .slice(*content_item.class::TOP_LEVEL_FIELDS)
         .merge(public_updated_at)
         .merge(links)
+        .merge(access_limited)
         .merge(transmitted_at)
     end
 
@@ -33,8 +34,24 @@ module Presenters
       end
     end
 
+    def access_limited
+      if access_limit
+        {
+          access_limited: {
+            users: access_limit.users
+          }
+        }
+      else
+        {}
+      end
+    end
+
     def link_set_presenter
       Presenters::Queries::LinkSetPresenter.new(link_set)
+    end
+
+    def access_limit
+      @access_limit ||= AccessLimit.find_by(target: content_item)
     end
 
     def public_updated_at
@@ -50,8 +67,7 @@ module Presenters
     end
 
     class V1
-      def self.present(attributes, access_limited: true, update_type: true, transmitted_at: true)
-        attributes = attributes.except(:access_limited) unless access_limited
+      def self.present(attributes, update_type: true, transmitted_at: true)
         attributes = attributes.except(:update_type) unless update_type
         attributes = attributes.merge(transmitted_at: DateTime.now.to_s(:nanoseconds)) if transmitted_at
 
