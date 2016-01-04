@@ -29,7 +29,12 @@ module Commands
       end
 
       def update_draft_from_live
-        draft.update_attributes(live.attributes.except("id", "draft_content_item_id"))
+        live_attributes = live.attributes.except("id", "draft_content_item_id")
+        safe_attributes = live_attributes.merge(
+          "access_limited" => {}
+        )
+
+        draft.update_attributes(safe_attributes)
 
         if downstream
           ContentStoreWorker.perform_async(
