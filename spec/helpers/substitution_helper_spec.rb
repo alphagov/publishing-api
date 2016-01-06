@@ -103,6 +103,17 @@ RSpec.describe SubstitutionHelper do
     end
   end
 
+  context "when a content item wants to replace a Coming Soon item" do
+    before do
+      create(:coming_soon_live_content_item, base_path: base_path)
+    end
+
+    it "removes the existing content" do
+      described_class.clear_live!(payload)
+      expect(LiveContentItem.exists?(base_path: base_path)).to eq(false)
+    end
+  end
+
   context "when a content item wants to replace a content item" do
     before do
       create(:live_content_item, base_path: base_path)
