@@ -36,7 +36,7 @@ module SubstitutionHelper
     end
 
     def substitute?(content_item)
-      %w(gone redirect unpublishing).include?(content_item.format)
+      %w(coming_soon gone redirect unpublishing).include?(content_item.format)
     end
   end
 end

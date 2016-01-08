@@ -63,4 +63,10 @@ FactoryGirl.define do
     sequence(:base_path) {|n| "/dodo-sanctuary-#{n}" }
     format "gone"
   end
+
+  factory :coming_soon_live_content_item, parent: :live_content_item do
+    format "coming_soon"
+    title "Coming soon"
+    description "This item will be published soon"
+  end
 end
