@@ -225,4 +225,5 @@ RSpec.describe DraftContentItem do
   it_behaves_like DefaultAttributes
   it_behaves_like RoutesAndRedirectsValidator
   it_behaves_like WellFormedContentTypesValidator
+  it_behaves_like DescriptionOverrides
 end
