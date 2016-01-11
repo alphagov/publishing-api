@@ -11,8 +11,8 @@ content-stores, whereas draft documents would only be forwarded to the draft
 content-store.
 
 Decisions about the design of the publishing api are recorded as [architecture
-decision records](http://thinkrelevance.com/blog/2011/11/15/documenting-
-architecture-decisions) in the [`doc/arch`](doc/arch) folder.
+decision records](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)
+in the [`doc/arch`](doc/arch) folder.
 
 ### Dependencies
 
@@ -22,7 +22,7 @@ architecture-decisions) in the [`doc/arch`](doc/arch) folder.
 Publishing API relies on RabbitMQ as its messaging bus. If you are using the
 development VM, it will be installed for you and the required users and topic
 exchanges will be set up. If not, you need to install RabbitMQ and add them
-yourself. Once RabbitMQ is installed, visit http://localhost:15672 and:
+yourself. Once RabbitMQ is installed, visit `http://localhost:15672` and:
 
 1. add a `publishing_api` user (under "Admin") with the password `publishing_api`
 2. add a `published_documents` and a `published_documents_test` topic exchange
