@@ -13,6 +13,12 @@ class ApplicationController < ActionController::Base
     request.env['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
   end
 
+  before_action :require_signin_permission!
+
+  Warden::Manager.after_authentication do |user,auth,opts|
+    user.set_app_name!
+  end
+
 private
   def respond_with_command_error(error)
     render status: error.code, json: error
