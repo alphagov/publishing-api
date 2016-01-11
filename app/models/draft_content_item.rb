@@ -57,6 +57,10 @@ class DraftContentItem < ActiveRecord::Base
     end
   end
 
+  def self.column_defaults
+    super.merge("description" => nil)
+  end
+
   def published?
     live_content_item.present?
   end

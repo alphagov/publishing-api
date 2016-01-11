@@ -73,6 +73,10 @@ class LiveContentItem < ActiveRecord::Base
     end
   end
 
+  def self.column_defaults
+    super.merge("description" => nil)
+  end
+
 private
   def self.query_keys
     [:content_id, :locale]
