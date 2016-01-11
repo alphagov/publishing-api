@@ -4,6 +4,7 @@ class DraftContentItem < ActiveRecord::Base
   include Replaceable
   include DefaultAttributes
   include SymbolizeJSON
+  include DescriptionOverrides
 
   TOP_LEVEL_FIELDS = LiveContentItem::TOP_LEVEL_FIELDS
 
@@ -35,31 +36,6 @@ class DraftContentItem < ActiveRecord::Base
 
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include: "text/html" }
-
-  # Postgres's JSON columns have problems storing literal strings, so these
-  # getter/setter wrap the description in a JSON object.
-  def description=(value)
-    super(value: value)
-  end
-
-  def description
-    super.fetch(:value)
-  end
-
-  def attributes
-    attributes = super
-    description = attributes.delete("description")
-
-    if description
-      attributes.merge("description" => description.fetch("value"))
-    else
-      attributes
-    end
-  end
-
-  def self.column_defaults
-    super.merge("description" => nil)
-  end
 
   def published?
     live_content_item.present?

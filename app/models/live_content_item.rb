@@ -2,6 +2,7 @@ class LiveContentItem < ActiveRecord::Base
   include Replaceable
   include DefaultAttributes
   include SymbolizeJSON
+  include DescriptionOverrides
 
   TOP_LEVEL_FIELDS = [
     :base_path,
@@ -50,31 +51,6 @@ class LiveContentItem < ActiveRecord::Base
 
   def published?
     true
-  end
-
-  # Postgres's JSON columns have problems storing literal strings, so these
-  # getter/setter wrap the description in a JSON object.
-  def description=(value)
-    super(value: value)
-  end
-
-  def description
-    super.fetch(:value)
-  end
-
-  def attributes
-    attributes = super
-    description = attributes.delete("description")
-
-    if description
-      attributes.merge("description" => description.fetch("value"))
-    else
-      attributes
-    end
-  end
-
-  def self.column_defaults
-    super.merge("description" => nil)
   end
 
 private
