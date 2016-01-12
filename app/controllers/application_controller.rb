@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   before_action :require_signin_permission!
 
-  Warden::Manager.after_authentication do |user,auth,opts|
+  Warden::Manager.after_authentication do |user,_,_|
     user.set_app_name!
   end
 
