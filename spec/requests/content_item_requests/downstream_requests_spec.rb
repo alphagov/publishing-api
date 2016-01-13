@@ -67,6 +67,7 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item_for_draft_content_store) {
       content_item
         .except(:update_type)
+        .merge(access_limited: access_limit_params)
     }
     let(:content_item_for_live_content_store) {
       content_item
@@ -80,7 +81,7 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*DraftContentItem::TOP_LEVEL_FIELDS))
         FactoryGirl.create(:version, target: draft, number: 1)
-        FactoryGirl.create(:access_limit, target: draft, users: content_item.fetch(:access_limited).fetch(:users))
+        FactoryGirl.create(:access_limit, target: draft, users: access_limit_params.fetch(:users))
       end
 
       sends_to_draft_content_store
@@ -106,7 +107,7 @@ RSpec.describe "Downstream requests", type: :request do
         )
 
         draft = live.draft_content_item
-        FactoryGirl.create(:access_limit, target: draft, users: content_item.fetch(:access_limited).fetch(:users))
+        FactoryGirl.create(:access_limit, target: draft, users: access_limit_params.fetch(:users))
 
         FactoryGirl.create(:version, target: draft, number: 1)
         FactoryGirl.create(:version, target: live, number: 1)

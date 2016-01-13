@@ -10,8 +10,6 @@ class DraftContentItem < ActiveRecord::Base
 
   NON_RENDERABLE_FORMATS = %w(redirect gone)
 
-  deprecated_columns :access_limited
-
   has_one :live_content_item
 
   scope :renderable_content, -> { where.not(format: NON_RENDERABLE_FORMATS) }

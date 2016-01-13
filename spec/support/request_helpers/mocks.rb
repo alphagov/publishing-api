@@ -33,14 +33,17 @@ module RequestHelpers
         ],
         redirects: [],
         update_type: "major",
-        access_limited: {
-          users: [
-            "bf3e4b4f-f02d-4658-95a7-df7c74cd0f50",
-            "74c7d700-5b4a-0131-7a8e-005056030037",
-          ],
-        },
         analytics_identifier: "GDS01",
       }.merge(links_attributes)
+    end
+
+    def access_limit_params
+      {
+        users: [
+          "bf3e4b4f-f02d-4658-95a7-df7c74cd0f50",
+          "74c7d700-5b4a-0131-7a8e-005056030037",
+        ],
+      }
     end
 
     def links_attributes

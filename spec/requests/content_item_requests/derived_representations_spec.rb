@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Derived representations", type: :request do
   context "/content" do
-    let(:request_body) { content_item_params.to_json }
+    let(:request_body) { content_item_params.merge(access_limited: access_limit_params).to_json }
     let(:request_path) { "/content#{base_path}" }
     let(:request_method) { :put }
 
@@ -12,7 +12,7 @@ RSpec.describe "Derived representations", type: :request do
   end
 
   context "/draft-content" do
-    let(:request_body) { content_item_params.to_json }
+    let(:request_body) { content_item_params.merge(access_limited: access_limit_params).to_json }
     let(:request_path) { "/draft-content#{base_path}" }
     let(:request_method) { :put }
 
@@ -22,7 +22,7 @@ RSpec.describe "Derived representations", type: :request do
   end
 
   context "/v2/content" do
-    let(:request_body) { v2_content_item.to_json }
+    let(:request_body) { v2_content_item.merge(access_limited: access_limit_params).to_json }
     let(:request_path) { "/v2/content/#{content_id}" }
     let(:request_method) { :put }
 

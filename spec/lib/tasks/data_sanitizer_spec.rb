@@ -40,6 +40,6 @@ RSpec.describe Tasks::DataSanitizer do
     limited_draft.reload
 
     expect(limited_draft.title).to eq("A live content item")
-    expect(limited_draft.access_limited).to eq({})
+    expect(AccessLimit.count).to be_zero
   end
 end
