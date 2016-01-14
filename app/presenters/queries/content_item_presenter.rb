@@ -16,9 +16,10 @@ module Presenters
       def present
         content_item.as_json
           .symbolize_keys
+          .slice(*content_item.class::TOP_LEVEL_FIELDS)
           .merge(
             publication_state: publication_state,
-          ).tap do |h| 
+          ).tap do |h|
             h[:live_version] = live_version.number if live_version.present?
             h[:version] = version.number if version.present?
           end
