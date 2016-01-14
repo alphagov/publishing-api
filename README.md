@@ -30,7 +30,7 @@ yourself. Once RabbitMQ is installed, visit `http://localhost:15672` and:
 3. give the `publishing_api` user permissions for the new exchanges.
 
 A more detailed specification of how to configure RabbitMQ can be found in the
-[puppet manifest](https://github.gds/gds/puppet/blob/master/modules/govuk/manifests/apps/publishing_api/rabbitmq.pp)
+[puppet manifest](https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/publishing_api/rabbitmq.pp)
 for the publishing API.
 
 Publishing to the message queue can be disabled by setting the
