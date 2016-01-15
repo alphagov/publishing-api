@@ -4,7 +4,10 @@ module V2
       content_format = params.fetch(:content_format)
       fields = params.fetch(:fields)
       publishing_app = params[:publishing_app]  # can be blank
-      render json: Queries::GetContentCollection.new(content_format: content_format, fields: fields, publishing_app: publishing_app).call
+      render json: Queries::GetContentCollection.new(content_format: content_format,
+                                                    fields: fields,
+                                                    publishing_app: publishing_app,
+                                                    pagination: pagination_params).call
     end
 
     def show
@@ -38,6 +41,13 @@ module V2
   private
     def content_item
       payload.merge(content_id: params[:content_id])
+    end
+
+    def pagination_params
+      {
+        start: params.fetch(:start, 0).to_i,
+        count: params.fetch(:count, 50).to_i,
+      }
     end
   end
 end
