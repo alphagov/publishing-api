@@ -34,7 +34,7 @@ module Queries
       draft_items = draft_items.where(publishing_app: @publishing_app) if @publishing_app.present?
 
       live_items = LiveContentItem
-        .where.not(content_id: draft_items.map(&:content_id))
+        .where("draft_content_item_id IS NULL")
         .where(format: [content_format, "placeholder_#{content_format}"])
         .select(*fields + %i[id])
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111103706) do
+ActiveRecord::Schema.define(version: 20160115162121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20160111103706) do
 
   add_index "draft_content_items", ["base_path"], name: "index_draft_content_items_on_base_path", unique: true, using: :btree
   add_index "draft_content_items", ["content_id", "locale"], name: "index_draft_content_items_on_content_id_and_locale", unique: true, using: :btree
+  add_index "draft_content_items", ["format"], name: "index_draft_content_items_on_format", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "action",                  null: false
@@ -99,6 +100,7 @@ ActiveRecord::Schema.define(version: 20160111103706) do
   add_index "live_content_items", ["base_path"], name: "index_live_content_items_on_base_path", unique: true, using: :btree
   add_index "live_content_items", ["content_id", "locale"], name: "index_live_content_items_on_content_id_and_locale", unique: true, using: :btree
   add_index "live_content_items", ["draft_content_item_id"], name: "index_live_content_items_on_draft_content_item_id", using: :btree
+  add_index "live_content_items", ["format"], name: "index_live_content_items_on_format", using: :btree
 
   create_table "path_reservations", force: :cascade do |t|
     t.string   "base_path",      null: false
@@ -116,6 +118,8 @@ ActiveRecord::Schema.define(version: 20160111103706) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
+
+  add_index "versions", ["target_id"], name: "index_versions_on_target_id", using: :btree
 
   add_foreign_key "links", "link_sets"
 end
