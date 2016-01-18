@@ -106,10 +106,10 @@ RSpec.describe Queries::GetContentCollection do
         content_items = Queries::GetContentCollection.new(
           content_format: 'topic',
           fields: ['publishing_app'],
-          pagination: {
+          pagination: Pagination.new({
             start: 0,
             count: 3,
-          }
+          })
         ).call
 
         expect(content_items.size).to eq(3)
@@ -119,10 +119,10 @@ RSpec.describe Queries::GetContentCollection do
         content_items = Queries::GetContentCollection.new(
           content_format: 'topic',
           fields: ['base_path'],
-          pagination: {
+          pagination: Pagination.new({
             start: 1,
             count: 2,
-          }
+          })
         ).call
 
         expect(content_items.first['base_path']).to eq('/b')
@@ -132,10 +132,10 @@ RSpec.describe Queries::GetContentCollection do
         content_items = Queries::GetContentCollection.new(
           content_format: 'topic',
           fields: ['base_path'],
-          pagination: {
+          pagination: Pagination.new({
             start: 3,
             count: 8,
-          }
+          })
         ).call
 
         expect(content_items.first['base_path']).to eq('/d')
@@ -146,10 +146,10 @@ RSpec.describe Queries::GetContentCollection do
         content_items = Queries::GetContentCollection.new(
           content_format: 'topic',
           fields: ['base_path'],
-          pagination: {
+          pagination: Pagination.new({
             start: 0,
             count: 5,
-          }
+          })
         ).call
 
         expect(content_items.first['base_path']).to eq('/a')
@@ -165,10 +165,10 @@ RSpec.describe Queries::GetContentCollection do
         content_items = Queries::GetContentCollection.new(
           content_format: 'topic',
           fields: ['base_path'],
-          pagination: {
+          pagination: Pagination.new({
             start: 2,
             count: 8,
-          }
+          })
         ).call
         expect(content_items).to be_empty
       end

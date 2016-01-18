@@ -7,7 +7,7 @@ module V2
       render json: Queries::GetContentCollection.new(content_format: content_format,
                                                     fields: fields,
                                                     publishing_app: publishing_app,
-                                                    pagination: pagination_params).call
+                                                    pagination: Pagination.new(params)).call
     end
 
     def show
@@ -41,13 +41,6 @@ module V2
   private
     def content_item
       payload.merge(content_id: params[:content_id])
-    end
-
-    def pagination_params
-      {
-        start: params.fetch(:start, 0).to_i,
-        count: params.fetch(:count, 50).to_i,
-      }
     end
   end
 end
