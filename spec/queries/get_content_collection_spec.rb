@@ -90,4 +90,88 @@ RSpec.describe Queries::GetContentCollection do
       ])
     end
   end
+
+  describe "pagination" do
+    context "with multiple content items" do
+      before do
+        create(:draft_content_item, :with_version, base_path: '/a', format: 'topic')
+        create(:draft_content_item, :with_version, base_path: '/b', format: 'topic')
+        create(:draft_content_item, :with_version, base_path: '/c', format: 'topic')
+        create(:draft_content_item, :with_version, base_path: '/d', format: 'topic')
+        create(:live_content_item, :with_version, base_path: '/live1',  format: 'topic')
+        create(:live_content_item, :with_version, base_path: '/live2',  format: 'topic')
+      end
+
+      it "limits the results returned" do
+        content_items = Queries::GetContentCollection.new(
+          content_format: 'topic',
+          fields: ['publishing_app'],
+          pagination: Pagination.new({
+            start: 0,
+            count: 3,
+          })
+        ).call
+
+        expect(content_items.size).to eq(3)
+      end
+
+      it "fetches results from a specified index" do
+        content_items = Queries::GetContentCollection.new(
+          content_format: 'topic',
+          fields: ['base_path'],
+          pagination: Pagination.new({
+            start: 1,
+            count: 2,
+          })
+        ).call
+
+        expect(content_items.first['base_path']).to eq('/b')
+      end
+
+      it "when count is higher than results we only receieve remaining content items" do
+        content_items = Queries::GetContentCollection.new(
+          content_format: 'topic',
+          fields: ['base_path'],
+          pagination: Pagination.new({
+            start: 3,
+            count: 8,
+          })
+        ).call
+
+        expect(content_items.first['base_path']).to eq('/d')
+        expect(content_items.last['base_path']).to eq('/live2')
+      end
+
+      it "returns both content item types up to the limit" do
+        content_items = Queries::GetContentCollection.new(
+          content_format: 'topic',
+          fields: ['base_path'],
+          pagination: Pagination.new({
+            start: 0,
+            count: 5,
+          })
+        ).call
+
+        expect(content_items.first['base_path']).to eq('/a')
+        expect(content_items.last['base_path']).to eq('/live1')
+      end
+    end
+    context "with only live items" do
+      before do
+        create(:live_content_item, :with_version, base_path: '/live1',  format: 'topic')
+        create(:live_content_item, :with_version, base_path: '/live2',  format: 'topic')
+      end
+      it "returns expected number of live items" do
+        content_items = Queries::GetContentCollection.new(
+          content_format: 'topic',
+          fields: ['base_path'],
+          pagination: Pagination.new({
+            start: 2,
+            count: 8,
+          })
+        ).call
+        expect(content_items).to be_empty
+      end
+    end
+  end
 end

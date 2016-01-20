@@ -2,10 +2,11 @@ module Queries
   class GetContentCollection
     attr_reader :content_format, :fields
 
-    def initialize(content_format:, fields:, publishing_app: nil)
+    def initialize(content_format:, fields:, publishing_app: nil, pagination: Pagination.new)
       @content_format = content_format
       @fields = fields
       @publishing_app = publishing_app
+      @pagination = pagination
     end
 
     def call
@@ -23,20 +24,25 @@ module Queries
 
   private
 
-    attr_reader :live_versions, :draft_versions
+    attr_reader :live_versions, :draft_versions, :pagination
 
     def content_items
       draft_items = DraftContentItem
         .includes(:live_content_item)
         .where(format: [content_format, "placeholder_#{content_format}"])
         .select(*fields + %i[id content_id])
+        .limit(pagination.count).offset(pagination.start)
 
       draft_items = draft_items.where(publishing_app: @publishing_app) if @publishing_app.present?
+
+      live_count = pagination.count - draft_items.length
+      live_start = draft_items.any? ? 0 : pagination.start
 
       live_items = LiveContentItem
         .where("draft_content_item_id IS NULL")
         .where(format: [content_format, "placeholder_#{content_format}"])
         .select(*fields + %i[id])
+        .limit(live_count).offset(live_start)
 
       live_items = live_items.where(publishing_app: @publishing_app) if @publishing_app.present?
 
