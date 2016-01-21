@@ -9,6 +9,93 @@ RSpec.describe V2::ContentItemsController do
     FactoryGirl.create(:version, target: @draft, number: 2)
   end
 
+  describe "index" do
+    let(:en_draft_content_id) { SecureRandom.uuid }
+    let(:ar_draft_content_id) { SecureRandom.uuid }
+    let(:en_live_content_id) { SecureRandom.uuid }
+    let(:ar_live_content_id) { SecureRandom.uuid }
+
+    before do
+      @en_draft_content = FactoryGirl.create(:draft_content_item,
+        content_id: en_draft_content_id,
+        locale: "en",
+        base_path: "/content.en",
+        format: "topic")
+      @ar_draft_content = FactoryGirl.create(:draft_content_item,
+        content_id: ar_draft_content_id,
+        locale: "ar",
+        base_path: "/content.ar",
+        format: "topic")
+      @en_live_content = FactoryGirl.create(:live_content_item,
+        content_id: en_live_content_id,
+        locale: "en",
+        base_path: "/content.en",
+        format: "topic")
+      @ar_live_content = FactoryGirl.create(:live_content_item,
+        content_id: ar_live_content_id,
+        locale: "ar",
+        base_path: "/content.ar",
+        format: "topic")
+      FactoryGirl.create(:version, target: @en_draft_content, number: 2)
+      FactoryGirl.create(:version, target: @ar_draft_content, number: 2)
+      FactoryGirl.create(:version, target: @en_live_content, number: 2)
+      FactoryGirl.create(:version, target: @ar_live_content, number: 2)
+    end
+
+    context "without providing a locale parameter" do
+      before do
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"]
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with the english content item as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.length == 2)
+        expect(parsed_response_body.first.fetch("content_id")).to eq("#{en_draft_content_id}")
+        expect(parsed_response_body.second.fetch("content_id")).to eq("#{en_live_content_id}")
+      end
+    end
+
+    context "providing a specific locale parameter" do
+      before do
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"], locale: "ar"
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with the specific locale content item as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.length == 2)
+        expect(parsed_response_body.first.fetch("content_id")).to eq("#{ar_draft_content_id}")
+        expect(parsed_response_body.second.fetch("content_id")).to eq("#{ar_live_content_id}")
+      end
+    end
+
+    context "providing a locale parameter set to 'all'" do
+      before do
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"], locale: "all"
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with all the localised content items as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.length == 4)
+        expect(parsed_response_body[0].fetch("content_id")).to eq("#{en_draft_content_id}")
+        expect(parsed_response_body[1].fetch("content_id")).to eq("#{ar_draft_content_id}")
+        expect(parsed_response_body[2].fetch("content_id")).to eq("#{ar_live_content_id}")
+        expect(parsed_response_body[3].fetch("content_id")).to eq("#{en_live_content_id}")
+      end
+    end
+  end
+
   describe "show" do
     context "for an existing content item" do
       before do
