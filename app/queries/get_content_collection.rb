@@ -33,7 +33,7 @@ module Queries
         .select(*fields + %i[id content_id])
 
       draft_items = draft_items.where(publishing_app: @publishing_app) if @publishing_app.present?
-      draft_items = draft_items.where(locale: locale) unless @locale == 'all'
+      draft_items = draft_items.where(locale: locale) unless locale == 'all'
 
       live_items = LiveContentItem
         .where("draft_content_item_id IS NULL")
@@ -41,7 +41,7 @@ module Queries
         .select(*fields + %i[id])
 
       live_items = live_items.where(publishing_app: @publishing_app) if @publishing_app.present?
-      live_items = live_items.where(locale: locale) unless @locale == 'all'
+      live_items = live_items.where(locale: locale) unless locale == 'all'
 
       @draft_versions = Version.in_bulk(draft_items, DraftContentItem)
       @live_versions = Version.in_bulk(
