@@ -10,29 +10,24 @@ RSpec.describe V2::ContentItemsController do
   end
 
   describe "index" do
-    let(:en_draft_content_id) { SecureRandom.uuid }
-    let(:ar_draft_content_id) { SecureRandom.uuid }
-    let(:en_live_content_id) { SecureRandom.uuid }
-    let(:ar_live_content_id) { SecureRandom.uuid }
-
     before do
       @en_draft_content = FactoryGirl.create(:draft_content_item,
-        content_id: en_draft_content_id,
+        content_id: content_id,
         locale: "en",
         base_path: "/content.en",
         format: "topic")
       @ar_draft_content = FactoryGirl.create(:draft_content_item,
-        content_id: ar_draft_content_id,
+        content_id: content_id,
         locale: "ar",
         base_path: "/content.ar",
         format: "topic")
       @en_live_content = FactoryGirl.create(:live_content_item,
-        content_id: en_live_content_id,
+        content_id: content_id,
         locale: "en",
         base_path: "/content.en",
         format: "topic")
       @ar_live_content = FactoryGirl.create(:live_content_item,
-        content_id: ar_live_content_id,
+        content_id: content_id,
         locale: "ar",
         base_path: "/content.ar",
         format: "topic")
@@ -44,7 +39,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without providing a locale parameter" do
       before do
-        get :index, content_format: "topic", fields: ["locale","content_id","base_path"]
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path","publication_state"]
       end
 
       it "is successful" do
@@ -54,8 +49,10 @@ RSpec.describe V2::ContentItemsController do
       it "responds with the english content item as json" do
         parsed_response_body = JSON.parse(response.body)
         expect(parsed_response_body.length == 2)
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{en_draft_content_id}")
-        expect(parsed_response_body.second.fetch("content_id")).to eq("#{en_live_content_id}")
+        expect(parsed_response_body.first.fetch("base_path")).to eq("/content.en")
+        expect(parsed_response_body.first.fetch("publication_state")).to eq("draft")
+        expect(parsed_response_body.second.fetch("base_path")).to eq("/content.en")
+        expect(parsed_response_body.second.fetch("publication_state")).to eq("live")
       end
     end
 
@@ -71,8 +68,10 @@ RSpec.describe V2::ContentItemsController do
       it "responds with the specific locale content item as json" do
         parsed_response_body = JSON.parse(response.body)
         expect(parsed_response_body.length == 2)
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{ar_draft_content_id}")
-        expect(parsed_response_body.second.fetch("content_id")).to eq("#{ar_live_content_id}")
+        expect(parsed_response_body.first.fetch("base_path")).to eq("/content.ar")
+        expect(parsed_response_body.first.fetch("publication_state")).to eq("draft")
+        expect(parsed_response_body.second.fetch("base_path")).to eq("/content.ar")
+        expect(parsed_response_body.second.fetch("publication_state")).to eq("live")
       end
     end
 
@@ -88,10 +87,17 @@ RSpec.describe V2::ContentItemsController do
       it "responds with all the localised content items as json" do
         parsed_response_body = JSON.parse(response.body)
         expect(parsed_response_body.length == 4)
-        expect(parsed_response_body[0].fetch("content_id")).to eq("#{en_draft_content_id}")
-        expect(parsed_response_body[1].fetch("content_id")).to eq("#{ar_draft_content_id}")
-        expect(parsed_response_body[2].fetch("content_id")).to eq("#{ar_live_content_id}")
-        expect(parsed_response_body[3].fetch("content_id")).to eq("#{en_live_content_id}")
+        expect(parsed_response_body[0].fetch("base_path")).to eq("/content.en")
+        expect(parsed_response_body[0].fetch("publication_state")).to eq("draft")
+
+        expect(parsed_response_body[1].fetch("base_path")).to eq("/content.ar")
+        expect(parsed_response_body[1].fetch("publication_state")).to eq("draft")
+
+        expect(parsed_response_body[2].fetch("base_path")).to eq("/content.ar")
+        expect(parsed_response_body[2].fetch("publication_state")).to eq("live")
+
+        expect(parsed_response_body[3].fetch("base_path")).to eq("/content.en")
+        expect(parsed_response_body[3].fetch("publication_state")).to eq("live")
       end
     end
   end
