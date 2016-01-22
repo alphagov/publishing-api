@@ -5,17 +5,16 @@ RSpec.describe V2::ContentItemsController do
 
   before do
     stub_request(:any, /content-store/)
-    @draft = FactoryGirl.create(:draft_content_item, content_id: content_id)
+    @draft = FactoryGirl.create(:draft_content_item,
+        content_id: content_id, locale: "en",
+        base_path: "/content.en",
+        format: "topic")
     FactoryGirl.create(:version, target: @draft, number: 2)
   end
 
   describe "index" do
     before do
-      @en_draft_content = FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
-        locale: "en",
-        base_path: "/content.en",
-        format: "topic")
+      @en_draft_content = @draft
       @ar_draft_content = FactoryGirl.create(:draft_content_item,
         content_id: content_id,
         locale: "ar",
@@ -39,7 +38,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without providing a locale parameter" do
       before do
-        get :index, content_format: "topic", fields: ["locale","content_id","base_path","publication_state"]
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"]
       end
 
       it "is successful" do
