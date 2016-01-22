@@ -49,10 +49,12 @@ RSpec.describe V2::ContentItemsController do
       it "responds with the english content item as json" do
         parsed_response_body = JSON.parse(response.body)
         expect(parsed_response_body.length == 2)
-        expect(parsed_response_body.first.fetch("base_path")).to eq("/content.en")
-        expect(parsed_response_body.first.fetch("publication_state")).to eq("draft")
-        expect(parsed_response_body.second.fetch("base_path")).to eq("/content.en")
-        expect(parsed_response_body.second.fetch("publication_state")).to eq("live")
+
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths). to eq ["/content.en", "/content.en"]
+
+        publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
+        expect(publication_states). to eq ["draft", "live"]
       end
     end
 
@@ -68,10 +70,12 @@ RSpec.describe V2::ContentItemsController do
       it "responds with the specific locale content item as json" do
         parsed_response_body = JSON.parse(response.body)
         expect(parsed_response_body.length == 2)
-        expect(parsed_response_body.first.fetch("base_path")).to eq("/content.ar")
-        expect(parsed_response_body.first.fetch("publication_state")).to eq("draft")
-        expect(parsed_response_body.second.fetch("base_path")).to eq("/content.ar")
-        expect(parsed_response_body.second.fetch("publication_state")).to eq("live")
+
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths). to eq ["/content.ar", "/content.ar"]
+
+        base_paths = parsed_response_body.map { |item| item.fetch("publication_state") }
+        expect(base_paths). to eq ["draft", "live"]
       end
     end
 
@@ -87,17 +91,12 @@ RSpec.describe V2::ContentItemsController do
       it "responds with all the localised content items as json" do
         parsed_response_body = JSON.parse(response.body)
         expect(parsed_response_body.length == 4)
-        expect(parsed_response_body[0].fetch("base_path")).to eq("/content.en")
-        expect(parsed_response_body[0].fetch("publication_state")).to eq("draft")
 
-        expect(parsed_response_body[1].fetch("base_path")).to eq("/content.ar")
-        expect(parsed_response_body[1].fetch("publication_state")).to eq("draft")
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths). to eq ["/content.en", "/content.ar", "/content.ar", "/content.en"]
 
-        expect(parsed_response_body[2].fetch("base_path")).to eq("/content.ar")
-        expect(parsed_response_body[2].fetch("publication_state")).to eq("live")
-
-        expect(parsed_response_body[3].fetch("base_path")).to eq("/content.en")
-        expect(parsed_response_body[3].fetch("publication_state")).to eq("live")
+        publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
+        expect(publication_states). to eq ["draft", "draft", "live", "live"]
       end
     end
   end
