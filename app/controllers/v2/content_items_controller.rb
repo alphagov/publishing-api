@@ -4,7 +4,12 @@ module V2
       content_format = params.fetch(:content_format)
       fields = params.fetch(:fields)
       publishing_app = params[:publishing_app]  # can be blank
-      render json: Queries::GetContentCollection.new(content_format: content_format, fields: fields, publishing_app: publishing_app).call
+      locale = params[:locale]
+      render json: Queries::GetContentCollection.new(
+        content_format: content_format,
+        fields: fields,
+        publishing_app: publishing_app,
+        locale: locale).call
     end
 
     def show

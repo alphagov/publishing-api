@@ -5,8 +5,99 @@ RSpec.describe V2::ContentItemsController do
 
   before do
     stub_request(:any, /content-store/)
-    @draft = FactoryGirl.create(:draft_content_item, content_id: content_id)
+    @draft = FactoryGirl.create(:draft_content_item,
+        content_id: content_id, locale: "en",
+        base_path: "/content.en",
+        format: "topic")
     FactoryGirl.create(:version, target: @draft, number: 2)
+  end
+
+  describe "index" do
+    before do
+      @en_draft_content = @draft
+      @ar_draft_content = FactoryGirl.create(:draft_content_item,
+        content_id: content_id,
+        locale: "ar",
+        base_path: "/content.ar",
+        format: "topic")
+      @en_live_content = FactoryGirl.create(:live_content_item,
+        content_id: content_id,
+        locale: "en",
+        base_path: "/content.en",
+        format: "topic")
+      @ar_live_content = FactoryGirl.create(:live_content_item,
+        content_id: content_id,
+        locale: "ar",
+        base_path: "/content.ar",
+        format: "topic")
+      FactoryGirl.create(:version, target: @en_draft_content, number: 2)
+      FactoryGirl.create(:version, target: @ar_draft_content, number: 2)
+      FactoryGirl.create(:version, target: @en_live_content, number: 2)
+      FactoryGirl.create(:version, target: @ar_live_content, number: 2)
+    end
+
+    context "without providing a locale parameter" do
+      before do
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"]
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with the english content item as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.length == 2)
+
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths). to eq ["/content.en", "/content.en"]
+
+        publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
+        expect(publication_states). to eq ["draft", "live"]
+      end
+    end
+
+    context "providing a specific locale parameter" do
+      before do
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"], locale: "ar"
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with the specific locale content item as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.length == 2)
+
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths). to eq ["/content.ar", "/content.ar"]
+
+        base_paths = parsed_response_body.map { |item| item.fetch("publication_state") }
+        expect(base_paths). to eq ["draft", "live"]
+      end
+    end
+
+    context "providing a locale parameter set to 'all'" do
+      before do
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"], locale: "all"
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with all the localised content items as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.length == 4)
+
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths). to eq ["/content.en", "/content.ar", "/content.ar", "/content.en"]
+
+        publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
+        expect(publication_states). to eq ["draft", "draft", "live", "live"]
+      end
+    end
   end
 
   describe "show" do

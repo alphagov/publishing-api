@@ -90,4 +90,48 @@ RSpec.describe Queries::GetContentCollection do
       ])
     end
   end
+
+  describe "the locale filter parameter" do
+    before do
+      create(:draft_content_item, :with_version, base_path: '/content.en', format: 'topic', locale: 'en')
+      create(:draft_content_item, :with_version, base_path: '/content.ar', format: 'topic', locale: 'ar')
+      create(:live_content_item, :with_version, base_path: '/content.en', format: 'topic', locale: 'en')
+      create(:live_content_item, :with_version, base_path: '/content.ar', format: 'topic', locale: 'ar')
+    end
+
+    it "returns the content items filtered by 'en' locale by default" do
+      expect(Queries::GetContentCollection.new(
+        content_format: 'topic',
+        fields: ['base_path'],
+      ).call).to eq([
+        { "base_path" => "/content.en", "publication_state" => "draft" },
+        { "base_path" => "/content.en", "publication_state" => "live" },
+      ])
+    end
+
+    it "returns the content items filtered by locale parameter" do
+      expect(Queries::GetContentCollection.new(
+        content_format: 'topic',
+        fields: ['base_path'],
+        locale: 'ar',
+      ).call).to eq([
+        { "base_path" => "/content.ar", "publication_state" => "draft" },
+        { "base_path" => "/content.ar", "publication_state" => "live" },
+      ])
+    end
+
+    it "returns all content items if the locale parameter is 'all'" do
+      expect(Queries::GetContentCollection.new(
+        content_format: 'topic',
+        fields: ['base_path'],
+        locale: 'all',
+      ).call).to eq([
+        { "base_path" => "/content.en", "publication_state" => "draft" },
+        { "base_path" => "/content.ar", "publication_state" => "draft" },
+        { "base_path" => "/content.ar", "publication_state" => "live" },
+        { "base_path" => "/content.en", "publication_state" => "live" },
+      ])
+    end
+  end
+
 end
