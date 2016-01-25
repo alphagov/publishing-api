@@ -59,6 +59,12 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  [:controller, :request].each do |spec_type|
+    config.before :each, type: spec_type do
+      login_as_stub_user
+    end
+  end
 end
 
 Pact.service_consumer "Publishing API" do

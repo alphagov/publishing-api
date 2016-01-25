@@ -206,4 +206,29 @@ RSpec.describe V2::ContentItemsController do
       end
     end
   end
+
+  describe "index" do
+    before do
+      create(:draft_content_item, publishing_app: 'publisher', base_path: '/content')
+      create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item1')
+      create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item2')
+      create(:draft_content_item, publishing_app: 'specialist_publisher', base_path: '/item3')
+    end
+
+    it "displays items filtered by the user's app_name" do
+      request.env['warden'].user.app_name = 'whitehall'
+      get :index, content_format: 'guide', fields: %w(base_path publishing_app)
+      items = JSON.parse(response.body)
+      expect(items.length).to eq(2)
+      expect(items.all? { |i| i["publishing_app"] == 'whitehall' }).to be true
+    end
+
+    it "displays all items if user has 'view_all' permission" do
+      request.env['warden'].user.permissions << 'view_all'
+      get :index, content_format: 'guide', fields: %w(base_path publishing_app)
+      items = JSON.parse(response.body)
+      expect(items.length).to eq(4)
+      expect(items.map { |i| i["publishing_app"] }.uniq).to match_array(%w(whitehall specialist_publisher publisher))
+    end
+  end
 end

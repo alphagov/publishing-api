@@ -3,7 +3,6 @@ module V2
     def index
       content_format = params.fetch(:content_format)
       fields = params.fetch(:fields)
-      publishing_app = params[:publishing_app]  # can be blank
       locale = params[:locale]
       render json: Queries::GetContentCollection.new(
         content_format: content_format,
@@ -43,6 +42,12 @@ module V2
   private
     def content_item
       payload.merge(content_id: params[:content_id])
+    end
+
+    def publishing_app
+      unless current_user.has_permission?('view_all')
+        current_user.app_name
+      end
     end
   end
 end

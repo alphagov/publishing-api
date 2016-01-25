@@ -42,4 +42,11 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  config.include AuthenticationHelper::RequestMixin, type: :request
+  config.include AuthenticationHelper::ControllerMixin, type: :controller
+
+  config.after do
+    GDS::SSO.test_user = nil
+  end
 end

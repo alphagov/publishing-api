@@ -28,6 +28,7 @@ Pact.provider_states_for "GDS API Adapters" do
     WebMock.enable!
     WebMock.reset!
     DatabaseCleaner.clean_with :truncation
+    FactoryGirl.create(:user)
   end
 
   tear_down do
