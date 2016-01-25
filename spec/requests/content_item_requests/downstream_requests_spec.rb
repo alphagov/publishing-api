@@ -121,6 +121,30 @@ RSpec.describe "Downstream requests", type: :request do
       does_not_send_to_draft_content_store
       does_not_send_to_live_content_store
     end
+
+    context "when sending passthrough links" do
+      def links_attributes
+        {
+          content_id: content_id,
+          links: {
+            organisations: [
+              {
+                content_id: "a-passthrough-content-id",
+                title: "Some passthrough content",
+              }
+            ]
+          }
+        }
+      end
+
+      before do
+        draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*DraftContentItem::TOP_LEVEL_FIELDS))
+        FactoryGirl.create(:version, target: draft, number: 1)
+        FactoryGirl.create(:access_limit, target: draft, users: access_limit_params.fetch(:users))
+      end
+
+      sends_to_draft_content_store
+    end
   end
 
   context "/v2/publish" do
