@@ -35,7 +35,7 @@ RSpec.describe Commands::V2::PutLinkSet do
         }
       )
 
-      expect(link_set.links.map(&:target_content_id)).to eql(link_content_ids)
+      expect(link_set.links.map(&:target_content_id)).to match_array(link_content_ids)
     end
 
     it "deletes all links from an existing link set" do
