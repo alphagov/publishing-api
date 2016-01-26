@@ -10,6 +10,17 @@ RSpec.describe Commands::V2::PutLinkSet do
       }.to raise_error(CommandError, "Links are required")
     end
 
+    it "doesn't barf on an empty links hash" do
+      link_set = create(:link_set, links: [create(:link)])
+
+      put_link_set(
+        content_id: link_set.content_id,
+        links: {}
+      )
+
+      expect(link_set.links.count).to eql(0)
+    end
+
     it "creates one links" do
       link_set = create(:link_set)
       link_content_id = SecureRandom.uuid

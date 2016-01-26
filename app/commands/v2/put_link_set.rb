@@ -11,6 +11,8 @@ module Commands
 
           links_hash = link_params.fetch(:links)
 
+          link_set.links.delete_all if links_hash.empty?
+
           links_hash.each do |link_type, target_content_ids|
             if target_content_ids.empty?
               link_set.links.where(link_type: link_type).delete_all
@@ -74,7 +76,7 @@ module Commands
               }
             }
           }
-        ) unless link_params[:links].present?
+        ) unless link_params.has_key?(:links)
       end
 
       def validate_version_lock!
