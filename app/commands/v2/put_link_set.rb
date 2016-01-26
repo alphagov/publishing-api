@@ -74,7 +74,7 @@ module Commands
               }
             }
           }
-        ) unless link_params[:links].present?
+        ) unless link_params.has_key?(:links)
       end
 
       def validate_version_lock!
