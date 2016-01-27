@@ -228,4 +228,10 @@ Pact.provider_states_for "GDS API Adapters" do
       FactoryGirl.create(:link, link_set: link_set2, link_type: "topic", target_content_id: content_id1)
     end
   end
+
+  provider_state "a content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 and it has details" do
+    set_up do
+      FactoryGirl.create(:draft_content_item, content_id: 'bed722e6-db68-43e5-9079-063f623335a7', format: 'topic', details: {foo: :bar})
+    end
+  end
 end

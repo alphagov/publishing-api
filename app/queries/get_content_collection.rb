@@ -11,14 +11,13 @@ module Queries
 
     def call
       validate_fields!
-
       content_items.map do |content_item|
-        hash = Presenters::Queries::ContentItemPresenter.new(
+        presenter = Presenters::Queries::ContentItemPresenter.new(
           content_item,
           draft_version(content_item),
           live_version(content_item)
         )
-        hash.present.as_json(only: output_fields)
+        select_output_fields_only(presenter)
       end
     end
 
@@ -86,6 +85,10 @@ module Queries
       when LiveContentItem
         @live_versions[item.id]
       end
+    end
+
+    def select_output_fields_only(presenter)
+      presenter.present.slice(*output_fields).as_json
     end
   end
 end

@@ -134,4 +134,18 @@ RSpec.describe Queries::GetContentCollection do
     end
   end
 
+  context "when details hash is requested" do
+    it "returns the details hash" do
+      create(:draft_content_item, :with_version, base_path: '/z', details: {foo: :bar}, format: 'topic', publishing_app: 'publisher')
+      create(:draft_content_item, :with_version, base_path: '/b', details: {baz: :bat}, format: 'placeholder_topic', publishing_app: 'publisher')
+        expect(Queries::GetContentCollection.new(
+          content_format: 'topic',
+          fields: ['details'],
+          publishing_app: 'publisher'
+        ).call).to eq([
+          { "details" => {"foo" => "bar"}, "publication_state" => "draft" },
+          { "details" => {"baz" => "bat"}, "publication_state" => "draft" }
+        ])
+    end
+  end
 end
