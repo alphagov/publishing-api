@@ -3,7 +3,15 @@ require 'rails_helper'
 RSpec.describe Presenters::Queries::ContentItemPresenter do
   describe "present" do
     let(:content_id) { SecureRandom.uuid }
-    let(:content_item) { FactoryGirl.create(:draft_content_item, content_id: content_id) }
+    let(:content_item) do
+      FactoryGirl.create(
+        :draft_content_item,
+        :with_location,
+        :with_translation,
+        :with_semantic_version,
+        content_id: content_id
+      )
+    end
     let!(:version) { FactoryGirl.create(:version, target: content_item, number: 101) }
     let(:result) { Presenters::Queries::ContentItemPresenter.present(content_item) }
 
@@ -26,7 +34,15 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "with a published version and no subsequent draft" do
-      let(:live_content_item) { FactoryGirl.create(:live_content_item, content_id: content_id, draft_content_item: content_item) }
+      let(:live_content_item) do
+        FactoryGirl.create(
+          :live_content_item,
+          :with_location,
+          :with_translation,
+          :with_semantic_version,
+          content_id: content_id
+        )
+      end
 
       before do
         FactoryGirl.create(:version, target: live_content_item, number: 101)
@@ -42,7 +58,15 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "with a published version and a subsequent draft" do
-      let(:live_content_item) { FactoryGirl.create(:live_content_item, content_id: content_id, draft_content_item: content_item) }
+      let(:live_content_item) do
+        FactoryGirl.create(
+          :live_content_item,
+          :with_location,
+          :with_translation,
+          :with_semantic_version,
+          content_id: content_id
+        )
+      end
 
       before do
         FactoryGirl.create(:version, target: live_content_item, number: 100)
@@ -58,9 +82,18 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "with a live version only" do
-      let(:content_item) { FactoryGirl.create(:live_content_item, content_id: content_id ) }
+      let(:content_item) do
+        FactoryGirl.create(
+          :live_content_item,
+          :with_location,
+          :with_translation,
+          :with_semantic_version,
+          content_id: content_id
+        )
+      end
+
       let!(:version) { FactoryGirl.create(:version, target: content_item, number: 100) }
-      let(:result) { Presenters::Queries::ContentItemPresenter.new(content_item, nil, version).present }
+      let(:result) { Presenters::Queries::ContentItemPresenter.present(content_item) }
 
       it "shows the publication state of the content item as live" do
         expect(result.fetch(:publication_state)).to eq("live")
