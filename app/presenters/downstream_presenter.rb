@@ -17,6 +17,8 @@ module Presenters
         .merge(links)
         .merge(access_limited)
         .merge(transmitted_at)
+        .merge(base_path)
+        .merge(locale)
     end
 
   private
@@ -51,7 +53,15 @@ module Presenters
     end
 
     def access_limit
-      @access_limit ||= AccessLimit.find_by(target: content_item)
+      @access_limit ||= AccessLimit.find_by(content_item: content_item)
+    end
+
+    def location
+      @location ||= Location.find_by!(content_item: content_item)
+    end
+
+    def translation
+      @translation ||= Translation.find_by!(content_item: content_item)
     end
 
     def public_updated_at
@@ -60,6 +70,14 @@ module Presenters
       else
         {}
       end
+    end
+
+    def base_path
+      { base_path: location.base_path }
+    end
+
+    def locale
+      { locale: translation.locale }
     end
 
     def transmitted_at
