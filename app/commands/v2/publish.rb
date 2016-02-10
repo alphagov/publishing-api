@@ -2,115 +2,118 @@ module Commands
   module V2
     class Publish < BaseCommand
       def call
-        validate!
+        unless (content_item = find_draft_content_item)
+          message = "Item with content_id #{content_id} and locale #{locale} does not exist"
+          raise CommandError.new(code: 404, message: message)
+        end
 
-        draft = lookup_content_item
-        publish_content_item(draft)
+        translation = Translation.find_by!(content_item: content_item)
+        location = Location.find_by!(content_item: content_item)
+        update_type = payload[:update_type] || content_item.update_type
+
+        check_version_and_raise_if_conflicting(content_item, previous_version_number)
+
+        previously_published_item = ContentItemFilter.similar_to(content_item, state: "published", base_path: nil).first
+        previous_location = Location.find_by(content_item: previously_published_item)
+
+        State.supersede(previously_published_item) if previously_published_item
+
+        clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+
+        set_public_updated_at(content_item, previously_published_item, update_type)
+        State.publish(content_item)
+
+        AccessLimit.find_by(content_item: content_item).try(:destroy)
+
+        publish_redirect_if_content_item_has_moved(location, previous_location, translation)
+
+        send_downstream(content_item, location, update_type) if downstream
 
         Success.new(content_id: content_id)
       end
 
     private
-      def validate!
-        validate_update_type!
-        validate_version_lock!
-      end
-
-      def validate_update_type!
-        raise CommandError.new(
-          code: 422,
-          message: "update_type is required",
-          error_details: {
-            error: {
-              code: 422,
-              message: "update_type is required",
-              fields: {
-                update_type: ["is required"],
-              }
-            }
-          }
-        ) unless update_type.present?
-      end
-
-      def validate_version_lock!
-        super(DraftContentItem, content_id, payload[:previous_version])
-      end
-
       def content_id
         payload[:content_id]
       end
 
       def locale
-        payload[:locale] || DraftContentItem::DEFAULT_LOCALE
+        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
-      def update_type
-        payload[:update_type]
+      def previous_version_number
+        payload[:previous_version].to_i if payload[:previous_version]
       end
 
-      def lookup_content_item
-        draft = DraftContentItem.find_by(content_id: content_id, locale: locale)
-
-        unless draft
-          message = "Item with content_id #{content_id} and locale #{locale} does not exist"
-          raise CommandError.new(code: 404, message: message)
-        end
-
-        draft
+      def find_draft_content_item
+        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+        filter.filter(locale: locale, state: "draft").first
       end
 
-      def publish_content_item(draft_content_item)
-        attributes = build_live_attributes(draft_content_item)
+      def clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+        SubstitutionHelper.clear!(
+          new_item_format: content_item.format,
+          new_item_content_id: content_item.content_id,
+          state: "published", locale: translation.locale, base_path: location.base_path
+        )
+      end
 
-        live_content_item = LiveContentItem.create_or_replace(attributes) do |live_item|
-          SubstitutionHelper.clear_live!(live_item)
+      def set_public_updated_at(content_item, previously_published_item, update_type)
+        return if content_item.public_updated_at.present?
 
-          live_version = Version.find_or_initialize_by(target: live_item)
-          draft_version = Version.find_or_initialize_by(target: draft_content_item)
-
-          if live_version.number == draft_version.number
-            raise CommandError.new(code: 400, message: "This item is already published")
-          else
-            live_version.copy_version_from(draft_content_item)
-            live_version.save! if live_item.valid?
-          end
-        end
-
-        if downstream
-          live_payload = Presenters::ContentStorePresenter.present(live_content_item)
-          ContentStoreWorker.perform_async(
-            content_store: Adapters::ContentStore,
-            base_path: live_content_item.base_path,
-            payload: live_payload,
-          )
-
-          queue_payload = Presenters::MessageQueuePresenter.present(live_content_item, update_type: update_type)
-          PublishingAPI.service(:queue_publisher).send_message(queue_payload)
-          handle_path_change(live_content_item)
+        if update_type == "major"
+          content_item.update_attributes!(public_updated_at: Time.zone.now)
+        elsif update_type == "minor"
+          content_item.update_attributes!(public_updated_at: previously_published_item.public_updated_at)
         end
       end
 
-      def build_live_attributes(draft_content_item)
-        attributes = draft_content_item
-          .attributes
-          .merge(draft_content_item: draft_content_item)
+      def publish_redirect_if_content_item_has_moved(new_location, previous_location, translation)
+        return unless previous_location
+        return if previous_location.base_path == new_location.base_path
 
-        unless attributes[:public_updated_at] || update_type != "major"
-          attributes = attributes.merge(public_updated_at: DateTime.now)
-        end
+        draft_redirect = ContentItemFilter
+          .filter(state: "draft", locale: translation.locale, base_path: previous_location.base_path)
+          .where(format: "redirect")
+          .first
 
-        attributes
-      end
-
-      def handle_path_change(live_content_item)
-        path_change = live_content_item.previous_changes[:base_path]
-        if path_change.present? && path_change[0].present?
-          draft_redirect = DraftContentItem.find_by(format: "redirect", base_path: path_change[0])
-          self.class.call(
+        self.class.call(
+          {
             content_id: draft_redirect.content_id,
-            locale: draft_redirect.locale,
-            update_type: "major"
-          ) if draft_redirect.present?
+            locale: translation.locale,
+            update_type: "major",
+          },
+          downstream: downstream,
+        )
+      end
+
+      def send_downstream(content_item, location, update_type)
+        return unless downstream
+
+        content_store_payload = Presenters::ContentStorePresenter.present(content_item)
+        ContentStoreWorker.perform_async(
+          content_store: Adapters::ContentStore,
+          base_path: location.base_path,
+          payload: content_store_payload,
+        )
+
+        if update_type
+          queue_payload = Presenters::MessageQueuePresenter.present(content_item, update_type: update_type)
+          PublishingAPI.service(:queue_publisher).send_message(queue_payload)
+        else
+          raise CommandError.new(
+            code: 422,
+            message: "update_type is required",
+            error_details: {
+              error: {
+                code: 422,
+                message: "update_type is required",
+                fields: {
+                  update_type: ["is required"],
+                }
+              }
+            }
+          )
         end
       end
     end
