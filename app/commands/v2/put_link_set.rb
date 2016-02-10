@@ -2,93 +2,111 @@ module Commands
   module V2
     class PutLinkSet < BaseCommand
       def call
-        validate!
+        raise_unless_links_present
 
-        link_set = LinkSet.create_or_replace(link_params.except(:links)) do |link_set|
-          version = Version.find_or_initialize_by(target: link_set)
-          version.increment
-          version.save! if link_set.valid?
+        link_set = LinkSet.find_by(content_id: content_id)
 
-          links_hash = link_params.fetch(:links)
+        if link_set
+          check_version_and_raise_if_conflicting(link_set, previous_version_number)
+          lock_version = Version.find_by!(target: link_set)
+        else
+          link_set = LinkSet.create!(content_id: content_id)
+          lock_version = Version.new(target: link_set)
+        end
 
-          links_hash.each do |link_type, target_content_ids|
-            if target_content_ids.empty?
-              link_set.links.where(link_type: link_type).delete_all
-            else
-              old_target_ids = link_set.links.where(link_type: link_type).pluck(:target_content_id)
+        lock_version.increment
+        lock_version.save!
 
-              ids_to_be_deleted = old_target_ids - target_content_ids
-              link_set.links.where(link_type: link_type, target_content_id: ids_to_be_deleted).delete_all
+        grouped_links.each do |group, payload_content_ids|
+          links = link_set.links.where(link_type: group)
+          existing_content_ids = links.pluck(:target_content_id)
 
-              ids_to_be_created = target_content_ids - old_target_ids
-              ids_to_be_created.each do |target_content_id|
-                link_set.links.create!(link_type: link_type, target_content_id: target_content_id)
-              end
-            end
+          content_ids_to_create = payload_content_ids - existing_content_ids
+          content_ids_to_delete = existing_content_ids - payload_content_ids
+
+          content_ids_to_create.each do |content_id|
+            links.create!(target_content_id: content_id)
+          end
+
+          content_ids_to_delete.each do |content_id|
+            links.find_by!(target_content_id: content_id).destroy
           end
         end
 
-        if downstream
-          if (draft_content_item = DraftContentItem.find_by(content_id: link_params.fetch(:content_id)))
-            draft_payload = Presenters::ContentStorePresenter.present(draft_content_item)
-            ContentStoreWorker.perform_async(
-              content_store: Adapters::DraftContentStore,
-              base_path: draft_content_item.base_path,
-              payload: draft_payload,
-            )
-          end
-
-          if (live_content_item = LiveContentItem.find_by(content_id: link_params.fetch(:content_id)))
-            live_payload = Presenters::ContentStorePresenter.present(live_content_item)
-            ContentStoreWorker.perform_async(
-              content_store: Adapters::ContentStore,
-              base_path: live_content_item.base_path,
-              payload: live_payload,
-            )
-
-            queue_payload = Presenters::MessageQueuePresenter.present(live_content_item, update_type: "links")
-            PublishingAPI.service(:queue_publisher).send_message(queue_payload)
-          end
-        end
+        send_downstream if downstream
 
         presented = Presenters::Queries::LinkSetPresenter.new(link_set).present
         Success.new(presented)
       end
 
     private
-      def validate!
-        validate_links!
-        validate_version_lock!
+      def content_id
+        payload.fetch(:content_id)
       end
 
-      def validate_links!
-        raise CommandError.new(
-          code: 422,
-          message: "Links are required",
-          error_details: {
-            error: {
-              code: 422,
-              message: "Links are required",
-              fields: {
-                links: ["are required"],
+      def grouped_links
+        payload[:links]
+      end
+
+      def locale
+        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
+      end
+
+      def previous_version_number
+        payload[:previous_version].to_i if payload[:previous_version]
+      end
+
+      def raise_unless_links_present
+        unless grouped_links.present?
+          raise CommandError.new(
+            code: 422,
+            message: "Links are required",
+            error_details: {
+              error: {
+                code: 422,
+                message: "Links are required",
+                fields: {
+                  links: ["are required"],
+                }
               }
             }
-          }
-        ) unless link_params[:links].present?
+          )
+        end
       end
 
-      def validate_version_lock!
-        super(LinkSet, link_params.fetch(:content_id), payload[:previous_version])
+      def send_downstream
+        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+        draft_content_item = filter.filter(state: "draft", locale: locale).first
+        live_content_item = filter.filter(state: "published", locale: locale).first
+
+        if draft_content_item
+          send_to_content_store(draft_content_item, Adapters::DraftContentStore)
+        end
+
+        if live_content_item
+          send_to_content_store(live_content_item, Adapters::ContentStore)
+          send_to_message_queue(live_content_item)
+        end
       end
 
-      def link_params
-        payload.except(:previous_version)
+      def send_to_content_store(content_item, content_store)
+        location = Location.find_by!(content_item: content_item)
+        payload = Presenters::ContentStorePresenter.present(content_item)
+
+        ContentStoreWorker.perform_async(
+          content_store: content_store,
+          base_path: location.base_path,
+          payload: payload,
+        )
       end
 
-      def merge_links(base_links, new_links)
-        base_links
-          .merge(new_links)
-          .reject {|_, links| links.empty? }
+      def send_to_message_queue(content_item)
+        payload = Presenters::MessageQueuePresenter.present(
+          content_item,
+          update_type: "links",
+        )
+
+        PublishingAPI.service(:queue_publisher).send_message(payload)
       end
     end
   end
