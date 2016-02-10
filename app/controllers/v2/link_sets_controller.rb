@@ -8,10 +8,7 @@ module V2
     end
 
     def put_links
-      response = with_event_logging(Commands::V2::PutLinkSet, links_params) do
-        Commands::V2::PutLinkSet.call(links_params)
-      end
-
+      response = Commands::V2::PutLinkSet.call(links_params)
       render status: response.code, json: response
     end
 

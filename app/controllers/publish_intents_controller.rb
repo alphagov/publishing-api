@@ -4,18 +4,12 @@ class PublishIntentsController < ApplicationController
   end
 
   def create_or_update
-    response = with_event_logging(Commands::PutPublishIntent, content_item) do
-      Commands::PutPublishIntent.call(content_item)
-    end
-
+    response = Commands::PutPublishIntent.call(content_item)
     render status: response.code, json: response
   end
 
   def destroy
-    response = with_event_logging(Commands::DeletePublishIntent, base_path: base_path) do
-      Commands::DeletePublishIntent.call(base_path: base_path)
-    end
-
+    response = Commands::DeletePublishIntent.call(base_path: base_path)
     render status: response.code, json: response
   end
 

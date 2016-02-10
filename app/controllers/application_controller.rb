@@ -25,8 +25,4 @@ private
   rescue JSON::ParserError
     raise BadRequest
   end
-
-  def with_event_logging(command_class, payload, &block)
-    EventLogger.log_command(command_class, payload, &block)
-  end
 end
