@@ -2,25 +2,24 @@ module Commands
   module V2
     class DiscardDraft < BaseCommand
       def call
-        validate_version_lock!
         raise_error_if_missing_draft!
 
-        delete_access_limit
+        check_version_and_raise_if_conflicting(draft, payload[:previous_version])
+
+        draft_path = Location.find_by!(content_item: draft).base_path
+        delete_supporting_objects
 
         if live
-          update_draft_from_live
+          increment_live_lock_version
         else
-          delete_draft
+          delete_draft_from_database
+          delete_draft_from_draft_content_store(draft_path) if downstream
         end
 
         Success.new(content_id: content_id)
       end
 
     private
-      def validate_version_lock!
-        super(DraftContentItem, content_id, payload[:previous_version])
-      end
-
       def raise_error_if_missing_draft!
         return if draft.present?
 
@@ -30,40 +29,45 @@ module Commands
         raise CommandError.new(code: code, message: message)
       end
 
-      def update_draft_from_live
-        draft.update_attributes(live.attributes.except("id", "draft_content_item_id"))
-
-        if downstream
-          ContentStoreWorker.perform_async(
-            content_store: Adapters::DraftContentStore,
-            base_path: draft.base_path,
-            payload: Presenters::ContentStorePresenter.present(live),
-          )
-        end
-      end
-
-      def delete_draft
+      def delete_draft_from_database
         draft.destroy
-
-        if downstream
-          ContentStoreWorker.perform_async(
-            content_store: Adapters::DraftContentStore,
-            base_path: draft.base_path,
-            delete: true,
-          )
-        end
       end
 
-      def delete_access_limit
-        AccessLimit.find_by(target: draft).try(:destroy)
+      def delete_draft_from_draft_content_store(draft_path)
+        ContentStoreWorker.perform_async(
+          content_store: Adapters::DraftContentStore,
+          base_path: draft_path,
+          delete: true,
+        )
+      end
+
+      def delete_supporting_objects
+        State.find_by(content_item: draft).try(:destroy)
+        Translation.find_by(content_item: draft).try(:destroy)
+        Location.find_by(content_item: draft).try(:destroy)
+        SemanticVersion.find_by(content_item: draft).try(:destroy)
+        Version.find_by(target: draft).try(:destroy)
+        AccessLimit.find_by(content_item: draft).try(:destroy)
+      end
+
+      def increment_live_lock_version
+        lock_version = Version.find_by!(target: live)
+        lock_version.increment
+        lock_version.save!
       end
 
       def draft
-        @draft ||= DraftContentItem.find_by(content_id: content_id, locale: locale)
+        @draft ||= ContentItemFilter.new(scope: ContentItem.where(content_id: content_id)).filter(
+          locale: locale,
+          state: "draft",
+        ).first
       end
 
       def live
-        @live ||= LiveContentItem.find_by(content_id: content_id, locale: locale)
+        @live ||= ContentItemFilter.new(scope: ContentItem.where(content_id: content_id)).filter(
+          locale: locale,
+          state: "published",
+        ).first
       end
 
       def content_id
@@ -71,11 +75,7 @@ module Commands
       end
 
       def locale
-        payload[:locale] || DraftContentItem::DEFAULT_LOCALE
-      end
-
-      def update_type
-        payload[:update_type]
+        payload[:locale] || ContentItem::DEFAULT_LOCALE
       end
     end
   end
