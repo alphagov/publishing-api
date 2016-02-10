@@ -1,40 +1,80 @@
 require "rails_helper"
 
 RSpec.describe Queries::GetContent do
-  let(:foo) { SecureRandom.uuid }
-  let(:bar) { SecureRandom.uuid }
+  let(:content_id) { SecureRandom.uuid }
+  let(:locale) { nil }
 
   before do
-    draft = FactoryGirl.create(:draft_content_item, content_id: foo, base_path: "/foo")
-    FactoryGirl.create(:version, target: draft, number: 3)
-    FactoryGirl.create(:draft_content_item, content_id: bar, base_path: "/bar")
+    FactoryGirl.create(
+      :live_content_item,
+      :with_translation,
+      :with_location,
+      :with_semantic_version,
+      :with_version,
+      content_id: content_id,
+      semantic_version: 2,
+      title: "foo",
+    )
+
+    FactoryGirl.create(
+      :draft_content_item,
+      :with_translation,
+      :with_location,
+      :with_semantic_version,
+      :with_version,
+      content_id: content_id,
+      semantic_version: 3,
+      title: "bar",
+    )
+
+    FactoryGirl.create(
+      :content_item,
+      :with_state,
+      :with_translation,
+      :with_location,
+      :with_semantic_version,
+      :with_version,
+      content_id: content_id,
+      semantic_version: 4,
+      state: "archived",
+      title: "baz",
+    )
   end
 
-  it "returns the latest content item for a given content_id" do
-    expect(subject.call(foo).fetch(:content_id)).to eq(foo)
+  it "presents the latest 'draft' or 'live' content item" do
+    result = subject.call(content_id, locale)
+    expect(result.fetch(:title)).to eq("bar")
   end
 
-  it "returns the content version for a given content_id" do
-    expect(subject.call(foo).fetch(:version)).to eq(3)
-  end
-
-  context "when the content item does not exist" do
-    it "returns an error object" do
+  context "when no content item exists for the content_id" do
+    it "raises a command error" do
       expect {
-        subject.call("missing")
+        subject.call("missing", locale)
       }.to raise_error(CommandError, /with content_id: missing/)
     end
   end
 
   context "when a locale is specified" do
+    let(:locale) { "fr" }
+
     before do
-      arabic_draft = FactoryGirl.create(:draft_content_item, content_id: foo, locale: "ar", base_path: "/foo.ar")
-      FactoryGirl.create(:version, target: arabic_draft, number: 3)
+      french_draft = FactoryGirl.create(
+        :draft_content_item,
+        :with_translation,
+        :with_location,
+        :with_semantic_version,
+        :with_version,
+        content_id: content_id,
+        locale: "fr",
+        title: "qux",
+      )
     end
 
     it "returns the content item in the specified locale" do
-      expect(subject.call(foo).fetch(:locale)).to eq("en")
-      expect(subject.call(foo, "ar").fetch(:locale)).to eq("ar")
+      result = subject.call(content_id, locale)
+
+      expect(result.fetch(:title)).to eq("qux")
+      expect(result.fetch(:locale)).to eq("fr")
     end
   end
 end
