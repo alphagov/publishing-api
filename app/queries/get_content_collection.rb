@@ -1,50 +1,41 @@
 module Queries
   class GetContentCollection
-    attr_reader :content_format, :fields
+    attr_reader :content_format, :fields, :publishing_app
 
     def initialize(content_format:, fields:, publishing_app: nil)
-      @content_format = content_format
-      @fields = fields
-      @publishing_app = publishing_app
+      self.content_format = content_format
+      self.fields = fields
+      self.publishing_app = publishing_app
     end
 
     def call
       validate_fields!
 
-      content_items.map do |content_item|
-        hash = Presenters::Queries::ContentItemPresenter.new(
-          content_item,
-          draft_version(content_item),
-          live_version(content_item)
-        )
-        hash.present.as_json(only: output_fields)
+      content_items = ContentItem.where(format: lookup_formats)
+
+      if publishing_app
+        content_items = content_items.where(publishing_app: publishing_app)
+      end
+
+      content_items.map do |item|
+        presented = Presenters::Queries::ContentItemPresenter.present(item)
+        filter_fields(presented).as_json
       end
     end
 
   private
+    attr_writer :content_format, :fields, :publishing_app
 
-    attr_reader :live_versions, :draft_versions
+    def lookup_formats
+      [content_format, "placeholder_#{content_format}"]
+    end
 
-    def content_items
-      draft_items = DraftContentItem
-        .includes(:live_content_item)
-        .where(format: [content_format, "placeholder_#{content_format}"])
-        .select(*fields + %i[id content_id])
+    def output_fields
+      fields.map(&:to_sym) + [:publication_state]
+    end
 
-      draft_items = draft_items.where(publishing_app: @publishing_app) if @publishing_app.present?
-
-      live_items = LiveContentItem
-        .where.not(content_id: draft_items.map(&:content_id))
-        .where(format: [content_format, "placeholder_#{content_format}"])
-        .select(*fields + %i[id])
-
-      live_items = live_items.where(publishing_app: @publishing_app) if @publishing_app.present?
-
-      @draft_versions = Version.in_bulk(draft_items, DraftContentItem)
-      @live_versions = Version.in_bulk(
-        draft_items.map(&:live_content_item) + live_items, LiveContentItem
-      )
-      draft_items + live_items
+    def filter_fields(hash)
+      hash.slice(*output_fields)
     end
 
     def validate_fields!
@@ -59,30 +50,8 @@ module Queries
       })
     end
 
-    def output_fields
-      fields.map(&:to_sym) << :publication_state
-    end
-
     def permitted_fields
-      DraftContentItem.column_names
-    end
-
-    def draft_version(item)
-      case item
-      when DraftContentItem
-        @draft_versions[item.id]
-      when LiveContentItem
-        @draft_versions[item.draft_content_item.try(:id)]
-      end
-    end
-
-    def live_version(item)
-      case item
-      when DraftContentItem
-        @live_versions[item.live_content_item.try(:id)]
-      when LiveContentItem
-        @live_versions[item.id]
-      end
+      ContentItem.column_names + %w(base_path locale)
     end
   end
 end

@@ -2,22 +2,62 @@ require "rails_helper"
 
 RSpec.describe Queries::GetContentCollection do
   it "returns the content items of the given format" do
-    create(:draft_content_item, :with_version, base_path: '/a', format: 'topic')
-    create(:draft_content_item, :with_version, base_path: '/b',  format: 'topic')
-    create(:draft_content_item, :with_version, base_path: '/c',  format: 'mainstream_browse_page')
+    FactoryGirl.create(
+      :draft_content_item,
+      :with_version,
+      :with_location,
+      :with_translation,
+      :with_semantic_version,
+      base_path: '/a',
+      format: 'topic',
+    )
+    FactoryGirl.create(
+      :draft_content_item,
+      :with_version,
+      :with_location,
+      :with_translation,
+      :with_semantic_version,
+      base_path: '/b',
+      format: 'topic',
+    )
+    FactoryGirl.create(
+      :draft_content_item,
+      :with_version,
+      :with_location,
+      :with_translation,
+      :with_semantic_version,
+      base_path: '/c',
+      format: 'mainstream_browse_page',
+    )
 
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
-      fields: ['base_path'],
+      fields: ['base_path', 'locale'],
     ).call).to eq([
-      { "base_path" => "/a", "publication_state" => "draft" },
-      { "base_path" => "/b", "publication_state" => "draft" },
+      { "base_path" => "/a", "publication_state" => "draft", "locale" => "en" },
+      { "base_path" => "/b", "publication_state" => "draft", "locale" => "en" },
     ])
   end
 
   it "returns the content items of the given format, and placeholder_format" do
-    create(:draft_content_item, :with_version, base_path: '/a', format: 'topic')
-    create(:draft_content_item, :with_version, base_path: '/b', format: 'placeholder_topic')
+    FactoryGirl.create(
+      :draft_content_item,
+      :with_version,
+      :with_location,
+      :with_translation,
+      :with_semantic_version,
+      base_path: '/a',
+      format: 'topic'
+    )
+    FactoryGirl.create(
+      :draft_content_item,
+      :with_version,
+      :with_location,
+      :with_translation,
+      :with_semantic_version,
+      base_path: '/b',
+      format: 'placeholder_topic'
+    )
 
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
@@ -29,8 +69,24 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   it "includes the publishing state of the item" do
-    create(:draft_content_item, :with_version, base_path: '/draft', format: 'topic')
-    create(:live_content_item, :with_version, :with_draft_version, base_path: '/live',  format: 'topic')
+    FactoryGirl.create(
+      :draft_content_item,
+      :with_version,
+      :with_location,
+      :with_translation,
+      :with_semantic_version,
+      base_path: '/draft',
+      format: 'topic'
+    )
+    FactoryGirl.create(
+      :live_content_item,
+      :with_version,
+      :with_location,
+      :with_translation,
+      :with_semantic_version,
+      base_path: '/live',
+      format: 'topic'
+    )
 
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
@@ -63,9 +119,36 @@ RSpec.describe Queries::GetContentCollection do
 
   context "filtering by publishing_app" do
     before do
-      create(:draft_content_item, :with_version, base_path: '/a', format: 'topic', publishing_app: 'publisher')
-      create(:draft_content_item, :with_version, base_path: '/b',  format: 'topic', publishing_app: 'publisher')
-      create(:draft_content_item, :with_version, base_path: '/c',  format: 'topic', publishing_app: 'whitehall')
+      FactoryGirl.create(
+        :draft_content_item,
+        :with_version,
+        :with_location,
+        :with_translation,
+        :with_semantic_version,
+        base_path: '/a',
+        format: 'topic',
+        publishing_app: 'publisher'
+      )
+      FactoryGirl.create(
+        :draft_content_item,
+        :with_version,
+        :with_location,
+        :with_translation,
+        :with_semantic_version,
+        base_path: '/b',
+        format: 'topic',
+        publishing_app: 'publisher'
+      )
+      FactoryGirl.create(
+        :draft_content_item,
+        :with_version,
+        :with_location,
+        :with_translation,
+        :with_semantic_version,
+        base_path: '/c',
+        format: 'topic',
+        publishing_app: 'whitehall'
+      )
     end
 
     it "returns items corresponding to the publishing_app parameter if present" do
