@@ -5,10 +5,19 @@ RSpec.describe Version do
 
   describe "validations" do
     describe "version comparison between draft and live" do
-      let!(:live_content_item) { FactoryGirl.create(:live_content_item, :with_draft) }
-      let!(:live_version) { FactoryGirl.create(:version, target: live_content_item, number: 5) }
+      let!(:live_content_item) do
+        FactoryGirl.create(
+          :live_content_item,
+          :with_draft,
+          :with_translation,
+          :with_location,
+          :with_semantic_version,
+        )
+      end
 
-      let(:draft_content_item) { live_content_item.draft_content_item }
+      let(:draft_content_item) { ContentItemFilter.similar_to(live_content_item, state: "draft").first }
+
+      let!(:live_version) { FactoryGirl.create(:version, target: live_content_item, number: 5) }
       let(:draft_version) { FactoryGirl.create(:version, target: draft_content_item, number: 5) }
 
       it "is invalid if the draft version is less than the live version" do
@@ -130,8 +139,8 @@ RSpec.describe Version do
       items = 5.times.map do |i|
         FactoryGirl.create(:draft_content_item, :with_version, base_path: "/page-#{i}")
       end
-      
-      versions = Version.in_bulk(items, DraftContentItem)
+
+      versions = Version.in_bulk(items, ContentItem)
       expect(versions.keys).to eq(items.map(&:id))
     end
   end

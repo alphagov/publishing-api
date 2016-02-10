@@ -2,7 +2,6 @@ class Version < ActiveRecord::Base
   belongs_to :target, polymorphic: true
 
   validate :numbers_must_increase
-  validate :draft_cannot_be_behind_live
 
   def increment
     self.number += 1
@@ -16,7 +15,7 @@ class Version < ActiveRecord::Base
   def conflicts_with?(previous_version_number)
     return false if previous_version_number.nil?
 
-    self.number != previous_version_number
+    self.number != previous_version_number.to_i
   end
 
   def self.in_bulk(items, type)
@@ -36,6 +35,8 @@ private
   end
 
   def draft_cannot_be_behind_live
+    return unless target.is_a?(ContentItem)
+
     live_version = live_content_item_version
     return unless live_version
 
@@ -47,16 +48,12 @@ private
   end
 
   def live_content_item_version
-    return unless target.respond_to?(:live_content_item)
-    return unless (live_item = target.live_content_item)
-
-    self.class.find_by(target: live_item)
+    live_content_item = ContentItemFilter.similar_to(target, state: "published").first
+    self.class.find_by(target: live_content_item)
   end
 
   def draft_content_item_version
-    return unless target.respond_to?(:draft_content_item)
-    return unless (draft_item = target.draft_content_item)
-
-    self.class.find_by(target: draft_item)
+    draft_content_item = ContentItemFilter.similar_to(target, state: "draft").first
+    self.class.find_by(target: draft_content_item)
   end
 end

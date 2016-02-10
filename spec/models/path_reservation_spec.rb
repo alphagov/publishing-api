@@ -5,7 +5,6 @@ RSpec.describe PathReservation, :type => :model do
     let(:reservation) { build(:path_reservation) }
 
     describe "on base_path" do
-
       it "is required" do
         reservation.base_path = ''
         expect(reservation).to be_invalid
@@ -51,28 +50,34 @@ RSpec.describe PathReservation, :type => :model do
     }.not_to raise_error
   end
 
-  let(:payload) {
-    FactoryGirl.build(:path_reservation)
-    .as_json
-    .symbolize_keys
-  }
+  describe ".reserve_base_path!(base_path, publishing_app)" do
+    context "when the path reservation already exists" do
+      before do
+        FactoryGirl.create(
+          :path_reservation,
+          base_path: "/vat-rates",
+          publishing_app: "something-else",
+        )
+      end
 
-  let(:another_payload) {
-    FactoryGirl.build(:path_reservation)
-    .as_json
-    .symbolize_keys
-    .merge(publishing_app: "not-publisher")
-  }
+      it "raises an error" do
+        expect {
+          described_class.reserve_base_path!("/vat-rates", "publisher")
+        }.to raise_error(ActiveRecord::RecordInvalid, /already registered/)
+      end
+    end
 
-  let!(:existing) { create(:path_reservation, payload) }
+    context "when the path reservation does not exist" do
+      it "creates a path reservation" do
+        expect {
+          described_class.reserve_base_path!("/vat-rates", "publisher")
+        }.to change(PathReservation, :count).by(1)
 
-  def set_new_attributes(item)
-    # empty because there are no changeable attributes
+        path_reservation = PathReservation.last
+
+        expect(path_reservation.base_path).to eq("/vat-rates")
+        expect(path_reservation.publishing_app).to eq("publisher")
+      end
+    end
   end
-
-  def verify_new_attributes_set
-    # empty because there are no changeable attributes
-  end
-
-  it_behaves_like Replaceable
 end
