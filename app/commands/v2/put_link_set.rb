@@ -30,20 +30,16 @@ module Commands
 
         if downstream
           if (draft_content_item = DraftContentItem.find_by(content_id: link_params.fetch(:content_id)))
-            draft_payload = Presenters::ContentStorePresenter.present(draft_content_item)
             ContentStoreWorker.perform_async(
               content_store: Adapters::DraftContentStore,
-              base_path: draft_content_item.base_path,
-              payload: draft_payload,
+              draft_content_item_id: draft_content_item.id,
             )
           end
 
           if (live_content_item = LiveContentItem.find_by(content_id: link_params.fetch(:content_id)))
-            live_payload = Presenters::ContentStorePresenter.present(live_content_item)
             ContentStoreWorker.perform_async(
               content_store: Adapters::ContentStore,
-              base_path: live_content_item.base_path,
-              payload: live_payload,
+              live_content_item_id: live_content_item.id,
             )
 
             queue_payload = Presenters::MessageQueuePresenter.present(live_content_item, update_type: "links")
