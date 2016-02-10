@@ -79,4 +79,18 @@ RSpec.describe ContentStoreWorker do
       expect(api_call).to have_been_made
     end
   end
+
+  context "when a deletion is enqueued" do
+    it "deletes the content item" do
+      api_call = stub_request(:delete, "http://draft-content-store.dev.gov.uk/content/abc")
+
+      subject.perform(
+        content_store: 'Adapters::DraftContentStore',
+        base_path: "/abc",
+        delete: true,
+      )
+
+      expect(api_call).to have_been_made
+    end
+  end
 end

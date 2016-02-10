@@ -5,14 +5,13 @@ class ContentStoreWorker
     args = args.deep_symbolize_keys
 
     content_store = args.fetch(:content_store).constantize
-    content_item = load_content_item_from(args)
-    base_path = content_item.base_path
 
     if args[:delete]
-      content_store.delete_content_item(base_path)
+      content_store.delete_content_item(args.fetch(:base_path))
     else
+      content_item = load_content_item_from(args)
       payload = Presenters::ContentStorePresenter.present(content_item)
-      content_store.put_content_item(base_path, payload)
+      content_store.put_content_item(content_item.base_path, payload)
     end
 
   rescue => e
