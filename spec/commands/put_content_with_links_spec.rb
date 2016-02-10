@@ -2,11 +2,28 @@ require "rails_helper"
 
 RSpec.describe Commands::PutContentWithLinks do
   describe "#call" do
+    before do
+      stub_request(:put, %r{.*content-store.*/content/.*})
+    end
+
+    let(:payload) do
+      {
+        base_path: "/vat-rates",
+        publishing_app: "publisher",
+      }
+    end
+
+    it "responds successfully" do
+      result = described_class.call(payload)
+      expect(result).to be_a(Commands::Success)
+    end
+
     it "protects certain links from being overwritten" do
       stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
       stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
 
       link_set = create(:link_set, content_id: '60d81299-6ae7-4bab-b4fe-4235d518d50a')
+      version = create(:version, target: link_set)
       protected_link = create(:link, link_set: link_set, link_type: 'alpha_taxons')
       normal_link = create(:link, link_set: link_set, link_type: 'topics')
 
@@ -19,6 +36,8 @@ RSpec.describe Commands::PutContentWithLinks do
         rendering_app: 'whitehall',
         public_updated_at: Time.now,
         routes: [{ path: '/foo', type: "exact" }],
+        update_type: "minor",
+        links: { topics: [] },
       })
 
       expect { normal_link.reload }.to raise_error(ActiveRecord::RecordNotFound)
