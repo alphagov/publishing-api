@@ -62,11 +62,10 @@ module Tasks
     end
 
     def derived_content_class
-      if draft
-        DraftContentItem
-      else
-        LiveContentItem
-      end
+      message = "This task has no tests and will need to be fixed in the event"
+      message += " that an import occurs."
+
+      raise NotImplementedError, message
     end
   end
 end
