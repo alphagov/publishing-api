@@ -131,4 +131,4 @@ links a JSON Object containing arrays of links keyed by link type eg.
 ### Required request params:
   - `content_id` the primary identifier for the content associated with the requested link set.
   - `link_type` the type of link between the documents
-  - `fields[]` an array of fields that are validated against `DraftContentItem` column fields. Any invalid requested field will raise a `400`.
+  - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
