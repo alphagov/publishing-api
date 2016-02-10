@@ -5,7 +5,15 @@ RSpec.describe V2::ContentItemsController do
 
   before do
     stub_request(:any, /content-store/)
-    @draft = FactoryGirl.create(:draft_content_item, content_id: content_id)
+
+    @draft = FactoryGirl.create(
+      :draft_content_item,
+      :with_translation,
+      :with_location,
+      :with_semantic_version,
+      content_id: content_id,
+    )
+
     FactoryGirl.create(:version, target: @draft, number: 2)
   end
 
@@ -58,8 +66,13 @@ RSpec.describe V2::ContentItemsController do
 
     context "with valid request params for an existing content item" do
       before do
+        content_item_hash = @draft.as_json
+        content_item_hash = content_item_hash
+          .merge("base_path" => "/that-rates")
+          .merge("routes" => [{"path" => "/that-rates", "type" => "exact"}])
+
         request.env["CONTENT_TYPE"] = "application/json"
-        request.env["RAW_POST_DATA"] = @draft.to_json
+        request.env["RAW_POST_DATA"] = content_item_hash.to_json
         put :put_content, content_id: content_id
       end
 

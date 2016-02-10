@@ -35,12 +35,15 @@ RSpec.describe "Downstream timeouts", type: :request do
       live = FactoryGirl.create(
         :live_content_item,
         :with_draft,
-        v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS)
+        :with_translation,
+        :with_location,
+        :with_semantic_version,
+        v2_content_item.slice(*ContentItem::TOP_LEVEL_FIELDS)
       )
-      draft = live.draft_content_item
+      draft = ContentItemFilter.similar_to(live, state: "draft").first
 
       FactoryGirl.create(:access_limit,
-        target: draft,
+        content_item: draft,
         users: v2_content_item.fetch(:access_limited).fetch(:users)
       )
 
