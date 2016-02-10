@@ -1,54 +1,26 @@
 FactoryGirl.define do
-  factory :live_content_item do |args|
-    content_id { SecureRandom.uuid }
-    base_path "/vat-rates"
-    title "VAT rates"
-    description "VAT rates for goods and services"
-    format "guide"
-    public_updated_at "2014-05-14T13:00:06Z"
-    publishing_app "publisher"
-    rendering_app "frontend"
-    locale "en"
-    details {
-      { body: "<p>Something about VAT</p>\n", }
-    }
-    need_ids ["100123", "100124"]
-    phase "beta"
-    update_type "minor"
-    analytics_identifier "GDS01"
-    routes {
-      [
-        {
-          path: base_path,
-          type: "exact",
-        }
-      ]
-    }
-
-    trait :with_version do
-      after(:create) do |item, evaluator|
-        FactoryGirl.create(:version, target: item)
-      end
+  factory :live_content_item, traits: [:with_state], parent: :content_item do
+    transient do
+      draft_version_number 1
+      state "published"
     end
 
     trait :with_draft do
-      after(:build) do |live_content_item, evaluator|
-        draft = FactoryGirl.build(
-          :draft_content_item,
-          live_content_item.as_json(only: %i[title content_id locale base_path format routes redirects]),
+      after(:create) do |live_content_item, evaluator|
+        draft = FactoryGirl.create(:draft_content_item, :with_translation, :with_location, :with_semantic_version, :with_version,
+          live_content_item.as_json(only: %i[title content_id format routes redirects]).merge(
+            locale: evaluator.locale,
+            base_path: evaluator.base_path,
+            lock_version: evaluator.lock_version,
+          )
         )
 
         raise "Draft is not valid: #{draft.errors.full_messages}" unless draft.valid?
-
-        live_content_item.draft_content_item = draft
       end
     end
 
     trait :with_draft_version do
       with_draft
-      after(:create) do |live_content_item, evaluator|
-        FactoryGirl.create(:version, target: live_content_item.draft_content_item)
-      end
     end
   end
 
