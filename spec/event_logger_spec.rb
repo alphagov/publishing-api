@@ -33,21 +33,21 @@ RSpec.describe EventLogger do
     call_counter = 0
     EventLogger.log_command(command_class, payload) do
       if call_counter == 0
-        FactoryGirl.create(:live_content_item, content_id: content_id, locale: "en")
+        FactoryGirl.create(:live_content_item, content_id: content_id)
         call_counter += 1
         raise CommandRetryableError
       else
         # The original transaction should have been rolled back, so there should be no
-        # corresponding LiveContentItem in the database
-        expect(LiveContentItem.where(content_id: content_id, locale: "en").count).to eq(0)
-        FactoryGirl.create(:live_content_item, content_id: content_id, locale: "en")
+        # corresponding ContentItem in the database
+        expect(ContentItem.where(content_id: content_id).count).to eq(0)
+        FactoryGirl.create(:live_content_item, content_id: content_id)
       end
     end
 
     # The second time it was called, it should have succeeded and created an
     # event and a content item
     expect(Event.count).to eq(1)
-    expect(LiveContentItem.count).to eq(1)
+    expect(ContentItem.count).to eq(1)
   end
 
   it "retries five times in case if a CommandRetryableError is thrown, then raises CommandError" do
