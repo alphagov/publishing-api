@@ -33,7 +33,7 @@ module RequestHelpers
     end
 
     def responds_with_presented_content_item
-      it "responds with the presentation of the content item and version" do
+      it "responds with the presentation of the content item and lock_version" do
         do_request
 
         updated_content_item = ContentItem.find_by!(content_id: content_id)
@@ -52,7 +52,7 @@ module RequestHelpers
     end
 
     def responds_with_presented_correct_locale_content_item
-      it "responds with the presentation of content item and version in the correct locale" do
+      it "responds with the presentation of content item and lock_version in the correct locale" do
         FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "ar")
 
         presented_content_item = Presenters::Queries::ContentItemPresenter.present(content_item)

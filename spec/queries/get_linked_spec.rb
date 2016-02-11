@@ -73,7 +73,7 @@ RSpec.describe Queries::GetLinked do
         before do
           FactoryGirl.create(
             :live_content_item,
-            :with_version,
+            :with_lock_version,
             :with_translation,
             :with_location,
             :with_semantic_version,
@@ -94,7 +94,7 @@ RSpec.describe Queries::GetLinked do
 
           content_item = FactoryGirl.create(
             :live_content_item,
-            :with_version,
+            :with_lock_version,
             :with_translation,
             :with_location,
             :with_semantic_version,
@@ -160,7 +160,7 @@ RSpec.describe Queries::GetLinked do
 
           FactoryGirl.create(
             :draft_content_item,
-            :with_version,
+            :with_lock_version,
             :with_translation,
             :with_location,
             :with_semantic_version,
@@ -182,7 +182,7 @@ RSpec.describe Queries::GetLinked do
 
           content_item = FactoryGirl.create(
             :draft_content_item,
-            :with_version,
+            :with_lock_version,
             :with_translation,
             :with_location,
             :with_semantic_version,

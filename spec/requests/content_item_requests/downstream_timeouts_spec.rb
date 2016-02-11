@@ -47,8 +47,8 @@ RSpec.describe "Downstream timeouts", type: :request do
         users: v2_content_item.fetch(:access_limited).fetch(:users)
       )
 
-      FactoryGirl.create(:version, target: draft, number: 1)
-      FactoryGirl.create(:version, target: live, number: 1)
+      FactoryGirl.create(:lock_version, target: draft, number: 1)
+      FactoryGirl.create(:lock_version, target: live, number: 1)
     end
 
     behaves_well_when_draft_content_store_times_out

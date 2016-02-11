@@ -15,7 +15,7 @@ RSpec.describe Commands::V2::Publish do
     let(:content_id) { SecureRandom.uuid }
 
     before do
-      FactoryGirl.create(:version, target: draft_item, number: 2)
+      FactoryGirl.create(:lock_version, target: draft_item, number: 2)
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
 
@@ -63,7 +63,7 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "when a version of the content item was previously published" do
+    context "when a lock version of the content item was previously published" do
       let!(:live_item) do
         FactoryGirl.create(
           :live_content_item,
@@ -136,7 +136,7 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "with a 'previous_version' which does not match the current version of the draft item" do
+    context "with a 'previous_version' which does not match the current lock version of the draft item" do
       before do
         payload.merge!(previous_version: 1)
       end

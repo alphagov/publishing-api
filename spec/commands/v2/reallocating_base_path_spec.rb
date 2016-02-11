@@ -73,8 +73,8 @@ RSpec.describe "Reallocating base paths of content items" do
           base_path: base_path
         )
 
-        FactoryGirl.create(:version, target: live, number: 5)
-        FactoryGirl.create(:version, target: draft, number: 3)
+        FactoryGirl.create(:lock_version, target: live, number: 5)
+        FactoryGirl.create(:lock_version, target: draft, number: 3)
       end
 
       it "raises an error" do

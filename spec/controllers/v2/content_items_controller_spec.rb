@@ -14,7 +14,7 @@ RSpec.describe V2::ContentItemsController do
       content_id: content_id,
     )
 
-    FactoryGirl.create(:version, target: @draft, number: 2)
+    FactoryGirl.create(:lock_version, target: @draft, number: 2)
   end
 
   describe "show" do

@@ -38,7 +38,7 @@ RSpec.describe Commands::V2::PutLinkSet do
       link_set = LinkSet.last
       expect(link_set).to be_present
 
-      lock_version = Version.find_by(target: link_set)
+      lock_version = LockVersion.find_by(target: link_set)
       expect(lock_version).to be_present
       expect(lock_version.number).to eq(1)
     end
@@ -83,7 +83,7 @@ RSpec.describe Commands::V2::PutLinkSet do
         ]
       )
 
-      FactoryGirl.create(:version, target: link_set, number: 1)
+      FactoryGirl.create(:lock_version, target: link_set, number: 1)
     end
 
     it "creates links for groups that appear in the payload and not in the database" do
@@ -122,7 +122,7 @@ RSpec.describe Commands::V2::PutLinkSet do
       link_set = LinkSet.last
       expect(link_set).to be_present
 
-      lock_version = Version.find_by(target: link_set)
+      lock_version = LockVersion.find_by(target: link_set)
       expect(lock_version).to be_present
       expect(lock_version.number).to eq(2)
     end

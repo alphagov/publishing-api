@@ -23,7 +23,7 @@ RSpec.describe Commands::PutContentWithLinks do
       stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
 
       link_set = create(:link_set, content_id: '60d81299-6ae7-4bab-b4fe-4235d518d50a')
-      version = create(:version, target: link_set)
+      lock_version = create(:lock_version, target: link_set)
       protected_link = create(:link, link_set: link_set, link_type: 'alpha_taxons')
       normal_link = create(:link, link_set: link_set, link_type: 'topics')
 

@@ -13,7 +13,7 @@ RSpec.describe Commands::V2::DiscardDraft do
     context "when a draft content item exists for the given content_id" do
       let!(:existing_draft_item) {
         FactoryGirl.create(:access_limited_draft_content_item,
-          :with_translation, :with_location, :with_semantic_version, :with_version,
+          :with_translation, :with_location, :with_semantic_version, :with_lock_version,
           content_id: content_id,
           base_path: base_path,
         )
@@ -35,7 +35,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         location = Location.find_by(content_item: existing_draft_item)
         access_limit = AccessLimit.find_by(content_item: existing_draft_item)
         semantic_version = SemanticVersion.find_by(content_item: existing_draft_item)
-        lock_version = Version.find_by(target: existing_draft_item)
+        lock_version = LockVersion.find_by(target: existing_draft_item)
 
         expect(state).to be_nil
         expect(translation).to be_nil
@@ -79,7 +79,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "when the draft's lock version differs from the given lock version" do
         before do
-          lock_version = Version.find_by!(target: existing_draft_item)
+          lock_version = LockVersion.find_by!(target: existing_draft_item)
           lock_version.update_attributes!(number: 3)
           payload[:previous_version] = 2
         end
@@ -94,14 +94,14 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "and a published content item exists" do
         let!(:published_item) {
           FactoryGirl.create(:live_content_item,
-            :with_location, :with_translation, :with_semantic_version, :with_version,
+            :with_location, :with_translation, :with_semantic_version, :with_lock_version,
             content_id: content_id,
             lock_version: 3,
           )
         }
 
         it "increments the lock version of the published item" do
-          published_lock_version = Version.find_by!(target: published_item)
+          published_lock_version = LockVersion.find_by!(target: published_item)
 
           expect {
             described_class.call(payload)
@@ -112,7 +112,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "when a locale is provided in the payload" do
         let!(:french_draft_item) {
           FactoryGirl.create(:draft_content_item,
-            :with_translation, :with_location, :with_semantic_version, :with_version,
+            :with_translation, :with_location, :with_semantic_version, :with_lock_version,
             content_id: content_id,
             base_path: base_path,
             locale: "fr",
@@ -154,7 +154,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "and a published content item exists" do
         before do
           FactoryGirl.create(:live_content_item,
-            :with_location, :with_translation, :with_semantic_version, :with_version,
+            :with_location, :with_translation, :with_semantic_version, :with_lock_version,
             content_id: content_id,
           )
         end

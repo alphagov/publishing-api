@@ -34,13 +34,13 @@ module Commands
     end
 
     def check_version_and_raise_if_conflicting(current_versioned_item, previous_version_number)
-      current_version = Version.find_by(target: current_versioned_item)
+      current_version = LockVersion.find_by(target: current_versioned_item)
 
       return unless current_versioned_item && current_version
 
-      friendly_message = "A version conflict occurred. The version you've sent " +
+      friendly_message = "A lock-version conflict occurred. The `previous_version` you've sent " +
         "(#{previous_version_number.inspect}) is not the same as the current " +
-        "version of the content item (#{current_version.number.inspect})."
+        "lock version of the content item (#{current_version.number.inspect})."
 
       conflict_error = CommandError.new(
         code: 409,

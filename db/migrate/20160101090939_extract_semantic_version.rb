@@ -1,5 +1,8 @@
 class DraftContentItem < ActiveRecord::Base; end
 class LiveContentItem < ActiveRecord::Base; end
+class Version < ActiveRecord::Base
+  belongs_to :target, polymorphic: true
+end
 
 class ExtractSemanticVersion < ActiveRecord::Migration
   def up
@@ -34,6 +37,14 @@ class ExtractSemanticVersion < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_index :semantic_versions, [:content_item_id, :number]
+
+    create_table "lock_versions" do |t|
+      t.integer  "target_id",               null: false
+      t.string   "target_type",             null: false
+      t.integer  "number",      default: 0, null: false
+      t.datetime "created_at",              null: false
+      t.datetime "updated_at",              null: false
+    end
 
     create_table :content_items do |t|
       t.string   "content_id"
@@ -97,8 +108,13 @@ class ExtractSemanticVersion < ActiveRecord::Migration
           content_item: new_live,
         )
 
-        if (version = Version.find_by(target: live))
-          version.update_attributes(target: new_live)
+        if (lock_version = Version.find_by(target: live))
+          LockVersion.create!(
+            target: new_live,
+            number: lock_version.number,
+            created_at: lock_version.created_at,
+            updated_at: lock_version.updated_at,
+          )
         end
       end
 
@@ -128,9 +144,13 @@ class ExtractSemanticVersion < ActiveRecord::Migration
           )
         end
 
-        if (version = Version.find_by(target: draft))
-          version.target = new_draft
-          version.save!(validate: false)
+        if (lock_version = Version.find_by(target: live))
+          LockVersion.create!(
+            target: new_live,
+            number: lock_version.number,
+            created_at: lock_version.created_at,
+            updated_at: lock_version.updated_at,
+          )
         end
       end
 
@@ -149,6 +169,7 @@ class ExtractSemanticVersion < ActiveRecord::Migration
     drop_table :locations
     drop_table :states
     drop_table :semantic_versions
+    drop_table :lock_versions
     remove_column :access_limits, :content_item_id
   end
 

@@ -79,7 +79,7 @@ module Commands
           state: State.create!(content_item: content_item, name: "draft"),
           translation: Translation.create!(content_item: content_item, locale: locale),
           semantic_version: SemanticVersion.create!(content_item: content_item, number: 1),
-          lock_version: Version.create!(target: content_item, number: lock_version_number_for_new_draft),
+          lock_version: LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft),
         }
       end
 
@@ -88,7 +88,7 @@ module Commands
         previously_published_item = filter.filter(state: "published", locale: locale).first
 
         if previously_published_item
-          lock_version = Version.find_by!(target: previously_published_item)
+          lock_version = LockVersion.find_by!(target: previously_published_item)
           lock_version.number + 1
         else
           1
@@ -125,7 +125,7 @@ module Commands
       end
 
       def increment_lock_version(content_item)
-        lock_version = Version.find_by!(target: content_item)
+        lock_version = LockVersion.find_by!(target: content_item)
         lock_version.increment
         lock_version.save!
       end

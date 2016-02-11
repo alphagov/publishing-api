@@ -90,7 +90,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when creating a draft for a previously published content item" do
       before do
-        FactoryGirl.create(:live_content_item, :with_location, :with_translation, :with_semantic_version, :with_version,
+        FactoryGirl.create(:live_content_item, :with_location, :with_translation, :with_semantic_version, :with_lock_version,
           content_id: content_id,
           lock_version: 2,
         )
@@ -104,7 +104,7 @@ RSpec.describe Commands::V2::PutContent do
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
         expect(State.find_by!(content_item: content_item).name).to eq("draft")
-        expect(Version.find_by!(target: content_item).number).to eq(3)
+        expect(LockVersion.find_by!(target: content_item).number).to eq(3)
       end
     end
 
@@ -172,7 +172,7 @@ RSpec.describe Commands::V2::PutContent do
         expect(state.name).to eq("draft")
       end
 
-      it "creates a semantic version for the content item" do
+      it "creates a semantic lock_version for the content item" do
         described_class.call(payload)
         content_item = ContentItem.last
 
@@ -184,8 +184,8 @@ RSpec.describe Commands::V2::PutContent do
         described_class.call(payload)
         content_item = ContentItem.last
 
-        version = Version.find_by!(target: content_item)
-        expect(version.number).to eq(1)
+        lock_version = LockVersion.find_by!(target: content_item)
+        expect(lock_version.number).to eq(1)
       end
 
       it "creates a translation for the content item" do
@@ -207,7 +207,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the payload is for an already drafted content item" do
       let!(:previously_drafted_item) {
-        FactoryGirl.create(:draft_content_item, :with_location, :with_translation, :with_semantic_version, :with_version,
+        FactoryGirl.create(:draft_content_item, :with_location, :with_translation, :with_semantic_version, :with_lock_version,
           content_id: content_id,
           base_path: base_path,
           title: "Old Title",
@@ -223,7 +223,7 @@ RSpec.describe Commands::V2::PutContent do
         expect(previously_drafted_item.title).to eq("Some Title")
       end
 
-      it "does not increment the semantic version for the content item" do
+      it "does not increment the semantic lock_version for the content item" do
         described_class.call(payload)
         previously_drafted_item.reload
 
@@ -235,7 +235,7 @@ RSpec.describe Commands::V2::PutContent do
         described_class.call(payload)
         previously_drafted_item.reload
 
-        lock_version = Version.find_by!(target: previously_drafted_item)
+        lock_version = LockVersion.find_by!(target: previously_drafted_item)
         expect(lock_version.number).to eq(2)
       end
 
@@ -316,10 +316,10 @@ RSpec.describe Commands::V2::PutContent do
         end
       end
 
-      context "with a 'previous_version' which does not match the current version of the draft item" do
+      context "with a 'previous_version' which does not match the current lock_version of the draft item" do
         before do
-          version = Version.find_by!(target: previously_drafted_item)
-          version.update_attributes!(number: 2)
+          lock_version = LockVersion.find_by!(target: previously_drafted_item)
+          lock_version.update_attributes!(number: 2)
 
           payload.merge!(previous_version: 1)
         end

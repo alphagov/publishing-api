@@ -85,7 +85,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       }
 
       before do
-        FactoryGirl.create(:version, target: content_item, number: 2)
+        FactoryGirl.create(:lock_version, target: content_item, number: 2)
       end
 
       returns_200_response

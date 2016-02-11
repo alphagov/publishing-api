@@ -46,12 +46,12 @@ module Commands
         Translation.find_by(content_item: draft).try(:destroy)
         Location.find_by(content_item: draft).try(:destroy)
         SemanticVersion.find_by(content_item: draft).try(:destroy)
-        Version.find_by(target: draft).try(:destroy)
+        LockVersion.find_by(target: draft).try(:destroy)
         AccessLimit.find_by(content_item: draft).try(:destroy)
       end
 
       def increment_live_lock_version
-        lock_version = Version.find_by!(target: live)
+        lock_version = LockVersion.find_by!(target: live)
         lock_version.increment
         lock_version.save!
       end

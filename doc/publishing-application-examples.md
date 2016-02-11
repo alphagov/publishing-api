@@ -23,7 +23,7 @@ The Publishing API prescribes a draft-to-live workflow where the publishing appl
 
   [ Initial draft ] -----------------------------------> [ PUT /v2/content/:content_id ]
                                                                        |
-               Responds with updated content item including version    |
+               Responds with updated content item including lock version    |
            <-----------------------------------------------------------
 
 
@@ -79,7 +79,7 @@ Using the publishing API v2 client adapter with a valid content_id and payload, 
 ```
 
 
-The response body would contain a presentation of the saved content item including the item version eg.
+The response body would contain a presentation of the saved content item including the item lock version eg.
 
 ```
   {"id":1,
@@ -96,7 +96,7 @@ The response body would contain a presentation of the saved content item includi
   "redirects":[],
   "publishing_app":"my-shiny-publishing-app",
   "rendering_app":"frontend",
-  "version":"1"}
+  "lock version":"1"}
 ```
 
 which could then be used to update the local model instance in the publishing application:
@@ -108,7 +108,7 @@ which could then be used to update the local model instance in the publishing ap
 
 ## Error handling
 
-The response will indicate any errors that may have occurred in making the request. These may be validation errors for required content fields or more general errors pertaining to version locking. A 4xx error code will be returned along with error messages in the `response.body.error` object. eg.
+The response will indicate any errors that may have occurred in making the request. These may be validation errors for required content fields or more general errors pertaining to lock version locking. A 4xx error code will be returned along with error messages in the `response.body.error` object. eg.
 
 ```
   {
@@ -130,9 +130,9 @@ The response will indicate any errors that may have occurred in making the reque
   }
 ```
 
-## Versioning
+## LockVersioning
 
-The response body contains the current version of the content item for GET and PUT `/v2/content/:content_id` endpoints. This allows the publishing application to track the updated draft version, this is can in turn be used in an optional previous_version request parameter to prevent conflicting updates from overwriting content. ie.
+The response body contains the current lock version of the content item for GET and PUT `/v2/content/:content_id` endpoints. This allows the publishing application to track the updated draft lock version, this is can in turn be used in an optional previous_version request parameter to prevent conflicting updates from overwriting content. ie.
 
 
 ```
@@ -140,21 +140,21 @@ The response body contains the current version of the content item for GET and P
 
   [ Initial draft ] -----------------------------------> [ PUT /v2/content/:content_id ]
                                                                        |
-                    Responds with version 1                            |
+                    Responds with lock version 1                            |
                     <--------------------------------------------------
 
-  [ Update version 1 ] ------ previous_version: 1 -----> [ PUT /v2/content/:content_id ]
+  [ Update lock version 1 ] ------ previous_version: 1 -----> [ PUT /v2/content/:content_id ]
                                                                        |
-                    Responds with version 2                            |
+                    Responds with lock version 2                            |
                     <--------------------------------------------------
 
-                    This next request to update will fail since version increment.
+                    This next request to update will fail since lock version increment.
 
-  [ Update version 1 ] ------ previous_version: 1 -----> [ PUT /v2/content/:content_id ]
+  [ Update lock version 1 ] ------ previous_version: 1 -----> [ PUT /v2/content/:content_id ]
 
                     This next request to update will succeed.
 
-  [ Update version 2 ] ------ previous_version: 2 -----> [ PUT /v2/content/:content_id ]
+  [ Update lock version 2 ] ------ previous_version: 2 -----> [ PUT /v2/content/:content_id ]
 ```
 
 
@@ -173,20 +173,20 @@ POST /v2/940b88db-8f15-4859-b5b2-4761ba62a067/publish?locale=fr
 When making a request to publish, the current draft item of the same content_id and locale is used as the basis of the payload send downstream to the live content store.
 There are typically two different `update_type` values which will be sent with the request to publish a content item. `major` which implies the update will be announced to the public eg. via email alerts or a change of publishing timestamps and possibly change notes. `minor` which implies the change should not be announced as above.
 
-It’s worth noting that the internal versioning of the Publishing API only tracks the version of draft updates, this means that publishing apps are responsible for maintaining versioning of published content, for example the Publishing API may contain draft versions 1 to 10 of a content item.
-This item may have been published at version 5 and 10, the publishing application may wish to represent this as version 1 and version 2 as these are the significant publishings of the content:
+It’s worth noting that the internal lock versioning of the Publishing API only tracks the lock version of draft updates, this means that publishing apps are responsible for maintaining lock versioning of published content, for example the Publishing API may contain draft lock versions 1 to 10 of a content item.
+This item may have been published at lock version 5 and 10, the publishing application may wish to represent this as lock version 1 and lock version 2 as these are the significant publishings of the content:
 
 ```
   Publishing Application                                 Publishing API
 
-  [ Initial draft ] -----------------------------------> [ Draft version 1 ]
+  [ Initial draft ] -----------------------------------> [ Draft lock version 1 ]
 
-  [ Updated draft ] -----------------------------------> [ Draft version 2 ]
+  [ Updated draft ] -----------------------------------> [ Draft lock version 2 ]
           |
           |            Publish request
-           --------------------------------------------> [ Draft version 2 ] --> [ Published version 2 ]
+           --------------------------------------------> [ Draft lock version 2 ] --> [ Published lock version 2 ]
                                                                                             |
-  [ Published version 1 ] <-----------------------------------------------------------------
+  [ Published lock version 1 ] <-----------------------------------------------------------------
 
 ```
 

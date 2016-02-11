@@ -8,10 +8,10 @@ module Commands
 
         if link_set
           check_version_and_raise_if_conflicting(link_set, previous_version_number)
-          lock_version = Version.find_by!(target: link_set)
+          lock_version = LockVersion.find_by!(target: link_set)
         else
           link_set = LinkSet.create!(content_id: content_id)
-          lock_version = Version.new(target: link_set)
+          lock_version = LockVersion.new(target: link_set)
         end
 
         lock_version.increment

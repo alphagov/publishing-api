@@ -17,7 +17,7 @@ RSpec.describe SemanticVersion do
       )
     end
 
-    it "returns the content item with the latest semantic version" do
+    it "returns the content item with the latest semantic lock_version" do
       item = described_class.latest(ContentItem.all)
       expect(item.title).to eq("Latest")
     end

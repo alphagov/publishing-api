@@ -31,9 +31,9 @@ FactoryGirl.define do
       lock_version 0
     end
 
-    trait :with_version do
+    trait :with_lock_version do
       after(:create) do |item, evaluator|
-        FactoryGirl.create(:version, number: evaluator.lock_version, target: item)
+        FactoryGirl.create(:lock_version, number: evaluator.lock_version, target: item)
       end
     end
 

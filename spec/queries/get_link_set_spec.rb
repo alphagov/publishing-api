@@ -9,7 +9,7 @@ RSpec.describe Queries::GetLinkSet do
     end
 
     before do
-      FactoryGirl.create(:version, target: link_set, number: 5)
+      FactoryGirl.create(:lock_version, target: link_set, number: 5)
     end
 
     context "and it has some links" do
@@ -39,12 +39,12 @@ RSpec.describe Queries::GetLinkSet do
         )
       end
 
-      it "returns the content_id, version and links grouped by link_type" do
+      it "returns the content_id, lock_version and links grouped by link_type" do
         result = subject.call(content_id)
 
         expect(result).to eq(
           content_id: content_id,
-          version: 5,
+          lock_version: 5,
           links: {
             parent: parent,
             related: related,
@@ -54,12 +54,12 @@ RSpec.describe Queries::GetLinkSet do
     end
 
     context "and it doesn't have any links" do
-      it "returns the content_id, version and an empty links hash" do
+      it "returns the content_id, lock_version and an empty links hash" do
         result = subject.call(content_id)
 
         expect(result).to eq(
           content_id: content_id,
-          version: 5,
+          lock_version: 5,
           links: {},
         )
       end

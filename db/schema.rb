@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 20160101090939) do
     t.string   "old_description"
     t.string   "format"
     t.datetime "public_updated_at"
-    t.json     "access_limited",       default: {}
     t.json     "details",              default: {}
     t.json     "routes",               default: []
     t.json     "redirects",            default: []
@@ -71,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160101090939) do
 
   add_index "draft_content_items", ["base_path"], name: "index_draft_content_items_on_base_path", unique: true, using: :btree
   add_index "draft_content_items", ["content_id", "locale"], name: "index_draft_content_items_on_content_id_and_locale", unique: true, using: :btree
+  add_index "draft_content_items", ["format"], name: "index_draft_content_items_on_format", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "action",                  null: false
@@ -91,10 +91,11 @@ ActiveRecord::Schema.define(version: 20160101090939) do
 
   create_table "links", force: :cascade do |t|
     t.integer  "link_set_id"
-    t.string   "target_content_id", null: false
+    t.string   "target_content_id"
     t.string   "link_type",         null: false
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.json     "passthrough_hash"
   end
 
   add_index "links", ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id", using: :btree
@@ -124,6 +125,7 @@ ActiveRecord::Schema.define(version: 20160101090939) do
   add_index "live_content_items", ["base_path"], name: "index_live_content_items_on_base_path", unique: true, using: :btree
   add_index "live_content_items", ["content_id", "locale"], name: "index_live_content_items_on_content_id_and_locale", unique: true, using: :btree
   add_index "live_content_items", ["draft_content_item_id"], name: "index_live_content_items_on_draft_content_item_id", using: :btree
+  add_index "live_content_items", ["format"], name: "index_live_content_items_on_format", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "content_item_id"
@@ -133,6 +135,14 @@ ActiveRecord::Schema.define(version: 20160101090939) do
   end
 
   add_index "locations", ["content_item_id", "base_path"], name: "index_locations_on_content_item_id_and_base_path", using: :btree
+
+  create_table "lock_versions", force: :cascade do |t|
+    t.integer  "target_id",               null: false
+    t.string   "target_type",             null: false
+    t.integer  "number",      default: 0, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "path_reservations", force: :cascade do |t|
     t.string   "base_path",      null: false
@@ -170,6 +180,20 @@ ActiveRecord::Schema.define(version: 20160101090939) do
 
   add_index "translations", ["content_item_id", "locale"], name: "index_translations_on_content_item_id_and_locale", using: :btree
 
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "uid"
+    t.string   "organisation_slug"
+    t.string   "organisation_content_id"
+    t.string   "app_name"
+    t.text     "permissions"
+    t.boolean  "remotely_signed_out",     default: false
+    t.boolean  "disabled",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "versions", force: :cascade do |t|
     t.integer  "target_id",               null: false
     t.string   "target_type",             null: false
@@ -177,6 +201,8 @@ ActiveRecord::Schema.define(version: 20160101090939) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
+
+  add_index "versions", ["target_id"], name: "index_versions_on_target_id", using: :btree
 
   add_foreign_key "links", "link_sets"
 end

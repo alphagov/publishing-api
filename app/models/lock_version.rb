@@ -1,4 +1,4 @@
-class Version < ActiveRecord::Base
+class LockVersion < ActiveRecord::Base
   belongs_to :target, polymorphic: true
 
   validate :numbers_must_increase
@@ -8,8 +8,8 @@ class Version < ActiveRecord::Base
   end
 
   def copy_version_from(target)
-    version = Version.find_by!(target: target)
-    self.number = version.number
+    lock_version = LockVersion.find_by!(target: target)
+    self.number = lock_version.number
   end
 
   def conflicts_with?(previous_version_number)
@@ -42,8 +42,8 @@ private
 
     if number < live_version.number
       mismatch = "(#{number} < #{live_version.number})"
-      message = "draft version cannot be behind the live version #{mismatch}"
-      errors.add(:version, message)
+      message = "draft lock_version cannot be behind the live lock_version #{mismatch}"
+      errors.add(:lock_version, message)
     end
   end
 

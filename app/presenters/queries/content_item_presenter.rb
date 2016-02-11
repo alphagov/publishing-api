@@ -11,8 +11,8 @@ module Presenters
           raise ArgumentError.new("`content_item` must be either 'draft' or 'published'")
         end
 
-        draft_version = Version.find_by(target: draft)
-        live_version = Version.find_by(target: live)
+        draft_version = LockVersion.find_by(target: draft)
+        live_version = LockVersion.find_by(target: live)
 
         self.new(
           draft: draft,
@@ -35,7 +35,7 @@ module Presenters
           .symbolize_keys
           .merge(
             publication_state: publication_state,
-            version: version.number,
+            lock_version: lock_version.number,
             locale: translation.locale,
             base_path: location.base_path
           ).tap do |h|
@@ -57,8 +57,8 @@ module Presenters
         end
       end
 
-      def version
-        @version ||= Version.find_by!(target: most_recent_content_item)
+      def lock_version
+        @lock_version ||= LockVersion.find_by!(target: most_recent_content_item)
       end
 
       def translation
