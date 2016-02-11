@@ -1,19 +1,6 @@
 require "rails_helper"
 
 RSpec.describe ContentStoreWorker do
-  before do
-    stub_request(:put, "http://content-store.dev.gov.uk/content/foo").
-      to_return(status: status, body: {}.to_json)
-  end
-
-  def do_request
-    subject.perform(
-      content_store: "Adapters::ContentStore",
-      base_path: "/foo",
-      payload: { some: "payload" }
-    )
-  end
-
   expectations = {
     200 => { raises_error: false, logs_to_airbrake: false },
     202 => { raises_error: false, logs_to_airbrake: false },
@@ -24,7 +11,20 @@ RSpec.describe ContentStoreWorker do
 
   expectations.each do |status, expectation|
     context "when the content store responds with a #{status}" do
+      before do
+        stub_request(:put, "http://content-store.dev.gov.uk/content/foo").
+          to_return(status: status, body: {}.to_json)
+      end
+
+      def do_request
+        subject.perform(
+          content_store: "Adapters::ContentStore",
+          live_content_item_id: LiveContentItem.last.id,
+        )
+      end
+
       let(:status) { status }
+      let!(:content_item) { create(:live_content_item, base_path: '/foo') }
 
       if expectation.fetch(:raises_error)
         it "raises an error" do
@@ -47,6 +47,50 @@ RSpec.describe ContentStoreWorker do
           do_request rescue CommandError
         end
       end
+    end
+  end
+
+  context "when a draft item is enqueued" do
+    let!(:draft_content_item)  { create(:draft_content_item, base_path: '/foo') }
+
+    it "publishes a presented draft content item to the draft Content Store" do
+      api_call = stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
+
+      subject.perform(
+        content_store: 'Adapters::DraftContentStore',
+        draft_content_item_id: draft_content_item.id,
+      )
+
+      expect(api_call).to have_been_made
+    end
+  end
+
+  context "when a live item is enqueued" do
+    let!(:live_content_item)  { create(:live_content_item, base_path: '/foo') }
+
+    it "publishes a presented live content item to the live Content Store" do
+      api_call = stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
+
+      subject.perform(
+        content_store: 'Adapters::ContentStore',
+        live_content_item_id: live_content_item.id,
+      )
+
+      expect(api_call).to have_been_made
+    end
+  end
+
+  context "when a deletion is enqueued" do
+    it "deletes the content item" do
+      api_call = stub_request(:delete, "http://draft-content-store.dev.gov.uk/content/abc")
+
+      subject.perform(
+        content_store: 'Adapters::DraftContentStore',
+        base_path: "/abc",
+        delete: true,
+      )
+
+      expect(api_call).to have_been_made
     end
   end
 end

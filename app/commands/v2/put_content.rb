@@ -9,11 +9,9 @@ module Commands
         PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
         if downstream
-          draft_payload = Presenters::ContentStorePresenter.present(content_item)
           ContentStoreWorker.perform_async(
             content_store: Adapters::DraftContentStore,
-            base_path: base_path,
-            payload: draft_payload,
+            draft_content_item_id: content_item.id,
           )
         end
 

@@ -144,9 +144,7 @@ RSpec.describe Commands::V2::Publish do
 
         expect(ContentStoreWorker)
           .to receive(:perform_async)
-          .with(content_store: Adapters::ContentStore,
-               base_path: "/vat-rates",
-               payload: presentation)
+          .with(hash_including(content_store: Adapters::ContentStore))
 
         described_class.call(payload)
       end

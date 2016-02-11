@@ -1,17 +1,19 @@
 class ContentStoreWorker
   include Sidekiq::Worker
 
+  sidekiq_options queue: :content_store
+
   def perform(args = {})
     args = args.deep_symbolize_keys
 
     content_store = args.fetch(:content_store).constantize
-    base_path = args.fetch(:base_path)
 
     if args[:delete]
-      content_store.delete_content_item(base_path)
+      content_store.delete_content_item(args.fetch(:base_path))
     else
-      payload = args.fetch(:payload)
-      content_store.put_content_item(base_path, payload)
+      content_item = load_content_item_from(args)
+      payload = Presenters::ContentStorePresenter.present(content_item)
+      content_store.put_content_item(content_item.base_path, payload)
     end
 
   rescue => e
@@ -19,6 +21,17 @@ class ContentStoreWorker
   end
 
 private
+
+  def load_content_item_from(args)
+    case
+    when args[:draft_content_item_id]
+      DraftContentItem.find(args[:draft_content_item_id])
+    when args[:live_content_item_id]
+      LiveContentItem.find(args[:live_content_item_id])
+    else
+      raise "a live or a draft content item is needed"
+    end
+  end
 
   def handle_error(error)
     if !error.is_a?(CommandError)

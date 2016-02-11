@@ -77,11 +77,9 @@ module Commands
         end
 
         if downstream
-          live_payload = Presenters::ContentStorePresenter.present(live_content_item)
           ContentStoreWorker.perform_async(
             content_store: Adapters::ContentStore,
-            base_path: live_content_item.base_path,
-            payload: live_payload,
+            live_content_item_id: live_content_item.id,
           )
 
           queue_payload = Presenters::MessageQueuePresenter.present(live_content_item, update_type: update_type)
