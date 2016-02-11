@@ -1,6 +1,8 @@
 class ContentStoreWorker
   include Sidekiq::Worker
 
+  sidekiq_options queue: :content_store
+
   def perform(args = {})
     args = args.deep_symbolize_keys
 
