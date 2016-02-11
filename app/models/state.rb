@@ -25,4 +25,5 @@ class State < ActiveRecord::Base
     state = self.find_by!(content_item: content_item)
     state.update_attributes!(name: name)
   end
+  private_class_method :change_state
 end
