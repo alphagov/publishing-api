@@ -8,8 +8,4 @@ class PathReservation < ActiveRecord::Base
     record.publishing_app = publishing_app
     record.save!
   end
-
-  def self.query_keys
-    [:base_path]
-  end
 end

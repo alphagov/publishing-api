@@ -59,9 +59,6 @@ class ContentItem < ActiveRecord::Base
   end
 
 private
-  def self.query_keys
-    [:content_id]
-  end
 
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(format)
