@@ -14,7 +14,7 @@ class ContentStoreWriter < GdsApi::ContentStore
   end
 
   def get_publish_intent(base_path)
-    get_json!(publish_intent_url(base_path)).to_hash.deep_symbolize_keys
+    get_json!(publish_intent_url(base_path))
   end
 
   def delete_publish_intent(base_path)
