@@ -13,7 +13,7 @@ module Commands
         end
       end
 
-      Success.new(payload.except(:base_path))
+      Success.new(payload)
     end
 
   private

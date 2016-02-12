@@ -13,6 +13,7 @@ module RequestHelpers
     def content_item_params
       {
         content_id: content_id,
+        base_path: base_path,
         title: "VAT rates",
         description: "VAT rates for goods and services",
         format: "guide",
