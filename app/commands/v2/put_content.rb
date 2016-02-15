@@ -5,6 +5,8 @@ module Commands
         PathReservation.reserve_base_path!(base_path, publishing_app)
 
         if (content_item = find_previously_drafted_content_item)
+          clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+
           location = Location.find_by!(content_item: content_item)
           translation = Translation.find_by!(content_item: content_item)
 
@@ -26,16 +28,16 @@ module Commands
           end
         else
           content_item = create_content_item
+          clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+
           supporting_objects = create_supporting_objects(content_item)
           location = supporting_objects.fetch(:location)
-          translation = supporting_objects.fetch(:translation)
 
           if payload[:access_limited] && (users = payload[:access_limited][:users])
             AccessLimit.create!(content_item: content_item, users: users)
           end
         end
 
-        clear_draft_items_of_same_locale_and_base_path(content_item, translation, location)
         send_downstream(content_item, location) if downstream
 
         response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
@@ -57,11 +59,13 @@ module Commands
         filter.filter(locale: locale, state: "draft").first
       end
 
-      def clear_draft_items_of_same_locale_and_base_path(content_item, translation, location)
+      def clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
         SubstitutionHelper.clear!(
           new_item_format: content_item.format,
           new_item_content_id: content_item.content_id,
-          state: "draft", locale: translation.locale, base_path: location.base_path
+          state: "draft",
+          locale: locale,
+          base_path: base_path,
         )
       end
 
