@@ -122,8 +122,7 @@ RSpec.describe "POST /v2/publish", type: :request do
         .with(
           base_path: draft_content_item.base_path,
           content_item: expected_live_content_item_hash
-            .merge(transmitted_at: DateTime.now.to_s(:nanoseconds),
-                   public_updated_at: DateTime.now.in_time_zone.iso8601)
+            .merge(public_updated_at: DateTime.now.in_time_zone.iso8601)
         )
         do_request
       end
@@ -142,7 +141,6 @@ RSpec.describe "POST /v2/publish", type: :request do
 
           expected_live_content_item_hash.merge!(
             update_type: payload[:update_type],
-            transmitted_at: DateTime.now.to_s(:nanoseconds),
             public_updated_at: DateTime.now.in_time_zone.iso8601
           )
           expect(message).to eq(expected_live_content_item_hash.as_json)

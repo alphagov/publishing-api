@@ -16,7 +16,6 @@ module Presenters
         .merge(public_updated_at)
         .merge(links)
         .merge(access_limited)
-        .merge(transmitted_at)
     end
 
   private
@@ -62,14 +61,10 @@ module Presenters
       end
     end
 
-    def transmitted_at
-      { transmitted_at: DateTime.now.to_s(:nanoseconds) }
-    end
-
     class V1
       def self.present(attributes, update_type: true, transmitted_at: true)
         attributes = attributes.except(:update_type) unless update_type
-        attributes = attributes.merge(transmitted_at: DateTime.now.to_s(:nanoseconds)) if transmitted_at
+        attributes = attributes.merge(transmitted_at: Time.now.to_s(:nanoseconds)) if transmitted_at
 
         attributes
       end

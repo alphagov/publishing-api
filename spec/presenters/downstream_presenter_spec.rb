@@ -29,7 +29,6 @@ RSpec.describe Presenters::DownstreamPresenter do
         rendering_app: "frontend",
         routes: [{ path: "/vat-rates", type: "exact" }],
         title: "VAT rates",
-        transmitted_at: DateTime.now.to_s(:nanoseconds),
         update_type: "minor",
       )
     end
@@ -59,7 +58,6 @@ RSpec.describe Presenters::DownstreamPresenter do
         rendering_app: "frontend",
         routes: [{ path: "/vat-rates", type: "exact" }],
         title: "VAT rates",
-        transmitted_at: DateTime.now.to_s(:nanoseconds),
         update_type: "minor",
       )
     end
@@ -90,15 +88,6 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
   end
 
-  describe "presented transmitted_at datetime format" do
-    it "returns a string formatted as nanoseconds" do
-      datetime = DateTime.now
-      nanoseconds = datetime.to_s(:nanoseconds)
-
-      expect(nanoseconds).to eq(datetime.strftime("%s%9N"))
-    end
-  end
-
   describe described_class::V1 do
     let(:attributes) do
       {
@@ -119,7 +108,7 @@ RSpec.describe Presenters::DownstreamPresenter do
         content_id: "content_id",
         access_limited: "access_limited",
         update_type: "update_type",
-        transmitted_at: DateTime.now.to_s(:nanoseconds),
+        transmitted_at: Time.now.to_s(:nanoseconds),
       )
     end
 
@@ -129,7 +118,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       expect(result).to eq(
         content_id: "content_id",
         access_limited: "access_limited",
-        transmitted_at: DateTime.now.to_s(:nanoseconds),
+        transmitted_at: Time.now.to_s(:nanoseconds),
       )
     end
 

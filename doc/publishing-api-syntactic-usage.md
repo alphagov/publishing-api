@@ -14,7 +14,7 @@ PUT and POST endpoints take an optional integer field `previous_version` in the 
  - Instantiates a new content item or retrieves an existing item matching the content_id and locale passed in the request.
  - Validates the content item prior to saving. There are multiple validations for draft content items, the main concerns are path integrity, identity uniqueness and version consistency. Validation failures in these cases respond with 422.
  - Increments the version number of the content item.
- - Prepares and sends the draft content item payload downstream to the content store. The payload is modified to include a transmitted_at timestamp to validate message ordering.
+ - Prepares and sends the draft content item payload downstream to the content store.
  - Sends the draft content item payload to the message queue.
 
 ### Required request params:

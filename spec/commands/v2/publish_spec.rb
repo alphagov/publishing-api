@@ -134,7 +134,6 @@ RSpec.describe Commands::V2::Publish do
       it "sends a payload downstream asynchronously" do
         presentation = {
           content_id: content_id,
-          transmitted_at: Time.now.to_s(:nanoseconds),
           title: "Something something"
         }.to_json
 

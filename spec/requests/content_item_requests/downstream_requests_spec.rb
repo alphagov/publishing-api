@@ -1,33 +1,41 @@
 require "rails_helper"
 
 RSpec.describe "Downstream requests", type: :request do
-  context "/content" do
-    let(:content_item_for_draft_content_store) {
-      content_item_params
-        .except(:access_limited, :update_type)
+  context "V1" do
+    around do |example|
+      Timecop.freeze{ example.run }
+    end
+
+    let(:v1_content_item_params){
+      content_item_params.merge(transmitted_at: Time.now.to_s(:nanoseconds))
     }
-    let(:content_item_for_live_content_store) {
-      content_item_for_draft_content_store
-    }
-    let(:request_body) { content_item_params.to_json }
-    let(:request_path) { "/content#{base_path}" }
+    let(:request_body) { v1_content_item_params.to_json }
     let(:request_method) { :put }
 
-    sends_to_draft_content_store
-    sends_to_live_content_store
-  end
+    context "/content" do
+      let(:content_item_for_draft_content_store) {
+        v1_content_item_params
+          .except(:access_limited, :update_type)
+      }
+      let(:content_item_for_live_content_store) {
+        content_item_for_draft_content_store
+      }
+      let(:request_path) { "/content#{base_path}" }
 
-  context "/draft-content" do
-    let(:content_item_for_draft_content_store) {
-      content_item_params
-        .except(:update_type)
-    }
-    let(:request_body) { content_item_params.to_json }
-    let(:request_path) { "/draft-content#{base_path}" }
-    let(:request_method) { :put }
+      sends_to_draft_content_store
+      sends_to_live_content_store
+    end
 
-    sends_to_draft_content_store
-    does_not_send_to_live_content_store
+    context "/draft-content" do
+      let(:content_item_for_draft_content_store) {
+        v1_content_item_params
+          .except(:update_type)
+      }
+      let(:request_path) { "/draft-content#{base_path}" }
+
+      sends_to_draft_content_store
+      does_not_send_to_live_content_store
+    end
   end
 
   context "/v2/content" do
