@@ -1,19 +1,19 @@
-class ContentStoreWorker
+class DeprecatedContentStoreWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: :content_store
+  sidekiq_options queue: :default
 
   def perform(args = {})
     args = args.deep_symbolize_keys
 
     content_store = args.fetch(:content_store).constantize
+    base_path = args.fetch(:base_path)
 
     if args[:delete]
-      content_store.delete_content_item(args.fetch(:base_path))
+      content_store.delete_content_item(base_path)
     else
-      content_item = load_content_item_from(args)
-      payload = Presenters::ContentStorePresenter.present(content_item)
-      content_store.put_content_item(payload.fetch(:base_path), payload)
+      payload = args.fetch(:payload)
+      content_store.put_content_item(base_path, payload)
     end
 
   rescue => e
@@ -21,10 +21,6 @@ class ContentStoreWorker
   end
 
 private
-
-  def load_content_item_from(args)
-    ContentItem.find_by!(id: args.fetch(:content_item_id))
-  end
 
   def handle_error(error)
     if !error.is_a?(CommandError)
@@ -37,3 +33,4 @@ private
     end
   end
 end
+

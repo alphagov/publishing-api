@@ -160,9 +160,10 @@ RSpec.describe Commands::V2::Publish do
 
         expect(ContentStoreWorker)
           .to receive(:perform_async)
-          .with(content_store: Adapters::ContentStore,
-               base_path: "/vat-rates",
-               payload: presentation)
+          .with(
+            content_store: Adapters::ContentStore,
+            content_item_id: draft_item.id,
+          )
 
         described_class.call(payload)
       end
@@ -189,9 +190,10 @@ RSpec.describe Commands::V2::Publish do
         it "uses the stored timestamp for major or minor" do
           expect(ContentStoreWorker)
             .to receive(:perform_async)
-            .with(content_store: Adapters::ContentStore,
-                 base_path: "/vat-rates",
-                 payload: hash_including(public_updated_at: public_updated_at.iso8601))
+            .with(
+              content_store: Adapters::ContentStore,
+              content_item_id: draft_item.id,
+            )
 
           described_class.call(payload)
         end
@@ -206,9 +208,10 @@ RSpec.describe Commands::V2::Publish do
           it "updates the public_updated_at time to now" do
             expect(ContentStoreWorker)
               .to receive(:perform_async)
-              .with(content_store: Adapters::ContentStore,
-                   base_path: "/vat-rates",
-                   payload: hash_including(public_updated_at: Time.zone.now.iso8601))
+              .with(
+                content_store: Adapters::ContentStore,
+                content_item_id: draft_item.id,
+              )
 
             described_class.call(payload)
 
@@ -234,9 +237,10 @@ RSpec.describe Commands::V2::Publish do
           it "preserves the public_updated_at value from the last live item" do
             expect(ContentStoreWorker)
               .to receive(:perform_async)
-              .with(content_store: Adapters::ContentStore,
-                   base_path: "/vat-rates",
-                   payload: hash_including(public_updated_at: public_updated_at_from_last_live_item.iso8601))
+              .with(
+                content_store: Adapters::ContentStore,
+                content_item_id: draft_item.id,
+              )
 
             described_class.call(payload)
 
@@ -255,9 +259,10 @@ RSpec.describe Commands::V2::Publish do
           it "uses the stored timestamp for major or minor" do
             expect(ContentStoreWorker)
               .to receive(:perform_async)
-              .with(content_store: Adapters::ContentStore,
-                   base_path: "/vat-rates",
-                   payload: hash_including(public_updated_at: public_updated_at.iso8601))
+              .with(
+                content_store: Adapters::ContentStore,
+                content_item_id: draft_item.id,
+              )
 
             described_class.call(payload)
           end

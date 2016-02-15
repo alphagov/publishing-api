@@ -133,4 +133,5 @@ RSpec.describe ContentItem do
 
   it_behaves_like DefaultAttributes
   it_behaves_like WellFormedContentTypesValidator
+  it_behaves_like DescriptionOverrides
 end

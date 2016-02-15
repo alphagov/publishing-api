@@ -1,6 +1,7 @@
 class ContentItem < ActiveRecord::Base
   include DefaultAttributes
   include SymbolizeJSON
+  include DescriptionOverrides
 
   DEFAULT_LOCALE = "en".freeze
 

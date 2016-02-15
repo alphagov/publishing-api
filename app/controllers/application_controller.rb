@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include GDS::SSO::ControllerMethods
+
   class BadRequest < StandardError; end
 
   rescue_from CommandError, with: :respond_with_command_error
@@ -9,6 +11,12 @@ class ApplicationController < ActionController::Base
   before_action do
     # Force Rails to show text-error pages
     request.env['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
+  end
+
+  before_action :require_signin_permission!
+
+  Warden::Manager.after_authentication do |user,_,_|
+    user.set_app_name!
   end
 
 private

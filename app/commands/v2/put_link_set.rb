@@ -57,7 +57,7 @@ module Commands
       end
 
       def raise_unless_links_present
-        unless grouped_links.present?
+        unless grouped_links.is_a?(Hash)
           raise CommandError.new(
             code: 422,
             message: "Links are required",
@@ -90,13 +90,9 @@ module Commands
       end
 
       def send_to_content_store(content_item, content_store)
-        location = Location.find_by!(content_item: content_item)
-        payload = Presenters::ContentStorePresenter.present(content_item)
-
         ContentStoreWorker.perform_async(
           content_store: content_store,
-          base_path: location.base_path,
-          payload: payload,
+          content_item_id: content_item.id,
         )
       end
 

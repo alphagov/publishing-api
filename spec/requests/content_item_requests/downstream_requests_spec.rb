@@ -67,6 +67,7 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item_for_draft_content_store) {
       content_item
         .except(:update_type)
+        .merge(access_limited: access_limit_params)
     }
     let(:content_item_for_live_content_store) {
       content_item
@@ -82,8 +83,10 @@ RSpec.describe "Downstream requests", type: :request do
           content_id: content_id,
         )
 
+        FactoryGirl.create(:lock_version, target: draft, number: 1)
+
         FactoryGirl.create(:access_limit,
-          users: content_item_params[:access_limited][:users],
+          users: access_limit_params.fetch(:users),
           content_item: draft,
         )
       end
@@ -110,7 +113,7 @@ RSpec.describe "Downstream requests", type: :request do
         )
 
         FactoryGirl.create(:access_limit,
-          users: content_item_params[:access_limited][:users],
+          users: access_limit_params.fetch(:users),
           content_item: draft,
         )
 
@@ -126,6 +129,30 @@ RSpec.describe "Downstream requests", type: :request do
     context "when a content item does not exist for the link set" do
       does_not_send_to_draft_content_store
       does_not_send_to_live_content_store
+    end
+
+    context "when sending passthrough links" do
+      def links_attributes
+        {
+          content_id: content_id,
+          links: {
+            organisations: [
+              {
+                content_id: "a-passthrough-content-id",
+                title: "Some passthrough content",
+              }
+            ]
+          }
+        }
+      end
+
+      before do
+        draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*ContentItem::TOP_LEVEL_FIELDS))
+        FactoryGirl.create(:lock_version, target: draft, number: 1)
+        FactoryGirl.create(:access_limit, content_item: draft, users: access_limit_params.fetch(:users))
+      end
+
+      sends_to_draft_content_store
     end
   end
 

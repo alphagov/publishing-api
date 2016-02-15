@@ -49,5 +49,6 @@ RSpec.describe Tasks::DataSanitizer do
     }.to change(ContentItem, :count).by(-1)
 
     expect(ContentItem.exists?(limited_draft.id)).to eq(false)
+    expect(AccessLimit.count).to be_zero
   end
 end

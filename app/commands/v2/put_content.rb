@@ -146,11 +146,9 @@ module Commands
       def send_downstream(content_item, location)
         return unless downstream
 
-        content_store_payload = Presenters::ContentStorePresenter.present(content_item)
         ContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
-          base_path: location.base_path,
-          payload: content_store_payload,
+          content_item_id: content_item.id,
         )
       end
     end

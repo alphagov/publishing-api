@@ -6,8 +6,107 @@ RSpec.describe V2::ContentItemsController do
   before do
     stub_request(:any, /content-store/)
 
-    @draft = FactoryGirl.create(:draft_content_item, content_id: content_id)
-    FactoryGirl.create(:lock_version, target: @draft, number: 2)
+    @draft = FactoryGirl.create(
+      :draft_content_item,
+      content_id: content_id,
+      base_path: "/content.en",
+      format: "topic",
+      locale: "en",
+      lock_version: 2,
+    )
+  end
+
+  describe "index" do
+    before do
+      @en_draft_content = @draft
+      @ar_draft_content = FactoryGirl.create(
+        :draft_content_item,
+        content_id: content_id,
+        locale: "ar",
+        base_path: "/content.ar",
+        format: "topic",
+        lock_version: 2,
+      )
+      @en_live_content = FactoryGirl.create(
+        :live_content_item,
+        content_id: content_id,
+        locale: "en",
+        base_path: "/content.en",
+        format: "topic",
+        lock_version: 2,
+      )
+      @ar_live_content = FactoryGirl.create(
+        :live_content_item,
+        content_id: content_id,
+        locale: "ar",
+        base_path: "/content.ar",
+        format: "topic",
+        lock_version: 2,
+      )
+    end
+
+    context "without providing a locale parameter" do
+      before do
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"]
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with the english content item as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.length == 2)
+
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths). to eq ["/content.en"]
+
+        publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
+        expect(publication_states). to eq ["live"]
+      end
+    end
+
+    context "providing a specific locale parameter" do
+      before do
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"], locale: "ar"
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with the specific locale content item as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.length == 2)
+
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths). to eq ["/content.ar"]
+
+        base_paths = parsed_response_body.map { |item| item.fetch("publication_state") }
+        expect(base_paths). to eq ["live"]
+      end
+    end
+
+    context "providing a locale parameter set to 'all'" do
+      before do
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path"], locale: "all"
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with all the localised content items as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.length == 4)
+
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths). to eq ["/content.en", "/content.ar"]
+
+        publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
+        expect(publication_states). to eq ["live", "live"]
+      end
+    end
   end
 
   describe "show" do
@@ -119,6 +218,31 @@ RSpec.describe V2::ContentItemsController do
 
         expect(response.status).to eq(404)
       end
+    end
+  end
+
+  describe "index" do
+    before do
+      create(:draft_content_item, publishing_app: 'publisher', base_path: '/content')
+      create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item1')
+      create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item2')
+      create(:draft_content_item, publishing_app: 'specialist_publisher', base_path: '/item3')
+    end
+
+    it "displays items filtered by the user's app_name" do
+      request.env['warden'].user.app_name = 'whitehall'
+      get :index, content_format: 'guide', fields: %w(base_path publishing_app)
+      items = JSON.parse(response.body)
+      expect(items.length).to eq(2)
+      expect(items.all? { |i| i["publishing_app"] == 'whitehall' }).to be true
+    end
+
+    it "displays all items if user has 'view_all' permission" do
+      request.env['warden'].user.permissions << 'view_all'
+      get :index, content_format: 'guide', fields: %w(base_path publishing_app)
+      items = JSON.parse(response.body)
+      expect(items.length).to eq(4)
+      expect(items.map { |i| i["publishing_app"] }.uniq).to match_array(%w(whitehall specialist_publisher publisher))
     end
   end
 end

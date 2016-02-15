@@ -4,3 +4,4 @@
 :logfile: ./log/sidekiq.json.log
 :queues:
   - default
+  - content_store

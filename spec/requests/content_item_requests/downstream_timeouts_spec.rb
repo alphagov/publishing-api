@@ -41,7 +41,7 @@ RSpec.describe "Downstream timeouts", type: :request do
 
       FactoryGirl.create(:access_limit,
         content_item: draft,
-        users: v2_content_item.fetch(:access_limited).fetch(:users)
+        users: access_limit_params.fetch(:users),
       )
 
       FactoryGirl.create(:lock_version, target: draft, number: 1)

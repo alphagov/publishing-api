@@ -16,7 +16,7 @@ module SubstitutionHelper
   private
 
     def substitute?(format)
-      %w(gone redirect unpublishing).include?(format)
+      %w(coming_soon gone redirect unpublishing).include?(format)
     end
   end
 end

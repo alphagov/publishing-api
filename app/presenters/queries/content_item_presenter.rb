@@ -6,7 +6,6 @@ module Presenters
 
         content_items = ContentItem.where(content_id: content_item.content_id)
         content_items = Translation.filter(content_items, locale: translation.locale)
-        content_items = ContentItem.where(id: content_items.pluck(:id))
 
         present_many(content_items).first
       end
@@ -20,12 +19,12 @@ module Presenters
       end
 
       def present
-        scope = content_item_scope
+        scope = remove_existing_joins(content_item_scope)
         scope = join_supporting_objects(scope)
         scope = select_fields(scope)
 
         items = scope.as_json.map(&:symbolize_keys)
-        groups = items.group_by { |i| i.fetch(:content_id) }
+        groups = items.group_by { |i| [i.fetch(:content_id), i.fetch(:locale)] }
 
         groups.map do |_, items|
           draft = detect_draft(items)
@@ -42,6 +41,8 @@ module Presenters
             live_version: live.fetch(:lock_version)
           ) if live
 
+          most_recent_item = most_recent_item.except(:id, :state_name)
+
           most_recent_item
         end.compact
       end
@@ -49,6 +50,10 @@ module Presenters
     private
 
       attr_accessor :content_item_scope
+
+      def remove_existing_joins(scope)
+        scope = ContentItem.where(id: scope.pluck(:id))
+      end
 
       def join_supporting_objects(scope)
         %w(states translations locations user_facing_versions).each do |table|

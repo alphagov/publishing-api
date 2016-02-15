@@ -29,13 +29,7 @@ RSpec.describe Commands::V2::PutContent do
       expect(ContentStoreWorker).to receive(:perform_async)
         .with(
           content_store: Adapters::DraftContentStore,
-          base_path: "/vat-rates",
-          payload: hash_including(
-            content_id: content_id,
-            base_path: base_path,
-            title: "Some Title",
-            format: "guide",
-          ),
+          content_item_id: anything,
         )
 
       described_class.call(payload)
@@ -50,8 +44,7 @@ RSpec.describe Commands::V2::PutContent do
       expect(ContentStoreWorker).not_to receive(:perform_async)
         .with(
           content_store: Adapters::ContentStore,
-          base_path: anything,
-          payload: anything,
+          content_item_id: anything,
         )
 
       described_class.call(payload)
@@ -281,18 +274,13 @@ RSpec.describe Commands::V2::PutContent do
           allow(ContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              base_path: "/vat-rates",
-              payload: anything,
+              content_item_id: anything,
             )
 
           expect(ContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              base_path: "/old-path",
-              payload: hash_including(
-                base_path: "/old-path",
-                format: "redirect"
-              )
+              content_item_id: anything,
             )
 
           described_class.call(payload)

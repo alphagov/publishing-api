@@ -28,6 +28,7 @@ Pact.provider_states_for "GDS API Adapters" do
     WebMock.enable!
     WebMock.reset!
     DatabaseCleaner.clean_with :truncation
+    FactoryGirl.create(:user)
   end
 
   tear_down do
@@ -307,8 +308,41 @@ Pact.provider_states_for "GDS API Adapters" do
         :draft_content_item,
         content_id: 'bed722e6-db68-43e5-9079-063f623335a7',
         format: 'topic',
-        details: {foo: :bar}
+        details: { foo: :bar },
       )
+    end
+  end
+
+  provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
+    set_up do
+      draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        lock_version: 3
+      )
+
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+    end
+  end
+
+  provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
+    set_up do
+      draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        lock_version: 1
+      )
+
+      link_set = FactoryGirl.create(
+        :link_set,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+      )
+
+      FactoryGirl.create(:lock_version, target: link_set, number: 3)
+
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
     end
   end
 end

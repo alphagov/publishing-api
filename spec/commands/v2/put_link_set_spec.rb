@@ -32,6 +32,24 @@ RSpec.describe Commands::V2::PutLinkSet do
       expect(links.map(&:target_content_id)).to eq(topics + parent)
     end
 
+    it "doesn't reject an empty links hash, but doesn't delete links either" do
+      link_set = FactoryGirl.create(
+        :link_set,
+        links: [
+          FactoryGirl.create(:link)
+        ]
+      )
+
+      FactoryGirl.create(:lock_version, target: link_set)
+
+      described_class.call(
+        content_id: link_set.content_id,
+        links: {}
+      )
+
+      expect(link_set.links.count).to eql(1)
+    end
+
     it "creates a lock version for the link set" do
       described_class.call(payload)
 
@@ -178,18 +196,10 @@ RSpec.describe Commands::V2::PutLinkSet do
 
     it "sends a request to the draft content store" do
       expect(ContentStoreWorker).to receive(:perform_async)
-      .with(
-        content_store: Adapters::DraftContentStore,
-        base_path: "/some-path",
-        payload: hash_including(
-          content_id: content_id,
-          title: "Some Title",
-          links: {
-            topics: topics,
-            parent: parent,
-          }
+        .with(
+          content_store: Adapters::DraftContentStore,
+          content_item_id: ContentItem.last.id,
         )
-      )
 
       described_class.call(payload)
     end
@@ -214,10 +224,7 @@ RSpec.describe Commands::V2::PutLinkSet do
           expect(ContentStoreWorker).to receive(:perform_async)
           .with(
             content_store: Adapters::DraftContentStore,
-            base_path: "/french-path",
-            payload: hash_including(
-              title: "French Title",
-            )
+            content_item_id: ContentItem.last.id,
           )
 
           described_class.call(payload)
@@ -261,15 +268,7 @@ RSpec.describe Commands::V2::PutLinkSet do
       expect(ContentStoreWorker).to receive(:perform_async)
       .with(
         content_store: Adapters::ContentStore,
-        base_path: "/some-path",
-        payload: hash_including(
-          content_id: content_id,
-          title: "Some Title",
-          links: {
-            topics: topics,
-            parent: parent,
-          }
-        )
+        content_item_id: ContentItem.last.id,
       )
 
       described_class.call(payload)
@@ -309,10 +308,7 @@ RSpec.describe Commands::V2::PutLinkSet do
           expect(ContentStoreWorker).to receive(:perform_async)
           .with(
             content_store: Adapters::ContentStore,
-            base_path: "/french-path",
-            payload: hash_including(
-              title: "French Title",
-            )
+            content_item_id: ContentItem.last.id,
           )
 
           expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
@@ -363,18 +359,6 @@ RSpec.describe Commands::V2::PutLinkSet do
   context "when 'links' is nil in the payload" do
     before do
       payload[:links] = nil
-    end
-
-    it "raises a command error" do
-      expect {
-        described_class.call(payload)
-      }.to raise_error(CommandError, "Links are required")
-    end
-  end
-
-  context "when 'links' is an empty hash in the payload" do
-    before do
-      payload[:links] = {}
     end
 
     it "raises a command error" do

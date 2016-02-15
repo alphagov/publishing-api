@@ -133,4 +133,62 @@ RSpec.describe Queries::GetContentCollection do
       ])
     end
   end
+
+  describe "the locale filter parameter" do
+    before do
+      FactoryGirl.create(:draft_content_item, base_path: '/content.en', format: 'topic', locale: 'en')
+      FactoryGirl.create(:draft_content_item, base_path: '/content.ar', format: 'topic', locale: 'ar')
+      FactoryGirl.create(:live_content_item, base_path: '/content.en', format: 'topic', locale: 'en')
+      FactoryGirl.create(:live_content_item, base_path: '/content.ar', format: 'topic', locale: 'ar')
+    end
+
+    it "returns the content items filtered by 'en' locale by default" do
+      expect(Queries::GetContentCollection.new(
+        content_format: 'topic',
+        fields: ['base_path'],
+      ).call).to eq([
+        { "base_path" => "/content.en", "publication_state" => "draft" },
+        { "base_path" => "/content.en", "publication_state" => "live" },
+      ])
+    end
+
+    it "returns the content items filtered by locale parameter" do
+      expect(Queries::GetContentCollection.new(
+        content_format: 'topic',
+        fields: ['base_path'],
+        locale: 'ar',
+      ).call).to eq([
+        { "base_path" => "/content.ar", "publication_state" => "draft" },
+        { "base_path" => "/content.ar", "publication_state" => "live" },
+      ])
+    end
+
+    it "returns all content items if the locale parameter is 'all'" do
+      expect(Queries::GetContentCollection.new(
+        content_format: 'topic',
+        fields: ['base_path'],
+        locale: 'all',
+      ).call).to eq([
+        { "base_path" => "/content.en", "publication_state" => "draft" },
+        { "base_path" => "/content.ar", "publication_state" => "draft" },
+        { "base_path" => "/content.en", "publication_state" => "live" },
+        { "base_path" => "/content.ar", "publication_state" => "live" },
+      ])
+    end
+  end
+
+  context "when details hash is requested" do
+    it "returns the details hash" do
+      create(:draft_content_item, base_path: '/z', details: {foo: :bar}, format: 'topic', publishing_app: 'publisher')
+      create(:draft_content_item, base_path: '/b', details: {baz: :bat}, format: 'placeholder_topic', publishing_app: 'publisher')
+        expect(Queries::GetContentCollection.new(
+          content_format: 'topic',
+          fields: ['details'],
+          publishing_app: 'publisher'
+        ).call).to eq([
+          { "details" => {"foo" => "bar"}, "publication_state" => "draft" },
+          { "details" => {"baz" => "bat"}, "publication_state" => "draft" }
+        ])
+    end
+  end
 end

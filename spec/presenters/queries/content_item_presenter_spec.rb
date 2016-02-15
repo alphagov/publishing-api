@@ -13,7 +13,29 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     let(:result) { Presenters::Queries::ContentItemPresenter.present(content_item) }
 
     it "presents content item attributes as a hash" do
-      expect(result.fetch(:content_id)).to eq(content_id)
+      expected = {
+        content_id: content_id,
+        locale: "en",
+        base_path: "/vat-rates",
+        title: "VAT rates",
+        format: "guide",
+        public_updated_at: DateTime.parse("2014-05-14 13:00:06.000000000 +0000").in_time_zone,
+        details: {
+          body: "<p>Something about VAT</p>\n"
+        },
+        routes: [{path: "/vat-rates", type: "exact"}],
+        redirects: [],
+        publishing_app: "publisher",
+        rendering_app: "frontend",
+        need_ids: ["100123", "100124"],
+        update_type: "minor",
+        phase: "beta",
+        analytics_identifier: "GDS01",
+        description: "VAT rates for goods and services",
+        publication_state: "draft",
+        lock_version: 101
+      }
+      expect(result).to eq(expected)
     end
 
     it "exposes the lock_version number of the content item" do
@@ -111,6 +133,17 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
         result = described_class.present(english_item)
         expect(result.fetch(:locale)).to eq("en")
+      end
+
+      describe "#present_many" do
+        it "presents a content item for each locale" do
+          content_items = ContentItem.where(content_id: content_id)
+
+          results = described_class.present_many(content_items)
+          locales = results.map { |r| r.fetch(:locale) }
+
+          expect(locales).to eq ["fr", "en"]
+        end
       end
     end
   end
