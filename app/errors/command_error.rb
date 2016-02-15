@@ -1,12 +1,14 @@
 class CommandError < StandardError
   attr_reader :code, :error_details
 
-  def self.with_error_handling(&block)
+  def self.with_error_handling(ignore_404s: false, &block)
     block.call
   rescue GdsApi::HTTPServerError => e
     should_suppress = (PublishingAPI.swallow_connection_errors && e.code == 502)
     raise CommandError.new(code: e.code, message: e.message) unless should_suppress
   rescue GdsApi::HTTPClientError => e
+    return if e.code == 404 && ignore_404s
+
     fields = if e.error_details.present?
       e.error_details.fetch('errors', {})
     else
