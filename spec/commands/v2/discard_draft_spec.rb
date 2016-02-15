@@ -13,7 +13,7 @@ RSpec.describe Commands::V2::DiscardDraft do
     context "when a draft content item exists for the given content_id" do
       let!(:existing_draft_item) {
         FactoryGirl.create(:access_limited_draft_content_item,
-          :with_translation, :with_location, :with_semantic_version, :with_lock_version,
+          :with_translation, :with_location, :with_user_facing_version, :with_lock_version,
           content_id: content_id,
           base_path: base_path,
         )
@@ -34,14 +34,14 @@ RSpec.describe Commands::V2::DiscardDraft do
         translation = Translation.find_by(content_item: existing_draft_item)
         location = Location.find_by(content_item: existing_draft_item)
         access_limit = AccessLimit.find_by(content_item: existing_draft_item)
-        semantic_version = SemanticVersion.find_by(content_item: existing_draft_item)
+        user_facing_version = UserFacingVersion.find_by(content_item: existing_draft_item)
         lock_version = LockVersion.find_by(target: existing_draft_item)
 
         expect(state).to be_nil
         expect(translation).to be_nil
         expect(location).to be_nil
         expect(access_limit).to be_nil
-        expect(semantic_version).to be_nil
+        expect(user_facing_version).to be_nil
         expect(lock_version).to be_nil
       end
 
@@ -94,7 +94,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "and a published content item exists" do
         let!(:published_item) {
           FactoryGirl.create(:live_content_item,
-            :with_location, :with_translation, :with_semantic_version, :with_lock_version,
+            :with_location, :with_translation, :with_user_facing_version, :with_lock_version,
             content_id: content_id,
             lock_version: 3,
           )
@@ -112,7 +112,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "when a locale is provided in the payload" do
         let!(:french_draft_item) {
           FactoryGirl.create(:draft_content_item,
-            :with_translation, :with_location, :with_semantic_version, :with_lock_version,
+            :with_translation, :with_location, :with_user_facing_version, :with_lock_version,
             content_id: content_id,
             base_path: base_path,
             locale: "fr",
@@ -154,7 +154,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "and a published content item exists" do
         before do
           FactoryGirl.create(:live_content_item,
-            :with_location, :with_translation, :with_semantic_version, :with_lock_version,
+            :with_location, :with_translation, :with_user_facing_version, :with_lock_version,
             content_id: content_id,
           )
         end

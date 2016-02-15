@@ -7,7 +7,7 @@ RSpec.describe Queries::GetContentCollection do
       :with_lock_version,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: '/a',
       format: 'topic',
     )
@@ -16,7 +16,7 @@ RSpec.describe Queries::GetContentCollection do
       :with_lock_version,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: '/b',
       format: 'topic',
     )
@@ -25,7 +25,7 @@ RSpec.describe Queries::GetContentCollection do
       :with_lock_version,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: '/c',
       format: 'mainstream_browse_page',
     )
@@ -45,7 +45,7 @@ RSpec.describe Queries::GetContentCollection do
       :with_lock_version,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: '/a',
       format: 'topic'
     )
@@ -54,7 +54,7 @@ RSpec.describe Queries::GetContentCollection do
       :with_lock_version,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: '/b',
       format: 'placeholder_topic'
     )
@@ -74,7 +74,7 @@ RSpec.describe Queries::GetContentCollection do
       :with_lock_version,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: '/draft',
       format: 'topic'
     )
@@ -83,7 +83,7 @@ RSpec.describe Queries::GetContentCollection do
       :with_lock_version,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: '/live',
       format: 'topic'
     )
@@ -124,7 +124,7 @@ RSpec.describe Queries::GetContentCollection do
         :with_lock_version,
         :with_location,
         :with_translation,
-        :with_semantic_version,
+        :with_user_facing_version,
         base_path: '/a',
         format: 'topic',
         publishing_app: 'publisher'
@@ -134,7 +134,7 @@ RSpec.describe Queries::GetContentCollection do
         :with_lock_version,
         :with_location,
         :with_translation,
-        :with_semantic_version,
+        :with_user_facing_version,
         base_path: '/b',
         format: 'topic',
         publishing_app: 'publisher'
@@ -144,7 +144,7 @@ RSpec.describe Queries::GetContentCollection do
         :with_lock_version,
         :with_location,
         :with_translation,
-        :with_semantic_version,
+        :with_user_facing_version,
         base_path: '/c',
         format: 'topic',
         publishing_app: 'whitehall'

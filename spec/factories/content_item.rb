@@ -27,7 +27,7 @@ FactoryGirl.define do
       locale "en"
       state "draft"
       base_path "/vat-rates"
-      semantic_version 1
+      user_facing_version 1
       lock_version 0
     end
 
@@ -55,9 +55,9 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_semantic_version do
+    trait :with_user_facing_version do
       after(:create) do |item, evaluator|
-        FactoryGirl.create(:semantic_version, number: evaluator.semantic_version, content_item: item)
+        FactoryGirl.create(:user_facing_version, number: evaluator.user_facing_version, content_item: item)
       end
     end
   end

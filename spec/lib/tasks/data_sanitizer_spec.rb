@@ -6,7 +6,7 @@ RSpec.describe Tasks::DataSanitizer do
       :draft_content_item,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: "/non-limited-draft",
     )
   end
@@ -16,7 +16,7 @@ RSpec.describe Tasks::DataSanitizer do
       :access_limited_draft_content_item,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: "/limited-draft",
     )
   end
@@ -26,7 +26,7 @@ RSpec.describe Tasks::DataSanitizer do
       :live_content_item,
       :with_location,
       :with_translation,
-      :with_semantic_version,
+      :with_user_facing_version,
       base_path: "/live-item",
     )
   end

@@ -37,7 +37,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         :with_draft,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
         v2_content_item.slice(*ContentItem::TOP_LEVEL_FIELDS)
       )
       draft = ContentItemFilter.similar_to(live, state: "draft").first

@@ -5,25 +5,25 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
     state = record if record.is_a?(State)
     translation = record if record.is_a?(Translation)
     location = record if record.is_a?(Location)
-    semantic_version = record if record.is_a?(SemanticVersion)
+    user_facing_version = record if record.is_a?(UserFacingVersion)
 
     state ||= State.find_by(content_item: content_item)
     translation ||= Translation.find_by(content_item: content_item)
     location ||= Location.find_by(content_item: content_item)
-    semantic_version ||= SemanticVersion.find_by(content_item: content_item)
+    user_facing_version ||= UserFacingVersion.find_by(content_item: content_item)
 
-    return unless state && translation && location && semantic_version
+    return unless state && translation && location && user_facing_version
 
     state_name = state.name
     locale = translation.locale
     base_path = location.base_path
-    semver = semantic_version.number
+    user_ver = user_facing_version.number
 
     matching_items = ContentItemFilter.filter(
       state: state_name,
       locale: locale,
       base_path: base_path,
-      semver: semver,
+      user_ver: user_ver,
     )
 
     additional_items = matching_items - [content_item]
@@ -33,7 +33,7 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
       error << "state=#{state_name}, "
       error << "locale=#{locale}, "
       error << "base_path=#{base_path}, "
-      error << "semver=#{semver}"
+      error << "user_ver=#{user_ver}"
 
       record.errors.add(:content_item, error)
     end

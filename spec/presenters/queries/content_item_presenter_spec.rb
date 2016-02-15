@@ -8,7 +8,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         :draft_content_item,
         :with_location,
         :with_translation,
-        :with_semantic_version,
+        :with_user_facing_version,
         content_id: content_id
       )
     end
@@ -39,7 +39,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
           :live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: content_id
         )
       end
@@ -63,7 +63,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
           :live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: content_id
         )
       end
@@ -87,7 +87,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
           :live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: content_id
         )
       end

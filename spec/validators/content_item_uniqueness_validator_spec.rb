@@ -18,7 +18,7 @@ RSpec.describe ContentItemUniquenessValidator do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
       )
     end
 
@@ -26,7 +26,7 @@ RSpec.describe ContentItemUniquenessValidator do
       assert_valid(State.last)
       assert_valid(Translation.last)
       assert_valid(Location.last)
-      assert_valid(SemanticVersion.last)
+      assert_valid(UserFacingVersion.last)
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe ContentItemUniquenessValidator do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
       )
     end
 
@@ -51,13 +51,13 @@ RSpec.describe ContentItemUniquenessValidator do
     end
 
     it "has an invalid supporting object" do
-      semantic_version = FactoryGirl.build(
-        :semantic_version,
+      user_facing_version = FactoryGirl.build(
+        :user_facing_version,
         content_item: content_item,
       )
 
-      expected_error = "conflicts with a duplicate: state=draft, locale=en, base_path=/vat-rates, semver=1"
-      assert_invalid(semantic_version, [expected_error])
+      expected_error = "conflicts with a duplicate: state=draft, locale=en, base_path=/vat-rates, user_ver=1"
+      assert_invalid(user_facing_version, [expected_error])
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe ContentItemUniquenessValidator do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
       )
 
       FactoryGirl.create(
@@ -76,8 +76,8 @@ RSpec.describe ContentItemUniquenessValidator do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
-        semantic_version: 2
+        :with_user_facing_version,
+        user_facing_version: 2
       )
     end
 
@@ -85,7 +85,7 @@ RSpec.describe ContentItemUniquenessValidator do
       assert_valid(State.last)
       assert_valid(Translation.last)
       assert_valid(Location.last)
-      assert_valid(SemanticVersion.last)
+      assert_valid(UserFacingVersion.last)
     end
   end
 
@@ -95,14 +95,14 @@ RSpec.describe ContentItemUniquenessValidator do
         :content_item,
         :with_state,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
       )
     end
 
     it "has valid supporting objects" do
       assert_valid(State.last)
       assert_valid(Location.last)
-      assert_valid(SemanticVersion.last)
+      assert_valid(UserFacingVersion.last)
     end
   end
 end

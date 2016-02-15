@@ -90,7 +90,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when creating a draft for a previously published content item" do
       before do
-        FactoryGirl.create(:live_content_item, :with_location, :with_translation, :with_semantic_version, :with_lock_version,
+        FactoryGirl.create(:live_content_item, :with_location, :with_translation, :with_user_facing_version, :with_lock_version,
           content_id: content_id,
           lock_version: 2,
         )
@@ -172,12 +172,12 @@ RSpec.describe Commands::V2::PutContent do
         expect(state.name).to eq("draft")
       end
 
-      it "creates a semantic lock_version for the content item" do
+      it "creates a user-facing version for the content item" do
         described_class.call(payload)
         content_item = ContentItem.last
 
-        semantic_version = SemanticVersion.find_by!(content_item: content_item)
-        expect(semantic_version.number).to eq(1)
+        user_facing_version = UserFacingVersion.find_by!(content_item: content_item)
+        expect(user_facing_version.number).to eq(1)
       end
 
       it "creates a lock version for the content item" do
@@ -207,7 +207,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the payload is for an already drafted content item" do
       let!(:previously_drafted_item) {
-        FactoryGirl.create(:draft_content_item, :with_location, :with_translation, :with_semantic_version, :with_lock_version,
+        FactoryGirl.create(:draft_content_item, :with_location, :with_translation, :with_user_facing_version, :with_lock_version,
           content_id: content_id,
           base_path: base_path,
           title: "Old Title",
@@ -223,12 +223,12 @@ RSpec.describe Commands::V2::PutContent do
         expect(previously_drafted_item.title).to eq("Some Title")
       end
 
-      it "does not increment the semantic lock_version for the content item" do
+      it "does not increment the user-facing version for the content item" do
         described_class.call(payload)
         previously_drafted_item.reload
 
-        semantic_version = SemanticVersion.find_by!(content_item: previously_drafted_item)
-        expect(semantic_version.number).to eq(1)
+        user_facing_version = UserFacingVersion.find_by!(content_item: previously_drafted_item)
+        expect(user_facing_version.number).to eq(1)
       end
 
       it "increments the lock version for the content item" do

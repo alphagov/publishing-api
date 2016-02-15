@@ -18,7 +18,7 @@ RSpec.describe State do
           :with_state,
           :with_translation,
           :with_location,
-          :with_semantic_version,
+          :with_user_facing_version,
         )
       end
 
@@ -27,7 +27,7 @@ RSpec.describe State do
           :content_item,
           :with_translation,
           :with_location,
-          :with_semantic_version,
+          :with_user_facing_version,
         )
       end
 

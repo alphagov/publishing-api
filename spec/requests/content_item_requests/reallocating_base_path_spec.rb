@@ -25,7 +25,7 @@ RSpec.describe "Reallocating base paths of content items" do
           :draft_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           base_path: base_path
         )
       end
@@ -55,7 +55,7 @@ RSpec.describe "Reallocating base paths of content items" do
           :draft_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: draft_content_id,
           base_path: base_path
         )
@@ -64,7 +64,7 @@ RSpec.describe "Reallocating base paths of content items" do
           :live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: live_content_id,
           base_path: base_path
         )
@@ -91,7 +91,7 @@ RSpec.describe "Reallocating base paths of content items" do
           :draft_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           base_path: base_path
         )
       end
@@ -108,7 +108,7 @@ RSpec.describe "Reallocating base paths of content items" do
           :live_content_item,
           :with_draft,
           :with_location,
-          :with_semantic_version,
+          :with_user_facing_version,
           base_path: base_path
         )
       end

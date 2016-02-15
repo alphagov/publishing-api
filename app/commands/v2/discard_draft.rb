@@ -45,7 +45,7 @@ module Commands
         State.find_by(content_item: draft).try(:destroy)
         Translation.find_by(content_item: draft).try(:destroy)
         Location.find_by(content_item: draft).try(:destroy)
-        SemanticVersion.find_by(content_item: draft).try(:destroy)
+        UserFacingVersion.find_by(content_item: draft).try(:destroy)
         LockVersion.find_by(target: draft).try(:destroy)
         AccessLimit.find_by(content_item: draft).try(:destroy)
       end

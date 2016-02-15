@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::ContentStorePresenter do
-  let(:content_item) { FactoryGirl.create(:live_content_item, :with_location, :with_translation, :with_semantic_version) }
+  let(:content_item) { FactoryGirl.create(:live_content_item, :with_location, :with_translation, :with_user_facing_version) }
 
   it "excludes the update_type from the presentation" do
     presentation = described_class.present(content_item)

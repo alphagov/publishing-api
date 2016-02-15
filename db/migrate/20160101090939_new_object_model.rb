@@ -4,7 +4,7 @@ class Version < ActiveRecord::Base
   belongs_to :target, polymorphic: true
 end
 
-class ExtractSemanticVersion < ActiveRecord::Migration
+class NewObjectModel < ActiveRecord::Migration
   def up
     create_table :locations do |t|
       t.references :content_item
@@ -30,13 +30,13 @@ class ExtractSemanticVersion < ActiveRecord::Migration
     end
     add_index :states, [:content_item_id, :name]
 
-    create_table :semantic_versions do |t|
+    create_table :user_facing_versions do |t|
       t.references :content_item
       t.integer :number, default: 0, null: false
 
       t.timestamps null: false
     end
-    add_index :semantic_versions, [:content_item_id, :number]
+    add_index :user_facing_versions, [:content_item_id, :number]
 
     create_table "lock_versions" do |t|
       t.integer  "target_id",               null: false
@@ -168,7 +168,7 @@ class ExtractSemanticVersion < ActiveRecord::Migration
     drop_table :translations
     drop_table :locations
     drop_table :states
-    drop_table :semantic_versions
+    drop_table :user_facing_versions
     drop_table :lock_versions
     remove_column :access_limits, :content_item_id
   end

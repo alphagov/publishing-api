@@ -10,7 +10,7 @@ RSpec.describe V2::ContentItemsController do
       :draft_content_item,
       :with_translation,
       :with_location,
-      :with_semantic_version,
+      :with_user_facing_version,
       content_id: content_id,
     )
 

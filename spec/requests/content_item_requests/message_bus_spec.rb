@@ -86,7 +86,7 @@ RSpec.describe "Message bus", type: :request do
           :live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: content_id,
         )
       }
@@ -109,7 +109,7 @@ RSpec.describe "Message bus", type: :request do
           :draft_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: content_id,
         )
       }
@@ -134,7 +134,7 @@ RSpec.describe "Message bus", type: :request do
         :draft_content_item,
         :with_location,
         :with_translation,
-        :with_semantic_version,
+        :with_user_facing_version,
         content_id: content_id,
         format: "guide",
       )

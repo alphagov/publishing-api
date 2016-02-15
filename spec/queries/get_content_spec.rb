@@ -18,7 +18,7 @@ RSpec.describe Queries::GetContent do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
         :with_lock_version,
         content_id: content_id,
       )
@@ -48,10 +48,10 @@ RSpec.describe Queries::GetContent do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
         :with_lock_version,
         content_id: content_id,
-        semantic_version: 2,
+        user_facing_version: 2,
         title: "Version 2 Title",
       )
 
@@ -60,15 +60,15 @@ RSpec.describe Queries::GetContent do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
         :with_lock_version,
         content_id: content_id,
-        semantic_version: 1,
+        user_facing_version: 1,
         title: "Version 1 Title",
       )
     end
 
-    it "returns the latest semantic version of the content item" do
+    it "returns the latest user_facing version of the content item" do
       result = subject.call(content_id)
       expect(result.fetch(:title)).to eq("Version 2 Title")
     end
@@ -81,10 +81,10 @@ RSpec.describe Queries::GetContent do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
         :with_lock_version,
         content_id: content_id,
-        semantic_version: 2,
+        user_facing_version: 2,
         title: "Superseded Title",
         state: "superseded",
       )
@@ -94,10 +94,10 @@ RSpec.describe Queries::GetContent do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
         :with_lock_version,
         content_id: content_id,
-        semantic_version: 1,
+        user_facing_version: 1,
         title: "Published Title",
         state: "published",
       )
@@ -116,10 +116,10 @@ RSpec.describe Queries::GetContent do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
         :with_lock_version,
         content_id: content_id,
-        semantic_version: 2,
+        user_facing_version: 2,
         title: "French Title",
         locale: "fr",
       )
@@ -129,10 +129,10 @@ RSpec.describe Queries::GetContent do
         :with_state,
         :with_translation,
         :with_location,
-        :with_semantic_version,
+        :with_user_facing_version,
         :with_lock_version,
         content_id: content_id,
-        semantic_version: 1,
+        user_facing_version: 1,
         title: "English Title",
         locale: "en",
       )

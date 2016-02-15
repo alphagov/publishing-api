@@ -7,7 +7,7 @@ RSpec.describe Commands::V2::Publish do
         :draft_content_item,
         :with_location,
         :with_translation,
-        :with_semantic_version,
+        :with_user_facing_version,
         content_id: content_id
       )
     end
@@ -69,7 +69,7 @@ RSpec.describe Commands::V2::Publish do
           :live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: draft_item.content_id,
         )
       end
@@ -116,7 +116,7 @@ RSpec.describe Commands::V2::Publish do
           :redirect_live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           locale: new_locale,
           base_path: draft_base_path,
         )
@@ -233,7 +233,7 @@ RSpec.describe Commands::V2::Publish do
               :live_content_item,
               :with_location,
               :with_translation,
-              :with_semantic_version,
+              :with_user_facing_version,
               content_id: draft_item.content_id,
               public_updated_at: public_updated_at_from_last_live_item,
             )
@@ -283,7 +283,7 @@ RSpec.describe Commands::V2::Publish do
           :live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: draft_item.content_id,
           base_path: "/hat-rates",
         )
@@ -294,7 +294,7 @@ RSpec.describe Commands::V2::Publish do
           :redirect_draft_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           base_path: "/hat-rates",
         )
       end

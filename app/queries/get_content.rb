@@ -7,7 +7,7 @@ module Queries
       content_items = Translation.filter(content_items, locale: locale)
       content_items = State.filter(content_items, name: ["draft", "published"])
 
-      content_item = SemanticVersion.latest(content_items)
+      content_item = UserFacingVersion.latest(content_items)
 
       if content_item
         Presenters::Queries::ContentItemPresenter.present(content_item)

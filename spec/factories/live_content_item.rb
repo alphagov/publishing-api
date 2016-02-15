@@ -7,7 +7,7 @@ FactoryGirl.define do
 
     trait :with_draft do
       after(:create) do |live_content_item, evaluator|
-        draft = FactoryGirl.create(:draft_content_item, :with_translation, :with_location, :with_semantic_version, :with_lock_version,
+        draft = FactoryGirl.create(:draft_content_item, :with_translation, :with_location, :with_user_facing_version, :with_lock_version,
           live_content_item.as_json(only: %i[title content_id format routes redirects]).merge(
             locale: evaluator.locale,
             base_path: evaluator.base_path,

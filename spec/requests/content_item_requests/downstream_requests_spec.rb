@@ -81,7 +81,7 @@ RSpec.describe "Downstream requests", type: :request do
         draft = FactoryGirl.create(:draft_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           :with_lock_version,
           content_id: content_id,
         )
@@ -101,7 +101,7 @@ RSpec.describe "Downstream requests", type: :request do
         FactoryGirl.create(:live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           :with_lock_version,
           content_id: content_id,
         )
@@ -116,7 +116,7 @@ RSpec.describe "Downstream requests", type: :request do
         draft = FactoryGirl.create(:draft_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           :with_lock_version,
           content_id: content_id,
         )
@@ -129,7 +129,7 @@ RSpec.describe "Downstream requests", type: :request do
         FactoryGirl.create(:live_content_item,
           :with_location,
           :with_translation,
-          :with_semantic_version,
+          :with_user_facing_version,
           :with_lock_version,
           content_id: content_id,
         )
@@ -151,7 +151,7 @@ RSpec.describe "Downstream requests", type: :request do
       FactoryGirl.create(:draft_content_item,
         :with_location,
         :with_translation,
-        :with_semantic_version,
+        :with_user_facing_version,
         :with_lock_version,
         content_id: content_id,
       )

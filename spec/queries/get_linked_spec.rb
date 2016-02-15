@@ -39,7 +39,7 @@ RSpec.describe Queries::GetLinked do
           :with_draft,
           :with_translation,
           :with_location,
-          :with_semantic_version,
+          :with_user_facing_version,
           content_id: target_content_id,
           base_path: "/pay-now"
         )
@@ -76,7 +76,7 @@ RSpec.describe Queries::GetLinked do
             :with_lock_version,
             :with_translation,
             :with_location,
-            :with_semantic_version,
+            :with_user_facing_version,
             content_id: content_id,
             title: "VAT and VATy things"
           )
@@ -97,7 +97,7 @@ RSpec.describe Queries::GetLinked do
             :with_lock_version,
             :with_translation,
             :with_location,
-            :with_semantic_version,
+            :with_user_facing_version,
             base_path: '/vatty',
             content_id: SecureRandom.uuid,
             title: "Another VATTY thing"
@@ -153,7 +153,7 @@ RSpec.describe Queries::GetLinked do
             :with_draft,
             :with_translation,
             :with_location,
-            :with_semantic_version,
+            :with_user_facing_version,
             content_id: another_target_content_id,
             base_path: "/send-now"
           )
@@ -163,7 +163,7 @@ RSpec.describe Queries::GetLinked do
             :with_lock_version,
             :with_translation,
             :with_location,
-            :with_semantic_version,
+            :with_user_facing_version,
             content_id: content_id,
             title: "HMRC documents"
           )
@@ -185,7 +185,7 @@ RSpec.describe Queries::GetLinked do
             :with_lock_version,
             :with_translation,
             :with_location,
-            :with_semantic_version,
+            :with_user_facing_version,
             base_path: '/other-hmrc-document',
             content_id: SecureRandom.uuid,
             title: "Another HMRC document"

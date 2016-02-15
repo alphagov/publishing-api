@@ -78,7 +78,7 @@ module Commands
           location: Location.create!(content_item: content_item, base_path: base_path),
           state: State.create!(content_item: content_item, name: "draft"),
           translation: Translation.create!(content_item: content_item, locale: locale),
-          semantic_version: SemanticVersion.create!(content_item: content_item, number: 1),
+          user_facing_version: UserFacingVersion.create!(content_item: content_item, number: 1),
           lock_version: LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft),
         }
       end

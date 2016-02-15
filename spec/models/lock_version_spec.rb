@@ -11,7 +11,7 @@ RSpec.describe LockVersion do
           :with_draft,
           :with_translation,
           :with_location,
-          :with_semantic_version,
+          :with_user_facing_version,
         )
       end
 

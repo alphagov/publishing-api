@@ -153,14 +153,14 @@ ActiveRecord::Schema.define(version: 20160101090939) do
 
   add_index "path_reservations", ["base_path"], name: "index_path_reservations_on_base_path", unique: true, using: :btree
 
-  create_table "semantic_versions", force: :cascade do |t|
+  create_table "user_facing_versions", force: :cascade do |t|
     t.integer  "content_item_id"
     t.integer  "number",          default: 0, null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
 
-  add_index "semantic_versions", ["content_item_id", "number"], name: "index_semantic_versions_on_content_item_id_and_number", using: :btree
+  add_index "user_facing_versions", ["content_item_id", "number"], name: "index_user_facing_versions_on_content_item_id_and_number", using: :btree
 
   create_table "states", force: :cascade do |t|
     t.integer  "content_item_id"

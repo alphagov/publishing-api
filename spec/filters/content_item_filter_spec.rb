@@ -4,33 +4,33 @@ RSpec.describe ContentItemFilter do
   let(:content_id) { "b2844cad-4140-46db-81eb-db717370fee1" }
 
   let!(:content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_semantic_version,
+    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
       content_id: content_id,
     )
   }
 
   let!(:oil_and_gas_content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_semantic_version,
+    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
       content_id: content_id,
       base_path: "/oil-and-gas"
     )
   }
   let!(:french_content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_semantic_version,
+    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
       content_id: content_id,
       locale: "fr"
     )
   }
   let!(:superseded_content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_semantic_version,
+    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
       content_id: content_id,
       state: "superseded"
     )
   }
   let!(:new_version_content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_semantic_version,
+    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
       content_id: content_id,
-      semantic_version: 2,
+      user_facing_version: 2,
     )
   }
 
@@ -62,8 +62,8 @@ RSpec.describe ContentItemFilter do
       end
     end
 
-    context "when a semver is given" do
-      let(:params) { { semver: 2 } }
+    context "when a user_ver is given" do
+      let(:params) { { user_ver: 2 } }
 
       it "returns a scope of the expected content items" do
         result = described_class.similar_to(content_item, params)
@@ -133,8 +133,8 @@ RSpec.describe ContentItemFilter do
       end
     end
 
-    context "when a semver is given" do
-      let(:params) { { semver: 1 } }
+    context "when a user_ver is given" do
+      let(:params) { { user_ver: 1 } }
 
       it "returns a scope of the expected content items" do
         result = described_class.filter(params)

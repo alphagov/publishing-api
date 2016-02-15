@@ -1,4 +1,4 @@
-class SemanticVersion < ActiveRecord::Base
+class UserFacingVersion < ActiveRecord::Base
   belongs_to :content_item
 
   validate :numbers_must_increase
@@ -8,14 +8,14 @@ class SemanticVersion < ActiveRecord::Base
 
   def self.filter(content_item_scope, number:)
     content_item_scope
-      .joins("INNER JOIN semantic_versions ON semantic_versions.content_item_id = content_items.id")
-      .where("semantic_versions.number" => number)
+      .joins("INNER JOIN user_facing_versions ON user_facing_versions.content_item_id = content_items.id")
+      .where("user_facing_versions.number" => number)
   end
 
   def self.latest(content_item_scope)
     content_item_scope
-      .joins("INNER JOIN semantic_versions ON semantic_versions.content_item_id = content_items.id")
-      .order("semantic_versions.number asc")
+      .joins("INNER JOIN user_facing_versions ON user_facing_versions.content_item_id = content_items.id")
+      .order("user_facing_versions.number asc")
       .last
   end
 
