@@ -4,7 +4,7 @@ class UserFacingVersion < ActiveRecord::Base
   validate :numbers_must_increase
 
   validates_with ContentItemUniquenessValidator
-  # validate :draft_cannot_be_behind_live
+  validate :draft_cannot_be_behind_live
 
   def self.filter(content_item_scope, number:)
     content_item_scope
@@ -23,22 +23,6 @@ class UserFacingVersion < ActiveRecord::Base
     self.number += 1
   end
 
-  # def copy_version_from(target)
-  #   version = Version.find_by!(target: target)
-  #   self.number = version.number
-  # end
-  #
-  # def conflicts_with?(previous_version_number)
-  #   return false if previous_version_number.nil?
-  #
-  #   self.number != previous_version_number
-  # end
-  #
-  # def self.in_bulk(items, type)
-  #   id_list = items.reject(&:blank?).map(&:id)
-  #   self.where(target: id_list, target_type: type.to_s).index_by(&:target_id)
-  # end
-
 private
 
   def numbers_must_increase
@@ -50,26 +34,24 @@ private
     errors.add(:number, message)
   end
 
-  # def draft_cannot_be_behind_live
-  #   return unless target.is_a?(ContentItem)
-  #
-  #   live_version = live_content_item_version
-  #   return unless live_version
-  #
-  #   if number < live_version.number
-  #     mismatch = "(#{number} < #{live_version.number})"
-  #     message = "draft version cannot be behind the live version #{mismatch}"
-  #     errors.add(:version, message)
-  #   end
-  # end
-  #
-  # def live_content_item_version
-  #   live_content_item = ContentItemFilter.similar_to(target, state: "published").first
-  #   self.class.find_by(target: live_content_item)
-  # end
-  #
-  # def draft_content_item_version
-  #   draft_content_item = ContentItemFilter.similar_to(target, state: "draft").first
-  #   self.class.find_by(target: draft_content_item)
-  # end
+  def draft_cannot_be_behind_live
+    draft = ContentItemFilter.similar_to(content_item, state: "draft", user_ver: nil).first
+    live = ContentItemFilter.similar_to(content_item, state: "published", user_ver: nil).first
+
+    if draft == content_item
+      draft_version = self
+      live_version = self.class.find_by(content_item: live)
+    elsif live == content_item
+      draft_version = self.class.find_by(content_item: draft)
+      live_version = self
+    end
+
+    return unless draft_version && live_version
+
+    if draft_version.number < live_version.number
+      mismatch = "(#{draft_version.number} < #{live_version.number})"
+      message = "draft version cannot be behind the live version #{mismatch}"
+      errors.add(:number, message)
+    end
+  end
 end
