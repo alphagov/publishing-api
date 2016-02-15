@@ -9,9 +9,6 @@ RSpec.describe LockVersion do
         FactoryGirl.create(
           :live_content_item,
           :with_draft,
-          :with_translation,
-          :with_location,
-          :with_user_facing_version,
         )
       end
 
@@ -137,7 +134,7 @@ RSpec.describe LockVersion do
   describe "::in_bulk" do
     it "returns a hash of LockVersions for a set of items, keyed by item id" do
       items = 5.times.map do |i|
-        FactoryGirl.create(:draft_content_item, :with_lock_version, base_path: "/page-#{i}")
+        FactoryGirl.create(:draft_content_item, base_path: "/page-#{i}")
       end
 
       lock_versions = LockVersion.in_bulk(items, ContentItem)

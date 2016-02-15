@@ -84,9 +84,6 @@ RSpec.describe "Message bus", type: :request do
       let!(:live_content_item) {
         FactoryGirl.create(
           :live_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
           content_id: content_id,
         )
       }
@@ -107,9 +104,6 @@ RSpec.describe "Message bus", type: :request do
       let!(:draft_content_item) {
         FactoryGirl.create(
           :draft_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
           content_id: content_id,
         )
       }
@@ -132,9 +126,6 @@ RSpec.describe "Message bus", type: :request do
     before do
       FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: content_id,
         format: "guide",
       )

@@ -3,18 +3,8 @@ require "rails_helper"
 RSpec.describe UserFacingVersion do
   describe ".latest" do
     before do
-      FactoryGirl.create(
-        :content_item,
-        :with_user_facing_version,
-        user_facing_version: 2,
-        title: "Latest",
-      )
-
-      FactoryGirl.create(
-        :content_item,
-        :with_user_facing_version,
-        user_facing_version: 1,
-      )
+      FactoryGirl.create(:content_item, user_facing_version: 2, title: "Latest")
+      FactoryGirl.create(:content_item, user_facing_version: 1)
     end
 
     it "returns the content item with the latest user_facing version" do

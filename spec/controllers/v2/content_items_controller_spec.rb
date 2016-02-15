@@ -6,14 +6,7 @@ RSpec.describe V2::ContentItemsController do
   before do
     stub_request(:any, /content-store/)
 
-    @draft = FactoryGirl.create(
-      :draft_content_item,
-      :with_translation,
-      :with_location,
-      :with_user_facing_version,
-      content_id: content_id,
-    )
-
+    @draft = FactoryGirl.create(:draft_content_item, content_id: content_id)
     FactoryGirl.create(:lock_version, target: @draft, number: 2)
   end
 

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :draft_content_item, traits: [:with_state], parent: :content_item do
+  factory :draft_content_item, parent: :content_item do
     transient do
       state "draft"
     end

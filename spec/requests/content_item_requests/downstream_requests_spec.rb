@@ -79,10 +79,6 @@ RSpec.describe "Downstream requests", type: :request do
     context "when only a draft content item exists for the link set" do
       before do
         draft = FactoryGirl.create(:draft_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
-          :with_lock_version,
           content_id: content_id,
         )
 
@@ -99,10 +95,6 @@ RSpec.describe "Downstream requests", type: :request do
     context "when only a live content item exists for the link set" do
       before do
         FactoryGirl.create(:live_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
-          :with_lock_version,
           content_id: content_id,
         )
       end
@@ -114,10 +106,6 @@ RSpec.describe "Downstream requests", type: :request do
     context "when draft and live content items exists for the link set" do
       before do
         draft = FactoryGirl.create(:draft_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
-          :with_lock_version,
           content_id: content_id,
         )
 
@@ -127,10 +115,6 @@ RSpec.describe "Downstream requests", type: :request do
         )
 
         FactoryGirl.create(:live_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
-          :with_lock_version,
           content_id: content_id,
         )
       end
@@ -149,10 +133,6 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_id) { SecureRandom.uuid }
     let!(:draft) {
       FactoryGirl.create(:draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
-        :with_lock_version,
         content_id: content_id,
       )
     }

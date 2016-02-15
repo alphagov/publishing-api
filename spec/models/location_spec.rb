@@ -18,25 +18,16 @@ RSpec.describe Location do
 
     context "when another content item has identical supporting objects" do
       before do
-        FactoryGirl.create(
-          :content_item,
-          :with_state,
-          :with_translation,
-          :with_location,
-          :with_user_facing_version,
-        )
+        FactoryGirl.create(:content_item, base_path: "/foo")
       end
 
       let(:content_item) do
-        FactoryGirl.create(
-          :content_item,
-          :with_state,
-          :with_translation,
-          :with_user_facing_version,
-        )
+        FactoryGirl.create(:content_item, base_path: "/bar")
       end
 
-      subject { FactoryGirl.build(:location, content_item: content_item) }
+      subject {
+        FactoryGirl.build(:location, content_item: content_item, base_path: "/foo")
+      }
 
       it "is invalid" do
         expect(subject).to be_invalid
@@ -62,7 +53,6 @@ RSpec.describe Location do
     let!(:vat_item) do
       FactoryGirl.create(
         :content_item,
-        :with_location,
         title: "VAT Title",
         base_path: "/vat-rates",
       )
@@ -71,7 +61,6 @@ RSpec.describe Location do
     let!(:tax_item) do
       FactoryGirl.create(
         :content_item,
-        :with_location,
         title: "Tax Title",
         base_path: "/tax",
       )

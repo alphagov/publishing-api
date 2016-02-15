@@ -90,7 +90,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when creating a draft for a previously published content item" do
       before do
-        FactoryGirl.create(:live_content_item, :with_location, :with_translation, :with_user_facing_version, :with_lock_version,
+        FactoryGirl.create(:live_content_item,
           content_id: content_id,
           lock_version: 2,
         )
@@ -110,7 +110,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "with another draft content item blocking the put_content action" do
       let!(:other_content_item) {
-        FactoryGirl.create(:redirect_draft_content_item, :with_location, :with_translation,
+        FactoryGirl.create(:redirect_draft_content_item,
           locale: locale,
           base_path: base_path,
         )
@@ -134,7 +134,7 @@ RSpec.describe Commands::V2::PutContent do
       let(:new_locale) { "fr" }
 
       let!(:other_content_item) {
-        FactoryGirl.create(:redirect_draft_content_item, :with_location, :with_translation,
+        FactoryGirl.create(:redirect_draft_content_item,
           locale: new_locale,
           base_path: base_path,
         )
@@ -207,7 +207,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the payload is for an already drafted content item" do
       let!(:previously_drafted_item) {
-        FactoryGirl.create(:draft_content_item, :with_location, :with_translation, :with_user_facing_version, :with_lock_version,
+        FactoryGirl.create(:draft_content_item,
           content_id: content_id,
           base_path: base_path,
           title: "Old Title",

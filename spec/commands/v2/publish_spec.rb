@@ -2,20 +2,17 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::Publish do
   describe "call" do
-    let(:draft_item) do
+    let!(:draft_item) do
       FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
-        content_id: content_id
+        content_id: content_id,
+        lock_version: 2,
       )
     end
 
     let(:content_id) { SecureRandom.uuid }
 
     before do
-      FactoryGirl.create(:lock_version, target: draft_item, number: 2)
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
 
@@ -27,7 +24,7 @@ RSpec.describe Commands::V2::Publish do
       {
         content_id: content_id,
         update_type: "major",
-        previous_version: 2
+        previous_version: 2,
       }
     end
 
@@ -67,9 +64,6 @@ RSpec.describe Commands::V2::Publish do
       let!(:live_item) do
         FactoryGirl.create(
           :live_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
           content_id: draft_item.content_id,
         )
       end
@@ -87,7 +81,7 @@ RSpec.describe Commands::V2::Publish do
       let(:draft_base_path) { Location.find_by!(content_item: draft_item).base_path }
 
       let!(:other_content_item) {
-        FactoryGirl.create(:redirect_live_content_item, :with_location, :with_translation,
+        FactoryGirl.create(:redirect_live_content_item,
           locale: draft_locale,
           base_path: draft_base_path,
         )
@@ -114,9 +108,6 @@ RSpec.describe Commands::V2::Publish do
       let!(:other_content_item) {
         FactoryGirl.create(
           :redirect_live_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
           locale: new_locale,
           base_path: draft_base_path,
         )
@@ -231,9 +222,6 @@ RSpec.describe Commands::V2::Publish do
           let!(:live_item) do
             FactoryGirl.create(
               :live_content_item,
-              :with_location,
-              :with_translation,
-              :with_user_facing_version,
               content_id: draft_item.content_id,
               public_updated_at: public_updated_at_from_last_live_item,
             )
@@ -281,9 +269,6 @@ RSpec.describe Commands::V2::Publish do
       let!(:live_item) do
         FactoryGirl.create(
           :live_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
           content_id: draft_item.content_id,
           base_path: "/hat-rates",
         )
@@ -292,9 +277,6 @@ RSpec.describe Commands::V2::Publish do
       before do
         FactoryGirl.create(
           :redirect_draft_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
           base_path: "/hat-rates",
         )
       end

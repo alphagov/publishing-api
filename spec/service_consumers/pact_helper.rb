@@ -66,9 +66,6 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       draft = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         base_path: "/robots.txt",
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         title: "Instructions for crawler robots",
@@ -93,9 +90,6 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       draft = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
       FactoryGirl.create(:lock_version, target: draft, number: 1)
@@ -106,9 +100,6 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       draft = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
       )
@@ -122,9 +113,6 @@ Pact.provider_states_for "GDS API Adapters" do
       live = FactoryGirl.create(
         :live_content_item,
         #:with_draft, # TODO is this needed?
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7"
       )
 
@@ -162,9 +150,6 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       draft = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
       )
@@ -176,27 +161,18 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       english_draft = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "en",
         format: "topic",
       )
       french_draft = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
         format: "topic",
       )
       arabic_draft = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "ar",
         format: "topic",
@@ -212,9 +188,6 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       draft = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
       FactoryGirl.create(:lock_version, target: draft, number: 3)
@@ -228,9 +201,6 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       draft = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
       FactoryGirl.create(:lock_version, target: draft, number: 1)
@@ -250,9 +220,6 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       content_item = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         title: 'Content Item A',
         base_path: '/a-base-path',
         format: 'topic',
@@ -261,9 +228,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
       content_item = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         title: 'Content Item B',
         base_path: '/another-base-path',
         format: 'topic',
@@ -277,9 +241,6 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       content_item = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         title: 'Content Item A',
         base_path: '/a-base-path',
         format: 'topic',
@@ -288,9 +249,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
       content_item = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         title: 'Content Item B',
         base_path: '/another-base-path',
         format: 'topic',
@@ -299,9 +257,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
       content_item = FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         title: 'Content Item C',
         base_path: '/yet-another-base-path',
         format: 'topic',
@@ -320,18 +275,12 @@ Pact.provider_states_for "GDS API Adapters" do
       content_item = FactoryGirl.create(
         :live_content_item,
         :with_draft,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: content_id1,
       )
       FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
       content_item = FactoryGirl.create(
         :live_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: content_id2,
         base_path: '/item-a',
       )
@@ -339,9 +288,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
       content_item = FactoryGirl.create(
         :live_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         content_id: content_id3,
         base_path: '/item-b',
       )
@@ -359,10 +305,6 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
-        :with_lock_version,
         content_id: 'bed722e6-db68-43e5-9079-063f623335a7',
         format: 'topic',
         details: {foo: :bar}

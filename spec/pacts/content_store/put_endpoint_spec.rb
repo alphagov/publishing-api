@@ -7,9 +7,6 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   let!(:content_item) do
     FactoryGirl.create(
       :live_content_item,
-      :with_translation,
-      :with_location,
-      :with_user_facing_version,
       content_id: content_id
     )
   end

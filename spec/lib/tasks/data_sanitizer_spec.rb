@@ -4,9 +4,6 @@ RSpec.describe Tasks::DataSanitizer do
   let!(:non_limited_draft) do
     FactoryGirl.create(
       :draft_content_item,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: "/non-limited-draft",
     )
   end
@@ -14,9 +11,6 @@ RSpec.describe Tasks::DataSanitizer do
   let!(:limited_draft) do
     FactoryGirl.create(
       :access_limited_draft_content_item,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: "/limited-draft",
     )
   end
@@ -24,9 +18,6 @@ RSpec.describe Tasks::DataSanitizer do
   let!(:live_content_item) do
     FactoryGirl.create(
       :live_content_item,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: "/live-item",
     )
   end
@@ -53,14 +44,6 @@ RSpec.describe Tasks::DataSanitizer do
   end
 
   it "removes the limited draft" do
-    FactoryGirl.create(
-      :live_content_item,
-      :with_location,
-      base_path: "/live-item",
-      content_id: limited_draft.content_id,
-      title: "A live content item",
-    )
-
     expect {
       Tasks::DataSanitizer.delete_access_limited(stdout)
     }.to change(ContentItem, :count).by(-1)

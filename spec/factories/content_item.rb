@@ -24,41 +24,19 @@ FactoryGirl.define do
     }
 
     transient do
-      locale "en"
+      lock_version 0
       state "draft"
+      locale "en"
       base_path "/vat-rates"
       user_facing_version 1
-      lock_version 0
     end
 
-    trait :with_lock_version do
-      after(:create) do |item, evaluator|
-        FactoryGirl.create(:lock_version, number: evaluator.lock_version, target: item)
-      end
-    end
-
-    trait :with_state do
-      after(:create) do |item, evaluator|
-        FactoryGirl.create(:state, name: evaluator.state, content_item: item)
-      end
-    end
-
-    trait :with_translation do
-      after(:create) do |item, evaluator|
-        FactoryGirl.create(:translation, locale: evaluator.locale, content_item: item)
-      end
-    end
-
-    trait :with_location do
-      after(:create) do |item, evaluator|
-        FactoryGirl.create(:location, base_path: evaluator.base_path, content_item: item)
-      end
-    end
-
-    trait :with_user_facing_version do
-      after(:create) do |item, evaluator|
-        FactoryGirl.create(:user_facing_version, number: evaluator.user_facing_version, content_item: item)
-      end
+    after(:create) do |item, evaluator|
+      FactoryGirl.create(:lock_version, number: evaluator.lock_version, target: item)
+      FactoryGirl.create(:state, name: evaluator.state, content_item: item)
+      FactoryGirl.create(:translation, locale: evaluator.locale, content_item: item)
+      FactoryGirl.create(:location, base_path: evaluator.base_path, content_item: item)
+      FactoryGirl.create(:user_facing_version, number: evaluator.user_facing_version, content_item: item)
     end
   end
 

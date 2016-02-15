@@ -4,28 +4,16 @@ RSpec.describe Queries::GetContentCollection do
   it "returns the content items of the given format" do
     FactoryGirl.create(
       :draft_content_item,
-      :with_lock_version,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: '/a',
       format: 'topic',
     )
     FactoryGirl.create(
       :draft_content_item,
-      :with_lock_version,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: '/b',
       format: 'topic',
     )
     FactoryGirl.create(
       :draft_content_item,
-      :with_lock_version,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: '/c',
       format: 'mainstream_browse_page',
     )
@@ -42,19 +30,11 @@ RSpec.describe Queries::GetContentCollection do
   it "returns the content items of the given format, and placeholder_format" do
     FactoryGirl.create(
       :draft_content_item,
-      :with_lock_version,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: '/a',
       format: 'topic'
     )
     FactoryGirl.create(
       :draft_content_item,
-      :with_lock_version,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: '/b',
       format: 'placeholder_topic'
     )
@@ -71,19 +51,11 @@ RSpec.describe Queries::GetContentCollection do
   it "includes the publishing state of the item" do
     FactoryGirl.create(
       :draft_content_item,
-      :with_lock_version,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: '/draft',
       format: 'topic'
     )
     FactoryGirl.create(
       :live_content_item,
-      :with_lock_version,
-      :with_location,
-      :with_translation,
-      :with_user_facing_version,
       base_path: '/live',
       format: 'topic'
     )
@@ -121,30 +93,18 @@ RSpec.describe Queries::GetContentCollection do
     before do
       FactoryGirl.create(
         :draft_content_item,
-        :with_lock_version,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         base_path: '/a',
         format: 'topic',
         publishing_app: 'publisher'
       )
       FactoryGirl.create(
         :draft_content_item,
-        :with_lock_version,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         base_path: '/b',
         format: 'topic',
         publishing_app: 'publisher'
       )
       FactoryGirl.create(
         :draft_content_item,
-        :with_lock_version,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
         base_path: '/c',
         format: 'topic',
         publishing_app: 'whitehall'

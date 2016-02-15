@@ -4,31 +4,31 @@ RSpec.describe ContentItemFilter do
   let(:content_id) { "b2844cad-4140-46db-81eb-db717370fee1" }
 
   let!(:content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
-      content_id: content_id,
+    FactoryGirl.create(:content_item,
+      content_id: content_id
     )
   }
 
   let!(:oil_and_gas_content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
+    FactoryGirl.create(:content_item,
       content_id: content_id,
       base_path: "/oil-and-gas"
     )
   }
   let!(:french_content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
+    FactoryGirl.create(:content_item,
       content_id: content_id,
       locale: "fr"
     )
   }
   let!(:superseded_content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
+    FactoryGirl.create(:content_item,
       content_id: content_id,
       state: "superseded"
     )
   }
   let!(:new_version_content_item) {
-    FactoryGirl.create(:content_item, :with_location, :with_translation, :with_state, :with_user_facing_version,
+    FactoryGirl.create(:content_item,
       content_id: content_id,
       user_facing_version: 2,
     )

@@ -170,9 +170,6 @@ RSpec.describe Commands::V2::PutLinkSet do
     before do
       FactoryGirl.create(
         :draft_content_item,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
         content_id: content_id,
         base_path: "/some-path",
         title: "Some Title",
@@ -206,9 +203,6 @@ RSpec.describe Commands::V2::PutLinkSet do
         before do
           FactoryGirl.create(
             :draft_content_item,
-            :with_translation,
-            :with_location,
-            :with_user_facing_version,
             content_id: content_id,
             base_path: "/french-path",
             title: "French Title",
@@ -257,9 +251,6 @@ RSpec.describe Commands::V2::PutLinkSet do
     before do
       FactoryGirl.create(
         :live_content_item,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
         content_id: content_id,
         base_path: "/some-path",
         title: "Some Title",
@@ -307,9 +298,6 @@ RSpec.describe Commands::V2::PutLinkSet do
         before do
           FactoryGirl.create(
             :live_content_item,
-            :with_translation,
-            :with_location,
-            :with_user_facing_version,
             content_id: content_id,
             base_path: "/french-path",
             title: "French Title",

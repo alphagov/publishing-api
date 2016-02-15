@@ -6,7 +6,7 @@ RSpec.describe Presenters::DownstreamPresenter do
   end
 
   context "for a live content item" do
-    let!(:content_item) { FactoryGirl.create(:live_content_item, :with_location, :with_translation, :with_user_facing_version) }
+    let!(:content_item) { FactoryGirl.create(:live_content_item) }
     let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
     it "presents the object graph for the content store" do
@@ -36,7 +36,7 @@ RSpec.describe Presenters::DownstreamPresenter do
   end
 
   context "for a draft content item" do
-    let!(:content_item) { FactoryGirl.create(:draft_content_item, :with_location, :with_translation, :with_user_facing_version) }
+    let!(:content_item) { FactoryGirl.create(:draft_content_item) }
     let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
     it "presents the object graph for the content store" do
@@ -66,7 +66,7 @@ RSpec.describe Presenters::DownstreamPresenter do
   end
 
   describe "conditional attributes" do
-    let!(:content_item) { FactoryGirl.create(:live_content_item, :with_location, :with_translation, :with_user_facing_version) }
+    let!(:content_item) { FactoryGirl.create(:live_content_item) }
     let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
     context "when the link_set is not present" do
@@ -80,7 +80,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "when the public_updated_at is not present" do
-    let!(:content_item) { FactoryGirl.create(:gone_draft_content_item, :with_location, :with_translation, :with_user_facing_version, public_updated_at: nil) }
+    let!(:content_item) { FactoryGirl.create(:gone_draft_content_item) }
 
       it "does not raise an error" do
         expect {

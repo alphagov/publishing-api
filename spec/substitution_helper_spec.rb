@@ -6,27 +6,27 @@ RSpec.describe SubstitutionHelper do
   let(:existing_base_path) { "/vat-rates" }
 
   let!(:existing_item) {
-    FactoryGirl.create(:draft_content_item, :with_location, :with_translation,
+    FactoryGirl.create(:draft_content_item,
       format: existing_format,
       base_path: existing_base_path,
     )
   }
 
   let!(:live_item) {
-    FactoryGirl.create(:live_content_item, :with_location, :with_translation,
+    FactoryGirl.create(:live_content_item,
       format: existing_format,
       base_path: existing_base_path,
     )
   }
   let!(:french_item) {
-    FactoryGirl.create(:draft_content_item, :with_location, :with_translation,
+    FactoryGirl.create(:draft_content_item,
       format: existing_format,
       base_path: existing_base_path,
       locale: "fr",
     )
   }
   let!(:item_elsewhere) {
-    FactoryGirl.create(:draft_content_item, :with_location, :with_translation,
+    FactoryGirl.create(:draft_content_item,
       format: existing_format,
       base_path: "/somewhere-else",
     )

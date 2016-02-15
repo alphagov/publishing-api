@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :live_content_item, traits: [:with_state], parent: :content_item do
+  factory :live_content_item, parent: :content_item do
     transient do
       draft_version_number 1
       state "published"
@@ -7,7 +7,7 @@ FactoryGirl.define do
 
     trait :with_draft do
       after(:create) do |live_content_item, evaluator|
-        draft = FactoryGirl.create(:draft_content_item, :with_translation, :with_location, :with_user_facing_version, :with_lock_version,
+        draft = FactoryGirl.create(:draft_content_item,
           live_content_item.as_json(only: %i[title content_id format routes redirects]).merge(
             locale: evaluator.locale,
             base_path: evaluator.base_path,

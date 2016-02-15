@@ -6,13 +6,10 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     let(:content_item) do
       FactoryGirl.create(
         :draft_content_item,
-        :with_location,
-        :with_translation,
-        :with_user_facing_version,
-        content_id: content_id
+        content_id: content_id,
+        lock_version: 101,
       )
     end
-    let!(:lock_version) { FactoryGirl.create(:lock_version, target: content_item, number: 101) }
     let(:result) { Presenters::Queries::ContentItemPresenter.present(content_item) }
 
     it "presents content item attributes as a hash" do
@@ -34,18 +31,12 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "with a published lock_version and no subsequent draft" do
-      let(:live_content_item) do
+      let(:content_item) do
         FactoryGirl.create(
           :live_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
-          content_id: content_id
+          content_id: content_id,
+          lock_version: 101,
         )
-      end
-
-      before do
-        FactoryGirl.create(:lock_version, target: live_content_item, number: 101)
       end
 
       it "shows the publication state of the content item as live" do
@@ -58,18 +49,20 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "with a published lock_version and a subsequent draft" do
-      let(:live_content_item) do
+      let(:content_item) do
         FactoryGirl.create(
           :live_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
-          content_id: content_id
+          content_id: content_id,
+          lock_version: 100,
         )
       end
 
       before do
-        FactoryGirl.create(:lock_version, target: live_content_item, number: 100)
+        FactoryGirl.create(
+          :draft_content_item,
+          content_id: content_id,
+          lock_version: 101,
+        )
       end
 
       it "shows the publication state of the content item as redrafted" do
@@ -85,15 +78,10 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       let(:content_item) do
         FactoryGirl.create(
           :live_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
-          content_id: content_id
+          content_id: content_id,
+          lock_version: 100,
         )
       end
-
-      let!(:lock_version) { FactoryGirl.create(:lock_version, target: content_item, number: 100) }
-      let(:result) { Presenters::Queries::ContentItemPresenter.present(content_item) }
 
       it "shows the publication state of the content item as live" do
         expect(result.fetch(:publication_state)).to eq("live")

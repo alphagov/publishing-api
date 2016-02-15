@@ -12,10 +12,6 @@ RSpec.describe "Discard draft requests", type: :request do
     context "when a draft content item exists" do
       let!(:draft_content_item) do
         FactoryGirl.create(:draft_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
-          :with_lock_version,
           content_id: content_id,
           title: "draft",
           base_path: base_path,
@@ -39,10 +35,6 @@ RSpec.describe "Discard draft requests", type: :request do
 
         let!(:french_draft_content_item) do
           FactoryGirl.create(:draft_content_item,
-            :with_location,
-            :with_translation,
-            :with_user_facing_version,
-            :with_lock_version,
             content_id: content_id,
             title: "draft",
             locale: "fr",
@@ -80,10 +72,6 @@ RSpec.describe "Discard draft requests", type: :request do
       context "and a live content item exists" do
         before do
           FactoryGirl.create(:live_content_item,
-            :with_location,
-            :with_translation,
-            :with_user_facing_version,
-            :with_lock_version,
             content_id: content_id,
           )
         end

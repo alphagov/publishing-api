@@ -77,9 +77,6 @@ RSpec.describe "Endpoint behaviour", type: :request do
       let!(:content_item) {
         FactoryGirl.create(
           :draft_content_item,
-          :with_location,
-          :with_translation,
-          :with_user_facing_version,
           content_id: content_id,
         )
       }

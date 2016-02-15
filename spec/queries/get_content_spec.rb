@@ -15,11 +15,6 @@ RSpec.describe Queries::GetContent do
     before do
       FactoryGirl.create(
         :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-        :with_lock_version,
         content_id: content_id,
       )
     end
@@ -45,11 +40,6 @@ RSpec.describe Queries::GetContent do
     before do
       FactoryGirl.create(
         :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-        :with_lock_version,
         content_id: content_id,
         user_facing_version: 2,
         title: "Version 2 Title",
@@ -57,11 +47,6 @@ RSpec.describe Queries::GetContent do
 
       FactoryGirl.create(
         :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-        :with_lock_version,
         content_id: content_id,
         user_facing_version: 1,
         title: "Version 1 Title",
@@ -78,11 +63,6 @@ RSpec.describe Queries::GetContent do
     before do
       FactoryGirl.create(
         :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-        :with_lock_version,
         content_id: content_id,
         user_facing_version: 2,
         title: "Superseded Title",
@@ -91,11 +71,6 @@ RSpec.describe Queries::GetContent do
 
       FactoryGirl.create(
         :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-        :with_lock_version,
         content_id: content_id,
         user_facing_version: 1,
         title: "Published Title",
@@ -113,11 +88,6 @@ RSpec.describe Queries::GetContent do
     before do
       FactoryGirl.create(
         :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-        :with_lock_version,
         content_id: content_id,
         user_facing_version: 2,
         title: "French Title",
@@ -126,11 +96,6 @@ RSpec.describe Queries::GetContent do
 
       FactoryGirl.create(
         :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-        :with_lock_version,
         content_id: content_id,
         user_facing_version: 1,
         title: "English Title",

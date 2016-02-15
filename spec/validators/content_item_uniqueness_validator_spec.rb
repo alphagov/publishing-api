@@ -13,13 +13,7 @@ RSpec.describe ContentItemUniquenessValidator do
 
   context "for a content item with unique supporting objects" do
     before do
-      FactoryGirl.create(
-        :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-      )
+      FactoryGirl.create(:content_item)
     end
 
     it "has valid supporting objects" do
@@ -32,53 +26,30 @@ RSpec.describe ContentItemUniquenessValidator do
 
   context "for a content item with duplicate supporting objects" do
     before do
-      FactoryGirl.create(
-        :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-      )
+      FactoryGirl.create(:content_item, user_facing_version: 2)
     end
 
     let(:content_item) do
-      FactoryGirl.create(
-        :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-      )
+      FactoryGirl.create(:content_item, user_facing_version: 1)
     end
 
     it "has an invalid supporting object" do
       user_facing_version = FactoryGirl.build(
         :user_facing_version,
         content_item: content_item,
+        number: 2,
       )
 
-      expected_error = "conflicts with a duplicate: state=draft, locale=en, base_path=/vat-rates, user_ver=1"
+      expected_error = "conflicts with a duplicate: state=draft, locale=en, base_path=/vat-rates, user_ver=2"
       assert_invalid(user_facing_version, [expected_error])
     end
   end
 
   context "for a content item with a differentiating supporting object" do
     before do
-      FactoryGirl.create(
-        :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-      )
+      FactoryGirl.create(:content_item)
 
-      FactoryGirl.create(
-        :content_item,
-        :with_state,
-        :with_translation,
-        :with_location,
-        :with_user_facing_version,
-        user_facing_version: 2
-      )
+      FactoryGirl.create(:content_item, user_facing_version: 2)
     end
 
     it "has valid supporting objects" do
@@ -91,12 +62,7 @@ RSpec.describe ContentItemUniquenessValidator do
 
   context "for a content item with a missing supporting object" do
     before do
-      FactoryGirl.create(
-        :content_item,
-        :with_state,
-        :with_location,
-        :with_user_facing_version,
-      )
+      FactoryGirl.create(:content_item)
     end
 
     it "has valid supporting objects" do
