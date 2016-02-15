@@ -93,4 +93,21 @@ RSpec.describe ContentStoreWorker do
       expect(api_call).to have_been_made
     end
   end
+
+  context "when a deletion is enqueued, but content-store doesn't have the item" do
+    it "swallows the returned 404" do
+      api_call = stub_request(:delete, "http://draft-content-store.dev.gov.uk/content/abc")
+                             .to_return(status: 404)
+
+      expect(Airbrake).not_to receive(:notify_or_ignore)
+
+      subject.perform(
+        content_store: 'Adapters::DraftContentStore',
+        base_path: "/abc",
+        delete: true,
+      )
+
+      expect(api_call).to have_been_made
+    end
+  end
 end
