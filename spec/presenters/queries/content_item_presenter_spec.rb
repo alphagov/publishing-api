@@ -87,5 +87,31 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         expect(result.fetch(:publication_state)).to eq("live")
       end
     end
+
+    context "when the content item exists in multiple locales" do
+      let!(:french_item) do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          locale: "fr"
+        )
+      end
+
+      let!(:english_item) do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          locale: "en"
+        )
+      end
+
+      it "presents the item with matching locale" do
+        result = described_class.present(french_item)
+        expect(result.fetch(:locale)).to eq("fr")
+
+        result = described_class.present(english_item)
+        expect(result.fetch(:locale)).to eq("en")
+      end
+    end
   end
 end

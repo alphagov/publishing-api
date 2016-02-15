@@ -19,10 +19,8 @@ module Queries
 
       content_items = ContentItem.where(content_id: content_ids)
 
-      content_items.map do |item|
-        presented = Presenters::Queries::ContentItemPresenter.present(item)
-        filter_fields(presented).as_json
-      end
+      presented = Presenters::Queries::ContentItemPresenter.present_many(content_items)
+      presented.map { |p| filter_fields(p).as_json }
     end
   private
     attr_accessor :target_content_id, :link_type, :fields

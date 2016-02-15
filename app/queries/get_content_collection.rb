@@ -17,10 +17,8 @@ module Queries
         content_items = content_items.where(publishing_app: publishing_app)
       end
 
-      content_items.map do |item|
-        presented = Presenters::Queries::ContentItemPresenter.present(item)
-        filter_fields(presented).as_json
-      end
+      presented = Presenters::Queries::ContentItemPresenter.present_many(content_items)
+      presented.map { |p| filter_fields(p).as_json }
     end
 
   private
