@@ -7,11 +7,16 @@ class CommandError < StandardError
     should_suppress = (PublishingAPI.swallow_connection_errors && e.code == 502)
     raise CommandError.new(code: e.code, message: e.message) unless should_suppress
   rescue GdsApi::HTTPClientError => e
+    fields = if e.error_details.present?
+      e.error_details.fetch('errors', {})
+    else
+      {}
+    end
     raise CommandError.new(code: e.code, error_details: {
       error: {
         code: e.code,
         message: e.message,
-        fields: e.error_details.fetch('errors', {})
+        fields: fields,
       }
     })
   rescue GdsApi::BaseError => e
