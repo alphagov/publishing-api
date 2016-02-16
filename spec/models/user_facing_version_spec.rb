@@ -21,6 +21,27 @@ RSpec.describe UserFacingVersion do
     let(:draft_version) { described_class.find_by!(content_item: draft) }
     let(:live_version) { described_class.find_by!(content_item: live) }
 
+    context "when another content item has identical supporting objects" do
+      before do
+        FactoryGirl.create(:content_item, user_facing_version: 3)
+      end
+
+      let(:content_item) do
+        FactoryGirl.create(:content_item, user_facing_version: 2)
+      end
+
+      subject {
+        FactoryGirl.build(:user_facing_version, content_item: content_item, number: 3)
+      }
+
+      it "is invalid" do
+        expect(subject).to be_invalid
+
+        error = subject.errors[:content_item].first
+        expect(error).to match(/conflicts with/)
+      end
+    end
+
     context "when the draft version is behind the live version" do
       before do
         draft_version.number = 1
