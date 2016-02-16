@@ -1,7 +1,6 @@
 class LockVersion < ActiveRecord::Base
+  include Version
   belongs_to :target, polymorphic: true
-
-  validate :numbers_must_increase
 
   def self.join_content_items(content_item_scope)
     content_item_scope.joins(
@@ -11,9 +10,6 @@ class LockVersion < ActiveRecord::Base
     )
   end
 
-  def increment
-    self.number += 1
-  end
 
   def copy_version_from(target)
     lock_version = LockVersion.find_by!(target: target)
@@ -33,35 +29,22 @@ class LockVersion < ActiveRecord::Base
 
 private
 
-  def numbers_must_increase
-    return unless persisted?
-    return unless number <= number_was
-
-    mismatch = "(#{number} <= #{number_was})"
-    message = "cannot be less than or equal to the previous number #{mismatch}"
-    errors.add(:number, message)
+  def content_item_target?
+    target.is_a?(ContentItem)
   end
 
-  def draft_cannot_be_behind_live
-    return unless target.is_a?(ContentItem)
+  def draft_and_live_versions
+    draft = ContentItemFilter.similar_to(target, state: "draft", user_version: nil).first
+    live = ContentItemFilter.similar_to(target, state: "published", user_version: nil).first
 
-    live_version = live_content_item_version
-    return unless live_version
-
-    if number < live_version.number
-      mismatch = "(#{number} < #{live_version.number})"
-      message = "draft lock_version cannot be behind the live lock_version #{mismatch}"
-      errors.add(:lock_version, message)
+    if draft == target
+      draft_version = self
+      live_version = self.class.find_by(target: live)
+    elsif live == target
+      draft_version = self.class.find_by(target: draft)
+      live_version = self
     end
-  end
 
-  def live_content_item_version
-    live_content_item = ContentItemFilter.similar_to(target, state: "published").first
-    self.class.find_by(target: live_content_item)
-  end
-
-  def draft_content_item_version
-    draft_content_item = ContentItemFilter.similar_to(target, state: "draft").first
-    self.class.find_by(target: draft_content_item)
+    [draft_version, live_version]
   end
 end

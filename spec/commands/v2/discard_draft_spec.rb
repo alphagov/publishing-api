@@ -15,6 +15,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         FactoryGirl.create(:access_limited_draft_content_item,
           content_id: content_id,
           base_path: base_path,
+          lock_version: 5,
         )
       }
 
@@ -79,8 +80,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "when the draft's lock version differs from the given lock version" do
         before do
           lock_version = LockVersion.find_by!(target: existing_draft_item)
-          lock_version.update_attributes!(number: 3)
-          payload[:previous_version] = 2
+          payload[:previous_version] = lock_version.number - 1
         end
 
         it "raises an error" do

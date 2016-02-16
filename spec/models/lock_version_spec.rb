@@ -3,71 +3,11 @@ require "rails_helper"
 RSpec.describe LockVersion do
   subject { FactoryGirl.build(:lock_version) }
 
-  describe "validations" do
-    describe "lock_version comparison between draft and live" do
-      let!(:live_content_item) do
-        FactoryGirl.create(
-          :live_content_item,
-          :with_draft,
-        )
-      end
-
-      let(:draft_content_item) { ContentItemFilter.similar_to(live_content_item, state: "draft").first }
-
-      let!(:live_version) { FactoryGirl.create(:lock_version, target: live_content_item, number: 5) }
-      let(:draft_version) { FactoryGirl.create(:lock_version, target: draft_content_item, number: 5) }
-
-      it "is invalid if the draft lock_version is less than the live lock_version" do
-        draft_version.number = 4
-        expect(draft_version).to be_invalid
-      end
-
-      it "is invalid if the draft lock_version is equal to the live lock_version" do
-        draft_version.number = 5
-        expect(draft_version).to be_invalid
-      end
-
-      it "is valid if the draft lock_version is greater than the live lock_version" do
-        draft_version.number = 6
-        expect(draft_version).to be_valid
-      end
-
-      context "when there is no draft content item or lock_version" do
-        let!(:live_content_item) { FactoryGirl.create(:live_content_item) }
-        let!(:live_version) { FactoryGirl.create(:lock_version, target: live_content_item, number: 5) }
-
-        it "is valid" do
-          live_version.number = 123
-          expect(live_version).to be_valid
-        end
-      end
-    end
-
-    it "requires that the lock_version number be higher than its predecessor" do
-      item = FactoryGirl.create(:draft_content_item)
-      subject.update!(target: item, number: 5)
-
-      subject.number = 4
-      expect(subject).to be_invalid
-
-      subject.number = 5
-      expect(subject).to be_invalid
-    end
-  end
-
-  it "starts lock_version numbers on 0" do
-    expect(subject.number).to be_zero
-    expect(subject).to be_valid
-  end
-
-  describe "#increment" do
-    it "adds one to the number" do
-      subject.increment
-      expect(subject.number).to eq(1)
-
-      subject.increment
-      expect(subject.number).to eq(2)
-    end
+  it "starts version numbers at 0" do
+    content_item = FactoryGirl.create(:content_item)
+    lock_version = LockVersion.create!(target: content_item)
+    expect(lock_version.number).to be_zero
+    expect(lock_version).to be_valid
   end
 
   describe "#copy_version_from" do
@@ -139,6 +79,95 @@ RSpec.describe LockVersion do
 
       lock_versions = LockVersion.in_bulk(items, ContentItem)
       expect(lock_versions.keys).to eq(items.map(&:id))
+    end
+  end
+
+  describe "#increment" do
+    it "adds one to the number" do
+      subject.increment
+      expect(subject.number).to eq(1)
+
+      subject.increment
+      expect(subject.number).to eq(2)
+    end
+  end
+
+  describe "validations" do
+    let(:content_id) { SecureRandom.uuid }
+
+    let!(:draft) do
+      FactoryGirl.create(
+        :draft_content_item,
+        content_id: content_id,
+      )
+    end
+
+    let!(:live) do
+      FactoryGirl.create(
+        :live_content_item,
+        content_id: content_id,
+      )
+    end
+
+    let(:draft_version) { described_class.find_by!(target: draft) }
+    let(:live_version) { described_class.find_by!(target: live) }
+
+    context "when the draft version is behind the live version" do
+      before do
+        draft_version.number = 1
+        draft_version.save!(validate: false)
+
+        live_version.number = 2
+        live_version.save!(validate: false)
+      end
+
+      it "makes the draft version invalid" do
+        expect(draft_version).to be_invalid
+
+        expect(draft_version.errors[:number]).to include(
+          "draft LockVersion cannot be behind the live LockVersion (1 < 2)"
+        )
+      end
+
+      it "makes the live version invalid" do
+        expect(live_version).to be_invalid
+
+        expect(live_version.errors[:number]).to include(
+          "draft LockVersion cannot be behind the live LockVersion (1 < 2)"
+        )
+      end
+    end
+
+    context "when the draft version is equal to the live version" do
+      before do
+        draft_version.number = 2
+        live_version.number = 2
+      end
+
+      it "has a valid draft version" do
+        expect(draft_version).to be_valid
+      end
+
+      it "has a valid live version" do
+        draft_version.save!
+        expect(live_version).to be_valid
+      end
+    end
+
+    context "when the draft version is ahead of the live version" do
+      before do
+        draft_version.number = 3
+        live_version.number = 2
+      end
+
+      it "has a valid draft version" do
+        expect(draft_version).to be_valid
+      end
+
+      it "has a valid live version" do
+        draft_version.save!
+        expect(live_version).to be_valid
+      end
     end
   end
 end

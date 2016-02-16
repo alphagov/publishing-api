@@ -1,6 +1,38 @@
 require "rails_helper"
 
 RSpec.describe UserFacingVersion do
+  subject { FactoryGirl.build(:user_facing_version) }
+
+  it "starts version numbers at 0" do
+    content_item = FactoryGirl.create(:content_item)
+    user_facing_version = UserFacingVersion.create(content_item: content_item)
+
+    expect(user_facing_version.number).to be_zero
+    expect(user_facing_version).to be_valid
+  end
+
+  describe "#increment" do
+    it "adds one to the number" do
+      subject.increment
+      expect(subject.number).to eq(2)
+
+      subject.increment
+      expect(subject.number).to eq(3)
+    end
+  end
+
+  describe ".latest" do
+    before do
+      FactoryGirl.create(:content_item, user_facing_version: 2, title: "Latest")
+      FactoryGirl.create(:content_item, user_facing_version: 1)
+    end
+
+    it "returns the content item with the latest user_facing version" do
+      item = described_class.latest(ContentItem.all)
+      expect(item.title).to eq("Latest")
+    end
+  end
+
   describe "validations" do
     let(:content_id) { SecureRandom.uuid }
 
@@ -55,7 +87,7 @@ RSpec.describe UserFacingVersion do
         expect(draft_version).to be_invalid
 
         expect(draft_version.errors[:number]).to include(
-          "draft version cannot be behind the live version (1 < 2)"
+          "draft UserFacingVersion cannot be behind the live UserFacingVersion (1 < 2)"
         )
       end
 
@@ -63,7 +95,7 @@ RSpec.describe UserFacingVersion do
         expect(live_version).to be_invalid
 
         expect(live_version.errors[:number]).to include(
-          "draft version cannot be behind the live version (1 < 2)"
+          "draft UserFacingVersion cannot be behind the live UserFacingVersion (1 < 2)"
         )
       end
     end
@@ -98,18 +130,6 @@ RSpec.describe UserFacingVersion do
         draft_version.save!
         expect(live_version).to be_valid
       end
-    end
-  end
-
-  describe ".latest" do
-    before do
-      FactoryGirl.create(:content_item, user_facing_version: 2, title: "Latest")
-      FactoryGirl.create(:content_item, user_facing_version: 1)
-    end
-
-    it "returns the content item with the latest user facing version" do
-      item = described_class.latest(ContentItem.all)
-      expect(item.title).to eq("Latest")
     end
   end
 end

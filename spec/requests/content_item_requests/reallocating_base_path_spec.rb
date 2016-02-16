@@ -23,7 +23,7 @@ RSpec.describe "Reallocating base paths of content items" do
       before do
         FactoryGirl.create(
           :draft_content_item,
-          base_path: base_path
+          base_path: base_path,
         )
       end
 

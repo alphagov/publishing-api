@@ -24,7 +24,7 @@ FactoryGirl.define do
     }
 
     transient do
-      lock_version 0
+      lock_version 1
       state "draft"
       locale "en"
       base_path "/vat-rates"
@@ -32,10 +32,10 @@ FactoryGirl.define do
     end
 
     after(:create) do |item, evaluator|
-      FactoryGirl.create(:lock_version, number: evaluator.lock_version, target: item)
       FactoryGirl.create(:state, name: evaluator.state, content_item: item)
       FactoryGirl.create(:translation, locale: evaluator.locale, content_item: item)
       FactoryGirl.create(:location, base_path: evaluator.base_path, content_item: item)
+      FactoryGirl.create(:lock_version, number: evaluator.lock_version, target: item)
       FactoryGirl.create(:user_facing_version, number: evaluator.user_facing_version, content_item: item)
     end
   end

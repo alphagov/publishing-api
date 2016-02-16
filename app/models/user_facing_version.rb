@@ -1,10 +1,9 @@
 class UserFacingVersion < ActiveRecord::Base
+  include Version
+
   belongs_to :content_item
 
-  validate :numbers_must_increase
-
   validates_with ContentItemUniquenessValidator
-  validate :draft_cannot_be_behind_live
 
   def self.filter(content_item_scope, number:)
     join_content_items(content_item_scope)
@@ -23,22 +22,13 @@ class UserFacingVersion < ActiveRecord::Base
     )
   end
 
-  def increment
-    self.number += 1
-  end
-
 private
 
-  def numbers_must_increase
-    return unless persisted?
-    return unless number <= number_was
-
-    mismatch = "(#{number} <= #{number_was})"
-    message = "cannot be less than or equal to the previous number #{mismatch}"
-    errors.add(:number, message)
+  def content_item_target?
+    true
   end
 
-  def draft_cannot_be_behind_live
+  def draft_and_live_versions
     draft = ContentItemFilter.similar_to(content_item, state: "draft", user_version: nil).first
     live = ContentItemFilter.similar_to(content_item, state: "published", user_version: nil).first
 
@@ -50,12 +40,6 @@ private
       live_version = self
     end
 
-    return unless draft_version && live_version
-
-    if draft_version.number < live_version.number
-      mismatch = "(#{draft_version.number} < #{live_version.number})"
-      message = "draft version cannot be behind the live version #{mismatch}"
-      errors.add(:number, message)
-    end
+    [draft_version, live_version]
   end
 end

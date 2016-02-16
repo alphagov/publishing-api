@@ -28,7 +28,7 @@ RSpec.describe Queries::GetContent do
         title: "VAT rates",
         format: "guide",
         locale: "en",
-        lock_version: 0,
+        lock_version: 1,
         publication_state: "draft",
         publishing_app: "publisher",
         rendering_app: "frontend",
