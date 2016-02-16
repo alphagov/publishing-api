@@ -32,9 +32,9 @@ module Tasks
         end
       end
 
-      # TODO - make this dynamic?
       def models
-        [LinkSet, Link]
+        Rails.application.eager_load!
+        ActiveRecord::Base.descendants
       end
     end
   end
