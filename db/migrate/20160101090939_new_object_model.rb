@@ -1,4 +1,5 @@
 class DraftContentItem < ActiveRecord::Base; end
+
 class LiveContentItem < ActiveRecord::Base; end
 class Version < ActiveRecord::Base
   belongs_to :target, polymorphic: true
@@ -62,6 +63,8 @@ class NewObjectModel < ActiveRecord::Migration
       t.string   "phase",                default: "live"
       t.string   "analytics_identifier"
       t.json     "description",          default: {"value"=>nil}
+      t.integer  "live_content_item_id"
+      t.integer  "draft_content_item_id"
 
       t.timestamps null: false
     end
@@ -71,96 +74,202 @@ class NewObjectModel < ActiveRecord::Migration
     change_column_null :access_limits, :target_id, true
     change_column_null :access_limits, :target_type, true
 
-    content_items = DraftContentItem.all.to_a + LiveContentItem.all.to_a
+    content_item_sql = '
+    INSERT INTO "content_items" (
+                "content_id",
+                "title",
+                "format",
+                "public_updated_at",
+                "details",
+                "routes",
+                "redirects",
+                "publishing_app",
+                "rendering_app",
+                "need_ids",
+                "update_type",
+                "phase",
+                "analytics_identifier",
+                "description",
+                "live_content_item_id",
+                "draft_content_item_id",
+                "created_at",
+                "updated_at"
+              )
+        SELECT
+          "content_id",
+          "title",
+          "format",
+          "public_updated_at",
+          "details",
+          "routes",
+          "redirects",
+          "publishing_app",
+          "rendering_app",
+          "need_ids",
+          "update_type",
+          "phase",
+          "analytics_identifier",
+          "description",
+          "id" AS "live_content_item_id",
+          NULL AS "draft_content_item_id",
+          NOW() AS "created_at",
+          NOW() AS "updated_at"
+        FROM "live_content_items"
+      UNION ALL
+        SELECT
+          "content_id",
+          "title",
+          "format",
+          "public_updated_at",
+          "details",
+          "routes",
+          "redirects",
+          "publishing_app",
+          "rendering_app",
+          "need_ids",
+          "update_type",
+          "phase",
+          "analytics_identifier",
+          "description",
+          NULL AS "live_content_item_id",
+          "id" AS "draft_content_item_id",
+          NOW() AS "created_at",
+          NOW() AS "updated_at"
+        FROM "draft_content_items"
+    '
 
-    grouped_content_items = content_items.group_by(&:content_id)
-    group_count = grouped_content_items.count
-
-    grouped_content_items.each.with_index(1) do |(content_id, content_items), index|
-      lives, drafts = content_items.partition { |ci| ci.is_a?(LiveContentItem) }
-      live = lives.first
-      draft = drafts.first
-
-      unwanted_fields = [
-        "id",
-        "old_description",
-        "draft_content_item_id",
-        "access_limited",
-        "locale",
-        "base_path",
-      ]
-
-      if live
-        new_live = ContentItem.create!(live.attributes.except(*unwanted_fields))
-
-        Translation.create!(
-          locale: live.locale,
-          content_item: new_live,
-        )
-
-        Location.create!(
-          base_path: live.base_path,
-          content_item: new_live,
-        )
-
-        State.create!(
-          name: "published",
-          content_item: new_live,
-        )
-
-        if (lock_version = Version.find_by(target: live))
-          LockVersion.create!(
-            target: new_live,
-            number: lock_version.number,
-            created_at: lock_version.created_at,
-            updated_at: lock_version.updated_at,
-          )
-        end
-      end
-
-      if draft
-        new_draft = ContentItem.create!(draft.attributes.except(*unwanted_fields))
-
-        Translation.create!(
-          locale: draft.locale,
-          content_item: new_draft,
-        )
-
-        Location.create!(
-          base_path: draft.base_path,
-          content_item: new_draft,
-        )
-
-        State.create!(
-          name: "draft",
-          content_item: new_draft,
-        )
-
-
-        if (access_limit = AccessLimit.find_by(target: draft))
-          access_limit.update_attributes!(
-            target: nil,
-            content_item: new_draft,
-          )
-        end
-
-        if (lock_version = Version.find_by(target: live))
-          LockVersion.create!(
-            target: new_live,
-            number: lock_version.number,
-            created_at: lock_version.created_at,
-            updated_at: lock_version.updated_at,
-          )
-        end
-      end
-
-      print_progress(index, group_count)
+    say_with_time "Copying content items" do
+      ActiveRecord::Base.connection.execute(content_item_sql)
     end
 
-    puts
+    puts "LiveContentItems: #{LiveContentItem.count}"
+    puts "DraftContentItems: #{DraftContentItem.count}"
+    puts "ContentItems: #{ContentItem.count}"
 
-    add_index :access_limits, :content_item_id, unique: true
-    change_column_null :access_limits, :content_item_id, false
+    state_sql = '
+      INSERT INTO "states" (
+                  "content_item_id",
+                  "name",
+                  "created_at",
+                  "updated_at"
+      )
+      SELECT
+        "id",
+        CASE WHEN "live_content_item_id" IS NOT NULL THEN \'published\'
+             WHEN "draft_content_item_id" IS NOT NULL THEN \'draft\'
+        END AS "name",
+        NOW(),
+        NOW()
+      FROM "content_items"
+    '
+
+    say_with_time "Creating states" do
+      ActiveRecord::Base.connection.execute(state_sql)
+    end
+
+    puts "States: #{State.count}, Content Items: #{ContentItem.count}"
+
+    translation_sql = '
+      INSERT INTO "translations" (
+                  "content_item_id",
+                  "locale",
+                  "created_at",
+                  "updated_at"
+      )
+      SELECT
+        "content_items"."id",
+        CASE WHEN "content_items"."live_content_item_id" IS NOT NULL THEN "live_content_items"."locale"
+             WHEN "content_items"."draft_content_item_id" IS NOT NULL THEN "draft_content_items"."locale"
+        END AS "locale",
+        NOW(),
+        NOW()
+      FROM "content_items"
+      LEFT JOIN "live_content_items" ON "content_items"."live_content_item_id" = "live_content_items"."id"
+      LEFT JOIN "draft_content_items" ON "content_items"."draft_content_item_id" = "draft_content_items"."id"
+    '
+
+    say_with_time "Creating translations" do
+      ActiveRecord::Base.connection.execute(translation_sql)
+    end
+
+    puts "Translations: #{Translation.count}, Content Items: #{ContentItem.count}"
+
+    location_sql = '
+      INSERT INTO "locations" (
+                  "content_item_id",
+                  "base_path",
+                  "created_at",
+                  "updated_at"
+      )
+      SELECT
+        "content_items"."id",
+        CASE WHEN "content_items"."live_content_item_id" IS NOT NULL THEN "live_content_items"."base_path"
+             WHEN "content_items"."draft_content_item_id" IS NOT NULL THEN "draft_content_items"."base_path"
+        END AS "base_path",
+        NOW(),
+        NOW()
+      FROM "content_items"
+      LEFT JOIN "live_content_items" ON "content_items"."live_content_item_id" = "live_content_items"."id"
+      LEFT JOIN "draft_content_items" ON "content_items"."draft_content_item_id" = "draft_content_items"."id"
+    '
+
+    say_with_time "Creating locations" do
+      ActiveRecord::Base.connection.execute(location_sql)
+    end
+
+    puts "Locations: #{Location.count}, Content Items: #{ContentItem.count}"
+
+    lock_version_sql = '
+      INSERT INTO "lock_versions" (
+                  "target_id",
+                  "target_type",
+                  "number",
+                  "created_at",
+                  "updated_at"
+      )
+      SELECT
+        "content_items"."id",
+        \'ContentItem\',
+        COALESCE("lv"."number", "dv"."number") AS "number",
+        NOW(),
+        NOW()
+      FROM "content_items"
+      LEFT JOIN "live_content_items" AS "lci" ON "content_items"."live_content_item_id" = "lci"."id"
+      LEFT JOIN "draft_content_items" AS "dci" ON "content_items"."draft_content_item_id" = "dci"."id"
+      LEFT JOIN "versions" AS "lv"
+        ON "lv"."target_type" = \'LiveContentItem\'
+        AND "lv"."target_id" = "lci"."id"
+      LEFT JOIN "versions" AS "dv"
+        ON "dv"."target_type" = \'DraftContentItem\'
+        AND "dv"."target_id" = "dci"."id"
+    '
+    say_with_time "Creating lock versions" do
+      ActiveRecord::Base.connection.execute(lock_version_sql)
+    end
+
+    puts "LockVersions: #{Location.count}, Content Items: #{ContentItem.count}"
+
+    access_limit_sql = '
+      UPDATE "access_limits" SET
+        "target_type" = NULL,
+        "target_id" = NULL,
+        "content_item_id" = "subquery"."id"
+      FROM (
+        SELECT "id", "draft_content_item_id" FROM "content_items"
+      ) AS "subquery"
+      WHERE "subquery"."draft_content_item_id" = "access_limits"."target_id"
+      AND "access_limits"."target_type" = \'DraftContentItem\'
+    '
+
+    say_with_time "Updating access limits" do
+      ActiveRecord::Base.connection.execute(access_limit_sql)
+    end
+
+
+    # Commented out as source data needs sanitising
+    #
+    # add_index :access_limits, :content_item_id, unique: true
+    # change_column_null :access_limits, :content_item_id, false
   end
 
   def down
@@ -171,15 +280,5 @@ class NewObjectModel < ActiveRecord::Migration
     drop_table :user_facing_versions
     drop_table :lock_versions
     remove_column :access_limits, :content_item_id
-  end
-
-  def print_progress(completed, total)
-    percent_complete = ((completed.to_f / total) * 100).round
-    percent_remaining = 100 - percent_complete
-
-    print "\r"
-    STDOUT.flush
-    print "Progress [#{"=" * percent_complete}>#{"." * percent_remaining}] (#{percent_complete}%)"
-    STDOUT.flush
   end
 end

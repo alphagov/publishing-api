@@ -22,10 +22,9 @@ ActiveRecord::Schema.define(version: 20160125143518) do
     t.json     "users",           default: [], null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.integer  "content_item_id",              null: false
+    t.integer  "content_item_id"
   end
 
-  add_index "access_limits", ["content_item_id"], name: "index_access_limits_on_content_item_id", unique: true, using: :btree
   add_index "access_limits", ["target_type", "target_id"], name: "index_access_limits_on_target", using: :btree
 
   create_table "content_items", force: :cascade do |t|
@@ -33,19 +32,21 @@ ActiveRecord::Schema.define(version: 20160125143518) do
     t.string   "title"
     t.string   "format"
     t.datetime "public_updated_at"
-    t.json     "access_limited",       default: {}
-    t.json     "details",              default: {}
-    t.json     "routes",               default: []
-    t.json     "redirects",            default: []
+    t.json     "access_limited",        default: {}
+    t.json     "details",               default: {}
+    t.json     "routes",                default: []
+    t.json     "redirects",             default: []
     t.string   "publishing_app"
     t.string   "rendering_app"
-    t.json     "need_ids",             default: []
+    t.json     "need_ids",              default: []
     t.string   "update_type"
-    t.string   "phase",                default: "live"
+    t.string   "phase",                 default: "live"
     t.string   "analytics_identifier"
-    t.json     "description",          default: {"value"=>nil}
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.json     "description",           default: {"value"=>nil}
+    t.integer  "live_content_item_id"
+    t.integer  "draft_content_item_id"
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
   end
 
   create_table "draft_content_items", force: :cascade do |t|
@@ -153,15 +154,6 @@ ActiveRecord::Schema.define(version: 20160125143518) do
 
   add_index "path_reservations", ["base_path"], name: "index_path_reservations_on_base_path", unique: true, using: :btree
 
-  create_table "user_facing_versions", force: :cascade do |t|
-    t.integer  "content_item_id"
-    t.integer  "number",          default: 0, null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
-  add_index "user_facing_versions", ["content_item_id", "number"], name: "index_user_facing_versions_on_content_item_id_and_number", using: :btree
-
   create_table "states", force: :cascade do |t|
     t.integer  "content_item_id"
     t.string   "name"
@@ -179,6 +171,15 @@ ActiveRecord::Schema.define(version: 20160125143518) do
   end
 
   add_index "translations", ["content_item_id", "locale"], name: "index_translations_on_content_item_id_and_locale", using: :btree
+
+  create_table "user_facing_versions", force: :cascade do |t|
+    t.integer  "content_item_id"
+    t.integer  "number",          default: 0, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "user_facing_versions", ["content_item_id", "number"], name: "index_user_facing_versions_on_content_item_id_and_number", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
