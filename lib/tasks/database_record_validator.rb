@@ -1,5 +1,5 @@
 module Tasks
-  module Validator
+  module DatabaseRecordValidator
     class << self
       def validate
         filename = "tmp/validation_results"
