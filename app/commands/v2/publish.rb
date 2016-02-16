@@ -3,8 +3,13 @@ module Commands
     class Publish < BaseCommand
       def call
         unless (content_item = find_draft_content_item)
-          message = "Item with content_id #{content_id} and locale #{locale} does not exist"
-          raise CommandError.new(code: 404, message: message)
+          if already_published?
+            message = "Cannot publish an already published content item"
+            raise_command_error(400, message, fields: {})
+          else
+            message = "Item with content_id #{content_id} and locale #{locale} does not exist"
+            raise_command_error(404, message, fields: {})
+          end
         end
 
         translation = Translation.find_by!(content_item: content_item)
@@ -12,9 +17,13 @@ module Commands
         update_type = payload[:update_type] || content_item.update_type
 
         if update_type.blank?
-          raise_update_type_is_required
+          raise_command_error(422, "update_type is required", fields: {
+            update_type: ["is invalid"],
+          })
         elsif !valid_update_types.include?(update_type)
-          raise_update_type_is_invalid(update_type)
+          raise_command_error(422, "An update_type of '#{update_type}' is invalid", fields: {
+            update_type: ["must be one of #{valid_update_types.inspect}"],
+          })
         end
 
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
@@ -58,6 +67,11 @@ module Commands
       def find_draft_content_item
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
         filter.filter(locale: locale, state: "draft").first
+      end
+
+      def already_published?
+        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+        filter.filter(locale: locale, state: "published").first
       end
 
       def clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
@@ -109,34 +123,15 @@ module Commands
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)
       end
 
-      def raise_update_type_is_required
+      def raise_command_error(code, message, fields)
         raise CommandError.new(
-          code: 422,
-          message: "update_type is required",
+          code: code,
+          message: message,
           error_details: {
             error: {
-              code: 422,
-              message: "update_type is required",
-              fields: {
-                update_type: ["is invalid"],
-              }
-            }
-          }
-        )
-      end
-
-      def raise_update_type_is_invalid(update_type)
-        raise CommandError.new(
-          code: 422,
-          message: "An update_type of '#{update_type}' is invalid",
-          error_details: {
-            error: {
-              code: 422,
-              message: "An update_type of '#{update_type}' is invalid",
-              fields: {
-                update_type: ["must be one of #{valid_update_types.inspect}"],
-              }
-            }
+              code: code,
+              message: message,
+            }.merge(fields)
           }
         )
       end

@@ -326,6 +326,30 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "when no draft exists to publish" do
+      before do
+        draft_item.destroy
+      end
+
+      it "raises an error" do
+        expect {
+          described_class.call(payload)
+        }.to raise_error(CommandError, /does not exist/)
+      end
+
+      context "but a published item does exist" do
+        before do
+          FactoryGirl.create(:live_content_item, content_id: content_id)
+        end
+
+        it "raises an error to indiciate it has already been published" do
+          expect {
+            described_class.call(payload)
+          }.to raise_error(CommandError, /already published content item/)
+        end
+      end
+    end
+
     it_behaves_like TransactionalCommand
   end
 end
