@@ -342,7 +342,7 @@ RSpec.describe Commands::V2::Publish do
           FactoryGirl.create(:live_content_item, content_id: content_id)
         end
 
-        it "raises an error to indiciate it has already been published" do
+        it "raises an error to indicate it has already been published" do
           expect {
             described_class.call(payload)
           }.to raise_error(CommandError, /already published content item/)
