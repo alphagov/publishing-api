@@ -53,7 +53,7 @@ RSpec.describe Queries::GetContent do
       )
     end
 
-    it "returns the latest user_facing version of the content item" do
+    it "returns the latest user facing version of the content item" do
       result = subject.call(content_id)
       expect(result.fetch(:title)).to eq("Version 2 Title")
     end

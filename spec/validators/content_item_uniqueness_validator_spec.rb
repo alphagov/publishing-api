@@ -40,7 +40,7 @@ RSpec.describe ContentItemUniquenessValidator do
         number: 2,
       )
 
-      expected_error = "conflicts with a duplicate: state=draft, locale=en, base_path=/vat-rates, user_ver=2"
+      expected_error = "conflicts with a duplicate: state=draft, locale=en, base_path=/vat-rates, user_version=2"
       assert_invalid(user_facing_version, [expected_error])
     end
   end

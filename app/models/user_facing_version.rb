@@ -35,8 +35,8 @@ private
   end
 
   def draft_cannot_be_behind_live
-    draft = ContentItemFilter.similar_to(content_item, state: "draft", user_ver: nil).first
-    live = ContentItemFilter.similar_to(content_item, state: "published", user_ver: nil).first
+    draft = ContentItemFilter.similar_to(content_item, state: "draft", user_version: nil).first
+    live = ContentItemFilter.similar_to(content_item, state: "published", user_version: nil).first
 
     if draft == content_item
       draft_version = self

@@ -62,8 +62,8 @@ RSpec.describe ContentItemFilter do
       end
     end
 
-    context "when a user_ver is given" do
-      let(:params) { { user_ver: 2 } }
+    context "when a user version is given" do
+      let(:params) { { user_version: 2 } }
 
       it "returns a scope of the expected content items" do
         result = described_class.similar_to(content_item, params)
@@ -133,8 +133,8 @@ RSpec.describe ContentItemFilter do
       end
     end
 
-    context "when a user_ver is given" do
-      let(:params) { { user_ver: 1 } }
+    context "when a user version is given" do
+      let(:params) { { user_version: 1 } }
 
       it "returns a scope of the expected content items" do
         result = described_class.filter(params)

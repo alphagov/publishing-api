@@ -9,7 +9,7 @@ class ContentItemFilter
     params[:locale] = translation(content_item).locale unless params.has_key?(:locale)
     params[:base_path] = location(content_item).base_path unless params.has_key?(:base_path)
     params[:state] = state(content_item).name unless params.has_key?(:state)
-    params[:user_ver] = user_facing_version(content_item).number unless params.has_key?(:user_ver)
+    params[:user_version] = user_facing_version(content_item).number unless params.has_key?(:user_version)
 
     scope = ContentItem.where(content_id: content_item.content_id)
 
@@ -20,12 +20,12 @@ class ContentItemFilter
     self.new.filter(**args)
   end
 
-  def filter(locale: nil, base_path: nil, state: nil, user_ver: nil)
+  def filter(locale: nil, base_path: nil, state: nil, user_version: nil)
     scope = self.scope
     scope = Location.filter(scope, base_path: base_path) if base_path
     scope = Translation.filter(scope, locale: locale) if locale
     scope = State.filter(scope, name: state) if state
-    scope = UserFacingVersion.filter(scope, number: user_ver) if user_ver
+    scope = UserFacingVersion.filter(scope, number: user_version) if user_version
     scope
   end
 

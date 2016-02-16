@@ -17,13 +17,13 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
     state_name = state.name
     locale = translation.locale
     base_path = location.base_path
-    user_ver = user_facing_version.number
+    user_version = user_facing_version.number
 
     matching_items = ContentItemFilter.filter(
       state: state_name,
       locale: locale,
       base_path: base_path,
-      user_ver: user_ver,
+      user_version: user_version,
     )
 
     additional_items = matching_items - [content_item]
@@ -33,7 +33,7 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
       error << "state=#{state_name}, "
       error << "locale=#{locale}, "
       error << "base_path=#{base_path}, "
-      error << "user_ver=#{user_ver}"
+      error << "user_version=#{user_version}"
 
       record.errors.add(:content_item, error)
     end
