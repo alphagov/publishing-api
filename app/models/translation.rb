@@ -9,8 +9,13 @@ class Translation < ActiveRecord::Base
   validates_with ContentItemUniquenessValidator
 
   def self.filter(content_item_scope, locale:)
-    content_item_scope
-      .joins("INNER JOIN translations ON translations.content_item_id = content_items.id")
+    join_content_items(content_item_scope)
       .where("translations.locale" => locale)
+  end
+
+  def self.join_content_items(content_item_scope)
+    content_item_scope.joins(
+      "INNER JOIN translations ON translations.content_item_id = content_items.id"
+    )
   end
 end

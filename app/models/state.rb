@@ -4,9 +4,14 @@ class State < ActiveRecord::Base
   validates_with ContentItemUniquenessValidator
 
   def self.filter(content_item_scope, name:)
-    content_item_scope
-      .joins("INNER JOIN states ON states.content_item_id = content_items.id")
+    join_content_items(content_item_scope)
       .where("states.name" => name)
+  end
+
+  def self.join_content_items(content_item_scope)
+    content_item_scope.joins(
+      "INNER JOIN states ON states.content_item_id = content_items.id"
+    )
   end
 
   def self.supersede(content_item)

@@ -19,8 +19,7 @@ module Presenters
       end
 
       def present
-        scope = remove_existing_joins(content_item_scope)
-        scope = join_supporting_objects(scope)
+        scope = join_supporting_objects(content_item_scope)
         scope = select_fields(scope)
 
         items = scope.as_json.map(&:symbolize_keys)
@@ -56,17 +55,12 @@ module Presenters
       end
 
       def join_supporting_objects(scope)
-        %w(states translations locations user_facing_versions).each do |table|
-          scope = scope.joins(
-            "inner join #{table} on #{table}.content_item_id = content_items.id"
-          )
-        end
-
-        scope = scope.joins(
-          "inner join lock_versions on
-            lock_versions.target_id = content_items.id and
-            lock_versions.target_type = 'ContentItem'"
-        )
+        scope = remove_existing_joins(scope)
+        scope = State.join_content_items(scope)
+        scope = Translation.join_content_items(scope)
+        scope = Location.join_content_items(scope)
+        scope = UserFacingVersion.join_content_items(scope)
+        scope = LockVersion.join_content_items(scope)
 
         scope
       end

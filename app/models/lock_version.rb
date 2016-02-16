@@ -3,6 +3,14 @@ class LockVersion < ActiveRecord::Base
 
   validate :numbers_must_increase
 
+  def self.join_content_items(content_item_scope)
+    content_item_scope.joins(
+      "INNER JOIN lock_versions ON
+        lock_versions.target_id = content_items.id AND
+        lock_versions.target_type = 'ContentItem'"
+    )
+  end
+
   def increment
     self.number += 1
   end
