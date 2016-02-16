@@ -34,7 +34,7 @@ module Tasks
 
       def models
         Rails.application.eager_load!
-        ActiveRecord::Base.descendants
+        ActiveRecord::Base.descendants - [ActiveRecord::SchemaMigration]
       end
     end
   end
