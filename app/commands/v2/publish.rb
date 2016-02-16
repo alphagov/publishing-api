@@ -11,6 +11,12 @@ module Commands
         location = Location.find_by!(content_item: content_item)
         update_type = payload[:update_type] || content_item.update_type
 
+        if update_type.blank?
+          raise_update_type_is_required
+        elsif !valid_update_types.include?(update_type)
+          raise_update_type_is_invalid(update_type)
+        end
+
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
         previously_published_item = ContentItemFilter.similar_to(content_item, state: "published", base_path: nil).first
@@ -43,6 +49,10 @@ module Commands
 
       def previous_version_number
         payload[:previous_version].to_i if payload[:previous_version]
+      end
+
+      def valid_update_types
+        %w(major minor republish links)
       end
 
       def find_draft_content_item
@@ -95,24 +105,40 @@ module Commands
           content_item_id: content_item.id,
         )
 
-        if update_type
-          queue_payload = Presenters::MessageQueuePresenter.present(content_item, update_type: update_type)
-          PublishingAPI.service(:queue_publisher).send_message(queue_payload)
-        else
-          raise CommandError.new(
-            code: 422,
-            message: "update_type is required",
-            error_details: {
-              error: {
-                code: 422,
-                message: "update_type is required",
-                fields: {
-                  update_type: ["is required"],
-                }
+        queue_payload = Presenters::MessageQueuePresenter.present(content_item, update_type: update_type)
+        PublishingAPI.service(:queue_publisher).send_message(queue_payload)
+      end
+
+      def raise_update_type_is_required
+        raise CommandError.new(
+          code: 422,
+          message: "update_type is required",
+          error_details: {
+            error: {
+              code: 422,
+              message: "update_type is required",
+              fields: {
+                update_type: ["is invalid"],
               }
             }
-          )
-        end
+          }
+        )
+      end
+
+      def raise_update_type_is_invalid(update_type)
+        raise CommandError.new(
+          code: 422,
+          message: "An update_type of '#{update_type}' is invalid",
+          error_details: {
+            error: {
+              code: 422,
+              message: "An update_type of '#{update_type}' is invalid",
+              fields: {
+                update_type: ["must be one of #{valid_update_types.inspect}"],
+              }
+            }
+          }
+        )
       end
     end
   end

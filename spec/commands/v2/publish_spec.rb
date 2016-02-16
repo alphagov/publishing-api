@@ -314,6 +314,18 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "when given an invalid update_type" do
+      before do
+        payload[:update_type] = "invalid"
+      end
+
+      it "raises an error" do
+        expect {
+          described_class.call(payload)
+        }.to raise_error(CommandError, "An update_type of 'invalid' is invalid")
+      end
+    end
+
     it_behaves_like TransactionalCommand
   end
 end
