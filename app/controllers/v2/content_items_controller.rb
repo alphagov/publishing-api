@@ -8,7 +8,8 @@ module V2
         content_format: content_format,
         fields: fields,
         publishing_app: publishing_app,
-        locale: locale).call
+        locale: locale,
+      ).call
     end
 
     def show
