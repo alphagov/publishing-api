@@ -183,6 +183,8 @@ RSpec.describe "Downstream requests", type: :request do
           :old_description,
           :created_at,
           :updated_at,
+          :draft_content_item_id,
+          :live_content_item_id,
         )
     }
 
