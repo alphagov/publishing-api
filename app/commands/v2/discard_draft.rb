@@ -36,7 +36,7 @@ module Commands
         if downstream
           ContentStoreWorker.perform_async(
             content_store: Adapters::DraftContentStore,
-            live_content_item_id: live.id,
+            draft_content_item_id: draft.id,
           )
         end
       end
