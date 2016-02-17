@@ -269,6 +269,19 @@ class NewObjectModel < ActiveRecord::Migration
       ActiveRecord::Base.connection.execute(access_limit_sql)
     end
 
+    user_facing_versions_sql = '
+      INSERT INTO "user_facing_versions" (
+                  "content_item_id",
+                  "number",
+                  "created_at",
+                  "updated_at"
+      )
+      SELECT "content_items"."id", 1, NOW(), NOW() FROM "content_items"
+    '
+
+    say_with_time "Creating user facing versions" do
+      ActiveRecord::Base.connection.execute(user_facing_versions_sql)
+    end
 
     # Commented out as source data needs sanitising
     #
