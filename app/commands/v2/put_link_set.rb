@@ -2,7 +2,7 @@ module Commands
   module V2
     class PutLinkSet < BaseCommand
       def call
-        raise_unless_links_present
+        raise_unless_links_hash_is_provided
 
         link_set = LinkSet.find_by(content_id: content_id)
 
@@ -56,7 +56,7 @@ module Commands
         payload[:previous_version].to_i if payload[:previous_version]
       end
 
-      def raise_unless_links_present
+      def raise_unless_links_hash_is_provided
         unless grouped_links.is_a?(Hash)
           raise CommandError.new(
             code: 422,
