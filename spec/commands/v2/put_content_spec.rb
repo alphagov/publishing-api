@@ -86,6 +86,7 @@ RSpec.describe Commands::V2::PutContent do
         FactoryGirl.create(:live_content_item,
           content_id: content_id,
           lock_version: 2,
+          user_facing_version: 5,
         )
       end
 
@@ -98,6 +99,17 @@ RSpec.describe Commands::V2::PutContent do
         expect(content_item.content_id).to eq(content_id)
         expect(State.find_by!(content_item: content_item).name).to eq("draft")
         expect(LockVersion.find_by!(target: content_item).number).to eq(3)
+      end
+
+      it "creates the draft's user-facing version using the live's user-facing version as a starting point" do
+        described_class.call(payload)
+
+        content_item = ContentItem.last
+
+        expect(content_item).to be_present
+        expect(content_item.content_id).to eq(content_id)
+        expect(State.find_by!(content_item: content_item).name).to eq("draft")
+        expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(6)
       end
     end
 

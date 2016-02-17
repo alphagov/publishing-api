@@ -80,20 +80,33 @@ module Commands
         Location.create!(content_item: content_item, base_path: base_path)
         State.create!(content_item: content_item, name: "draft")
         Translation.create!(content_item: content_item, locale: locale)
-        UserFacingVersion.create!(content_item: content_item, number: 1)
+        UserFacingVersion.create!(content_item: content_item, number: user_facing_version_number_for_new_draft)
         LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
       end
 
       def lock_version_number_for_new_draft
-        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        previously_published_item = filter.filter(state: "published", locale: locale).first
-
         if previously_published_item
           lock_version = LockVersion.find_by!(target: previously_published_item)
           lock_version.number + 1
         else
           1
         end
+      end
+
+      def user_facing_version_number_for_new_draft
+        if previously_published_item
+          user_facing_version = UserFacingVersion.find_by!(content_item: previously_published_item)
+          user_facing_version.number + 1
+        else
+          1
+        end
+      end
+
+      def previously_published_item
+        @previously_published_item ||= (
+          filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+          filter.filter(state: "published", locale: locale).first
+        )
       end
 
       def path_has_changed?(location)
