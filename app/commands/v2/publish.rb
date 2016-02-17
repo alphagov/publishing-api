@@ -42,7 +42,7 @@ module Commands
 
         publish_redirect_if_content_item_has_moved(location, previous_location, translation)
 
-        send_downstream(content_item, location, update_type) if downstream
+        send_downstream(content_item, update_type) if downstream
 
         Success.new(content_id: content_id)
       end
@@ -111,7 +111,7 @@ module Commands
         )
       end
 
-      def send_downstream(content_item, location, update_type)
+      def send_downstream(content_item, update_type)
         return unless downstream
 
         ContentStoreWorker.perform_async(

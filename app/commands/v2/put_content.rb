@@ -31,14 +31,13 @@ module Commands
           clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
           supporting_objects = create_supporting_objects(content_item)
-          location = supporting_objects.fetch(:location)
 
           if payload[:access_limited] && (users = payload[:access_limited][:users])
             AccessLimit.create!(content_item: content_item, users: users)
           end
         end
 
-        send_downstream(content_item, location) if downstream
+        send_downstream(content_item) if downstream
 
         response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
         Success.new(response_hash)
@@ -78,13 +77,11 @@ module Commands
       end
 
       def create_supporting_objects(content_item)
-        {
-          location: Location.create!(content_item: content_item, base_path: base_path),
-          state: State.create!(content_item: content_item, name: "draft"),
-          translation: Translation.create!(content_item: content_item, locale: locale),
-          user_facing_version: UserFacingVersion.create!(content_item: content_item, number: 1),
-          lock_version: LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft),
-        }
+        Location.create!(content_item: content_item, base_path: base_path)
+        State.create!(content_item: content_item, name: "draft")
+        Translation.create!(content_item: content_item, locale: locale)
+        UserFacingVersion.create!(content_item: content_item, number: 1)
+        LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
       end
 
       def lock_version_number_for_new_draft
@@ -143,7 +140,7 @@ module Commands
         )
       end
 
-      def send_downstream(content_item, location)
+      def send_downstream(content_item)
         return unless downstream
 
         ContentStoreWorker.perform_async(
