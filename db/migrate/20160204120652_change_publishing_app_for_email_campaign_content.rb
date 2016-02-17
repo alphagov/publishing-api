@@ -1,4 +1,7 @@
 class ChangePublishingAppForEmailCampaignContent < ActiveRecord::Migration
+  class DraftContentItem < ActiveRecord::Base; end
+  class LiveContentItem < ActiveRecord::Base; end
+
   def change
     PathReservation.where(publishing_app: "email-campaign-frontend").each do |reservation|
       reservation.publishing_app = "share-sale-publisher"

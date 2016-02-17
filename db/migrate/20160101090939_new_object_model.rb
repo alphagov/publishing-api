@@ -1,11 +1,7 @@
-class DraftContentItem < ActiveRecord::Base; end
-
-class LiveContentItem < ActiveRecord::Base; end
-class Version < ActiveRecord::Base
-  belongs_to :target, polymorphic: true
-end
-
 class NewObjectModel < ActiveRecord::Migration
+  class DraftContentItem < ActiveRecord::Base; end
+  class LiveContentItem < ActiveRecord::Base; end
+
   def up
     create_table :locations do |t|
       t.references :content_item
