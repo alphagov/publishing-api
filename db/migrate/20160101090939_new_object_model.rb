@@ -219,7 +219,7 @@ class NewObjectModel < ActiveRecord::Migration
 
     puts "Locations: #{Location.count}, Content Items: #{ContentItem.count}"
 
-    lock_version_sql = '
+    lock_version_for_content_items_sql = '
       INSERT INTO "lock_versions" (
                   "target_id",
                   "target_type",
@@ -243,11 +243,31 @@ class NewObjectModel < ActiveRecord::Migration
         ON "dv"."target_type" = \'DraftContentItem\'
         AND "dv"."target_id" = "dci"."id"
     '
-    say_with_time "Creating lock versions" do
-      ActiveRecord::Base.connection.execute(lock_version_sql)
+    say_with_time "Creating lock versions for content items" do
+      ActiveRecord::Base.connection.execute(lock_version_for_content_items_sql)
     end
 
-    puts "LockVersions: #{Location.count}, Content Items: #{ContentItem.count}"
+    puts "LockVersions: #{LockVersion.count}, Content Items: #{ContentItem.count}"
+
+    lock_version_for_link_sets_sql = '
+      INSERT INTO "lock_versions" (
+                  "target_id",
+                  "target_type",
+                  "number",
+                  "created_at",
+                  "updated_at"
+      )
+      SELECT "ls"."id", "v"."target_type", "v"."number", NOW(), NOW()
+      FROM "versions" "v"
+      JOIN "link_sets" "ls" ON
+        "v"."target_type" = \'LinkSet\' AND
+        "v"."target_id" = "ls"."id"
+    '
+    say_with_time "Creating lock versions for link sets" do
+      ActiveRecord::Base.connection.execute(lock_version_for_link_sets_sql)
+    end
+
+    puts "LockVersions: #{LockVersion.count}, Link Sets: #{LinkSet.count}"
 
     access_limit_sql = '
       UPDATE "access_limits" SET
