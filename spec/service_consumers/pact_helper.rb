@@ -282,15 +282,15 @@ Pact.provider_states_for "GDS API Adapters" do
 
       content_item = FactoryGirl.create(
         :live_content_item,
-        content_id: content_id2,
-        base_path: '/item-a',
+        content_id: content_id3,
+        base_path: '/item-b',
       )
       FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
       content_item = FactoryGirl.create(
         :live_content_item,
-        content_id: content_id3,
-        base_path: '/item-b',
+        content_id: content_id2,
+        base_path: '/item-a',
       )
       FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
