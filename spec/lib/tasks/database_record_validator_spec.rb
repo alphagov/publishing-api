@@ -18,12 +18,12 @@ RSpec.describe Tasks::DatabaseRecordValidator do
       invalid_record
     end
 
-    it "prints to stdout and logs to tmp/validation_results" do
+    it "prints to stdout and logs to /tmp/validation_results" do
       expect {
         subject.validate
       }.to output(/validation errors/).to_stdout
 
-      output = File.read("tmp/validation_results")
+      output = File.read("/tmp/validation_results")
       expect(output).to eq(
         "PathReservation id=#{invalid_record.id}: [\"Base path is not a valid absolute URL path\"]\n"
       )

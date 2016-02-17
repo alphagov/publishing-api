@@ -2,7 +2,7 @@ module Tasks
   module DatabaseRecordValidator
     class << self
       def validate
-        filename = "tmp/validation_results"
+        filename = "/tmp/validation_results"
         puts "\e[36mOutput will be written to #{filename}\e[0m\n\n"
 
         File.open(filename, "w") do |file|
