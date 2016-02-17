@@ -129,8 +129,8 @@ ActiveRecord::Schema.define(version: 20160125143518) do
   add_index "live_content_items", ["format"], name: "index_live_content_items_on_format", using: :btree
 
   create_table "locations", force: :cascade do |t|
-    t.integer  "content_item_id"
-    t.string   "base_path"
+    t.integer  "content_item_id", null: false
+    t.string   "base_path",       null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -155,8 +155,8 @@ ActiveRecord::Schema.define(version: 20160125143518) do
   add_index "path_reservations", ["base_path"], name: "index_path_reservations_on_base_path", unique: true, using: :btree
 
   create_table "states", force: :cascade do |t|
-    t.integer  "content_item_id"
-    t.string   "name"
+    t.integer  "content_item_id", null: false
+    t.string   "name",            null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -164,8 +164,8 @@ ActiveRecord::Schema.define(version: 20160125143518) do
   add_index "states", ["content_item_id", "name"], name: "index_states_on_content_item_id_and_name", using: :btree
 
   create_table "translations", force: :cascade do |t|
-    t.integer  "content_item_id"
-    t.string   "locale"
+    t.integer  "content_item_id", null: false
+    t.string   "locale",          null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(version: 20160125143518) do
   add_index "translations", ["content_item_id", "locale"], name: "index_translations_on_content_item_id_and_locale", using: :btree
 
   create_table "user_facing_versions", force: :cascade do |t|
-    t.integer  "content_item_id"
+    t.integer  "content_item_id",             null: false
     t.integer  "number",          default: 0, null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false

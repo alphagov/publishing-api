@@ -9,26 +9,29 @@ class NewObjectModel < ActiveRecord::Migration
   def up
     create_table :locations do |t|
       t.references :content_item
-      t.string :base_path
+      t.string :base_path, null: false
 
       t.timestamps null: false
     end
+    change_column_null :locations, :content_item_id, false
     add_index :locations, [:content_item_id, :base_path]
 
     create_table :translations do |t|
       t.references :content_item
-      t.string :locale
+      t.string :locale, null: false
 
       t.timestamps null: false
     end
+    change_column_null :translations, :content_item_id, false
     add_index :translations, [:content_item_id, :locale]
 
     create_table :states do |t|
       t.references :content_item
-      t.string :name
+      t.string :name, null: false
 
       t.timestamps null: false
     end
+    change_column_null :states, :content_item_id, false
     add_index :states, [:content_item_id, :name]
 
     create_table :user_facing_versions do |t|
@@ -37,6 +40,7 @@ class NewObjectModel < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    change_column_null :user_facing_versions, :content_item_id, false
     add_index :user_facing_versions, [:content_item_id, :number]
 
     create_table "lock_versions" do |t|
