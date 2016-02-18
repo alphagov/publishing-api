@@ -34,7 +34,8 @@ module Commands
         draft.update_attributes(live.attributes.except("id", "draft_content_item_id"))
 
         if downstream
-          ContentStoreWorker.perform_async(
+          ContentStoreWorker.perform_in(
+            1.second,
             content_store: Adapters::DraftContentStore,
             live_content_item_id: live.id,
           )
@@ -45,7 +46,8 @@ module Commands
         draft.destroy
 
         if downstream
-          ContentStoreWorker.perform_async(
+          ContentStoreWorker.perform_in(
+            1.second,
             content_store: Adapters::DraftContentStore,
             base_path: draft.base_path,
             delete: true,

@@ -9,7 +9,8 @@ module Commands
         PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
         if downstream
-          ContentStoreWorker.perform_async(
+          ContentStoreWorker.perform_in(
+            1.second,
             content_store: Adapters::DraftContentStore,
             draft_content_item_id: content_item.id,
           )
@@ -70,7 +71,8 @@ module Commands
               locale: content_item.locale,
             )
           else
-            ContentStoreWorker.perform_async(
+            ContentStoreWorker.perform_in(
+              1.second,
               content_store: Adapters::DraftContentStore,
               base_path: path_change[0],
               delete: true,

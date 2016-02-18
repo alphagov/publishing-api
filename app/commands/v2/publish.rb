@@ -77,7 +77,8 @@ module Commands
         end
 
         if downstream
-          ContentStoreWorker.perform_async(
+          ContentStoreWorker.perform_in(
+            1.second,
             content_store: Adapters::ContentStore,
             live_content_item_id: live_content_item.id,
           )

@@ -143,8 +143,8 @@ RSpec.describe Commands::V2::Publish do
           .and_return(presentation)
 
         expect(ContentStoreWorker)
-          .to receive(:perform_async)
-          .with(hash_including(content_store: Adapters::ContentStore))
+          .to receive(:perform_in)
+          .with(1.second, hash_including(content_store: Adapters::ContentStore))
 
         described_class.call(payload)
       end
