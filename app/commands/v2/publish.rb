@@ -28,7 +28,13 @@ module Commands
 
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
-        previously_published_item = ContentItemFilter.similar_to(content_item, state: "published", base_path: nil).first
+        previously_published_item = ContentItemFilter.similar_to(
+          content_item,
+          state: "published",
+          base_path: nil,
+          user_version: nil,
+        ).first
+
         previous_location = Location.find_by(content_item: previously_published_item)
 
         State.supersede(previously_published_item) if previously_published_item
