@@ -1,6 +1,8 @@
 module Commands
   class PutContentWithLinks < BaseCommand
     def call
+      add_update_type_if_not_provided
+
       if payload[:content_id]
         V2::PutContent.call(payload.except(:access_limited))
         V2::PutLinkSet.call(payload.slice(:content_id, :links))
@@ -27,6 +29,11 @@ module Commands
       end
 
       Success.new(payload)
+    end
+
+    def add_update_type_if_not_provided
+      return if payload[:update_type].present?
+      payload[:update_type] = "major"
     end
   end
 end
