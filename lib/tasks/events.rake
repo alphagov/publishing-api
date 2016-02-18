@@ -31,9 +31,7 @@ namespace :events do
 
 
         begin
-          response = EventLogger.log_command(command, payload) do
-            command.call(payload.deep_symbolize_keys, downstream: false)
-          end
+          response = command.call(payload.deep_symbolize_keys, downstream: false)
 
           if response.code == 200
             print "."
