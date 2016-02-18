@@ -10,6 +10,21 @@ class DraftContentItem < ActiveRecord::Base
 
   NON_RENDERABLE_FORMATS = %w(redirect gone)
 
+  after_save :increment_receipt_order
+  after_touch :increment_receipt_order
+  def increment_receipt_order
+    sql = <<-SQL
+        UPDATE draft_content_items
+        SET receipt_order = COALESCE(receipt_order, 0) + 1
+        WHERE id = #{self.id}
+        RETURNING receipt_order;
+      SQL
+    self.receipt_order = DraftContentItem.connection
+      .execute(sql)
+      .first["receipt_order"]
+    clear_changes_information
+  end
+
   has_one :live_content_item
 
   scope :renderable_content, -> { where.not(format: NON_RENDERABLE_FORMATS) }

@@ -194,6 +194,35 @@ RSpec.describe DraftContentItem do
     end
   end
 
+  describe "receipt_order" do
+    context "on save" do
+      let(:content_item){ build(:draft_content_item) }
+
+      before do
+        content_item.save
+      end
+
+      it "is incremented" do
+        expect(content_item.receipt_order).to eq(1)
+        content_item.save
+        expect(content_item.receipt_order).to eq(2)
+      end
+
+      it "doesn't mark the item dirty" do
+        expect(content_item).not_to be_changed
+      end
+    end
+
+    context "on touch" do
+      it "is incremented" do
+        content_item = create(:draft_content_item)
+        original_receipt_order = content_item.receipt_order
+        content_item.touch
+        expect(content_item.receipt_order).to eq(original_receipt_order + 1)
+      end
+    end
+  end
+
   context "replaceable" do
     let!(:existing) { FactoryGirl.create(:draft_content_item) }
 
