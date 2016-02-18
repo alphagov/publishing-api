@@ -62,13 +62,28 @@ RSpec.describe ContentItemUniquenessValidator do
 
   context "for a content item with a missing supporting object" do
     before do
-      FactoryGirl.create(:content_item)
+      content_item = FactoryGirl.create(:content_item)
+      Translation.find_by!(content_item: content_item).destroy
     end
 
     it "has valid supporting objects" do
       assert_valid(State.last)
       assert_valid(Location.last)
       assert_valid(UserFacingVersion.last)
+    end
+  end
+
+  context "when a duplicate content item exists in a withdrawn state" do
+    let!(:content_item) do
+      FactoryGirl.create(:content_item, state: "withdrawn")
+    end
+
+    it "allows duplicates and does not raise an error" do
+      expect {
+        FactoryGirl.create(:content_item, state: "withdrawn")
+      }.not_to raise_error
+
+      expect(ContentItem.count).to eq(2)
     end
   end
 end
