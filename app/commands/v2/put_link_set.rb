@@ -30,14 +30,16 @@ module Commands
 
         if downstream
           if (draft_content_item = DraftContentItem.find_by(content_id: link_params.fetch(:content_id)))
-            ContentStoreWorker.perform_async(
+            ContentStoreWorker.perform_in(
+              1.second,
               content_store: Adapters::DraftContentStore,
               draft_content_item_id: draft_content_item.id,
             )
           end
 
           if (live_content_item = LiveContentItem.find_by(content_id: link_params.fetch(:content_id)))
-            ContentStoreWorker.perform_async(
+            ContentStoreWorker.perform_in(
+              1.second,
               content_store: Adapters::ContentStore,
               live_content_item_id: live_content_item.id,
             )
