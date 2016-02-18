@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218145245) do
+ActiveRecord::Schema.define(version: 20160218154519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20160218145245) do
     t.string   "phase",                 default: "live"
     t.string   "analytics_identifier"
     t.json     "description",           default: {"value"=>nil}
+    t.integer  "receipt_order"
   end
 
   add_index "live_content_items", ["base_path"], name: "index_live_content_items_on_base_path", unique: true, using: :btree

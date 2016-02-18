@@ -232,4 +232,5 @@ RSpec.describe LiveContentItem do
   it_behaves_like RoutesAndRedirectsValidator
   it_behaves_like WellFormedContentTypesValidator
   it_behaves_like DescriptionOverrides
+  it_behaves_like ReceiptOrderable
 end
