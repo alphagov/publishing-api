@@ -35,6 +35,17 @@ RSpec.describe Commands::PutContentWithLinks do
     end
   end
 
+  context "when links is not provided" do
+    before do
+      payload[:links] = nil
+    end
+
+    it "responds successfully" do
+      result = described_class.call(payload)
+      expect(result).to be_a(Commands::Success)
+    end
+  end
+
   it "responds successfully" do
     result = described_class.call(payload)
     expect(result).to be_a(Commands::Success)
@@ -55,7 +66,7 @@ RSpec.describe Commands::PutContentWithLinks do
     protected_link = create(:link, link_set: link_set, link_type: 'alpha_taxons')
     normal_link = create(:link, link_set: link_set, link_type: 'topics')
 
-    Commands::PutContentWithLinks.call({
+    described_class.call(
       title: 'Test Title',
       format: 'placeholder',
       content_id: '60d81299-6ae7-4bab-b4fe-4235d518d50a',
@@ -66,7 +77,7 @@ RSpec.describe Commands::PutContentWithLinks do
       routes: [{ path: '/foo', type: "exact" }],
       update_type: "minor",
       links: { topics: [] },
-    })
+    )
 
     expect { normal_link.reload }.to raise_error(ActiveRecord::RecordNotFound)
     expect { protected_link.reload }.not_to raise_error

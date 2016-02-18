@@ -1,6 +1,8 @@
 module Commands
   class PutDraftContentWithLinks < BaseCommand
     def call
+      add_links_if_not_provided
+
       if payload[:content_id]
         V2::PutContent.call(payload)
         V2::PutLinkSet.call(payload.slice(:content_id, :links))
@@ -31,6 +33,11 @@ module Commands
 
     def locale
       payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
+    end
+
+    def add_links_if_not_provided
+      return if payload[:links].present?
+      payload[:links] = {}
     end
   end
 end
