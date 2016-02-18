@@ -11,6 +11,7 @@ module Commands
 
         if live
           increment_live_lock_version
+          send_live_to_draft_content_store(live) if downstream
         else
           delete_draft_from_database
           delete_draft_from_draft_content_store(draft_path) if downstream
@@ -38,6 +39,13 @@ module Commands
           content_store: Adapters::DraftContentStore,
           base_path: draft_path,
           delete: true,
+        )
+      end
+
+      def send_live_to_draft_content_store(live)
+        ContentStoreWorker.perform_async(
+          content_store: Adapters::DraftContentStore,
+          content_item_id: live.id,
         )
       end
 

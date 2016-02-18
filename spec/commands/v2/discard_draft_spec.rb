@@ -4,6 +4,7 @@ RSpec.describe Commands::V2::DiscardDraft do
   describe "call" do
     before do
       stub_request(:delete, %r{.*content-store.*/content/.*})
+      stub_request(:put, %r{.*content-store.*/content/.*})
     end
 
     let(:content_id) { SecureRandom.uuid }
@@ -104,6 +105,16 @@ RSpec.describe Commands::V2::DiscardDraft do
           expect {
             described_class.call(payload)
           }.to change { published_lock_version.reload.number }.to(4)
+        end
+
+        it "sends the published content item to the draft content store" do
+          expect(ContentStoreWorker).to receive(:perform_async)
+            .with(
+              content_store: Adapters::DraftContentStore,
+              content_item_id: published_item.id,
+            )
+
+          described_class.call(payload)
         end
       end
 
