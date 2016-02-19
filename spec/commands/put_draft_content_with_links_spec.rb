@@ -82,4 +82,13 @@ RSpec.describe Commands::PutDraftContentWithLinks do
     expect { normal_link.reload }.to raise_error(ActiveRecord::RecordNotFound)
     expect { protected_link.reload }.not_to raise_error
   end
+
+  context "when the downstream flag is set to false" do
+    it "does not send any downstream requests" do
+      expect(ContentStoreWorker).not_to receive(:perform_in)
+      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+      described_class.call(payload, downstream: false)
+    end
+  end
 end

@@ -5,9 +5,9 @@ module Commands
       add_links_if_not_provided
 
       if payload[:content_id]
-        V2::PutContent.call(payload.except(:access_limited))
-        V2::PutLinkSet.call(payload.slice(:content_id, :links))
-        V2::Publish.call(payload.except(:access_limited))
+        V2::PutContent.call(payload.except(:access_limited), downstream: downstream)
+        V2::PutLinkSet.call(payload.slice(:content_id, :links), downstream: downstream)
+        V2::Publish.call(payload.except(:access_limited), downstream: downstream)
       else
         base_path = payload.fetch(:base_path)
 

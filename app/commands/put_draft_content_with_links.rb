@@ -4,8 +4,8 @@ module Commands
       add_links_if_not_provided
 
       if payload[:content_id]
-        V2::PutContent.call(payload)
-        V2::PutLinkSet.call(payload.slice(:content_id, :links))
+        V2::PutContent.call(payload, downstream: downstream)
+        V2::PutLinkSet.call(payload.slice(:content_id, :links), downstream: downstream)
       else
         PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
