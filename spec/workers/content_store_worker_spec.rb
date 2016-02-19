@@ -110,4 +110,25 @@ RSpec.describe ContentStoreWorker do
       expect(api_call).to have_been_made
     end
   end
+
+  context "when an enqueued item doesn't exist anymore" do
+    let(:missing_content_item_id) { 123 }
+
+    it "raises a more helpful error message" do
+      expect {
+        subject.perform(
+          content_store: 'Adapters::ContentStore',
+          content_item_id: missing_content_item_id,
+        )
+      }.to raise_error(
+        ActiveRecord::RecordNotFound,
+        /Tried to send ContentItem with id=123 to the Live Content Store/
+      )
+        subject.perform(
+          content_store: 'Adapters::ContentStore',
+          content_item_id: missing_content_item_id,
+        )
+    end
+
+  end
 end
