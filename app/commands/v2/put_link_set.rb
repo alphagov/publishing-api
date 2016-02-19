@@ -35,7 +35,7 @@ module Commands
 
         send_downstream if downstream
 
-        presented = Presenters::Queries::LinkSetPresenter.new(link_set).present
+        presented = Presenters::Queries::LinkSetPresenter.present(link_set)
         Success.new(presented)
       end
 

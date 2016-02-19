@@ -44,7 +44,7 @@ RSpec.describe Queries::GetLinkSet do
 
         expect(result).to eq(
           content_id: content_id,
-          lock_version: 5,
+          version: 5,
           links: {
             parent: parent,
             related: related,
@@ -59,7 +59,7 @@ RSpec.describe Queries::GetLinkSet do
 
         expect(result).to eq(
           content_id: content_id,
-          lock_version: 5,
+          version: 5,
           links: {},
         )
       end

@@ -18,7 +18,7 @@ module Presenters
         }
 
         if lock_version
-          base.merge(lock_version: lock_version.number)
+          base.merge(version: lock_version.number)
         else
           base
         end

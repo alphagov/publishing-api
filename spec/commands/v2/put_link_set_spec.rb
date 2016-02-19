@@ -67,10 +67,11 @@ RSpec.describe Commands::V2::PutLinkSet do
       expect(result).to be_a(Commands::Success)
       expect(result.data).to eq(
         content_id: content_id,
+        version: 1,
         links: {
           topics: topics,
           parent: parent,
-        }
+        },
       )
     end
   end
@@ -151,6 +152,7 @@ RSpec.describe Commands::V2::PutLinkSet do
       expect(result).to be_a(Commands::Success)
       expect(result.data).to eq(
         content_id: content_id,
+        version: 2,
         links: {
           topics: topics,
           parent: parent,

@@ -14,7 +14,7 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
     end
 
     it "exposes the lock_version of the link set" do
-      expect(@result.fetch(:lock_version)).to eq(101)
+      expect(@result.fetch(:version)).to eq(101)
     end
   end
 
