@@ -22,7 +22,7 @@ RSpec.describe "POST /v2/publish", type: :request do
       .merge(
         links: Presenters::Queries::LinkSetPresenter.new(link_set).links,
       )
-      .except(:update_type)
+      .except(:update_type, :receipt_order)
   }
 
   let(:content_id) { draft_content_item.content_id }
