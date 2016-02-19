@@ -39,11 +39,13 @@ RSpec.describe "Superseding Content Items" do
 
     it "creates and publishes a content item" do
       expect(ContentItem.count).to eq(1)
-
       content_item = ContentItem.first
+
       state = State.find_by!(content_item: content_item)
+      user_facing_version = UserFacingVersion.find_by(content_item: content_item)
 
       expect(state.name).to eq("published")
+      expect(user_facing_version.number).to eq(1)
     end
 
     describe "after the second pair is called" do
@@ -58,8 +60,14 @@ RSpec.describe "Superseding Content Items" do
         superseded = State.find_by!(content_item: superseded_content_item)
         published = State.find_by!(content_item: published_content_item)
 
+        superseded_version = UserFacingVersion.find_by(content_item: superseded_content_item)
+        published_version = UserFacingVersion.find_by(content_item: published_content_item)
+
         expect(superseded.name).to eq("superseded")
         expect(published.name).to eq("published")
+
+        expect(superseded_version.number).to eq(1)
+        expect(published_version.number).to eq(2)
       end
 
       describe "after the third pair is called" do
@@ -76,9 +84,17 @@ RSpec.describe "Superseding Content Items" do
           superseded2 = State.find_by!(content_item: superseded2_content_item)
           published = State.find_by!(content_item: published_content_item)
 
+          superseded1_version = UserFacingVersion.find_by(content_item: superseded1_content_item)
+          superseded2_version = UserFacingVersion.find_by(content_item: superseded2_content_item)
+          published_version = UserFacingVersion.find_by(content_item: published_content_item)
+
           expect(superseded1.name).to eq("superseded")
           expect(superseded2.name).to eq("superseded")
           expect(published.name).to eq("published")
+
+          expect(superseded1_version.number).to eq(1)
+          expect(superseded2_version.number).to eq(2)
+          expect(published_version.number).to eq(3)
         end
       end
     end
