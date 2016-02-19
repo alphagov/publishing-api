@@ -197,8 +197,9 @@ RSpec.describe Commands::V2::PutLinkSet do
     end
 
     it "sends a request to the draft content store" do
-      expect(ContentStoreWorker).to receive(:perform_async)
+      expect(ContentStoreWorker).to receive(:perform_in)
         .with(
+          1.second,
           content_store: Adapters::DraftContentStore,
           content_item_id: ContentItem.last.id,
         )
@@ -223,8 +224,9 @@ RSpec.describe Commands::V2::PutLinkSet do
         end
 
         it "sends the draft content item for that locale downstream" do
-          expect(ContentStoreWorker).to receive(:perform_async)
+          expect(ContentStoreWorker).to receive(:perform_in)
           .with(
+            1.second,
             content_store: Adapters::DraftContentStore,
             content_item_id: ContentItem.last.id,
           )
@@ -235,7 +237,7 @@ RSpec.describe Commands::V2::PutLinkSet do
 
       context "and a draft content item does not exist for that locale" do
         it "does not send a downstream request" do
-          expect(ContentStoreWorker).not_to receive(:perform_async)
+          expect(ContentStoreWorker).not_to receive(:perform_in)
           expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
           described_class.call(payload)
@@ -245,7 +247,7 @@ RSpec.describe Commands::V2::PutLinkSet do
 
     context "when 'downstream' is false" do
       it "does not send a request to either content store" do
-        expect(ContentStoreWorker).not_to receive(:perform_async)
+        expect(ContentStoreWorker).not_to receive(:perform_in)
         described_class.call(payload, downstream: false)
       end
 
@@ -267,8 +269,9 @@ RSpec.describe Commands::V2::PutLinkSet do
     end
 
     it "sends a request to the live content store" do
-      expect(ContentStoreWorker).to receive(:perform_async)
+      expect(ContentStoreWorker).to receive(:perform_in)
       .with(
+        1.second,
         content_store: Adapters::ContentStore,
         content_item_id: ContentItem.last.id,
       )
@@ -307,8 +310,9 @@ RSpec.describe Commands::V2::PutLinkSet do
         end
 
         it "sends the live content item for that locale downstream" do
-          expect(ContentStoreWorker).to receive(:perform_async)
+          expect(ContentStoreWorker).to receive(:perform_in)
           .with(
+            1.second,
             content_store: Adapters::ContentStore,
             content_item_id: ContentItem.last.id,
           )
@@ -324,7 +328,7 @@ RSpec.describe Commands::V2::PutLinkSet do
 
       context "and a live content item does not exist for that locale" do
         it "does not send a downstream request" do
-          expect(ContentStoreWorker).not_to receive(:perform_async)
+          expect(ContentStoreWorker).not_to receive(:perform_in)
           expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
           described_class.call(payload)
@@ -335,7 +339,7 @@ RSpec.describe Commands::V2::PutLinkSet do
 
     context "when 'downstream' is false" do
       it "does not send a request to either content store" do
-        expect(ContentStoreWorker).not_to receive(:perform_async)
+        expect(ContentStoreWorker).not_to receive(:perform_in)
         described_class.call(payload, downstream: false)
       end
 

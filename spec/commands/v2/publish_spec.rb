@@ -159,8 +159,9 @@ RSpec.describe Commands::V2::Publish do
           .and_return(presentation)
 
         expect(ContentStoreWorker)
-          .to receive(:perform_async)
+          .to receive(:perform_in)
           .with(
+            1.second,
             content_store: Adapters::ContentStore,
             content_item_id: draft_item.id,
           )
@@ -170,7 +171,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "when the 'downstream' parameter is false" do
         it "does not send any requests to any content store" do
-          expect(ContentStoreWorker).not_to receive(:perform_async)
+          expect(ContentStoreWorker).not_to receive(:perform_in)
           described_class.call(payload, downstream: false)
         end
 
@@ -189,8 +190,9 @@ RSpec.describe Commands::V2::Publish do
 
         it "uses the stored timestamp for major or minor" do
           expect(ContentStoreWorker)
-            .to receive(:perform_async)
+            .to receive(:perform_in)
             .with(
+              1.second,
               content_store: Adapters::ContentStore,
               content_item_id: draft_item.id,
             )
@@ -207,8 +209,9 @@ RSpec.describe Commands::V2::Publish do
         context "for a major update" do
           it "updates the public_updated_at time to now" do
             expect(ContentStoreWorker)
-              .to receive(:perform_async)
+              .to receive(:perform_in)
               .with(
+                1.second,
                 content_store: Adapters::ContentStore,
                 content_item_id: draft_item.id,
               )
@@ -236,8 +239,9 @@ RSpec.describe Commands::V2::Publish do
 
           it "preserves the public_updated_at value from the last live item" do
             expect(ContentStoreWorker)
-              .to receive(:perform_async)
+              .to receive(:perform_in)
               .with(
+                1.second,
                 content_store: Adapters::ContentStore,
                 content_item_id: draft_item.id,
               )
@@ -258,8 +262,9 @@ RSpec.describe Commands::V2::Publish do
 
           it "uses the stored timestamp for major or minor" do
             expect(ContentStoreWorker)
-              .to receive(:perform_async)
+              .to receive(:perform_in)
               .with(
+                1.second,
                 content_store: Adapters::ContentStore,
                 content_item_id: draft_item.id,
               )

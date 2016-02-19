@@ -90,7 +90,8 @@ module Commands
       end
 
       def send_to_content_store(content_item, content_store)
-        ContentStoreWorker.perform_async(
+        ContentStoreWorker.perform_in(
+          1.second,
           content_store: content_store,
           content_item_id: content_item.id,
         )

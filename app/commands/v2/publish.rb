@@ -120,7 +120,8 @@ module Commands
       def send_downstream(content_item, update_type)
         return unless downstream
 
-        ContentStoreWorker.perform_async(
+        ContentStoreWorker.perform_in(
+          1.second,
           content_store: Adapters::ContentStore,
           content_item_id: content_item.id,
         )

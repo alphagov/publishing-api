@@ -124,11 +124,6 @@ RSpec.describe ContentStoreWorker do
         ActiveRecord::RecordNotFound,
         /Tried to send ContentItem with id=123 to the Live Content Store/
       )
-        subject.perform(
-          content_store: 'Adapters::ContentStore',
-          content_item_id: missing_content_item_id,
-        )
     end
-
   end
 end

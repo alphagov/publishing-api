@@ -35,7 +35,8 @@ module Commands
       end
 
       def delete_draft_from_draft_content_store(draft_path)
-        ContentStoreWorker.perform_async(
+        ContentStoreWorker.perform_in(
+          1.second,
           content_store: Adapters::DraftContentStore,
           base_path: draft_path,
           delete: true,
@@ -43,7 +44,8 @@ module Commands
       end
 
       def send_live_to_draft_content_store(live)
-        ContentStoreWorker.perform_async(
+        ContentStoreWorker.perform_in(
+          1.second,
           content_store: Adapters::DraftContentStore,
           content_item_id: live.id,
         )
