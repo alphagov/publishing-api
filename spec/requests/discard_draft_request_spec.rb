@@ -105,6 +105,11 @@ RSpec.describe "Discard draft requests", type: :request do
         end
 
         sends_to_draft_content_store
+
+        it "increments the receipt_order" do
+          do_request
+          expect(DraftContentItem.last.receipt_order).to eq(1)
+        end
       end
     end
 

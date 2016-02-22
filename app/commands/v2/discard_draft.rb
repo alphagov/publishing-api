@@ -33,6 +33,8 @@ module Commands
       def update_draft_from_live
         draft.update_attributes(live.attributes.except("id", "draft_content_item_id"))
 
+        draft.increment_receipt_order
+
         if downstream
           ContentStoreWorker.perform_in(
             1.second,
