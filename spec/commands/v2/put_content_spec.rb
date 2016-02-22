@@ -20,6 +20,13 @@ RSpec.describe Commands::V2::PutContent do
         )
     }
 
+    describe "#call" do
+      it "increments receipt_order on the content item" do
+        described_class.call(payload)
+        expect(DraftContentItem.last.receipt_order).to eq(1)
+      end
+    end
+
     describe "validation" do
       before do
         create(:path_reservation, publishing_app: payload[:publishing_app], base_path: base_path)

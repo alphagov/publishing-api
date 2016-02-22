@@ -8,6 +8,8 @@ module Commands
 
         PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
 
+        content_item.increment_receipt_order
+
         if downstream
           ContentStoreWorker.perform_in(
             1.second,
