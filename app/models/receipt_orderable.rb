@@ -1,11 +1,6 @@
 module ReceiptOrderable
   extend ActiveSupport::Concern
 
-  included do
-    after_save :increment_receipt_order
-    after_touch :increment_receipt_order
-  end
-
   def increment_receipt_order
     klass = self.class
     sql = <<-SQL

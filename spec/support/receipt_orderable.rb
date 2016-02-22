@@ -1,26 +1,10 @@
 RSpec.shared_examples ReceiptOrderable do
-  describe "receipt_order" do
-    before do
+  describe "#increment_receipt_order" do
+    it "increments the receipt order" do
       subject.save
-    end
-
-    context "after_save" do
-      it "is incremented" do
-        expect(subject.receipt_order).to eq(1)
-        subject.save
-        expect(subject.receipt_order).to eq(2)
-      end
-
-      it "doesn't mark the item dirty" do
-        expect(subject).not_to be_changed
-      end
-    end
-
-    context "on touch" do
-      it "is incremented" do
-        original_receipt_order = subject.receipt_order
-        subject.touch
-        expect(subject.receipt_order).to eq(original_receipt_order + 1)
+      5.times do |count|
+        subject.increment_receipt_order
+        expect(subject.receipt_order).to eq(count + 1)
       end
     end
   end
