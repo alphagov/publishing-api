@@ -285,7 +285,9 @@ class NewObjectModel < ActiveRecord::Migration
       ActiveRecord::Base.connection.execute(access_limit_sql)
     end
 
-    user_facing_versions_sql = '
+    puts "AccessLimit: #{AccessLimit.count}"
+
+    user_facing_versions_for_live_items_sql = '
       INSERT INTO "user_facing_versions" (
                   "content_item_id",
                   "number",
@@ -293,11 +295,43 @@ class NewObjectModel < ActiveRecord::Migration
                   "updated_at"
       )
       SELECT "content_items"."id", 1, NOW(), NOW() FROM "content_items"
+      JOIN "live_content_items" on "live_content_items"."id" = "content_items"."live_content_item_id"
     '
 
-    say_with_time "Creating user facing versions" do
-      ActiveRecord::Base.connection.execute(user_facing_versions_sql)
+    say_with_time "Creating user facing versions for live items" do
+      ActiveRecord::Base.connection.execute(user_facing_versions_for_live_items_sql)
     end
+
+    puts "UserFacingVersion: #{UserFacingVersion.count}"
+
+    user_facing_versions_for_draft_items_sql = '
+      INSERT INTO "user_facing_versions" (
+                  "content_item_id",
+                  "number",
+                  "created_at",
+                  "updated_at"
+      )
+      SELECT
+        "content_items"."id",
+
+        CASE
+          WHEN "live_content_items"."id" IS NULL
+             THEN 1
+             ELSE 2
+        END AS number,
+
+        NOW(),
+        NOW()
+      FROM "content_items"
+      JOIN "draft_content_items" on "draft_content_items"."id" = "content_items"."draft_content_item_id"
+      LEFT JOIN "live_content_items" on "live_content_items"."draft_content_item_id" = "draft_content_items"."id"
+    '
+
+    say_with_time "Creating user facing versions for draft items" do
+      ActiveRecord::Base.connection.execute(user_facing_versions_for_draft_items_sql)
+    end
+
+    puts "UserFacingVersion: #{UserFacingVersion.count}"
 
     # Commented out as source data needs sanitising
     #
