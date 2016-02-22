@@ -10,6 +10,8 @@ class DraftContentItem < ActiveRecord::Base
 
   NON_RENDERABLE_FORMATS = %w(redirect gone)
 
+  include ReceiptOrderable
+
   has_one :live_content_item
 
   scope :renderable_content, -> { where.not(format: NON_RENDERABLE_FORMATS) }

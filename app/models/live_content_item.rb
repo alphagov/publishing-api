@@ -3,6 +3,7 @@ class LiveContentItem < ActiveRecord::Base
   include DefaultAttributes
   include SymbolizeJSON
   include DescriptionOverrides
+  include ReceiptOrderable
 
   TOP_LEVEL_FIELDS = [
     :base_path,

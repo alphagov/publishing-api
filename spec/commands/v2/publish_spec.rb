@@ -49,19 +49,22 @@ RSpec.describe Commands::V2::Publish do
     end
 
     context "with a valid payload" do
-      it "creates or replaces a live content item" do
+      before do
         stub_request(:put, %r{.*content-store.*/content/.*})
+      end
 
+      it "creates or replaces a live content item" do
         expect {
           described_class.call(payload)
         }.to change(LiveContentItem, :count).by(1)
       end
 
-      context "with no public_updated_at in the payload" do
-        before do
-          stub_request(:put, %r{.*content-store.*/content/.*})
-        end
+      it "increments the receipt_order on the live content item" do
+        described_class.call(payload)
+        expect(LiveContentItem.last.receipt_order).to eq(1)
+      end
 
+      context "with no public_updated_at in the payload" do
         context "for a major update" do
           it "updates the public_updated_at time" do
             described_class.call(payload)
