@@ -92,6 +92,42 @@ RSpec.describe Commands::V2::PutLinkSet do
       expect(link_set.links.map(&:target_content_id)).to eql([link_to_keep.target_content_id])
     end
 
+    context "with a DraftContentItem" do
+      let(:draft_content_item){ create(:draft_content_item) }
+      let(:link_set){ create(:link_set, content_id: draft_content_item.content_id) }
+
+      before do
+        stub_request(:put, "http://draft-content-store.dev.gov.uk/content/vat-rates")
+      end
+
+      it "increments receipt_order on the item" do
+        put_link_set(
+          content_id: link_set.content_id,
+          links: {
+          }
+        )
+        expect(draft_content_item.reload.receipt_order).to eq(1)
+      end
+    end
+
+    context "with a LiveContentItem" do
+      let(:live_content_item){ create(:live_content_item) }
+      let(:link_set){ create(:link_set, content_id: live_content_item.content_id) }
+
+      before do
+        stub_request(:put, "http://content-store.dev.gov.uk/content/vat-rates")
+      end
+
+      it "increments receipt_order on the item" do
+        put_link_set(
+          content_id: link_set.content_id,
+          links: {
+          }
+        )
+        expect(live_content_item.reload.receipt_order).to eq(1)
+      end
+    end
+
     def put_link_set(links)
       Commands::V2::PutLinkSet.call(links)
     end

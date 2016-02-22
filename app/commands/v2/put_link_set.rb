@@ -30,6 +30,9 @@ module Commands
 
         if downstream
           if (draft_content_item = DraftContentItem.find_by(content_id: link_params.fetch(:content_id)))
+
+            draft_content_item.increment_receipt_order
+
             ContentStoreWorker.perform_in(
               1.second,
               content_store: Adapters::DraftContentStore,
@@ -38,6 +41,9 @@ module Commands
           end
 
           if (live_content_item = LiveContentItem.find_by(content_id: link_params.fetch(:content_id)))
+
+            live_content_item.increment_receipt_order
+
             ContentStoreWorker.perform_in(
               1.second,
               content_store: Adapters::ContentStore,
