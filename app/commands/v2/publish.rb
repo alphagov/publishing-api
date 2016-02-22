@@ -76,6 +76,8 @@ module Commands
           end
         end
 
+        live_content_item.increment_receipt_order
+
         if downstream
           ContentStoreWorker.perform_in(
             1.second,

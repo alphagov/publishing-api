@@ -81,6 +81,11 @@ RSpec.describe "POST /v2/publish", type: :request do
 
       expect(live_version.number).to eq(draft_version.number)
     end
+
+    it "increments the receipt order" do
+      do_request
+      expect(LiveContentItem.last.receipt_order).to eq(1)
+    end
   end
 
   context "a draft exists with version 2, a live exists with version 1" do
@@ -127,6 +132,11 @@ RSpec.describe "POST /v2/publish", type: :request do
         )
         do_request
       end
+    end
+
+    it "increments the receipt order" do
+      do_request
+      expect(LiveContentItem.last.receipt_order).to eq(1)
     end
 
     describe "message queue integration" do
@@ -216,6 +226,11 @@ RSpec.describe "POST /v2/publish", type: :request do
 
         expect(live_item.locale).to eq("fr")
         expect(live_item.draft_content_item).to eq(french_draft)
+      end
+
+      it "increments the receipt_order" do
+        do_request
+        expect(LiveContentItem.last.receipt_order).to eq(1)
       end
     end
 
