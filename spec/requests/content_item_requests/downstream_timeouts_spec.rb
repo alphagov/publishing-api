@@ -42,5 +42,6 @@ RSpec.describe "Downstream timeouts", type: :request do
     end
 
     behaves_well_when_draft_content_store_times_out
+    behaves_well_when_live_content_store_times_out
   end
 end
