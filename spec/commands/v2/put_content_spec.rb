@@ -413,6 +413,36 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
+    context "when a link set exists for the content id" do
+      let(:link_target) { SecureRandom.uuid }
+
+      let!(:link_set) do
+        FactoryGirl.create(
+          :link_set,
+          content_id: content_id,
+          links: [
+            FactoryGirl.create(
+              :link,
+              link_type: "parent",
+              target_content_id: link_target,
+            )
+          ]
+        )
+      end
+
+      it "does not affect the link set" do
+        expect {
+          described_class.call(payload)
+        }.not_to change(LinkSet, :count)
+
+        links = link_set.reload.links
+        expect(links.count).to eq(1)
+
+        expect(links.first.link_type).to eq("parent")
+        expect(links.first.target_content_id).to eq(link_target)
+      end
+    end
+
     context "when the 'links' parameter is provided" do
       before do
         payload.merge!(links: { users: ["new-user"] })
