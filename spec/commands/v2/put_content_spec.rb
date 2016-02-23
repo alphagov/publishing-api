@@ -413,6 +413,18 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
+    context "when the 'links' parameter is provided" do
+      before do
+        payload.merge!(links: { users: ["new-user"] })
+      end
+
+      it "raises an error" do
+        expect {
+          described_class.call(payload)
+        }.to raise_error(CommandError, /'links' parameter should not be provided/)
+      end
+    end
+
     it_behaves_like TransactionalCommand
   end
 end

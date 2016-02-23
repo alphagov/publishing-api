@@ -18,7 +18,6 @@ RSpec.describe "Withdrawing Content Items" do
       routes: [{ path: "/vat-rates", type: "exact" }],
       redirects: [],
       phase: "beta",
-      links: {},
     }
   end
 

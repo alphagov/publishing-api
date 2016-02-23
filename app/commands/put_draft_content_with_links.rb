@@ -1,11 +1,9 @@
 module Commands
   class PutDraftContentWithLinks < BaseCommand
     def call
-      add_links_if_not_provided
-
       if payload[:content_id]
-        V2::PutContent.call(payload, downstream: downstream)
-        V2::PutLinkSet.call(payload.slice(:content_id, :links), downstream: downstream)
+        V2::PutContent.call(v2_put_content_payload, downstream: downstream)
+        V2::PutLinkSet.call(v2_put_link_set_payload, downstream: downstream)
       else
         PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
@@ -38,6 +36,17 @@ module Commands
     def add_links_if_not_provided
       return if payload[:links].present?
       payload[:links] = {}
+    end
+
+    def v2_put_content_payload
+      payload
+        .except(:links)
+    end
+
+    def v2_put_link_set_payload
+      payload
+        .slice(:content_id, :links)
+        .merge(links: payload[:links] || {})
     end
   end
 end

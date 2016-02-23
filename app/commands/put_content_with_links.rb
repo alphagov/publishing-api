@@ -1,13 +1,10 @@
 module Commands
   class PutContentWithLinks < BaseCommand
     def call
-      add_update_type_if_not_provided
-      add_links_if_not_provided
-
       if payload[:content_id]
-        V2::PutContent.call(payload.except(:access_limited), downstream: downstream)
-        V2::PutLinkSet.call(payload.slice(:content_id, :links), downstream: downstream)
-        V2::Publish.call(payload.except(:access_limited), downstream: downstream)
+        V2::PutContent.call(v2_put_content_payload, downstream: downstream)
+        V2::PutLinkSet.call(v2_put_link_set_payload, downstream: downstream)
+        V2::Publish.call(v2_publish_payload, downstream: downstream)
       else
         base_path = payload.fetch(:base_path)
 
@@ -32,14 +29,21 @@ module Commands
       Success.new(payload)
     end
 
-    def add_update_type_if_not_provided
-      return if payload[:update_type].present?
-      payload[:update_type] = "major"
+    def v2_put_content_payload
+      payload
+        .except(:access_limited, :links)
     end
 
-    def add_links_if_not_provided
-      return if payload[:links].present?
-      payload[:links] = {}
+    def v2_put_link_set_payload
+      payload
+        .slice(:content_id, :links)
+        .merge(links: payload[:links] || {})
+    end
+
+    def v2_publish_payload
+      payload
+        .except(:access_limited)
+        .merge(update_type: payload[:update_type] || "major")
     end
   end
 end

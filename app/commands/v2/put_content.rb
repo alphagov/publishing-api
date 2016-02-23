@@ -2,6 +2,8 @@ module Commands
   module V2
     class PutContent < BaseCommand
       def call
+        raise_if_links_is_provided
+
         PathReservation.reserve_base_path!(base_path, publishing_app)
 
         if (content_item = find_previously_drafted_content_item)
@@ -160,6 +162,25 @@ module Commands
           1.second,
           content_store: Adapters::DraftContentStore,
           content_item_id: content_item.id,
+        )
+      end
+
+      def raise_if_links_is_provided
+        return unless payload.has_key?(:links)
+        message = "The 'links' parameter should not be provided to this endpoint."
+
+        raise CommandError.new(
+          code: 400,
+          message: message,
+          error_details: {
+            error: {
+              code: 400,
+              message: message,
+              fields: {
+                links: ["is not a valid parameter"],
+              }
+            }
+          }
         )
       end
     end
