@@ -126,7 +126,7 @@ RSpec.describe Queries::GetContentCollection do
       expect(Queries::GetContentCollection.new(
         content_format: 'topic',
         fields: ['publishing_app']
-      ).call).to eq([
+      ).call).to match_array([
         { "publishing_app" => "publisher", "publication_state" => "draft" },
         { "publishing_app" => "publisher", "publication_state" => "draft" },
         { "publishing_app" => "whitehall", "publication_state" => "draft" }
