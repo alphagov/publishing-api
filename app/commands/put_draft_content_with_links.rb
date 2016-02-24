@@ -2,6 +2,8 @@ module Commands
   class PutDraftContentWithLinks < BaseCommand
     def call
       if payload[:content_id]
+        delete_existing_links
+
         V2::PutContent.call(v2_put_content_payload, downstream: downstream)
         V2::PutLinkSet.call(v2_put_link_set_payload, downstream: downstream)
       else
@@ -47,6 +49,18 @@ module Commands
       payload
         .slice(:content_id, :links)
         .merge(links: payload[:links] || {})
+    end
+
+    def delete_existing_links
+      link_set = LinkSet.find_by(content_id: payload[:content_id])
+      return unless link_set
+
+      links = link_set.links.where.not(link_type: protected_link_types)
+      links.destroy_all
+    end
+
+    def protected_link_types
+      ["alpha_taxons"]
     end
   end
 end

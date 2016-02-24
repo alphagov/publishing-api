@@ -91,4 +91,30 @@ RSpec.describe Commands::PutContentWithLinks do
       described_class.call(payload, downstream: false)
     end
   end
+
+  context "when there is an existing link set for the content_id" do
+    let(:target_id) { SecureRandom.uuid }
+
+    before do
+      link_set = FactoryGirl.create(
+        :link_set,
+        content_id: content_id,
+        links: [
+          FactoryGirl.create(
+            :link,
+            link_type: "related",
+            target_content_id: target_id
+          )
+        ]
+      )
+
+      FactoryGirl.create(:lock_version, target: link_set)
+    end
+
+    it "destroys the existing links before making new ones" do
+      expect {
+        described_class.call(payload)
+      }.to change(Link, :count).by(-1)
+    end
+  end
 end
