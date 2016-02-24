@@ -1,4 +1,10 @@
 class PopulateVersions < ActiveRecord::Migration
+  class DraftContentItem < ActiveRecord::Base
+  end
+
+  class LiveContentItem < ActiveRecord::Base
+  end
+
   def change
     [DraftContentItem, LiveContentItem, LinkSet].each do |versionable|
       versionable.all.each do |item|

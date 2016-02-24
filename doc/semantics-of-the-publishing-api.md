@@ -25,7 +25,7 @@ Required: Yes
 The `base_path` specifies the route at which the content item will be served on
 the GOV.UK website. Content items must have unique `base_paths` and the
 Publishing API will not accept the request if this is not the case. This
-uniqueness constraint extends to locale, as well. The English and French version
+uniqueness constraint extends to locale, as well. The English and French lock version
 of a content item must have different `base_paths`.
 
 ---
@@ -42,10 +42,10 @@ content items are keyed by `content_id` in the URL of the request.
 
 Each `content_id` refers to a single piece of content, with a couple of caveats:
 
-- Content IDs are shared across locales – the English and French versions of a
+- Content IDs are shared across locales – the English and French lock versions of a
 content item share a `content_id`
 
-- `content_ids` are shared across publish states – the draft and live versions of
+- `content_ids` are shared across publish states – the draft and live lock versions of
 a content item share a `content_id`
 
 `content_ids` are [UUIDs](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)

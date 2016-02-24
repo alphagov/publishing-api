@@ -80,7 +80,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "when the public_updated_at is not present" do
-      let!(:content_item) { FactoryGirl.create(:gone_draft_content_item, public_updated_at: nil) }
+    let!(:content_item) { FactoryGirl.create(:gone_draft_content_item) }
 
       it "does not raise an error" do
         expect {

@@ -1,0 +1,32 @@
+digraph G {
+  node [shape=record]
+
+  draft_1[label="1 | draft", group="1"]
+  published_1[label="1 | published", group="1"]
+  superseded_1[label="1 | superseded", group="1"]
+  draft_2[label="2 | draft", group="2"]
+  published_2[label="2 | published", group="2"]
+  invis_2[label="3 | invisible", style="invis", group="2"]
+  draft_3a[label="3 | draft", group="3"]
+  draft_3b[label="3 | draft", group="3"]
+  discarded_3[label="(deleted)", group="3", fontcolor="red"]
+  draft_4[label="3 | draft", group="4"]
+  published_4[label="3 | published", group="4"]
+  withdrawn_4[label="3 | withdrawn", group="4"]
+
+  draft_1 -> published_1[label="  publish"]
+  published_1 -> superseded_1
+  published_1 -> draft_2[label="  redraft"]
+  draft_2 -> published_2[headlabel="  publish", labeldistance=6, labelangle=70]
+  published_2 -> invis_2[style=invis]
+  published_2 -> draft_3a[label="  redraft"]
+  draft_3a -> draft_3b[label="  update"]
+  draft_3b -> discarded_3[label="  discard"]
+  published_2:e -> draft_4[label="  redraft (again)"]
+  draft_4 -> published_4[label="  publish"]
+  published_4 -> withdrawn_4[label="  withdraw"]
+
+
+  { rank=same; superseded_1; published_2 }
+  { rank=same; discarded_3; draft_4 }
+}

@@ -15,5 +15,9 @@ module Commands
     def publish_intent
       payload.except(:base_path).deep_symbolize_keys
     end
+
+    def base_path
+      payload.fetch(:base_path)
+    end
   end
 end

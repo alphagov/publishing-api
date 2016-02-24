@@ -1,34 +1,19 @@
-class Version < ActiveRecord::Base
-  belongs_to :target, polymorphic: true
-
-  validate :numbers_must_increase
-  validate :draft_cannot_be_behind_live
+# Abstract class
+module Version
+  def self.included(subclass)
+    subclass.validate :numbers_must_increase
+    subclass.validate :draft_cannot_be_behind_live, if: :content_item_target?
+  end
 
   def increment
     self.number += 1
-  end
-
-  def copy_version_from(target)
-    version = Version.find_by!(target: target)
-    self.number = version.number
-  end
-
-  def conflicts_with?(previous_version_number)
-    return false if previous_version_number.nil?
-
-    self.number != previous_version_number
-  end
-
-  def self.in_bulk(items, type)
-    id_list = items.reject(&:blank?).map(&:id)
-    self.where(target: id_list, target_type: type.to_s).index_by(&:target_id)
   end
 
 private
 
   def numbers_must_increase
     return unless persisted?
-    return unless number <= number_was
+    return unless number_changed? && number <= number_was
 
     mismatch = "(#{number} <= #{number_was})"
     message = "cannot be less than or equal to the previous number #{mismatch}"
@@ -36,27 +21,14 @@ private
   end
 
   def draft_cannot_be_behind_live
-    live_version = live_content_item_version
-    return unless live_version
+    draft_version, live_version = draft_and_live_versions
 
-    if number < live_version.number
-      mismatch = "(#{number} < #{live_version.number})"
-      message = "draft version cannot be behind the live version #{mismatch}"
-      errors.add(:version, message)
+    return unless draft_version && live_version
+
+    if draft_version.number < live_version.number
+      mismatch = "(#{draft_version.number} < #{live_version.number})"
+      message = "draft #{self.class.name} cannot be behind the live #{self.class.name} #{mismatch}"
+      errors.add(:number, message)
     end
-  end
-
-  def live_content_item_version
-    return unless target.respond_to?(:live_content_item)
-    return unless (live_item = target.live_content_item)
-
-    self.class.find_by(target: live_item)
-  end
-
-  def draft_content_item_version
-    return unless target.respond_to?(:draft_content_item)
-    return unless (draft_item = target.draft_content_item)
-
-    self.class.find_by(target: draft_item)
   end
 end

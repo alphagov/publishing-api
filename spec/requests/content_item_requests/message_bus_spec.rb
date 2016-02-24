@@ -12,35 +12,20 @@ RSpec.describe "Message bus", type: :request do
     let(:request_path) { "/content#{base_path}" }
     let(:request_method) { :put }
 
-    it 'should place a message on the queue using the private representation of the content item' do
+    it "places a JSON message on the queue" do
       do_request
 
       _, properties, payload = wait_for_message_on(@queue)
-      expect(properties[:content_type]).to eq('application/json')
-
-      message = JSON.parse(payload)
-      expect(message['title']).to eq('VAT rates')
-      expect(message['base_path']).to eq(base_path)
-
-      # Check for a private field
-      expect(message).to have_key('publishing_app')
-    end
-
-    it 'should include the update_type in the output json' do
-      do_request
-
-      _, _, payload = wait_for_message_on(@queue)
-      message = JSON.parse(payload)
-      expect(message).to have_key('update_type')
+      expect(properties[:content_type]).to eq("application/json")
     end
 
     context "minor update type" do
       let(:request_body) { content_item_params.merge(update_type: "minor").to_json }
 
-      it 'uses the update type for the routing key' do
+      it "uses the update type for the routing key" do
         do_request
         delivery_info, _, payload = wait_for_message_on(@queue)
-        expect(delivery_info.routing_key).to eq('guide.minor')
+        expect(delivery_info.routing_key).to eq("guide.minor")
       end
     end
 
@@ -50,15 +35,15 @@ RSpec.describe "Message bus", type: :request do
       it "uses the format for the routing key" do
         do_request
         delivery_info, _, payload = wait_for_message_on(@queue)
-        expect(delivery_info.routing_key).to eq('detailed_guide.major')
+        expect(delivery_info.routing_key).to eq("detailed_guide.major")
       end
     end
 
-    it 'publishes a message for a redirect update' do
+    it "publishes a message for a redirect update" do
       do_request(body: redirect_content_item.to_json)
 
       delivery_info, _, _ = wait_for_message_on(@queue)
-      expect(delivery_info.routing_key).to eq('redirect.major')
+      expect(delivery_info.routing_key).to eq("redirect.major")
     end
   end
 
@@ -99,17 +84,9 @@ RSpec.describe "Message bus", type: :request do
       let!(:live_content_item) {
         FactoryGirl.create(
           :live_content_item,
-          :with_draft,
-          v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS)
+          content_id: content_id,
         )
       }
-
-      before do
-        draft = live_content_item.draft_content_item
-
-        FactoryGirl.create(:version, target: draft, number: 1)
-        FactoryGirl.create(:version, target: live_content_item, number: 1)
-      end
 
       it "sends a message with a 'links' routing key" do
         Timecop.freeze do
@@ -117,23 +94,18 @@ RSpec.describe "Message bus", type: :request do
 
           expect(response.status).to eq(200)
 
-          expected_payload = v2_content_item.except(:access_limited).merge(
-            links: links_attributes.fetch(:links),
-            update_type: "links",
-            transmitted_at: DateTime.now.to_s(:nanoseconds),
-          ).to_json
-
           delivery_info, _, payload = wait_for_message_on(@queue)
           expect(delivery_info.routing_key).to eq("#{live_content_item.format}.links")
-          expect(JSON.parse(payload)).to eq(JSON.parse(expected_payload))
         end
       end
     end
 
     context "with a draft content item" do
       let!(:draft_content_item) {
-        draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*DraftContentItem::TOP_LEVEL_FIELDS))
-        FactoryGirl.create(:version, target: draft, number: 1)
+        FactoryGirl.create(
+          :draft_content_item,
+          content_id: content_id,
+        )
       }
 
       it "doesn't send any messages" do
@@ -152,58 +124,20 @@ RSpec.describe "Message bus", type: :request do
     let(:request_method) { :post }
 
     before do
-      draft = FactoryGirl.create(:draft_content_item, v2_content_item)
-      FactoryGirl.create(:version, target: draft, number: 1)
+      FactoryGirl.create(
+        :draft_content_item,
+        content_id: content_id,
+        format: "guide",
+      )
     end
 
     it "sends a message with the 'format.update_type' routing key" do
-      Timecop.freeze do
-        do_request
+      do_request
 
-        expect(response.status).to eq(200)
+      expect(response.status).to eq(200)
 
-        expected_payload = v2_content_item.except(:access_limited).merge(
-          update_type: "major",
-          transmitted_at: DateTime.now.to_s(:nanoseconds),
-          public_updated_at: DateTime.now,
-        ).to_json
-
-        delivery_info, _, payload = wait_for_message_on(@queue)
-
-        expect(delivery_info.routing_key).to eq("guide.major")
-
-        expected = JSON.parse(expected_payload)
-        actual = JSON.parse(payload)
-
-        expect(actual.except("public_updated_at")).to eq(
-          expected.except("public_updated_at")
-        )
-
-        expect(Time.parse(actual["public_updated_at"]))
-          .to be_within(1.second).of(Time.zone.now)
-      end
-    end
-  end
-
-  describe "content type inlining" do
-    let(:request_body) { { update_type: "major" }.to_json }
-    let(:request_path) { "/v2/content/#{content_id}/publish" }
-    let(:request_method) { :post }
-
-    before do
-      draft = FactoryGirl.create(:draft_content_item, v2_content_item.merge(
-        description: [
-          { content_type: "text/html", content: v2_content_item.fetch(:description) },
-          { content_type: "text/plain", content: "plain content" },
-        ],
-        details: {
-          body: [
-            { content_type: "text/html", content: v2_content_item.fetch(:details).fetch(:body) },
-            { content_type: "text/plain", content: "plain content" },
-          ]
-        }
-      ))
-      FactoryGirl.create(:version, target: draft, number: 1)
+      delivery_info, _, payload = wait_for_message_on(@queue)
+      expect(delivery_info.routing_key).to eq("guide.major")
     end
   end
 end

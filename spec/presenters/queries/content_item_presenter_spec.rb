@@ -3,8 +3,13 @@ require 'rails_helper'
 RSpec.describe Presenters::Queries::ContentItemPresenter do
   describe "present" do
     let(:content_id) { SecureRandom.uuid }
-    let(:content_item) { FactoryGirl.create(:draft_content_item, content_id: content_id) }
-    let!(:version) { FactoryGirl.create(:version, target: content_item, number: 101) }
+    let(:content_item) do
+      FactoryGirl.create(
+        :draft_content_item,
+        content_id: content_id,
+        lock_version: 101,
+      )
+    end
     let(:result) { Presenters::Queries::ContentItemPresenter.present(content_item) }
 
     it "presents content item attributes as a hash" do
@@ -28,16 +33,16 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
         publication_state: "draft",
-        version: 101
+        lock_version: 101
       }
       expect(result).to eq(expected)
     end
 
-    it "exposes the version number of the content item" do
-      expect(result.fetch(:version)).to eq(101)
+    it "exposes the lock_version number of the content item" do
+      expect(result.fetch(:lock_version)).to eq(101)
     end
 
-    context "with no published version" do
+    context "with no published lock_version" do
       it "shows the publication state of the content item as draft" do
         expect(result.fetch(:publication_state)).to eq("draft")
       end
@@ -47,45 +52,98 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
     end
 
-    context "with a published version and no subsequent draft" do
-      let(:live_content_item) { FactoryGirl.create(:live_content_item, content_id: content_id, draft_content_item: content_item) }
-
-      before do
-        FactoryGirl.create(:version, target: live_content_item, number: 101)
+    context "with a published lock_version and no subsequent draft" do
+      let(:content_item) do
+        FactoryGirl.create(
+          :live_content_item,
+          content_id: content_id,
+          lock_version: 101,
+        )
       end
 
       it "shows the publication state of the content item as live" do
         expect(result.fetch(:publication_state)).to eq("live")
       end
 
-      it "exposes the live version number" do
+      it "exposes the live lock_version number" do
         expect(result.fetch(:live_version)).to eq(101)
       end
     end
 
-    context "with a published version and a subsequent draft" do
-      let(:live_content_item) { FactoryGirl.create(:live_content_item, content_id: content_id, draft_content_item: content_item) }
+    context "with a published lock_version and a subsequent draft" do
+      let(:content_item) do
+        FactoryGirl.create(
+          :live_content_item,
+          content_id: content_id,
+          lock_version: 100,
+        )
+      end
 
       before do
-        FactoryGirl.create(:version, target: live_content_item, number: 100)
+        FactoryGirl.create(
+          :draft_content_item,
+          content_id: content_id,
+          lock_version: 101,
+        )
       end
 
       it "shows the publication state of the content item as redrafted" do
         expect(result.fetch(:publication_state)).to eq("redrafted")
       end
 
-      it "exposes the live version number" do
+      it "exposes the live lock_version number" do
         expect(result.fetch(:live_version)).to eq(100)
       end
     end
 
-    context "with a live version only" do
-      let(:content_item) { FactoryGirl.create(:live_content_item, content_id: content_id ) }
-      let!(:version) { FactoryGirl.create(:version, target: content_item, number: 100) }
-      let(:result) { Presenters::Queries::ContentItemPresenter.new(content_item, nil, version).present }
+    context "with a live lock_version only" do
+      let(:content_item) do
+        FactoryGirl.create(
+          :live_content_item,
+          content_id: content_id,
+          lock_version: 100,
+        )
+      end
 
       it "shows the publication state of the content item as live" do
         expect(result.fetch(:publication_state)).to eq("live")
+      end
+    end
+
+    context "when the content item exists in multiple locales" do
+      let!(:french_item) do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          locale: "fr"
+        )
+      end
+
+      let!(:english_item) do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          locale: "en"
+        )
+      end
+
+      it "presents the item with matching locale" do
+        result = described_class.present(french_item)
+        expect(result.fetch(:locale)).to eq("fr")
+
+        result = described_class.present(english_item)
+        expect(result.fetch(:locale)).to eq("en")
+      end
+
+      describe "#present_many" do
+        it "presents a content item for each locale" do
+          content_items = ContentItem.where(content_id: content_id)
+
+          results = described_class.present_many(content_items)
+          locales = results.map { |r| r.fetch(:locale) }
+
+          expect(locales).to eq ["fr", "en"]
+        end
       end
     end
   end

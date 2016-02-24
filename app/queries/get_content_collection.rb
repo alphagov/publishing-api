@@ -1,52 +1,44 @@
 module Queries
   class GetContentCollection
-    attr_reader :content_format, :fields, :locale
+    attr_reader :content_format, :fields, :publishing_app, :locale
 
     def initialize(content_format:, fields:, publishing_app: nil, locale: nil)
-      @content_format = content_format
-      @fields = fields
-      @publishing_app = publishing_app
-      @locale = locale || "en"
+      self.content_format = content_format
+      self.fields = fields
+      self.publishing_app = publishing_app
+      self.locale = locale || "en"
     end
 
     def call
       validate_fields!
-      content_items.map do |content_item|
-        presenter = Presenters::Queries::ContentItemPresenter.new(
-          content_item,
-          draft_version(content_item),
-          live_version(content_item)
-        )
-        select_output_fields_only(presenter)
+
+      content_items = ContentItem.where(format: lookup_formats)
+
+      if publishing_app
+        content_items = content_items.where(publishing_app: publishing_app)
       end
+
+      if locale && locale != "all"
+        content_items = Translation.filter(content_items, locale: locale)
+      end
+
+      presented = Presenters::Queries::ContentItemPresenter.present_many(content_items)
+      presented.map { |p| filter_fields(p).as_json }
     end
 
   private
+    attr_writer :content_format, :fields, :publishing_app, :locale
 
-    attr_reader :live_versions, :draft_versions
+    def lookup_formats
+      [content_format, "placeholder_#{content_format}"]
+    end
 
-    def content_items
-      draft_items = DraftContentItem
-        .includes(:live_content_item)
-        .where(format: [content_format, "placeholder_#{content_format}"])
-        .select(*fields + %i[id content_id])
+    def output_fields
+      fields.map(&:to_sym) + [:publication_state]
+    end
 
-      draft_items = draft_items.where(publishing_app: @publishing_app) if @publishing_app.present?
-      draft_items = draft_items.where(locale: locale) unless locale == 'all'
-
-      live_items = LiveContentItem
-        .where("draft_content_item_id IS NULL")
-        .where(format: [content_format, "placeholder_#{content_format}"])
-        .select(*fields + %i[id])
-
-      live_items = live_items.where(publishing_app: @publishing_app) if @publishing_app.present?
-      live_items = live_items.where(locale: locale) unless locale == 'all'
-
-      @draft_versions = Version.in_bulk(draft_items, DraftContentItem)
-      @live_versions = Version.in_bulk(
-        draft_items.map(&:live_content_item) + live_items, LiveContentItem
-      )
-      draft_items + live_items
+    def filter_fields(hash)
+      hash.slice(*output_fields)
     end
 
     def validate_fields!
@@ -61,30 +53,8 @@ module Queries
       })
     end
 
-    def output_fields
-      fields.map(&:to_sym) << :publication_state
-    end
-
     def permitted_fields
-      DraftContentItem.column_names
-    end
-
-    def draft_version(item)
-      case item
-      when DraftContentItem
-        @draft_versions[item.id]
-      when LiveContentItem
-        @draft_versions[item.draft_content_item.try(:id)]
-      end
-    end
-
-    def live_version(item)
-      case item
-      when DraftContentItem
-        @live_versions[item.live_content_item.try(:id)]
-      when LiveContentItem
-        @live_versions[item.id]
-      end
+      ContentItem.column_names + %w(base_path locale)
     end
 
     def select_output_fields_only(presenter)

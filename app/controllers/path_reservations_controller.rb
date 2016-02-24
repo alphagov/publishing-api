@@ -1,9 +1,6 @@
 class PathReservationsController < ApplicationController
   def reserve_path
-    response = with_event_logging(Commands::ReservePath, path_item) do
-      Commands::ReservePath.call(path_item)
-    end
-
+    response = Commands::ReservePath.call(path_item)
     render status: response.code, json: response
   end
 

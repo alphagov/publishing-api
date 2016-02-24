@@ -26,7 +26,7 @@ RSpec.describe AccessLimit do
   context "an access-limited content item" do
     let!(:content_item) { create(:access_limited_draft_content_item) }
     let(:authorised_user_uid) {
-      AccessLimit.find_by(target: content_item).users.first
+      AccessLimit.find_by(content_item: content_item).users.first
     }
     let(:unauthorised_user_uid) { "unauthorised-user-uid" }
 

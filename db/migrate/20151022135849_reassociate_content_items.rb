@@ -1,9 +1,15 @@
 class ReassociateContentItems < ActiveRecord::Migration
+  class LiveContentItem < ActiveRecord::Base
+  end
+
+  class DraftContentItem < ActiveRecord::Base
+  end
+
   def change
     # This migration fixes a problem introduced in this migration:
-    # AddDraftContentItemIdToLiveContentItem
+    # AddContentItemIdToContentItem
     #
-    # The DraftContentItem.find_by call should have scoped by locale.
+    # The ContentItem.find_by call should have scoped by locale.
     #
     # This migration re-assocates all incorrectly associated live content
     # items with the draft item that matches the locale.

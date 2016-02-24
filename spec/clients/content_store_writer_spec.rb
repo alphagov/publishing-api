@@ -66,7 +66,7 @@ RSpec.describe ContentStoreWriter do
 
       response = content_store_writer.get_publish_intent(base_path)
 
-      expect(response).to eq(publish_intent)
+      expect(response.to_hash.deep_symbolize_keys).to eq(publish_intent)
     end
   end
 

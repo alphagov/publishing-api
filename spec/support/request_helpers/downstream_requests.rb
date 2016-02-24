@@ -2,6 +2,8 @@ module RequestHelpers
   module DownstreamRequests
     def sends_to_draft_content_store
       it "sends to draft content store" do
+        allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
+
         Timecop.freeze do
           expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
             .with(
@@ -19,6 +21,8 @@ module RequestHelpers
 
     def sends_to_live_content_store
       it "sends to live content store" do
+        allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
+
         Timecop.freeze do
           expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
             .with(

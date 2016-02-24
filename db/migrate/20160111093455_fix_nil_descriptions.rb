@@ -1,5 +1,8 @@
 # https://trello.com/c/DHVC2pH1/488-bug-investigate-why-description-encapsulation-has-been-bypassed
 class FixNilDescriptions < ActiveRecord::Migration
+  class DraftContentItem < ActiveRecord::Base; end
+  class LiveContentItem < ActiveRecord::Base; end
+
   def up
     models = [DraftContentItem, LiveContentItem]
 

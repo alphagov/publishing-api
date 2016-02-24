@@ -64,10 +64,10 @@ RSpec.describe "Publish intent requests", type: :request do
 
   describe "GET /publish-intent/base-path" do
     it "passes the JSON through from the content store" do
-      stubbed_get = stub_request(:get, %r{^content-store.*/publish-intent/vat-rates})
+      stubbed_get = stub_request(:get, %r{^content-store.*/publish-intent/foo})
         .to_return(body: content_item.to_json)
 
-      get "/publish-intent/vat-rates"
+      get "/publish-intent/foo"
 
       expect(stubbed_get).to have_been_requested
       expect(response.status).to eq(200)

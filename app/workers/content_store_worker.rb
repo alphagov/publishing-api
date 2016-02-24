@@ -12,8 +12,9 @@ class ContentStoreWorker
       content_store.delete_content_item(args.fetch(:base_path))
     else
       content_item = load_content_item_from(args)
+      raise_no_content_item(args) unless content_item
       payload = Presenters::ContentStorePresenter.present(content_item)
-      content_store.put_content_item(content_item.base_path, payload)
+      content_store.put_content_item(payload.fetch(:base_path), payload)
     end
 
   rescue => e
@@ -23,14 +24,18 @@ class ContentStoreWorker
 private
 
   def load_content_item_from(args)
-    case
-    when args[:draft_content_item_id]
-      DraftContentItem.find(args[:draft_content_item_id])
-    when args[:live_content_item_id]
-      LiveContentItem.find(args[:live_content_item_id])
-    else
-      raise "a live or a draft content item is needed"
-    end
+    ContentItem.find_by(id: args.fetch(:content_item_id))
+  end
+
+  def raise_no_content_item(args)
+    id = args.fetch(:content_item_id)
+    content_store = args.fetch(:content_store)
+    name = content_store == "Adapters::ContentStore" ? "Live" : "Draft"
+
+    message = "Tried to send ContentItem with id=#{id} to the #{name} Content Store"
+    message += " but it no longer exists in Publishing API's database"
+
+    raise ActiveRecord::RecordNotFound, message
   end
 
   def handle_error(error)

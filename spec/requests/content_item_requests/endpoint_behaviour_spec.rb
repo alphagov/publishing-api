@@ -17,10 +17,15 @@ RSpec.describe "Endpoint behaviour", type: :request do
 
     context "without a content id" do
       let(:request_body) {
-        content_item.except(:content_id)
+        content_item.except(:content_id).to_json
       }
 
-      creates_no_derived_representations
+      returns_200_response
+      responds_with_request_body
+      returns_400_on_invalid_json
+      forwards_locale_extension
+      accepts_root_path
+      validates_path_ownership
     end
   end
 
@@ -37,14 +42,6 @@ RSpec.describe "Endpoint behaviour", type: :request do
     forwards_locale_extension
     accepts_root_path
     validates_path_ownership
-
-    context "without a content id" do
-      let(:request_body) {
-        content_item.except(:content_id)
-      }
-
-      creates_no_derived_representations
-    end
   end
 
   context "GET /v2/content" do
@@ -68,14 +65,6 @@ RSpec.describe "Endpoint behaviour", type: :request do
     forwards_locale_extension
     accepts_root_path
     validates_path_ownership
-
-    context "without a content id" do
-      let(:request_body) {
-        content_item.except(:content_id)
-      }
-
-      creates_no_derived_representations
-    end
   end
 
   context "/v2/content/:content_id" do
@@ -86,11 +75,14 @@ RSpec.describe "Endpoint behaviour", type: :request do
 
     context "when the content item exists" do
       let!(:content_item) {
-        FactoryGirl.create(:draft_content_item, content_id: content_id)
+        FactoryGirl.create(
+          :draft_content_item,
+          content_id: content_id,
+        )
       }
 
       before do
-        FactoryGirl.create(:version, target: content_item, number: 2)
+        FactoryGirl.create(:lock_version, target: content_item, number: 2)
       end
 
       returns_200_response

@@ -1,4 +1,10 @@
 class MoveMetadataFieldsToTopLevel < ActiveRecord::Migration
+  class DraftContentItem < ActiveRecord::Base
+  end
+
+  class LiveContentItem < ActiveRecord::Base
+  end
+
   def change
     add_column :draft_content_items, :need_ids, :json, default: []
     add_column :draft_content_items, :update_type, :string

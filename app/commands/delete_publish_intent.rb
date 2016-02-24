@@ -15,6 +15,10 @@ module Commands
     end
 
   private
+    def base_path
+      payload.fetch(:base_path)
+    end
+
     def convert_error_details(upstream_error)
       {
         error: {

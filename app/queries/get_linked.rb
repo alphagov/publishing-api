@@ -3,33 +3,31 @@ module Queries
     attr_reader :target_content_id, :link_type, :fields
 
     def initialize(content_id:, link_type:, fields:)
-      @target_content_id = content_id
-      @link_type = link_type
-      @fields = fields
+      self.target_content_id = content_id
+      self.link_type = link_type
+      self.fields = fields
     end
 
     def call
       validate_presence_of_item!
       validate_fields!
 
-      content_items.map do |content_item|
-        hash = Presenters::Queries::ContentItemPresenter.new(
-          content_item,
-          draft_version(content_item),
-          live_version(content_item)
-        )
-        hash.present.as_json(only: output_fields)
-      end
+      content_ids = Link
+        .where(target_content_id: target_content_id)
+        .joins(:link_set)
+        .pluck(:content_id)
+
+      content_items = ContentItem.where(content_id: content_ids)
+
+      presented = Presenters::Queries::ContentItemPresenter.present_many(content_items)
+      presented.map { |p| filter_fields(p).as_json }
     end
-
   private
-
-    attr_reader :live_versions, :draft_versions
+    attr_accessor :target_content_id, :link_type, :fields
 
     def validate_presence_of_item!
-      return if DraftContentItem.exists?(content_id: target_content_id) ||
-                LiveContentItem.exists?(content_id: target_content_id)
-
+      filter = ContentItemFilter.new(scope: ContentItem.where(content_id: target_content_id))
+      return if filter.filter(state: ["draft", "live"]).exists?
 
       raise CommandError.new(code: 404, error_details: {
         error: {
@@ -59,49 +57,16 @@ module Queries
       })
     end
 
-    def content_items
-      content_ids = Link.select("link_sets.content_id")
-                      .joins(:link_set)
-                      .where(target_content_id: target_content_id, link_type: link_type)
-
-      draft_items = DraftContentItem.includes(:live_content_item).where(content_id: content_ids)
-
-      live_items_without_draft = LiveContentItem
-                                  .where(content_id: content_ids)
-                                  .where.not(content_id: draft_items.map(&:content_id))
-
-      @draft_versions = Version.in_bulk(draft_items, DraftContentItem)
-      @live_versions = Version.in_bulk(
-        draft_items.map(&:live_content_item) + live_items_without_draft, LiveContentItem
-      )
-
-      draft_items + live_items_without_draft
+    def output_fields
+      fields.map(&:to_sym) + [:publication_state]
     end
 
-    def output_fields
-      fields.map(&:to_sym) << :publication_state
+    def filter_fields(hash)
+      hash.slice(*output_fields)
     end
 
     def permitted_fields
-      DraftContentItem.column_names
-    end
-
-    def draft_version(item)
-      case item
-      when DraftContentItem
-        @draft_versions[item.id]
-      when LiveContentItem
-        @draft_versions[item.draft_content_item.try(:id)]
-      end
-    end
-
-    def live_version(item)
-      case item
-      when DraftContentItem
-        @live_versions[item.live_content_item.try(:id)]
-      when LiveContentItem
-        @live_versions[item.id]
-      end
+      ContentItem.column_names + %w(base_path locale)
     end
   end
 end

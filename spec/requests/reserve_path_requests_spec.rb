@@ -27,7 +27,5 @@ RSpec.describe "PUT /paths", type: :request do
         do_request
       }.to change(PathReservation, :count).by(1)
     end
-
-    logs_event('ReservePath', expected_payload_proc: -> { payload.merge(base_path: base_path) } )
   end
 end

@@ -19,7 +19,7 @@ RSpec.describe ContentStoreWorker do
       def do_request
         subject.perform(
           content_store: "Adapters::ContentStore",
-          live_content_item_id: LiveContentItem.last.id,
+          content_item_id: ContentItem.last.id,
         )
       end
 
@@ -58,7 +58,7 @@ RSpec.describe ContentStoreWorker do
 
       subject.perform(
         content_store: 'Adapters::DraftContentStore',
-        draft_content_item_id: draft_content_item.id,
+        content_item_id: draft_content_item.id,
       )
 
       expect(api_call).to have_been_made
@@ -73,7 +73,7 @@ RSpec.describe ContentStoreWorker do
 
       subject.perform(
         content_store: 'Adapters::ContentStore',
-        live_content_item_id: live_content_item.id,
+        content_item_id: live_content_item.id,
       )
 
       expect(api_call).to have_been_made
@@ -108,6 +108,22 @@ RSpec.describe ContentStoreWorker do
       )
 
       expect(api_call).to have_been_made
+    end
+  end
+
+  context "when an enqueued item doesn't exist anymore" do
+    let(:missing_content_item_id) { 123 }
+
+    it "raises a more helpful error message" do
+      expect {
+        subject.perform(
+          content_store: 'Adapters::ContentStore',
+          content_item_id: missing_content_item_id,
+        )
+      }.to raise_error(
+        ActiveRecord::RecordNotFound,
+        /Tried to send ContentItem with id=123 to the Live Content Store/
+      )
     end
   end
 end

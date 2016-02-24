@@ -79,9 +79,16 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when only a draft content item exists for the link set" do
       before do
-        draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*DraftContentItem::TOP_LEVEL_FIELDS))
-        FactoryGirl.create(:version, target: draft, number: 1)
-        FactoryGirl.create(:access_limit, target: draft, users: access_limit_params.fetch(:users))
+        draft = FactoryGirl.create(:draft_content_item,
+          content_id: content_id,
+        )
+
+        FactoryGirl.create(:lock_version, target: draft, number: 1)
+
+        FactoryGirl.create(:access_limit,
+          users: access_limit_params.fetch(:users),
+          content_item: draft,
+        )
       end
 
       sends_to_draft_content_store
@@ -90,8 +97,9 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when only a live content item exists for the link set" do
       before do
-        live = FactoryGirl.create(:live_content_item, v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS))
-        FactoryGirl.create(:version, target: live, number: 1)
+        FactoryGirl.create(:live_content_item,
+          content_id: content_id,
+        )
       end
 
       does_not_send_to_draft_content_store
@@ -100,17 +108,18 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when draft and live content items exists for the link set" do
       before do
-        live = FactoryGirl.create(
-          :live_content_item,
-          :with_draft,
-          v2_content_item.slice(*LiveContentItem::TOP_LEVEL_FIELDS)
+        draft = FactoryGirl.create(:draft_content_item,
+          content_id: content_id,
         )
 
-        draft = live.draft_content_item
-        FactoryGirl.create(:access_limit, target: draft, users: access_limit_params.fetch(:users))
+        FactoryGirl.create(:access_limit,
+          users: access_limit_params.fetch(:users),
+          content_item: draft,
+        )
 
-        FactoryGirl.create(:version, target: draft, number: 1)
-        FactoryGirl.create(:version, target: live, number: 1)
+        FactoryGirl.create(:live_content_item,
+          content_id: content_id,
+        )
       end
 
       sends_to_draft_content_store
@@ -138,9 +147,9 @@ RSpec.describe "Downstream requests", type: :request do
       end
 
       before do
-        draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*DraftContentItem::TOP_LEVEL_FIELDS))
-        FactoryGirl.create(:version, target: draft, number: 1)
-        FactoryGirl.create(:access_limit, target: draft, users: access_limit_params.fetch(:users))
+        draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*ContentItem::TOP_LEVEL_FIELDS))
+        FactoryGirl.create(:lock_version, target: draft, number: 1)
+        FactoryGirl.create(:access_limit, content_item: draft, users: access_limit_params.fetch(:users))
       end
 
       sends_to_draft_content_store
@@ -149,20 +158,34 @@ RSpec.describe "Downstream requests", type: :request do
 
   context "/v2/publish" do
     let(:content_id) { SecureRandom.uuid }
-    let(:draft) { FactoryGirl.create(:draft_content_item, content_id: content_id) }
+    let!(:draft) {
+      FactoryGirl.create(:draft_content_item,
+        content_id: content_id,
+      )
+    }
 
     let(:request_body) { { update_type: "major" }.to_json }
     let(:request_path) { "/v2/content/#{content_id}/publish" }
     let(:request_method) { :post }
 
-    before do
-      FactoryGirl.create(:version, target: draft, number: 1)
-    end
-
     let(:content_item_for_live_content_store) {
       draft.attributes.deep_symbolize_keys
-        .merge(public_updated_at: Time.zone.now.iso8601)
-        .except(:id, :access_limited, :update_type, :metadata, :version, :old_description)
+        .merge(
+          base_path: base_path,
+          locale: "en",
+        )
+        .except(
+          :id,
+          :access_limited,
+          :update_type,
+          :metadata,
+          :version,
+          :old_description,
+          :created_at,
+          :updated_at,
+          :draft_content_item_id,
+          :live_content_item_id,
+        )
     }
 
     sends_to_live_content_store

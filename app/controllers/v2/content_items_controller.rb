@@ -8,7 +8,8 @@ module V2
         content_format: content_format,
         fields: fields,
         publishing_app: publishing_app,
-        locale: locale).call
+        locale: locale,
+      ).call
     end
 
     def show
@@ -16,26 +17,17 @@ module V2
     end
 
     def put_content
-      response = with_event_logging(Commands::V2::PutContent, content_item) do
-        Commands::V2::PutContent.call(content_item)
-      end
-
+      response = Commands::V2::PutContent.call(content_item)
       render status: response.code, json: response
     end
 
     def publish
-      response = with_event_logging(Commands::V2::Publish, content_item) do
-        Commands::V2::Publish.call(content_item)
-      end
-
+      response = Commands::V2::Publish.call(content_item)
       render status: response.code, json: response
     end
 
     def discard_draft
-      response = with_event_logging(Commands::V2::DiscardDraft, content_item) do
-        Commands::V2::DiscardDraft.call(content_item)
-      end
-
+      response = Commands::V2::DiscardDraft.call(content_item)
       render status: response.code, json: response
     end
 

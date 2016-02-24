@@ -1,4 +1,10 @@
 class ChangeDescriptionColumnTypes < ActiveRecord::Migration
+  class DraftContentItem < ActiveRecord::Base
+  end
+
+  class LiveContentItem < ActiveRecord::Base
+  end
+
   def change
     [
       [:draft_content_items, DraftContentItem],

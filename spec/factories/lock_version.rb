@@ -1,3 +1,3 @@
 FactoryGirl.define do
-  factory :version
+  factory :lock_version
 end

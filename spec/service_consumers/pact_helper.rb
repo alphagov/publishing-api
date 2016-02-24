@@ -83,46 +83,42 @@ Pact.provider_states_for "GDS API Adapters" do
         ],
       )
 
-      FactoryGirl.create(:version, target: draft, number: 1)
+      FactoryGirl.create(:lock_version, target: draft, number: 1)
     end
   end
 
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
-      FactoryGirl.create(:version, target: draft, number: 1)
+      draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+      )
+      FactoryGirl.create(:lock_version, target: draft, number: 1)
     end
   end
 
   provider_state "a French content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      draft = FactoryGirl.create(:draft_content_item,
+      draft = FactoryGirl.create(
+        :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
       )
-      FactoryGirl.create(:version, target: draft, number: 1)
+      FactoryGirl.create(:lock_version, target: draft, number: 1)
     end
   end
 
   provider_state "a published content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
 
-      live = FactoryGirl.create(:live_content_item, :with_draft, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
-
-      FactoryGirl.create(:version, target: live, number: 1)
-      FactoryGirl.create(:version, target: live.draft_content_item, number: 1)
-    end
-  end
-
-  provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 which does not have a publishing_app" do
-    set_up do
-      draft_content_item = FactoryGirl.create(:draft_content_item,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+      live = FactoryGirl.create(
+        :live_content_item,
+        #:with_draft, # TODO is this needed?
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7"
       )
 
-      draft_content_item.update_columns(publishing_app: nil)
-
-      FactoryGirl.create(:version, target: draft_content_item, number: 1)
+      FactoryGirl.create(:lock_version, target: live, number: 1)
+      #FactoryGirl.create(:lock_version, target: live.draft_content_item, number: 1)
     end
   end
 
@@ -131,7 +127,7 @@ Pact.provider_states_for "GDS API Adapters" do
       link_set = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
-      FactoryGirl.create(:version, target: link_set, number: 2)
+      FactoryGirl.create(:lock_version, target: link_set, number: 2)
       FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: "20583132-1619-4c68-af24-77583172c070")
     end
   end
@@ -141,7 +137,7 @@ Pact.provider_states_for "GDS API Adapters" do
       link_set = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
-      FactoryGirl.create(:version, target: link_set, number: 2)
+      FactoryGirl.create(:lock_version, target: link_set, number: 2)
     end
   end
 
@@ -153,43 +149,68 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 and locale: fr" do
     set_up do
-      draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
-      FactoryGirl.create(:version, target: draft, number: 1)
+      draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        locale: "fr",
+      )
+      FactoryGirl.create(:lock_version, target: draft, number: 1)
     end
   end
 
   provider_state "a content item exists in multiple locales with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      english_draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "en", format: 'topic')
-      french_draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr", format: 'topic')
-      arabic_draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "ar", format: 'topic')
+      english_draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        locale: "en",
+        format: "topic",
+      )
+      french_draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        locale: "fr",
+        format: "topic",
+      )
+      arabic_draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        locale: "ar",
+        format: "topic",
+      )
 
-      FactoryGirl.create(:version, target: english_draft, number: 1)
-      FactoryGirl.create(:version, target: french_draft, number: 1)
-      FactoryGirl.create(:version, target: arabic_draft, number: 1)
+      FactoryGirl.create(:lock_version, target: english_draft, number: 1)
+      FactoryGirl.create(:lock_version, target: french_draft, number: 1)
+      FactoryGirl.create(:lock_version, target: arabic_draft, number: 1)
     end
   end
 
-  provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
+  provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
     set_up do
-      draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
-      FactoryGirl.create(:version, target: draft, number: 3)
+      draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+      )
+      FactoryGirl.create(:lock_version, target: draft, number: 3)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
     end
   end
 
-  provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
+  provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
     set_up do
-      draft = FactoryGirl.create(:draft_content_item, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
-      FactoryGirl.create(:version, target: draft, number: 1)
+      draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+      )
+      FactoryGirl.create(:lock_version, target: draft, number: 1)
 
       linkset = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
 
-      FactoryGirl.create(:version, target: linkset, number: 3)
+      FactoryGirl.create(:lock_version, target: linkset, number: 3)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
@@ -198,16 +219,51 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "there is content with format 'topic'" do
     set_up do
-      FactoryGirl.create(:draft_content_item, title: 'Content Item A', base_path: '/a-base-path', format: 'topic')
-      FactoryGirl.create(:draft_content_item, title: 'Content Item B', base_path: '/another-base-path', format: 'topic')
+      content_item = FactoryGirl.create(
+        :draft_content_item,
+        title: 'Content Item A',
+        base_path: '/a-base-path',
+        format: 'topic',
+      )
+      FactoryGirl.create(:lock_version, target: content_item, number: 1)
+
+      content_item = FactoryGirl.create(
+        :draft_content_item,
+        title: 'Content Item B',
+        base_path: '/another-base-path',
+        format: 'topic',
+      )
+      FactoryGirl.create(:lock_version, target: content_item, number: 1)
     end
+
   end
 
   provider_state "there is content with format 'topic' for multiple publishing apps" do
     set_up do
-      FactoryGirl.create(:draft_content_item, title: 'Content Item A', base_path: '/a-base-path', format: 'topic')
-      FactoryGirl.create(:draft_content_item, title: 'Content Item B', base_path: '/another-base-path', format: 'topic')
-      FactoryGirl.create(:draft_content_item, title: 'Content Item C', base_path: '/yet-another-base-path', format: 'topic', publishing_app: 'whitehall')
+      content_item = FactoryGirl.create(
+        :draft_content_item,
+        title: 'Content Item A',
+        base_path: '/a-base-path',
+        format: 'topic',
+      )
+      FactoryGirl.create(:lock_version, target: content_item, number: 1)
+
+      content_item = FactoryGirl.create(
+        :draft_content_item,
+        title: 'Content Item B',
+        base_path: '/another-base-path',
+        format: 'topic',
+      )
+      FactoryGirl.create(:lock_version, target: content_item, number: 1)
+
+      content_item = FactoryGirl.create(
+        :draft_content_item,
+        title: 'Content Item C',
+        base_path: '/yet-another-base-path',
+        format: 'topic',
+        publishing_app: 'whitehall',
+      )
+      FactoryGirl.create(:lock_version, target: content_item, number: 1)
     end
   end
 
@@ -217,9 +273,26 @@ Pact.provider_states_for "GDS API Adapters" do
       content_id2 = "08dfd5c3-d935-4e81-88fd-cfe65b78893d"
       content_id3 = "e2961462-bc37-48e9-bb98-c981ef1a2d59"
 
-      FactoryGirl.create(:live_content_item, :with_draft, content_id: content_id1)
-      FactoryGirl.create(:live_content_item, content_id: content_id2, base_path: '/item-a')
-      FactoryGirl.create(:live_content_item, content_id: content_id3, base_path: '/item-b')
+      content_item = FactoryGirl.create(
+        :live_content_item,
+        :with_draft,
+        content_id: content_id1,
+      )
+      FactoryGirl.create(:lock_version, target: content_item, number: 1)
+
+      content_item = FactoryGirl.create(
+        :live_content_item,
+        content_id: content_id3,
+        base_path: '/item-b',
+      )
+      FactoryGirl.create(:lock_version, target: content_item, number: 1)
+
+      content_item = FactoryGirl.create(
+        :live_content_item,
+        content_id: content_id2,
+        base_path: '/item-a',
+      )
+      FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
       link_set1 = FactoryGirl.create(:link_set, content_id: content_id2)
       link_set2 = FactoryGirl.create(:link_set, content_id: content_id3)
@@ -231,7 +304,45 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 and it has details" do
     set_up do
-      FactoryGirl.create(:draft_content_item, content_id: 'bed722e6-db68-43e5-9079-063f623335a7', format: 'topic', details: {foo: :bar})
+      FactoryGirl.create(
+        :draft_content_item,
+        content_id: 'bed722e6-db68-43e5-9079-063f623335a7',
+        format: 'topic',
+        details: { foo: :bar },
+      )
+    end
+  end
+
+  provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
+    set_up do
+      draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        lock_version: 3
+      )
+
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+    end
+  end
+
+  provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
+    set_up do
+      draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        lock_version: 1
+      )
+
+      link_set = FactoryGirl.create(
+        :link_set,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+      )
+
+      FactoryGirl.create(:lock_version, target: link_set, number: 3)
+
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
     end
   end
 end

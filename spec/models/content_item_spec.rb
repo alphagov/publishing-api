@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe DraftContentItem do
-  subject { FactoryGirl.build(:draft_content_item) }
+RSpec.describe ContentItem do
+  subject { FactoryGirl.build(:content_item) }
 
   def set_new_attributes(item)
     item.title = "New title"
@@ -12,9 +12,9 @@ RSpec.describe DraftContentItem do
   end
 
   describe ".renderable_content" do
-    let!(:guide) { FactoryGirl.create(:draft_content_item, format: "guide", base_path: "/foo") }
-    let!(:redirect) { FactoryGirl.create(:redirect_draft_content_item, base_path: "/bar") }
-    let!(:gone) { FactoryGirl.create(:gone_draft_content_item, base_path: "/baz") }
+    let!(:guide) { FactoryGirl.create(:content_item, format: "guide") }
+    let!(:redirect) { FactoryGirl.create(:redirect_content_item) }
+    let!(:gone) { FactoryGirl.create(:gone_content_item) }
 
     it "returns content items that do not have a format of 'redirect' or 'gone'" do
       expect(described_class.renderable_content).to eq [guide]
@@ -29,14 +29,6 @@ RSpec.describe DraftContentItem do
     it "requires a content_id" do
       subject.content_id = nil
       expect(subject).to be_invalid
-    end
-
-    it "requires that the content_ids match between draft and live" do
-      live_item = FactoryGirl.create(:live_content_item, :with_draft)
-      draft_item = live_item.draft_content_item
-
-      draft_item.content_id = "something else"
-      expect(draft_item).to be_invalid
     end
 
     it "requires a format" do
@@ -81,15 +73,10 @@ RSpec.describe DraftContentItem do
           expect(subject.errors[:rendering_app].size).to eq(1)
         end
       end
-
-      it "requires a public_updated_at" do
-        subject.public_updated_at = nil
-        expect(subject).to be_invalid
-      end
     end
 
     context "when the content item is not 'renderable'" do
-      subject { FactoryGirl.build(:redirect_draft_content_item) }
+      subject { FactoryGirl.build(:redirect_content_item) }
 
       it "does not require a title" do
         subject.title = ""
@@ -99,38 +86,6 @@ RSpec.describe DraftContentItem do
       it "does not require a rendering_app" do
         subject.rendering_app = ""
         expect(subject).to be_valid
-      end
-
-      it "does not require a public_updated_at" do
-        subject.public_updated_at = nil
-        expect(subject).to be_valid
-      end
-    end
-
-    context "#base_path" do
-      it "should be required" do
-        subject.base_path = nil
-        expect(subject).not_to be_valid
-        expect(subject.errors[:base_path].size).to eq(2)
-
-        subject.base_path = ''
-        expect(subject).not_to be_valid
-        expect(subject.errors[:base_path].size).to eq(2)
-      end
-
-      it "should be an absolute path" do
-        subject.base_path = 'invalid//absolute/path/'
-        expect(subject).to be_invalid
-        expect(subject.errors[:base_path].size).to eq(1)
-      end
-
-      it "should have a db level uniqueness constraint" do
-        FactoryGirl.create(:draft_content_item, base_path: "/foo")
-        subject = FactoryGirl.build(:redirect_draft_content_item, base_path: "/foo")
-
-        expect {
-          subject.save(validate: false)
-        }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
 
@@ -148,24 +103,6 @@ RSpec.describe DraftContentItem do
       it "does not accept an empty string" do
         subject.content_id = ""
         expect(subject).not_to be_valid
-      end
-    end
-
-    context "locale" do
-      it "defaults to the default I18n locale" do
-        expect(described_class.new.locale).to eq(I18n.default_locale.to_s)
-      end
-
-      it "can be set as a supported I18n locale" do
-        subject.locale = 'fr'
-        expect(subject).to be_valid
-        expect(subject.locale).to eq('fr')
-      end
-
-      it "rejects non-supported locales" do
-        subject.locale = 'xyz'
-        expect(subject).to_not be_valid
-        expect(subject.errors[:locale].first).to eq('must be a supported locale')
       end
     end
 
@@ -194,36 +131,7 @@ RSpec.describe DraftContentItem do
     end
   end
 
-  context "replaceable" do
-    let!(:existing) { FactoryGirl.create(:draft_content_item) }
-
-    let(:content_id) { existing.content_id }
-    let(:payload) do
-      FactoryGirl.build(:draft_content_item)
-      .as_json
-      .symbolize_keys
-      .merge(
-        content_id: content_id,
-        title: "New title"
-      )
-    end
-
-    let(:another_payload) do
-      FactoryGirl.build(:draft_content_item)
-      .as_json
-      .symbolize_keys
-      .merge(
-        title: "New title",
-        base_path: "/another_base_path",
-        routes: [{ path: "/another_base_path", type: "exact" }],
-      )
-    end
-
-    it_behaves_like Replaceable
-  end
-
   it_behaves_like DefaultAttributes
-  it_behaves_like RoutesAndRedirectsValidator
   it_behaves_like WellFormedContentTypesValidator
   it_behaves_like DescriptionOverrides
 end

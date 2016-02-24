@@ -1,37 +1,7 @@
 FactoryGirl.define do
-  factory :draft_content_item do
-    content_id { SecureRandom.uuid }
-    base_path do
-      suffix = ".#{locale}" unless locale == "en"
-      "/vat-rates#{suffix}"
-    end
-    title "VAT rates"
-    description "VAT rates for goods and services"
-    format "guide"
-    public_updated_at "2014-05-14T13:00:06Z"
-    publishing_app "publisher"
-    rendering_app "frontend"
-    locale "en"
-    details {
-      { body: "<p>Something about VAT</p>\n", }
-    }
-    need_ids ["100123", "100124"]
-    phase "beta"
-    update_type "minor"
-    analytics_identifier "GDS01"
-    routes {
-      [
-        {
-          path: base_path,
-          type: "exact",
-        }
-      ]
-    }
-
-    trait :with_version do
-      after(:create) do |item, _|
-        FactoryGirl.create(:version, target: item)
-      end
+  factory :draft_content_item, parent: :content_item do
+    transient do
+      state "draft"
     end
   end
 
@@ -54,7 +24,7 @@ FactoryGirl.define do
     sequence(:base_path) {|n| "/access-limited-#{n}" }
 
     after(:create) do |item, _|
-      FactoryGirl.create(:access_limit, target: item)
+      FactoryGirl.create(:access_limit, content_item: item)
     end
   end
 end

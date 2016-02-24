@@ -33,10 +33,10 @@ module RequestHelpers
     end
 
     def responds_with_presented_content_item
-      it "responds with the presentation of the content item and version" do
+      it "responds with the presentation of the content item and lock_version" do
         do_request
 
-        updated_content_item = DraftContentItem.find_by!(content_id: content_id)
+        updated_content_item = ContentItem.find_by!(content_id: content_id)
         presented_content_item = Presenters::Queries::ContentItemPresenter.present(updated_content_item)
 
         expect(response.body).to eq(presented_content_item.to_json)
@@ -52,7 +52,7 @@ module RequestHelpers
     end
 
     def responds_with_presented_correct_locale_content_item
-      it "responds with the presentation of content item and version in the correct locale" do
+      it "responds with the presentation of content item and lock_version in the correct locale" do
         FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "ar")
 
         presented_content_item = Presenters::Queries::ContentItemPresenter.present(content_item)
@@ -94,6 +94,7 @@ module RequestHelpers
         it "passes through the locale extension" do
           expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
             .with(hash_including(base_path: base_path))
+            .at_least(:once)
 
           do_request
         end

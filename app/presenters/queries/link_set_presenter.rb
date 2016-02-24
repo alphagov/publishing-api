@@ -2,13 +2,13 @@ module Presenters
   module Queries
     class LinkSetPresenter
       def self.present(link_set)
-        version = Version.find_by(target: link_set)
-        new(link_set, version).present
+        lock_version = LockVersion.find_by(target: link_set)
+        new(link_set, lock_version).present
       end
 
-      def initialize(link_set, version = nil)
+      def initialize(link_set, lock_version = nil)
         self.link_set = link_set
-        self.version = version
+        self.lock_version = lock_version
       end
 
       def present
@@ -17,8 +17,8 @@ module Presenters
           links: links,
         }
 
-        if version
-          base.merge(version: version.number)
+        if lock_version
+          base.merge(version: lock_version.number)
         else
           base
         end
@@ -43,7 +43,7 @@ module Presenters
 
     private
 
-      attr_accessor :link_set, :version
+      attr_accessor :link_set, :lock_version
     end
   end
 end

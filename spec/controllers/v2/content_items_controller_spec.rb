@@ -5,35 +5,44 @@ RSpec.describe V2::ContentItemsController do
 
   before do
     stub_request(:any, /content-store/)
-    @draft = FactoryGirl.create(:draft_content_item,
-        content_id: content_id, locale: "en",
-        base_path: "/content.en",
-        format: "topic")
-    FactoryGirl.create(:version, target: @draft, number: 2)
+
+    @draft = FactoryGirl.create(
+      :draft_content_item,
+      content_id: content_id,
+      base_path: "/content.en",
+      format: "topic",
+      locale: "en",
+      lock_version: 2,
+    )
   end
 
   describe "index" do
     before do
       @en_draft_content = @draft
-      @ar_draft_content = FactoryGirl.create(:draft_content_item,
+      @ar_draft_content = FactoryGirl.create(
+        :draft_content_item,
         content_id: content_id,
         locale: "ar",
         base_path: "/content.ar",
-        format: "topic")
-      @en_live_content = FactoryGirl.create(:live_content_item,
+        format: "topic",
+        lock_version: 2,
+      )
+      @en_live_content = FactoryGirl.create(
+        :live_content_item,
         content_id: content_id,
         locale: "en",
         base_path: "/content.en",
-        format: "topic")
-      @ar_live_content = FactoryGirl.create(:live_content_item,
+        format: "topic",
+        lock_version: 2,
+      )
+      @ar_live_content = FactoryGirl.create(
+        :live_content_item,
         content_id: content_id,
         locale: "ar",
         base_path: "/content.ar",
-        format: "topic")
-      FactoryGirl.create(:version, target: @en_draft_content, number: 2)
-      FactoryGirl.create(:version, target: @ar_draft_content, number: 2)
-      FactoryGirl.create(:version, target: @en_live_content, number: 2)
-      FactoryGirl.create(:version, target: @ar_live_content, number: 2)
+        format: "topic",
+        lock_version: 2,
+      )
     end
 
     context "without providing a locale parameter" do
@@ -50,10 +59,10 @@ RSpec.describe V2::ContentItemsController do
         expect(parsed_response_body.length == 2)
 
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
-        expect(base_paths). to eq ["/content.en", "/content.en"]
+        expect(base_paths). to eq ["/content.en"]
 
         publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
-        expect(publication_states). to eq ["draft", "live"]
+        expect(publication_states). to eq ["live"]
       end
     end
 
@@ -71,10 +80,10 @@ RSpec.describe V2::ContentItemsController do
         expect(parsed_response_body.length == 2)
 
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
-        expect(base_paths). to eq ["/content.ar", "/content.ar"]
+        expect(base_paths). to eq ["/content.ar"]
 
         base_paths = parsed_response_body.map { |item| item.fetch("publication_state") }
-        expect(base_paths). to eq ["draft", "live"]
+        expect(base_paths). to eq ["live"]
       end
     end
 
@@ -92,10 +101,10 @@ RSpec.describe V2::ContentItemsController do
         expect(parsed_response_body.length == 4)
 
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
-        expect(base_paths). to eq ["/content.en", "/content.ar", "/content.ar", "/content.en"]
+        expect(base_paths). to eq ["/content.en", "/content.ar"]
 
         publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
-        expect(publication_states). to eq ["draft", "draft", "live", "live"]
+        expect(publication_states). to eq ["live", "live"]
       end
     end
   end
@@ -149,8 +158,13 @@ RSpec.describe V2::ContentItemsController do
 
     context "with valid request params for an existing content item" do
       before do
+        content_item_hash = @draft.as_json
+        content_item_hash = content_item_hash
+          .merge("base_path" => "/that-rates")
+          .merge("routes" => [{"path" => "/that-rates", "type" => "exact"}])
+
         request.env["CONTENT_TYPE"] = "application/json"
-        request.env["RAW_POST_DATA"] = @draft.to_json
+        request.env["RAW_POST_DATA"] = content_item_hash.to_json
         put :put_content, content_id: content_id
       end
 

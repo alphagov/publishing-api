@@ -2,83 +2,186 @@ module Commands
   module V2
     class PutContent < BaseCommand
       def call
-        validate_version_lock!
+        raise_if_links_is_provided
 
-        content_item = create_or_update_draft_content_item!
+        PathReservation.reserve_base_path!(base_path, publishing_app)
 
-        PathReservation.reserve_base_path!(base_path, content_item[:publishing_app])
+        if (content_item = find_previously_drafted_content_item)
+          clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
-        if downstream
-          ContentStoreWorker.perform_in(
-            1.second,
-            content_store: Adapters::DraftContentStore,
-            draft_content_item_id: content_item.id,
-          )
+          location = Location.find_by!(content_item: content_item)
+          translation = Translation.find_by!(content_item: content_item)
+
+          check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
+
+          update_content_item(content_item)
+          increment_lock_version(content_item)
+
+          if path_has_changed?(location)
+            from_path = location.base_path
+            update_path(location, new_path: base_path)
+            create_redirect(from_path: from_path, to_path: base_path, locale: translation.locale)
+          end
+
+          if payload[:access_limited] && (users = payload[:access_limited][:users])
+            create_or_update_access_limit(content_item, users: users)
+          else
+            AccessLimit.find_by(content_item: content_item).try(:destroy)
+          end
+        else
+          content_item = create_content_item
+          clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+
+          supporting_objects = create_supporting_objects(content_item)
+
+          if payload[:access_limited] && (users = payload[:access_limited][:users])
+            AccessLimit.create!(content_item: content_item, users: users)
+          end
         end
 
-        handle_path_change(content_item)
+        send_downstream(content_item) if downstream
 
         response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
         Success.new(response_hash)
       end
 
     private
-      def validate_version_lock!
-        super(DraftContentItem, content_id, payload[:previous_version])
+
+      def create_or_update_access_limit(content_item, users:)
+        if access_limit = AccessLimit.find_by(content_item: content_item)
+          access_limit.update_attributes!(users: users)
+        else
+          AccessLimit.create!(content_item: content_item, users: users)
+        end
+      end
+
+      def find_previously_drafted_content_item
+        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+        filter.filter(locale: locale, state: "draft").first
+      end
+
+      def clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+        SubstitutionHelper.clear!(
+          new_item_format: content_item.format,
+          new_item_content_id: content_item.content_id,
+          state: "draft",
+          locale: locale,
+          base_path: base_path,
+        )
+      end
+
+      def content_item_attributes_from_payload
+        payload.slice(*ContentItem::TOP_LEVEL_FIELDS)
+      end
+
+      def create_content_item
+        ContentItem.create!(content_item_attributes_from_payload)
+      end
+
+      def create_supporting_objects(content_item)
+        Location.create!(content_item: content_item, base_path: base_path)
+        State.create!(content_item: content_item, name: "draft")
+        Translation.create!(content_item: content_item, locale: locale)
+        UserFacingVersion.create!(content_item: content_item, number: user_facing_version_number_for_new_draft)
+        LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
+      end
+
+      def lock_version_number_for_new_draft
+        if previously_published_item
+          lock_version = LockVersion.find_by!(target: previously_published_item)
+          lock_version.number + 1
+        else
+          1
+        end
+      end
+
+      def user_facing_version_number_for_new_draft
+        if previously_published_item
+          user_facing_version = UserFacingVersion.find_by!(content_item: previously_published_item)
+          user_facing_version.number + 1
+        else
+          1
+        end
+      end
+
+      def previously_published_item
+        @previously_published_item ||= (
+          filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+          filter.filter(state: "published", locale: locale).first
+        )
+      end
+
+      def path_has_changed?(location)
+        location.base_path != base_path
+      end
+
+      def update_path(location, new_path:)
+        location.update_attributes!(base_path: new_path)
       end
 
       def content_id
         payload.fetch(:content_id)
       end
 
-      def access_limit_params
-        payload[:access_limited]
+      def base_path
+        payload.fetch(:base_path)
       end
 
-      def create_or_update_draft_content_item!
-        DraftContentItem.create_or_replace(content_item_attributes) do |item|
-          SubstitutionHelper.clear_draft!(item)
-
-          item.assign_attributes_with_defaults(content_item_attributes)
-
-          if item.valid?
-            version = Version.find_or_initialize_by(target: item)
-            version.increment
-            version.save!
-
-            if access_limit_params && (users = access_limit_params[:users])
-              AccessLimit.create(
-                target: item,
-                users: users
-              )
-            end
-          end
-        end
+      def locale
+        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
-      def content_item_attributes
-        payload.slice(*DraftContentItem::TOP_LEVEL_FIELDS)
+      def publishing_app
+        payload.fetch(:publishing_app)
       end
 
-      def handle_path_change(content_item)
-        path_change = content_item.previous_changes[:base_path]
-        if path_change.present? && path_change[0].present?
-          if content_item.live_content_item.present?
-            RedirectHelper.create_redirect(
-              publishing_app: content_item.publishing_app,
-              old_base_path: path_change[0],
-              new_base_path: path_change[1],
-              locale: content_item.locale,
-            )
-          else
-            ContentStoreWorker.perform_in(
-              1.second,
-              content_store: Adapters::DraftContentStore,
-              base_path: path_change[0],
-              delete: true,
-            )
-          end
-        end
+      def update_content_item(content_item)
+        content_item.assign_attributes_with_defaults(content_item_attributes_from_payload)
+        content_item.save!
+      end
+
+      def increment_lock_version(content_item)
+        lock_version = LockVersion.find_by!(target: content_item)
+        lock_version.increment
+        lock_version.save!
+      end
+
+      def create_redirect(from_path:, to_path:, locale:)
+        RedirectHelper.create_redirect(
+          publishing_app: publishing_app,
+          old_base_path: from_path,
+          new_base_path: to_path,
+          locale: locale,
+        )
+      end
+
+      def send_downstream(content_item)
+        return unless downstream
+
+        ContentStoreWorker.perform_in(
+          1.second,
+          content_store: Adapters::DraftContentStore,
+          content_item_id: content_item.id,
+        )
+      end
+
+      def raise_if_links_is_provided
+        return unless payload.has_key?(:links)
+        message = "The 'links' parameter should not be provided to this endpoint."
+
+        raise CommandError.new(
+          code: 400,
+          message: message,
+          error_details: {
+            error: {
+              code: 400,
+              message: message,
+              fields: {
+                links: ["is not a valid parameter"],
+              }
+            }
+          }
+        )
       end
     end
   end

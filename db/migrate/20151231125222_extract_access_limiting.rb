@@ -1,4 +1,7 @@
 class ExtractAccessLimiting < ActiveRecord::Migration
+  class DraftContentItem < ActiveRecord::Base
+  end
+
   def up
     create_table :access_limits do |t|
       t.integer :target_id, null: false
