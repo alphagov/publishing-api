@@ -85,7 +85,7 @@ RSpec.describe ContentItemFilter do
 
       it "returns a scope of the same content item" do
         result = described_class.similar_to(content_item, params)
-        expect(result.to_a).to eq([content_item, oil_and_gas_content_item])
+        expect(result.to_a).to match_array([content_item, oil_and_gas_content_item])
       end
     end
   end
@@ -96,12 +96,12 @@ RSpec.describe ContentItemFilter do
 
       it "returns a scope of the expected content items" do
         result = described_class.filter(params)
-        expect(result.to_set).to eq(Set.new([
+        expect(result.to_set).to match_array([
           content_item,
           french_content_item,
           superseded_content_item,
           new_version_content_item
-        ]))
+        ])
       end
     end
 
@@ -110,12 +110,12 @@ RSpec.describe ContentItemFilter do
 
       it "returns a scope of the expected content items" do
         result = described_class.filter(params)
-        expect(result.to_set).to eq(Set.new([
+        expect(result.to_set).to match_array([
           content_item,
           oil_and_gas_content_item,
           superseded_content_item,
           new_version_content_item
-        ]))
+        ])
       end
     end
 
@@ -124,12 +124,12 @@ RSpec.describe ContentItemFilter do
 
       it "returns a scope of the expected content items" do
         result = described_class.filter(params)
-        expect(result.to_set).to eq(Set.new([
+        expect(result.to_set).to match_array([
           content_item,
           oil_and_gas_content_item,
           french_content_item,
           new_version_content_item
-        ]))
+        ])
       end
     end
 
@@ -138,12 +138,12 @@ RSpec.describe ContentItemFilter do
 
       it "returns a scope of the expected content items" do
         result = described_class.filter(params)
-        expect(result.to_set).to eq(Set.new([
+        expect(result.to_set).to match_array([
           content_item,
           oil_and_gas_content_item,
           french_content_item,
           superseded_content_item
-        ]))
+        ])
       end
     end
 
@@ -152,7 +152,7 @@ RSpec.describe ContentItemFilter do
 
       it "returns a scope of all content items" do
         result = described_class.filter(params)
-        expect(result.to_set).to eq(ContentItem.all.to_set)
+        expect(result.to_set).to match_array(ContentItem.all.to_a)
       end
     end
   end
