@@ -23,6 +23,8 @@ module V2
           base_path
           internal_name
         ),
+        locale: locale,
+        pagination: Pagination.new(params)
       ).call
     end
 
