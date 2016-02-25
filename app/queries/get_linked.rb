@@ -19,7 +19,7 @@ module Queries
 
       content_items = ContentItem.where(content_id: content_ids)
 
-      presented = Presenters::Queries::ContentItemPresenter.present_many(content_items)
+      presented = presenter.present_many(content_items, fields: fields)
       presented.map { |p| filter_fields(p).as_json }
     end
   private
@@ -57,16 +57,16 @@ module Queries
       })
     end
 
-    def output_fields
-      fields + ["publication_state"]
-    end
-
     def filter_fields(hash)
-      hash.slice(*output_fields)
+      hash.slice(*fields)
     end
 
     def permitted_fields
-      ContentItem.column_names + %w(base_path locale)
+      ContentItem.column_names + %w(base_path locale publication_state)
+    end
+
+    def presenter
+      Presenters::Queries::ContentItemPresenter
     end
   end
 end

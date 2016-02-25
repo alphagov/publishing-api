@@ -47,7 +47,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without providing a locale parameter" do
       before do
-        get :index, content_format: "topic", fields: ["locale","content_id","base_path"]
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path", "publication_state"]
       end
 
       it "is successful" do
@@ -68,7 +68,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a specific locale parameter" do
       before do
-        get :index, content_format: "topic", fields: ["locale","content_id","base_path"], locale: "ar"
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path", "publication_state"], locale: "ar"
       end
 
       it "is successful" do
@@ -89,7 +89,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a locale parameter set to 'all'" do
       before do
-        get :index, content_format: "topic", fields: ["locale","content_id","base_path"], locale: "all"
+        get :index, content_format: "topic", fields: ["locale","content_id","base_path", "publication_state"], locale: "all"
       end
 
       it "is successful" do

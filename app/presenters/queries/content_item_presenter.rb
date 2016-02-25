@@ -10,12 +10,13 @@ module Presenters
         present_many(content_items).first
       end
 
-      def self.present_many(content_item_scope)
-        new(content_item_scope).present
+      def self.present_many(content_item_scope, fields: nil)
+        new(content_item_scope, fields).present
       end
 
-      def initialize(content_item_scope)
+      def initialize(content_item_scope, fields = nil)
         self.content_item_scope = content_item_scope
+        self.fields = fields
       end
 
       def present
@@ -41,13 +42,13 @@ module Presenters
 
           parse_json_fields!(most_recent_item)
 
-          most_recent_item.except("id", "state_name")
+          most_recent_item.slice(*output_fields)
         end.compact
       end
 
     private
 
-      attr_accessor :content_item_scope
+      attr_accessor :content_item_scope, :fields
 
       def join_supporting_objects(scope)
         scope = State.join_content_items(scope)
@@ -61,12 +62,31 @@ module Presenters
 
       def select_fields(scope)
         scope.select(
-          *ContentItem::TOP_LEVEL_FIELDS,
+          *(ContentItem::TOP_LEVEL_FIELDS - ["publication_state"]),
+          "content_id",
           "states.name as state_name",
           "lock_versions.number as lock_version",
           "translations.locale",
           "locations.base_path",
         )
+      end
+
+      def output_fields
+        if fields
+          output_fields = fields
+        else
+          additional_fields = %w(
+            locale
+            base_path
+            lock_version
+            publication_state
+            live_version
+          )
+
+          output_fields = ContentItem::TOP_LEVEL_FIELDS + additional_fields
+        end
+
+        output_fields.map(&:to_s)
       end
 
       def publication_state(draft, live)
@@ -93,11 +113,11 @@ module Presenters
       end
 
       def parse_json_fields!(hash)
-        hash["redirects"] = JSON.parse(hash["redirects"])
-        hash["routes"] = JSON.parse(hash["routes"])
-        hash["need_ids"] = JSON.parse(hash["need_ids"])
-        hash["description"] = JSON.parse(hash["description"])["value"]
-        hash["details"] = JSON.parse(hash["details"])
+        %w(redirects routes need_ids description details).each do |json_field|
+          hash[json_field] = JSON.parse(hash[json_field]) if hash[json_field]
+        end
+
+        hash["description"] = hash["description"]["value"] if hash["description"]
       end
     end
   end

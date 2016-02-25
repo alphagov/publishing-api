@@ -38,10 +38,6 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       expect(result).to eq(expected)
     end
 
-    it "exposes the lock_version number of the content item" do
-      expect(result.fetch("lock_version")).to eq(101)
-    end
-
     context "with no published lock_version" do
       it "shows the publication state of the content item as draft" do
         expect(result.fetch("publication_state")).to eq("draft")
@@ -143,6 +139,17 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
           locales = results.map { |r| r.fetch("locale") }
 
           expect(locales).to match_array ["fr", "en"]
+        end
+
+        context "when an array of fields is provided" do
+          let(:fields) { ["title", "phase", "publication_state"] }
+
+          it "returns the requested fields plus some additional fields" do
+            content_items = ContentItem.where(content_id: content_id)
+
+            results = described_class.present_many(content_items, fields: fields)
+            expect(results.first.keys).to match_array(["title", "phase", "publication_state"])
+          end
         end
       end
     end

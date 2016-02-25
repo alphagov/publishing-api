@@ -22,7 +22,7 @@ module Queries
         content_items = Translation.filter(content_items, locale: locale)
       end
 
-      presented = Presenters::Queries::ContentItemPresenter.present_many(content_items)
+      presented = presenter.present_many(content_items, fields: fields)
       presented.map { |p| filter_fields(p).as_json }
     end
 
@@ -33,12 +33,8 @@ module Queries
       [content_format, "placeholder_#{content_format}"]
     end
 
-    def output_fields
-      fields + ["publication_state"]
-    end
-
     def filter_fields(hash)
-      hash.slice(*output_fields)
+      hash.slice(*fields)
     end
 
     def validate_fields!
@@ -54,11 +50,15 @@ module Queries
     end
 
     def permitted_fields
-      ContentItem.column_names + %w(base_path locale)
+      ContentItem.column_names + %w(base_path locale publication_state)
     end
 
     def select_output_fields_only(presenter)
-      presenter.present.slice(*output_fields).as_json
+      presenter.present.slice(*fields).as_json
+    end
+
+    def presenter
+      Presenters::Queries::ContentItemPresenter
     end
   end
 end
