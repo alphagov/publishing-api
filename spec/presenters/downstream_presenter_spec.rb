@@ -129,5 +129,15 @@ RSpec.describe Presenters::DownstreamPresenter do
         payload_version: 1,
       )
     end
+
+    it "can optionally remove the payload_version attribute" do
+      result = described_class.present(attributes, payload_version: false)
+
+      expect(result).to eq(
+        content_id: "content_id",
+        access_limited: "access_limited",
+        update_type: "update_type",
+      )
+    end
   end
 end

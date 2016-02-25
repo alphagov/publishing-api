@@ -86,9 +86,10 @@ module Presenters
     end
 
     class V1
-      def self.present(attributes, update_type: true)
+      def self.present(attributes, update_type: true, payload_version: true)
         attributes = attributes.except(:update_type) unless update_type
-        attributes.merge(payload_version: ContentStorePayloadVersion::V1.current)
+        attributes.merge!(payload_version: ContentStorePayloadVersion::V1.current) if payload_version
+        attributes
       end
     end
   end
