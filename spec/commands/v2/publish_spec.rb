@@ -12,6 +12,13 @@ RSpec.describe Commands::V2::Publish do
 
     let(:content_id) { SecureRandom.uuid }
 
+    let!(:content_store_payload_version) do
+      create(
+        :content_store_payload_version,
+        content_item_id: draft_item.id,
+      )
+    end
+
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
@@ -164,6 +171,14 @@ RSpec.describe Commands::V2::Publish do
             content_store: Adapters::ContentStore,
             content_item_id: draft_item.id,
           )
+
+        described_class.call(payload)
+      end
+
+      it "increments the ContentStorePayloadVersion" do
+        expect(ContentStorePayloadVersion)
+          .to receive(:increment)
+          .with(draft_item.id)
 
         described_class.call(payload)
       end
