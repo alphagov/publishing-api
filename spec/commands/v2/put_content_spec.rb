@@ -36,6 +36,14 @@ RSpec.describe Commands::V2::PutContent do
       described_class.call(payload)
     end
 
+    it "increments ContentStorePayloadVersion" do
+      described_class.call(payload)
+      payload_version = ContentStorePayloadVersion.last
+      expect(payload_version.content_item_id)
+        .to eq(ContentItem.last.id)
+      expect(payload_version.current).to eq(1)
+    end
+
     it "does not send the content item on the message queue" do
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
       described_class.call(payload)
