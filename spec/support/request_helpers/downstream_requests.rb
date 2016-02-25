@@ -4,18 +4,16 @@ module RequestHelpers
       it "sends to draft content store" do
         allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
 
-        Timecop.freeze do
-          expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-            .with(
-              base_path: base_path,
-              content_item: content_item_for_draft_content_store
-                .merge(transmitted_at: DateTime.now.to_s(:nanoseconds))
-            )
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item_for_draft_content_store
+              .merge(payload_version: anything)
+          )
 
-          do_request
+        do_request
 
-          expect(response.status).to eq(200), response.body
-        end
+        expect(response).to be_ok, response.body
       end
     end
 
@@ -23,18 +21,16 @@ module RequestHelpers
       it "sends to live content store" do
         allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
 
-        Timecop.freeze do
-          expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-            .with(
-              base_path: base_path,
-              content_item: content_item_for_live_content_store
-                .merge(transmitted_at: DateTime.now.to_s(:nanoseconds))
-            )
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item_for_live_content_store
+              .merge(payload_version: anything)
+          )
 
-          do_request
+        do_request
 
-          expect(response.status).to eq(200), response.body
-        end
+        expect(response).to be_ok, response.body
       end
     end
 
