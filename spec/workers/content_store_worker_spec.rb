@@ -25,6 +25,12 @@ RSpec.describe ContentStoreWorker do
 
       let(:status) { status }
       let!(:content_item) { create(:live_content_item, base_path: '/foo') }
+      let!(:content_store_payload_version) do
+        create(
+          :content_store_payload_version,
+          content_item_id: content_item.id
+        )
+      end
 
       if expectation.fetch(:raises_error)
         it "raises an error" do
@@ -52,6 +58,12 @@ RSpec.describe ContentStoreWorker do
 
   context "when a draft item is enqueued" do
     let!(:draft_content_item) { create(:draft_content_item, base_path: '/foo') }
+    let!(:content_store_payload_version) do
+      create(
+        :content_store_payload_version,
+        content_item_id: draft_content_item.id
+      )
+    end
 
     it "publishes a presented draft content item to the draft Content Store" do
       api_call = stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
@@ -66,7 +78,13 @@ RSpec.describe ContentStoreWorker do
   end
 
   context "when a live item is enqueued" do
-    let!(:live_content_item)  { create(:live_content_item, base_path: '/foo') }
+    let!(:live_content_item) { create(:live_content_item, base_path: '/foo') }
+    let!(:content_store_payload_version) do
+      create(
+        :content_store_payload_version,
+        content_item_id: live_content_item.id
+      )
+    end
 
     it "publishes a presented live content item to the live Content Store" do
       api_call = stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
