@@ -13,6 +13,7 @@ module Commands
         PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
         if downstream
+          ContentStorePayloadVersion::V1.increment
           content_store_payload = Presenters::DownstreamPresenter::V1.present(
             payload.except(:access_limited),
             update_type: false
