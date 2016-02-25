@@ -23,39 +23,37 @@ RSpec.describe Queries::GetContent do
       result = subject.call(content_id)
 
       expect(result).to include(
-        content_id: content_id,
-        base_path: "/vat-rates",
-        title: "VAT rates",
-        format: "guide",
-        locale: "en",
-        lock_version: 1,
-        publication_state: "draft",
-        publishing_app: "publisher",
-        rendering_app: "frontend",
+        "content_id" => content_id,
+        "base_path" => "/vat-rates",
+        "title" => "VAT rates",
+        "format" => "guide",
+        "locale" => "en",
+        "lock_version" => 1,
+        "publication_state" => "draft",
+        "publishing_app" => "publisher",
+        "rendering_app" => "frontend",
       )
     end
   end
 
-  context "when multiple content items exist for the content_id" do
+  context "when a draft and a live content item exists for the content_id" do
     before do
       FactoryGirl.create(
-        :content_item,
+        :draft_content_item,
         content_id: content_id,
-        user_facing_version: 2,
-        title: "Version 2 Title",
+        title: "Draft Title",
       )
 
       FactoryGirl.create(
-        :content_item,
+        :live_content_item,
         content_id: content_id,
-        user_facing_version: 1,
-        title: "Version 1 Title",
+        title: "Live Title",
       )
     end
 
-    it "returns the latest user facing version of the content item" do
+    it "presents the draft content item" do
       result = subject.call(content_id)
-      expect(result.fetch(:title)).to eq("Version 2 Title")
+      expect(result.fetch("title")).to eq("Draft Title")
     end
   end
 
@@ -80,7 +78,7 @@ RSpec.describe Queries::GetContent do
 
     it "excludes content items that aren't in draft or published states" do
       result = subject.call(content_id)
-      expect(result.fetch(:title)).to eq("Published Title")
+      expect(result.fetch("title")).to eq("Published Title")
     end
   end
 
@@ -105,12 +103,12 @@ RSpec.describe Queries::GetContent do
 
     it "returns the english content item by default" do
       result = subject.call(content_id)
-      expect(result.fetch(:title)).to eq("English Title")
+      expect(result.fetch("title")).to eq("English Title")
     end
 
     it "filters content items by the specified locale" do
       result = subject.call(content_id, "fr")
-      expect(result.fetch(:title)).to eq("French Title")
+      expect(result.fetch("title")).to eq("French Title")
     end
   end
 end

@@ -21,7 +21,7 @@ RSpec.describe Queries::GetContentCollection do
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
       fields: ['base_path', 'locale'],
-    ).call).to eq([
+    ).call).to match_array([
       { "base_path" => "/a", "publication_state" => "draft", "locale" => "en" },
       { "base_path" => "/b", "publication_state" => "draft", "locale" => "en" },
     ])
@@ -42,7 +42,7 @@ RSpec.describe Queries::GetContentCollection do
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
       fields: ['base_path'],
-    ).call).to eq([
+    ).call).to match_array([
       { "base_path" => "/a", "publication_state" => "draft" },
       { "base_path" => "/b", "publication_state" => "draft" },
     ])
@@ -116,7 +116,7 @@ RSpec.describe Queries::GetContentCollection do
         content_format: 'topic',
         fields: ['publishing_app'],
         publishing_app: 'publisher'
-      ).call).to eq([
+      ).call).to match_array([
         { "publishing_app" => "publisher", "publication_state" => "draft" },
         { "publishing_app" => "publisher", "publication_state" => "draft" }
       ])
@@ -146,7 +146,7 @@ RSpec.describe Queries::GetContentCollection do
       expect(Queries::GetContentCollection.new(
         content_format: 'topic',
         fields: ['base_path'],
-      ).call).to eq([
+      ).call).to match_array([
         { "base_path" => "/content.en", "publication_state" => "draft" },
         { "base_path" => "/content.en", "publication_state" => "live" },
       ])
@@ -157,7 +157,7 @@ RSpec.describe Queries::GetContentCollection do
         content_format: 'topic',
         fields: ['base_path'],
         locale: 'ar',
-      ).call).to eq([
+      ).call).to match_array([
         { "base_path" => "/content.ar", "publication_state" => "draft" },
         { "base_path" => "/content.ar", "publication_state" => "live" },
       ])
@@ -168,7 +168,7 @@ RSpec.describe Queries::GetContentCollection do
         content_format: 'topic',
         fields: ['base_path'],
         locale: 'all',
-      ).call).to eq([
+      ).call).to match_array([
         { "base_path" => "/content.en", "publication_state" => "draft" },
         { "base_path" => "/content.ar", "publication_state" => "draft" },
         { "base_path" => "/content.en", "publication_state" => "live" },
@@ -185,7 +185,7 @@ RSpec.describe Queries::GetContentCollection do
           content_format: 'topic',
           fields: ['details'],
           publishing_app: 'publisher'
-        ).call).to eq([
+        ).call).to match_array([
           { "details" => {"foo" => "bar"}, "publication_state" => "draft" },
           { "details" => {"baz" => "bat"}, "publication_state" => "draft" }
         ])

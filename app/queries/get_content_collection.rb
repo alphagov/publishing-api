@@ -34,7 +34,7 @@ module Queries
     end
 
     def output_fields
-      fields.map(&:to_sym) + [:publication_state]
+      fields + ["publication_state"]
     end
 
     def filter_fields(hash)
