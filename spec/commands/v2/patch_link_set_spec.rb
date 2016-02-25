@@ -187,8 +187,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
   end
 
   context "when a draft content item exists for the content_id" do
-    before do
-      FactoryGirl.create(
+    let!(:draft_content_item) do
+      create(
         :draft_content_item,
         content_id: content_id,
         base_path: "/some-path",
@@ -201,8 +201,20 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           1.second,
           content_store: Adapters::DraftContentStore,
-          content_item_id: ContentItem.last.id,
+          content_item_id: draft_content_item.id,
         )
+
+      described_class.call(payload)
+    end
+
+    it "increments the ContentStorePayloadVersion" do
+      create(
+        :content_store_payload_version,
+        content_item_id: draft_content_item.id,
+      )
+      expect(ContentStorePayloadVersion)
+        .to receive(:increment)
+        .with(content_item_id: draft_content_item.id)
 
       described_class.call(payload)
     end
@@ -213,8 +225,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       context "and a draft content item exists for that locale" do
-        before do
-          FactoryGirl.create(
+        let!(:draft_content_item) do
+          create(
             :draft_content_item,
             content_id: content_id,
             base_path: "/french-path",
@@ -228,8 +240,21 @@ RSpec.describe Commands::V2::PatchLinkSet do
             .with(
               1.second,
               content_store: Adapters::DraftContentStore,
-              content_item_id: ContentItem.last.id,
+              content_item_id: draft_content_item.id,
             )
+
+          described_class.call(payload)
+        end
+
+        it "increments the ContentStorePayloadVersion" do
+          create(
+            :content_store_payload_version,
+            content_item_id: draft_content_item.id,
+          )
+
+          expect(ContentStorePayloadVersion)
+            .to receive(:increment)
+            .with(content_item_id: draft_content_item.id)
 
           described_class.call(payload)
         end
@@ -259,8 +284,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
   end
 
   context "when a live content item exists for the content_id" do
-    before do
-      FactoryGirl.create(
+    let!(:live_content_item) do
+      create(
         :live_content_item,
         content_id: content_id,
         base_path: "/some-path",
@@ -273,8 +298,21 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           1.second,
           content_store: Adapters::ContentStore,
-          content_item_id: ContentItem.last.id,
+          content_item_id: live_content_item.id,
         )
+
+      described_class.call(payload)
+    end
+
+    it "increments the ContentStorePayloadVersion" do
+      create(
+        :content_store_payload_version,
+        content_item_id: live_content_item.id,
+      )
+
+      expect(ContentStorePayloadVersion)
+        .to receive(:increment)
+        .with(content_item_id: live_content_item.id)
 
       described_class.call(payload)
     end
@@ -298,8 +336,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       context "and a live content item exists for that locale" do
-        before do
-          FactoryGirl.create(
+        let!(:live_content_item) do
+          create(
             :live_content_item,
             content_id: content_id,
             base_path: "/french-path",
@@ -313,11 +351,23 @@ RSpec.describe Commands::V2::PatchLinkSet do
             .with(
               1.second,
               content_store: Adapters::ContentStore,
-              content_item_id: ContentItem.last.id,
-             )
+              content_item_id: live_content_item.id,
+            )
 
           expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
             .with(hash_including(title: "French Title"))
+
+          described_class.call(payload)
+        end
+
+        it "increments the ContentStorePayloadVersion" do
+          create(
+            :content_store_payload_version,
+            content_item_id: live_content_item.id,
+          )
+          expect(ContentStorePayloadVersion)
+            .to receive(:increment)
+            .with(content_item_id: live_content_item.id)
 
           described_class.call(payload)
         end
