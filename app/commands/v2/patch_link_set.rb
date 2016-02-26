@@ -91,7 +91,7 @@ module Commands
       end
 
       def send_to_content_store(content_item, content_store)
-        ContentStorePayloadVersion.increment(content_item_id: content_item.id)
+        ContentStorePayloadVersion.increment(content_item.id)
         ContentStoreWorker.perform_in(
           1.second,
           content_store: content_store,

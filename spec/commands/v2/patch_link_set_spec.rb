@@ -214,7 +214,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       )
       expect(ContentStorePayloadVersion)
         .to receive(:increment)
-        .with(content_item_id: draft_content_item.id)
+        .with(draft_content_item.id)
 
       described_class.call(payload)
     end
@@ -254,7 +254,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
           expect(ContentStorePayloadVersion)
             .to receive(:increment)
-            .with(content_item_id: draft_content_item.id)
+            .with(draft_content_item.id)
 
           described_class.call(payload)
         end
@@ -312,7 +312,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       expect(ContentStorePayloadVersion)
         .to receive(:increment)
-        .with(content_item_id: live_content_item.id)
+        .with(live_content_item.id)
 
       described_class.call(payload)
     end
@@ -367,7 +367,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
           )
           expect(ContentStorePayloadVersion)
             .to receive(:increment)
-            .with(content_item_id: live_content_item.id)
+            .with(live_content_item.id)
 
           described_class.call(payload)
         end
