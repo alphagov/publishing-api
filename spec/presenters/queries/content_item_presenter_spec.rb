@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::Queries::ContentItemPresenter do
+  let(:content_id) { SecureRandom.uuid }
+
   describe "present" do
-    let(:content_id) { SecureRandom.uuid }
-    let(:content_item) do
+    let!(:content_item) do
       FactoryGirl.create(
         :draft_content_item,
         content_id: content_id,
@@ -49,7 +50,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "with a published lock_version and no subsequent draft" do
-      let(:content_item) do
+      let!(:content_item) do
         FactoryGirl.create(
           :live_content_item,
           content_id: content_id,
@@ -67,11 +68,12 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "with a published lock_version and a subsequent draft" do
-      let(:content_item) do
+      let!(:content_item) do
         FactoryGirl.create(
           :live_content_item,
           content_id: content_id,
           lock_version: 100,
+          title: "Live copy",
         )
       end
 
@@ -80,6 +82,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
           :draft_content_item,
           content_id: content_id,
           lock_version: 101,
+          title: "Draft copy",
         )
       end
 
@@ -90,10 +93,14 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       it "exposes the live lock_version number" do
         expect(result.fetch("live_version")).to eq(100)
       end
+
+      it "returns the newest copy" do
+        expect(result.fetch("title")).to eq("Draft copy")
+      end
     end
 
     context "with a live lock_version only" do
-      let(:content_item) do
+      let!(:content_item) do
         FactoryGirl.create(
           :live_content_item,
           content_id: content_id,
@@ -105,24 +112,26 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         expect(result.fetch("publication_state")).to eq("live")
       end
     end
+  end
 
-    context "when the content item exists in multiple locales" do
-      let!(:french_item) do
-        FactoryGirl.create(
-          :content_item,
-          content_id: content_id,
-          locale: "fr"
-        )
-      end
+  context "when the content item exists in multiple locales" do
+    let!(:french_item) do
+      FactoryGirl.create(
+        :content_item,
+        content_id: content_id,
+        locale: "fr"
+      )
+    end
 
-      let!(:english_item) do
-        FactoryGirl.create(
-          :content_item,
-          content_id: content_id,
-          locale: "en"
-        )
-      end
+    let!(:english_item) do
+      FactoryGirl.create(
+        :content_item,
+        content_id: content_id,
+        locale: "en"
+      )
+    end
 
+    describe "#present" do
       it "presents the item with matching locale" do
         result = described_class.present(french_item)
         expect(result.fetch("locale")).to eq("fr")
@@ -130,27 +139,36 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         result = described_class.present(english_item)
         expect(result.fetch("locale")).to eq("en")
       end
+    end
 
-      describe "#present_many" do
-        it "presents a content item for each locale" do
-          content_items = ContentItem.where(content_id: content_id)
+    describe "#present_many" do
+      it "presents a content item for each locale" do
+        content_items = ContentItem.where(content_id: content_id)
 
-          results = described_class.present_many(content_items)
-          locales = results.map { |r| r.fetch("locale") }
+        results = described_class.present_many(content_items)
+        locales = results.map { |r| r.fetch("locale") }
 
-          expect(locales).to match_array %w(fr en)
-        end
+        expect(locales).to match_array(%w(fr en))
+      end
+    end
+  end
 
-        context "when an array of fields is provided" do
-          let(:fields) { %w(title phase publication_state) }
+  describe "#present_many" do
+    let!(:content_item) do
+      FactoryGirl.create(
+        :content_item,
+        content_id: content_id,
+      )
+    end
 
-          it "returns the requested fields plus some additional fields" do
-            content_items = ContentItem.where(content_id: content_id)
+    context "when an array of fields is provided" do
+      let(:fields) { %w(title phase publication_state) }
 
-            results = described_class.present_many(content_items, fields: fields)
-            expect(results.first.keys).to match_array(%w(title phase publication_state))
-          end
-        end
+      it "returns the requested fields" do
+        content_items = ContentItem.where(content_id: content_id)
+
+        results = described_class.present_many(content_items, fields: fields)
+        expect(results.first.keys).to match_array(%w(title phase publication_state))
       end
     end
   end

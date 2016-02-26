@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       # put is provided for backwards compatibility.
       put "/links/:content_id", to: "link_sets#patch_links"
       get "/linked/:content_id", to: "link_sets#get_linked"
+
+      get "/linkables", to: "content_items#linkables"
     end
   end
 

@@ -1,7 +1,5 @@
 module V2
   class LinkSetsController < ApplicationController
-    rescue_from ActionController::ParameterMissing, with: :parameter_missing_error
-
     def get_links
       render json: Queries::GetLinkSet.call(content_id)
     end
@@ -27,17 +25,6 @@ module V2
 
     def content_id
       params.fetch(:content_id)
-    end
-
-    def parameter_missing_error(e)
-      error = CommandError.new(code: 422, error_details: {
-        error: {
-          code: 422,
-          message: e.message
-        }
-      })
-
-      respond_with_command_error(error)
     end
   end
 end
