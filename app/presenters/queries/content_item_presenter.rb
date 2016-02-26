@@ -68,7 +68,7 @@ module Presenters
 
       def select_fields(scope)
         scope.select(
-          *(ContentItem::TOP_LEVEL_FIELDS - ["publication_state"]),
+          *ContentItem::TOP_LEVEL_FIELDS,
           "content_id",
           "states.name as state_name",
           "lock_versions.number as lock_version",
