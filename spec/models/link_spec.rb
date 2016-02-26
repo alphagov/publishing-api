@@ -6,10 +6,7 @@ RSpec.describe Link do
 
   describe "validating link_type" do
     it "allows link types that are underscored alphanumeric" do
-      %w(
-word
-word2word
-word_word).each do |link_type|
+      %w(word word2word word_word).each do |link_type|
         link = Link.create(link_type: link_type, target_content_id: valid_uuid)
         expect(link).to be_valid
       end

@@ -60,10 +60,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       it "does not send any request to the live content store" do
         expect(ContentStoreWorker).not_to receive(:perform_in)
-          .with(hash_including(
-                  1.second,
-            content_store: Adapters::ContentStore,
-          ))
+          .with(hash_including(1.second, content_store: Adapters::ContentStore))
 
         described_class.call(payload)
       end
@@ -196,9 +193,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
     context "when no draft content item exists for the given content_id" do
       it "raises a command error with code 404" do
-        expect {
-          described_class.call(payload)
-        }.to raise_error(CommandError) do |error|
+        expect { described_class.call(payload) }.to raise_error(CommandError) do |error|
           expect(error.code).to eq(404)
         end
       end
@@ -209,9 +204,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "raises a command error with code 422" do
-          expect {
-            described_class.call(payload)
-          }.to raise_error(CommandError) do |error|
+          expect { described_class.call(payload) }.to raise_error(CommandError) do |error|
             expect(error.code).to eq(422)
           end
         end

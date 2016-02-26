@@ -47,9 +47,7 @@ RSpec.describe ContentItemsController do
         'puncutation!',
       ]
 
-      %w(
-format
-update_type).each do |field|
+      %w(format update_type).each do |field|
         valid_routing_keys.each do |routing_key|
           it "should respond with 200 if #{field} has value '#{routing_key}'" do
             content_item = base_content_item.merge(field => routing_key)

@@ -227,9 +227,9 @@ RSpec.describe Commands::V2::PutLinkSet do
           expect(ContentStoreWorker).to receive(:perform_in)
             .with(
               1.second,
-            content_store: Adapters::DraftContentStore,
-            content_item_id: ContentItem.last.id,
-          )
+              content_store: Adapters::DraftContentStore,
+              content_item_id: ContentItem.last.id,
+            )
 
           described_class.call(payload)
         end
@@ -272,9 +272,9 @@ RSpec.describe Commands::V2::PutLinkSet do
       expect(ContentStoreWorker).to receive(:perform_in)
         .with(
           1.second,
-        content_store: Adapters::ContentStore,
-        content_item_id: ContentItem.last.id,
-      )
+          content_store: Adapters::ContentStore,
+          content_item_id: ContentItem.last.id,
+        )
 
       described_class.call(payload)
     end
@@ -287,8 +287,7 @@ RSpec.describe Commands::V2::PutLinkSet do
                 links: {
                   topics: topics,
                   parent: parent,
-                }
-      ))
+                }))
 
       described_class.call(payload)
     end
@@ -313,14 +312,12 @@ RSpec.describe Commands::V2::PutLinkSet do
           expect(ContentStoreWorker).to receive(:perform_in)
             .with(
               1.second,
-            content_store: Adapters::ContentStore,
-            content_item_id: ContentItem.last.id,
-          )
+              content_store: Adapters::ContentStore,
+              content_item_id: ContentItem.last.id,
+             )
 
           expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-            .with(hash_including(
-                    title: "French Title",
-          ))
+            .with(hash_including(title: "French Title"))
 
           described_class.call(payload)
         end

@@ -150,7 +150,7 @@ RSpec.describe Queries::GetLinked do
             title: "HMRC documents"
           )
 
-          link_set = FactoryGirl.create(
+          FactoryGirl.create(
             :link_set,
             content_id: content_id,
             links: [
@@ -168,6 +168,7 @@ RSpec.describe Queries::GetLinked do
             content_id: SecureRandom.uuid,
             title: "Another HMRC document"
           )
+
           FactoryGirl.create(
             :link_set,
             content_id: content_item.content_id,

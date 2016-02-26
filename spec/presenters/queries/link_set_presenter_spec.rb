@@ -32,9 +32,9 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
         org_content_id_2 = SecureRandom.uuid
         rel_content_id_1 = SecureRandom.uuid
 
-        org_link1 = FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_1)
-        org_link2 = FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_2)
-        related_link = FactoryGirl.create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id_1)
+        FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_1)
+        FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_2)
+        FactoryGirl.create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id_1)
 
         links = link_set_presenter(link_set).links
 

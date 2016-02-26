@@ -313,7 +313,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
-      draft = FactoryGirl.create(
+      FactoryGirl.create(
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         lock_version: 3
@@ -326,7 +326,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
-      draft = FactoryGirl.create(
+      FactoryGirl.create(
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         lock_version: 1

@@ -2,15 +2,16 @@ require 'rails_helper'
 
 RSpec.describe QueuePublisher do
   context "real mode" do
-    let(:options) {
+    let(:options) do
       {
-      host: "rabbitmq.example.com",
-      port: 5672,
-      user: "test_user",
-      pass: "super_secret",
-      recover_from_connection_close: true,
-      exchange: "test_exchange",
-    }}
+        host: "rabbitmq.example.com",
+        port: 5672,
+        user: "test_user",
+        pass: "super_secret",
+        recover_from_connection_close: true,
+        exchange: "test_exchange",
+      }
+    end
     let(:queue_publisher) { QueuePublisher.new(options) }
 
     let(:mock_session) { instance_double("Bunny::Session", start: nil, create_channel: mock_channel) }
@@ -144,7 +145,8 @@ RSpec.describe QueuePublisher do
 
             begin
               queue_publisher.send_message(content_item)
-            rescue # Swallow exception
+            rescue
+              nil
             end
           end
 
@@ -157,7 +159,8 @@ RSpec.describe QueuePublisher do
           it "creates a new channel for subsequent messages" do
             begin
               queue_publisher.send_message(content_item)
-            rescue # Swallow exception
+            rescue
+              nil
             end
 
             expect(mock_session).to receive(:create_channel).and_return(mock_channel).ordered
