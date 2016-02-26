@@ -20,8 +20,8 @@ RSpec.describe Queries::GetContentCollection do
 
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
-      fields: ['base_path', 'locale'],
-    ).call).to eq([
+      fields: ['base_path', 'locale', 'publication_state'],
+    ).call).to match_array([
       { "base_path" => "/a", "publication_state" => "draft", "locale" => "en" },
       { "base_path" => "/b", "publication_state" => "draft", "locale" => "en" },
     ])
@@ -41,8 +41,8 @@ RSpec.describe Queries::GetContentCollection do
 
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
-      fields: ['base_path'],
-    ).call).to eq([
+      fields: ['base_path', 'publication_state'],
+    ).call).to match_array([
       { "base_path" => "/a", "publication_state" => "draft" },
       { "base_path" => "/b", "publication_state" => "draft" },
     ])
@@ -62,7 +62,7 @@ RSpec.describe Queries::GetContentCollection do
 
     expect(Queries::GetContentCollection.new(
       content_format: 'topic',
-      fields: ['base_path'],
+      fields: ['base_path', 'publication_state'],
     ).call).to eq([
       { "base_path" => "/draft", "publication_state" => "draft"},
       { "base_path" => "/live", "publication_state" => "live" },
@@ -114,9 +114,9 @@ RSpec.describe Queries::GetContentCollection do
     it "returns items corresponding to the publishing_app parameter if present" do
       expect(Queries::GetContentCollection.new(
         content_format: 'topic',
-        fields: ['publishing_app'],
+        fields: ['publishing_app', 'publication_state'],
         publishing_app: 'publisher'
-      ).call).to eq([
+      ).call).to match_array([
         { "publishing_app" => "publisher", "publication_state" => "draft" },
         { "publishing_app" => "publisher", "publication_state" => "draft" }
       ])
@@ -125,7 +125,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns items for all apps if publishing_app is not present" do
       expect(Queries::GetContentCollection.new(
         content_format: 'topic',
-        fields: ['publishing_app']
+        fields: ['publishing_app', 'publication_state']
       ).call).to match_array([
         { "publishing_app" => "publisher", "publication_state" => "draft" },
         { "publishing_app" => "publisher", "publication_state" => "draft" },
@@ -145,8 +145,8 @@ RSpec.describe Queries::GetContentCollection do
     it "returns the content items filtered by 'en' locale by default" do
       expect(Queries::GetContentCollection.new(
         content_format: 'topic',
-        fields: ['base_path'],
-      ).call).to eq([
+        fields: ['base_path', 'publication_state'],
+      ).call).to match_array([
         { "base_path" => "/content.en", "publication_state" => "draft" },
         { "base_path" => "/content.en", "publication_state" => "live" },
       ])
@@ -155,9 +155,9 @@ RSpec.describe Queries::GetContentCollection do
     it "returns the content items filtered by locale parameter" do
       expect(Queries::GetContentCollection.new(
         content_format: 'topic',
-        fields: ['base_path'],
+        fields: ['base_path', 'publication_state'],
         locale: 'ar',
-      ).call).to eq([
+      ).call).to match_array([
         { "base_path" => "/content.ar", "publication_state" => "draft" },
         { "base_path" => "/content.ar", "publication_state" => "live" },
       ])
@@ -166,9 +166,9 @@ RSpec.describe Queries::GetContentCollection do
     it "returns all content items if the locale parameter is 'all'" do
       expect(Queries::GetContentCollection.new(
         content_format: 'topic',
-        fields: ['base_path'],
+        fields: ['base_path', 'publication_state'],
         locale: 'all',
-      ).call).to eq([
+      ).call).to match_array([
         { "base_path" => "/content.en", "publication_state" => "draft" },
         { "base_path" => "/content.ar", "publication_state" => "draft" },
         { "base_path" => "/content.en", "publication_state" => "live" },
@@ -183,9 +183,9 @@ RSpec.describe Queries::GetContentCollection do
       create(:draft_content_item, base_path: '/b', details: {baz: :bat}, format: 'placeholder_topic', publishing_app: 'publisher')
         expect(Queries::GetContentCollection.new(
           content_format: 'topic',
-          fields: ['details'],
+          fields: ['details', 'publication_state'],
           publishing_app: 'publisher'
-        ).call).to eq([
+        ).call).to match_array([
           { "details" => {"foo" => "bar"}, "publication_state" => "draft" },
           { "details" => {"baz" => "bat"}, "publication_state" => "draft" }
         ])

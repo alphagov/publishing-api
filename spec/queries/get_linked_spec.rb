@@ -115,7 +115,7 @@ RSpec.describe Queries::GetLinked do
               Queries::GetLinked.new(
                 content_id: target_content_id,
                 link_type: "organisations",
-                fields: ["title", "base_path", "locale"])
+                fields: ["title", "base_path", "locale", "publication_state"])
               .call
             ).to match_array([
               {
@@ -190,7 +190,7 @@ RSpec.describe Queries::GetLinked do
             Queries::GetLinked.new(
               content_id: another_target_content_id,
               link_type: "organisations",
-              fields: ["title"])
+              fields: ["title", "publication_state"])
             .call
           ).to match_array([
             {

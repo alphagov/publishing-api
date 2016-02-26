@@ -10,20 +10,21 @@ module Presenters
         present_many(content_items).first
       end
 
-      def self.present_many(content_item_scope)
-        new(content_item_scope).present
+      def self.present_many(content_item_scope, fields: nil)
+        new(content_item_scope, fields).present
       end
 
-      def initialize(content_item_scope)
+      def initialize(content_item_scope, fields = nil)
         self.content_item_scope = content_item_scope
+        self.fields = fields
       end
 
       def present
         scope = join_supporting_objects(content_item_scope)
         scope = select_fields(scope)
 
-        items = scope.as_json.map(&:symbolize_keys)
-        groups = items.group_by { |i| [i.fetch(:content_id), i.fetch(:locale)] }
+        items = ActiveRecord::Base.connection.execute(scope.to_sql)
+        groups = items.group_by { |i| [i.fetch("content_id"), i.fetch("locale")] }
 
         groups.map do |_, items|
           draft = detect_draft(items)
@@ -32,30 +33,24 @@ module Presenters
           most_recent_item = draft || live
           next unless most_recent_item
 
-          most_recent_item.merge!(
-            publication_state: publication_state(draft, live)
-          )
+          most_recent_item["publication_state"] = publication_state(draft, live)
+          most_recent_item["lock_version"] = most_recent_item.fetch("lock_version").to_i
 
-          most_recent_item.merge!(
-            live_version: live.fetch(:lock_version)
-          ) if live
+          if live
+            most_recent_item["live_version"] = live.fetch("lock_version").to_i
+          end
 
-          most_recent_item = most_recent_item.except(:id, :state_name)
+          parse_json_fields!(most_recent_item)
 
-          most_recent_item
+          most_recent_item.slice(*output_fields)
         end.compact
       end
 
     private
 
-      attr_accessor :content_item_scope
-
-      def remove_existing_joins(scope)
-        scope = ContentItem.where(id: scope.pluck(:id))
-      end
+      attr_accessor :content_item_scope, :fields
 
       def join_supporting_objects(scope)
-        scope = remove_existing_joins(scope)
         scope = State.join_content_items(scope)
         scope = Translation.join_content_items(scope)
         scope = Location.join_content_items(scope)
@@ -67,7 +62,8 @@ module Presenters
 
       def select_fields(scope)
         scope.select(
-          *ContentItem::TOP_LEVEL_FIELDS,
+          *(ContentItem::TOP_LEVEL_FIELDS - ["publication_state"]),
+          "content_id",
           "states.name as state_name",
           "lock_versions.number as lock_version",
           "translations.locale",
@@ -75,9 +71,27 @@ module Presenters
         )
       end
 
+      def output_fields
+        if fields
+          output_fields = fields
+        else
+          additional_fields = %w(
+            locale
+            base_path
+            lock_version
+            publication_state
+            live_version
+          )
+
+          output_fields = ContentItem::TOP_LEVEL_FIELDS + additional_fields
+        end
+
+        output_fields.map(&:to_s)
+      end
+
       def publication_state(draft, live)
-        draft_lock_version = draft.fetch(:lock_version) if draft
-        live_lock_version = live.fetch(:lock_version) if live
+        draft_lock_version = draft.fetch("lock_version") if draft
+        live_lock_version = live.fetch("lock_version") if live
 
         if draft_lock_version && live_lock_version && (draft_lock_version > live_lock_version)
           "redrafted"
@@ -91,11 +105,19 @@ module Presenters
       end
 
       def detect_draft(items)
-        draft = items.detect { |i| i.fetch(:state_name) == "draft" }
+        draft = items.detect { |i| i.fetch("state_name") == "draft" }
       end
 
       def detect_live(items)
-        live = items.detect { |i| i.fetch(:state_name) == "published" }
+        live = items.detect { |i| i.fetch("state_name") == "published" }
+      end
+
+      def parse_json_fields!(hash)
+        %w(redirects routes need_ids description details).each do |json_field|
+          hash[json_field] = JSON.parse(hash[json_field]) if hash[json_field]
+        end
+
+        hash["description"] = hash["description"]["value"] if hash["description"]
       end
     end
   end
