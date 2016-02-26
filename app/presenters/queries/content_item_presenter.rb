@@ -26,9 +26,9 @@ module Presenters
         items = ActiveRecord::Base.connection.execute(scope.to_sql)
         groups = items.group_by { |i| [i.fetch("content_id"), i.fetch("locale")] }
 
-        groups.map do |_, items|
-          draft = detect_draft(items)
-          live = detect_live(items)
+        groups = groups.map do |_, group_items|
+          draft = detect_draft(group_items)
+          live = detect_live(group_items)
 
           most_recent_item = draft || live
           next unless most_recent_item
@@ -43,7 +43,8 @@ module Presenters
           parse_json_fields!(most_recent_item)
 
           most_recent_item.slice(*output_fields)
-        end.compact
+        end
+        groups.compact
       end
 
     private
@@ -105,11 +106,11 @@ module Presenters
       end
 
       def detect_draft(items)
-        draft = items.detect { |i| i.fetch("state_name") == "draft" }
+        items.detect { |i| i.fetch("state_name") == "draft" }
       end
 
       def detect_live(items)
-        live = items.detect { |i| i.fetch("state_name") == "published" }
+        items.detect { |i| i.fetch("state_name") == "published" }
       end
 
       def parse_json_fields!(hash)

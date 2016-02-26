@@ -18,7 +18,7 @@ class CommandError < StandardError
                e.error_details.fetch('errors', {})
              else
                {}
-    end
+             end
     raise CommandError.new(code: e.code, error_details: {
       error: {
         code: e.code,
@@ -49,7 +49,7 @@ class CommandError < StandardError
                            "code" => code,
                          }
                        }
-    end
+                     end
     super(message || error_details.to_s)
   end
 

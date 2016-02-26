@@ -32,7 +32,7 @@ module Commands
           content_item = create_content_item
           clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
-          supporting_objects = create_supporting_objects(content_item)
+          create_supporting_objects(content_item)
           ensure_link_set_exists(content_item)
 
           if payload[:access_limited] && (users = payload[:access_limited][:users])
@@ -49,7 +49,7 @@ module Commands
     private
 
       def create_or_update_access_limit(content_item, users:)
-        if access_limit = AccessLimit.find_by(content_item: content_item)
+        if (access_limit = AccessLimit.find_by(content_item: content_item))
           access_limit.update_attributes!(users: users)
         else
           AccessLimit.create!(content_item: content_item, users: users)
