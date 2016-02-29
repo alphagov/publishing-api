@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope format: false do |r|
+  scope format: false do |_r|
     put "/draft-content(/*base_path)", to: "content_items#put_draft_content_item"
     put "/content(/*base_path)", to: "content_items#put_live_content_item"
 
@@ -23,5 +23,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/healthcheck', :to => proc { [200, {}, ['OK']] }
+  get '/healthcheck', to: proc { [200, {}, ['OK']] }
 end
