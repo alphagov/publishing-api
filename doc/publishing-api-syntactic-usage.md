@@ -75,11 +75,11 @@ Requests to update an existing draft content item:
 ### Required request params:
  - `content_id` the primary identifier for the content associated with the requested link set.
 
-## `PUT /v2/links/:content_id`
+## `PATCH /v2/links/:content_id`
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_update_the_linkset_at_version_3_given_the_linkset_for_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3)
 
- - Creates or replaces a link set given a content_id.
+ - Creates or updates a link set given a content_id.
  - Validates the presence of the links request parameter and responds with 422 if not present.
  - Validates the link set lock version in the request and responds with 409 if the lock version is incorrect.
  - Instantiates or retrieves an existing link set.
