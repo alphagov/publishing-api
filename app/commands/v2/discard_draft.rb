@@ -7,14 +7,14 @@ module Commands
         check_version_and_raise_if_conflicting(draft, payload[:previous_version])
 
         draft_path = Location.find_by!(content_item: draft).base_path
+
         delete_supporting_objects
+        delete_draft_from_database
+        delete_draft_from_draft_content_store(draft_path) if downstream
 
         if live
           increment_live_lock_version
           send_live_to_draft_content_store(live) if downstream
-        else
-          delete_draft_from_database
-          delete_draft_from_draft_content_store(draft_path) if downstream
         end
 
         Success.new(content_id: content_id)
