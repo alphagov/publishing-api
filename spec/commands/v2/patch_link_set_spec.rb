@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Commands::V2::PutLinkSet do
+RSpec.describe Commands::V2::PatchLinkSet do
   let(:content_id) { SecureRandom.uuid }
   let(:topics) { 3.times.map { SecureRandom.uuid } }
   let(:parent) { [SecureRandom.uuid] }

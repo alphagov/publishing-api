@@ -4,6 +4,8 @@ module RequestHelpers
       case request_method
       when :put
         put request_path, body, headers
+      when :patch
+        patch request_path, body, headers
       when :get
         get request_path, body, headers
       when :post

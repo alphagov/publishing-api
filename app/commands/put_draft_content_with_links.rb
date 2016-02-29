@@ -5,7 +5,7 @@ module Commands
         delete_existing_links
 
         V2::PutContent.call(v2_put_content_payload, downstream: downstream)
-        V2::PutLinkSet.call(v2_put_link_set_payload, downstream: downstream)
+        V2::PatchLinkSet.call(v2_put_link_set_payload, downstream: downstream)
       else
         PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 

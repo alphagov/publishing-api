@@ -6,8 +6,8 @@ module V2
       render json: Queries::GetLinkSet.call(content_id)
     end
 
-    def put_links
-      response = Commands::V2::PutLinkSet.call(links_params)
+    def patch_links
+      response = Commands::V2::PatchLinkSet.call(links_params)
       render status: response.code, json: response
     end
 

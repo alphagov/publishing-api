@@ -1,6 +1,6 @@
 module Commands
   module V2
-    class PutLinkSet < BaseCommand
+    class PatchLinkSet < BaseCommand
       def call
         raise_unless_links_hash_is_provided
 

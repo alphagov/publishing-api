@@ -76,7 +76,7 @@ RSpec.describe "Downstream requests", type: :request do
     }
     let(:request_body) { links_attributes.to_json }
     let(:request_path) { "/v2/links/#{content_id}" }
-    let(:request_method) { :put }
+    let(:request_method) { :patch }
 
     context "when only a draft content item exists for the link set" do
       before do
