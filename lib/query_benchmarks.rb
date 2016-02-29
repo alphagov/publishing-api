@@ -25,7 +25,7 @@ module QueryBenchmarks
     end
 
     def self.run_organisations!
-      run!("organisations") {self.organisations!}
+      run!("organisations") { self.organisations! }
     end
   end
 end

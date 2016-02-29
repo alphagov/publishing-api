@@ -40,7 +40,7 @@ class QueuePublisher
     publish_message("heartbeat.major", body, content_type: "application/x-heartbeat", persistent: false)
   end
 
-  private
+private
 
   def publish_message(routing_key, message_data, options = {})
     publish_options = options.merge(routing_key: routing_key)
@@ -79,7 +79,7 @@ class QueuePublisher
 
   def reset_channel
     @exchange = nil
-    @channel.close if @channel and @channel.open?
+    @channel.close if @channel && @channel.open?
     @channel = nil
   end
 end

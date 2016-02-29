@@ -17,7 +17,7 @@ unless Rails.env.production?
     end
   end
 
-  task :default => "pact:verify"
+  task default: "pact:verify"
 
   task "pact:verify:branch", [:branch_name] do |t, args|
     abort "Please provide a branch name. eg rake #{t.name}[my_feature_branch]" unless args[:branch_name]
