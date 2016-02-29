@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20160301120422) do
     t.integer  "draft_content_item_id"
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
+    t.string   "document_type"
+    t.string   "schema_name"
   end
 
   add_index "content_items", ["content_id"], name: "index_content_items_on_content_id", using: :btree
