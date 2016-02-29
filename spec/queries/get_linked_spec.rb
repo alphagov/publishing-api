@@ -22,15 +22,15 @@ RSpec.describe Queries::GetLinked do
 
     context "no fields requested" do
       it "raises an error" do
-          expect {
-            Queries::GetLinked.new(
-              content_id: target_content_id,
-              link_type: "organisations",
-              fields: [],
-            ).call
-          }.to raise_error(CommandError)
-        end
+        expect {
+          Queries::GetLinked.new(
+            content_id: target_content_id,
+            link_type: "organisations",
+            fields: [],
+          ).call
+        }.to raise_error(CommandError)
       end
+    end
 
     context "when content item with draft exists "do
       before do
@@ -50,7 +50,7 @@ RSpec.describe Queries::GetLinked do
               link_type: "organisations",
               fields: ["title"],
             ).call
-          ).to eq([ ])
+          ).to eq([])
         end
       end
 
@@ -115,7 +115,7 @@ RSpec.describe Queries::GetLinked do
               Queries::GetLinked.new(
                 content_id: target_content_id,
                 link_type: "organisations",
-                fields: ["title", "base_path", "locale", "publication_state"])
+                fields: %w(title base_path locale publication_state))
               .call
             ).to match_array([
               {
@@ -190,7 +190,7 @@ RSpec.describe Queries::GetLinked do
             Queries::GetLinked.new(
               content_id: another_target_content_id,
               link_type: "organisations",
-              fields: ["title", "publication_state"])
+              fields: %w(title publication_state))
             .call
           ).to match_array([
             {

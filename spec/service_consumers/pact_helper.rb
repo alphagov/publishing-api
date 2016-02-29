@@ -1,10 +1,10 @@
-ENV['RAILS_ENV']='test'
+ENV['RAILS_ENV'] = 'test'
 require 'webmock'
 require 'pact/provider/rspec'
 
 WebMock.disable!
 
-Pact.configure do | config |
+Pact.configure do |config|
   config.reports_dir = "spec/reports/pacts"
   config.include WebMock::API
   config.include WebMock::Matchers
@@ -40,7 +40,7 @@ Pact.provider_states_for "GDS API Adapters" do
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
       stub_request(:delete, Plek.find('content-store') + "/publish-intent/test-intent")
-        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
+        .to_return(status: 200, body: "{}", headers: { "Content-Type" => "application/json" })
 
       # TBD: in theory we should create an event as well
     end
@@ -51,9 +51,9 @@ Pact.provider_states_for "GDS API Adapters" do
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
       stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-        .to_return(status: 404, body: "{}", headers: {"Content-Type" => "application/json"} )
+        .to_return(status: 404, body: "{}", headers: { "Content-Type" => "application/json" })
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
-        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"} )
+        .to_return(status: 200, body: "{}", headers: { "Content-Type" => "application/json" })
     end
   end
 
@@ -110,7 +110,6 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a published content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-
       live = FactoryGirl.create(
         :live_content_item,
         #:with_draft, # TODO is this needed?
@@ -235,7 +234,6 @@ Pact.provider_states_for "GDS API Adapters" do
       )
       FactoryGirl.create(:lock_version, target: content_item, number: 1)
     end
-
   end
 
   provider_state "there is content with format 'topic' for multiple publishing apps" do

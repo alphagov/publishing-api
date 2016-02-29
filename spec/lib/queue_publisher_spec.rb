@@ -2,19 +2,20 @@ require 'rails_helper'
 
 RSpec.describe QueuePublisher do
   context "real mode" do
-    let(:options) {{
-      :host => "rabbitmq.example.com",
-      :port => 5672,
-      :user => "test_user",
-      :pass => "super_secret",
-      :recover_from_connection_close => true,
-      :exchange => "test_exchange",
+    let(:options) {
+      {
+      host: "rabbitmq.example.com",
+      port: 5672,
+      user: "test_user",
+      pass: "super_secret",
+      recover_from_connection_close: true,
+      exchange: "test_exchange",
     }}
     let(:queue_publisher) { QueuePublisher.new(options) }
 
-    let(:mock_session) { instance_double("Bunny::Session", :start => nil, :create_channel => mock_channel) }
-    let(:mock_channel) { instance_double("Bunny::Channel", :confirm_select => nil, :topic => mock_exchange) }
-    let(:mock_exchange) { instance_double("Bunny::Exchange", :publish => nil, :wait_for_confirms => true) }
+    let(:mock_session) { instance_double("Bunny::Session", start: nil, create_channel: mock_channel) }
+    let(:mock_channel) { instance_double("Bunny::Channel", confirm_select: nil, topic: mock_exchange) }
+    let(:mock_exchange) { instance_double("Bunny::Exchange", publish: nil, wait_for_confirms: true) }
     before :each do
       allow(Bunny).to receive(:new) { mock_session }
     end
@@ -39,7 +40,7 @@ RSpec.describe QueuePublisher do
       it "creates the channel and exchange" do
         expect(mock_session).to receive(:create_channel).and_return(mock_channel).ordered
         expect(mock_channel).to receive(:confirm_select).ordered
-        expect(mock_channel).to receive(:topic).with(options[:exchange], :passive => true).and_return(mock_exchange).ordered
+        expect(mock_channel).to receive(:topic).with(options[:exchange], passive: true).and_return(mock_exchange).ordered
 
         expect(queue_publisher.exchange).to eq(mock_exchange)
       end
@@ -73,13 +74,13 @@ RSpec.describe QueuePublisher do
       }
 
       it "sends the json representation of the item on the message queue" do
-        expect(mock_exchange).to receive(:publish).with(content_item.to_json, hash_including(:content_type => "application/json"))
+        expect(mock_exchange).to receive(:publish).with(content_item.to_json, hash_including(content_type: "application/json"))
 
         queue_publisher.send_message(content_item)
       end
 
       it "uses a routing key of format.update_type" do
-        expect(mock_exchange).to receive(:publish).with(anything, hash_including(:routing_key => "#{content_item[:format]}.#{content_item[:update_type]}"))
+        expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{content_item[:format]}.#{content_item[:update_type]}"))
 
         queue_publisher.send_message(content_item)
       end
@@ -88,7 +89,7 @@ RSpec.describe QueuePublisher do
         let(:content_item) { super().stringify_keys }
 
         it "correctly calculates routing key" do
-          expect(mock_exchange).to receive(:publish).with(anything, hash_including(:routing_key => "#{content_item['format']}.#{content_item['update_type']}"))
+          expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{content_item['format']}.#{content_item['update_type']}"))
 
           queue_publisher.send_message(content_item)
         end
@@ -96,13 +97,13 @@ RSpec.describe QueuePublisher do
 
       it "allows the routing key to be overridden" do
         custom_routing_key = "my_routing.key"
-        expect(mock_exchange).to receive(:publish).with(anything, hash_including(:routing_key => custom_routing_key))
+        expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: custom_routing_key))
 
         queue_publisher.send_message(content_item, routing_key: custom_routing_key)
       end
 
       it "sends the message as persistent" do
-        expect(mock_exchange).to receive(:publish).with(anything, hash_including(:persistent => true))
+        expect(mock_exchange).to receive(:publish).with(anything, hash_including(persistent: true))
 
         queue_publisher.send_message(content_item)
       end
@@ -114,18 +115,18 @@ RSpec.describe QueuePublisher do
           end
 
           it "notifies errbit of the error" do
-            expect(Airbrake).to receive(:notify_or_ignore).with(an_instance_of(QueuePublisher::PublishFailedError), anything())
+            expect(Airbrake).to receive(:notify_or_ignore).with(an_instance_of(QueuePublisher::PublishFailedError), anything)
 
             queue_publisher.send_message(content_item)
           end
 
           it "includes the message details in the notification" do
             expect(Airbrake).to receive(:notify_or_ignore).with(
-              anything(),
-              :parameters => {
-                :message_body => content_item,
-                :routing_key => "#{content_item[:format]}.#{content_item[:update_type]}",
-                :options => {:content_type => "application/json", :persistent => true},
+              anything,
+              parameters: {
+                message_body: content_item,
+                routing_key: "#{content_item[:format]}.#{content_item[:update_type]}",
+                options: { content_type: "application/json", persistent: true },
               }
             )
 
@@ -135,7 +136,7 @@ RSpec.describe QueuePublisher do
 
         shared_examples "closes channel and raises exception" do |expected_exception_class|
           before :each do
-            allow(mock_channel).to receive_messages(:close => nil, :open? => true)
+            allow(mock_channel).to receive_messages(close: nil, open?: true)
           end
 
           it "closes the channel" do
@@ -161,7 +162,7 @@ RSpec.describe QueuePublisher do
 
             expect(mock_session).to receive(:create_channel).and_return(mock_channel).ordered
             expect(mock_channel).to receive(:confirm_select).ordered
-            expect(mock_channel).to receive(:topic).with(options[:exchange], :passive => true).and_return(mock_exchange).ordered
+            expect(mock_channel).to receive(:topic).with(options[:exchange], passive: true).and_return(mock_exchange).ordered
 
             queue_publisher.exchange
           end
@@ -196,20 +197,20 @@ RSpec.describe QueuePublisher do
             timestamp: Time.now.utc.iso8601,
             hostname: "example-hostname",
           }
-          expect(mock_exchange).to receive(:publish).with(expected_data.to_json, hash_including(:content_type => "application/x-heartbeat"))
+          expect(mock_exchange).to receive(:publish).with(expected_data.to_json, hash_including(content_type: "application/x-heartbeat"))
 
           queue_publisher.send_heartbeat
         end
       end
 
       it "uses a routing key of 'heartbeat.major'" do
-        expect(mock_exchange).to receive(:publish).with(anything, hash_including(:routing_key => "heartbeat.major"))
+        expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "heartbeat.major"))
 
         queue_publisher.send_heartbeat
       end
 
       it "sends the message as non-persistent" do
-        expect(mock_exchange).to receive(:publish).with(anything, hash_including(:persistent => false))
+        expect(mock_exchange).to receive(:publish).with(anything, hash_including(persistent: false))
 
         queue_publisher.send_heartbeat
       end

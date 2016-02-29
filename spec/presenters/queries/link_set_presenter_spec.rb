@@ -39,10 +39,10 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
         links = link_set_presenter(link_set).links
 
         expect(links[:organisations]).to match_array(
-          [ org_content_id_1, org_content_id_2 ]
+          [org_content_id_1, org_content_id_2]
         )
         expect(links[:related_links]).to match_array(
-          [ rel_content_id_1 ]
+          [rel_content_id_1]
         )
       end
     end

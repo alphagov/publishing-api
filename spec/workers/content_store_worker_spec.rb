@@ -51,7 +51,7 @@ RSpec.describe ContentStoreWorker do
   end
 
   context "when a draft item is enqueued" do
-    let!(:draft_content_item)  { create(:draft_content_item, base_path: '/foo') }
+    let!(:draft_content_item) { create(:draft_content_item, base_path: '/foo') }
 
     it "publishes a presented draft content item to the draft Content Store" do
       api_call = stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
@@ -97,7 +97,7 @@ RSpec.describe ContentStoreWorker do
   context "when a deletion is enqueued, but content-store doesn't have the item" do
     it "swallows the returned 404" do
       api_call = stub_request(:delete, "http://draft-content-store.dev.gov.uk/content/abc")
-                             .to_return(status: 404)
+        .to_return(status: 404)
 
       expect(Airbrake).not_to receive(:notify_or_ignore)
 

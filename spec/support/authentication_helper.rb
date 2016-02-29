@@ -2,9 +2,9 @@ module AuthenticationHelper
   module ControllerMixin
     def login_as(user)
       request.env['warden'] = double(
-        :authenticate! => true,
-        :authenticated? => true,
-        :user => user
+        authenticate!: true,
+        authenticated?: true,
+        user: user
       )
     end
 

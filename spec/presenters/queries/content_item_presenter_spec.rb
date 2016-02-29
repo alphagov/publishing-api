@@ -27,7 +27,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "redirects" => [],
         "publishing_app" => "publisher",
         "rendering_app" => "frontend",
-        "need_ids" => ["100123", "100124"],
+        "need_ids" => %w(100123 100124),
         "update_type" => "minor",
         "phase" => "beta",
         "analytics_identifier" => "GDS01",
@@ -138,17 +138,17 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
           results = described_class.present_many(content_items)
           locales = results.map { |r| r.fetch("locale") }
 
-          expect(locales).to match_array ["fr", "en"]
+          expect(locales).to match_array %w(fr en)
         end
 
         context "when an array of fields is provided" do
-          let(:fields) { ["title", "phase", "publication_state"] }
+          let(:fields) { %w(title phase publication_state) }
 
           it "returns the requested fields plus some additional fields" do
             content_items = ContentItem.where(content_id: content_id)
 
             results = described_class.present_many(content_items, fields: fields)
-            expect(results.first.keys).to match_array(["title", "phase", "publication_state"])
+            expect(results.first.keys).to match_array(%w(title phase publication_state))
           end
         end
       end

@@ -1,7 +1,7 @@
 require "rails_helper"
 require 'open3'
 
-RSpec.describe "sending a heartbeat message on the queue", :type => :request do
+RSpec.describe "sending a heartbeat message on the queue", type: :request do
   include MessageQueueHelpers
 
   around :each do |example|
@@ -10,7 +10,7 @@ RSpec.describe "sending a heartbeat message on the queue", :type => :request do
     conn.start
     read_channel = conn.create_channel
     ex = read_channel.topic(@config.fetch(:exchange), passive: true)
-    @queue = read_channel.queue("", :exclusive => true)
+    @queue = read_channel.queue("", exclusive: true)
     @queue.bind(ex, routing_key: 'heartbeat.major')
     example.run
 
@@ -18,7 +18,7 @@ RSpec.describe "sending a heartbeat message on the queue", :type => :request do
   end
 
   it "should place a heartbeat message on the queue" do
-    output, status = Open3.capture2e({"ENABLE_QUEUE_IN_TEST_MODE" => "1"}, "bundle exec rake heartbeat_messages:send")
+    output, status = Open3.capture2e({ "ENABLE_QUEUE_IN_TEST_MODE" => "1" }, "bundle exec rake heartbeat_messages:send")
     expect(status.exitstatus).to eq(0), "rake task errored. output: #{output}"
 
     delivery_info, properties, payload = wait_for_message_on(@queue)

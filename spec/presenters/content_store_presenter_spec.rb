@@ -15,4 +15,3 @@ RSpec.describe Presenters::ContentStorePresenter do
     expect(presentation).to have_key(:details)
   end
 end
-

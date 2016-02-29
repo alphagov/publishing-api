@@ -225,8 +225,8 @@ RSpec.describe Commands::V2::PutLinkSet do
 
         it "sends the draft content item for that locale downstream" do
           expect(ContentStoreWorker).to receive(:perform_in)
-          .with(
-            1.second,
+            .with(
+              1.second,
             content_store: Adapters::DraftContentStore,
             content_item_id: ContentItem.last.id,
           )
@@ -270,8 +270,8 @@ RSpec.describe Commands::V2::PutLinkSet do
 
     it "sends a request to the live content store" do
       expect(ContentStoreWorker).to receive(:perform_in)
-      .with(
-        1.second,
+        .with(
+          1.second,
         content_store: Adapters::ContentStore,
         content_item_id: ContentItem.last.id,
       )
@@ -281,13 +281,13 @@ RSpec.describe Commands::V2::PutLinkSet do
 
     it "sends a message to message queue" do
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-      .with(hash_including(
-        content_id: content_id,
-        title: "Some Title",
-        links: {
-          topics: topics,
-          parent: parent,
-        }
+        .with(hash_including(
+                content_id: content_id,
+                title: "Some Title",
+                links: {
+                  topics: topics,
+                  parent: parent,
+                }
       ))
 
       described_class.call(payload)
@@ -311,15 +311,15 @@ RSpec.describe Commands::V2::PutLinkSet do
 
         it "sends the live content item for that locale downstream" do
           expect(ContentStoreWorker).to receive(:perform_in)
-          .with(
-            1.second,
+            .with(
+              1.second,
             content_store: Adapters::ContentStore,
             content_item_id: ContentItem.last.id,
           )
 
           expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-          .with(hash_including(
-            title: "French Title",
+            .with(hash_including(
+                    title: "French Title",
           ))
 
           described_class.call(payload)

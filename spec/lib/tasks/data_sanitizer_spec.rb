@@ -22,7 +22,7 @@ RSpec.describe Tasks::DataSanitizer do
     )
   end
 
-  let(:stdout) { double(:stdout, puts: nil)}
+  let(:stdout) { double(:stdout, puts: nil) }
 
   before do
     stub_request(:any, %r{.*draft-content-store.*/content/.*})

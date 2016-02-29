@@ -42,7 +42,7 @@ RSpec.describe "Message bus", type: :request do
     it "publishes a message for a redirect update" do
       do_request(body: redirect_content_item.to_json)
 
-      delivery_info, _, _ = wait_for_message_on(@queue)
+      delivery_info, = wait_for_message_on(@queue)
       expect(delivery_info.routing_key).to eq("redirect.major")
     end
   end

@@ -61,7 +61,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       it "does not send any request to the live content store" do
         expect(ContentStoreWorker).not_to receive(:perform_in)
           .with(hash_including(
-            1.second,
+                  1.second,
             content_store: Adapters::ContentStore,
           ))
 

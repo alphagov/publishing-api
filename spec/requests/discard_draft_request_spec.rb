@@ -31,7 +31,7 @@ RSpec.describe "Discard draft requests", type: :request do
       end
 
       describe "optional locale parameter" do
-        let(:french_base_path) { "/tva-tarifs"}
+        let(:french_base_path) { "/tva-tarifs" }
 
         let!(:french_draft_content_item) do
           FactoryGirl.create(:draft_content_item,
