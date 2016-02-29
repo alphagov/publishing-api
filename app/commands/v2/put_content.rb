@@ -33,6 +33,7 @@ module Commands
           clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
           supporting_objects = create_supporting_objects(content_item)
+          ensure_link_set_exists(content_item)
 
           if payload[:access_limited] && (users = payload[:access_limited][:users])
             AccessLimit.create!(content_item: content_item, users: users)
@@ -84,6 +85,14 @@ module Commands
         Translation.create!(content_item: content_item, locale: locale)
         UserFacingVersion.create!(content_item: content_item, number: user_facing_version_number_for_new_draft)
         LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
+      end
+
+      def ensure_link_set_exists(content_item)
+        existing_link_set = LinkSet.find_by(content_id: content_item.content_id)
+        return if existing_link_set
+
+        link_set = LinkSet.create!(content_id: content_item.content_id)
+        LockVersion.create!(target: link_set, number: 1)
       end
 
       def lock_version_number_for_new_draft
