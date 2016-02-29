@@ -39,9 +39,8 @@ RSpec.describe Commands::V2::Publish do
         end
 
         it "uses the update_type from the draft content item" do
-          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(hash_including(
-            update_type: "major",
-          ))
+          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
+            .with(hash_including(update_type: "major"))
 
           described_class.call(payload)
         end

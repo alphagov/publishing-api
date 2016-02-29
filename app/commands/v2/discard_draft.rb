@@ -21,6 +21,7 @@ module Commands
       end
 
     private
+
       def raise_error_if_missing_draft!
         return if draft.present?
 

@@ -49,4 +49,3 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
     end
   end
 end
-

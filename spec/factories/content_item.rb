@@ -10,7 +10,7 @@ FactoryGirl.define do
     details {
       { body: "<p>Something about VAT</p>\n", }
     }
-    need_ids ["100123", "100124"]
+    need_ids %w(100123 100124)
     phase "beta"
     update_type "minor"
     analytics_identifier "GDS01"
@@ -44,14 +44,14 @@ FactoryGirl.define do
     transient do
       destination "/somewhere"
     end
-    sequence(:base_path) {|n| "/test-redirect-#{n}" }
+    sequence(:base_path) { |n| "/test-redirect-#{n}" }
     format "redirect"
     routes []
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => destination }] }
   end
 
   factory :gone_content_item, parent: :content_item do
-    sequence(:base_path) {|n| "/dodo-sanctuary-#{n}" }
+    sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
     format "gone"
   end
 end

@@ -14,7 +14,7 @@ module RequestHelpers
       end
     end
 
-    def creates_a_link_representation(expected_attributes: )
+    def creates_a_link_representation(expected_attributes:)
       it "creates the LinkSet derived representation" do
         do_request
         expect(LinkSet.count).to eq(1)
@@ -149,7 +149,7 @@ module RequestHelpers
           put request_path.gsub(base_path, new_base_path), request_body
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)).to eq({"errors" => {"base_path" => "cannot change once item is live"}})
+          expect(JSON.parse(response.body)).to eq("errors" => { "base_path" => "cannot change once item is live" })
           expect(representation_class.count).to eq(1)
           expect(representation_class.first.base_path).to eq(base_path)
         end
@@ -235,4 +235,4 @@ module RequestHelpers
   end
 end
 
-RSpec.configuration.extend RequestHelpers::DerivedRepresentations, :type => :request
+RSpec.configuration.extend RequestHelpers::DerivedRepresentations, type: :request

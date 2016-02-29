@@ -24,7 +24,7 @@ end
 gem "gds-sso", "11.2.1"
 
 gem 'bunny', '2.0.0'
-gem 'whenever', '0.9.4', :require => false
+gem 'whenever', '0.9.4', require: false
 gem "sidekiq", "3.5.1"
 gem "sidekiq-logging-json", "0.0.14"
 gem "sidekiq-statsd", "0.1.5"

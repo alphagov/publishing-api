@@ -14,6 +14,7 @@ module Commands
     end
 
   private
+
     attr_reader :payload, :downstream
 
     def self.raise_validation_command_error(e)

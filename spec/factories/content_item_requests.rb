@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :content_item_request_data, :class => Hash do
+  factory :content_item_request_data, class: Hash do
     content_id { SecureRandom.uuid }
-    sequence(:base_path) {|n| "/test-content-#{n}" }
+    sequence(:base_path) { |n| "/test-content-#{n}" }
     title "Test content"
     description "Test description"
     format 'answer'
@@ -11,9 +11,9 @@ FactoryGirl.define do
     rendering_app "frontend"
     locale "en"
     phase "live"
-    details {{ "body" => "<p>Something something</p>\n" }}
+    details { { "body" => "<p>Something something</p>\n" } }
     routes do
-      [{"path" => base_path, "type" => "exact"}]
+      [{ "path" => base_path, "type" => "exact" }]
     end
     redirects []
     update_type "major"

@@ -10,7 +10,7 @@ class WellFormedContentTypesValidator < ActiveModel::EachValidator
     end
   end
 
-  private
+private
 
   def validate!(object)
     if object.is_a?(Hash)

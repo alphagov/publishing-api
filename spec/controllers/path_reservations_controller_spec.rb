@@ -28,5 +28,4 @@ RSpec.describe PathReservationsController, type: :controller do
       end
     end
   end
-
 end

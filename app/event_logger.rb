@@ -1,5 +1,5 @@
 module EventLogger
-  def self.log_command(command_class, payload, &block)
+  def self.log_command(command_class, payload, &_block)
     tries = 5
     begin
       response = nil
@@ -25,6 +25,7 @@ module EventLogger
   end
 
 private
+
   def self.action(command_class)
     command_class.name.split("::")[-1]
   end

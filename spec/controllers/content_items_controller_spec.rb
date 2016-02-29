@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ContentItemsController do
-
   let(:base_path) {
     "vat-rates"
   }
@@ -12,7 +11,7 @@ RSpec.describe ContentItemsController do
       title: "VAT rates",
       description: "VAT rates for goods and services",
       format: "guide",
-      need_ids: ["100123", "100124"],
+      need_ids: %w(100123 100124),
       public_updated_at: "2014-05-14T13:00:06Z",
       publishing_app: "publisher",
       rendering_app: "frontend",
@@ -48,10 +47,7 @@ RSpec.describe ContentItemsController do
         'puncutation!',
       ]
 
-      [
-        "format",
-        "update_type",
-      ].each do |field|
+      %w(format update_type).each do |field|
         valid_routing_keys.each do |routing_key|
           it "should respond with 200 if #{field} has value '#{routing_key}'" do
             content_item = base_content_item.merge(field => routing_key)

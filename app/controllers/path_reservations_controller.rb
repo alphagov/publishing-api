@@ -5,6 +5,7 @@ class PathReservationsController < ApplicationController
   end
 
 private
+
   def path_item
     payload.merge(base_path: base_path)
   end

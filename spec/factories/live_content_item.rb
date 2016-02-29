@@ -25,14 +25,14 @@ FactoryGirl.define do
   end
 
   factory :redirect_live_content_item, parent: :live_content_item do
-    sequence(:base_path) {|n| "/test-redirect-#{n}" }
+    sequence(:base_path) { |n| "/test-redirect-#{n}" }
     format "redirect"
     routes []
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => '/somewhere' }] }
   end
 
   factory :gone_live_content_item, parent: :live_content_item do
-    sequence(:base_path) {|n| "/dodo-sanctuary-#{n}" }
+    sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
     format "gone"
   end
 

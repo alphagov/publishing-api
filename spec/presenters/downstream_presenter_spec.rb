@@ -21,7 +21,7 @@ RSpec.describe Presenters::DownstreamPresenter do
         format: "guide",
         links: Presenters::Queries::LinkSetPresenter.new(link_set).links,
         locale: "en",
-        need_ids: ["100123", "100124"],
+        need_ids: %w(100123 100124),
         phase: "beta",
         public_updated_at: "2014-05-14T13:00:06Z",
         publishing_app: "publisher",
@@ -51,7 +51,7 @@ RSpec.describe Presenters::DownstreamPresenter do
         format: "guide",
         links: Presenters::Queries::LinkSetPresenter.new(link_set).links,
         locale: "en",
-        need_ids: ["100123", "100124"],
+        need_ids: %w(100123 100124),
         phase: "beta",
         public_updated_at: "2014-05-14T13:00:06Z",
         publishing_app: "publisher",
@@ -80,7 +80,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "when the public_updated_at is not present" do
-    let!(:content_item) { FactoryGirl.create(:gone_draft_content_item) }
+      let!(:content_item) { FactoryGirl.create(:gone_draft_content_item) }
 
       it "does not raise an error" do
         expect {

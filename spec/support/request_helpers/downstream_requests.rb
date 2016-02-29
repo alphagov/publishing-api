@@ -58,4 +58,4 @@ module RequestHelpers
   end
 end
 
-RSpec.configuration.extend RequestHelpers::DownstreamRequests, :type => :request
+RSpec.configuration.extend RequestHelpers::DownstreamRequests, type: :request

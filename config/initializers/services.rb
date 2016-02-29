@@ -11,7 +11,7 @@ module PublishingAPI
   end
 
   def self.service(name)
-    @services[name] or raise ServiceNotRegisteredException.new(name)
+    @services[name] || raise(ServiceNotRegisteredException.new(name))
   end
 
   class ServiceNotRegisteredException < Exception; end
@@ -33,7 +33,7 @@ PublishingAPI.register_service(
 )
 
 if ENV['DISABLE_QUEUE_PUBLISHER'] || (Rails.env.test? && ENV['ENABLE_QUEUE_IN_TEST_MODE'].blank?)
-  rabbitmq_config = {noop: true}
+  rabbitmq_config = { noop: true }
 else
   rabbitmq_config = YAML.load_file(Rails.root.join("config", "rabbitmq.yml"))[Rails.env].symbolize_keys
 end

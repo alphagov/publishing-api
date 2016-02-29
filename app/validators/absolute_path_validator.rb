@@ -8,7 +8,7 @@ class AbsolutePathValidator < ActiveModel::EachValidator
 private
 
   def valid_absolute_url_path?(path)
-    return false unless path.present? and path.starts_with?("/")
+    return false unless path.present? && path.starts_with?("/")
 
     uri = URI.parse(path)
     uri.path == path && path !~ %r{//} && path !~ %r{./\z}

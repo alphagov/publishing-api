@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "PUT /paths", type: :request do
-
   let(:request_body) { payload.to_json }
 
   def do_request(body: request_body, headers: {})

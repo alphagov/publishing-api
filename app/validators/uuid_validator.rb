@@ -1,5 +1,4 @@
 class UuidValidator < ActiveModel::EachValidator
-
   # This pattern matches a subset of UUIDs compatible with RFC4122, in that it
   # insists on lowercase, hyphenated UUIDs, for example:
   #

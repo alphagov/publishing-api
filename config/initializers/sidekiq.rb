@@ -6,7 +6,7 @@ redis_config = {
 
 Sidekiq.configure_server do |config|
   config.redis = redis_config
-  config.error_handlers << Proc.new {|ex, context_hash| Airbrake.notify(ex, context_hash) }
+  config.error_handlers << Proc.new { |ex, context_hash| Airbrake.notify(ex, context_hash) }
 
   config.server_middleware do |chain|
     chain.add Sidekiq::Statsd::ServerMiddleware, env: 'govuk.app.publishing-api', prefix: 'workers'

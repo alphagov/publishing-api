@@ -15,11 +15,12 @@ class ApplicationController < ActionController::Base
 
   before_action :require_signin_permission!
 
-  Warden::Manager.after_authentication do |user,_,_|
+  Warden::Manager.after_authentication do |user, _, _|
     user.set_app_name!
   end
 
 private
+
   def respond_with_command_error(error)
     render status: error.code, json: error
   end

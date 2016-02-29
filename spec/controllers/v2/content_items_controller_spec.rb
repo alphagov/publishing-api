@@ -47,7 +47,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without providing a locale parameter" do
       before do
-        get :index, content_format: "topic", fields: ["locale","content_id","base_path", "publication_state"]
+        get :index, content_format: "topic", fields: %w(locale content_id base_path publication_state)
       end
 
       it "is successful" do
@@ -68,7 +68,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a specific locale parameter" do
       before do
-        get :index, content_format: "topic", fields: ["locale","content_id","base_path", "publication_state"], locale: "ar"
+        get :index, content_format: "topic", fields: %w(locale content_id base_path publication_state), locale: "ar"
       end
 
       it "is successful" do
@@ -89,7 +89,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a locale parameter set to 'all'" do
       before do
-        get :index, content_format: "topic", fields: ["locale","content_id","base_path", "publication_state"], locale: "all"
+        get :index, content_format: "topic", fields: %w(locale content_id base_path publication_state), locale: "all"
       end
 
       it "is successful" do
@@ -104,7 +104,7 @@ RSpec.describe V2::ContentItemsController do
         expect(base_paths). to eq ["/content.en", "/content.ar"]
 
         publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
-        expect(publication_states). to eq ["live", "live"]
+        expect(publication_states). to eq %w(live live)
       end
     end
   end
@@ -140,7 +140,7 @@ RSpec.describe V2::ContentItemsController do
         content_item_hash = @draft.as_json
         content_item_hash = content_item_hash
           .merge("base_path" => "/that-rates")
-          .merge("routes" => [{"path" => "/that-rates", "type" => "exact"}])
+          .merge("routes" => [{ "path" => "/that-rates", "type" => "exact" }])
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = content_item_hash.to_json
         put :put_content, content_id: SecureRandom.uuid
@@ -161,7 +161,7 @@ RSpec.describe V2::ContentItemsController do
         content_item_hash = @draft.as_json
         content_item_hash = content_item_hash
           .merge("base_path" => "/that-rates")
-          .merge("routes" => [{"path" => "/that-rates", "type" => "exact"}])
+          .merge("routes" => [{ "path" => "/that-rates", "type" => "exact" }])
 
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = content_item_hash.to_json
