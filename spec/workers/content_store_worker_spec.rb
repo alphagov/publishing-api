@@ -9,18 +9,18 @@ RSpec.describe ContentStoreWorker do
     500 => { raises_error: true, logs_to_airbrake: false },
   }
 
+  def do_request
+    subject.perform(
+      content_store: "Adapters::ContentStore",
+      content_item_id: ContentItem.last.id,
+    )
+  end
+
   expectations.each do |status, expectation|
     context "when the content store responds with a #{status}" do
       before do
         stub_request(:put, "http://content-store.dev.gov.uk/content/foo").
           to_return(status: status, body: {}.to_json)
-      end
-
-      def do_request
-        subject.perform(
-          content_store: "Adapters::ContentStore",
-          content_item_id: ContentItem.last.id,
-        )
       end
 
       let(:status) { status }
@@ -77,6 +77,42 @@ RSpec.describe ContentStoreWorker do
       )
 
       expect(api_call).to have_been_made
+    end
+
+    # TODO: investigate how this can happen
+    context "when the live item has an access limit" do
+      before do
+        FactoryGirl.create(
+          :access_limit,
+          content_item: live_content_item,
+          users: [SecureRandom.uuid],
+        )
+      end
+
+      it "strips out access_limited from the downstream payload" do
+        stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
+
+        do_request
+
+        expect(
+          a_request(:put, "http://content-store.dev.gov.uk/content/foo").with do |request|
+            payload = JSON.parse(request.body)
+            expect(payload.has_key?("access_limited")).to eq(false)
+          end
+        ).to have_been_made.once
+      end
+
+      it "notifies airbrake with some debugging information" do
+        stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
+
+        expected_error = ConsistencyError.new(
+          "Attempted to send access limited to the live content store for content id #{live_content_item.content_id}"
+        )
+
+        expect(Airbrake).to receive(:notify_or_ignore).with(expected_error)
+
+        do_request
+      end
     end
   end
 
