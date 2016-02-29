@@ -14,6 +14,7 @@ class PublishIntentsController < ApplicationController
   end
 
 private
+
   def content_item
     payload.merge(base_path: base_path)
   end

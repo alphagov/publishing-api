@@ -32,6 +32,7 @@ module V2
     end
 
   private
+
     def content_item
       payload.merge(content_id: params[:content_id])
     end

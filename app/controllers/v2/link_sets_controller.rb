@@ -1,6 +1,5 @@
 module V2
   class LinkSetsController < ApplicationController
-
     rescue_from ActionController::ParameterMissing, with: :parameter_missing_error
 
     def get_links
@@ -21,6 +20,7 @@ module V2
     end
 
   private
+
     def links_params
       payload.merge(content_id: content_id)
     end

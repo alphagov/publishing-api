@@ -32,7 +32,7 @@ class ContentItem < ActiveRecord::Base
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :renderable_content?
   validates :phase, inclusion: {
-    in: ['alpha', 'beta', 'live'],
+    in: %w(alpha beta live),
     message: 'must be either alpha, beta, or live'
   }
   validates :description, well_formed_content_types: { must_include: "text/html" }

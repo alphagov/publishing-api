@@ -54,6 +54,7 @@ module Commands
       end
 
     private
+
       def content_id
         payload[:content_id]
       end

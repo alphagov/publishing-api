@@ -40,6 +40,7 @@ module Commands
       end
 
     private
+
       def content_id
         payload.fetch(:content_id)
       end

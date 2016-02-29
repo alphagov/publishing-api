@@ -15,9 +15,9 @@ class CommandError < StandardError
     return if e.code == 409 && e.message =~ /transmitted_at/
 
     fields = if e.error_details.present?
-      e.error_details.fetch('errors', {})
-    else
-      {}
+               e.error_details.fetch('errors', {})
+             else
+               {}
     end
     raise CommandError.new(code: e.code, error_details: {
       error: {
@@ -35,20 +35,20 @@ class CommandError < StandardError
     raise "Invalid code #{code}" unless valid_code?(code)
     @code = code
     @error_details = if error_details
-      error_details
-    elsif message
-      {
-        "error" => {
-          "code" => code,
-          "message" => message,
-        }
-      }
-    else
-      {
-        "error" => {
-          "code" => code,
-        }
-      }
+                       error_details
+                     elsif message
+                       {
+                         "error" => {
+                           "code" => code,
+                           "message" => message,
+                         }
+                       }
+                     else
+                       {
+                         "error" => {
+                           "code" => code,
+                         }
+                       }
     end
     super(message || error_details.to_s)
   end
@@ -57,11 +57,12 @@ class CommandError < StandardError
     [400, 404, 409, 422, 500].include?(code)
   end
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     @error_details
   end
 
   def ok?; false; end
+
   def error?; true; end
 
   # True if this error represents a client error, ie. the problem lies with

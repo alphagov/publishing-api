@@ -22,12 +22,14 @@ module Queries
       presented = presenter.present_many(content_items, fields: fields)
       presented.map { |p| filter_fields(p).as_json }
     end
+
   private
+
     attr_accessor :target_content_id, :link_type, :fields
 
     def validate_presence_of_item!
       filter = ContentItemFilter.new(scope: ContentItem.where(content_id: target_content_id))
-      return if filter.filter(state: ["draft", "live"]).exists?
+      return if filter.filter(state: %w(draft live)).exists?
 
       raise CommandError.new(code: 404, error_details: {
         error: {

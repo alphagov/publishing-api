@@ -27,6 +27,7 @@ module Queries
     end
 
   private
+
     attr_writer :content_format, :fields, :publishing_app, :locale
 
     def lookup_formats

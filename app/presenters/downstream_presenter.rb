@@ -22,6 +22,7 @@ module Presenters
     end
 
   private
+
     attr_accessor :content_item, :link_set
 
     def symbolized_attributes

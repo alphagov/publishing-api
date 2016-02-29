@@ -15,6 +15,7 @@ module Commands
     end
 
   private
+
     def base_path
       payload.fetch(:base_path)
     end
