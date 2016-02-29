@@ -131,6 +131,34 @@ RSpec.describe ContentItem do
     end
   end
 
+  describe "converting format field" do
+    context "when format is supplied" do
+      it "populates the document_type and schema_name fields" do
+        subject.save
+        expect(subject.document_type).to eq('guide')
+        expect(subject.schema_name).to eq('guide')
+      end
+    end
+
+    context "when format is not supplied and schema_name is supplied" do
+      before do
+        subject.format = nil
+        subject.schema_name = 'guide'
+      end
+
+      it "populates the format field from schema_name" do
+        subject.document_type = 'a guide'
+        subject.save
+        expect(subject.format).to eq('guide')
+      end
+
+      it "raises an error if document_type is not supplied" do
+        expect(subject).not_to be_valid
+        expect(subject.errors[:document_type].size).to eq(1)
+      end
+    end
+  end
+
   it_behaves_like DefaultAttributes
   it_behaves_like WellFormedContentTypesValidator
   it_behaves_like DescriptionOverrides

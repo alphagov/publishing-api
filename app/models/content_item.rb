@@ -26,8 +26,8 @@ class ContentItem < ActiveRecord::Base
 
   scope :renderable_content, -> { where.not(format: NON_RENDERABLE_FORMATS) }
 
+  validates_with SchemaNameFormatValidator
   validates :content_id, presence: true, uuid: true
-  validates :format, presence: true
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :renderable_content?
@@ -38,9 +38,20 @@ class ContentItem < ActiveRecord::Base
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include: "text/html" }
 
+  before_save :convert_format
+
 private
 
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(format)
+  end
+
+  def convert_format
+    if format.present?
+      self.document_type = format if document_type.blank?
+      self.schema_name = format if schema_name.blank?
+    elsif schema_name.present?
+      self.format = schema_name
+    end
   end
 end
