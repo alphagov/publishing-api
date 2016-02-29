@@ -20,6 +20,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "base_path" => "/vat-rates",
         "title" => "VAT rates",
         "format" => "guide",
+        "document_type" => "guide",
+        "schema_name" => "guide",
         "public_updated_at" => "2014-05-14 13:00:06",
         "details" => {
           "body" => "<p>Something about VAT</p>\n"

@@ -10,6 +10,8 @@ class ContentItem < ActiveRecord::Base
     :description,
     :details,
     :format,
+    :document_type,
+    :schema_name,
     :public_updated_at,
     :publishing_app,
     :redirects,
