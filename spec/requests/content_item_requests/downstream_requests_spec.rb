@@ -34,6 +34,7 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item_for_draft_content_store) {
       v2_content_item
         .except(:update_type)
+        .merge(links: {})
     }
     let(:request_body) { v2_content_item.to_json }
     let(:request_path) { "/v2/content/#{content_id}" }

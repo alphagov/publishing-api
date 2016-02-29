@@ -413,6 +413,31 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
+    context "when a link set does not exist for the content id" do
+      it "creates an empty link set" do
+        expect {
+          described_class.call(payload)
+        }.to change(LinkSet, :count).by(1)
+
+        link_set = LinkSet.last
+
+        expect(link_set.content_id).to eq(content_id)
+        expect(link_set.links).to be_empty
+      end
+
+      it "creates a lock version for the link set" do
+        expect {
+          described_class.call(payload)
+        }.to change(LinkSet, :count).by(1)
+
+        link_set = LinkSet.last
+        lock_version = LockVersion.find_by(target: link_set)
+
+        expect(lock_version).to be_present
+        expect(lock_version.number).to eq(1)
+      end
+    end
+
     context "when a link set exists for the content id" do
       let(:link_target) { SecureRandom.uuid }
 
