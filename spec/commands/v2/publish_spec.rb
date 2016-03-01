@@ -18,6 +18,7 @@ RSpec.describe Commands::V2::Publish do
 
       allow(Presenters::ContentStorePresenter).to receive(:present)
         .and_return(expected_content_store_payload)
+      GdsApi::GovukHeaders.set_header(:x_govuk_request_uuid, "12345-67890")
     end
 
     around do |example|
@@ -156,6 +157,7 @@ RSpec.describe Commands::V2::Publish do
           .with(
             content_store: Adapters::ContentStore,
             payload: expected_content_store_payload,
+            request_uuid: "12345-67890",
           )
 
         described_class.call(payload)
@@ -228,6 +230,7 @@ RSpec.describe Commands::V2::Publish do
               .with(
                 content_store: Adapters::ContentStore,
                 payload: expected_content_store_payload,
+                request_uuid: "12345-67890",
               )
 
             described_class.call(payload)
@@ -250,6 +253,7 @@ RSpec.describe Commands::V2::Publish do
               .with(
                 content_store: Adapters::ContentStore,
                 payload: expected_content_store_payload,
+                request_uuid: "12345-67890",
               )
 
             described_class.call(payload)

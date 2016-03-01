@@ -40,6 +40,7 @@ module Commands
           content_store: Adapters::DraftContentStore,
           base_path: draft_path,
           delete: true,
+          request_uuid: GdsApi::GovukHeaders.headers[:x_govuk_request_uuid],
         )
       end
 
@@ -47,6 +48,7 @@ module Commands
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
           payload: Presenters::ContentStorePresenter.present(live, event),
+          request_uuid: GdsApi::GovukHeaders.headers[:x_govuk_request_uuid],
         )
       end
 
