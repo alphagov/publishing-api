@@ -167,9 +167,14 @@ module Commands
       def send_downstream(content_item)
         return unless downstream
 
+        message = "Enqueuing ContentStoreWorker job with "
+        message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
+        logger.info message
+
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
           payload: Presenters::ContentStorePresenter.present(content_item, event),
+          request_uuid: GdsApi::GovukHeaders.headers[:x_govuk_request_uuid],
         )
       end
 
