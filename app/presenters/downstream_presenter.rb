@@ -16,7 +16,7 @@ module Presenters
         .merge(public_updated_at)
         .merge(links)
         .merge(access_limited)
-        .merge(transmitted_at)
+        .merge(content_store_payload_version)
         .merge(base_path)
         .merge(locale)
     end
@@ -81,15 +81,14 @@ module Presenters
       { locale: translation.locale }
     end
 
-    def transmitted_at
-      { transmitted_at: DateTime.now.to_s(:nanoseconds) }
+    def content_store_payload_version
+      { payload_version: ContentStorePayloadVersion.current_for(content_item.id) }
     end
 
     class V1
-      def self.present(attributes, update_type: true, transmitted_at: true)
+      def self.present(attributes, update_type: true, payload_version: true)
         attributes = attributes.except(:update_type) unless update_type
-        attributes = attributes.merge(transmitted_at: DateTime.now.to_s(:nanoseconds)) if transmitted_at
-
+        attributes.merge!(payload_version: ContentStorePayloadVersion::V1.current) if payload_version
         attributes
       end
     end

@@ -9,10 +9,11 @@ class CommandError < StandardError
   rescue GdsApi::HTTPClientError => e
     return if e.code == 404 && ignore_404s
 
-    # Temporarily ignore errors relating to conflicting transmitted_at timestamps.
-    # This mechanism throws up false positives and is being replaced with a per-item counter.
-    # Until this happens, we should not log these errors to errbit as they are very noisy.
-    return if e.code == 409 && e.message =~ /transmitted_at/
+    #ignore payload_version conflicts
+    if e.code == 409 && e.message =~ /transmitted_at|payload_version/
+      PublishingAPI::Application.statsd.increment("payload_version_conflicts")
+      return
+    end
 
     fields = if e.error_details.present?
                e.error_details.fetch('errors', {})

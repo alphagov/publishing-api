@@ -4,7 +4,7 @@ module Commands
       PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
       if downstream
-        payload = Presenters::DownstreamPresenter::V1.present(publish_intent, transmitted_at: false)
+        payload = Presenters::DownstreamPresenter::V1.present(publish_intent, payload_version: false)
         Adapters::ContentStore.put_publish_intent(base_path, payload)
       end
 

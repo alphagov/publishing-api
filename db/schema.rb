@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(version: 20160301120422) do
   add_index "content_items", ["publishing_app"], name: "index_content_items_on_publishing_app", using: :btree
   add_index "content_items", ["rendering_app"], name: "index_content_items_on_rendering_app", using: :btree
 
+  create_table "content_store_payload_versions", force: :cascade do |t|
+    t.integer "content_item_id"
+    t.integer "current",         default: 0
+  end
+
+  add_index "content_store_payload_versions", ["content_item_id"], name: "index_content_store_payload_versions_on_content_item_id", unique: true, using: :btree
+
   create_table "draft_content_items", force: :cascade do |t|
     t.string   "content_id"
     t.string   "locale",               default: "en"
