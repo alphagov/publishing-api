@@ -27,6 +27,16 @@ class ContentStoreWorker
     handle_error(e)
   end
 
+  def self.perform_with_defaults(opts)
+    keys = [:content_store, :content_item_id, :base_path, :delete]
+    opts = opts.select { |k,v| keys.include?(k) }
+
+    opts[:content_store] = opts[:content_store] || Adapters::DraftContentStore
+    opts[:request_uuid] = GdsApi::GovukHeaders.headers[:x_govuk_request_uuid]
+
+    perform_in(2.seconds, opts)
+  end
+
 private
 
   # Previously, the content_store_payload_id was sourced from a separate table.
