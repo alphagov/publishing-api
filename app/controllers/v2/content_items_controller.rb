@@ -21,6 +21,7 @@ module V2
           content_id
           publication_state
           base_path
+          internal_name
         ),
       ).call
     end

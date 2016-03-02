@@ -33,14 +33,19 @@ module Presenters
           most_recent_item = draft || live
           next unless most_recent_item
 
+          parse_json_fields!(most_recent_item)
+
+          if output_fields.include?("internal_name")
+            details = most_recent_item.fetch("details")
+            most_recent_item["internal_name"] = details["internal_name"] || most_recent_item.fetch("title")
+          end
+
           most_recent_item["publication_state"] = publication_state(draft, live)
           most_recent_item["lock_version"] = most_recent_item.fetch("lock_version").to_i
 
           if live
             most_recent_item["live_version"] = live.fetch("lock_version").to_i
           end
-
-          parse_json_fields!(most_recent_item)
 
           most_recent_item.slice(*output_fields)
         end
