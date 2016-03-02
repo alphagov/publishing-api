@@ -7,6 +7,9 @@ RSpec.describe "GET /v2/linkables", type: :request do
       format: "policy",
       title: "Policy 1",
       base_path: "/cat-rates",
+      details: {
+        internal_name: "Cat rates (do not use for actual cats)"
+      }
     )
   }
 
@@ -18,7 +21,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
     )
   }
 
-  it "returns the title, content ID, state, and base path for all content items of a given format" do
+  it "returns the title, content ID, state, internal name and base path for all content items of a given format" do
     get "/v2/linkables", format: "policy"
 
     expect(JSON.parse(response.body, symbolize_names: true)).to match_array([
@@ -27,12 +30,14 @@ RSpec.describe "GET /v2/linkables", type: :request do
         title: "Policy 1",
         publication_state: "draft",
         base_path: "/cat-rates",
+        internal_name: "Cat rates (do not use for actual cats)",
       },
       {
         content_id: policy_2.content_id,
         title: "Policy 2",
         publication_state: "live",
         base_path: "/vat-rates",
+        internal_name: "Policy 2"
       },
     ])
   end
