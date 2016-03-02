@@ -127,13 +127,13 @@ module Commands
             content_item,
             event
           ),
+          request_uuid: GdsApi::GovukHeaders.headers[:x_govuk_request_uuid]
         )
 
         queue_payload = Presenters::MessageQueuePresenter.present(
           content_item,
           event,
           update_type: update_type
-          request_uuid: GdsApi::GovukHeaders.headers[:x_govuk_request_uuid],
         )
 
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)

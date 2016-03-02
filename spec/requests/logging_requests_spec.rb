@@ -13,11 +13,10 @@ RSpec.describe "Logging requests", type: :request do
     allow_any_instance_of(ActionDispatch::Request)
       .to receive(:uuid).and_return("12345-67890")
 
-    expect(ContentStoreWorker).to receive(:perform_in)
+    expect(PresentedContentStoreWorker).to receive(:perform_async)
       .with(
-        2.second,
         content_store: Adapters::DraftContentStore,
-        content_item_id: anything,
+        payload: anything,
         request_uuid: "12345-67890",
       )
 

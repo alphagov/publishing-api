@@ -162,23 +162,4 @@ RSpec.describe ContentStoreWorker do
       )
     end
   end
-
-
-  describe ".perform_with_defaults" do
-    let(:draft_content_item) { create(:draft_content_item, base_path: '/foo') }
-
-    it "calls .perform_in with common defaults" do
-      GdsApi::GovukHeaders.set_header(:x_govuk_request_uuid, "12345-67890")
-
-      expect(described_class).to receive(:perform_in)
-        .with(
-          2.seconds,
-          content_item_id: draft_content_item.id,
-          content_store: Adapters::DraftContentStore,
-          request_uuid: "12345-67890",
-        )
-
-      described_class.perform_with_defaults(content_item_id: draft_content_item.id)
-    end
-  end
 end
