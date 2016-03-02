@@ -29,7 +29,7 @@ class ContentStoreWorker
 
   def self.perform_with_defaults(opts)
     keys = [:content_store, :content_item_id, :base_path, :delete]
-    opts = opts.select { |k,v| keys.include?(k) }
+    opts = opts.select { |k, _| keys.include?(k) }
 
     opts[:content_store] = opts[:content_store] || Adapters::DraftContentStore
     opts[:request_uuid] = GdsApi::GovukHeaders.headers[:x_govuk_request_uuid]

@@ -15,7 +15,7 @@ RSpec.describe "Logging requests", type: :request do
 
     expect(ContentStoreWorker).to receive(:perform_in)
       .with(
-        1.second,
+        2.second,
         content_store: Adapters::DraftContentStore,
         content_item_id: anything,
         request_uuid: "12345-67890",

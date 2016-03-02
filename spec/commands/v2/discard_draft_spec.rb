@@ -5,7 +5,6 @@ RSpec.describe Commands::V2::DiscardDraft do
     before do
       stub_request(:delete, %r{.*content-store.*/content/.*})
       stub_request(:put, %r{.*content-store.*/content/.*})
-      GdsApi::GovukHeaders.set_header(:x_govuk_request_uuid, "12345-67890")
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
@@ -59,7 +58,6 @@ RSpec.describe Commands::V2::DiscardDraft do
             content_store: Adapters::DraftContentStore,
             base_path: base_path,
             delete: true,
-            request_uuid: "12345-67890",
           )
 
         described_class.call(payload)
@@ -67,7 +65,6 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       it "does not send any request to the live content store" do
         expect(PresentedContentStoreWorker).not_to receive(:perform_async)
-          .with(hash_including(content_store: Adapters::ContentStore))
 
         described_class.call(payload)
       end
@@ -122,7 +119,6 @@ RSpec.describe Commands::V2::DiscardDraft do
               content_store: Adapters::DraftContentStore,
               base_path: base_path,
               delete: true,
-              request_uuid: "12345-67890",
             )
 
           described_class.call(payload)

@@ -4,7 +4,6 @@ RSpec.describe Commands::V2::PutContent do
   describe "call" do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
-      GdsApi::GovukHeaders.set_header(:x_govuk_request_uuid, "12345-67890")
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
@@ -61,7 +60,6 @@ RSpec.describe Commands::V2::PutContent do
     context "when the 'downstream' parameter is false" do
       it "does not send any requests to any content store" do
         expect(PresentedContentStoreWorker).not_to receive(:perform_async)
-        described_class.call(payload, downstream: false)
       end
     end
 
