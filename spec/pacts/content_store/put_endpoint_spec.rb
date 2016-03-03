@@ -11,10 +11,6 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
     )
   end
 
-  let!(:content_store_payload_version) do
-    create(:content_store_payload_version, content_item_id: content_item.id)
-  end
-
   let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_id) }
 
   let(:client) { ContentStoreWriter.new("http://localhost:3093") }
@@ -83,9 +79,6 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
       Presenters::DownstreamPresenter::V1.present(
         attributes, update_type: false
       )
-    end
-    let!(:content_store_payload_version) do
-      create(:v1_content_store_payload_version)
     end
 
     context "when a content item exists that has an lower payload_version than the request" do

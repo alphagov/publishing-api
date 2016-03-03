@@ -45,7 +45,6 @@ module Commands
       end
 
       def send_live_to_draft_content_store(live)
-        ContentStorePayloadVersion.increment(live.id)
         ContentStoreWorker.perform_in(
           1.second,
           content_store: Adapters::DraftContentStore,

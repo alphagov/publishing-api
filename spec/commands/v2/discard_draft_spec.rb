@@ -157,15 +157,6 @@ RSpec.describe Commands::V2::DiscardDraft do
             described_class.call(payload)
           }.to change(ContentItem, :count).by(-1)
         end
-
-        it "increments the ContentStorePayloadLock" do
-          ContentStorePayloadVersion.increment(published_item.id)
-          expect(ContentStorePayloadVersion)
-            .to receive(:increment)
-            .with(published_item.id)
-
-          described_class.call(payload)
-        end
       end
 
       context "when a locale is provided in the payload" do

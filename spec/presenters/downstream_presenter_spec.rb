@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Presenters::DownstreamPresenter do
   describe "V2" do
-    before do
-      ContentStorePayloadVersion.increment(content_item.id)
-    end
-
     context "for a live content item" do
       let!(:content_item) { create(:live_content_item) }
       let!(:link_set) { create(:link_set, content_id: content_item.content_id) }
@@ -103,10 +99,6 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     around do |example|
       Timecop.freeze { example.run }
-    end
-
-    before do
-      ContentStorePayloadVersion::V1.increment
     end
 
     it "presents all attributes by default" do

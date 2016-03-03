@@ -207,18 +207,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload)
     end
 
-    it "increments the ContentStorePayloadVersion" do
-      create(
-        :content_store_payload_version,
-        content_item_id: draft_content_item.id,
-      )
-      expect(ContentStorePayloadVersion)
-        .to receive(:increment)
-        .with(draft_content_item.id)
-
-      described_class.call(payload)
-    end
-
     context "when a locale is specified" do
       before do
         payload[:locale] = "fr"
@@ -242,19 +230,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
               content_store: Adapters::DraftContentStore,
               content_item_id: draft_content_item.id,
             )
-
-          described_class.call(payload)
-        end
-
-        it "increments the ContentStorePayloadVersion" do
-          create(
-            :content_store_payload_version,
-            content_item_id: draft_content_item.id,
-          )
-
-          expect(ContentStorePayloadVersion)
-            .to receive(:increment)
-            .with(draft_content_item.id)
 
           described_class.call(payload)
         end
@@ -304,19 +279,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload)
     end
 
-    it "increments the ContentStorePayloadVersion" do
-      create(
-        :content_store_payload_version,
-        content_item_id: live_content_item.id,
-      )
-
-      expect(ContentStorePayloadVersion)
-        .to receive(:increment)
-        .with(live_content_item.id)
-
-      described_class.call(payload)
-    end
-
     it "sends a message to message queue" do
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
         .with(hash_including(
@@ -356,18 +318,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
           expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
             .with(hash_including(title: "French Title"))
-
-          described_class.call(payload)
-        end
-
-        it "increments the ContentStorePayloadVersion" do
-          create(
-            :content_store_payload_version,
-            content_item_id: live_content_item.id,
-          )
-          expect(ContentStorePayloadVersion)
-            .to receive(:increment)
-            .with(live_content_item.id)
 
           described_class.call(payload)
         end
