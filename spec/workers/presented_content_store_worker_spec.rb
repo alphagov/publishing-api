@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe DeprecatedContentStoreWorker do
+RSpec.describe PresentedContentStoreWorker do
   before do
     stub_request(:put, "http://content-store.dev.gov.uk/content/foo").
       to_return(status: status, body: {}.to_json)
