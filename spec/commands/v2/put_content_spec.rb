@@ -6,6 +6,7 @@ RSpec.describe Commands::V2::PutContent do
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
 
+    let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
     let(:content_id) { SecureRandom.uuid }
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
@@ -25,12 +26,16 @@ RSpec.describe Commands::V2::PutContent do
       }
     }
 
+    before do
+      allow(Presenters::ContentStorePresenter).to receive(:present)
+        .and_return(expected_content_store_payload)
+    end
+
     it "sends to the draft content store" do
-      expect(ContentStoreWorker).to receive(:perform_in)
+      expect(PresentedContentStoreWorker).to receive(:perform_async)
         .with(
-          1.second,
           content_store: Adapters::DraftContentStore,
-          content_item_id: anything,
+          payload: expected_content_store_payload,
         )
 
       described_class.call(payload)
@@ -42,10 +47,10 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     it "does not send to the live content store" do
-      expect(ContentStoreWorker).not_to receive(:perform_in)
+      expect(PresentedContentStoreWorker).not_to receive(:perform_async)
         .with(
           content_store: Adapters::ContentStore,
-          content_item_id: anything,
+          payload: expected_content_store_payload,
         )
 
       described_class.call(payload)
@@ -53,7 +58,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the 'downstream' parameter is false" do
       it "does not send any requests to any content store" do
-        expect(ContentStoreWorker).not_to receive(:perform_in)
+        expect(PresentedContentStoreWorker).not_to receive(:perform_async)
         described_class.call(payload, downstream: false)
       end
     end
@@ -284,19 +289,11 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         it "sends a create request to the draft content store for the redirect" do
-          allow(ContentStoreWorker).to receive(:perform_in)
+          expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
-              1.second,
               content_store: Adapters::DraftContentStore,
-              content_item_id: anything,
-            )
-
-          expect(ContentStoreWorker).to receive(:perform_in)
-            .with(
-              1.second,
-              content_store: Adapters::DraftContentStore,
-              content_item_id: anything,
-            )
+              payload: expected_content_store_payload,
+            ).twice
 
           described_class.call(payload)
         end
