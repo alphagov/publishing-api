@@ -13,7 +13,10 @@ class ContentStoreWorker
     else
       content_item = load_content_item_from(args)
       raise_no_content_item(args) unless content_item
-      payload = Presenters::ContentStorePresenter.present(content_item)
+      payload = Presenters::ContentStorePresenter.present(
+        content_item,
+        mock_event(content_item)
+      )
       ensure_access_limited_is_not_sent_to_live(payload, content_store)
       content_store.put_content_item(payload.fetch(:base_path), payload)
     end
@@ -23,6 +26,19 @@ class ContentStoreWorker
   end
 
 private
+
+  # Previously, the content_store_payload_id was sourced from a separate table.
+  #
+  # We need to choose an id that is higher than the existing versions in content
+  # store. The content item's id should always be higher than these numbers.
+  #
+  # We also need to choose an id that will be lower than any subsequent payload
+  # versions taken from event ids.
+  #
+  # This will allow those messages to be cleared out from the queue.
+  def mock_event(content_item)
+    OpenStruct.new(id: content_item.id)
+  end
 
   def load_content_item_from(args)
     ContentItem.find_by(id: args.fetch(:content_item_id))
