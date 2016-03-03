@@ -46,7 +46,7 @@ module Commands
       def send_live_to_draft_content_store(live)
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
-          payload: Presenters::ContentStorePresenter.present(live),
+          payload: Presenters::ContentStorePresenter.present(live, event),
         )
       end
 

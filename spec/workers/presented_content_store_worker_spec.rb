@@ -9,8 +9,7 @@ RSpec.describe PresentedContentStoreWorker do
   def do_request
     subject.perform(
       content_store: "Adapters::ContentStore",
-      base_path: "/foo",
-      payload: { some: "payload" }
+      payload: { some: "payload", base_path: "/foo" }
     )
   end
 

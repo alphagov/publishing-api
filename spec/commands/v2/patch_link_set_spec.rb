@@ -212,7 +212,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     it "presents the draft content item for the downstream request" do
       expect(Presenters::ContentStorePresenter).to receive(:present)
-        .with(draft_content_item)
+        .with(draft_content_item, instance_of(Event))
 
       described_class.call(payload)
     end
@@ -235,7 +235,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
         it "sends the draft content item for that locale downstream" do
           expect(Presenters::ContentStorePresenter).to receive(:present)
-            .with(draft_content_item)
+            .with(draft_content_item, instance_of(Event))
 
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
@@ -292,7 +292,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     it "presents the live content item for the downstream request" do
       expect(Presenters::ContentStorePresenter).to receive(:present)
-        .with(live_content_item)
+        .with(live_content_item, instance_of(Event))
 
       described_class.call(payload)
     end

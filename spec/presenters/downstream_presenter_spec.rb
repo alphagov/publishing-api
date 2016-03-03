@@ -1,13 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::DownstreamPresenter do
+  let(:event) { double(:event, id: 123) }
+
   describe "V2" do
     context "for a live content item" do
       let!(:content_item) { create(:live_content_item) }
       let!(:link_set) { create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
-        result = described_class.present(content_item)
+        result = described_class.present(content_item, event)
 
         expect(result).to eq(
           content_id: content_item.content_id,
@@ -26,7 +28,7 @@ RSpec.describe Presenters::DownstreamPresenter do
           rendering_app: "frontend",
           routes: [{ path: "/vat-rates", type: "exact" }],
           title: "VAT rates",
-          payload_version: 1,
+          payload_version: 123,
           update_type: "minor",
         )
       end
@@ -37,7 +39,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       let!(:link_set) { create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
-        result = described_class.present(content_item)
+        result = described_class.present(content_item, event)
 
         expect(result).to eq(
           content_id: content_item.content_id,
@@ -56,7 +58,7 @@ RSpec.describe Presenters::DownstreamPresenter do
           rendering_app: "frontend",
           routes: [{ path: "/vat-rates", type: "exact" }],
           title: "VAT rates",
-          payload_version: 1,
+          payload_version: 123,
           update_type: "minor",
         )
       end
@@ -71,7 +73,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
         it "does not raise an error" do
           expect {
-            described_class.present(content_item)
+            described_class.present(content_item, event)
           }.to_not raise_error
         end
       end
@@ -81,7 +83,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
         it "does not raise an error" do
           expect {
-            described_class.present(content_item)
+            described_class.present(content_item, event)
           }.to_not raise_error
         end
       end
@@ -102,28 +104,28 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     it "presents all attributes by default" do
-      result = described_class.present(attributes)
+      result = described_class.present(attributes, event)
 
       expect(result).to eq(
         content_id: "content_id",
         access_limited: "access_limited",
         update_type: "update_type",
-        payload_version: 1,
+        payload_version: 123,
       )
     end
 
     it "can optionally remove the update_type attribute" do
-      result = described_class.present(attributes, update_type: false)
+      result = described_class.present(attributes, event, update_type: false)
 
       expect(result).to eq(
         content_id: "content_id",
         access_limited: "access_limited",
-        payload_version: 1,
+        payload_version: 123,
       )
     end
 
     it "can optionally remove the payload_version attribute" do
-      result = described_class.present(attributes, payload_version: false)
+      result = described_class.present(attributes, event, payload_version: false)
 
       expect(result).to eq(
         content_id: "content_id",

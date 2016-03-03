@@ -93,13 +93,14 @@ module Commands
       def send_to_content_store(content_item, content_store)
         PresentedContentStoreWorker.perform_async(
           content_store: content_store,
-          payload: Presenters::ContentStorePresenter.present(content_item),
+          payload: Presenters::ContentStorePresenter.present(content_item, event),
         )
       end
 
       def send_to_message_queue(content_item)
         payload = Presenters::MessageQueuePresenter.present(
           content_item,
+          event,
           update_type: "links",
         )
 

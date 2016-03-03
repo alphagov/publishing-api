@@ -123,10 +123,18 @@ module Commands
 
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
-          payload: Presenters::ContentStorePresenter.present(content_item),
+          payload: Presenters::ContentStorePresenter.present(
+            content_item,
+            event
+          ),
         )
 
-        queue_payload = Presenters::MessageQueuePresenter.present(content_item, update_type: update_type)
+        queue_payload = Presenters::MessageQueuePresenter.present(
+          content_item,
+          event,
+          update_type: update_type
+        )
+
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)
       end
 

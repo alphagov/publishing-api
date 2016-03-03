@@ -126,7 +126,10 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "sends the published content item to the draft content store" do
-          expect(Presenters::ContentStorePresenter).to receive(:present).with(published_item)
+          expect(Presenters::ContentStorePresenter).to receive(:present).with(
+            published_item,
+            instance_of(Event),
+          )
 
           allow(PresentedContentStoreWorker).to receive(:perform_async)
           expect(PresentedContentStoreWorker).to receive(:perform_async)
