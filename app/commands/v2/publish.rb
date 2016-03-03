@@ -121,10 +121,9 @@ module Commands
       def send_downstream(content_item, update_type)
         return unless downstream
 
-        ContentStoreWorker.perform_in(
-          1.second,
+        PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
-          content_item_id: content_item.id,
+          payload: Presenters::ContentStorePresenter.present(content_item),
         )
 
         queue_payload = Presenters::MessageQueuePresenter.present(content_item, update_type: update_type)

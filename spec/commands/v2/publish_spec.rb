@@ -10,10 +10,14 @@ RSpec.describe Commands::V2::Publish do
       )
     end
 
+    let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
     let(:content_id) { SecureRandom.uuid }
 
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
+
+      allow(Presenters::ContentStorePresenter).to receive(:present)
+        .and_return(expected_content_store_payload)
     end
 
     around do |example|
@@ -147,30 +151,26 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "sends a payload downstream asynchronously" do
-        presentation = {
-          content_id: content_id,
-          payload_version: 1,
-          title: "Something something"
-        }.to_json
-
-        allow(Presenters::ContentStorePresenter)
-          .to receive(:present)
-          .and_return(presentation)
-
-        expect(ContentStoreWorker)
-          .to receive(:perform_in)
+        expect(PresentedContentStoreWorker)
+          .to receive(:perform_async)
           .with(
-            1.second,
             content_store: Adapters::ContentStore,
-            content_item_id: draft_item.id,
+            payload: expected_content_store_payload,
           )
+
+        described_class.call(payload)
+      end
+
+      it "presents the content item for the downstream request" do
+        expect(Presenters::ContentStorePresenter).to receive(:present)
+          .with(draft_item)
 
         described_class.call(payload)
       end
 
       context "when the 'downstream' parameter is false" do
         it "does not send any requests to any content store" do
-          expect(ContentStoreWorker).not_to receive(:perform_in)
+          expect(PresentedContentStoreWorker).not_to receive(:perform_async)
           described_class.call(payload, downstream: false)
         end
 
@@ -188,15 +188,9 @@ RSpec.describe Commands::V2::Publish do
         end
 
         it "uses the stored timestamp for major or minor" do
-          expect(ContentStoreWorker)
-            .to receive(:perform_in)
-            .with(
-              1.second,
-              content_store: Adapters::ContentStore,
-              content_item_id: draft_item.id,
-            )
-
           described_class.call(payload)
+
+          expect(draft_item.reload.public_updated_at).to be_within(1.second).of(public_updated_at)
         end
       end
 
@@ -207,17 +201,9 @@ RSpec.describe Commands::V2::Publish do
 
         context "for a major update" do
           it "updates the public_updated_at time to now" do
-            expect(ContentStoreWorker)
-              .to receive(:perform_in)
-              .with(
-                1.second,
-                content_store: Adapters::ContentStore,
-                content_item_id: draft_item.id,
-              )
-
             described_class.call(payload)
 
-            expect(ContentItem.last.public_updated_at).to be_within(1.second).of(Time.zone.now)
+            expect(draft_item.reload.public_updated_at).to be_within(1.second).of(Time.zone.now)
           end
         end
 
@@ -237,12 +223,11 @@ RSpec.describe Commands::V2::Publish do
           end
 
           it "preserves the public_updated_at value from the last live item" do
-            expect(ContentStoreWorker)
-              .to receive(:perform_in)
+            expect(PresentedContentStoreWorker)
+              .to receive(:perform_async)
               .with(
-                1.second,
                 content_store: Adapters::ContentStore,
-                content_item_id: draft_item.id,
+                payload: expected_content_store_payload,
               )
 
             described_class.call(payload)
@@ -260,12 +245,11 @@ RSpec.describe Commands::V2::Publish do
           end
 
           it "uses the stored timestamp for major or minor" do
-            expect(ContentStoreWorker)
-              .to receive(:perform_in)
+            expect(PresentedContentStoreWorker)
+              .to receive(:perform_async)
               .with(
-                1.second,
                 content_store: Adapters::ContentStore,
-                content_item_id: draft_item.id,
+                payload: expected_content_store_payload,
               )
 
             described_class.call(payload)
