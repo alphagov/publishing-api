@@ -1,10 +1,11 @@
 module Queries
   class GetContentCollection
-    attr_reader :content_format, :fields, :publishing_app, :locale
+    attr_reader :content_format, :fields, :publishing_app, :locale, :pagination
 
-    def initialize(content_format:, fields:, publishing_app: nil, locale: nil)
+    def initialize(content_format:, fields:, publishing_app: nil, locale: nil, pagination: Pagination.new)
       self.content_format = content_format
-      self.fields = fields
+      self.pagination = pagination
+      self.fields = fields_with_ordering(fields)
       self.publishing_app = publishing_app
       self.locale = locale || "en"
     end
@@ -22,23 +23,22 @@ module Queries
         content_items = Translation.filter(content_items, locale: locale)
       end
 
-      presented = Presenters::Queries::ContentItemPresenter.present_many(content_items)
+      content_items = pagination.paginate(content_items)
+      presented = presenter.present_many(content_items, fields: fields, order: pagination.order)
+
       presented.map { |p| filter_fields(p).as_json }
     end
 
   private
-    attr_writer :content_format, :fields, :publishing_app, :locale
+
+    attr_writer :content_format, :fields, :publishing_app, :locale, :pagination
 
     def lookup_formats
       [content_format, "placeholder_#{content_format}"]
     end
 
-    def output_fields
-      fields.map(&:to_sym) + [:publication_state]
-    end
-
     def filter_fields(hash)
-      hash.slice(*output_fields)
+      hash.slice(*fields)
     end
 
     def validate_fields!
@@ -53,12 +53,22 @@ module Queries
       })
     end
 
+    def fields_with_ordering(fields)
+      combined_fields = pagination.order_fields
+      combined_fields = combined_fields + fields if fields
+      combined_fields
+    end
+
     def permitted_fields
-      ContentItem.column_names + %w(base_path locale)
+      ContentItem.column_names + %w(base_path locale publication_state internal_name)
     end
 
     def select_output_fields_only(presenter)
-      presenter.present.slice(*output_fields).as_json
+      presenter.present.slice(*fields).as_json
+    end
+
+    def presenter
+      Presenters::Queries::ContentItemPresenter
     end
   end
 end

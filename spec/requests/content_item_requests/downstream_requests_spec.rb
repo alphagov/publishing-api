@@ -34,6 +34,7 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item_for_draft_content_store) {
       v2_content_item
         .except(:update_type)
+        .merge(links: {})
     }
     let(:request_body) { v2_content_item.to_json }
     let(:request_path) { "/v2/content/#{content_id}" }
@@ -75,7 +76,7 @@ RSpec.describe "Downstream requests", type: :request do
     }
     let(:request_body) { links_attributes.to_json }
     let(:request_path) { "/v2/links/#{content_id}" }
-    let(:request_method) { :put }
+    let(:request_method) { :patch }
 
     context "when only a draft content item exists for the link set" do
       before do

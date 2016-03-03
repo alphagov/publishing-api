@@ -1,6 +1,6 @@
 module Commands
   module V2
-    class PutLinkSet < BaseCommand
+    class PatchLinkSet < BaseCommand
       def call
         raise_unless_links_hash_is_provided
 
@@ -40,6 +40,7 @@ module Commands
       end
 
     private
+
       def content_id
         payload.fetch(:content_id)
       end
@@ -90,6 +91,7 @@ module Commands
       end
 
       def send_to_content_store(content_item, content_store)
+        ContentStorePayloadVersion.increment(content_item.id)
         ContentStoreWorker.perform_in(
           1.second,
           content_store: content_store,

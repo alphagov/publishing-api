@@ -9,19 +9,19 @@ FactoryGirl.define do
     transient do
       destination "/somewhere"
     end
-    sequence(:base_path) {|n| "/test-redirect-#{n}" }
+    sequence(:base_path) { |n| "/test-redirect-#{n}" }
     format "redirect"
     routes []
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => destination }] }
   end
 
   factory :gone_draft_content_item, parent: :draft_content_item do
-    sequence(:base_path) {|n| "/dodo-sanctuary-#{n}" }
+    sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
     format "gone"
   end
 
   factory :access_limited_draft_content_item, parent: :draft_content_item do
-    sequence(:base_path) {|n| "/access-limited-#{n}" }
+    sequence(:base_path) { |n| "/access-limited-#{n}" }
 
     after(:create) do |item, _|
       FactoryGirl.create(:access_limit, content_item: item)

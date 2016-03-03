@@ -19,15 +19,17 @@ module Queries
 
       content_items = ContentItem.where(content_id: content_ids)
 
-      presented = Presenters::Queries::ContentItemPresenter.present_many(content_items)
+      presented = presenter.present_many(content_items, fields: fields)
       presented.map { |p| filter_fields(p).as_json }
     end
+
   private
+
     attr_accessor :target_content_id, :link_type, :fields
 
     def validate_presence_of_item!
       filter = ContentItemFilter.new(scope: ContentItem.where(content_id: target_content_id))
-      return if filter.filter(state: ["draft", "live"]).exists?
+      return if filter.filter(state: %w(draft live)).exists?
 
       raise CommandError.new(code: 404, error_details: {
         error: {
@@ -57,16 +59,16 @@ module Queries
       })
     end
 
-    def output_fields
-      fields.map(&:to_sym) + [:publication_state]
-    end
-
     def filter_fields(hash)
-      hash.slice(*output_fields)
+      hash.slice(*fields)
     end
 
     def permitted_fields
-      ContentItem.column_names + %w(base_path locale)
+      ContentItem.column_names + %w(base_path locale publication_state)
+    end
+
+    def presenter
+      Presenters::Queries::ContentItemPresenter
     end
   end
 end

@@ -38,6 +38,11 @@ git merge --no-commit origin/master || git merge --abort
 export RAILS_ENV=test
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment --without development
 
+bundle exec govuk-lint-ruby \
+  --format html --out rubocop-${GIT_COMMIT}.html \
+  --format clang \
+  app config Gemfile lib spec
+
 bundle exec rake db:drop db:create db:schema:load
 
 if bundle exec rake ${TEST_TASK:-"default"}; then

@@ -17,7 +17,7 @@ module RequestHelpers
         title: "VAT rates",
         description: "VAT rates for goods and services",
         format: "guide",
-        need_ids: ["100123", "100124"],
+        need_ids: %w(100123 100124),
         public_updated_at: "2014-05-14T13:00:06Z",
         publishing_app: "publisher",
         rendering_app: "frontend",
@@ -81,4 +81,4 @@ module RequestHelpers
   end
 end
 
-RSpec.configuration.include RequestHelpers::Mocks, :type => :request
+RSpec.configuration.include RequestHelpers::Mocks, type: :request

@@ -1,19 +1,35 @@
 module V2
   class ContentItemsController < ApplicationController
     def index
-      content_format = params.fetch(:content_format)
-      fields = params.fetch(:fields)
-      locale = params[:locale]
+      format = query_params.fetch(:content_format) { query_params.fetch(:format) }
+
       render json: Queries::GetContentCollection.new(
-        content_format: content_format,
-        fields: fields,
+        content_format: format,
+        fields: query_params.fetch(:fields),
         publishing_app: publishing_app,
+        locale: query_params[:locale],
+      ).call
+    end
+
+    def linkables
+      # Base path is returned to facilitate rummager indexing.
+      # This can be removed once link updates are picked up by rummager from the message bus.
+      render json: Queries::GetContentCollection.new(
+        content_format: query_params.fetch(:format),
+        fields: %w(
+          title
+          content_id
+          publication_state
+          base_path
+          internal_name
+        ),
         locale: locale,
+        pagination: Pagination.new(params)
       ).call
     end
 
     def show
-      render json: Queries::GetContent.call(params[:content_id], params[:locale])
+      render json: Queries::GetContent.call(path_params[:content_id], query_params[:locale])
     end
 
     def put_content
@@ -32,8 +48,9 @@ module V2
     end
 
   private
+
     def content_item
-      payload.merge(content_id: params[:content_id])
+      payload.merge(content_id: path_params[:content_id])
     end
 
     def publishing_app

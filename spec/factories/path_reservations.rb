@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :path_reservation do
-    sequence(:base_path) {|n| "/path#{n}" }
-    publishing_app  "publisher"
+    sequence(:base_path) { |n| "/path#{n}" }
+    publishing_app "publisher"
   end
 end

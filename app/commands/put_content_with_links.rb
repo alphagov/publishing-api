@@ -5,7 +5,7 @@ module Commands
         delete_existing_links
 
         V2::PutContent.call(v2_put_content_payload, downstream: downstream)
-        V2::PutLinkSet.call(v2_put_link_set_payload, downstream: downstream)
+        V2::PatchLinkSet.call(v2_put_link_set_payload, downstream: downstream)
         V2::Publish.call(v2_publish_payload, downstream: downstream)
       else
         base_path = payload.fetch(:base_path)
@@ -13,6 +13,7 @@ module Commands
         PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
         if downstream
+          ContentStorePayloadVersion::V1.increment
           content_store_payload = Presenters::DownstreamPresenter::V1.present(
             payload.except(:access_limited),
             update_type: false

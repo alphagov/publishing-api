@@ -32,7 +32,8 @@ module Commands
           content_item = create_content_item
           clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
-          supporting_objects = create_supporting_objects(content_item)
+          create_supporting_objects(content_item)
+          ensure_link_set_exists(content_item)
 
           if payload[:access_limited] && (users = payload[:access_limited][:users])
             AccessLimit.create!(content_item: content_item, users: users)
@@ -48,7 +49,7 @@ module Commands
     private
 
       def create_or_update_access_limit(content_item, users:)
-        if access_limit = AccessLimit.find_by(content_item: content_item)
+        if (access_limit = AccessLimit.find_by(content_item: content_item))
           access_limit.update_attributes!(users: users)
         else
           AccessLimit.create!(content_item: content_item, users: users)
@@ -84,6 +85,14 @@ module Commands
         Translation.create!(content_item: content_item, locale: locale)
         UserFacingVersion.create!(content_item: content_item, number: user_facing_version_number_for_new_draft)
         LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
+      end
+
+      def ensure_link_set_exists(content_item)
+        existing_link_set = LinkSet.find_by(content_id: content_item.content_id)
+        return if existing_link_set
+
+        link_set = LinkSet.create!(content_id: content_item.content_id)
+        LockVersion.create!(target: link_set, number: 1)
       end
 
       def lock_version_number_for_new_draft
@@ -158,6 +167,7 @@ module Commands
       def send_downstream(content_item)
         return unless downstream
 
+        ContentStorePayloadVersion.increment(content_item.id)
         ContentStoreWorker.perform_in(
           1.second,
           content_store: Adapters::DraftContentStore,

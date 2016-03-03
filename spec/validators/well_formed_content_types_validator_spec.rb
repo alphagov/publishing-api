@@ -24,7 +24,7 @@ RSpec.describe WellFormedContentTypesValidator do
     subject.validate_each(record, attribute, value)
     expect(record.errors).to be_empty
 
-    value = [{ an: "array"}, { of: "hashes" }]
+    value = [{ an: "array" }, { of: "hashes" }]
     subject.validate_each(record, attribute, value)
     expect(record.errors).to be_empty
   end

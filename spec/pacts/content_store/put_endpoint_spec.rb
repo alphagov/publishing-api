@@ -10,20 +10,20 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
       content_id: content_id
     )
   end
+
+  let!(:content_store_payload_version) do
+    create(:content_store_payload_version, content_item_id: content_item.id)
+  end
+
   let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_id) }
 
   let(:client) { ContentStoreWriter.new("http://localhost:3093") }
   let(:body) { Presenters::ContentStorePresenter.present(content_item) }
-  let(:request_time) { Time.at(2000000000) }
 
-  around do |example|
-    Timecop.freeze(request_time) { example.run }
-  end
-
-  context "when a content item exists that has an older transmitted_at than the request" do
+  context "when a content item exists that has an older payload_version than the request" do
     before do
       content_store
-        .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000000000000")
+        .given("a content item exists with base_path /vat-rates and version 0")
         .upon_receiving("a request to create a content item")
         .with(
           method: :put,
@@ -48,10 +48,10 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
     end
   end
 
-  context "when a content item exists that has a newer transmitted_at than the request" do
+  context "when a content item exists that has a higher payload_version than the request" do
     before do
       content_store
-        .given("a content item exists with base_path /vat-rates and transmitted_at 3000000000000000000")
+        .given("a content item exists with base_path /vat-rates and payload_version 10")
         .upon_receiving("a request to create a content item")
         .with(
           method: :put,
@@ -84,11 +84,14 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
         attributes, update_type: false
       )
     end
+    let!(:content_store_payload_version) do
+      create(:v1_content_store_payload_version)
+    end
 
-    context "when a content item exists that has an older transmitted_at than the request" do
+    context "when a content item exists that has an lower payload_version than the request" do
       before do
         content_store
-          .given("a content item exists with base_path /vat-rates and transmitted_at 1000000000000000000")
+          .given("a content item exists with base_path /vat-rates and payload_version 0")
           .upon_receiving("a request to create a content item originating from v1 endpoint")
           .with(
             method: :put,
@@ -113,10 +116,10 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
       end
     end
 
-    context "when a content item exists that has a newer transmitted_at than the request" do
+    context "when a content item exists that has a higher payload_version than the request" do
       before do
         content_store
-          .given("a content item exists with base_path /vat-rates and transmitted_at 3000000000000000000")
+          .given("a content item exists with base_path /vat-rates and payload_version 10")
           .upon_receiving("a request to create a content item originating from v1 endpoint")
           .with(
             method: :put,

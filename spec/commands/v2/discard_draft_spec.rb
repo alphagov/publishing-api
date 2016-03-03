@@ -60,10 +60,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       it "does not send any request to the live content store" do
         expect(ContentStoreWorker).not_to receive(:perform_in)
-          .with(hash_including(
-            1.second,
-            content_store: Adapters::ContentStore,
-          ))
+          .with(hash_including(1.second, content_store: Adapters::ContentStore))
 
         described_class.call(payload)
       end
@@ -98,6 +95,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           FactoryGirl.create(:live_content_item,
             content_id: content_id,
             lock_version: 3,
+            base_path: "/hat-rates",
           )
         }
 
@@ -109,13 +107,62 @@ RSpec.describe Commands::V2::DiscardDraft do
           }.to change { published_lock_version.reload.number }.to(4)
         end
 
+        it "deletes the draft content item from the draft content store" do
+          allow(ContentStoreWorker).to receive(:perform_in)
+
+          expect(ContentStoreWorker).to receive(:perform_in)
+            .with(
+              1.second,
+              content_store: Adapters::DraftContentStore,
+              base_path: base_path,
+              delete: true,
+            )
+
+          described_class.call(payload)
+        end
+
         it "sends the published content item to the draft content store" do
+          allow(ContentStoreWorker).to receive(:perform_in)
+
           expect(ContentStoreWorker).to receive(:perform_in)
             .with(
               1.second,
               content_store: Adapters::DraftContentStore,
               content_item_id: published_item.id,
             )
+
+          described_class.call(payload)
+        end
+
+        it "deletes the supporting objects for the draft item" do
+          described_class.call(payload)
+
+          state = State.find_by(content_item: existing_draft_item)
+          translation = Translation.find_by(content_item: existing_draft_item)
+          location = Location.find_by(content_item: existing_draft_item)
+          access_limit = AccessLimit.find_by(content_item: existing_draft_item)
+          user_facing_version = UserFacingVersion.find_by(content_item: existing_draft_item)
+          lock_version = LockVersion.find_by(target: existing_draft_item)
+
+          expect(state).to be_nil
+          expect(translation).to be_nil
+          expect(location).to be_nil
+          expect(access_limit).to be_nil
+          expect(user_facing_version).to be_nil
+          expect(lock_version).to be_nil
+        end
+
+        it "deletes the draft" do
+          expect {
+            described_class.call(payload)
+          }.to change(ContentItem, :count).by(-1)
+        end
+
+        it "increments the ContentStorePayloadLock" do
+          ContentStorePayloadVersion.increment(published_item.id)
+          expect(ContentStorePayloadVersion)
+            .to receive(:increment)
+            .with(published_item.id)
 
           described_class.call(payload)
         end
@@ -155,9 +202,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
     context "when no draft content item exists for the given content_id" do
       it "raises a command error with code 404" do
-        expect {
-          described_class.call(payload)
-        }.to raise_error(CommandError) do |error|
+        expect { described_class.call(payload) }.to raise_error(CommandError) do |error|
           expect(error.code).to eq(404)
         end
       end
@@ -168,9 +213,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "raises a command error with code 422" do
-          expect {
-            described_class.call(payload)
-          }.to raise_error(CommandError) do |error|
+          expect { described_class.call(payload) }.to raise_error(CommandError) do |error|
             expect(error.code).to eq(422)
           end
         end

@@ -9,6 +9,13 @@ RSpec.describe ContentStoreWorker do
     500 => { raises_error: true, logs_to_airbrake: false },
   }
 
+  def do_request
+    subject.perform(
+      content_store: "Adapters::ContentStore",
+      content_item_id: ContentItem.last.id,
+    )
+  end
+
   expectations.each do |status, expectation|
     context "when the content store responds with a #{status}" do
       before do
@@ -16,15 +23,14 @@ RSpec.describe ContentStoreWorker do
           to_return(status: status, body: {}.to_json)
       end
 
-      def do_request
-        subject.perform(
-          content_store: "Adapters::ContentStore",
-          content_item_id: ContentItem.last.id,
-        )
-      end
-
       let(:status) { status }
       let!(:content_item) { create(:live_content_item, base_path: '/foo') }
+      let!(:content_store_payload_version) do
+        create(
+          :content_store_payload_version,
+          content_item_id: content_item.id
+        )
+      end
 
       if expectation.fetch(:raises_error)
         it "raises an error" do
@@ -51,7 +57,13 @@ RSpec.describe ContentStoreWorker do
   end
 
   context "when a draft item is enqueued" do
-    let!(:draft_content_item)  { create(:draft_content_item, base_path: '/foo') }
+    let!(:draft_content_item) { create(:draft_content_item, base_path: '/foo') }
+    let!(:content_store_payload_version) do
+      create(
+        :content_store_payload_version,
+        content_item_id: draft_content_item.id
+      )
+    end
 
     it "publishes a presented draft content item to the draft Content Store" do
       api_call = stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
@@ -66,7 +78,13 @@ RSpec.describe ContentStoreWorker do
   end
 
   context "when a live item is enqueued" do
-    let!(:live_content_item)  { create(:live_content_item, base_path: '/foo') }
+    let!(:live_content_item) { create(:live_content_item, base_path: '/foo') }
+    let!(:content_store_payload_version) do
+      create(
+        :content_store_payload_version,
+        content_item_id: live_content_item.id
+      )
+    end
 
     it "publishes a presented live content item to the live Content Store" do
       api_call = stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
@@ -77,6 +95,42 @@ RSpec.describe ContentStoreWorker do
       )
 
       expect(api_call).to have_been_made
+    end
+
+    # TODO: investigate how this can happen
+    context "when the live item has an access limit" do
+      before do
+        FactoryGirl.create(
+          :access_limit,
+          content_item: live_content_item,
+          users: [SecureRandom.uuid],
+        )
+      end
+
+      it "strips out access_limited from the downstream payload" do
+        stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
+
+        do_request
+
+        expect(
+          a_request(:put, "http://content-store.dev.gov.uk/content/foo").with do |request|
+            payload = JSON.parse(request.body)
+            expect(payload.has_key?("access_limited")).to eq(false)
+          end
+        ).to have_been_made.once
+      end
+
+      it "notifies airbrake with some debugging information" do
+        stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
+
+        expected_error = ConsistencyError.new(
+          "Attempted to send access limited to the live content store for content id #{live_content_item.content_id}"
+        )
+
+        expect(Airbrake).to receive(:notify_or_ignore).with(expected_error)
+
+        do_request
+      end
     end
   end
 
@@ -97,7 +151,7 @@ RSpec.describe ContentStoreWorker do
   context "when a deletion is enqueued, but content-store doesn't have the item" do
     it "swallows the returned 404" do
       api_call = stub_request(:delete, "http://draft-content-store.dev.gov.uk/content/abc")
-                             .to_return(status: 404)
+        .to_return(status: 404)
 
       expect(Airbrake).not_to receive(:notify_or_ignore)
 

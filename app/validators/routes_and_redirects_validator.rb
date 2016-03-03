@@ -29,7 +29,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
     end
   end
 
-  private
+private
 
   def must_have_unique_paths(location, routes, redirects)
     paths = routes.map { |r| r[:path] }
@@ -80,7 +80,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
 
       unsupported_keys = additional_keys(route, attribute)
       if unsupported_keys.any?
-        location.errors[attribute] << "unsupported keys: #{unsupported_keys.join(", ")}"
+        location.errors[attribute] << "unsupported keys: #{unsupported_keys.join(', ')}"
       end
 
       validator = AbsolutePathValidator.new(attributes: attribute)
@@ -92,6 +92,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
     end
 
   private
+
     def below_base_path?(path, base_path)
       return true if path.match(%r(^#{base_path}\.[\w-]+\z))
 
@@ -136,8 +137,9 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
     end
 
   private
+
     def valid_exact_redirect_target?(target)
-      return false unless target.present? and target.starts_with?("/")
+      return false unless target.present? && target.starts_with?("/")
 
       uri = URI.parse(target)
       expected = uri.path

@@ -17,7 +17,7 @@ RSpec.shared_context "using the message queue in test mode" do
     conn.start
     read_channel = conn.create_channel
     ex = read_channel.topic(rabbitmq_config.fetch(:exchange), passive: true)
-    @queue = read_channel.queue("", :exclusive => true)
+    @queue = read_channel.queue("", exclusive: true)
     @queue.bind(ex, routing_key: '#')
 
     example.run

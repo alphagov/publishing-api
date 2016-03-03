@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Commands::ReservePath do
-
   describe "call" do
     let(:payload) {
       { base_path: "/foo", publishing_app: "Foo" }
@@ -17,7 +16,7 @@ RSpec.describe Commands::ReservePath do
     context "with an invalid payload" do
       it "returns a CommandError" do
         expect {
-          described_class.call({ base_path: "///" })
+          described_class.call(base_path: "///")
         }.to raise_error CommandError
       end
     end

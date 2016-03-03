@@ -131,7 +131,7 @@ module RequestHelpers
         end
 
         it "should be successful if the publishing app matches" do
-          expect{ do_request }.not_to change(PathReservation, :count)
+          expect { do_request }.not_to change(PathReservation, :count)
           expect(response.status).to eq(200)
         end
       end
@@ -142,7 +142,7 @@ module RequestHelpers
         end
 
         it "should be unsuccessful if the publishing app does not match" do
-          expect{ do_request }.not_to change(PathReservation, :count)
+          expect { do_request }.not_to change(PathReservation, :count)
           expect(response.status).to eq(422)
           expect(PathReservation.last.publishing_app).to eq("something else")
         end
@@ -151,4 +151,4 @@ module RequestHelpers
   end
 end
 
-RSpec.configuration.extend RequestHelpers::EndpointBehaviour, :type => :request
+RSpec.configuration.extend RequestHelpers::EndpointBehaviour, type: :request

@@ -12,6 +12,13 @@ RSpec.describe Commands::V2::Publish do
 
     let(:content_id) { SecureRandom.uuid }
 
+    let!(:content_store_payload_version) do
+      create(
+        :content_store_payload_version,
+        content_item_id: draft_item.id,
+      )
+    end
+
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
@@ -39,9 +46,8 @@ RSpec.describe Commands::V2::Publish do
         end
 
         it "uses the update_type from the draft content item" do
-          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).with(hash_including(
-            update_type: "major",
-          ))
+          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
+            .with(hash_including(update_type: "major"))
 
           described_class.call(payload)
         end
@@ -150,7 +156,7 @@ RSpec.describe Commands::V2::Publish do
       it "sends a payload downstream asynchronously" do
         presentation = {
           content_id: content_id,
-          transmitted_at: Time.now.to_s(:nanoseconds),
+          payload_version: 1,
           title: "Something something"
         }.to_json
 
@@ -165,6 +171,14 @@ RSpec.describe Commands::V2::Publish do
             content_store: Adapters::ContentStore,
             content_item_id: draft_item.id,
           )
+
+        described_class.call(payload)
+      end
+
+      it "increments the ContentStorePayloadVersion" do
+        expect(ContentStorePayloadVersion)
+          .to receive(:increment)
+          .with(draft_item.id)
 
         described_class.call(payload)
       end

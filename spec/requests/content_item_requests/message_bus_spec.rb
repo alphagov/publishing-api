@@ -15,7 +15,7 @@ RSpec.describe "Message bus", type: :request do
     it "places a JSON message on the queue" do
       do_request
 
-      _, properties, payload = wait_for_message_on(@queue)
+      _delivery_info, properties, _payload = wait_for_message_on(@queue)
       expect(properties[:content_type]).to eq("application/json")
     end
 
@@ -24,7 +24,7 @@ RSpec.describe "Message bus", type: :request do
 
       it "uses the update type for the routing key" do
         do_request
-        delivery_info, _, payload = wait_for_message_on(@queue)
+        delivery_info, = wait_for_message_on(@queue)
         expect(delivery_info.routing_key).to eq("guide.minor")
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe "Message bus", type: :request do
 
       it "uses the format for the routing key" do
         do_request
-        delivery_info, _, payload = wait_for_message_on(@queue)
+        delivery_info, = wait_for_message_on(@queue)
         expect(delivery_info.routing_key).to eq("detailed_guide.major")
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe "Message bus", type: :request do
     it "publishes a message for a redirect update" do
       do_request(body: redirect_content_item.to_json)
 
-      delivery_info, _, _ = wait_for_message_on(@queue)
+      delivery_info, = wait_for_message_on(@queue)
       expect(delivery_info.routing_key).to eq("redirect.major")
     end
   end
@@ -78,7 +78,7 @@ RSpec.describe "Message bus", type: :request do
   context "/v2/links" do
     let(:request_body) { links_attributes.to_json }
     let(:request_path) { "/v2/links/#{content_id}" }
-    let(:request_method) { :put }
+    let(:request_method) { :patch }
 
     context "with a live content item" do
       let!(:live_content_item) {
@@ -94,7 +94,7 @@ RSpec.describe "Message bus", type: :request do
 
           expect(response.status).to eq(200)
 
-          delivery_info, _, payload = wait_for_message_on(@queue)
+          delivery_info, = wait_for_message_on(@queue)
           expect(delivery_info.routing_key).to eq("#{live_content_item.format}.links")
         end
       end
@@ -136,7 +136,7 @@ RSpec.describe "Message bus", type: :request do
 
       expect(response.status).to eq(200)
 
-      delivery_info, _, payload = wait_for_message_on(@queue)
+      delivery_info, = wait_for_message_on(@queue)
       expect(delivery_info.routing_key).to eq("guide.major")
     end
   end

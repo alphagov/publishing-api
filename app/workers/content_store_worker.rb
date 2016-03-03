@@ -14,6 +14,7 @@ class ContentStoreWorker
       content_item = load_content_item_from(args)
       raise_no_content_item(args) unless content_item
       payload = Presenters::ContentStorePresenter.present(content_item)
+      ensure_access_limited_is_not_sent_to_live(payload, content_store)
       content_store.put_content_item(payload.fetch(:base_path), payload)
     end
 
@@ -38,6 +39,18 @@ private
     raise ActiveRecord::RecordNotFound, message
   end
 
+  def ensure_access_limited_is_not_sent_to_live(payload, content_store)
+    if content_store == Adapters::ContentStore && payload.has_key?(:access_limited)
+      payload.delete(:access_limited)
+
+      message = "Attempted to send access limited to the live content store"
+      message += " for content id #{payload.fetch(:content_id)}"
+      error = ConsistencyError.new(message)
+
+      Airbrake.notify_or_ignore(error)
+    end
+  end
+
   def handle_error(error)
     if !error.is_a?(CommandError)
       raise error
@@ -48,4 +61,6 @@ private
       Airbrake.notify_or_ignore(error, parameters: { explanation: explanation })
     end
   end
+
+  class ::ConsistencyError < StandardError; end
 end

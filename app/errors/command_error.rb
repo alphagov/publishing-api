@@ -9,16 +9,17 @@ class CommandError < StandardError
   rescue GdsApi::HTTPClientError => e
     return if e.code == 404 && ignore_404s
 
-    # Temporarily ignore errors relating to conflicting transmitted_at timestamps.
-    # This mechanism throws up false positives and is being replaced with a per-item counter.
-    # Until this happens, we should not log these errors to errbit as they are very noisy.
-    return if e.code == 409 && e.message =~ /transmitted_at/
+    #ignore payload_version conflicts
+    if e.code == 409 && e.message =~ /transmitted_at|payload_version/
+      PublishingAPI::Application.statsd.increment("payload_version_conflicts")
+      return
+    end
 
     fields = if e.error_details.present?
-      e.error_details.fetch('errors', {})
-    else
-      {}
-    end
+               e.error_details.fetch('errors', {})
+             else
+               {}
+             end
     raise CommandError.new(code: e.code, error_details: {
       error: {
         code: e.code,
@@ -35,21 +36,21 @@ class CommandError < StandardError
     raise "Invalid code #{code}" unless valid_code?(code)
     @code = code
     @error_details = if error_details
-      error_details
-    elsif message
-      {
-        "error" => {
-          "code" => code,
-          "message" => message,
-        }
-      }
-    else
-      {
-        "error" => {
-          "code" => code,
-        }
-      }
-    end
+                       error_details
+                     elsif message
+                       {
+                         "error" => {
+                           "code" => code,
+                           "message" => message,
+                         }
+                       }
+                     else
+                       {
+                         "error" => {
+                           "code" => code,
+                         }
+                       }
+                     end
     super(message || error_details.to_s)
   end
 
@@ -57,11 +58,12 @@ class CommandError < StandardError
     [400, 404, 409, 422, 500].include?(code)
   end
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     @error_details
   end
 
   def ok?; false; end
+
   def error?; true; end
 
   # True if this error represents a client error, ie. the problem lies with

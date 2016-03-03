@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope format: false do |r|
+  scope format: false do
     put "/draft-content(/*base_path)", to: "content_items#put_draft_content_item"
     put "/content(/*base_path)", to: "content_items#put_live_content_item"
 
@@ -17,11 +17,14 @@ Rails.application.routes.draw do
       post "/content/:content_id/discard-draft", to: "content_items#discard_draft"
 
       get "/links/:content_id", to: "link_sets#get_links"
-      put "/links/:content_id", to: "link_sets#put_links"
-
+      patch "/links/:content_id", to: "link_sets#patch_links"
+      # put is provided for backwards compatibility.
+      put "/links/:content_id", to: "link_sets#patch_links"
       get "/linked/:content_id", to: "link_sets#get_linked"
+
+      get "/linkables", to: "content_items#linkables"
     end
   end
 
-  get '/healthcheck', :to => proc { [200, {}, ['OK']] }
+  get '/healthcheck', to: proc { [200, {}, ['OK']] }
 end

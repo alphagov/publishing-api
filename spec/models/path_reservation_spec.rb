@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PathReservation, :type => :model do
+RSpec.describe PathReservation, type: :model do
   describe "validations" do
     let(:reservation) { build(:path_reservation) }
 
@@ -18,10 +18,10 @@ RSpec.describe PathReservation, :type => :model do
       end
 
       it "has a db level uniqueness constraint" do
-        create(:path_reservation, :base_path => "/foo/bar")
+        create(:path_reservation, base_path: "/foo/bar")
         reservation.base_path = "/foo/bar"
         expect {
-          reservation.save! :validate => false
+          reservation.save! validate: false
         }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end

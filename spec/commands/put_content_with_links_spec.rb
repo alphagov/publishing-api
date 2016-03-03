@@ -27,11 +27,17 @@ RSpec.describe Commands::PutContentWithLinks do
   context "when a content_id is not provided" do
     before do
       payload[:content_id] = nil
+      create(:v1_content_store_payload_version)
     end
 
     it "responds successfully" do
       result = described_class.call(payload)
       expect(result).to be_a(Commands::Success)
+    end
+
+    it "increments the ContentStorePayloadVersion" do
+      expect(ContentStorePayloadVersion::V1).to receive(:increment)
+      described_class.call(payload)
     end
   end
 
@@ -62,9 +68,9 @@ RSpec.describe Commands::PutContentWithLinks do
     stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
 
     link_set = create(:link_set, content_id: '60d81299-6ae7-4bab-b4fe-4235d518d50a')
-    lock_version = create(:lock_version, target: link_set)
     protected_link = create(:link, link_set: link_set, link_type: 'alpha_taxons')
     normal_link = create(:link, link_set: link_set, link_type: 'topics')
+    create(:lock_version, target: link_set)
 
     described_class.call(
       title: 'Test Title',
