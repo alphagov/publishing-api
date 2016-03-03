@@ -1,10 +1,10 @@
 module V2
   class ContentItemsController < ApplicationController
     def index
-      format = query_params.fetch(:content_format) { query_params.fetch(:format) }
+      doc_type = query_params.fetch(:document_type) { query_params.fetch(:content_format) }
 
       render json: Queries::GetContentCollection.new(
-        content_format: format,
+        document_type: doc_type,
         fields: query_params.fetch(:fields),
         publishing_app: publishing_app,
         locale: query_params[:locale],
@@ -15,7 +15,7 @@ module V2
       # Base path is returned to facilitate rummager indexing.
       # This can be removed once link updates are picked up by rummager from the message bus.
       render json: Queries::GetContentCollection.new(
-        content_format: query_params.fetch(:format),
+        document_type: query_params.fetch(:document_type),
         fields: %w(
           title
           content_id

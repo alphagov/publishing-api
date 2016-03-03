@@ -45,7 +45,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
   end
 
   context "GET /v2/content" do
-    let(:request_path) { "/v2/content?content_format=topic&fields[]=title&fields[]=description" }
+    let(:request_path) { "/v2/content?document_type=topic&fields[]=title&fields[]=description" }
     let(:request_body) { "" }
     let(:request_method) { :get }
 
