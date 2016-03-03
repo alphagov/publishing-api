@@ -1,21 +1,22 @@
 module Commands
   class BaseCommand
     def self.call(payload, downstream: true)
-      EventLogger.log_command(self, payload) do
-        new(payload, downstream: downstream).call
+      EventLogger.log_command(self, payload) do |event|
+        new(payload, event: event, downstream: downstream).call
       end
     rescue ActiveRecord::RecordInvalid => e
       raise_validation_command_error(e)
     end
 
-    def initialize(payload, downstream: true)
+    def initialize(payload, event:, downstream: true)
       @payload = payload
+      @event = event
       @downstream = downstream
     end
 
   private
 
-    attr_reader :payload, :downstream
+    attr_reader :payload, :event, :downstream
 
     def self.raise_validation_command_error(e)
       errors = e.record.errors
