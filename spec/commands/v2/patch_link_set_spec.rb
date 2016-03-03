@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::PatchLinkSet do
+  let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
   let(:content_id) { SecureRandom.uuid }
   let(:topics) { 3.times.map { SecureRandom.uuid } }
   let(:parent) { [SecureRandom.uuid] }
@@ -17,6 +18,9 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
+
+    allow(Presenters::ContentStorePresenter).to receive(:present)
+      .and_return(expected_content_store_payload)
   end
 
   context "when no link set exists" do
@@ -197,24 +201,18 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends a request to the draft content store" do
-      expect(ContentStoreWorker).to receive(:perform_in)
+      expect(PresentedContentStoreWorker).to receive(:perform_async)
         .with(
-          1.second,
           content_store: Adapters::DraftContentStore,
-          content_item_id: draft_content_item.id,
+          payload: expected_content_store_payload,
         )
 
       described_class.call(payload)
     end
 
-    it "increments the ContentStorePayloadVersion" do
-      create(
-        :content_store_payload_version,
-        content_item_id: draft_content_item.id,
-      )
-      expect(ContentStorePayloadVersion)
-        .to receive(:increment)
-        .with(draft_content_item.id)
+    it "presents the draft content item for the downstream request" do
+      expect(Presenters::ContentStorePresenter).to receive(:present)
+        .with(draft_content_item, instance_of(Event))
 
       described_class.call(payload)
     end
@@ -236,25 +234,14 @@ RSpec.describe Commands::V2::PatchLinkSet do
         end
 
         it "sends the draft content item for that locale downstream" do
-          expect(ContentStoreWorker).to receive(:perform_in)
+          expect(Presenters::ContentStorePresenter).to receive(:present)
+            .with(draft_content_item, instance_of(Event))
+
+          expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
-              1.second,
               content_store: Adapters::DraftContentStore,
-              content_item_id: draft_content_item.id,
+              payload: expected_content_store_payload,
             )
-
-          described_class.call(payload)
-        end
-
-        it "increments the ContentStorePayloadVersion" do
-          create(
-            :content_store_payload_version,
-            content_item_id: draft_content_item.id,
-          )
-
-          expect(ContentStorePayloadVersion)
-            .to receive(:increment)
-            .with(draft_content_item.id)
 
           described_class.call(payload)
         end
@@ -262,7 +249,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       context "and a draft content item does not exist for that locale" do
         it "does not send a downstream request" do
-          expect(ContentStoreWorker).not_to receive(:perform_in)
+          expect(PresentedContentStoreWorker).not_to receive(:perform_async)
           expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
           described_class.call(payload)
@@ -272,7 +259,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     context "when 'downstream' is false" do
       it "does not send a request to either content store" do
-        expect(ContentStoreWorker).not_to receive(:perform_in)
+        expect(PresentedContentStoreWorker).not_to receive(:perform_async)
         described_class.call(payload, downstream: false)
       end
 
@@ -294,25 +281,18 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends a request to the live content store" do
-      expect(ContentStoreWorker).to receive(:perform_in)
+      expect(PresentedContentStoreWorker).to receive(:perform_async)
         .with(
-          1.second,
           content_store: Adapters::ContentStore,
-          content_item_id: live_content_item.id,
+          payload: expected_content_store_payload,
         )
 
       described_class.call(payload)
     end
 
-    it "increments the ContentStorePayloadVersion" do
-      create(
-        :content_store_payload_version,
-        content_item_id: live_content_item.id,
-      )
-
-      expect(ContentStorePayloadVersion)
-        .to receive(:increment)
-        .with(live_content_item.id)
+    it "presents the live content item for the downstream request" do
+      expect(Presenters::ContentStorePresenter).to receive(:present)
+        .with(live_content_item, instance_of(Event))
 
       described_class.call(payload)
     end
@@ -347,11 +327,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
         end
 
         it "sends the live content item for that locale downstream" do
-          expect(ContentStoreWorker).to receive(:perform_in)
+          expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
-              1.second,
               content_store: Adapters::ContentStore,
-              content_item_id: live_content_item.id,
+              payload: expected_content_store_payload,
             )
 
           expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
@@ -359,23 +338,11 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
           described_class.call(payload)
         end
-
-        it "increments the ContentStorePayloadVersion" do
-          create(
-            :content_store_payload_version,
-            content_item_id: live_content_item.id,
-          )
-          expect(ContentStorePayloadVersion)
-            .to receive(:increment)
-            .with(live_content_item.id)
-
-          described_class.call(payload)
-        end
       end
 
       context "and a live content item does not exist for that locale" do
         it "does not send a downstream request" do
-          expect(ContentStoreWorker).not_to receive(:perform_in)
+          expect(PresentedContentStoreWorker).not_to receive(:perform_async)
           expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
           described_class.call(payload)
@@ -386,7 +353,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     context "when 'downstream' is false" do
       it "does not send a request to either content store" do
-        expect(ContentStoreWorker).not_to receive(:perform_in)
+        expect(ContentStoreWorker).not_to receive(:perform_async)
         described_class.call(payload, downstream: false)
       end
 

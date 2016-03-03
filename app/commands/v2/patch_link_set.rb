@@ -91,17 +91,16 @@ module Commands
       end
 
       def send_to_content_store(content_item, content_store)
-        ContentStorePayloadVersion.increment(content_item.id)
-        ContentStoreWorker.perform_in(
-          1.second,
+        PresentedContentStoreWorker.perform_async(
           content_store: content_store,
-          content_item_id: content_item.id,
+          payload: Presenters::ContentStorePresenter.present(content_item, event),
         )
       end
 
       def send_to_message_queue(content_item)
         payload = Presenters::MessageQueuePresenter.present(
           content_item,
+          event,
           update_type: "links",
         )
 

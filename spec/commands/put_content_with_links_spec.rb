@@ -27,17 +27,11 @@ RSpec.describe Commands::PutContentWithLinks do
   context "when a content_id is not provided" do
     before do
       payload[:content_id] = nil
-      create(:v1_content_store_payload_version)
     end
 
     it "responds successfully" do
       result = described_class.call(payload)
       expect(result).to be_a(Commands::Success)
-    end
-
-    it "increments the ContentStorePayloadVersion" do
-      expect(ContentStorePayloadVersion::V1).to receive(:increment)
-      described_class.call(payload)
     end
   end
 
@@ -91,7 +85,7 @@ RSpec.describe Commands::PutContentWithLinks do
 
   context "when the downstream flag is set to false" do
     it "does not send any downstream requests" do
-      expect(ContentStoreWorker).not_to receive(:perform_in)
+      expect(ContentStoreWorker).not_to receive(:perform_async)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       described_class.call(payload, downstream: false)

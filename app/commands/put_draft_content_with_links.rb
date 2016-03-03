@@ -10,8 +10,11 @@ module Commands
         PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
         if downstream
-          ContentStorePayloadVersion::V1.increment
-          content_store_payload = Presenters::DownstreamPresenter::V1.present(payload, update_type: false)
+          content_store_payload = Presenters::DownstreamPresenter::V1.present(
+            payload,
+            event,
+            update_type: false
+          )
           Adapters::DraftContentStore.put_content_item(base_path, content_store_payload)
         end
       end

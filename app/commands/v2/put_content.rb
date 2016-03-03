@@ -167,11 +167,9 @@ module Commands
       def send_downstream(content_item)
         return unless downstream
 
-        ContentStorePayloadVersion.increment(content_item.id)
-        ContentStoreWorker.perform_in(
-          1.second,
+        PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
-          content_item_id: content_item.id,
+          payload: Presenters::ContentStorePresenter.present(content_item, event),
         )
       end
 

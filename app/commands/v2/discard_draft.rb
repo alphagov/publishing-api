@@ -36,8 +36,7 @@ module Commands
       end
 
       def delete_draft_from_draft_content_store(draft_path)
-        ContentStoreWorker.perform_in(
-          1.second,
+        PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
           base_path: draft_path,
           delete: true,
@@ -45,11 +44,9 @@ module Commands
       end
 
       def send_live_to_draft_content_store(live)
-        ContentStorePayloadVersion.increment(live.id)
-        ContentStoreWorker.perform_in(
-          1.second,
+        PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
-          content_item_id: live.id,
+          payload: Presenters::ContentStorePresenter.present(live, event),
         )
       end
 

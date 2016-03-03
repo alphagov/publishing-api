@@ -5,13 +5,13 @@ module EventLogger
       response = nil
 
       Event.connection.transaction do
-        Event.create!(
+        event = Event.create!(
           action: action(command_class),
           payload: payload,
           user_uid: GdsApi::GovukHeaders.headers[:x_govuk_authenticated_user]
         )
 
-        response = yield if block_given?
+        response = yield(event) if block_given?
       end
 
       response

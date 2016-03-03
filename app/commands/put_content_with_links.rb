@@ -13,9 +13,9 @@ module Commands
         PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
         if downstream
-          ContentStorePayloadVersion::V1.increment
           content_store_payload = Presenters::DownstreamPresenter::V1.present(
             payload.except(:access_limited),
+            event,
             update_type: false
           )
 
@@ -24,6 +24,7 @@ module Commands
 
           message_bus_payload = Presenters::DownstreamPresenter::V1.present(
             payload.except(:access_limited),
+            event,
           )
           PublishingAPI.service(:queue_publisher).send_message(message_bus_payload)
         end

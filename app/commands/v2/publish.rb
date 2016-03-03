@@ -121,14 +121,20 @@ module Commands
       def send_downstream(content_item, update_type)
         return unless downstream
 
-        ContentStorePayloadVersion.increment(content_item.id)
-        ContentStoreWorker.perform_in(
-          1.second,
+        PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
-          content_item_id: content_item.id,
+          payload: Presenters::ContentStorePresenter.present(
+            content_item,
+            event
+          ),
         )
 
-        queue_payload = Presenters::MessageQueuePresenter.present(content_item, update_type: update_type)
+        queue_payload = Presenters::MessageQueuePresenter.present(
+          content_item,
+          event,
+          update_type: update_type
+        )
+
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)
       end
 

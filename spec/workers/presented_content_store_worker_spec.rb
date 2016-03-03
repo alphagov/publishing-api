@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe DeprecatedContentStoreWorker do
+RSpec.describe PresentedContentStoreWorker do
   before do
     stub_request(:put, "http://content-store.dev.gov.uk/content/foo").
       to_return(status: status, body: {}.to_json)
@@ -9,8 +9,7 @@ RSpec.describe DeprecatedContentStoreWorker do
   def do_request
     subject.perform(
       content_store: "Adapters::ContentStore",
-      base_path: "/foo",
-      payload: { some: "payload" }
+      payload: { some: "payload", base_path: "/foo" }
     )
   end
 

@@ -1,13 +1,14 @@
 module Presenters
   class DownstreamPresenter
-    def self.present(content_item)
+    def self.present(content_item, event)
       link_set = LinkSet.find_by(content_id: content_item.content_id)
-      new(content_item, link_set).present
+      new(content_item, link_set, event).present
     end
 
-    def initialize(content_item, link_set)
+    def initialize(content_item, link_set, event)
       self.content_item = content_item
       self.link_set = link_set
+      self.event = event
     end
 
     def present
@@ -23,7 +24,7 @@ module Presenters
 
   private
 
-    attr_accessor :content_item, :link_set
+    attr_accessor :content_item, :link_set, :event
 
     def symbolized_attributes
       content_item.as_json.symbolize_keys
@@ -82,13 +83,13 @@ module Presenters
     end
 
     def content_store_payload_version
-      { payload_version: ContentStorePayloadVersion.current_for(content_item.id) }
+      { payload_version: event.id }
     end
 
     class V1
-      def self.present(attributes, update_type: true, payload_version: true)
+      def self.present(attributes, event, update_type: true, payload_version: true)
         attributes = attributes.except(:update_type) unless update_type
-        attributes.merge!(payload_version: ContentStorePayloadVersion::V1.current) if payload_version
+        attributes.merge!(payload_version: event.id) if payload_version
         attributes
       end
     end

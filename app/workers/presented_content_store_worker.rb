@@ -1,4 +1,4 @@
-class DeprecatedContentStoreWorker
+class PresentedContentStoreWorker
   include Sidekiq::Worker
 
   sidekiq_options queue: :default
@@ -7,12 +7,13 @@ class DeprecatedContentStoreWorker
     args = args.deep_symbolize_keys
 
     content_store = args.fetch(:content_store).constantize
-    base_path = args.fetch(:base_path)
 
     if args[:delete]
+      base_path = args.fetch(:base_path)
       content_store.delete_content_item(base_path)
     else
       payload = args.fetch(:payload)
+      base_path = payload.fetch(:base_path)
       content_store.put_content_item(base_path, payload)
     end
 
