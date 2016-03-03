@@ -7,9 +7,15 @@ RSpec.describe Commands::V2::DiscardDraft do
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
 
+    let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
     let(:content_id) { SecureRandom.uuid }
     let(:base_path) { "/vat-rates" }
     let(:payload) { { content_id: content_id } }
+
+    before do
+      allow(Presenters::ContentStorePresenter).to receive(:present)
+        .and_return(expected_content_store_payload)
+    end
 
     context "when a draft content item exists for the given content_id" do
       let!(:existing_draft_item) {
@@ -47,9 +53,8 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       it "deletes the draft item from the draft content store" do
-        expect(ContentStoreWorker).to receive(:perform_in)
+        expect(PresentedContentStoreWorker).to receive(:perform_async)
           .with(
-            1.second,
             content_store: Adapters::DraftContentStore,
             base_path: base_path,
             delete: true,
@@ -59,8 +64,8 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       it "does not send any request to the live content store" do
-        expect(ContentStoreWorker).not_to receive(:perform_in)
-          .with(hash_including(1.second, content_store: Adapters::ContentStore))
+        expect(PresentedContentStoreWorker).not_to receive(:perform_async)
+          .with(hash_including(content_store: Adapters::ContentStore))
 
         described_class.call(payload)
       end
@@ -72,7 +77,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "when the 'downstream' parameter is false" do
         it "does not send any requests to any content store" do
-          expect(ContentStoreWorker).not_to receive(:perform_in)
+          expect(ContentStoreWorker).not_to receive(:perform_async)
           described_class.call(payload, downstream: false)
         end
       end
@@ -108,11 +113,10 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "deletes the draft content item from the draft content store" do
-          allow(ContentStoreWorker).to receive(:perform_in)
+          allow(PresentedContentStoreWorker).to receive(:perform_async)
 
-          expect(ContentStoreWorker).to receive(:perform_in)
+          expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
-              1.second,
               content_store: Adapters::DraftContentStore,
               base_path: base_path,
               delete: true,
@@ -122,13 +126,13 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "sends the published content item to the draft content store" do
-          allow(ContentStoreWorker).to receive(:perform_in)
+          expect(Presenters::ContentStorePresenter).to receive(:present).with(published_item)
 
-          expect(ContentStoreWorker).to receive(:perform_in)
+          allow(PresentedContentStoreWorker).to receive(:perform_async)
+          expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
-              1.second,
               content_store: Adapters::DraftContentStore,
-              content_item_id: published_item.id,
+              payload: expected_content_store_payload,
             )
 
           described_class.call(payload)
