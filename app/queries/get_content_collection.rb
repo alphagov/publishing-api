@@ -51,7 +51,7 @@ module Queries
     end
 
     def permitted_fields
-      ContentItem.column_names + %w(base_path locale publication_state)
+      ContentItem.column_names + %w(base_path locale publication_state internal_name)
     end
 
     def select_output_fields_only(presenter)

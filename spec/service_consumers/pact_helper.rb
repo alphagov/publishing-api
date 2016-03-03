@@ -218,21 +218,22 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "there is content with format 'topic'" do
     set_up do
-      content_item = FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(:draft_content_item,
         title: 'Content Item A',
+        content_id: 'aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa',
         base_path: '/a-base-path',
         format: 'topic',
+        details: {
+          internal_name: "an internal name",
+        },
       )
-      FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
-      content_item = FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(:live_content_item,
         title: 'Content Item B',
+        content_id: 'bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb',
         base_path: '/another-base-path',
         format: 'topic',
       )
-      FactoryGirl.create(:lock_version, target: content_item, number: 1)
     end
   end
 
