@@ -112,6 +112,7 @@ RSpec.describe V2::ContentItemsController do
       before do
         get :index, content_format: "topic", fields: ["content_id"], start: "0", page_size: "20"
       end
+
       it "is successful" do
         expect(response.status).to eq(200)
       end
