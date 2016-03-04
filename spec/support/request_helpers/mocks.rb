@@ -17,6 +17,8 @@ module RequestHelpers
         title: "VAT rates",
         description: "VAT rates for goods and services",
         format: "guide",
+        document_type: "guide",
+        schema_name: "guide",
         need_ids: %w(100123 100124),
         public_updated_at: "2014-05-14T13:00:06Z",
         publishing_app: "publisher",

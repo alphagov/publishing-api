@@ -4,7 +4,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
   let!(:policy_1) {
     FactoryGirl.create(:content_item,
       state: "draft",
-      format: "policy",
+      document_type: "policy",
       title: "Policy 1",
       base_path: "/cat-rates",
       details: {
@@ -16,13 +16,13 @@ RSpec.describe "GET /v2/linkables", type: :request do
   let!(:policy_2) {
     FactoryGirl.create(:content_item,
       state: "published",
-      format: "policy",
+      document_type: "policy",
       title: "Policy 2",
     )
   }
 
   it "returns the title, content ID, state, internal name and base path for all content items of a given format" do
-    get "/v2/linkables", format: "policy"
+    get "/v2/linkables", document_type: "policy"
 
     expect(JSON.parse(response.body, symbolize_names: true)).to match_array([
       {

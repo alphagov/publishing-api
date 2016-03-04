@@ -19,7 +19,7 @@ RSpec.describe Queries::GetContentCollection do
     )
 
     expect(Queries::GetContentCollection.new(
-      content_format: 'topic',
+      document_type: 'topic',
       fields: %w(base_path locale publication_state),
     ).call).to match_array([
       { "base_path" => "/a", "publication_state" => "draft", "locale" => "en" },
@@ -40,7 +40,7 @@ RSpec.describe Queries::GetContentCollection do
     )
 
     expect(Queries::GetContentCollection.new(
-      content_format: 'topic',
+      document_type: 'topic',
       fields: %w(base_path publication_state),
     ).call).to match_array([
       { "base_path" => "/a", "publication_state" => "draft" },
@@ -61,7 +61,7 @@ RSpec.describe Queries::GetContentCollection do
     )
 
     expect(Queries::GetContentCollection.new(
-      content_format: 'topic',
+      document_type: 'topic',
       fields: %w(base_path publication_state),
     ).call).to eq([
       { "base_path" => "/draft", "publication_state" => "draft" },
@@ -72,7 +72,7 @@ RSpec.describe Queries::GetContentCollection do
   context "when there's no items for the format" do
     it "returns an empty array" do
       expect(Queries::GetContentCollection.new(
-        content_format: 'topic',
+        document_type: 'topic',
         fields: ['base_path'],
       ).call).to eq([])
     end
@@ -82,7 +82,7 @@ RSpec.describe Queries::GetContentCollection do
     it "raises an error" do
       expect {
         Queries::GetContentCollection.new(
-          content_format: 'topic',
+          document_type: 'topic',
           fields: ['not_existing'],
         ).call
       }.to raise_error(CommandError)
@@ -113,7 +113,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns items corresponding to the publishing_app parameter if present" do
       expect(Queries::GetContentCollection.new(
-        content_format: 'topic',
+        document_type: 'topic',
         fields: %w(publishing_app publication_state),
         publishing_app: 'publisher'
       ).call).to match_array([
@@ -124,7 +124,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns items for all apps if publishing_app is not present" do
       expect(Queries::GetContentCollection.new(
-        content_format: 'topic',
+        document_type: 'topic',
         fields: %w(publishing_app publication_state)
       ).call).to match_array([
         { "publishing_app" => "publisher", "publication_state" => "draft" },
@@ -144,7 +144,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns the content items filtered by 'en' locale by default" do
       expect(Queries::GetContentCollection.new(
-        content_format: 'topic',
+        document_type: 'topic',
         fields: %w(base_path publication_state),
       ).call).to match_array([
         { "base_path" => "/content.en", "publication_state" => "draft" },
@@ -154,7 +154,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns the content items filtered by locale parameter" do
       expect(Queries::GetContentCollection.new(
-        content_format: 'topic',
+        document_type: 'topic',
         fields: %w(base_path publication_state),
         locale: 'ar',
       ).call).to match_array([
@@ -165,7 +165,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns all content items if the locale parameter is 'all'" do
       expect(Queries::GetContentCollection.new(
-        content_format: 'topic',
+        document_type: 'topic',
         fields: %w(base_path publication_state),
         locale: 'all',
       ).call).to match_array([
@@ -182,7 +182,7 @@ RSpec.describe Queries::GetContentCollection do
       create(:draft_content_item, base_path: '/z', details: { foo: :bar }, format: 'topic', publishing_app: 'publisher')
       create(:draft_content_item, base_path: '/b', details: { baz: :bat }, format: 'placeholder_topic', publishing_app: 'publisher')
       expect(Queries::GetContentCollection.new(
-        content_format: 'topic',
+        document_type: 'topic',
         fields: %w(details publication_state),
         publishing_app: 'publisher'
       ).call).to match_array([

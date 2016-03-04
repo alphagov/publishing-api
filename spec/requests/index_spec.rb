@@ -18,7 +18,7 @@ RSpec.describe "GET /v2/content", type: :request do
     )
   }
 
-  it "accepts either 'content_format' or 'format'" do
+  it "accepts either 'content_format' or 'document_type'" do
     expected_result = [
       {
         title: "Policy 1",
@@ -28,7 +28,7 @@ RSpec.describe "GET /v2/content", type: :request do
       },
     ]
 
-    get "/v2/content", format: "policy", fields: ["title"]
+    get "/v2/content", document_type: "policy", fields: ["title"]
     expect(JSON.parse(response.body, symbolize_names: true)).to match_array(expected_result)
 
     get "/v2/content", content_format: "policy", fields: ["title"]

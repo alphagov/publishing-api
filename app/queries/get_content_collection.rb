@@ -1,9 +1,9 @@
 module Queries
   class GetContentCollection
-    attr_reader :content_format, :fields, :publishing_app, :locale
+    attr_reader :document_type, :fields, :publishing_app, :locale
 
-    def initialize(content_format:, fields:, publishing_app: nil, locale: nil)
-      self.content_format = content_format
+    def initialize(document_type:, fields:, publishing_app: nil, locale: nil)
+      self.document_type = document_type
       self.fields = fields
       self.publishing_app = publishing_app
       self.locale = locale || "en"
@@ -12,7 +12,7 @@ module Queries
     def call
       validate_fields!
 
-      content_items = ContentItem.where(format: lookup_formats)
+      content_items = ContentItem.where(document_type: lookup_document_types)
 
       if publishing_app
         content_items = content_items.where(publishing_app: publishing_app)
@@ -28,10 +28,10 @@ module Queries
 
   private
 
-    attr_writer :content_format, :fields, :publishing_app, :locale
+    attr_writer :document_type, :fields, :publishing_app, :locale
 
-    def lookup_formats
-      [content_format, "placeholder_#{content_format}"]
+    def lookup_document_types
+      [document_type, "placeholder_#{document_type}"]
     end
 
     def filter_fields(hash)

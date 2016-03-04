@@ -47,7 +47,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without providing a locale parameter" do
       before do
-        get :index, content_format: "topic", fields: %w(locale content_id base_path publication_state)
+        get :index, document_type: "topic", fields: %w(locale content_id base_path publication_state)
       end
 
       it "is successful" do
@@ -68,7 +68,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a specific locale parameter" do
       before do
-        get :index, content_format: "topic", fields: %w(locale content_id base_path publication_state), locale: "ar"
+        get :index, document_type: "topic", fields: %w(locale content_id base_path publication_state), locale: "ar"
       end
 
       it "is successful" do
@@ -89,7 +89,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a locale parameter set to 'all'" do
       before do
-        get :index, content_format: "topic", fields: %w(locale content_id base_path publication_state), locale: "all"
+        get :index, document_type: "topic", fields: %w(locale content_id base_path publication_state), locale: "all"
       end
 
       it "is successful" do
@@ -231,7 +231,7 @@ RSpec.describe V2::ContentItemsController do
 
     it "displays items filtered by the user's app_name" do
       request.env['warden'].user.app_name = 'whitehall'
-      get :index, content_format: 'guide', fields: %w(base_path publishing_app)
+      get :index, document_type: 'guide', fields: %w(base_path publishing_app)
       items = JSON.parse(response.body)
       expect(items.length).to eq(2)
       expect(items.all? { |i| i["publishing_app"] == 'whitehall' }).to be true
@@ -239,7 +239,7 @@ RSpec.describe V2::ContentItemsController do
 
     it "displays all items if user has 'view_all' permission" do
       request.env['warden'].user.permissions << 'view_all'
-      get :index, content_format: 'guide', fields: %w(base_path publishing_app)
+      get :index, document_type: 'guide', fields: %w(base_path publishing_app)
       items = JSON.parse(response.body)
       expect(items.length).to eq(4)
       expect(items.map { |i| i["publishing_app"] }.uniq).to match_array(%w(whitehall specialist_publisher publisher))
