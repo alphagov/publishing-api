@@ -8,7 +8,7 @@ RSpec.describe "DELETE endpoint pact with the Content Store", pact: true do
   context "when the content item exists in the content store" do
     before do
       content_store
-        .given("a content item exists with base path /vat-rates")
+        .given("a content item exists with base_path /vat-rates")
         .upon_receiving("a request to delete the content item")
         .with(
           method: :delete,
@@ -28,7 +28,7 @@ RSpec.describe "DELETE endpoint pact with the Content Store", pact: true do
   context "when the content item does not exist in the content store" do
     before do
       content_store
-        .given("no content item exists with base path /vat-rates")
+        .given("no content item exists with base_path /vat-rates")
         .upon_receiving("a request to delete the content item")
         .with(
           method: :delete,
