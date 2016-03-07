@@ -36,5 +36,7 @@ module PublishingAPI
       :lv, :ms, :pl, :ps, :pt, :ro, :ru, :si, :sk, :so, :sq, :sr, :sw, :ta, :th,
       :tk, :tr, :uk, :ur, :uz, :vi, :zh, :'zh-hk', :'zh-tw'
     ]
+
+    config.log_tags = [lambda { |r| r.uuid }]
   end
 end

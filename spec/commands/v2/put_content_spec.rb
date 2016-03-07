@@ -36,6 +36,7 @@ RSpec.describe Commands::V2::PutContent do
         .with(
           content_store: Adapters::DraftContentStore,
           payload: expected_content_store_payload,
+          request_uuid: "12345-67890",
         )
 
       described_class.call(payload)
@@ -59,7 +60,6 @@ RSpec.describe Commands::V2::PutContent do
     context "when the 'downstream' parameter is false" do
       it "does not send any requests to any content store" do
         expect(PresentedContentStoreWorker).not_to receive(:perform_async)
-        described_class.call(payload, downstream: false)
       end
     end
 
@@ -293,6 +293,7 @@ RSpec.describe Commands::V2::PutContent do
             .with(
               content_store: Adapters::DraftContentStore,
               payload: expected_content_store_payload,
+              request_uuid: "12345-67890",
             ).twice
 
           described_class.call(payload)

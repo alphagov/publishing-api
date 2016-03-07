@@ -1,6 +1,8 @@
 module Commands
   class BaseCommand
     def self.call(payload, downstream: true)
+      logger.debug "#{self} called with payload:\n#{payload}"
+
       EventLogger.log_command(self, payload) do |event|
         new(payload, event: event, downstream: downstream).call
       end

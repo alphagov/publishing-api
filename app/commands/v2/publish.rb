@@ -127,6 +127,7 @@ module Commands
             content_item,
             event
           ),
+          request_uuid: GdsApi::GovukHeaders.headers[:x_govuk_request_uuid]
         )
 
         queue_payload = Presenters::MessageQueuePresenter.present(

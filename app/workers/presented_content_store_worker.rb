@@ -6,6 +6,8 @@ class PresentedContentStoreWorker
   def perform(args = {})
     args = args.deep_symbolize_keys
 
+    logger.debug "[#{args[:request_uuid]}] ContentStoreWorker#perform with #{args}"
+
     content_store = args.fetch(:content_store).constantize
 
     if args[:delete]

@@ -21,6 +21,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     allow(Presenters::ContentStorePresenter).to receive(:present)
       .and_return(expected_content_store_payload)
+    GdsApi::GovukHeaders.set_header(:x_govuk_request_uuid, "12345-67890")
   end
 
   context "when no link set exists" do
@@ -205,6 +206,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           content_store: Adapters::DraftContentStore,
           payload: expected_content_store_payload,
+          request_uuid: "12345-67890",
         )
 
       described_class.call(payload)
@@ -241,6 +243,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
             .with(
               content_store: Adapters::DraftContentStore,
               payload: expected_content_store_payload,
+              request_uuid: "12345-67890",
             )
 
           described_class.call(payload)
@@ -285,6 +288,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           content_store: Adapters::ContentStore,
           payload: expected_content_store_payload,
+          request_uuid: "12345-67890",
         )
 
       described_class.call(payload)
@@ -331,6 +335,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
             .with(
               content_store: Adapters::ContentStore,
               payload: expected_content_store_payload,
+              request_uuid: "12345-67890",
             )
 
           expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
