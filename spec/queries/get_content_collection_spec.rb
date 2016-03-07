@@ -274,46 +274,5 @@ RSpec.describe Queries::GetContentCollection do
       expect(content_items.first['public_updated_at']).to eq('2014-06-14 00:00:00')
       expect(content_items.last['public_updated_at']).to eq('2014-06-13 00:00:00')
     end
-
-    it "returns content items in the specified order" do
-      content_items = Queries::GetContentCollection.new(
-        document_type: 'guide',
-        fields: %w(public_updated_at),
-        pagination: Pagination.new(order: { title: :asc })
-      ).call
-
-      expect(content_items.size).to eq(4)
-      expect(content_items.first['title']).to eq('A')
-      expect(content_items.last['title']).to eq('D')
-    end
-
-    it "returns paginated content items in the specified order" do
-      content_items = Queries::GetContentCollection.new(
-        document_type: 'guide',
-        fields: %w(public_updated_at),
-        pagination: Pagination.new(
-          start: 2,
-          page_size: 4,
-          order: { title: :asc }
-        ),
-      ).call
-
-      expect(content_items.first['title']).to eq('C')
-      expect(content_items.last['title']).to eq('D')
-    end
-
-    it "does not order by supporting objects" do
-      expect {
-        Queries::GetContentCollection.new(
-          document_type: 'guide',
-          fields: %w(public_updated_at),
-          pagination: Pagination.new(
-            start: 2,
-            page_size: 4,
-            order: { "states.name": :asc }
-          ),
-        ).call
-      }.to raise_error(CommandError, /Invalid column name/)
-    end
   end
 end

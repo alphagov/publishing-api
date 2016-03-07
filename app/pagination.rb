@@ -2,7 +2,7 @@ class Pagination
   attr_reader :start, :page_size, :all_items, :order
 
   def initialize(options = {})
-    @order = options[:order] || { public_updated_at: :desc }
+    @order = { public_updated_at: :desc }
 
     if options[:start] || options[:page_size]
       @start = Integer(options.fetch(:start, 0))

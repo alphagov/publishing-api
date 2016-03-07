@@ -46,19 +46,11 @@ RSpec.describe Pagination do
       end
     end
 
-    context "without order param" do
+    context "default order param" do
       subject { described_class.new }
 
       it "uses the default order" do
         expect(subject.order).to eq(public_updated_at: :desc)
-      end
-    end
-
-    context "with order param" do
-      subject { described_class.new(order: { title: :asc }) }
-
-      it "uses the order params supplied" do
-        expect(subject.order).to eq(title: :asc)
       end
     end
   end
