@@ -8,6 +8,7 @@ module V2
         fields: query_params.fetch(:fields),
         publishing_app: publishing_app,
         locale: query_params[:locale],
+        pagination: Pagination.new(query_params)
       ).call
     end
 
@@ -22,7 +23,7 @@ module V2
           publication_state
           base_path
           internal_name
-        ),
+        )
       ).call
     end
 

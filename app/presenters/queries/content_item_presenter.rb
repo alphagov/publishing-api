@@ -1,6 +1,8 @@
 module Presenters
   module Queries
     class ContentItemPresenter
+      attr_accessor :order
+
       def self.present(content_item)
         translation = Translation.find_by!(content_item: content_item)
 
@@ -10,8 +12,10 @@ module Presenters
         present_many(content_items).first
       end
 
-      def self.present_many(content_item_scope, fields: nil)
-        new(content_item_scope, fields).present
+      def self.present_many(content_item_scope, fields: nil, order: { public_updated_at: :desc })
+        presenter = new(content_item_scope, fields)
+        presenter.order = order
+        presenter.present
       end
 
       def initialize(content_item_scope, fields = nil)
@@ -21,7 +25,7 @@ module Presenters
 
       def present
         scope = join_supporting_objects(content_item_scope)
-        scope = select_fields(scope)
+        scope = select_fields(scope).order(order)
 
         items = ActiveRecord::Base.connection.execute(scope.to_sql)
         groups = items.group_by { |i| [i.fetch("content_id"), i.fetch("locale")] }
@@ -67,6 +71,7 @@ module Presenters
       end
 
       def select_fields(scope)
+        ordering_fields = order.keys.map(&:to_s)
         scope.select(
           *ContentItem::TOP_LEVEL_FIELDS,
           "content_id",
@@ -74,6 +79,7 @@ module Presenters
           "lock_versions.number as lock_version",
           "translations.locale",
           "locations.base_path",
+          *ordering_fields,
         )
       end
 

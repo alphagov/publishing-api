@@ -1,12 +1,13 @@
 module Queries
   class GetContentCollection
-    attr_reader :document_type, :fields, :publishing_app, :locale
+    attr_reader :document_type, :fields, :publishing_app, :locale, :pagination
 
-    def initialize(document_type:, fields:, publishing_app: nil, locale: nil)
+    def initialize(document_type:, fields:, publishing_app: nil, locale: nil, pagination: Pagination.new)
       self.document_type = document_type
-      self.fields = fields
+      self.fields = fields_with_ordering(fields, pagination)
       self.publishing_app = publishing_app
       self.locale = locale || "en"
+      self.pagination = pagination
     end
 
     def call
@@ -22,13 +23,15 @@ module Queries
         content_items = Translation.filter(content_items, locale: locale)
       end
 
-      presented = presenter.present_many(content_items, fields: fields)
+      content_items = pagination.paginate(content_items)
+      presented = presenter.present_many(content_items, fields: fields, order: pagination.order)
+
       presented.map { |p| filter_fields(p).as_json }
     end
 
   private
 
-    attr_writer :document_type, :fields, :publishing_app, :locale
+    attr_writer :document_type, :fields, :publishing_app, :locale, :pagination
 
     def lookup_document_types
       [document_type, "placeholder_#{document_type}"]
@@ -48,6 +51,12 @@ module Queries
           message: "Invalid column name(s): #{invalid_fields.to_sentence}"
         }
       })
+    end
+
+    def fields_with_ordering(fields, pagination)
+      combined_fields = pagination.order_fields
+      combined_fields = combined_fields + fields if fields
+      combined_fields
     end
 
     def permitted_fields

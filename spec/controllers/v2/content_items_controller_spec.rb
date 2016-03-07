@@ -107,6 +107,46 @@ RSpec.describe V2::ContentItemsController do
         expect(publication_states). to eq %w(live live)
       end
     end
+
+    context "with pagination params" do
+      before do
+        get :index, content_format: "topic", fields: ["content_id"], start: "0", page_size: "20"
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+      it "responds with the content item as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+      end
+    end
+
+    context "without pagination params" do
+      before do
+        get :index, content_format: 'topic', fields: ['content_id']
+      end
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+      it "responds with the content item as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+      end
+    end
+
+    context "with all_items param" do
+      before do
+        get :index, content_format: "topic", fields: ["content_id"], all_items: "true"
+      end
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+      it "responds with the content item as json" do
+        parsed_response_body = JSON.parse(response.body)
+        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+      end
+    end
   end
 
   describe "show" do

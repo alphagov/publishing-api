@@ -20,12 +20,8 @@ RSpec.describe "GET /v2/content", type: :request do
 
   it "accepts either 'content_format' or 'document_type'" do
     expected_result = [
-      {
-        title: "Policy 1",
-      },
-      {
-        title: "Policy 2",
-      },
+      hash_including(title: "Policy 1"),
+      hash_including(title: "Policy 2"),
     ]
 
     get "/v2/content", document_type: "policy", fields: ["title"]
