@@ -85,9 +85,14 @@ module Commands
         end
 
         if live_content_item
+          set_last_published_at(live_content_item)
           send_to_content_store(live_content_item, Adapters::ContentStore)
           send_to_message_queue(live_content_item)
         end
+      end
+
+      def set_last_published_at(content_item)
+        content_item.update_attributes!(last_published_at: Time.zone.now)
       end
 
       def send_to_content_store(content_item, content_store)

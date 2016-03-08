@@ -41,6 +41,8 @@ module Commands
 
         clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
 
+        set_last_published_at(content_item)
+
         set_public_updated_at(content_item, previously_published_item, update_type)
         State.publish(content_item)
 
@@ -87,6 +89,10 @@ module Commands
           new_item_content_id: content_item.content_id,
           state: "published", locale: translation.locale, base_path: location.base_path
         )
+      end
+
+      def set_last_published_at(content_item)
+        content_item.update_attributes!(last_published_at: Time.zone.now)
       end
 
       def set_public_updated_at(content_item, previously_published_item, update_type)

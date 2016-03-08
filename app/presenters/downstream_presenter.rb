@@ -15,6 +15,7 @@ module Presenters
       symbolized_attributes
         .slice(*content_item.class::TOP_LEVEL_FIELDS)
         .merge(public_updated_at)
+        .merge(last_published_at)
         .merge(links)
         .merge(access_limited)
         .merge(content_store_payload_version)
@@ -69,6 +70,14 @@ module Presenters
     def public_updated_at
       if content_item.public_updated_at.present?
         { public_updated_at: content_item.public_updated_at.iso8601 }
+      else
+        {}
+      end
+    end
+
+    def last_published_at
+      if content_item.last_published_at.present?
+        { last_published_at: content_item.last_published_at.iso8601 }
       else
         {}
       end
