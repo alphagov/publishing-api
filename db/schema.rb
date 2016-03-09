@@ -11,58 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307112043) do
+ActiveRecord::Schema.define(version: 20160309155913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "access_limits", force: :cascade do |t|
-    t.integer  "target_id"
-    t.string   "target_type"
     t.json     "users",           default: [], null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "content_item_id"
   end
 
-  add_index "access_limits", ["target_type", "target_id"], name: "index_access_limits_on_target", using: :btree
-
   create_table "content_items", force: :cascade do |t|
     t.string   "content_id"
     t.string   "title"
-    t.string   "format"
-    t.datetime "public_updated_at"
-    t.json     "access_limited",        default: {}
-    t.json     "details",               default: {}
-    t.json     "routes",                default: []
-    t.json     "redirects",             default: []
-    t.string   "publishing_app"
-    t.string   "rendering_app"
-    t.json     "need_ids",              default: []
-    t.string   "update_type"
-    t.string   "phase",                 default: "live"
-    t.string   "analytics_identifier"
-    t.json     "description",           default: {"value"=>nil}
-    t.integer  "live_content_item_id"
-    t.integer  "draft_content_item_id"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.string   "document_type"
-    t.string   "schema_name"
-  end
-
-  add_index "content_items", ["content_id"], name: "index_content_items_on_content_id", using: :btree
-  add_index "content_items", ["format"], name: "index_content_items_on_format", using: :btree
-  add_index "content_items", ["public_updated_at"], name: "index_content_items_on_public_updated_at", using: :btree
-  add_index "content_items", ["publishing_app"], name: "index_content_items_on_publishing_app", using: :btree
-  add_index "content_items", ["rendering_app"], name: "index_content_items_on_rendering_app", using: :btree
-
-  create_table "draft_content_items", force: :cascade do |t|
-    t.string   "content_id"
-    t.string   "locale",               default: "en"
-    t.string   "base_path"
-    t.string   "title"
-    t.string   "old_description"
     t.string   "format"
     t.datetime "public_updated_at"
     t.json     "details",              default: {}
@@ -75,11 +38,17 @@ ActiveRecord::Schema.define(version: 20160307112043) do
     t.string   "phase",                default: "live"
     t.string   "analytics_identifier"
     t.json     "description",          default: {"value"=>nil}
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "document_type"
+    t.string   "schema_name"
   end
 
-  add_index "draft_content_items", ["base_path"], name: "index_draft_content_items_on_base_path", unique: true, using: :btree
-  add_index "draft_content_items", ["content_id", "locale"], name: "index_draft_content_items_on_content_id_and_locale", unique: true, using: :btree
-  add_index "draft_content_items", ["format"], name: "index_draft_content_items_on_format", using: :btree
+  add_index "content_items", ["content_id"], name: "index_content_items_on_content_id", using: :btree
+  add_index "content_items", ["format"], name: "index_content_items_on_format", using: :btree
+  add_index "content_items", ["public_updated_at"], name: "index_content_items_on_public_updated_at", using: :btree
+  add_index "content_items", ["publishing_app"], name: "index_content_items_on_publishing_app", using: :btree
+  add_index "content_items", ["rendering_app"], name: "index_content_items_on_rendering_app", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "action",                  null: false
@@ -110,32 +79,6 @@ ActiveRecord::Schema.define(version: 20160307112043) do
   add_index "links", ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id", using: :btree
   add_index "links", ["link_set_id"], name: "index_links_on_link_set_id", using: :btree
   add_index "links", ["link_type"], name: "index_links_on_link_type", using: :btree
-
-  create_table "live_content_items", force: :cascade do |t|
-    t.string   "content_id"
-    t.string   "locale",                default: "en"
-    t.string   "base_path"
-    t.string   "title"
-    t.string   "old_description"
-    t.string   "format"
-    t.datetime "public_updated_at"
-    t.json     "details",               default: {}
-    t.json     "routes",                default: []
-    t.json     "redirects",             default: []
-    t.string   "publishing_app"
-    t.string   "rendering_app"
-    t.integer  "draft_content_item_id"
-    t.json     "need_ids",              default: []
-    t.string   "update_type"
-    t.string   "phase",                 default: "live"
-    t.string   "analytics_identifier"
-    t.json     "description",           default: {"value"=>nil}
-  end
-
-  add_index "live_content_items", ["base_path"], name: "index_live_content_items_on_base_path", unique: true, using: :btree
-  add_index "live_content_items", ["content_id", "locale"], name: "index_live_content_items_on_content_id_and_locale", unique: true, using: :btree
-  add_index "live_content_items", ["draft_content_item_id"], name: "index_live_content_items_on_draft_content_item_id", using: :btree
-  add_index "live_content_items", ["format"], name: "index_live_content_items_on_format", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "content_item_id", null: false
@@ -206,16 +149,6 @@ ActiveRecord::Schema.define(version: 20160307112043) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "versions", force: :cascade do |t|
-    t.integer  "target_id",               null: false
-    t.string   "target_type",             null: false
-    t.integer  "number",      default: 0, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-  end
-
-  add_index "versions", ["target_id"], name: "index_versions_on_target_id", using: :btree
 
   add_foreign_key "links", "link_sets"
 end
