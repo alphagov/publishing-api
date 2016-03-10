@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20160309155913) do
     t.datetime "updated_at",                                    null: false
     t.string   "document_type"
     t.string   "schema_name"
+    t.datetime "last_published_at"
   end
 
   add_index "content_items", ["content_id"], name: "index_content_items_on_content_id", using: :btree

@@ -22,6 +22,10 @@ FactoryGirl.define do
     trait :with_draft_version do
       with_draft
     end
+
+    trait :with_last_published_at do
+      last_published_at "2014-08-14T13:00:07Z"
+    end
   end
 
   factory :redirect_live_content_item, parent: :live_content_item do

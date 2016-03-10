@@ -14,7 +14,7 @@ RSpec.describe "Downstream requests", type: :request do
     let(:request_method) { :put }
 
     sends_to_draft_content_store
-    sends_to_live_content_store
+    sends_to_live_content_store_with_last_published_at
   end
 
   context "/draft-content" do
@@ -104,7 +104,7 @@ RSpec.describe "Downstream requests", type: :request do
       end
 
       does_not_send_to_draft_content_store
-      sends_to_live_content_store
+      sends_to_live_content_store_with_last_published_at
     end
 
     context "when draft and live content items exists for the link set" do
@@ -121,10 +121,16 @@ RSpec.describe "Downstream requests", type: :request do
         FactoryGirl.create(:live_content_item,
           content_id: content_id,
         )
+
+        Timecop.freeze
+      end
+
+      after do
+        Timecop.return
       end
 
       sends_to_draft_content_store
-      sends_to_live_content_store
+      sends_to_live_content_store_with_last_published_at
     end
 
     context "when a content item does not exist for the link set" do
@@ -189,6 +195,6 @@ RSpec.describe "Downstream requests", type: :request do
         )
     }
 
-    sends_to_live_content_store
+    sends_to_live_content_store_with_last_published_at
   end
 end

@@ -5,7 +5,9 @@ RSpec.describe Presenters::DownstreamPresenter do
 
   describe "V2" do
     context "for a live content item" do
-      let!(:content_item) { create(:live_content_item) }
+      let!(:content_item) do
+        create(:live_content_item, :with_last_published_at)
+      end
       let!(:link_set) { create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
@@ -24,6 +26,7 @@ RSpec.describe Presenters::DownstreamPresenter do
           need_ids: %w(100123 100124),
           phase: "beta",
           public_updated_at: "2014-05-14T13:00:06Z",
+          last_published_at: "2014-08-14T13:00:07Z",
           publishing_app: "publisher",
           redirects: [],
           rendering_app: "frontend",

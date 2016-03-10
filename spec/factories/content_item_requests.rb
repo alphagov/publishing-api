@@ -7,6 +7,7 @@ FactoryGirl.define do
     format 'answer'
     need_ids []
     public_updated_at { Time.zone.now.iso8601 }
+    last_published_at { Time.zone.now.iso8601 }
     publishing_app "publisher"
     rendering_app "frontend"
     locale "en"
