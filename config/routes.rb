@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
     put "/paths(/*base_path)", to: "path_reservations#reserve_path"
 
+    post '/lookup-by-base-path', to: 'lookups#by_base_path'
+
     namespace :v2 do
       get "/content", to: "content_items#index"
       put "/content/:content_id", to: "content_items#put_content"
