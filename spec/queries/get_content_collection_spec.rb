@@ -195,12 +195,12 @@ RSpec.describe Queries::GetContentCollection do
   describe "pagination" do
     context "with multiple content items" do
       before do
-        create(:draft_content_item, base_path: '/a', format: 'topic')
-        create(:draft_content_item, base_path: '/b', format: 'topic')
-        create(:draft_content_item, base_path: '/c', format: 'topic')
-        create(:draft_content_item, base_path: '/d', format: 'topic')
-        create(:live_content_item, base_path: '/live1', format: 'topic')
-        create(:live_content_item, base_path: '/live2', format: 'topic')
+        create(:draft_content_item, base_path: '/a', format: 'topic', public_updated_at: "2010-01-06")
+        create(:draft_content_item, base_path: '/b', format: 'topic', public_updated_at: "2010-01-05")
+        create(:draft_content_item, base_path: '/c', format: 'topic', public_updated_at: "2010-01-04")
+        create(:draft_content_item, base_path: '/d', format: 'topic', public_updated_at: "2010-01-03")
+        create(:live_content_item, base_path: '/live1', format: 'topic', public_updated_at: "2010-01-02")
+        create(:live_content_item, base_path: '/live2', format: 'topic', public_updated_at: "2010-01-01")
       end
 
       it "limits the results returned" do

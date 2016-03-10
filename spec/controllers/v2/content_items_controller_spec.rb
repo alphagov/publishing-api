@@ -92,17 +92,22 @@ RSpec.describe V2::ContentItemsController do
         get :index, document_type: "topic", fields: %w(locale content_id base_path publication_state), locale: "all"
       end
 
+      let(:parsed_response_body) { JSON.parse(response.body) }
+
       it "is successful" do
         expect(response.status).to eq(200)
       end
 
-      it "responds with all the localised content items as json" do
-        parsed_response_body = JSON.parse(response.body)
+      it "has the corrent number of items" do
         expect(parsed_response_body.length == 4)
+      end
 
+      it "responds with all the localised content items as json" do
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
-        expect(base_paths). to eq ["/content.en", "/content.ar"]
+        expect(base_paths.sort). to eq ["/content.en", "/content.ar"].sort
+      end
 
+      it "has the correct publication states" do
         publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
         expect(publication_states). to eq %w(live live)
       end

@@ -223,6 +223,7 @@ Pact.provider_states_for "GDS API Adapters" do
         content_id: 'aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa',
         base_path: '/a-base-path',
         format: 'topic',
+        public_updated_at: '2015-01-02',
         details: {
           internal_name: "an internal name",
         },
@@ -232,6 +233,7 @@ Pact.provider_states_for "GDS API Adapters" do
         title: 'Content Item B',
         content_id: 'bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb',
         base_path: '/another-base-path',
+        public_updated_at: '2015-01-01',
         format: 'topic',
       )
     end
@@ -283,6 +285,7 @@ Pact.provider_states_for "GDS API Adapters" do
         :live_content_item,
         content_id: content_id3,
         base_path: '/item-b',
+        public_updated_at: '2015-01-02',
       )
       FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
@@ -290,6 +293,7 @@ Pact.provider_states_for "GDS API Adapters" do
         :live_content_item,
         content_id: content_id2,
         base_path: '/item-a',
+        public_updated_at: '2015-01-01',
       )
       FactoryGirl.create(:lock_version, target: content_item, number: 1)
 

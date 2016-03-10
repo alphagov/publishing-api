@@ -12,19 +12,11 @@ module Queries
 
     def call
       validate_fields!
-
-      content_items = ContentItem.where(document_type: lookup_document_types)
-
-      if publishing_app
-        content_items = content_items.where(publishing_app: publishing_app)
-      end
-
-      if locale && locale != "all"
-        content_items = Translation.filter(content_items, locale: locale)
-      end
-
-      content_items = pagination.paginate(content_items)
-      presented = presenter.present_many(content_items, fields: fields, order: pagination.order)
+      presented = presenter.present_many(content_items,
+                                         fields: fields,
+                                         order: pagination.order,
+                                         offset: pagination.start,
+                                         limit: pagination.page_size)
 
       presented.map { |p| filter_fields(p).as_json }
     end
@@ -32,6 +24,13 @@ module Queries
   private
 
     attr_writer :document_type, :fields, :publishing_app, :locale, :pagination
+
+    def content_items
+      scope = ContentItem.where(document_type: lookup_document_types)
+      scope = scope.where(publishing_app: publishing_app) if publishing_app
+      scope = Translation.filter(scope, locale: locale) unless locale == "all"
+      scope
+    end
 
     def lookup_document_types
       [document_type, "placeholder_#{document_type}"]
