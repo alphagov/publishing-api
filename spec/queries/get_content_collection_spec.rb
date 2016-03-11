@@ -220,7 +220,8 @@ RSpec.describe Queries::GetContentCollection do
           pagination: Pagination.new(start: 1, page_size: 2)
         ).call
 
-        expect(content_items.first['base_path']).to eq('/b')
+        base_paths = content_items.map { |item| item.fetch("base_path") }
+        expect(base_paths).to match_array ["/b", "/c"]
       end
 
       it "when page_size is higher than results we only receive remaining content items" do
