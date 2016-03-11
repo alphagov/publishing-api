@@ -116,7 +116,8 @@ module Commands
       def previously_published_item
         @previously_published_item ||= (
           filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-          filter.filter(state: "published", locale: locale).first
+          content_items = filter.filter(state: %w(published withdrawn), locale: locale)
+          UserFacingVersion.latest(content_items)
         )
       end
 

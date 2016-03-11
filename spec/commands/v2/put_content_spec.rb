@@ -119,6 +119,90 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
+    context "when creating a draft for a previously withdrawn content item" do
+      before do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          state: "withdrawn",
+          lock_version: 2,
+          user_facing_version: 5,
+        )
+      end
+
+      it "creates the draft's lock version using the withdrawn lock version as a starting point" do
+        described_class.call(payload)
+
+        content_item = ContentItem.last
+
+        expect(content_item).to be_present
+        expect(content_item.content_id).to eq(content_id)
+        expect(State.find_by!(content_item: content_item).name).to eq("draft")
+        expect(LockVersion.find_by!(target: content_item).number).to eq(3)
+      end
+
+      it "creates the draft's user-facing version using the withdrawn user-facing version as a starting point" do
+        described_class.call(payload)
+
+        content_item = ContentItem.last
+
+        expect(content_item).to be_present
+        expect(content_item.content_id).to eq(content_id)
+        expect(State.find_by!(content_item: content_item).name).to eq("draft")
+        expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(6)
+      end
+    end
+
+    context "when creating a draft when there are multiple withdrawn and published items" do
+      before do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          state: "withdrawn",
+          lock_version: 2,
+          user_facing_version: 5,
+        )
+
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          state: "published",
+          lock_version: 3,
+          user_facing_version: 8,
+        )
+
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          state: "withdrawn",
+          lock_version: 5,
+          user_facing_version: 6,
+        )
+      end
+
+      it "creates the draft's lock version from the item with the latest user-facing version" do
+        described_class.call(payload)
+
+        content_item = ContentItem.last
+
+        expect(content_item).to be_present
+        expect(content_item.content_id).to eq(content_id)
+        expect(State.find_by!(content_item: content_item).name).to eq("draft")
+        expect(LockVersion.find_by!(target: content_item).number).to eq(4)
+      end
+
+      it "creates the draft's user-facing version from the item with the latest user-facing version" do
+        described_class.call(payload)
+
+        content_item = ContentItem.last
+
+        expect(content_item).to be_present
+        expect(content_item.content_id).to eq(content_id)
+        expect(State.find_by!(content_item: content_item).name).to eq("draft")
+        expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(9)
+      end
+    end
+
     context "with another draft content item blocking the put_content action" do
       let!(:other_content_item) {
         FactoryGirl.create(:redirect_draft_content_item,
