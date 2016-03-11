@@ -164,18 +164,21 @@ Pact.provider_states_for "GDS API Adapters" do
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "en",
         format: "topic",
+        public_updated_at: '2015-01-03',
       )
       french_draft = FactoryGirl.create(
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
         format: "topic",
+        public_updated_at: '2015-01-02',
       )
       arabic_draft = FactoryGirl.create(
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "ar",
         format: "topic",
+        public_updated_at: '2015-01-01',
       )
 
       FactoryGirl.create(:lock_version, target: english_draft, number: 1)

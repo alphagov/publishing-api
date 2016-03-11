@@ -2,39 +2,39 @@ require 'rails_helper'
 
 RSpec.describe Pagination do
   describe 'initialize' do
-    context "with a start option" do
-      subject { described_class.new(start: "5") }
+    context "with a offset option" do
+      subject { described_class.new(offset: "5") }
 
-      it "parses the start option as an integer" do
-        expect(subject.start).to eq(5)
+      it "parses the offset option as an integer" do
+        expect(subject.offset).to eq(5)
       end
 
-      it "returns the default page_size" do
-        expect(subject.page_size).to eq(50)
+      it "returns the default per_page" do
+        expect(subject.per_page).to eq(50)
       end
     end
 
-    context "with a page_size option" do
-      subject { described_class.new(page_size: "20") }
+    context "with a per_page option" do
+      subject { described_class.new(per_page: "20") }
 
-      it "parses the page_size option as an integer" do
-        expect(subject.page_size).to eq(20)
+      it "parses the per_page option as an integer" do
+        expect(subject.per_page).to eq(20)
       end
 
-      it "returns the default start" do
-        expect(subject.start).to eq(0)
+      it "returns the default offset" do
+        expect(subject.offset).to eq(0)
       end
     end
 
     context "with pagination option" do
-      subject { described_class.new(start: "5", page_size: "20") }
+      subject { described_class.new(offset: "5", per_page: "20") }
 
-      it "parses the start option as an integer" do
-        expect(subject.start).to eq(5)
+      it "parses the offset option as an integer" do
+        expect(subject.offset).to eq(5)
       end
 
-      it "parses the page_size option as an integer" do
-        expect(subject.page_size).to eq(20)
+      it "parses the per_page option as an integer" do
+        expect(subject.per_page).to eq(20)
       end
     end
 
@@ -47,10 +47,10 @@ RSpec.describe Pagination do
     end
 
     context "with page option" do
-      subject(:pagination) { described_class.new(page: 2) }
+      subject(:pagination) { described_class.new(page: 2, per_page: 20) }
 
       it "set the offset to 0" do
-        expect(pagination.start).to eq(50)
+        expect(pagination.offset).to eq(20)
       end
     end
   end

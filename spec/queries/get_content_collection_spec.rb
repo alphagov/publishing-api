@@ -207,7 +207,7 @@ RSpec.describe Queries::GetContentCollection do
         content_items = Queries::GetContentCollection.new(
           document_type: 'topic',
           fields: ['publishing_app'],
-          pagination: Pagination.new(start: 0, page_size: 3)
+          pagination: Pagination.new(offset: 0, per_page: 3)
         ).call
 
         expect(content_items.size).to eq(3)
@@ -217,17 +217,17 @@ RSpec.describe Queries::GetContentCollection do
         content_items = Queries::GetContentCollection.new(
           document_type: 'topic',
           fields: ['base_path'],
-          pagination: Pagination.new(start: 1, page_size: 2)
+          pagination: Pagination.new(offset: 1, per_page: 2)
         ).call
 
         expect(content_items.first['base_path']).to eq('/b')
       end
 
-      it "when page_size is higher than results we only receive remaining content items" do
+      it "when per_page is higher than results we only receive remaining content items" do
         content_items = Queries::GetContentCollection.new(
           document_type: 'topic',
           fields: ['base_path'],
-          pagination: Pagination.new(start: 3, page_size: 8)
+          pagination: Pagination.new(offset: 3, per_page: 8)
         ).call
 
         expect(content_items.first['base_path']).to eq('/d')
@@ -268,7 +268,7 @@ RSpec.describe Queries::GetContentCollection do
       content_items = Queries::GetContentCollection.new(
         document_type: 'guide',
         fields: %w(public_updated_at),
-        pagination: Pagination.new(start: 2, page_size: 4)
+        pagination: Pagination.new(offset: 2, per_page: 4)
       ).call
 
       expect(content_items.first['public_updated_at']).to eq('2014-06-14 00:00:00')

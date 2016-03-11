@@ -15,8 +15,8 @@ module Queries
       presented = presenter.present_many(content_items,
                                          fields: fields,
                                          order: pagination.order,
-                                         offset: pagination.start,
-                                         limit: pagination.page_size)
+                                         offset: pagination.offset,
+                                         limit: pagination.per_page)
 
       presented.map { |p| filter_fields(p).as_json }
     end

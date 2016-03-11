@@ -26,7 +26,7 @@ module Presenters
       end
 
       def present
-        group_items(groups)
+        group_items(groups).compact
       end
 
     private
@@ -54,10 +54,10 @@ module Presenters
 
       def group_items(groups)
         groups.map do |raw_group|
-          group_items = JSON.parse(raw_group["json_agg"]).map {|g| g["json_item"] }
+          items = JSON.parse(raw_group["json_agg"]).map { |g| g["json_item"] }
 
-          draft = detect_draft(group_items)
-          live = detect_live(group_items)
+          draft = detect_draft(items)
+          live = detect_live(items)
 
           most_recent_item = draft || live
           next unless most_recent_item
@@ -77,7 +77,7 @@ module Presenters
           end
 
           most_recent_item.slice(*output_fields)
-        end.compact
+        end
       end
 
       def join_supporting_objects(scope)
