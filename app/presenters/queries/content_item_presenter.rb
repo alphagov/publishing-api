@@ -1,7 +1,7 @@
 module Presenters
   module Queries
     class ContentItemPresenter
-      attr_accessor :order
+      attr_accessor :order, :offset, :limit
 
       def self.present(content_item)
         translation = Translation.find_by!(content_item: content_item)
@@ -12,9 +12,11 @@ module Presenters
         present_many(content_items).first
       end
 
-      def self.present_many(content_item_scope, fields: nil, order: { public_updated_at: :desc })
+      def self.present_many(content_item_scope, fields: nil, order: { public_updated_at: :desc }, offset: 0, limit: nil)
         presenter = new(content_item_scope, fields)
         presenter.order = order
+        presenter.limit = limit
+        presenter.offset = offset
         presenter.present
       end
 
@@ -24,20 +26,59 @@ module Presenters
       end
 
       def present
+        group_items(groups).compact
+      end
+
+    private
+
+      attr_accessor :content_item_scope, :fields
+
+      def groups
         scope = join_supporting_objects(content_item_scope)
         scope = select_fields(scope).order(order)
 
-        items = ActiveRecord::Base.connection.execute(scope.to_sql)
-        groups = items.group_by { |i| [i.fetch("content_id"), i.fetch("locale")] }
+        ActiveRecord::Base.connection.execute(aggregated_sql(scope.to_sql))
+      end
 
-        groups = groups.map do |_, group_items|
-          draft = detect_draft(group_items)
-          live = detect_live(group_items)
+      def aggregated_sql(sql)
+        <<-END.strip_heredoc
+          SELECT json_agg(json_rows) FROM (
+            SELECT row_to_json(item) json_item FROM (#{sql}) item
+          ) json_rows
+          GROUP BY json_item->>'content_id', json_item->>'locale'
+          #{aggregated_order}
+          OFFSET #{offset}
+          #{aggregated_limit}
+        END
+      end
+
+      def aggregated_order
+        "ORDER BY MAX(json_item->>'#{order_field}') #{direction}"
+      end
+
+      def order_field
+        order.keys.first || :public_updated_at
+      end
+
+      def direction
+        order.values.first || :desc
+      end
+
+      def aggregated_limit
+        "LIMIT #{limit}" if limit
+      end
+
+      def group_items(groups)
+        groups.map do |raw_group|
+          items = JSON.parse(raw_group["json_agg"]).map { |g| g["json_item"] }
+
+          draft = detect_draft(items)
+          live = detect_live(items)
 
           most_recent_item = draft || live
           next unless most_recent_item
 
-          parse_json_fields!(most_recent_item)
+          most_recent_item["description"] = most_recent_item["description"]["value"] if most_recent_item["description"]
 
           if output_fields.include?("internal_name")
             details = most_recent_item.fetch("details")
@@ -53,12 +94,7 @@ module Presenters
 
           most_recent_item.slice(*output_fields)
         end
-        groups.compact
       end
-
-    private
-
-      attr_accessor :content_item_scope, :fields
 
       def join_supporting_objects(scope)
         scope = State.join_content_items(scope)
@@ -122,14 +158,6 @@ module Presenters
 
       def detect_live(items)
         items.detect { |i| i.fetch("state_name") == "published" }
-      end
-
-      def parse_json_fields!(hash)
-        %w(redirects routes need_ids description details).each do |json_field|
-          hash[json_field] = JSON.parse(hash[json_field]) if hash[json_field]
-        end
-
-        hash["description"] = hash["description"]["value"] if hash["description"]
       end
     end
   end

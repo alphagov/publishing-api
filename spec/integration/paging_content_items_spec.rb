@@ -34,8 +34,8 @@ RSpec.describe "Paging through content items" do
       get "/v2/content",
         content_format: "guide",
         fields: %w(base_path publishing_app),
-        start: "3",
-        page_size: "2"
+        offset: "3",
+        per_page: "2"
     end
 
     it "responds successfully" do

@@ -23,7 +23,8 @@ module V2
           publication_state
           base_path
           internal_name
-        )
+        ),
+        pagination: NullPagination.new
       ).call
     end
 
