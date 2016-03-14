@@ -140,3 +140,18 @@ No downstream requests will be sent if the content item doesn't exist yet.
   - `content_id` the primary identifier for the content associated with the requested link set.
   - `link_type` the type of link between the documents
   - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
+
+## `GET /v2/content`
+
+ [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_entries_request_given_a_content_item_exists_in_multiple_locales_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
+
+  - Retrieves all content items for a given `document_type` and optional `locale`.
+  - Returns only the content item's fields that have been requested with the query.
+  - Restricts the content items returned by the `publishing_app` of the current user.
+  - Can optionally return content items in all locales by specifying a `locale` of 'all'
+  - Can return the `publication_state` of the content item by including it in the `fields[]`
+
+### Required request params:
+  - `document_type` the type of content item to return
+  - `locale` (optional) is used to restrict returned content items to a given locale (defaults to 'en')
+  - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
