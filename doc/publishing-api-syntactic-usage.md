@@ -155,3 +155,15 @@ No downstream requests will be sent if the content item doesn't exist yet.
   - `document_type` the type of content item to return
   - `locale` (optional) is used to restrict returned content items to a given locale (defaults to 'en')
   - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
+
+## `GET /v2/linkables`
+
+ [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_linkables_request_given_there_is_content_with_format_'topic')
+
+  - Retrieves specific fields of content items for a given `document_type`.
+  - Returns `title`, `content_id`, `publication_state`, `base_path` and `internal_name`.
+  - Does not restrict the content items by `publishing_app`
+  - Does not paginate the results
+
+### Required request params:
+  - `document_type` the type of content item to return
