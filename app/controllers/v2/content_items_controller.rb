@@ -2,14 +2,17 @@ module V2
   class ContentItemsController < ApplicationController
     def index
       doc_type = query_params.fetch(:document_type) { query_params.fetch(:content_format) }
+      pagination = Pagination.new(query_params)
 
-      render json: Queries::GetContentCollection.new(
+      results = Queries::GetContentCollection.new(
         document_type: doc_type,
         fields: query_params.fetch(:fields),
         publishing_app: publishing_app,
         locale: query_params[:locale],
-        pagination: Pagination.new(query_params)
-      ).call
+        pagination: pagination
+      )
+
+      render json: Presenters::ResultsPresenter.new(results, pagination, request.original_url).present
     end
 
     def linkables
