@@ -344,4 +344,20 @@ Pact.provider_states_for "GDS API Adapters" do
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
     end
   end
+
+  provider_state "there are live content items with base_paths /foo and /bar" do
+    set_up do
+      FactoryGirl.create(
+        :live_content_item,
+        base_path: '/foo',
+        content_id: '08f86d00-e95f-492f-af1d-470c5ba4752e',
+      )
+
+      FactoryGirl.create(
+        :live_content_item,
+        base_path: '/bar',
+        content_id: 'ca6c58a6-fb9d-479d-b3e6-74908781cb18',
+      )
+    end
+  end
 end
