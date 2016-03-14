@@ -1,17 +1,21 @@
 # Publishing API
 
-This is a Rails application that proxies requests to multiple content-stores. Our
-use case for this is to keep two copies of the frontend of GOV.UK running: one
-which the public sees and another which is only used by people working on
-content to review work in progress.
+The Publishing API is a Rails application that aims to provide "workflow as a
+service" so that common publishing features can be written once and used by all
+publishing apps across government.
 
-Publishing apps will talk to the publishing-api rather than the content-store.
-Normal publishing requests are forwarded to both the live and draft
-content-stores, whereas draft documents would only be forwarded to the draft
-content-store.
+The Publishing API allows publishing apps to store and retrieve content as well
+as manage the state of content as it transitions to being published on GOV.UK.
+The canonical way for a publishing app to communicate with the Publishing API is
+via the [gds-api-adapters](https://github.com/alphagov/gds-api-adapters).
 
-Decisions about the design of the publishing api are recorded as [architecture
-decision records](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)
+The Publishing API mediates over two content stores, which serve frontend
+applications as well as a message queue, which is used to build search indexes
+and trigger the delivery of email notifications to users. One of the content
+stores is for viewing draft content before it goes live.
+
+Decisions about the design of the publishing api are recorded as
+[architecture decision records](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)
 in the [`doc/arch`](doc/arch) folder.
 
 ### Dependencies
