@@ -12,7 +12,7 @@ module Presenters
         present_many(content_items).first
       end
 
-      def self.present_many(content_item_scope, fields: nil, order: { public_updated_at: :desc }, offset: 0, limit: 50)
+      def self.present_many(content_item_scope, fields: nil, order: { public_updated_at: :desc }, offset: 0, limit: nil)
         presenter = new(content_item_scope, fields)
         presenter.order = order
         presenter.limit = limit
@@ -46,10 +46,26 @@ module Presenters
             SELECT row_to_json(item) json_item FROM (#{sql}) item
           ) json_rows
           GROUP BY json_item->>'content_id', json_item->>'locale'
-          ORDER BY max(json_item->>'public_updated_at') DESC
+          #{aggregated_order}
           OFFSET #{offset}
-          LIMIT #{limit};
+          #{aggregated_limit}
         END
+      end
+
+      def aggregated_order
+        "ORDER BY MAX(json_item->>'#{order_field}') #{direction}"
+      end
+
+      def order_field
+        order.keys.first || :public_updated_at
+      end
+
+      def direction
+        order.values.first || :desc
+      end
+
+      def aggregated_limit
+        "LIMIT #{limit}" if limit
       end
 
       def group_items(groups)
