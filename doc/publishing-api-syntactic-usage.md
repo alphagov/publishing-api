@@ -167,3 +167,13 @@ No downstream requests will be sent if the content item doesn't exist yet.
 
 ### Required request params:
   - `document_type` the type of content item to return
+
+## `POST /lookup-by-base-path`
+
+ [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_/lookup-by-base-path-request_given_there_are_live_content_items_with_base_paths_/foo_and_/bar)
+
+  - Retrieves published content items for a given collection of base paths.
+  - Returns a mapping of `base_path` to `content_id`.
+
+### Required request params:
+  - `base_paths` is a collection of base paths to query by (appears in the POST request body)
