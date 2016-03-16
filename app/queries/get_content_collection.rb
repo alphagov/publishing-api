@@ -1,12 +1,13 @@
 module Queries
   class GetContentCollection
-    attr_reader :document_type, :fields, :publishing_app, :locale, :pagination
+    attr_reader :document_type, :fields, :publishing_app, :link_filters, :locale, :pagination
 
-    def initialize(document_type:, fields:, publishing_app: nil, locale: nil, pagination: Pagination.new)
+    def initialize(document_type:, fields:, filters: {}, pagination: Pagination.new)
       self.document_type = document_type
       self.fields = fields_with_ordering(fields, pagination)
-      self.publishing_app = publishing_app
-      self.locale = locale || "en"
+      self.publishing_app = filters[:publishing_app]
+      self.link_filters = filters[:links]
+      self.locale = filters[:locale] || "en"
       self.pagination = pagination
     end
 
@@ -28,11 +29,12 @@ module Queries
 
   private
 
-    attr_writer :document_type, :fields, :publishing_app, :locale, :pagination
+    attr_writer :document_type, :fields, :publishing_app, :locale, :link_filters, :pagination
 
     def content_items
       scope = ContentItem.where(document_type: lookup_document_types)
       scope = scope.where(publishing_app: publishing_app) if publishing_app
+      scope = Link.filter_content_items(scope, link_filters) unless link_filters.blank?
       scope = Translation.filter(scope, locale: locale) unless locale == "all"
       scope
     end
