@@ -103,7 +103,7 @@ RSpec.describe Queries::GetLinked do
               FactoryGirl.create(
                 :link,
                 link_type: "related_links",
-                target_content_id: SecureRandom.uuid
+                target_content_id: target_content_id
               )
             ]
           )
@@ -130,6 +130,20 @@ RSpec.describe Queries::GetLinked do
                 "base_path" => "/vat-rates",
                 "locale" => "en",
               }
+            ])
+          end
+        end
+
+        context "when a link_type is specified" do
+          it "filters the links by the specified link_type" do
+            expect(
+              Queries::GetLinked.new(
+                content_id: target_content_id,
+                link_type: "related_links",
+                fields: %w(base_path))
+              .call
+            ).to match_array([
+              { "base_path" => "/vatty" }
             ])
           end
         end
