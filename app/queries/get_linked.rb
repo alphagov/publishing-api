@@ -14,6 +14,7 @@ module Queries
 
       content_ids = Link
         .where(target_content_id: target_content_id)
+        .where(link_type: link_type)
         .joins(:link_set)
         .pluck(:content_id)
 
