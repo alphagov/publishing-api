@@ -7,7 +7,7 @@ class ContentItemFilter
     params = params.dup
 
     params[:locale] = translation(content_item).locale unless params.has_key?(:locale)
-    params[:base_path] = location(content_item).base_path unless params.has_key?(:base_path)
+    params[:base_path] = location(content_item).try(:base_path) unless params.has_key?(:base_path)
     params[:state] = state(content_item).name unless params.has_key?(:state)
     params[:user_version] = user_facing_version(content_item).number unless params.has_key?(:user_version)
 
@@ -34,7 +34,7 @@ class ContentItemFilter
   end
 
   def self.location(content_item)
-    Location.find_by!(content_item: content_item)
+    Location.find_by(content_item: content_item)
   end
 
   def self.state(content_item)

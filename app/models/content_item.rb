@@ -25,6 +25,7 @@ class ContentItem < ActiveRecord::Base
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
+  EMPTY_BASE_PATH_FORMATS = %w(government).freeze
 
   scope :renderable_content, -> { where.not(format: NON_RENDERABLE_FORMATS) }
 
