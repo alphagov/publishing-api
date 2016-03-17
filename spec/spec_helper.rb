@@ -55,8 +55,10 @@ RSpec.configure do |config|
   end
 
   config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
+    if example.metadata[:skip_cleaning]
       example.run
+    else
+      DatabaseCleaner.cleaning { example.run }
     end
   end
 
