@@ -32,7 +32,49 @@ RSpec.describe Queries::GetLinked do
       end
     end
 
-    context "when content item with draft exists "do
+    context "when a content item with no draft exists" do
+      before do
+        FactoryGirl.create(
+          :live_content_item,
+          content_id: content_id,
+          base_path: "/vat-rules-2020",
+          title: "VAT rules 2020",
+        )
+
+        FactoryGirl.create(
+          :live_content_item,
+          content_id: target_content_id,
+          base_path: "/vat-org",
+        )
+      end
+
+      it "returns no results when no content is linked to it" do
+        expect(
+          Queries::GetLinked.new(
+            content_id: content_id,
+            link_type: "organisations",
+            fields: ["title"],
+          ).call
+        ).to eq([])
+      end
+
+      context "where another content item is linked to it" do
+        before do
+          link_set = FactoryGirl.create(:link_set, content_id: content_id)
+          FactoryGirl.create(:link, link_set: link_set, target_content_id: target_content_id)
+        end
+
+        it "should return the linked item" do
+          expect(Queries::GetLinked.new(
+            content_id: target_content_id,
+            link_type: "organisations",
+            fields: ["title"],
+          ).call).to match_array([hash_including("title" => "VAT rules 2020")])
+        end
+      end
+    end
+
+    context "when a content item with draft exists "do
       before do
         FactoryGirl.create(
           :live_content_item,

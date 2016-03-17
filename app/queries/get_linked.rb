@@ -30,7 +30,7 @@ module Queries
 
     def validate_presence_of_item!
       filter = ContentItemFilter.new(scope: ContentItem.where(content_id: target_content_id))
-      return if filter.filter(state: %w(draft live)).exists?
+      return if filter.filter(state: %w(draft published)).exists?
 
       raise CommandError.new(code: 404, error_details: {
         error: {
