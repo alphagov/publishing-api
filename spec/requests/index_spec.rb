@@ -25,10 +25,10 @@ RSpec.describe "GET /v2/content", type: :request do
     ]
 
     get "/v2/content", document_type: "policy", fields: ["title"]
-    expect(JSON.parse(response.body, symbolize_names: true)).to match_array(expected_result)
+    expect(JSON.parse(response.body, symbolize_names: true)[:results]).to match_array(expected_result)
 
     get "/v2/content", content_format: "policy", fields: ["title"]
-    expect(JSON.parse(response.body, symbolize_names: true)).to match_array(expected_result)
+    expect(JSON.parse(response.body, symbolize_names: true)[:results]).to match_array(expected_result)
   end
 
   context "without a format" do

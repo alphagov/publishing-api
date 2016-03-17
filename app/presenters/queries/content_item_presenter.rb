@@ -12,43 +12,62 @@ module Presenters
         present_many(content_items).first
       end
 
-      def self.present_many(content_item_scope, fields: nil, order: { public_updated_at: :desc }, offset: 0, limit: nil)
-        presenter = new(content_item_scope, fields)
-        presenter.order = order
-        presenter.limit = limit
-        presenter.offset = offset
+      def self.present_many(content_item_scope, fields: nil, order: { public_updated_at: :desc }, offset: 0, limit: nil, locale: nil)
+        presenter = new(content_item_scope, fields: fields, order: order, limit: limit, offset: offset, locale: locale)
         presenter.present
       end
 
-      def initialize(content_item_scope, fields = nil)
+      def initialize(content_item_scope, fields: nil, order: {}, limit: nil, offset: 0, locale: nil)
         self.content_item_scope = content_item_scope
         self.fields = fields
+        self.order = order
+        self.limit = limit
+        self.offset = offset
+        self.locale = locale
       end
 
       def present
         group_items(groups).compact
       end
 
+      def total
+        ActiveRecord::Base.connection.execute(total_query).first["count"].to_i
+      end
+
     private
 
-      attr_accessor :content_item_scope, :fields
+      attr_accessor :content_item_scope, :fields, :locale
+
+      def total_query
+        sql = content_item_scope.select(:content_id)
+        sql = sql.group(:content_id) unless locale == "all"
+        "SELECT COUNT(*) FROM (#{sql.to_sql}) total"
+      end
 
       def groups
-        scope = join_supporting_objects(content_item_scope)
-        scope = select_fields(scope).order(order)
-
         ActiveRecord::Base.connection.execute(aggregated_sql(scope.to_sql))
       end
 
+      def scope
+        scope = join_supporting_objects(content_item_scope)
+        select_fields(scope).order(order)
+      end
+
       def aggregated_sql(sql)
+        <<-END.strip_heredoc
+          #{aggregated_query(sql)}
+          #{aggregated_order}
+          OFFSET #{offset}
+          #{aggregated_limit}
+        END
+      end
+
+      def aggregated_query(sql)
         <<-END.strip_heredoc
           SELECT json_agg(json_rows) FROM (
             SELECT row_to_json(item) json_item FROM (#{sql}) item
           ) json_rows
           GROUP BY json_item->>'content_id', json_item->>'locale'
-          #{aggregated_order}
-          OFFSET #{offset}
-          #{aggregated_limit}
         END
       end
 

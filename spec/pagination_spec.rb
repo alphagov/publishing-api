@@ -53,5 +53,14 @@ RSpec.describe Pagination do
         expect(pagination.offset).to eq(20)
       end
     end
+
+    context "pages" do
+      let(:total) { 19 }
+      subject(:pagination) { described_class.new(page: 2, per_page: 20) }
+
+      it "calculats the total number of pages" do
+        expect(pagination.pages(total)).to eq(1)
+      end
+    end
   end
 end

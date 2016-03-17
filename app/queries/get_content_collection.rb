@@ -16,9 +16,14 @@ module Queries
                                          fields: fields,
                                          order: pagination.order,
                                          offset: pagination.offset,
+                                         locale: locale,
                                          limit: pagination.per_page)
 
       presented.map { |p| filter_fields(p).as_json }
+    end
+
+    def total
+      @total ||= presenter.new(content_items, locale: locale).total
     end
 
   private
