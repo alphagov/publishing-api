@@ -4,6 +4,8 @@ RSpec.describe Commands::V2::PutContent do
   describe "call" do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
+      allow(GdsApi::GovukHeaders).to receive(:headers)
+        .and_return(x_govuk_request_uuid: "12345-67890")
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
@@ -559,6 +561,38 @@ RSpec.describe Commands::V2::PutContent do
         expect {
           described_class.call(payload)
         }.to raise_error(CommandError, /'links' parameter should not be provided/)
+      end
+    end
+
+    context "without a base_path" do
+      before do
+        payload.delete(:base_path)
+      end
+
+      context "when schema requires a base_path" do
+        it "raises an error" do
+          expect {
+            described_class.call(payload)
+          }.to raise_error(CommandError, /Base path is not a valid absolute URL path/)
+        end
+      end
+
+      context "when schema does not require a base_path" do
+        before do
+          payload.merge!(schema_name: 'government', document_type: 'government').delete(:format)
+        end
+
+        it "does not raise an error" do
+          expect {
+            described_class.call(payload)
+          }.not_to raise_error
+        end
+
+        it "does not try to reserve a path" do
+          expect {
+            described_class.call(payload)
+          }.not_to change(PathReservation, :count)
+        end
       end
     end
 

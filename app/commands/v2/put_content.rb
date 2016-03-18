@@ -4,7 +4,7 @@ module Commands
       def call
         raise_if_links_is_provided
 
-        PathReservation.reserve_base_path!(base_path, publishing_app)
+        PathReservation.reserve_base_path!(base_path, publishing_app) if base_path_required?
 
         if (content_item = find_previously_drafted_content_item)
           clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
@@ -80,7 +80,7 @@ module Commands
       end
 
       def create_supporting_objects(content_item)
-        Location.create!(content_item: content_item, base_path: base_path)
+        Location.create!(content_item: content_item, base_path: base_path) if base_path_required?
         State.create!(content_item: content_item, name: "draft")
         Translation.create!(content_item: content_item, locale: locale)
         UserFacingVersion.create!(content_item: content_item, number: user_facing_version_number_for_new_draft)
@@ -134,7 +134,11 @@ module Commands
       end
 
       def base_path
-        payload.fetch(:base_path)
+        payload[:base_path]
+      end
+
+      def base_path_required?
+        !ContentItem::EMPTY_BASE_PATH_FORMATS.include?(payload[:format] || payload[:schema_name])
       end
 
       def locale

@@ -5,7 +5,8 @@ RSpec.describe Commands::V2::DiscardDraft do
     before do
       stub_request(:delete, %r{.*content-store.*/content/.*})
       stub_request(:put, %r{.*content-store.*/content/.*})
-      GdsApi::GovukHeaders.set_header(:x_govuk_request_uuid, "12345-67890")
+      allow(GdsApi::GovukHeaders).to receive(:headers)
+        .and_return(x_govuk_request_uuid: "12345-67890")
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
