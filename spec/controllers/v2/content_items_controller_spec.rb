@@ -152,6 +152,25 @@ RSpec.describe V2::ContentItemsController do
         expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
       end
     end
+
+    context "with link filtering params" do
+      before do
+        org_content_id = SecureRandom.uuid
+        link_set = FactoryGirl.create(:link_set, content_id: content_id)
+        FactoryGirl.create(:link, link_set: link_set, target_content_id: org_content_id)
+
+        get :index, content_format: "topic", fields: ["content_id"], link_organisations: org_content_id.to_s
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with the content items for the given organistion as json" do
+        parsed_response_body = JSON.parse(response.body)["results"]
+        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+      end
+    end
   end
 
   describe "show" do

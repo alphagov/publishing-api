@@ -19,6 +19,22 @@ class Link < ActiveRecord::Base
     end
   end
 
+  def self.filter_content_items(scope, filters)
+    join_sql = <<-SQL.strip_heredoc
+      INNER JOIN link_sets ON link_sets.content_id = content_items.content_id
+      INNER JOIN links ON links.link_set_id = link_sets.id
+    SQL
+
+    scope = scope.joins(join_sql)
+
+    filters.each do |link_type, target_content_id|
+      scope = scope.where("links.link_type": link_type,
+                          "links.target_content_id": target_content_id)
+    end
+
+    scope
+  end
+
 private
 
   def link_type_is_valid

@@ -115,7 +115,7 @@ RSpec.describe Queries::GetContentCollection do
       expect(Queries::GetContentCollection.new(
         document_type: 'topic',
         fields: %w(publishing_app publication_state),
-        publishing_app: 'publisher'
+        filters: { publishing_app: 'publisher' }
       ).call).to match_array([
         hash_including("publishing_app" => "publisher", "publication_state" => "draft"),
         hash_including("publishing_app" => "publisher", "publication_state" => "draft")
@@ -156,7 +156,7 @@ RSpec.describe Queries::GetContentCollection do
       expect(Queries::GetContentCollection.new(
         document_type: 'topic',
         fields: %w(base_path publication_state),
-        locale: 'ar',
+        filters: { locale: 'ar' },
       ).call).to match_array([
         hash_including("base_path" => "/content.ar", "publication_state" => "draft"),
         hash_including("base_path" => "/content.ar", "publication_state" => "live"),
@@ -167,13 +167,77 @@ RSpec.describe Queries::GetContentCollection do
       expect(Queries::GetContentCollection.new(
         document_type: 'topic',
         fields: %w(base_path publication_state),
-        locale: 'all',
+        filters: { locale: 'all' },
       ).call).to match_array([
         hash_including("base_path" => "/content.en", "publication_state" => "draft"),
         hash_including("base_path" => "/content.ar", "publication_state" => "draft"),
         hash_including("base_path" => "/content.en", "publication_state" => "live"),
         hash_including("base_path" => "/content.ar", "publication_state" => "live"),
       ])
+    end
+  end
+
+  describe "filtering by links" do
+    let(:someorg_content_id) { SecureRandom.uuid }
+
+    before do
+      otherorg_content_id = SecureRandom.uuid
+      draft_1_content_id = SecureRandom.uuid
+      draft_2_content_id = SecureRandom.uuid
+      live_1_content_id = SecureRandom.uuid
+
+      FactoryGirl.create(
+        :draft_content_item,
+        content_id: draft_1_content_id,
+        base_path: "/foo",
+        publishing_app: "specialist-publisher"
+      )
+
+      FactoryGirl.create(
+        :draft_content_item,
+        content_id: draft_2_content_id,
+        base_path: "/bar"
+      )
+
+      FactoryGirl.create(
+        :live_content_item,
+        content_id: live_1_content_id,
+        base_path: "/baz"
+      )
+
+      link_set_1 = FactoryGirl.create(:link_set, content_id: draft_1_content_id)
+      link_set_2 = FactoryGirl.create(:link_set, content_id: draft_2_content_id)
+      link_set_3 = FactoryGirl.create(:link_set, content_id: live_1_content_id)
+
+      FactoryGirl.create(:link, link_set: link_set_1, target_content_id: someorg_content_id)
+      FactoryGirl.create(:link, link_set: link_set_2, target_content_id: otherorg_content_id)
+      FactoryGirl.create(:link, link_set: link_set_3, target_content_id: someorg_content_id)
+    end
+
+    it "filters content items by organisation" do
+      result = Queries::GetContentCollection.new(
+        document_type: "guide",
+        filters: { links: { organisations: someorg_content_id } },
+        fields: %w(base_path),
+      ).call
+
+      expect(result).to match_array([
+        hash_including("base_path" => "/foo"),
+        hash_including("base_path" => "/baz"),
+      ])
+    end
+
+    it "filters content items by organisation and other filters" do
+      result = Queries::GetContentCollection.new(
+        document_type: "guide",
+        filters: {
+          organisation: someorg_content_id,
+          publishing_app: "specialist-publisher",
+        },
+        fields: %w(base_path),
+      ).call
+
+      expect(result).to match_array([hash_including("base_path" => "/foo")])
     end
   end
 
@@ -184,7 +248,7 @@ RSpec.describe Queries::GetContentCollection do
       expect(Queries::GetContentCollection.new(
         document_type: 'topic',
         fields: %w(details publication_state),
-        publishing_app: 'publisher'
+        filters: { publishing_app: 'publisher' }
       ).call).to match_array([
         hash_including("details" => { "foo" => "bar" }, "publication_state" => "draft"),
         hash_including("details" => { "baz" => "bat" }, "publication_state" => "draft"),

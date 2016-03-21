@@ -7,8 +7,7 @@ module V2
       results = Queries::GetContentCollection.new(
         document_type: doc_type,
         fields: query_params.fetch(:fields),
-        publishing_app: publishing_app,
-        locale: query_params[:locale],
+        filters: filters,
         pagination: pagination
       )
 
@@ -59,6 +58,22 @@ module V2
     def publishing_app
       unless current_user.has_permission?('view_all')
         current_user.app_name
+      end
+    end
+
+    def filters
+      {
+        publishing_app: publishing_app,
+        locale: query_params[:locale],
+        links: link_filters,
+      }
+    end
+
+    def link_filters
+      {}.tap do |hash|
+        query_params.each do |k, v|
+          hash[k[5..-1]] = v if k.start_with?("link_")
+        end
       end
     end
   end
