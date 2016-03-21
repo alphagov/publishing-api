@@ -57,7 +57,7 @@ module Commands
       end
 
       def find_previously_drafted_content_item
-        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+        filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
         filter.filter(locale: locale, state: "draft").first
       end
 
@@ -115,10 +115,14 @@ module Commands
 
       def previously_published_item
         @previously_published_item ||= (
-          filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+          filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
           content_items = filter.filter(state: %w(published withdrawn), locale: locale)
           UserFacingVersion.latest(content_items)
         )
+      end
+
+      def pessimistic_content_item_scope
+        ContentItem.where(content_id: content_id).lock
       end
 
       def path_has_changed?(location)

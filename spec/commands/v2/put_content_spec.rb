@@ -119,6 +119,26 @@ RSpec.describe Commands::V2::PutContent do
         expect(State.find_by!(content_item: content_item).name).to eq("draft")
         expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(6)
       end
+
+      describe "race condtitions", skip_cleaning: true do
+        after do
+          DatabaseCleaner.clean_with :truncation
+        end
+
+        it "copes with race conditions" do
+          described_class.call(payload)
+          Commands::V2::Publish.call(content_id: content_id, update_type: "minor")
+
+          expect {
+            thread1 = Thread.new { described_class.call(payload) }
+            thread2 = Thread.new { described_class.call(payload) }
+            thread1.join
+            thread2.join
+          }.to raise_error(CommandError, /conflicts with a duplicate/)
+
+          expect(State.all.pluck(:name)).to eq %w(superseded published draft)
+        end
+      end
     end
 
     context "when creating a draft for a previously withdrawn content item" do
