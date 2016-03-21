@@ -69,10 +69,6 @@ module Queries
       ContentItem.column_names + %w(base_path locale publication_state internal_name)
     end
 
-    def select_output_fields_only(presenter)
-      presenter.present.slice(*fields).as_json
-    end
-
     def presenter
       Presenters::Queries::ContentItemPresenter
     end

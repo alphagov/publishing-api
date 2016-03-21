@@ -43,8 +43,8 @@ module Commands
       return unless current_versioned_item && current_version
 
       friendly_message = "A lock-version conflict occurred. The `previous_version` you've sent " +
-        "(#{previous_version_number.inspect}) is not the same as the current " +
-        "lock version of the content item (#{current_version.number.inspect})."
+        "(#{previous_version_number}) is not the same as the current " +
+        "lock version of the content item (#{current_version.number})."
 
       conflict_error = CommandError.new(
         code: 409,
