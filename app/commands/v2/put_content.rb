@@ -38,6 +38,7 @@ module Commands
 
         location = Location.find_by!(content_item: content_item)
         translation = Translation.find_by!(content_item: content_item)
+        routes = content_item.routes
 
         check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
@@ -173,12 +174,13 @@ module Commands
         lock_version.save!
       end
 
-      def create_redirect(from_path:, to_path:, locale:)
+      def create_redirect(from_path:, to_path:, locale:, routes:)
         RedirectHelper.create_redirect(
           publishing_app: publishing_app,
           old_base_path: from_path,
           new_base_path: to_path,
           locale: locale,
+          routes: routes
         )
       end
 

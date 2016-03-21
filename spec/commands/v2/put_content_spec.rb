@@ -361,7 +361,7 @@ RSpec.describe Commands::V2::PutContent do
 
         before do
           previously_drafted_item.update_attributes!(
-            routes: [{ path: "/old-path", type: "exact" }],
+            routes: [{ path: "/old-path", type: "exact" }, { path: "/old-path.atom", type: "exact" }],
           )
           previous_location.update_attributes!(base_path: "/old-path")
         end
@@ -389,7 +389,11 @@ RSpec.describe Commands::V2::PutContent do
             {
               path: "/old-path",
               type: "exact",
-              destination: "/vat-rates",
+              destination: "/vat-rates"
+            }, {
+              path: "/old-path.atom",
+              type: "exact",
+              destination: "/vat-rates.atom"
             }
           ])
         end
