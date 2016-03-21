@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315070023) do
+ActiveRecord::Schema.define(version: 20160315123002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 20160315070023) do
   add_index "links", ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id", using: :btree
   add_index "links", ["link_set_id"], name: "index_links_on_link_set_id", using: :btree
   add_index "links", ["link_type"], name: "index_links_on_link_type", using: :btree
+  add_index "links", ["target_content_id", "link_type"], name: "index_links_on_target_content_id_and_link_type", using: :btree
+  add_index "links", ["target_content_id"], name: "index_links_on_target_content_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "content_item_id", null: false
