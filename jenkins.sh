@@ -41,7 +41,7 @@ bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment --without devel
 bundle exec govuk-lint-ruby \
   --format html --out rubocop-${GIT_COMMIT}.html \
   --format clang \
-  app config Gemfile lib spec
+  app config Gemfile lib spec || echo "Linting errors detected"
 
 bundle exec rake db:drop db:create db:schema:load
 
