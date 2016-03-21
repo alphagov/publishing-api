@@ -5,39 +5,13 @@ module Commands
         raise_if_links_is_provided
 
         PathReservation.reserve_base_path!(base_path, publishing_app) if base_path_required?
+        content_item = find_previously_drafted_content_item
 
-        if (content_item = find_previously_drafted_content_item)
-          clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
-
-          location = Location.find_by!(content_item: content_item)
-          translation = Translation.find_by!(content_item: content_item)
-
-          check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
-
-          update_content_item(content_item)
-          increment_lock_version(content_item)
-
-          if path_has_changed?(location)
-            from_path = location.base_path
-            update_path(location, new_path: base_path)
-            create_redirect(from_path: from_path, to_path: base_path, locale: translation.locale)
-          end
-
-          if payload[:access_limited] && (users = payload[:access_limited][:users])
-            create_or_update_access_limit(content_item, users: users)
-          else
-            AccessLimit.find_by(content_item: content_item).try(:destroy)
-          end
+        if content_item
+          update_existing_content_item(content_item)
         else
           content_item = create_content_item
-          clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
-
-          create_supporting_objects(content_item)
-          ensure_link_set_exists(content_item)
-
-          if payload[:access_limited] && (users = payload[:access_limited][:users])
-            AccessLimit.create!(content_item: content_item, users: users)
-          end
+          create_new_content_item(content_item)
         end
 
         send_downstream(content_item) if downstream
@@ -47,6 +21,42 @@ module Commands
       end
 
     private
+
+      def create_new_content_item(content_item)
+        clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+
+        create_supporting_objects(content_item)
+        ensure_link_set_exists(content_item)
+
+        if payload[:access_limited] && (users = payload[:access_limited][:users])
+          AccessLimit.create!(content_item: content_item, users: users)
+        end
+      end
+
+      def update_existing_content_item(content_item)
+        clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+
+        location = Location.find_by!(content_item: content_item)
+        translation = Translation.find_by!(content_item: content_item)
+        routes = content_item.routes
+
+        check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
+
+        update_content_item(content_item)
+        increment_lock_version(content_item)
+
+        if path_has_changed?(location)
+          from_path = location.base_path
+          update_path(location, new_path: base_path)
+          create_redirect(from_path: from_path, to_path: base_path, locale: translation.locale, routes: routes)
+        end
+
+        if payload[:access_limited] && (users = payload[:access_limited][:users])
+          create_or_update_access_limit(content_item, users: users)
+        else
+          AccessLimit.find_by(content_item: content_item).try(:destroy)
+        end
+      end
 
       def create_or_update_access_limit(content_item, users:)
         if (access_limit = AccessLimit.find_by(content_item: content_item))
@@ -164,12 +174,13 @@ module Commands
         lock_version.save!
       end
 
-      def create_redirect(from_path:, to_path:, locale:)
+      def create_redirect(from_path:, to_path:, locale:, routes:)
         RedirectHelper.create_redirect(
           publishing_app: publishing_app,
           old_base_path: from_path,
           new_base_path: to_path,
           locale: locale,
+          routes: routes
         )
       end
 
