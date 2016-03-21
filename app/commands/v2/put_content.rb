@@ -8,7 +8,7 @@ module Commands
         content_item = find_previously_drafted_content_item
 
         if content_item
-          update_exsisting_content_item(content_item)
+          update_existing_content_item(content_item)
         else
           content_item = create_content_item
           create_new_content_item(content_item)
@@ -33,7 +33,7 @@ module Commands
         end
       end
 
-      def update_exsisting_content_item(content_item)
+      def update_existing_content_item(content_item)
         clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
         location = Location.find_by!(content_item: content_item)
