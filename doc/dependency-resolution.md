@@ -34,8 +34,8 @@ can change independently and its title should be updated on the collection page.
 
 Currently, publishing applications manually speak to Rummager which indexes
 their content for search. We'd like to centralise this behaviour so that the
-Publishing API forwards this content to Rummager in its expanded form for
-search indexing.
+Publishing API forwards this content in its expanded form onto a queue which is
+then consumed by Rummager.
 
 Note: In addition to these requirements, there are some non-functional
 requirements detailed below. This includes a architectural goal of moving
