@@ -41,7 +41,6 @@ RSpec.describe "Downstream requests", type: :request do
     }
 
     it "sends content to the draft content store only" do
-
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
 
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
