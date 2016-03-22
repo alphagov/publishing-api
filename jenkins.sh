@@ -41,7 +41,7 @@ bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment --without devel
 bundle exec govuk-lint-ruby \
   --format html --out rubocop-${GIT_COMMIT}.html \
   --format clang \
-  app config Gemfile lib spec || echo "Linting errors detected"
+  app config Gemfile lib spec || linting_error=1
 
 bundle exec rake db:drop db:create db:schema:load
 
@@ -50,7 +50,12 @@ if bundle exec rake ${TEST_TASK:-"default"}; then
     bundle exec rake pact:publish:branch
   fi
 
-  github_status success "succeeded on Jenkins"
+  if [ "$linting_error" = 1 ]; then
+    echo "Linting errors detected"
+    github_status error "linting errors detected on Jenkins"
+  else
+    github_status success "succeeded on Jenkins"
+  fi
 else
   github_status failure "failed on Jenkins"
   exit 1
