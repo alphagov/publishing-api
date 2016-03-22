@@ -115,7 +115,7 @@ RSpec.describe "Message bus", type: :request do
     end
 
     it "sends a message with the 'format.update_type' routing key" do
-      post "/v2/content/#{content_id}/publish" , { update_type: "major" }.to_json
+      post "/v2/content/#{content_id}/publish", { update_type: "major" }.to_json
 
       expect(response.status).to eq(200)
 
