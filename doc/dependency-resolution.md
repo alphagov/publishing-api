@@ -235,9 +235,7 @@ demonstrate that it is feasible to detect dependent nodes in this way:
 
 We should make it so that this query only follows edges in the dependency graph
 for groups which contain any of the fields that have changed on the content
-item. We can determine which fields have changed using Rails's
-[ActiveModel::Dirty](http://api.rubyonrails.org/classes/ActiveModel/Dirty.html)
-methods. The branch linked to above demonstrates that it is possible to restrict
+item. The branch linked to above demonstrates that it is possible to restrict
 edges followed by a link_type (which is another name for 'group'). The recursive
 behaviour of this query depends on the boolean configuration setting for that
 group and should be factored into the query.
