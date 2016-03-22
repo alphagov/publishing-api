@@ -9,12 +9,29 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item_for_live_content_store) {
       content_item_for_draft_content_store
     }
-    let(:request_body) { content_item_params.to_json }
-    let(:request_path) { "/content#{base_path}" }
-    let(:request_method) { :put }
 
-    sends_to_draft_content_store
-    sends_to_live_content_store
+    it "sends content to both content stores" do
+      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
+      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
+
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item_for_draft_content_store
+            .merge(payload_version: anything)
+        )
+
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item_for_live_content_store
+            .merge(payload_version: anything)
+        )
+
+      put "/content#{base_path}", content_item_params.to_json
+
+      expect(response).to be_ok, response.body
+    end
   end
 
   context "/draft-content" do
@@ -22,12 +39,24 @@ RSpec.describe "Downstream requests", type: :request do
       content_item_params
         .except(:update_type)
     }
-    let(:request_body) { content_item_params.to_json }
-    let(:request_path) { "/draft-content#{base_path}" }
-    let(:request_method) { :put }
 
-    sends_to_draft_content_store
-    does_not_send_to_live_content_store
+    it "sends content to the draft content store only" do
+
+      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
+
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item_for_draft_content_store
+            .merge(payload_version: anything)
+        )
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
+      expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
+
+      put "/draft-content#{base_path}", content_item_params.to_json
+
+      expect(response).to be_ok, response.body
+    end
   end
 
   context "/v2/content" do
@@ -36,12 +65,23 @@ RSpec.describe "Downstream requests", type: :request do
         .except(:update_type)
         .merge(links: {})
     }
-    let(:request_body) { v2_content_item.to_json }
-    let(:request_path) { "/v2/content/#{content_id}" }
-    let(:request_method) { :put }
 
-    sends_to_draft_content_store
-    does_not_send_to_live_content_store
+    it "only sends to the draft content store" do
+      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
+
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item_for_draft_content_store
+            .merge(payload_version: anything)
+        )
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
+      expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
+
+      put "/v2/content/#{content_id}", v2_content_item.to_json
+
+      expect(response).to be_ok, response.body
+    end
 
     context "when a link set exists for the content item" do
       let(:link_set) do
@@ -57,7 +97,20 @@ RSpec.describe "Downstream requests", type: :request do
         )
       end
 
-      sends_to_draft_content_store
+      it "sends to the draft content store" do
+        allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
+
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item_for_draft_content_store
+              .merge(payload_version: anything)
+          )
+
+        put "/v2/content/#{content_id}", v2_content_item.to_json
+
+        expect(response).to be_ok, response.body
+      end
     end
   end
 
@@ -74,9 +127,6 @@ RSpec.describe "Downstream requests", type: :request do
       content_item
         .except(:access_limited, :update_type)
     }
-    let(:request_body) { links_attributes.to_json }
-    let(:request_path) { "/v2/links/#{content_id}" }
-    let(:request_method) { :patch }
 
     context "when only a draft content item exists for the link set" do
       before do
@@ -92,8 +142,22 @@ RSpec.describe "Downstream requests", type: :request do
         )
       end
 
-      sends_to_draft_content_store
-      does_not_send_to_live_content_store
+      it "only sends to the draft content store" do
+        allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
+
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item_for_draft_content_store
+              .merge(payload_version: anything)
+          )
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
+        expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
+
+        patch "/v2/links/#{content_id}", links_attributes.to_json
+
+        expect(response).to be_ok, response.body
+      end
     end
 
     context "when only a live content item exists for the link set" do
@@ -103,8 +167,22 @@ RSpec.describe "Downstream requests", type: :request do
         )
       end
 
-      does_not_send_to_draft_content_store
-      sends_to_live_content_store
+      it "only sends to the live content store" do
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).never
+        expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
+        allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
+
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item_for_live_content_store
+              .merge(payload_version: anything)
+          )
+
+        patch "/v2/links/#{content_id}", links_attributes.to_json
+
+        expect(response).to be_ok, response.body
+      end
     end
 
     context "when draft and live content items exists for the link set" do
@@ -123,13 +201,40 @@ RSpec.describe "Downstream requests", type: :request do
         )
       end
 
-      sends_to_draft_content_store
-      sends_to_live_content_store
+      it "sends to both content stores" do
+        allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
+        allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
+
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item_for_draft_content_store
+              .merge(payload_version: anything)
+          )
+
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item_for_live_content_store
+              .merge(payload_version: anything)
+          )
+
+        patch "/v2/links/#{content_id}", links_attributes.to_json
+
+        expect(response).to be_ok, response.body
+      end
     end
 
     context "when a content item does not exist for the link set" do
-      does_not_send_to_draft_content_store
-      does_not_send_to_live_content_store
+      it "does not send to either content store" do
+        expect(WebMock).not_to have_requested(:any, /.*content-store.*/)
+        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
+
+        patch "/v2/links/#{content_id}", links_attributes.to_json
+
+        expect(response).to be_ok, response.body
+      end
     end
 
     context "when sending passthrough links" do
@@ -153,7 +258,20 @@ RSpec.describe "Downstream requests", type: :request do
         FactoryGirl.create(:access_limit, content_item: draft, users: access_limit_params.fetch(:users))
       end
 
-      sends_to_draft_content_store
+      it "sends to the draft content store" do
+        allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
+
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item_for_draft_content_store
+              .merge(payload_version: anything)
+          )
+
+        patch "/v2/links/#{content_id}", links_attributes.to_json
+
+        expect(response).to be_ok, response.body
+      end
     end
   end
 
@@ -164,10 +282,6 @@ RSpec.describe "Downstream requests", type: :request do
         content_id: content_id,
       )
     }
-
-    let(:request_body) { { update_type: "major" }.to_json }
-    let(:request_path) { "/v2/content/#{content_id}/publish" }
-    let(:request_method) { :post }
 
     let(:content_item_for_live_content_store) {
       draft.attributes.deep_symbolize_keys
@@ -189,6 +303,18 @@ RSpec.describe "Downstream requests", type: :request do
         )
     }
 
-    sends_to_live_content_store
+    it "sends to the live content store" do
+      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+        .with(
+          base_path: base_path,
+          content_item: content_item_for_live_content_store
+            .merge(payload_version: anything)
+        )
+
+      post "/v2/content/#{content_id}/publish", { update_type: "major" }.to_json
+
+      expect(response).to be_ok, response.body
+    end
   end
 end

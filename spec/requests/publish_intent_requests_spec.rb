@@ -14,24 +14,64 @@ RSpec.describe "Publish intent requests", type: :request do
       ],
     }
   }
-  let(:request_body) {
-    content_item.to_json
-  }
-  let(:request_path) {
-    "/publish-intent#{base_path}"
-  }
-  let(:request_method) { :put }
 
   before do
     stub_request(:put, %r{^content-store.*/publish-intent/.*})
   end
 
   describe "PUT /publish-intent" do
-    returns_200_response
-    responds_with_request_body
-    returns_400_on_invalid_json
-    suppresses_draft_content_store_502s
-    accepts_root_path
+    it "responds with 200" do
+      put "/publish-intent#{base_path}", content_item.to_json
+
+      expect(response.status).to eq(200)
+    end
+
+    it "responds with a request body" do
+      put "/publish-intent#{base_path}", content_item.to_json
+
+      expect(response.body).to eq(content_item.to_json)
+    end
+
+    context "requested with invalid json" do
+      it "returns 400" do
+        put "/publish-intent#{base_path}", "Not JSON"
+
+        expect(response.status).to eq(400)
+      end
+    end
+
+    context "when draft content store is not running but draft 502s are suppressed" do
+      before do
+        @swallow_connection_errors = PublishingAPI.swallow_connection_errors
+        PublishingAPI.swallow_connection_errors = true
+        stub_request(:put, %r{^http://draft-content-store.*/content/.*})
+          .to_return(status: 502)
+      end
+
+      it "returns the normal 200 response" do
+        begin
+          put "/publish-intent#{base_path}", content_item.to_json
+
+          parsed_response_body = JSON.parse(response.body)
+          expect(response.status).to eq(200)
+          expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
+          expect(parsed_response_body["title"]).to eq(content_item[:title])
+        ensure
+          PublishingAPI.swallow_connection_errors = @swallow_connection_errors
+        end
+      end
+    end
+
+    context "with the root path as a base_path" do
+      let(:base_path) { "/" }
+
+      it "creates the content item" do
+        put "/publish-intent#{base_path}", content_item.to_json
+
+        expect(response.status).to eq(200)
+        expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once
+      end
+    end
 
     let(:expected_event_payload) {
       content_item.merge(base_path: base_path)
@@ -42,19 +82,20 @@ RSpec.describe "Publish intent requests", type: :request do
         .with(base_path: "/vat-rates", publish_intent: content_item)
         .ordered
 
-      do_request
+      put "/publish-intent#{base_path}", content_item.to_json
     end
 
     it "does not send anything to the draft content store" do
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_publish_intent).never
 
-      do_request
+      put "/publish-intent#{base_path}", content_item.to_json
 
       expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
     end
 
     it "logs a 'PutPublishIntent' event in the event log" do
-      do_request
+      put "/publish-intent#{base_path}", content_item.to_json
+
       expect(Event.count).to eq(1)
       expect(Event.first.action).to eq('PutPublishIntent')
       expect(Event.first.user_uid).to eq(nil)
