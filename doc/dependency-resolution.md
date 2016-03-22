@@ -272,6 +272,36 @@ or similar and we can send it alongside the unexpanded links. As we migrate
 applications to use dependency resolution, we should make them use this field
 instead of "links" and look at retiring the expansion of links in content store.
 
+Here is a rough example of what this **might** look like:
+
+```javascript
+{
+  "expanded_links": {
+    "parent": [
+      {
+        "content_id": "111-111",
+        "title": "VAT Rates",
+        "base_path": "/tax/vat-rates",
+        "parent": [
+          {
+            "content_id": "222-222",
+            "title": "Taxation",
+            "base_path": "/tax",
+            "parent": [
+              {
+                "content_id": "333-333",
+                "title": "Home",
+                "base_path": "/"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 **Bidirectional Dependencies**
 
 As mentioned, we have a requirement for bidirectional dependencies, in the case
