@@ -394,5 +394,18 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
   end
 
+  context "when the content item does not exist" do
+    it "raises a command error" do
+      payload_for_unknown_content_item = {
+        content_id: SecureRandom.uuid,
+        links: {}
+      }
+
+      expect {
+        described_class.call(payload_for_unknown_content_item)
+      }.to raise_error(CommandError, /No item with content_id/)
+    end
+  end
+
   it_behaves_like TransactionalCommand
 end
