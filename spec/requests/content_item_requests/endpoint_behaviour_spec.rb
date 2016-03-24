@@ -332,4 +332,16 @@ RSpec.describe "Endpoint behaviour", type: :request do
       end
     end
   end
+
+  context "/links" do
+    context "PATCH /v2/links/:content_id" do
+      context "when the content item doesn't exist" do
+        it "responds with 404" do
+          patch "/v2/links/#{SecureRandom.uuid}", { "links" => {} }.to_json
+
+          expect(response.status).to eq(404)
+        end
+      end
+    end
+  end
 end

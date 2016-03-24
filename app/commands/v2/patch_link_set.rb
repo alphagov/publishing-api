@@ -2,6 +2,7 @@ module Commands
   module V2
     class PatchLinkSet < BaseCommand
       def call
+        raise_unless_content_item_exists
         raise_unless_links_hash_is_provided
 
         link_set = LinkSet.find_by(content_id: content_id)
@@ -72,6 +73,17 @@ module Commands
               }
             }
           )
+        end
+      end
+
+      def raise_unless_content_item_exists
+        unless ContentItem.exists?(content_id: content_id)
+          raise CommandError.new(code: 404, error_details: {
+            error: {
+              code: 404,
+              message: "No item with content_id: '#{content_id}'"
+            }
+          })
         end
       end
 
