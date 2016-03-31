@@ -332,4 +332,16 @@ RSpec.describe "Endpoint behaviour", type: :request do
       end
     end
   end
+
+  context "/links" do
+    context "PATCH /v2/links/:content_id" do
+      context "when creating a link set for a content item to be added later" do
+        it "responds with 200" do
+          patch "/v2/links/#{SecureRandom.uuid}", { links: {} }.to_json
+
+          expect(response.status).to eq(200)
+        end
+      end
+    end
+  end
 end
