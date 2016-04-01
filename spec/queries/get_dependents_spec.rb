@@ -35,7 +35,7 @@ RSpec.describe Queries::GetDependents do
     create_edge(a, c, "parent")
     create_edge(b, a, "children")
 
-    expect(subject.call(content_id: c, recursive_link_types: ["parent", "children"])).to match_array [a, b]
+    expect(subject.call(content_id: c, recursive_link_types: %w(parent children))).to match_array [a, b]
   end
 
   it "finds direct links only" do
@@ -49,7 +49,7 @@ RSpec.describe Queries::GetDependents do
     create_edge(a, c, "parent")
     create_edge(b, a, "parent")
 
-    expect(subject.call(content_id: c, recursive_link_types: ['parent'], direct_link_types: ["parent"])).to match_array [a,b]
+    expect(subject.call(content_id: c, recursive_link_types: ['parent'], direct_link_types: ["parent"])).to match_array [a, b]
   end
 
   it "does not find nodes that do not depend on the given node" do
