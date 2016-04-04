@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post "/content/:content_id/discard-draft", to: "content_items#discard_draft"
 
       get "/links/:content_id", to: "link_sets#get_links"
+      get "/expanded-links/:content_id", to: "link_sets#expanded_links"
       patch "/links/:content_id", to: "link_sets#patch_links"
       # put is provided for backwards compatibility.
       put "/links/:content_id", to: "link_sets#patch_links"

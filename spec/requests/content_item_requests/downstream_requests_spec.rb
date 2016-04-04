@@ -63,6 +63,7 @@ RSpec.describe "Downstream requests", type: :request do
       v2_content_item
         .except(:update_type)
         .merge(links: {})
+        .merge(expanded_links: {})
     }
 
     it "only sends to the draft content store" do
@@ -93,6 +94,8 @@ RSpec.describe "Downstream requests", type: :request do
       let(:content_item_for_draft_content_store) do
         v2_content_item.except(:update_type).merge(
           links: Presenters::Queries::LinkSetPresenter.new(link_set).links
+        ).merge(
+          expanded_links: Presenters::Queries::ExpandedLinkSet.new(link_set: link_set, fallback_order: [:draft, :published]).links
         )
       end
 
@@ -265,6 +268,7 @@ RSpec.describe "Downstream requests", type: :request do
             base_path: base_path,
             content_item: content_item_for_draft_content_store
               .merge(payload_version: anything)
+              .merge(expanded_links: anything)
           )
 
         patch "/v2/links/#{content_id}", links_attributes.to_json

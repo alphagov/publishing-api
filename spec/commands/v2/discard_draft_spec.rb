@@ -126,6 +126,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           expect(Presenters::ContentStorePresenter).to receive(:present).with(
             published_item,
             instance_of(Event),
+            fallback_order: [:draft, :published]
           )
 
           allow(PresentedContentStoreWorker).to receive(:perform_async)

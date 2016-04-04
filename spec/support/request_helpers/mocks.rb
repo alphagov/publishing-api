@@ -56,6 +56,9 @@ module RequestHelpers
         links: {
           organisations: ["30986e26-f504-4e14-a93f-a9593c34a8d9"]
         },
+        expanded_links: {
+          organisations: []
+        },
       }
     end
 

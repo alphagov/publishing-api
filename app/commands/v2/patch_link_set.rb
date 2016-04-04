@@ -93,7 +93,7 @@ module Commands
       def send_to_content_store(content_item, content_store)
         PresentedContentStoreWorker.perform_async(
           content_store: content_store,
-          payload: Presenters::ContentStorePresenter.present(content_item, event),
+          payload: Presenters::ContentStorePresenter.present(content_item, event, fallback_order: [:published]),
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end
@@ -102,6 +102,7 @@ module Commands
         payload = Presenters::MessageQueuePresenter.present(
           content_item,
           event,
+          fallback_order: [:published],
           update_type: "links",
         )
 
