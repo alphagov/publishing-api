@@ -54,10 +54,8 @@ updates (see https://github.com/alphagov/email-alert-service).
 
 `./startup.sh`
 
-Dependencies will be dowloaded and installed and the app should start up on
-port 3093. Currently on GOV.UK machines it also be available at
-`publishing-api-temp.dev.gov.uk`, but this will change to
-`publishing-api.dev.gov.uk` in the near future.
+It downloads and installs dependencies and starts the app on port 3093.
+When using GOV.UK virtual machine the app is available at `publishing-api.dev.gov.uk`.
 
 ## Running the test suite
 
