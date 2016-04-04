@@ -13,6 +13,7 @@ module Presenters
       end
 
       def self.present_many(content_item_scope, fields: nil, order: { public_updated_at: :desc }, offset: 0, limit: nil, locale: nil)
+        content_item_scope = State.filter(content_item_scope, name: %w(draft published))
         presenter = new(content_item_scope, fields: fields, order: order, limit: limit, offset: offset, locale: locale)
         presenter.present
       end
