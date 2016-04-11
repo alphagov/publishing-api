@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "rails", "4.2.5.1"
+gem "rails", "4.2.6"
 
 gem "unicorn", "~> 4.9.0"
 gem "logstasher", "0.6.2"
