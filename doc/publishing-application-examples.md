@@ -190,6 +190,39 @@ This item may have been published at lock version 5 and 10, the publishing appli
 
 ```
 
+## Automatic Redirects
+
+Publishing API automatically creates redirects on behalf of content items when their base paths change.
+It looks for previous content that matches the content_id of the incoming content and checks whether their base paths differ.
+If there is a difference, a redirect content item is created in draft. When the content with the updated base path is published, so is the redirect.
+
+If there was a previously published content item at the base path, its state will be changed to 'withdrawn', rather than 'superseded'.
+this is in order to prevent potential conflicts of state/version if that content is subsequently reinstated.
+The diagram below shows this workflow:
+
+```
+  Publishing Application                                 Publishing API
+
+                       Put Content Request
+  [ Initial draft ] -----------------------------------> [ Content item created in draft ]
+          |
+          |            Publish request
+           --------------------------------------------> [ Content item published ]
+
+
+                       Put Content Request
+  [ Updated draft ] -----------------------------------> [ Content item updated in draft ]
+          |                          |
+          |                           -----------------> [ Redirect created in draft ]
+          |
+          |
+          |            Publish request
+           --------------------------------------------> [ Content item published ]
+                                     |
+                                      -----------------> [ Redirect published ]
+                                     |
+                                      -----------------> [ Previously published item withdrawn ]
+```
 
 ---
 
