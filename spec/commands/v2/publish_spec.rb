@@ -291,6 +291,15 @@ RSpec.describe Commands::V2::Publish do
         expect(redirect).to be_present
         expect(redirect.format).to eq("redirect")
       end
+
+      it "withdraws the previously published item" do
+        described_class.call(payload)
+
+        state = State.find_by!(content_item: live_item)
+        expect(state.name).to eq("withdrawn"),
+          "If this is failing because the content item has been superseded,
+          check that withdrawl is happening before superseding."
+      end
     end
 
     context "when an access limit is set on the draft content item" do

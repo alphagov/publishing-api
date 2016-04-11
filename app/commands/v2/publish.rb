@@ -28,25 +28,20 @@ module Commands
 
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
-        previously_published_item = ContentItemFilter.similar_to(
-          content_item,
-          state: "published",
-          base_path: nil,
-          user_version: nil,
-        ).first
+        previous_item = lookup_published_item(content_item)
+        previous_location = Location.find_by(content_item: previous_item)
 
-        previous_location = Location.find_by(content_item: previously_published_item)
+        publish_redirect_if_content_item_has_moved(location, previous_location, translation)
 
-        State.supersede(previously_published_item) if previously_published_item
+        previous_item = lookup_published_item(content_item)
+        State.supersede(previous_item) if previous_item
 
         clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
 
-        set_public_updated_at(content_item, previously_published_item, update_type)
+        set_public_updated_at(content_item, previous_item, update_type)
         State.publish(content_item)
 
         AccessLimit.find_by(content_item: content_item).try(:destroy)
-
-        publish_redirect_if_content_item_has_moved(location, previous_location, translation)
 
         send_downstream(content_item, update_type) if downstream
 
@@ -116,6 +111,15 @@ module Commands
           },
           downstream: downstream,
         )
+      end
+
+      def lookup_published_item(content_item)
+        ContentItemFilter.similar_to(
+          content_item,
+          state: "published",
+          base_path: nil,
+          user_version: nil,
+        ).first
       end
 
       def send_downstream(content_item, update_type)
