@@ -50,7 +50,7 @@ module Presenters
 
       def scope
         scope = join_supporting_objects(content_item_scope)
-        select_fields(scope).order(order)
+        select_fields(scope)
       end
 
       def aggregated_sql(sql)
