@@ -12,7 +12,7 @@ RSpec.describe V2::ContentItemsController do
       base_path: "/content.en",
       format: "topic",
       locale: "en",
-      lock_version: 2,
+      user_facing_version: 2,
     )
   end
 
@@ -25,7 +25,7 @@ RSpec.describe V2::ContentItemsController do
         locale: "ar",
         base_path: "/content.ar",
         format: "topic",
-        lock_version: 2,
+        user_facing_version: 2,
       )
       @en_live_content = FactoryGirl.create(
         :live_content_item,
@@ -33,7 +33,7 @@ RSpec.describe V2::ContentItemsController do
         locale: "en",
         base_path: "/content.en",
         format: "topic",
-        lock_version: 2,
+        user_facing_version: 1,
       )
       @ar_live_content = FactoryGirl.create(
         :live_content_item,
@@ -41,13 +41,13 @@ RSpec.describe V2::ContentItemsController do
         locale: "ar",
         base_path: "/content.ar",
         format: "topic",
-        lock_version: 2,
+        user_facing_version: 1,
       )
     end
 
     context "without providing a locale parameter" do
       before do
-        get :index, document_type: "topic", fields: %w(locale content_id base_path publication_state)
+        get :index, document_type: "topic", fields: %w(base_path)
       end
 
       it "is successful" do
@@ -56,19 +56,16 @@ RSpec.describe V2::ContentItemsController do
 
       it "responds with the english content item as json" do
         parsed_response_body = JSON.parse(response.body)["results"]
-        expect(parsed_response_body.length == 2)
+        expect(parsed_response_body.length).to eq(1)
 
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
-        expect(base_paths). to eq ["/content.en"]
-
-        publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
-        expect(publication_states). to eq ["live"]
+        expect(base_paths).to eq ["/content.en"]
       end
     end
 
     context "providing a specific locale parameter" do
       before do
-        get :index, document_type: "topic", fields: %w(locale content_id base_path publication_state), locale: "ar"
+        get :index, document_type: "topic", fields: %w(base_path), locale: "ar"
       end
 
       it "is successful" do
@@ -77,19 +74,16 @@ RSpec.describe V2::ContentItemsController do
 
       it "responds with the specific locale content item as json" do
         parsed_response_body = JSON.parse(response.body)["results"]
-        expect(parsed_response_body.length == 2)
+        expect(parsed_response_body.length).to eq(1)
 
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
         expect(base_paths). to eq ["/content.ar"]
-
-        base_paths = parsed_response_body.map { |item| item.fetch("publication_state") }
-        expect(base_paths). to eq ["live"]
       end
     end
 
     context "providing a locale parameter set to 'all'" do
       before do
-        get :index, document_type: "topic", fields: %w(locale content_id base_path publication_state), locale: "all"
+        get :index, document_type: "topic", fields: %w(base_path), locale: "all"
       end
 
       let(:parsed_response_body) { JSON.parse(response.body)["results"] }
@@ -99,17 +93,12 @@ RSpec.describe V2::ContentItemsController do
       end
 
       it "has the corrent number of items" do
-        expect(parsed_response_body.length == 4)
+        expect(parsed_response_body.length).to eq(2)
       end
 
       it "responds with all the localised content items as json" do
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
         expect(base_paths.sort). to eq ["/content.en", "/content.ar"].sort
-      end
-
-      it "has the correct publication states" do
-        publication_states = parsed_response_body.map { |item| item.fetch("publication_state") }
-        expect(publication_states). to eq %w(live live)
       end
     end
 

@@ -112,12 +112,10 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       live = FactoryGirl.create(
         :live_content_item,
-        #:with_draft, # TODO is this needed?
         content_id: "bed722e6-db68-43e5-9079-063f623335a7"
       )
 
       FactoryGirl.create(:lock_version, target: live, number: 1)
-      #FactoryGirl.create(:lock_version, target: live.draft_content_item, number: 1)
     end
   end
 
@@ -159,31 +157,30 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a content item exists in multiple locales with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      english_draft = FactoryGirl.create(
+      FactoryGirl.create(
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "en",
         format: "topic",
         public_updated_at: '2015-01-03',
+        user_facing_version: 1,
       )
-      french_draft = FactoryGirl.create(
+      FactoryGirl.create(
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
         format: "topic",
         public_updated_at: '2015-01-02',
+        user_facing_version: 1,
       )
-      arabic_draft = FactoryGirl.create(
+      FactoryGirl.create(
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "ar",
         format: "topic",
         public_updated_at: '2015-01-01',
+        user_facing_version: 1,
       )
-
-      FactoryGirl.create(:lock_version, target: english_draft, number: 1)
-      FactoryGirl.create(:lock_version, target: french_draft, number: 1)
-      FactoryGirl.create(:lock_version, target: arabic_draft, number: 1)
     end
   end
 
@@ -277,28 +274,32 @@ Pact.provider_states_for "GDS API Adapters" do
       content_id2 = "08dfd5c3-d935-4e81-88fd-cfe65b78893d"
       content_id3 = "e2961462-bc37-48e9-bb98-c981ef1a2d59"
 
-      content_item = FactoryGirl.create(
+      FactoryGirl.create(
         :live_content_item,
-        :with_draft,
         content_id: content_id1,
+        user_facing_version: 1,
       )
-      FactoryGirl.create(:lock_version, target: content_item, number: 1)
+      FactoryGirl.create(
+        :draft_content_item,
+        content_id: content_id1,
+        user_facing_version: 2
+      )
 
-      content_item = FactoryGirl.create(
+      FactoryGirl.create(
         :live_content_item,
         content_id: content_id3,
         base_path: '/item-b',
         public_updated_at: '2015-01-02',
+        user_facing_version: 1,
       )
-      FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
-      content_item = FactoryGirl.create(
+      FactoryGirl.create(
         :live_content_item,
         content_id: content_id2,
         base_path: '/item-a',
         public_updated_at: '2015-01-01',
+        user_facing_version: 1,
       )
-      FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
       link_set1 = FactoryGirl.create(:link_set, content_id: content_id2)
       link_set2 = FactoryGirl.create(:link_set, content_id: content_id3)

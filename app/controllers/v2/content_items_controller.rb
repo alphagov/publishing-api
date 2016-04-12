@@ -6,7 +6,7 @@ module V2
 
       results = Queries::GetContentCollection.new(
         document_type: doc_type,
-        fields: query_params.fetch(:fields),
+        fields: query_params[:fields],
         filters: filters,
         pagination: pagination
       )

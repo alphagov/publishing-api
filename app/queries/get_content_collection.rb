@@ -4,7 +4,7 @@ module Queries
 
     def initialize(document_type:, fields:, filters: {}, pagination: Pagination.new)
       self.document_type = document_type
-      self.fields = fields_with_ordering(fields, pagination)
+      self.fields = fields
       self.publishing_app = filters[:publishing_app]
       self.link_filters = filters[:links]
       self.locale = filters[:locale] || "en"
@@ -13,14 +13,15 @@ module Queries
 
     def call
       validate_fields!
-      presented = presenter.present_many(content_items,
-                                         fields: fields,
-                                         order: pagination.order,
-                                         offset: pagination.offset,
-                                         locale: locale,
-                                         limit: pagination.per_page)
 
-      presented.map { |p| filter_fields(p).as_json }
+      presenter.present_many(
+        content_items,
+        fields: fields,
+        order: pagination.order,
+        offset: pagination.offset,
+        locale: locale,
+        limit: pagination.per_page
+      )
     end
 
     def total
@@ -43,11 +44,9 @@ module Queries
       [document_type, "placeholder_#{document_type}"]
     end
 
-    def filter_fields(hash)
-      hash.slice(*fields)
-    end
-
     def validate_fields!
+      return unless fields
+
       invalid_fields = fields - permitted_fields
       return unless invalid_fields.any?
 
@@ -59,14 +58,8 @@ module Queries
       })
     end
 
-    def fields_with_ordering(fields, pagination)
-      combined_fields = pagination.order_fields
-      combined_fields = combined_fields + fields if fields
-      combined_fields
-    end
-
     def permitted_fields
-      ContentItem.column_names + %w(base_path locale publication_state internal_name)
+      presenter::DEFAULT_FIELDS.map(&:to_s)
     end
 
     def presenter

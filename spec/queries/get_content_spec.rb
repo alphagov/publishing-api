@@ -42,12 +42,14 @@ RSpec.describe Queries::GetContent do
         :draft_content_item,
         content_id: content_id,
         title: "Draft Title",
+        user_facing_version: 2,
       )
 
       FactoryGirl.create(
         :live_content_item,
         content_id: content_id,
         title: "Live Title",
+        user_facing_version: 1,
       )
     end
 
@@ -62,17 +64,17 @@ RSpec.describe Queries::GetContent do
       FactoryGirl.create(
         :content_item,
         content_id: content_id,
-        user_facing_version: 2,
-        title: "Superseded Title",
-        state: "superseded",
+        user_facing_version: 1,
+        title: "Published Title",
+        state: "published",
       )
 
       FactoryGirl.create(
         :content_item,
         content_id: content_id,
-        user_facing_version: 1,
-        title: "Published Title",
-        state: "published",
+        user_facing_version: 2,
+        title: "Submitted Title",
+        state: "submitted",
       )
     end
 
