@@ -59,7 +59,8 @@ module Presenters
     end
 
     def location
-      @location ||= Location.find_by!(content_item: content_item)
+      @location ||=
+        Location.find_by(content_item: content_item) || NullLocation.new
     end
 
     def translation

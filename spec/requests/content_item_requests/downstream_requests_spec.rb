@@ -111,6 +111,32 @@ RSpec.describe "Downstream requests", type: :request do
         expect(response).to be_ok, response.body
       end
     end
+
+    context "with a nil base_path" do
+      let(:content_item_payload) {
+        v2_content_item
+          .except(:format)
+          .merge(base_path: nil, schema_name: "government")
+      }
+      let(:content_item_for_draft_content_store) {
+        content_item_payload
+          .except(:update_type)
+          .merge(links: {}, format: "government")
+      }
+
+      it "sends to the draft content store" do
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: nil,
+            content_item: content_item_for_draft_content_store
+              .merge(payload_version: anything)
+          )
+
+        put "/v2/content/#{content_id}", content_item_payload.to_json
+
+        expect(response).to be_ok, response.body
+      end
+    end
   end
 
   context "/v2/links" do
