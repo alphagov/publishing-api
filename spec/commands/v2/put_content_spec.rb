@@ -120,6 +120,75 @@ RSpec.describe Commands::V2::PutContent do
         expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(6)
       end
 
+      context "and the base path has changed" do
+        before do
+          payload.merge!(
+            base_path: "/moved",
+            routes: [{ path: "/moved", type: "exact" }],
+          )
+        end
+
+        it "sets the correct base path on the location" do
+          described_class.call(payload)
+
+          content_item = ContentItemFilter.filter(
+            base_path: "/moved",
+            state: "draft",
+          ).first
+
+          location = Location.find_by!(content_item: content_item)
+
+          expect(location.base_path).to eq("/moved")
+        end
+
+        it "creates a redirect" do
+          described_class.call(payload)
+
+          redirect = ContentItemFilter.filter(
+            base_path: "/vat-rates",
+            state: "draft",
+          ).first
+
+          expect(redirect).to be_present
+          expect(redirect.format).to eq("redirect")
+          expect(redirect.publishing_app).to eq("publisher")
+
+          expect(redirect.redirects).to eq([{
+            path: "/vat-rates",
+            type: "exact",
+            destination: "/moved",
+          }])
+        end
+
+        it "sends a create request to the draft content store for the redirect" do
+          expect(PresentedContentStoreWorker).to receive(:perform_async)
+            .with(
+              content_store: Adapters::DraftContentStore,
+              payload: expected_content_store_payload,
+              request_uuid: "12345-67890",
+            ).twice
+
+          described_class.call(payload)
+        end
+
+        context "when the locale differs from the existing draft content item" do
+          before do
+            payload.merge!(locale: "fr", title: "French Title")
+          end
+
+          it "creates a separate draft content item in the given locale" do
+            described_class.call(payload)
+            expect(ContentItem.count).to eq(2)
+
+            content_item = ContentItem.last
+            expect(content_item.title).to eq("French Title")
+
+            translation = Translation.find_by!(content_item: content_item)
+            expect(translation.locale).to eq("fr")
+          end
+        end
+      end
+
       describe "race condtitions", skip_cleaning: true do
         after do
           DatabaseCleaner.clean_with :truncation

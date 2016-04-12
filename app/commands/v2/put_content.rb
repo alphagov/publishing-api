@@ -28,6 +28,22 @@ module Commands
         create_supporting_objects(content_item)
         ensure_link_set_exists(content_item)
 
+        if previously_published_item
+          previous_location = Location.find_by!(content_item: previously_published_item)
+          previous_routes = previously_published_item.routes
+
+          if path_has_changed?(previous_location)
+            from_path = previous_location.base_path
+
+            create_redirect(
+              from_path: from_path,
+              to_path: base_path,
+              locale: locale,
+              routes: previous_routes
+            )
+          end
+        end
+
         if payload[:access_limited] && (users = payload[:access_limited][:users])
           AccessLimit.create!(content_item: content_item, users: users)
         end
@@ -36,19 +52,24 @@ module Commands
       def update_existing_content_item(content_item)
         clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
-        location = Location.find_by!(content_item: content_item)
-        translation = Translation.find_by!(content_item: content_item)
-        routes = content_item.routes
+        previous_location = Location.find_by!(content_item: content_item)
+        previous_routes = content_item.routes
 
         check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
         update_content_item(content_item)
         increment_lock_version(content_item)
 
-        if path_has_changed?(location)
-          from_path = location.base_path
-          update_path(location, new_path: base_path)
-          create_redirect(from_path: from_path, to_path: base_path, locale: translation.locale, routes: routes)
+        if path_has_changed?(previous_location)
+          from_path = previous_location.base_path
+          update_path(previous_location, new_path: base_path)
+
+          create_redirect(
+            from_path: from_path,
+            to_path: base_path,
+            locale: locale,
+            routes: previous_routes
+          )
         end
 
         if payload[:access_limited] && (users = payload[:access_limited][:users])
