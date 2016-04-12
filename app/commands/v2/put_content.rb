@@ -23,7 +23,7 @@ module Commands
     private
 
       def create_new_content_item(content_item)
-        clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+        clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path) unless base_path.nil?
 
         create_supporting_objects(content_item)
         ensure_link_set_exists(content_item)
