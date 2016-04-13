@@ -22,7 +22,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     allow(Presenters::ContentStorePresenter).to receive(:present)
       .and_return(expected_content_store_payload)
     allow(GdsApi::GovukHeaders).to receive(:headers)
-      .and_return(x_govuk_request_uuid: "12345-67890")
+      .and_return(govuk_request_id: "12345-67890")
   end
 
   context "when no link set exists" do

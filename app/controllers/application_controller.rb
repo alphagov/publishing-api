@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :require_signin_permission!
-  before_action :add_govuk_request_uuid_header
 
   Warden::Manager.after_authentication do |user, _, _|
     user.set_app_name!
@@ -59,9 +58,5 @@ private
 
   def path_params
     @post_params ||= ActionController::Parameters.new(request.path_parameters)
-  end
-
-  def add_govuk_request_uuid_header
-    GdsApi::GovukHeaders.set_header(:x_govuk_request_uuid, request.uuid)
   end
 end
