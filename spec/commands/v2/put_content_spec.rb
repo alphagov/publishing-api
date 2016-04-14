@@ -5,7 +5,7 @@ RSpec.describe Commands::V2::PutContent do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
       allow(GdsApi::GovukHeaders).to receive(:headers)
-        .and_return(x_govuk_request_uuid: "12345-67890")
+        .and_return(govuk_request_id: "12345-67890")
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }

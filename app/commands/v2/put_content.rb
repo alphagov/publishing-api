@@ -215,7 +215,7 @@ module Commands
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
           payload: Presenters::ContentStorePresenter.present(content_item, event),
-          request_uuid: GdsApi::GovukHeaders.headers[:x_govuk_request_uuid],
+          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end
 
