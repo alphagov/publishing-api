@@ -5,27 +5,23 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "present" do
     let!(:content_item) do
-      FactoryGirl.create(
-        :draft_content_item,
-        content_id: content_id,
-        lock_version: 101,
-      )
+      FactoryGirl.create(:draft_content_item, content_id: content_id)
     end
-    let(:result) { Presenters::Queries::ContentItemPresenter.present(content_item) }
+
+    let(:result) { described_class.present(content_item) }
 
     it "presents content item attributes as a hash" do
-      expected = {
+      expect(result).to eq(
         "content_id" => content_id,
         "locale" => "en",
         "base_path" => "/vat-rates",
         "title" => "VAT rates",
         "format" => "guide",
+        "internal_name" => "VAT rates",
         "document_type" => "guide",
         "schema_name" => "guide",
-        "public_updated_at" => "2014-05-14 13:00:06",
-        "details" => {
-          "body" => "<p>Something about VAT</p>\n"
-        },
+        "public_updated_at" => "2014-05-14T13:00:06Z",
+        "details" => { "body" => "<p>Something about VAT</p>\n" },
         "routes" => [{ "path" => "/vat-rates", "type" => "exact" }],
         "redirects" => [],
         "publishing_app" => "publisher",
@@ -36,121 +32,50 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "analytics_identifier" => "GDS01",
         "description" => "VAT rates for goods and services",
         "publication_state" => "draft",
-        "lock_version" => 101
-      }
-      expect(result).to eq(expected)
+        "user_facing_version" => 1,
+        "lock_version" => 1,
+      )
     end
 
-    context "with no published lock_version" do
-      it "shows the publication state of the content item as draft" do
+    context "for a draft content item" do
+      it "has a publication state of draft" do
         expect(result.fetch("publication_state")).to eq("draft")
       end
 
-      it "does not include live_version" do
-        expect(result).not_to have_key(:live_version)
+      context "that has a user facing version greater than 1" do
+        before do
+          version = UserFacingVersion.last
+          version.number = 2
+          version.save!
+        end
+
+        it "has a publication state of redrafted" do
+          expect(result.fetch("publication_state")).to eq("redrafted")
+        end
       end
     end
 
-    context "with a published lock_version and no subsequent draft" do
-      let!(:content_item) do
-        FactoryGirl.create(
-          :live_content_item,
-          content_id: content_id,
-          lock_version: 101,
-        )
-      end
-
-      it "shows the publication state of the content item as live" do
-        expect(result.fetch("publication_state")).to eq("live")
-      end
-
-      it "exposes the live lock_version number" do
-        expect(result.fetch("live_version")).to eq(101)
-      end
-    end
-
-    context "with a published lock_version and a subsequent draft" do
-      let!(:content_item) do
-        FactoryGirl.create(
-          :live_content_item,
-          content_id: content_id,
-          lock_version: 100,
-          title: "Live copy",
-        )
-      end
-
+    context "for a published content item" do
       before do
-        FactoryGirl.create(
-          :draft_content_item,
-          content_id: content_id,
-          lock_version: 101,
-          title: "Draft copy",
-        )
+        State.find_by!(content_item: content_item).update!(name: "published")
       end
 
-      it "shows the publication state of the content item as redrafted" do
-        expect(result.fetch("publication_state")).to eq("redrafted")
-      end
-
-      it "exposes the live lock_version number" do
-        expect(result.fetch("live_version")).to eq(100)
-      end
-
-      it "returns the newest copy" do
-        expect(result.fetch("title")).to eq("Draft copy")
-      end
-    end
-
-    context "with a live lock_version only" do
-      let!(:content_item) do
-        FactoryGirl.create(
-          :live_content_item,
-          content_id: content_id,
-          lock_version: 100,
-        )
-      end
-
-      it "shows the publication state of the content item as live" do
+      it "has a publication state of live" do
         expect(result.fetch("publication_state")).to eq("live")
       end
     end
-  end
 
-  context "when the content item exists in multiple locales" do
-    let!(:french_item) do
-      FactoryGirl.create(
-        :content_item,
-        content_id: content_id,
-        locale: "fr"
-      )
-    end
+    context "when the content item exists in multiple locales" do
+      let!(:french_item) do
+        FactoryGirl.create(:content_item, content_id: content_id, locale: "fr")
+      end
 
-    let!(:english_item) do
-      FactoryGirl.create(
-        :content_item,
-        content_id: content_id,
-        locale: "en"
-      )
-    end
-
-    describe "#present" do
       it "presents the item with matching locale" do
         result = described_class.present(french_item)
         expect(result.fetch("locale")).to eq("fr")
 
-        result = described_class.present(english_item)
+        result = described_class.present(content_item)
         expect(result.fetch("locale")).to eq("en")
-      end
-    end
-
-    describe "#present_many" do
-      it "presents a content item for each locale" do
-        content_items = ContentItem.where(content_id: content_id)
-
-        results = described_class.present_many(content_items)
-        locales = results.map { |r| r.fetch("locale") }
-
-        expect(locales).to match_array(%w(fr en))
       end
     end
   end
@@ -180,7 +105,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       context "and an internal_name is present" do
         before do
           details = content_item.details
-          details[:internal_name] = "An internal name"
+          details["internal_name"] = "An internal name"
 
           content_item.update_attributes(
             details: details,
@@ -212,6 +137,21 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
           results = described_class.present_many(content_items, fields: fields)
           expect(results.first["internal_name"]).to eq("A normal title")
         end
+      end
+    end
+
+    context "when the content item exists in multiple locales" do
+      let!(:french_item) do
+        FactoryGirl.create(:content_item, content_id: content_id, locale: "fr")
+      end
+
+      it "presents a content item for each locale" do
+        content_items = ContentItem.where(content_id: content_id)
+
+        results = described_class.present_many(content_items)
+        locales = results.map { |r| r.fetch("locale") }
+
+        expect(locales).to match_array(%w(fr en))
       end
     end
   end

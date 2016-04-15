@@ -7,10 +7,10 @@ module Queries
       content_items = Translation.filter(content_items, locale: locale)
       content_items = State.filter(content_items, name: %w(draft published))
 
-      content_item = UserFacingVersion.latest(content_items)
+      response = Presenters::Queries::ContentItemPresenter.present_many(content_items).first
 
-      if content_item
-        Presenters::Queries::ContentItemPresenter.present(content_item)
+      if response.present?
+        response
       else
         raise_not_found(content_id)
       end

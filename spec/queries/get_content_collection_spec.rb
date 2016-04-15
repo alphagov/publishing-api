@@ -74,7 +74,7 @@ RSpec.describe Queries::GetContentCollection do
       expect(Queries::GetContentCollection.new(
         document_type: 'topic',
         fields: ['base_path'],
-      ).call).to eq([])
+      ).call.to_a).to eq([])
     end
   end
 
@@ -274,7 +274,7 @@ RSpec.describe Queries::GetContentCollection do
           pagination: Pagination.new(offset: 0, per_page: 3)
         ).call
 
-        expect(content_items.size).to eq(3)
+        expect(content_items.count).to eq(3)
       end
 
       it "fetches results from a specified index" do
@@ -292,7 +292,7 @@ RSpec.describe Queries::GetContentCollection do
           document_type: 'topic',
           fields: ['base_path'],
           pagination: Pagination.new(offset: 3, per_page: 8)
-        ).call
+        ).call.to_a
 
         expect(content_items.first['base_path']).to eq('/d')
         expect(content_items.last['base_path']).to eq('/live2')
@@ -304,7 +304,7 @@ RSpec.describe Queries::GetContentCollection do
           fields: ['publishing_app'],
         ).call
 
-        expect(content_items.size).to eq(6)
+        expect(content_items.count).to eq(6)
       end
     end
   end
@@ -321,11 +321,11 @@ RSpec.describe Queries::GetContentCollection do
       content_items = Queries::GetContentCollection.new(
         document_type: 'guide',
         fields: %w(public_updated_at),
-      ).call
+      ).call.to_a
 
-      expect(content_items.size).to eq(4)
-      expect(content_items.first['public_updated_at']).to eq('2014-06-17 00:00:00')
-      expect(content_items.last['public_updated_at']).to eq('2014-06-13 00:00:00')
+      expect(content_items.count).to eq(4)
+      expect(content_items.first['public_updated_at']).to eq('2014-06-17T00:00:00Z')
+      expect(content_items.last['public_updated_at']).to eq('2014-06-13T00:00:00Z')
     end
 
     it "returns paginated content items in default order" do
@@ -333,10 +333,56 @@ RSpec.describe Queries::GetContentCollection do
         document_type: 'guide',
         fields: %w(public_updated_at),
         pagination: Pagination.new(offset: 2, per_page: 4)
-      ).call
+      ).call.to_a
 
-      expect(content_items.first['public_updated_at']).to eq('2014-06-14 00:00:00')
-      expect(content_items.last['public_updated_at']).to eq('2014-06-13 00:00:00')
+      expect(content_items.first['public_updated_at']).to eq('2014-06-14T00:00:00Z')
+      expect(content_items.last['public_updated_at']).to eq('2014-06-13T00:00:00Z')
+    end
+  end
+
+  describe "#total" do
+    it "returns the number of content items" do
+      FactoryGirl.create(:content_item, base_path: '/a', format: 'topic')
+      FactoryGirl.create(:content_item, base_path: '/b', format: 'topic')
+
+      expect(Queries::GetContentCollection.new(
+        document_type: 'topic',
+        fields: %w(base_path locale publication_state),
+      ).total).to eq(2)
+    end
+
+    context "when there are multiple versions of the same content item" do
+      before do
+        content_id = SecureRandom.uuid
+
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          format: 'topic',
+          state: "published",
+          user_facing_version: 1,
+        )
+
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          format: 'topic',
+          state: "draft",
+          user_facing_version: 2,
+        )
+      end
+
+      it "returns the latest item only" do
+        expect(Queries::GetContentCollection.new(
+          document_type: 'topic',
+          fields: %w(base_path locale publication_state),
+        ).total).to eq(1)
+
+        expect(Queries::GetContentCollection.new(
+          document_type: 'topic',
+          fields: %w(base_path locale publication_state),
+        ).call.first["publication_state"]).to eq("redrafted")
+      end
     end
   end
 end
