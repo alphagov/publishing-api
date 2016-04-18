@@ -138,12 +138,10 @@ module Presenters
         result[column] = result[column].to_i
       end
 
-      # It is substantially faster to evaluate directly against Postgres than
-      # to use: #as_json, #pluck or even ActiveRecord::Base.connection.execute
-      # The reason for this is that the results of this query don't have to go
-      # through as many abstraction layers. This is closer to the metal.
+      # It is substantially faster to evaluate in this way rather than calling
+      # the #pluck or #as_json methods.
       def evaluate_query(scope)
-        ActiveRecord::Base.connection.raw_connection.exec(scope.to_sql)
+        ActiveRecord::Base.connection.execute(scope.to_sql)
       end
     end
   end
