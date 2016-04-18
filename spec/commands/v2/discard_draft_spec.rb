@@ -78,13 +78,6 @@ RSpec.describe Commands::V2::DiscardDraft do
         described_class.call(payload)
       end
 
-      context "when the 'downstream' parameter is false" do
-        it "does not send any requests to any content store" do
-          expect(ContentStoreWorker).not_to receive(:perform_async)
-          described_class.call(payload, downstream: false)
-        end
-      end
-
       context "when the draft's lock version differs from the given lock version" do
         before do
           lock_version = LockVersion.find_by!(target: existing_draft_item)

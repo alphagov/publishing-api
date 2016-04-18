@@ -18,7 +18,8 @@ RSpec.describe Commands::DeletePublishIntent do
 
   context "when the downstream flag is set to false" do
     it "does not send any downstream requests" do
-      expect(ContentStoreWorker).not_to receive(:perform_async)
+      expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_publish_intent)
+      expect(PresentedContentStoreWorker).not_to receive(:perform_async)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       described_class.call(payload, downstream: false)
