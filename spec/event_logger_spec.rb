@@ -4,11 +4,17 @@ RSpec.describe EventLogger do
   let(:command_class) { Commands::PutPublishIntent }
   let(:payload) { { stuff: "1234" } }
 
+  before do
+    allow(GdsApi::GovukHeaders).to receive(:headers)
+      .and_return(govuk_request_id: "09876-54321")
+  end
+
   it "records an event, given the name and payload" do
     EventLogger.log_command(command_class, payload)
     expect(Event.count).to eq(1)
     expect(Event.first.action).to eq("PutPublishIntent")
     expect(Event.first.payload).to eq(payload)
+    expect(Event.first.request_id).to eq("09876-54321")
   end
 
   it "returns the return value of the block" do
