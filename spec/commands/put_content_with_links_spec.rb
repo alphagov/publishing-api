@@ -85,7 +85,9 @@ RSpec.describe Commands::PutContentWithLinks do
 
   context "when the downstream flag is set to false" do
     it "does not send any downstream requests" do
-      expect(ContentStoreWorker).not_to receive(:perform_async)
+      expect(Adapters::DraftContentStore).not_to receive(:put_content_item)
+      expect(Adapters::ContentStore).not_to receive(:put_content_item)
+      expect(PresentedContentStoreWorker).not_to receive(:perform_async)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       described_class.call(payload, downstream: false)

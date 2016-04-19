@@ -20,14 +20,5 @@ RSpec.describe Commands::ReservePath do
         }.to raise_error CommandError
       end
     end
-
-    context "when the downstream flag is set to false" do
-      it "does not send any downstream requests" do
-        expect(ContentStoreWorker).not_to receive(:perform_async)
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
-
-        described_class.call(payload, downstream: false)
-      end
-    end
   end
 end

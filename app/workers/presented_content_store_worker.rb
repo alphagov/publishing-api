@@ -6,7 +6,7 @@ class PresentedContentStoreWorker
   def perform(args = {})
     args = args.deep_symbolize_keys
 
-    logger.debug "[#{args[:request_uuid]}] ContentStoreWorker#perform with #{args}"
+    logger.debug "[#{args[:request_uuid]}] PresentedContentStoreWorker#perform with #{args}"
     GdsApi::GovukHeaders.set_header(:govuk_request_id, args[:request_uuid])
 
     content_store = args.fetch(:content_store).constantize

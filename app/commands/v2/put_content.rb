@@ -208,7 +208,7 @@ module Commands
       def send_downstream(content_item)
         return unless downstream
 
-        message = "Enqueuing ContentStoreWorker job with "
+        message = "Enqueuing PresentedContentStoreWorker job with "
         message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
         logger.info message
 
