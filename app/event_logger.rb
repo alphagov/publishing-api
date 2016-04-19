@@ -8,7 +8,8 @@ module EventLogger
         event = Event.create!(
           action: action(command_class),
           payload: payload,
-          user_uid: GdsApi::GovukHeaders.headers[:x_govuk_authenticated_user]
+          user_uid: GdsApi::GovukHeaders.headers[:x_govuk_authenticated_user],
+          request_id: GdsApi::GovukHeaders.headers[:govuk_request_id]
         )
 
         response = yield(event) if block_given?
