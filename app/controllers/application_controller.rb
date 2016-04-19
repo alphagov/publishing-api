@@ -1,14 +1,9 @@
 class ApplicationController < ActionController::Base
-  rescue_from ActionController::ParameterMissing, with: :parameter_missing_error
-
   include GDS::SSO::ControllerMethods
 
-  class BadRequest < StandardError; end
-
+  rescue_from ActionController::ParameterMissing, with: :parameter_missing_error
+  rescue_from JSON::ParserError, with: :json_parse_error
   rescue_from CommandError, with: :respond_with_command_error
-  rescue_from BadRequest do
-    head :bad_request
-  end
 
   before_action do
     # Force Rails to show text-error pages
@@ -34,6 +29,17 @@ private
     respond_with_command_error(error)
   end
 
+  def json_parse_error(e)
+    error = CommandError.new(code: 400, error_details: {
+      error: {
+        code: 400,
+        message: e.message
+      }
+    })
+
+    respond_with_command_error(error)
+  end
+
   def respond_with_command_error(error)
     render status: error.code, json: error
   end
@@ -44,8 +50,6 @@ private
 
   def payload
     @payload ||= JSON.parse(request.body.read).deep_symbolize_keys
-  rescue JSON::ParserError
-    raise BadRequest
   end
 
   def query_params
