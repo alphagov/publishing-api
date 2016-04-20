@@ -79,5 +79,44 @@ RSpec.describe PathReservation, type: :model do
         expect(path_reservation.publishing_app).to eq("publisher")
       end
     end
+
+    context "when the path reservation was created by the same app in another transaction" do
+      it "returns the other reservation" do
+        allow(PathReservation)
+          .to receive(:find_or_initialize_by)
+          .with(base_path: "/vat-rates")
+          .and_wrap_original do |m, *args|
+            record = m.call(*args)
+            PathReservation.create!(publishing_app: "publisher", base_path: "/vat-rates")
+            record
+          end
+
+        expect {
+          described_class.reserve_base_path!("/vat-rates", "publisher")
+        }.not_to raise_error
+
+        path_reservation = PathReservation.last
+
+        expect(path_reservation.base_path).to eq("/vat-rates")
+        expect(path_reservation.publishing_app).to eq("publisher")
+      end
+    end
+
+    context "when the path reservation was created by another app in another transaction" do
+      it "returns the other reservation" do
+        allow(PathReservation)
+          .to receive(:find_or_initialize_by)
+          .with(base_path: "/vat-rates")
+          .and_wrap_original do |m, *args|
+            record = m.call(*args)
+            PathReservation.create!(publishing_app: "something-else", base_path: "/vat-rates")
+            record
+          end
+
+        expect {
+          described_class.reserve_base_path!("/vat-rates", "publisher")
+        }.to raise_error(ActiveRecord::RecordNotUnique)
+      end
+    end
   end
 end
