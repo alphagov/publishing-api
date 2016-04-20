@@ -6,6 +6,7 @@ module EventLogger
 
       Event.connection.transaction do
         event = Event.create!(
+          content_id: payload[:content_id],
           action: action(command_class),
           payload: payload,
           user_uid: GdsApi::GovukHeaders.headers[:x_govuk_authenticated_user],

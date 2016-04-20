@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418144039) do
+ActiveRecord::Schema.define(version: 20160420093816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,10 @@ ActiveRecord::Schema.define(version: 20160418144039) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "request_id"
+    t.string   "content_id"
   end
+
+  add_index "events", ["content_id"], name: "index_events_on_content_id", using: :btree
 
   create_table "link_sets", force: :cascade do |t|
     t.string   "content_id"
