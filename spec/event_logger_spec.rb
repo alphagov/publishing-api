@@ -67,4 +67,16 @@ RSpec.describe EventLogger do
     }.to raise_error(CommandError)
     expect(Event.count).to eq(0)
   end
+
+  it "adds the content ID if present" do
+    content_id = SecureRandom.uuid
+
+    EventLogger.log_command(Commands::V2::Publish, content_id: content_id)
+    expect(Event.count).to eq(1)
+    expect(Event.last.content_id).to eq(content_id)
+
+    EventLogger.log_command(Commands::V2::Publish, {})
+    expect(Event.count).to eq(2)
+    expect(Event.last.content_id).to be_nil
+  end
 end
