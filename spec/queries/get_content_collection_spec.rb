@@ -256,6 +256,32 @@ RSpec.describe Queries::GetContentCollection do
     end
   end
 
+  describe "search_fields" do
+    let!(:content_item_foo) { create(:live_content_item, base_path: '/bar/foo', format: 'topic', title: "Baz") }
+    let!(:content_item_zip) { create(:live_content_item, base_path: '/baz', format: 'topic', title: 'zip') }
+    subject do
+      Queries::GetContentCollection.new(
+        document_type: 'topic',
+        fields: ['base_path'],
+        search_query: search_query
+      )
+    end
+
+    context "base_path and title" do
+      let(:search_query) { "baz" }
+      it "finds the content item" do
+        expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/bar/foo" }, { "base_path" => "/baz" }])
+      end
+    end
+
+    context "title" do
+      let(:search_query) { "zip" }
+      it "finds the content item" do
+        expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/baz" }])
+      end
+    end
+  end
+
   describe "pagination" do
     context "with multiple content items" do
       before do

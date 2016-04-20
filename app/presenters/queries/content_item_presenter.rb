@@ -3,7 +3,7 @@
 module Presenters
   module Queries
     class ContentItemPresenter
-      attr_accessor :scope, :fields, :order, :limit, :offset
+      attr_accessor :scope, :fields, :order, :limit, :offset, :search_query
 
       DEFAULT_FIELDS = [
         *ContentItem::TOP_LEVEL_FIELDS,
@@ -34,21 +34,30 @@ module Presenters
         self.order = params[:order]
         self.limit = params[:limit]
         self.offset = params[:offset]
+        self.search_query = params[:search_query]
       end
 
       def present_many
-        scope = ::Queries::GetLatest.call(self.scope)
-        scope = join_supporting_objects(scope)
-        scope = order_and_paginate(scope)
-
-        extract_fields(scope)
+        parsing_enumerator(evaluate_query(ordered_extracted_fields))
       end
 
       def total
-        ::Queries::GetLatest.call(self.scope).count
+        full_scope.count
       end
 
     private
+
+      def ordered_extracted_fields
+        extract_fields(order_and_paginate(full_scope))
+      end
+
+      def full_scope
+        search(join_supporting_objects(latest))
+      end
+
+      def latest
+        ::Queries::GetLatest.call(self.scope)
+      end
 
       def join_supporting_objects(scope)
         scope = State.join_content_items(scope)
@@ -86,10 +95,11 @@ module Presenters
           end
         end
 
-        scope = scope.select(*fields_to_select)
-        results = evaluate_query(scope)
+        scope.select(*fields_to_select)
+      end
 
-        parsing_enumerator(results)
+      def search(scope)
+        scope.where("title ilike ? OR base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
       end
 
       def publication_state_sql
