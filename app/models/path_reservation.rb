@@ -7,5 +7,11 @@ class PathReservation < ActiveRecord::Base
     record = find_or_initialize_by(base_path: base_path)
     record.publishing_app = publishing_app
     record.save!
+  rescue ActiveRecord::RecordNotUnique, PG::UniqueViolation
+    # If a path is already reserved by the same publishing app, ignore the error
+    record = find_by(base_path: base_path)
+    raise unless record.publishing_app == publishing_app
+
+    record
   end
 end
