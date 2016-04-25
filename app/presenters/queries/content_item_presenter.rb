@@ -38,7 +38,7 @@ module Presenters
       end
 
       def present_many
-        parsing_enumerator(evaluate_query(ordered_extracted_fields))
+        parse_results(results)
       end
 
       def total
@@ -47,8 +47,12 @@ module Presenters
 
     private
 
-      def ordered_extracted_fields
-        extract_fields(order_and_paginate(full_scope))
+      def results
+        execute_query(ordered_fields)
+      end
+
+      def ordered_fields
+        select_fields(order_and_paginate)
       end
 
       def full_scope
@@ -68,14 +72,15 @@ module Presenters
         LockVersion.join_content_items(scope)
       end
 
-      def order_and_paginate(scope)
+      def order_and_paginate
+        scope = full_scope
         scope = scope.order(order.to_a.join(" ")) if order
         scope = scope.limit(limit) if limit
         scope = scope.offset(offset) if offset
         scope
       end
 
-      def extract_fields(scope)
+      def select_fields(scope)
         fields_to_select = fields.map do |field|
           case field
           when :publication_state
@@ -99,6 +104,7 @@ module Presenters
       end
 
       def search(scope)
+        return scope unless search_query.present?
         scope.where("title ilike ? OR base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
       end
 
@@ -124,7 +130,7 @@ module Presenters
         "COALESCE(details->>'internal_name', title) "
       end
 
-      def parsing_enumerator(results)
+      def parse_results(results)
         json_columns = %w(details routes redirects need_ids)
         int_columns = %w(user_facing_version lock_version)
 
@@ -150,8 +156,8 @@ module Presenters
 
       # It is substantially faster to evaluate in this way rather than calling
       # the #pluck or #as_json methods.
-      def evaluate_query(scope)
-        ActiveRecord::Base.connection.execute(scope.to_sql)
+      def execute_query(query)
+        ActiveRecord::Base.connection.execute(query.to_sql)
       end
     end
   end
