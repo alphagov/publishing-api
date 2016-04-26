@@ -8,7 +8,8 @@ module V2
         document_type: doc_type,
         fields: query_params[:fields],
         filters: filters,
-        pagination: pagination
+        pagination: pagination,
+        search_query: query_params.fetch("q", "")
       )
 
       render json: Presenters::ResultsPresenter.new(results, pagination, request.original_url).present

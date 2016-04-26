@@ -1,14 +1,15 @@
 module Queries
   class GetContentCollection
-    attr_reader :document_type, :fields, :publishing_app, :link_filters, :locale, :pagination
+    attr_reader :document_type, :fields, :publishing_app, :link_filters, :locale, :pagination, :search_query
 
-    def initialize(document_type:, fields:, filters: {}, pagination: Pagination.new)
+    def initialize(document_type:, fields:, filters: {}, pagination: Pagination.new, search_query: "")
       self.document_type = document_type
       self.fields = fields
       self.publishing_app = filters[:publishing_app]
       self.link_filters = filters[:links]
       self.locale = filters[:locale] || "en"
       self.pagination = pagination
+      self.search_query = search_query.strip
     end
 
     def call
@@ -20,17 +21,20 @@ module Queries
         order: pagination.order,
         offset: pagination.offset,
         locale: locale,
-        limit: pagination.per_page
+        limit: pagination.per_page,
+        search_query: search_query
       )
     end
 
     def total
-      @total ||= presenter.new(content_items, locale: locale).total
+      @total ||= presenter.new(content_items,
+                               locale: locale,
+                               search_query: search_query).total
     end
 
   private
 
-    attr_writer :document_type, :fields, :publishing_app, :locale, :link_filters, :pagination
+    attr_writer :document_type, :fields, :publishing_app, :locale, :link_filters, :pagination, :search_query
 
     def content_items
       scope = ContentItem.where(document_type: lookup_document_types)
@@ -39,6 +43,7 @@ module Queries
       scope = Translation.filter(scope, locale: locale) unless locale == "all"
       scope
     end
+
 
     def lookup_document_types
       [document_type, "placeholder_#{document_type}"]

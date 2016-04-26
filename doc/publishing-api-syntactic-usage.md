@@ -150,11 +150,13 @@ No downstream requests will be sent if the content item doesn't exist yet.
   - Restricts the content items returned by the `publishing_app` of the current user.
   - Can optionally return content items in all locales by specifying a `locale` of 'all'
   - Can return the `publication_state` of the content item by including it in the `fields[]`
+  - Can search for queries against `base_path` or `title`
 
 ### Required request params:
   - `document_type` the type of content item to return
   - `locale` (optional) is used to restrict returned content items to a given locale (defaults to 'en')
   - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
+  - `q` (optional) the search term to match against `base_path` or `title`
 
 ## `GET /v2/linkables`
 

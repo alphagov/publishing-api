@@ -45,6 +45,41 @@ RSpec.describe V2::ContentItemsController do
       )
     end
 
+    context "searching a field" do
+      context "when there is a valid query" do
+        let(:previous_live_version) do
+          FactoryGirl.create(:live_content_item,
+                             base_path: "/foo",
+                             format: "topic",
+                             title: "zip",
+                             user_facing_version: 1)
+        end
+        let!(:content_item) do
+          FactoryGirl.create(:live_content_item,
+                             base_path: "/foo",
+                             content_id: previous_live_version.content_id,
+                             format: "topic",
+                             title: "bar",
+                             user_facing_version: 2)
+        end
+
+        it "returns the item when searching for base_path" do
+          get :index, document_type: "topic", q: "foo", locale: "all"
+          expect(JSON.parse(response.body)["results"].map { |i| i["base_path"] }).to eq(["/foo"])
+        end
+
+        it "returns the item when searching for title" do
+          get :index, document_type: "topic", q: "bar", locale: "all"
+          expect(JSON.parse(response.body)["results"].map { |i| i["base_path"] }).to eq(["/foo"])
+        end
+
+        it "doesn't return items that are no longer the latest version" do
+          get :index, document_type: "topic", q: "zip", fields: %w(title)
+          expect(JSON.parse(response.body)["results"].map { |i| i["title"] }).to eq([])
+        end
+      end
+    end
+
     context "without providing a locale parameter" do
       before do
         get :index, document_type: "topic", fields: %w(base_path)

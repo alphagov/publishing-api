@@ -3,7 +3,7 @@
 module Presenters
   module Queries
     class ContentItemPresenter
-      attr_accessor :scope, :fields, :order, :limit, :offset
+      attr_accessor :scope, :fields, :order, :limit, :offset, :search_query
 
       DEFAULT_FIELDS = [
         *ContentItem::TOP_LEVEL_FIELDS,
@@ -34,21 +34,34 @@ module Presenters
         self.order = params[:order]
         self.limit = params[:limit]
         self.offset = params[:offset]
+        self.search_query = params[:search_query]
       end
 
       def present_many
-        scope = ::Queries::GetLatest.call(self.scope)
-        scope = join_supporting_objects(scope)
-        scope = order_and_paginate(scope)
-
-        extract_fields(scope)
+        parse_results(results)
       end
 
       def total
-        ::Queries::GetLatest.call(self.scope).count
+        full_scope.count
       end
 
     private
+
+      def results
+        execute_query(ordered_fields)
+      end
+
+      def ordered_fields
+        select_fields(order_and_paginate)
+      end
+
+      def full_scope
+        search(join_supporting_objects(latest))
+      end
+
+      def latest
+        ::Queries::GetLatest.call(self.scope)
+      end
 
       def join_supporting_objects(scope)
         scope = State.join_content_items(scope)
@@ -59,14 +72,15 @@ module Presenters
         LockVersion.join_content_items(scope)
       end
 
-      def order_and_paginate(scope)
+      def order_and_paginate
+        scope = full_scope
         scope = scope.order(order.to_a.join(" ")) if order
         scope = scope.limit(limit) if limit
         scope = scope.offset(offset) if offset
         scope
       end
 
-      def extract_fields(scope)
+      def select_fields(scope)
         fields_to_select = fields.map do |field|
           case field
           when :publication_state
@@ -86,10 +100,12 @@ module Presenters
           end
         end
 
-        scope = scope.select(*fields_to_select)
-        results = evaluate_query(scope)
+        scope.select(*fields_to_select)
+      end
 
-        parsing_enumerator(results)
+      def search(scope)
+        return scope unless search_query.present?
+        scope.where("title ilike ? OR base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
       end
 
       def publication_state_sql
@@ -114,7 +130,7 @@ module Presenters
         "COALESCE(details->>'internal_name', title) "
       end
 
-      def parsing_enumerator(results)
+      def parse_results(results)
         json_columns = %w(details routes redirects need_ids)
         int_columns = %w(user_facing_version lock_version)
 
@@ -140,8 +156,8 @@ module Presenters
 
       # It is substantially faster to evaluate in this way rather than calling
       # the #pluck or #as_json methods.
-      def evaluate_query(scope)
-        ActiveRecord::Base.connection.execute(scope.to_sql)
+      def execute_query(query)
+        ActiveRecord::Base.connection.execute(query.to_sql)
       end
     end
   end
