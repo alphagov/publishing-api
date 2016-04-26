@@ -76,7 +76,7 @@ RSpec.describe Commands::PutContentWithLinks do
       public_updated_at: Time.now,
       routes: [{ path: '/foo', type: "exact" }],
       update_type: "minor",
-      links: { topics: [] },
+      links: {},
     )
 
     expect { normal_link.reload }.to raise_error(ActiveRecord::RecordNotFound)
