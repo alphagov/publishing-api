@@ -51,6 +51,8 @@ module Commands
     end
 
     def delete_existing_links
+      return if protected_apps.include?(payload[:publishing_app])
+
       link_set = LinkSet.find_by(content_id: payload[:content_id])
       return unless link_set
 
@@ -60,6 +62,17 @@ module Commands
 
     def protected_link_types
       ["alpha_taxons"]
+    end
+
+    def protected_apps
+      # specialist-publisher is being converted to a "standard" Rails app
+      # that will use the publishing-api V2 endpoints.
+      # We don't know when conversion will be completed and we need
+      # specialist-publisher documents link data in content-store ASAP, hence
+      # this quick hack.
+      # Remove this exception once specialist-publisher is fully migrated to use
+      # the publishing-api V2 endpoints.
+      ["specialist-publisher"]
     end
   end
 end
