@@ -270,7 +270,7 @@ RSpec.describe Queries::GetContentCollection do
     context "base_path and title" do
       let(:search_query) { "baz" }
       it "finds the content item" do
-        expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/bar/foo" }, { "base_path" => "/baz" }])
+        expect(subject.call.map(&:to_hash)).to match_array([{ "base_path" => "/bar/foo" }, { "base_path" => "/baz" }])
       end
     end
 
