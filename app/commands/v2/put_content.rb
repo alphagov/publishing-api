@@ -11,7 +11,7 @@ module Commands
           update_existing_content_item(content_item)
         else
           content_item = create_content_item
-          create_new_content_item(content_item)
+          fill_out_new_content_item(content_item)
         end
 
         send_downstream(content_item) if downstream
@@ -22,7 +22,7 @@ module Commands
 
     private
 
-      def create_new_content_item(content_item)
+      def fill_out_new_content_item(content_item)
         clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path) unless base_path.nil?
 
         create_supporting_objects(content_item)
