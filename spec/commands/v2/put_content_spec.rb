@@ -210,18 +210,18 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when creating a draft for a previously withdrawn content item" do
+    context "when creating a draft for a previously unpublished content item" do
       before do
         FactoryGirl.create(
           :content_item,
           content_id: content_id,
-          state: "withdrawn",
+          state: "unpublished",
           lock_version: 2,
           user_facing_version: 5,
         )
       end
 
-      it "creates the draft's lock version using the withdrawn lock version as a starting point" do
+      it "creates the draft's lock version using the unpublished lock version as a starting point" do
         described_class.call(payload)
 
         content_item = ContentItem.last
@@ -232,7 +232,7 @@ RSpec.describe Commands::V2::PutContent do
         expect(LockVersion.find_by!(target: content_item).number).to eq(3)
       end
 
-      it "creates the draft's user-facing version using the withdrawn user-facing version as a starting point" do
+      it "creates the draft's user-facing version using the unpublished user-facing version as a starting point" do
         described_class.call(payload)
 
         content_item = ContentItem.last
@@ -244,12 +244,12 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when creating a draft when there are multiple withdrawn and published items" do
+    context "when creating a draft when there are multiple unpublished and published items" do
       before do
         FactoryGirl.create(
           :content_item,
           content_id: content_id,
-          state: "withdrawn",
+          state: "unpublished",
           lock_version: 2,
           user_facing_version: 5,
         )
@@ -265,7 +265,7 @@ RSpec.describe Commands::V2::PutContent do
         FactoryGirl.create(
           :content_item,
           content_id: content_id,
-          state: "withdrawn",
+          state: "unpublished",
           lock_version: 5,
           user_facing_version: 6,
         )
@@ -302,11 +302,11 @@ RSpec.describe Commands::V2::PutContent do
         )
       }
 
-      it "withdraws the content item which is in the way" do
+      it "unpublishes the content item which is in the way" do
         described_class.call(payload)
 
         state = State.find_by!(content_item: other_content_item)
-        expect(state.name).to eq("withdrawn")
+        expect(state.name).to eq("unpublished")
 
         translation = Translation.find_by!(content_item: other_content_item)
         expect(translation.locale).to eq(locale)
@@ -326,7 +326,7 @@ RSpec.describe Commands::V2::PutContent do
         )
       }
 
-      it "does not withdraw the content item" do
+      it "does not unpublish the content item" do
         described_class.call(payload)
 
         state = State.find_by!(content_item: other_content_item)

@@ -12,7 +12,7 @@ digraph G {
   discarded_3[label="(deleted)", group="3", fontcolor="red"]
   draft_4[label="3 | draft", group="4"]
   published_4[label="3 | published", group="4"]
-  withdrawn_4[label="3 | withdrawn", group="4"]
+  unpublished_4[label="3 | unpublished", group="4"]
 
   draft_1 -> published_1[label="  publish"]
   published_1 -> superseded_1
@@ -24,7 +24,7 @@ digraph G {
   draft_3b -> discarded_3[label="  discard"]
   published_2:e -> draft_4[label="  redraft (again)"]
   draft_4 -> published_4[label="  publish"]
-  published_4 -> withdrawn_4[label="  withdraw"]
+  published_4 -> unpublished_4[label="  unpublish"]
 
 
   { rank=same; superseded_1; published_2 }

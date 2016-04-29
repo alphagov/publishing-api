@@ -196,7 +196,7 @@ Publishing API automatically creates redirects on behalf of content items when t
 It looks for previous content that matches the content_id of the incoming content and checks whether their base paths differ.
 If there is a difference, a redirect content item is created in draft. When the content with the updated base path is published, so is the redirect.
 
-If there was a previously published content item at the base path, its state will be changed to 'withdrawn', rather than 'superseded'.
+If there was a previously published content item at the base path, its state will be changed to 'unpublished', rather than 'superseded'.
 this is in order to prevent potential conflicts of state/version if that content is subsequently reinstated.
 The diagram below shows this workflow:
 
@@ -221,7 +221,7 @@ The diagram below shows this workflow:
                                      |
                                       -----------------> [ Redirect published ]
                                      |
-                                      -----------------> [ Previously published item withdrawn ]
+                                      -----------------> [ Previously published item unpublished ]
 ```
 
 ---

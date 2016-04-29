@@ -73,14 +73,14 @@ RSpec.describe ContentItemUniquenessValidator do
     end
   end
 
-  context "when a duplicate content item exists in a withdrawn state" do
+  context "when a duplicate content item exists in a unpublished state" do
     let!(:content_item) do
-      FactoryGirl.create(:content_item, state: "withdrawn")
+      FactoryGirl.create(:content_item, state: "unpublished")
     end
 
     it "allows duplicates and does not raise an error" do
       expect {
-        FactoryGirl.create(:content_item, state: "withdrawn")
+        FactoryGirl.create(:content_item, state: "unpublished")
       }.not_to raise_error
 
       expect(ContentItem.count).to eq(2)

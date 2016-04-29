@@ -31,43 +31,43 @@ RSpec.describe "Withdrawing Content Items" do
     }
   end
 
-  describe "after the first withdrawl" do
+  describe "after the first unpublishing" do
     before do
       put_content_command.call(guide_payload)
       put_content_command.call(gone_payload)
     end
 
-    it "withdraws the previous draft content item" do
+    it "unpublishes the previous draft content item" do
       expect(ContentItem.count).to eq(2)
 
-      withdrawn_item = ContentItem.first
+      unpublished_item = ContentItem.first
       draft_item = ContentItem.second
 
-      withdrawn = State.find_by!(content_item: withdrawn_item)
+      unpublished = State.find_by!(content_item: unpublished_item)
       draft = State.find_by!(content_item: draft_item)
 
-      expect(withdrawn.name).to eq("withdrawn")
+      expect(unpublished.name).to eq("unpublished")
       expect(draft.name).to eq("draft")
     end
 
-    describe "after the second withdrawl" do
+    describe "after the second unpublishing" do
       before do
         put_content_command.call(guide_payload)
       end
 
-      it "withdraws the second draft content item" do
+      it "unpublishes the second draft content item" do
         expect(ContentItem.count).to eq(3)
 
-        withdrawn1_item = ContentItem.first
-        withdrawn2_item = ContentItem.second
+        unpublished1_item = ContentItem.first
+        unpublished2_item = ContentItem.second
         draft_item = ContentItem.third
 
-        withdrawn1 = State.find_by!(content_item: withdrawn1_item)
-        withdrawn2 = State.find_by!(content_item: withdrawn2_item)
+        unpublished1 = State.find_by!(content_item: unpublished1_item)
+        unpublished2 = State.find_by!(content_item: unpublished2_item)
         draft = State.find_by!(content_item: draft_item)
 
-        expect(withdrawn1.name).to eq("withdrawn")
-        expect(withdrawn2.name).to eq("withdrawn")
+        expect(unpublished1.name).to eq("unpublished")
+        expect(unpublished2.name).to eq("unpublished")
         expect(draft.name).to eq("draft")
       end
     end

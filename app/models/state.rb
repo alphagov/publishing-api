@@ -22,8 +22,8 @@ class State < ActiveRecord::Base
     change_state(content_item, name: "published")
   end
 
-  def self.withdraw(content_item)
-    change_state(content_item, name: "withdrawn")
+  def self.unpublish(content_item)
+    change_state(content_item, name: "unpublished")
   end
 
   def self.change_state(content_item, name:)
