@@ -72,5 +72,19 @@ RSpec.describe State do
         described_class.unpublish(draft_item)
       }.to change { draft_state.reload.name }.to("unpublished")
     end
+
+    it "creates an unpublishing" do
+      expect {
+        described_class.unpublish(draft_item)
+      }.to change(Unpublishing, :count).by(1)
+
+      unpublishing = Unpublishing.last
+
+      expect(unpublishing.content_item).to eq(draft_item)
+      expect(unpublishing.type).to eq("substitute")
+      expect(unpublishing.explanation).to eq(
+        "Automatically unpublished to make way for another content item"
+      )
+    end
   end
 end
