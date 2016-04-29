@@ -189,7 +189,7 @@ RSpec.describe Commands::V2::PutContent do
         end
       end
 
-      describe "race condtitions", skip_cleaning: true do
+      describe "race conditions", skip_cleaning: true do
         after do
           DatabaseCleaner.clean_with :truncation
         end
