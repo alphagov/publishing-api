@@ -14,6 +14,7 @@ module Presenters
     def present
       symbolized_attributes
         .slice(*content_item.class::TOP_LEVEL_FIELDS)
+        .merge(first_published_at)
         .merge(public_updated_at)
         .merge(links)
         .merge(access_limited)
@@ -64,6 +65,14 @@ module Presenters
 
     def translation
       @translation ||= Translation.find_by!(content_item: content_item)
+    end
+
+    def first_published_at
+      if content_item.first_published_at.present?
+        { first_published_at: content_item.first_published_at.iso8601 }
+      else
+        {}
+      end
     end
 
     def public_updated_at

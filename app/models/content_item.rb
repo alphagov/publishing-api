@@ -11,6 +11,7 @@ class ContentItem < ActiveRecord::Base
     :description,
     :details,
     :document_type,
+    :first_published_at,
     :format,
     :need_ids,
     :phase,

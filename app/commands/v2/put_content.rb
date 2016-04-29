@@ -29,6 +29,8 @@ module Commands
         ensure_link_set_exists(content_item)
 
         if previously_published_item
+          set_first_published_at(content_item, previously_published_item)
+
           previous_location = Location.find_by!(content_item: previously_published_item)
           previous_routes = previously_published_item.routes
 
@@ -150,6 +152,14 @@ module Commands
           content_items = filter.filter(state: %w(published unpublished), locale: locale)
           UserFacingVersion.latest(content_items)
         )
+      end
+
+      def set_first_published_at(content_item, previously_published_item)
+        if content_item.first_published_at.nil?
+          content_item.update_attributes(
+            first_published_at: previously_published_item.first_published_at,
+          )
+        end
       end
 
       def pessimistic_content_item_scope

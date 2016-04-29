@@ -263,6 +263,32 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "with a first_published_at set on the draft content item" do
+      let(:first_published_at) { Time.zone.now - 1.year }
+
+      before do
+        draft_item.update_attributes!(first_published_at: first_published_at)
+      end
+
+      it "uses the stored timestamp" do
+        described_class.call(payload)
+
+        expect(draft_item.reload.first_published_at).to be_within(1.second).of(first_published_at)
+      end
+    end
+
+    context "with no first_published_at set on the draft content item" do
+      before do
+        draft_item.update_attributes!(first_published_at: nil)
+      end
+
+      it "updates the first_published_at time to now" do
+        described_class.call(payload)
+
+        expect(draft_item.reload.first_published_at).to be_within(1.second).of(Time.zone.now)
+      end
+    end
+
     context "when the base_path differs from the previously published item" do
       let!(:live_item) do
         FactoryGirl.create(
