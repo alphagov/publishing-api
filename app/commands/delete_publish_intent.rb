@@ -25,7 +25,7 @@ module Commands
         error: {
           code: upstream_error.code,
           message: upstream_error.message,
-          fields: upstream_error.error_details.fetch('errors', {})
+          fields: (upstream_error.error_details || {}).fetch('errors', {})
         }
       }
     end
