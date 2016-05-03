@@ -73,9 +73,9 @@ RSpec.describe "Redirecting content items that are redrafted" do
 
         content_item = ContentItem.first
         expect(content_item.format).to eq("guide")
-        expect(state(content_item)).to eq("withdrawn"),
-          "This content item is eligible for both superseding and withdrawl.
-          When this happens, the 'withdrawn' state should be chosen."
+        expect(state(content_item)).to eq("unpublished"),
+          "This content item is eligible for both superseding and unpublishing.
+          When this happens, the 'unpublished' state should be chosen."
         expect(path(content_item)).to eq("/foo")
         expect(version(content_item)).to eq(1)
 
@@ -134,9 +134,9 @@ RSpec.describe "Redirecting content items that are redrafted" do
 
         content_item = ContentItem.first
         expect(content_item.format).to eq("guide")
-        expect(state(content_item)).to eq("withdrawn"),
-          "This content item is eligible for both superseding and withdrawl.
-          When this happens, the 'withdrawn' state should be chosen."
+        expect(state(content_item)).to eq("unpublished"),
+          "This content item is eligible for both superseding and unpublishing.
+          When this happens, the 'unpublished' state should be chosen."
         expect(path(content_item)).to eq("/foo")
         expect(version(content_item)).to eq(1)
 

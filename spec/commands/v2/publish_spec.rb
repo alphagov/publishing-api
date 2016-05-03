@@ -92,11 +92,11 @@ RSpec.describe Commands::V2::Publish do
         )
       }
 
-      it "withdraws the content item which is in the way" do
+      it "unpublishes the content item which is in the way" do
         described_class.call(payload)
 
         state = State.find_by!(content_item: other_content_item)
-        expect(state.name).to eq("withdrawn")
+        expect(state.name).to eq("unpublished")
 
         translation = Translation.find_by!(content_item: other_content_item)
         expect(translation.locale).to eq(draft_locale)
@@ -118,7 +118,7 @@ RSpec.describe Commands::V2::Publish do
         )
       }
 
-      it "does not withdraw the content item" do
+      it "does not unpublish the content item" do
         described_class.call(payload)
 
         state = State.find_by!(content_item: other_content_item)
@@ -292,13 +292,13 @@ RSpec.describe Commands::V2::Publish do
         expect(redirect.format).to eq("redirect")
       end
 
-      it "withdraws the previously published item" do
+      it "unpublishes the previously published item" do
         described_class.call(payload)
 
         state = State.find_by!(content_item: live_item)
-        expect(state.name).to eq("withdrawn"),
+        expect(state.name).to eq("unpublished"),
           "If this is failing because the content item has been superseded,
-          check that withdrawl is happening before superseding."
+          check that unpublishing is happening before superseding."
       end
     end
 

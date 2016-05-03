@@ -47,9 +47,9 @@ RSpec.describe SubstitutionHelper do
     context "when the content_id is the same as the existing item" do
       let(:new_content_id) { existing_item.content_id }
 
-      it "does not withdraw the existing item" do
+      it "does not unpublish the existing item" do
         state = State.find_by!(content_item: existing_item)
-        expect(state.name).not_to eq("withdrawn")
+        expect(state.name).not_to eq("unpublished")
       end
     end
 
@@ -59,37 +59,37 @@ RSpec.describe SubstitutionHelper do
       context "when the existing item has a format that is substitutable" do
         let(:existing_format) { "gone" }
 
-        it "withdraws the existing item" do
+        it "unpublishes the existing item" do
           state = State.find_by!(content_item: existing_item)
-          expect(state.name).to eq("withdrawn")
+          expect(state.name).to eq("unpublished")
         end
 
-        it "doesn't withdraw any other items" do
-          expect(State.find_by!(content_item: live_item).name).not_to eq("withdrawn")
-          expect(State.find_by!(content_item: french_item).name).not_to eq("withdrawn")
-          expect(State.find_by!(content_item: item_elsewhere).name).not_to eq("withdrawn")
+        it "doesn't unpublish any other items" do
+          expect(State.find_by!(content_item: live_item).name).not_to eq("unpublished")
+          expect(State.find_by!(content_item: french_item).name).not_to eq("unpublished")
+          expect(State.find_by!(content_item: item_elsewhere).name).not_to eq("unpublished")
         end
       end
 
       context "when the new item has a format that is substitutable" do
         let(:new_format) { "gone" }
 
-        it "withdraws the existing item" do
+        it "unpublishes the existing item" do
           state = State.find_by!(content_item: existing_item)
-          expect(state.name).to eq("withdrawn")
+          expect(state.name).to eq("unpublished")
         end
 
-        it "doesn't withdraw any other items" do
-          expect(State.find_by!(content_item: live_item).name).not_to eq("withdrawn")
-          expect(State.find_by!(content_item: french_item).name).not_to eq("withdrawn")
-          expect(State.find_by!(content_item: item_elsewhere).name).not_to eq("withdrawn")
+        it "doesn't unpublish any other items" do
+          expect(State.find_by!(content_item: live_item).name).not_to eq("unpublished")
+          expect(State.find_by!(content_item: french_item).name).not_to eq("unpublished")
+          expect(State.find_by!(content_item: item_elsewhere).name).not_to eq("unpublished")
         end
       end
 
       context "when neither item has a format that is substitutable" do
-        it "does not withdraw the existing item" do
+        it "does not unpublish the existing item" do
           state = State.find_by!(content_item: existing_item)
-          expect(state.name).not_to eq("withdrawn")
+          expect(state.name).not_to eq("unpublished")
         end
       end
     end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Reinstating Content Items that were previously withdrawn" do
+RSpec.describe "Reinstating Content Items that were previously unpublished" do
   let(:put_content_command) { Commands::V2::PutContent }
   let(:publish_command) { Commands::V2::Publish }
 
@@ -49,7 +49,7 @@ RSpec.describe "Reinstating Content Items that were previously withdrawn" do
     }
   end
 
-  describe "after the content item is withdrawn" do
+  describe "after the content item is unpublished" do
     before do
       2.times do
         put_content_command.call(guide_draft_payload)
@@ -64,23 +64,23 @@ RSpec.describe "Reinstating Content Items that were previously withdrawn" do
       expect(ContentItem.count).to eq(3)
 
       superseded_item = ContentItem.first
-      withdrawn_item = ContentItem.second
+      unpublished_item = ContentItem.second
       published_item = ContentItem.third
 
       superseded = State.find_by!(content_item: superseded_item)
-      withdrawn = State.find_by!(content_item: withdrawn_item)
+      unpublished = State.find_by!(content_item: unpublished_item)
       published = State.find_by!(content_item: published_item)
 
       expect(superseded.name).to eq("superseded")
-      expect(withdrawn.name).to eq("withdrawn")
+      expect(unpublished.name).to eq("unpublished")
       expect(published.name).to eq("published")
 
       superseded_version = UserFacingVersion.find_by!(content_item: superseded_item)
-      withdrawn_version = UserFacingVersion.find_by!(content_item: withdrawn_item)
+      unpublished_version = UserFacingVersion.find_by!(content_item: unpublished_item)
       published_version = UserFacingVersion.find_by!(content_item: published_item)
 
       expect(superseded_version.number).to eq(1)
-      expect(withdrawn_version.number).to eq(2)
+      expect(unpublished_version.number).to eq(2)
       expect(published_version.number).to eq(1),
         "The redirect should be regarded as a new piece of content"
     end
@@ -95,28 +95,28 @@ RSpec.describe "Reinstating Content Items that were previously withdrawn" do
         expect(ContentItem.count).to eq(4)
 
         superseded_item = ContentItem.first
-        withdrawn1_item = ContentItem.second
-        withdrawn2_item = ContentItem.third
+        unpublished1_item = ContentItem.second
+        unpublished2_item = ContentItem.third
         published_item = ContentItem.fourth
 
         superseded = State.find_by!(content_item: superseded_item)
-        withdrawn1 = State.find_by!(content_item: withdrawn1_item)
-        withdrawn2 = State.find_by!(content_item: withdrawn2_item)
+        unpublished1 = State.find_by!(content_item: unpublished1_item)
+        unpublished2 = State.find_by!(content_item: unpublished2_item)
         published = State.find_by!(content_item: published_item)
 
         expect(superseded.name).to eq("superseded")
-        expect(withdrawn1.name).to eq("withdrawn")
-        expect(withdrawn2.name).to eq("withdrawn")
+        expect(unpublished1.name).to eq("unpublished")
+        expect(unpublished2.name).to eq("unpublished")
         expect(published.name).to eq("published")
 
         superseded_version = UserFacingVersion.find_by!(content_item: superseded_item)
-        withdrawn1_version = UserFacingVersion.find_by!(content_item: withdrawn1_item)
-        withdrawn2_version = UserFacingVersion.find_by!(content_item: withdrawn2_item)
+        unpublished1_version = UserFacingVersion.find_by!(content_item: unpublished1_item)
+        unpublished2_version = UserFacingVersion.find_by!(content_item: unpublished2_item)
         published_version = UserFacingVersion.find_by!(content_item: published_item)
 
         expect(superseded_version.number).to eq(1)
-        expect(withdrawn1_version.number).to eq(2)
-        expect(withdrawn2_version.number).to eq(1)
+        expect(unpublished1_version.number).to eq(2)
+        expect(unpublished2_version.number).to eq(1)
         expect(published_version.number).to eq(3)
       end
 
@@ -130,32 +130,32 @@ RSpec.describe "Reinstating Content Items that were previously withdrawn" do
           expect(ContentItem.count).to eq(5)
 
           superseded1_item = ContentItem.first
-          withdrawn1_item = ContentItem.second
-          withdrawn2_item = ContentItem.third
+          unpublished1_item = ContentItem.second
+          unpublished2_item = ContentItem.third
           superseded2_item = ContentItem.fourth
           published_item = ContentItem.fifth
 
           superseded1 = State.find_by!(content_item: superseded1_item)
-          withdrawn1 = State.find_by!(content_item: withdrawn1_item)
-          withdrawn2 = State.find_by!(content_item: withdrawn2_item)
+          unpublished1 = State.find_by!(content_item: unpublished1_item)
+          unpublished2 = State.find_by!(content_item: unpublished2_item)
           superseded2 = State.find_by!(content_item: superseded2_item)
           published = State.find_by!(content_item: published_item)
 
           expect(superseded1.name).to eq("superseded")
-          expect(withdrawn1.name).to eq("withdrawn")
-          expect(withdrawn2.name).to eq("withdrawn")
+          expect(unpublished1.name).to eq("unpublished")
+          expect(unpublished2.name).to eq("unpublished")
           expect(superseded2.name).to eq("superseded")
           expect(published.name).to eq("published")
 
           superseded1_version = UserFacingVersion.find_by!(content_item: superseded1_item)
-          withdrawn1_version = UserFacingVersion.find_by!(content_item: withdrawn1_item)
-          withdrawn2_version = UserFacingVersion.find_by!(content_item: withdrawn2_item)
+          unpublished1_version = UserFacingVersion.find_by!(content_item: unpublished1_item)
+          unpublished2_version = UserFacingVersion.find_by!(content_item: unpublished2_item)
           superseded2_version = UserFacingVersion.find_by!(content_item: superseded2_item)
           published_version = UserFacingVersion.find_by!(content_item: published_item)
 
           expect(superseded1_version.number).to eq(1)
-          expect(withdrawn1_version.number).to eq(2)
-          expect(withdrawn2_version.number).to eq(1)
+          expect(unpublished1_version.number).to eq(2)
+          expect(unpublished2_version.number).to eq(1)
           expect(superseded2_version.number).to eq(3)
           expect(published_version.number).to eq(4)
         end

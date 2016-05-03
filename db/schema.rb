@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429092127) do
+ActiveRecord::Schema.define(version: 20160429095656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,18 @@ ActiveRecord::Schema.define(version: 20160429092127) do
   end
 
   add_index "translations", ["content_item_id", "locale"], name: "index_translations_on_content_item_id_and_locale", using: :btree
+
+  create_table "unpublishings", force: :cascade do |t|
+    t.integer  "content_item_id", null: false
+    t.string   "type",            null: false
+    t.string   "explanation"
+    t.string   "alternative_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "unpublishings", ["content_item_id", "type"], name: "index_unpublishings_on_content_item_id_and_type", using: :btree
+  add_index "unpublishings", ["content_item_id"], name: "index_unpublishings_on_content_item_id", using: :btree
 
   create_table "user_facing_versions", force: :cascade do |t|
     t.integer  "content_item_id",             null: false

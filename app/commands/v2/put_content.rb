@@ -147,7 +147,7 @@ module Commands
       def previously_published_item
         @previously_published_item ||= (
           filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
-          content_items = filter.filter(state: %w(published withdrawn), locale: locale)
+          content_items = filter.filter(state: %w(published unpublished), locale: locale)
           UserFacingVersion.latest(content_items)
         )
       end

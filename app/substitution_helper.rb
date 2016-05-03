@@ -10,7 +10,7 @@ module SubstitutionHelper
         allowed_to_substitute = (substitute?(new_item_format) || substitute?(blocking_item.format))
 
         if mismatch && allowed_to_substitute
-          State.withdraw(blocking_item)
+          State.unpublish(blocking_item)
         end
       end
     end
