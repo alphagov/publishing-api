@@ -4,6 +4,10 @@ module V2
       render json: Queries::GetLinkSet.call(content_id)
     end
 
+    def expanded_links
+      render json: Presenters::Queries::ExpandedLinkSet.new(link_set: LinkSet.find_by(content_id: content_id), fallback_order: [:draft, :published]).links
+    end
+
     def patch_links
       response = Commands::V2::PatchLinkSet.call(links_params)
       render status: response.code, json: response

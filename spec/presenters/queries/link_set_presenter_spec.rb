@@ -21,9 +21,9 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
   context "#links" do
     describe "returns the links as a hash, grouping them by their link_type" do
       let(:link_set) { FactoryGirl.create(:link_set) }
+      let(:links) { Presenters::Queries::LinkSetPresenter.new(link_set).links }
 
       it "returns and empty hash when no links are present" do
-        links = link_set_presenter(link_set).links
         expect(links).to eq({})
       end
 
@@ -36,8 +36,6 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
         FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_2)
         FactoryGirl.create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id_1)
 
-        links = link_set_presenter(link_set).links
-
         expect(links[:organisations]).to match_array(
           [org_content_id_1, org_content_id_2]
         )
@@ -47,8 +45,4 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
       end
     end
   end
-end
-
-def link_set_presenter(link_set)
-  Presenters::Queries::LinkSetPresenter.new(link_set)
 end

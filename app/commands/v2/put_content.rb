@@ -224,7 +224,7 @@ module Commands
 
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
-          payload: Presenters::ContentStorePresenter.present(content_item, event),
+          payload: Presenters::ContentStorePresenter.present(content_item, event, fallback_order: [:draft, :published]),
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end

@@ -1,14 +1,15 @@
 module Presenters
   class DownstreamPresenter
-    def self.present(content_item, event)
+    def self.present(content_item, event, fallback_order:)
       link_set = LinkSet.find_by(content_id: content_item.content_id)
-      new(content_item, link_set, event).present
+      new(content_item, link_set, event, fallback_order: fallback_order).present
     end
 
-    def initialize(content_item, link_set, event)
+    def initialize(content_item, link_set, event, fallback_order:)
       self.content_item = content_item
       self.link_set = link_set
       self.event = event
+      self.fallback_order = fallback_order
     end
 
     def present
@@ -25,46 +26,46 @@ module Presenters
 
   private
 
-    attr_accessor :content_item, :link_set, :event
+    attr_accessor :content_item, :link_set, :event, :fallback_order
 
     def symbolized_attributes
       content_item.as_json.symbolize_keys
     end
 
     def links
-      if link_set
-        { links: link_set_presenter.links }
-      else
-        {}
-      end
+      return {} unless link_set
+      {
+        links: link_set_presenter.links,
+        expanded_links: expanded_link_set_presenter.links
+      }
     end
 
     def access_limited
-      if access_limit
-        {
-          access_limited: {
-            users: access_limit.users
-          }
+      return {} unless access_limit
+      {
+        access_limited: {
+          users: access_limit.users
         }
-      else
-        {}
-      end
+      }
     end
 
     def link_set_presenter
       Presenters::Queries::LinkSetPresenter.new(link_set)
     end
 
+    def expanded_link_set_presenter
+      Presenters::Queries::ExpandedLinkSet.new(
+        link_set: link_set,
+        fallback_order: fallback_order,
+      )
+    end
+
     def access_limit
       @access_limit ||= AccessLimit.find_by(content_item: content_item)
     end
 
-    def location
-      @location ||= Location.find_by!(content_item: content_item)
-    end
-
-    def translation
-      @translation ||= Translation.find_by!(content_item: content_item)
+    def web_content_item
+      @web_content_item ||= WebContentItem.new(content_item)
     end
 
     def first_published_at
@@ -76,19 +77,16 @@ module Presenters
     end
 
     def public_updated_at
-      if content_item.public_updated_at.present?
-        { public_updated_at: content_item.public_updated_at.iso8601 }
-      else
-        {}
-      end
+      return {} unless content_item.public_updated_at.present?
+      { public_updated_at: content_item.public_updated_at.iso8601 }
     end
 
     def base_path
-      { base_path: location.base_path }
+      { base_path: web_content_item.base_path }
     end
 
     def locale
-      { locale: translation.locale }
+      { locale: web_content_item.locale }
     end
 
     def content_store_payload_version

@@ -61,7 +61,8 @@ RSpec.describe Commands::PutContentWithLinks do
     stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
     stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
 
-    link_set = create(:link_set, content_id: '60d81299-6ae7-4bab-b4fe-4235d518d50a')
+    content_item = create(:content_item)
+    link_set = create(:link_set, content_id: content_item.content_id)
     protected_link = create(:link, link_set: link_set, link_type: 'alpha_taxons')
     normal_link = create(:link, link_set: link_set, link_type: 'topics')
     create(:lock_version, target: link_set)
@@ -69,7 +70,7 @@ RSpec.describe Commands::PutContentWithLinks do
     described_class.call(
       title: 'Test Title',
       format: 'placeholder',
-      content_id: '60d81299-6ae7-4bab-b4fe-4235d518d50a',
+      content_id: content_item.content_id,
       base_path: '/foo',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall',

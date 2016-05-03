@@ -135,7 +135,8 @@ module Commands
           content_store: Adapters::ContentStore,
           payload: Presenters::ContentStorePresenter.present(
             content_item,
-            event
+            event,
+            fallback_order: [:published]
           ),
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
         )
@@ -143,6 +144,7 @@ module Commands
         queue_payload = Presenters::MessageQueuePresenter.present(
           content_item,
           event,
+          fallback_order: [:published],
           update_type: update_type
         )
 
