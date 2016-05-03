@@ -24,7 +24,7 @@ class AddFirstPublishedAt < ActiveRecord::Migration
     print "Loading first superseded content item for each content_id.."
     STDOUT.flush
     first_superseded_cis = first_superseded_cis_scope.to_a
-    puts "loaded.  Updating first_published_at.."
+    puts " loaded.  Updating first_published_at.."
     first_superseded_cis.each do |ci|
       print "."
       STDOUT.flush
@@ -32,15 +32,12 @@ class AddFirstPublishedAt < ActiveRecord::Migration
     end
     puts "Done."
 
-    all_published_cis = State.filter(ContentItem.all, name: "published")
-
-    print "Loading published content item for each content_id where never superseded.."
+    print "Updating first_published_at for published content item for each content_id where never superseded.."
     STDOUT.flush
-    published_but_never_superseded_cis = all_published_cis.where.not(
-      content_id: first_superseded_cis_scope.pluck(:content_id)
-    ).to_a
-    puts " loaded.  Updating first_published_at.."
-    published_but_never_superseded_cis.each do |ci|
+    all_cis = ContentItem.all
+    all_published_cis = State.filter(all_cis, name: "published")
+    published_but_never_superseded_cis = UserFacingVersion.filter(all_published_cis, number: 1)
+    published_but_never_superseded_cis.find_each do |ci|
       print "."
       STDOUT.flush
       ContentItem.where(content_id: ci.content_id).update_all(first_published_at: ci.created_at)
