@@ -39,6 +39,7 @@ module Commands
         clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
 
         set_public_updated_at(content_item, previous_item, update_type)
+        set_first_published_at(content_item)
         State.publish(content_item)
 
         AccessLimit.find_by(content_item: content_item).try(:destroy)
@@ -92,6 +93,11 @@ module Commands
         elsif update_type == "minor"
           content_item.update_attributes!(public_updated_at: previously_published_item.public_updated_at)
         end
+      end
+
+      def set_first_published_at(content_item)
+        return if content_item.first_published_at.present?
+        content_item.update_attributes!(first_published_at: Time.zone.now)
       end
 
       def publish_redirect_if_content_item_has_moved(new_location, previous_location, translation)

@@ -6,22 +6,23 @@ class ContentItem < ActiveRecord::Base
   DEFAULT_LOCALE = "en".freeze
 
   TOP_LEVEL_FIELDS = [
+    :analytics_identifier,
     :content_id,
     :description,
     :details,
-    :format,
     :document_type,
-    :schema_name,
+    :first_published_at,
+    :format,
+    :need_ids,
+    :phase,
     :public_updated_at,
     :publishing_app,
     :redirects,
     :rendering_app,
     :routes,
+    :schema_name,
     :title,
-    :analytics_identifier,
-    :phase,
     :update_type,
-    :need_ids,
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze

@@ -95,6 +95,8 @@ module Presenters
             "#{internal_name_sql} AS internal_name"
           when :public_updated_at
             "to_char(public_updated_at, '#{iso8601_sql}') as public_updated_at"
+          when :first_published_at
+            "to_char(first_published_at, '#{iso8601_sql}') as first_published_at"
           else
             field
           end

@@ -11,7 +11,7 @@ module Commands
           update_existing_content_item(content_item)
         else
           content_item = create_content_item
-          create_new_content_item(content_item)
+          fill_out_new_content_item(content_item)
         end
 
         send_downstream(content_item) if downstream
@@ -22,13 +22,15 @@ module Commands
 
     private
 
-      def create_new_content_item(content_item)
+      def fill_out_new_content_item(content_item)
         clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path) unless base_path.nil?
 
         create_supporting_objects(content_item)
         ensure_link_set_exists(content_item)
 
         if previously_published_item
+          set_first_published_at(content_item, previously_published_item)
+
           previous_location = Location.find_by!(content_item: previously_published_item)
           previous_routes = previously_published_item.routes
 
@@ -150,6 +152,14 @@ module Commands
           content_items = filter.filter(state: %w(published unpublished), locale: locale)
           UserFacingVersion.latest(content_items)
         )
+      end
+
+      def set_first_published_at(content_item, previously_published_item)
+        if content_item.first_published_at.nil?
+          content_item.update_attributes(
+            first_published_at: previously_published_item.first_published_at,
+          )
+        end
       end
 
       def pessimistic_content_item_scope

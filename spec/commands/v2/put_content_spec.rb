@@ -90,11 +90,14 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "when creating a draft for a previously published content item" do
+      let(:first_published_at) { 1.year.ago }
+
       before do
         FactoryGirl.create(:live_content_item,
           content_id: content_id,
           lock_version: 2,
           user_facing_version: 5,
+          first_published_at: first_published_at,
         )
       end
 
@@ -118,6 +121,16 @@ RSpec.describe Commands::V2::PutContent do
         expect(content_item.content_id).to eq(content_id)
         expect(State.find_by!(content_item: content_item).name).to eq("draft")
         expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(6)
+      end
+
+      it "copies over the first_published_at timestamp" do
+        described_class.call(payload)
+
+        content_item = ContentItem.last
+        expect(content_item).to be_present
+        expect(content_item.content_id).to eq(content_id)
+
+        expect(content_item.first_published_at.iso8601).to eq(first_published_at.iso8601)
       end
 
       context "and the base path has changed" do
@@ -189,7 +202,7 @@ RSpec.describe Commands::V2::PutContent do
         end
       end
 
-      describe "race condtitions", skip_cleaning: true do
+      describe "race conditions", skip_cleaning: true do
         after do
           DatabaseCleaner.clean_with :truncation
         end
@@ -407,6 +420,17 @@ RSpec.describe Commands::V2::PutContent do
         previously_drafted_item.reload
 
         expect(previously_drafted_item.title).to eq("Some Title")
+      end
+
+      it "keeps the first_published_at timestamp if present" do
+        first_published_at = 1.year.ago
+        previously_drafted_item.update_attributes(first_published_at: first_published_at)
+
+        described_class.call(payload)
+        previously_drafted_item.reload
+
+        expect(previously_drafted_item.first_published_at).to be_present
+        expect(previously_drafted_item.first_published_at.iso8601).to eq(first_published_at.iso8601)
       end
 
       it "does not increment the user-facing version for the content item" do

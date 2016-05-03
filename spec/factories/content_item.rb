@@ -5,6 +5,7 @@ FactoryGirl.define do
     description "VAT rates for goods and services"
     format "guide"
     public_updated_at "2014-05-14T13:00:06Z"
+    first_published_at "2014-01-02T03:04:05Z"
     publishing_app "publisher"
     rendering_app "frontend"
     details {
