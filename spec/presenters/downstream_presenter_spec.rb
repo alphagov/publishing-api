@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::DownstreamPresenter do
-  let(:event) { double(:event, id: 123) }
   let(:fallback_order) { [] }
 
   subject(:result) { described_class.present(content_item, fallback_order: fallback_order) }
@@ -100,7 +99,8 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
   end
 
-  describe described_class::V1 do
+  describe "V1" do
+    let(:event) { double(:event, id: 123) }
     let(:attributes) do
       {
         content_id: "content_id",
@@ -114,7 +114,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     it "presents all attributes by default" do
-      result = described_class.present(attributes, event)
+      result = Presenters::DownstreamPresenter::V1.present(attributes, event)
 
       expect(result).to eq(
         content_id: "content_id",
@@ -125,7 +125,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     it "can optionally remove the update_type attribute" do
-      result = described_class.present(attributes, event, update_type: false)
+      result = Presenters::DownstreamPresenter::V1.present(attributes, event, update_type: false)
 
       expect(result).to eq(
         content_id: "content_id",
@@ -135,7 +135,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     it "can optionally remove the payload_version attribute" do
-      result = described_class.present(attributes, event, payload_version: false)
+      result = Presenters::DownstreamPresenter::V1.present(attributes, event, payload_version: false)
 
       expect(result).to eq(
         content_id: "content_id",
