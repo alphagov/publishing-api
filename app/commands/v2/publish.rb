@@ -129,8 +129,6 @@ module Commands
       end
 
       def send_downstream(content_item, update_type)
-        return unless downstream
-
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           payload: Presenters::ContentStorePresenter.present(
