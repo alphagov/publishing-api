@@ -1,14 +1,13 @@
 module Presenters
   class DownstreamPresenter
-    def self.present(content_item, event, fallback_order:)
+    def self.present(content_item, fallback_order:)
       link_set = LinkSet.find_by(content_id: content_item.content_id)
-      new(content_item, link_set, event, fallback_order: fallback_order).present
+      new(content_item, link_set, fallback_order: fallback_order).present
     end
 
-    def initialize(content_item, link_set, event, fallback_order:)
+    def initialize(content_item, link_set, fallback_order:)
       self.content_item = content_item
       self.link_set = link_set
-      self.event = event
       self.fallback_order = fallback_order
     end
 
@@ -19,14 +18,13 @@ module Presenters
         .merge(public_updated_at)
         .merge(links)
         .merge(access_limited)
-        .merge(content_store_payload_version)
         .merge(base_path)
         .merge(locale)
     end
 
   private
 
-    attr_accessor :content_item, :link_set, :event, :fallback_order
+    attr_accessor :content_item, :link_set, :fallback_order
 
     def symbolized_attributes
       content_item.as_json.symbolize_keys
@@ -87,10 +85,6 @@ module Presenters
 
     def locale
       { locale: web_content_item.locale }
-    end
-
-    def content_store_payload_version
-      { payload_version: event.id }
     end
 
     class V1

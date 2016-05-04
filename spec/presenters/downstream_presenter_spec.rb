@@ -4,7 +4,7 @@ RSpec.describe Presenters::DownstreamPresenter do
   let(:event) { double(:event, id: 123) }
   let(:fallback_order) { [] }
 
-  subject(:result) { described_class.present(content_item, event, fallback_order: fallback_order) }
+  subject(:result) { described_class.present(content_item, fallback_order: fallback_order) }
 
   describe "V2" do
     let(:expected) {
@@ -29,14 +29,13 @@ RSpec.describe Presenters::DownstreamPresenter do
         routes: [{ path: "/vat-rates", type: "exact" }],
         schema_name: "guide",
         title: "VAT rates",
-        payload_version: 123,
         update_type: "minor"
       }
     }
 
     context "for a live content item" do
       let(:content_item) { create(:live_content_item) }
-      let!(:link_set) { create(:link_set, content_id: content_item.content_id) }
+      let!(:link_set)    { create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to eq(expected)
@@ -63,7 +62,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       it "expands the links for the content item" do
-        result = described_class.present(a, event, fallback_order: [:draft])
+        result = described_class.present(a, fallback_order: [:draft])
 
         expect(result[:expanded_links]).to eq(related: [{
           content_id: b.content_id,
