@@ -3,6 +3,6 @@ FactoryGirl.define do
     content_item
     type "gone"
     explanation "Removed for testing reasons"
-    alternative_url "http://example.com/unpublishing"
+    alternative_path "/new-path"
   end
 end
