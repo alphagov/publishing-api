@@ -2,7 +2,8 @@ module Commands
   module V2
     class Unpublish < BaseCommand
       def call
-        content_item = find_live_content_item
+        content_id = payload.fetch(:content_id)
+        content_item = find_live_content_item(content_id)
 
         case payload.fetch(:type)
         when "withdrawal"
@@ -23,7 +24,7 @@ module Commands
           content_item: content_item,
         )
 
-        send_downstream(content_item, unpublishing) if downstream
+        send_content_item_downstream(content_item, unpublishing) if downstream
       end
 
       def redirect(content_item)
@@ -33,18 +34,24 @@ module Commands
           content_item: content_item,
         )
 
-        base_path = Location.find_by(content_item: content_item).base_path
+        send_redirect_downstream(
+          base_path: Location.find_by(content_item: content_item).base_path,
+          publishing_app: content_item.publishing_app,
+          destination: unpublishing.alternative_path
+        ) if downstream
+      end
 
+      def send_redirect_downstream(base_path:, publishing_app:, destination:)
         downstream_payload = {
           format: "redirect",
           base_path: base_path,
-          publishing_app: content_item.publishing_app,
+          publishing_app: publishing_app,
           public_updated_at: Time.zone.now.iso8601,
           redirects: [
             {
               path: base_path,
               type: "exact",
-              destination: unpublishing.alternative_path,
+              destination: destination,
             }
           ],
         }
@@ -56,20 +63,16 @@ module Commands
         )
       end
 
-      def content_id
-        payload[:content_id]
-      end
-
       def locale
         payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
-      def find_live_content_item
+      def find_live_content_item(content_id)
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
         filter.filter(locale: locale, state: "published").first
       end
 
-      def send_downstream(content_item, unpublishing)
+      def send_content_item_downstream(content_item, unpublishing)
         downstream_payload = Presenters::ContentStorePresenter.present(
           content_item,
           event,
