@@ -63,4 +63,59 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       expect(response.status).to eq(200), response.body
     end
   end
+
+  describe "redirecting" do
+    let(:redirect_params) {
+      {
+        type: "redirect",
+        alternative_path: "/new-path",
+      }.to_json
+    }
+
+    it "creates an Unpublishing" do
+      post "/v2/content/#{content_id}/unpublish", redirect_params
+
+      expect(response.status).to eq(200), response.body
+
+      unpublishing = Unpublishing.find_by(content_item: content_item)
+      expect(unpublishing.type).to eq("redirect")
+      expect(unpublishing.alternative_path).to eq("/new-path")
+    end
+
+    it "sends a redirect to the live content store" do
+      Timecop.freeze do
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: {
+              format: "redirect",
+              base_path: base_path,
+              publishing_app: content_item.publishing_app,
+              public_updated_at: Time.zone.now.iso8601,
+              redirects: [
+                {
+                  path: base_path,
+                  type: "exact",
+                  destination: "/new-path",
+                }
+              ],
+            }
+          )
+
+        post "/v2/content/#{content_id}/unpublish", redirect_params
+
+        expect(response.status).to eq(200), response.body
+      end
+    end
+
+    it "does not send to any other downstream system" do
+      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+      post "/v2/content/#{content_id}/unpublish", redirect_params
+
+      expect(response.status).to eq(200), response.body
+    end
+  end
 end
