@@ -36,70 +36,31 @@ module Commands
           content_item: content_item,
         )
 
-        send_redirect_downstream(
+        send_arbitrary_downstream(RedirectPresenter.present(
           base_path: Location.find_by(content_item: content_item).base_path,
           publishing_app: content_item.publishing_app,
-          destination: unpublishing.alternative_path
-        ) if downstream
+          destination: unpublishing.alternative_path,
+          public_updated_at: Time.zone.now,
+        )) if downstream
       end
 
       def gone(content_item)
         unpublishing = Unpublishing.create!(
           type: "gone",
-          alternative_path: payload.fetch(:alternative_path),
-          explanation: payload.fetch(:explanation),
+          alternative_path: payload[:alternative_path],
+          explanation: payload[:explanation],
           content_item: content_item,
         )
 
-        send_gone_downstream(
+        send_arbitrary_downstream(GonePresenter.present(
           base_path: Location.find_by(content_item: content_item).base_path,
           publishing_app: content_item.publishing_app,
-          alternative_path: payload.fetch(:alternative_path),
-          explanation: payload.fetch(:explanation),
-        ) if downstream
+          alternative_path: payload[:alternative_path],
+          explanation: payload[:explanation],
+        )) if downstream
       end
 
-      def send_gone_downstream(base_path:, publishing_app:, alternative_path:, explanation:)
-        downstream_payload = {
-          document_type: "gone",
-          schema_name: "gone",
-          base_path: base_path,
-          publishing_app: publishing_app,
-          details: {
-            explanation: explanation,
-            alternative_path: alternative_path,
-          },
-          routes: [
-            {
-              path: base_path,
-              type: "exact",
-            }
-          ],
-        }
-
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::ContentStore,
-          payload: downstream_payload,
-          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
-        )
-      end
-
-      def send_redirect_downstream(base_path:, publishing_app:, destination:)
-        downstream_payload = {
-          document_type: "redirect",
-          schema_name: "redirect",
-          base_path: base_path,
-          publishing_app: publishing_app,
-          public_updated_at: Time.zone.now.iso8601,
-          redirects: [
-            {
-              path: base_path,
-              type: "exact",
-              destination: destination,
-            }
-          ],
-        }
-
+      def send_arbitrary_downstream(downstream_payload)
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           payload: downstream_payload,
