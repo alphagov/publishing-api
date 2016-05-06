@@ -131,11 +131,7 @@ module Commands
       def send_downstream(content_item, update_type)
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
-          payload: Presenters::ContentStorePresenter.present(
-            content_item,
-            event,
-            fallback_order: [:published]
-          ),
+          payload: { content_item: content_item.id, payload_version: event.id },
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
         )
 

@@ -47,7 +47,7 @@ module Commands
       def send_live_to_draft_content_store(live)
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
-          payload: Presenters::ContentStorePresenter.present(live, event, fallback_order: [:draft, :published]),
+          payload: { content_item: live.id, payload_version: event.id },
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end
