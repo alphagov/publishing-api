@@ -147,19 +147,6 @@ module Commands
 
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)
       end
-
-      def raise_command_error(code, message, fields)
-        raise CommandError.new(
-          code: code,
-          message: message,
-          error_details: {
-            error: {
-              code: code,
-              message: message,
-            }.merge(fields)
-          }
-        )
-      end
     end
   end
 end
