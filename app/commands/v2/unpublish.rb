@@ -20,20 +20,18 @@ module Commands
     private
 
       def withdraw(content_item)
-        unpublishing = Unpublishing.create!(
+        unpublishing = State.unpublish(content_item,
           type: "withdrawal",
           explanation: payload.fetch(:explanation),
-          content_item: content_item,
         )
 
         send_content_item_downstream(content_item, unpublishing) if downstream
       end
 
       def redirect(content_item)
-        unpublishing = Unpublishing.create!(
+        unpublishing = State.unpublish(content_item,
           type: "redirect",
           alternative_path: payload.fetch(:alternative_path),
-          content_item: content_item,
         )
 
         send_arbitrary_downstream(RedirectPresenter.present(
@@ -45,11 +43,10 @@ module Commands
       end
 
       def gone(content_item)
-        unpublishing = Unpublishing.create!(
+        unpublishing = State.unpublish(content_item,
           type: "gone",
           alternative_path: payload[:alternative_path],
           explanation: payload[:explanation],
-          content_item: content_item,
         )
 
         send_arbitrary_downstream(GonePresenter.present(

@@ -22,11 +22,19 @@ class State < ActiveRecord::Base
     change_state(content_item, name: "published")
   end
 
-  def self.unpublish(content_item)
+  def self.unpublish(content_item, type:, explanation: nil, alternative_path: nil)
     change_state(content_item, name: "unpublished")
 
     Unpublishing.create!(
       content_item: content_item,
+      type: type,
+      explanation: explanation,
+      alternative_path: alternative_path,
+    )
+  end
+
+  def self.substitute(content_item)
+    unpublish(content_item,
       type: "substitute",
       explanation: "Automatically unpublished to make way for another content item",
     )
