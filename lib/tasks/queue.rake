@@ -19,12 +19,17 @@ namespace :queue do
 
     puts "Listening for messages"
     q.subscribe(block: true) do |delivery_info, properties, payload|
-      puts <<-EOT
------ New Message -----
-Routing_key: #{delivery_info.routing_key}
-Properties: #{properties.inspect}
-Payload: #{payload}
+      puts <<-EOT.strip_heredoc
+        ----- New Message -----
+        Routing_key: #{delivery_info.routing_key}
+        Properties: #{properties.inspect}
+        Payload: #{payload}
       EOT
     end
+  end
+
+  desc "Add published content items to the message queue, optionally specifying a limit on the number of items"
+  task :requeue_content, [:number_of_items] => :environment do |_, args|
+    RequeueContent.new(number_of_items: args[:number_of_items]).call
   end
 end

@@ -101,7 +101,6 @@ module Commands
       def send_to_message_queue(content_item)
         payload = Presenters::MessageQueuePresenter.present(
           content_item,
-          event,
           fallback_order: [:published],
           update_type: "links",
         )

@@ -143,7 +143,6 @@ module Commands
 
         queue_payload = Presenters::MessageQueuePresenter.present(
           content_item,
-          event,
           fallback_order: [:published],
           update_type: update_type
         )
