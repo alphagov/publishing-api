@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe PresentedContentStoreWorker do
+  let(:content_item) { FactoryGirl.create(:content_item, base_path: "/foo") }
   before do
     stub_request(:put, "http://content-store.dev.gov.uk/content/foo").
       to_return(status: status, body: {}.to_json)
@@ -9,7 +10,7 @@ RSpec.describe PresentedContentStoreWorker do
   def do_request
     subject.perform(
       content_store: "Adapters::ContentStore",
-      payload: { some: "payload", base_path: "/foo" }
+      payload: { content_item: content_item.id, payload_version: "1" }
     )
   end
 
@@ -17,7 +18,7 @@ RSpec.describe PresentedContentStoreWorker do
     200 => { raises_error: false, logs_to_airbrake: false },
     202 => { raises_error: false, logs_to_airbrake: false },
     400 => { raises_error: false, logs_to_airbrake: true },
-    409 => { raises_error: false, logs_to_airbrake: true },
+    409 => { raises_error: false, logs_to_airbrake: false },
     500 => { raises_error: true, logs_to_airbrake: false },
   }
 

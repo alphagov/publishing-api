@@ -123,20 +123,19 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "sends the published content item to the draft content store" do
-          expect(Presenters::ContentStorePresenter).to receive(:present).with(
-            published_item,
-            instance_of(Event),
-            fallback_order: [:draft, :published]
-          )
-
-          allow(PresentedContentStoreWorker).to receive(:perform_async)
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              payload: expected_content_store_payload,
+              base_path: "/vat-rates",
+              delete: true,
               request_uuid: "12345-67890",
             )
-
+          expect(PresentedContentStoreWorker).to receive(:perform_async)
+            .with(
+              content_store: Adapters::DraftContentStore,
+              payload: a_hash_including(:content_item, :payload_version),
+              request_uuid: "12345-67890",
+            )
           described_class.call(payload)
         end
 
