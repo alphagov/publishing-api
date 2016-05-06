@@ -42,7 +42,7 @@ RSpec.describe State do
   end
 
   describe ".supersede" do
-    let(:draft_item) { FactoryGirl.create(:draft_content_item, title: "Draft Title") }
+    let(:draft_item) { FactoryGirl.create(:draft_content_item) }
     let(:draft_state) { State.find_by!(content_item: draft_item) }
 
     it "changes the state name to 'superseded'" do
@@ -53,7 +53,7 @@ RSpec.describe State do
   end
 
   describe ".publish" do
-    let(:draft_item) { FactoryGirl.create(:draft_content_item, title: "Draft Title") }
+    let(:draft_item) { FactoryGirl.create(:draft_content_item) }
     let(:draft_state) { State.find_by!(content_item: draft_item) }
 
     it "changes the state name to 'published'" do
