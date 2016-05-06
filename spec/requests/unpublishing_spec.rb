@@ -179,4 +179,14 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       expect(response.status).to eq(200), response.body
     end
   end
+
+  describe "a bad unpublishing type" do
+    it "422s" do
+      post "/v2/content/#{content_id}/unpublish", {
+        type: "not-correct",
+      }.to_json
+
+      expect(response.status).to eq(422), response.body
+    end
+  end
 end

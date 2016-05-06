@@ -8,10 +8,26 @@ RSpec.describe Unpublishing do
       expect(subject).to be_valid
     end
 
-    it "requires a type" do
-      subject.type = nil
+    it "requires a valid type" do
+      valid_types = %w(
+        gone
+        withdrawal
+        redirect
+        substitute
+      )
+
+      valid_types.each do |type|
+        subject.type = type
+        expect(subject).to be_valid
+      end
+
+      subject.type = "anything-else"
       expect(subject).to be_invalid
       expect(subject.errors[:type].size).to eq(1)
+
+      subject.type = nil
+      expect(subject).to be_invalid
+      expect(subject.errors[:type].size).to eq(2)
     end
 
     it "does not require an explanation for a 'gone'" do

@@ -24,13 +24,16 @@ module Commands
           end
         end
 
-        case payload.fetch(:type)
+        case type = payload.fetch(:type)
         when "withdrawal"
           withdraw(content_item)
         when "redirect"
           redirect(content_item)
         when "gone"
           gone(content_item)
+        else
+          message = "#{type} is not a valid unpublishing type"
+          raise_command_error(422, message, fields: {})
         end
 
         Success.new(content_id: content_id)
