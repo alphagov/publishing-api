@@ -64,23 +64,51 @@ RSpec.describe State do
   end
 
   describe ".unpublish" do
-    let(:draft_item) { FactoryGirl.create(:draft_content_item, title: "Draft Title") }
-    let(:draft_state) { State.find_by!(content_item: draft_item) }
+    let(:live_item) { FactoryGirl.create(:live_content_item) }
+    let(:live_state) { State.find_by!(content_item: live_item) }
 
     it "changes the state name to 'unpublished'" do
       expect {
-        described_class.unpublish(draft_item)
-      }.to change { draft_state.reload.name }.to("unpublished")
+        described_class.unpublish(live_item, type: "gone")
+      }.to change { live_state.reload.name }.to("unpublished")
     end
 
     it "creates an unpublishing" do
       expect {
-        described_class.unpublish(draft_item)
+        described_class.unpublish(live_item,
+          type: "gone",
+          explanation: "A test explanation",
+          alternative_path: "/some-path",
+        )
       }.to change(Unpublishing, :count).by(1)
 
       unpublishing = Unpublishing.last
 
-      expect(unpublishing.content_item).to eq(draft_item)
+      expect(unpublishing.content_item).to eq(live_item)
+      expect(unpublishing.type).to eq("gone")
+      expect(unpublishing.explanation).to eq("A test explanation")
+      expect(unpublishing.alternative_path).to eq("/some-path")
+    end
+  end
+
+  describe ".substitute" do
+    let(:live_item) { FactoryGirl.create(:live_content_item) }
+    let(:live_state) { State.find_by!(content_item: live_item) }
+
+    it "changes the state name to 'unpublished'" do
+      expect {
+        described_class.substitute(live_item)
+      }.to change { live_state.reload.name }.to("unpublished")
+    end
+
+    it "creates a 'substitute' unpublishing" do
+      expect {
+        described_class.substitute(live_item)
+      }.to change(Unpublishing, :count).by(1)
+
+      unpublishing = Unpublishing.last
+
+      expect(unpublishing.content_item).to eq(live_item)
       expect(unpublishing.type).to eq("substitute")
       expect(unpublishing.explanation).to eq(
         "Automatically unpublished to make way for another content item"
