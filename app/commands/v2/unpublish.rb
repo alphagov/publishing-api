@@ -10,6 +10,8 @@ module Commands
           withdraw(content_item)
         when "redirect"
           redirect(content_item)
+        when "gone"
+          gone(content_item)
         end
 
         Success.new(content_id: content_id)
@@ -39,6 +41,47 @@ module Commands
           publishing_app: content_item.publishing_app,
           destination: unpublishing.alternative_path
         ) if downstream
+      end
+
+      def gone(content_item)
+        unpublishing = Unpublishing.create!(
+          type: "gone",
+          alternative_path: payload.fetch(:alternative_path),
+          explanation: payload.fetch(:explanation),
+          content_item: content_item,
+        )
+
+        send_gone_downstream(
+          base_path: Location.find_by(content_item: content_item).base_path,
+          publishing_app: content_item.publishing_app,
+          alternative_path: payload.fetch(:alternative_path),
+          explanation: payload.fetch(:explanation),
+        ) if downstream
+      end
+
+      def send_gone_downstream(base_path:, publishing_app:, alternative_path:, explanation:)
+        downstream_payload = {
+          document_type: "gone",
+          schema_name: "gone",
+          base_path: base_path,
+          publishing_app: publishing_app,
+          details: {
+            explanation: explanation,
+            alternative_path: alternative_path,
+          },
+          routes: [
+            {
+              path: base_path,
+              type: "exact",
+            }
+          ],
+        }
+
+        PresentedContentStoreWorker.perform_async(
+          content_store: Adapters::ContentStore,
+          payload: downstream_payload,
+          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
+        )
       end
 
       def send_redirect_downstream(base_path:, publishing_app:, destination:)

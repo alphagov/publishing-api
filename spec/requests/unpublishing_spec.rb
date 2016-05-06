@@ -119,4 +119,64 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       expect(response.status).to eq(200), response.body
     end
   end
+
+  describe "gone (get this off the website)" do
+    let(:gone_params) {
+      {
+        type: "gone",
+        explanation: "Test gone",
+        alternative_path: "/new-path",
+      }.to_json
+    }
+
+    it "creates an Unpublishing" do
+      post "/v2/content/#{content_id}/unpublish", gone_params
+
+      expect(response.status).to eq(200), response.body
+
+      unpublishing = Unpublishing.find_by(content_item: content_item)
+      expect(unpublishing.type).to eq("gone")
+      expect(unpublishing.explanation).to eq("Test gone")
+      expect(unpublishing.alternative_path).to eq("/new-path")
+    end
+
+    it "sends an unpublishing to the live content store" do
+      Timecop.freeze do
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: {
+              base_path: base_path,
+              document_type: "gone",
+              schema_name: "gone",
+              publishing_app: content_item.publishing_app,
+              details: {
+                explanation: "Test gone",
+                alternative_path: "/new-path",
+              },
+              routes: [
+                {
+                  path: base_path,
+                  type: "exact",
+                }
+              ],
+            }
+          )
+
+        post "/v2/content/#{content_id}/unpublish", gone_params
+
+        expect(response.status).to eq(200), response.body
+      end
+    end
+
+    it "does not send to any other downstream system" do
+      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+      post "/v2/content/#{content_id}/unpublish", gone_params
+
+      expect(response.status).to eq(200), response.body
+    end
+  end
 end
