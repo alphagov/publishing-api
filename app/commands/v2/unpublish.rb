@@ -43,7 +43,8 @@ module Commands
 
       def send_redirect_downstream(base_path:, publishing_app:, destination:)
         downstream_payload = {
-          format: "redirect",
+          document_type: "redirect",
+          schema_name: "redirect",
           base_path: base_path,
           publishing_app: publishing_app,
           public_updated_at: Time.zone.now.iso8601,

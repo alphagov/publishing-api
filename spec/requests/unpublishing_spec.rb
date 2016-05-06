@@ -88,7 +88,8 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           .with(
             base_path: base_path,
             content_item: {
-              format: "redirect",
+              document_type: "redirect",
+              schema_name: "redirect",
               base_path: base_path,
               publishing_app: content_item.publishing_app,
               public_updated_at: Time.zone.now.iso8601,
