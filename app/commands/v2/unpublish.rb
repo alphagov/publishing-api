@@ -3,7 +3,26 @@ module Commands
     class Unpublish < BaseCommand
       def call
         content_id = payload.fetch(:content_id)
-        content_item = find_live_content_item(content_id)
+
+        unless content_item = find_unpublishable_content_item(content_id)
+          message = "Could not find a content item to unpublish"
+          raise_command_error(404, message, fields: {})
+        end
+
+        if draft_present?(content_id)
+          if payload[:discard_drafts] == true
+            DiscardDraft.call(
+              {
+                content_id: content_id,
+                locale: locale,
+              },
+              downstream: downstream,
+            )
+          else
+            message = "Cannot unpublish with a draft present"
+            raise_command_error(422, message, fields: {})
+          end
+        end
 
         case payload.fetch(:type)
         when "withdrawal"
@@ -69,9 +88,14 @@ module Commands
         payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
-      def find_live_content_item(content_id)
+      def find_unpublishable_content_item(content_id)
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        filter.filter(locale: locale, state: "published").first
+        filter.filter(locale: locale, state: ["published", "unpublished"]).first
+      end
+
+      def draft_present?(content_id)
+        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+        filter.filter(locale: locale, state: "draft").exists?
       end
 
       def send_content_item_downstream(content_item, unpublishing)

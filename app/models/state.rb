@@ -25,12 +25,20 @@ class State < ActiveRecord::Base
   def self.unpublish(content_item, type:, explanation: nil, alternative_path: nil)
     change_state(content_item, name: "unpublished")
 
-    Unpublishing.create!(
-      content_item: content_item,
-      type: type,
-      explanation: explanation,
-      alternative_path: alternative_path,
-    )
+    if unpublishing = Unpublishing.find_by(content_item: content_item)
+      unpublishing.update_attributes(
+        type: type,
+        explanation: explanation,
+        alternative_path: alternative_path,
+      )
+    else
+      Unpublishing.create!(
+        content_item: content_item,
+        type: type,
+        explanation: explanation,
+        alternative_path: alternative_path,
+      )
+    end
   end
 
   def self.substitute(content_item)
