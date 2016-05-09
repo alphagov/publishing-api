@@ -71,7 +71,7 @@ module Commands
           public_updated_at: Time.zone.now,
         )
 
-        send_arbitrary_downstream(redirect) if downstream
+        send_downstream(redirect) if downstream
       end
 
       def gone(content_item)
@@ -88,10 +88,10 @@ module Commands
           explanation: payload[:explanation],
         )
 
-        send_arbitrary_downstream(gone) if downstream
+        send_downstream(gone) if downstream
       end
 
-      def send_arbitrary_downstream(downstream_payload)
+      def send_downstream(downstream_payload)
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           payload: downstream_payload,
