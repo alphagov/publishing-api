@@ -216,11 +216,10 @@ module Commands
       def send_downstream(content_item)
         return unless downstream
 
-        message = "Enqueuing PresentedContentStoreWorker job with "
-        message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
-        logger.info message
-
         lambda do
+          message = "Enqueuing PresentedContentStoreWorker job with "
+          message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
+          logger.info message
           PresentedContentStoreWorker.perform_async(
             content_store: Adapters::DraftContentStore,
             payload: { content_item: content_item.id, payload_version: event.id },
