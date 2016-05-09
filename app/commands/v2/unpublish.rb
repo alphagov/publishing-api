@@ -34,7 +34,7 @@ module Commands
 
         case type = payload.fetch(:type)
         when "withdrawal"
-          withdraw(content_item)
+          callback = withdraw(content_item)
         when "redirect"
           redirect(content_item)
         when "gone"
@@ -44,7 +44,7 @@ module Commands
           raise_command_error(422, message, fields: {})
         end
 
-        Success.new(content_id: content_id)
+        [Success.new(content_id: content_id), callback]
       end
 
     private
@@ -55,7 +55,7 @@ module Commands
           explanation: payload.fetch(:explanation),
         )
 
-        send_content_item_downstream(content_item) if downstream
+        send_content_item_downstream(content_item)
       end
 
       def redirect(content_item)
@@ -71,7 +71,7 @@ module Commands
           public_updated_at: Time.zone.now,
         )
 
-        send_downstream(redirect) if downstream
+        send_downstream(redirect)
       end
 
       def gone(content_item)
@@ -88,10 +88,11 @@ module Commands
           explanation: payload[:explanation],
         )
 
-        send_downstream(gone) if downstream
+        send_downstream(gone)
       end
 
       def send_downstream(downstream_payload)
+        return unless downstream
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           payload: downstream_payload,
@@ -118,17 +119,14 @@ module Commands
       end
 
       def send_content_item_downstream(content_item)
-        downstream_payload = Presenters::ContentStorePresenter.present(
-          content_item,
-          event,
-          fallback_order: [:published]
-        )
-
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::ContentStore,
-          payload: downstream_payload,
-          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
-        )
+        return unless downstream
+        lambda do
+          PresentedContentStoreWorker.perform_async(
+            content_store: Adapters::ContentStore,
+            payload: { content_item: content_item.id, payload_version: event.id },
+            request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
+          )
+        end
       end
     end
   end

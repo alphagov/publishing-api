@@ -10,12 +10,13 @@ module Commands
 
         delete_supporting_objects
         delete_draft_from_database
+        delete_draft_from_draft_content_store(draft_path)
         increment_live_lock_version if live
 
-        [Success.new(content_id: content_id), [
-          delete_draft_from_draft_content_store(draft_path),
+        [
+          Success.new(content_id: content_id),
           send_live_to_draft_content_store(live)
-        ]]
+        ]
       end
 
     private
@@ -35,14 +36,12 @@ module Commands
 
       def delete_draft_from_draft_content_store(draft_path)
         return unless downstream
-        lambda do
-          PresentedContentStoreWorker.perform_async(
-            content_store: Adapters::DraftContentStore,
-            base_path: draft_path,
-            delete: true,
-            request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
-          )
-        end
+        PresentedContentStoreWorker.perform_async(
+          content_store: Adapters::DraftContentStore,
+          base_path: draft_path,
+          delete: true,
+          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
+        )
       end
 
       def send_live_to_draft_content_store(live)

@@ -43,17 +43,15 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "sends an unpublishing to the live content store" do
-        Timecop.freeze do
-          expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-            .with(
-              base_path: base_path,
-              content_item: a_hash_including(
-                document_type: "gone",
-              )
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: a_hash_including(
+              document_type: "gone",
             )
+        )
 
-          described_class.call(payload)
-        end
+        described_class.call(payload)
       end
 
       it "does not send to any other downstream system" do
@@ -160,21 +158,19 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "sends an unpublishing to the live content store" do
-        Timecop.freeze do
-          expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-            .with(
-              base_path: base_path,
-              content_item: a_hash_including(
-                document_type: "gone",
-                details: {
-                  explanation: "This explanation is correct",
-                  alternative_path: nil,
-                }
-              )
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: a_hash_including(
+              document_type: "gone",
+              details: {
+                explanation: "This explanation is correct",
+                alternative_path: nil,
+              }
             )
+        )
 
-          described_class.call(payload)
-        end
+        described_class.call(payload)
       end
 
       it "does not send to any other downstream system" do

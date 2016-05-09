@@ -127,6 +127,7 @@ module Commands
       end
 
       def send_downstream(content_item, update_type)
+        return unless downstream
         queue_payload = Presenters::MessageQueuePresenter.present(
           content_item,
           fallback_order: [:published],
