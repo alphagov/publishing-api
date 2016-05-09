@@ -36,6 +36,7 @@ module Commands
 
       def delete_draft_from_draft_content_store(draft_path)
         return unless downstream
+
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
           base_path: draft_path,
@@ -47,6 +48,7 @@ module Commands
       def send_live_to_draft_content_store(live)
         return unless downstream
         return unless live
+
         lambda do
           PresentedContentStoreWorker.perform_async(
             content_store: Adapters::DraftContentStore,

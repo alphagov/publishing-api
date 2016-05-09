@@ -75,6 +75,7 @@ module Commands
 
       def send_downstream
         return unless downstream
+
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
         draft_content_item = filter.filter(state: "draft", locale: locale).first
         live_content_item = filter.filter(state: "published", locale: locale).first

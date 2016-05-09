@@ -93,6 +93,7 @@ module Commands
 
       def send_downstream(downstream_payload)
         return unless downstream
+
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           payload: downstream_payload,
@@ -120,6 +121,7 @@ module Commands
 
       def send_content_item_downstream(content_item)
         return unless downstream
+
         lambda do
           PresentedContentStoreWorker.perform_async(
             content_store: Adapters::ContentStore,
