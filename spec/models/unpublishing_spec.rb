@@ -8,10 +8,26 @@ RSpec.describe Unpublishing do
       expect(subject).to be_valid
     end
 
-    it "requires a type" do
-      subject.type = nil
+    it "requires a valid type" do
+      valid_types = %w(
+        gone
+        withdrawal
+        redirect
+        substitute
+      )
+
+      valid_types.each do |type|
+        subject.type = type
+        expect(subject).to be_valid
+      end
+
+      subject.type = "anything-else"
       expect(subject).to be_invalid
       expect(subject.errors[:type].size).to eq(1)
+
+      subject.type = nil
+      expect(subject).to be_invalid
+      expect(subject.errors[:type].size).to eq(2)
     end
 
     it "does not require an explanation for a 'gone'" do
@@ -27,17 +43,17 @@ RSpec.describe Unpublishing do
       expect(subject.errors[:explanation].size).to eq(1)
     end
 
-    it "does not require an alternative_url for a 'gone'" do
+    it "does not require an alternative_path for a 'gone'" do
       subject.type = "gone"
-      subject.alternative_url = nil
+      subject.alternative_path = nil
       expect(subject).to be_valid
     end
 
-    it "requires an alternative_url for a 'redirect'" do
+    it "requires an alternative_path for a 'redirect'" do
       subject.type = "redirect"
-      subject.alternative_url = nil
+      subject.alternative_path = nil
       expect(subject).to be_invalid
-      expect(subject.errors[:alternative_url].size).to eq(1)
+      expect(subject.errors[:alternative_path].size).to eq(1)
     end
   end
 end

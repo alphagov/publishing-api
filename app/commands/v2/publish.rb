@@ -129,8 +129,6 @@ module Commands
       end
 
       def send_downstream(content_item, update_type)
-        return unless downstream
-
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           payload: Presenters::ContentStorePresenter.present(
@@ -148,19 +146,6 @@ module Commands
         )
 
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)
-      end
-
-      def raise_command_error(code, message, fields)
-        raise CommandError.new(
-          code: code,
-          message: message,
-          error_details: {
-            error: {
-              code: code,
-              message: message,
-            }.merge(fields)
-          }
-        )
       end
     end
   end

@@ -45,6 +45,11 @@ module V2
       render status: response.code, json: response
     end
 
+    def unpublish
+      response = Commands::V2::Unpublish.call(content_item)
+      render status: response.code, json: response
+    end
+
     def discard_draft
       response = Commands::V2::DiscardDraft.call(content_item)
       render status: response.code, json: response

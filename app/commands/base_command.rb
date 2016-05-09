@@ -46,21 +46,28 @@ module Commands
         "(#{previous_version_number}) is not the same as the current " +
         "lock version of the content item (#{current_version.number})."
 
-      conflict_error = CommandError.new(
-        code: 409,
-        message: "Conflict",
+      fields = {
+        fields: {
+          previous_version: ["does not match"],
+        },
+      }
+
+      if current_version.conflicts_with?(previous_version_number)
+        raise_command_error(409, "Conflict", fields, friendly_message: friendly_message)
+      end
+    end
+
+    def raise_command_error(code, message, fields, friendly_message: nil)
+      raise CommandError.new(
+        code: code,
+        message: message,
         error_details: {
           error: {
-            code: 409,
-            message: friendly_message,
-            fields: {
-              previous_version: ["does not match"],
-            }
-          }
+            code: code,
+            message: friendly_message || message,
+          }.merge(fields)
         }
       )
-
-      raise conflict_error if current_version.conflicts_with?(previous_version_number)
     end
   end
 end

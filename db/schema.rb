@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429123756) do
+ActiveRecord::Schema.define(version: 20160505133601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,10 +136,10 @@ ActiveRecord::Schema.define(version: 20160429123756) do
   add_index "translations", ["content_item_id", "locale"], name: "index_translations_on_content_item_id_and_locale", using: :btree
 
   create_table "unpublishings", force: :cascade do |t|
-    t.integer  "content_item_id", null: false
-    t.string   "type",            null: false
+    t.integer  "content_item_id",  null: false
+    t.string   "type",             null: false
     t.string   "explanation"
-    t.string   "alternative_url"
+    t.string   "alternative_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
