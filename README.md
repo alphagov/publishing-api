@@ -27,6 +27,8 @@ content. It is used when paths need to be reserved before that content enters
 the system
 - **Event Log**: A log of all requests to the Publishing API that have the
 potential to mutate its internal state
+- **Unpublishing**: An object indicating a previously published content item
+which has been removed from the live site.  Can be "gone", "withdrawal", or "redirect".
 
 For more information, refer to [doc/semantics-of-the-publishing-api.md](doc/semantics-of-the-publishing-api.md)
 and [doc/object-model-explanation.md](doc/object-model-explanation.md).
