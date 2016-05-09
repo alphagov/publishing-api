@@ -185,5 +185,49 @@ RSpec.describe Commands::V2::Unpublish do
         described_class.call(payload)
       end
     end
+
+    context "with the `downstream` flag set to `false`" do
+      before do
+        FactoryGirl.create(:live_content_item, :with_draft,
+          content_id: content_id,
+        )
+      end
+
+      it "does not send to any downstream system for a 'gone'" do
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+        redraft_payload = payload.merge(
+          type: "gone",
+          discard_drafts: true,
+        )
+        described_class.call(redraft_payload, downstream: false)
+      end
+
+      it "does not send to any downstream system for a 'redirect'" do
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+        redraft_payload = payload.merge(
+          type: "redirect",
+          discard_drafts: true,
+        )
+        described_class.call(redraft_payload, downstream: false)
+      end
+
+      it "does not send to any downstream system for a 'withdrawal'" do
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+        redraft_payload = payload.merge(
+          type: "withdrawal",
+          discard_drafts: true,
+        )
+        described_class.call(redraft_payload, downstream: false)
+      end
+    end
   end
 end
