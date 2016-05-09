@@ -9,6 +9,8 @@ module Commands
           raise_command_error(404, message, fields: {})
         end
 
+        check_version_and_raise_if_conflicting(content_item, previous_version_number)
+
         if draft_present?(content_id)
           if payload[:discard_drafts] == true
             DiscardDraft.call(
@@ -89,6 +91,10 @@ module Commands
 
       def locale
         payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
+      end
+
+      def previous_version_number
+        payload[:previous_version].to_i if payload[:previous_version]
       end
 
       def find_unpublishable_content_item(content_id)
