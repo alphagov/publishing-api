@@ -119,6 +119,15 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "an unpublished content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      live = FactoryGirl.create(
+        :unpublished_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7"
+      )
+    end
+  end
+
   provider_state "organisation links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       link_set = FactoryGirl.create(:link_set,
@@ -324,6 +333,19 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       FactoryGirl.create(
         :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        lock_version: 3
+      )
+
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+    end
+  end
+
+  provider_state "the published content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
+    set_up do
+      FactoryGirl.create(
+        :live_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         lock_version: 3
       )
