@@ -78,7 +78,7 @@ RSpec.describe LockVersion do
       end
 
       lock_versions = LockVersion.in_bulk(items, ContentItem)
-      expect(lock_versions.keys).to eq(items.map(&:id))
+      expect(lock_versions.keys).to match_array(items.map(&:id))
     end
   end
 
