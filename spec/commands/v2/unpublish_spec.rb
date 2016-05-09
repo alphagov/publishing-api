@@ -229,5 +229,24 @@ RSpec.describe Commands::V2::Unpublish do
         described_class.call(redraft_payload, downstream: false)
       end
     end
+
+    context "when trying to unpublish a content item with no location" do
+      before do
+        content_item = FactoryGirl.create(:live_content_item,
+          content_id: content_id,
+          base_path: base_path,
+        )
+
+        Location.find_by(content_item: content_item).destroy
+      end
+
+      it "rejects the request with a 422" do
+        expect {
+          described_class.call(payload)
+        }.to raise_error(CommandError, "Cannot unpublish content with no location") { |error|
+          expect(error.code).to eq(422)
+        }
+      end
+    end
   end
 end
