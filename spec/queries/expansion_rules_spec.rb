@@ -32,4 +32,8 @@ RSpec.describe Queries::ExpansionRules do
     specify { expect(subject.recurse?(:parent)).to eq(true) }
     specify { expect(subject.recurse?(:foo)).to eq(false) }
   end
+
+  describe "#reverse(link_type)" do
+    specify { expect(subject.reverse(:parent)).to eq(:child) }
+  end
 end
