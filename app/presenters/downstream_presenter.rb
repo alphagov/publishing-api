@@ -20,6 +20,7 @@ module Presenters
         .merge(access_limited)
         .merge(base_path)
         .merge(locale)
+        .merge(withdrawal_notice)
     end
 
   private
@@ -85,6 +86,21 @@ module Presenters
 
     def locale
       { locale: web_content_item.locale }
+    end
+
+    def withdrawal_notice
+      unpublishing = Unpublishing.find_by(content_item: content_item)
+
+      if unpublishing && unpublishing.withdrawal?
+        {
+          withdrawn_notice: {
+            explanation: unpublishing.explanation,
+            withdrawn_at: unpublishing.created_at.iso8601,
+          },
+        }
+      else
+        {}
+      end
     end
 
     class V1

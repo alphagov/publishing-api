@@ -50,6 +50,24 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
     end
 
+    context "for a withdrawn content item" do
+      let!(:content_item) { create(:withdrawn_content_item) }
+      let!(:link_set) { create(:link_set, content_id: content_item.content_id) }
+
+      it "merges in a withdrawal notice" do
+        unpublishing = Unpublishing.find_by(content_item: content_item)
+
+        expect(result).to eq(
+          expected.merge(
+            withdrawn_notice: {
+              explanation: unpublishing.explanation,
+              withdrawn_at: unpublishing.created_at.iso8601,
+            }
+          )
+        )
+      end
+    end
+
     context "for a content item with dependencies" do
       let(:a) { FactoryGirl.create(:content_item, base_path: "/a") }
       let(:b) { FactoryGirl.create(:content_item, base_path: "/b") }

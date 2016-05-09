@@ -16,4 +16,10 @@ FactoryGirl.define do
       )
     end
   end
+
+  factory :withdrawn_content_item, parent: :unpublished_content_item do
+    transient do
+      unpublishing_type "withdrawal"
+    end
+  end
 end

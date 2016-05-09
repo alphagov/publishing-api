@@ -45,12 +45,12 @@ module Commands
     private
 
       def withdraw(content_item)
-        unpublishing = State.unpublish(content_item,
+        State.unpublish(content_item,
           type: "withdrawal",
           explanation: payload.fetch(:explanation),
         )
 
-        send_content_item_downstream(content_item, unpublishing) if downstream
+        send_content_item_downstream(content_item) if downstream
       end
 
       def redirect(content_item)
@@ -112,18 +112,11 @@ module Commands
         filter.filter(locale: locale, state: "draft").exists?
       end
 
-      def send_content_item_downstream(content_item, unpublishing)
+      def send_content_item_downstream(content_item)
         downstream_payload = Presenters::ContentStorePresenter.present(
           content_item,
           event,
           fallback_order: [:published]
-        )
-
-        downstream_payload.merge!(
-          withdrawn_notice: {
-            explanation: unpublishing.explanation,
-            withdrawn_at: unpublishing.created_at.iso8601,
-          }
         )
 
         PresentedContentStoreWorker.perform_async(
