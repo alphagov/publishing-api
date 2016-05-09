@@ -10,14 +10,12 @@ module Commands
 
         delete_supporting_objects
         delete_draft_from_database
-        delete_draft_from_draft_content_store(draft_path) if downstream
+        increment_live_lock_version if live
 
-        if live
-          increment_live_lock_version
-          send_live_to_draft_content_store(live) if downstream
-        end
-
-        Success.new(content_id: content_id)
+        [Success.new(content_id: content_id), [
+          delete_draft_from_draft_content_store(draft_path),
+          send_live_to_draft_content_store(live)
+        ]]
       end
 
     private
@@ -36,20 +34,27 @@ module Commands
       end
 
       def delete_draft_from_draft_content_store(draft_path)
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::DraftContentStore,
-          base_path: draft_path,
-          delete: true,
-          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
-        )
+        return unless downstream
+        lambda do
+          PresentedContentStoreWorker.perform_async(
+            content_store: Adapters::DraftContentStore,
+            base_path: draft_path,
+            delete: true,
+            request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
+          )
+        end
       end
 
       def send_live_to_draft_content_store(live)
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::DraftContentStore,
-          payload: { content_item: live.id, payload_version: event.id },
-          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
-        )
+        return unless downstream
+        return unless live
+        lambda do
+          PresentedContentStoreWorker.perform_async(
+            content_store: Adapters::DraftContentStore,
+            payload: { content_item: live.id, payload_version: event.id },
+            request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
+          )
+        end
       end
 
       def delete_supporting_objects

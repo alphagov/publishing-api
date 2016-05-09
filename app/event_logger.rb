@@ -3,6 +3,7 @@ module EventLogger
     tries = 5
     begin
       response = nil
+      callbacks = nil
 
       Event.connection.transaction do
         event = Event.create!(
@@ -13,8 +14,10 @@ module EventLogger
           request_id: GdsApi::GovukHeaders.headers[:govuk_request_id]
         )
 
-        response = yield(event) if block_given?
+        response, callbacks = yield(event) if block_given?
       end
+
+      Array(callbacks).compact.each(&:call)
 
       response
     rescue CommandRetryableError => e

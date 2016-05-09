@@ -83,10 +83,10 @@ RSpec.describe "Downstream timeouts", type: :request do
         stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
       end
 
-      it "does not log an event in the event log" do
+      it "logs an event in the event log" do
         put "/v2/content/#{content_id}", v2_content_item.to_json
 
-        expect(Event.count).to eq(0)
+        expect(Event.count).to eq(1)
       end
 
       it "returns an error" do
@@ -123,10 +123,10 @@ RSpec.describe "Downstream timeouts", type: :request do
         stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
       end
 
-      it "does not log an event in the event log" do
+      it "logs an event in the event log" do
         put "/v2/links/#{content_id}", links_attributes.to_json
 
-        expect(Event.count).to eq(0)
+        expect(Event.count).to eq(1)
       end
 
       it "returns an error" do
@@ -147,10 +147,10 @@ RSpec.describe "Downstream timeouts", type: :request do
         stub_request(:put, Plek.find('content-store') + "/content#{base_path}").to_timeout
       end
 
-      it "does not log an event in the event log" do
+      it "logs an event in the event log" do
         put "/v2/links/#{content_id}", links_attributes.to_json
 
-        expect(Event.count).to eq(0)
+        expect(Event.count).to eq(1)
       end
 
       it "returns an error" do

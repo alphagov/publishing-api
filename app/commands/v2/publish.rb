@@ -44,9 +44,7 @@ module Commands
 
         AccessLimit.find_by(content_item: content_item).try(:destroy)
 
-        send_downstream(content_item, update_type) if downstream
-
-        Success.new(content_id: content_id)
+        [Success.new(content_id: content_id), send_downstream(content_item, update_type)]
       end
 
     private
@@ -129,12 +127,6 @@ module Commands
       end
 
       def send_downstream(content_item, update_type)
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::ContentStore,
-          payload: { content_item: content_item.id, payload_version: event.id },
-          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
-        )
-
         queue_payload = Presenters::MessageQueuePresenter.present(
           content_item,
           fallback_order: [:published],
@@ -142,6 +134,14 @@ module Commands
         )
 
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)
+
+        lambda do
+          PresentedContentStoreWorker.perform_async(
+            content_store: Adapters::ContentStore,
+            payload: { content_item: content_item.id, payload_version: event.id },
+            request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
+          )
+        end
       end
     end
   end

@@ -14,10 +14,8 @@ module Commands
           fill_out_new_content_item(content_item)
         end
 
-        send_downstream(content_item) if downstream
-
         response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
-        Success.new(response_hash)
+        [Success.new(response_hash), send_downstream(content_item)]
       end
 
     private
@@ -222,11 +220,13 @@ module Commands
         message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
         logger.info message
 
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::DraftContentStore,
-          payload: { content_item: content_item.id, payload_version: event.id },
-          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
-        )
+        lambda do
+          PresentedContentStoreWorker.perform_async(
+            content_store: Adapters::DraftContentStore,
+            payload: { content_item: content_item.id, payload_version: event.id },
+            request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
+          )
+        end
       end
 
       def raise_if_links_is_provided
