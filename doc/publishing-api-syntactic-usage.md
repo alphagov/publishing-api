@@ -70,7 +70,7 @@ Requests to update an existing draft content item:
 
  ## `POST /v2/content/:content_id/unpublish`
 
- [Request/Response detail]()
+ [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#an_unpublish_request_given_a_published_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
   - Will refuse to unpublish a lone draft.
   - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true`.
