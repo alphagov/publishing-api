@@ -1,4 +1,5 @@
 unless Rails.env.production?
+  require 'pact/tasks'
 
   desc "Verifies the pact files for latest release and master"
   task "pact:verify" do
