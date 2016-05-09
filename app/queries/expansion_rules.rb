@@ -10,6 +10,12 @@ module Queries
       recursive_link_types.include?(link_type)
     end
 
+    def reverse(link_type)
+      {
+        parent: :child,
+      }[link_type]
+    end
+
   private
 
     def recursive_link_types
