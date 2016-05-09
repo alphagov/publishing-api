@@ -3,8 +3,9 @@ module Commands
     class Unpublish < BaseCommand
       def call
         content_id = payload.fetch(:content_id)
+        content_item = find_unpublishable_content_item(content_id)
 
-        unless content_item = find_unpublishable_content_item(content_id)
+        unless content_item.present?
           message = "Could not find a content item to unpublish"
           raise_command_error(404, message, fields: {})
         end
@@ -58,27 +59,31 @@ module Commands
           alternative_path: payload.fetch(:alternative_path),
         )
 
-        send_arbitrary_downstream(RedirectPresenter.present(
+        redirect = RedirectPresenter.present(
           base_path: Location.find_by(content_item: content_item).base_path,
           publishing_app: content_item.publishing_app,
           destination: unpublishing.alternative_path,
           public_updated_at: Time.zone.now,
-        )) if downstream
+        )
+
+        send_arbitrary_downstream(redirect) if downstream
       end
 
       def gone(content_item)
-        unpublishing = State.unpublish(content_item,
+        State.unpublish(content_item,
           type: "gone",
           alternative_path: payload[:alternative_path],
           explanation: payload[:explanation],
         )
 
-        send_arbitrary_downstream(GonePresenter.present(
+        gone = GonePresenter.present(
           base_path: Location.find_by(content_item: content_item).base_path,
           publishing_app: content_item.publishing_app,
           alternative_path: payload[:alternative_path],
           explanation: payload[:explanation],
-        )) if downstream
+        )
+
+        send_arbitrary_downstream(gone) if downstream
       end
 
       def send_arbitrary_downstream(downstream_payload)
@@ -99,7 +104,7 @@ module Commands
 
       def find_unpublishable_content_item(content_id)
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        filter.filter(locale: locale, state: ["published", "unpublished"]).first
+        filter.filter(locale: locale, state: %w(published unpublished)).first
       end
 
       def draft_present?(content_id)

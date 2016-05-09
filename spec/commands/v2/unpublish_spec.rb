@@ -75,9 +75,9 @@ RSpec.describe Commands::V2::Unpublish do
       it "rejects the request with a 404" do
         expect {
           described_class.call(payload)
-        }.to raise_error(CommandError, "Could not find a content item to unpublish") do |error|
+        }.to raise_error(CommandError, "Could not find a content item to unpublish") { |error|
           expect(error.code).to eq(404)
-        end
+        }
       end
     end
 
@@ -91,9 +91,9 @@ RSpec.describe Commands::V2::Unpublish do
       it "rejects the request with a 422" do
         expect {
           described_class.call(payload)
-        }.to raise_error(CommandError, "Cannot unpublish with a draft present") do |error|
+        }.to raise_error(CommandError, "Cannot unpublish with a draft present") { |error|
           expect(error.code).to eq(422)
-        end
+        }
       end
 
       context "with `discard_drafts` set to true" do
