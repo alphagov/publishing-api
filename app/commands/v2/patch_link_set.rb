@@ -33,8 +33,12 @@ module Commands
           end
         end
 
+        after_transaction_commit do
+          send_downstream
+        end
+
         presented = Presenters::Queries::LinkSetPresenter.present(link_set)
-        [Success.new(presented), send_downstream]
+        Success.new(presented)
       end
 
     private

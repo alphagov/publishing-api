@@ -79,30 +79,4 @@ RSpec.describe EventLogger do
     expect(Event.count).to eq(2)
     expect(Event.last.content_id).to be_nil
   end
-
-  context "callbacks" do
-    class Intent; def self.call; end; end;
-
-    it "runs the callbacks if present" do
-      class Test
-        def self.call
-          [200, [-> { Intent.call }, nil]]
-        end
-      end
-      expect(Intent).to receive(:call)
-      expect(EventLogger.log_command(Test, content_id: "123") { Test.call })
-        .to eq(200)
-    end
-
-    it "does not runs the callbacks when there are none" do
-      class Test
-        def self.call
-          200
-        end
-      end
-      expect(Intent).to_not receive(:call)
-      expect(EventLogger.log_command(Test, content_id: "123") { Test.call })
-        .to eq(200)
-    end
-  end
 end

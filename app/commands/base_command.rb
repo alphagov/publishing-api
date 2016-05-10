@@ -1,19 +1,33 @@
 module Commands
   class BaseCommand
-    def self.call(payload, downstream: true)
-      logger.debug "#{self} called with payload:\n#{payload}"
+    class <<self
+      attr_accessor :callbacks
 
-      EventLogger.log_command(self, payload) do |event|
-        new(payload, event: event, downstream: downstream).call
+      def call(payload, downstream: true)
+        logger.debug "#{self} called with payload:\n#{payload}"
+
+        response = EventLogger.log_command(self, payload) do |event|
+          new(payload, event: event, downstream: downstream).call
+        end
+
+        Array(callbacks).compact.each(&:call)
+
+        response
+      rescue ActiveRecord::RecordInvalid => e
+        raise_validation_command_error(e)
       end
-    rescue ActiveRecord::RecordInvalid => e
-      raise_validation_command_error(e)
     end
 
     def initialize(payload, event:, downstream: true)
       @payload = payload
       @event = event
       @downstream = downstream
+    end
+
+  protected
+
+    def after_transaction_commit
+      self.class.callbacks = yield
     end
 
   private

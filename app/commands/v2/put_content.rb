@@ -15,7 +15,12 @@ module Commands
         end
 
         response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
-        [Success.new(response_hash), send_downstream(content_item)]
+
+        after_transaction_commit do
+          send_downstream(content_item)
+        end
+
+        Success.new(response_hash)
       end
 
     private

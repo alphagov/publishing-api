@@ -12,13 +12,14 @@ module Commands
         delete_draft_from_database
         increment_live_lock_version if live
 
-        [
-          Success.new(content_id: content_id),
+        after_transaction_commit do
           [
             delete_draft_from_draft_content_store(draft_path),
             send_live_to_draft_content_store(live)
           ]
-        ]
+        end
+
+        Success.new(content_id: content_id)
       end
 
     private

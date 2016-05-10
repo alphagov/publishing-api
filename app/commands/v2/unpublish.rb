@@ -44,7 +44,11 @@ module Commands
           raise_command_error(422, message, fields: {})
         end
 
-        [Success.new(content_id: content_id), callback]
+        after_transaction_commit do
+          callback
+        end
+
+        Success.new(content_id: content_id)
       end
 
     private

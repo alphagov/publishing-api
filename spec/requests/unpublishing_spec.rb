@@ -35,20 +35,22 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     end
 
     it "sends the withdrawal information to the live content store" do
-      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: a_hash_including(
-            withdrawn_notice: {
-              explanation: "Test withdrawal",
-              withdrawn_at: Time.zone.now.iso8601,
-            }
-          )
-      )
+      Timecop.freeze do
+        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: a_hash_including(
+              withdrawn_notice: {
+                explanation: "Test withdrawal",
+                withdrawn_at: Time.zone.now.iso8601,
+              }
+            )
+        )
 
-      post "/v2/content/#{content_id}/unpublish", withdrawal_params
+        post "/v2/content/#{content_id}/unpublish", withdrawal_params
 
-      expect(response.status).to eq(200), response.body
+        expect(response.status).to eq(200), response.body
+      end
     end
 
     it "does not send to any other downstream system" do

@@ -44,7 +44,11 @@ module Commands
 
         AccessLimit.find_by(content_item: content_item).try(:destroy)
 
-        [Success.new(content_id: content_id), send_downstream(content_item, update_type)]
+        after_transaction_commit do
+          send_downstream(content_item, update_type)
+        end
+
+        Success.new(content_id: content_id)
       end
 
     private
