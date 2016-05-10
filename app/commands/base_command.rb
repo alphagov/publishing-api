@@ -1,29 +1,27 @@
 module Commands
   class BaseCommand
     attr_reader :callbacks
-    class <<self
-      def call(payload, downstream: true)
-        logger.debug "#{self} called with payload:\n#{payload}"
-        instance = nil
 
-        response = EventLogger.log_command(self, payload) do |event|
-          instance = new(payload, event: event, downstream: downstream)
-          instance.call
-        end
+    def self.call(payload, downstream: true)
+      logger.debug "#{self} called with payload:\n#{payload}"
+      callbacks = Callback.new
 
-        instance.callbacks.each(&:call)
-
-        response
-      rescue ActiveRecord::RecordInvalid => e
-        raise_validation_command_error(e)
+      response = EventLogger.log_command(self, payload) do |event|
+        new(payload, event: event, downstream: downstream, callbacks: callbacks).call
       end
+
+      callbacks.each(&:call)
+
+      response
+    rescue ActiveRecord::RecordInvalid => e
+      raise_validation_command_error(e)
     end
 
-    def initialize(payload, event:, downstream: true)
+    def initialize(payload, event:, downstream: true, callbacks:)
       @payload = payload
       @event = event
       @downstream = downstream
-      @callbacks = []
+      @callbacks = callbacks
     end
 
   private
