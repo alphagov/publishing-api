@@ -37,7 +37,7 @@ RSpec.describe Commands::V2::PutContent do
       expect(PresentedContentStoreWorker).to receive(:perform_async)
         .with(
           content_store: Adapters::DraftContentStore,
-          payload: expected_content_store_payload,
+          payload: a_hash_including(:content_item, :payload_version),
           request_uuid: "12345-67890",
         )
 
@@ -53,7 +53,7 @@ RSpec.describe Commands::V2::PutContent do
       expect(PresentedContentStoreWorker).not_to receive(:perform_async)
         .with(
           content_store: Adapters::ContentStore,
-          payload: expected_content_store_payload,
+          payload: a_hash_including(:content_item, :payload_version),
         )
 
       described_class.call(payload)
@@ -177,7 +177,7 @@ RSpec.describe Commands::V2::PutContent do
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              payload: expected_content_store_payload,
+              payload: a_hash_including(:content_item, :payload_version),
               request_uuid: "12345-67890",
             ).twice
 
@@ -495,7 +495,7 @@ RSpec.describe Commands::V2::PutContent do
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              payload: expected_content_store_payload,
+              payload: a_hash_including(:content_item, :payload_version),
               request_uuid: "12345-67890",
             ).twice
 

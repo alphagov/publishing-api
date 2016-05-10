@@ -45,7 +45,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
                 withdrawn_at: Time.zone.now.iso8601,
               }
             )
-          )
+        )
 
         post "/v2/content/#{content_id}/unpublish", withdrawal_params
 

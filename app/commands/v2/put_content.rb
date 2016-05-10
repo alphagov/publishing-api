@@ -14,9 +14,12 @@ module Commands
           fill_out_new_content_item(content_item)
         end
 
-        send_downstream(content_item) if downstream
-
         response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
+
+        after_transaction_commit do
+          send_downstream(content_item)
+        end
+
         Success.new(response_hash)
       end
 
@@ -221,10 +224,9 @@ module Commands
         message = "Enqueuing PresentedContentStoreWorker job with "
         message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
         logger.info message
-
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
-          payload: Presenters::ContentStorePresenter.present(content_item, event, fallback_order: [:draft, :published]),
+          payload: { content_item: content_item.id, payload_version: event.id },
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end

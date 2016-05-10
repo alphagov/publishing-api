@@ -55,7 +55,9 @@ module Commands
           explanation: payload.fetch(:explanation),
         )
 
-        send_content_item_downstream(content_item) if downstream
+        after_transaction_commit do
+          send_content_item_downstream(content_item)
+        end
       end
 
       def redirect(content_item)
@@ -71,7 +73,7 @@ module Commands
           public_updated_at: Time.zone.now,
         )
 
-        send_downstream(redirect) if downstream
+        send_downstream(redirect)
       end
 
       def gone(content_item)
@@ -88,10 +90,12 @@ module Commands
           explanation: payload[:explanation],
         )
 
-        send_downstream(gone) if downstream
+        send_downstream(gone)
       end
 
       def send_downstream(downstream_payload)
+        return unless downstream
+
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           payload: downstream_payload,
@@ -118,16 +122,12 @@ module Commands
       end
 
       def send_content_item_downstream(content_item)
-        downstream_payload = Presenters::ContentStorePresenter.present(
-          content_item,
-          event,
-          fallback_order: [:published]
-        )
+        return unless downstream
 
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
-          payload: downstream_payload,
-          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
+          payload: { content_item: content_item.id, payload_version: event.id },
+          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end
     end

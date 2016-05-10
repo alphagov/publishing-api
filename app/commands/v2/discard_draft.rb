@@ -10,11 +10,11 @@ module Commands
 
         delete_supporting_objects
         delete_draft_from_database
-        delete_draft_from_draft_content_store(draft_path) if downstream
+        increment_live_lock_version if live
 
-        if live
-          increment_live_lock_version
-          send_live_to_draft_content_store(live) if downstream
+        after_transaction_commit do
+          delete_draft_from_draft_content_store(draft_path)
+          send_live_to_draft_content_store(live)
         end
 
         Success.new(content_id: content_id)
@@ -36,6 +36,8 @@ module Commands
       end
 
       def delete_draft_from_draft_content_store(draft_path)
+        return unless downstream
+
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
           base_path: draft_path,
@@ -45,9 +47,12 @@ module Commands
       end
 
       def send_live_to_draft_content_store(live)
+        return unless downstream
+        return unless live
+
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
-          payload: Presenters::ContentStorePresenter.present(live, event, fallback_order: [:draft, :published]),
+          payload: { content_item: live.id, payload_version: event.id },
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end

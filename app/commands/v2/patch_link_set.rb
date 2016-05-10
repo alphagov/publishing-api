@@ -33,7 +33,9 @@ module Commands
           end
         end
 
-        send_downstream if downstream
+        after_transaction_commit do
+          send_downstream
+        end
 
         presented = Presenters::Queries::LinkSetPresenter.present(link_set)
         Success.new(presented)
@@ -76,6 +78,8 @@ module Commands
       end
 
       def send_downstream
+        return unless downstream
+
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
         draft_content_item = filter.filter(state: "draft", locale: locale).first
         live_content_item = filter.filter(state: "published", locale: locale).first
@@ -93,7 +97,7 @@ module Commands
       def send_to_content_store(content_item, content_store)
         PresentedContentStoreWorker.perform_async(
           content_store: content_store,
-          payload: Presenters::ContentStorePresenter.present(content_item, event, fallback_order: [:published]),
+          payload: { content_item: content_item.id, payload_version: event.id },
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end

@@ -16,8 +16,17 @@ class PresentedContentStoreWorker
       content_store.delete_content_item(base_path)
     else
       payload = args.fetch(:payload)
-      base_path = payload.fetch(:base_path)
-      content_store.put_content_item(base_path, payload)
+      content_id = payload[:content_item]
+      if content_id
+        content_item = ContentItem.find(content_id)
+        payload_version = payload.fetch(:payload_version)
+        presented_payload = Presenters::ContentStorePresenter.present(content_item, payload_version, fallback_order: content_store::DEPENDENCY_FALLBACK_ORDER)
+        base_path = presented_payload.fetch(:base_path)
+        content_store.put_content_item(base_path, presented_payload)
+      else
+        base_path = payload.fetch(:base_path)
+        content_store.put_content_item(base_path, payload)
+      end
     end
 
   rescue => e
