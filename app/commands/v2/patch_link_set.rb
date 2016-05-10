@@ -83,27 +83,23 @@ module Commands
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
         draft_content_item = filter.filter(state: "draft", locale: locale).first
         live_content_item = filter.filter(state: "published", locale: locale).first
-        callbacks = []
 
         if draft_content_item
-          callbacks << send_to_content_store(draft_content_item, Adapters::DraftContentStore)
+          send_to_content_store(draft_content_item, Adapters::DraftContentStore)
         end
 
         if live_content_item
-          callbacks << send_to_content_store(live_content_item, Adapters::ContentStore)
+          send_to_content_store(live_content_item, Adapters::ContentStore)
           send_to_message_queue(live_content_item)
         end
-        callbacks
       end
 
       def send_to_content_store(content_item, content_store)
-        lambda do
-          PresentedContentStoreWorker.perform_async(
-            content_store: content_store,
-            payload: { content_item: content_item.id, payload_version: event.id },
-            request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
-          )
-        end
+        PresentedContentStoreWorker.perform_async(
+          content_store: content_store,
+          payload: { content_item: content_item.id, payload_version: event.id },
+          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
+        )
       end
 
       def send_to_message_queue(content_item)

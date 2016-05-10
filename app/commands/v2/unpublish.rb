@@ -34,7 +34,7 @@ module Commands
 
         case type = payload.fetch(:type)
         when "withdrawal"
-          callback = withdraw(content_item)
+          withdraw(content_item)
         when "redirect"
           redirect(content_item)
         when "gone"
@@ -42,10 +42,6 @@ module Commands
         else
           message = "#{type} is not a valid unpublishing type"
           raise_command_error(422, message, fields: {})
-        end
-
-        after_transaction_commit do
-          callback
         end
 
         Success.new(content_id: content_id)
@@ -59,7 +55,9 @@ module Commands
           explanation: payload.fetch(:explanation),
         )
 
-        send_content_item_downstream(content_item)
+        after_transaction_commit do
+          send_content_item_downstream(content_item)
+        end
       end
 
       def redirect(content_item)
@@ -126,13 +124,11 @@ module Commands
       def send_content_item_downstream(content_item)
         return unless downstream
 
-        lambda do
-          PresentedContentStoreWorker.perform_async(
-            content_store: Adapters::ContentStore,
-            payload: { content_item: content_item.id, payload_version: event.id },
-            request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
-          )
-        end
+        PresentedContentStoreWorker.perform_async(
+          content_store: Adapters::ContentStore,
+          payload: { content_item: content_item.id, payload_version: event.id },
+          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
+        )
       end
     end
   end

@@ -1,16 +1,17 @@
 module Commands
   class BaseCommand
+    attr_reader :callbacks
     class <<self
-      attr_accessor :callbacks
-
       def call(payload, downstream: true)
         logger.debug "#{self} called with payload:\n#{payload}"
+        instance = nil
 
         response = EventLogger.log_command(self, payload) do |event|
-          new(payload, event: event, downstream: downstream).call
+          instance = new(payload, event: event, downstream: downstream)
+          instance.call
         end
 
-        Array(callbacks).compact.each(&:call)
+        instance.callbacks.each(&:call)
 
         response
       rescue ActiveRecord::RecordInvalid => e
@@ -22,17 +23,16 @@ module Commands
       @payload = payload
       @event = event
       @downstream = downstream
-    end
-
-  protected
-
-    def after_transaction_commit
-      self.class.callbacks = yield
+      @callbacks = []
     end
 
   private
 
     attr_reader :payload, :event, :downstream
+
+    def after_transaction_commit(&block)
+      callbacks << block
+    end
 
     def self.raise_validation_command_error(e)
       errors = e.record.errors
