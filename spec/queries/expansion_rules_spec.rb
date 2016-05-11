@@ -5,7 +5,7 @@ RSpec.describe Queries::ExpansionRules do
     context "for a link_type with custom expansion rules" do
       let(:link_type) { :topical_event }
 
-      it "returns the custom fields for that link_type"do
+      it "returns the custom fields for that link_type" do
         expect(subject.expansion_fields(link_type)).to include(:details)
       end
     end

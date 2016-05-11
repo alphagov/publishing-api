@@ -17,6 +17,7 @@ module Queries
 
     def direct_results(content_id, direct_link_types)
       return [] if direct_link_types.empty?
+
       LinkSet.joins(:links)
         .where("links.target_content_id = ?", content_id)
         .where("links.link_type IN (?)", direct_link_types)
