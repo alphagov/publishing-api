@@ -10,10 +10,15 @@ module Queries
       recursive_link_types.include?(link_type)
     end
 
-    def reverse(link_type)
-      {
-        parent: :child,
-      }[link_type]
+    module Reverse
+      extend ExpansionRules
+      extend self
+
+    private
+
+      def custom(link_type)
+        {}[link_type]
+      end
     end
 
   private
