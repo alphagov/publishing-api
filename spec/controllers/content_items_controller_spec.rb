@@ -29,6 +29,12 @@ RSpec.describe ContentItemsController do
     }
   }
 
+  let(:content_item_without_format) {
+    base_content_item.tap { |item|
+      item[:schema_name] = item[:document_type] = item.delete(:format)
+    }
+  }
+
   describe 'put_live_content_item' do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
@@ -65,6 +71,36 @@ RSpec.describe ContentItemsController do
         invalid_routing_keys.each do |routing_key|
           it "should respond with 422 if #{field} has value '#{routing_key}'" do
             content_item = base_content_item.merge(field => routing_key)
+
+            raw_json_put(
+              action: :put_live_content_item,
+              base_path: base_path,
+              json: content_item.to_json,
+            )
+
+            expect(response.status).to eq(422)
+          end
+        end
+      end
+
+      %w(schema_name document_type update_type).each do |field|
+        valid_routing_keys.each do |routing_key|
+          it "should respond with 200 if #{field} has value '#{routing_key}'" do
+            content_item = content_item_without_format.merge(field => routing_key)
+
+            raw_json_put(
+              action: :put_live_content_item,
+              base_path: base_path,
+              json: content_item.to_json,
+            )
+
+            expect(response.status).to eq(200)
+          end
+        end
+
+        invalid_routing_keys.each do |routing_key|
+          it "should respond with 422 if #{field} has value '#{routing_key}'" do
+            content_item = content_item_without_format.merge(field => routing_key)
 
             raw_json_put(
               action: :put_live_content_item,

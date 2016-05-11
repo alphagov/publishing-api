@@ -14,7 +14,9 @@ class ContentItemsController < ApplicationController
 private
 
   def validate_routing_key_fields
-    unless [:format, :update_type].all? { |field| content_item[field] =~ /\A[a-z0-9_]+\z/i }
+    routing_key_fields = [:update_type] + (content_item[:format] ? [:format] : [:schema_name, :document_type])
+
+    unless routing_key_fields.all? { |field| content_item[field] =~ /\A[a-z0-9_]+\z/i }
       head :unprocessable_entity
     end
   end

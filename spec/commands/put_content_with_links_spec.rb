@@ -46,6 +46,19 @@ RSpec.describe Commands::PutContentWithLinks do
     end
   end
 
+  context "when using document_type and schema_name instead of format" do
+    before do
+      payload[:format] = nil
+      payload[:document_type] = "guide"
+      payload[:schema_name] = "guide"
+    end
+
+    it "responds successfully" do
+      result = described_class.call(payload)
+      expect(result).to be_a(Commands::Success)
+    end
+  end
+
   it "responds successfully" do
     result = described_class.call(payload)
     expect(result).to be_a(Commands::Success)
