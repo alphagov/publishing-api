@@ -180,12 +180,14 @@ No downstream requests will be sent if the content item doesn't exist yet.
   - Can optionally return content items in all locales by specifying a `locale` of 'all'
   - Can return the `publication_state` of the content item by including it in the `fields[]`
   - Can search for queries against `base_path` or `title`
+  - Can order ascending or descending by: content_id, document_type, format, public_updated_at, publishing_app, rendering_app, base_path, locale, updated_at
 
 ### Required request params:
   - `document_type` the type of content item to return
   - `locale` (optional) is used to restrict returned content items to a given locale (defaults to 'en')
   - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
   - `q` (optional) the search term to match against `base_path` or `title`
+  - `order` (optional) the field to sort results by. Ordered ascending unless prefixed with a hyphen, e.g. `-updated_at`. Defaults to `public_updated_at` descending.
 
 ## `GET /v2/linkables`
 
