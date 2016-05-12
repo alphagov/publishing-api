@@ -100,8 +100,8 @@ module Commands
 
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
-          payload: downstream_payload,
-          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
+          payload: downstream_payload.merge(payload_version: event.id),
+          request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end
 
