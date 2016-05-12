@@ -18,8 +18,11 @@ RSpec.describe "Message bus", type: :request do
     end
 
     context "minor update type" do
-      it "uses the update type for the routing key" do
+      it "uses the update type for the routing key on publish and 'links' for the link update" do
         put request_path, content_item_params.merge(update_type: "minor").to_json
+
+        delivery_info, = wait_for_message_on(@queue)
+        expect(delivery_info.routing_key).to eq("guide.links")
 
         delivery_info, = wait_for_message_on(@queue)
         expect(delivery_info.routing_key).to eq("guide.minor")
@@ -27,8 +30,11 @@ RSpec.describe "Message bus", type: :request do
     end
 
     context "detailed_guide format" do
-      it "uses the format for the routing key" do
+      it "uses the format for the routing key on publish and 'links' for the link update" do
         put request_path, content_item_params.merge(format: "detailed_guide").to_json
+
+        delivery_info, = wait_for_message_on(@queue)
+        expect(delivery_info.routing_key).to eq("detailed_guide.links")
 
         delivery_info, = wait_for_message_on(@queue)
         expect(delivery_info.routing_key).to eq("detailed_guide.major")

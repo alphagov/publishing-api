@@ -4,8 +4,8 @@ module Commands
       if payload[:content_id]
         delete_existing_links
 
-        V2::PutContent.call(v2_put_content_payload, downstream: downstream)
-        V2::PatchLinkSet.call(v2_put_link_set_payload, downstream: downstream)
+        V2::PutContent.call(v2_put_content_payload, downstream: downstream, callbacks: callbacks, nested: true)
+        V2::PatchLinkSet.call(v2_put_link_set_payload, downstream: downstream, callbacks: callbacks, nested: true)
       else
         PathReservation.reserve_base_path!(base_path, payload[:publishing_app])
 
