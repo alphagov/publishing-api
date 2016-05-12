@@ -118,6 +118,8 @@ module Commands
             update_type: "major",
           },
           downstream: downstream,
+          callbacks: callbacks,
+          nested: true,
         )
       end
 

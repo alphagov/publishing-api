@@ -44,7 +44,7 @@ module Commands
               from_path: from_path,
               to_path: base_path,
               locale: locale,
-              routes: previous_routes
+              routes: previous_routes,
             )
           end
         end
@@ -73,7 +73,7 @@ module Commands
             from_path: from_path,
             to_path: base_path,
             locale: locale,
-            routes: previous_routes
+            routes: previous_routes,
           )
         end
 
@@ -214,7 +214,8 @@ module Commands
           old_base_path: from_path,
           new_base_path: to_path,
           locale: locale,
-          routes: routes
+          routes: routes,
+          callbacks: callbacks,
         )
       end
 

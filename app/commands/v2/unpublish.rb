@@ -25,6 +25,8 @@ module Commands
                 locale: locale,
               },
               downstream: downstream,
+              callbacks: callbacks,
+              nested: true,
             )
           else
             message = "Cannot unpublish with a draft present"

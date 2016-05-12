@@ -2,15 +2,14 @@ module Commands
   class BaseCommand
     attr_reader :callbacks
 
-    def self.call(payload, downstream: true)
+    def self.call(payload, downstream: true, nested: false, callbacks: [])
       logger.debug "#{self} called with payload:\n#{payload}"
-      callbacks = Callback.new
 
       response = EventLogger.log_command(self, payload) do |event|
         new(payload, event: event, downstream: downstream, callbacks: callbacks).call
       end
 
-      callbacks.each(&:call)
+      execute_callbacks(callbacks) unless nested
 
       response
     rescue ActiveRecord::RecordInvalid => e
@@ -27,6 +26,10 @@ module Commands
   private
 
     attr_reader :payload, :event, :downstream
+
+    def self.execute_callbacks(callbacks)
+      callbacks.each(&:call)
+    end
 
     def after_transaction_commit(&block)
       callbacks << block
