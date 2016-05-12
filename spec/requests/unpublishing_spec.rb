@@ -100,7 +100,8 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
                   destination: "/new-path",
                 }
               ],
-            }
+              payload_version: anything,
+            },
           )
 
         post "/v2/content/#{content_id}/unpublish", redirect_params
@@ -160,7 +161,8 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
                   type: "exact",
                 }
               ],
-            }
+              payload_version: anything,
+            },
           )
 
         post "/v2/content/#{content_id}/unpublish", gone_params
