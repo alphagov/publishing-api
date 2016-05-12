@@ -13,7 +13,7 @@ RSpec.describe Queries::GetContent do
 
   context "when a content item exists for the content_id" do
     before do
-      FactoryGirl.create(
+      create(
         :content_item,
         content_id: content_id,
       )
@@ -38,14 +38,14 @@ RSpec.describe Queries::GetContent do
 
   context "when a draft and a live content item exists for the content_id" do
     before do
-      FactoryGirl.create(
+      create(
         :draft_content_item,
         content_id: content_id,
         title: "Draft Title",
         user_facing_version: 2,
       )
 
-      FactoryGirl.create(
+      create(
         :live_content_item,
         content_id: content_id,
         title: "Live Title",
@@ -61,7 +61,7 @@ RSpec.describe Queries::GetContent do
 
   context "when content items exist in non-draft, non-live states" do
     before do
-      FactoryGirl.create(
+      create(
         :content_item,
         content_id: content_id,
         user_facing_version: 1,
@@ -69,7 +69,7 @@ RSpec.describe Queries::GetContent do
         state: "published",
       )
 
-      FactoryGirl.create(
+      create(
         :content_item,
         content_id: content_id,
         user_facing_version: 2,
@@ -86,7 +86,7 @@ RSpec.describe Queries::GetContent do
 
   context "when content items exist in multiple locales" do
     before do
-      FactoryGirl.create(
+      create(
         :content_item,
         content_id: content_id,
         user_facing_version: 2,
@@ -94,7 +94,7 @@ RSpec.describe Queries::GetContent do
         locale: "fr",
       )
 
-      FactoryGirl.create(
+      create(
         :content_item,
         content_id: content_id,
         user_facing_version: 1,

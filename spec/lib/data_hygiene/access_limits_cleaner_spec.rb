@@ -1,15 +1,15 @@
 require "rails_helper"
 
 RSpec.describe DataHygiene::AccessLimitsCleaner, :cleanup do
-  let!(:unrelated_access_limit) { FactoryGirl.create(:access_limit) }
-  let(:draft_content_item) { FactoryGirl.create(:draft_content_item) }
-  let(:another_draft_content_item) { FactoryGirl.create(:draft_content_item) }
-  let!(:dupe_access_limit) { FactoryGirl.create(:access_limit, content_item: draft_content_item) }
-  let!(:another_dupe_access_limit) { FactoryGirl.create(:access_limit, content_item: draft_content_item) }
-  let!(:access_limit) { FactoryGirl.create(:access_limit, content_item: draft_content_item) }
+  let!(:unrelated_access_limit) { create(:access_limit) }
+  let(:draft_content_item) { create(:draft_content_item) }
+  let(:another_draft_content_item) { create(:draft_content_item) }
+  let!(:dupe_access_limit) { create(:access_limit, content_item: draft_content_item) }
+  let!(:another_dupe_access_limit) { create(:access_limit, content_item: draft_content_item) }
+  let!(:access_limit) { create(:access_limit, content_item: draft_content_item) }
 
-  let(:live_content_item) { FactoryGirl.create(:live_content_item) }
-  let!(:published_access_limit) { FactoryGirl.create(:access_limit, content_item: live_content_item) }
+  let(:live_content_item) { create(:live_content_item) }
+  let!(:published_access_limit) { create(:access_limit, content_item: live_content_item) }
 
   let(:log) { double(:log) }
 

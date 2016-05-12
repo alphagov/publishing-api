@@ -79,7 +79,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the base path has been reserved by another publishing app" do
       before do
-        FactoryGirl.create(:path_reservation, base_path: "/vat-rates", publishing_app: "something-else")
+        create(:path_reservation, base_path: "/vat-rates", publishing_app: "something-else")
       end
 
       it "raises an error" do
@@ -93,7 +93,7 @@ RSpec.describe Commands::V2::PutContent do
       let(:first_published_at) { 1.year.ago }
 
       before do
-        FactoryGirl.create(:live_content_item,
+        create(:live_content_item,
           content_id: content_id,
           lock_version: 2,
           user_facing_version: 5,
@@ -225,7 +225,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when creating a draft for a previously unpublished content item" do
       before do
-        FactoryGirl.create(
+        create(
           :content_item,
           content_id: content_id,
           state: "unpublished",
@@ -259,7 +259,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when creating a draft when there are multiple unpublished and published items" do
       before do
-        FactoryGirl.create(
+        create(
           :content_item,
           content_id: content_id,
           state: "unpublished",
@@ -267,7 +267,7 @@ RSpec.describe Commands::V2::PutContent do
           user_facing_version: 5,
         )
 
-        FactoryGirl.create(
+        create(
           :content_item,
           content_id: content_id,
           state: "published",
@@ -275,7 +275,7 @@ RSpec.describe Commands::V2::PutContent do
           user_facing_version: 8,
         )
 
-        FactoryGirl.create(
+        create(
           :content_item,
           content_id: content_id,
           state: "unpublished",
@@ -309,7 +309,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "with another draft content item blocking the put_content action" do
       let!(:other_content_item) {
-        FactoryGirl.create(:redirect_draft_content_item,
+        create(:redirect_draft_content_item,
           locale: locale,
           base_path: base_path,
         )
@@ -333,7 +333,7 @@ RSpec.describe Commands::V2::PutContent do
       let(:new_locale) { "fr" }
 
       let!(:other_content_item) {
-        FactoryGirl.create(:redirect_draft_content_item,
+        create(:redirect_draft_content_item,
           locale: new_locale,
           base_path: base_path,
         )
@@ -406,7 +406,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the payload is for an already drafted content item" do
       let!(:previously_drafted_item) {
-        FactoryGirl.create(:draft_content_item,
+        create(:draft_content_item,
           content_id: content_id,
           base_path: base_path,
           title: "Old Title",
@@ -555,7 +555,7 @@ RSpec.describe Commands::V2::PutContent do
 
       context "when the previous draft has an access limit" do
         let!(:access_limit) {
-          FactoryGirl.create(:access_limit, content_item: previously_drafted_item, users: ["old-user"])
+          create(:access_limit, content_item: previously_drafted_item, users: ["old-user"])
         }
 
         context "when the params includes an access limit" do
@@ -643,11 +643,11 @@ RSpec.describe Commands::V2::PutContent do
       let(:link_target) { SecureRandom.uuid }
 
       let!(:link_set) do
-        FactoryGirl.create(
+        create(
           :link_set,
           content_id: content_id,
           links: [
-            FactoryGirl.create(
+            create(
               :link,
               link_type: "parent",
               target_content_id: link_target,

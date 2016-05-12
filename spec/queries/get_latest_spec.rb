@@ -6,15 +6,15 @@ RSpec.describe Queries::GetLatest do
   let(:c) { SecureRandom.uuid }
 
   before do
-    FactoryGirl.create(:content_item, content_id: a, user_facing_version: 2, base_path: "/a2")
-    FactoryGirl.create(:content_item, content_id: a, user_facing_version: 1, base_path: "/a1")
-    FactoryGirl.create(:content_item, content_id: a, user_facing_version: 3, base_path: "/a3")
+    create(:content_item, content_id: a, user_facing_version: 2, base_path: "/a2")
+    create(:content_item, content_id: a, user_facing_version: 1, base_path: "/a1")
+    create(:content_item, content_id: a, user_facing_version: 3, base_path: "/a3")
 
-    FactoryGirl.create(:content_item, content_id: b, user_facing_version: 1, base_path: "/b1")
-    FactoryGirl.create(:content_item, content_id: b, user_facing_version: 2, locale: "fr", base_path: "/b2")
+    create(:content_item, content_id: b, user_facing_version: 1, base_path: "/b1")
+    create(:content_item, content_id: b, user_facing_version: 2, locale: "fr", base_path: "/b2")
 
-    FactoryGirl.create(:content_item, content_id: c, user_facing_version: 1, base_path: "/c1")
-    FactoryGirl.create(:content_item, content_id: c, user_facing_version: 2, base_path: "/c2")
+    create(:content_item, content_id: c, user_facing_version: 1, base_path: "/c1")
+    create(:content_item, content_id: c, user_facing_version: 2, base_path: "/c2")
   end
 
   def base_paths(result)

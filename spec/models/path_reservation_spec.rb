@@ -53,7 +53,7 @@ RSpec.describe PathReservation, type: :model do
   describe ".reserve_base_path!(base_path, publishing_app)" do
     context "when the path reservation already exists" do
       before do
-        FactoryGirl.create(
+        create(
           :path_reservation,
           base_path: "/vat-rates",
           publishing_app: "something-else",

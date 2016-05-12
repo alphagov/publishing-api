@@ -2,21 +2,21 @@ require "rails_helper"
 
 RSpec.describe Tasks::DataSanitizer do
   let!(:non_limited_draft) do
-    FactoryGirl.create(
+    create(
       :draft_content_item,
       base_path: "/non-limited-draft",
     )
   end
 
   let!(:limited_draft) do
-    FactoryGirl.create(
+    create(
       :access_limited_draft_content_item,
       base_path: "/limited-draft",
     )
   end
 
   let!(:live_content_item) do
-    FactoryGirl.create(
+    create(
       :live_content_item,
       base_path: "/live-item",
     )

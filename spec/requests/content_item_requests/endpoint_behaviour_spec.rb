@@ -291,14 +291,14 @@ RSpec.describe "Endpoint behaviour", type: :request do
 
     context "when the content item exists" do
       let!(:content_item) {
-        FactoryGirl.create(
+        create(
           :draft_content_item,
           content_id: content_id,
         )
       }
 
       before do
-        FactoryGirl.create(:lock_version, target: content_item, number: 2)
+        create(:lock_version, target: content_item, number: 2)
       end
 
       it "responds with 200" do
@@ -316,7 +316,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       end
 
       it "responds with the presented content item for the correct locale" do
-        FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "ar")
+        create(:draft_content_item, content_id: content_id, locale: "ar")
         presented_content_item = Presenters::Queries::ContentItemPresenter.present(content_item)
 
         get "/v2/content/#{content_id}"

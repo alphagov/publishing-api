@@ -85,7 +85,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when a link set exists for the content item" do
       let(:link_set) do
-        FactoryGirl.create(
+        create(
           :link_set,
           content_id: v2_content_item[:content_id]
         )
@@ -132,13 +132,13 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when only a draft content item exists for the link set" do
       before do
-        draft = FactoryGirl.create(:draft_content_item,
+        draft = create(:draft_content_item,
           content_id: content_id,
         )
 
-        FactoryGirl.create(:lock_version, target: draft, number: 1)
+        create(:lock_version, target: draft, number: 1)
 
-        FactoryGirl.create(:access_limit,
+        create(:access_limit,
           users: access_limit_params.fetch(:users),
           content_item: draft,
         )
@@ -164,7 +164,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when only a live content item exists for the link set" do
       before do
-        FactoryGirl.create(:live_content_item,
+        create(:live_content_item,
           content_id: content_id,
         )
       end
@@ -189,16 +189,16 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when draft and live content items exists for the link set" do
       before do
-        draft = FactoryGirl.create(:draft_content_item,
+        draft = create(:draft_content_item,
           content_id: content_id,
         )
 
-        FactoryGirl.create(:access_limit,
+        create(:access_limit,
           users: access_limit_params.fetch(:users),
           content_item: draft,
         )
 
-        FactoryGirl.create(:live_content_item,
+        create(:live_content_item,
           content_id: content_id,
         )
       end
@@ -255,9 +255,9 @@ RSpec.describe "Downstream requests", type: :request do
       end
 
       before do
-        draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*ContentItem::TOP_LEVEL_FIELDS))
-        FactoryGirl.create(:lock_version, target: draft, number: 1)
-        FactoryGirl.create(:access_limit, content_item: draft, users: access_limit_params.fetch(:users))
+        draft = create(:draft_content_item, v2_content_item.slice(*ContentItem::TOP_LEVEL_FIELDS))
+        create(:lock_version, target: draft, number: 1)
+        create(:access_limit, content_item: draft, users: access_limit_params.fetch(:users))
       end
 
       it "sends to the draft content store" do
@@ -281,7 +281,7 @@ RSpec.describe "Downstream requests", type: :request do
   context "/v2/publish" do
     let(:content_id) { SecureRandom.uuid }
     let!(:draft) {
-      FactoryGirl.create(:draft_content_item,
+      create(:draft_content_item,
         content_id: content_id,
       )
     }

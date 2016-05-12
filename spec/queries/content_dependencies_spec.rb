@@ -1,21 +1,21 @@
 require "rails_helper"
 
 RSpec.describe Queries::ContentDependencies do
-  let(:parent_content_item) { FactoryGirl.create(:content_item, base_path: "/tax") }
-  let(:child_content_item) { FactoryGirl.create(:content_item, base_path: "/vat-rates") }
-  let(:special_content_item) { FactoryGirl.create(:content_item, base_path: "/something-special") }
+  let(:parent_content_item) { create(:content_item, base_path: "/tax") }
+  let(:child_content_item) { create(:content_item, base_path: "/vat-rates") }
+  let(:special_content_item) { create(:content_item, base_path: "/something-special") }
 
-  let(:link_set) { FactoryGirl.create(:link_set, content_id: child_content_item.content_id) }
+  let(:link_set) { create(:link_set, content_id: child_content_item.content_id) }
 
   let!(:link) {
-    FactoryGirl.create(:link,
+    create(:link,
       link_set: link_set,
       link_type: 'special',
       target_content_id: special_content_item.content_id,
     )
   }
   let!(:link_2) {
-    FactoryGirl.create(:link,
+    create(:link,
       link_set: link_set,
       link_type: 'parent',
       target_content_id: parent_content_item.content_id,

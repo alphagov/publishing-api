@@ -6,7 +6,7 @@ RSpec.describe V2::ContentItemsController do
   before do
     stub_request(:any, /content-store/)
 
-    @draft = FactoryGirl.create(
+    @draft = create(
       :draft_content_item,
       content_id: content_id,
       base_path: "/content.en",
@@ -19,7 +19,7 @@ RSpec.describe V2::ContentItemsController do
   describe "index" do
     before do
       @en_draft_content = @draft
-      @ar_draft_content = FactoryGirl.create(
+      @ar_draft_content = create(
         :draft_content_item,
         content_id: content_id,
         locale: "ar",
@@ -27,7 +27,7 @@ RSpec.describe V2::ContentItemsController do
         format: "topic",
         user_facing_version: 2,
       )
-      @en_live_content = FactoryGirl.create(
+      @en_live_content = create(
         :live_content_item,
         content_id: content_id,
         locale: "en",
@@ -35,7 +35,7 @@ RSpec.describe V2::ContentItemsController do
         format: "topic",
         user_facing_version: 1,
       )
-      @ar_live_content = FactoryGirl.create(
+      @ar_live_content = create(
         :live_content_item,
         content_id: content_id,
         locale: "ar",
@@ -48,14 +48,14 @@ RSpec.describe V2::ContentItemsController do
     context "searching a field" do
       context "when there is a valid query" do
         let(:previous_live_version) do
-          FactoryGirl.create(:live_content_item,
+          create(:live_content_item,
                              base_path: "/foo",
                              format: "topic",
                              title: "zip",
                              user_facing_version: 1)
         end
         let!(:content_item) do
-          FactoryGirl.create(:live_content_item,
+          create(:live_content_item,
                              base_path: "/foo",
                              content_id: previous_live_version.content_id,
                              format: "topic",
@@ -267,8 +267,8 @@ RSpec.describe V2::ContentItemsController do
     context "with link filtering params" do
       before do
         org_content_id = SecureRandom.uuid
-        link_set = FactoryGirl.create(:link_set, content_id: content_id)
-        FactoryGirl.create(:link, link_set: link_set, target_content_id: org_content_id)
+        link_set = create(:link_set, content_id: content_id)
+        create(:link, link_set: link_set, target_content_id: org_content_id)
 
         get :index, content_format: "topic", fields: ["content_id"], link_organisations: org_content_id.to_s
       end
