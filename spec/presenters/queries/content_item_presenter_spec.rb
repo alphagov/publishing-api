@@ -10,6 +10,12 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     let(:result) { described_class.present(content_item) }
 
+    around do |example|
+      Timecop.freeze(Date.new(2016, 1, 1)) do
+        example.run
+      end
+    end
+
     it "presents content item attributes as a hash" do
       expect(result).to eq(
         "content_id" => content_id,
@@ -35,6 +41,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "publication_state" => "draft",
         "user_facing_version" => 1,
         "lock_version" => 1,
+        "updated_at" => "2016-01-01 00:00:00",
       )
     end
 

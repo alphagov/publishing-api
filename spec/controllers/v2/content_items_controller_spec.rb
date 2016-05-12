@@ -177,6 +177,93 @@ RSpec.describe V2::ContentItemsController do
       end
     end
 
+    context "with an order param" do
+      before do
+        @en_draft_content.update!(updated_at: Date.new(2016, 1, 1))
+        @ar_draft_content.update!(updated_at: Date.new(2016, 2, 2))
+
+        get :index, document_type: "topic", locale: "all", order: order, fields: fields
+      end
+
+      context "when ordering by updated_at ascending" do
+        let(:order) { "updated_at" }
+        let(:fields) { ["updated_at"] }
+
+        it "returns the ordered results" do
+          results = JSON.parse(response.body)["results"]
+
+          expect(results).to eq([
+            { "updated_at" => "2016-01-01 00:00:00" },
+            { "updated_at" => "2016-02-02 00:00:00" },
+          ])
+        end
+      end
+
+      context "when ordering by updated_at ascending" do
+        let(:order) { "-updated_at" }
+        let(:fields) { ["updated_at"] }
+
+        it "returns the ordered results" do
+          results = JSON.parse(response.body)["results"]
+
+          expect(results).to eq([
+            { "updated_at" => "2016-02-02 00:00:00" },
+            { "updated_at" => "2016-01-01 00:00:00" },
+          ])
+        end
+      end
+
+      context "when ordering by base_path ascending" do
+        let(:order) { "base_path" }
+        let(:fields) { ["base_path"] }
+
+        it "returns the ordered results" do
+          results = JSON.parse(response.body)["results"]
+
+          expect(results).to eq([
+            { "base_path" => "/content.ar" },
+            { "base_path" => "/content.en" },
+          ])
+        end
+      end
+
+      context "when ordering by base_path ascending" do
+        let(:order) { "-base_path" }
+        let(:fields) { ["base_path"] }
+
+        it "returns the ordered results" do
+          results = JSON.parse(response.body)["results"]
+
+          expect(results).to eq([
+            { "base_path" => "/content.en" },
+            { "base_path" => "/content.ar" },
+          ])
+        end
+      end
+
+      context "when ordering by a field that doesn't exist" do
+        let(:order) { "doesnt_exist" }
+        let(:fields) { ["content_id"] }
+
+        it "responds with 422 and an error message" do
+          expect(response.status).to eq(422)
+          message = JSON.parse(response.body)["error"]["message"]
+          expect(message).to include(order)
+        end
+      end
+
+      context "when ordering by a field without an index" do
+        let(:order) { "created_at" }
+        let(:fields) { ["content_id"] }
+
+        it "responds with 422 and an error message" do
+          expect(response.status).to eq(422)
+          message = JSON.parse(response.body)["error"]["message"]
+          expect(message).to include(order)
+        end
+      end
+    end
+
     context "with link filtering params" do
       before do
         org_content_id = SecureRandom.uuid

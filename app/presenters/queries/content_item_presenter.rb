@@ -13,6 +13,7 @@ module Presenters
         :locale,
         :lock_version,
         :internal_name,
+        :updated_at,
       ]
 
       def self.present_many(scope, params = {})
