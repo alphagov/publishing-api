@@ -8,7 +8,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
 
     post "/lookup-by-base-path", base_paths: ["/my-page", "/other-page", "/does-not-exist"]
 
-    expect(JSON.parse(response.body)).to eql(
+    expect(parsed_response).to eql(
       "/my-page" => "b9b2da0a-ec50-4b0e-b29c-b7cbc8195307",
       "/other-page" => "b879bcdb-6160-4bfd-b758-f546bbb408c4",
     )
@@ -17,7 +17,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
   it "requires a base_paths param" do
     post "/lookup-by-base-path"
 
-    expect(JSON.parse(response.body)).to eql(
+    expect(parsed_response).to eql(
       "error" => { "code" => 422, "message" => "param is missing or the value is empty: base_paths" }
     )
   end

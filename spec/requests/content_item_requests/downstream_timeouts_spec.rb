@@ -11,7 +11,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         put "/content#{base_path}", content_item_params.to_json
 
         expect(response.status).to eq(500)
-        expect(JSON.parse(response.body)).to eq(
+        expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
             "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
@@ -29,7 +29,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         put "/content#{base_path}", content_item_params.to_json
 
         expect(response.status).to eq(500)
-        expect(JSON.parse(response.body)).to eq(
+        expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
             "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
@@ -49,7 +49,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         put "/draft-content#{base_path}", content_item_params.to_json
 
         expect(response.status).to eq(500)
-        expect(JSON.parse(response.body)).to eq(
+        expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
             "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
@@ -69,7 +69,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         put "/v2/content/#{content_id}", v2_content_item.to_json
 
         expect(response.status).to eq(500)
-        expect(JSON.parse(response.body)).to eq(
+        expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
             "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
@@ -103,7 +103,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         put "/v2/links/#{content_id}", links_attributes.to_json
 
         expect(response.status).to eq(500)
-        expect(JSON.parse(response.body)).to eq(
+        expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
             "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
@@ -121,7 +121,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         put "/v2/links/#{content_id}", links_attributes.to_json
 
         expect(response.status).to eq(500)
-        expect(JSON.parse(response.body)).to eq(
+        expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
             "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"

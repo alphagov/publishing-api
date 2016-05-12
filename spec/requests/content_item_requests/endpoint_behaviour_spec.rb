@@ -36,7 +36,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       it "returns the normal 200 response" do
         put "/content#{base_path}", content_item_params.to_json
 
-        parsed_response_body = JSON.parse(response.body)
+        parsed_response_body = parsed_response
         expect(response.status).to eq(200)
         expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
         expect(parsed_response_body["title"]).to eq(content_item[:title])
@@ -158,7 +158,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       it "returns the normal 200 response" do
         put "/draft-content#{base_path}", content_item_params.to_json
 
-        parsed_response_body = JSON.parse(response.body)
+        parsed_response_body = parsed_response
         expect(response.status).to eq(200)
         expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
         expect(parsed_response_body["title"]).to eq(content_item[:title])
@@ -247,7 +247,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       it "returns the normal 200 response" do
         put "/v2/content/#{content_id}", content_item.to_json
 
-        parsed_response_body = JSON.parse(response.body)
+        parsed_response_body = parsed_response
         expect(response.status).to eq(200)
         expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
         expect(parsed_response_body["title"]).to eq(content_item[:title])

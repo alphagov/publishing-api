@@ -65,17 +65,17 @@ RSpec.describe V2::ContentItemsController do
 
         it "returns the item when searching for base_path" do
           get :index, document_type: "topic", q: "foo", locale: "all"
-          expect(JSON.parse(response.body)["results"].map { |i| i["base_path"] }).to eq(["/foo"])
+          expect(parsed_response["results"].map { |i| i["base_path"] }).to eq(["/foo"])
         end
 
         it "returns the item when searching for title" do
           get :index, document_type: "topic", q: "bar", locale: "all"
-          expect(JSON.parse(response.body)["results"].map { |i| i["base_path"] }).to eq(["/foo"])
+          expect(parsed_response["results"].map { |i| i["base_path"] }).to eq(["/foo"])
         end
 
         it "doesn't return items that are no longer the latest version" do
           get :index, document_type: "topic", q: "zip", fields: %w(title)
-          expect(JSON.parse(response.body)["results"].map { |i| i["title"] }).to eq([])
+          expect(parsed_response["results"].map { |i| i["title"] }).to eq([])
         end
       end
     end
@@ -90,7 +90,7 @@ RSpec.describe V2::ContentItemsController do
       end
 
       it "responds with the english content item as json" do
-        parsed_response_body = JSON.parse(response.body)["results"]
+        parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.length).to eq(1)
 
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
@@ -108,7 +108,7 @@ RSpec.describe V2::ContentItemsController do
       end
 
       it "responds with the specific locale content item as json" do
-        parsed_response_body = JSON.parse(response.body)["results"]
+        parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.length).to eq(1)
 
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
@@ -121,7 +121,7 @@ RSpec.describe V2::ContentItemsController do
         get :index, document_type: "topic", fields: %w(base_path), locale: "all"
       end
 
-      let(:parsed_response_body) { JSON.parse(response.body)["results"] }
+      let(:parsed_response_body) { parsed_response["results"] }
 
       it "is successful" do
         expect(response.status).to eq(200)
@@ -146,7 +146,7 @@ RSpec.describe V2::ContentItemsController do
         expect(response.status).to eq(200)
       end
       it "responds with the content item as json" do
-        parsed_response_body = JSON.parse(response.body)["results"]
+        parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
       end
     end
@@ -159,7 +159,7 @@ RSpec.describe V2::ContentItemsController do
         expect(response.status).to eq(200)
       end
       it "responds with the content item as json" do
-        parsed_response_body = JSON.parse(response.body)["results"]
+        parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
       end
     end
@@ -172,7 +172,7 @@ RSpec.describe V2::ContentItemsController do
         expect(response.status).to eq(200)
       end
       it "responds with the content item as json" do
-        parsed_response_body = JSON.parse(response.body)["results"]
+        parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
       end
     end
@@ -190,7 +190,7 @@ RSpec.describe V2::ContentItemsController do
         let(:fields) { ["updated_at"] }
 
         it "returns the ordered results" do
-          results = JSON.parse(response.body)["results"]
+          results = parsed_response["results"]
 
           expect(results).to eq([
             { "updated_at" => "2016-01-01 00:00:00" },
@@ -204,7 +204,7 @@ RSpec.describe V2::ContentItemsController do
         let(:fields) { ["updated_at"] }
 
         it "returns the ordered results" do
-          results = JSON.parse(response.body)["results"]
+          results = parsed_response["results"]
 
           expect(results).to eq([
             { "updated_at" => "2016-02-02 00:00:00" },
@@ -218,7 +218,7 @@ RSpec.describe V2::ContentItemsController do
         let(:fields) { ["base_path"] }
 
         it "returns the ordered results" do
-          results = JSON.parse(response.body)["results"]
+          results = parsed_response["results"]
 
           expect(results).to eq([
             { "base_path" => "/content.ar" },
@@ -232,7 +232,7 @@ RSpec.describe V2::ContentItemsController do
         let(:fields) { ["base_path"] }
 
         it "returns the ordered results" do
-          results = JSON.parse(response.body)["results"]
+          results = parsed_response["results"]
 
           expect(results).to eq([
             { "base_path" => "/content.en" },
@@ -247,7 +247,7 @@ RSpec.describe V2::ContentItemsController do
 
         it "responds with 422 and an error message" do
           expect(response.status).to eq(422)
-          message = JSON.parse(response.body)["error"]["message"]
+          message = parsed_response["error"]["message"]
           expect(message).to include(order)
         end
       end
@@ -258,7 +258,7 @@ RSpec.describe V2::ContentItemsController do
 
         it "responds with 422 and an error message" do
           expect(response.status).to eq(422)
-          message = JSON.parse(response.body)["error"]["message"]
+          message = parsed_response["error"]["message"]
           expect(message).to include(order)
         end
       end
@@ -278,7 +278,7 @@ RSpec.describe V2::ContentItemsController do
       end
 
       it "responds with the content items for the given organistion as json" do
-        parsed_response_body = JSON.parse(response.body)["results"]
+        parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
       end
     end
@@ -295,7 +295,7 @@ RSpec.describe V2::ContentItemsController do
       end
 
       it "responds with the content item as json" do
-        parsed_response_body = JSON.parse(response.body)
+        parsed_response_body = parsed_response
         expect(parsed_response_body.fetch("content_id")).to eq("#{content_id}")
       end
     end
@@ -326,7 +326,7 @@ RSpec.describe V2::ContentItemsController do
       end
 
       it "responds with the content item" do
-        parsed_response_body = JSON.parse(response.body)
+        parsed_response_body = parsed_response
         expect(parsed_response_body["base_path"]).to eq("/that-rates")
       end
     end
@@ -348,7 +348,7 @@ RSpec.describe V2::ContentItemsController do
       end
 
       it "responds with the content item" do
-        parsed_response_body = JSON.parse(response.body)
+        parsed_response_body = parsed_response
         expect(parsed_response_body["content_id"]).to eq(content_id)
       end
     end
@@ -379,7 +379,7 @@ RSpec.describe V2::ContentItemsController do
       end
 
       it "responds with the content_id of the published item" do
-        parsed_response_body = JSON.parse(response.body)
+        parsed_response_body = parsed_response
         expect(parsed_response_body.keys).to include("content_id")
         expect(parsed_response_body["content_id"]).not_to be_nil
       end
@@ -407,7 +407,7 @@ RSpec.describe V2::ContentItemsController do
     it "displays items filtered by the user's app_name" do
       request.env['warden'].user.app_name = 'whitehall'
       get :index, document_type: 'guide', fields: %w(base_path publishing_app)
-      items = JSON.parse(response.body)["results"]
+      items = parsed_response["results"]
       expect(items.length).to eq(2)
       expect(items.all? { |i| i["publishing_app"] == 'whitehall' }).to be true
     end
@@ -415,7 +415,7 @@ RSpec.describe V2::ContentItemsController do
     it "displays all items if user has 'view_all' permission" do
       request.env['warden'].user.permissions << 'view_all'
       get :index, document_type: 'guide', fields: %w(base_path publishing_app)
-      items = JSON.parse(response.body)["results"]
+      items = parsed_response["results"]
       expect(items.length).to eq(4)
       expect(items.map { |i| i["publishing_app"] }.uniq).to match_array(%w(whitehall specialist_publisher publisher))
     end
