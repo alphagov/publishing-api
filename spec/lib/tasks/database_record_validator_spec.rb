@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Tasks::DatabaseRecordValidator do
-  let!(:valid_record) { FactoryGirl.create(:path_reservation) }
+  let!(:valid_record) { create(:path_reservation) }
 
   context "when all records are valid" do
     it "prints to stdout" do
@@ -13,7 +13,7 @@ RSpec.describe Tasks::DatabaseRecordValidator do
 
   context "when there are invalid records" do
     let!(:invalid_record) do
-      invalid_record = FactoryGirl.build(:path_reservation, base_path: "invalid")
+      invalid_record = build(:path_reservation, base_path: "invalid")
       invalid_record.save!(validate: false)
       invalid_record
     end

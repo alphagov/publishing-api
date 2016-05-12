@@ -21,7 +21,7 @@ RSpec.describe "Logging requests", type: :request do
   end
 
   it "adds a request uuid to the message bus" do
-    draft_content_item = FactoryGirl.create(:draft_content_item)
+    draft_content_item = create(:draft_content_item)
 
     expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
       .with(hash_including(govuk_request_id: govuk_request_id))

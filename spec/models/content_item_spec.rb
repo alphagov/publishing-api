@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ContentItem do
-  subject { FactoryGirl.build(:content_item) }
+  subject { build(:content_item) }
 
   def set_new_attributes(item)
     item.title = "New title"
@@ -12,9 +12,9 @@ RSpec.describe ContentItem do
   end
 
   describe ".renderable_content" do
-    let!(:guide) { FactoryGirl.create(:content_item, format: "guide") }
-    let!(:redirect) { FactoryGirl.create(:redirect_content_item) }
-    let!(:gone) { FactoryGirl.create(:gone_content_item) }
+    let!(:guide) { create(:content_item, format: "guide") }
+    let!(:redirect) { create(:redirect_content_item) }
+    let!(:gone) { create(:gone_content_item) }
 
     it "returns content items that do not have a format of 'redirect' or 'gone'" do
       expect(described_class.renderable_content).to eq [guide]
@@ -76,7 +76,7 @@ RSpec.describe ContentItem do
     end
 
     context "when the content item is not 'renderable'" do
-      subject { FactoryGirl.build(:redirect_content_item) }
+      subject { build(:redirect_content_item) }
 
       it "does not require a title" do
         subject.title = ""

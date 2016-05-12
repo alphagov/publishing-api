@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe PresentedContentStoreWorker do
-  let(:content_item) { FactoryGirl.create(:content_item, base_path: "/foo") }
+  let(:content_item) { create(:content_item, base_path: "/foo") }
   before do
     stub_request(:put, "http://content-store.dev.gov.uk/content/foo").
       to_return(status: status, body: {}.to_json)

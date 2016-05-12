@@ -52,7 +52,7 @@ RSpec.describe "Publish intent requests", type: :request do
         begin
           put "/publish-intent#{base_path}", content_item.to_json
 
-          parsed_response_body = JSON.parse(response.body)
+          parsed_response_body = parsed_response
           expect(response.status).to eq(200)
           expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
           expect(parsed_response_body["title"]).to eq(content_item[:title])

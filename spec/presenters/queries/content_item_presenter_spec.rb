@@ -5,7 +5,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "present" do
     let!(:content_item) do
-      FactoryGirl.create(:draft_content_item, content_id: content_id)
+      create(:draft_content_item, content_id: content_id)
     end
 
     let(:result) { described_class.present(content_item) }
@@ -75,7 +75,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the content item exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:content_item, content_id: content_id, locale: "fr")
+        create(:content_item, content_id: content_id, locale: "fr")
       end
 
       it "presents the item with matching locale" do
@@ -90,7 +90,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "#present_many" do
     let!(:content_item) do
-      FactoryGirl.create(
+      create(
         :content_item,
         content_id: content_id,
       )
@@ -150,7 +150,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the content item exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:content_item, content_id: content_id, locale: "fr")
+        create(:content_item, content_id: content_id, locale: "fr")
       end
 
       it "presents a content item for each locale" do

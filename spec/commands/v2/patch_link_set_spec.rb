@@ -39,14 +39,14 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "doesn't reject an empty links hash, but doesn't delete links either" do
-      link_set = FactoryGirl.create(
+      link_set = create(
         :link_set,
         links: [
-          FactoryGirl.create(:link)
+          create(:link)
         ]
       )
 
-      FactoryGirl.create(:lock_version, target: link_set)
+      create(:lock_version, target: link_set)
 
       described_class.call(
         content_id: link_set.content_id,
@@ -86,21 +86,21 @@ RSpec.describe Commands::V2::PatchLinkSet do
     let(:related) { [SecureRandom.uuid] }
 
     before do
-      link_set = FactoryGirl.create(
+      link_set = create(
         :link_set,
         content_id: content_id,
         links: [
-          FactoryGirl.create(
+          create(
             :link,
             link_type: "topics",
             target_content_id: topics.first,
           ),
-          FactoryGirl.create(
+          create(
             :link,
             link_type: "topics",
             target_content_id: topics.second,
           ),
-          FactoryGirl.create(
+          create(
             :link,
             link_type: "related",
             target_content_id: related.first,
@@ -108,7 +108,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
         ]
       )
 
-      FactoryGirl.create(:lock_version, target: link_set, number: 1)
+      create(:lock_version, target: link_set, number: 1)
     end
 
     it "creates links for groups that appear in the payload and not in the database" do

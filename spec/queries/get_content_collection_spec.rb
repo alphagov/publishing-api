@@ -2,17 +2,17 @@ require "rails_helper"
 
 RSpec.describe Queries::GetContentCollection do
   it "returns the content items of the given format" do
-    FactoryGirl.create(
+    create(
       :draft_content_item,
       base_path: '/a',
       format: 'topic',
     )
-    FactoryGirl.create(
+    create(
       :draft_content_item,
       base_path: '/b',
       format: 'topic',
     )
-    FactoryGirl.create(
+    create(
       :draft_content_item,
       base_path: '/c',
       format: 'mainstream_browse_page',
@@ -28,12 +28,12 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   it "returns the content items of the given format, and placeholder_format" do
-    FactoryGirl.create(
+    create(
       :draft_content_item,
       base_path: '/a',
       format: 'topic'
     )
-    FactoryGirl.create(
+    create(
       :draft_content_item,
       base_path: '/b',
       format: 'placeholder_topic'
@@ -49,12 +49,12 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   it "includes the publishing state of the item" do
-    FactoryGirl.create(
+    create(
       :draft_content_item,
       base_path: '/draft',
       format: 'topic'
     )
-    FactoryGirl.create(
+    create(
       :live_content_item,
       base_path: '/live',
       format: 'topic'
@@ -91,19 +91,19 @@ RSpec.describe Queries::GetContentCollection do
 
   context "filtering by publishing_app" do
     before do
-      FactoryGirl.create(
+      create(
         :draft_content_item,
         base_path: '/a',
         format: 'topic',
         publishing_app: 'publisher'
       )
-      FactoryGirl.create(
+      create(
         :draft_content_item,
         base_path: '/b',
         format: 'topic',
         publishing_app: 'publisher'
       )
-      FactoryGirl.create(
+      create(
         :draft_content_item,
         base_path: '/c',
         format: 'topic',
@@ -136,10 +136,10 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "the locale filter parameter" do
     before do
-      FactoryGirl.create(:draft_content_item, base_path: '/content.en', format: 'topic', locale: 'en')
-      FactoryGirl.create(:draft_content_item, base_path: '/content.ar', format: 'topic', locale: 'ar')
-      FactoryGirl.create(:live_content_item, base_path: '/content.en', format: 'topic', locale: 'en')
-      FactoryGirl.create(:live_content_item, base_path: '/content.ar', format: 'topic', locale: 'ar')
+      create(:draft_content_item, base_path: '/content.en', format: 'topic', locale: 'en')
+      create(:draft_content_item, base_path: '/content.ar', format: 'topic', locale: 'ar')
+      create(:live_content_item, base_path: '/content.en', format: 'topic', locale: 'en')
+      create(:live_content_item, base_path: '/content.ar', format: 'topic', locale: 'ar')
     end
 
     it "returns the content items filtered by 'en' locale by default" do
@@ -186,32 +186,32 @@ RSpec.describe Queries::GetContentCollection do
       draft_2_content_id = SecureRandom.uuid
       live_1_content_id = SecureRandom.uuid
 
-      FactoryGirl.create(
+      create(
         :draft_content_item,
         content_id: draft_1_content_id,
         base_path: "/foo",
         publishing_app: "specialist-publisher"
       )
 
-      FactoryGirl.create(
+      create(
         :draft_content_item,
         content_id: draft_2_content_id,
         base_path: "/bar"
       )
 
-      FactoryGirl.create(
+      create(
         :live_content_item,
         content_id: live_1_content_id,
         base_path: "/baz"
       )
 
-      link_set_1 = FactoryGirl.create(:link_set, content_id: draft_1_content_id)
-      link_set_2 = FactoryGirl.create(:link_set, content_id: draft_2_content_id)
-      link_set_3 = FactoryGirl.create(:link_set, content_id: live_1_content_id)
+      link_set_1 = create(:link_set, content_id: draft_1_content_id)
+      link_set_2 = create(:link_set, content_id: draft_2_content_id)
+      link_set_3 = create(:link_set, content_id: live_1_content_id)
 
-      FactoryGirl.create(:link, link_set: link_set_1, target_content_id: someorg_content_id)
-      FactoryGirl.create(:link, link_set: link_set_2, target_content_id: otherorg_content_id)
-      FactoryGirl.create(:link, link_set: link_set_3, target_content_id: someorg_content_id)
+      create(:link, link_set: link_set_1, target_content_id: someorg_content_id)
+      create(:link, link_set: link_set_2, target_content_id: otherorg_content_id)
+      create(:link, link_set: link_set_3, target_content_id: someorg_content_id)
     end
 
     it "filters content items by organisation" do
@@ -337,10 +337,10 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "result order" do
     before do
-      FactoryGirl.create(:content_item, base_path: "/c4", title: 'D', public_updated_at: DateTime.parse('2014-06-14'))
-      FactoryGirl.create(:content_item, base_path: "/c1", title: 'A', public_updated_at: DateTime.parse('2014-06-13'))
-      FactoryGirl.create(:content_item, base_path: "/c3", title: 'C', public_updated_at: DateTime.parse('2014-06-17'))
-      FactoryGirl.create(:content_item, base_path: "/c2", title: 'B', public_updated_at: DateTime.parse('2014-06-15'))
+      create(:content_item, base_path: "/c4", title: 'D', public_updated_at: DateTime.parse('2014-06-14'))
+      create(:content_item, base_path: "/c1", title: 'A', public_updated_at: DateTime.parse('2014-06-13'))
+      create(:content_item, base_path: "/c3", title: 'C', public_updated_at: DateTime.parse('2014-06-17'))
+      create(:content_item, base_path: "/c2", title: 'B', public_updated_at: DateTime.parse('2014-06-15'))
     end
 
     it "returns content items in default order" do
@@ -368,8 +368,8 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "#total" do
     it "returns the number of content items" do
-      FactoryGirl.create(:content_item, base_path: '/a', format: 'topic')
-      FactoryGirl.create(:content_item, base_path: '/b', format: 'topic')
+      create(:content_item, base_path: '/a', format: 'topic')
+      create(:content_item, base_path: '/b', format: 'topic')
 
       expect(Queries::GetContentCollection.new(
         document_type: 'topic',
@@ -381,7 +381,7 @@ RSpec.describe Queries::GetContentCollection do
       before do
         content_id = SecureRandom.uuid
 
-        FactoryGirl.create(
+        create(
           :content_item,
           content_id: content_id,
           format: 'topic',
@@ -389,7 +389,7 @@ RSpec.describe Queries::GetContentCollection do
           user_facing_version: 1,
         )
 
-        FactoryGirl.create(
+        create(
           :content_item,
           content_id: content_id,
           format: 'topic',

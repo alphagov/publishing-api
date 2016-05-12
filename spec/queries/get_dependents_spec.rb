@@ -4,14 +4,14 @@ RSpec.describe Queries::GetDependents do
   subject { described_class.new }
 
   def create_node
-    link_set = FactoryGirl.create(:link_set, content_id: SecureRandom.uuid)
+    link_set = create(:link_set, content_id: SecureRandom.uuid)
     link_set.content_id
   end
 
   def create_edge(from, to, link_type)
     link_set = LinkSet.find_by(content_id: from)
 
-    FactoryGirl.create(
+    create(
       :link,
       link_set: link_set,
       target_content_id: to,

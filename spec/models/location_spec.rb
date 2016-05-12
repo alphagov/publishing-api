@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Location do
   describe "validations" do
-    subject { FactoryGirl.build(:location) }
+    subject { build(:location) }
 
     it "is valid for the default factory" do
       expect(subject).to be_valid
@@ -18,15 +18,15 @@ RSpec.describe Location do
 
     context "when another content item has identical supporting objects" do
       before do
-        FactoryGirl.create(:content_item, base_path: "/foo")
+        create(:content_item, base_path: "/foo")
       end
 
       let(:content_item) do
-        FactoryGirl.create(:content_item, base_path: "/bar")
+        create(:content_item, base_path: "/bar")
       end
 
       subject {
-        FactoryGirl.build(:location, content_item: content_item, base_path: "/foo")
+        build(:location, content_item: content_item, base_path: "/foo")
       }
 
       it "is invalid" do
@@ -39,8 +39,8 @@ RSpec.describe Location do
   end
 
   describe "routes and redirects" do
-    subject { FactoryGirl.build(:location) }
-    let(:content_item) { FactoryGirl.build(:content_item) }
+    subject { build(:location) }
+    let(:content_item) { build(:content_item) }
 
     before do
       subject.content_item = content_item
@@ -51,7 +51,7 @@ RSpec.describe Location do
 
   describe ".filter" do
     let!(:vat_item) do
-      FactoryGirl.create(
+      create(
         :content_item,
         title: "VAT Title",
         base_path: "/vat-rates",
@@ -59,7 +59,7 @@ RSpec.describe Location do
     end
 
     let!(:tax_item) do
-      FactoryGirl.create(
+      create(
         :content_item,
         title: "Tax Title",
         base_path: "/tax",

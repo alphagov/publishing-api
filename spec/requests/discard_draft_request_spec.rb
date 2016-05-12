@@ -7,7 +7,7 @@ RSpec.describe "Discard draft requests", type: :request do
   describe "POST /v2/content/:content_id/discard-draft" do
     context "when a draft content item exists" do
       let!(:draft_content_item) do
-        FactoryGirl.create(:draft_content_item,
+        create(:draft_content_item,
           content_id: content_id,
           title: "draft",
           base_path: base_path,
@@ -36,7 +36,7 @@ RSpec.describe "Discard draft requests", type: :request do
         let(:french_base_path) { "/tva-tarifs" }
 
         let!(:french_draft_content_item) do
-          FactoryGirl.create(:draft_content_item,
+          create(:draft_content_item,
             content_id: content_id,
             title: "draft",
             locale: "fr",
@@ -86,7 +86,7 @@ RSpec.describe "Discard draft requests", type: :request do
 
       context "and a live content item exists" do
         before do
-          FactoryGirl.create(:live_content_item,
+          create(:live_content_item,
             content_id: content_id,
           )
         end
