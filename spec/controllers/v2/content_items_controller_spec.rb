@@ -199,7 +199,7 @@ RSpec.describe V2::ContentItemsController do
         end
       end
 
-      context "when ordering by updated_at ascending" do
+      context "when ordering by updated_at descending" do
         let(:order) { "-updated_at" }
         let(:fields) { ["updated_at"] }
 
