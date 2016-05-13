@@ -262,6 +262,20 @@ RSpec.describe V2::ContentItemsController do
           expect(message).to include(order)
         end
       end
+
+      context "ordering by a updated_at when it's not selected" do
+        let(:order) { "updated_at" }
+        let(:fields) { ["base_path"] }
+
+        it "returns the ordered results" do
+          results = parsed_response["results"]
+
+          expect(results).to eq([
+            { "base_path" => "/content.en" },
+            { "base_path" => "/content.ar" },
+          ])
+        end
+      end
     end
 
     context "with link filtering params" do

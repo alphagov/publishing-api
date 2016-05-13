@@ -39,6 +39,7 @@ private
     end
 
     raise_unless_valid_order_field(field)
+    field = disambiguate_field(field)
 
     { field => direction }
   end
@@ -76,5 +77,9 @@ private
       :locale,
       :updated_at,
     ]
+  end
+
+  def disambiguate_field(field)
+    field == :updated_at ? :"content_items.updated_at" : field
   end
 end
