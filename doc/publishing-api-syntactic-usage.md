@@ -108,6 +108,17 @@ Requests to update an existing draft content item:
 ### Required request params:
  - `content_id` the primary identifier for the content associated with the requested link set.
 
+## `GET /v2/expanded-links/:content_id`
+
+TODO: Request/Response detail
+
+ - Retrieves expanded link set for the given content_id.
+ - Presents the lock version of the link set in the response.
+ - Responds with 404 if no links are available for this content_id.
+
+### Required request params:
+ - `content_id` the primary identifier for the content associated with the requested link set.
+
 ## `PATCH /v2/links/:content_id`
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_update_the_linkset_at_version_3_given_the_linkset_for_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3)
