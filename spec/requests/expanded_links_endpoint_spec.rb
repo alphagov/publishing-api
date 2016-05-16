@@ -24,19 +24,21 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     get "/v2/expanded-links/#{content_item.content_id}"
 
     expect(parsed_response).to eql({
-      "organisations" => [
-        {
-          "analytics_identifier" => "GDS01",
-          "api_url" => "http://www.dev.gov.uk/api/content/my-super-org",
-          "base_path" => "/my-super-org",
-          "content_id" => "9b5ae6f5-f127-4843-9333-c157a404dd2d",
-          "description" => "VAT rates for goods and services",
-          "locale" => "en",
-          "title" => "VAT rates",
-          "web_url" => "http://www.dev.gov.uk/my-super-org",
-          "expanded_links" => {}
-        }
-      ]
+      "expanded_links" => {
+        "organisations" => [
+          {
+            "analytics_identifier" => "GDS01",
+            "api_url" => "http://www.dev.gov.uk/api/content/my-super-org",
+            "base_path" => "/my-super-org",
+            "content_id" => "9b5ae6f5-f127-4843-9333-c157a404dd2d",
+            "description" => "VAT rates for goods and services",
+            "locale" => "en",
+            "title" => "VAT rates",
+            "web_url" => "http://www.dev.gov.uk/my-super-org",
+            "expanded_links" => {}
+          }
+        ]
+      }
     })
   end
 
@@ -53,6 +55,8 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     get "/v2/expanded-links/#{content_item.content_id}"
 
-    expect(parsed_response).to eql({})
+    expect(parsed_response).to eql({
+      "expanded_links" => {}
+    })
   end
 end

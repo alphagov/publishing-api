@@ -8,7 +8,9 @@ module Queries
         fallback_order: [:draft, :published]
       )
 
-      expanded_link_set.links
+      {
+        expanded_links: expanded_link_set.links,
+      }
     end
   end
 end
