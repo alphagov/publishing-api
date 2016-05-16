@@ -10,7 +10,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     {
       content_id: content_id,
       links: {
-        topics: topics,
+        topics: topics * 2, # test deduplication
         parent: parent,
       }
     }

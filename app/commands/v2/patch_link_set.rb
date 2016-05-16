@@ -24,7 +24,7 @@ module Commands
           content_ids_to_create = payload_content_ids - existing_content_ids
           content_ids_to_delete = existing_content_ids - payload_content_ids
 
-          content_ids_to_create.each do |content_id|
+          content_ids_to_create.uniq.each do |content_id|
             links.create!(target_content_id: content_id)
           end
 
