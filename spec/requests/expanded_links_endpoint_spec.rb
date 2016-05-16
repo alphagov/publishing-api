@@ -23,7 +23,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     get "/v2/expanded-links/#{content_item.content_id}"
 
-    expect(parsed_response).to eql({
+    expect(parsed_response).to eql(
       "version" => 0,
       "content_id" => content_item.content_id,
       "expanded_links" => {
@@ -37,11 +37,11 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
             "locale" => "en",
             "title" => "VAT rates",
             "web_url" => "http://www.dev.gov.uk/my-super-org",
-            "expanded_links" => {}
+            "expanded_links" => {},
           }
         ]
       }
-    })
+    )
   end
 
   it "returns empty expanded links if there are no links" do
@@ -57,11 +57,11 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     get "/v2/expanded-links/#{link_set.content_id}"
 
-    expect(parsed_response).to eql({
+    expect(parsed_response).to eql(
       "version" => 0,
       "content_id" => content_item.content_id,
-      "expanded_links" => {}
-    })
+      "expanded_links" => {},
+    )
   end
 
   it "returns a version if the link set has a version" do
@@ -79,21 +79,20 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     get "/v2/expanded-links/#{link_set.content_id}"
 
-    expect(parsed_response).to eql({
+    expect(parsed_response).to eql(
       "version" => 11,
       "content_id" => content_item.content_id,
-      "expanded_links" => {}
-    })
+      "expanded_links" => {},
+    )
   end
 
   it "returns 404 if the link set is not found" do
     get "/v2/expanded-links/I-DO-NOT-EXIST"
 
-    expect(parsed_response).to eql({
+    expect(parsed_response).to eql(
       "error" => {
         "code" => 404,
-        "message" => "Could not find link set with content_id: I-DO-NOT-EXIST"
-        }
+        "message" => "Could not find link set with content_id: I-DO-NOT-EXIST",
       }
     )
   end
