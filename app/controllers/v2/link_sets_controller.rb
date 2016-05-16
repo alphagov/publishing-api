@@ -5,7 +5,7 @@ module V2
     end
 
     def expanded_links
-      render json: Presenters::Queries::ExpandedLinkSet.new(link_set: LinkSet.find_by(content_id: content_id), fallback_order: [:draft, :published]).links
+      render json: Queries::GetExpandedLinks.call(content_id)
     end
 
     def patch_links
