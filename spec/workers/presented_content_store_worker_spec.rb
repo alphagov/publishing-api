@@ -10,7 +10,7 @@ RSpec.describe PresentedContentStoreWorker do
   def do_request
     subject.perform(
       content_store: "Adapters::ContentStore",
-      payload: { content_item: content_item.id, payload_version: "1" }
+      payload: { content_item_id: content_item.id, payload_version: "1" }
     )
   end
 

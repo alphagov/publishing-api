@@ -22,7 +22,7 @@ class PresentedContentStoreWorker
 private
 
   def send_to_content_store
-    if content_id
+    if content_item_id
       base_path = presented_payload.fetch(:base_path)
       content_store.put_content_item(base_path, presented_payload)
     else
@@ -62,12 +62,12 @@ private
     params.fetch(:payload, {})
   end
 
-  def content_id
-    payload[:content_id]
+  def content_item_id
+    payload[:content_item_id]
   end
 
   def content_item
-    ContentItem.find(content_id)
+    ContentItem.find(content_item_id)
   end
 
   def enqueue_dependency_check?
@@ -75,7 +75,7 @@ private
   end
 
   def enqueue_dependencies
-    return unless content_id
+    return unless content_item_id
     return unless enqueue_dependency_check?
     DependencyResolutionWorker.perform_async(
       content_store: content_store,

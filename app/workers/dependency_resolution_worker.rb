@@ -36,7 +36,7 @@ private
 
     PresentedContentStoreWorker.perform_async(
       content_store: content_store,
-      payload: { content_id: latest_content_item.id, payload_version: payload_version },
+      payload: { content_item_id: latest_content_item.id, payload_version: payload_version },
       request_uuid: request_uuid,
       enqueue_dependency_check: false,
     )

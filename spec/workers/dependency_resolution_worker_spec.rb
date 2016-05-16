@@ -26,7 +26,7 @@ RSpec.describe DependencyResolutionWorker, :performm do
     allow_any_instance_of(Queries::ContentDependencies).to receive(:call).and_return([content_item.content_id])
     expect(PresentedContentStoreWorker).to receive(:perform_async).with(
       content_store: Adapters::DraftContentStore,
-      payload: a_hash_including(:content_id, :payload_version),
+      payload: a_hash_including(:content_item_id, :payload_version),
       request_uuid: "123",
       enqueue_dependency_check: false,
     )

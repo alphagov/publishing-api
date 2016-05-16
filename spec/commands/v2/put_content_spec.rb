@@ -31,7 +31,7 @@ RSpec.describe Commands::V2::PutContent do
       expect(PresentedContentStoreWorker).to receive(:perform_async)
         .with(
           content_store: Adapters::DraftContentStore,
-          payload: a_hash_including(:content_id, :payload_version),
+          payload: a_hash_including(:content_item_id, :payload_version),
           request_uuid: "12345-67890",
         )
 
@@ -60,7 +60,7 @@ RSpec.describe Commands::V2::PutContent do
       expect(PresentedContentStoreWorker).not_to receive(:perform_async)
         .with(
           content_store: Adapters::ContentStore,
-          payload: a_hash_including(:content_item, :payload_version),
+          payload: a_hash_including(:content_item_id, :payload_version),
         )
 
       described_class.call(payload)
@@ -181,10 +181,11 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         it "sends a create request to the draft content store for the redirect" do
+          allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: "/vat-rates")
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              payload: a_hash_including(:content_item, :payload_version),
+              payload: a_hash_including(:content_item_id, :payload_version),
               request_uuid: "12345-67890",
             ).twice
 
@@ -499,10 +500,11 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         it "sends a create request to the draft content store for the redirect" do
+          allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: "/vat-rates")
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              payload: a_hash_including(:content_item, :payload_version),
+              payload: a_hash_including(:content_item_id, :payload_version),
               request_uuid: "12345-67890",
             ).twice
 
