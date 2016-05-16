@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160513163056) do
+ActiveRecord::Schema.define(version: 20160516135536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20160513163056) do
 
   create_table "link_sets", force: :cascade do |t|
     t.string   "content_id"
-    t.json     "legacy_links", default: {}, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
