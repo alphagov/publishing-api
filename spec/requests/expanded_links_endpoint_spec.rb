@@ -85,4 +85,16 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
       "expanded_links" => {}
     })
   end
+
+  it "returns 404 if the link set is not found" do
+    get "/v2/expanded-links/I-DO-NOT-EXIST"
+
+    expect(parsed_response).to eql({
+      "error" => {
+        "code" => 404,
+        "message" => "Could not find link set with content_id: I-DO-NOT-EXIST"
+        }
+      }
+    )
+  end
 end
