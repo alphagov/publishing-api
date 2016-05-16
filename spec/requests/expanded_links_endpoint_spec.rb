@@ -24,6 +24,8 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     get "/v2/expanded-links/#{content_item.content_id}"
 
     expect(parsed_response).to eql({
+      "version" => 0,
+      "content_id" => content_item.content_id,
       "expanded_links" => {
         "organisations" => [
           {
@@ -49,13 +51,37 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
       title: "Some title",
     )
 
-    content_item = create(:link_set,
+    link_set = create(:link_set,
       content_id: content_item.content_id,
     )
 
-    get "/v2/expanded-links/#{content_item.content_id}"
+    get "/v2/expanded-links/#{link_set.content_id}"
 
     expect(parsed_response).to eql({
+      "version" => 0,
+      "content_id" => content_item.content_id,
+      "expanded_links" => {}
+    })
+  end
+
+  it "returns a version if the link set has a version" do
+    content_item = create(:content_item,
+      state: "published",
+      format: "placeholder",
+      title: "Some title",
+    )
+
+    link_set = create(:link_set,
+      content_id: content_item.content_id,
+    )
+
+    create(:lock_version, target: link_set, number: 11)
+
+    get "/v2/expanded-links/#{link_set.content_id}"
+
+    expect(parsed_response).to eql({
+      "version" => 11,
+      "content_id" => content_item.content_id,
       "expanded_links" => {}
     })
   end
