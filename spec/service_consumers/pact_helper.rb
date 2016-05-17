@@ -133,8 +133,9 @@ Pact.provider_states_for "GDS API Adapters" do
       link_set = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
       )
+      linked_organisation = FactoryGirl.create(:content_item, content_id: "20583132-1619-4c68-af24-77583172c070")
       FactoryGirl.create(:lock_version, target: link_set, number: 2)
-      FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: "20583132-1619-4c68-af24-77583172c070")
+      FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: linked_organisation.content_id)
     end
   end
 
