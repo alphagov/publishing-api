@@ -16,6 +16,7 @@ RSpec.describe Commands::V2::Publish do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
 
+      allow(DependencyResolutionWorker).to receive(:perform_async)
       allow(Presenters::ContentStorePresenter).to receive(:present)
         .and_return(expected_content_store_payload)
       allow(GdsApi::GovukHeaders).to receive(:headers)

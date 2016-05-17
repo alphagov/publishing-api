@@ -14,12 +14,11 @@ module Commands
           fill_out_new_content_item(content_item)
         end
 
-        response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
-
         after_transaction_commit do
           send_downstream(content_item)
         end
 
+        response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
         Success.new(response_hash)
       end
 
