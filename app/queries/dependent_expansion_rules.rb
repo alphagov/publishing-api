@@ -1,5 +1,5 @@
 module Queries
-  module ExpansionRules
+  module DependentExpansionRules
     extend self
 
     def expansion_fields(link_type)
@@ -10,21 +10,10 @@ module Queries
       recursive_link_types.include?(link_type.to_sym)
     end
 
-    module Reverse
-      extend ExpansionRules
-      extend self
-
-      def reverse_name_for(link_type)
-        {
-          parent: "children",
-        }[link_type.to_sym]
-      end
-
-    private
-
-      def custom(link_type)
-        {}[link_type]
-      end
+    def reverse_name_for(link_type)
+      {
+        parent: "children",
+      }[link_type.to_sym]
     end
 
   private

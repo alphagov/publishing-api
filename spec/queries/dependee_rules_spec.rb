@@ -1,12 +1,12 @@
 require "rails_helper"
 
-RSpec.describe Queries::ExpansionRules do
+RSpec.describe Queries::DependeeExpansionRules do
   describe "#expansion_fields" do
-    context "for a link_type with custom expansion rules" do
+    context "for a link_type with custom forward expansion rules" do
       let(:link_type) { :topical_event }
 
-      it "returns the custom fields for that link_type" do
-        expect(subject.expansion_fields(link_type)).to include(:details)
+      it "has its own custom fields (currently unused)" do
+        expect(subject.expansion_fields(link_type)).not_to include(:details)
       end
     end
 
@@ -31,5 +31,9 @@ RSpec.describe Queries::ExpansionRules do
   describe "#recurse?" do
     specify { expect(subject.recurse?(:parent)).to eq(true) }
     specify { expect(subject.recurse?(:foo)).to eq(false) }
+  end
+
+  describe "#reverse_name_for(link_type)" do
+    specify { expect(subject.reverse_name_for(:parent)).to eq("children") }
   end
 end

@@ -12,17 +12,18 @@ RSpec.describe DependencyResolutionWorker, :performm do
                    )
   end
 
-  let(:content_item_dependent) { double(:content_item_dependent, all: []) }
-  it "finds the content item dependents" do
-    expect(Queries::ContentItemDependents).to receive(:new).with(
+  let(:content_item_dependee) { double(:content_item_dependent, call: []) }
+  it "finds the content item dependees" do
+    expect(Queries::ContentDependencies).to receive(:new).with(
       content_id: "123",
       fields: [:base_path],
-    ).and_return(content_item_dependent)
+      dependent_lookup: an_instance_of(Queries::GetDependees),
+    ).and_return(content_item_dependee)
     worker_perform
   end
 
-  it "the dependents get queued in the content store worker" do
-    allow_any_instance_of(Queries::ContentItemDependents).to receive(:all).and_return([content_item.content_id])
+  it "the dependees get queued in the content store worker" do
+    allow_any_instance_of(Queries::ContentDependencies).to receive(:call).and_return([content_item.content_id])
     expect(PresentedContentStoreWorker).to receive(:perform_async).with(
       content_store: Adapters::DraftContentStore,
       payload: a_hash_including(:content_id, :payload_version),
