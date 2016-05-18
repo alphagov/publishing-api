@@ -28,6 +28,15 @@ class ContentItem < ActiveRecord::Base
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
   EMPTY_BASE_PATH_FORMATS = %w(government).freeze
 
+  has_one :state
+  has_one :location
+  has_one :translation
+  has_one :user_facing_version
+
+  scope :with_supporting_objects, -> {
+    eager_load(:state, :location, :translation, :user_facing_version)
+  }
+
   scope :renderable_content, -> { where.not(format: NON_RENDERABLE_FORMATS) }
 
   validates_with SchemaNameFormatValidator
