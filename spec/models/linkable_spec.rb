@@ -17,6 +17,13 @@ RSpec.describe Linkable do
     expect(subject).not_to be_valid
   end
 
+  it "requires a unique base_path" do
+    linkable = FactoryGirl.create(:linkable)
+
+    subject.base_path = linkable.base_path
+    expect(subject).not_to be_valid
+  end
+
   it "requires a state" do
     subject.state = nil
     expect(subject).not_to be_valid
