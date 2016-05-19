@@ -39,14 +39,14 @@ RSpec.describe EventLogger do
     call_counter = 0
     EventLogger.log_command(command_class, payload) do
       if call_counter == 0
-        create(:live_content_item, content_id: content_id)
+        FactoryGirl.create(:live_content_item, content_id: content_id)
         call_counter += 1
         raise CommandRetryableError
       else
         # The original transaction should have been rolled back, so there should be no
         # corresponding ContentItem in the database
         expect(ContentItem.where(content_id: content_id).count).to eq(0)
-        create(:live_content_item, content_id: content_id)
+        FactoryGirl.create(:live_content_item, content_id: content_id)
       end
     end
 

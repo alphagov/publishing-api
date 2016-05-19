@@ -69,12 +69,12 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a content item with dependencies" do
-      let(:a) { create(:content_item, base_path: "/a") }
-      let(:b) { create(:content_item, base_path: "/b") }
+      let(:a) { FactoryGirl.create(:content_item, base_path: "/a") }
+      let(:b) { FactoryGirl.create(:content_item, base_path: "/b") }
 
       before do
-        create(:link_set, content_id: a.content_id, links: [
-          create(:link, link_type: "related", target_content_id: b.content_id)
+        FactoryGirl.create(:link_set, content_id: a.content_id, links: [
+          FactoryGirl.create(:link, link_type: "related", target_content_id: b.content_id)
         ])
       end
 

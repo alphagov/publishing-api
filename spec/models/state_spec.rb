@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe State do
   describe "validations" do
-    subject { build(:state) }
+    subject { FactoryGirl.build(:state) }
 
     it "is valid for the default factory" do
       expect(subject).to be_valid
@@ -10,14 +10,14 @@ RSpec.describe State do
 
     context "when another content item has identical supporting objects" do
       before do
-        create(:content_item, state: "published")
+        FactoryGirl.create(:content_item, state: "published")
       end
 
       let(:content_item) do
-        create(:content_item, state: "draft")
+        FactoryGirl.create(:content_item, state: "draft")
       end
 
-      subject { build(:state, content_item: content_item, name: "published") }
+      subject { FactoryGirl.build(:state, content_item: content_item, name: "published") }
 
       it "is invalid" do
         expect(subject).to be_invalid
@@ -29,8 +29,8 @@ RSpec.describe State do
   end
 
   describe ".filter" do
-    let!(:draft_item) { create(:draft_content_item, title: "Draft Title") }
-    let!(:published_item) { create(:live_content_item, title: "Published Title") }
+    let!(:draft_item) { FactoryGirl.create(:draft_content_item, title: "Draft Title") }
+    let!(:published_item) { FactoryGirl.create(:live_content_item, title: "Published Title") }
 
     it "filters a content item scope by state name" do
       draft_items = described_class.filter(ContentItem.all, name: "draft")
@@ -42,7 +42,7 @@ RSpec.describe State do
   end
 
   describe ".supersede" do
-    let(:draft_item) { create(:draft_content_item) }
+    let(:draft_item) { FactoryGirl.create(:draft_content_item) }
     let(:draft_state) { State.find_by!(content_item: draft_item) }
 
     it "changes the state name to 'superseded'" do
@@ -53,7 +53,7 @@ RSpec.describe State do
   end
 
   describe ".publish" do
-    let(:draft_item) { create(:draft_content_item) }
+    let(:draft_item) { FactoryGirl.create(:draft_content_item) }
     let(:draft_state) { State.find_by!(content_item: draft_item) }
 
     it "changes the state name to 'published'" do
@@ -64,7 +64,7 @@ RSpec.describe State do
   end
 
   describe ".unpublish" do
-    let(:live_item) { create(:live_content_item) }
+    let(:live_item) { FactoryGirl.create(:live_content_item) }
     let(:live_state) { State.find_by!(content_item: live_item) }
 
     it "changes the state name to 'unpublished'" do
@@ -92,7 +92,7 @@ RSpec.describe State do
   end
 
   describe ".substitute" do
-    let(:live_item) { create(:live_content_item) }
+    let(:live_item) { FactoryGirl.create(:live_content_item) }
     let(:live_state) { State.find_by!(content_item: live_item) }
 
     it "changes the state name to 'unpublished'" do

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe SymbolizeJSON do
-  subject { build(:draft_content_item) }
+  subject { FactoryGirl.build(:draft_content_item) }
 
   it "doesn't affect non-json columns" do
     content_id = SecureRandom.uuid

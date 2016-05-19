@@ -125,11 +125,11 @@ RSpec.describe Commands::PutDraftContentWithLinks do
     let(:target_id) { SecureRandom.uuid }
 
     before do
-      link_set = create(
+      link_set = FactoryGirl.create(
         :link_set,
         content_id: content_id,
         links: [
-          create(
+          FactoryGirl.create(
             :link,
             link_type: "related",
             target_content_id: target_id
@@ -137,7 +137,7 @@ RSpec.describe Commands::PutDraftContentWithLinks do
         ]
       )
 
-      create(:lock_version, target: link_set)
+      FactoryGirl.create(:lock_version, target: link_set)
     end
 
     it "destroys the existing links before making new ones" do

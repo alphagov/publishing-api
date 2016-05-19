@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe UserFacingVersion do
-  subject { build(:user_facing_version) }
+  subject { FactoryGirl.build(:user_facing_version) }
 
   it "starts version numbers at 0" do
-    content_item = create(:content_item)
+    content_item = FactoryGirl.create(:content_item)
     user_facing_version = UserFacingVersion.create(content_item: content_item)
 
     expect(user_facing_version.number).to be_zero
@@ -23,8 +23,8 @@ RSpec.describe UserFacingVersion do
 
   describe ".latest" do
     before do
-      create(:content_item, user_facing_version: 2, title: "Latest")
-      create(:content_item, user_facing_version: 1)
+      FactoryGirl.create(:content_item, user_facing_version: 2, title: "Latest")
+      FactoryGirl.create(:content_item, user_facing_version: 1)
     end
 
     it "returns the content item with the latest user_facing version" do
@@ -37,14 +37,14 @@ RSpec.describe UserFacingVersion do
     let(:content_id) { SecureRandom.uuid }
 
     let!(:draft) do
-      create(
+      FactoryGirl.create(
         :draft_content_item,
         content_id: content_id,
       )
     end
 
     let!(:live) do
-      create(
+      FactoryGirl.create(
         :live_content_item,
         content_id: content_id,
       )
@@ -55,15 +55,15 @@ RSpec.describe UserFacingVersion do
 
     context "when another content item has identical supporting objects" do
       before do
-        create(:content_item, user_facing_version: 3)
+        FactoryGirl.create(:content_item, user_facing_version: 3)
       end
 
       let(:content_item) do
-        create(:content_item, user_facing_version: 2)
+        FactoryGirl.create(:content_item, user_facing_version: 2)
       end
 
       subject {
-        build(:user_facing_version, content_item: content_item, number: 3)
+        FactoryGirl.build(:user_facing_version, content_item: content_item, number: 3)
       }
 
       it "is invalid" do

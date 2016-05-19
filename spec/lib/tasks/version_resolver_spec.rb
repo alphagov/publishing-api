@@ -4,7 +4,7 @@ RSpec.describe Tasks::VersionResolver, :resolve do
   let(:content_id) { SecureRandom.uuid }
 
   before do
-    create(
+    FactoryGirl.create(
       :content_item,
       content_id: content_id,
       state: "published",
@@ -12,7 +12,7 @@ RSpec.describe Tasks::VersionResolver, :resolve do
       locale: "en"
     )
 
-    create(
+    FactoryGirl.create(
       :content_item,
       content_id: content_id,
       state: "superseded",
@@ -20,7 +20,7 @@ RSpec.describe Tasks::VersionResolver, :resolve do
       locale: "en"
     )
 
-    create(
+    FactoryGirl.create(
       :content_item,
       content_id: content_id,
       state: "draft",
@@ -39,7 +39,7 @@ RSpec.describe Tasks::VersionResolver, :resolve do
 
   context "when two items of the same content_id have identical versions" do
     before do
-      create(
+      FactoryGirl.create(
         :content_item,
         content_id: content_id,
         state: "superseded",

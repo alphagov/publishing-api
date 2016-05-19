@@ -13,7 +13,7 @@ RSpec.describe ContentItemUniquenessValidator do
 
   context "for a content item with unique supporting objects" do
     before do
-      create(:content_item)
+      FactoryGirl.create(:content_item)
     end
 
     it "has valid supporting objects" do
@@ -26,15 +26,15 @@ RSpec.describe ContentItemUniquenessValidator do
 
   context "for a content item with duplicate supporting objects" do
     before do
-      create(:content_item, user_facing_version: 2)
+      FactoryGirl.create(:content_item, user_facing_version: 2)
     end
 
     let(:content_item) do
-      create(:content_item, user_facing_version: 1)
+      FactoryGirl.create(:content_item, user_facing_version: 1)
     end
 
     it "has an invalid supporting object" do
-      user_facing_version = build(
+      user_facing_version = FactoryGirl.build(
         :user_facing_version,
         content_item: content_item,
         number: 2,
@@ -47,9 +47,9 @@ RSpec.describe ContentItemUniquenessValidator do
 
   context "for a content item with a differentiating supporting object" do
     before do
-      create(:content_item)
+      FactoryGirl.create(:content_item)
 
-      create(:content_item, user_facing_version: 2)
+      FactoryGirl.create(:content_item, user_facing_version: 2)
     end
 
     it "has valid supporting objects" do
@@ -62,7 +62,7 @@ RSpec.describe ContentItemUniquenessValidator do
 
   context "for a content item with a missing supporting object" do
     before do
-      content_item = create(:content_item)
+      content_item = FactoryGirl.create(:content_item)
       Translation.find_by!(content_item: content_item).destroy
     end
 
@@ -75,12 +75,12 @@ RSpec.describe ContentItemUniquenessValidator do
 
   context "when a duplicate content item exists in a unpublished state" do
     let!(:content_item) do
-      create(:content_item, state: "unpublished")
+      FactoryGirl.create(:content_item, state: "unpublished")
     end
 
     it "allows duplicates and does not raise an error" do
       expect {
-        create(:content_item, state: "unpublished")
+        FactoryGirl.create(:content_item, state: "unpublished")
       }.not_to raise_error
 
       expect(ContentItem.count).to eq(2)
