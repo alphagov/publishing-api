@@ -378,6 +378,29 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "for a previously unpublished item" do
+      let!(:unpublished_item) do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          state: "published",
+          lock_version: 2,
+        )
+      end
+
+      let!(:unpublishing) do
+        FactoryGirl.create(:unpublishing, content_item: unpublished_item)
+      end
+
+      it "removes the unpublishing" do
+        expect {
+          described_class.call(payload)
+        }.to change(Unpublishing, :count).by(-1)
+
+        expect(Unpublishing.find_by(content_item: unpublished_item)).to be nil
+      end
+    end
+
     it_behaves_like TransactionalCommand
   end
 end
