@@ -1,26 +1,90 @@
 module Presenters
   module Queries
     class ExpandedLinkSet
-      def initialize(link_set:, fallback_order:)
+      def initialize(link_set:, fallback_order:, visited_link_sets: [], recursing_type: nil)
         @link_set = link_set
         @fallback_order = Array(fallback_order)
+        @visited_link_sets = visited_link_sets
+        @recursing_type = recursing_type
       end
 
       def links
-        link_set.links.group_by(&:link_type).each_with_object({}) do |(type, links), hash|
-          hash[type.to_sym] = expand_links(links.map(&:target_content_id), type.to_sym)
-        end
-      end
-
-      def expand_links(target_content_ids, type, visited = [link_set.content_id])
-        valid_web_content_items(target_content_ids).map do |item|
-          ExpandLink.new(item, type, visited, set: self).expand_link
+        if top_level?
+          dependees.merge(dependents)
+        else
+          dependees
         end
       end
 
     private
 
-      attr_reader :fallback_order, :link_set
+      attr_reader :fallback_order, :link_set, :visited_link_sets, :recursing_type
+
+      def top_level?
+        visited_link_sets.empty?
+      end
+
+      def expand_links(target_content_ids, type, rules)
+        return {} unless expanding_this_type?(type)
+
+        content_items = valid_web_content_items(target_content_ids)
+
+        content_items.map do |item|
+          expanded_links = ExpandLink.new(item, type, rules).expand_link
+
+          if ::Queries::ExpansionRules.recurse?(type)
+            next_link_set = LinkSet.find_by(content_id: item.content_id)
+            next_level = recurse_if_not_visited(type, next_link_set, visited_link_sets)
+          else
+            next_level = {}
+          end
+
+          expanded_links.merge(
+            expanded_links: next_level,
+          )
+        end
+      end
+
+      def recurse_if_not_visited(type, next_link_set, visited_link_sets)
+        return {} if visited_link_sets.include?(next_link_set)
+
+        self.class.new(
+          link_set: next_link_set,
+          fallback_order: fallback_order,
+          visited_link_sets: (visited_link_sets << link_set),
+          recursing_type: type,
+        ).links
+      end
+
+      def expanding_this_type?(type)
+        return true if recursing_type.nil?
+        recursing_type == type
+      end
+
+      def dependees
+        link_set.links.group_by(&:link_type).each_with_object({}) do |(type, links), hash|
+          links = links.map(&:target_content_id)
+          expansion_rules = ::Queries::ExpansionRules
+
+          expanded_links = expand_links(links, type.to_sym, expansion_rules)
+
+          hash[type.to_sym] = expanded_links if expanded_links.any?
+        end
+      end
+
+      def dependents
+        Link.where(target_content_id: link_set.content_id).group_by(&:link_type).each_with_object({}) do |(type, links), hash|
+          inverted_type_name = ::Queries::ExpansionRules::Reverse.reverse_name_for(type)
+          next unless inverted_type_name
+
+          links = links.map { |l| l.link_set.content_id }
+          expansion_rules = ::Queries::ExpansionRules::Reverse
+
+          expanded_links = expand_links(links, type.to_sym, expansion_rules)
+
+          hash[inverted_type_name.to_sym] = expanded_links if expanded_links.any?
+        end
+      end
 
       def valid_web_content_items(target_content_ids)
         target_content_ids = without_passsthrough_hashes(target_content_ids)

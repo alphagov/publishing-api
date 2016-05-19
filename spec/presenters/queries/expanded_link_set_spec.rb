@@ -6,7 +6,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     link_set.content_id
   end
 
-  def create_content_item(content_id, base_path, state)
+  def create_content_item(content_id, base_path, state = "published")
     create(
       :content_item,
       content_id: content_id,
@@ -156,7 +156,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       it "does not have a parent" do
-        expect(expanded_links[:parent]).to eq([])
+        expect(expanded_links[:parent]).to be_nil
       end
     end
   end
@@ -280,6 +280,35 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     it "does not expand the fields for those links" do
       expect(expanded_links[:parent]).to match([
         a_hash_including(base_path: "/b", expanded_links: {})
+      ])
+    end
+  end
+
+  describe "expanding dependees" do
+    let(:fallback_order) { [:draft, :published] }
+
+    before do
+      create_content_item(a, "/a")
+      create_content_item(b, "/b")
+      create_content_item(c, "/c")
+      create_content_item(d, "/d")
+
+      create_link(d, c, "parent")
+      create_link(c, b, "parent")
+      create_link(b, a, "parent")
+    end
+
+    it "automatically expands reverse dependencies to one level of depth" do
+      expect(expanded_links[:children]).to match([
+        a_hash_including(
+          base_path: "/b",
+          expanded_links: a_hash_including(
+            parent: [a_hash_including(
+              base_path: "/a",
+              expanded_links: anything,
+            )]
+          )
+        )
       ])
     end
   end

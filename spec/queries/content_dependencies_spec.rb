@@ -33,13 +33,12 @@ RSpec.describe Queries::ContentDependencies do
 
     context "link_sets" do
       let(:fields) { [:base_path] }
-      let(:direct_link_types) { %w(parent) }
 
       it "calculates the correct link_types" do
         expect_any_instance_of(Queries::GetDependents).to receive(:call).with(
           content_id: parent_content_item.content_id,
-          recursive_link_types: [],
-          direct_link_types: direct_link_types
+          recursive_link_types: %w(parent),
+          direct_link_types: [],
         )
         dependents.call
       end
@@ -71,13 +70,12 @@ RSpec.describe Queries::ContentDependencies do
 
     context "link_sets" do
       let(:fields) { [:base_path] }
-      let(:direct_link_types) { %w(special parent) }
 
       it "calculates the correct link_types" do
         expect_any_instance_of(Queries::GetDependees).to receive(:call).with(
           content_id: child_content_item.content_id,
-          recursive_link_types: [],
-          direct_link_types: direct_link_types
+          recursive_link_types: %w(parent),
+          direct_link_types: %w(special)
         )
         dependees.call
       end

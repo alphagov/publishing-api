@@ -32,4 +32,8 @@ RSpec.describe Queries::ExpansionRules::Reverse do
     specify { expect(subject.recurse?(:parent)).to eq(true) }
     specify { expect(subject.recurse?(:foo)).to eq(false) }
   end
+
+  describe "#reverse_name_for(link_type)" do
+    specify { expect(subject.reverse_name_for(:parent)).to eq("children") }
+  end
 end
