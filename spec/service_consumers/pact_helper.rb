@@ -228,7 +228,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "there is content with format 'topic'" do
     set_up do
-      FactoryGirl.create(:draft_content_item,
+      draft_item = FactoryGirl.create(:draft_content_item,
         title: 'Content Item A',
         content_id: 'aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa',
         base_path: '/a-base-path',
@@ -239,12 +239,26 @@ Pact.provider_states_for "GDS API Adapters" do
         },
       )
 
-      FactoryGirl.create(:live_content_item,
+      FactoryGirl.create(:linkable,
+        content_item: draft_item,
+        state: "draft",
+        document_type: draft_item.document_type,
+        base_path: "/a-base-path",
+      )
+
+      live_item = FactoryGirl.create(:live_content_item,
         title: 'Content Item B',
         content_id: 'bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb',
         base_path: '/another-base-path',
         public_updated_at: '2015-01-01',
         format: 'topic',
+      )
+
+      FactoryGirl.create(:linkable,
+        content_item: live_item,
+        state: "published",
+        document_type: live_item.document_type,
+        base_path: "/another-base-path",
       )
     end
   end

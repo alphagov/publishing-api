@@ -15,6 +15,14 @@ module V2
       render json: Presenters::ResultsPresenter.new(results, pagination, request.original_url).present
     end
 
+    def new_linkables
+      # Base path is returned to facilitate rummager indexing.
+      # This can be removed once link updates are picked up by rummager from the message bus.
+      render json: Queries::GetLinkables.new(
+        document_type: query_params.fetch(:document_type),
+      ).call
+    end
+
     def linkables
       # Base path is returned to facilitate rummager indexing.
       # This can be removed once link updates are picked up by rummager from the message bus.

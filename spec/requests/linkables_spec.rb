@@ -13,12 +13,30 @@ RSpec.describe "GET /v2/linkables", type: :request do
     )
   }
 
+  let!(:policy_1_linkable) {
+    FactoryGirl.create(:linkable,
+      content_item: policy_1,
+      base_path: "/cat-rates",
+      document_type: "policy",
+      state: "draft",
+    )
+  }
+
   let!(:policy_2) {
     FactoryGirl.create(:content_item,
       state: "published",
       document_type: "policy",
       title: "Policy 2",
       base_path: "/vat-rates",
+    )
+  }
+
+  let!(:policy_2_linkable) {
+    FactoryGirl.create(:linkable,
+      content_item: policy_2,
+      base_path: "/vat-rates",
+      document_type: "policy",
+      state: "published",
     )
   }
 
