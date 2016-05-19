@@ -28,7 +28,7 @@ private
   end
 
   def present_content_store(dependent_content_id)
-    latest_content_item ||= Queries::GetLatest.call(
+    latest_content_item = Queries::GetLatest.call(
       ContentItem.where(content_id: dependent_content_id)
     ).last
 
