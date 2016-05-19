@@ -243,8 +243,8 @@ RSpec.describe Queries::GetContentCollection do
 
   context "when details hash is requested" do
     it "returns the details hash" do
-      create(:draft_content_item, base_path: '/z', details: { foo: :bar }, format: 'topic', publishing_app: 'publisher')
-      create(:draft_content_item, base_path: '/b', details: { baz: :bat }, format: 'placeholder_topic', publishing_app: 'publisher')
+      FactoryGirl.create(:draft_content_item, base_path: '/z', details: { foo: :bar }, format: 'topic', publishing_app: 'publisher')
+      FactoryGirl.create(:draft_content_item, base_path: '/b', details: { baz: :bat }, format: 'placeholder_topic', publishing_app: 'publisher')
       expect(Queries::GetContentCollection.new(
         document_type: 'topic',
         fields: %w(details publication_state),
@@ -257,8 +257,8 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   describe "search_fields" do
-    let!(:content_item_foo) { create(:live_content_item, base_path: '/bar/foo', format: 'topic', title: "Baz") }
-    let!(:content_item_zip) { create(:live_content_item, base_path: '/baz', format: 'topic', title: 'zip') }
+    let!(:content_item_foo) { FactoryGirl.create(:live_content_item, base_path: '/bar/foo', format: 'topic', title: "Baz") }
+    let!(:content_item_zip) { FactoryGirl.create(:live_content_item, base_path: '/baz', format: 'topic', title: 'zip') }
     subject do
       Queries::GetContentCollection.new(
         document_type: 'topic',
@@ -285,12 +285,12 @@ RSpec.describe Queries::GetContentCollection do
   describe "pagination" do
     context "with multiple content items" do
       before do
-        create(:draft_content_item, base_path: '/a', format: 'topic', public_updated_at: "2010-01-06")
-        create(:draft_content_item, base_path: '/b', format: 'topic', public_updated_at: "2010-01-05")
-        create(:draft_content_item, base_path: '/c', format: 'topic', public_updated_at: "2010-01-04")
-        create(:draft_content_item, base_path: '/d', format: 'topic', public_updated_at: "2010-01-03")
-        create(:live_content_item, base_path: '/live1', format: 'topic', public_updated_at: "2010-01-02")
-        create(:live_content_item, base_path: '/live2', format: 'topic', public_updated_at: "2010-01-01")
+        FactoryGirl.create(:draft_content_item, base_path: '/a', format: 'topic', public_updated_at: "2010-01-06")
+        FactoryGirl.create(:draft_content_item, base_path: '/b', format: 'topic', public_updated_at: "2010-01-05")
+        FactoryGirl.create(:draft_content_item, base_path: '/c', format: 'topic', public_updated_at: "2010-01-04")
+        FactoryGirl.create(:draft_content_item, base_path: '/d', format: 'topic', public_updated_at: "2010-01-03")
+        FactoryGirl.create(:live_content_item, base_path: '/live1', format: 'topic', public_updated_at: "2010-01-02")
+        FactoryGirl.create(:live_content_item, base_path: '/live2', format: 'topic', public_updated_at: "2010-01-01")
       end
 
       it "limits the results returned" do

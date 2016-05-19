@@ -39,8 +39,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "doesn't reject an empty links hash, but doesn't delete links either" do
-      link_set = FactoryGirl.create(
-        :link_set,
+      link_set = FactoryGirl.create(:link_set,
         links: [
           FactoryGirl.create(:link)
         ]
@@ -86,22 +85,18 @@ RSpec.describe Commands::V2::PatchLinkSet do
     let(:related) { [SecureRandom.uuid] }
 
     before do
-      link_set = FactoryGirl.create(
-        :link_set,
+      link_set = FactoryGirl.create(:link_set,
         content_id: content_id,
         links: [
-          FactoryGirl.create(
-            :link,
+          FactoryGirl.create(:link,
             link_type: "topics",
             target_content_id: topics.first,
           ),
-          FactoryGirl.create(
-            :link,
+          FactoryGirl.create(:link,
             link_type: "topics",
             target_content_id: topics.second,
           ),
-          FactoryGirl.create(
-            :link,
+          FactoryGirl.create(:link,
             link_type: "related",
             target_content_id: related.first,
           ),
@@ -194,8 +189,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   context "when a draft content item exists for the content_id" do
     let!(:draft_content_item) do
-      create(
-        :draft_content_item,
+      FactoryGirl.create(:draft_content_item,
         content_id: content_id,
         base_path: "/some-path",
         title: "Some Title",
@@ -227,8 +221,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       context "and a draft content item exists for that locale" do
         let!(:draft_content_item) do
-          create(
-            :draft_content_item,
+          FactoryGirl.create(:draft_content_item,
             content_id: content_id,
             base_path: "/french-path",
             title: "French Title",
@@ -269,8 +262,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   context "when a live content item exists for the content_id" do
     let!(:live_content_item) do
-      create(
-        :live_content_item,
+      FactoryGirl.create(:live_content_item,
         content_id: content_id,
         base_path: "/some-path",
         title: "Some Title",
@@ -315,8 +307,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       context "and a live content item exists for that locale" do
         let!(:live_content_item) do
-          create(
-            :live_content_item,
+          FactoryGirl.create(:live_content_item,
             content_id: content_id,
             base_path: "/french-path",
             title: "French Title",

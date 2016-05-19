@@ -12,7 +12,7 @@ RSpec.describe AccessLimit do
   end
 
   context "a content item that is not access limited" do
-    let!(:content_item) { create(:draft_content_item) }
+    let!(:content_item) { FactoryGirl.create(:draft_content_item) }
 
     it "is not access limited" do
       expect(AccessLimit.viewable?(content_item)).to be(true)
@@ -24,7 +24,7 @@ RSpec.describe AccessLimit do
   end
 
   context "an access-limited content item" do
-    let!(:content_item) { create(:access_limited_draft_content_item) }
+    let!(:content_item) { FactoryGirl.create(:access_limited_draft_content_item) }
     let(:authorised_user_uid) {
       AccessLimit.find_by(content_item: content_item).users.first
     }

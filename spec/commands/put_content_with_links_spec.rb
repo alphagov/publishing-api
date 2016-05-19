@@ -74,11 +74,11 @@ RSpec.describe Commands::PutContentWithLinks do
     stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
     stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
 
-    content_item = create(:content_item)
-    link_set = create(:link_set, content_id: content_item.content_id)
-    protected_link = create(:link, link_set: link_set, link_type: 'alpha_taxons')
-    normal_link = create(:link, link_set: link_set, link_type: 'topics')
-    create(:lock_version, target: link_set)
+    content_item = FactoryGirl.create(:content_item)
+    link_set = FactoryGirl.create(:link_set, content_id: content_item.content_id)
+    protected_link = FactoryGirl.create(:link, link_set: link_set, link_type: 'alpha_taxons')
+    normal_link = FactoryGirl.create(:link, link_set: link_set, link_type: 'topics')
+    FactoryGirl.create(:lock_version, target: link_set)
 
     described_class.call(
       title: 'Test Title',
@@ -101,11 +101,11 @@ RSpec.describe Commands::PutContentWithLinks do
     stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
     stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
 
-    link_set = create(:link_set, content_id: 'dc3643c0-ac02-43b8-a1c2-b93513878685')
-    link_1 = create(:link, link_set: link_set, link_type: 'organisations')
-    link_2 = create(:link, link_set: link_set, link_type: 'topics')
+    link_set = FactoryGirl.create(:link_set, content_id: 'dc3643c0-ac02-43b8-a1c2-b93513878685')
+    link_1 = FactoryGirl.create(:link, link_set: link_set, link_type: 'organisations')
+    link_2 = FactoryGirl.create(:link, link_set: link_set, link_type: 'topics')
 
-    create(:lock_version, target: link_set)
+    FactoryGirl.create(:lock_version, target: link_set)
 
     described_class.call(
       title: 'Test Title',

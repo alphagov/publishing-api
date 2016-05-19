@@ -412,10 +412,10 @@ RSpec.describe V2::ContentItemsController do
 
   describe "index" do
     before do
-      create(:draft_content_item, publishing_app: 'publisher', base_path: '/content')
-      create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item1')
-      create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item2')
-      create(:draft_content_item, publishing_app: 'specialist_publisher', base_path: '/item3')
+      FactoryGirl.create(:draft_content_item, publishing_app: 'publisher', base_path: '/content')
+      FactoryGirl.create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item1')
+      FactoryGirl.create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item2')
+      FactoryGirl.create(:draft_content_item, publishing_app: 'specialist_publisher', base_path: '/item3')
     end
 
     it "displays items filtered by the user's app_name" do

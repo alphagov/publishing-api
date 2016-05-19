@@ -33,8 +33,8 @@ RSpec.describe Presenters::DownstreamPresenter do
     }
 
     context "for a live content item" do
-      let(:content_item) { create(:live_content_item) }
-      let!(:link_set)    { create(:link_set, content_id: content_item.content_id) }
+      let(:content_item) { FactoryGirl.create(:live_content_item) }
+      let!(:link_set)    { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to eq(expected)
@@ -42,8 +42,8 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a draft content item" do
-      let(:content_item) { create(:draft_content_item) }
-      let!(:link_set) { create(:link_set, content_id: content_item.content_id) }
+      let(:content_item) { FactoryGirl.create(:draft_content_item) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to eq(expected)
@@ -51,8 +51,8 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a withdrawn content item" do
-      let!(:content_item) { create(:withdrawn_content_item) }
-      let!(:link_set) { create(:link_set, content_id: content_item.content_id) }
+      let!(:content_item) { FactoryGirl.create(:withdrawn_content_item) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "merges in a withdrawal notice" do
         unpublishing = Unpublishing.find_by(content_item: content_item)
@@ -96,8 +96,8 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     describe "conditional attributes" do
-      let!(:content_item) { create(:live_content_item) }
-      let!(:link_set) { create(:link_set, content_id: content_item.content_id) }
+      let!(:content_item) { FactoryGirl.create(:live_content_item) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       context "when the link_set is not present" do
         before { link_set.destroy }
@@ -108,7 +108,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       context "when the public_updated_at is not present" do
-        let(:content_item) { create(:gone_draft_content_item) }
+        let(:content_item) { FactoryGirl.create(:gone_draft_content_item) }
 
         it "does not raise an error" do
           expect { result }.not_to raise_error
