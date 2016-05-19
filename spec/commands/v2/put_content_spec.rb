@@ -86,7 +86,10 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the base path has been reserved by another publishing app" do
       before do
-        FactoryGirl.create(:path_reservation, base_path: "/vat-rates", publishing_app: "something-else")
+        FactoryGirl.create(:path_reservation,
+          base_path: base_path,
+          publishing_app: "something-else"
+        )
       end
 
       it "raises an error" do
@@ -105,6 +108,7 @@ RSpec.describe Commands::V2::PutContent do
           lock_version: 2,
           user_facing_version: 5,
           first_published_at: first_published_at,
+          base_path: base_path,
         )
       end
 
@@ -165,7 +169,7 @@ RSpec.describe Commands::V2::PutContent do
           described_class.call(payload)
 
           redirect = ContentItemFilter.filter(
-            base_path: "/vat-rates",
+            base_path: base_path,
             state: "draft",
           ).first
 
@@ -174,14 +178,14 @@ RSpec.describe Commands::V2::PutContent do
           expect(redirect.publishing_app).to eq("publisher")
 
           expect(redirect.redirects).to eq([{
-            path: "/vat-rates",
+            path: base_path,
             type: "exact",
             destination: "/moved",
           }])
         end
 
         it "sends a create request to the draft content store for the redirect" do
-          allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: "/vat-rates")
+          allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: base_path)
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
@@ -233,12 +237,12 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when creating a draft for a previously unpublished content item" do
       before do
-        FactoryGirl.create(
-          :content_item,
+        FactoryGirl.create(:content_item,
           content_id: content_id,
           state: "unpublished",
           lock_version: 2,
           user_facing_version: 5,
+          base_path: base_path,
         )
       end
 
@@ -267,28 +271,28 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when creating a draft when there are multiple unpublished and published items" do
       before do
-        FactoryGirl.create(
-          :content_item,
+        FactoryGirl.create(:content_item,
           content_id: content_id,
           state: "unpublished",
           lock_version: 2,
           user_facing_version: 5,
+          base_path: base_path,
         )
 
-        FactoryGirl.create(
-          :content_item,
+        FactoryGirl.create(:content_item,
           content_id: content_id,
           state: "published",
           lock_version: 3,
           user_facing_version: 8,
+          base_path: base_path,
         )
 
-        FactoryGirl.create(
-          :content_item,
+        FactoryGirl.create(:content_item,
           content_id: content_id,
           state: "unpublished",
           lock_version: 5,
           user_facing_version: 6,
+          base_path: base_path,
         )
       end
 
@@ -490,11 +494,11 @@ RSpec.describe Commands::V2::PutContent do
             {
               path: "/old-path",
               type: "exact",
-              destination: "/vat-rates"
+              destination: base_path
             }, {
               path: "/old-path.atom",
               type: "exact",
-              destination: "/vat-rates.atom"
+              destination: "#{base_path}.atom"
             }
           ])
         end
@@ -652,12 +656,10 @@ RSpec.describe Commands::V2::PutContent do
       let(:link_target) { SecureRandom.uuid }
 
       let!(:link_set) do
-        FactoryGirl.create(
-          :link_set,
+        FactoryGirl.create(:link_set,
           content_id: content_id,
           links: [
-            FactoryGirl.create(
-              :link,
+            FactoryGirl.create(:link,
               link_type: "parent",
               target_content_id: link_target,
             )

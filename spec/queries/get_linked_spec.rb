@@ -34,15 +34,13 @@ RSpec.describe Queries::GetLinked do
 
     context "when a content item with no draft exists" do
       before do
-        FactoryGirl.create(
-          :live_content_item,
+        FactoryGirl.create(:live_content_item,
           content_id: content_id,
           base_path: "/vat-rules-2020",
           title: "VAT rules 2020",
         )
 
-        FactoryGirl.create(
-          :live_content_item,
+        FactoryGirl.create(:live_content_item,
           content_id: target_content_id,
           base_path: "/vat-org",
         )
@@ -76,8 +74,7 @@ RSpec.describe Queries::GetLinked do
 
     context "when a content item with draft exists "do
       before do
-        FactoryGirl.create(
-          :live_content_item,
+        FactoryGirl.create(:live_content_item,
           :with_draft,
           content_id: target_content_id,
           base_path: "/pay-now"
@@ -110,13 +107,12 @@ RSpec.describe Queries::GetLinked do
 
       context "content items link to the wanted content item" do
         before do
-          FactoryGirl.create(
-            :live_content_item,
+          FactoryGirl.create(:live_content_item,
             content_id: content_id,
-            title: "VAT and VATy things"
+            title: "VAT and VATy things",
+            base_path: "/vat-rates",
           )
-          FactoryGirl.create(
-            :link_set,
+          FactoryGirl.create(:link_set,
             content_id: content_id,
             links: [
               FactoryGirl.create(
@@ -127,23 +123,19 @@ RSpec.describe Queries::GetLinked do
             ]
           )
 
-          content_item = FactoryGirl.create(
-            :live_content_item,
+          content_item = FactoryGirl.create(:live_content_item,
             base_path: '/vatty',
             content_id: SecureRandom.uuid,
             title: "Another VATTY thing"
           )
-          FactoryGirl.create(
-            :link_set,
+          FactoryGirl.create(:link_set,
             content_id: content_item.content_id,
             links: [
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "organisations",
                 target_content_id: target_content_id
               ),
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "related_links",
                 target_content_id: target_content_id
               )

@@ -2,10 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Presenters::Queries::ContentItemPresenter do
   let(:content_id) { SecureRandom.uuid }
+  let(:base_path) { "/vat-rates" }
 
   describe "present" do
     let!(:content_item) do
-      FactoryGirl.create(:draft_content_item, content_id: content_id)
+      FactoryGirl.create(:draft_content_item,
+        content_id: content_id,
+        base_path: base_path
+      )
     end
 
     let(:result) { described_class.present(content_item) }
@@ -20,7 +24,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       expect(result).to eq(
         "content_id" => content_id,
         "locale" => "en",
-        "base_path" => "/vat-rates",
+        "base_path" => base_path,
         "title" => "VAT rates",
         "format" => "guide",
         "internal_name" => "VAT rates",
@@ -29,7 +33,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "public_updated_at" => "2014-05-14T13:00:06Z",
         "first_published_at" => "2014-01-02T03:04:05Z",
         "details" => { "body" => "<p>Something about VAT</p>\n" },
-        "routes" => [{ "path" => "/vat-rates", "type" => "exact" }],
+        "routes" => [{ "path" => base_path, "type" => "exact" }],
         "redirects" => [],
         "publishing_app" => "publisher",
         "rendering_app" => "frontend",
@@ -90,8 +94,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "#present_many" do
     let!(:content_item) do
-      FactoryGirl.create(
-        :content_item,
+      FactoryGirl.create(:content_item,
         content_id: content_id,
       )
     end

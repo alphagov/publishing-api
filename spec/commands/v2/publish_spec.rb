@@ -2,15 +2,18 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::Publish do
   describe "call" do
+    let(:base_path) { "/vat-rates" }
+
     let!(:draft_item) do
       FactoryGirl.create(
         :draft_content_item,
         content_id: content_id,
         lock_version: 2,
+        base_path: base_path,
       )
     end
 
-    let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
+    let(:expected_content_store_payload) { { base_path: base_path } }
     let(:content_id) { SecureRandom.uuid }
 
     before do
@@ -68,9 +71,9 @@ RSpec.describe Commands::V2::Publish do
 
     context "when a lock version of the content item was previously published" do
       let!(:live_item) do
-        FactoryGirl.create(
-          :live_content_item,
+        FactoryGirl.create(:live_content_item,
           content_id: draft_item.content_id,
+          base_path: base_path,
         )
       end
 
@@ -84,12 +87,11 @@ RSpec.describe Commands::V2::Publish do
 
     context "with another content item blocking the publish action" do
       let(:draft_locale) { Translation.find_by!(content_item: draft_item).locale }
-      let(:draft_base_path) { Location.find_by!(content_item: draft_item).base_path }
 
       let!(:other_content_item) {
         FactoryGirl.create(:redirect_live_content_item,
           locale: draft_locale,
-          base_path: draft_base_path,
+          base_path: base_path,
         )
       }
 
@@ -103,19 +105,18 @@ RSpec.describe Commands::V2::Publish do
         expect(translation.locale).to eq(draft_locale)
 
         location = Location.find_by!(content_item: other_content_item)
-        expect(location.base_path).to eq(draft_base_path)
+        expect(location.base_path).to eq(base_path)
       end
     end
 
     context "with another content item not blocking the publish action" do
       let(:new_locale) { "fr" }
-      let(:draft_base_path) { Location.find_by!(content_item: draft_item).base_path }
 
       let!(:other_content_item) {
         FactoryGirl.create(
           :redirect_live_content_item,
           locale: new_locale,
-          base_path: draft_base_path,
+          base_path: base_path,
         )
       }
 
@@ -129,7 +130,7 @@ RSpec.describe Commands::V2::Publish do
         expect(translation.locale).to eq(new_locale)
 
         location = Location.find_by!(content_item: other_content_item)
-        expect(location.base_path).to eq(draft_base_path)
+        expect(location.base_path).to eq(base_path)
       end
     end
 
@@ -215,10 +216,10 @@ RSpec.describe Commands::V2::Publish do
           let(:public_updated_at_from_last_live_item) { Time.zone.now - 2.years }
 
           let!(:live_item) do
-            FactoryGirl.create(
-              :live_content_item,
+            FactoryGirl.create(:live_content_item,
               content_id: draft_item.content_id,
               public_updated_at: public_updated_at_from_last_live_item,
+              base_path: base_path,
             )
           end
 
@@ -292,16 +293,14 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the base_path differs from the previously published item" do
       let!(:live_item) do
-        FactoryGirl.create(
-          :live_content_item,
+        FactoryGirl.create(:live_content_item,
           content_id: draft_item.content_id,
           base_path: "/hat-rates",
         )
       end
 
       before do
-        FactoryGirl.create(
-          :redirect_draft_content_item,
+        FactoryGirl.create(:redirect_draft_content_item,
           base_path: "/hat-rates",
         )
       end
@@ -368,7 +367,10 @@ RSpec.describe Commands::V2::Publish do
 
       context "but a published item does exist" do
         before do
-          FactoryGirl.create(:live_content_item, content_id: content_id)
+          FactoryGirl.create(:live_content_item,
+            content_id: content_id,
+            base_path: base_path,
+          )
         end
 
         it "raises an error to indicate it has already been published" do
@@ -381,11 +383,11 @@ RSpec.describe Commands::V2::Publish do
 
     context "for a previously unpublished item" do
       let!(:unpublished_item) do
-        FactoryGirl.create(
-          :content_item,
+        FactoryGirl.create(:content_item,
           content_id: content_id,
           state: "published",
           lock_version: 2,
+          base_path: base_path,
         )
       end
 

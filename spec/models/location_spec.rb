@@ -40,7 +40,7 @@ RSpec.describe Location do
 
   describe "routes and redirects" do
     subject { FactoryGirl.build(:location) }
-    let(:content_item) { FactoryGirl.build(:content_item) }
+    let(:content_item) { FactoryGirl.build(:content_item, base_path: "/vat-rates") }
 
     before do
       subject.content_item = content_item

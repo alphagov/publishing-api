@@ -83,10 +83,20 @@ RSpec.describe "Downstream timeouts", type: :request do
     let(:request_body) { links_attributes.to_json }
     let(:request_path) { "/v2/links/#{content_id}" }
     let(:request_method) { :patch }
+    let(:base_path) { "/vat-rates" }
 
     before do
-      FactoryGirl.create(:live_content_item, v2_content_item.slice(*ContentItem::TOP_LEVEL_FIELDS))
-      draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*ContentItem::TOP_LEVEL_FIELDS))
+      FactoryGirl.create(:live_content_item,
+        v2_content_item
+          .slice(*ContentItem::TOP_LEVEL_FIELDS)
+          .merge(base_path: base_path)
+      )
+
+      draft = FactoryGirl.create(:draft_content_item,
+        v2_content_item
+          .slice(*ContentItem::TOP_LEVEL_FIELDS)
+          .merge(base_path: base_path)
+      )
 
       FactoryGirl.create(:access_limit,
         content_item: draft,

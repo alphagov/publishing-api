@@ -9,12 +9,20 @@ RSpec.describe State do
     end
 
     context "when another content item has identical supporting objects" do
+      let(:base_path) { "/vat-rates" }
+
       before do
-        FactoryGirl.create(:content_item, state: "published")
+        FactoryGirl.create(:content_item,
+          state: "published",
+          base_path: base_path,
+        )
       end
 
       let(:content_item) do
-        FactoryGirl.create(:content_item, state: "draft")
+        FactoryGirl.create(:content_item,
+          state: "draft",
+          base_path: base_path,
+        )
       end
 
       subject { FactoryGirl.build(:state, content_item: content_item, name: "published") }

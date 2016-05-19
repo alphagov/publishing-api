@@ -2,10 +2,12 @@ require "rails_helper"
 
 RSpec.describe ContentItemFilter do
   let(:content_id) { "b2844cad-4140-46db-81eb-db717370fee1" }
+  let(:base_path) { "/vat-rates" }
 
   let!(:content_item) {
     FactoryGirl.create(:content_item,
-      content_id: content_id
+      content_id: content_id,
+      base_path: base_path,
     )
   }
 
@@ -18,19 +20,22 @@ RSpec.describe ContentItemFilter do
   let!(:french_content_item) {
     FactoryGirl.create(:content_item,
       content_id: content_id,
-      locale: "fr"
+      locale: "fr",
+      base_path: base_path,
     )
   }
   let!(:superseded_content_item) {
     FactoryGirl.create(:content_item,
       content_id: content_id,
-      state: "superseded"
+      state: "superseded",
+      base_path: base_path,
     )
   }
   let!(:new_version_content_item) {
     FactoryGirl.create(:content_item,
       content_id: content_id,
       user_facing_version: 2,
+      base_path: base_path,
     )
   }
 
@@ -92,7 +97,7 @@ RSpec.describe ContentItemFilter do
 
   describe ".filter(locale: nil, base_path: nil, state: nil)" do
     context "when a base path is given" do
-      let(:params) { { base_path: "/vat-rates" } }
+      let(:params) { { base_path: base_path } }
 
       it "returns a scope of the expected content items" do
         result = described_class.filter(params)

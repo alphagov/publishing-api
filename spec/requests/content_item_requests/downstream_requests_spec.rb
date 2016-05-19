@@ -86,8 +86,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when a link set exists for the content item" do
       let(:link_set) do
-        FactoryGirl.create(
-          :link_set,
+        FactoryGirl.create(:link_set,
           content_id: v2_content_item[:content_id]
         )
       end
@@ -151,6 +150,7 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         draft = FactoryGirl.create(:draft_content_item,
           content_id: content_id,
+          base_path: base_path,
         )
 
         FactoryGirl.create(:lock_version, target: draft, number: 1)
@@ -183,6 +183,7 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         FactoryGirl.create(:live_content_item,
           content_id: content_id,
+          base_path: base_path,
         )
       end
 
@@ -208,6 +209,7 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         draft = FactoryGirl.create(:draft_content_item,
           content_id: content_id,
+          base_path: base_path,
         )
 
         FactoryGirl.create(:access_limit,
@@ -217,6 +219,7 @@ RSpec.describe "Downstream requests", type: :request do
 
         FactoryGirl.create(:live_content_item,
           content_id: content_id,
+          base_path: base_path,
         )
       end
 
@@ -272,7 +275,11 @@ RSpec.describe "Downstream requests", type: :request do
       end
 
       before do
-        draft = FactoryGirl.create(:draft_content_item, v2_content_item.slice(*ContentItem::TOP_LEVEL_FIELDS))
+        draft = FactoryGirl.create(:draft_content_item,
+          v2_content_item
+            .slice(*ContentItem::TOP_LEVEL_FIELDS)
+            .merge(base_path: base_path)
+        )
         FactoryGirl.create(:lock_version, target: draft, number: 1)
         FactoryGirl.create(:access_limit, content_item: draft, users: access_limit_params.fetch(:users))
       end
@@ -300,6 +307,7 @@ RSpec.describe "Downstream requests", type: :request do
     let!(:draft) {
       FactoryGirl.create(:draft_content_item,
         content_id: content_id,
+        base_path: base_path,
       )
     }
 

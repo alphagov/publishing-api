@@ -18,6 +18,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
       state: "published",
       document_type: "policy",
       title: "Policy 2",
+      base_path: "/vat-rates",
     )
   }
 
