@@ -11,6 +11,7 @@ module SubstitutionHelper
 
         if mismatch && allowed_to_substitute
           State.substitute(blocking_item)
+          Linkable.find_by(content_item: blocking_item).try(:destroy)
         end
       end
     end

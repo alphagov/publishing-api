@@ -32,6 +32,14 @@ RSpec.describe SubstitutionHelper do
     )
   }
 
+  before do
+    FactoryGirl.create(:linkable,
+      content_item: existing_item,
+      document_type: existing_item.document_type,
+      base_path: existing_base_path,
+      state: "draft",
+    )
+  end
 
   context "given a base_path" do
     before do
@@ -64,6 +72,11 @@ RSpec.describe SubstitutionHelper do
           expect(state.name).to eq("unpublished")
         end
 
+        it "deletes the Linkable" do
+          linkable = Linkable.find_by(content_item: existing_item)
+          expect(linkable).to be_nil
+        end
+
         it "doesn't unpublish any other items" do
           expect(State.find_by!(content_item: live_item).name).not_to eq("unpublished")
           expect(State.find_by!(content_item: french_item).name).not_to eq("unpublished")
@@ -77,6 +90,11 @@ RSpec.describe SubstitutionHelper do
         it "unpublishes the existing item" do
           state = State.find_by!(content_item: existing_item)
           expect(state.name).to eq("unpublished")
+        end
+
+        it "deletes the Linkable" do
+          linkable = Linkable.find_by(content_item: existing_item)
+          expect(linkable).to be_nil
         end
 
         it "doesn't unpublish any other items" do
