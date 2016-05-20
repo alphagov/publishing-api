@@ -3,6 +3,8 @@ namespace :specialist_publisher_dupes do
   task remove_drafts: :environment do
     content_ids = ContentItem
       .where(publishing_app: "specialist-publisher")
+      .where("created_at::date > '2016-02-20'::date")
+      .where("created_at::date < '2016-03-28'::date")
       .pluck("DISTINCT content_id")
 
     content_ids.each do |content_id|
