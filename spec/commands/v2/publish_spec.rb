@@ -16,6 +16,7 @@ RSpec.describe Commands::V2::Publish do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
 
+      allow(DependencyResolutionWorker).to receive(:perform_async)
       allow(Presenters::ContentStorePresenter).to receive(:present)
         .and_return(expected_content_store_payload)
       allow(GdsApi::GovukHeaders).to receive(:headers)
@@ -157,7 +158,7 @@ RSpec.describe Commands::V2::Publish do
           .to receive(:perform_async)
           .with(
             content_store: Adapters::ContentStore,
-            payload: a_hash_including(:content_item, :payload_version),
+            payload: a_hash_including(:content_item_id, :payload_version),
             request_uuid: "12345-67890",
           )
 
@@ -230,7 +231,7 @@ RSpec.describe Commands::V2::Publish do
               .to receive(:perform_async)
               .with(
                 content_store: Adapters::ContentStore,
-                payload: a_hash_including(:content_item, :payload_version),
+                payload: a_hash_including(:content_item_id, :payload_version),
                 request_uuid: "12345-67890",
               )
 
@@ -253,7 +254,7 @@ RSpec.describe Commands::V2::Publish do
               .to receive(:perform_async)
               .with(
                 content_store: Adapters::ContentStore,
-                payload: a_hash_including(:content_item, :payload_version),
+                payload: a_hash_including(:content_item_id, :payload_version),
                 request_uuid: "12345-67890",
               )
 

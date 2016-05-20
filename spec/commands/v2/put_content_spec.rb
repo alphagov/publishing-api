@@ -8,7 +8,6 @@ RSpec.describe Commands::V2::PutContent do
         .and_return(govuk_request_id: "12345-67890")
     end
 
-    let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
     let(:content_id) { SecureRandom.uuid }
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
@@ -28,17 +27,25 @@ RSpec.describe Commands::V2::PutContent do
       }
     }
 
-    before do
-      allow(Presenters::ContentStorePresenter).to receive(:present)
-        .and_return(expected_content_store_payload)
-    end
-
     it "sends to the draft content store" do
       expect(PresentedContentStoreWorker).to receive(:perform_async)
         .with(
           content_store: Adapters::DraftContentStore,
-          payload: a_hash_including(:content_item, :payload_version),
+          payload: a_hash_including(:content_item_id, :payload_version),
           request_uuid: "12345-67890",
+        )
+
+      described_class.call(payload)
+    end
+
+    it "enqueues the dependencies lookup" do
+      expect(DependencyResolutionWorker).to receive(:perform_async)
+        .with(
+          content_store: Adapters::DraftContentStore,
+          fields: anything,
+          content_id: anything,
+          request_uuid: "12345-67890",
+          payload_version: instance_of(Fixnum)
         )
 
       described_class.call(payload)
@@ -53,7 +60,7 @@ RSpec.describe Commands::V2::PutContent do
       expect(PresentedContentStoreWorker).not_to receive(:perform_async)
         .with(
           content_store: Adapters::ContentStore,
-          payload: a_hash_including(:content_item, :payload_version),
+          payload: a_hash_including(:content_item_id, :payload_version),
         )
 
       described_class.call(payload)
@@ -174,10 +181,11 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         it "sends a create request to the draft content store for the redirect" do
+          allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: "/vat-rates")
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              payload: a_hash_including(:content_item, :payload_version),
+              payload: a_hash_including(:content_item_id, :payload_version),
               request_uuid: "12345-67890",
             ).twice
 
@@ -492,10 +500,11 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         it "sends a create request to the draft content store for the redirect" do
+          allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: "/vat-rates")
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              payload: a_hash_including(:content_item, :payload_version),
+              payload: a_hash_including(:content_item_id, :payload_version),
               request_uuid: "12345-67890",
             ).twice
 
@@ -696,6 +705,9 @@ RSpec.describe Commands::V2::PutContent do
 
       context "when schema does not require a base_path" do
         before do
+          allow(Presenters::ContentStorePresenter).to receive(:present)
+            .and_return(base_path: "/vat-rates")
+
           payload.merge!(schema_name: 'government', document_type: 'government').delete(:format)
         end
 

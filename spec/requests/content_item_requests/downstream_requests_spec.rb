@@ -10,6 +10,7 @@ RSpec.describe "Downstream requests", type: :request do
       content_item_for_draft_content_store
     }
 
+
     it "sends content to both content stores" do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
@@ -91,6 +92,9 @@ RSpec.describe "Downstream requests", type: :request do
         )
       end
 
+      let(:target_content_item) { create(:content_item, base_path: "/foo", title: "foo") }
+      let!(:links) { create(:link, link_set: link_set, link_type: "parent", target_content_id: target_content_item.content_id) }
+
       let(:content_item_for_draft_content_store) do
         v2_content_item.except(:update_type).merge(
           links: Presenters::Queries::LinkSetPresenter.new(link_set).links
@@ -110,8 +114,21 @@ RSpec.describe "Downstream requests", type: :request do
           )
 
         put "/v2/content/#{content_id}", v2_content_item.to_json
-
         expect(response).to be_ok, response.body
+      end
+
+      it "sends the dependent changes to the draft content store" do
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: a_hash_including(content_id: content_id)
+          )
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: "/foo",
+            content_item: a_hash_including(content_id: target_content_item.content_id, title: "foo")
+          )
+        put "/v2/content/#{content_id}", v2_content_item.to_json
       end
     end
   end

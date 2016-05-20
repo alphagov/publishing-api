@@ -7,6 +7,14 @@ module Queries
         direct_results(content_id, direct_link_types)).uniq
     end
 
+    def rules
+      Queries::DependentExpansionRules
+    end
+
+    def affected_link_types(content_id)
+      Link.where(target_content_id: content_id).pluck(:link_type).uniq
+    end
+
   private
 
     def recursive_results(content_id, recursive_link_types)

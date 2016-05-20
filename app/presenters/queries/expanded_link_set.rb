@@ -32,8 +32,8 @@ module Presenters
         content_items.map do |item|
           expanded_links = ExpandLink.new(item, type, rules).expand_link
 
-          if ::Queries::ExpansionRules.recurse?(type)
-            next_link_set = LinkSet.find_by(content_id: item.content_id)
+          if ::Queries::DependentExpansionRules.recurse?(type)
+            next_link_set = LinkSet.find_by(content_id: item.content_id) || OpenStruct.new(links: [])
             next_level = recurse_if_not_visited(type, next_link_set, visited_link_sets)
           else
             next_level = {}
@@ -64,7 +64,7 @@ module Presenters
       def dependees
         link_set.links.group_by(&:link_type).each_with_object({}) do |(type, links), hash|
           links = links.map(&:target_content_id)
-          expansion_rules = ::Queries::ExpansionRules
+          expansion_rules = ::Queries::DependeeExpansionRules
 
           expanded_links = expand_links(links, type.to_sym, expansion_rules)
 
@@ -74,11 +74,11 @@ module Presenters
 
       def dependents
         Link.where(target_content_id: link_set.content_id).group_by(&:link_type).each_with_object({}) do |(type, links), hash|
-          inverted_type_name = ::Queries::ExpansionRules::Reverse.reverse_name_for(type)
+          inverted_type_name = ::Queries::DependentExpansionRules.reverse_name_for(type)
           next unless inverted_type_name
 
           links = links.map { |l| l.link_set.content_id }
-          expansion_rules = ::Queries::ExpansionRules::Reverse
+          expansion_rules = ::Queries::DependentExpansionRules
 
           expanded_links = expand_links(links, type.to_sym, expansion_rules)
 

@@ -133,7 +133,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
-              payload: a_hash_including(:content_item, :payload_version),
+              payload: a_hash_including(:content_item_id, :payload_version),
               request_uuid: "12345-67890",
             )
           described_class.call(payload)

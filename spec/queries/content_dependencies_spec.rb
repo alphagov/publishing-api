@@ -27,7 +27,6 @@ RSpec.describe Queries::ContentDependencies do
       described_class.new(
         content_id: parent_content_item.content_id,
         fields: fields,
-        direction: :dependents,
       )
     end
 
@@ -64,7 +63,7 @@ RSpec.describe Queries::ContentDependencies do
       described_class.new(
         content_id: child_content_item.content_id,
         fields: fields,
-        direction: :dependees,
+        dependent_lookup: Queries::GetDependees.new,
       )
     end
 
