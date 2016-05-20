@@ -92,8 +92,8 @@ RSpec.describe "Downstream requests", type: :request do
         )
       end
 
-      let(:target_content_item) { create(:content_item, base_path: "/foo", title: "foo") }
-      let!(:links) { create(:link, link_set: link_set, link_type: "parent", target_content_id: target_content_item.content_id) }
+      let(:target_content_item) { FactoryGirl.create(:content_item, base_path: "/foo", title: "foo") }
+      let!(:links) { FactoryGirl.create(:link, link_set: link_set, link_type: "parent", target_content_id: target_content_item.content_id) }
 
       let(:content_item_for_draft_content_store) do
         v2_content_item.except(:update_type).merge(
