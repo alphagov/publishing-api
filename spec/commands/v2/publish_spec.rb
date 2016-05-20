@@ -69,7 +69,7 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "when a lock version of the content item was previously published" do
+    context "when the content item was previously published" do
       let!(:live_item) do
         FactoryGirl.create(:live_content_item,
           content_id: draft_item.content_id,
