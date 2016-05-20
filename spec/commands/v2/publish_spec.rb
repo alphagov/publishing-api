@@ -13,6 +13,14 @@ RSpec.describe Commands::V2::Publish do
       )
     end
 
+    let!(:linkable) {
+      FactoryGirl.create(:linkable,
+        content_item: draft_item,
+        base_path: base_path,
+        state: "draft",
+      )
+    }
+
     let(:expected_content_store_payload) { { base_path: base_path } }
     let(:content_id) { SecureRandom.uuid }
 
@@ -36,6 +44,12 @@ RSpec.describe Commands::V2::Publish do
         update_type: "major",
         previous_version: 2,
       }
+    end
+
+    it "sets the linkable to 'published'" do
+      described_class.call(payload)
+      linkable.reload
+      expect(linkable.state).to eq("published")
     end
 
     context "with no update_type" do

@@ -42,6 +42,7 @@ module Commands
         set_public_updated_at(content_item, previous_item, update_type)
         set_first_published_at(content_item)
         State.publish(content_item)
+        update_linkable(content_item)
 
         AccessLimit.find_by(content_item: content_item).try(:destroy)
 
@@ -68,6 +69,11 @@ module Commands
 
       def valid_update_types
         %w(major minor republish links)
+      end
+
+      def update_linkable(content_item)
+        linkable = Linkable.find_by(content_item: content_item)
+        linkable.update_attributes(state: "published") if linkable
       end
 
       def find_draft_content_item
