@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Commands::V2::Publish do
   describe "call" do
     let!(:draft_item) do
-      create(
+      FactoryGirl.create(
         :draft_content_item,
         content_id: content_id,
         lock_version: 2,
@@ -67,7 +67,7 @@ RSpec.describe Commands::V2::Publish do
 
     context "when a lock version of the content item was previously published" do
       let!(:live_item) do
-        create(
+        FactoryGirl.create(
           :live_content_item,
           content_id: draft_item.content_id,
         )
@@ -86,7 +86,7 @@ RSpec.describe Commands::V2::Publish do
       let(:draft_base_path) { Location.find_by!(content_item: draft_item).base_path }
 
       let!(:other_content_item) {
-        create(:redirect_live_content_item,
+        FactoryGirl.create(:redirect_live_content_item,
           locale: draft_locale,
           base_path: draft_base_path,
         )
@@ -111,7 +111,7 @@ RSpec.describe Commands::V2::Publish do
       let(:draft_base_path) { Location.find_by!(content_item: draft_item).base_path }
 
       let!(:other_content_item) {
-        create(
+        FactoryGirl.create(
           :redirect_live_content_item,
           locale: new_locale,
           base_path: draft_base_path,
@@ -214,7 +214,7 @@ RSpec.describe Commands::V2::Publish do
           let(:public_updated_at_from_last_live_item) { Time.zone.now - 2.years }
 
           let!(:live_item) do
-            create(
+            FactoryGirl.create(
               :live_content_item,
               content_id: draft_item.content_id,
               public_updated_at: public_updated_at_from_last_live_item,
@@ -291,7 +291,7 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the base_path differs from the previously published item" do
       let!(:live_item) do
-        create(
+        FactoryGirl.create(
           :live_content_item,
           content_id: draft_item.content_id,
           base_path: "/hat-rates",
@@ -299,7 +299,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       before do
-        create(
+        FactoryGirl.create(
           :redirect_draft_content_item,
           base_path: "/hat-rates",
         )
@@ -330,7 +330,7 @@ RSpec.describe Commands::V2::Publish do
 
     context "when an access limit is set on the draft content item" do
       before do
-        create(:access_limit, content_item: draft_item)
+        FactoryGirl.create(:access_limit, content_item: draft_item)
       end
 
       it "destroys the access limit" do
@@ -367,7 +367,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "but a published item does exist" do
         before do
-          create(:live_content_item, content_id: content_id)
+          FactoryGirl.create(:live_content_item, content_id: content_id)
         end
 
         it "raises an error to indicate it has already been published" do

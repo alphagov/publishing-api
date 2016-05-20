@@ -4,7 +4,7 @@ RSpec.describe Tasks::VersionValidator do
   let(:content_id) { SecureRandom.uuid }
 
   before do
-    create(
+    FactoryGirl.create(
       :content_item,
       content_id: content_id,
       state: "superseded",
@@ -12,7 +12,7 @@ RSpec.describe Tasks::VersionValidator do
       locale: "en"
     )
 
-    create(
+    FactoryGirl.create(
       :content_item,
       content_id: content_id,
       state: "published",

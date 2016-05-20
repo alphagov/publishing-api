@@ -5,11 +5,11 @@ RSpec.describe Queries::GetLinkSet do
 
   context "when the link set exists" do
     let!(:link_set) do
-      create(:link_set, content_id: content_id)
+      FactoryGirl.create(:link_set, content_id: content_id)
     end
 
     before do
-      create(:lock_version, target: link_set, number: 5)
+      FactoryGirl.create(:lock_version, target: link_set, number: 5)
     end
 
     context "and it has some links" do
@@ -17,21 +17,21 @@ RSpec.describe Queries::GetLinkSet do
       let(:related) { [SecureRandom.uuid, SecureRandom.uuid] }
 
       before do
-        create(
+        FactoryGirl.create(
           :link,
           link_set: link_set,
           link_type: "parent",
           target_content_id: parent.first
         )
 
-        create(
+        FactoryGirl.create(
           :link,
           link_set: link_set,
           link_type: "related",
           target_content_id: related.first
         )
 
-        create(
+        FactoryGirl.create(
           :link,
           link_set: link_set,
           link_type: "related",

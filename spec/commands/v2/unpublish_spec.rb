@@ -20,7 +20,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when the document is published" do
       let!(:live_content_item) do
-        create(:live_content_item,
+        FactoryGirl.create(:live_content_item,
           content_id: content_id,
           base_path: base_path,
         )
@@ -65,7 +65,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when only a draft is present" do
       before do
-        create(:draft_content_item,
+        FactoryGirl.create(:draft_content_item,
           content_id: content_id,
         )
       end
@@ -81,7 +81,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when the document is redrafted" do
       let!(:live_content_item) do
-        create(:live_content_item, :with_draft,
+        FactoryGirl.create(:live_content_item, :with_draft,
           content_id: content_id,
         )
       end
@@ -129,7 +129,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when the document is already unpublished" do
       let!(:unpublished_content_item) do
-        create(:unpublished_content_item,
+        FactoryGirl.create(:unpublished_content_item,
           content_id: content_id,
           base_path: base_path,
           explanation: "This explnatin has a typo",
@@ -184,7 +184,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "with the `downstream` flag set to `false`" do
       before do
-        create(:live_content_item, :with_draft,
+        FactoryGirl.create(:live_content_item, :with_draft,
           content_id: content_id,
         )
       end
@@ -228,7 +228,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when trying to unpublish a content item with no location" do
       before do
-        content_item = create(:live_content_item,
+        content_item = FactoryGirl.create(:live_content_item,
           content_id: content_id,
           base_path: base_path,
         )

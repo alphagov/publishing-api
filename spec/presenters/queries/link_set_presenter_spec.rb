@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Presenters::Queries::LinkSetPresenter do
   describe ".present" do
     before do
-      create(:lock_version, target: link_set, number: 101)
+      FactoryGirl.create(:lock_version, target: link_set, number: 101)
       @result = Presenters::Queries::LinkSetPresenter.present(link_set)
     end
 
-    let(:link_set) { create(:link_set, content_id: "foo") }
+    let(:link_set) { FactoryGirl.create(:link_set, content_id: "foo") }
 
     it "returns link set attributes as a hash" do
       expect(@result.fetch(:content_id)).to eq("foo")
@@ -20,7 +20,7 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
 
   context "#links" do
     describe "returns the links as a hash, grouping them by their link_type" do
-      let(:link_set) { create(:link_set) }
+      let(:link_set) { FactoryGirl.create(:link_set) }
       let(:links) { Presenters::Queries::LinkSetPresenter.new(link_set).links }
 
       it "returns and empty hash when no links are present" do
@@ -32,9 +32,9 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
         org_content_id_2 = SecureRandom.uuid
         rel_content_id_1 = SecureRandom.uuid
 
-        create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_1)
-        create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_2)
-        create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id_1)
+        FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_1)
+        FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_2)
+        FactoryGirl.create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id_1)
 
         expect(links[:organisations]).to match_array(
           [org_content_id_1, org_content_id_2]

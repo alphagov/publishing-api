@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::MessageQueuePresenter do
-  let(:content_item) { create(:live_content_item) }
+  let(:content_item) { FactoryGirl.create(:live_content_item) }
 
   it "mixes in the specified update_type to the presentation" do
     presentation = described_class.present(content_item, fallback_order: [:published], update_type: "foo")

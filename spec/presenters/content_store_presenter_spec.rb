@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::ContentStorePresenter do
-  let(:content_item) { create(:live_content_item) }
+  let(:content_item) { FactoryGirl.create(:live_content_item) }
   let(:event) { double(:event, id: 123) }
   let(:fallback_order) { [:published] }
 

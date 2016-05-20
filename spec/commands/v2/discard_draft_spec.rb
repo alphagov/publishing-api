@@ -21,7 +21,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
     context "when a draft content item exists for the given content_id" do
       let!(:existing_draft_item) {
-        create(:access_limited_draft_content_item,
+        FactoryGirl.create(:access_limited_draft_content_item,
           content_id: content_id,
           base_path: base_path,
           lock_version: 5,
@@ -93,7 +93,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "and a published content item exists" do
         let!(:published_item) {
-          create(:live_content_item,
+          FactoryGirl.create(:live_content_item,
             content_id: content_id,
             lock_version: 3,
             base_path: "/hat-rates",
@@ -166,7 +166,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "when a locale is provided in the payload" do
         let!(:french_draft_item) {
-          create(:draft_content_item,
+          FactoryGirl.create(:draft_content_item,
             content_id: content_id,
             base_path: base_path,
             locale: "fr",
@@ -205,7 +205,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "and a published content item exists" do
         before do
-          create(:live_content_item, content_id: content_id)
+          FactoryGirl.create(:live_content_item, content_id: content_id)
         end
 
         it "raises a command error with code 422" do

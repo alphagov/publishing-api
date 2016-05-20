@@ -1,21 +1,21 @@
 require "rails_helper"
 
 RSpec.describe LockVersion do
-  subject { build(:lock_version) }
+  subject { FactoryGirl.build(:lock_version) }
 
   it "starts version numbers at 0" do
-    content_item = create(:content_item)
+    content_item = FactoryGirl.create(:content_item)
     lock_version = LockVersion.create!(target: content_item)
     expect(lock_version.number).to be_zero
     expect(lock_version).to be_valid
   end
 
   describe "#copy_version_from" do
-    let(:target) { create(:link_set) }
+    let(:target) { FactoryGirl.create(:link_set) }
 
     context "when the target has a lock_version" do
       before do
-        create(:lock_version, target: target, number: 5)
+        FactoryGirl.create(:lock_version, target: target, number: 5)
       end
 
       it "copies the lock_version number from the target's lock_version" do
@@ -74,7 +74,7 @@ RSpec.describe LockVersion do
   describe "::in_bulk" do
     it "returns a hash of LockVersions for a set of items, keyed by item id" do
       items = 5.times.map do |i|
-        create(:draft_content_item, base_path: "/page-#{i}")
+        FactoryGirl.create(:draft_content_item, base_path: "/page-#{i}")
       end
 
       lock_versions = LockVersion.in_bulk(items, ContentItem)
@@ -96,14 +96,14 @@ RSpec.describe LockVersion do
     let(:content_id) { SecureRandom.uuid }
 
     let!(:draft) do
-      create(
+      FactoryGirl.create(
         :draft_content_item,
         content_id: content_id,
       )
     end
 
     let!(:live) do
-      create(
+      FactoryGirl.create(
         :live_content_item,
         content_id: content_id,
       )

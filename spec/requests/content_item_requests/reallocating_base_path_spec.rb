@@ -9,7 +9,7 @@ RSpec.describe "Reallocating base paths of content items" do
   end
 
   let(:regular_payload) do
-    build(:draft_content_item,
+    FactoryGirl.build(:draft_content_item,
       content_id: content_id,
     ).as_json.deep_symbolize_keys.merge(base_path: base_path)
   end
@@ -17,7 +17,7 @@ RSpec.describe "Reallocating base paths of content items" do
   describe "/v2/content" do
     context "when a base path is occupied by a 'regular' content item" do
       before do
-        create(
+        FactoryGirl.create(
           :draft_content_item,
           base_path: base_path,
         )
@@ -40,20 +40,20 @@ RSpec.describe "Reallocating base paths of content items" do
 
     context "when both content items are 'regular' content items" do
       before do
-        draft = create(
+        draft = FactoryGirl.create(
           :draft_content_item,
           content_id: draft_content_id,
           base_path: base_path
         )
 
-        live = create(
+        live = FactoryGirl.create(
           :live_content_item,
           content_id: live_content_id,
           base_path: base_path
         )
 
-        create(:lock_version, target: live, number: 5)
-        create(:lock_version, target: draft, number: 3)
+        FactoryGirl.create(:lock_version, target: live, number: 5)
+        FactoryGirl.create(:lock_version, target: draft, number: 3)
       end
 
       it "raises an error" do
@@ -68,7 +68,7 @@ RSpec.describe "Reallocating base paths of content items" do
   describe "/content" do
     context "when a base path is occupied by a not-yet-published regular content item" do
       before do
-        create(
+        FactoryGirl.create(
           :draft_content_item,
           base_path: base_path
         )
@@ -82,7 +82,7 @@ RSpec.describe "Reallocating base paths of content items" do
 
     context "when a base path is occupied by a published regular content item" do
       before do
-        create(
+        FactoryGirl.create(
           :live_content_item,
           :with_draft,
           base_path: base_path
