@@ -18,17 +18,30 @@ module V2
     def linkables
       # Base path is returned to facilitate rummager indexing.
       # This can be removed once link updates are picked up by rummager from the message bus.
-      render json: Queries::GetContentCollection.new(
-        document_type: query_params.fetch(:document_type),
-        fields: %w(
-          title
-          content_id
-          publication_state
-          base_path
-          internal_name
-        ),
-        pagination: NullPagination.new
-      ).call
+      document_type = query_params.fetch(:document_type)
+
+      last_update_to_document_type = ContentItem
+        .where(document_type: [document_type, "placeholder_#{document_type}"])
+        .order('updated_at ASC')
+        .select("updated_at")
+        .last
+        .updated_at
+
+      json = Rails.cache.fetch ["linkables", document_type, last_update_to_document_type] do
+        Queries::GetContentCollection.new(
+          document_type: query_params.fetch(:document_type),
+          fields: %w(
+            title
+            content_id
+            publication_state
+            base_path
+            internal_name
+          ),
+          pagination: NullPagination.new
+        ).call.to_json
+      end
+
+      render json: json
     end
 
     def show
