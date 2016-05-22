@@ -32,7 +32,7 @@ private
   end
 
   def presented_payload
-    Presenters::ContentStorePresenter.present(content_item, payload_version, fallback_order: content_store::DEPENDENCY_FALLBACK_ORDER)
+    Presenters::ContentStorePresenter.present(content_item, payload_version, state_fallback_order: content_store::DEPENDENCY_FALLBACK_ORDER)
   end
 
   def payload_version

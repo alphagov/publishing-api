@@ -31,7 +31,15 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   let(:c) { create_link_set }
   let(:d) { create_link_set }
 
-  subject(:expanded_links) { described_class.new(link_set: LinkSet.find_by(content_id: a), fallback_order: fallback_order).links }
+  let(:locale_fallback_order) { "en" }
+
+  subject(:expanded_links) {
+    described_class.new(
+      link_set: LinkSet.find_by(content_id: a),
+      state_fallback_order: state_fallback_order,
+      locale_fallback_order: locale_fallback_order
+    ).links
+  }
 
   context "with content items in a draft state" do
     let!(:draft_a) { create_content_item(a, "/a", "draft") }
@@ -39,7 +47,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     let!(:draft_c) { create_content_item(c, "/c", "draft") }
     let!(:draft_d) { create_content_item(d, "/d", "draft") }
 
-    let(:fallback_order) { [:draft] }
+    let(:state_fallback_order) { [:draft] }
 
     context "a simple non-recursive graph" do
       it "expands the links for node a correctly" do
@@ -173,7 +181,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       context "when requested with a draft state" do
-        let(:fallback_order) { [:draft] }
+        let(:state_fallback_order) { [:draft] }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:related]).to match([
@@ -183,7 +191,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       context "when requested with a published state" do
-        let(:fallback_order) { [:published] }
+        let(:state_fallback_order) { [:published] }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:related]).to match([
@@ -208,7 +216,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       context "when requested with a draft state" do
-        let(:fallback_order) { [:draft] }
+        let(:state_fallback_order) { [:draft] }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
@@ -218,7 +226,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       context "when requested with a published state" do
-        let(:fallback_order) { [:published] }
+        let(:state_fallback_order) { [:published] }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
@@ -235,7 +243,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     # to the draft content store. This means that we need to try to find a
     # draft, but fall back to the published item (if it exists).
     context "when an array of states is provided" do
-      let(:fallback_order) { [:draft, :published] }
+      let(:state_fallback_order) { [:draft, :published] }
 
       before do
         create_link(a, b, "parent")
@@ -262,7 +270,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   end
 
   context "when a link has a 'passthrough_hash'" do
-    let(:fallback_order) { [:draft, :published] }
+    let(:state_fallback_order) { [:draft, :published] }
 
     before do
       create_link(a, b, "parent")
@@ -285,7 +293,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   end
 
   describe "expanding dependees" do
-    let(:fallback_order) { [:draft, :published] }
+    let(:state_fallback_order) { [:draft, :published] }
 
     before do
       create_content_item(a, "/a")

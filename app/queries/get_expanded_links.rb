@@ -5,7 +5,7 @@ module Queries
       lock_version = LockVersion.find_by(target: link_set)
       expanded_link_set = Presenters::Queries::ExpandedLinkSet.new(
         link_set: link_set,
-        fallback_order: [:draft, :published]
+        state_fallback_order: [:draft, :published]
       )
 
       {

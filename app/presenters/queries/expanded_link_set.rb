@@ -1,9 +1,10 @@
 module Presenters
   module Queries
     class ExpandedLinkSet
-      def initialize(link_set:, fallback_order:, visited_link_sets: [], recursing_type: nil)
+      def initialize(link_set:, state_fallback_order:, locale_fallback_order: "en", visited_link_sets: [], recursing_type: nil)
         @link_set = link_set
-        @fallback_order = Array(fallback_order)
+        @state_fallback_order = Array(state_fallback_order)
+        @locale_fallback_order = Array(locale_fallback_order)
         @visited_link_sets = visited_link_sets
         @recursing_type = recursing_type
       end
@@ -18,7 +19,7 @@ module Presenters
 
     private
 
-      attr_reader :fallback_order, :link_set, :visited_link_sets, :recursing_type
+      attr_reader :state_fallback_order, :locale_fallback_order, :link_set, :visited_link_sets, :recursing_type
 
       def top_level?
         visited_link_sets.empty?
@@ -50,7 +51,8 @@ module Presenters
 
         self.class.new(
           link_set: next_link_set,
-          fallback_order: fallback_order,
+          state_fallback_order: state_fallback_order,
+          locale_fallback_order: locale_fallback_order,
           visited_link_sets: (visited_link_sets << link_set),
           recursing_type: type,
         ).links
@@ -110,7 +112,7 @@ module Presenters
       def content_item(target_content_id)
         @content_item ||= {}
 
-        fallback_order.each do |state|
+        state_fallback_order.each do |state|
           @content_item[target_content_id] ||=
             content_item_for_state(state, target_content_id)
         end
