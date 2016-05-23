@@ -56,6 +56,7 @@ module Presenters
       Presenters::Queries::ExpandedLinkSet.new(
         link_set: link_set,
         state_fallback_order: state_fallback_order,
+        locale_fallback_order: locale_fallback_order
       )
     end
 
@@ -65,6 +66,10 @@ module Presenters
 
     def web_content_item
       @web_content_item ||= WebContentItem.new(content_item)
+    end
+
+    def locale_fallback_order
+      [web_content_item.locale, ContentItem::DEFAULT_LOCALE].uniq
     end
 
     def first_published_at
