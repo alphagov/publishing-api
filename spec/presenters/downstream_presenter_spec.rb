@@ -6,10 +6,12 @@ RSpec.describe Presenters::DownstreamPresenter do
   subject(:result) { described_class.present(content_item, state_fallback_order: state_fallback_order) }
 
   describe "V2" do
+    let(:base_path) { "/vat-rates" }
+
     let(:expected) {
       {
         content_id: content_item.content_id,
-        base_path: "/vat-rates",
+        base_path: base_path,
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
         details: { body: "<p>Something about VAT</p>\n" },
@@ -25,7 +27,7 @@ RSpec.describe Presenters::DownstreamPresenter do
         publishing_app: "publisher",
         redirects: [],
         rendering_app: "frontend",
-        routes: [{ path: "/vat-rates", type: "exact" }],
+        routes: [{ path: base_path, type: "exact" }],
         schema_name: "guide",
         title: "VAT rates",
         update_type: "minor"
@@ -33,7 +35,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     }
 
     context "for a live content item" do
-      let(:content_item) { FactoryGirl.create(:live_content_item) }
+      let(:content_item) { FactoryGirl.create(:live_content_item, base_path: base_path) }
       let!(:link_set)    { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
@@ -42,7 +44,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a draft content item" do
-      let(:content_item) { FactoryGirl.create(:draft_content_item) }
+      let(:content_item) { FactoryGirl.create(:draft_content_item, base_path: base_path) }
       let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
@@ -51,7 +53,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a withdrawn content item" do
-      let!(:content_item) { FactoryGirl.create(:withdrawn_content_item) }
+      let!(:content_item) { FactoryGirl.create(:withdrawn_content_item, base_path: base_path) }
       let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "merges in a withdrawal notice" do

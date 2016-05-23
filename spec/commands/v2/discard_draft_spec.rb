@@ -28,6 +28,13 @@ RSpec.describe Commands::V2::DiscardDraft do
         )
       }
 
+      before do
+        FactoryGirl.create(:linkable,
+          content_item: existing_draft_item,
+          base_path: base_path,
+        )
+      end
+
       it "deletes the draft item" do
         expect {
           described_class.call(payload)
@@ -52,6 +59,13 @@ RSpec.describe Commands::V2::DiscardDraft do
         expect(access_limit).to be_nil
         expect(user_facing_version).to be_nil
         expect(lock_version).to be_nil
+      end
+
+      it "deletes the linkable" do
+        described_class.call(payload)
+
+        linkable = Linkable.find_by(base_path: base_path)
+        expect(linkable).to be_nil
       end
 
       it "deletes the draft item from the draft content store" do
@@ -99,6 +113,13 @@ RSpec.describe Commands::V2::DiscardDraft do
             base_path: "/hat-rates",
           )
         }
+
+        before do
+          FactoryGirl.create(:linkable,
+            content_item: published_item,
+            base_path: "/hat-rates",
+          )
+        end
 
         it "increments the lock version of the published item" do
           published_lock_version = LockVersion.find_by!(target: published_item)
@@ -155,6 +176,14 @@ RSpec.describe Commands::V2::DiscardDraft do
           expect(access_limit).to be_nil
           expect(user_facing_version).to be_nil
           expect(lock_version).to be_nil
+        end
+
+        it "does not delete the published linkable" do
+          described_class.call(payload)
+
+          linkable = Linkable.find_by(base_path: "/hat-rates")
+          expect(linkable).not_to be_nil
+          expect(linkable.content_item).to eq(published_item)
         end
 
         it "deletes the draft" do

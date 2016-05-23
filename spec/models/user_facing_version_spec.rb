@@ -35,18 +35,19 @@ RSpec.describe UserFacingVersion do
 
   describe "validations" do
     let(:content_id) { SecureRandom.uuid }
+    let(:base_path) { "/vat-rates" }
 
     let!(:draft) do
-      FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(:draft_content_item,
         content_id: content_id,
+        base_path: base_path,
       )
     end
 
     let!(:live) do
-      FactoryGirl.create(
-        :live_content_item,
+      FactoryGirl.create(:live_content_item,
         content_id: content_id,
+        base_path: base_path,
       )
     end
 
@@ -55,11 +56,17 @@ RSpec.describe UserFacingVersion do
 
     context "when another content item has identical supporting objects" do
       before do
-        FactoryGirl.create(:content_item, user_facing_version: 3)
+        FactoryGirl.create(:content_item,
+          user_facing_version: 3,
+          base_path: base_path,
+        )
       end
 
       let(:content_item) do
-        FactoryGirl.create(:content_item, user_facing_version: 2)
+        FactoryGirl.create(:content_item,
+          user_facing_version: 2,
+          base_path: base_path,
+        )
       end
 
       subject {

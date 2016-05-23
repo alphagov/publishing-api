@@ -46,6 +46,8 @@ module Commands
           raise_command_error(422, message, fields: {})
         end
 
+        delete_linkable(content_item)
+
         Success.new(content_id: content_id)
       end
 
@@ -93,6 +95,10 @@ module Commands
         )
 
         send_downstream(gone)
+      end
+
+      def delete_linkable(content_item)
+        Linkable.find_by(content_item: content_item).try(:destroy)
       end
 
       def send_downstream(downstream_payload)

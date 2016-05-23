@@ -28,7 +28,7 @@ FactoryGirl.define do
       lock_version 1
       state "draft"
       locale "en"
-      base_path "/vat-rates"
+      sequence(:base_path) { |n| "/vat-rates-#{n}" }
       user_facing_version 1
     end
 

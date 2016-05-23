@@ -26,6 +26,13 @@ RSpec.describe Commands::V2::Unpublish do
         )
       end
 
+      before do
+        FactoryGirl.create(:linkable,
+          content_item: live_content_item,
+          base_path: base_path,
+        )
+      end
+
       it "sets the content item's state to `unpublished`" do
         described_class.call(payload)
 
@@ -40,6 +47,13 @@ RSpec.describe Commands::V2::Unpublish do
         expect(unpublishing.type).to eq("gone")
         expect(unpublishing.explanation).to eq("Removed for testing porpoises")
         expect(unpublishing.alternative_path).to eq("/new-path")
+      end
+
+      it "deletes the linkable" do
+        described_class.call(payload)
+
+        linkable = Linkable.find_by(base_path: base_path)
+        expect(linkable).to be_nil
       end
 
       it "sends an unpublishing to the live content store" do
