@@ -6,12 +6,13 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     link_set.content_id
   end
 
-  def create_content_item(content_id, base_path, state = "published")
+  def create_content_item(content_id, base_path, state = "published", locale = "en")
     FactoryGirl.create(
       :content_item,
       content_id: content_id,
       base_path: base_path,
       state: state,
+      locale: locale,
     )
   end
 
@@ -289,6 +290,55 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       expect(expanded_links[:parent]).to match([
         a_hash_including(base_path: "/b", expanded_links: {})
       ])
+    end
+  end
+
+  describe "multiple translations" do
+    let(:state_fallback_order) { [:published] }
+    let(:locale_fallback_order) { %w(ar en) }
+
+    before do
+      create_link(a, b, "organisation")
+      create_content_item(a, "/a", "published", "en")
+      create_content_item(b, "/b", "published", "en")
+    end
+
+    context "when a linked item exists in multiple locales" do
+      let!(:arabic_b) { create_content_item(b, "/b.ar", "published", "ar") }
+
+      it "links to the item in the matching locale" do
+        expect(expanded_links[:organisation]).to match([
+          a_hash_including(base_path: "/b.ar")
+        ])
+      end
+    end
+
+    context "when the item exists in the matching locale but a fallback state" do
+      let(:state_fallback_order) { [:draft, :published] }
+      let!(:arabic_b) { create_content_item(b, "/b.ar", "published", "ar") }
+
+      it "links to the item in the matching locale" do
+        expect(expanded_links[:organisation]).to match([
+          a_hash_including(base_path: "/b.ar")
+        ])
+      end
+    end
+
+    context "when the item exists in the matching state but a fallback locale" do
+      it "links to the item in the fallback locale" do
+        expect(expanded_links[:organisation]).to match([
+          a_hash_including(base_path: "/b")
+        ])
+      end
+    end
+
+    context "when the item exists in a fallback state and locale" do
+      let(:state_fallback_order) { [:draft, :published] }
+      it "links to the item in the fallback locale" do
+        expect(expanded_links[:organisation]).to match([
+          a_hash_including(base_path: "/b")
+        ])
+      end
     end
   end
 

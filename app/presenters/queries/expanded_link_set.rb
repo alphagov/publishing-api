@@ -1,7 +1,7 @@
 module Presenters
   module Queries
     class ExpandedLinkSet
-      def initialize(link_set:, state_fallback_order:, locale_fallback_order: "en", visited_link_sets: [], recursing_type: nil)
+      def initialize(link_set:, state_fallback_order:, locale_fallback_order: ContentItem::DEFAULT_LOCALE, visited_link_sets: [], recursing_type: nil)
         @link_set = link_set
         @state_fallback_order = Array(state_fallback_order)
         @locale_fallback_order = Array(locale_fallback_order)
@@ -110,18 +110,20 @@ module Presenters
       end
 
       def content_item(target_content_id)
+        content_item_filter = ContentItemFilter.new(
+          scope: ContentItem.where(content_id: target_content_id)
+        )
+
         @content_item ||= {}
 
-        state_fallback_order.each do |state|
-          @content_item[target_content_id] ||=
-            content_item_for_state(state, target_content_id)
+        locale_fallback_order.each do |locale|
+          state_fallback_order.each do |state|
+            @content_item[target_content_id] ||=
+              content_item_filter.filter(state: state, locale: locale).first
+          end
         end
 
         @content_item[target_content_id]
-      end
-
-      def content_item_for_state(state, content_id)
-        State.filter(ContentItem.all, name: state).find_by(content_id: content_id)
       end
     end
   end
