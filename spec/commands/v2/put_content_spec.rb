@@ -267,6 +267,19 @@ RSpec.describe Commands::V2::PutContent do
         expect(State.find_by!(content_item: content_item).name).to eq("draft")
         expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(6)
       end
+
+      it "allows the setting of first_published_at" do
+        explicit_first_published = DateTime.new(2016, 05, 23, 1, 1, 1).rfc3339
+        payload[:first_published_at] = explicit_first_published
+
+        described_class.call(payload)
+
+        content_item = ContentItem.last
+
+        expect(content_item).to be_present
+        expect(content_item.content_id).to eq(content_id)
+        expect(content_item.first_published_at).to eq(explicit_first_published)
+      end
     end
 
     context "when creating a draft when there are multiple unpublished and published items" do
