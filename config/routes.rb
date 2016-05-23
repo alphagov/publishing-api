@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       get "/linked/:content_id", to: "link_sets#get_linked"
 
       get "/linkables", to: "content_items#linkables"
+
+      get "/grouped-content-and-links", to: "grouped_content_and_links#index"
     end
   end
 
