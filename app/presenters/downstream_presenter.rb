@@ -1,14 +1,14 @@
 module Presenters
   class DownstreamPresenter
-    def self.present(content_item, fallback_order:)
+    def self.present(content_item, state_fallback_order:)
       link_set = LinkSet.find_by(content_id: content_item.content_id)
-      new(content_item, link_set, fallback_order: fallback_order).present
+      new(content_item, link_set, state_fallback_order: state_fallback_order).present
     end
 
-    def initialize(content_item, link_set, fallback_order:)
+    def initialize(content_item, link_set, state_fallback_order:)
       self.content_item = content_item
       self.link_set = link_set
-      self.fallback_order = fallback_order
+      self.state_fallback_order = state_fallback_order
     end
 
     def present
@@ -25,7 +25,7 @@ module Presenters
 
   private
 
-    attr_accessor :content_item, :link_set, :fallback_order
+    attr_accessor :content_item, :link_set, :state_fallback_order
 
     def symbolized_attributes
       content_item.as_json.symbolize_keys
@@ -55,7 +55,8 @@ module Presenters
     def expanded_link_set_presenter
       Presenters::Queries::ExpandedLinkSet.new(
         link_set: link_set,
-        fallback_order: fallback_order,
+        state_fallback_order: state_fallback_order,
+        locale_fallback_order: locale_fallback_order
       )
     end
 
@@ -65,6 +66,10 @@ module Presenters
 
     def web_content_item
       @web_content_item ||= WebContentItem.new(content_item)
+    end
+
+    def locale_fallback_order
+      [web_content_item.locale, ContentItem::DEFAULT_LOCALE].uniq
     end
 
     def first_published_at

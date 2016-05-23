@@ -6,12 +6,13 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     link_set.content_id
   end
 
-  def create_content_item(content_id, base_path, state = "published")
+  def create_content_item(content_id, base_path, state = "published", locale = "en")
     FactoryGirl.create(
       :content_item,
       content_id: content_id,
       base_path: base_path,
       state: state,
+      locale: locale,
     )
   end
 
@@ -31,7 +32,15 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   let(:c) { create_link_set }
   let(:d) { create_link_set }
 
-  subject(:expanded_links) { described_class.new(link_set: LinkSet.find_by(content_id: a), fallback_order: fallback_order).links }
+  let(:locale_fallback_order) { "en" }
+
+  subject(:expanded_links) {
+    described_class.new(
+      link_set: LinkSet.find_by(content_id: a),
+      state_fallback_order: state_fallback_order,
+      locale_fallback_order: locale_fallback_order
+    ).links
+  }
 
   context "with content items in a draft state" do
     let!(:draft_a) { create_content_item(a, "/a", "draft") }
@@ -39,7 +48,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     let!(:draft_c) { create_content_item(c, "/c", "draft") }
     let!(:draft_d) { create_content_item(d, "/d", "draft") }
 
-    let(:fallback_order) { [:draft] }
+    let(:state_fallback_order) { [:draft] }
 
     context "a simple non-recursive graph" do
       it "expands the links for node a correctly" do
@@ -173,7 +182,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       context "when requested with a draft state" do
-        let(:fallback_order) { [:draft] }
+        let(:state_fallback_order) { [:draft] }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:related]).to match([
@@ -183,7 +192,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       context "when requested with a published state" do
-        let(:fallback_order) { [:published] }
+        let(:state_fallback_order) { [:published] }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:related]).to match([
@@ -208,7 +217,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       context "when requested with a draft state" do
-        let(:fallback_order) { [:draft] }
+        let(:state_fallback_order) { [:draft] }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
@@ -218,7 +227,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       context "when requested with a published state" do
-        let(:fallback_order) { [:published] }
+        let(:state_fallback_order) { [:published] }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
@@ -235,7 +244,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     # to the draft content store. This means that we need to try to find a
     # draft, but fall back to the published item (if it exists).
     context "when an array of states is provided" do
-      let(:fallback_order) { [:draft, :published] }
+      let(:state_fallback_order) { [:draft, :published] }
 
       before do
         create_link(a, b, "parent")
@@ -262,7 +271,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   end
 
   context "when a link has a 'passthrough_hash'" do
-    let(:fallback_order) { [:draft, :published] }
+    let(:state_fallback_order) { [:draft, :published] }
 
     before do
       create_link(a, b, "parent")
@@ -284,8 +293,57 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     end
   end
 
+  describe "multiple translations" do
+    let(:state_fallback_order) { [:published] }
+    let(:locale_fallback_order) { %w(ar en) }
+
+    before do
+      create_link(a, b, "organisation")
+      create_content_item(a, "/a", "published", "en")
+      create_content_item(b, "/b", "published", "en")
+    end
+
+    context "when a linked item exists in multiple locales" do
+      let!(:arabic_b) { create_content_item(b, "/b.ar", "published", "ar") }
+
+      it "links to the item in the matching locale" do
+        expect(expanded_links[:organisation]).to match([
+          a_hash_including(base_path: "/b.ar")
+        ])
+      end
+    end
+
+    context "when the item exists in the matching locale but a fallback state" do
+      let(:state_fallback_order) { [:draft, :published] }
+      let!(:arabic_b) { create_content_item(b, "/b.ar", "published", "ar") }
+
+      it "links to the item in the matching locale" do
+        expect(expanded_links[:organisation]).to match([
+          a_hash_including(base_path: "/b.ar")
+        ])
+      end
+    end
+
+    context "when the item exists in the matching state but a fallback locale" do
+      it "links to the item in the fallback locale" do
+        expect(expanded_links[:organisation]).to match([
+          a_hash_including(base_path: "/b")
+        ])
+      end
+    end
+
+    context "when the item exists in a fallback state and locale" do
+      let(:state_fallback_order) { [:draft, :published] }
+      it "links to the item in the fallback locale" do
+        expect(expanded_links[:organisation]).to match([
+          a_hash_including(base_path: "/b")
+        ])
+      end
+    end
+  end
+
   describe "expanding dependees" do
-    let(:fallback_order) { [:draft, :published] }
+    let(:state_fallback_order) { [:draft, :published] }
 
     before do
       create_content_item(a, "/a")

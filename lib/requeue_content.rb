@@ -22,7 +22,7 @@ private
   def publish_to_queue(content_item)
     queue_payload = Presenters::MessageQueuePresenter.present(
       content_item,
-      fallback_order: [:published],
+      state_fallback_order: [:published],
       # FIXME: Rummager currently only listens to the message queue for the
       # update type 'links'. This behaviour will eventually be updated so that
       # it listens to other update types as well. This will happen as part of

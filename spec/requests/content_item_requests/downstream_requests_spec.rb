@@ -99,7 +99,7 @@ RSpec.describe "Downstream requests", type: :request do
         v2_content_item.except(:update_type).merge(
           links: Presenters::Queries::LinkSetPresenter.new(link_set).links
         ).merge(
-          expanded_links: Presenters::Queries::ExpandedLinkSet.new(link_set: link_set, fallback_order: [:draft, :published]).links
+          expanded_links: Presenters::Queries::ExpandedLinkSet.new(link_set: link_set, state_fallback_order: [:draft, :published]).links
         )
       end
 

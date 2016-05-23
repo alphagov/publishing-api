@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::DownstreamPresenter do
-  let(:fallback_order) { [] }
+  let(:state_fallback_order) { [] }
 
-  subject(:result) { described_class.present(content_item, fallback_order: fallback_order) }
+  subject(:result) { described_class.present(content_item, state_fallback_order: state_fallback_order) }
 
   describe "V2" do
     let(:expected) {
@@ -79,7 +79,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       it "expands the links for the content item" do
-        result = described_class.present(a, fallback_order: [:draft])
+        result = described_class.present(a, state_fallback_order: [:draft])
 
         expect(result[:expanded_links]).to eq(related: [{
           content_id: b.content_id,

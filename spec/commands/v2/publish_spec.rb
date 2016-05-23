@@ -167,7 +167,7 @@ RSpec.describe Commands::V2::Publish do
 
       it "presents the content item for the downstream request" do
         expect(Presenters::ContentStorePresenter).to receive(:present)
-          .with(draft_item, an_instance_of(Fixnum), fallback_order: [:published])
+          .with(draft_item, an_instance_of(Fixnum), state_fallback_order: [:published])
 
         described_class.call(payload)
       end
