@@ -37,6 +37,7 @@ module Commands
         State.supersede(previous_item) if previous_item
 
         clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+        remove_unpublishing(previous_item) if previous_item
 
         set_public_updated_at(content_item, previous_item, update_type)
         set_first_published_at(content_item)
@@ -148,6 +149,11 @@ module Commands
           payload: { content_item_id: content_item.id, payload_version: event.id },
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
         )
+      end
+
+      def remove_unpublishing(content_item)
+        unpublishing = Unpublishing.find_by(content_item: content_item)
+        unpublishing.destroy if unpublishing
       end
     end
   end
