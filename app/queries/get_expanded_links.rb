@@ -1,11 +1,12 @@
 module Queries
   class GetExpandedLinks
-    def self.call(content_id)
+    def self.call(content_id, locale)
       link_set = find_link_set(content_id)
       lock_version = LockVersion.find_by(target: link_set)
       expanded_link_set = Presenters::Queries::ExpandedLinkSet.new(
         link_set: link_set,
-        state_fallback_order: [:draft, :published]
+        state_fallback_order: [:draft, :published],
+        locale_fallback_order: [locale, ContentItem::DEFAULT_LOCALE].compact
       )
 
       {

@@ -5,7 +5,7 @@ module V2
     end
 
     def expanded_links
-      render json: Queries::GetExpandedLinks.call(content_id)
+      render json: Queries::GetExpandedLinks.call(content_id, params[:locale])
     end
 
     def patch_links
