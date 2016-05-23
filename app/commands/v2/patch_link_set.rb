@@ -51,10 +51,6 @@ module Commands
         payload[:links]
       end
 
-      def locale
-        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
-      end
-
       def previous_version_number
         payload[:previous_version].to_i if payload[:previous_version]
       end
@@ -81,14 +77,14 @@ module Commands
         return unless downstream
 
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        draft_content_item = filter.filter(state: "draft", locale: locale).first
-        live_content_item = filter.filter(state: "published", locale: locale).first
+        draft_content_items = filter.filter(state: "draft")
+        live_content_items = filter.filter(state: "published")
 
-        if draft_content_item
+        draft_content_items.each do |draft_content_item|
           send_to_content_store(draft_content_item, Adapters::DraftContentStore)
         end
 
-        if live_content_item
+        live_content_items.each do |live_content_item|
           send_to_content_store(live_content_item, Adapters::ContentStore)
           send_to_message_queue(live_content_item)
         end

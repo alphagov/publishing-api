@@ -214,36 +214,30 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload)
     end
 
-    context "when a locale is specified" do
-      before do
-        payload[:locale] = "fr"
+    context "when a draft content item has multiple translations" do
+      let!(:french_draft_content_item) do
+        FactoryGirl.create(:draft_content_item,
+          content_id: content_id,
+          base_path: "/french-path",
+          title: "French Title",
+          locale: "fr",
+        )
       end
 
-      context "and a draft content item exists for that locale" do
-        let!(:draft_content_item) do
-          FactoryGirl.create(:draft_content_item,
-            content_id: content_id,
-            base_path: "/french-path",
-            title: "French Title",
-            locale: "fr",
-          )
+      it "sends the draft content items for all locales downstream" do
+        [draft_content_item, french_draft_content_item].each do |ci|
+          expect(PresentedContentStoreWorker).to receive(:perform_async)
+            .with(
+              content_store: Adapters::DraftContentStore,
+              payload: {
+                content_item_id: ci.id,
+                payload_version: an_instance_of(Fixnum)
+              },
+              request_uuid: "12345-67890"
+            )
         end
 
-        it "sends the draft content item for that locale downstream" do
-          expect(Presenters::ContentStorePresenter).to receive(:present)
-            .with(draft_content_item, an_instance_of(Fixnum), state_fallback_order: [:draft, :published])
-
-          described_class.call(payload)
-        end
-      end
-
-      context "and a draft content item does not exist for that locale" do
-        it "does not send a downstream request" do
-          expect(PresentedContentStoreWorker).not_to receive(:perform_async)
-          expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
-
-          described_class.call(payload)
-        end
+        described_class.call(payload)
       end
     end
 
@@ -300,46 +294,35 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload)
     end
 
-    context "when a locale is specified" do
-      before do
-        payload[:locale] = "fr"
+    context "when a live content item has multiple translations" do
+      let!(:french_live_content_item) do
+        FactoryGirl.create(:live_content_item,
+          content_id: content_id,
+          base_path: "/french-path",
+          title: "French Title",
+          locale: "fr",
+        )
       end
 
-      context "and a live content item exists for that locale" do
-        let!(:live_content_item) do
-          FactoryGirl.create(:live_content_item,
-            content_id: content_id,
-            base_path: "/french-path",
-            title: "French Title",
-            locale: "fr",
-          )
-        end
-
-        it "sends the live content item for that locale downstream" do
+      it "sends the live content item for all locales downstream" do
+        [live_content_item, french_live_content_item].each do |ci|
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::ContentStore,
-              payload: a_hash_including(:content_item_id, :payload_version),
-              request_uuid: "12345-67890",
+              payload: {
+                content_item_id: ci.id,
+                payload_version: an_instance_of(Fixnum)
+              },
+              request_uuid: "12345-67890"
             )
 
           expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-            .with(hash_including(title: "French Title"))
-
-          described_class.call(payload)
+            .with(hash_including(title: ci.title))
         end
-      end
 
-      context "and a live content item does not exist for that locale" do
-        it "does not send a downstream request" do
-          expect(PresentedContentStoreWorker).not_to receive(:perform_async)
-          expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
-
-          described_class.call(payload)
-        end
+        described_class.call(payload)
       end
     end
-
 
     context "when 'downstream' is false" do
       it "does not send a request to either content store" do
