@@ -7,7 +7,8 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   let!(:content_item) do
     FactoryGirl.create(
       :live_content_item,
-      content_id: content_id
+      content_id: content_id,
+      base_path: "/vat-rates"
     )
   end
 
