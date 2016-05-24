@@ -11,7 +11,7 @@ module Presenters
 
       def links
         if top_level?
-          dependees.merge(dependents)
+          dependees.merge(dependents).merge(translations)
         else
           dependees
         end
@@ -124,6 +124,10 @@ module Presenters
         end
 
         @content_item[target_content_id]
+      end
+
+      def translations
+        AvailableTranslations.new(link_set.content_id, state_fallback_order).translations
       end
     end
   end
