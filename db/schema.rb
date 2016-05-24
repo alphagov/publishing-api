@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517134907) do
+ActiveRecord::Schema.define(version: 20160524210649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20160517134907) do
     t.datetime "updated_at"
   end
 
+  add_index "linkables", ["base_path"], name: "index_linkables_on_base_path", using: :btree
   add_index "linkables", ["document_type"], name: "index_linkables_on_document_type", using: :btree
 
   create_table "links", force: :cascade do |t|
