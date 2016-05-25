@@ -28,8 +28,9 @@ RSpec.describe Commands::V2::PutContent do
     }
 
     it "sends to the draft content store" do
-      expect(PresentedContentStoreWorker).to receive(:perform_async)
+      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
         .with(
+          "content_store_high",
           content_store: Adapters::DraftContentStore,
           payload: a_hash_including(:content_item_id, :payload_version),
           request_uuid: "12345-67890",
@@ -57,8 +58,9 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     it "does not send to the live content store" do
-      expect(PresentedContentStoreWorker).not_to receive(:perform_async)
+      expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
         .with(
+          "content_store_high",
           content_store: Adapters::ContentStore,
           payload: a_hash_including(:content_item_id, :payload_version),
         )
@@ -68,7 +70,23 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the 'downstream' parameter is false" do
       it "does not send any requests to any content store" do
-        expect(PresentedContentStoreWorker).not_to receive(:perform_async)
+        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
+
+        described_class.call(payload, downstream: false)
+      end
+    end
+
+    context "when the 'bulk_publishing' flag is set" do
+      it "enqueues in the correct queue" do
+        expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+          .with(
+            "content_store_low",
+            content_store: Adapters::DraftContentStore,
+            payload: a_hash_including(:content_item_id, :payload_version),
+            request_uuid: "12345-67890",
+          )
+
+        described_class.call(payload.merge(bulk_publishing: true))
       end
     end
 
@@ -186,8 +204,9 @@ RSpec.describe Commands::V2::PutContent do
 
         it "sends a create request to the draft content store for the redirect" do
           allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: base_path)
-          expect(PresentedContentStoreWorker).to receive(:perform_async)
+          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
             .with(
+              "content_store_high",
               content_store: Adapters::DraftContentStore,
               payload: a_hash_including(:content_item_id, :payload_version),
               request_uuid: "12345-67890",
@@ -537,8 +556,9 @@ RSpec.describe Commands::V2::PutContent do
 
         it "sends a create request to the draft content store for the redirect" do
           allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: "/vat-rates")
-          expect(PresentedContentStoreWorker).to receive(:perform_async)
+          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
             .with(
+              "content_store_high",
               content_store: Adapters::DraftContentStore,
               payload: a_hash_including(:content_item_id, :payload_version),
               request_uuid: "12345-67890",
