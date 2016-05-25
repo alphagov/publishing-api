@@ -24,7 +24,8 @@ RSpec.describe DependencyResolutionWorker, :performm do
 
   it "the dependees get queued in the content store worker" do
     allow_any_instance_of(Queries::ContentDependencies).to receive(:call).and_return([content_item.content_id])
-    expect(PresentedContentStoreWorker).to receive(:perform_async).with(
+    expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue).with(
+      "content_store_low",
       content_store: Adapters::DraftContentStore,
       payload: a_hash_including(:content_item_id, :payload_version),
       request_uuid: "123",
