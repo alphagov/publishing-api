@@ -63,7 +63,7 @@ private
   end
 
   def content_item_id
-    payload[:content_item_id]
+    payload[:content_item_id] || payload[:content_item]
   end
 
   def content_item
