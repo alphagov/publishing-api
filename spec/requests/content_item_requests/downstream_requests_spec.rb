@@ -64,7 +64,9 @@ RSpec.describe "Downstream requests", type: :request do
       v2_content_item
         .except(:update_type)
         .merge(links: {})
-        .merge(expanded_links: {})
+        .merge(expanded_links: {
+          available_translations: available_translations
+        })
     }
 
     it "only sends to the draft content store" do
@@ -105,14 +107,14 @@ RSpec.describe "Downstream requests", type: :request do
       it "sends to the draft content store" do
         allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
 
-        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        put "/v2/content/#{content_id}", v2_content_item.to_json
+        expect(PublishingAPI.service(:draft_content_store)).to have_received(:put_content_item)
           .with(
             base_path: base_path,
             content_item: content_item_for_draft_content_store
               .merge(payload_version: anything)
           )
 
-        put "/v2/content/#{content_id}", v2_content_item.to_json
         expect(response).to be_ok, response.body
       end
 

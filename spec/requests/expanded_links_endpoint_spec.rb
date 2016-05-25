@@ -1,18 +1,38 @@
 require "rails_helper"
 
 RSpec.describe "GET /v2/expanded-links/:id", type: :request do
+  let(:translations) {
+    [
+      {
+        "analytics_identifier" => "GDS01",
+        "api_url" => "http://www.dev.gov.uk/api/content/some-path",
+        "base_path" => "/some-path",
+        "content_id" => "10529c0d-f4b3-4c7d-9589-35ba6a6d1a12",
+        "description" => "Some description",
+        "locale" => "en",
+        "title" => "Some title",
+        "web_url" => "http://www.dev.gov.uk/some-path"
+      }
+    ]
+  }
+
+  let(:content_item) {
+    FactoryGirl.create(:content_item,
+      state: "published",
+      format: "placeholder",
+      title: "Some title",
+      base_path: "/some-path",
+      description: "Some description",
+      content_id: "10529c0d-f4b3-4c7d-9589-35ba6a6d1a12"
+    )
+  }
+
   it "returns expanded links" do
     organisation = FactoryGirl.create(:content_item,
       state: "published",
       format: "organisation",
       base_path: "/my-super-org",
       content_id: "9b5ae6f5-f127-4843-9333-c157a404dd2d",
-    )
-
-    content_item = FactoryGirl.create(:content_item,
-      state: "published",
-      format: "placeholder",
-      title: "Some title",
     )
 
     link_set = FactoryGirl.create(:link_set,
@@ -39,18 +59,13 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
             "web_url" => "http://www.dev.gov.uk/my-super-org",
             "expanded_links" => {},
           }
-        ]
+        ],
+        "available_translations" => translations,
       }
     )
   end
 
-  it "returns empty expanded links if there are no links" do
-    content_item = FactoryGirl.create(:content_item,
-      state: "published",
-      format: "placeholder",
-      title: "Some title",
-    )
-
+  it "returns only translations if there are no links" do
     link_set = FactoryGirl.create(:link_set,
       content_id: content_item.content_id,
     )
@@ -60,17 +75,13 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     expect(parsed_response).to eql(
       "version" => 0,
       "content_id" => content_item.content_id,
-      "expanded_links" => {},
+      "expanded_links" => {
+        "available_translations" => translations,
+      },
     )
   end
 
   it "returns a version if the link set has a version" do
-    content_item = FactoryGirl.create(:content_item,
-      state: "published",
-      format: "placeholder",
-      title: "Some title",
-    )
-
     link_set = FactoryGirl.create(:link_set,
       content_id: content_item.content_id,
     )
@@ -82,7 +93,9 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     expect(parsed_response).to eql(
       "version" => 11,
       "content_id" => content_item.content_id,
-      "expanded_links" => {},
+      "expanded_links" => {
+        "available_translations" => translations,
+      },
     )
   end
 

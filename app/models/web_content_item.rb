@@ -1,16 +1,14 @@
 require "forwardable"
 
 class WebContentItem
-  NullLocation = Struct.new(:base_path)
-  NullTranslation = Struct.new(:locale)
-
-  attr_reader :content_item, :location, :translation
   extend Forwardable
 
-  def initialize(content_item)
+  attr_reader :content_item, :base_path, :locale
+
+  def initialize(content_item, base_path: nil, locale: nil)
     @content_item = content_item
-    @location = Location.find_by(content_item: content_item) || NullLocation.new
-    @translation = Translation.find_by(content_item: content_item) || NullTranslation.new
+    @base_path = base_path || Location.find_by(content_item: content_item).try(:base_path)
+    @locale = locale || Translation.find_by(content_item: content_item).try(:locale)
   end
 
   CONTENT_ITEM_METHODS = [
@@ -18,8 +16,6 @@ class WebContentItem
   ]
 
   def_delegators :@content_item, *CONTENT_ITEM_METHODS
-  def_delegators :@location, :base_path
-  def_delegators :@translation, :locale
 
   def api_url
     return unless base_path

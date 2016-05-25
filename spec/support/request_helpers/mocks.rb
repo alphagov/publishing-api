@@ -56,8 +56,25 @@ module RequestHelpers
         links: {
           organisations: ["30986e26-f504-4e14-a93f-a9593c34a8d9"]
         },
-        expanded_links: {},
+        expanded_links: {
+          available_translations: available_translations
+        }
       }
+    end
+
+    def available_translations
+      [
+        {
+          analytics_identifier: "GDS01",
+          api_url: "http://www.dev.gov.uk/api/content/vat-rates",
+          base_path: "/vat-rates",
+          content_id: content_id,
+          description: "VAT rates for goods and services",
+          locale: "en",
+          title: "VAT rates",
+          web_url: "http://www.dev.gov.uk/vat-rates"
+        }
+      ]
     end
 
     def redirect_content_item

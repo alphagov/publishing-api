@@ -83,17 +83,29 @@ RSpec.describe Presenters::DownstreamPresenter do
       it "expands the links for the content item" do
         result = described_class.present(a, state_fallback_order: [:draft])
 
-        expect(result[:expanded_links]).to eq(related: [{
-          content_id: b.content_id,
-          base_path: "/b",
-          title: "VAT rates",
-          description: "VAT rates for goods and services",
-          locale: "en",
-          api_url: "http://www.dev.gov.uk/api/content/b",
-          web_url: "http://www.dev.gov.uk/b",
-          analytics_identifier: "GDS01",
-          expanded_links: {},
-        }])
+        expect(result[:expanded_links]).to eq(
+          related: [{
+            content_id: b.content_id,
+            base_path: "/b",
+            title: "VAT rates",
+            description: "VAT rates for goods and services",
+            locale: "en",
+            api_url: "http://www.dev.gov.uk/api/content/b",
+            web_url: "http://www.dev.gov.uk/b",
+            analytics_identifier: "GDS01",
+            expanded_links: {},
+          }],
+          available_translations: [{
+            analytics_identifier: "GDS01",
+            api_url: "http://www.dev.gov.uk/api/content/a",
+            base_path: "/a",
+            content_id: a.content_id,
+            description: "VAT rates for goods and services",
+            locale: "en",
+            title: "VAT rates",
+            web_url: "http://www.dev.gov.uk/a",
+          }],
+        )
       end
     end
 
