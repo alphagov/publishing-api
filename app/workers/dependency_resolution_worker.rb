@@ -1,5 +1,8 @@
 class DependencyResolutionWorker
   include Sidekiq::Worker
+  include PerformAsyncInQueue
+
+  sidekiq_options queue: :dependency_resolution
 
   def perform(args = {})
     assign_attributes(args.deep_symbolize_keys)

@@ -1,8 +1,12 @@
 class PresentedContentStoreWorker
   attr_reader :params, :request_uuid
   include Sidekiq::Worker
+  include PerformAsyncInQueue
 
-  sidekiq_options queue: :default
+  HIGH_QUEUE = "content_store_high".freeze
+  LOW_QUEUE = "content_store_low".freeze
+
+  sidekiq_options queue: HIGH_QUEUE
 
   def perform(args = {})
     assing_attributes(args.deep_symbolize_keys)
