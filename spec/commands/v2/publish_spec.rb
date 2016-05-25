@@ -170,8 +170,9 @@ RSpec.describe Commands::V2::Publish do
 
       it "sends a payload downstream asynchronously" do
         expect(PresentedContentStoreWorker)
-          .to receive(:perform_async)
+          .to receive(:perform_async_in_queue)
           .with(
+            "content_store_high",
             content_store: Adapters::ContentStore,
             payload: a_hash_including(:content_item_id, :payload_version),
             request_uuid: "12345-67890",
@@ -243,8 +244,9 @@ RSpec.describe Commands::V2::Publish do
 
           it "preserves the public_updated_at value from the last live item" do
             expect(PresentedContentStoreWorker)
-              .to receive(:perform_async)
+              .to receive(:perform_async_in_queue)
               .with(
+                "content_store_high",
                 content_store: Adapters::ContentStore,
                 payload: a_hash_including(:content_item_id, :payload_version),
                 request_uuid: "12345-67890",
@@ -266,8 +268,9 @@ RSpec.describe Commands::V2::Publish do
 
           it "uses the stored timestamp for major or minor" do
             expect(PresentedContentStoreWorker)
-              .to receive(:perform_async)
+              .to receive(:perform_async_in_queue)
               .with(
+                "content_store_low",
                 content_store: Adapters::ContentStore,
                 payload: a_hash_including(:content_item_id, :payload_version),
                 request_uuid: "12345-67890",

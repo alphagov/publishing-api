@@ -150,7 +150,10 @@ module Commands
 
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)
 
-        PresentedContentStoreWorker.perform_async(
+        queue = update_type == 'republish' ? PresentedContentStoreWorker::LOW_QUEUE : PresentedContentStoreWorker::HIGH_QUEUE
+
+        PresentedContentStoreWorker.perform_async_in_queue(
+          queue,
           content_store: Adapters::ContentStore,
           payload: { content_item_id: content_item.id, payload_version: event.id },
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id]
