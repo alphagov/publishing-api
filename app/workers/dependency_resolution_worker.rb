@@ -1,5 +1,8 @@
 class DependencyResolutionWorker
   include Sidekiq::Worker
+  include PerformAsyncInQueue
+
+  sidekiq_options queue: :dependency_resolution
 
   def perform(args = {})
     assign_attributes(args.deep_symbolize_keys)
@@ -34,7 +37,8 @@ private
 
     return unless latest_content_item
 
-    PresentedContentStoreWorker.perform_async(
+    PresentedContentStoreWorker.perform_async_in_queue(
+      PresentedContentStoreWorker::LOW_QUEUE,
       content_store: content_store,
       payload: { content_item_id: latest_content_item.id, payload_version: payload_version },
       request_uuid: request_uuid,

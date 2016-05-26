@@ -230,13 +230,19 @@ module Commands
         )
       end
 
+      def content_store_queue
+        payload.fetch(:bulk_publishing, false) ? PresentedContentStoreWorker::LOW_QUEUE : PresentedContentStoreWorker::HIGH_QUEUE
+      end
+
       def send_downstream(content_item)
         return unless downstream
 
         message = "Enqueuing PresentedContentStoreWorker job with "
         message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
         logger.info message
-        PresentedContentStoreWorker.perform_async(
+
+        PresentedContentStoreWorker.perform_async_in_queue(
+          content_store_queue,
           content_store: Adapters::DraftContentStore,
           payload: { content_item_id: content_item.id, payload_version: event.id },
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],

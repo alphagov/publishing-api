@@ -197,14 +197,27 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends a request to the draft content store" do
-      expect(PresentedContentStoreWorker).to receive(:perform_async)
+      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
         .with(
+          "content_store_high",
           content_store: Adapters::DraftContentStore,
           payload: a_hash_including(:content_item_id, :payload_version),
           request_uuid: "12345-67890",
         )
 
       described_class.call(payload)
+    end
+
+    it "sends a low priority request to the draft content store for bulk publishing" do
+      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+        .with(
+          "content_store_low",
+          content_store: Adapters::DraftContentStore,
+          payload: a_hash_including(:content_item_id, :payload_version),
+          request_uuid: "12345-67890",
+        )
+
+      described_class.call(payload.merge(bulk_publishing: true))
     end
 
     it "presents the draft content item for the downstream request" do
@@ -226,8 +239,9 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       it "sends the draft content items for all locales downstream" do
         [draft_content_item, french_draft_content_item].each do |ci|
-          expect(PresentedContentStoreWorker).to receive(:perform_async)
+          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
             .with(
+              "content_store_high",
               content_store: Adapters::DraftContentStore,
               payload: {
                 content_item_id: ci.id,
@@ -243,7 +257,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     context "when 'downstream' is false" do
       it "does not send a request to either content store" do
-        expect(PresentedContentStoreWorker).not_to receive(:perform_async)
+        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
 
@@ -264,14 +278,27 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends a request to the live content store" do
-      expect(PresentedContentStoreWorker).to receive(:perform_async)
+      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
         .with(
+          "content_store_high",
           content_store: Adapters::ContentStore,
           payload: a_hash_including(:content_item_id, :payload_version),
           request_uuid: "12345-67890",
         )
 
       described_class.call(payload)
+    end
+
+    it "sends a low priority request to the live content store for bulk publishing" do
+      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+        .with(
+          "content_store_low",
+          content_store: Adapters::ContentStore,
+          payload: a_hash_including(:content_item_id, :payload_version),
+          request_uuid: "12345-67890",
+        )
+
+      described_class.call(payload.merge(bulk_publishing: true))
     end
 
     it "presents the live content item for the downstream request" do
@@ -306,8 +333,9 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       it "sends the live content item for all locales downstream" do
         [live_content_item, french_live_content_item].each do |ci|
-          expect(PresentedContentStoreWorker).to receive(:perform_async)
+          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
             .with(
+              "content_store_high",
               content_store: Adapters::ContentStore,
               payload: {
                 content_item_id: ci.id,
@@ -328,7 +356,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       it "does not send a request to either content store" do
         expect(Adapters::DraftContentStore).not_to receive(:put_content_item)
         expect(Adapters::ContentStore).not_to receive(:put_content_item)
-        expect(PresentedContentStoreWorker).not_to receive(:perform_async)
+        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
         expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
         described_class.call(payload, downstream: false)
       end

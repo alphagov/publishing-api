@@ -90,8 +90,13 @@ module Commands
         end
       end
 
+      def content_store_queue
+        payload.fetch(:bulk_publishing, false) ? PresentedContentStoreWorker::LOW_QUEUE : PresentedContentStoreWorker::HIGH_QUEUE
+      end
+
       def send_to_content_store(content_item, content_store)
-        PresentedContentStoreWorker.perform_async(
+        PresentedContentStoreWorker.perform_async_in_queue(
+          content_store_queue,
           content_store: content_store,
           payload: { content_item_id: content_item.id, payload_version: event.id },
           request_uuid: GdsApi::GovukHeaders.headers[:govuk_request_id],
