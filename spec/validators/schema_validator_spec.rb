@@ -17,9 +17,9 @@ RSpec.describe SchemaValidator do
 
   context "schema" do
     let(:schema) { nil }
-    let(:payload) { { format: 'test' } }
+    let(:payload) { { schema_name: 'test' } }
 
-    it "logs to airbrake with an unknown format" do
+    it "logs to airbrake with an unknown schema_name" do
       expect(Airbrake).to receive(:notify_or_ignore)
         .with(an_instance_of(Errno::ENOENT), a_hash_including(:parameters))
       validator.validate

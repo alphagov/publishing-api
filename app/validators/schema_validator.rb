@@ -25,15 +25,15 @@ private
   end
 
   def schema
-    @schema || File.read("govuk-content-schemas/formats/#{format}/publisher_v2/#{type}.json")
+    @schema || File.read("govuk-content-schemas/formats/#{schema_name}/publisher_v2/#{type}.json")
   rescue Errno::ENOENT => error
     Airbrake.notify_or_ignore(error, parameters: {
-      explanation: "format #{format} or type #{type} is not known"
+      explanation: "schema_name #{schema_name} or type #{type} is not known"
     })
     return {}
   end
 
-  def format
-    payload[:format]
+  def schema_name
+    payload[:schema_name] || payload[:format]
   end
 end

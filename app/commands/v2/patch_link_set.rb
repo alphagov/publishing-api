@@ -114,15 +114,15 @@ module Commands
         PublishingAPI.service(:queue_publisher).send_message(payload)
       end
 
-      def format
+      def schema_name
         Queries::GetLatest.call(
           ContentItem.where(content_id: content_id)
-        ).last.try(:format)
+        ).limit(1).pluck(:schema_name).last
       end
 
       def validate_schema
         SchemaValidator.new(
-          payload.merge(format: format),
+          payload.merge(schema_name: schema_name),
           type: :links
         ).validate
       end
