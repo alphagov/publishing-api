@@ -3,6 +3,7 @@ module Commands
     class PatchLinkSet < BaseCommand
       def call
         raise_unless_links_hash_is_provided
+        validate_schema
 
         link_set = LinkSet.find_by(content_id: content_id)
 
@@ -111,6 +112,19 @@ module Commands
         )
 
         PublishingAPI.service(:queue_publisher).send_message(payload)
+      end
+
+      def format
+        Queries::GetLatest.call(
+          ContentItem.where(content_id: content_id)
+        ).last.try(:format)
+      end
+
+      def validate_schema
+        SchemaValidator.new(
+          payload.merge(format: format),
+          type: :links
+        ).validate
       end
     end
   end

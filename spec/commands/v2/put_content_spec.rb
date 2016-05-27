@@ -780,5 +780,13 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     it_behaves_like TransactionalCommand
+
+    it "validate against schema" do
+      allow(SchemaValidator).to receive(:new).and_return(double('validator', validate: true))
+      expect(SchemaValidator).to receive(:new)
+        .with(a_hash_including(format: "guide"), type: :schema)
+
+      described_class.call(payload)
+    end
   end
 end

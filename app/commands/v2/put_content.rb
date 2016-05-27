@@ -3,6 +3,7 @@ module Commands
     class PutContent < BaseCommand
       def call
         raise_if_links_is_provided
+        validate_schema
 
         PathReservation.reserve_base_path!(base_path, publishing_app) if base_path_required?
         content_item = find_previously_drafted_content_item
@@ -266,6 +267,10 @@ module Commands
             }
           }
         )
+      end
+
+      def validate_schema
+        SchemaValidator.new(payload, type: :schema).validate
       end
     end
   end
