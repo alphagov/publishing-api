@@ -78,7 +78,8 @@ module Commands
         return unless downstream
 
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        draft_content_items = filter.filter(state: "draft")
+        draft_content_items = Queries::GetLatest.call(
+          filter.filter(state: %w{draft published}))
         live_content_items = filter.filter(state: "published")
 
         draft_content_items.each do |draft_content_item|

@@ -189,10 +189,16 @@ RSpec.describe "Downstream requests", type: :request do
         )
       end
 
-      it "only sends to the live content store" do
-        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).never
-        expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
+      it "sends the live item to both content stores" do
+        allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
         allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
+
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(
+            base_path: base_path,
+            content_item: content_item_for_live_content_store
+              .merge(payload_version: anything)
+          )
 
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
           .with(
