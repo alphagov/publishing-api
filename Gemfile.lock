@@ -129,6 +129,8 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.3)
+    json-schema (2.5.2)
+      addressable (~> 2.3.8)
     jwt (1.5.2)
     kgio (2.9.3)
     link_header (0.0.8)
@@ -368,6 +370,7 @@ DEPENDENCIES
   gds-sso (= 11.2.1)
   govuk-client-url_arbiter (= 0.0.3)
   govuk-lint
+  json-schema
   logstasher (= 0.6.2)
   pact
   pact_broker-client
