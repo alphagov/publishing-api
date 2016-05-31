@@ -19,7 +19,7 @@ private
     JSON::Validator.validate!(schema, payload)
   rescue JSON::Schema::ValidationError => error
     Airbrake.notify_or_ignore(error, parameters: {
-      explanation: "schema validation error"
+      explanation: "#{payload} schema validation error"
     })
     false
   end
@@ -28,7 +28,7 @@ private
     @schema || File.read("govuk-content-schemas/formats/#{schema_name}/publisher_v2/#{type}.json")
   rescue Errno::ENOENT => error
     Airbrake.notify_or_ignore(error, parameters: {
-      explanation: "schema_name #{schema_name} or type #{type} is not known"
+      explanation: "#{payload} is missing schema_name #{schema_name} or type #{type}"
     })
     return {}
   end
