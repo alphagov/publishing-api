@@ -1,10 +1,11 @@
 require 'json-schema'
 
 class SchemaValidator
-  def initialize(payload, type:, schema: nil)
+  def initialize(payload, type:, schema_name: nil, schema: nil)
     @payload = payload
     @type = type
     @schema = schema
+    @schema_name = schema_name
   end
 
   def validate
@@ -34,6 +35,6 @@ private
   end
 
   def schema_name
-    payload[:schema_name] || payload[:format]
+    @schema_name || payload[:schema_name] || payload[:format]
   end
 end

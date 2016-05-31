@@ -124,8 +124,9 @@ module Commands
         return unless schema_name
 
         SchemaValidator.new(
-          payload.merge(schema_name: schema_name),
-          type: :links
+          { links: payload[:links] },
+          type: :links,
+          schema_name: schema_name,
         ).validate
       end
     end
