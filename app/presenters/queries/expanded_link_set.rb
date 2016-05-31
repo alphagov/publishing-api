@@ -64,8 +64,13 @@ module Presenters
       end
 
       def dependees
-        link_set.links.group_by(&:link_type).each_with_object({}) do |(type, links), hash|
-          links = links.map(&:target_content_id)
+        return {} unless link_set.is_a? LinkSet
+        grouped_links = link_set.links
+          .pluck(:link_type, :target_content_id, :passthrough_hash)
+          .group_by(&:first)
+
+        grouped_links.each_with_object({}) do |(type, links), hash|
+          links = links.map { |l| l[2] || l[1] }
           expansion_rules = ::Queries::DependeeExpansionRules
 
           expanded_links = expand_links(links, type.to_sym, expansion_rules)
@@ -75,11 +80,16 @@ module Presenters
       end
 
       def dependents
-        Link.where(target_content_id: link_set.content_id).group_by(&:link_type).each_with_object({}) do |(type, links), hash|
+        grouped_links = Link
+          .where(target_content_id: link_set.content_id)
+          .joins(:link_set)
+          .pluck(:link_type, :content_id).group_by(&:first)
+
+        grouped_links.each_with_object({}) do |(type, links), hash|
           inverted_type_name = ::Queries::DependentExpansionRules.reverse_name_for(type)
           next unless inverted_type_name
 
-          links = links.map { |l| l.link_set.content_id }
+          links = links.map(&:last)
           expansion_rules = ::Queries::DependentExpansionRules
 
           expanded_links = expand_links(links, type.to_sym, expansion_rules)
