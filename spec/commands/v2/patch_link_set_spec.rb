@@ -278,6 +278,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends a request to the live content store" do
+      allow(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
       expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
         .with(
           "content_store_high",
@@ -290,6 +291,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends a low priority request to the live content store for bulk publishing" do
+      allow(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
       expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
         .with(
           "content_store_low",
@@ -332,6 +334,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "sends the live content item for all locales downstream" do
+        allow(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
         [live_content_item, french_live_content_item].each do |ci|
           expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
             .with(
