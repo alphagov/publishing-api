@@ -115,12 +115,14 @@ module Commands
       end
 
       def schema_name
-        Queries::GetLatest.call(
+        @schema_name ||= Queries::GetLatest.call(
           ContentItem.where(content_id: content_id)
         ).limit(1).pluck(:schema_name).last
       end
 
       def validate_schema
+        return unless schema_name
+
         SchemaValidator.new(
           payload.merge(schema_name: schema_name),
           type: :links
