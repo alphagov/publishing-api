@@ -270,7 +270,7 @@ module Commands
       end
 
       def validate_schema
-        SchemaValidator.new(payload, type: :schema).validate
+        SchemaValidator.new(payload.except(:content_id), type: :schema).validate
       end
     end
   end
