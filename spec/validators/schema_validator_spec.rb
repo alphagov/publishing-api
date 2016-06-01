@@ -51,4 +51,13 @@ RSpec.describe SchemaValidator do
       expect(validator.validate).to be false
     end
   end
+
+  context "exceptions" do
+    let(:payload) { { schema_name: 'placeholder_test' } }
+
+    it "does not report to airbrake" do
+      expect(Airbrake).to_not receive(:notify_or_ignore)
+      validator.validate
+    end
+  end
 end

@@ -9,6 +9,7 @@ class SchemaValidator
   end
 
   def validate
+    return true if schema_name_exception?
     validate_schema
   end
 
@@ -36,5 +37,9 @@ private
 
   def schema_name
     @schema_name || payload[:schema_name] || payload[:format]
+  end
+
+  def schema_name_exception?
+    schema_name.to_s.match(/placeholder_/)
   end
 end
