@@ -396,31 +396,4 @@ RSpec.describe Commands::V2::PatchLinkSet do
   end
 
   it_behaves_like TransactionalCommand
-
-  context "Validation" do
-    context "with a content_item" do
-      let!(:content_item) do
-        FactoryGirl.create(:content_item,
-          content_id: content_id,
-          schema_name: "travel_advice",
-          document_type: "travel_advice",
-        )
-      end
-
-      it "validates against the schema" do
-        allow(SchemaValidator).to receive(:new).and_return(double("validator", validate: true))
-        expect(SchemaValidator).to receive(:new)
-          .with({ links: payload[:links] }, schema_name: "travel_advice", type: :links)
-
-        described_class.call(payload)
-      end
-    end
-
-    context "with no content_item" do
-      it "doesn't validate against the schema" do
-        expect(SchemaValidator).to_not receive(:new)
-        described_class.call(payload)
-      end
-    end
-  end
 end
