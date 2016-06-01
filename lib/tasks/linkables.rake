@@ -13,20 +13,24 @@ namespace :linkables do
       if ci.name == "draft" && ci.number == 1
         # Never published
         puts "Creating draft linkable for #{ci.document_type} ##{ci.id} (#{ci.content_id})"
-        Linkable.create!(
-          content_item_id: ci.id,
-          base_path: ci.base_path,
-          document_type: ci.document_type,
-          state: "draft",
-        )
+        unless Linkable.exists?(base_path: ci.base_path)
+          Linkable.create!(
+            content_item_id: ci.id,
+            base_path: ci.base_path,
+            document_type: ci.document_type,
+            state: "draft",
+          )
+        end
       elsif ci.name == "published"
         puts "Creating published linkable for #{ci.document_type} ##{ci.id} (#{ci.content_id})"
-        Linkable.create!(
-          content_item_id: ci.id,
-          base_path: ci.base_path,
-          document_type: ci.document_type,
-          state: "published",
-        )
+        unless Linkable.exists?(base_path: ci.base_path)
+          Linkable.create!(
+            content_item_id: ci.id,
+            base_path: ci.base_path,
+            document_type: ci.document_type,
+            state: "published",
+          )
+        end
       end
 
       # If the content item is redrafted we don't
