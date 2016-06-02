@@ -21,6 +21,7 @@ RSpec.describe Queries::DependentExpansionRules do
           :content_id,
           :description,
           :locale,
+          :public_updated_at,
           :title,
           :web_url,
         ])
