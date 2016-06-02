@@ -9,7 +9,7 @@ class PresentedContentStoreWorker
   sidekiq_options queue: HIGH_QUEUE
 
   def perform(args = {})
-    assing_attributes(args.deep_symbolize_keys)
+    assign_attributes(args.deep_symbolize_keys)
     set_headers
 
     if params[:delete]
@@ -27,6 +27,16 @@ private
 
   def send_to_content_store
     if content_item_id
+      content_item_is_draft = (State.where(content_item_id: content_item_id).pluck(:name) == ["draft"])
+      content_store_is_live = (content_store == Adapters::ContentStore)
+
+      if content_item_is_draft && content_store_is_live
+        raise CommandError.new(
+          code: 500,
+          message: "Will not send a draft content item to the live content store",
+        )
+      end
+
       base_path = presented_payload.fetch(:base_path)
       content_store.put_content_item(base_path, presented_payload)
     else
@@ -57,7 +67,7 @@ private
     params.fetch(:content_store).constantize
   end
 
-  def assing_attributes(params)
+  def assign_attributes(params)
     @params = params
     @request_uuid = @params[:request_uuid]
   end
