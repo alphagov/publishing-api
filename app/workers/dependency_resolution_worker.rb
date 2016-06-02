@@ -31,9 +31,15 @@ private
   end
 
   def present_content_store(dependent_content_id)
-    latest_content_item = Queries::GetLatest.call(
-      ContentItem.where(content_id: dependent_content_id)
-    ).last
+    scope = ContentItem.where(content_id: dependent_content_id)
+
+    if content_store == Adapters::DraftContentStore
+      latest_content_item = Queries::GetLatest.call(scope).last
+    else
+      latest_content_item = ContentItemFilter.new(scope: scope).filter(
+        state: "published",
+      ).last
+    end
 
     return unless latest_content_item
 
