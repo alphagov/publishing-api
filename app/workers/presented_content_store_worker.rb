@@ -9,7 +9,7 @@ class PresentedContentStoreWorker
   sidekiq_options queue: HIGH_QUEUE
 
   def perform(args = {})
-    assing_attributes(args.deep_symbolize_keys)
+    assign_attributes(args.deep_symbolize_keys)
     set_headers
 
     if params[:delete]
@@ -57,7 +57,7 @@ private
     params.fetch(:content_store).constantize
   end
 
-  def assing_attributes(params)
+  def assign_attributes(params)
     @params = params
     @request_uuid = @params[:request_uuid]
   end
