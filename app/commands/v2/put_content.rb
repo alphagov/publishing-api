@@ -43,7 +43,6 @@ module Commands
             create_redirect(
               from_path: from_path,
               to_path: base_path,
-              locale: locale,
               routes: previous_routes,
             )
           end
@@ -72,7 +71,6 @@ module Commands
           create_redirect(
             from_path: from_path,
             to_path: base_path,
-            locale: locale,
             routes: previous_routes,
           )
         end
@@ -220,12 +218,11 @@ module Commands
         lock_version.save!
       end
 
-      def create_redirect(from_path:, to_path:, locale:, routes:)
+      def create_redirect(from_path:, to_path:, routes:)
         RedirectHelper.create_redirect(
           publishing_app: publishing_app,
           old_base_path: from_path,
           new_base_path: to_path,
-          locale: locale,
           routes: routes,
           callbacks: callbacks,
         )
