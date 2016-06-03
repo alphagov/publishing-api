@@ -1,42 +1,22 @@
 module Presenters
   module Queries
     class LinkablePresenter
-      def self.present(linkable)
-        self.new(
-          content_item: linkable.content_item,
-          linkable: linkable,
-        ).present
-      end
-
-      def initialize(content_item:, linkable:)
-        @content_item = content_item
-        @linkable = linkable
-      end
-
-      def present
+      def self.present(content_id, state, title, base_path, internal_name)
         {
-          title: content_item.title,
-          content_id: content_item.content_id,
-          publication_state: publication_state,
-          base_path: linkable.base_path,
-          internal_name: internal_name,
+          title: title,
+          content_id: content_id,
+          publication_state: publication_state(state),
+          base_path: base_path,
+          internal_name: internal_name || title,
         }
       end
 
-    private
-
-      attr_reader :content_item, :linkable
-
-      def internal_name
-        content_item.details[:internal_name] || content_item.title
-      end
-
-      def publication_state
-        case linkable.state
+      def self.publication_state(state)
+        case state
         when "published"
           "live"
         else
-          linkable.state
+          state
         end
       end
     end
