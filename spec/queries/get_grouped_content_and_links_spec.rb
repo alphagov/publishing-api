@@ -28,6 +28,17 @@ RSpec.describe Queries::GetGroupedContentAndLinks do
       end
     end
 
+    context "when many content ids are returned" do
+      it "returns content ids in lexicographic order" do
+        create_content_items(described_class::PAGE_SIZE + 1)
+
+        content_ids = subject.call.map { |result| result['content_id'] }
+        content_ids.each_cons(2) do |a, b|
+          expect(a).to be < b
+        end
+      end
+    end
+
     context "when no pagination is specified" do
       it "returns page with default page size" do
         create_content_items(described_class::PAGE_SIZE + 1)
@@ -195,18 +206,18 @@ RSpec.describe Queries::GetGroupedContentAndLinks do
             expect(results[0]).to include("links")
             expect(results[0]["links"]).to eq([
               {
-                "content_id" => ordered_content_ids.last,
-                "link_type"  => "topics",
-                "target_content_id" => second_target_content_id,
+                "content_id" => ordered_content_ids.first,
+                "link_type" => "topics",
+                "target_content_id" => first_target_content_id,
               }
             ])
 
             expect(results[1]).to include("links")
             expect(results[1]["links"]).to eq([
               {
-                "content_id" => ordered_content_ids.first,
-                "link_type"  => "topics",
-                "target_content_id" => first_target_content_id,
+                "content_id" => ordered_content_ids.last,
+                "link_type" => "topics",
+                "target_content_id" => second_target_content_id,
               }
             ])
           end
