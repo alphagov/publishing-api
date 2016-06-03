@@ -33,7 +33,7 @@ module Queries
         page_size: page_size
       )
 
-      group_results(content_results(content_ids), link_set_results(content_ids))
+      group_results(content_ids, content_results(content_ids), link_set_results(content_ids))
     end
 
   private
@@ -55,14 +55,14 @@ module Queries
       page.pluck(:content_id)
     end
 
-    def group_results(content_results, link_set_results)
+    def group_results(content_ids, content_results, link_set_results)
       grouped_content_items = group_by_content_id(content_results)
       grouped_links = group_by_content_id(link_set_results)
 
-      grouped_content_items.map do |content_id, content_items|
+      content_ids.map do |content_id|
         {
           "content_id" => content_id,
-          "content_items" => content_items,
+          "content_items" => grouped_content_items[content_id],
           "links" => grouped_links[content_id] || []
         }
       end
