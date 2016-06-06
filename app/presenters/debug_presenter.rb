@@ -1,5 +1,9 @@
+require 'action_view/helpers/tag_helper'
+
 module Presenters
   class DebugPresenter
+    include ActionView::Helpers::TagHelper
+    attr_accessor :output_buffer
     attr_reader :content_id
 
     def initialize(content_id)
@@ -18,7 +22,6 @@ module Presenters
       State.join_content_items(
         Translation
         .join_content_items(content_items))
-        .reorder('')
         .select("locale, content_items.id as id, states.name as state")
     end
 
@@ -58,10 +61,10 @@ module Presenters
     def states
       @states = []
       locales.group_by(&:locale).each do |locale, local_states|
-        @states << [locale, '', '']
-        @states << [{ v: local_states.first.id.to_s, f: local_states.first.state }, locale, '']
+        @states << [locale, '']
+        @states << [{ v: local_states.first.id.to_s, f: local_states.first.state }, locale]
         local_states[1..-1].each_with_index do |state, index|
-          @states << [{ v: state.id.to_s, f: state.state }, local_states[(index + 1) - 1].try(:id).to_s, '']
+          @states << [{ v: state.id.to_s, f: state.state }, local_states[(index + 1) - 1].try(:id).to_s]
         end
       end
       @states
@@ -91,6 +94,34 @@ module Presenters
 
     def events
       Event.where(content_id: content_id).order(:created_at)
+    end
+
+    def event_presenter(event_attributes)
+      table_for(event_attributes)
+    end
+
+    def table_for(hash, klass = '')
+      content_tag :table, class: "table key-value-table #{klass}" do
+        rows = hash.map do |k, v|
+          content_tag :tr do
+            content_tag(:td, k) + content_tag(:td, display_value(v))
+          end
+        end
+
+        rows.join.html_safe
+      end
+    end
+
+    def display_value(v)
+      if v.is_a?(Hash)
+        content_tag :pre do
+          JSON.pretty_generate(v)
+        end
+      elsif v.blank?
+        "<em>empty</em>".html_safe
+      else
+        v
+      end
     end
   end
 end
