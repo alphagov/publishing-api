@@ -127,7 +127,7 @@ module Commands
           downstream: downstream,
           callbacks: callbacks,
           nested: true,
-        )
+        ) if draft_redirect
       end
 
       def lookup_published_item(content_item)
