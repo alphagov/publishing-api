@@ -43,7 +43,8 @@ module Presenters
           "locale",
           "base_path",
           "publishing_app",
-          "format",
+          "schema_name",
+          "document_type",
           "user_facing_version",
           "state"
         )
