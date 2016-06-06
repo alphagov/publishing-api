@@ -84,7 +84,8 @@ module Queries
           states.name AS state,
           user_facing_versions.number AS user_facing_version,
           content_items.publishing_app,
-          content_items.format
+          content_items.schema_name,
+          content_items.document_type
         FROM content_items
         JOIN translations
           ON translations.content_item_id = content_items.id
