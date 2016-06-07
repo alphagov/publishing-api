@@ -74,9 +74,9 @@ RSpec.describe Queries::GetContent do
       )
     end
 
-    it "excludes content items that aren't in draft or published states" do
+    it "includes these content items" do
       result = subject.call(content_id)
-      expect(result.fetch("title")).to eq("Published Title")
+      expect(result.fetch("title")).to eq("Submitted Title")
     end
   end
 
