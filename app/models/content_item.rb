@@ -42,7 +42,7 @@ class ContentItem < ActiveRecord::Base
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include: "text/html" }
 
-  before_save :convert_format
+  before_validation :convert_format
 
 private
 
