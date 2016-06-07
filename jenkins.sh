@@ -45,6 +45,7 @@ bundle exec govuk-lint-ruby \
 
 bundle exec rake db:drop db:create db:schema:load
 
+export RCOV=1
 if bundle exec rake ${TEST_TASK:-"default"}; then
   if [ -n "$PACT_TARGET_BRANCH" ]; then
     bundle exec rake pact:publish:branch
