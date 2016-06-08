@@ -59,7 +59,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
     end
 
-    context "a connected acylic graph" do
+    context "a connected acyclic graph" do
       it "expands the links for node a correctly" do
         create_link(a, b, "parent")
         create_link(b, c, "parent")
