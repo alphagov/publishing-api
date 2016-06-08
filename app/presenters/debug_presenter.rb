@@ -47,7 +47,7 @@ module Presenters
           rows << [
             {
               v: (link[:content_id].to_s + type.to_s),
-              f: "<a href='debug?content_id=#{link[:content_id]}'>#{link[:content_id]}</a>"
+              f: "<a href='/debug/#{link[:content_id]}'>#{link[:content_id]}</a>"
             },
             type,
             ''
