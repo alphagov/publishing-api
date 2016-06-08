@@ -59,7 +59,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
     end
 
-    context "a connected acylic graph" do
+    context "a connected acyclic graph" do
       it "expands the links for node a correctly" do
         create_link(a, b, "parent")
         create_link(b, c, "parent")
@@ -198,6 +198,30 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           expect(expanded_links[:related]).to match([
             a_hash_including(base_path: "/c", expanded_links: {})
           ])
+        end
+      end
+    end
+
+    context "when a published content item is linked to content in draft" do
+      before do
+        create_link(a, b, "related")
+        create_content_item(a, "/a-published", "published")
+        create_content_item(b, "/b-draft", "draft")
+      end
+
+      context "with a fallback to published" do
+        let(:state_fallback_order) { [:published] }
+
+        it "does not expose the draft item in expanded links" do
+          expect(expanded_links[:related]).not_to match(a_hash_including(base_path: "/b-draft"))
+        end
+      end
+
+      context "with a fallback to draft" do
+        let(:state_fallback_order) { [:draft, :published] }
+
+        it "exposes the draft item in expanded links" do
+          expect(expanded_links[:related]).to match([a_hash_including(base_path: "/b-draft")])
         end
       end
     end
@@ -346,10 +370,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     let(:state_fallback_order) { [:draft, :published] }
 
     before do
-      create_content_item(a, "/a")
-      create_content_item(b, "/b")
-      create_content_item(c, "/c")
-      create_content_item(d, "/d")
+      create_content_item(a, "/a-draft", "draft")
+      create_content_item(b, "/b-published")
+      create_content_item(c, "/c-published")
+      create_content_item(d, "/d-published")
 
       create_link(d, c, "parent")
       create_link(c, b, "parent")
@@ -359,15 +383,25 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     it "automatically expands reverse dependencies to one level of depth" do
       expect(expanded_links[:children]).to match([
         a_hash_including(
-          base_path: "/b",
+          base_path: "/b-published",
           expanded_links: a_hash_including(
             parent: [a_hash_including(
-              base_path: "/a",
+              base_path: "/a-draft",
               expanded_links: anything,
             )]
           )
         )
       ])
+    end
+
+    context "with a state fallback to published" do
+      let(:state_fallback_order) { [:published] }
+
+      it "excludes draft dependees" do
+        expect(expanded_links[:children]).to match([
+          a_hash_including(base_path: "/b-published", expanded_links: {})
+        ])
+      end
     end
   end
 end
