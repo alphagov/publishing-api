@@ -113,10 +113,6 @@ GEM
       warden-oauth2 (~> 0.0.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    govuk-client-url_arbiter (0.0.3)
-      multi_json (~> 1.0)
-      plek (~> 1.8)
-      rest-client (~> 1.6)
     govuk-lint (0.8.0)
       rubocop (~> 0.35.0)
       scss_lint (~> 0.44.0)
@@ -368,7 +364,6 @@ DEPENDENCIES
   factory_girl_rails (= 4.5.0)
   gds-api-adapters (= 30.2.0)
   gds-sso (= 11.2.1)
-  govuk-client-url_arbiter (= 0.0.3)
   govuk-lint
   json-schema
   logstasher (= 0.6.2)

@@ -9,8 +9,6 @@ gem "plek", "~> 1.10"
 gem "airbrake", "~> 4.2.1"
 gem "pg"
 
-gem "govuk-client-url_arbiter", "0.0.3"
-
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else

@@ -1,5 +1,3 @@
-require "govuk/client/url_arbiter"
-
 module PublishingAPI
   # To be set in dev mode so that this can run when the draft content store isn't running.
   cattr_accessor :swallow_connection_errors
@@ -16,11 +14,6 @@ module PublishingAPI
 
   class ServiceNotRegisteredException < Exception; end
 end
-
-PublishingAPI.register_service(
-  name: :url_arbiter,
-  client: GOVUK::Client::URLArbiter.new(Plek.find('url-arbiter'))
-)
 
 PublishingAPI.register_service(
   name: :draft_content_store,
