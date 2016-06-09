@@ -12,7 +12,7 @@ class CommandError < StandardError
     #ignore payload_version conflicts
     if e.code == 409 && e.message =~ /transmitted_at|payload_version/
       Rails.logger.debug e.message
-      PublishingAPI::Application.statsd.increment("payload_version_conflicts")
+      PublishingAPI.service(:statsd).increment("payload_version_conflicts")
       return
     end
 
