@@ -12,7 +12,7 @@ class WebContentItem
   end
 
   CONTENT_ITEM_METHODS = [
-    :content_id, :description, :analytics_identifier, :title, :public_updated_at
+    :content_id, :description, :analytics_identifier, :title, :public_updated_at, :document_type
   ]
 
   def_delegators :@content_item, *CONTENT_ITEM_METHODS
