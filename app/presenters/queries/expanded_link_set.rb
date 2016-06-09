@@ -41,7 +41,7 @@ module Presenters
           end
 
           expanded_links.merge(
-            expanded_links: next_level,
+            links: next_level,
           )
         end
       end

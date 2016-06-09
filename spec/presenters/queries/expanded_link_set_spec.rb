@@ -55,7 +55,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(a, b, "related")
         create_link(b, c, "related")
 
-        expect(expanded_links[:related]).to match([a_hash_including(base_path: "/b", expanded_links: {})])
+        expect(expanded_links[:related]).to match([a_hash_including(base_path: "/b", links: {})])
       end
     end
 
@@ -68,12 +68,12 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         expect(expanded_links[:parent]).to match([
           a_hash_including(
             base_path: "/b",
-            expanded_links: {
+            links: {
             parent: [a_hash_including(
               base_path: "/c",
-              expanded_links: {
+              links: {
                 parent: [
-                  a_hash_including(base_path: "/d", expanded_links: {})
+                  a_hash_including(base_path: "/d", links: {})
                 ]
               })]
             })
@@ -87,7 +87,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(b, c, "related")
 
         expect(expanded_links[:parent]).to match([
-          a_hash_including(base_path: "/b", expanded_links: {})
+          a_hash_including(base_path: "/b", links: {})
         ])
       end
     end
@@ -98,7 +98,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(b, c, "parent")
 
         expect(expanded_links[:related]).to match([
-          a_hash_including(base_path: "/b", expanded_links: {})
+          a_hash_including(base_path: "/b", links: {})
         ])
       end
     end
@@ -109,8 +109,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(b, a, "parent")
 
         expect(expanded_links[:parent]).to match([
-          a_hash_including(base_path: "/b", expanded_links: {
-            parent: [a_hash_including(base_path: "/a", expanded_links: {})]
+          a_hash_including(base_path: "/b", links: {
+            parent: [a_hash_including(base_path: "/a", links: {})]
           })
         ])
       end
@@ -122,11 +122,11 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(a, c, "related")
 
         expect(expanded_links[:parent]).to match([
-          a_hash_including(base_path: "/b", expanded_links: {})
+          a_hash_including(base_path: "/b", links: {})
         ])
 
         expect(expanded_links[:related]).to match([
-          a_hash_including(base_path: "/c", expanded_links: {})
+          a_hash_including(base_path: "/c", links: {})
         ])
       end
     end
@@ -137,8 +137,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(a, c, "related")
 
         expect(expanded_links[:related]).to match([
-          a_hash_including(base_path: "/b", expanded_links: {}),
-          a_hash_including(base_path: "/c", expanded_links: {}),
+          a_hash_including(base_path: "/b", links: {}),
+          a_hash_including(base_path: "/c", links: {}),
         ])
       end
     end
@@ -186,7 +186,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:related]).to match([
-            a_hash_including(base_path: "/b", expanded_links: {})
+            a_hash_including(base_path: "/b", links: {})
           ])
         end
       end
@@ -196,7 +196,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:related]).to match([
-            a_hash_including(base_path: "/c", expanded_links: {})
+            a_hash_including(base_path: "/c", links: {})
           ])
         end
       end
@@ -245,7 +245,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
-            a_hash_including(base_path: "/b-draft", expanded_links: {})
+            a_hash_including(base_path: "/b-draft", links: {})
           ])
         end
       end
@@ -255,8 +255,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
-            a_hash_including(base_path: "/b-published", expanded_links: {
-              parent: [a_hash_including(base_path: "/c-published", expanded_links: {})]
+            a_hash_including(base_path: "/b-published", links: {
+              parent: [a_hash_including(base_path: "/c-published", links: {})]
             })
           ])
         end
@@ -284,9 +284,9 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
       it "expands for the content item of the first state that matches" do
         expect(expanded_links[:parent]).to match([
-          a_hash_including(base_path: "/b-published", expanded_links: {
-            parent: [a_hash_including(base_path: "/c-draft", expanded_links: {
-              parent: [a_hash_including(base_path: "/d-published", expanded_links: {})]
+          a_hash_including(base_path: "/b-published", links: {
+            parent: [a_hash_including(base_path: "/c-draft", links: {
+              parent: [a_hash_including(base_path: "/d-published", links: {})]
             })]
           })
         ])
@@ -312,7 +312,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
     it "does not expand the fields for those links" do
       expect(expanded_links[:parent]).to match([
-        a_hash_including(base_path: "/b", expanded_links: {})
+        a_hash_including(base_path: "/b", links: {})
       ])
     end
   end
@@ -384,10 +384,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       expect(expanded_links[:children]).to match([
         a_hash_including(
           base_path: "/b-published",
-          expanded_links: a_hash_including(
+          links: a_hash_including(
             parent: [a_hash_including(
               base_path: "/a-draft",
-              expanded_links: anything,
+              links: anything,
             )]
           )
         )
@@ -399,7 +399,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
       it "excludes draft dependees" do
         expect(expanded_links[:children]).to match([
-          a_hash_including(base_path: "/b-published", expanded_links: {})
+          a_hash_including(base_path: "/b-published", links: {})
         ])
       end
     end
