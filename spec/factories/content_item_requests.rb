@@ -4,7 +4,8 @@ FactoryGirl.define do
     sequence(:base_path) { |n| "/test-content-#{n}" }
     title "Test content"
     description "Test description"
-    format 'answer'
+    document_type 'answer'
+    schema_name 'answer'
     need_ids []
     public_updated_at { Time.zone.now.iso8601 }
     publishing_app "publisher"

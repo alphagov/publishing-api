@@ -3,7 +3,8 @@ FactoryGirl.define do
     content_id { SecureRandom.uuid }
     title "VAT rates"
     description "VAT rates for goods and services"
-    format "guide"
+    schema_name "guide"
+    document_type "guide"
     public_updated_at "2014-05-14T13:00:06Z"
     first_published_at "2014-01-02T03:04:05Z"
     publishing_app "publisher"
@@ -46,13 +47,15 @@ FactoryGirl.define do
       destination "/somewhere"
     end
     sequence(:base_path) { |n| "/test-redirect-#{n}" }
-    format "redirect"
+    schema_name "redirect"
+    document_type "redirect"
     routes []
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => destination }] }
   end
 
   factory :gone_content_item, parent: :content_item do
     sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
-    format "gone"
+    schema_name "gone"
+    document_type "gone"
   end
 end
