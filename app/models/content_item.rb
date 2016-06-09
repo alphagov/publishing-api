@@ -12,7 +12,6 @@ class ContentItem < ActiveRecord::Base
     :details,
     :document_type,
     :first_published_at,
-    :format,
     :need_ids,
     :phase,
     :public_updated_at,
@@ -28,9 +27,11 @@ class ContentItem < ActiveRecord::Base
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
   EMPTY_BASE_PATH_FORMATS = %w(government).freeze
 
-  scope :renderable_content, -> { where.not(format: NON_RENDERABLE_FORMATS) }
+  scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
 
-  validates_with SchemaNameFormatValidator
+  validates :schema_name, presence: true
+  validates :document_type, presence: true
+
   validates :content_id, presence: true, uuid: true
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
@@ -42,20 +43,9 @@ class ContentItem < ActiveRecord::Base
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include: "text/html" }
 
-  before_validation :convert_format
-
 private
 
   def renderable_content?
-    NON_RENDERABLE_FORMATS.exclude?(format)
-  end
-
-  def convert_format
-    if format.present?
-      self.document_type = format if document_type.blank?
-      self.schema_name = format if schema_name.blank?
-    elsif schema_name.present?
-      self.format = schema_name
-    end
+    NON_RENDERABLE_FORMATS.exclude?(document_type)
   end
 end

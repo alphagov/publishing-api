@@ -105,8 +105,17 @@ module Commands
         )
       end
 
+      def convert_format
+        payload.tap do |attributes|
+          if attributes.has_key?(:format)
+            attributes[:document_type] ||= attributes[:format]
+            attributes[:schema_name] ||= attributes[:format]
+          end
+        end
+      end
+
       def content_item_attributes_from_payload
-        payload.slice(*ContentItem::TOP_LEVEL_FIELDS)
+        convert_format.slice(*ContentItem::TOP_LEVEL_FIELDS)
       end
 
       def create_content_item

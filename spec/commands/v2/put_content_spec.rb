@@ -744,6 +744,29 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
+    context "converting format field" do
+      context "when format is supplied" do
+        it "populates the document_type and schema_name fields" do
+          payload.delete(:document_type)
+          payload.delete(:schema_name)
+          payload[:format] = 'guide'
+          described_class.call(payload)
+          content_item = ContentItem.last
+          expect(content_item.document_type).to eq('guide')
+          expect(content_item.schema_name).to eq('guide')
+        end
+      end
+
+      context "when format is not supplied and schema_name is supplied" do
+        it "raises an error if document_type is not supplied" do
+          payload.delete(:document_type)
+          expect {
+            described_class.call(payload)
+          }.to raise_error(CommandError, /Document type can't be blank/)
+        end
+      end
+    end
+
     context "without a base_path" do
       before do
         payload.delete(:base_path)

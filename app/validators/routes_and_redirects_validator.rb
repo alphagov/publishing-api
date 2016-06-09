@@ -8,7 +8,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
 
     routes = content_item.routes || []
     redirects = content_item.redirects || []
-    format = content_item.format
+    document_type = content_item.document_type
 
     routes.each do |route|
       RouteValidator.new.validate(location, :routes, route)
@@ -21,7 +21,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
 
     must_have_unique_paths(location, routes, redirects)
 
-    if format == "redirect"
+    if document_type == "redirect"
       redirects_must_not_have_routes(location, routes)
       redirects_must_include_base_path(location, redirects)
     else
