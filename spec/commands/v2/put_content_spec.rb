@@ -19,7 +19,8 @@ RSpec.describe Commands::V2::PutContent do
         title: "Some Title",
         publishing_app: "publisher",
         rendering_app: "frontend",
-        format: "guide",
+        document_type: "guide",
+        schema_name: "guide",
         locale: locale,
         routes: [{ path: base_path, type: "exact" }],
         redirects: [],
@@ -192,7 +193,7 @@ RSpec.describe Commands::V2::PutContent do
           ).first
 
           expect(redirect).to be_present
-          expect(redirect.format).to eq("redirect")
+          expect(redirect.schema_name).to eq("redirect")
           expect(redirect.publishing_app).to eq("publisher")
 
           expect(redirect.redirects).to eq([{
@@ -538,7 +539,7 @@ RSpec.describe Commands::V2::PutContent do
           ).first
 
           expect(redirect).to be_present
-          expect(redirect.format).to eq("redirect")
+          expect(redirect.schema_name).to eq("redirect")
           expect(redirect.publishing_app).to eq("publisher")
 
           expect(redirect.redirects).to eq([

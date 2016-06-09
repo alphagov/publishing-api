@@ -68,7 +68,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
 
     context "for a redirect item" do
       before do
-        content_item.format = "redirect"
+        content_item.document_type = "redirect"
         content_item.routes = []
       end
 
@@ -80,7 +80,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
 
     context "for a non-redirect item" do
       before do
-        content_item.format = "guide"
+        content_item.document_type = "guide"
       end
 
       it "must have routes" do
@@ -187,7 +187,8 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
 
     context "for a redirect item" do
       before do
-        content_item.format = "redirect"
+        content_item.schema_name = "redirect"
+        content_item.document_type = "redirect"
         content_item.routes = []
       end
 
@@ -204,7 +205,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
 
     context "for a non-redirect item" do
       before do
-        content_item.format = "guide"
+        content_item.document_type = "guide"
       end
 
       it "can have redirects" do

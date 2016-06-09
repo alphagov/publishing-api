@@ -4,7 +4,8 @@ RSpec.describe "GET /v2/content", type: :request do
   let!(:policy_1) {
     FactoryGirl.create(:content_item,
       state: "draft",
-      format: "policy",
+      document_type: "policy",
+      schema_name: "policy",
       title: "Policy 1",
       base_path: "/cat-rates",
     )
@@ -13,7 +14,8 @@ RSpec.describe "GET /v2/content", type: :request do
   let!(:policy_2) {
     FactoryGirl.create(:content_item,
       state: "published",
-      format: "policy",
+      document_type: "policy",
+      schema_name: "policy",
       title: "Policy 2",
     )
   }

@@ -24,7 +24,8 @@ RSpec.describe Presenters::Queries::GroupedContentAndLinks do
           base_path: "/vat-rates",
           publishing_app: "whitehall",
           locale: "en",
-          format: "guide",
+          document_type: "guide",
+          schema_name: "guide",
           user_facing_version: 1,
           state: "published"
         )
@@ -35,7 +36,8 @@ RSpec.describe Presenters::Queries::GroupedContentAndLinks do
           base_path: "/vat-rates",
           publishing_app: "whitehall",
           locale: "en",
-          format: "guide",
+          document_type: "guide",
+          schema_name: "guide",
           user_facing_version: 2,
           state: "draft",
         )

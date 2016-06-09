@@ -26,7 +26,6 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "locale" => "en",
         "base_path" => base_path,
         "title" => "VAT rates",
-        "format" => "guide",
         "internal_name" => "VAT rates",
         "document_type" => "guide",
         "schema_name" => "guide",

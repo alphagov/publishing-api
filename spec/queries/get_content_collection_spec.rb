@@ -5,17 +5,20 @@ RSpec.describe Queries::GetContentCollection do
     FactoryGirl.create(
       :draft_content_item,
       base_path: '/a',
-      format: 'topic',
+      document_type: 'topic',
+      schema_name: 'topic',
     )
     FactoryGirl.create(
       :draft_content_item,
       base_path: '/b',
-      format: 'topic',
+      document_type: 'topic',
+      schema_name: 'topic',
     )
     FactoryGirl.create(
       :draft_content_item,
       base_path: '/c',
-      format: 'mainstream_browse_page',
+      document_type: 'mainstream_browse_page',
+      schema_name: 'mainstream_browse_page',
     )
 
     expect(Queries::GetContentCollection.new(
@@ -31,12 +34,14 @@ RSpec.describe Queries::GetContentCollection do
     FactoryGirl.create(
       :draft_content_item,
       base_path: '/a',
-      format: 'topic'
+      document_type: 'topic',
+      schema_name: 'topic',
     )
     FactoryGirl.create(
       :draft_content_item,
       base_path: '/b',
-      format: 'placeholder_topic'
+      document_type: 'placeholder_topic',
+      schema_name: 'placeholder_topic'
     )
 
     expect(Queries::GetContentCollection.new(
@@ -52,12 +57,14 @@ RSpec.describe Queries::GetContentCollection do
     FactoryGirl.create(
       :draft_content_item,
       base_path: '/draft',
-      format: 'topic'
+      document_type: 'topic',
+      schema_name: 'topic',
     )
     FactoryGirl.create(
       :live_content_item,
       base_path: '/live',
-      format: 'topic'
+      document_type: 'topic',
+      schema_name: 'topic',
     )
 
     expect(Queries::GetContentCollection.new(
@@ -94,19 +101,22 @@ RSpec.describe Queries::GetContentCollection do
       FactoryGirl.create(
         :draft_content_item,
         base_path: '/a',
-        format: 'topic',
+        document_type: 'topic',
+        schema_name: 'topic',
         publishing_app: 'publisher'
       )
       FactoryGirl.create(
         :draft_content_item,
         base_path: '/b',
-        format: 'topic',
+        document_type: 'topic',
+        schema_name: 'topic',
         publishing_app: 'publisher'
       )
       FactoryGirl.create(
         :draft_content_item,
         base_path: '/c',
-        format: 'topic',
+        document_type: 'topic',
+        schema_name: 'topic',
         publishing_app: 'whitehall'
       )
     end
@@ -136,10 +146,10 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "the locale filter parameter" do
     before do
-      FactoryGirl.create(:draft_content_item, base_path: '/content.en', format: 'topic', locale: 'en')
-      FactoryGirl.create(:draft_content_item, base_path: '/content.ar', format: 'topic', locale: 'ar')
-      FactoryGirl.create(:live_content_item, base_path: '/content.en', format: 'topic', locale: 'en')
-      FactoryGirl.create(:live_content_item, base_path: '/content.ar', format: 'topic', locale: 'ar')
+      FactoryGirl.create(:draft_content_item, base_path: '/content.en', document_type: 'topic', schema_name: 'topic', locale: 'en')
+      FactoryGirl.create(:draft_content_item, base_path: '/content.ar', document_type: 'topic', schema_name: 'topic', locale: 'ar')
+      FactoryGirl.create(:live_content_item, base_path: '/content.en', document_type: 'topic', schema_name: 'topic', locale: 'en')
+      FactoryGirl.create(:live_content_item, base_path: '/content.ar', document_type: 'topic', schema_name: 'topic', locale: 'ar')
     end
 
     it "returns the content items filtered by 'en' locale by default" do
@@ -243,8 +253,8 @@ RSpec.describe Queries::GetContentCollection do
 
   context "when details hash is requested" do
     it "returns the details hash" do
-      FactoryGirl.create(:draft_content_item, base_path: '/z', details: { foo: :bar }, format: 'topic', publishing_app: 'publisher')
-      FactoryGirl.create(:draft_content_item, base_path: '/b', details: { baz: :bat }, format: 'placeholder_topic', publishing_app: 'publisher')
+      FactoryGirl.create(:draft_content_item, base_path: '/z', details: { foo: :bar }, document_type: 'topic', schema_name: 'topic', publishing_app: 'publisher')
+      FactoryGirl.create(:draft_content_item, base_path: '/b', details: { baz: :bat }, document_type: 'placeholder_topic', schema_name: 'placeholder_topic', publishing_app: 'publisher')
       expect(Queries::GetContentCollection.new(
         document_type: 'topic',
         fields: %w(details publication_state),
@@ -257,8 +267,8 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   describe "search_fields" do
-    let!(:content_item_foo) { FactoryGirl.create(:live_content_item, base_path: '/bar/foo', format: 'topic', title: "Baz") }
-    let!(:content_item_zip) { FactoryGirl.create(:live_content_item, base_path: '/baz', format: 'topic', title: 'zip') }
+    let!(:content_item_foo) { FactoryGirl.create(:live_content_item, base_path: '/bar/foo', document_type: 'topic', schema_name: 'topic', title: "Baz") }
+    let!(:content_item_zip) { FactoryGirl.create(:live_content_item, base_path: '/baz', document_type: 'topic', schema_name: 'topic', title: 'zip') }
     subject do
       Queries::GetContentCollection.new(
         document_type: 'topic',
@@ -285,12 +295,12 @@ RSpec.describe Queries::GetContentCollection do
   describe "pagination" do
     context "with multiple content items" do
       before do
-        FactoryGirl.create(:draft_content_item, base_path: '/a', format: 'topic', public_updated_at: "2010-01-06")
-        FactoryGirl.create(:draft_content_item, base_path: '/b', format: 'topic', public_updated_at: "2010-01-05")
-        FactoryGirl.create(:draft_content_item, base_path: '/c', format: 'topic', public_updated_at: "2010-01-04")
-        FactoryGirl.create(:draft_content_item, base_path: '/d', format: 'topic', public_updated_at: "2010-01-03")
-        FactoryGirl.create(:live_content_item, base_path: '/live1', format: 'topic', public_updated_at: "2010-01-02")
-        FactoryGirl.create(:live_content_item, base_path: '/live2', format: 'topic', public_updated_at: "2010-01-01")
+        FactoryGirl.create(:draft_content_item, base_path: '/a', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-06")
+        FactoryGirl.create(:draft_content_item, base_path: '/b', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-05")
+        FactoryGirl.create(:draft_content_item, base_path: '/c', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-04")
+        FactoryGirl.create(:draft_content_item, base_path: '/d', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-03")
+        FactoryGirl.create(:live_content_item, base_path: '/live1', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-02")
+        FactoryGirl.create(:live_content_item, base_path: '/live2', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-01")
       end
 
       it "limits the results returned" do
@@ -368,8 +378,8 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "#total" do
     it "returns the number of content items" do
-      FactoryGirl.create(:content_item, base_path: '/a', format: 'topic')
-      FactoryGirl.create(:content_item, base_path: '/b', format: 'topic')
+      FactoryGirl.create(:content_item, base_path: '/a', schema_name: 'topic', document_type: 'topic')
+      FactoryGirl.create(:content_item, base_path: '/b', schema_name: 'topic', document_type: 'topic')
 
       expect(Queries::GetContentCollection.new(
         document_type: 'topic',
@@ -384,7 +394,8 @@ RSpec.describe Queries::GetContentCollection do
         FactoryGirl.create(
           :content_item,
           content_id: content_id,
-          format: 'topic',
+          document_type: 'topic',
+          schema_name: 'topic',
           state: "published",
           user_facing_version: 1,
         )
@@ -392,7 +403,8 @@ RSpec.describe Queries::GetContentCollection do
         FactoryGirl.create(
           :content_item,
           content_id: content_id,
-          format: 'topic',
+          document_type: 'topic',
+          schema_name: 'topic',
           state: "draft",
           user_facing_version: 2,
         )
