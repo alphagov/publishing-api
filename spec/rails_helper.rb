@@ -13,6 +13,7 @@ require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
+require 'database_cleaner'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'sidekiq/testing'
@@ -54,5 +55,24 @@ RSpec.configure do |config|
 
   config.after do
     GDS::SSO.test_user = nil
+  end
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    if example.metadata[:skip_cleaning]
+      example.run
+    else
+      DatabaseCleaner.cleaning { example.run }
+    end
+  end
+
+  [:controller, :request].each do |spec_type|
+    config.before :each, type: spec_type do
+      login_as_stub_user
+    end
   end
 end
