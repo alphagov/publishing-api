@@ -24,6 +24,7 @@ gem "sidekiq-logging-json", "0.0.14"
 gem "sidekiq-statsd", "0.1.5"
 gem "deprecated_columns"
 gem "json-schema", require: false
+gem "hashdiff"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

@@ -7,4 +7,5 @@
   - content_store_high
   - content_store_low
   - dependency_resolution
+  - experiments
   - default

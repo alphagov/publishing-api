@@ -116,6 +116,7 @@ GEM
     govuk-lint (0.8.0)
       rubocop (~> 0.35.0)
       scss_lint (~> 0.44.0)
+    hashdiff (0.3.0)
     hashie (3.4.3)
     hitimes (1.2.3)
     http-cookie (1.0.2)
@@ -365,6 +366,7 @@ DEPENDENCIES
   gds-api-adapters (= 30.2.0)
   gds-sso (= 11.2.1)
   govuk-lint
+  hashdiff
   json-schema
   logstasher (= 0.6.2)
   pact
