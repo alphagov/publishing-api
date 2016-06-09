@@ -97,7 +97,7 @@ module Commands
 
       def clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
         SubstitutionHelper.clear!(
-          new_item_format: content_item.format,
+          new_item_document_type: content_item.document_type,
           new_item_content_id: content_item.content_id,
           state: "draft",
           locale: locale,
