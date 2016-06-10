@@ -6,7 +6,8 @@ RSpec.describe "Paging through content items" do
       FactoryGirl.create(
         :draft_content_item,
         base_path: "/content-#{n}",
-        format: "guide",
+        document_type: "guide",
+        schema_name: "guide",
         public_updated_at: n.minutes.ago
       )
     end

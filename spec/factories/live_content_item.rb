@@ -8,7 +8,7 @@ FactoryGirl.define do
     trait :with_draft do
       after(:create) do |live_content_item, evaluator|
         draft = FactoryGirl.create(:draft_content_item,
-          live_content_item.as_json(only: %i[title content_id format routes redirects]).merge(
+          live_content_item.as_json(only: %i[title content_id schema_name document_type routes redirects]).merge(
             locale: evaluator.locale,
             base_path: evaluator.base_path,
             lock_version: evaluator.lock_version,
@@ -26,18 +26,21 @@ FactoryGirl.define do
 
   factory :redirect_live_content_item, parent: :live_content_item do
     sequence(:base_path) { |n| "/test-redirect-#{n}" }
-    format "redirect"
+    schema_name "redirect"
+    document_type "redirect"
     routes []
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => '/somewhere' }] }
   end
 
   factory :gone_live_content_item, parent: :live_content_item do
     sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
-    format "gone"
+    schema_name "gone"
+    document_type "gone"
   end
 
   factory :coming_soon_live_content_item, parent: :live_content_item do
-    format "coming_soon"
+    schema_name "coming_soon"
+    document_type "coming_soon"
     title "Coming soon"
     description "This item will be published soon"
   end

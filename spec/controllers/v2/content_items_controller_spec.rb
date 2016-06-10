@@ -10,7 +10,8 @@ RSpec.describe V2::ContentItemsController do
       :draft_content_item,
       content_id: content_id,
       base_path: "/content.en",
-      format: "topic",
+      document_type: "topic",
+      schema_name: "topic",
       locale: "en",
       user_facing_version: 2,
     )
@@ -24,7 +25,8 @@ RSpec.describe V2::ContentItemsController do
         content_id: content_id,
         locale: "ar",
         base_path: "/content.ar",
-        format: "topic",
+        document_type: "topic",
+        schema_name: "topic",
         user_facing_version: 2,
       )
       @en_live_content = FactoryGirl.create(
@@ -32,7 +34,8 @@ RSpec.describe V2::ContentItemsController do
         content_id: content_id,
         locale: "en",
         base_path: "/content.en",
-        format: "topic",
+        document_type: "topic",
+        schema_name: "topic",
         user_facing_version: 1,
       )
       @ar_live_content = FactoryGirl.create(
@@ -40,7 +43,8 @@ RSpec.describe V2::ContentItemsController do
         content_id: content_id,
         locale: "ar",
         base_path: "/content.ar",
-        format: "topic",
+        document_type: "topic",
+        schema_name: "topic",
         user_facing_version: 1,
       )
     end
@@ -50,7 +54,8 @@ RSpec.describe V2::ContentItemsController do
         let(:previous_live_version) do
           FactoryGirl.create(:live_content_item,
                              base_path: "/foo",
-                             format: "topic",
+                             document_type: "topic",
+                             schema_name: "topic",
                              title: "zip",
                              user_facing_version: 1)
         end
@@ -58,7 +63,8 @@ RSpec.describe V2::ContentItemsController do
           FactoryGirl.create(:live_content_item,
                              base_path: "/foo",
                              content_id: previous_live_version.content_id,
-                             format: "topic",
+                             document_type: "topic",
+                             schema_name: "topic",
                              title: "bar",
                              user_facing_version: 2)
         end

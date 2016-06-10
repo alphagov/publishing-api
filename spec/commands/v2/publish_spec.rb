@@ -332,7 +332,7 @@ RSpec.describe Commands::V2::Publish do
         ).first
 
         expect(redirect).to be_present
-        expect(redirect.format).to eq("redirect")
+        expect(redirect.schema_name).to eq("redirect")
       end
 
       it "unpublishes the previously published item" do

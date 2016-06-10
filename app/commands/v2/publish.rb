@@ -88,7 +88,7 @@ module Commands
 
       def clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
         SubstitutionHelper.clear!(
-          new_item_format: content_item.format,
+          new_item_document_type: content_item.document_type,
           new_item_content_id: content_item.content_id,
           state: "published", locale: translation.locale, base_path: location.base_path
         )
@@ -115,7 +115,7 @@ module Commands
 
         draft_redirect = ContentItemFilter
           .filter(state: "draft", locale: translation.locale, base_path: previous_location.base_path)
-          .where(format: "redirect")
+          .where(schema_name: "redirect")
           .first
 
         self.class.call(

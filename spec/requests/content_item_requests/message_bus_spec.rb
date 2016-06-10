@@ -30,8 +30,8 @@ RSpec.describe "Message bus", type: :request do
     end
 
     context "detailed_guide format" do
-      it "uses the format for the routing key on publish and 'links' for the link update" do
-        put request_path, content_item_params.merge(format: "detailed_guide").to_json
+      it "uses the document_type for the routing key on publish and 'links' for the link update" do
+        put request_path, content_item_params.merge(document_type: "detailed_guide").to_json
 
         delivery_info, = wait_for_message_on(@queue)
         expect(delivery_info.routing_key).to eq("detailed_guide.links")
@@ -88,7 +88,7 @@ RSpec.describe "Message bus", type: :request do
           expect(response.status).to eq(200)
 
           delivery_info, = wait_for_message_on(@queue)
-          expect(delivery_info.routing_key).to eq("#{live_content_item.format}.links")
+          expect(delivery_info.routing_key).to eq("#{live_content_item.document_type}.links")
         end
       end
     end
@@ -115,12 +115,13 @@ RSpec.describe "Message bus", type: :request do
     before do
       FactoryGirl.create(:draft_content_item,
         content_id: content_id,
-        format: "guide",
+        document_type: "guide",
+        schema_name: "guide",
         base_path: base_path,
       )
     end
 
-    it "sends a message with the 'format.update_type' routing key" do
+    it "sends a message with the 'document_type.update_type' routing key" do
       post "/v2/content/#{content_id}/publish", { update_type: "major" }.to_json
 
       expect(response.status).to eq(200)

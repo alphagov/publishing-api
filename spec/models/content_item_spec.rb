@@ -12,11 +12,11 @@ RSpec.describe ContentItem do
   end
 
   describe ".renderable_content" do
-    let!(:guide) { FactoryGirl.create(:content_item, format: "guide") }
+    let!(:guide) { FactoryGirl.create(:content_item, schema_name: "guide") }
     let!(:redirect) { FactoryGirl.create(:redirect_content_item) }
     let!(:gone) { FactoryGirl.create(:gone_content_item) }
 
-    it "returns content items that do not have a format of 'redirect' or 'gone'" do
+    it "returns content items that do not have a schema_name of 'redirect' or 'gone'" do
       expect(described_class.renderable_content).to eq [guide]
     end
   end
@@ -31,8 +31,8 @@ RSpec.describe ContentItem do
       expect(subject).to be_invalid
     end
 
-    it "requires a format" do
-      subject.format = ""
+    it "requires a schema_name" do
+      subject.schema_name = ""
       expect(subject).to be_invalid
     end
 
@@ -43,7 +43,7 @@ RSpec.describe ContentItem do
 
     context "when the content item is 'renderable'" do
       before do
-        subject.format = "guide"
+        subject.document_type = "guide"
       end
 
       it "requires a title" do
@@ -127,34 +127,6 @@ RSpec.describe ContentItem do
       it 'is invalid with any other phase' do
         subject.phase = 'not-a-correct-phase'
         expect(subject).to_not be_valid
-      end
-    end
-  end
-
-  describe "converting format field" do
-    context "when format is supplied" do
-      it "populates the document_type and schema_name fields" do
-        subject.save
-        expect(subject.document_type).to eq('guide')
-        expect(subject.schema_name).to eq('guide')
-      end
-    end
-
-    context "when format is not supplied and schema_name is supplied" do
-      before do
-        subject.format = nil
-        subject.schema_name = 'guide'
-      end
-
-      it "populates the format field from schema_name" do
-        subject.document_type = 'a guide'
-        subject.save
-        expect(subject.format).to eq('guide')
-      end
-
-      it "raises an error if document_type is not supplied" do
-        expect(subject).not_to be_valid
-        expect(subject.errors[:document_type].size).to eq(1)
       end
     end
   end

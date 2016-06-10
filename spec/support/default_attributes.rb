@@ -1,6 +1,6 @@
 RSpec.shared_examples DefaultAttributes do
   before do
-    subject.format = "something that should be cleared"
+    subject.schema_name = "something that should be cleared"
     subject.routes = ["foo"]
   end
 
@@ -13,7 +13,7 @@ RSpec.shared_examples DefaultAttributes do
   it "does not preserve any information from the existing item" do
     subject.assign_attributes_with_defaults(attributes)
 
-    expect(subject.format).to be_nil
+    expect(subject.schema_name).to be_nil
     expect(subject.routes).to eq([])
   end
 

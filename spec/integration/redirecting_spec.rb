@@ -11,7 +11,8 @@ RSpec.describe "Redirecting content items that are redrafted" do
       title: "Title",
       publishing_app: "publisher",
       rendering_app: "frontend",
-      format: "guide",
+      schema_name: "guide",
+      document_type: "guide",
       routes: [{ path: "/foo", type: "exact" }],
     }
   end
@@ -45,19 +46,19 @@ RSpec.describe "Redirecting content items that are redrafted" do
       expect(ContentItem.count).to eq(3)
 
       content_item = ContentItem.first
-      expect(content_item.format).to eq("guide")
+      expect(content_item.schema_name).to eq("guide")
       expect(state(content_item)).to eq("published")
       expect(path(content_item)).to eq("/foo")
       expect(version(content_item)).to eq(1)
 
       content_item = ContentItem.second
-      expect(content_item.format).to eq("guide")
+      expect(content_item.schema_name).to eq("guide")
       expect(state(content_item)).to eq("draft")
       expect(path(content_item)).to eq("/bar")
       expect(version(content_item)).to eq(2)
 
       content_item = ContentItem.third
-      expect(content_item.format).to eq("redirect")
+      expect(content_item.schema_name).to eq("redirect")
       expect(state(content_item)).to eq("draft")
       expect(path(content_item)).to eq("/foo")
       expect(version(content_item)).to eq(1)
@@ -72,7 +73,7 @@ RSpec.describe "Redirecting content items that are redrafted" do
         expect(ContentItem.count).to eq(3)
 
         content_item = ContentItem.first
-        expect(content_item.format).to eq("guide")
+        expect(content_item.schema_name).to eq("guide")
         expect(state(content_item)).to eq("unpublished"),
           "This content item is eligible for both superseding and unpublishing.
           When this happens, the 'unpublished' state should be chosen."
@@ -80,13 +81,13 @@ RSpec.describe "Redirecting content items that are redrafted" do
         expect(version(content_item)).to eq(1)
 
         content_item = ContentItem.second
-        expect(content_item.format).to eq("guide")
+        expect(content_item.schema_name).to eq("guide")
         expect(state(content_item)).to eq("published")
         expect(path(content_item)).to eq("/bar")
         expect(version(content_item)).to eq(2)
 
         content_item = ContentItem.third
-        expect(content_item.format).to eq("redirect")
+        expect(content_item.schema_name).to eq("redirect")
         expect(state(content_item)).to eq("published")
         expect(path(content_item)).to eq("/foo")
         expect(version(content_item)).to eq(1)
@@ -106,19 +107,19 @@ RSpec.describe "Redirecting content items that are redrafted" do
       expect(ContentItem.count).to eq(3)
 
       content_item = ContentItem.first
-      expect(content_item.format).to eq("guide")
+      expect(content_item.schema_name).to eq("guide")
       expect(state(content_item)).to eq("published")
       expect(path(content_item)).to eq("/foo")
       expect(version(content_item)).to eq(1)
 
       content_item = ContentItem.second
-      expect(content_item.format).to eq("guide")
+      expect(content_item.schema_name).to eq("guide")
       expect(state(content_item)).to eq("draft")
       expect(path(content_item)).to eq("/bar")
       expect(version(content_item)).to eq(2)
 
       content_item = ContentItem.third
-      expect(content_item.format).to eq("redirect")
+      expect(content_item.schema_name).to eq("redirect")
       expect(state(content_item)).to eq("draft")
       expect(path(content_item)).to eq("/foo")
       expect(version(content_item)).to eq(1)
@@ -133,7 +134,7 @@ RSpec.describe "Redirecting content items that are redrafted" do
         expect(ContentItem.count).to eq(3)
 
         content_item = ContentItem.first
-        expect(content_item.format).to eq("guide")
+        expect(content_item.schema_name).to eq("guide")
         expect(state(content_item)).to eq("unpublished"),
           "This content item is eligible for both superseding and unpublishing.
           When this happens, the 'unpublished' state should be chosen."
@@ -141,13 +142,13 @@ RSpec.describe "Redirecting content items that are redrafted" do
         expect(version(content_item)).to eq(1)
 
         content_item = ContentItem.second
-        expect(content_item.format).to eq("guide")
+        expect(content_item.schema_name).to eq("guide")
         expect(state(content_item)).to eq("published")
         expect(path(content_item)).to eq("/bar")
         expect(version(content_item)).to eq(2)
 
         content_item = ContentItem.third
-        expect(content_item.format).to eq("redirect")
+        expect(content_item.schema_name).to eq("redirect")
         expect(state(content_item)).to eq("published")
         expect(path(content_item)).to eq("/foo")
         expect(version(content_item)).to eq(1)

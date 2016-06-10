@@ -20,6 +20,7 @@ module Presenters
         .merge(access_limited)
         .merge(base_path)
         .merge(locale)
+        .merge(format)
         .merge(withdrawal_notice)
     end
 
@@ -91,6 +92,10 @@ module Presenters
 
     def locale
       { locale: web_content_item.locale }
+    end
+
+    def format
+      { format: web_content_item.document_type }
     end
 
     def withdrawal_notice

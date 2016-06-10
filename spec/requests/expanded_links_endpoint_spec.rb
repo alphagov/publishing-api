@@ -20,7 +20,8 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
   let(:content_item) {
     FactoryGirl.create(:content_item,
       state: "published",
-      format: "placeholder",
+      document_type: "placeholder",
+      schema_name: "placeholder",
       title: "Some title",
       base_path: "/some-path",
       description: "Some description",
@@ -31,7 +32,8 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
   it "returns expanded links" do
     organisation = FactoryGirl.create(:content_item,
       state: "published",
-      format: "organisation",
+      document_type: "organisation",
+      schema_name: "organisation",
       base_path: "/my-super-org",
       content_id: "9b5ae6f5-f127-4843-9333-c157a404dd2d",
     )

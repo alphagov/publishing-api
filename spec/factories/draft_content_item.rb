@@ -10,14 +10,16 @@ FactoryGirl.define do
       destination "/somewhere"
     end
     sequence(:base_path) { |n| "/test-redirect-#{n}" }
-    format "redirect"
+    schema_name "redirect"
+    document_type "redirect"
     routes []
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => destination }] }
   end
 
   factory :gone_draft_content_item, parent: :draft_content_item do
     sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
-    format "gone"
+    schema_name "gone"
+    document_type "gone"
   end
 
   factory :access_limited_draft_content_item, parent: :draft_content_item do
