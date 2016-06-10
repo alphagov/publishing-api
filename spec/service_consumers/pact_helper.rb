@@ -71,7 +71,8 @@ Pact.provider_states_for "GDS API Adapters" do
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         title: "Instructions for crawler robots",
         description: "robots.txt provides rules for which parts of GOV.UK are permitted to be crawled by different bots.",
-        format: "special_route",
+        document_type: "special_route",
+        schema_name: "special_route",
         public_updated_at: "2015-07-30T13:58:11+00:00",
         publishing_app: "static",
         rendering_app: "static",
@@ -171,7 +172,8 @@ Pact.provider_states_for "GDS API Adapters" do
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "en",
-        format: "topic",
+        document_type: "topic",
+        schema_name: "topic",
         public_updated_at: '2015-01-03',
         user_facing_version: 1,
       )
@@ -179,7 +181,8 @@ Pact.provider_states_for "GDS API Adapters" do
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
-        format: "topic",
+        document_type: "topic",
+        schema_name: "topic",
         public_updated_at: '2015-01-02',
         user_facing_version: 1,
       )
@@ -187,7 +190,8 @@ Pact.provider_states_for "GDS API Adapters" do
         :draft_content_item,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "ar",
-        format: "topic",
+        document_type: "topic",
+        schema_name: "topic",
         public_updated_at: '2015-01-01',
         user_facing_version: 1,
       )
@@ -232,7 +236,8 @@ Pact.provider_states_for "GDS API Adapters" do
         title: 'Content Item A',
         content_id: 'aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa',
         base_path: '/a-base-path',
-        format: 'topic',
+        document_type: "topic",
+        schema_name: "topic",
         public_updated_at: '2015-01-02',
         details: {
           internal_name: "an internal name",
@@ -251,7 +256,8 @@ Pact.provider_states_for "GDS API Adapters" do
         content_id: 'bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb',
         base_path: '/another-base-path',
         public_updated_at: '2015-01-01',
-        format: 'topic',
+        document_type: "topic",
+        schema_name: "topic",
       )
 
       FactoryGirl.create(:linkable,
@@ -269,7 +275,8 @@ Pact.provider_states_for "GDS API Adapters" do
         :draft_content_item,
         title: 'Content Item A',
         base_path: '/a-base-path',
-        format: 'topic',
+        document_type: "topic",
+        schema_name: "topic",
       )
       FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
@@ -277,7 +284,8 @@ Pact.provider_states_for "GDS API Adapters" do
         :draft_content_item,
         title: 'Content Item B',
         base_path: '/another-base-path',
-        format: 'topic',
+        document_type: "topic",
+        schema_name: "topic",
       )
       FactoryGirl.create(:lock_version, target: content_item, number: 1)
 
@@ -285,7 +293,8 @@ Pact.provider_states_for "GDS API Adapters" do
         :draft_content_item,
         title: 'Content Item C',
         base_path: '/yet-another-base-path',
-        format: 'topic',
+        document_type: "topic",
+        schema_name: "topic",
         publishing_app: 'whitehall',
       )
       FactoryGirl.create(:lock_version, target: content_item, number: 1)
@@ -338,7 +347,8 @@ Pact.provider_states_for "GDS API Adapters" do
       FactoryGirl.create(
         :draft_content_item,
         content_id: 'bed722e6-db68-43e5-9079-063f623335a7',
-        format: 'topic',
+        document_type: "topic",
+        schema_name: "topic",
         details: { foo: :bar },
       )
     end
