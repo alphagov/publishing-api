@@ -16,10 +16,11 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+ENV["RAISE_EXPERIMENT_ERRORS"] = "1"
 
 require 'rspec'
-require 'database_cleaner'
 require 'pact/consumer/rspec'
+require 'webmock'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -49,23 +50,7 @@ RSpec.configure do |config|
   config.expose_dsl_globally = false
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
     WebMock.disable_net_connect!(allow_localhost: true)
-  end
-
-  config.around(:each) do |example|
-    if example.metadata[:skip_cleaning]
-      example.run
-    else
-      DatabaseCleaner.cleaning { example.run }
-    end
-  end
-
-  [:controller, :request].each do |spec_type|
-    config.before :each, type: spec_type do
-      login_as_stub_user
-    end
   end
 end
 

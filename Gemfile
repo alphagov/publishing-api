@@ -9,8 +9,6 @@ gem "plek", "~> 1.10"
 gem "airbrake", "~> 4.2.1"
 gem "pg"
 
-gem "govuk-client-url_arbiter", "0.0.3"
-
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else
@@ -26,6 +24,7 @@ gem "sidekiq-logging-json", "0.0.14"
 gem "sidekiq-statsd", "0.1.5"
 gem "deprecated_columns"
 gem "json-schema", require: false
+gem "hashdiff"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

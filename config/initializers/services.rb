@@ -1,5 +1,3 @@
-require "govuk/client/url_arbiter"
-
 module PublishingAPI
   # To be set in dev mode so that this can run when the draft content store isn't running.
   cattr_accessor :swallow_connection_errors
@@ -16,11 +14,6 @@ module PublishingAPI
 
   class ServiceNotRegisteredException < Exception; end
 end
-
-PublishingAPI.register_service(
-  name: :url_arbiter,
-  client: GOVUK::Client::URLArbiter.new(Plek.find('url-arbiter'))
-)
 
 PublishingAPI.register_service(
   name: :draft_content_store,
@@ -46,3 +39,11 @@ PublishingAPI.register_service(
 if Rails.env.development?
   PublishingAPI.swallow_connection_errors = true
 end
+
+# Statsd "the process" listens on a port on the provided host for UDP
+# messages. Given that it's UDP, it's fire-and-forget and will not
+# block your application. You do not need to have a statsd process
+# running locally on your development environment.
+statsd_client = Statsd.new("localhost")
+statsd_client.namespace = "govuk.app.publishing-api"
+PublishingAPI.register_service(name: :statsd, client: statsd_client)

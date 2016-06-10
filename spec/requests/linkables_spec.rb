@@ -40,6 +40,12 @@ RSpec.describe "GET /v2/linkables", type: :request do
     )
   }
 
+  around do |example|
+    Sidekiq::Testing.disable! do
+      example.run
+    end
+  end
+
   it "returns the title, content ID, state, internal name and base path for all content items of a given format" do
     get "/v2/linkables", document_type: "policy"
 
