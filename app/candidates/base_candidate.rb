@@ -6,6 +6,8 @@ module Candidates
     sidekiq_options queue: :experiments
 
     def experiment_candidate(experiment)
+      experiment.symbolize_keys!
+
       start_time = Time.now
       result = yield
       duration = (Time.now - start_time).to_f
