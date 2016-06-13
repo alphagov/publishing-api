@@ -34,14 +34,6 @@ private
 
   attr_reader :redis, :type, :name
 
-  def control
-    @control ||= get_data(:control)
-  end
-
-  def candidate
-    @candidate ||= get_data(:candidate)
-  end
-
   def data_from_redis
     redis_data = redis.get("experiments:#{key}:#{type}")
 
