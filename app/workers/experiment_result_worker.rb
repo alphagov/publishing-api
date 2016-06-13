@@ -8,6 +8,8 @@ class ExperimentResultWorker
   LOCK_TIMEOUT = 60
 
   def perform(name, id, run_output, duration, type)
+    type = type.to_sym
+
     Sidekiq.redis do |redis|
       this_branch = ExperimentResult.new(name, id, type, redis, run_output, duration)
 
