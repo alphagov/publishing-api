@@ -6,6 +6,10 @@ module ExperimentControl
 
     id = SecureRandom.uuid
 
+    if result.class == Enumerator
+      result = result.to_a
+    end
+
     ExperimentResultWorker.perform_async(name, id, result, duration, :control)
 
     candidate_worker = candidate.fetch(:worker)
