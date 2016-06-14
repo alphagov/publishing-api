@@ -97,6 +97,35 @@ RSpec.describe State do
       expect(unpublishing.explanation).to eq("A test explanation")
       expect(unpublishing.alternative_path).to eq("/some-path")
     end
+
+    it "updates an existing unpublishing" do
+      unpublishing = nil
+      expect {
+        unpublishing = described_class.unpublish(live_item,
+                                  type: "gone",
+                                  explanation: "A test explanation",
+                                  alternative_path: "/some-path",
+        )
+      }.to change(Unpublishing, :count).by(1)
+
+      last_unpublishing = Unpublishing.last
+      expect(unpublishing).to eq(last_unpublishing)
+      expect(unpublishing.type).to eq("gone")
+
+      # successfully created an unpublishing, now try to modify it
+      expect {
+        unpublishing = described_class.unpublish(live_item,
+                                  type: "redirect",
+                                  explanation: "A test explanation",
+                                  alternative_path: "/redirected-some-path",
+        )
+      }.to change(Unpublishing, :count).by(0)
+
+      last_unpublishing = Unpublishing.last
+      expect(unpublishing).to eq(last_unpublishing)
+      expect(unpublishing.type).to eq("redirect")
+      expect(unpublishing.alternative_path).to eq("/redirected-some-path")
+    end
   end
 
   describe ".substitute" do
