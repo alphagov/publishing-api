@@ -18,7 +18,7 @@ private
   attr_reader :payload, :type
 
   def validate_schema
-    JSON::Validator.validate!(schema, payload)
+    JSON::Validator.validate!(schema_for_validation, payload)
   rescue JSON::Schema::ValidationError => error
     Airbrake.notify_or_ignore(error, parameters: {
       explanation: "#{payload} schema validation error"
@@ -26,13 +26,19 @@ private
     false
   end
 
+  def schema_for_validation
+    return schema unless schema.has_key?("oneOf")
+    index = payload.has_key?(:format) ? 0 : 1
+    schema.merge(schema["oneOf"][index]).except("oneOf")
+  end
+
   def schema
-    @schema || File.read("govuk-content-schemas/formats/#{schema_name}/publisher_v2/#{type}.json")
+    @schema || JSON.load(File.read("govuk-content-schemas/formats/#{schema_name}/publisher_v2/#{type}.json"))
   rescue Errno::ENOENT => error
     Airbrake.notify_or_ignore(error, parameters: {
       explanation: "#{payload} is missing schema_name #{schema_name} or type #{type}"
     })
-    return {}
+    @schema = {}
   end
 
   def schema_name
