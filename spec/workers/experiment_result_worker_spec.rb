@@ -55,34 +55,38 @@ RSpec.describe ExperimentResultWorker do
       expect(ExperimentResult).to receive(:new)
         .with(name, id, :control, redis, control_output, control_duration)
         .and_return(control)
+
+      expect(ExperimentResult).to receive(:new)
+        .with(name, id, :candidate, redis)
+        .and_return(candidate)
     end
 
     context "and the candidate is available" do
       before do
-        allow(ExperimentResult).to receive(:new)
-          .with(name, id, :candidate, redis)
-          .and_return(candidate)
+        allow(candidate).to receive(:available?).and_return(true)
       end
-
 
       it "processes the run output with the candidate" do
         expect(control).to receive(:process_run_output).with(candidate)
-
         subject.perform(name, id, control_output, control_duration, type)
       end
     end
 
     context "but the candidate is unavailable" do
       before do
-        allow(ExperimentResult).to receive(:new)
-          .with(name, id, :candidate, redis)
-          .and_raise(ExperimentResult::MissingExperimentData)
+        allow(candidate).to receive(:available?).and_return(false)
+        allow(described_class).to receive(:perform_in)
       end
 
-      it "allows the error to trigger a retry later" do
-        expect {
-          subject.perform(name, id, control_output, control_duration, type)
-        }.to raise_error(ExperimentResult::MissingExperimentData)
+      it "does not process the run output" do
+        expect(control).not_to receive(:process_run_output)
+        subject.perform(name, id, control_output, control_duration, type)
+      end
+
+      it "schedules the job to run again later" do
+        args = [name, id, control_output, control_duration, type]
+        expect(described_class).to receive(:perform_in).with(5.seconds, *args)
+        subject.perform(*args)
       end
     end
   end

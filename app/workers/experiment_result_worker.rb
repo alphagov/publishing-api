@@ -2,8 +2,7 @@ class ExperimentResultWorker
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
-  sidekiq_options queue: :experiments,
-                  retry: 5
+  sidekiq_options queue: :experiments
 
   LOCK_TIMEOUT = 60
 
@@ -15,7 +14,11 @@ class ExperimentResultWorker
 
       if this_branch.control?
         candidate = ExperimentResult.new(name, id, :candidate, redis)
-        this_branch.process_run_output(candidate)
+        if candidate.available?
+          this_branch.process_run_output(candidate)
+        else
+          self.class.perform_in(5.seconds, name, id, run_output, duration, type)
+        end
       elsif this_branch.candidate?
         this_branch.store_run_output
       end
