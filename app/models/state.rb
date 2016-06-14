@@ -33,6 +33,7 @@ class State < ActiveRecord::Base
         explanation: explanation,
         alternative_path: alternative_path,
       )
+      unpublishing
     else
       Unpublishing.create!(
         content_item: content_item,
