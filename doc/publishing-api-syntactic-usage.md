@@ -68,7 +68,7 @@ Requests to update an existing draft content item:
  - `locale` (optional) specifies the locale of the content item to be published.
  - `previous_version` (optional but advised) is used to ensure the request is publishing the latest lock version of this draft. ie. optimistic locking.
 
- ## `POST /v2/content/:content_id/unpublish`
+## `POST /v2/content/:content_id/unpublish`
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#an_unpublish_request_given_a_published_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
@@ -83,11 +83,11 @@ Requests to update an existing draft content item:
   - Does not send to the message queue.
   - Returns 200 along with the content_id of the unpublished item.
 
- ### Required request params:
+### Required request params:
   - `content_id` the primary identifier for the content to publish.
   - `type` the type of unpublishing to create/perform.
 
- ### Other request params:
+### Other request params:
   - `explanation` (optional) Message to display on page for `gone`,
                   (required) for `withdrawal`,
                   (ignored) for `redirect`.
