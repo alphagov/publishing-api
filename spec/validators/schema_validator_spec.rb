@@ -60,4 +60,53 @@ RSpec.describe SchemaValidator do
       validator.validate
     end
   end
+
+  context "schema with format/schema_name alternatives" do
+    let(:schema) {
+      {
+        "oneOf" => [
+          {
+            "properties" => {
+              "format" => { "type" => "string" },
+              "title" => { "type" => "string" },
+            },
+            "additionalProperties" => false,
+            "required" => %w{format title},
+          },
+          {
+            "properties" => {
+              "schema_name" => { "type" => "string" },
+              "document_type" => { "type" => "string" },
+            },
+            "additionalProperties" => false,
+            "required" => %w{schema_name document_type format}
+          }
+        ]
+      }
+    }
+
+    context "when schema_name is provided" do
+      let(:payload) {
+        { schema_name: "foo" }
+      }
+      it "reports useful validation errors" do
+        expect(Airbrake).to receive(:notify_or_ignore) do |error, _|
+          expect(error.message).to match(/did not contain a required property of 'document_type'/)
+        end
+        validator.validate
+      end
+    end
+
+    context "when format is provided" do
+      let(:payload) {
+        { format: "foo" }
+      }
+      it "reports useful validation errors" do
+        expect(Airbrake).to receive(:notify_or_ignore) do |error, _|
+          expect(error.message).to match(/did not contain a required property of 'title'/)
+        end
+        validator.validate
+      end
+    end
+  end
 end
