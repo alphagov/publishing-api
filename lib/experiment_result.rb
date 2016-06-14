@@ -4,8 +4,13 @@ class ExperimentResult
     @key = "#{name}:#{id}"
     @redis = redis
     @type = type
-    @run_output = run_output || data_from_redis.fetch(:run_output)
-    @duration = duration || data_from_redis.fetch(:duration)
+    @run_output = run_output
+    @duration = duration
+
+    if (run_output.blank? || duration.blank?) && data_from_redis
+      @run_output ||= data_from_redis.fetch(:run_output)
+      @duration ||= data_from_redis.fetch(:duration)
+    end
   end
 
   attr_reader :key, :run_output, :duration
@@ -30,25 +35,18 @@ class ExperimentResult
     type == :candidate
   end
 
+  def available?
+    run_output.present? && duration.present?
+  end
+
 private
 
   attr_reader :redis, :type, :name
 
-  def control
-    @control ||= get_data(:control)
-  end
-
-  def candidate
-    @candidate ||= get_data(:candidate)
-  end
-
   def data_from_redis
     redis_data = redis.get("experiments:#{key}:#{type}")
 
-    if redis_data.blank?
-      message = "Missing experiment data for #{key} #{type}"
-      raise MissingExperimentData.new(message)
-    else
+    if redis_data.present?
       JSON.parse(redis_data).deep_symbolize_keys
     end
   end

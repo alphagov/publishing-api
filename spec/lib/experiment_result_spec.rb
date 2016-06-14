@@ -106,6 +106,11 @@ RSpec.describe ExperimentResult do
           expect(candidate.run_output).to eq(candidate_run_output)
           expect(candidate.duration).to eq(candidate_duration)
         end
+
+        it "is considered available" do
+          candidate = ExperimentResult.new(name, id, type, redis)
+          expect(candidate.available?).to eq(true)
+        end
       end
 
       context "but redis does not have the data" do
@@ -113,10 +118,9 @@ RSpec.describe ExperimentResult do
           allow(redis).to receive(:get).and_return("")
         end
 
-        it "raises an error" do
-          expect {
-            ExperimentResult.new(name, id, type, redis)
-          }.to raise_error(ExperimentResult::MissingExperimentData)
+        it "is considered unavailable" do
+          missing_candidate = ExperimentResult.new(name, id, type, redis)
+          expect(missing_candidate.available?).to eq(false)
         end
       end
     end
