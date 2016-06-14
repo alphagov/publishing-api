@@ -35,11 +35,11 @@ RSpec.describe ExperimentResultWorker do
   end
 
   context "if we're the candidate" do
-    let(:type) { :candidate }
+    let(:type) { "candidate" }
 
     it "stores the run output and duration" do
       expect(ExperimentResult).to receive(:new)
-        .with(name, id, type, redis, candidate_output, candidate_duration)
+        .with(name, id, type.to_sym, redis, candidate_output, candidate_duration)
         .and_return(candidate)
 
       expect(candidate).to receive(:store_run_output)
@@ -49,7 +49,7 @@ RSpec.describe ExperimentResultWorker do
   end
 
   context "if we're the control" do
-    let(:type) { :control }
+    let(:type) { "control" }
 
     before do
       expect(ExperimentResult).to receive(:new)
@@ -84,9 +84,9 @@ RSpec.describe ExperimentResultWorker do
       end
 
       it "schedules the job to run again later" do
-        args = [name, id, control_output, control_duration, type]
-        expect(described_class).to receive(:perform_in).with(5.seconds, *args)
-        subject.perform(*args)
+        args = [name, id, control_output, control_duration]
+        expect(described_class).to receive(:perform_in).with(5.seconds, *args, type.to_sym)
+        subject.perform(*args, type)
       end
     end
   end
