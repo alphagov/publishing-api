@@ -30,8 +30,8 @@ RSpec.describe "Message bus", type: :request do
     end
 
     context "detailed_guide format" do
-      it "uses the document_type for the routing key on publish and 'links' for the link update" do
-        put request_path, content_item_params.merge(document_type: "detailed_guide").to_json
+      it "uses the schema_name for the routing key on publish and 'links' for the link update" do
+        put request_path, content_item_params.merge(schema_name: "detailed_guide").to_json
 
         delivery_info, = wait_for_message_on(@queue)
         expect(delivery_info.routing_key).to eq("detailed_guide.links")
