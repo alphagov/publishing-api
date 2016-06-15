@@ -71,6 +71,7 @@ private
       :content_id,
       :document_type,
       :format,
+      :last_edited_at,
       :locale,
       :public_updated_at,
       :publishing_app,
