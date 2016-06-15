@@ -62,6 +62,7 @@ module Commands
         check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
         update_content_item(content_item)
+        update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
         increment_lock_version(content_item)
 
         if path_has_changed?(previous_location)
@@ -219,6 +220,14 @@ module Commands
       def update_content_item(content_item)
         content_item.assign_attributes_with_defaults(content_item_attributes_from_payload)
         content_item.save!
+      end
+
+      def update_last_edited_at_if_needed(content_item, last_edited_at = nil)
+        if last_edited_at.nil? && ["major", "minor"].include?(payload[:update_type])
+          last_edited_at = Time.zone.now
+        end
+
+        content_item.update_attributes(last_edited_at: last_edited_at) if last_edited_at
       end
 
       def increment_lock_version(content_item)

@@ -6,6 +6,7 @@ module DefaultAttributes
     :created_at,
     :updated_at,
     :first_published_at,
+    :last_edited_at,
   ].freeze
 
   included do

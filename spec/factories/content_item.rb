@@ -7,6 +7,7 @@ FactoryGirl.define do
     document_type "guide"
     public_updated_at "2014-05-14T13:00:06Z"
     first_published_at "2014-01-02T03:04:05Z"
+    last_edited_at "2014-05-14T13:00:06Z"
     publishing_app "publisher"
     rendering_app "frontend"
     details {
