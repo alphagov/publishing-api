@@ -223,7 +223,7 @@ module Commands
       end
 
       def update_last_edited_at_if_needed(content_item, last_edited_at = nil)
-        if last_edited_at.nil? && ["major", "minor"].include?(payload[:update_type])
+        if last_edited_at.nil? && %w(major minor).include?(payload[:update_type])
           last_edited_at = Time.zone.now
         end
 
