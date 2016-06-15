@@ -235,8 +235,8 @@ RSpec.describe V2::ContentItemsController do
           expect(response.status).to eq(200), response.body
 
           expect(results).to eq([
-            { "last_edited_at" => "2016-01-01 00:00:00" },
-            { "last_edited_at" => "2016-02-02 00:00:00" },
+            { "last_edited_at" => "2016-01-01T00:00:00Z" },
+            { "last_edited_at" => "2016-02-02T00:00:00Z" },
           ])
         end
       end
@@ -251,8 +251,8 @@ RSpec.describe V2::ContentItemsController do
           expect(response.status).to eq(200), response.body
 
           expect(results).to eq([
-            { "last_edited_at" => "2016-02-02 00:00:00" },
-            { "last_edited_at" => "2016-01-01 00:00:00" },
+            { "last_edited_at" => "2016-02-02T00:00:00Z" },
+            { "last_edited_at" => "2016-01-01T00:00:00Z" },
           ])
         end
       end

@@ -30,6 +30,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "document_type" => "guide",
         "schema_name" => "guide",
         "public_updated_at" => "2014-05-14T13:00:06Z",
+        "last_edited_at" => "2014-05-14T13:00:06Z",
         "first_published_at" => "2014-01-02T03:04:05Z",
         "details" => { "body" => "<p>Something about VAT</p>\n" },
         "routes" => [{ "path" => base_path, "type" => "exact" }],
