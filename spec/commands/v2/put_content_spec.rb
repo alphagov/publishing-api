@@ -16,6 +16,7 @@ RSpec.describe Commands::V2::PutContent do
       {
         content_id: content_id,
         base_path: base_path,
+        update_type: "major",
         title: "Some Title",
         publishing_app: "publisher",
         rendering_app: "frontend",
