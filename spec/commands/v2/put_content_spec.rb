@@ -820,8 +820,8 @@ RSpec.describe Commands::V2::PutContent do
           last_edited_at = 1.year.ago
 
           described_class.call(payload.merge(
-            last_edited_at: last_edited_at
-          ))
+                                 last_edited_at: last_edited_at
+                              ))
 
           content_item = ContentItem.last
 
@@ -842,8 +842,8 @@ RSpec.describe Commands::V2::PutContent do
           last_edited_at = 1.year.ago
 
           described_class.call(payload.merge(
-            last_edited_at: last_edited_at
-          ))
+                                 last_edited_at: last_edited_at
+                               ))
 
           content_item.reload
 
@@ -876,8 +876,8 @@ RSpec.describe Commands::V2::PutContent do
           old_last_edited_at = content_item.last_edited_at
 
           described_class.call(payload.merge(
-            update_type: "republish"
-          ))
+                                 update_type: "republish"
+                               ))
 
           content_item.reload
 
