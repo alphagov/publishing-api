@@ -14,6 +14,7 @@ module Presenters
     def present
       symbolized_attributes
         .slice(*content_item.class::TOP_LEVEL_FIELDS)
+        .except(:last_edited_at) # only intended to be used by publishing applications
         .merge(first_published_at)
         .merge(public_updated_at)
         .merge(links)
