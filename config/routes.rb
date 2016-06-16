@@ -35,4 +35,5 @@ Rails.application.routes.draw do
 
   get '/healthcheck', to: proc { [200, {}, ['OK']] }
   get '/debug/:content_id', to: "debug#show"
+  get "/debug/experiments/:experiment", to: "debug#experiment"
 end
