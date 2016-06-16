@@ -7,9 +7,13 @@ class ExperimentResult
     @run_output = run_output
     @duration = duration
 
-    if (run_output.blank? || duration.blank?) && data_from_redis
-      @run_output ||= data_from_redis.fetch(:run_output)
-      @duration ||= data_from_redis.fetch(:duration)
+    if run_output.blank? || duration.blank?
+      redis_data = data_from_redis
+
+      if redis_data
+        @run_output ||= redis_data.fetch(:run_output)
+        @duration ||= redis_data.fetch(:duration)
+      end
     end
   end
 
