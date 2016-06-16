@@ -29,6 +29,7 @@ class ExperimentResult
   def process_run_output(candidate)
     variation = HashDiff.diff(self.run_output, candidate.run_output)
     report_data(variation, candidate)
+    redis.del("experiments:#{key}:candidate")
   end
 
   def control?
