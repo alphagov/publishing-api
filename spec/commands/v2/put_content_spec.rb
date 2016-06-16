@@ -849,6 +849,21 @@ RSpec.describe Commands::V2::PutContent do
 
           expect(content_item.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
         end
+
+        context "with update_type not major or minor" do
+          it "stores the provided timestamp" do
+            last_edited_at = 1.year.ago
+
+            described_class.call(payload.merge(
+                                   update_type: "republish",
+                                   last_edited_at: last_edited_at
+                                 ))
+
+            content_item.reload
+
+            expect(content_item.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
+          end
+        end
       end
     end
 
