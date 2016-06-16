@@ -22,6 +22,13 @@ RSpec.describe Commands::BaseCommand do
     end
   end
 
+  class Commands::SlowCommand < Commands::BaseCommand
+    def call
+      Timecop.travel Time.now + 1
+      :foo
+    end
+  end
+
   describe "callbacks for nested commands" do
     it "executes callbacks at the top level of the command tree" do
       expect(TopLevelCommand).to receive(:execute_callbacks)
@@ -40,6 +47,18 @@ RSpec.describe Commands::BaseCommand do
       }
 
       TopLevelCommand.call(payload)
+    end
+  end
+
+  describe "timing" do
+    it "sends a command's duration to statsd" do
+      expect(PublishingAPI.service(:statsd)).to receive(:timing) do |name, time, sample_rate|
+        expect(name).to eq "Commands.SlowCommand"
+        expect(time).to be_within(10).of(1000)
+        expect(sample_rate).to eq 1
+      end
+
+      expect(Commands::SlowCommand.call(foo: 'bar')).to eq :foo
     end
   end
 end

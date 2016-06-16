@@ -54,6 +54,7 @@ RSpec.configure do |config|
   config.include AuthenticationHelper::ControllerMixin, type: :controller
 
   config.after do
+    Timecop.return
     GDS::SSO.test_user = nil
   end
 
