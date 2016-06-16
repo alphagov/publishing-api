@@ -27,14 +27,15 @@ private
 
   def send_to_content_store
     if content_item_id
-      content_item_is_draft = (State.where(content_item_id: content_item_id).pluck(:name) == ["draft"])
       content_store_is_live = (content_store == Adapters::ContentStore)
 
-      if content_item_is_draft && content_store_is_live
-        raise CommandError.new(
-          code: 500,
-          message: "Will not send a draft content item to the live content store",
-        )
+      if content_store_is_live
+        if State.where(content_item_id: content_item_id).pluck(:name) == ["draft"]
+          raise CommandError.new(
+            code: 500,
+            message: "Will not send a draft content item to the live content store",
+          )
+        end
       end
 
       base_path = presented_payload.fetch(:base_path)
