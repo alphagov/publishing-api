@@ -27,7 +27,7 @@ class ExperimentResult
   end
 
   def process_run_output(candidate)
-    variation = HashDiff.diff(self.run_output, candidate.run_output)
+    variation = HashDiff.diff(sort(self.run_output), sort(candidate.run_output))
     report_data(variation, candidate)
     redis.del("experiments:#{key}:candidate")
   end
@@ -68,5 +68,18 @@ private
 
   def statsd
     PublishingAPI.service(:statsd)
+  end
+
+  def sort(object)
+    case object
+    when Array
+      object.sort_by(&:object_id)
+    when Hash
+      object.each_with_object({}) { |(key, value), hash|
+        hash[key] = sort(value)
+      }
+    else
+      object
+    end
   end
 end
