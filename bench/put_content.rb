@@ -5,6 +5,7 @@ require 'benchmark'
 require 'securerandom'
 
 require 'faker'
+require 'stackprof'
 
 content_id = SecureRandom.uuid
 title = Faker::Company.catch_phrase
@@ -39,13 +40,15 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |name, started, fi
   $queries += 1
 end
 
-puts Benchmark.measure {
-  content_items.each do |item|
-    Commands::V2::PutContent.call(item)
-    print "."
-  end
-  puts ""
-}
+StackProf.run(mode: :wall, out: "tmp/put_content_wall.dump") do
+  puts Benchmark.measure {
+    content_items.each do |item|
+      Commands::V2::PutContent.call(item)
+      print "."
+    end
+    puts ""
+  }
+end
 
 puts "#{$queries} SQL queries"
 

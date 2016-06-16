@@ -47,4 +47,5 @@ group :development, :test do
   gem "pact_broker-client"
   gem "govuk-lint"
   gem "faker"
+  gem "stackprof", require: false
 end
