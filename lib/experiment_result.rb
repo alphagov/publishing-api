@@ -64,6 +64,4 @@ private
   def statsd
     PublishingAPI.service(:statsd)
   end
-
-  class MissingExperimentData < Exception; end
 end
