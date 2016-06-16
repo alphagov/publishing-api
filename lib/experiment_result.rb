@@ -7,9 +7,13 @@ class ExperimentResult
     @run_output = run_output
     @duration = duration
 
-    if (run_output.blank? || duration.blank?) && data_from_redis
-      @run_output ||= data_from_redis.fetch(:run_output)
-      @duration ||= data_from_redis.fetch(:duration)
+    if run_output.blank? || duration.blank?
+      redis_data = data_from_redis
+
+      if redis_data
+        @run_output ||= redis_data.fetch(:run_output)
+        @duration ||= redis_data.fetch(:duration)
+      end
     end
   end
 
@@ -23,8 +27,9 @@ class ExperimentResult
   end
 
   def process_run_output(candidate)
-    variation = HashDiff.diff(self.run_output, candidate.run_output)
+    variation = HashDiff.diff(sort(self.run_output), sort(candidate.run_output))
     report_data(variation, candidate)
+    redis.del("experiments:#{key}:candidate")
   end
 
   def control?
@@ -65,5 +70,16 @@ private
     PublishingAPI.service(:statsd)
   end
 
-  class MissingExperimentData < Exception; end
+  def sort(object)
+    case object
+    when Array
+      object.sort_by(&:object_id)
+    when Hash
+      object.each_with_object({}) { |(key, value), hash|
+        hash[key] = sort(value)
+      }
+    else
+      object
+    end
+  end
 end

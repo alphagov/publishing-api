@@ -10,7 +10,7 @@ RSpec.describe ExperimentResult do
   let(:candidate_run_output) { "candidate output" }
   let(:candidate_duration) { 5.0 }
 
-  let(:redis) { double(:redis) }
+  let(:redis) { double(:redis, del: nil) }
 
   let(:control) { ExperimentResult.new(name, id, :control, redis, control_run_output, control_duration) }
   let(:candidate) { ExperimentResult.new(name, id, :candidate, redis, candidate_run_output, candidate_duration) }
@@ -44,6 +44,12 @@ RSpec.describe ExperimentResult do
 
       expect(PublishingAPI.service(:statsd)).to receive(:timing)
         .with("experiments.#{name}.candidate", candidate_duration)
+
+      control.process_run_output(candidate)
+    end
+
+    it "deletes the candidate data from redis" do
+      expect(redis).to receive(:del).with("experiments:#{name}:#{id}:candidate")
 
       control.process_run_output(candidate)
     end
