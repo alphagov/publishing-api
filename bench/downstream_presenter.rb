@@ -3,6 +3,8 @@
 require ::File.expand_path('../../config/environment', __FILE__)
 require 'benchmark'
 
+require 'stackprof'
+
 large_reverse = Link.find_by_sql(<<-SQL).first[:target_content_id]
   SELECT target_content_id
   FROM links
@@ -55,16 +57,16 @@ benchmarks.each do |name, content_id|
   ).filter(state: 'published')).first
 
   puts "#{name}: #{content_id}"
-  puts Benchmark.measure {
-    10.times do |i|
-      Rails.logger.debug "Iteration #{i}"
-      Rails.logger.debug "-----------"
-      Presenters::DownstreamPresenter.present(
-        content_item,
-        state_fallback_order: Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER
-      )
-      print "."
-    end
-    puts ""
-  }
+  StackProf.run(mode: :wall, out: "tmp/downstream_presenter_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
+    puts Benchmark.measure {
+      10.times do |i|
+        Presenters::DownstreamPresenter.present(
+          content_item,
+          state_fallback_order: Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER
+        )
+        print "."
+      end
+      puts ""
+    }
+  end
 end
