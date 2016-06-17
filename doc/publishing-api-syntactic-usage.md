@@ -137,6 +137,14 @@ TODO: Request/Response detail
 Note that link sets can be created before or after the PUT requests for the content item.
 No downstream requests will be sent if the content item doesn't exist yet.
 
+To delete all the links of a `link_type`, update it with an empty array. This will also remove the reference to the `link_type` from the links. For example:
+
+```
+"links": {
+  "unwanted_link_type": []
+}
+```
+
 ### Required request parameters:
  - `content_id` the primary identifier for the content associated with the link set to be created or updated.
  - `links` a JSON Object containing arrays of links keyed by link type eg.
