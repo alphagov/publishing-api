@@ -1,23 +1,29 @@
 ## Decision Record: Govspeak and embedded content
 
+## Context
+
 GOV.UK uses its Markdown dialect, govspeak, as the source of content for the
 site. At present the conversion from govspeak to HTML is done in each publishing
 app. This is a duplication of responsibility, and means that we have subtly
 different versions of govspeak in every app.
 
-To improve this, govspeak rendering will be moved to be a responsibility of the
-publishing API, and embedded content will be separated out so that the details
-are sent to frontends rather than the rendered output.
+In addition, one publishing application (Whitehall) allows content such as 
+Contacts to be embedded within govspeak and expanded at request time. A
+way of managing this centrally also needs to be created.
+
+Three options were considered for moving this responsibility:
+
+* Option 1: rendering of govspeak and embedded content is done fully in the
+publishing-api (or a shared service);
+* Option 2: hybrid rendering - publishing-api renders govspeak but inserts
+SSI-style placeholders for embedded content, which are resolved by frontend
+apps;
+* Option 3: all rendering is done in frontend apps.
 
 
-## Description
+## Decision
 
-### Govspeak rendering
-
-Conversion of govspeak into HTML becomes the responsibility of the publishing
-platform. Publishing apps will send raw govspeak, and content-store will
-continue to receive HTML; the conversion from one to the other will be done in
-between those points.
+The decision was made to choose Option 1.
 
 This solution was chosen because it fits with the principles of the publishing
 platform, namely:
@@ -28,6 +34,13 @@ platform, namely:
  * responsibility for shared actions lives within the platform as far as
    possible.
 
+### Govspeak rendering
+
+Conversion of govspeak into HTML becomes the responsibility of the publishing
+platform. Publishing apps will send raw govspeak, and content-store will
+continue to receive HTML; the conversion from one to the other will be done in
+between those points.
+
 It is yet to be decided if the conversion is done directly in publishing-api,
 or in a new dedicated govspeak service that sits between publishing-api and
 content-store. The latter increases flexibility and makes it possible for other
@@ -35,11 +48,9 @@ apps to call out to it for govspeak rendering; however it would be more complex
 and increase the number of apps involved in the publishing chain.
 
 
-## Embedded content
+### Embedded content
 
-One of the features of govspeak is that it can embed other items, eg contacts,
-in the markdown, and they are expanded in the rendered HTML. This embedded
-content will be resolved by publishing-api and rendered along with the
+Embedded content will be resolved by publishing-api and rendered along with the
 rest of the document. The flow is as follows.
 
 A Whitehall editor edits the body of a document and chooses a contact from a
@@ -98,6 +109,10 @@ ID to a JSON object (fields to be determined, this is an example only):
 
 The govspeak renderer will then convert this to HTML, replacing the embedded
 content with the data from the relevant entry in the expanded links.
+
+## Status
+
+Accepted.
 
 ## Consequences
 
