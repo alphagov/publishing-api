@@ -20,12 +20,6 @@ module V2
     def linkables
       # Base path is returned to facilitate rummager indexing.
       # This can be removed once link updates are picked up by rummager from the message bus.
-      candidate = {
-        worker: Candidates::Linkables,
-        args: [
-          query_params.fetch(:document_type),
-        ],
-      }
 
       presented = Queries::GetContentCollection.new(
         document_type: query_params.fetch(:document_type),
