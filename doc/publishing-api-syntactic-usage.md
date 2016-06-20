@@ -229,3 +229,24 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
 
 ### Required request params:
   - `base_paths` is a collection of base paths to query by (appears in the POST request body)
+
+## `GET /debug/:content_id`
+
+  - Displays debug information for `content_id`
+
+### Required request params:
+  - `content_id` the UUID of the content item you wish to debug
+
+### Usage:
+  ```
+  ssh backend-1.integration -CNL 8888:127.0.0.1:3093
+  ```
+
+  And then open http://localhost:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
+  Alternativly this to your hosts file and open
+
+  ```
+  127.0.0.1 publishing-api.integration.publishing.service.gov.uk
+  ```
+
+  http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
