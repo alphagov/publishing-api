@@ -23,6 +23,15 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
         "/only-unpublished-page" => "cc6d416c-f369-4b7c-bac7-5e9401e79362",
       )
     end
+
+    it "ignored redirects" do
+      FactoryGirl.create(:redirect_content_item, state: "unpublished", base_path: "/published-page", content_id: "aa491126-77ed-4e81-91fa-8dc7f74e9657")
+      base_paths = ['/published-page']
+
+      post "/lookup-by-base-path", base_paths: base_paths
+
+      expect(parsed_response).to eql({})
+    end
   end
 
   def create_test_content
