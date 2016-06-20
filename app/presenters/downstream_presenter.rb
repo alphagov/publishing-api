@@ -35,14 +35,15 @@ module Presenters
 
     def links
       return {} unless link_set
-      if MigrateExpandedLinks.document_types.include?(content_item.document_type)
+
+      if MigrateExpandedLinks.schema_names.include?(content_item.schema_name)
         {
-          links: expanded_link_set_presenter.links
+          links: expanded_link_set_presenter.links,
         }
       else
         {
           links: link_set_presenter.links,
-          expanded_links: expanded_link_set_presenter.links
+          expanded_links: expanded_link_set_presenter.links,
         }
       end
     end
