@@ -18,30 +18,9 @@ module V2
     end
 
     def linkables
-      # Base path is returned to facilitate rummager indexing.
-      # This can be removed once link updates are picked up by rummager from the message bus.
-      candidate = {
-        worker: Candidates::Linkables,
-        args: [
-          query_params.fetch(:document_type),
-        ],
-      }
-
-      presented = experiment_control(:linkables, candidate: candidate) {
-        Queries::GetContentCollection.new(
-          document_type: query_params.fetch(:document_type),
-          fields: %w(
-            title
-            content_id
-            publication_state
-            base_path
-            internal_name
-          ),
-          pagination: NullPagination.new
-        ).call
-      }
-
-      render json: presented
+      render json: Queries::GetLinkables.new(
+        document_type: query_params.fetch(:document_type),
+      ).call
     end
 
     def show
