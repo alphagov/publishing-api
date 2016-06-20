@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607153243) do
+ActiveRecord::Schema.define(version: 20160614144815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,10 +42,12 @@ ActiveRecord::Schema.define(version: 20160607153243) do
     t.string   "document_type"
     t.string   "schema_name"
     t.datetime "first_published_at"
+    t.datetime "last_edited_at"
   end
 
   add_index "content_items", ["content_id"], name: "index_content_items_on_content_id", using: :btree
   add_index "content_items", ["document_type"], name: "index_content_items_on_document_type", using: :btree
+  add_index "content_items", ["last_edited_at"], name: "index_content_items_on_last_edited_at", using: :btree
   add_index "content_items", ["public_updated_at"], name: "index_content_items_on_public_updated_at", using: :btree
   add_index "content_items", ["publishing_app"], name: "index_content_items_on_publishing_app", using: :btree
   add_index "content_items", ["rendering_app"], name: "index_content_items_on_rendering_app", using: :btree

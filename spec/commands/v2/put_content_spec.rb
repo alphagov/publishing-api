@@ -16,6 +16,7 @@ RSpec.describe Commands::V2::PutContent do
       {
         content_id: content_id,
         base_path: base_path,
+        update_type: "major",
         title: "Some Title",
         publishing_app: "publisher",
         rendering_app: "frontend",
@@ -811,6 +812,83 @@ RSpec.describe Commands::V2::PutContent do
         .with(payload.except(:content_id), type: :schema)
 
       described_class.call(payload)
+    end
+
+    context "draft does not exist" do
+      context "with a provided last_edited_at" do
+        it "stores the provided timestamp" do
+          last_edited_at = 1.year.ago
+
+          described_class.call(payload.merge(
+                                 last_edited_at: last_edited_at
+                              ))
+
+          content_item = ContentItem.last
+
+          expect(content_item.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
+        end
+      end
+    end
+
+    context "draft does exist" do
+      let!(:content_item) {
+        FactoryGirl.create(:draft_content_item,
+          content_id: content_id,
+        )
+      }
+
+      context "with a provided last_edited_at" do
+        %w(minor major republish).each do |update_type|
+          context "with update_type of #{update_type}" do
+            it "stores the provided timestamp" do
+              last_edited_at = 1.year.ago
+
+              described_class.call(payload.merge(
+                                     update_type: update_type,
+                                     last_edited_at: last_edited_at
+                                   ))
+
+              content_item.reload
+
+              expect(content_item.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
+            end
+          end
+        end
+      end
+    end
+
+    context "with no provided last_edited_at" do
+      let!(:content_item) {
+        FactoryGirl.create(:draft_content_item,
+          content_id: content_id,
+        )
+      }
+
+      context "when update type is major or minor" do
+        it "stores last_edited_at as the current time" do
+          Timecop.freeze do
+            described_class.call(payload)
+
+            content_item.reload
+
+            expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+          end
+        end
+      end
+
+      context "when other update type" do
+        it "dosen't change last_edited_at" do
+          old_last_edited_at = content_item.last_edited_at
+
+          described_class.call(payload.merge(
+                                 update_type: "republish"
+                               ))
+
+          content_item.reload
+
+          expect(content_item.last_edited_at).to eq(old_last_edited_at)
+        end
+      end
     end
   end
 end

@@ -337,6 +337,7 @@ RSpec.describe "Downstream requests", type: :request do
           :updated_at,
           :draft_content_item_id,
           :live_content_item_id,
+          :last_edited_at,
         )
     }
 

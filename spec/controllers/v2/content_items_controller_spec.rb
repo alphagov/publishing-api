@@ -185,8 +185,14 @@ RSpec.describe V2::ContentItemsController do
 
     context "with an order param" do
       before do
-        @en_draft_content.update!(updated_at: Date.new(2016, 1, 1))
-        @ar_draft_content.update!(updated_at: Date.new(2016, 2, 2))
+        @en_draft_content.update!(
+          updated_at: Date.new(2016, 1, 1),
+          last_edited_at: Date.new(2016, 1, 1),
+        )
+        @ar_draft_content.update!(
+          updated_at: Date.new(2016, 2, 2),
+          last_edited_at: Date.new(2016, 2, 2),
+        )
 
         get :index, document_type: "topic", locale: "all", order: order, fields: fields
       end
@@ -215,6 +221,38 @@ RSpec.describe V2::ContentItemsController do
           expect(results).to eq([
             { "updated_at" => "2016-02-02 00:00:00" },
             { "updated_at" => "2016-01-01 00:00:00" },
+          ])
+        end
+      end
+
+      context "when ordering by last_edited_at ascending" do
+        let(:order) { "last_edited_at" }
+        let(:fields) { ["last_edited_at"] }
+
+        it "returns the ordered results" do
+          results = parsed_response["results"]
+
+          expect(response.status).to eq(200), response.body
+
+          expect(results).to eq([
+            { "last_edited_at" => "2016-01-01T00:00:00Z" },
+            { "last_edited_at" => "2016-02-02T00:00:00Z" },
+          ])
+        end
+      end
+
+      context "when ordering by last_edited_at descending" do
+        let(:order) { "-last_edited_at" }
+        let(:fields) { ["last_edited_at"] }
+
+        it "returns the ordered results" do
+          results = parsed_response["results"]
+
+          expect(response.status).to eq(200), response.body
+
+          expect(results).to eq([
+            { "last_edited_at" => "2016-02-02T00:00:00Z" },
+            { "last_edited_at" => "2016-01-01T00:00:00Z" },
           ])
         end
       end

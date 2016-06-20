@@ -67,14 +67,15 @@ private
   # will be hampered.
   def valid_order_fields
     [
+      :base_path,
       :content_id,
       :document_type,
       :format,
+      :last_edited_at,
+      :locale,
       :public_updated_at,
       :publishing_app,
       :rendering_app,
-      :base_path,
-      :locale,
       :updated_at,
     ]
   end

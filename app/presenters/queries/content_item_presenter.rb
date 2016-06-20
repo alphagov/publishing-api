@@ -94,6 +94,8 @@ module Presenters
             "description->>'value' AS description"
           when :internal_name
             "#{internal_name_sql} AS internal_name"
+          when :last_edited_at
+            "to_char(last_edited_at, '#{iso8601_sql}') as last_edited_at"
           when :public_updated_at
             "to_char(public_updated_at, '#{iso8601_sql}') as public_updated_at"
           when :first_published_at
