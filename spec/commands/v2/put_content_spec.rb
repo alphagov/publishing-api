@@ -865,24 +865,14 @@ RSpec.describe Commands::V2::PutContent do
           end
         end
       end
-    end
 
-    context "with no provided last_edited_at" do
-      let!(:content_item) {
-        FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
-        )
-      }
+      it "stores last_edited_at as the current time" do
+        Timecop.freeze do
+          described_class.call(payload)
 
-      context "when update type is major or minor" do
-        it "stores last_edited_at as the current time" do
-          Timecop.freeze do
-            described_class.call(payload)
+          content_item.reload
 
-            content_item.reload
-
-            expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
-          end
+          expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
         end
       end
 
