@@ -348,10 +348,10 @@ The `last_edited_at` records the last time that the content received a major or
 minor update. This can be used by the publishing applications as a ordering
 parameter and shown to editors.
 
-If the `last_updated_at` is specified when PUTing content, the given value will
-be stored. If `last_updated_at` is not specified, and the update type is major
-or minor, the `last_updated_at` will be set to the current time. For any other
-update type, the `last_updated_at` will be unchanged.
+If the `last_edited_at` is specified when PUTing content, the given value will
+be stored. If `last_edited_at` is not specified, and the update type is major
+or minor, the `last_edited_at` will be set to the current time. For any other
+update type, the `last_edited_at` will be unchanged.
 
 The `last_edited_at` must use the [ISO 8601
 format](https://en.wikipedia.org/wiki/ISO_8601).
