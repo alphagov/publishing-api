@@ -828,6 +828,16 @@ RSpec.describe Commands::V2::PutContent do
           expect(content_item.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
         end
       end
+
+      it "stores last_edited_at as the current time" do
+        Timecop.freeze do
+          described_class.call(payload)
+
+          content_item = ContentItem.last
+
+          expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+        end
+      end
     end
 
     context "draft does exist" do
