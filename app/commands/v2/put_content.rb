@@ -31,6 +31,8 @@ module Commands
         create_supporting_objects(content_item)
         ensure_link_set_exists(content_item)
 
+        update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
+
         if previously_published_item
           set_first_published_at(content_item, previously_published_item)
 
