@@ -7,7 +7,9 @@ class LookupsController < ApplicationController
 
     base_paths_and_content_ids = ContentItemFilter
       .filter(state: states, base_path: base_paths)
-      .pluck(:base_path, :content_id)
+      .pluck(:base_path, :content_id, :document_type)
+      .reject { |arr| arr[2] == 'redirect' }
+      .map { |arr| arr[0..1] }
       .uniq
 
     response = Hash[base_paths_and_content_ids]
