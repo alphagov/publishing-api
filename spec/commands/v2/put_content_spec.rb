@@ -814,7 +814,7 @@ RSpec.describe Commands::V2::PutContent do
       described_class.call(payload)
     end
 
-    context "draft does not exist" do
+    context "when the draft does not exist" do
       context "with a provided last_edited_at" do
         it "stores the provided timestamp" do
           last_edited_at = 1.year.ago
@@ -840,7 +840,7 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "draft does exist" do
+    context "when the draft does exist" do
       let!(:content_item) {
         FactoryGirl.create(:draft_content_item,
           content_id: content_id,
