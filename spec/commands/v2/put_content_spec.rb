@@ -814,7 +814,7 @@ RSpec.describe Commands::V2::PutContent do
       described_class.call(payload)
     end
 
-    context "draft does not exist" do
+    context "when the draft does not exist" do
       context "with a provided last_edited_at" do
         it "stores the provided timestamp" do
           last_edited_at = 1.year.ago
@@ -828,9 +828,19 @@ RSpec.describe Commands::V2::PutContent do
           expect(content_item.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
         end
       end
+
+      it "stores last_edited_at as the current time" do
+        Timecop.freeze do
+          described_class.call(payload)
+
+          content_item = ContentItem.last
+
+          expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+        end
+      end
     end
 
-    context "draft does exist" do
+    context "when the draft does exist" do
       let!(:content_item) {
         FactoryGirl.create(:draft_content_item,
           content_id: content_id,
@@ -855,24 +865,14 @@ RSpec.describe Commands::V2::PutContent do
           end
         end
       end
-    end
 
-    context "with no provided last_edited_at" do
-      let!(:content_item) {
-        FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
-        )
-      }
+      it "stores last_edited_at as the current time" do
+        Timecop.freeze do
+          described_class.call(payload)
 
-      context "when update type is major or minor" do
-        it "stores last_edited_at as the current time" do
-          Timecop.freeze do
-            described_class.call(payload)
+          content_item.reload
 
-            content_item.reload
-
-            expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
-          end
+          expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
         end
       end
 
