@@ -15,7 +15,7 @@ else
   gem "gds-api-adapters", "30.2.0"
 end
 
-gem "gds-sso", "11.2.1"
+gem "gds-sso", "12.1.0"
 
 gem 'bunny', '2.0.0'
 gem 'whenever', '0.9.4', require: false

@@ -104,7 +104,7 @@ GEM
       plek (>= 1.9.0)
       rack-cache
       rest-client (~> 1.8.0)
-    gds-sso (11.2.1)
+    gds-sso (12.1.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -119,7 +119,7 @@ GEM
       rubocop (~> 0.35.0)
       scss_lint (~> 0.44.0)
     hashdiff (0.3.0)
-    hashie (3.4.3)
+    hashie (3.4.4)
     hitimes (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -130,7 +130,7 @@ GEM
     json (1.8.3)
     json-schema (2.5.2)
       addressable (~> 2.3.8)
-    jwt (1.5.2)
+    jwt (1.5.1)
     kgio (2.9.3)
     link_header (0.0.8)
     logstash-event (1.1.5)
@@ -154,15 +154,15 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     null_logger (0.0.1)
-    oauth2 (1.0.0)
+    oauth2 (1.1.0)
       faraday (>= 0.8, < 0.10)
-      jwt (~> 1.0)
+      jwt (~> 1.0, < 1.5.2)
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
-      rack (~> 1.2)
-    omniauth (1.2.2)
+      rack (>= 1.2, < 3)
+    omniauth (1.3.1)
       hashie (>= 1.2, < 4)
-      rack (~> 1.0)
+      rack (>= 1.0, < 3)
     omniauth-gds (3.2.1)
       multi_json (~> 1.10)
       omniauth-oauth2 (= 1.3.1)
@@ -341,7 +341,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    warden (1.2.4)
+    warden (1.2.6)
       rack (>= 1.0)
     warden-oauth2 (0.0.1)
       warden
@@ -368,7 +368,7 @@ DEPENDENCIES
   factory_girl_rails (= 4.5.0)
   faker
   gds-api-adapters (= 30.2.0)
-  gds-sso (= 11.2.1)
+  gds-sso (= 12.1.0)
   govuk-lint
   hashdiff
   json-schema
