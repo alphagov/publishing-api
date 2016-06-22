@@ -21,7 +21,9 @@ PUT and POST endpoints take an optional integer field `previous_version` in the 
  - `content_id` the primary identifier for the content being created or updated.
 Requests to create a new draft content item:
  - `base_path` must be a valid path format
+ - `document_type`
  - `publishing_app`
+ - `schema_name`
  - `title` required unless format is redirect or gone
  - `phase` must be one of alpha, beta, live
 
