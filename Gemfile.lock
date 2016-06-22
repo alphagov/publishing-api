@@ -1,17 +1,3 @@
-GIT
-  remote: git://github.com/alphagov/gds-sso.git
-  revision: a1a0d92564618fec10ff9855c12ab373fc8f6ba5
-  specs:
-    gds-sso (12.0.0)
-      multi_json (~> 1.0)
-      oauth2 (~> 1.0)
-      omniauth (~> 1.2)
-      omniauth-gds (~> 3.2)
-      rack-accept (~> 0.4.4)
-      rails (>= 3.0.0)
-      warden (~> 1.2)
-      warden-oauth2 (~> 0.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -118,6 +104,15 @@ GEM
       plek (>= 1.9.0)
       rack-cache
       rest-client (~> 1.8.0)
+    gds-sso (12.1.0)
+      multi_json (~> 1.0)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
+      omniauth-gds (~> 3.2)
+      rack-accept (~> 0.4.4)
+      rails (>= 3.0.0)
+      warden (~> 1.2)
+      warden-oauth2 (~> 0.0.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     govuk-lint (0.8.0)
@@ -373,7 +368,7 @@ DEPENDENCIES
   factory_girl_rails (= 4.5.0)
   faker
   gds-api-adapters (= 30.2.0)
-  gds-sso!
+  gds-sso (= 12.1.0)
   govuk-lint
   hashdiff
   json-schema
