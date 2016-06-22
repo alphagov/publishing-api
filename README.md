@@ -48,6 +48,39 @@ decision records in the
 [doc/arch](https://github.com/alphagov/publishing-api/blob/master/doc/arch)
 directory.
 
+### Deleting content items
+
+If you need to delete all traces of a content item from the system, you need to
+do the following:
+```
+class RemoveYourContentItem < ActiveRecord::Migration
+  # Remove /some/base-path
+  def up
+    content_items = ContentItem.where(content_id: "some-content-id")
+
+    supporting_classes = [
+      AccessLimit,
+      Linkable,
+      Location,
+      State,
+      Translation,
+      Unpublishing,
+      UserFacingVersion,
+    ]
+
+    supporting_classes.each do |klass|
+      klass.where(content_item: content_items).destroy_all
+    end
+
+    LockVersion.where(target: content_items).destroy_all
+
+    content_items.destroy_all
+
+    LinkSet.where(content_id: "some-content-id").destroy_all
+  end
+end
+```
+
 ## Dependencies
 
 - [postgres](http://www.postgresql.org/) - the app uses a postgres database
