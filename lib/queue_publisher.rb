@@ -43,6 +43,8 @@ class QueuePublisher
 private
 
   def publish_message(routing_key, message_data, options = {})
+    validate_message(message_data)
+
     publish_options = options.merge(routing_key: routing_key)
 
     exchange.publish(message_data.to_json, publish_options)
@@ -60,6 +62,29 @@ private
   rescue Timeout::Error, Bunny::Exception
     reset_channel
     raise
+  end
+
+  def validate_message(message_data)
+    schema = JSON.load(File.read("govuk-content-schemas/message_queue.json"))
+
+    errors = JSON::Validator.fully_validate(schema, message_data, errors_as_objects: true)
+
+    if errors.empty?
+      true
+    else
+      Airbrake.notify_or_ignore(
+        {
+          error_class: "MessageQueueSchemaValidationError",
+          error_message: "Error validating message queue payload against schema"
+        },
+        parameters: {
+          errors: errors,
+          message_data: message_data
+        }
+      )
+
+      false
+    end
   end
 
   def establish_connection
