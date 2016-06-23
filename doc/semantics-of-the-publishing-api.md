@@ -405,10 +405,10 @@ Example: *["1234", "1235"]*
 
 Required: No
 
-The `needs_ids` are the identifiers of [user needs](https://www.gov.uk/design-principles)
+The `need_ids` are the identifiers of [user needs](https://www.gov.uk/design-principles)
 that are entered through the [Maslow application](https://github.com/alphagov/maslow).
 They are passed through to the content store, untouched by the pipeline. The
-front-end applications can then use the `needs_ids` to present pages to users
+front-end applications can then use the `need_ids` to present pages to users
 that show how effectively users' needs are being met. [Here is an example](https://www.gov.uk/info/overseas-passports).
 
 ---
