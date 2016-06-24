@@ -6,7 +6,10 @@ module Queries
   private
 
     def custom(link_type)
-      {}[link_type]
+      {
+        organisations: default_fields + [:details],
+        html_publication: default_fields + [:schema_name, :document_type],
+      }[link_type]
     end
   end
 end

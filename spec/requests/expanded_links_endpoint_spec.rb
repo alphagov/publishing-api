@@ -57,6 +57,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
             "base_path" => "/my-super-org",
             "content_id" => "9b5ae6f5-f127-4843-9333-c157a404dd2d",
             "description" => "VAT rates for goods and services",
+            "details" => { "body" => "<p>Something about VAT</p>\n" },
             "locale" => "en",
             "public_updated_at" => "2014-05-14T13:00:06.000Z",
             "title" => "VAT rates",
