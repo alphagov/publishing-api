@@ -14,6 +14,7 @@ module Presenters
         :lock_version,
         :internal_name,
         :updated_at,
+        :state_history,
       ]
 
       def self.present_many(scope, params = {})
@@ -100,6 +101,8 @@ module Presenters
             "to_char(public_updated_at, '#{iso8601_sql}') as public_updated_at"
           when :first_published_at
             "to_char(first_published_at, '#{iso8601_sql}') as first_published_at"
+          when :state_history
+            "#{state_history_sql} AS state_history"
           else
             field
           end
@@ -125,6 +128,19 @@ module Presenters
         SQL
       end
 
+      def state_history_sql
+        <<-SQL
+          (
+            SELECT json_agg((number, name))
+            FROM content_items c
+            JOIN states s ON s.content_item_id = c.id
+            JOIN user_facing_versions u ON u.content_item_id = c.id
+            WHERE c.content_id = content_items.content_id
+            GROUP BY content_id
+          )
+        SQL
+      end
+
       def iso8601_sql
         "YYYY-MM-DD\"T\"HH24:MI:SS\"Z\""
       end
@@ -136,13 +152,14 @@ module Presenters
       end
 
       def parse_results(results)
-        json_columns = %w(details routes redirects need_ids)
+        json_columns = %w(details routes redirects need_ids state_history)
         int_columns = %w(user_facing_version lock_version)
 
         Enumerator.new do |yielder|
           results.each do |result|
             json_columns.each { |c| parse_json_column(result, c) }
             int_columns.each { |c| parse_int_column(result, c) }
+            parse_state_history(result)
 
             yielder.yield result
           end
@@ -157,6 +174,12 @@ module Presenters
       def parse_int_column(result, column)
         return unless result.key?(column)
         result[column] = result[column].to_i
+      end
+
+      def parse_state_history(result)
+        column = "state_history"
+        return unless result.key?(column)
+        result[column] = result[column].map(&:values).to_h
       end
 
       # It is substantially faster to evaluate in this way rather than calling

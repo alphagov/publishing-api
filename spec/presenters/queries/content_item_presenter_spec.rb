@@ -46,6 +46,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "user_facing_version" => 1,
         "lock_version" => 1,
         "updated_at" => "2016-01-01 00:00:00",
+        "state_history" => { 1 => "draft" },
       )
     end
 
@@ -163,6 +164,34 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         locales = results.map { |r| r.fetch("locale") }
 
         expect(locales).to match_array(%w(fr en))
+      end
+    end
+
+    context "when there are other content items with that content_id" do
+      before do
+        UserFacingVersion.last.update!(number: 2)
+      end
+
+      let!(:published_item) do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          state: "published",
+          user_facing_version: 1,
+        )
+      end
+
+      let(:content_items) { ContentItem.where(content_id: content_id) }
+
+      it "returns a versioned history of states for the content item" do
+        results = described_class.present_many(content_items)
+        expect(results.count).to eq(1)
+
+        state_history = results.first.fetch("state_history")
+        expect(state_history).to eq(
+          1 => "published",
+          2 => "draft"
+        )
       end
     end
   end
