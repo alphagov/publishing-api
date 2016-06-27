@@ -59,7 +59,7 @@ private
     Airbrake.notify_or_ignore(error, parameters: {
       explanation: "#{payload} is missing schema_name #{schema_name} or type #{type}"
     })
-    @schema = {}
+    {}
   end
 
   def schema_name
