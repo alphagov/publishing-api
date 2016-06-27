@@ -12,7 +12,7 @@ RSpec.describe SchemaValidator do
   end
 
   subject(:validator) do
-    SchemaValidator.new(payload, type: :schema, schema: schema)
+    SchemaValidator.new(type: :schema, schema: schema)
   end
 
   context "schema" do
@@ -22,7 +22,7 @@ RSpec.describe SchemaValidator do
     it "logs to airbrake with an unknown schema_name" do
       expect(Airbrake).to receive(:notify_or_ignore)
         .with(an_instance_of(Errno::ENOENT), a_hash_including(:parameters))
-      validator.validate
+      validator.validate(payload)
     end
   end
 
@@ -31,11 +31,11 @@ RSpec.describe SchemaValidator do
 
     it "does not report to airbrake" do
       expect(Airbrake).to_not receive(:notify_or_ignore)
-      validator.validate
+      validator.validate(payload)
     end
 
     it "logs to airbrake when the payload is invalid" do
-      expect(validator.validate).to be true
+      expect(validator.validate(payload)).to be true
     end
   end
 
@@ -44,11 +44,11 @@ RSpec.describe SchemaValidator do
 
     it "reports to airbrake" do
       expect(Airbrake).to receive(:notify_or_ignore)
-      validator.validate
+      validator.validate(payload)
     end
 
     it "logs to airbrake when the payload is invalid" do
-      expect(validator.validate).to be false
+      expect(validator.validate(payload)).to be false
     end
   end
 
@@ -57,7 +57,7 @@ RSpec.describe SchemaValidator do
 
     it "does not report to airbrake" do
       expect(Airbrake).to_not receive(:notify_or_ignore)
-      validator.validate
+      validator.validate(payload)
     end
   end
 
@@ -90,10 +90,41 @@ RSpec.describe SchemaValidator do
         { schema_name: "foo" }
       }
       it "reports useful validation errors" do
-        expect(Airbrake).to receive(:notify_or_ignore) do |error, _|
-          expect(error.message).to match(/did not contain a required property of 'document_type'/)
+        expect(Airbrake).to receive(:notify_or_ignore) do |_, opts|
+          expect(opts[:parameters][:errors][0]).to match(
+            a_hash_including(
+              message: a_string_starting_with("The property '#/' of type Hash did not match"),
+              failed_attribute: "OneOf",
+              errors: {
+                oneof_0: [
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'title'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'format'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' contains additional properties [\"schema_name\"] outside of the schema when none are allowed"),
+                    failed_attribute: "AdditionalProperties"
+                  )
+                ],
+                oneof_1: [
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'format'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'document_type'"),
+                    failed_attribute: "Required",
+                  ),
+                ]
+              }
+            )
+          )
         end
-        validator.validate
+        validator.validate(payload)
       end
     end
 
@@ -102,10 +133,37 @@ RSpec.describe SchemaValidator do
         { format: "foo" }
       }
       it "reports useful validation errors" do
-        expect(Airbrake).to receive(:notify_or_ignore) do |error, _|
-          expect(error.message).to match(/did not contain a required property of 'title'/)
+        expect(Airbrake).to receive(:notify_or_ignore) do |_, opts|
+          expect(opts[:parameters][:errors][0]).to match(
+            a_hash_including(
+              message: a_string_starting_with("The property '#/' of type Hash did not match"),
+              failed_attribute: "OneOf",
+              errors: {
+                oneof_0: [
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'title'"),
+                    failed_attribute: "Required",
+                  ),
+                ],
+                oneof_1: [
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'document_type'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'schema_name'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' contains additional properties [\"format\"] outside of the schema when none are allowed"),
+                    failed_attribute: "AdditionalProperties"
+                  ),
+                ]
+              }
+            )
+          )
         end
-        validator.validate
+        validator.validate(payload)
       end
     end
   end

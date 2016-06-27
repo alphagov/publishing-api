@@ -809,7 +809,7 @@ RSpec.describe Commands::V2::PutContent do
     it "validate against schema" do
       allow(SchemaValidator).to receive(:new).and_return(double('validator', validate: true))
       expect(SchemaValidator).to receive(:new)
-        .with(payload.except(:content_id), type: :schema)
+        .with(type: :schema)
 
       described_class.call(payload)
     end
