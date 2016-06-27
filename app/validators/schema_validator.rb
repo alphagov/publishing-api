@@ -18,11 +18,24 @@ private
   attr_reader :payload, :type
 
   def validate_schema
-    JSON::Validator.validate!(schema_for_validation, payload)
-  rescue JSON::Schema::ValidationError => error
-    Airbrake.notify_or_ignore(error, parameters: {
-      explanation: "#{payload} schema validation error"
-    })
+    errors = JSON::Validator.fully_validate(
+      schema_for_validation,
+      payload,
+      errors_as_objects: true,
+    )
+
+    return true if errors.empty?
+
+    Airbrake.notify_or_ignore(
+      {
+        error_class: "SchemaValidationError",
+        error_message: "Error validating payload against schema"
+      },
+      parameters: {
+        errors: errors,
+        message_data: payload
+      }
+    )
     false
   end
 
