@@ -1,23 +1,17 @@
 require 'json-schema'
 
 class SchemaValidator
-  def initialize(payload, type:, schema_name: nil, schema: nil)
-    @payload = payload
+  def initialize(type:, schema_name: nil, schema: nil)
     @type = type
     @schema = schema
     @schema_name = schema_name
   end
 
-  def validate
+  def validate(payload)
+    @payload = payload
+
     return true if schema_name_exception?
-    validate_schema
-  end
 
-private
-
-  attr_reader :payload, :type
-
-  def validate_schema
     errors = JSON::Validator.fully_validate(
       schema,
       payload,
@@ -40,6 +34,10 @@ private
     )
     false
   end
+
+private
+
+  attr_reader :payload, :type
 
   def present_error(error_hash)
     # The schema key just contains an addressable, which is not informative as

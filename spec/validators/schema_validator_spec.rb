@@ -12,7 +12,7 @@ RSpec.describe SchemaValidator do
   end
 
   subject(:validator) do
-    SchemaValidator.new(payload, type: :schema, schema: schema)
+    SchemaValidator.new(type: :schema, schema: schema)
   end
 
   context "schema" do
@@ -22,7 +22,7 @@ RSpec.describe SchemaValidator do
     it "logs to airbrake with an unknown schema_name" do
       expect(Airbrake).to receive(:notify_or_ignore)
         .with(an_instance_of(Errno::ENOENT), a_hash_including(:parameters))
-      validator.validate
+      validator.validate(payload)
     end
   end
 
@@ -31,11 +31,11 @@ RSpec.describe SchemaValidator do
 
     it "does not report to airbrake" do
       expect(Airbrake).to_not receive(:notify_or_ignore)
-      validator.validate
+      validator.validate(payload)
     end
 
     it "logs to airbrake when the payload is invalid" do
-      expect(validator.validate).to be true
+      expect(validator.validate(payload)).to be true
     end
   end
 
@@ -44,11 +44,11 @@ RSpec.describe SchemaValidator do
 
     it "reports to airbrake" do
       expect(Airbrake).to receive(:notify_or_ignore)
-      validator.validate
+      validator.validate(payload)
     end
 
     it "logs to airbrake when the payload is invalid" do
-      expect(validator.validate).to be false
+      expect(validator.validate(payload)).to be false
     end
   end
 
@@ -57,7 +57,7 @@ RSpec.describe SchemaValidator do
 
     it "does not report to airbrake" do
       expect(Airbrake).to_not receive(:notify_or_ignore)
-      validator.validate
+      validator.validate(payload)
     end
   end
 
@@ -124,7 +124,7 @@ RSpec.describe SchemaValidator do
             )
           )
         end
-        validator.validate
+        validator.validate(payload)
       end
     end
 
@@ -163,7 +163,7 @@ RSpec.describe SchemaValidator do
             )
           )
         end
-        validator.validate
+        validator.validate(payload)
       end
     end
   end
