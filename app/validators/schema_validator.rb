@@ -19,7 +19,7 @@ private
 
   def validate_schema
     errors = JSON::Validator.fully_validate(
-      schema_for_validation,
+      schema,
       payload,
       errors_as_objects: true,
     )
@@ -37,12 +37,6 @@ private
       }
     )
     false
-  end
-
-  def schema_for_validation
-    return schema unless schema.has_key?("oneOf")
-    index = payload.has_key?(:format) ? 0 : 1
-    schema.merge(schema["oneOf"][index]).except("oneOf")
   end
 
   def schema
