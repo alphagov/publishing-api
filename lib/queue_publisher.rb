@@ -3,6 +3,9 @@ class QueuePublisher
     @noop = options[:noop]
     return if @noop
 
+    schema = JSON.load(File.read("govuk-content-schemas/message_queue.json"))
+    @schema_validator = SchemaValidator.new(schema: schema, type: nil)
+
     @exchange_name = options.fetch(:exchange)
     @options = options.except(:exchange)
   end
@@ -43,6 +46,8 @@ class QueuePublisher
 private
 
   def publish_message(routing_key, message_data, options = {})
+    validate_message(message_data)
+
     publish_options = options.merge(routing_key: routing_key)
 
     exchange.publish(message_data.to_json, publish_options)
@@ -60,6 +65,10 @@ private
   rescue Timeout::Error, Bunny::Exception
     reset_channel
     raise
+  end
+
+  def validate_message(message_data)
+    @schema_validator.validate(message_data)
   end
 
   def establish_connection
