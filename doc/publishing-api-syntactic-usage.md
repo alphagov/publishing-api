@@ -21,7 +21,9 @@ PUT and POST endpoints take an optional integer field `previous_version` in the 
  - `content_id` the primary identifier for the content being created or updated.
 Requests to create a new draft content item:
  - `base_path` must be a valid path format
+ - `document_type`
  - `publishing_app`
+ - `schema_name`
  - `title` required unless format is redirect or gone
  - `phase` must be one of alpha, beta, live
 
@@ -29,6 +31,7 @@ Requests to create a new draft content item:
  - `locale` (optional, defaults to en) must be one of I18n.available_locales
 Requests to update an existing draft content item:
  - `previous_version` (optional but advised) is used to ensure the request is updating the latest lock version of this draft. ie. optimistic locking.
+ - `rendering_app` this is required if the format is renderable (ie. not a redirect or gone).
 
 ## `GET /v2/content/:content_id`
 
