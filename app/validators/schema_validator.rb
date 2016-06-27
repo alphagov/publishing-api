@@ -42,11 +42,11 @@ private
   def present_error(error_hash)
     # The schema key just contains an addressable, which is not informative as
     # the schema in use should be clear from the error class and message
-    error_hash = error_hash.reject { |k,v| k == :schema }
+    error_hash = error_hash.reject { |k, _| k == :schema }
 
     if error_hash.has_key? :errors
       error_hash[:errors] = Hash[
-        error_hash[:errors].map {|k,errors| [k,errors.map { |e| present_error e }]}
+        error_hash[:errors].map { |k, errors| [k, errors.map { |e| present_error e }] }
       ]
     end
 
