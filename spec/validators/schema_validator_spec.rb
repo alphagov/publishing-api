@@ -90,8 +90,39 @@ RSpec.describe SchemaValidator do
         { schema_name: "foo" }
       }
       it "reports useful validation errors" do
-        expect(Airbrake).to receive(:notify_or_ignore) do |error, _|
-          expect(error.message).to match(/did not contain a required property of 'document_type'/)
+        expect(Airbrake).to receive(:notify_or_ignore) do |error, opts|
+          expect(opts[:parameters][:errors][0]).to match(
+            a_hash_including(
+              message: a_string_starting_with( "The property '#/' of type Hash did not match"),
+              failed_attribute: "OneOf",
+              errors: {
+                oneof_0: [
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'title'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'format'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' contains additional properties [\"schema_name\"] outside of the schema when none are allowed"),
+                    failed_attribute: "AdditionalProperties"
+                  )
+                ],
+                oneof_1: [
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'format'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'document_type'"),
+                    failed_attribute: "Required",
+                  ),
+                ]
+              }
+            )
+          )
         end
         validator.validate
       end
@@ -102,8 +133,35 @@ RSpec.describe SchemaValidator do
         { format: "foo" }
       }
       it "reports useful validation errors" do
-        expect(Airbrake).to receive(:notify_or_ignore) do |error, _|
-          expect(error.message).to match(/did not contain a required property of 'title'/)
+        expect(Airbrake).to receive(:notify_or_ignore) do |error, opts|
+          expect(opts[:parameters][:errors][0]).to match(
+            a_hash_including(
+              message: a_string_starting_with( "The property '#/' of type Hash did not match"),
+              failed_attribute: "OneOf",
+              errors: {
+                oneof_0: [
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'title'"),
+                    failed_attribute: "Required",
+                  ),
+                ],
+                oneof_1: [
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'document_type'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' did not contain a required property of 'schema_name'"),
+                    failed_attribute: "Required",
+                  ),
+                  a_hash_including(
+                    message: a_string_starting_with("The property '#/' contains additional properties [\"format\"] outside of the schema when none are allowed"),
+                    failed_attribute: "AdditionalProperties"
+                  ),
+                ]
+              }
+            )
+          )
         end
         validator.validate
       end
