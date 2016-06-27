@@ -26,6 +26,8 @@ private
 
     return true if errors.empty?
 
+    errors = errors.map { |e| present_error e }
+
     Airbrake.notify_or_ignore(
       {
         error_class: "SchemaValidationError",
@@ -37,6 +39,20 @@ private
       }
     )
     false
+  end
+
+  def present_error(error_hash)
+    # The schema key just contains an addressable, which is not informative as
+    # the schema in use should be clear from the error class and message
+    error_hash = error_hash.reject { |k,v| k == :schema }
+
+    if error_hash.has_key? :errors
+      error_hash[:errors] = Hash[
+        error_hash[:errors].map {|k,errors| [k,errors.map { |e| present_error e }]}
+      ]
+    end
+
+    error_hash
   end
 
   def schema
