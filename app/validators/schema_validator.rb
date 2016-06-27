@@ -46,7 +46,9 @@ private
 
     if error_hash.has_key?(:errors)
       error_hash[:errors] = Hash[
-        error_hash[:errors].map { |k, errors| [k, errors.map { |e| present_error e }] }
+        error_hash[:errors].map do |k, errors|
+          [k, errors.map { |e| present_error e }]
+        end
       ]
     end
 
