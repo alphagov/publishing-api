@@ -72,8 +72,8 @@ Requests to update an existing draft content item:
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#an_unpublish_request_given_a_published_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
-  - Will refuse to unpublish a lone draft.
-  - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true`.
+  - Will refuse to unpublish a lone draft unless `allow_draft` is `true`.
+  - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true` or `allow_draft` is `true`.
   - Validates that unpublishing `type` is one of `withdrawal`, `gone` or `redirect` and raises a 422 otherwise.
   - Retrieves the live content item with the matching content_id and locale and changes its state to `unpublished`.
   - Creates an `Unpublishing` with the provided details.
