@@ -78,7 +78,7 @@ RSpec.describe Commands::V2::Unpublish do
     end
 
     context "when only a draft is present" do
-      before do
+      let!(:draft_content_item) do
         FactoryGirl.create(:draft_content_item,
           content_id: content_id,
         )
