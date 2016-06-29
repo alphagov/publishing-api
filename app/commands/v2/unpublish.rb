@@ -120,8 +120,9 @@ module Commands
       end
 
       def find_unpublishable_content_item(content_id)
+        allowed_states = %w(published unpublished)
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        filter.filter(locale: locale, state: %w(published unpublished)).first
+        filter.filter(locale: locale, state: allowed_states).first
       end
 
       def draft_present?(content_id)
