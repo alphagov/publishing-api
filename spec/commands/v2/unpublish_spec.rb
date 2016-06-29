@@ -91,6 +91,57 @@ RSpec.describe Commands::V2::Unpublish do
           expect(error.code).to eq(404)
         }
       end
+
+      context "and the allow_draft parameter is given" do
+        let(:payload_with_allow_draft) do
+          payload.merge(
+            allow_draft: true,
+          )
+        end
+
+        it "sets the content item's state to `unpublished`" do
+          described_class.call(payload_with_allow_draft)
+
+          state = State.find_by(content_item: draft_content_item)
+          expect(state.name).to eq("unpublished")
+        end
+
+        it "creates an Unpublishing" do
+          described_class.call(payload_with_allow_draft)
+
+          unpublishing = Unpublishing.find_by(content_item: draft_content_item)
+          expect(unpublishing.type).to eq("gone")
+          expect(unpublishing.explanation).to eq("Removed for testing porpoises")
+          expect(unpublishing.alternative_path).to eq("/new-path")
+        end
+
+        it "deletes the linkable" do
+          described_class.call(payload_with_allow_draft)
+
+          linkable = Linkable.find_by(base_path: base_path)
+          expect(linkable).to be_nil
+        end
+
+        it "sends an unpublishing to the live content store" do
+          expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+            .with(
+              base_path: start_with(base_path),
+              content_item: a_hash_including(
+                document_type: "gone",
+              )
+          )
+
+          described_class.call(payload_with_allow_draft)
+        end
+
+        it "does not send to any other downstream system" do
+          allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+          expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+          described_class.call(payload_with_allow_draft)
+        end
+      end
     end
 
     context "when the document is redrafted" do
