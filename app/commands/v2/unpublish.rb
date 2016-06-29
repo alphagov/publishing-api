@@ -17,7 +17,7 @@ module Commands
 
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
-        if draft_present?(content_id)
+        if draft_present?(content_id) && !payload[:allow_draft]
           if payload[:discard_drafts] == true
             DiscardDraft.call(
               {
@@ -121,6 +121,11 @@ module Commands
 
       def find_unpublishable_content_item(content_id)
         allowed_states = %w(published unpublished)
+
+        if payload[:allow_draft]
+          allowed_states << "draft"
+        end
+
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
         filter.filter(locale: locale, state: allowed_states).first
       end
