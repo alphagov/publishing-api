@@ -141,6 +141,23 @@ RSpec.describe Commands::V2::Unpublish do
 
           described_class.call(payload_with_allow_draft)
         end
+
+        context "with `discard_drafts` set to true" do
+          let(:payload_with_allow_draft_and_discard_drafts) do
+            payload_with_allow_draft.merge(
+              discard_drafts: true,
+            )
+          end
+
+          it "rejects the request with a 422" do
+            expected_message = "allow_draft and discard_drafts cannot be used together"
+            expect {
+              described_class.call(payload_with_allow_draft_and_discard_drafts)
+            }.to raise_error(CommandError, expected_message) { |error|
+              expect(error.code).to eq(422)
+            }
+          end
+        end
       end
     end
 

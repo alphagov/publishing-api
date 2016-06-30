@@ -2,6 +2,11 @@ module Commands
   module V2
     class Unpublish < BaseCommand
       def call
+        if payload[:allow_draft] && payload[:discard_drafts]
+          message = "allow_draft and discard_drafts cannot be used together"
+          raise_command_error(422, message, fields: {})
+        end
+
         content_id = payload.fetch(:content_id)
         content_item = find_unpublishable_content_item(content_id)
 
