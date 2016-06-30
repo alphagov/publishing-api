@@ -35,10 +35,17 @@ module Presenters
 
     def links
       return {} unless link_set
-      {
-        links: link_set_presenter.links,
-        expanded_links: expanded_link_set_presenter.links
-      }
+
+      if MigrateExpandedLinks.schema_names.include?(content_item.schema_name)
+        {
+          links: expanded_link_set_presenter.links,
+        }
+      else
+        {
+          links: link_set_presenter.links,
+          expanded_links: expanded_link_set_presenter.links,
+        }
+      end
     end
 
     def access_limited

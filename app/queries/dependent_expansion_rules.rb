@@ -16,11 +16,11 @@ module Queries
       }[link_type.to_sym]
     end
 
-  private
-
     def recursive_link_types
       [:parent]
     end
+
+  private
 
     def custom(link_type)
       {

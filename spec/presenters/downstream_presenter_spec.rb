@@ -94,7 +94,7 @@ RSpec.describe Presenters::DownstreamPresenter do
             api_url: "http://www.dev.gov.uk/api/content/b",
             web_url: "http://www.dev.gov.uk/b",
             analytics_identifier: "GDS01",
-            expanded_links: {},
+            links: {},
           }],
           available_translations: [{
             analytics_identifier: "GDS01",
