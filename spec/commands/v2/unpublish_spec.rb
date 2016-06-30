@@ -75,6 +75,22 @@ RSpec.describe Commands::V2::Unpublish do
 
         described_class.call(payload)
       end
+
+      context "and the allow_draft parameter is given" do
+        let(:payload_with_allow_draft) do
+          payload.merge(
+            allow_draft: true,
+          )
+        end
+
+        it "rejects the request with a 404" do
+          expect {
+            described_class.call(payload_with_allow_draft)
+          }.to raise_error(CommandError, "Could not find a content item to unpublish") { |error|
+            expect(error.code).to eq(404)
+          }
+        end
+      end
     end
 
     context "when only a draft is present" do

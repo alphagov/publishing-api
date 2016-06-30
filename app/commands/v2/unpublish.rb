@@ -128,7 +128,7 @@ module Commands
         allowed_states = %w(published unpublished)
 
         if payload[:allow_draft]
-          allowed_states << "draft"
+          allowed_states = %w(draft)
         end
 
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
