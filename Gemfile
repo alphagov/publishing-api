@@ -31,6 +31,9 @@ group :development do
   gem "web-console", "~> 2.0"
 end
 
+gem "oj", "~> 2.16.1"
+gem "oj_mimic_json", "~> 1.0.1"
+
 group :development, :test do
   gem "pry"
   gem "pry-byebug"
