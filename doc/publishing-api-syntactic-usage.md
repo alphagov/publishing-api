@@ -74,7 +74,7 @@ Requests to update an existing draft content item:
 
   - Will refuse to unpublish a lone draft unless `allow_draft` is `true`.
   - If `allow_draft` is `true`, will refuse to unpublish anything other than a draft.
-  - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true` or `allow_draft` is `true`.
+  - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true`.
   - Validates that unpublishing `type` is one of `withdrawal`, `gone` or `redirect` and raises a 422 otherwise.
   - Retrieves the live content item with the matching content_id and locale and changes its state to `unpublished`.
   - Creates an `Unpublishing` with the provided details.
