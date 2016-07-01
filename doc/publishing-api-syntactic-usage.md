@@ -97,6 +97,7 @@ Requests to update an existing draft content item:
                        (ignored) if `withdrawal`.
   - `discard_drafts` (optional) anything other than `true` is considered `false`,
     including being absent.
+  - `allow_draft` (optional) specify that the intended item to unpublish is in the draft state, and enable unpublishing it.
 
 ## `GET /v2/links/:content_id`
 
