@@ -33,6 +33,9 @@ which has been removed from the live site.  Can be "gone", "withdrawal", or "red
 For more information, refer to [doc/semantics-of-the-publishing-api.md](doc/semantics-of-the-publishing-api.md)
 and [doc/object-model-explanation.md](doc/object-model-explanation.md).
 
+Generated content items are pushed "downstream" to the content-store, where the frontends
+pull the resulting JSON to render a page. [content-store field documentation](https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md).
+
 ## Technical documentation
 
 The Publishing API is a [Ruby on Rails](http://rubyonrails.org/) application
