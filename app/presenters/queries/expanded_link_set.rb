@@ -1,11 +1,11 @@
 module Presenters
   module Queries
     class ExpandedLinkSet
-      def initialize(link_set:, state_fallback_order:, locale_fallback_order: ContentItem::DEFAULT_LOCALE, visited_link_sets: [], recursing_type: nil)
-        @link_set = link_set
+      def initialize(content_id:, state_fallback_order:, locale_fallback_order: ContentItem::DEFAULT_LOCALE, visited_content_ids: [], recursing_type: nil)
+        @content_id = content_id
         @state_fallback_order = Array(state_fallback_order)
         @locale_fallback_order = Array(locale_fallback_order)
-        @visited_link_sets = visited_link_sets
+        @visited_content_ids = visited_content_ids
         @recursing_type = recursing_type
       end
 
@@ -19,10 +19,10 @@ module Presenters
 
     private
 
-      attr_reader :state_fallback_order, :locale_fallback_order, :link_set, :visited_link_sets, :recursing_type
+      attr_reader :state_fallback_order, :locale_fallback_order, :content_id, :visited_content_ids, :recursing_type
 
       def top_level?
-        visited_link_sets.empty?
+        visited_content_ids.empty?
       end
 
       def expand_links(target_content_ids, type, rules)
@@ -34,8 +34,7 @@ module Presenters
           expanded_links = ExpandLink.new(item, type, rules).expand_link
 
           if ::Queries::DependentExpansionRules.recurse?(type)
-            next_link_set = LinkSet.find_by(content_id: item.content_id) || OpenStruct.new(links: [])
-            next_level = recurse_if_not_visited(type, next_link_set, visited_link_sets)
+            next_level = recurse_if_not_visited(type, item.content_id, visited_content_ids)
           else
             next_level = {}
           end
@@ -46,14 +45,14 @@ module Presenters
         end
       end
 
-      def recurse_if_not_visited(type, next_link_set, visited_link_sets)
-        return {} if visited_link_sets.include?(next_link_set)
+      def recurse_if_not_visited(type, next_content_id, visited_content_ids)
+        return {} if visited_content_ids.include?(next_content_id)
 
         self.class.new(
-          link_set: next_link_set,
+          content_id: next_content_id,
           state_fallback_order: state_fallback_order,
           locale_fallback_order: locale_fallback_order,
-          visited_link_sets: (visited_link_sets << link_set),
+          visited_content_ids: (visited_content_ids << content_id),
           recursing_type: type,
         ).links
       end
@@ -64,10 +63,13 @@ module Presenters
       end
 
       def dependees
-        return {} unless link_set.is_a? LinkSet
-        grouped_links = link_set.links
+        grouped_links = LinkSet
+          .eager_load(:links)
+          .where(content_id: content_id)
           .pluck(:link_type, :target_content_id, :passthrough_hash)
           .group_by(&:first)
+
+        return {} if grouped_links.keys.compact.empty?
 
         grouped_links.each_with_object({}) do |(type, links), hash|
           links = links.map { |l| l[2] || l[1] }
@@ -81,7 +83,7 @@ module Presenters
 
       def dependents
         grouped_links = Link
-          .where(target_content_id: link_set.content_id)
+          .where(target_content_id: content_id)
           .joins(:link_set)
           .pluck(:link_type, :content_id).group_by(&:first)
 
@@ -118,7 +120,7 @@ module Presenters
       end
 
       def translations
-        AvailableTranslations.new(link_set.content_id, state_fallback_order).translations
+        AvailableTranslations.new(content_id, state_fallback_order).translations
       end
     end
   end

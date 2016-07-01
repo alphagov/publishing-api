@@ -60,7 +60,7 @@ module Presenters
 
     def expanded_link_set_presenter
       Presenters::Queries::ExpandedLinkSet.new(
-        link_set: link_set,
+        content_id: web_content_item.content_id,
         state_fallback_order: state_fallback_order,
         locale_fallback_order: locale_fallback_order
       )
