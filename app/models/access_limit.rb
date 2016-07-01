@@ -1,4 +1,4 @@
-class AccessLimit < ActiveRecord::Base
+class AccessLimit < ApplicationRecord
   belongs_to :content_item
 
   validate :user_uids_are_strings

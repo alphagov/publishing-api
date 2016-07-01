@@ -1,4 +1,4 @@
-class Unpublishing < ActiveRecord::Base
+class Unpublishing < ApplicationRecord
   self.inheritance_column = nil
 
   belongs_to :content_item

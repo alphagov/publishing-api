@@ -1,4 +1,4 @@
-class PathReservation < ActiveRecord::Base
+class PathReservation < ApplicationRecord
   validates :base_path, absolute_path: true
   validates :publishing_app, presence: true
 

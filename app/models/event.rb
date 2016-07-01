@@ -1,3 +1,3 @@
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   include SymbolizeJSON
 end

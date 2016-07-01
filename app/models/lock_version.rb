@@ -1,4 +1,4 @@
-class LockVersion < ActiveRecord::Base
+class LockVersion < ApplicationRecord
   include Version
   belongs_to :target, polymorphic: true
 

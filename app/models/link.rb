@@ -1,4 +1,4 @@
-class Link < ActiveRecord::Base
+class Link < ApplicationRecord
   include SymbolizeJSON
 
   belongs_to :link_set
