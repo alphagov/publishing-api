@@ -28,10 +28,6 @@ WebContentItem = Struct.new(*fields) do
     new(*hash.symbolize_keys.values_at(*members))
   end
 
-  def self.from_scope(scope)
-    ActiveRecord::Base.connection.exec_query(scope.to_sql).to_hash.map { |r| from_hash(r) }
-  end
-
   def api_url
     return unless base_path
     Plek.current.website_root + "/api/content" + base_path
@@ -43,6 +39,6 @@ WebContentItem = Struct.new(*fields) do
   end
 
   def description
-    JSON.parse(self[:description])["value"]
+    self[:description]["value"]
   end
 end

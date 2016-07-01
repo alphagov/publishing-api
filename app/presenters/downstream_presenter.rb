@@ -1,42 +1,39 @@
 module Presenters
   class DownstreamPresenter
-    def self.present(content_item, state_fallback_order:)
-      link_set = LinkSet.find_by(content_id: content_item.content_id)
-      new(content_item, link_set, state_fallback_order: state_fallback_order).present
+    def self.present(web_content_item, state_fallback_order:)
+      link_set = LinkSet.find_by(content_id: web_content_item.content_id)
+      new(web_content_item, link_set, state_fallback_order: state_fallback_order).present
     end
 
-    def initialize(content_item, link_set, state_fallback_order:)
-      self.content_item = content_item
+    def initialize(web_content_item, link_set, state_fallback_order:)
+      self.web_content_item = web_content_item
       self.link_set = link_set
       self.state_fallback_order = state_fallback_order
     end
 
     def present
       symbolized_attributes
-        .slice(*content_item.class::TOP_LEVEL_FIELDS)
-        .except(:last_edited_at) # only intended to be used by publishing applications
+        .except(*%i{last_edited_at id state user_facing_version}) # only intended to be used by publishing applications
         .merge(first_published_at)
         .merge(public_updated_at)
         .merge(links)
         .merge(access_limited)
-        .merge(base_path)
-        .merge(locale)
         .merge(format)
         .merge(withdrawal_notice)
     end
 
   private
 
-    attr_accessor :content_item, :link_set, :state_fallback_order
+    attr_accessor :web_content_item, :link_set, :state_fallback_order
 
     def symbolized_attributes
-      content_item.as_json.symbolize_keys
+      SymbolizeJSON.symbolize(web_content_item.as_json.merge(description: web_content_item.description))
     end
 
     def links
       return {} unless link_set
 
-      if MigrateExpandedLinks.schema_names.include?(content_item.schema_name)
+      if MigrateExpandedLinks.schema_names.include?(web_content_item.schema_name)
         {
           links: expanded_link_set_presenter.links,
         }
@@ -70,11 +67,7 @@ module Presenters
     end
 
     def access_limit
-      @access_limit ||= AccessLimit.find_by(content_item: content_item)
-    end
-
-    def web_content_item
-      @web_content_item ||= WebContentItem.new(content_item)
+      @access_limit ||= AccessLimit.find_by(content_item_id: web_content_item.id)
     end
 
     def locale_fallback_order
@@ -82,16 +75,16 @@ module Presenters
     end
 
     def first_published_at
-      if content_item.first_published_at.present?
-        { first_published_at: content_item.first_published_at.iso8601 }
+      if web_content_item.first_published_at.present?
+        { first_published_at: web_content_item.first_published_at }
       else
         {}
       end
     end
 
     def public_updated_at
-      return {} unless content_item.public_updated_at.present?
-      { public_updated_at: content_item.public_updated_at.iso8601 }
+      return {} unless web_content_item.public_updated_at.present?
+      { public_updated_at: web_content_item.public_updated_at }
     end
 
     def base_path
@@ -107,7 +100,7 @@ module Presenters
     end
 
     def withdrawal_notice
-      unpublishing = Unpublishing.find_by(content_item: content_item)
+      unpublishing = Unpublishing.find_by(content_item_id: web_content_item.id)
 
       if unpublishing && unpublishing.withdrawal?
         {
