@@ -10,7 +10,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
         "content_id" => "10529c0d-f4b3-4c7d-9589-35ba6a6d1a12",
         "description" => "Some description",
         "locale" => "en",
-        "public_updated_at" => "2014-05-14T13:00:06.000Z",
+        "public_updated_at" => "2014-05-14T13:00:06Z",
         "title" => "Some title",
         "web_url" => "http://www.dev.gov.uk/some-path"
       }
@@ -59,7 +59,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
             "description" => "VAT rates for goods and services",
             "details" => { "body" => "<p>Something about VAT</p>\n" },
             "locale" => "en",
-            "public_updated_at" => "2014-05-14T13:00:06.000Z",
+            "public_updated_at" => "2014-05-14T13:00:06Z",
             "title" => "VAT rates",
             "web_url" => "http://www.dev.gov.uk/my-super-org",
             "links" => {},
