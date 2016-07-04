@@ -1,7 +1,7 @@
 redis_config = {
   host: ENV["REDIS_HOST"] || "127.0.0.1",
   port: ENV["REDIS_PORT"] || 6379,
-  namespace: "publishing_api",
+  namespace: "publishing-api",
 }
 
 Sidekiq.configure_server do |config|
