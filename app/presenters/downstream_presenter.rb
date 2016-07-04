@@ -1,6 +1,14 @@
+require 'queries/get_web_content_items'
+
 module Presenters
   class DownstreamPresenter
     def self.present(web_content_item, state_fallback_order:)
+      if web_content_item.is_a?(ContentItem)
+        # TODO: Add deprecation notice here once we start to migrate other parts of
+        # the app to use WebContentItem. Adding a notice now would be too noisy
+        web_content_item = ::Queries::GetWebContentItems.(web_content_item.id).first
+      end
+
       link_set = LinkSet.find_by(content_id: web_content_item.content_id)
       new(web_content_item, link_set, state_fallback_order: state_fallback_order).present
     end
