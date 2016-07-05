@@ -1,5 +1,5 @@
 class PresentedContentStoreWorker
-  attr_reader :params, :request_uuid
+  attr_reader :params
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
@@ -10,7 +10,6 @@ class PresentedContentStoreWorker
 
   def perform(args = {})
     assign_attributes(args.deep_symbolize_keys)
-    set_headers
 
     if params[:delete]
       delete_from_content_store
@@ -59,18 +58,12 @@ private
     content_store.delete_content_item(base_path)
   end
 
-  def set_headers
-    logger.debug "[#{request_uuid}] PresentedContentStoreWorker#perform with #{params}"
-    GdsApi::GovukHeaders.set_header(:govuk_request_id, request_uuid)
-  end
-
   def content_store
     params.fetch(:content_store).constantize
   end
 
   def assign_attributes(params)
     @params = params
-    @request_uuid = @params[:request_uuid]
   end
 
   def payload
@@ -96,7 +89,6 @@ private
       content_store: content_store,
       fields: presented_payload.keys,
       content_id: content_item.content_id,
-      request_uuid: request_uuid,
       payload_version: payload_version,
     )
   end

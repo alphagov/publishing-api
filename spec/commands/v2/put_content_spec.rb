@@ -4,8 +4,6 @@ RSpec.describe Commands::V2::PutContent do
   describe "call" do
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
-      allow(GdsApi::GovukHeaders).to receive(:headers)
-        .and_return(govuk_request_id: "12345-67890")
     end
 
     let(:content_id) { SecureRandom.uuid }
@@ -35,7 +33,6 @@ RSpec.describe Commands::V2::PutContent do
           "content_store_high",
           content_store: Adapters::DraftContentStore,
           payload: a_hash_including(:content_item_id, :payload_version),
-          request_uuid: "12345-67890",
         )
 
       described_class.call(payload)
@@ -47,7 +44,6 @@ RSpec.describe Commands::V2::PutContent do
           content_store: Adapters::DraftContentStore,
           fields: anything,
           content_id: anything,
-          request_uuid: "12345-67890",
           payload_version: instance_of(Fixnum)
         )
 
@@ -85,7 +81,6 @@ RSpec.describe Commands::V2::PutContent do
             "content_store_low",
             content_store: Adapters::DraftContentStore,
             payload: a_hash_including(:content_item_id, :payload_version),
-            request_uuid: "12345-67890",
           )
 
         described_class.call(payload.merge(bulk_publishing: true))
@@ -211,7 +206,6 @@ RSpec.describe Commands::V2::PutContent do
               "content_store_high",
               content_store: Adapters::DraftContentStore,
               payload: a_hash_including(:content_item_id, :payload_version),
-              request_uuid: "12345-67890",
             ).twice
 
           described_class.call(payload)
@@ -563,7 +557,6 @@ RSpec.describe Commands::V2::PutContent do
               "content_store_high",
               content_store: Adapters::DraftContentStore,
               payload: a_hash_including(:content_item_id, :payload_version),
-              request_uuid: "12345-67890",
             ).twice
 
           described_class.call(payload)

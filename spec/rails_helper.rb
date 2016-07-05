@@ -18,6 +18,10 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'sidekiq/testing'
 Sidekiq::Logging.logger = nil
+# Sidekiq in test mode won't run server middleware by default.
+Sidekiq::Testing.server_middleware do |chain|
+  chain.add GovukSidekiq::APIHeaders::ServerMiddleware
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

@@ -7,7 +7,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
     described_class.new.perform(content_id: "123",
                     fields: ["base_path"],
                     content_store: "Adapters::ContentStore",
-                    request_uuid: "123",
                     payload_version: "123",
                    )
   end
@@ -32,7 +31,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
       "content_store_low",
       content_store: Adapters::ContentStore,
       payload: a_hash_including(:content_item_id, :payload_version),
-      request_uuid: "123",
       enqueue_dependency_check: false,
     )
     worker_perform
@@ -59,7 +57,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
         content_id: "123",
         fields: ["base_path"],
         content_store: "Adapters::ContentStore",
-        request_uuid: "123",
         payload_version: "123",
       )
     end
@@ -78,7 +75,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
         content_id: "123",
         fields: ["base_path"],
         content_store: "Adapters::DraftContentStore",
-        request_uuid: "123",
         payload_version: "123",
       )
     end

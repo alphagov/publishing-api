@@ -40,7 +40,6 @@ module Commands
             PresentedContentStoreWorker::LOW_QUEUE,
             content_store: content_store,
             payload: { content_item_id: content_item.id, payload_version: event.id },
-            request_uuid: nil
           )
         end
       end
