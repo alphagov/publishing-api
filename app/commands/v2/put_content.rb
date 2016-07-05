@@ -254,6 +254,7 @@ module Commands
 
       def send_downstream(content_item)
         return unless downstream
+        return if content_item.pathless?
 
         message = "Enqueuing PresentedContentStoreWorker job with "
         message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
