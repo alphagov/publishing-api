@@ -86,7 +86,7 @@ module Presenters
         fields_to_select = fields.map do |field|
           case field
           when :publication_state
-            "#{publication_state_sql} AS publication_state"
+            "#{PUBLICATION_STATE_SQL} AS publication_state"
           when :user_facing_version
             "user_facing_versions.number AS user_facing_version"
           when :lock_version
@@ -94,15 +94,15 @@ module Presenters
           when :description
             "description->>'value' AS description"
           when :internal_name
-            "#{internal_name_sql} AS internal_name"
+            "#{INTERNAL_NAME_SQL} AS internal_name"
           when :last_edited_at
-            "to_char(last_edited_at, '#{iso8601_sql}') as last_edited_at"
+            "to_char(last_edited_at, '#{ISO8601_SQL}') as last_edited_at"
           when :public_updated_at
-            "to_char(public_updated_at, '#{iso8601_sql}') as public_updated_at"
+            "to_char(public_updated_at, '#{ISO8601_SQL}') as public_updated_at"
           when :first_published_at
-            "to_char(first_published_at, '#{iso8601_sql}') as first_published_at"
+            "to_char(first_published_at, '#{ISO8601_SQL}') as first_published_at"
           when :state_history
-            "#{state_history_sql} AS state_history"
+            "#{STATE_HISTORY_SQL} AS state_history"
           else
             field
           end
@@ -116,40 +116,33 @@ module Presenters
         scope.where("title ilike ? OR base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
       end
 
-      def publication_state_sql
-        <<-SQL
-          CASE WHEN (user_facing_versions.number > 1 AND states.name = 'draft') THEN
-            'redrafted'
-          WHEN (states.name = 'published') THEN
-            'live'
-          ELSE
-            states.name
-          END
-        SQL
-      end
+      PUBLICATION_STATE_SQL = <<-SQL.freeze
+        CASE WHEN (user_facing_versions.number > 1 AND states.name = 'draft') THEN
+          'redrafted'
+        WHEN (states.name = 'published') THEN
+          'live'
+        ELSE
+          states.name
+        END
+      SQL
 
-      def state_history_sql
-        <<-SQL
-          (
-            SELECT json_agg((number, name))
-            FROM content_items c
-            JOIN states s ON s.content_item_id = c.id
-            JOIN user_facing_versions u ON u.content_item_id = c.id
-            WHERE c.content_id = content_items.content_id
-            GROUP BY content_id
-          )
-        SQL
-      end
 
-      def iso8601_sql
-        "YYYY-MM-DD\"T\"HH24:MI:SS\"Z\""
-      end
+      STATE_HISTORY_SQL = <<-SQL.freeze
+        (
+          SELECT json_agg((number, name))
+          FROM content_items c
+          JOIN states s ON s.content_item_id = c.id
+          JOIN user_facing_versions u ON u.content_item_id = c.id
+          WHERE c.content_id = content_items.content_id
+          GROUP BY content_id
+        )
+      SQL
+
+      ISO8601_SQL = "YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"".freeze
 
       # This returns the internal_name from the details hash if it is present,
       # otherwise it falls back to the content item's title.
-      def internal_name_sql
-        "COALESCE(details->>'internal_name', title) "
-      end
+      INTERNAL_NAME_SQL = "COALESCE(details->>'internal_name', title) ".freeze
 
       def parse_results(results)
         json_columns = %w(details routes redirects need_ids state_history)
