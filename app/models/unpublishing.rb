@@ -5,9 +5,10 @@ class Unpublishing < ActiveRecord::Base
 
   VALID_TYPES = %w(
     gone
-    withdrawal
+    vanish
     redirect
     substitute
+    withdrawal
   ).freeze
 
   validates :content_item, presence: true, uniqueness: true

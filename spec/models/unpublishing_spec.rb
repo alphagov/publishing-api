@@ -11,9 +11,10 @@ RSpec.describe Unpublishing do
     it "requires a valid type" do
       valid_types = %w(
         gone
-        withdrawal
+        vanish
         redirect
         substitute
+        withdrawal
       )
 
       valid_types.each do |type|
@@ -54,6 +55,13 @@ RSpec.describe Unpublishing do
       subject.alternative_path = nil
       expect(subject).to be_invalid
       expect(subject.errors[:alternative_path].size).to eq(1)
+    end
+
+    it "does not require anything for 'vanish'" do
+      subject.type = "vanish"
+      subject.alternative_path = nil
+      subject.explanation = nil
+      expect(subject).to be_valid
     end
   end
 end

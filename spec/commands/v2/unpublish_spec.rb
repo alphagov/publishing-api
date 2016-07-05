@@ -70,6 +70,7 @@ RSpec.describe Commands::V2::Unpublish do
 
       it "does not send to any other downstream system" do
         allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
         expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
@@ -152,6 +153,7 @@ RSpec.describe Commands::V2::Unpublish do
 
         it "does not send to any other downstream system" do
           allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
           expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
           expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
@@ -273,6 +275,7 @@ RSpec.describe Commands::V2::Unpublish do
 
       it "does not send to any other downstream system" do
         allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
         expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
@@ -289,6 +292,7 @@ RSpec.describe Commands::V2::Unpublish do
 
       it "does not send to any downstream system for a 'gone'" do
         expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
         expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
@@ -301,6 +305,7 @@ RSpec.describe Commands::V2::Unpublish do
 
       it "does not send to any downstream system for a 'redirect'" do
         expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
         expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
@@ -313,6 +318,20 @@ RSpec.describe Commands::V2::Unpublish do
 
       it "does not send to any downstream system for a 'withdrawal'" do
         expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
+        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+        redraft_payload = payload.merge(
+          type: "withdrawal",
+          discard_drafts: true,
+        )
+        described_class.call(redraft_payload, downstream: false)
+      end
+
+      it "does not send to any downstream system for 'vanish'" do
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
+        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
         expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 

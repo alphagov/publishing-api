@@ -75,11 +75,12 @@ Requests to update an existing draft content item:
   - Will refuse to unpublish a lone draft unless `allow_draft` is `true`.
   - If `allow_draft` is `true`, will refuse to unpublish anything other than a draft.
   - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true`.
-  - Validates that unpublishing `type` is one of `withdrawal`, `gone` or `redirect` and raises a 422 otherwise.
+  - Validates that unpublishing `type` is one of `withdrawal`, `gone`, `vanish` or `redirect` and raises a 422 otherwise.
   - Retrieves the live content item with the matching content_id and locale and changes its state to `unpublished`.
   - Creates an `Unpublishing` with the provided details.
   - Will update the `Unpublishing` if the document is already unpublished.
   - Sends the gone/redirect/withdrawal to the live content store.
+  - If `vanish` then fully deletes the item from the live content store.
   - Does not send to the draft content store (unless a draft was discarded).
   - Does not send to the message queue.
   - Returns 200 along with the content_id of the unpublished item.

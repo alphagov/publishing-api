@@ -21,5 +21,11 @@ module Adapters
         )
       end
     end
+
+    def self.delete_content_item(base_path)
+      CommandError.with_error_handling(ignore_404s: true) do
+        PublishingAPI.service(:live_content_store).delete_content_item(base_path)
+      end
+    end
   end
 end

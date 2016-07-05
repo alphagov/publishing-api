@@ -121,7 +121,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     end
   end
 
-  describe "gone (get this off the website)" do
+  describe "gone (remove the content)" do
     let(:gone_params) {
       {
         type: "gone",
@@ -177,6 +177,44 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       post "/v2/content/#{content_id}/unpublish", gone_params
+
+      expect(response.status).to eq(200), response.body
+    end
+  end
+
+  describe "vanish (gone like it never existed)" do
+    let(:vanish_params) {
+      {
+        type: "vanish",
+      }.to_json
+    }
+
+    it "creates an Unpublishing" do
+      post "/v2/content/#{content_id}/unpublish", vanish_params
+
+      expect(response.status).to eq(200), response.body
+
+      unpublishing = Unpublishing.find_by(content_item: content_item)
+      expect(unpublishing.type).to eq("vanish")
+    end
+
+    it "deletes the content from the live content store" do
+      Timecop.freeze do
+        expect(PublishingAPI.service(:live_content_store)).to receive(:delete_content_item)
+          .with(base_path)
+
+        post "/v2/content/#{content_id}/unpublish", vanish_params
+
+        expect(response.status).to eq(200), response.body
+      end
+    end
+
+    it "does not send to any other downstream system" do
+      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+
+      post "/v2/content/#{content_id}/unpublish", vanish_params
 
       expect(response.status).to eq(200), response.body
     end
