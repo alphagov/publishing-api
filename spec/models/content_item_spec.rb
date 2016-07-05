@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ContentItem do
   subject { FactoryGirl.build(:content_item) }
@@ -67,7 +67,7 @@ RSpec.describe ContentItem do
           expect(subject).to be_valid
         end
 
-        ['no spaces', 'puncutation!', 'mixedCASE'].each do |value|
+        ["no spaces", "puncutation!", "mixedCASE"].each do |value|
           subject.rendering_app = value
           expect(subject).to be_invalid
           expect(subject.errors[:rendering_app].size).to eq(1)
@@ -89,7 +89,7 @@ RSpec.describe ContentItem do
       end
     end
 
-    context 'content_id' do
+    context "content_id" do
       it "accepts a UUID" do
         subject.content_id = "a7c48dac-f1c6-45a8-b5c1-5c407d45826f"
         expect(subject).to be_valid
@@ -106,9 +106,9 @@ RSpec.describe ContentItem do
       end
     end
 
-    context 'phase' do
-      it 'defaults to live' do
-        expect(described_class.new.phase).to eq('live')
+    context "phase" do
+      it "defaults to live" do
+        expect(described_class.new.phase).to eq("live")
       end
 
       %w(alpha beta live).each do |phase|
@@ -118,21 +118,21 @@ RSpec.describe ContentItem do
         end
       end
 
-      it 'is invalid without a phase' do
+      it "is invalid without a phase" do
         subject.phase = nil
         expect(subject).not_to be_valid
         expect(subject.errors[:phase].size).to eq(1)
       end
 
-      it 'is invalid with any other phase' do
-        subject.phase = 'not-a-correct-phase'
+      it "is invalid with any other phase" do
+        subject.phase = "not-a-correct-phase"
         expect(subject).to_not be_valid
       end
     end
   end
 
-  context 'EMPTY_BASE_PATH_FORMATS' do
-    it 'defines formats not requiring a base_path attibute' do
+  context "EMPTY_BASE_PATH_FORMATS" do
+    it "defines formats not requiring a base_path attibute" do
       expect(ContentItem::EMPTY_BASE_PATH_FORMATS).to eq(%w(contact government))
     end
   end
