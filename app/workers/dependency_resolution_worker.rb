@@ -14,12 +14,11 @@ class DependencyResolutionWorker
 
 private
 
-  attr_reader :content_id, :fields, :request_uuid, :content_store, :payload_version
+  attr_reader :content_id, :fields, :content_store, :payload_version
 
   def assign_attributes(args)
     @content_id = args.fetch(:content_id)
     @fields = args.fetch(:fields, []).map(&:to_sym)
-    @request_uuid = args.fetch(:request_uuid)
     @content_store = args.fetch(:content_store).constantize
     @payload_version = args.fetch(:payload_version)
   end
@@ -47,7 +46,6 @@ private
       PresentedContentStoreWorker::LOW_QUEUE,
       content_store: content_store,
       payload: { content_item_id: latest_content_item.id, payload_version: payload_version },
-      request_uuid: request_uuid,
       enqueue_dependency_check: false,
     )
   end

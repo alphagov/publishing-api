@@ -19,9 +19,7 @@ gem "gds-sso", "12.1.0"
 
 gem 'bunny', '2.0.0'
 gem 'whenever', '0.9.4', require: false
-gem "sidekiq", "3.5.1"
-gem "sidekiq-logging-json", "0.0.14"
-gem "sidekiq-statsd", "0.1.5"
+gem "govuk_sidekiq", "~> 0.0"
 gem "deprecated_columns"
 gem "json-schema", require: false
 gem "hashdiff"

@@ -5,8 +5,6 @@ RSpec.describe Commands::V2::DiscardDraft do
     before do
       stub_request(:delete, %r{.*content-store.*/content/.*})
       stub_request(:put, %r{.*content-store.*/content/.*})
-      allow(GdsApi::GovukHeaders).to receive(:headers)
-        .and_return(govuk_request_id: "12345-67890")
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
@@ -74,7 +72,6 @@ RSpec.describe Commands::V2::DiscardDraft do
             content_store: Adapters::DraftContentStore,
             base_path: base_path,
             delete: true,
-            request_uuid: "12345-67890"
           )
 
         described_class.call(payload)
@@ -137,7 +134,6 @@ RSpec.describe Commands::V2::DiscardDraft do
               content_store: Adapters::DraftContentStore,
               base_path: base_path,
               delete: true,
-              request_uuid: "12345-67890",
             )
 
           described_class.call(payload)
@@ -149,13 +145,11 @@ RSpec.describe Commands::V2::DiscardDraft do
               content_store: Adapters::DraftContentStore,
               base_path: "/vat-rates",
               delete: true,
-              request_uuid: "12345-67890",
             )
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
               payload: a_hash_including(:content_item_id, :payload_version),
-              request_uuid: "12345-67890",
             )
           described_class.call(payload)
         end

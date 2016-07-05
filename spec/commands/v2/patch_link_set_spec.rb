@@ -21,8 +21,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     allow(Presenters::ContentStorePresenter).to receive(:present)
       .and_return(expected_content_store_payload)
-    allow(GdsApi::GovukHeaders).to receive(:headers)
-      .and_return(govuk_request_id: "12345-67890")
   end
 
   context "when no link set exists" do
@@ -202,7 +200,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           "content_store_high",
           content_store: Adapters::DraftContentStore,
           payload: a_hash_including(:content_item_id, :payload_version),
-          request_uuid: "12345-67890",
         )
 
       described_class.call(payload)
@@ -214,7 +211,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           "content_store_low",
           content_store: Adapters::DraftContentStore,
           payload: a_hash_including(:content_item_id, :payload_version),
-          request_uuid: "12345-67890",
         )
 
       described_class.call(payload.merge(bulk_publishing: true))
@@ -247,7 +243,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
                 content_item_id: ci.id,
                 payload_version: an_instance_of(Fixnum)
               },
-              request_uuid: "12345-67890"
             )
         end
 
@@ -284,7 +279,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           "content_store_high",
           content_store: Adapters::ContentStore,
           payload: a_hash_including(:content_item_id, :payload_version),
-          request_uuid: "12345-67890",
         )
 
       described_class.call(payload)
@@ -297,7 +291,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           "content_store_low",
           content_store: Adapters::ContentStore,
           payload: a_hash_including(:content_item_id, :payload_version),
-          request_uuid: "12345-67890",
         )
 
       described_class.call(payload.merge(bulk_publishing: true))
@@ -344,7 +337,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
                 content_item_id: ci.id,
                 payload_version: an_instance_of(Fixnum)
               },
-              request_uuid: "12345-67890"
             )
 
           expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
