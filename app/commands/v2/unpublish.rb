@@ -54,6 +54,7 @@ module Commands
         end
 
         delete_linkable(content_item)
+        supersede_previous_items(content_item)
 
         Success.new(content_id: content_id)
       end
@@ -149,7 +150,21 @@ module Commands
         end
 
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        filter.filter(locale: locale, state: allowed_states).first
+        filter.filter(locale: locale, state: allowed_states).last
+      end
+
+      def supersede_previous_items(content_item)
+        items = ContentItemFilter.similar_to(
+          content_item,
+          state: %w(published unpublished),
+          base_path: nil,
+          user_version: nil,
+        )
+
+        items.each do |item|
+          next if item == content_item
+          State.supersede(item)
+        end
       end
 
       def draft_present?(content_id)
