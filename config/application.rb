@@ -28,6 +28,7 @@ module PublishingAPI
     config.autoload_paths << "#{config.root}/app"
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.autoload_paths << "#{config.root}/db/migrate"
 
     config.i18n.available_locales = [
       :en, :ar, :az, :be, :bg, :bn, :cs, :cy, :de, :dr, :el, :es, :'es-419',
