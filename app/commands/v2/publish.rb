@@ -13,7 +13,7 @@ module Commands
         end
 
         translation = Translation.find_by!(content_item: content_item)
-        location = Location.find_by!(content_item: content_item)
+        location = Location.find_by(content_item: content_item)
         update_type = payload[:update_type] || content_item.update_type
 
         if update_type.blank?
@@ -87,6 +87,8 @@ module Commands
       end
 
       def clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+        return unless location
+
         SubstitutionHelper.clear!(
           new_item_document_type: content_item.document_type,
           new_item_content_id: content_item.content_id,
@@ -149,6 +151,8 @@ module Commands
         )
 
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)
+
+        return if content_item.pathless?
 
         queue = update_type == 'republish' ? PresentedContentStoreWorker::LOW_QUEUE : PresentedContentStoreWorker::HIGH_QUEUE
 

@@ -883,5 +883,23 @@ RSpec.describe Commands::V2::PutContent do
         end
       end
     end
+
+    context "with a pathless content item payload" do
+      before do
+        payload.delete(:base_path)
+        payload[:schema_name] = "contact"
+      end
+
+      it "saves the content as draft" do
+        expect {
+          described_class.call(payload)
+        }.to change(ContentItem, :count).by(1)
+      end
+
+      it "doesn't send to the draft content store" do
+        described_class.call(payload)
+        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
+      end
+    end
   end
 end

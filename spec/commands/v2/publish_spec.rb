@@ -418,4 +418,30 @@ RSpec.describe Commands::V2::Publish do
 
     it_behaves_like TransactionalCommand
   end
+
+  context "for a pathless content item" do
+    let(:pathless_content_item) do
+      FactoryGirl.create(:draft_content_item, schema_name: "contact")
+    end
+
+    let(:payload) do
+      {
+        content_id: pathless_content_item.content_id,
+        update_type: "major",
+        previous_version: 1,
+      }
+    end
+
+    before do
+      location = Location.find_by(content_item: pathless_content_item)
+      location.destroy
+    end
+
+    it "publishes the item" do
+      described_class.call(payload)
+
+      state = State.find_by!(content_item: pathless_content_item)
+      expect(state.name).to eq("published")
+    end
+  end
 end

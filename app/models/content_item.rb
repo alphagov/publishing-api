@@ -26,7 +26,7 @@ class ContentItem < ActiveRecord::Base
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
-  EMPTY_BASE_PATH_FORMATS = %w(government).freeze
+  EMPTY_BASE_PATH_FORMATS = %w(contact government).freeze
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
 
@@ -43,6 +43,10 @@ class ContentItem < ActiveRecord::Base
   }
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include: "text/html" }
+
+  def pathless?
+    EMPTY_BASE_PATH_FORMATS.include?(schema_name)
+  end
 
 private
 
