@@ -59,17 +59,17 @@ module Commands
 
       return unless current_versioned_item && current_version
 
-      friendly_message = "A lock-version conflict occurred. The `previous_version` you've sent " +
-        "(#{previous_version_number}) is not the same as the current " +
-        "lock version of the content item (#{current_version.number})."
-
-      fields = {
-        fields: {
-          previous_version: ["does not match"],
-        },
-      }
-
       if current_version.conflicts_with?(previous_version_number)
+        friendly_message = "A lock-version conflict occurred. The `previous_version` you've sent " +
+          "(#{previous_version_number}) is not the same as the current " +
+          "lock version of the content item (#{current_version.number})."
+
+        fields = {
+          fields: {
+            previous_version: ["does not match"],
+          },
+        }
+
         raise_command_error(409, "Conflict", fields, friendly_message: friendly_message)
       end
     end
