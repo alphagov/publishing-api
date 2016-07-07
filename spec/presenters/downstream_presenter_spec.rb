@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::DownstreamPresenter do
-  let(:state_fallback_order) { [] }
+  def web_content_item_for(content_item)
+    Queries::GetWebContentItems.(content_item.id).first
+  end
 
-  subject(:result) { described_class.present(content_item, state_fallback_order: state_fallback_order) }
+  let(:state_fallback_order) { [] }
+  let(:web_content_item) { web_content_item_for(content_item) }
+
+  subject(:result) { described_class.present(web_content_item, state_fallback_order: state_fallback_order) }
 
   describe "V2" do
     let(:base_path) { "/vat-rates" }
@@ -81,7 +86,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       it "expands the links for the content item" do
-        result = described_class.present(a, state_fallback_order: [:draft])
+        result = described_class.present(web_content_item_for(a), state_fallback_order: [:draft])
 
         expect(result[:expanded_links]).to eq(
           related: [{

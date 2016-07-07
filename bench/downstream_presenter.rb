@@ -48,20 +48,23 @@ benchmarks = {
   'Many reverse dependencies' => large_reverse,
   'Many forward dependencies' => large_forward,
   'No dependencies' => no_links,
-  'Single link each way' => single_link
+  'Single link each way' => single_link,
+  'Import export topic' => "4bda0be5-3e65-4cc1-850c-0541e95a40ca"
 }
 
 benchmarks.each do |name, content_id|
-  content_item = Queries::GetLatest.(ContentItemFilter.new(
+  content_item_ids = Queries::GetLatest.(ContentItemFilter.new(
     scope: ContentItem.where(content_id: content_id)
-  ).filter(state: 'published')).first
+  ).filter(state: 'published')).pluck(:id)
+
+  web_content_item = Queries::GetWebContentItems.(content_item_ids).first
 
   puts "#{name}: #{content_id}"
   StackProf.run(mode: :wall, out: "tmp/downstream_presenter_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
     puts Benchmark.measure {
       10.times do |i|
         Presenters::DownstreamPresenter.present(
-          content_item,
+          web_content_item,
           state_fallback_order: Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER
         )
         print "."

@@ -22,7 +22,7 @@ module Presenters
         scope = ContentItem.where(content_id: content_id)
         scope = State.join_content_items(scope)
         scope = Translation.join_content_items(scope)
-        scope.select(*(WebContentItem::CONTENT_ITEM_METHODS + %w(id locale name)))
+        scope.select(*%w(id locale name))
       end
 
       def filter_states
@@ -37,7 +37,7 @@ module Presenters
 
       def expand_translation(item)
         expansion_rules = ::Queries::DependentExpansionRules
-        web_item = WebContentItem.new(item, locale: item.locale)
+        web_item = ::Queries::GetWebContentItems.call(item.id).first
         ExpandLink.new(web_item, :available_translations, expansion_rules).expand_link
       end
 

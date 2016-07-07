@@ -4,7 +4,7 @@ module Queries
       link_set = find_link_set(content_id)
       lock_version = LockVersion.find_by(target: link_set)
       expanded_link_set = Presenters::Queries::ExpandedLinkSet.new(
-        link_set: link_set,
+        content_id: content_id,
         state_fallback_order: [:draft, :published],
         locale_fallback_order: [locale, ContentItem::DEFAULT_LOCALE].compact
       )

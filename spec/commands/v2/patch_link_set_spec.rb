@@ -240,7 +240,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
               "content_store_high",
               content_store: Adapters::DraftContentStore,
               payload: {
-                content_item_id: ci.id,
+                content_item_id: ci.id.to_s,
                 payload_version: an_instance_of(Fixnum)
               },
             )
@@ -334,7 +334,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
               "content_store_high",
               content_store: Adapters::ContentStore,
               payload: {
-                content_item_id: ci.id,
+                content_item_id: ci.id.to_s,
                 payload_version: an_instance_of(Fixnum)
               },
             )

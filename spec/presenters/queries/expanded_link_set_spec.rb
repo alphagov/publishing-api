@@ -36,7 +36,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
   subject(:expanded_links) {
     described_class.new(
-      link_set: LinkSet.find_by(content_id: a),
+      content_id: a,
       state_fallback_order: state_fallback_order,
       locale_fallback_order: locale_fallback_order
     ).links

@@ -77,17 +77,20 @@ module Commands
         return unless downstream
 
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        draft_content_items = Queries::GetLatest.call(
-          filter.filter(state: %w{draft published}))
-        live_content_items = filter.filter(state: "published")
+        draft_content_item_ids = Queries::GetLatest.call(
+          filter.filter(state: %w{draft published})).pluck(:id)
+        draft_web_content_items = Queries::GetWebContentItems.(draft_content_item_ids)
 
-        draft_content_items.each do |draft_content_item|
-          send_to_content_store(draft_content_item, Adapters::DraftContentStore)
+        live_content_item_ids = filter.filter(state: "published").pluck(:id)
+        live_web_content_items = Queries::GetWebContentItems.(live_content_item_ids)
+
+        draft_web_content_items.each do |draft_web_content_item|
+          send_to_content_store(draft_web_content_item, Adapters::DraftContentStore)
         end
 
-        live_content_items.each do |live_content_item|
-          send_to_content_store(live_content_item, Adapters::ContentStore)
-          send_to_message_queue(live_content_item)
+        live_web_content_items.each do |live_web_content_item|
+          send_to_content_store(live_web_content_item, Adapters::ContentStore)
+          send_to_message_queue(live_web_content_item)
         end
       end
 

@@ -1,27 +1,32 @@
-require "forwardable"
+fields = %i{
+  id
+  analytics_identifier
+  content_id
+  description
+  details
+  document_type
+  first_published_at
+  last_edited_at
+  need_ids
+  phase
+  public_updated_at
+  publishing_app
+  redirects
+  rendering_app
+  routes
+  schema_name
+  title
+  update_type
+  base_path
+  locale
+  state
+  user_facing_version
+}
 
-class WebContentItem
-  extend Forwardable
-
-  attr_reader :content_item, :base_path, :locale
-
-  def initialize(content_item, base_path: nil, locale: nil)
-    @content_item = content_item
-    @base_path = base_path || Location.find_by(content_item: content_item).try(:base_path)
-    @locale = locale || Translation.find_by(content_item: content_item).try(:locale)
+WebContentItem = Struct.new(*fields) do
+  def self.from_hash(hash)
+    new(*hash.symbolize_keys.values_at(*members))
   end
-
-  CONTENT_ITEM_METHODS = [
-    :analytics_identifier,
-    :content_id,
-    :description,
-    :details,
-    :public_updated_at,
-    :schema_name,
-    :title,
-  ]
-
-  def_delegators :@content_item, *CONTENT_ITEM_METHODS
 
   def api_url
     return unless base_path
@@ -31,5 +36,9 @@ class WebContentItem
   def web_url
     return unless base_path
     Plek.current.website_root + base_path
+  end
+
+  def description
+    self[:description]["value"]
   end
 end
