@@ -13,6 +13,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       base_path: base_path,
       state: state,
       locale: locale,
+      document_type: 'topical_event',
     )
   end
 
@@ -73,7 +74,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
               base_path: "/c",
               links: {
                 parent: [
-                  a_hash_including(base_path: "/d", links: {})
+                  a_hash_including(base_path: "/d", details: {:body=>"<p>Something about VAT</p>\n"}, links: {})
                 ]
               })]
             })

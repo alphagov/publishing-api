@@ -2,7 +2,7 @@ namespace :migrate_links do
   desc "Migrate links for a all formats"
   task all: :environment do
     Commands::V2::RepresentDownstream.new.call(
-      ContentItem.where(schema_name: Presenters::MigrateExpandedLinks.document_types)
+      ContentItem.where(schema_name: Presenters::MigrateExpandedLinks.schema_names)
     )
   end
 
