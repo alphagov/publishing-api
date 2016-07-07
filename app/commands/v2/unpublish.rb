@@ -46,6 +46,8 @@ module Commands
           redirect(content_item)
         when "gone"
           gone(content_item)
+        when "vanish"
+          vanish(content_item)
         else
           message = "#{type} is not a valid unpublishing type"
           raise_command_error(422, message, fields: {})
@@ -102,6 +104,12 @@ module Commands
         send_downstream(gone)
       end
 
+      def vanish(content_item)
+        State.unpublish(content_item, type: "vanish")
+
+        delete_from_downstream(Location.find_by(content_item: content_item).base_path)
+      end
+
       def delete_linkable(content_item)
         Linkable.find_by(content_item: content_item).try(:destroy)
       end
@@ -112,6 +120,16 @@ module Commands
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::ContentStore,
           payload: downstream_payload.merge(payload_version: event.id),
+        )
+      end
+
+      def delete_from_downstream(base_path)
+        return unless downstream
+
+        PresentedContentStoreWorker.perform_async(
+          content_store: Adapters::ContentStore,
+          base_path: base_path,
+          delete: true,
         )
       end
 
