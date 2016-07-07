@@ -6,7 +6,7 @@ RSpec.describe Queries::DependeeExpansionRules do
       let(:link_type) { :topical_event }
 
       it "has its own custom fields (currently unused)" do
-        expect(subject.expansion_fields(link_type)).not_to include(:details)
+        expect(subject.expansion_fields(link_type)).to include(:details)
       end
     end
 
