@@ -10,7 +10,12 @@ module SubstitutionHelper
         allowed_to_substitute = (substitute?(new_item_document_type) || substitute?(blocking_item.document_type))
 
         if mismatch && allowed_to_substitute
-          State.substitute(blocking_item)
+          if state == "draft"
+            Commands::V2::DiscardDraft.call(content_id: blocking_item.content_id)
+          else
+            State.substitute(blocking_item)
+          end
+
           Linkable.find_by(content_item: blocking_item).try(:destroy)
         end
       end
