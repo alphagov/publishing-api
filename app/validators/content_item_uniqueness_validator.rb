@@ -14,15 +14,10 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
 
     return unless state && translation && location && user_facing_version
 
-    # For now, we have agreed to relax the validator so that you can have
-    # duplicates with a state of unpublished. The reason for doing this is because
-    # we think that the 'gone' and 'redirect' mechanisms are modelled incorrect
-    # and need to be revisited.
-    #
-    # As it stands right now, when these content items are sent to the
-    # Publishing API, they have the side-effect of unpublishing other content
-    # items. We think think that this should change in the future.
-    return if state.name == "unpublished"
+    # We should only have one content item at a given path (and locale) for each
+    # content store. Superseded content items aren't in either content store so
+    # we can relax this validation.
+    return if state.name == "superseded"
 
     state_name = state.name
     locale = translation.locale

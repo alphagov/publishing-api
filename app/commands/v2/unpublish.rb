@@ -39,6 +39,9 @@ module Commands
           end
         end
 
+        previous_item = lookup_previous_item(content_item)
+        State.supersede(previous_item) if previous_item
+
         case type = payload.fetch(:type)
         when "withdrawal"
           withdraw(content_item)
@@ -54,7 +57,6 @@ module Commands
         end
 
         delete_linkable(content_item)
-        supersede_previous_items(content_item)
 
         Success.new(content_id: content_id)
       end
@@ -153,18 +155,13 @@ module Commands
         filter.filter(locale: locale, state: allowed_states).last
       end
 
-      def supersede_previous_items(content_item)
-        items = ContentItemFilter.similar_to(
+      def lookup_previous_item(content_item)
+        ContentItemFilter.similar_to(
           content_item,
           state: %w(published unpublished),
           base_path: nil,
           user_version: nil,
-        )
-
-        items.each do |item|
-          next if item == content_item
-          State.supersede(item)
-        end
+        ).first
       end
 
       def draft_present?(content_id)
