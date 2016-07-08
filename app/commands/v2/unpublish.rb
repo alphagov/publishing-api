@@ -39,6 +39,9 @@ module Commands
           end
         end
 
+        previous_item = lookup_previous_item(content_item)
+        State.supersede(previous_item) if previous_item
+
         case type = payload.fetch(:type)
         when "withdrawal"
           withdraw(content_item)
@@ -149,7 +152,16 @@ module Commands
         end
 
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        filter.filter(locale: locale, state: allowed_states).first
+        filter.filter(locale: locale, state: allowed_states).last
+      end
+
+      def lookup_previous_item(content_item)
+        ContentItemFilter.similar_to(
+          content_item,
+          state: %w(published unpublished),
+          base_path: nil,
+          user_version: nil,
+        ).first
       end
 
       def draft_present?(content_id)
