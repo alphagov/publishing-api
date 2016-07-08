@@ -60,17 +60,41 @@ RSpec.describe QueuePublisher do
     describe "sending a message" do
       let(:content_item) {
         {
+          update_type: "major",
+          content_id: "a0386c0b-81a9-4056-954b-bd4115057ac4",
+          analytics_identifier: "",
+          links: {},
+          expanded_links: {},
           base_path: "/vat-rates",
           title: "VAT Rates",
           description: "VAT rates for goods and services",
-          format: "guide",
+          public_updated_at: "1985-04-12T23:20:50.52Z",
+          first_published_at: "1985-04-12T23:20:50.52Z",
           publishing_app: "publisher",
+          rendering_app: "publisher",
           locale: "en",
+          need_ids: [],
+          format: "detailed_guide",
+          schema_name: "detailed_guide",
+          routes: [
+            {
+              path: "",
+              type: "prefix",
+            }
+          ],
+          redirects: [],
+          phase: "live",
+          document_type: "detailed_guide",
           details: {
-            app: "or format",
-            specific: "data...",
+            body: "",
+            first_public_at: "1985-04-12T23:20:50.52Z",
+            government: {
+              title: "",
+              slug: "",
+              current: false,
+            },
+            political: true,
           },
-          update_type: "major",
         }
       }
 
