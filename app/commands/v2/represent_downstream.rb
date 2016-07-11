@@ -8,11 +8,11 @@ module Commands
       def call(scope)
         filter = ContentItemFilter.new(scope: scope)
 
-        items_for_draft_store(filter).pluck(:id, :content_id).each do |(content_id, content_item_id)|
+        items_for_draft_store(filter).pluck(:id, :content_id).each do |(content_item_id, content_id)|
           send_to_content_store(content_item_id, content_id, Adapters::DraftContentStore)
         end
 
-        items_for_live_store(filter).pluck(:id, :content_id).each do |(content_id, content_item_id)|
+        items_for_live_store(filter).pluck(:id, :content_id).each do |(content_item_id, content_id)|
           send_to_content_store(content_item_id, content_id, Adapters::ContentStore)
         end
       end
