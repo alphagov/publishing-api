@@ -8,12 +8,12 @@ module Commands
       def call(scope)
         filter = ContentItemFilter.new(scope: scope)
 
-        items_for_draft_store(filter).find_each do |draft_store_item|
-          send_to_content_store(draft_store_item, Adapters::DraftContentStore)
+        items_for_draft_store(filter).pluck(:id, :content_id).each do |(content_id, content_item_id)|
+          send_to_content_store(content_item_id, content_id, Adapters::DraftContentStore)
         end
 
-        items_for_live_store(filter).find_each do |live_store_item|
-          send_to_content_store(live_store_item, Adapters::ContentStore)
+        items_for_live_store(filter).pluck(:id, :content_id).each do |(content_id, content_item_id)|
+          send_to_content_store(content_item_id, content_id, Adapters::ContentStore)
         end
       end
 
@@ -29,9 +29,9 @@ module Commands
         filter.filter(state: "published")
       end
 
-      def send_to_content_store(content_item, content_store)
+      def send_to_content_store(content_item_id, content_id, content_store)
         payload = {
-          content_id: content_item.content_id,
+          content_id: content_id,
           message: "Representing to #{content_store}"
         }
 
@@ -39,7 +39,7 @@ module Commands
           PresentedContentStoreWorker.perform_async_in_queue(
             PresentedContentStoreWorker::LOW_QUEUE,
             content_store: content_store,
-            payload: { content_item_id: content_item.id, payload_version: event.id },
+            payload: { content_item_id: content_item_id, payload_version: event.id },
           )
         end
       end
