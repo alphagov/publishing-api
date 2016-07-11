@@ -41,7 +41,7 @@ module Presenters
     def links
       return {} unless link_set
 
-      if MigrateExpandedLinks.schema_names.include?(web_content_item.schema_name)
+      if MigrateExpandedLinks.document_types.include?(web_content_item.document_type)
         {
           links: expanded_link_set_presenter.links,
         }

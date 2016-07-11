@@ -31,7 +31,7 @@ module Presenters
         content_items = valid_web_content_items(target_content_ids)
 
         content_items.map do |item|
-          expanded_links = ExpandLink.new(item, type, rules).expand_link
+          expanded_links = ExpandLink.new(item, item.document_type.to_sym, rules).expand_link
 
           if ::Queries::DependentExpansionRules.recurse?(type)
             next_level = recurse_if_not_visited(type, item.content_id, visited_content_ids)

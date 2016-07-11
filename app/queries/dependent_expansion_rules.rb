@@ -23,9 +23,7 @@ module Queries
   private
 
     def custom(link_type)
-      {
-        topical_event: default_fields + [:details]
-      }[link_type]
+      {}[link_type]
     end
 
     def default_fields
