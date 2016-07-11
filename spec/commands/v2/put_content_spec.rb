@@ -347,52 +347,6 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "with another draft content item blocking the put_content action" do
-      let!(:other_content_item) {
-        FactoryGirl.create(:redirect_draft_content_item,
-          locale: locale,
-          base_path: base_path,
-        )
-      }
-
-      it "unpublishes the content item which is in the way" do
-        described_class.call(payload)
-
-        state = State.find_by!(content_item: other_content_item)
-        expect(state.name).to eq("unpublished")
-
-        translation = Translation.find_by!(content_item: other_content_item)
-        expect(translation.locale).to eq(locale)
-
-        location = Location.find_by!(content_item: other_content_item)
-        expect(location.base_path).to eq(base_path)
-      end
-    end
-
-    context "with another draft content item not blocking the put_content action" do
-      let(:new_locale) { "fr" }
-
-      let!(:other_content_item) {
-        FactoryGirl.create(:redirect_draft_content_item,
-          locale: new_locale,
-          base_path: base_path,
-        )
-      }
-
-      it "does not unpublish the content item" do
-        described_class.call(payload)
-
-        state = State.find_by!(content_item: other_content_item)
-        expect(state.name).to eq("draft")
-
-        translation = Translation.find_by!(content_item: other_content_item)
-        expect(translation.locale).to eq(new_locale)
-
-        location = Location.find_by!(content_item: other_content_item)
-        expect(location.base_path).to eq(base_path)
-      end
-    end
-
     context "when the payload is for a brand new content item" do
       it "creates a content item" do
         described_class.call(payload)
