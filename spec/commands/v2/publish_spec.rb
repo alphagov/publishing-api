@@ -95,6 +95,37 @@ RSpec.describe Commands::V2::Publish do
         state = State.find_by!(content_item: live_item)
         expect(state.name).to eq("superseded")
       end
+
+      context "when the system is in an inconsistent state" do
+        let!(:unpublished_item) do
+          FactoryGirl.create(:unpublished_content_item,
+            content_id: draft_item.content_id,
+            base_path: base_path,
+          )
+        end
+
+        it "raises an error stating the inconsistency" do
+          expect {
+            described_class.call(payload)
+          }.to raise_error(/There should only be one previous/)
+        end
+      end
+    end
+
+    context "when the content item was previously unpublished" do
+      let!(:live_item) do
+        FactoryGirl.create(:unpublished_content_item,
+          content_id: draft_item.content_id,
+          base_path: base_path,
+        )
+      end
+
+      it "marks the previously unpublished item as 'superseded'" do
+        described_class.call(payload)
+
+        state = State.find_by!(content_item: live_item)
+        expect(state.name).to eq("superseded")
+      end
     end
 
     context "with another content item blocking the publish action" do
@@ -225,21 +256,19 @@ RSpec.describe Commands::V2::Publish do
         end
 
         context "for a minor update" do
-          let(:public_updated_at_from_last_live_item) { Time.zone.now - 2.years }
-
-          let!(:live_item) do
-            FactoryGirl.create(:live_content_item,
-              content_id: draft_item.content_id,
-              public_updated_at: public_updated_at_from_last_live_item,
-              base_path: base_path,
-            )
-          end
-
           before do
             payload.merge!(update_type: "minor")
           end
 
-          it "preserves the public_updated_at value from the last live item" do
+          it "preserves the public_updated_at value from the last published item" do
+            public_updated_at = Time.zone.now - 2.years
+
+            FactoryGirl.create(:live_content_item,
+              content_id: draft_item.content_id,
+              public_updated_at: public_updated_at,
+              base_path: base_path,
+            )
+
             expect(PresentedContentStoreWorker)
               .to receive(:perform_async_in_queue)
               .with(
@@ -250,7 +279,29 @@ RSpec.describe Commands::V2::Publish do
 
             described_class.call(payload)
 
-            expect(ContentItem.last.public_updated_at.iso8601).to eq(public_updated_at_from_last_live_item.iso8601)
+            expect(ContentItem.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
+          end
+
+          it "preserves the public_updated_at value from the last unpublished item" do
+            public_updated_at = Time.zone.now - 2.years
+
+            FactoryGirl.create(:unpublished_content_item,
+              content_id: draft_item.content_id,
+              public_updated_at: public_updated_at,
+              base_path: base_path,
+            )
+
+            expect(PresentedContentStoreWorker)
+              .to receive(:perform_async_in_queue)
+              .with(
+                "content_store_high",
+                content_store: Adapters::ContentStore,
+                payload: a_hash_including(:content_item_id, :payload_version),
+              )
+
+            described_class.call(payload)
+
+            expect(ContentItem.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
           end
         end
 
@@ -330,13 +381,11 @@ RSpec.describe Commands::V2::Publish do
         expect(redirect.schema_name).to eq("redirect")
       end
 
-      it "unpublishes the previously published item" do
+      it "supersedes the previously published item" do
         described_class.call(payload)
 
         state = State.find_by!(content_item: live_item)
-        expect(state.name).to eq("unpublished"),
-          "If this is failing because the content item has been superseded,
-          check that unpublishing is happening before superseding."
+        expect(state.name).to eq("superseded")
       end
     end
 

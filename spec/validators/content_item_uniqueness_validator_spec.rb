@@ -86,10 +86,10 @@ RSpec.describe ContentItemUniquenessValidator do
     end
   end
 
-  context "when a duplicate content item exists in a unpublished state" do
+  context "when a duplicate content item exists in a superseded state" do
     let!(:content_item) do
       FactoryGirl.create(:content_item,
-        state: "unpublished",
+        state: "superseded",
         base_path: base_path,
       )
     end
@@ -97,7 +97,7 @@ RSpec.describe ContentItemUniquenessValidator do
     it "allows duplicates and does not raise an error" do
       expect {
         FactoryGirl.create(:content_item,
-          state: "unpublished",
+          state: "superseded",
           base_path: base_path,
         )
       }.not_to raise_error
