@@ -95,6 +95,21 @@ RSpec.describe Commands::V2::Publish do
         state = State.find_by!(content_item: live_item)
         expect(state.name).to eq("superseded")
       end
+
+      context "when the system is in an inconsistent state" do
+        let!(:unpublished_item) do
+          FactoryGirl.create(:unpublished_content_item,
+            content_id: draft_item.content_id,
+            base_path: base_path,
+          )
+        end
+
+        it "raises an error stating the inconsistency" do
+          expect {
+            described_class.call(payload)
+          }.to raise_error(/There should only be one previous/)
+        end
+      end
     end
 
     context "when the content item was previously unpublished" do

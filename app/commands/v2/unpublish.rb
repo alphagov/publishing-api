@@ -156,12 +156,18 @@ module Commands
       end
 
       def lookup_previous_item(content_item)
-        ContentItemFilter.similar_to(
+        previous_items = ContentItemFilter.similar_to(
           content_item,
           state: %w(published unpublished),
           base_path: nil,
           user_version: nil,
-        ).first
+        ).to_a
+
+        if previous_items.size > 1
+          raise "There should only be one previous published or unpublished item"
+        end
+
+        previous_items.first
       end
 
       def draft_present?(content_id)
