@@ -29,7 +29,7 @@ RSpec.describe ContentItemUniquenessValidator do
   end
 
   context "for a content item with duplicate supporting objects" do
-    before do
+    let!(:existing_item) do
       FactoryGirl.create(:content_item,
         user_facing_version: 2,
         base_path: base_path,
@@ -49,7 +49,8 @@ RSpec.describe ContentItemUniquenessValidator do
         number: 2,
       )
 
-      expected_error = "conflicts with a duplicate: state=draft, locale=en, base_path=/vat-rates, user_version=2"
+      expected_error = "conflicts with a duplicate: state=draft, locale=en, base_path=/vat-rates, user_version=2, "\
+                       "content_id=#{existing_item.content_id}"
       assert_invalid(user_facing_version, [expected_error])
     end
   end
