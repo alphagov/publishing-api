@@ -62,6 +62,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
             "title" => "VAT rates",
             "web_url" => "http://www.dev.gov.uk/my-super-org",
             "links" => {},
+            "details" => { "body" => "<p>Something about VAT</p>\n" },
           }
         ],
         "available_translations" => translations,
