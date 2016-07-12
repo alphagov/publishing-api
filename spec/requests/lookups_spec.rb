@@ -25,15 +25,32 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
     end
 
     context "a state is given in addition to base_paths" do
-      it "returns content_ids for the given state, even if not user-visible" do
-        create_test_content
+      context "that is in the list of valid states" do
+        it "returns content_ids for the given state, even if not user-visible" do
+          create_test_content
 
-        post "/lookup-by-base-path", base_paths: test_base_paths, state: 'draft'
+          post "/lookup-by-base-path", base_paths: test_base_paths, state: 'draft'
 
-        expect(parsed_response).to eql(
-          "/published-and-draft-page" => "aa491126-77ed-4e81-91fa-8dc7f74e9657",
-          "/draft-and-superseded-page" => "dd1bf833-f91c-4e45-9f97-87b165808176"
-        )
+          expect(parsed_response).to eql(
+            "/published-and-draft-page" => "aa491126-77ed-4e81-91fa-8dc7f74e9657",
+            "/draft-and-superseded-page" => "dd1bf833-f91c-4e45-9f97-87b165808176"
+          )
+        end
+      end
+
+      context "that is not in the list of valid states" do
+        it "raises a useful error" do
+          create_test_content
+
+          post "/lookup-by-base-path", base_paths: test_base_paths, state: 'xianhua'
+
+          expect(parsed_response).to eql(
+            "error" => {
+              "code" => 422,
+              "message" => %(state: 'xianhua' not one of ["draft", "published", "superseded", "unpublished"])
+            }
+          )
+        end
       end
     end
   end
