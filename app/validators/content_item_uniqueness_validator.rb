@@ -38,7 +38,8 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
       error << "state=#{state_name}, "
       error << "locale=#{locale}, "
       error << "base_path=#{base_path}, "
-      error << "user_version=#{user_version}"
+      error << "user_version=#{user_version}, "
+      error << "content_id=#{additional_items.first.content_id}"
 
       record.errors.add(:content_item, error)
     end
