@@ -107,7 +107,10 @@ Required: Conditionally
 
 The `document_type` specifies the type of content item that will be rendered.
 It is used downstream to render the content item according to a specific layout
-for that `document_type`.  
+for that `document_type` and to filter a list of objects in publishing apps. 
+
+There is not a formal list of acceptable values for `document_type`. It
+should be in the form of a-z string with underscore separators. 
 
 This field, together with `schema_name`, replaces the `format` field. It is
 required in the absence of a `format` field.
@@ -247,9 +250,9 @@ Examples: *manual, policy, redirect*
 
 Required: Conditionally
 
-The `schema_name` specifies the data format of the content item as per the
+The `schema_name` specifies the schema file used to validate the request
+as per the 
 [GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
-It is used to validate that the request matches the specified format.
 
 This field is required when the deprecated field `format` is not provided.
 
