@@ -26,7 +26,7 @@ module Commands
     private
 
       def fill_out_new_content_item(content_item)
-        clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path) unless base_path.nil?
+        clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path) if base_path_required?
 
         create_supporting_objects(content_item)
         ensure_link_set_exists(content_item)
@@ -36,7 +36,7 @@ module Commands
         if previously_published_item
           set_first_published_at(content_item, previously_published_item)
 
-          previous_location = Location.find_by!(content_item: previously_published_item)
+          previous_location = Location.find_by(content_item: previously_published_item)
           previous_routes = previously_published_item.routes
 
           if path_has_changed?(previous_location)
@@ -56,10 +56,12 @@ module Commands
       end
 
       def update_existing_content_item(content_item)
-        clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+        if base_path_required?
+          clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
-        previous_location = Location.find_by!(content_item: content_item)
-        previous_routes = content_item.routes
+          previous_location = Location.find_by!(content_item: content_item)
+          previous_routes = content_item.routes
+        end
 
         check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
@@ -192,6 +194,7 @@ module Commands
       end
 
       def path_has_changed?(location)
+        return false unless base_path_required?
         location.base_path != base_path
       end
 
