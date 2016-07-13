@@ -33,9 +33,10 @@ module Commands
 
         State.supersede(previous_item) if previous_item
 
-        publish_redirect_if_content_item_has_moved(location, previous_location, translation)
-
-        clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+        unless content_item.pathless?
+          publish_redirect_if_content_item_has_moved(location, previous_location, translation)
+          clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+        end
 
         set_public_updated_at(content_item, previous_item, update_type)
         set_first_published_at(content_item)
@@ -85,8 +86,6 @@ module Commands
       end
 
       def clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
-        return unless location
-
         SubstitutionHelper.clear!(
           new_item_document_type: content_item.document_type,
           new_item_content_id: content_item.content_id,

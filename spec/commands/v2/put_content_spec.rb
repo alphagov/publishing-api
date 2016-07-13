@@ -854,6 +854,29 @@ RSpec.describe Commands::V2::PutContent do
         described_class.call(payload)
         expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
       end
+
+      context "for an existing draft content item" do
+        let!(:draft_content_item) do
+          FactoryGirl.create(:draft_content_item, content_id: content_id, title: "Old Title")
+        end
+
+        it "updates the draft" do
+          described_class.call(payload)
+          expect(draft_content_item.reload.title).to eq("Some Title")
+        end
+      end
+
+      context "for an existing live content item" do
+        let!(:live_content_item) do
+          FactoryGirl.create(:live_content_item, content_id: content_id, title: "Old Title")
+        end
+
+        it "creates a new draft" do
+          expect {
+            described_class.call(payload)
+          }.to change(ContentItem, :count).by(1)
+        end
+      end
     end
   end
 end

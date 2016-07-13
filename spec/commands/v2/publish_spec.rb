@@ -469,5 +469,19 @@ RSpec.describe Commands::V2::Publish do
       state = State.find_by!(content_item: pathless_content_item)
       expect(state.name).to eq("published")
     end
+
+    context "with a previously published item" do
+      let!(:live_content_item) do
+        FactoryGirl.create(:live_content_item,
+                           content_id: pathless_content_item.content_id, schema_name: "contact")
+      end
+
+      it "publishes the draft" do
+        described_class.call(payload)
+
+        state = State.find_by!(content_item: pathless_content_item)
+        expect(state.name).to eq("published")
+      end
+    end
   end
 end
