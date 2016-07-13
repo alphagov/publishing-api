@@ -12,8 +12,10 @@ RSpec.describe Queries::DependentExpansionRules do
           :base_path,
           :content_id,
           :description,
+          :document_type,
           :locale,
           :public_updated_at,
+          :schema_name,
           :title,
           :web_url,
         ])
