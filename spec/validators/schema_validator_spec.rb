@@ -96,30 +96,30 @@ RSpec.describe SchemaValidator do
               message: a_string_starting_with("The property '#/' of type Hash did not match"),
               failed_attribute: "OneOf",
               errors: {
-                oneof_0: [
-                  a_hash_including(
+                oneof_0: {
+                  0 => a_hash_including(
                     message: a_string_starting_with("The property '#/' did not contain a required property of 'title'"),
                     failed_attribute: "Required",
                   ),
-                  a_hash_including(
+                  1 => a_hash_including(
                     message: a_string_starting_with("The property '#/' did not contain a required property of 'format'"),
                     failed_attribute: "Required",
                   ),
-                  a_hash_including(
+                  2 => a_hash_including(
                     message: a_string_starting_with("The property '#/' contains additional properties [\"schema_name\"] outside of the schema when none are allowed"),
                     failed_attribute: "AdditionalProperties"
                   )
-                ],
-                oneof_1: [
-                  a_hash_including(
+                },
+                oneof_1: {
+                  0 => a_hash_including(
                     message: a_string_starting_with("The property '#/' did not contain a required property of 'format'"),
                     failed_attribute: "Required",
                   ),
-                  a_hash_including(
+                  1 => a_hash_including(
                     message: a_string_starting_with("The property '#/' did not contain a required property of 'document_type'"),
                     failed_attribute: "Required",
                   ),
-                ]
+                }
               }
             )
           )
@@ -139,26 +139,26 @@ RSpec.describe SchemaValidator do
               message: a_string_starting_with("The property '#/' of type Hash did not match"),
               failed_attribute: "OneOf",
               errors: {
-                oneof_0: [
-                  a_hash_including(
+                oneof_0: {
+                  0 => a_hash_including(
                     message: a_string_starting_with("The property '#/' did not contain a required property of 'title'"),
                     failed_attribute: "Required",
                   ),
-                ],
-                oneof_1: [
-                  a_hash_including(
+                },
+                oneof_1: {
+                  0 => a_hash_including(
                     message: a_string_starting_with("The property '#/' did not contain a required property of 'document_type'"),
                     failed_attribute: "Required",
                   ),
-                  a_hash_including(
+                  1 => a_hash_including(
                     message: a_string_starting_with("The property '#/' did not contain a required property of 'schema_name'"),
                     failed_attribute: "Required",
                   ),
-                  a_hash_including(
+                  2 => a_hash_including(
                     message: a_string_starting_with("The property '#/' contains additional properties [\"format\"] outside of the schema when none are allowed"),
                     failed_attribute: "AdditionalProperties"
                   ),
-                ]
+                }
               }
             )
           )
