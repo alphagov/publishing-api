@@ -20,7 +20,7 @@ class SchemaValidator
 
     return true if errors.empty?
 
-    errors = errors.map { |e| present_error(e) }
+    errors = Hash[errors.map.with_index { |e, i| [i, present_error(e)] }]
 
     Airbrake.notify_or_ignore(
       {
@@ -47,7 +47,7 @@ private
     if error_hash.has_key?(:errors)
       error_hash[:errors] = Hash[
         error_hash[:errors].map do |k, errors|
-          [k, errors.map { |e| present_error e }]
+          [k, Hash[errors.map.with_index { |e, i| [i, present_error(e)] }]]
         end
       ]
     end
