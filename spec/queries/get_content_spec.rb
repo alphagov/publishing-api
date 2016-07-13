@@ -108,4 +108,33 @@ RSpec.describe Queries::GetContent do
       expect(result.fetch("title")).to eq("French Title")
     end
   end
+
+  describe "requesting specific versions" do
+    before do
+      FactoryGirl.create(:content_item,
+        state: "superseded",
+        content_id: content_id,
+        user_facing_version: 1,
+      )
+
+      FactoryGirl.create(:content_item,
+        state: "published",
+        content_id: content_id,
+        user_facing_version: 2,
+      )
+    end
+
+    it "returns specific versions if provided" do
+      result = subject.call(content_id, version: 1)
+      expect(result.fetch("publication_state")).to eq("superseded")
+
+      result = subject.call(content_id, version: 2)
+      expect(result.fetch("publication_state")).to eq("live")
+    end
+
+    it "returns the most recent if version isn't given" do
+      result = subject.call(content_id)
+      expect(result.fetch("publication_state")).to eq("live")
+    end
+  end
 end

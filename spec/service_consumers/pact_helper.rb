@@ -198,6 +198,30 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "a content item exists in with a superseded version with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      FactoryGirl.create(:content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        locale: "en",
+        document_type: "topic",
+        schema_name: "topic",
+        public_updated_at: '2015-01-03',
+        state: "superseded",
+        user_facing_version: 1,
+      )
+
+      FactoryGirl.create(:content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        locale: "en",
+        document_type: "topic",
+        schema_name: "topic",
+        public_updated_at: '2015-01-03',
+        state: "published",
+        user_facing_version: 2,
+      )
+    end
+  end
+
   provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
     set_up do
       draft = FactoryGirl.create(

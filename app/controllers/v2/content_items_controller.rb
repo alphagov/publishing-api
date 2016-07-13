@@ -24,7 +24,11 @@ module V2
     end
 
     def show
-      render json: Queries::GetContent.call(path_params[:content_id], query_params[:locale])
+      render json: Queries::GetContent.call(
+        path_params[:content_id],
+        query_params[:locale],
+        version: query_params[:version],
+      )
     end
 
     def put_content
