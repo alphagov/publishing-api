@@ -70,6 +70,8 @@ module RequestHelpers
           base_path: "/vat-rates",
           content_id: content_id,
           description: "VAT rates for goods and services",
+          schema_name: "guide",
+          document_type: "guide",
           locale: "en",
           public_updated_at: DateTime.parse("2014-05-14T13:00:06Z"),
           title: "VAT rates",
