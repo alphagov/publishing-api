@@ -44,6 +44,7 @@ Requests to update an existing draft content item:
 
 ### Optional request params:
  - `locale` query parameter for content in a specific locale.
+ - `version` query parameter requests a specific user-facing version of a content item.
 
 ## `POST /v2/content/:content_id/publish`
 
