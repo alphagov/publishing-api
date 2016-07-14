@@ -25,7 +25,7 @@ class SchemaValidator
     Airbrake.notify_or_ignore(
       {
         error_class: "SchemaValidationError",
-        error_message: "Error validating payload against schema"
+        error_message: "Error validating payload against schema '#{schema_name}'"
       },
       parameters: {
         errors: errors,

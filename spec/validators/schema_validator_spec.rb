@@ -90,7 +90,8 @@ RSpec.describe SchemaValidator do
         { schema_name: "foo" }
       }
       it "reports useful validation errors" do
-        expect(Airbrake).to receive(:notify_or_ignore) do |_, opts|
+        expect(Airbrake).to receive(:notify_or_ignore) do |error, opts|
+          expect(error[:error_message]).to eq("Error validating payload against schema 'foo'")
           expect(opts[:parameters][:errors][0]).to match(
             a_hash_including(
               message: a_string_starting_with("The property '#/' of type Hash did not match"),
@@ -133,7 +134,8 @@ RSpec.describe SchemaValidator do
         { format: "foo" }
       }
       it "reports useful validation errors" do
-        expect(Airbrake).to receive(:notify_or_ignore) do |_, opts|
+        expect(Airbrake).to receive(:notify_or_ignore) do |error, opts|
+          expect(error[:error_message]).to eq("Error validating payload against schema 'foo'")
           expect(opts[:parameters][:errors][0]).to match(
             a_hash_including(
               message: a_string_starting_with("The property '#/' of type Hash did not match"),
