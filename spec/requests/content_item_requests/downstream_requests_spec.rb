@@ -310,6 +310,46 @@ RSpec.describe "Downstream requests", type: :request do
     end
   end
 
+  context "Dependency resolution" do
+    include DependencyResolutionHelper
+
+    let(:a) { create_link_set }
+    let(:b) { create_link_set }
+
+    let!(:draft_a) { create_content_item(a, "/a", "draft") }
+    let!(:published_a) { create_content_item(a, "/a", "published") }
+    let!(:draft_b) { create_content_item(b, "/b", "draft") }
+
+    before do
+      create_link(a, b, "parent")
+    end
+
+    it "sends the dependencies to the draft content store" do
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        .with(a_hash_including(base_path: '/a'))
+      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        .with(a_hash_including(base_path: '/b'))
+      put "/v2/content/#{a}", v2_content_item.merge(base_path: "/a", content_id: a).to_json
+    end
+
+    it "doesn't send draft dependencies to the live content store" do
+      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+        .with(a_hash_including(base_path: '/a'))
+      expect(PublishingAPI.service(:live_content_store)).to_not receive(:put_content_item)
+        .with(a_hash_including(base_path: '/b'))
+      post "/v2/content/#{a}/publish", { update_type: "major" }.to_json
+    end
+
+    it "doesn't send draft dependencies to the message queue" do
+      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+      expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
+        .with(a_hash_including(base_path: '/a'))
+      expect(PublishingAPI.service(:queue_publisher)).to_not receive(:send_message)
+        .with(a_hash_including(base_path: '/b'))
+      post "/v2/content/#{a}/publish", { update_type: "major" }.to_json
+    end
+  end
+
   context "/v2/publish" do
     let(:content_id) { SecureRandom.uuid }
     let!(:draft) {
