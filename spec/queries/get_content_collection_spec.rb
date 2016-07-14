@@ -419,7 +419,7 @@ RSpec.describe Queries::GetContentCollection do
         expect(Queries::GetContentCollection.new(
           document_type: 'topic',
           fields: %w(base_path locale publication_state),
-        ).call.first["publication_state"]).to eq("redrafted")
+        ).call.first["publication_state"]).to eq("draft")
       end
     end
   end
