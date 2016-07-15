@@ -751,6 +751,18 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
+    context 'without a publishing_app' do
+      before do
+        payload.delete(:publishing_app)
+      end
+
+      it "raises an error" do
+        expect {
+          described_class.call(payload)
+        }.to raise_error(CommandError, /publishing_app is required/)
+      end
+    end
+
     it_behaves_like TransactionalCommand
 
     it "validate against schema" do

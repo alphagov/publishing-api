@@ -5,6 +5,12 @@ module Commands
         raise_if_links_is_provided
         validate_schema
 
+        if publishing_app.blank?
+          raise_command_error(422, "publishing_app is required", fields: {
+            publishing_app: ["is required"]
+          })
+        end
+
         PathReservation.reserve_base_path!(base_path, publishing_app) if base_path_required?
         content_item = find_previously_drafted_content_item
 
@@ -219,7 +225,7 @@ module Commands
       end
 
       def publishing_app
-        payload.fetch(:publishing_app)
+        payload[:publishing_app]
       end
 
       def update_content_item(content_item)
