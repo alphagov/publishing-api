@@ -71,8 +71,7 @@ module Commands
       end
 
       def update_linkable(content_item)
-        linkable = Linkable.find_by(content_item: content_item)
-        linkable.update_attributes(state: "published") if linkable
+        Linkable.where(content_item: content_item).update_all(state: "published")
       end
 
       def find_draft_content_item
