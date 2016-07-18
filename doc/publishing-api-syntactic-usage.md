@@ -3,7 +3,18 @@
 This is the primary interface from publishing apps to the publishing pipeline. Applications PUT items as JSON conforming to a schema specified in govuk-content-schemas.
 Content paths are arbitrated internally by the Publishing API, the content is then forwarded to the live and draft content stores, and placed on the message queue for other apps (eg email-alert-service) to consume.
 
-PUT and POST endpoints take an optional integer field `previous_version` in the request, the purpose of this field is to validate that the publishing app sending the request intends to update the latest lock version of the model in question. Further details of this optimistic locking scenario can be found here.
+### Optimistic locking (`previous_version`)
+
+All PUT and POST endpoints take an optional integer field `previous_version` in
+the request. This allows the Publishing API to check that the publishing app
+sending the request intends to update the latest lock version of the model in
+question.
+
+If `previous_version` is provided, the Publishing API will confirm that the
+provided value matches that of the content item in the Publishing API. If it
+does not, a 409
+([Conflict](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10))
+response will be given.
 
 ## `PUT /v2/content/:content_id`
 
@@ -11,7 +22,6 @@ PUT and POST endpoints take an optional integer field `previous_version` in the 
 
 Used to create or update draft content items.
 
- - Validates that the incoming request is attempting to update the correct internal lock version of the content item. Responds with 409 when lock version validation fails.
  - Instantiates a new content item or retrieves an existing item matching the content_id and locale passed in the request.
  - Validates the content item prior to saving. There are multiple validations for draft content items, the main concerns are path integrity, uniqueness of locale / base_path and lock version consistency. Validation failures in these cases respond with 422.
  - Increments the lock version number of the content item.
@@ -85,7 +95,6 @@ All document types are considered renderable, except "redirect" and "gone".
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_publish_request_for_version_3_given_the_content_item_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3)
 
- - Validates the previous_version matches that of the content item if one is provided in the payload and raises a 409 otherwise.
  - Validates that update_type is present. If one is not provided, it will try to use the update_type previously set on the content item from the PUT request.
  - Validates that update_type is one of `major`, `minor`, `republish` or `links` and raises a 422 otherwise.
  - Retrieves the draft content item with the matching content_id and locale and changes its state to `published`.
@@ -102,7 +111,7 @@ All document types are considered renderable, except "redirect" and "gone".
 ### Optional request params:
  - `update_type` must be one of major, minor, republish, links.
  - `locale` specifies the locale of the content item to be published.
- - `previous_version` (optional but advised) is used to ensure the request is publishing the latest lock version of this draft. ie. optimistic locking.
+ - `previous_version`
 
 ## `POST /v2/content/:content_id/unpublish`
 
@@ -164,7 +173,6 @@ TODO: Request/Response detail
 
  - Creates or updates a link set given a content_id.
  - Validates the presence of the links request parameter and responds with 422 if not present.
- - Validates the link set lock version in the request and responds with 409 if the lock version is incorrect.
  - Instantiates or retrieves an existing link set.
  - Increments the link set lock version.
  - Merges the links from the request into an existing link set where applicable.
@@ -197,7 +205,7 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
 ```
 
 ### Optional request params:
- - `previous_version` (optional but advised) is used to ensure the request is updating the latest lock version of this link set.
+ - `previous_version`
 
 ## `POST /v2/content/:content_id/discard-draft`
 
@@ -205,7 +213,6 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
 
  - Deletes the draft content item.
  - Re-sends the published content item to the draft content store, if one exists.
- - Validates that the incoming request is attempting to discard the correct internal lock version of the content item. Responds with 409 when lock version validation fails.
  - By default, the request will discard the draft content item with a locale of 'en'.
  - Does not affect the link set for the content item.
 
@@ -213,7 +220,7 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
  - `content_id` the primary identifier for the draft content item to be discarded
 
 ### Optional request params:
- - `previous_version` (optional but advised) is used to ensure the request is discarding the latest lock version of the draft
+ - `previous_version`
  - `locale` (defaults to 'en') is used to discard a specific draft content item where there are multiple translations
 
 ## `GET /v2/linked/:content_id`
