@@ -18,17 +18,51 @@ PUT and POST endpoints take an optional integer field `previous_version` in the 
  - Sends the draft content item payload to the message queue.
 
 ### Required request params:
- - `content_id` the primary identifier for the content being created or updated.
-Requests to create a new draft content item:
- - `base_path` must be a valid path format
+ - `content_id`
+   - Specifies either which content item to update, or the `content_id` for the
+     new content item.
+ - `base_path`
+ - `redirects`
+   - Only required when the `document_type` is "redirect".
  - `publishing_app`
- - `title` required unless format is redirect or gone
+ - details
+   - Not required when the respective `document_type` does not require any `details`.
+ - `routes`
+   - Not required, and must not be present (TODO: Check this) when the
+     `document_type` is "redirect".
+
+### Required for renderable document types
+All document types are considered renderable, except "redirect" and "gone".
+ - `title`
+ - `public_updated_at`
+   - (TODO: Check if this is really not required).
+ - `rendering_app`
+ - `title`
 
 ### Optional request params:
- - `locale` (defaults to en) must be one of I18n.available_locales
-Requests to update an existing draft content item:
- - `previous_version` (optional but advised) is used to ensure the request is updating the latest lock version of this draft. ie. optimistic locking.
- - `phase` (defaults to live) must be one of alpha, beta, live
+ - `locale` (default: "en")
+   - Must be one of I18n.available_locales
+ - `previous_version`
+ - `phase` (default: "live")
+   - Must be one of "alpha", "beta", "live".
+ - `document_type`
+   - If `document_type` is not specified, the value from `format` (if given)
+     will be used instead.
+ - `schema_name`
+   - If `schema_name` is not specified, the value from `format` (if given)
+     will be used instead.
+ - `format`
+   - *Deprecated*, `document_type` and `schema_name` should be specified instead.
+ - `update_type`
+ - `access_limited`
+ - `analytics_identifier`
+ - `description`
+ - `last_edited_at`
+   - If `last_edited_at` is not specified, and the `update_type` specified in the request is
+     "major" or "minor", then `last_edited_at` will be set to the current time.
+     - (TODO: What should happen if the update_type is changed in a new request?)
+ - `links`
+ - `need_ids`
 
 ## `GET /v2/content/:content_id`
 
