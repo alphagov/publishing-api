@@ -62,14 +62,14 @@ module Commands
       end
 
       def update_existing_content_item(content_item)
+        check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
+
         if base_path_required?
           clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
           previous_location = Location.find_by!(content_item: content_item)
           previous_routes = content_item.routes
         end
-
-        check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
         update_content_item(content_item)
         update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
