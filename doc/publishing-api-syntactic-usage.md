@@ -23,12 +23,12 @@ Requests to create a new draft content item:
  - `base_path` must be a valid path format
  - `publishing_app`
  - `title` required unless format is redirect or gone
- - `phase` must be one of alpha, beta, live
 
 ### Optional request params:
  - `locale` (optional, defaults to en) must be one of I18n.available_locales
 Requests to update an existing draft content item:
  - `previous_version` (optional but advised) is used to ensure the request is updating the latest lock version of this draft. ie. optimistic locking.
+ - `phase` (optional, defaults to live) must be one of alpha, beta, live
 
 ## `GET /v2/content/:content_id`
 
