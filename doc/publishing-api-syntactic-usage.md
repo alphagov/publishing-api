@@ -25,10 +25,10 @@ Requests to create a new draft content item:
  - `title` required unless format is redirect or gone
 
 ### Optional request params:
- - `locale` (optional, defaults to en) must be one of I18n.available_locales
+ - `locale` (defaults to en) must be one of I18n.available_locales
 Requests to update an existing draft content item:
  - `previous_version` (optional but advised) is used to ensure the request is updating the latest lock version of this draft. ie. optimistic locking.
- - `phase` (optional, defaults to live) must be one of alpha, beta, live
+ - `phase` (defaults to live) must be one of alpha, beta, live
 
 ## `GET /v2/content/:content_id`
 
@@ -65,8 +65,8 @@ Requests to update an existing draft content item:
  - `content_id` the primary identifier for the content to publish.
 
 ### Optional request params:
- - `update_type` (optional) must be one of major, minor, republish, links.
- - `locale` (optional) specifies the locale of the content item to be published.
+ - `update_type` must be one of major, minor, republish, links.
+ - `locale` specifies the locale of the content item to be published.
  - `previous_version` (optional but advised) is used to ensure the request is publishing the latest lock version of this draft. ie. optimistic locking.
 
 ## `POST /v2/content/:content_id/unpublish`
@@ -91,15 +91,15 @@ Requests to update an existing draft content item:
   - `type` the type of unpublishing to create/perform.
 
 ### Optional request params:
-  - `explanation` (optional) Message to display on page for `gone`,
+  - `explanation` Message to display on page for `gone`,
                   (required) for `withdrawal`,
                   (ignored) for `redirect`.
-  - `alternative_path` (optional) path to turn into a URL to display on page for `gone`,
+  - `alternative_path` path to turn into a URL to display on page for `gone`,
                        (required) path to redirect to if `redirect`,
                        (ignored) if `withdrawal`.
-  - `discard_drafts` (optional) anything other than `true` is considered `false`,
+  - `discard_drafts` anything other than `true` is considered `false`,
     including being absent.
-  - `allow_draft` (optional) specify that the intended item to unpublish is in the draft state, and enable unpublishing it.
+  - `allow_draft` specify that the intended item to unpublish is in the draft state, and enable unpublishing it.
 
 ## `GET /v2/links/:content_id`
 
@@ -179,7 +179,7 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
 
 ### Optional request params:
  - `previous_version` (optional but advised) is used to ensure the request is discarding the latest lock version of the draft
- - `locale` (optional) is used to discard a specific draft content item where there are multiple translations (defaults to 'en')
+ - `locale` is used to discard a specific draft content item where there are multiple translations (defaults to 'en')
 
 ## `GET /v2/linked/:content_id`
 
