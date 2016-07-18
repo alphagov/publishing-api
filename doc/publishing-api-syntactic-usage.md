@@ -207,10 +207,12 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
 
 ### Required request params:
   - `document_type` the type of content item to return
-  - `locale` (optional) is used to restrict returned content items to a given locale (defaults to 'en')
   - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
-  - `q` (optional) the search term to match against `base_path` or `title`
-  - `order` (optional) the field to sort results by. Ordered ascending unless prefixed with a hyphen, e.g. `-updated_at`. Defaults to `public_updated_at` descending.
+
+### Optional request params:
+  - `locale` is used to restrict returned content items to a given locale (defaults to 'en')
+  - `q` the search term to match against `base_path` or `title`
+  - `order` the field to sort results by. Ordered ascending unless prefixed with a hyphen, e.g. `-updated_at`. Defaults to `public_updated_at` descending.
 
 ## `GET /v2/linkables`
 
