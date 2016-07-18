@@ -1,4 +1,4 @@
-# Publishing API Model
+# Publishing API's Model
 
 This document outlines the Publishing API's model in moderate detail and
 explains some of the design decisions and business needs for it.
