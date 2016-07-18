@@ -3,7 +3,7 @@
 This is the primary interface from publishing apps to the publishing pipeline. Applications PUT items as JSON conforming to a schema specified in govuk-content-schemas.
 Content paths are arbitrated internally by the Publishing API, the content is then forwarded to the live and draft content stores, and placed on the message queue for other apps (eg email-alert-service) to consume.
 
-### Optimistic locking (`previous_version`)
+### [Optimistic locking (`previous_version`)](#optimistic-locking)
 
 All PUT and POST endpoints take an optional integer field `previous_version` in
 the request. This allows the Publishing API to check that the publishing app
@@ -12,9 +12,17 @@ question.
 
 If `previous_version` is provided, the Publishing API will confirm that the
 provided value matches that of the content item in the Publishing API. If it
-does not, a 409
-([Conflict](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10))
-response will be given.
+does not, a [409](#status-409) response will be given.
+
+### Status Codes
+
+#### [`409`](#status-409) ([Conflict](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10))
+
+See [Optimistic locking](#optimistic-locking).
+
+#### [`422`](#status-422) ([Unprocessable Entity](https://tools.ietf.org/html/rfc4918#section-11.2))
+
+Used for validation failures.
 
 ## `PUT /v2/content/:content_id`
 
@@ -23,7 +31,6 @@ response will be given.
 Used to create or update draft content items.
 
  - Instantiates a new content item or retrieves an existing item matching the content_id and locale passed in the request.
- - Validates the content item prior to saving. There are multiple validations for draft content items, the main concerns are path integrity, uniqueness of locale / base_path and lock version consistency. Validation failures in these cases respond with 422.
  - Increments the lock version number of the content item.
  - Prepares and sends the draft content item payload downstream to the draft content store. The payload is modified to include a payload_version to validate message ordering.
  - Sends the draft content item payload to the message queue.
@@ -96,7 +103,7 @@ All document types are considered renderable, except "redirect" and "gone".
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_publish_request_for_version_3_given_the_content_item_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3)
 
  - Validates that update_type is present. If one is not provided, it will try to use the update_type previously set on the content item from the PUT request.
- - Validates that update_type is one of `major`, `minor`, `republish` or `links` and raises a 422 otherwise.
+ - Validates that update_type is one of `major`, `minor`, `republish` or `links` and raises a [422](#status-422) otherwise.
  - Retrieves the draft content item with the matching content_id and locale and changes its state to `published`.
  - Sets the `public_updated_at` on a major update, assuming one hasn't been set through the PUT endpoint.
  - Retains the `public_updated_at` from the previously published item on a minor update, assuming one hasn't been set through the PUT endpoint.
@@ -120,7 +127,7 @@ All document types are considered renderable, except "redirect" and "gone".
   - Will refuse to unpublish a lone draft unless `allow_draft` is `true`.
   - If `allow_draft` is `true`, will refuse to unpublish anything other than a draft.
   - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true`.
-  - Validates that unpublishing `type` is one of `withdrawal`, `gone`, `vanish` or `redirect` and raises a 422 otherwise.
+  - Validates that unpublishing `type` is one of `withdrawal`, `gone`, `vanish` or `redirect` and raises a (422)[#status-422] otherwise.
   - Retrieves the live content item with the matching content_id and locale and changes its state to `unpublished`.
   - Creates an `Unpublishing` with the provided details.
   - Will update the `Unpublishing` if the document is already unpublished.
@@ -172,7 +179,7 @@ TODO: Request/Response detail
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_update_the_linkset_at_version_3_given_the_linkset_for_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3)
 
  - Creates or updates a link set given a content_id.
- - Validates the presence of the links request parameter and responds with 422 if not present.
+ - Validates the presence of the links request parameter and responds with (422)[#status-422] if not present.
  - Instantiates or retrieves an existing link set.
  - Increments the link set lock version.
  - Merges the links from the request into an existing link set where applicable.
