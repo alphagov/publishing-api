@@ -90,7 +90,7 @@ Requests to update an existing draft content item:
   - `content_id` the primary identifier for the content to publish.
   - `type` the type of unpublishing to create/perform.
 
-### Other request params:
+### Optional request params:
   - `explanation` (optional) Message to display on page for `gone`,
                   (required) for `withdrawal`,
                   (ignored) for `redirect`.
