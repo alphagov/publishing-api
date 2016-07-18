@@ -48,7 +48,7 @@ A trivial example of how to configure a publishing application to use the publis
 ## Drafting a content item from a publishing app
 
 Publishing applications should use the `PUT /v2/content/:content_id` endpoint to add content.
-Please refer to the [syntactic documentation](https://gov-uk.atlassian.net/wiki/display/TECH/Publishing+Platform) and [semantic documentation](./semantics-of-the-publishing-api.md) for further details.
+Please refer to the [syntactic documentation](https://gov-uk.atlassian.net/wiki/display/TECH/Publishing+Platform) and [model documentation](model.md) for further details.
 
 The publishing application is responsible for the generation of a content_id, the primary identifier for content in the publishing API and content store. The convention is to use SecureRandom.uuid to generate a valid content_id.
 
