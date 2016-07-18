@@ -107,11 +107,11 @@ private
   end
 
   def pillars_of_unique_scope
-    content_items_table = self.table(:content_items)
-    states_table = self.table(:states)
-    translations_table = self.table(:translations)
-    locations_table = self.table(:locations)
-    user_facing_versions_table = self.table(:user_facing_versions)
+    content_items_table = table(:content_items)
+    states_table = table(:states)
+    translations_table = table(:translations)
+    locations_table = table(:locations)
+    user_facing_versions_table = table(:user_facing_versions)
 
     content_items_table
       .project(
