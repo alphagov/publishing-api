@@ -1,6 +1,6 @@
-## Explanation of Publishing API's Object Model
+# Publishing API Model
 
-This document outlines Publishing API's Object Model in moderate detail and
+This document outlines the Publishing API's model in moderate detail and
 explains some of the design decisions and business needs for it.
 
 ## User Need
