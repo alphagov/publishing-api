@@ -377,7 +377,7 @@ The following is a high-level diagram that was generated with
 [plantuml](http://plantuml.com/plantuml/). The source that generated this diagram is
 checked into this repository.
 
-![Diagram of the object model](object-model-explanation/object-model.png)
+![Diagram of the object model](model/object-model.png)
 
 ## General Themes
 
@@ -461,4 +461,4 @@ The following is a workflow diagram that was generated with
 user-facing version and state transition as actions are performed on it. The
 source that generated this diagram is checked into this repository.
 
-![Diagram of workflow](object-model-explanation/workflow.png)
+![Diagram of workflow](model/workflow.png)
