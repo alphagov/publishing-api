@@ -442,9 +442,6 @@ part contract between publishing apps and the Publishing API. It is not
 mandatory that publishing apps make use of the lock version feature, but it is
 strongly recommended that they do to prevent losses to work.
 
-You can read more about lock versions
-[here](https://github.com/alphagov/publishing-api/blob/master/doc/publishing-api-syntactic-usage.md).
-
 ## User-Facing Version
 
 The user-facing version, as the name implies, is the version for a piece of
