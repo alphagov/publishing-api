@@ -179,7 +179,7 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
 
 ### Optional request params:
  - `previous_version` (optional but advised) is used to ensure the request is discarding the latest lock version of the draft
- - `locale` is used to discard a specific draft content item where there are multiple translations (defaults to 'en')
+ - `locale` (defaults to 'en') is used to discard a specific draft content item where there are multiple translations
 
 ## `GET /v2/linked/:content_id`
 
@@ -210,7 +210,7 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
   - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
 
 ### Optional request params:
-  - `locale` is used to restrict returned content items to a given locale (defaults to 'en')
+  - `locale` (defaults to 'en') is used to restrict returned content items to a given locale
   - `q` the search term to match against `base_path` or `title`
   - `order` the field to sort results by. Ordered ascending unless prefixed with a hyphen, e.g. `-updated_at`. Defaults to `public_updated_at` descending.
 
