@@ -30,57 +30,62 @@ Used for validation failures.
 
 Used to create or update draft content items.
 
+Unless explicitly stated, each request parameter is used to set the respective
+field on the content item model.
+
  - Instantiates a new content item or retrieves an existing item matching the content_id and locale passed in the request.
  - Increments the lock version number of the content item.
  - Prepares and sends the draft content item payload downstream to the draft content store. The payload is modified to include a payload_version to validate message ordering.
  - Sends the draft content item payload to the message queue.
 
 ### Required request params:
- - `content_id`
+ - [`content_id`](model.md#content_id)
    - Specifies either which content item to update, or the `content_id` for the
      new content item.
- - `base_path`
- - `redirects`
+ - [`base_path`](model.md#base_path)
+ - [`redirects`](model.md#redirects)
    - Only required when the `document_type` is "redirect".
- - `publishing_app`
- - details
+ - [`publishing_app`](model.md#publishing_app)
+ - [`details`](model.md#details)
    - Not required when the respective `document_type` does not require any `details`.
- - `routes`
+ - [`routes`](model.md#routes)
    - Not required, and must not be present (TODO: Check this) when the
      `document_type` is "redirect".
 
 ### Required for renderable document types
 All document types are considered renderable, except "redirect" and "gone".
- - `title`
- - `public_updated_at`
+ - [`title`](model.md#title)
+ - [`public_updated_at`](model.md#public_updated_at)
    - (TODO: Check if this is really not required).
- - `rendering_app`
- - `title`
+ - [`rendering_app`](model.md#rendering_app)
+ - [`title`](model.md#title)
 
 ### Optional request params:
- - `locale` (default: "en")
+ - [`locale`](model.md#locale) (default: "en")
    - Must be one of I18n.available_locales
- - `previous_version`
- - `phase` (default: "live")
+ - [`phase`](model.md#phase) (default: "live")
    - Must be one of "alpha", "beta", "live".
- - `document_type`
+ - [`document_type`](model.md#document_type)
    - If `document_type` is not specified, the value from `format` (if given)
      will be used instead.
- - `schema_name`
+ - [`schema_name`](model.md#schema_name)
    - If `schema_name` is not specified, the value from `format` (if given)
      will be used instead.
- - `format`
+ - [`format`](model.md#format)
    - *Deprecated*, `document_type` and `schema_name` should be specified instead.
- - `update_type`
- - `access_limited`
- - `analytics_identifier`
- - `description`
- - `last_edited_at`
+ - [`update_type`](model.md#update_type)
+ - [`access_limited`](model.md#access_limited)
+ - [`analytics_identifier`](model.md#analytics_identifier)
+ - [`description`](model.md#description)
+ - [`last_edited_at`](model.md#last_edited_at)
    - If `last_edited_at` is not specified, and the `update_type` specified in the request is
      "major" or "minor", then `last_edited_at` will be set to the current time.
      - (TODO: What should happen if the update_type is changed in a new request?)
- - `links`
- - `need_ids`
+ - [`links`](model.md#links)
+ - [`need_ids`](model.md#need_ids)
+ - `previous_version`
+   - This field is a special case, as its not present on the content item
+     model. Its used is described in [Optimistic locking](#optimistic-locking).
 
 ## `GET /v2/content/:content_id`
 
