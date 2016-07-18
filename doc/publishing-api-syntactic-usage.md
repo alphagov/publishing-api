@@ -9,7 +9,8 @@ PUT and POST endpoints take an optional integer field `previous_version` in the 
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_from_the_Whitehall_application_to_create_a_content_item_at_/test-item_given_/test-item_has_been_reserved_by_the_Publisher_application)
 
- - Creates or updates a draft content item with the following steps:
+Used to create or update draft content items.
+
  - Validates that the incoming request is attempting to update the correct internal lock version of the content item. Responds with 409 when lock version validation fails.
  - Instantiates a new content item or retrieves an existing item matching the content_id and locale passed in the request.
  - Validates the content item prior to saving. There are multiple validations for draft content items, the main concerns are path integrity, uniqueness of locale / base_path and lock version consistency. Validation failures in these cases respond with 422.
