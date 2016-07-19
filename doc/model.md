@@ -3,9 +3,9 @@
 This document outlines the Publishing API's model in moderate detail and
 explains some of the design decisions and business needs for it.
 
-## [Content Item Fields](#content-item-fields)
+## Content Item Fields
 
-### [`base_path`](#base_path)
+### `base_path`
 
 Example: */vat-rates*
 
@@ -17,7 +17,7 @@ Publishing API will not accept the request if this is not the case. This
 uniqueness constraint extends to locale, as well. The English and French lock version
 of a content item must have different `base_paths`.
 
-### [`content_id`](#content_id)
+### `content_id`
 
 Example: *d296ea8e-31ad-4e0b-9deb-026da695bb65*
 
@@ -42,7 +42,7 @@ Note: Previously, the `base_path` was a content item's main identifier. This is
 no longer the case. It has been changed to `content_id` because base paths had
 a tendency to change.
 
-### [`format`](#format)
+### `format`
 
 Examples: *manual, policy, redirect*
 
@@ -65,7 +65,7 @@ prefixed with *placeholder_* or set to *placeholder*. See
 [here](https://github.com/alphagov/content-store/blob/master/doc/placeholder_item.md)
 for more information.
 
-### [`publishing_app`](#publishing_app)
+### `publishing_app`
 
 Example: *collections-publisher*
 
@@ -83,7 +83,7 @@ auditing which applications are making use of the publishing pipeline.
 Note: The value of the `publishing_app` field should be hyphenated as this is
 the convention used in the Router API.
 
-### [`details`](#details)
+### `details`
 
 Example: *{ body: "Something about VAT” }*
 
@@ -99,7 +99,7 @@ Not all `formats` have required fields and so details is not required unless the
 `format` demands it. If it is not set, it will default to an empty JSON object
 as specified in the GOV.UK content schemas.
 
-### [`public_updated_at`](#public_updated_at)
+### `public_updated_at`
 
 Example: *2015-01-01T12:00:00Z*
 
@@ -118,7 +118,7 @@ Note: This is subject to change. It may be that we automatically set
 `public_updated_at` on behalf of publishing applications in the future. Please
 speak to the Publishing Platform team if you have questions about this.
 
-### [`routes`](#routes)
+### `routes`
 
 Example: *[{ path: “/vat-rates”, type: "exact" }]*
 
@@ -151,7 +151,7 @@ Note: Collectively, routes and redirects must have unique paths. The Publishing
 API will not accept content items where the routes and redirects conflict with
 each other.
 
-### [`redirects`](#redirects)
+### `redirects`
 
 Example: *[{ path: “/vat-rates/tax-thresholds”, type: "exact", destination: “/vat-rates/bands” }]*
 
@@ -182,7 +182,7 @@ Note: Collectively, routes and redirects must have unique paths. The Publishing
 API will not accept content items where the routes and redirects conflict with
 each other.
 
-### [`rendering_app`](#rendering_app)
+### `rendering_app`
 
 Example: *government-frontend*
 
@@ -195,7 +195,7 @@ users' requests to the appropriate front-end application.
 The `rendering_app` is required except in cases where the content item is
 non-renderable (see [**format**](#format)).
 
-### [`title`](#title)
+### `title`
 
 Example: *VAT rates*
 
@@ -204,7 +204,7 @@ Required: Conditionally
 The `title` names the content item. It is required except in cases where the
 content item is non-renderable (see [**format**](#format)).
 
-### [`update_type`](#update_type)
+### `update_type`
 
 Example: *major*
 
@@ -243,7 +243,7 @@ together with the `format` of the content item (e.g. *policy.major*)
 The *major* `update_type` is the only `update_type` that currently triggers email
 alerts to be sent to users.
 
-### [`access_limited`](#access_limited)
+### `access_limited`
 
 Example: *{ users: ["bf3e4b4f-f02d-4658-95a7-df7c74cd0f50"] }*
 
@@ -270,7 +270,7 @@ will reject the request if the supplied [UUID](https://github.com/alphagov/govuk
 is not in the list of `access_limited` *users* for the content item. An example
 of this header can be seen [here](https://github.com/alphagov/content-store/pull/129).
 
-### [`analytics_identifier`](#analytics_identifier)
+### `analytics_identifier`
 
 Example: *GDS01*
 
@@ -281,7 +281,7 @@ item in analytics software. The front-end applications are responsible for
 rendering the `analytics_identifier` in the metadata of the page (if present) so
 that information about user activity can be tracked for the content item.
 
-### [`links`](#links)
+### `links`
 
 Example: *{ “related”: [“8242a29f-8ad1-4fbe-9f71-f9e57ea5f1ea”] }*
 
@@ -304,7 +304,7 @@ Email alerts will not be sent when the update_type is links.
 This queue is consumed by the Rummager application in order to reindex the
 appropriate content when `links` change for a content item.
 
-### [`locale`](#locale)
+### `locale`
 
 Example: *en*
 
@@ -318,7 +318,7 @@ A list of valid locales can be viewed in the Publishing API [here](https://githu
 This field is not required and if a `locale` is not provided, it will be set to
 *en* automatically.
 
-### [`need_ids`](#need_ids)
+### `need_ids`
 
 Example: *["1234", "1235"]*
 
@@ -330,7 +330,7 @@ They are passed through to the content store, untouched by the pipeline. The
 front-end applications can then use the `need_ids` to present pages to users
 that show how effectively users' needs are being met. [Here is an example](https://www.gov.uk/info/overseas-passports).
 
-### [`phase`](#phase)
+### `phase`
 
 Examples: *alpha, beta, live*
 

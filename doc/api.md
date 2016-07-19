@@ -3,7 +3,7 @@
 This is the primary interface from publishing apps to the publishing pipeline. Applications PUT items as JSON conforming to a schema specified in govuk-content-schemas.
 Content paths are arbitrated internally by the Publishing API, the content is then forwarded to the live and draft content stores, and placed on the message queue for other apps (eg email-alert-service) to consume.
 
-### [Optimistic locking (`previous_version`)](#optimistic-locking)
+### Optimistic locking (`previous_version`)
 
 All PUT and POST endpoints take an optional integer field `previous_version` in
 the request. This allows the Publishing API to check that the publishing app
@@ -12,15 +12,15 @@ question.
 
 If `previous_version` is provided, the Publishing API will confirm that the
 provided value matches that of the content item in the Publishing API. If it
-does not, a [409](#status-409) response will be given.
+does not, a [409](#409-conflict) response will be given.
 
 ### Status Codes
 
-#### [`409`](#status-409) ([Conflict](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10))
+#### `409` ([Conflict](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10))
 
 See [Optimistic locking](#optimistic-locking).
 
-#### [`422`](#status-422) ([Unprocessable Entity](https://tools.ietf.org/html/rfc4918#section-11.2))
+#### `422` ([Unprocessable Entity](https://tools.ietf.org/html/rfc4918#section-11.2))
 
 Used for validation failures.
 
