@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Commands::V2::PutContent do
   describe "call" do
     before do
+      stub_request(:delete, %r{.*content-store.*/content/.*})
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
 
@@ -530,6 +531,40 @@ RSpec.describe Commands::V2::PutContent do
 
             translation = Translation.find_by!(content_item: content_item)
             expect(translation.locale).to eq("fr")
+          end
+        end
+
+        context "when there is a draft at the new base path" do
+          let!(:substitute_item) {
+            FactoryGirl.create(:draft_content_item,
+              content_id: SecureRandom.uuid,
+              base_path: base_path,
+              title: "Substitute Content",
+              lock_version: 1,
+              publishing_app: "publisher",
+              document_type: "coming_soon",
+            )
+          }
+
+          it "deletes the substitute item" do
+            described_class.call(payload)
+            expect(ContentItem.exists?(id: substitute_item.id)).to eq(false)
+          end
+
+          context "conflicting version" do
+            before do
+              lock_version = LockVersion.find_by!(target: previously_drafted_item)
+              lock_version.update_attributes!(number: 2)
+
+              payload.merge!(previous_version: 1)
+            end
+
+            it "doesn't delete the substitute item" do
+              expect {
+                described_class.call(payload)
+              }.to raise_error(CommandError, /Conflict/)
+              expect(ContentItem.exists?(id: substitute_item.id)).to eq(true)
+            end
           end
         end
       end
