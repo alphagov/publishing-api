@@ -33,7 +33,6 @@ Used to create or update draft content items.
 Unless explicitly stated, each request parameter is used to set the respective
 field on the content item model.
 
- - Increments the lock version number of the content item.
  - Prepares and sends the draft content item payload downstream to the draft content store. The payload is modified to include a payload_version to validate message ordering.
  - Sends the draft content item payload to the message queue.
 
