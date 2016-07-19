@@ -33,7 +33,6 @@ Used to create or update draft content items.
 Unless explicitly stated, each request parameter is used to set the respective
 field on the content item model.
 
- - Instantiates a new content item or retrieves an existing item matching the content_id and locale passed in the request.
  - Increments the lock version number of the content item.
  - Prepares and sends the draft content item payload downstream to the draft content store. The payload is modified to include a payload_version to validate message ordering.
  - Sends the draft content item payload to the message queue.
@@ -62,6 +61,8 @@ All document types are considered renderable, except "redirect" and "gone".
 
 ### Optional request params:
  - [`locale`](model.md#locale) (default: "en")
+   - If included, this will either used to find the existing content item, or
+     set on the new content item.
    - Must be one of I18n.available_locales
  - [`phase`](model.md#phase) (default: "live")
    - Must be one of "alpha", "beta", "live".
