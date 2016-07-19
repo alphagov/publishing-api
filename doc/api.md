@@ -107,23 +107,30 @@ All document types are considered renderable, except "redirect" and "gone".
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_publish_request_for_version_3_given_the_content_item_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3)
 
- - Validates that update_type is present. If one is not provided, it will try to use the update_type previously set on the content item from the PUT request.
- - Validates that update_type is one of `major`, `minor`, `republish` or `links` and raises a [422](#status-422) otherwise.
- - Retrieves the draft content item with the matching content_id and locale and changes its state to `published`.
- - Sets the `public_updated_at` on a major update, assuming one hasn't been set through the PUT endpoint.
- - Retains the `public_updated_at` from the previously published item on a minor update, assuming one hasn't been set through the PUT endpoint.
- - Supersedes any previously published content items.
- - Sends the published content item to the live content store.
- - Sends the published content item to the message queue.
- - Returns 200 along with the content_id of the newly published item.
+Transitions a content item from a draft state to a published state. The content item will be sent to the live content store.
 
-### Required request params:
- - `content_id` the primary identifier for the content to publish.
+### Path Parameters
+- [`content_id`](model.md#content_id)
+  - Identifies the draft content item to publish
 
-### Optional request params:
- - `update_type` must be one of major, minor, republish, links.
- - `locale` specifies the locale of the content item to be published.
- - `previous_version`
+### JSON Attributes
+- [`update_type`](model.md#update_type) (conditionally required)
+  - Accepts: "major", "minor", "republish", "links"
+  - Will fallback to the `update_type` set during drafting, will return a 422 if not provided with either.
+- [`locale`](model.md#locale) (optional, default: "en")
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
+  - Specifies which translation of the content item to publish
+- [`previous_version`](model.md#lock_version) (optional)
+  - Used to ensure that the version being published is the same as the draft created (to avoid publishing a different users later edits)
+
+### State Changes
+- The draft content item with the matching `content_id`, `locale` and `previous_version` will have it's state transition to "published"
+- Any previously published content items for this `content_id` and `locale` will have their state transitioned to "superseded"
+- For an `update_type` of "major" the `public_updated_at` field will be updated to the current timestamp
+- If the content item has a path:
+  - If the `base_path` of the draft item differs to the published version of this content item:
+    - Redirects to this content item will be published
+  - Any published content items that have a matching `base_path` and `locale` and have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will have their state changed to "unpublished" with a type of "substitute"
 
 ## `POST /v2/content/:content_id/unpublish`
 
