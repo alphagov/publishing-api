@@ -3,6 +3,21 @@
 This is the primary interface from publishing apps to the publishing pipeline. Applications PUT items as JSON conforming to a schema specified in govuk-content-schemas.
 Content paths are arbitrated internally by the Publishing API, the content is then forwarded to the live and draft content stores, and placed on the message queue for other apps (eg email-alert-service) to consume.
 
+## Index
+- [`PUT /v2/content/:content_id`](#put-v2contentcontent_id)
+- [`POST /v2/content/:content_id/publish`](#post-v2contentcontent_idpublish)
+- [`POST /v2/content/:content_id/unpublish`](#post-v2contentcontent_idunpublish)
+- [`POST /v2/content/:content_id/discard-draft`](#post-v2contentcontent_iddiscard-draft)
+- [`GET /v2/content`](#get-v2content)
+- [`GET /v2/content/:content_id`](#get-v2contentcontent_id)
+- [`PATCH /v2/links/:content_id`](#patch-v2linkscontent_id)
+- [`GET /v2/links/:content_id`](#get-v2linkscontent_id)
+- [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
+- [`GET /v2/linked/:content_id`](#get-v2linkedcontent_id)
+- [`GET /v2/linkables`](#get-v2linkables)
+- [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
+- [`GET /debug/:content_id`](#get-debugcontent_id)
+
 ### Optimistic locking (`previous_version`)
 
 All PUT and POST endpoints take an optional integer field `previous_version` in
@@ -87,22 +102,6 @@ All document types are considered renderable, except "redirect" and "gone".
    - This field is a special case, as its not present on the content item
      model. Its used is described in [Optimistic locking](#optimistic-locking).
 
-## `GET /v2/content/:content_id`
-
-[Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_return_the_content_item_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
-
- - Retrieves a content item by content_id and optional locale parameter.
- - If the content item exists in both a draft and published state, the draft is returned.
- - Exposes the content lock version in the response.
- - Responds with 404 if no content exists for the given content_id and locale.
-
-### Required request params:
- - `content_id` the primary identifier for the requested content.
-
-### Optional request params:
- - `locale` query parameter for content in a specific locale.
- - `version` query parameter requests a specific user-facing version of a content item.
-
 ## `POST /v2/content/:content_id/publish`
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_publish_request_for_version_3_given_the_content_item_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3)
@@ -132,6 +131,7 @@ Transitions a content item from a draft state to a published state. The content 
     - Redirects to this content item will be published
   - Any published content items that have a matching `base_path` and `locale` and have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will have their state changed to "unpublished" with a type of "substitute"
 - The live content store will be updated with the content item
+
 ## `POST /v2/content/:content_id/unpublish`
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#an_unpublish_request_given_a_published_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
@@ -187,27 +187,58 @@ Transitions a content item from a draft state to a published state. The content 
       enable unpublishing it.
       - (TODO: Be clear about the value to give?).
 
-## `GET /v2/links/:content_id`
+## `POST /v2/content/:content_id/discard-draft`
 
-[Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get-links_request_given_empty_links_exist_for_content_id_bed722e6-db68-43e5-9079-063f623335a7)
+[Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_discard_draft_content_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
- - Retrieves link sets for the given content_id.
- - Presents the lock version of the link set in the response.
- - Responds with 404 if no links are available for this content_id.
+ - Deletes the draft content item.
+ - Re-sends the published content item to the draft content store, if one exists.
+ - By default, the request will discard the draft content item with a locale of 'en'.
+ - Does not affect the link set for the content item.
+
+### Required request parameters:
+ - `content_id` the primary identifier for the draft content item to be discarded
+
+### Optional request params:
+ - `previous_version`
+ - `locale` (defaults to 'en') is used to discard a specific draft content item where there are multiple translations
+
+## `GET /v2/content`
+
+ [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_entries_request_given_a_content_item_exists_in_multiple_locales_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
+
+  - Retrieves all content items for a given `document_type` and optional `locale`.
+  - Returns only the content item's fields that have been requested with the query.
+  - Restricts the content items returned by the `publishing_app` of the current user.
+  - Can optionally return content items in all locales by specifying a `locale` of 'all'
+  - Can return the `publication_state` of the content item by including it in the `fields[]`
+  - Can search for queries against `base_path` or `title`
+  - Can order ascending or descending by: content_id, document_type, format, public_updated_at, publishing_app, rendering_app, base_path, locale, updated_at
 
 ### Required request params:
- - `content_id` the primary identifier for the content associated with the requested link set.
+  - `document_type` the type of content item to return
+  - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
 
-## `GET /v2/expanded-links/:content_id`
+### Optional request params:
+  - `locale` (defaults to 'en') is used to restrict returned content items to a given locale
+  - `q` the search term to match against `base_path` or `title`
+  - `order` the field to sort results by. Ordered ascending unless prefixed with a hyphen, e.g. `-updated_at`. Defaults to `public_updated_at` descending.
 
-TODO: Request/Response detail
+## `GET /v2/content/:content_id`
 
- - Retrieves expanded link set for the given content_id.
- - Presents the lock version of the link set in the response.
- - Responds with 404 if no links are available for this content_id.
+[Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_return_the_content_item_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
+
+ - Retrieves a content item by content_id and optional locale parameter.
+ - If the content item exists in both a draft and published state, the draft is returned.
+ - Exposes the content lock version in the response.
+ - Responds with 404 if no content exists for the given content_id and locale.
 
 ### Required request params:
- - `content_id` the primary identifier for the content associated with the requested link set.
+ - `content_id` the primary identifier for the requested content.
+
+### Optional request params:
+ - `locale` query parameter for content in a specific locale.
+ - `version` query parameter requests a specific user-facing version of a content item.
 
 ## `PATCH /v2/links/:content_id`
 
@@ -249,21 +280,27 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
 ### Optional request params:
  - `previous_version`
 
-## `POST /v2/content/:content_id/discard-draft`
+## `GET /v2/links/:content_id`
 
-[Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_discard_draft_content_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
+[Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get-links_request_given_empty_links_exist_for_content_id_bed722e6-db68-43e5-9079-063f623335a7)
 
- - Deletes the draft content item.
- - Re-sends the published content item to the draft content store, if one exists.
- - By default, the request will discard the draft content item with a locale of 'en'.
- - Does not affect the link set for the content item.
+ - Retrieves link sets for the given content_id.
+ - Presents the lock version of the link set in the response.
+ - Responds with 404 if no links are available for this content_id.
 
-### Required request parameters:
- - `content_id` the primary identifier for the draft content item to be discarded
+### Required request params:
+ - `content_id` the primary identifier for the content associated with the requested link set.
 
-### Optional request params:
- - `previous_version`
- - `locale` (defaults to 'en') is used to discard a specific draft content item where there are multiple translations
+## `GET /v2/expanded-links/:content_id`
+
+TODO: Request/Response detail
+
+ - Retrieves expanded link set for the given content_id.
+ - Presents the lock version of the link set in the response.
+ - Responds with 404 if no links are available for this content_id.
+
+### Required request params:
+ - `content_id` the primary identifier for the content associated with the requested link set.
 
 ## `GET /v2/linked/:content_id`
 
@@ -276,27 +313,6 @@ To delete all the links of a `link_type`, update it with an empty array. This wi
   - `content_id` the primary identifier for the content associated with the requested link set.
   - `link_type` the type of link between the documents
   - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
-
-## `GET /v2/content`
-
- [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_entries_request_given_a_content_item_exists_in_multiple_locales_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
-
-  - Retrieves all content items for a given `document_type` and optional `locale`.
-  - Returns only the content item's fields that have been requested with the query.
-  - Restricts the content items returned by the `publishing_app` of the current user.
-  - Can optionally return content items in all locales by specifying a `locale` of 'all'
-  - Can return the `publication_state` of the content item by including it in the `fields[]`
-  - Can search for queries against `base_path` or `title`
-  - Can order ascending or descending by: content_id, document_type, format, public_updated_at, publishing_app, rendering_app, base_path, locale, updated_at
-
-### Required request params:
-  - `document_type` the type of content item to return
-  - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
-
-### Optional request params:
-  - `locale` (defaults to 'en') is used to restrict returned content items to a given locale
-  - `q` the search term to match against `base_path` or `title`
-  - `order` the field to sort results by. Ordered ascending unless prefixed with a hyphen, e.g. `-updated_at`. Defaults to `public_updated_at` descending.
 
 ## `GET /v2/linkables`
 
