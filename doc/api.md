@@ -145,17 +145,41 @@ All document types are considered renderable, except "redirect" and "gone".
 ### Required request params:
   - `content_id` the primary identifier for the content to publish.
   - `type` the type of unpublishing to create/perform.
+    - Valid types are:
+      - "withdrawal"
+      - "redirect"
+      - "gone"
+      - "vanish"
 
 ### Optional request params:
-  - `explanation` Message to display on page for `gone`,
-                  (required) for `withdrawal`,
-                  (ignored) for `redirect`.
-  - `alternative_path` path to turn into a URL to display on page for `gone`,
-                       (required) path to redirect to if `redirect`,
-                       (ignored) if `withdrawal`.
-  - `discard_drafts` anything other than `true` is considered `false`,
-    including being absent.
-  - `allow_draft` specify that the intended item to unpublish is in the draft state, and enable unpublishing it.
+  - `explanation`
+    - Type specific behaviour:
+      - "gone"
+        - Optional, message to display on page (TODO: Clarify this).
+      - "withdrawal"
+        - Required.
+      - "redirect"
+        - Ignored (TODO: Should this be rejected?).
+  - `alternative_path`
+    - If specified, this should be a [`base_path`](model.md#base_path).
+    - Type specific behaviour:
+      - "gone"
+        - Optional, `base_path` to turn into a URL to display on page for
+          `gone` (TODO: Express this better, and what happens if its not
+          specified)
+      - "redirect"
+        - Required, `base_path` to redirect to
+      - "withdrawal"
+        - Ignored (TODO: Should this be rejected?).
+  - `discard_drafts`
+    - Specify `true` to enable discarding a draft (if present).
+      - Anything other than `true` is considered `false`, including being
+        absent (TODO: Should anything other than `true` be considered
+        invalid?).
+  - `allow_draft`
+    - Specify that the intended item to unpublish is in the draft state, and
+      enable unpublishing it.
+      - (TODO: Be clear about the value to give?).
 
 ## `GET /v2/links/:content_id`
 
