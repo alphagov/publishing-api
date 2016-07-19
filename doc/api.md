@@ -131,7 +131,7 @@ Transitions a content item from a draft state to a published state. The content 
   - If the `base_path` of the draft item differs to the published version of this content item:
     - Redirects to this content item will be published
   - Any published content items that have a matching `base_path` and `locale` and have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will have their state changed to "unpublished" with a type of "substitute"
-
+- The live content store will be updated with the content item
 ## `POST /v2/content/:content_id/unpublish`
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#an_unpublish_request_given_a_published_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
