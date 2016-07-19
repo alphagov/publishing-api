@@ -132,7 +132,6 @@ All document types are considered renderable, except "redirect" and "gone".
   - Will refuse to unpublish a lone draft unless `allow_draft` is `true`.
   - If `allow_draft` is `true`, will refuse to unpublish anything other than a draft.
   - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true`.
-  - Validates that unpublishing `type` is one of `withdrawal`, `gone`, `vanish` or `redirect` and raises a (422)[#status-422] otherwise.
   - Retrieves the live content item with the matching content_id and locale and changes its state to `unpublished`.
   - Creates an `Unpublishing` with the provided details.
   - Will update the `Unpublishing` if the document is already unpublished.
