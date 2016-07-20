@@ -197,17 +197,23 @@ Transitions a content item into an unpublished state. The content item will be u
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_discard_draft_content_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
- - Deletes the draft content item.
- - Re-sends the published content item to the draft content store, if one exists.
- - By default, the request will discard the draft content item with a locale of 'en'.
- - Does not affect the link set for the content item.
+Deletes a draft version of a content item. Replaces the draft content item on the draft content store with the published item, if one exists.
 
-### Required request parameters:
- - `content_id` the primary identifier for the draft content item to be discarded
+### Path Parameters
+- [`content_id`](model.md#content_id)
+  - Identifies the content item whose draft will be deleted.
 
-### Optional request params:
- - `previous_version`
- - `locale` (defaults to 'en') is used to discard a specific draft content item where there are multiple translations
+### JSON Attributes
+- [`locale`](model.md#locale) (optional, default: "en")
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
+  - Specifies which translation of the draft content item to delete
+- [`previous_version`](model.md#lock_version) (optional)
+  - Used to ensure the version being discarded is the current draft.
+
+### State Changes
+- The draft content item will be deleted from the Publishing API.
+- The draft content item will be removed from the draft content store.
+- If a published content item exists it will be added to the draft content store.
 
 ## `GET /v2/content`
 
