@@ -43,64 +43,44 @@ Used for validation failures.
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_from_the_Whitehall_application_to_create_a_content_item_at_/test-item_given_/test-item_has_been_reserved_by_the_Publisher_application)
 
-Used to create or update draft content items.
+Used to create or update a draft content item.
 
-Unless explicitly stated, each request parameter is used to set the respective
-field on the content item model.
+### Path Parameters
+- [`content_id`](model.md#content_id)
+  - Specifies the `content_id` of the content to be created or updated.
 
- - Prepares and sends the draft content item payload downstream to the draft content store. The payload is modified to include a payload_version to validate message ordering.
- - Sends the draft content item payload to the message queue.
+### JSON Attributes
+- [`access_limited`](model.md#access_limited) (optional)
+- [`analytics_identifier`](model.md#analytics_identifier) (optional)
+- [`base_path`](model.md#base_path) (required)
+- [`description`](model.md#description)
+- [`details`](model.md#details)
+- [`document_type`](model.md#document_type)
+- [`format`](model.md#format)
+- [`last_edited_at`](model.md#last_edited_at)
+- [`locale`](model.md#locale)
+- [`need_ids`](model.md#need_ids)
+- [`phase`](model.md#phase)
+- [`previous_version`](model.md#previous_version)
+- [`public_updated_at`](model.md#public_updated_at)
+- [`publishing_app`](model.md#publishing_app)
+- [`redirects`](model.md#redirects)
+- [`rendering_app`](model.md#rendering_app)
+- [`routes`](model.md#routes)
+- [`schema_name`](model.md#schema_name)
+- [`title`](model.md#title)
+- [`update_type`](model.md#update_type)
 
-### Required request params:
- - [`content_id`](model.md#content_id)
-   - Specifies either which content item to update, or the `content_id` for the
-     new content item.
- - [`base_path`](model.md#base_path)
- - [`redirects`](model.md#redirects)
-   - Only required when the `document_type` is "redirect".
- - [`publishing_app`](model.md#publishing_app)
- - [`details`](model.md#details)
-   - Not required when the respective `document_type` does not require any `details`.
- - [`routes`](model.md#routes)
-   - Not required, and must not be present (TODO: Check this) when the
-     `document_type` is "redirect".
-
-### Required for renderable document types
-All document types are considered renderable, except "redirect" and "gone".
- - [`title`](model.md#title)
- - [`public_updated_at`](model.md#public_updated_at)
-   - (TODO: Check if this is really not required).
- - [`rendering_app`](model.md#rendering_app)
- - [`title`](model.md#title)
-
-### Optional request params:
- - [`locale`](model.md#locale) (default: "en")
-   - If included, this will either used to find the existing content item, or
-     set on the new content item.
-   - Must be one of I18n.available_locales
- - [`phase`](model.md#phase) (default: "live")
-   - Must be one of "alpha", "beta", "live".
- - [`document_type`](model.md#document_type)
-   - If `document_type` is not specified, the value from `format` (if given)
-     will be used instead.
- - [`schema_name`](model.md#schema_name)
-   - If `schema_name` is not specified, the value from `format` (if given)
-     will be used instead.
- - [`format`](model.md#format)
-   - *Deprecated*, `document_type` and `schema_name` should be specified instead.
- - [`update_type`](model.md#update_type)
- - [`access_limited`](model.md#access_limited)
- - [`analytics_identifier`](model.md#analytics_identifier)
- - [`description`](model.md#description)
- - [`last_edited_at`](model.md#last_edited_at)
-   - If `last_edited_at` is not specified, and the `update_type` specified in the request is
-     "major" or "minor", then `last_edited_at` will be set to the current time.
-     - (TODO: What should happen if the update_type is changed in a new request?)
- - [`links`](model.md#links)
- - [`need_ids`](model.md#need_ids)
- - `previous_version`
-   - This field is a special case, as its not present on the content item
-     model. Its used is described in [Optimistic locking](#optimistic-locking).
+### State Changes
+- If a `base_path` is provided it is reserved for use of thegiven `publishing_app`.
+- Any draft content items that have a matching `base_path` and `locale` and have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will be deleted.
+- If a content item matching `content_id` and `locale` already exists in a "draft" state:
+  - The existing draft content item will be updated and the lock version will be incremented.
+  - If the `base_path` has changed since the last update, a draft redirect content_item will be created.
+- If a content item matching `content_id` and `locale` does not exist in a "draft" state:
+  - A new content item will be created
+  - If the `base_path` is different to that of the published content_item (if this exists) a draft redirect content item will be created.
+- The draft content store will be updated with the content item and any associated redirects
 
 ## `POST /v2/content/:content_id/publish`
 
@@ -130,7 +110,7 @@ Transitions a content item from a draft state to a published state. The content 
   - If the `base_path` of the draft item differs to the published version of this content item:
     - Redirects to this content item will be published
   - Any published content items that have a matching `base_path` and `locale` and have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will have their state changed to "unpublished" with a type of "substitute"
-  - The live content store will be updated with the content item
+  - The live content store will be updated with the content item and any associated redirects
   - All published content items that link to this item (directly or through a recursive chain of links) will be updated in the live content store.
 
 ## `POST /v2/content/:content_id/unpublish`
