@@ -232,7 +232,7 @@ Retrieves a paginated list of content items for the provided query string parame
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_return_the_content_item_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
-Retrieves a single content item for a content_id and locale. By default the most recent version is returned, which may be a draft.
+Retrieves a single content item for a `content_id` and `locale`. By default the most recent version is returned, which may be a draft.
 
 ### Path Parameters
 - [`content_id`](model.md#content_id)
@@ -250,63 +250,52 @@ Retrieves a single content item for a content_id and locale. By default the most
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_update_the_linkset_at_version_3_given_the_linkset_for_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3)
 
- - Creates or updates a link set given a content_id.
- - Validates the presence of the links request parameter and responds with (422)[#status-422] if not present.
- - Instantiates or retrieves an existing link set.
- - Increments the link set lock version.
- - Merges the links from the request into an existing link set where applicable.
- - Merges the resulting link set into a draft content payload and sends this to the draft content store.
- - Merges the same link set into a live content payload and sends this to the live content store.
- - Sends the live content payload to the message queue.
- - Returns created or updated link set links in the response.
+Creates or updates a set of links for the given `content_id`. Link sets can be created before or after the [PUT request](#put_v2contentcontent-id) for the content item. These are tied to a content item solely by matching `content_id` and they are not associated with a `locale`.
 
-Note that link sets can be created before or after the PUT requests for the content item.
-No downstream requests will be sent if the content item doesn't exist yet.
+### Path Parameters
+- [`content_id`](model.md#content_id)
+  - Identifies the content item the links are for.
 
-To delete all the links of a `link_type`, update it with an empty array. This will also remove the reference to the `link_type` from the links. For example:
-
-```
-"links": {
-  "unwanted_link_type": []
-}
-```
-
-### Required request parameters:
- - `content_id` the primary identifier for the content associated with the link set to be created or updated.
- - `links` a JSON Object containing arrays of links keyed by link type eg.
+### JSON Attributes
+- `links` (required)
+  - A JSON object containing arrays of [`content_id`](model.md#content_id)'s for each `link_type`.
+  - An empty array for a `link_type` will delete that `link_type`.
 
 ```javascript
   "links": {
     "organisations": [
       "591436ab-c2ae-416f-a3c5-1901d633fbfb"
-    ]
+    ],
+    "unwanted_link_type: []
   }
 ```
+- `previous_version` (optional)
+  - Used to ensure that we are updating the current version of the link set
 
-### Optional request params:
- - `previous_version`
+### State Changes
+- A link set is created or updated, with the `lock_version` of the link set being incremented.
+- The draft content store is updated, if there is a draft of the content item.
+- The live content store is updated, if there is a published version of the content item.
 
 ## `GET /v2/links/:content_id`
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get-links_request_given_empty_links_exist_for_content_id_bed722e6-db68-43e5-9079-063f623335a7)
 
- - Retrieves link sets for the given content_id.
- - Presents the lock version of the link set in the response.
- - Responds with 404 if no links are available for this content_id.
+Retrieves the link set for the given `content_id`. Returns arrays of `content_id`s of content items that are linked to in groupings of the `link_type`.
 
-### Required request params:
- - `content_id` the primary identifier for the content associated with the requested link set.
+### Path Parameters
+- [`content_id`](model.md#content_id)
+  - Identifies the content item the links are for.
 
 ## `GET /v2/expanded-links/:content_id`
 
 TODO: Request/Response detail
 
- - Retrieves expanded link set for the given content_id.
- - Presents the lock version of the link set in the response.
- - Responds with 404 if no links are available for this content_id.
+Retrieves the expanded link set for the given `content_id`. Returns arrays of details for each linked content item in groupings of `link_type`.
 
-### Required request params:
- - `content_id` the primary identifier for the content associated with the requested link set.
+### Path Parameters
+- [`content_id`](model.md#content_id)
+  - Identifies the content item the links are for.
 
 ## `GET /v2/linked/:content_id`
 
