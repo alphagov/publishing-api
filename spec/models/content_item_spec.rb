@@ -137,12 +137,6 @@ RSpec.describe ContentItem do
     end
   end
 
-  context "pathless?" do
-    it "denotes content not requiring a base path" do
-      expect(ContentItem.new(schema_name: "contact").pathless?).to be true
-    end
-  end
-
   it_behaves_like DefaultAttributes
   it_behaves_like WellFormedContentTypesValidator
   it_behaves_like DescriptionOverrides

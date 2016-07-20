@@ -11,7 +11,7 @@ module Commands
           })
         end
 
-        PathReservation.reserve_base_path!(base_path, publishing_app) if base_path_required?
+        PathReservation.reserve_base_path!(base_path, publishing_app) if content_with_base_path?
         content_item = find_previously_drafted_content_item
 
         if content_item
@@ -32,7 +32,10 @@ module Commands
     private
 
       def fill_out_new_content_item(content_item)
-        clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path) if base_path_required?
+        if content_with_base_path?
+          clear_draft_items_of_same_locale_and_base_path(
+            content_item, locale, base_path)
+        end
 
         create_supporting_objects(content_item)
         ensure_link_set_exists(content_item)
@@ -64,7 +67,7 @@ module Commands
       def update_existing_content_item(content_item)
         check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
-        if base_path_required?
+        if content_with_base_path?
           clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
 
           previous_location = Location.find_by!(content_item: content_item)
@@ -139,7 +142,7 @@ module Commands
         UserFacingVersion.create!(content_item: content_item, number: user_facing_version_number_for_new_draft)
         LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
 
-        if base_path_required?
+        if content_with_base_path?
           Location.create!(content_item: content_item, base_path: base_path)
 
           if locale == ContentItem::DEFAULT_LOCALE && !Linkable.exists?(base_path: base_path)
@@ -200,7 +203,7 @@ module Commands
       end
 
       def path_has_changed?(location)
-        return false unless base_path_required?
+        return false unless content_with_base_path?
         location.base_path != base_path
       end
 
@@ -214,6 +217,10 @@ module Commands
 
       def base_path
         payload[:base_path]
+      end
+
+      def content_with_base_path?
+        base_path_required? || payload.has_key?(:base_path)
       end
 
       def base_path_required?
@@ -263,7 +270,7 @@ module Commands
 
       def send_downstream(content_item)
         return unless downstream
-        return if content_item.pathless?
+        return unless content_with_base_path?
 
         message = "Enqueuing PresentedContentStoreWorker job with "
         message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
