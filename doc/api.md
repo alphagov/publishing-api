@@ -43,7 +43,7 @@ Used for validation failures.
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_from_the_Whitehall_application_to_create_a_content_item_at_/test-item_given_/test-item_has_been_reserved_by_the_Publisher_application)
 
-Used to create or update a draft content item.
+Used to create or update a draft content item. It will restrict the creation of a draft item if one already a draft content item  with the same `base_path` and `locale`.
 
 ### Path Parameters
 - [`content_id`](model.md#content_id)
@@ -51,28 +51,64 @@ Used to create or update a draft content item.
 
 ### JSON Attributes
 - [`access_limited`](model.md#access_limited) (optional)
+  - A JSON object with a key of users and a value of an array of UUIDs. The UUIDs represent user ids
+  - If provided, only users with a given UUID will be able to view the item on the draft content store. It has no effect on the live content store.
 - [`analytics_identifier`](model.md#analytics_identifier) (optional)
-- [`base_path`](model.md#base_path) (required)
-- [`description`](model.md#description)
-- [`details`](model.md#details)
-- [`document_type`](model.md#document_type)
-- [`format`](model.md#format)
-- [`last_edited_at`](model.md#last_edited_at)
-- [`locale`](model.md#locale)
-- [`need_ids`](model.md#need_ids)
-- [`phase`](model.md#phase)
-- [`previous_version`](model.md#previous_version)
-- [`public_updated_at`](model.md#public_updated_at)
-- [`publishing_app`](model.md#publishing_app)
-- [`redirects`](model.md#redirects)
-- [`rendering_app`](model.md#rendering_app)
-- [`routes`](model.md#routes)
-- [`schema_name`](model.md#schema_name)
-- [`title`](model.md#title)
-- [`update_type`](model.md#update_type)
+  - An identifier to track the content item in analytics software.
+- [`base_path`](model.md#base_path) (conditionally required)
+  - Required if `schema_name` (or `format`) is not one of "contact" or "government".
+  - The path that this item will use on [gov.uk](https://www.gov.uk).
+- `description` (optional)
+  - A description of the content that can be displayed publicly.
+  - TODO: verify if this is a string or a JSON object. Validations appear to differ with database.
+- [`details`](model.md#details) (conditionally required, default: {})
+  - JSON object representing the attributes of this content item, to the format specified by `schema_name`.
+  - TODO: verify the validation on this field.
+- [`document_type`](model.md#document_type) (conditionally required)
+  - Required if `format` is not provided.
+- [`format`](model.md#format) **Deprecated** (conditionally required)
+  - Superseded by the `document_type` and `schema_name` fields.
+- `last_edited_at` (optional)
+  - An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) formatted timestamp should be provided, although [other formats](http://apidock.com/rails/String/to_time) may be accepted.
+  - Specifies when this content item was last edited.
+  - If omitted and `update_type` is "major" or "minor" `last_edited_at` will be set to the current time.
+  - TODO: What should happen if the update_type is changed in a later request?
+- [`locale`](model.md#locale) (optional, default: "en")
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
+  - Specifies which translation of the content item this draft is.
+- [`need_ids`](model.md#need_ids) (optional)
+  - An array of user need ids from the [Maslow application](https://github.com/alphagov/maslow).
+- [`phase`](model.md#phase) (optional, default: "live")
+  - Accepts: "alpha", "beta", "live"
+- [`previous_version`](model.md#previous_version) (optional)
+  - Used to ensure that the most recent version of the draft is being updated.
+- [`public_updated_at`](model.md#public_updated_at) (conditionally required)
+  - Required if `document_type` (or `format`) is not "contact" or "government".
+  - An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) formatted timestamp should be provided, although [other formats](http://apidock.com/rails/String/to_time) may be accepted.
+  - The publicly shown date that this content item was last edited at.
+  - TODO: Check whether this validation is enforced in the API
+- [`publishing_app`](model.md#publishing_app) (required)
+  - The name of the application making this request, words separated with hyphens.
+- [`redirects`](model.md#redirects) (conditionally required)
+  - Required for a `document_type` (or `format`) of "redirect".
+  - An array of redirect values. (TODO: link directly to example)
+- [`rendering_app`](model.md#rendering_app) (conditionally required)
+  - Required for a `document_type` (or `format`) that is not "redirect" or "gone".
+  - The hostname for the frontend application that will render this content item.
+- [`routes`](model.md#routes) (conditionally required)
+  - Required for a `document_type` (or `format`) that is not "redirect".
+  - An array of route values. (TODO: link directly to example)
+- [`schema_name`](model.md#schema_name) (conditionally required)
+  - Required if `format` is not provided.
+  - The name of [GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas) that `details` will be validated against.
+- [`title`](model.md#title) (conditionally required)
+  - Required for a `document_type` (or `format`) that is not "redirect" or "gone".
+- [`update_type`](model.md#update_type) (optional)
+  - Accepts: "major", "minor", "republish"
+  - TODO: Check this is validated against
 
 ### State Changes
-- If a `base_path` is provided it is reserved for use of thegiven `publishing_app`.
+- If a `base_path` is provided it is reserved for use of the given `publishing_app`.
 - Any draft content items that have a matching `base_path` and `locale` and have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will be deleted.
 - If a content item matching `content_id` and `locale` already exists in a "draft" state:
   - The existing draft content item will be updated and the lock version will be incremented.
@@ -94,7 +130,7 @@ Transitions a content item from a draft state to a published state. The content 
 
 ### JSON Attributes
 - [`update_type`](model.md#update_type) (conditionally required)
-  - Accepts: "major", "minor", "republish", "links"
+  - Accepts: "major", "minor", "republish"
   - Will fallback to the `update_type` set during drafting, will return a 422 if not provided with either.
 - [`locale`](model.md#locale) (optional, default: "en")
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
