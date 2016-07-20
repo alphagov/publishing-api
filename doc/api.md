@@ -272,7 +272,7 @@ Creates or updates a set of links for the given `content_id`. Link sets can be c
     "organisations": [
       "591436ab-c2ae-416f-a3c5-1901d633fbfb"
     ],
-    "unwanted_link_type: []
+    "unwanted_link_type": []
   }
 ```
 - `previous_version` *(optional, recommended)*
