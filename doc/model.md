@@ -3,6 +3,15 @@
 This document outlines the Publishing API's model in moderate detail and
 explains some of the design decisions and business needs for it.
 
+Index:
+ - [Content Item Fields](#content-item-fields)
+ - [User Need](#user-need)
+ - [General Themes](#general-themes)
+ - [Content Item Uniqueness](#content-item-uniqueness)
+ - [Lock Version](#lock-version)
+ - [User-Facing Version](#user-facing-version)
+ - [Workflow](#workflow)
+
 ## Content Item Fields
 
 ### `base_path`
