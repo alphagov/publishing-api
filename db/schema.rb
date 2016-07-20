@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706110723) do
+ActiveRecord::Schema.define(version: 20160715153009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20160706110723) do
     t.datetime "updated_at",                   null: false
     t.integer  "content_item_id"
   end
+
+  add_index "access_limits", ["content_item_id"], name: "index_access_limits_on_content_item_id", using: :btree
 
   create_table "content_items", force: :cascade do |t|
     t.string   "content_id"
@@ -83,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160706110723) do
   end
 
   add_index "linkables", ["base_path"], name: "index_linkables_on_base_path", using: :btree
+  add_index "linkables", ["content_item_id"], name: "index_linkables_on_content_item_id", using: :btree
   add_index "linkables", ["document_type"], name: "index_linkables_on_document_type", using: :btree
 
   create_table "links", force: :cascade do |t|
@@ -137,6 +140,7 @@ ActiveRecord::Schema.define(version: 20160706110723) do
   end
 
   add_index "states", ["content_item_id", "name"], name: "index_states_on_content_item_id_and_name", using: :btree
+  add_index "states", ["content_item_id"], name: "index_states_on_content_item_id", using: :btree
 
   create_table "translations", force: :cascade do |t|
     t.integer  "content_item_id", null: false
@@ -146,6 +150,7 @@ ActiveRecord::Schema.define(version: 20160706110723) do
   end
 
   add_index "translations", ["content_item_id", "locale"], name: "index_translations_on_content_item_id_and_locale", using: :btree
+  add_index "translations", ["content_item_id"], name: "index_translations_on_content_item_id", using: :btree
 
   create_table "unpublishings", force: :cascade do |t|
     t.integer  "content_item_id",  null: false
