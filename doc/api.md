@@ -285,7 +285,7 @@ Retrieves the link set for the given `content_id`. Returns arrays of `content_id
 
 ### Path Parameters
 - [`content_id`](model.md#content_id)
-  - Identifies the content item the links are for.
+  - Identifies the content item whose links to retrieve.
 
 ## `GET /v2/expanded-links/:content_id`
 
@@ -295,59 +295,63 @@ Retrieves the expanded link set for the given `content_id`. Returns arrays of de
 
 ### Path Parameters
 - [`content_id`](model.md#content_id)
-  - Identifies the content item the links are for.
+  - Identifies the content item whose links to retrieve.
 
 ## `GET /v2/linked/:content_id`
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_return_the_items_linked_to_it_given_no_content_exists)
 
-  - Retrieves all content items that link to the given content_id for some link_type
-  - Returns only the content item's fields that have been requested with the query
+Retrieves all content items that link to the given `content_id` for some link_type.
 
-### Required request params:
-  - `content_id` the primary identifier for the content associated with the requested link set.
-  - `link_type` the type of link between the documents
-  - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
+### Path Parameters
+- [`content_id`](model.md#content_id)
+  - Identifies the content item that may have been linked to.
+
+### Query String Parameters
+- `link_type` (Required)
+  - The type of link between the documents
+- `fields[]` (optional)
+  - Accepts an array of: "analytics_identifier", "api_url", "base_path", "content_id", "description", "document_type", "locale", "public_updated_at", "schema_name", "title", "web_urls"
+  - Determines which fields will be returned in the response.
 
 ## `GET /v2/linkables`
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_linkables_request_given_there_is_content_with_format_'topic')
 
-  - Retrieves specific fields of content items for a given `document_type`.
-  - Returns `title`, `content_id`, `publication_state`, `base_path` and `internal_name`.
-  - Does not restrict the content items by `publishing_app`
-  - Does not paginate the results
+Returns abridged versions of all content items matching the given `document_type`. Returns `title`, `content_id`, `publication_state`, `base_path` and `internal_name` fields.
 
-### Required request params:
-  - `document_type` the type of content item to return
+### Query String Parameters:
+- `document_type` (required)
+  - the type of content item to return
 
 ## `POST /lookup-by-base-path`
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_/lookup-by-base-path-request_given_there_are_live_content_items_with_base_paths_/foo_and_/bar)
 
-  - Retrieves published content items for a given collection of base paths.
-  - Returns a mapping of `base_path` to `content_id`.
+Retrieves published content items for a given collection of base paths. Returns a mapping of `base_path` to `content_id`.
 
-### Required request params:
-  - `base_paths` is a collection of base paths to query by (appears in the POST request body)
+### POST Parameters:
+- `base_paths` (required)
+  - is a collection of base paths to query by (appears in the POST request body)
 
 ## `GET /debug/:content_id`
 
-  - Displays debug information for `content_id`
+Displays debug information for `content_id`
 
-### Required request params:
-  - `content_id` the UUID of the content item you wish to debug
+### Request Parameters:
+- [`content_id`](model.md#content_id)
+  - Identifies the content item to debug.
 
 ### Usage:
   ```
   ssh backend-1.integration -CNL 8888:127.0.0.1:3093
   ```
 
-  And then open http://localhost:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
-  Alternativly this to your hosts file and open
+And then open http://localhost:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
+Alternativly this to your hosts file and open
 
   ```
   127.0.0.1 publishing-api.integration.publishing.service.gov.uk
   ```
 
-  http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
+ http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
