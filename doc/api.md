@@ -106,7 +106,7 @@ Used to create or update a draft content item. It will restrict the creation of 
 - If a content item matching `content_id` and `locale` does not exist in a "draft" state:
   - A new content item will be created
   - If the `base_path` is different to that of the published content_item (if this exists) a draft redirect content item will be created.
-- The draft content store will be updated with the content item and any associated redirects
+- The draft content store will be updated with the content item and any associated redirects.
 
 ## `POST /v2/content/:content_id/publish`
 
@@ -116,27 +116,27 @@ Transitions a content item from a draft state to a published state. The content 
 
 ### Path parameters
 - [`content_id`](model.md#content_id)
-  - Identifies the draft content item to publish
+  - Identifies the draft content item to publish.
 
 ### JSON attributes
 - [`update_type`](model.md#update_type) *(conditionally required)*
-  - Accepts: "major", "mino/r", "republish"
+  - Accepts: "major", "minor", "republish"
   - Will fallback to the `update_type` set during drafting, will return a 422 if not provided with either.
 - [`locale`](model.md#locale) *(optional, default: "en")*
-  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
-  - Specifies which translation of the content item to publish
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
+  - Specifies which translation of the content item to publish.
 - `previous_version` *(optional, recommended)*
-  - Used to ensure that the version being published is the same as the draft created (to avoid publishing a different users later edits)
+  - Used to ensure that the version being published is the same as the draft created (to avoid publishing a different users later edits).
 
 ### State changes
-- The draft content item with the matching `content_id`, `locale` and `previous_version` will have its state set to "published"
-- Any previously published content items for this `content_id` and `locale` will have their state set to "superseded"
-- For an `update_type` of "major" the `public_updated_at` field will be updated to the current timestamp
+- The draft content item with the matching `content_id`, `locale` and `previous_version` will have its state set to "published".
+- Any previously published content items for this `content_id` and `locale` will have their state set to "superseded".
+- For an `update_type` of "major" the `public_updated_at` field will be updated to the current timestamp.
 - If the content item has a non blank `base_path`:
   - If the `base_path` of the draft item differs to the published version of this content item:
-    - Redirects to this content item will be published
-  - Any published content items that have a matching `base_path` and `locale` and have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will have their state changed to "unpublished" with a type of "substitute"
-  - The live content store will be updated with the content item and any associated redirects
+    - Redirects to this content item will be published.
+  - Any published content items that have a matching `base_path` and `locale` and have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will have their state changed to "unpublished" with a type of "substitute".
+  - The live content store will be updated with the content item and any associated redirects.
   - All published content items that link to this item (directly or through a recursive chain of links) will be updated in the live content store.
 
 ## `POST /v2/content/:content_id/unpublish`
@@ -157,14 +157,14 @@ Transitions a content item into an unpublished state. The content item will be u
   - Required for a `type` of "redirect", Optional for a `type` of "gone".
   - If specified, this should be [`base_path`](model.md#base_path).
 - `discard_drafts` *(optional)*
-  - Boolean value, cannot be `true` if `allow_drafts` is also true
-  - Specifies that the published version of this content_item  will be transitioned to "unpublished" and a draft version of it will be removed from the database and draft content store
+  - Boolean value, cannot be `true` if `allow_drafts` is also true.
+  - Specifies that the published version of this content_item  will be transitioned to "unpublished" and a draft version of it will be removed from the database and draft content store.
 - `explanation` *(conditionally required)*
   - Required for a `type` of "withdrawal", Optional for a type of "gone".
   - Message that will be displayed on the page that has been unpublished.
 - [`locale`](model.md#locale) *(optional, default: "en")*
-  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
-  - Specifies which translation of the content item to unpublish
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
+  - Specifies which translation of the content item to unpublish.
 - `previous_version` *(optional, recommended)*
   - Used to ensure that the version being unpublished is the most recent version of the content item.
 - `type` *(required)*
@@ -199,8 +199,8 @@ Deletes a draft version of a content item. Replaces the draft content item on th
 
 ### JSON attributes
 - [`locale`](model.md#locale) *(optional, default: "en")*
-  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
-  - Specifies which translation of the draft content item to delete
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
+  - Specifies which translation of the draft content item to delete.
 - `previous_version` *(optional, recommended)*
   - Used to ensure the version being discarded is the current draft.
 
@@ -217,13 +217,13 @@ Retrieves a paginated list of content items for the provided query string parame
 
 ### Query string parameters
 - [`document_type`](model.md#document_type) *(required)*
-  - The type of content item to return
+  - The type of content item to return.
 - `fields[]` *(optional)*
   - Accepts an array of: "analytics_identifier", "api_url", "base_path", "content_id", "description", "document_type", "locale", "public_updated_at", "schema_name", "title", "web_urls"
   - Determines which fields will be returned in the response, if omitted all fields will be returned.
 - [`locale`](model.md#locale) *(optional, default "en")*
-  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
-  - Used to restrict content items to a given locale
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
+  - Used to restrict content items to a given locale.
 - `order` *(optional, default: "-public_updated_at")*
   - The field to sort the results by.
   - Returned in an ascending order unless prefixed with a hyphen, e.g. "-base_path".
@@ -246,7 +246,7 @@ Retrieves a single content item for a `content_id` and `locale`. By default the 
 
 ### Query string parameters
 - [`locale`](model.md#locale) *(optional, default "en")*
-  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
   - Used to return a specific translation.
 - `version` *(optional)*
   - Specify a particular user facing version of this content item.
@@ -276,7 +276,7 @@ Creates or updates a set of links for the given `content_id`. Link sets can be c
   }
 ```
 - `previous_version` *(optional, recommended)*
-  - Used to ensure that we are updating the current version of the link set
+  - Used to ensure that we are updating the current version of the link set.
 
 ### State changes
 - A link set is created or updated, with the `lock_version` of the link set being incremented.
@@ -315,7 +315,7 @@ Retrieves all content items that link to the given `content_id` for some link_ty
 
 ### Query string parameters
 - `link_type` *(required)*
-  - The type of link between the documents
+  - The type of link between the documents.
 - `fields[]` *(optional)*
   - Accepts an array of: "analytics_identifier", "api_url", "base_path", "content_id", "description", "document_type", "locale", "public_updated_at", "schema_name", "title", "web_urls"
   - Determines which fields will be returned in the response.
@@ -328,7 +328,7 @@ Returns abridged versions of all content items matching the given `document_type
 
 ### Query string parameters:
 - `document_type` *(required)*
-  - the type of content item to return
+  - The type of content item to return.
 
 ## `POST /lookup-by-base-path`
 
@@ -338,11 +338,11 @@ Retrieves published content items for a given collection of base paths. Returns 
 
 ### POST parameters:
 - `base_paths` *(required)*
-  - is a collection of base paths to query by (appears in the POST request body)
+  - A collection of base paths to query by.
 
 ## `GET /debug/:content_id`
 
-Displays debug information for `content_id`
+Displays debug information for `content_id`.
 
 ### Path parameters:
 - [`content_id`](model.md#content_id)
@@ -354,7 +354,7 @@ Displays debug information for `content_id`
   ```
 
 And then open http://localhost:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
-Alternativly this to your hosts file and open
+Alternativly this to your hosts file and open:
 
   ```
   127.0.0.1 publishing-api.integration.publishing.service.gov.uk
