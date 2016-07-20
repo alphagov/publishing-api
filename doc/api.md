@@ -126,11 +126,12 @@ Transitions a content item from a draft state to a published state. The content 
 - The draft content item with the matching `content_id`, `locale` and `previous_version` will have it's state transition to "published"
 - Any previously published content items for this `content_id` and `locale` will have their state transitioned to "superseded"
 - For an `update_type` of "major" the `public_updated_at` field will be updated to the current timestamp
-- If the content item has a path:
+- If the content item has a non blank `base_path`:
   - If the `base_path` of the draft item differs to the published version of this content item:
     - Redirects to this content item will be published
   - Any published content items that have a matching `base_path` and `locale` and have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will have their state changed to "unpublished" with a type of "substitute"
-- The live content store will be updated with the content item
+  - The live content store will be updated with the content item
+  - All published content items that link to this item (directly or through a recursive chain of links) will be updated in the live content store.
 
 ## `POST /v2/content/:content_id/unpublish`
 
