@@ -30,8 +30,8 @@ potential to mutate its internal state
 - **Unpublishing**: An object indicating a previously published content item
 which has been removed from the live site.  Can be "gone", "withdrawal", or "redirect".
 
-For more information, refer to [doc/semantics-of-the-publishing-api.md](doc/semantics-of-the-publishing-api.md)
-and [doc/object-model-explanation.md](doc/object-model-explanation.md).
+For more information, refer to [doc/api.md](doc/api.md) and
+[doc/model.md](doc/model.md).
 
 Generated content items are pushed "downstream" to the content-store, where the frontends
 pull the resulting JSON to render a page. [content-store field documentation](https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md).
