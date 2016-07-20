@@ -27,17 +27,7 @@ question.
 
 If `previous_version` is provided, the Publishing API will confirm that the
 provided value matches that of the content item in the Publishing API. If it
-does not, a [409](#409-conflict) response will be given.
-
-### Status Codes
-
-#### `409` ([Conflict](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10))
-
-See [Optimistic locking](#optimistic-locking).
-
-#### `422` ([Unprocessable Entity](https://tools.ietf.org/html/rfc4918#section-11.2))
-
-Used for validation failures.
+does not, a 409 Conflict response will be given.
 
 ## `PUT /v2/content/:content_id`
 
