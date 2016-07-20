@@ -139,18 +139,6 @@ Transitions a content item from a draft state to a published state. The content 
 
 Transitions a content item into an unpublished state. The content item will be updated or removed from the live content store depending on the unpublishing type.
 
-  - Will refuse to unpublish a lone draft unless `allow_draft` is `true`.
-  - If `allow_draft` is `true`, will refuse to unpublish anything other than a draft.
-  - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true`.
-  - Retrieves the live content item with the matching content_id and locale and changes its state to `unpublished`.
-  - Creates an `Unpublishing` with the provided details.
-  - Will update the `Unpublishing` if the document is already unpublished.
-  - Sends the gone/redirect/withdrawal to the live content store.
-  - If `vanish` then fully deletes the item from the live content store.
-  - Does not send to the draft content store (unless a draft was discarded).
-  - Does not send to the message queue.
-  - Returns 200 along with the content_id of the unpublished item.
-
 ### Path Parameters
 - [`content_id`](model.md#content_id)
   - Identifies the content item to unpublish.
@@ -219,38 +207,44 @@ Deletes a draft version of a content item. Replaces the draft content item on th
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_entries_request_given_a_content_item_exists_in_multiple_locales_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
-  - Retrieves all content items for a given `document_type` and optional `locale`.
-  - Returns only the content item's fields that have been requested with the query.
-  - Restricts the content items returned by the `publishing_app` of the current user.
-  - Can optionally return content items in all locales by specifying a `locale` of 'all'
-  - Can return the `publication_state` of the content item by including it in the `fields[]`
-  - Can search for queries against `base_path` or `title`
-  - Can order ascending or descending by: content_id, document_type, format, public_updated_at, publishing_app, rendering_app, base_path, locale, updated_at
+Retrieves a paginated list of content items for the provided query string parameters. If content items exists in both a published and a draft state, the draft is returned.
 
-### Required request params:
-  - `document_type` the type of content item to return
-  - `fields[]` an array of fields that are validated against `ContentItem` column fields. Any invalid requested field will raise a `400`.
-
-### Optional request params:
-  - `locale` (defaults to 'en') is used to restrict returned content items to a given locale
-  - `q` the search term to match against `base_path` or `title`
-  - `order` the field to sort results by. Ordered ascending unless prefixed with a hyphen, e.g. `-updated_at`. Defaults to `public_updated_at` descending.
+### Query String Parameters
+- [`document_type`](model.md#document_type) (required)
+  - The type of content item to return
+- `fields[]` (optional)
+  - Accepts an array of: "analytics_identifier", "api_url", "base_path", "content_id", "description", "document_type", "locale", "public_updated_at", "schema_name", "title", "web_urls"
+  - Determines which fields will be returned in the response, if omitted all fields will be returned.
+- [`locale`](model.md#locale) (optional, default "en")
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
+  - Used to restrict content items to a given locale
+- `order` (optional, default: "-public_updated_at")
+  - The field to sort the results by.
+  - Returned in an ascending order unless prefixed with a hyphen, e.g. "-base_path".
+- `page` (optional, default: 1)
+  - The page of results requested.
+- `per_page` (optional, default: 50)
+  - The number of results to be shown on a given page.
+- `q` (optional)
+  - Search term to match against [`title`](model.md#title) and [`base_path`](model.md#base_path) fields.
 
 ## `GET /v2/content/:content_id`
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_return_the_content_item_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
- - Retrieves a content item by content_id and optional locale parameter.
- - If the content item exists in both a draft and published state, the draft is returned.
- - Exposes the content lock version in the response.
- - Responds with 404 if no content exists for the given content_id and locale.
+Retrieves a single content item for a content_id and locale. By default the most recent version is returned, which may be a draft.
 
-### Required request params:
- - `content_id` the primary identifier for the requested content.
+### Path Parameters
+- [`content_id`](model.md#content_id)
+  - Identifies the content item to be returned.
 
-### Optional request params:
- - `locale` query parameter for content in a specific locale.
- - `version` query parameter requests a specific user-facing version of a content item.
+### Query String Parameters
+- [`locale`](model.md#locale) (optional, default "en")
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
+  - Used to return a specific translation.
+- [`version`](model.md#user_facing_version) (optional)
+  - Specify a particular user facing version of this content item.
+  - If omitted the most recent version is returned.
 
 ## `PATCH /v2/links/:content_id`
 
