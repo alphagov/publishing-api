@@ -125,7 +125,7 @@ Transitions a content item from a draft state to a published state. The content 
 - [`locale`](model.md#locale) *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
   - Specifies which translation of the content item to publish
-- [`previous_version`](model.md#lock_version) *(optional, recommended)*
+- `previous_version` *(optional, recommended)*
   - Used to ensure that the version being published is the same as the draft created (to avoid publishing a different users later edits)
 
 ### State changes
@@ -165,7 +165,7 @@ Transitions a content item into an unpublished state. The content item will be u
 - [`locale`](model.md#locale) *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
   - Specifies which translation of the content item to unpublish
-- [`previous_version`](model.md#lock_version) *(optional, recommended)*
+- `previous_version` *(optional, recommended)*
   - Used to ensure that the version being unpublished is the most recent version of the content item.
 - `type` *(required)*
   - Accepts: "gone", "redirect", "withdrawal", "vanish"
@@ -201,7 +201,7 @@ Deletes a draft version of a content item. Replaces the draft content item on th
 - [`locale`](model.md#locale) *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
   - Specifies which translation of the draft content item to delete
-- [`previous_version`](model.md#lock_version) *(optional, recommended)*
+- `previous_version` *(optional, recommended)*
   - Used to ensure the version being discarded is the current draft.
 
 ### State changes
@@ -248,7 +248,7 @@ Retrieves a single content item for a `content_id` and `locale`. By default the 
 - [`locale`](model.md#locale) *(optional, default "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
   - Used to return a specific translation.
-- [`version`](model.md#user_facing_version) *(optional)*
+- `version` *(optional)*
   - Specify a particular user facing version of this content item.
   - If omitted the most recent version is returned.
 
