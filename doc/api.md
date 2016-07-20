@@ -137,6 +137,8 @@ Transitions a content item from a draft state to a published state. The content 
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#an_unpublish_request_given_a_published_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
+Transitions a content item into an unpublished state. The content item will be updated or removed from the live content store depending on the unpublishing type.
+
   - Will refuse to unpublish a lone draft unless `allow_draft` is `true`.
   - If `allow_draft` is `true`, will refuse to unpublish anything other than a draft.
   - Will refuse to unpublish a redrafted document unless `discard_drafts` is `true`.
@@ -149,44 +151,47 @@ Transitions a content item from a draft state to a published state. The content 
   - Does not send to the message queue.
   - Returns 200 along with the content_id of the unpublished item.
 
-### Required request params:
-  - `content_id` the primary identifier for the content to publish.
-  - `type` the type of unpublishing to create/perform.
-    - Valid types are:
-      - "withdrawal"
-      - "redirect"
-      - "gone"
-      - "vanish"
+### Path Parameters
+- [`content_id`](model.md#content_id)
+  - Identifies the content item to unpublish.
 
-### Optional request params:
-  - `explanation`
-    - Type specific behaviour:
-      - "gone"
-        - Optional, message to display on page (TODO: Clarify this).
-      - "withdrawal"
-        - Required.
-      - "redirect"
-        - Ignored (TODO: Should this be rejected?).
-  - `alternative_path`
-    - If specified, this should be a [`base_path`](model.md#base_path).
-    - Type specific behaviour:
-      - "gone"
-        - Optional, `base_path` to turn into a URL to display on page for
-          `gone` (TODO: Express this better, and what happens if its not
-          specified)
-      - "redirect"
-        - Required, `base_path` to redirect to
-      - "withdrawal"
-        - Ignored (TODO: Should this be rejected?).
-  - `discard_drafts`
-    - Specify `true` to enable discarding a draft (if present).
-      - Anything other than `true` is considered `false`, including being
-        absent (TODO: Should anything other than `true` be considered
-        invalid?).
-  - `allow_draft`
-    - Specify that the intended item to unpublish is in the draft state, and
-      enable unpublishing it.
-      - (TODO: Be clear about the value to give?).
+### JSON Attributes
+- `allow_draft` (optional)
+  - Boolean value, cannot be `true` if `discard_drafts` is also true.
+  - Specifies that if a draft content item is present it will be transitioned to "unpublished" rather than the published version of this content item, which itself will transition to "superseded".
+- `alternative_path` (conditionally required)
+  - Required for a `type` of "redirect", Optional for a `type` of "gone".
+  - If specified, this should be [`base_path`](model.md#base_path).
+- `discard_drafts` (optional)
+  - Boolean value, cannot be `true` if `allow_drafts` is also true
+  - Specifies that the published version of this content_item  will be transitioned to "unpublished" and a draft version of it will be removed from the database and draft content store
+- `explanation` (conditionally required)
+  - Required for a `type` of "withdrawal", Optional for a type of "gone".
+  - Message that will be displayed on the page that has been unpublished.
+- [`locale`](model.md#locale) (optional, default: "en")
+  - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n)
+  - Specifies which translation of the content item to unpublish
+- [`previous_version`](model.md#lock_version) (optional)
+  - Used to ensure that the version being unpublished is the most recent version of the content item.
+- `type` (required)
+  - Accepts: "gone", "redirect", "withdrawal", "vanish"
+  - The type of unpublishing that is being performed.
+
+### State Changes
+- If the unpublishing `type` is "gone", "redirect" or "withdrawal":
+  - If the content item matching `content_id`, `locale` and `previous_version` has a draft and `allow_draft` is `true`:
+    - The draft content item transitions state to "unpublished".
+    - If a previously published versions of the content_item exists it's state will transition to "superseded".
+  - If the content item matching `content_id`, `locale` and `previous_version` has a draft and `discard_drafts` is `true`:
+    - The draft content item will be deleted from the Publishing API.
+    - The draft content item will be removed from the draft content store.
+    - The published content item transitions state to "unpublished".
+  - If the content item matching `content_id`, `locale` and `previous_version` has no draft:
+    - The published content item transitions state to "unpublished".
+  - The live content store will be updated with the unpublished content item.
+  - All published content items that link to this item (directly or through a recursive chain of links) will be updated in the live content store.
+- If the unpublishing `type` is "vanish":
+  - The content item will be removed from the live content store.
 
 ## `POST /v2/content/:content_id/discard-draft`
 
