@@ -191,9 +191,8 @@ type. Uses [optimistic-locking](#optimistic-locking-previous_version).
 ### JSON attributes
 - `allow_draft` *(optional)*
   - Boolean value, cannot be `true` if `discard_drafts` is also true.
-  - Specifies that if a draft content item is present it will be transitioned to
-  "unpublished" rather than the published version of this content item, which
-  itself will transition to "superseded".
+  - Specifies that only a draft content item will be unpublished. A previously
+  published content item (if one exists) will transition to a "superseded" state.
 - `alternative_path` *(conditionally required)*
   - Required for a `type` of "redirect", Optional for a `type` of "gone".
   - If specified, this should be [`base_path`](model.md#base_path).
@@ -219,7 +218,7 @@ type. Uses [optimistic-locking](#optimistic-locking-previous_version).
   - If the content item matching `content_id`, `locale` and `previous_version`
   has a draft state and `allow_draft` is `true`:
     - The draft content item state is set to "unpublished".
-    - If a previously published versions of the content item exists it's state
+    - If a previously published version of the content item exists it's state
     will be set to "superseded".
   - If the content item matching `content_id`, `locale` and `previous_version`
   has a draft and `discard_drafts` is `true`:
