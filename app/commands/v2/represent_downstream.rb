@@ -43,6 +43,7 @@ module Commands
             PresentedContentStoreWorker::LOW_QUEUE,
             content_store: content_store,
             payload: { content_item_id: content_item_id, payload_version: event.id },
+            enqueue_dependency_check: false,
           )
         end
       end
