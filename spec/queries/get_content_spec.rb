@@ -12,10 +12,15 @@ RSpec.describe Queries::GetContent do
   end
 
   context "when a content item exists for the content_id" do
+    let(:incorrect_version) { 2 }
+    let(:incorrect_locale) { "fr" }
+
     before do
       FactoryGirl.create(:content_item,
         content_id: content_id,
         base_path: "/vat-rates",
+        user_facing_version: 1,
+        locale: "en",
       )
     end
 
@@ -34,6 +39,30 @@ RSpec.describe Queries::GetContent do
         "publishing_app" => "publisher",
         "rendering_app" => "frontend",
       )
+    end
+
+    context "when a content item for the requested version does not exist" do
+      it "raises a command error" do
+        expect {
+          subject.call(content_id, version: incorrect_version)
+        }.to raise_error(CommandError, /version: #{incorrect_version} for content item/)
+      end
+    end
+
+    context "when a content item for the requested locale does not exist" do
+      it "raises a command error" do
+        expect {
+          subject.call(content_id, incorrect_locale)
+        }.to raise_error(CommandError, /locale: #{incorrect_locale} for content item/)
+      end
+    end
+
+    context "when a content item for the requested version and locale does not exist" do
+      it "raises a command error" do
+        expect {
+          subject.call(content_id, incorrect_locale, version: incorrect_version)
+        }.to raise_error(CommandError, /locale: #{incorrect_locale} and version: #{incorrect_version}/)
+      end
     end
   end
 
