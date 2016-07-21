@@ -76,7 +76,7 @@ RSpec.describe Commands::PutContentWithLinks do
 
     content_item = FactoryGirl.create(:content_item)
     link_set = FactoryGirl.create(:link_set, content_id: content_item.content_id)
-    protected_link = FactoryGirl.create(:link, link_set: link_set, link_type: 'alpha_taxons')
+    protected_link = FactoryGirl.create(:link, link_set: link_set, link_type: 'taxons')
     normal_link = FactoryGirl.create(:link, link_set: link_set, link_type: 'topics')
     FactoryGirl.create(:lock_version, target: link_set)
 

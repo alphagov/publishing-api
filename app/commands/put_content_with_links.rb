@@ -61,7 +61,7 @@ module Commands
     end
 
     def protected_link_types
-      ["alpha_taxons"]
+      ["taxons"]
     end
 
     def protected_apps
