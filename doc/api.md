@@ -426,10 +426,11 @@ Displays debug information for `content_id`.
   ```
 
 And then open http://localhost:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
-Alternatively this to your hosts file and open:
 
+Alternatively add the following host to your hosts file:
   ```
   127.0.0.1 publishing-api.integration.publishing.service.gov.uk
   ```
 
- http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
+And then open
+http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
