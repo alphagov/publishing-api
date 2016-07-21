@@ -445,7 +445,7 @@ RSpec.describe Commands::V2::Publish do
     it_behaves_like TransactionalCommand
   end
 
-  context "for a pathless content item" do
+  context "for a pathless content item format" do
     let(:pathless_content_item) do
       FactoryGirl.create(:draft_content_item, schema_name: "contact")
     end
@@ -458,29 +458,43 @@ RSpec.describe Commands::V2::Publish do
       }
     end
 
-    before do
-      location = Location.find_by(content_item: pathless_content_item)
-      location.destroy
-    end
-
-    it "publishes the item" do
-      described_class.call(payload)
-
-      state = State.find_by!(content_item: pathless_content_item)
-      expect(state.name).to eq("published")
-    end
-
-    context "with a previously published item" do
-      let!(:live_content_item) do
-        FactoryGirl.create(:live_content_item,
-                           content_id: pathless_content_item.content_id, schema_name: "contact")
+    context "with no Location" do
+      before do
+        location = Location.find_by(content_item: pathless_content_item)
+        location.destroy
       end
 
-      it "publishes the draft" do
+      it "publishes the item" do
         described_class.call(payload)
 
         state = State.find_by!(content_item: pathless_content_item)
         expect(state.name).to eq("published")
+      end
+
+      it "does not send downstream" do
+        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
+        described_class.call(payload)
+      end
+
+      context "with a previously published item" do
+        let!(:live_content_item) do
+          FactoryGirl.create(:live_content_item,
+                             content_id: pathless_content_item.content_id, schema_name: "contact")
+        end
+
+        it "publishes the draft" do
+          described_class.call(payload)
+
+          state = State.find_by!(content_item: pathless_content_item)
+          expect(state.name).to eq("published")
+        end
+      end
+    end
+
+    context "with a Location" do
+      it "sends downstream" do
+        expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+        described_class.call(payload)
       end
     end
   end

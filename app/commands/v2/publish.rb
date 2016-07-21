@@ -33,7 +33,7 @@ module Commands
 
         State.supersede(previous_item) if previous_item
 
-        unless content_item.pathless?
+        unless pathless?(content_item)
           publish_redirect_if_content_item_has_moved(location, previous_location, translation)
           clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
         end
@@ -107,6 +107,11 @@ module Commands
         content_item.update_attributes!(first_published_at: Time.zone.now)
       end
 
+      def pathless?(content_item)
+        !Location.exists?(content_item: content_item) &&
+          ContentItem::EMPTY_BASE_PATH_FORMATS.include?(content_item.schema_name || content_item.format)
+      end
+
       def publish_redirect_if_content_item_has_moved(new_location, previous_location, translation)
         return unless previous_location
         return if previous_location.base_path == new_location.base_path
@@ -154,7 +159,7 @@ module Commands
 
         PublishingAPI.service(:queue_publisher).send_message(queue_payload)
 
-        return if content_item.pathless?
+        return if pathless?(content_item)
 
         queue = update_type == 'republish' ? PresentedContentStoreWorker::LOW_QUEUE : PresentedContentStoreWorker::HIGH_QUEUE
 

@@ -898,8 +898,8 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       it "doesn't send to the draft content store" do
-        described_class.call(payload)
         expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
+        described_class.call(payload)
       end
 
       context "for an existing draft content item" do
@@ -922,6 +922,17 @@ RSpec.describe Commands::V2::PutContent do
           expect {
             described_class.call(payload)
           }.to change(ContentItem, :count).by(1)
+        end
+      end
+
+      context "for a pathless format with a path" do
+        before do
+          payload[:base_path] = "/vat-rates"
+        end
+
+        it "sends to the content-store" do
+          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+          described_class.call(payload)
         end
       end
     end
