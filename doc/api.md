@@ -37,8 +37,8 @@ does not, a 409 Conflict response will be given.
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_from_the_Whitehall_application_to_create_a_content_item_at_/test-item_given_/test-item_has_been_reserved_by_the_Publisher_application)
 
-Used to create or update a draft content item. It will restrict the creation of
-a draft item if a draft content exists  with the same `base_path` and `locale`.
+Used to create or update a draft content item. It will restrict creation if
+there is already a draft content item with the same `base_path` and `locale`.
 Uses [optimistic-locking](#optimistic-locking-previous_version).
 
 ### Path parameters
@@ -47,8 +47,8 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
 
 ### JSON attributes
 - [`access_limited`](model.md#access_limited) *(optional)*
-  - A JSON object with a key of users and a value of an array of UUIDs. The
-  UUIDs represent user ids.
+  - A JSON object with a key of users and an array value of UUIDs. The UUIDs
+  represent user ids.
   - If provided, only users with a given UUID will be able to view the content
   item on the draft frontend applications. It has no effect on live content.
 - [`analytics_identifier`](model.md#analytics_identifier) *(optional)*
@@ -106,7 +106,7 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
   - An array of route values. (TODO: link directly to example)
 - [`schema_name`](model.md#schema_name) *(conditionally required)*
   - Required if `format` is not provided.
-  - The name of [GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas)
+  - The name of the [GOV.UK content schema](https://github.com/alphagov/govuk-content-schemas)
   that `details` will be validated against.
 - [`title`](model.md#title) *(conditionally required)*
   - Required for a `document_type` (or `format`) that is not "redirect" or "gone".
@@ -124,11 +124,11 @@ be deleted.
   - The existing draft content item will be updated and the lock version will be
   incremented.
   - If the `base_path` has changed since the last update, a draft redirect
-  content_item will be created.
+  content item will be created.
 - If a content item matching `content_id` and `locale` does not exist in a
 "draft" state:
   - A new content item will be created.
-  - If the `base_path` is different to that of the published content_item (if
+  - If the `base_path` is different to that of the published content item (if
   this exists) a draft redirect content item will be created.
 - The draft content store will be updated with the content item and any
 associated redirects.
@@ -138,7 +138,7 @@ associated redirects.
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_publish_request_for_version_3_given_the_content_item_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3)
 
 Transitions a content item from a draft state to a published state. The content
-item will be sent to the live content store.
+item will be sent to the live content store. Uses [optimistic-locking](#optimistic-locking-previous_version).
 
 ### Path parameters
 - [`content_id`](model.md#content_id)
@@ -147,14 +147,14 @@ item will be sent to the live content store.
 ### JSON attributes
 - [`update_type`](model.md#update_type) *(conditionally required)*
   - Accepts: "major", "minor", "republish"
-  - Will fallback to the `update_type` set during drafting, will return a 422
-  if not provided with either.
+  - Will fallback to the `update_type` set when the draft was created. A 422
+  will be returned if this was not set and this is omitted.
 - [`locale`](model.md#locale) *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
   - Specifies which translation of the content item to publish.
 - `previous_version` *(optional, recommended)*
-  - Used to ensure that the version being published is the same as the draft
-  created (to avoid publishing a different users later edits).
+  - Used to ensure that the version being published is the most recent draft
+  created.
 
 ### State changes
 - The draft content item with the matching `content_id`, `locale` and
@@ -162,8 +162,8 @@ item will be sent to the live content store.
 - Any previously published content items for this `content_id` and `locale` will
 have their state set to "superseded".
 - For an `update_type` of "major" the `public_updated_at` field will be updated
-to the current timestamp.
-- If the content item has a non blank `base_path`:
+to the current time.
+- If the content item has a non-blank `base_path`:
   - If the `base_path` of the draft item differs to the published version of
   this content item:
     - Redirects to this content item will be published.
@@ -182,7 +182,7 @@ to the current timestamp.
 
 Transitions a content item into an unpublished state. The content item will be
 updated or removed from the live content store depending on the unpublishing
-type.
+type. Uses [optimistic-locking](#optimistic-locking-previous_version).
 
 ### Path parameters
 - [`content_id`](model.md#content_id)
@@ -199,9 +199,8 @@ type.
   - If specified, this should be [`base_path`](model.md#base_path).
 - `discard_drafts` *(optional)*
   - Boolean value, cannot be `true` if `allow_drafts` is also true.
-  - Specifies that the published version of this content_item  will be
-  transitioned to "unpublished" and a draft version of it will be removed from
-  the database and draft content store.
+  - Specifies that the published version of this content item  will be
+  transitioned to "unpublished" and a draft version will be removed.
 - `explanation` *(conditionally required)*
   - Required for a `type` of "withdrawal", Optional for a type of "gone".
   - Message that will be displayed on the page that has been unpublished.
@@ -218,9 +217,9 @@ type.
 ### State changes
 - If the unpublishing `type` is "gone", "redirect" or "withdrawal":
   - If the content item matching `content_id`, `locale` and `previous_version`
-  has a draft and `allow_draft` is `true`:
+  has a draft state and `allow_draft` is `true`:
     - The draft content item state is set to "unpublished".
-    - If a previously published versions of the content_item exists it's state
+    - If a previously published versions of the content item exists it's state
     will be set to "superseded".
   - If the content item matching `content_id`, `locale` and `previous_version`
   has a draft and `discard_drafts` is `true`:
@@ -241,11 +240,12 @@ type.
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_discard_draft_content_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
 Deletes a draft version of a content item. Replaces the draft content item on
-the draft content store with the published item, if one exists.
+the draft content store with the published item, if one exists. Uses
+[optimistic-locking](#optimistic-locking-previous_version).
 
 ### Path parameters
 - [`content_id`](model.md#content_id)
-  - Identifies the content item whose draft will be deleted.
+  - Identifies the content item with a draft state.
 
 ### JSON attributes
 - [`locale`](model.md#locale) *(optional, default: "en")*
@@ -317,7 +317,7 @@ most recent version is returned, which may be a draft.
 Creates or updates a set of links for the given `content_id`. Link sets can be
 created before or after the [PUT request](#put_v2contentcontent-id) for the
 content item. These are tied to a content item solely by matching `content_id`
-and they are not associated with a `locale`.
+and they are not associated with a content items locale or version.
 
 ### Path parameters
 - [`content_id`](model.md#content_id)
@@ -343,8 +343,8 @@ and they are not associated with a `locale`.
 ### State changes
 - A link set is created or updated, with the `lock_version` of the link set
 being incremented.
-- The draft content store is updated, if there is a draft of the content item.
-- The live content store is updated, if there is a published version of the
+- The draft content store is updated if there is a draft of the content item.
+- The live content store is updated if there is a published version of the
 content item.
 
 ## `GET /v2/links/:content_id`
@@ -352,12 +352,11 @@ content item.
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get-links_request_given_empty_links_exist_for_content_id_bed722e6-db68-43e5-9079-063f623335a7)
 
 Retrieves the link set for the given `content_id`. Returns arrays of
-`content_id`s of content items that are linked to in groupings of the
-`link_type`.
+`content_id`s representing content items. These are grouped by `link_type`.
 
 ### Path parameters
 - [`content_id`](model.md#content_id)
-  - Identifies the content item whose links to retrieve.
+  - Identifies the content item links will be retrieved for.
 
 ## `GET /v2/expanded-links/:content_id`
 
@@ -368,7 +367,7 @@ details for each linked content item in groupings of `link_type`.
 
 ### Path parameters
 - [`content_id`](model.md#content_id)
-  - Identifies the content item whose links to retrieve.
+  - Identifies the content item links will be retrieved for.
 
 ## `GET /v2/linked/:content_id`
 
@@ -384,7 +383,7 @@ Retrieves all content items that link to the given `content_id` for some
 ### Query string parameters
 - `link_type` *(required)*
   - The type of link between the documents.
-- `fields[]` *(optional)*
+- `fields[]` *(required)*
   - Accepts an array of: "analytics_identifier", "api_url", "base_path",
   "content_id", "description", "document_type", "locale", "public_updated_at",
   "schema_name", "title", "web_urls"
@@ -410,8 +409,8 @@ Retrieves published content items for a given collection of base paths. Returns
 a mapping of `base_path` to `content_id`.
 
 ### POST parameters:
-- `base_paths` *(required)*
-  - A collection of base paths to query by.
+- `base_paths[]` *(required)*
+  - An array of [`base_path`](model.md#base_path)s to query by.
 
 ## `GET /debug/:content_id`
 
@@ -427,7 +426,7 @@ Displays debug information for `content_id`.
   ```
 
 And then open http://localhost:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
-Alternativly this to your hosts file and open:
+Alternatively this to your hosts file and open:
 
   ```
   127.0.0.1 publishing-api.integration.publishing.service.gov.uk
