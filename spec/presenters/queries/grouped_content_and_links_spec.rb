@@ -89,5 +89,41 @@ RSpec.describe Presenters::Queries::GroupedContentAndLinks do
         )
       end
     end
+
+    context "presenting a content item without a location" do
+      let(:content_id) { SecureRandom.uuid }
+      let(:topic_content_id) { SecureRandom.uuid }
+
+      before do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_id,
+          base_path: nil
+        )
+
+        FactoryGirl.create(
+          :link_set,
+          content_id: content_id,
+          links_hash: {
+            "topics" => [topic_content_id]
+          }
+        )
+      end
+
+      it "set the base path attribute to nil" do
+        results = ::Queries::GetGroupedContentAndLinks.new.call
+        presenter = Presenters::Queries::GroupedContentAndLinks.new(results)
+
+        presented = presenter.present["results"]
+
+        all_items = presented.flat_map { |group| group["content_items"] }
+        expect(all_items.size).to eq(1)
+
+        content_item = all_items.first
+
+        expect(content_item.fetch("base_path")).to be_nil
+        expect(content_item.fetch("state")).to eq("draft")
+      end
+    end
   end
 end

@@ -89,7 +89,7 @@ module Queries
         FROM content_items
         JOIN translations
           ON translations.content_item_id = content_items.id
-        JOIN locations
+        LEFT JOIN locations
           ON locations.content_item_id = content_items.id
         JOIN states
           ON states.content_item_id = content_items.id
@@ -117,6 +117,8 @@ module Queries
           ON link_sets.id = links.link_set_id
         WHERE
           link_sets.content_id IN (#{sql_value_placeholders(content_ids.size)})
+        ORDER BY
+          links.target_content_id ASC
       SQL
 
       ActiveRecord::Base.connection.raw_connection.exec(query, content_ids)
