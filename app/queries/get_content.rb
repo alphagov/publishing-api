@@ -1,10 +1,10 @@
 module Queries
   module GetContent
     def self.call(content_id, locale = nil, version: nil)
-      locale ||= ContentItem::DEFAULT_LOCALE
+      locale_to_use = locale || ContentItem::DEFAULT_LOCALE
 
       content_items = ContentItem.where(content_id: content_id)
-      content_items = Translation.filter(content_items, locale: locale)
+      content_items = Translation.filter(content_items, locale: locale_to_use)
       content_items = UserFacingVersion.filter(content_items, number: version) if version
 
       response = Presenters::Queries::ContentItemPresenter.present_many(content_items).first
@@ -12,21 +12,34 @@ module Queries
       if response.present?
         response
       else
-        raise_not_found(content_id)
+        message = not_found_message(content_id, locale, version)
+        raise_not_found(message)
       end
     end
 
   private
 
-    def self.raise_not_found(content_id)
+    def self.raise_not_found(message)
       error_details = {
         error: {
           code: 404,
-          message: "Could not find content item with content_id: #{content_id}"
+          message: message
         }
       }
 
       raise CommandError.new(code: 404, error_details: error_details)
+    end
+
+    def self.not_found_message(content_id, locale, version)
+      if (locale || version) && ContentItem.exists?(content_id: content_id)
+        locale_message = locale ? "locale: #{locale}" : nil
+        version_message = version ? "version: #{version}" : nil
+        reason = [locale_message, version_message].compact.join(" and ")
+
+        "Could not find #{reason} for content item with content_id: #{content_id}"
+      else
+        "Could not find content item with content_id: #{content_id}"
+      end
     end
   end
 end
