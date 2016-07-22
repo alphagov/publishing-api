@@ -47,28 +47,32 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
 
 ### JSON attributes
 - [`access_limited`](model.md#access_limited) *(optional)*
-  - A JSON object with a key of users and an array value of UUIDs. The UUIDs
-    represent user ids.
-  - If provided, only users with a given UUID will be able to view the content
-    item on the draft frontend applications. It has no effect on live content.
+  - A JSON object with a key of "users" the value of which is a array of UUIDs
+    identifying users.
+  - If provided, only the specified users will be able to view the content item
+    on the draft frontend applications. It has no effect on live content.
 - [`analytics_identifier`](model.md#analytics_identifier) *(optional)*
   - An identifier to track the content item in analytics software.
 - [`base_path`](model.md#base_path) *(conditionally required)*
   - Required if `schema_name` (or `format`) is not one of "contact" or
     "government".
-  - The path that this item will use on [gov.uk](https://www.gov.uk).
+  - The path that this item will use on [GOV.UK](https://www.gov.uk).
 - `description` *(optional)*
   - A description of the content that can be displayed publicly.
-  - TODO: verify if this is a string or a JSON object. Validations appear to
-  differ with database.
+  - TODO: verify what this is meant for and does, and if this is a string or a
+    JSON object. Validations appear to differ with database.
 - [`details`](model.md#details) *(conditionally required, default: {})*
-  - JSON object representing the attributes of this content item, to the format
-    specified by `schema_name`.
+  - JSON object representing data specific to the `document_type`.
+  - Validation for this can occur through the schema referenced in
+    `schema_name`.
   - TODO: verify the validation on this field.
 - [`document_type`](model.md#document_type) *(conditionally required)*
+  - TODO: Add description.
   - Required if `format` is not provided.
 - [`format`](model.md#format) **Deprecated** *(conditionally required)*
   - Superseded by the `document_type` and `schema_name` fields.
+  - This is required if either `document_type` or `schema_name` is not
+    specified.
 - `last_edited_at` *(optional)*
   - An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) formatted timestamp
     should be provided, although [other formats](http://apidock.com/rails/String/to_time)
@@ -79,18 +83,19 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
   - TODO: What should happen if the update_type is changed in a later request?
 - [`locale`](model.md#locale) *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
-  - Specifies which translation of the content item this draft is.
+  - Specifies the locale of the content item.
 - [`need_ids`](model.md#need_ids) *(optional)*
   - An array of user need ids from the [Maslow application](https://github.com/alphagov/maslow).
 - [`phase`](model.md#phase) *(optional, default: "live")*
   - Accepts: "alpha", "beta", "live"
+  - TODO: What is this for?
 - [`previous_version`](model.md#previous_version) *(optional, recommended)*
   - Used to ensure that the most recent version of the draft is being updated.
 - [`public_updated_at`](model.md#public_updated_at) *(conditionally required)*
   - Required if `document_type` (or `format`) is not "contact" or "government".
   - An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) formatted timestamp
-    should be provided, although [other
-    formats](http://apidock.com/rails/String/to_time) may be accepted.
+    should be provided, although [other formats](http://apidock.com/rails/String/to_time)
+    may be accepted.
   - The publicly shown date that this content item was last edited at.
   - TODO: Check whether this validation is enforced in the API.
 - [`publishing_app`](model.md#publishing_app) *(required)*
@@ -107,7 +112,7 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
 - [`schema_name`](model.md#schema_name) *(conditionally required)*
   - Required if `format` is not provided.
   - The name of the [GOV.UK content schema](https://github.com/alphagov/govuk-content-schemas)
-    that `details` will be validated against.
+    that the request body will be validated against.
 - [`title`](model.md#title) *(conditionally required)*
   - Required for a `document_type` (or `format`) that is not "redirect" or "gone".
 - [`update_type`](model.md#update_type) *(optional)*
@@ -147,11 +152,11 @@ item will be sent to the live content store. Uses [optimistic-locking](#optimist
 ### JSON attributes
 - [`update_type`](model.md#update_type) *(conditionally required)*
   - Accepts: "major", "minor", "republish"
-  - Will fallback to the `update_type` set when the draft was created. A 422
-  will be returned if this was not set and this is omitted.
+  - Will fallback to the `update_type` set when the draft was created if not
+    specified in the request.
 - [`locale`](model.md#locale) *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
-  - Specifies which translation of the content item to publish.
+  - Specifies the locale of the content item to be published.
 - `previous_version` *(optional, recommended)*
   - Used to ensure that the version being published is the most recent draft
     created.
@@ -190,23 +195,20 @@ type. Uses [optimistic-locking](#optimistic-locking-previous_version).
 
 ### JSON attributes
 - `allow_draft` *(optional)*
-  - Boolean value, cannot be `true` if `discard_drafts` is also true.
-  - Specifies that only a draft content item will be unpublished. A previously
-    published content item (if one exists) will transition to a "superseded"
-    state.
+  - Boolean value, cannot be `true` if `discard_drafts` is also `true`.
+  - Specifies that only a draft content item will be unpublished.
 - `alternative_path` *(conditionally required)*
   - Required for a `type` of "redirect", Optional for a `type` of "gone".
   - If specified, this should be [`base_path`](model.md#base_path).
 - `discard_drafts` *(optional)*
-  - Boolean value, cannot be `true` if `allow_drafts` is also true.
-  - Specifies that the published version of this content item  will be
-    transitioned to "unpublished" and a draft version will be removed.
+  - Boolean value, cannot be `true` if `allow_drafts` is also `true`.
+  - Specifies that if a draft exists, it will be discarded.
 - `explanation` *(conditionally required)*
   - Required for a `type` of "withdrawal", Optional for a type of "gone".
-  - Message that will be displayed on the page that has been unpublished.
+  - Message that will be displayed publicly on the page that has been unpublished.
 - [`locale`](model.md#locale) *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
-  - Specifies which translation of the content item to unpublish.
+  - Specifies the locale of the content item to unpublish.
 - `previous_version` *(optional, recommended)*
   - Used to ensure that the version being unpublished is the most recent
     version of the content item.
@@ -250,7 +252,7 @@ the draft content store with the published item, if one exists. Uses
 ### JSON attributes
 - [`locale`](model.md#locale) *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
-  - Specifies which translation of the draft content item to delete.
+  - Specifies which locale of the draft content item to delete.
 - `previous_version` *(optional, recommended)*
   - Used to ensure the version being discarded is the current draft.
 
@@ -305,7 +307,7 @@ most recent version is returned, which may be a draft.
 ### Query string parameters
 - [`locale`](model.md#locale) *(optional, default "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
-  - Used to return a specific translation.
+  - Used to return a specific locale.
 - `version` *(optional)*
   - Specify a particular user facing version of this content item.
   - If omitted the most recent version is returned.
