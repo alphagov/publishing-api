@@ -48,14 +48,14 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
 ### JSON attributes
 - [`access_limited`](model.md#access_limited) *(optional)*
   - A JSON object with a key of users and an array value of UUIDs. The UUIDs
-  represent user ids.
+    represent user ids.
   - If provided, only users with a given UUID will be able to view the content
-  item on the draft frontend applications. It has no effect on live content.
+    item on the draft frontend applications. It has no effect on live content.
 - [`analytics_identifier`](model.md#analytics_identifier) *(optional)*
   - An identifier to track the content item in analytics software.
 - [`base_path`](model.md#base_path) *(conditionally required)*
   - Required if `schema_name` (or `format`) is not one of "contact" or
-  "government".
+    "government".
   - The path that this item will use on [gov.uk](https://www.gov.uk).
 - `description` *(optional)*
   - A description of the content that can be displayed publicly.
@@ -63,7 +63,7 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
   differ with database.
 - [`details`](model.md#details) *(conditionally required, default: {})*
   - JSON object representing the attributes of this content item, to the format
-  specified by `schema_name`.
+    specified by `schema_name`.
   - TODO: verify the validation on this field.
 - [`document_type`](model.md#document_type) *(conditionally required)*
   - Required if `format` is not provided.
@@ -71,11 +71,11 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
   - Superseded by the `document_type` and `schema_name` fields.
 - `last_edited_at` *(optional)*
   - An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) formatted timestamp
-  should be provided, although [other formats](http://apidock.com/rails/String/to_time)
-  may be accepted.
+    should be provided, although [other formats](http://apidock.com/rails/String/to_time)
+    may be accepted.
   - Specifies when this content item was last edited.
   - If omitted and `update_type` is "major" or "minor" `last_edited_at` will be
-  set to the current time.
+    set to the current time.
   - TODO: What should happen if the update_type is changed in a later request?
 - [`locale`](model.md#locale) *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
@@ -89,8 +89,8 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
 - [`public_updated_at`](model.md#public_updated_at) *(conditionally required)*
   - Required if `document_type` (or `format`) is not "contact" or "government".
   - An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) formatted timestamp
-  should be provided, although [other formats](http://apidock.com/rails/String/to_time)
-  may be accepted.
+    should be provided, although [other
+    formats](http://apidock.com/rails/String/to_time) may be accepted.
   - The publicly shown date that this content item was last edited at.
   - TODO: Check whether this validation is enforced in the API.
 - [`publishing_app`](model.md#publishing_app) *(required)*
@@ -107,7 +107,7 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
 - [`schema_name`](model.md#schema_name) *(conditionally required)*
   - Required if `format` is not provided.
   - The name of the [GOV.UK content schema](https://github.com/alphagov/govuk-content-schemas)
-  that `details` will be validated against.
+    that `details` will be validated against.
 - [`title`](model.md#title) *(conditionally required)*
   - Required for a `document_type` (or `format`) that is not "redirect" or "gone".
 - [`update_type`](model.md#update_type) *(optional)*
@@ -117,21 +117,21 @@ Uses [optimistic-locking](#optimistic-locking-previous_version).
 ### State changes
 - If a `base_path` is provided it is reserved for use of the given `publishing_app`.
 - Any draft content items that have a matching `base_path` and `locale` and
-have a document_type of "coming soon", "gone", "redirect" or "unpublishing" will
-be deleted.
+  have a document_type of "coming soon", "gone", "redirect" or "unpublishing"
+  will be deleted.
 - If a content item matching `content_id` and `locale` already exists in a
-"draft" state:
-  - The existing draft content item will be updated and the lock version will be
-  incremented.
+  "draft" state:
+  - The existing draft content item will be updated and the lock version will
+    be incremented.
   - If the `base_path` has changed since the last update, a draft redirect
-  content item will be created.
+    content item will be created.
 - If a content item matching `content_id` and `locale` does not exist in a
-"draft" state:
+  "draft" state:
   - A new content item will be created.
   - If the `base_path` is different to that of the published content item (if
-  this exists) a draft redirect content item will be created.
+    this exists) a draft redirect content item will be created.
 - The draft content store will be updated with the content item and any
-associated redirects.
+  associated redirects.
 
 ## `POST /v2/content/:content_id/publish`
 
@@ -154,27 +154,27 @@ item will be sent to the live content store. Uses [optimistic-locking](#optimist
   - Specifies which translation of the content item to publish.
 - `previous_version` *(optional, recommended)*
   - Used to ensure that the version being published is the most recent draft
-  created.
+    created.
 
 ### State changes
 - The draft content item with the matching `content_id`, `locale` and
-`previous_version` will have its state set to "published".
-- Any previously published content items for this `content_id` and `locale` will
-have their state set to "superseded".
+  `previous_version` will have its state set to "published".
+- Any previously published content items for this `content_id` and `locale`
+  will have their state set to "superseded".
 - For an `update_type` of "major" the `public_updated_at` field will be updated
-to the current time.
+  to the current time.
 - If the content item has a non-blank `base_path`:
   - If the `base_path` of the draft item differs to the published version of
-  this content item:
+    this content item:
     - Redirects to this content item will be published.
   - Any published content items that have a matching `base_path` and `locale`
-  and have a document_type of "coming soon", "gone", "redirect" or
-  "unpublishing" will have their state changed to "unpublished" with a type of
-  "substitute".
+    and have a document_type of "coming soon", "gone", "redirect" or
+    "unpublishing" will have their state changed to "unpublished" with a type
+    of "substitute".
   - The live content store will be updated with the content item and any
-  associated redirects.
+    associated redirects.
   - All published content items that link to this item (directly or through a
-  recursive chain of links) will be updated in the live content store.
+    recursive chain of links) will be updated in the live content store.
 
 ## `POST /v2/content/:content_id/unpublish`
 
@@ -192,14 +192,15 @@ type. Uses [optimistic-locking](#optimistic-locking-previous_version).
 - `allow_draft` *(optional)*
   - Boolean value, cannot be `true` if `discard_drafts` is also true.
   - Specifies that only a draft content item will be unpublished. A previously
-  published content item (if one exists) will transition to a "superseded" state.
+    published content item (if one exists) will transition to a "superseded"
+    state.
 - `alternative_path` *(conditionally required)*
   - Required for a `type` of "redirect", Optional for a `type` of "gone".
   - If specified, this should be [`base_path`](model.md#base_path).
 - `discard_drafts` *(optional)*
   - Boolean value, cannot be `true` if `allow_drafts` is also true.
   - Specifies that the published version of this content item  will be
-  transitioned to "unpublished" and a draft version will be removed.
+    transitioned to "unpublished" and a draft version will be removed.
 - `explanation` *(conditionally required)*
   - Required for a `type` of "withdrawal", Optional for a type of "gone".
   - Message that will be displayed on the page that has been unpublished.
@@ -208,7 +209,7 @@ type. Uses [optimistic-locking](#optimistic-locking-previous_version).
   - Specifies which translation of the content item to unpublish.
 - `previous_version` *(optional, recommended)*
   - Used to ensure that the version being unpublished is the most recent
-  version of the content item.
+    version of the content item.
 - `type` *(required)*
   - Accepts: "gone", "redirect", "withdrawal", "vanish"
   - The type of unpublishing that is being performed.
@@ -216,21 +217,21 @@ type. Uses [optimistic-locking](#optimistic-locking-previous_version).
 ### State changes
 - If the unpublishing `type` is "gone", "redirect" or "withdrawal":
   - If the content item matching `content_id`, `locale` and `previous_version`
-  has a draft state and `allow_draft` is `true`:
+    has a draft state and `allow_draft` is `true`:
     - The draft content item state is set to "unpublished".
     - If a previously published version of the content item exists it's state
-    will be set to "superseded".
+      will be set to "superseded".
   - If the content item matching `content_id`, `locale` and `previous_version`
-  has a draft and `discard_drafts` is `true`:
+    has a draft and `discard_drafts` is `true`:
     - The draft content item will be deleted from the Publishing API.
     - The draft content item will be removed from the draft content store.
     - The published content item state is set to "unpublished".
   - If the content item matching `content_id`, `locale` and `previous_version`
-  has no draft:
+    has no draft:
     - The published content item state is set to "unpublished".
   - The live content store will be updated with the unpublished content item.
   - All published content items that link to this item (directly or through a
-  recursive chain of links) will be updated in the live content store.
+    recursive chain of links) will be updated in the live content store.
 - If the unpublishing `type` is "vanish":
   - The content item will be removed from the live content store.
 
@@ -271,24 +272,24 @@ draft is returned.
   - The type of content item to return.
 - `fields[]` *(optional)*
   - Accepts an array of: "analytics_identifier", "api_url", "base_path",
-  "content_id", "description", "document_type", "locale", "public_updated_at",
-  "schema_name", "title", "web_urls"
+    "content_id", "description", "document_type", "locale",
+    "public_updated_at", "schema_name", "title", "web_urls"
   - Determines which fields will be returned in the response, if omitted all
-  fields will be returned.
+    fields will be returned.
 - [`locale`](model.md#locale) *(optional, default "en")*
   - Accepts: An available locale from the [Rails I18n gem](https://github.com/svenfuchs/rails-i18n).
   - Used to restrict content items to a given locale.
 - `order` *(optional, default: "-public_updated_at")*
   - The field to sort the results by.
   - Returned in an ascending order unless prefixed with a hyphen, e.g.
-  "-base_path".
+    "-base_path".
 - `page` *(optional, default: 1)*
   - The page of results requested.
 - `per_page` *(optional, default: 50)*
   - The number of results to be shown on a given page.
 - `q` *(optional)*
   - Search term to match against [`title`](model.md#title) and
-  [`base_path`](model.md#base_path) fields.
+    [`base_path`](model.md#base_path) fields.
 
 ## `GET /v2/content/:content_id`
 
@@ -325,7 +326,7 @@ and they are not associated with a content items locale or version.
 ### JSON attributes
 - `links` *(required)*
   - A JSON object containing arrays of [`content_id`](model.md#content_id)s for
-  each `link_type`.
+    each `link_type`.
   - An empty array for a `link_type` will delete that `link_type`.
 
 ```javascript
@@ -341,10 +342,10 @@ and they are not associated with a content items locale or version.
 
 ### State changes
 - A link set is created or updated, with the `lock_version` of the link set
-being incremented.
+  being incremented.
 - The draft content store is updated if there is a draft of the content item.
 - The live content store is updated if there is a published version of the
-content item.
+  content item.
 
 ## `GET /v2/links/:content_id`
 
@@ -384,8 +385,8 @@ Retrieves all content items that link to the given `content_id` for some
   - The type of link between the documents.
 - `fields[]` *(required)*
   - Accepts an array of: "analytics_identifier", "api_url", "base_path",
-  "content_id", "description", "document_type", "locale", "public_updated_at",
-  "schema_name", "title", "web_urls"
+    "content_id", "description", "document_type", "locale",
+    "public_updated_at", "schema_name", "title", "web_urls"
   - Determines which fields will be returned in the response.
 
 ## `GET /v2/linkables`
