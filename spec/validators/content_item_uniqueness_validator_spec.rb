@@ -87,6 +87,44 @@ RSpec.describe ContentItemUniquenessValidator do
     end
   end
 
+  context "for a content item that doesn't require base_path" do
+    before do
+      @existing_item = FactoryGirl.create(
+        :content_item,
+        base_path: nil,
+        document_type: "contact",
+        user_facing_version: 1,
+      )
+      @content_item = FactoryGirl.create(
+        :content_item,
+        base_path: nil,
+        document_type: "contact",
+        user_facing_version: 2
+      )
+    end
+
+    it "doesn't have a Location object" do
+      expect(Location.find_by(content_item: @content_item)).to be_nil
+    end
+
+    it "can have valid supporting objects" do
+      assert_valid(State.find_by!(content_item: @content_item))
+      assert_valid(Translation.find_by!(content_item: @content_item))
+      assert_valid(UserFacingVersion.find_by!(content_item: @content_item))
+    end
+
+    it "can have invalid supporting objects" do
+      user_facing_version = FactoryGirl.build(:user_facing_version,
+        content_item: @content_item,
+        number: 1,
+      )
+
+      expected_error = "conflicts with a duplicate: state=draft, locale=en, base_path=, user_version=1, "\
+                       "content_id=#{@existing_item.content_id}"
+      assert_invalid(user_facing_version, [expected_error])
+    end
+  end
+
   context "when a duplicate content item exists in a superseded state" do
     let!(:content_item) do
       FactoryGirl.create(:content_item,
