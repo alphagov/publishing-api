@@ -25,10 +25,10 @@ for other apps (eg email-alert-service) to consume.
 
 ### Optimistic locking (`previous_version`)
 
-All PUT and POST endpoints take an optional integer field `previous_version` in
-the request. This allows the Publishing API to check that the publishing app
-sending the request intends to update the latest lock version of the model in
-question.
+All PUT and POST endpoints take an optional JSON attribute `previous_version`
+in the request. If given, the coresponding value should be a integer. This
+allows the Publishing API to check that the publishing app sending the request
+intends to update the latest lock version of the model in question.
 
 If `previous_version` is provided, the Publishing API will confirm that the
 provided value matches that of the content item in the Publishing API. If it
