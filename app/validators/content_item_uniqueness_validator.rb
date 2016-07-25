@@ -1,5 +1,7 @@
 class ContentItemUniquenessValidator < ActiveModel::Validator
   def validate(record)
+    return unless record.content_item
+
     content_item = record.content_item
     unique_fields = Queries::ContentItemUniqueness.unique_fields_for_content_item(content_item)
 
