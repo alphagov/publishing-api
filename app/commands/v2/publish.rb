@@ -29,12 +29,16 @@ module Commands
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
         previous_item = lookup_previous_item(content_item)
-        previous_location = Location.find_by(content_item: previous_item)
 
         State.supersede(previous_item) if previous_item
 
         unless pathless?(content_item)
-          publish_redirect_if_content_item_has_moved(location, previous_location, translation)
+          if previous_item
+            previous_location = Location.find_by(content_item: previous_item)
+
+            publish_redirect_if_content_item_has_moved(location, previous_location, translation)
+          end
+
           clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
         end
 
