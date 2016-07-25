@@ -73,7 +73,7 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
       error << "locale=#{locale}, "
       error << "base_path=#{base_path}, "
       error << "user_version=#{user_version}, "
-      error << "content_id=#{non_unique["content_id"]}"
+      error << "content_id=#{non_unique['content_id']}"
 
       record.errors.add(:content_item, error)
     end
@@ -122,12 +122,12 @@ private
         user_facing_versions_table[:number].as("user_version")
       )
       .outer_join(states_table)
-        .on(content_items_table[:id].eq(states_table[:content_item_id]))
+      .on(content_items_table[:id].eq(states_table[:content_item_id]))
       .outer_join(translations_table)
-        .on(content_items_table[:id].eq(translations_table[:content_item_id]))
+      .on(content_items_table[:id].eq(translations_table[:content_item_id]))
       .outer_join(locations_table)
-        .on(content_items_table[:id].eq(locations_table[:content_item_id]))
+      .on(content_items_table[:id].eq(locations_table[:content_item_id]))
       .outer_join(user_facing_versions_table)
-        .on(content_items_table[:id].eq(user_facing_versions_table[:content_item_id]))
+      .on(content_items_table[:id].eq(user_facing_versions_table[:content_item_id]))
   end
 end
