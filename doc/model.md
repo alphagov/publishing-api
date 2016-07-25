@@ -51,29 +51,6 @@ Note: Previously, the `base_path` was a content item's main identifier. This is
 no longer the case. It has been changed to `content_id` because base paths had
 a tendency to change.
 
-### `format`
-
-Examples: *manual, policy, redirect*
-
-Required: Yes
-
-The `format` specifies the data format of the content item as per the
-[GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
-It is used downstream to render the content item according a specific layout for
-that `format`.
-
-If the `format` is one of either *redirect* or *gone*, the content item is
-considered non-renderable and this waives the requirement for some of the other
-fields in the content item to be present, namely `title`, `rendering_app` and
-`public_updated_at`.
-
-At present, not all content goes through the publishing pipeline, but there is
-still a need to link to content items on our legacy infrastructure. There are
-some special formats that can be used in these cases. The `format` should be
-prefixed with *placeholder_* or set to *placeholder*. See
-[here](https://github.com/alphagov/content-store/blob/master/doc/placeholder_item.md)
-for more information.
-
 ### `publishing_app`
 
 Example: *collections-publisher*
@@ -94,19 +71,56 @@ the convention used in the Router API.
 
 ### `details`
 
-Example: *{ body: "Something about VAT” }*
+Example: *{ body: "Something about VAT" }*
 
 Required: Conditionally
 
 The `details` (sometimes referred to as “details hash”) contains content and
-other attributes that are specific to the `format` of the content item. The
+other attributes that are specific to the `schema_name` of the content item. The
 [GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas)
 determine which fields appear in the details and which are required. The details
 can contain arbitrary JSON that will be stored against the content item.
 
-Not all `formats` have required fields and so details is not required unless the
-`format` demands it. If it is not set, it will default to an empty JSON object
+Not all schemas have required fields and so details is not required unless the
+schema demands it. If it is not set, it will default to an empty JSON object
 as specified in the GOV.UK content schemas.
+
+## document_type
+
+Examples: *manual, policy, redirect*
+
+Required: Conditionally
+
+The `document_type` specifies the type of content item that will be rendered.
+It is used downstream to render the content item according to a specific layout
+for that `document_type` and to filter a list of objects in publishing apps.
+
+There is not a formal list of acceptable values for `document_type`. It
+should be in the form of a-z string with underscore separators.
+
+This field, together with `schema_name`, replaces the `format` field. It is
+required in the absence of a `format` field.
+
+If the `document_type` is one of either *redirect* or *gone*, the content item is
+considered non-renderable and this waives the requirement for some of the other
+fields in the content item to be present, namely `title`, `rendering_app` and
+`public_updated_at`.
+
+### format
+
+**Deprecated**
+
+Examples: *manual, policy, redirect*
+
+Required: Conditionally
+
+The `format` specifies the data format of the content item as per the
+[GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
+It is used downstream to render the content item according a specific layout for
+that `format`.
+
+This field has been replaced by sending both the `document_type` and
+`schema_name` fields. Both of which are required if this field is omitted.
 
 ### `public_updated_at`
 
@@ -120,8 +134,8 @@ inform users of the time at which that particular content item was updated. The
 `public_updated_at` must use the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601).
 
 The `public_updated_at` is required except in cases where the content item is
-non-renderable (see [**format**](#format)). This will not be set automatically and must be
-provided by the publishing application.
+non-renderable (see [**document_type**](#document_type)). This will not be set
+automatically and must be provided by the publishing application.
 
 Note: This is subject to change. It may be that we automatically set
 `public_updated_at` on behalf of publishing applications in the future. Please
@@ -140,10 +154,10 @@ supported.  The *type* must be set to *exact* to denote that the route maps to
 an exact path on the GOV.UK website.
 
 The `routes` are required, except for the case when the content item
-has a `format` of *redirect*. In this case, the `routes` must not be present as
-it doesn’t make sense to have routes for a redirect. When the `format` is
-anything except *redirect*, the routes must include the `base_path` of the
-content item.
+has a `document_type` of *redirect*. In this case, the `routes` must not be
+present as it doesn’t make sense to have routes for a redirect. When the
+`document_type` is anything except *redirect*, the routes must include
+the `base_path` of the content item.
 
 If additional `routes` are specified other than the one for the `base_path`, all
 of these `routes` must reside under the `base_path`. Here is an example:
@@ -181,8 +195,9 @@ discouraged. Please speak to the Publishing Platform team if you'd like to make
 use of this feature.
 
 The `redirects` are optional, except for the case when the content
-item has a `format` of *redirect*. In this case, the redirects must be present
-and they must include the `base_path` of content_item in the *path* property.
+item has a `document_type` of *redirect*. In this case, the redirects must be
+present and they must include the `base_path` of content_item in the *path*
+property.
 
 Redirects are subject to the same requirement as routes in that their paths must
 reside under the `base_path` of the content item (see [**routes**](#routes)).
@@ -202,7 +217,26 @@ rendering the content item. The router will use this information to direct
 users' requests to the appropriate front-end application.
 
 The `rendering_app` is required except in cases where the content item is
-non-renderable (see [**format**](#format)).
+non-renderable (see [**document_type**](#document_type)).
+
+### schema_name
+
+Examples: *manual, policy, redirect*
+
+Required: Conditionally
+
+The `schema_name` specifies the schema file used to validate the request
+as per the
+[GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
+
+This field is required when the deprecated field `format` is not provided.
+
+At present, not all content goes through the publishing pipeline, but there is
+still a need to link to content items on our legacy infrastructure. There are
+some special formats that can be used in these cases. The `schema_name` should be
+prefixed with *placeholder_* or set to *placeholder*. See
+[here](https://github.com/alphagov/content-store/blob/master/doc/placeholder_item.md)
+for more information.
 
 ### `title`
 
@@ -211,7 +245,7 @@ Example: *VAT rates*
 Required: Conditionally
 
 The `title` names the content item. It is required except in cases where the
-content item is non-renderable (see [**format**](#format)).
+content item is non-renderable (see [**document_type**](#document_type)).
 
 ### `update_type`
 
@@ -247,7 +281,7 @@ to republish the content items.
 The *links* `update_type` is set automatically when the /links endpoint is used.
 There is no need to set this manually. All of these `update_types` form part of
 the routing key when the content item document is placed on the message queue,
-together with the `format` of the content item (e.g. *policy.major*)
+together with the `document_type` of the content item (e.g. *policy.major*).
 
 The *major* `update_type` is the only `update_type` that currently triggers email
 alerts to be sent to users.
