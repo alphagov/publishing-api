@@ -117,7 +117,6 @@ module Commands
       end
 
       def publish_redirect_if_content_item_has_moved(new_location, previous_location, translation)
-        return unless previous_location
         return if previous_location.base_path == new_location.base_path
 
         draft_redirect = ContentItemFilter
