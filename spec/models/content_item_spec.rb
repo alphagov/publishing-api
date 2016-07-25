@@ -137,6 +137,23 @@ RSpec.describe ContentItem do
     end
   end
 
+  describe "#requires_base_path?" do
+    it "doesn't require a base path for 'contact' document_type" do
+      subject.document_type = "contact"
+      expect(subject.requires_base_path?).to be false
+    end
+
+    it "doesn't require a base path for 'government' document_type" do
+      subject.document_type = "government"
+      expect(subject.requires_base_path?).to be false
+    end
+
+    it "requires a base path for other document_types" do
+      subject.document_type = "different document type"
+      expect(subject.requires_base_path?).to be true
+    end
+  end
+
   it_behaves_like DefaultAttributes
   it_behaves_like WellFormedContentTypesValidator
   it_behaves_like DescriptionOverrides

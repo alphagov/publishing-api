@@ -44,6 +44,10 @@ class ContentItem < ActiveRecord::Base
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include: "text/html" }
 
+  def requires_base_path?
+    EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
+  end
+
 private
 
   def renderable_content?
