@@ -151,22 +151,14 @@ module Commands
       def send_downstream(content_item, update_type)
         return unless downstream
 
-        queue_payload = Presenters::MessageQueuePresenter.present(
-          content_item,
-          state_fallback_order: [:published],
-          update_type: update_type
-        )
+        queue = update_type == 'republish' ? DownstreamPublishWorker::LOW_QUEUE : DownstreamPublishWorker::HIGH_QUEUE
 
-        PublishingAPI.service(:queue_publisher).send_message(queue_payload)
-
-        return if pathless?(content_item)
-
-        queue = update_type == 'republish' ? PresentedContentStoreWorker::LOW_QUEUE : PresentedContentStoreWorker::HIGH_QUEUE
-
-        PresentedContentStoreWorker.perform_async_in_queue(
+        DownstreamPublishWorker.perform_async_in_queue(
           queue,
-          content_store: Adapters::ContentStore,
-          payload: { content_item_id: content_item.id, payload_version: event.id },
+          content_item_id: content_item.id,
+          send_to_content_store: !pathless?(content_item),
+          message_queue_update_type: update_type,
+          payload_version: event.id,
         )
       end
     end
