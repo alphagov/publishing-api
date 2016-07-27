@@ -1,5 +1,5 @@
 class DownstreamPublishWorker
-  attr_reader :content_item_id, :send_to_content_store, :payload_version, :message_queue_update_type
+  attr_reader :content_item_id, :send_to_content_store, :payload_version, :message_queue_update_type, :update_dependencies
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
@@ -26,6 +26,7 @@ class DownstreamPublishWorker
     end
 
     send_to_live_content_store if send_to_content_store
+    enqueue_dependencies if update_dependencies
     broadcast_to_message_queue
   end
 
@@ -35,11 +36,12 @@ private
     @content_item_id = attributes.fetch(:content_item_id)
     @payload_version = attributes.fetch(:payload_version)
     @message_queue_update_type = attributes.fetch(:message_queue_update_type)
-    @send_to_content_store = attributes[:send_to_content_store]
+    @send_to_content_store = attributes.fetch(:send_to_content_store, false)
+    @update_dependencies = attributes.fetch(:update_dependencies, true)
   end
 
   def send_to_live_content_store
-    payload = presented_content_store
+    payload = presented_content_store_payload
     base_path = payload.fetch(:base_path)
     live_content_store.put_content_item(base_path, payload)
   rescue => e
@@ -47,7 +49,7 @@ private
   end
 
   def broadcast_to_message_queue
-    payload = presented_message_queue
+    payload = presented_message_queue_payload
     PublishingAPI.service(:queue_publisher).send_message(payload)
   end
 
@@ -75,7 +77,7 @@ private
     State.where(content_item_id: content_item_id).pluck(:name) == [allowed_state.to_s]
   end
 
-  def presented_content_store
+  def presented_content_store_payload
     Presenters::ContentStorePresenter.present(
       web_content_item,
       payload_version,
@@ -83,11 +85,20 @@ private
     )
   end
 
-  def presented_message_queue
+  def presented_message_queue_payload
     Presenters::MessageQueuePresenter.present(
       web_content_item,
       state_fallback_order: [:published],
       update_type: message_queue_update_type,
+    )
+  end
+
+  def enqueue_dependencies
+    DependencyResolutionWorker.perform_async(
+      content_store: live_content_store,
+      fields: presented_content_store_payload.keys,
+      content_id: web_content_item.content_id,
+      payload_version: payload_version
     )
   end
 end

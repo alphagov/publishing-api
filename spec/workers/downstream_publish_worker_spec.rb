@@ -7,7 +7,8 @@ RSpec.describe DownstreamPublishWorker do
       "content_item_id" => content_item.id,
       "payload_version" => 1,
       "message_queue_update_type" => "major",
-      "send_to_content_store" => "true",
+      "send_to_content_store" => true,
+      "update_dependencies" => true,
     }
   }
 
@@ -37,6 +38,12 @@ RSpec.describe DownstreamPublishWorker do
     it "doesn't require send_to_content_store" do
       expect {
         subject.perform(arguments.except("send_to_content_store"))
+      }.not_to raise_error
+    end
+
+    it "doesn't require update_dependencies" do
+      expect {
+        subject.perform(arguments.except("update_dependencies"))
       }.not_to raise_error
     end
   end
@@ -74,6 +81,22 @@ RSpec.describe DownstreamPublishWorker do
         .with(hash_including(update_type: "minor"))
 
       subject.perform(arguments.merge("message_queue_update_type" => "minor"))
+    end
+  end
+
+  describe "update dependencies" do
+    context "can update dependencies" do
+      it "enqueues dependencies" do
+        expect(DependencyResolutionWorker).to receive(:perform_async)
+        subject.perform(arguments.merge("update_dependencies" => true))
+      end
+    end
+
+    context "can not update dependencies" do
+      it "doesn't enqueue dependencies" do
+        expect(DependencyResolutionWorker).to_not receive(:perform_async)
+        subject.perform(arguments.merge("update_dependencies" => false))
+      end
     end
   end
 
