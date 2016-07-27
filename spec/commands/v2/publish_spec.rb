@@ -28,8 +28,6 @@ RSpec.describe Commands::V2::Publish do
       stub_request(:put, %r{.*content-store.*/content/.*})
 
       allow(DependencyResolutionWorker).to receive(:perform_async)
-      allow(Presenters::ContentStorePresenter).to receive(:present)
-        .and_return(expected_content_store_payload)
     end
 
     around do |example|
@@ -61,8 +59,8 @@ RSpec.describe Commands::V2::Publish do
         end
 
         it "uses the update_type from the draft content item" do
-          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-            .with(hash_including(update_type: "major"))
+          expect(DownstreamPublishWorker).to receive(:perform_async_in_queue)
+            .with("downstream_high", hash_including(message_queue_update_type: "major"))
 
           described_class.call(payload)
         end
@@ -197,33 +195,20 @@ RSpec.describe Commands::V2::Publish do
         expect(state.name).to eq("published")
       end
 
-      it "sends a payload downstream asynchronously" do
-        expect(PresentedContentStoreWorker)
+      it "sends downstream asynchronously" do
+        expect(DownstreamPublishWorker)
           .to receive(:perform_async_in_queue)
           .with(
-            "content_store_high",
-            content_store: Adapters::ContentStore,
-            payload: a_hash_including(:content_item_id, :payload_version),
+            "downstream_high",
+            a_hash_including(send_to_content_store: true),
           )
 
         described_class.call(payload)
       end
 
-      it "presents the content item for the downstream request" do
-        expect(Presenters::ContentStorePresenter).to receive(:present)
-          .with(draft_item, an_instance_of(Fixnum), state_fallback_order: [:published])
-
-        described_class.call(payload)
-      end
-
       context "when the 'downstream' parameter is false" do
-        it "does not send any requests to any content store" do
-          expect(PresentedContentStoreWorker).not_to receive(:perform_async)
-          described_class.call(payload, downstream: false)
-        end
-
-        it "does not send any messages on the message queue" do
-          expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+        it "does not send downstream" do
+          expect(DownstreamPublishWorker).not_to receive(:perform_async_in_queue)
           described_class.call(payload, downstream: false)
         end
       end
@@ -269,14 +254,6 @@ RSpec.describe Commands::V2::Publish do
               base_path: base_path,
             )
 
-            expect(PresentedContentStoreWorker)
-              .to receive(:perform_async_in_queue)
-              .with(
-                "content_store_high",
-                content_store: Adapters::ContentStore,
-                payload: a_hash_including(:content_item_id, :payload_version),
-              )
-
             described_class.call(payload)
 
             expect(ContentItem.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
@@ -290,14 +267,6 @@ RSpec.describe Commands::V2::Publish do
               public_updated_at: public_updated_at,
               base_path: base_path,
             )
-
-            expect(PresentedContentStoreWorker)
-              .to receive(:perform_async_in_queue)
-              .with(
-                "content_store_high",
-                content_store: Adapters::ContentStore,
-                payload: a_hash_including(:content_item_id, :payload_version),
-              )
 
             described_class.call(payload)
 
@@ -314,12 +283,11 @@ RSpec.describe Commands::V2::Publish do
           end
 
           it "uses the stored timestamp for major or minor" do
-            expect(PresentedContentStoreWorker)
+            expect(DownstreamPublishWorker)
               .to receive(:perform_async_in_queue)
               .with(
-                "content_store_low",
-                content_store: Adapters::ContentStore,
-                payload: a_hash_including(:content_item_id, :payload_version),
+                "downstream_low",
+                a_hash_including(:content_item_id, :payload_version, message_queue_update_type: "republish"),
               )
 
             described_class.call(payload)
@@ -471,8 +439,13 @@ RSpec.describe Commands::V2::Publish do
         expect(state.name).to eq("published")
       end
 
-      it "does not send downstream" do
-        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
+      it "does not send to content store" do
+        expect(DownstreamPublishWorker)
+          .to receive(:perform_async_in_queue)
+          .with(
+            "downstream_high",
+            a_hash_including(send_to_content_store: false),
+          )
         described_class.call(payload)
       end
 
@@ -492,8 +465,13 @@ RSpec.describe Commands::V2::Publish do
     end
 
     context "with a Location" do
-      it "sends downstream" do
-        expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+      it "sends to content store" do
+        expect(DownstreamPublishWorker)
+          .to receive(:perform_async_in_queue)
+          .with(
+            "downstream_high",
+            a_hash_including(send_to_content_store: true),
+          )
         described_class.call(payload)
       end
     end
