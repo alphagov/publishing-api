@@ -44,8 +44,6 @@ private
     payload = presented_content_store_payload
     base_path = payload.fetch(:base_path)
     live_content_store.put_content_item(base_path, payload)
-  rescue => e
-    handle_content_store_error(e)
   end
 
   def broadcast_to_message_queue
@@ -55,18 +53,6 @@ private
 
   def live_content_store
     Adapters::ContentStore
-  end
-
-  def handle_content_store_error(error)
-    if !error.is_a?(CommandError) || error.code >= 500
-      raise error
-    else
-      # @TODO
-      # I'm not sure this is the correct explanation - feels like it was written
-      # for 409s which are swallowed
-      explanation = "The message is a duplicate and does not need to be retried"
-      Airbrake.notify_or_ignore(error, parameters: { explanation: explanation })
-    end
   end
 
   def web_content_item
