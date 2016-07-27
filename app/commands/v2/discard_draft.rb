@@ -13,8 +13,14 @@ module Commands
         increment_live_lock_version if live
 
         after_transaction_commit do
-          delete_draft_from_draft_content_store(draft_path)
-          send_live_to_draft_content_store(live)
+          if live
+            send_live_to_draft_content_store(live)
+
+            live_path = Location.find_by!(content_item: live).base_path
+            delete_draft_from_draft_content_store(draft_path) if live_path != draft_path
+          else
+            delete_draft_from_draft_content_store(draft_path)
+          end
         end
 
         Success.new(content_id: content_id)
@@ -47,7 +53,6 @@ module Commands
 
       def send_live_to_draft_content_store(live)
         return unless downstream
-        return unless live
 
         PresentedContentStoreWorker.perform_async(
           content_store: Adapters::DraftContentStore,
