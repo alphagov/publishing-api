@@ -200,7 +200,7 @@ RSpec.describe Commands::V2::Publish do
           .to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(send_to_content_store: true),
+            a_hash_including(:content_item_id, :payload_version),
           )
 
         described_class.call(payload)
@@ -439,16 +439,6 @@ RSpec.describe Commands::V2::Publish do
         expect(state.name).to eq("published")
       end
 
-      it "does not send to content store" do
-        expect(DownstreamPublishWorker)
-          .to receive(:perform_async_in_queue)
-          .with(
-            "downstream_high",
-            a_hash_including(send_to_content_store: false),
-          )
-        described_class.call(payload)
-      end
-
       context "with a previously published item" do
         let!(:live_content_item) do
           FactoryGirl.create(:live_content_item,
@@ -461,18 +451,6 @@ RSpec.describe Commands::V2::Publish do
           state = State.find_by!(content_item: pathless_content_item)
           expect(state.name).to eq("published")
         end
-      end
-    end
-
-    context "with a Location" do
-      it "sends to content store" do
-        expect(DownstreamPublishWorker)
-          .to receive(:perform_async_in_queue)
-          .with(
-            "downstream_high",
-            a_hash_including(send_to_content_store: true),
-          )
-        described_class.call(payload)
       end
     end
   end

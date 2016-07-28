@@ -1,5 +1,5 @@
 class DownstreamPublishWorker
-  attr_reader :content_item_id, :send_to_content_store, :payload_version, :message_queue_update_type, :update_dependencies
+  attr_reader :content_item_id, :payload_version, :message_queue_update_type, :update_dependencies
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
@@ -25,7 +25,7 @@ class DownstreamPublishWorker
       )
     end
 
-    send_to_live_content_store if send_to_content_store
+    send_to_live_content_store if should_send_to_content_store?
     enqueue_dependencies if update_dependencies
     broadcast_to_message_queue
   end
@@ -36,7 +36,6 @@ private
     @content_item_id = attributes.fetch(:content_item_id)
     @payload_version = attributes.fetch(:payload_version)
     @message_queue_update_type = attributes.fetch(:message_queue_update_type)
-    @send_to_content_store = attributes.fetch(:send_to_content_store, false)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
   end
 
@@ -53,6 +52,10 @@ private
 
   def live_content_store
     Adapters::ContentStore
+  end
+
+  def should_send_to_content_store?
+    web_content_item.base_path != nil
   end
 
   def web_content_item

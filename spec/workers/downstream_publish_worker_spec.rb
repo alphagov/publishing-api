@@ -7,7 +7,6 @@ RSpec.describe DownstreamPublishWorker do
       "content_item_id" => content_item.id,
       "payload_version" => 1,
       "message_queue_update_type" => "major",
-      "send_to_content_store" => true,
       "update_dependencies" => true,
     }
   }
@@ -35,12 +34,6 @@ RSpec.describe DownstreamPublishWorker do
       }.to raise_error(KeyError)
     end
 
-    it "doesn't require send_to_content_store" do
-      expect {
-        subject.perform(arguments.except("send_to_content_store"))
-      }.not_to raise_error
-    end
-
     it "doesn't require update_dependencies" do
       expect {
         subject.perform(arguments.except("update_dependencies"))
@@ -48,7 +41,7 @@ RSpec.describe DownstreamPublishWorker do
     end
   end
 
-  describe "optional send to live content store" do
+  describe "send to live content store" do
     context "can send to content store" do
       it "sends put content to live content store" do
         expect(Adapters::ContentStore).to receive(:put_content_item)
@@ -63,9 +56,15 @@ RSpec.describe DownstreamPublishWorker do
       end
     end
 
-    it "can not send to the content store" do
+    it "wont send to content store without a base_path" do
+      pathless = FactoryGirl.create(
+        :live_content_item,
+        base_path: nil,
+        document_type: "contact",
+        schema_name: "contact"
+      )
       expect(Adapters::ContentStore).to_not receive(:put_content_item)
-      subject.perform(arguments.merge("send_to_content_store" => false))
+      subject.perform(arguments.merge("content_item_id" => pathless.id))
     end
   end
 

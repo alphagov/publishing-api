@@ -280,7 +280,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           a_hash_including(
             :content_item_id,
             :payload_version,
-            send_to_content_store: true,
             message_queue_update_type: "links",
           ),
         )
@@ -296,7 +295,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           a_hash_including(
             :content_item_id,
             :payload_version,
-            send_to_content_store: true,
             message_queue_update_type: "links",
           ),
         )
@@ -322,7 +320,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
               "downstream_high",
               content_item_id: ci.id.to_s,
               payload_version: an_instance_of(Fixnum),
-              send_to_content_store: true,
               message_queue_update_type: "links",
             )
         end
