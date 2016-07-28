@@ -25,7 +25,7 @@ class DownstreamDraftWorker
       )
     end
 
-    send_to_draft_content_store
+    send_to_draft_content_store if should_send_to_content_store?
     enqueue_dependencies if update_dependencies
   end
 
@@ -41,6 +41,10 @@ private
     payload = presented_content_store_payload
     base_path = payload.fetch(:base_path)
     draft_content_store.put_content_item(base_path, payload)
+  end
+
+  def should_send_to_content_store?
+    web_content_item.base_path != nil
   end
 
   def draft_content_store

@@ -35,16 +35,32 @@ RSpec.describe DownstreamDraftWorker do
   end
 
   describe "sends to draft content store" do
-    it "sends put content to draft content store" do
-      expect(Adapters::DraftContentStore).to receive(:put_content_item)
-      subject.perform(arguments)
+    context "content item has a base path" do
+      it "sends put content to draft content store" do
+        expect(Adapters::DraftContentStore).to receive(:put_content_item)
+        subject.perform(arguments)
+      end
+
+      it "receives the base path" do
+        base_path = Location.where(content_item: content_item).pluck(:base_path).first
+        expect(Adapters::DraftContentStore).to receive(:put_content_item)
+          .with(base_path, anything)
+        subject.perform(arguments)
+      end
     end
 
-    it "receives the base path" do
-      base_path = Location.where(content_item: content_item).pluck(:base_path).first
-      expect(Adapters::DraftContentStore).to receive(:put_content_item)
-        .with(base_path, anything)
-      subject.perform(arguments)
+    context "content item has a nil base path" do
+      it "doesn't send the item to the draft content store" do
+        pathless = FactoryGirl.create(
+          :draft_content_item,
+          base_path: nil,
+          document_type: "contact",
+          schema_name: "contact",
+        )
+
+        expect(Adapters::DraftContentStore).to_not receive(:put_content_item)
+        subject.perform(arguments.merge("content_item_id" => pathless.id))
+      end
     end
   end
 
