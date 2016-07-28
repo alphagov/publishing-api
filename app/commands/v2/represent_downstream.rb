@@ -16,7 +16,7 @@ module Commands
 
         items_for_live_store(filter).pluck(:id, :content_id).each_with_index do |(content_item_id, content_id), index|
           sleep 60 if (index + 1) % 10_000 == 0
-          send_to_content_store(content_item_id, content_id, Adapters::ContentStore)
+          downstream_publish(content_item_id, content_id)
         end
       end
 
@@ -44,6 +44,24 @@ module Commands
             content_store: content_store,
             payload: { content_item_id: content_item_id, payload_version: event.id },
             enqueue_dependency_check: false,
+          )
+        end
+      end
+
+      def downstream_publish(content_item_id, content_id)
+        event_payload = {
+          content_id: content_id,
+          message: "Representing downstream publish",
+        }
+
+        EventLogger.log_command(self.class, event_payload) do |event|
+          DownstreamPublishWorker.perform_async_in_queue(
+            DownstreamPublishWorker::LOW_QUEUE,
+            content_item_id: content_item_id,
+            payload_version: event.id,
+            message_queue_update_type: "links",
+            send_to_content_store: true,
+            update_dependencies: false,
           )
         end
       end
