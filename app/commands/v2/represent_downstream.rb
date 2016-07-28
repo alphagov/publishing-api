@@ -10,7 +10,7 @@ module Commands
 
         if draft
           items_for_draft_store(filter).pluck(:id, :content_id).each do |(content_item_id, content_id)|
-            send_to_content_store(content_item_id, content_id, Adapters::DraftContentStore)
+            downstream_draft(content_item_id, content_id)
           end
         end
 
@@ -32,18 +32,18 @@ module Commands
         filter.filter(state: "published")
       end
 
-      def send_to_content_store(content_item_id, content_id, content_store)
-        payload = {
+      def downstream_draft(content_item_id, content_id)
+        event_payload = {
           content_id: content_id,
-          message: "Representing to #{content_store}"
+          message: "Representing downstream draft",
         }
 
-        EventLogger.log_command(self.class, payload) do |event|
-          PresentedContentStoreWorker.perform_async_in_queue(
-            PresentedContentStoreWorker::LOW_QUEUE,
-            content_store: content_store,
-            payload: { content_item_id: content_item_id, payload_version: event.id },
-            enqueue_dependency_check: false,
+        EventLogger.log_command(self.class, event_payload) do |event|
+          DownstreamDraftWorker.perform_async_in_queue(
+            DownstreamDraftWorker::LOW_QUEUE,
+            content_item_id: content_item_id,
+            payload_version: event.id,
+            update_dependencies: false,
           )
         end
       end

@@ -194,33 +194,21 @@ RSpec.describe Commands::V2::PatchLinkSet do
       )
     end
 
-    it "sends a request to the draft content store" do
-      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+    it "sends to the downstream draft worker" do
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
-          "content_store_high",
-          content_store: Adapters::DraftContentStore,
-          payload: a_hash_including(:content_item_id, :payload_version),
+          "downstream_high",
+          a_hash_including(:content_item_id, :payload_version),
         )
 
       described_class.call(payload)
     end
 
-    it "sends a low priority request to the draft content store for bulk publishing" do
-      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
-        .with(
-          "content_store_low",
-          content_store: Adapters::DraftContentStore,
-          payload: a_hash_including(:content_item_id, :payload_version),
-        )
+    it "sends a low priority request to the downstream draft worker for bulk publishing" do
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        .with("downstream_low", anything)
 
       described_class.call(payload.merge(bulk_publishing: true))
-    end
-
-    it "presents the draft content item for the downstream request" do
-      expect(Presenters::ContentStorePresenter).to receive(:present)
-        .with(draft_content_item, an_instance_of(Fixnum), state_fallback_order: [:draft, :published])
-
-      described_class.call(payload)
     end
 
     context "when a draft content item has multiple translations" do
@@ -235,14 +223,13 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       it "sends the draft content items for all locales downstream" do
         [draft_content_item, french_draft_content_item].each do |ci|
-          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
             .with(
-              "content_store_high",
-              content_store: Adapters::DraftContentStore,
-              payload: {
+              "downstream_high",
+              a_hash_including(
                 content_item_id: ci.id.to_s,
-                payload_version: an_instance_of(Fixnum)
-              },
+                payload_version: an_instance_of(Fixnum),
+              ),
             )
         end
 
@@ -252,12 +239,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     context "when 'downstream' is false" do
       it "does not send a request to either content store" do
-        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
-        described_class.call(payload, downstream: false)
-      end
-
-      it "does not send a message to the message queue" do
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
     end
@@ -330,7 +312,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     context "when 'downstream' is false" do
       it "does not send a request to presented content store worker" do
-        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
 

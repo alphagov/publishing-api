@@ -64,12 +64,10 @@ RSpec.describe DependencyResolutionWorker, :perform do
     end
 
     it "does send draft content to the draft content store" do
-      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue).with(
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          payload: a_hash_including(
-            content_item_id: draft_content_item.id,
-          )
+          content_item_id: draft_content_item.id,
         )
       )
 

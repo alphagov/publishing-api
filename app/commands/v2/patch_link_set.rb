@@ -85,7 +85,7 @@ module Commands
         live_web_content_items = Queries::GetWebContentItems.(live_content_item_ids)
 
         draft_web_content_items.each do |draft_web_content_item|
-          send_to_content_store(draft_web_content_item, Adapters::DraftContentStore)
+          downstream_draft(draft_web_content_item)
         end
 
         live_web_content_items.each do |live_web_content_item|
@@ -97,6 +97,15 @@ module Commands
         payload.fetch(:bulk_publishing, false)
       end
 
+      def downstream_draft(content_item)
+        queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        DownstreamDraftWorker.perform_async_in_queue(
+          queue,
+          content_item_id: content_item.id,
+          payload_version: event.id,
+        )
+      end
+
       def downstream_publish(content_item)
         queue = bulk_publishing? ? DownstreamPublishWorker::LOW_QUEUE : DownstreamPublishWorker::HIGH_QUEUE
         DownstreamPublishWorker.perform_async_in_queue(
@@ -104,15 +113,6 @@ module Commands
           content_item_id: content_item.id,
           message_queue_update_type: "links",
           payload_version: event.id,
-        )
-      end
-
-      def send_to_content_store(content_item, content_store)
-        queue = bulk_publishing? ? PresentedContentStoreWorker::LOW_QUEUE : PresentedContentStoreWorker::HIGH_QUEUE
-        PresentedContentStoreWorker.perform_async_in_queue(
-          queue,
-          content_store: content_store,
-          payload: { content_item_id: content_item.id, payload_version: event.id },
         )
       end
     end

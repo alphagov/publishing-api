@@ -40,7 +40,7 @@ private
     return unless latest_content_item
 
     if draft?
-      present_content_store(latest_content_item)
+      downstream_draft(latest_content_item)
     else
       downstream_publish(latest_content_item)
     end
@@ -50,12 +50,12 @@ private
     content_store == Adapters::DraftContentStore
   end
 
-  def present_content_store(latest_content_item)
-    PresentedContentStoreWorker.perform_async_in_queue(
-      PresentedContentStoreWorker::LOW_QUEUE,
-      content_store: Adapters::DraftContentStore,
-      payload: { content_item_id: latest_content_item.id, payload_version: payload_version },
-      enqueue_dependency_check: false,
+  def downstream_draft(latest_content_item)
+    DownstreamDraftWorker.perform_async_in_queue(
+      DownstreamDraftWorker::LOW_QUEUE,
+      content_item_id: latest_content_item.id,
+      payload_version: payload_version,
+      update_dependencies: false,
     )
   end
 

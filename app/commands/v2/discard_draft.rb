@@ -54,9 +54,11 @@ module Commands
       def send_live_to_draft_content_store(live)
         return unless downstream
 
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::DraftContentStore,
-          payload: { content_item_id: live.id, payload_version: event.id },
+        DownstreamDraftWorker.perform_async_in_queue(
+          DownstreamDraftWorker::HIGH_QUEUE,
+          content_item_id: live.id,
+          payload_version: event.id,
+          update_dependencies: true,
         )
       end
 

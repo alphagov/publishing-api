@@ -264,22 +264,24 @@ module Commands
         )
       end
 
-      def content_store_queue
-        payload.fetch(:bulk_publishing, false) ? PresentedContentStoreWorker::LOW_QUEUE : PresentedContentStoreWorker::HIGH_QUEUE
+      def bulk_publishing?
+        payload.fetch(:bulk_publishing, false)
       end
 
       def send_downstream(content_item)
         return unless downstream
-        return unless content_with_base_path?
 
-        message = "Enqueuing PresentedContentStoreWorker job with "
-        message += "{ content_store: Adapters::DraftContentStore, content_item_id: #{content_item.id} }"
+        message = "Enqueuing DownstreamDraftWorker job with "
+        message += "{ content_item_id: #{content_item.id} }"
         logger.info message
 
-        PresentedContentStoreWorker.perform_async_in_queue(
-          content_store_queue,
-          content_store: Adapters::DraftContentStore,
-          payload: { content_item_id: content_item.id, payload_version: event.id },
+        queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+
+        DownstreamDraftWorker.perform_async_in_queue(
+          queue,
+          content_item_id: content_item.id,
+          payload_version: event.id,
+          update_dependencies: true,
         )
       end
 

@@ -51,15 +51,18 @@ RSpec.describe Commands::V2::RepresentDownstream do
     end
 
     context "drafts optional" do
-      it "can send to draft content store" do
-        expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
-          .with("content_store_low", a_hash_including(content_store: Adapters::DraftContentStore))
+      it "can send to downstream draft worker" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(
+            "downstream_low",
+            a_hash_including(:content_item_id, :payload_version, update_dependencies: false)
+          )
           .exactly(5).times
         subject.call(ContentItem.all, true)
       end
 
-      it "can not send to draft content store" do
-        expect(PresentedContentStoreWorker).to_not receive(:perform_async_in_queue)
+      it "can not send to downstream draft worker" do
+        expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue)
         subject.call(ContentItem.all, false)
       end
     end

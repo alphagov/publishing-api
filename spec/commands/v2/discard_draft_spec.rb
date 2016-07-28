@@ -124,10 +124,10 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "sends the published content item to the draft content store" do
-          expect(PresentedContentStoreWorker).to receive(:perform_async)
+          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
             .with(
-              content_store: Adapters::DraftContentStore,
-              payload: a_hash_including(:content_item_id, :payload_version),
+              DownstreamDraftWorker::HIGH_QUEUE,
+              a_hash_including(:content_item_id, :payload_version),
             )
           described_class.call(payload)
         end
