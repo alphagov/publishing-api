@@ -266,6 +266,10 @@ the draft content store with the published item, if one exists. Uses
 
  [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_entries_request_given_a_content_item_exists_in_multiple_locales_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7)
 
+**This endpoint will only return content for which the value of `publishing_app`
+matches the name of the application making the request, unless that app's API
+key has `view_all` permissions.** 
+
 Retrieves a paginated list of content items for the provided query string
 parameters. If content items exists in both a published and a draft state, the
 draft is returned.
