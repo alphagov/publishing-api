@@ -14,6 +14,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
   let(:content_item_dependee) { double(:content_item_dependent, call: []) }
 
   before do
+    stub_request(:put, %r{.*content-store.*/content/.*})
     allow_any_instance_of(Queries::ContentDependencies).to receive(:call).and_return([live_content_item.content_id])
   end
 
@@ -27,11 +28,14 @@ RSpec.describe DependencyResolutionWorker, :perform do
   end
 
   it "the dependees get queued in the content store worker" do
-    expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue).with(
-      "content_store_low",
-      content_store: Adapters::ContentStore,
-      payload: a_hash_including(:content_item_id, :payload_version),
-      enqueue_dependency_check: false,
+    expect(DownstreamPublishWorker).to receive(:perform_async_in_queue).with(
+      "downstream_low",
+      a_hash_including(
+        :content_item_id,
+        :payload_version,
+        message_queue_update_type: "links",
+        update_dependencies: false
+      ),
     )
     worker_perform
   end
@@ -44,12 +48,10 @@ RSpec.describe DependencyResolutionWorker, :perform do
     }
 
     it "doesn't send draft content to the live content store" do
-      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue).with(
+      expect(DownstreamPublishWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          payload: a_hash_including(
-            content_item_id: live_content_item.id,
-          )
+          content_item_id: live_content_item.id,
         )
       )
 
