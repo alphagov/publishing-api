@@ -67,11 +67,10 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       it "deletes the draft item from the draft content store" do
-        expect(PresentedContentStoreWorker).to receive(:perform_async)
+        expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
           .with(
-            content_store: Adapters::DraftContentStore,
-            base_path: base_path,
-            delete: true,
+            "downstream_high",
+            a_hash_including(base_path: base_path, content_id: content_id),
           )
 
         described_class.call(payload)
@@ -102,21 +101,14 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
       end
 
-      context "and a published content item exists" do
+      context "a published content item exists with a different base_path" do
         let!(:published_item) {
           FactoryGirl.create(:live_content_item,
             content_id: content_id,
             lock_version: 3,
-            base_path: "/hat-rates",
+            base_path: base_path,
           )
         }
-
-        before do
-          FactoryGirl.create(:linkable,
-            content_item: published_item,
-            base_path: "/hat-rates",
-          )
-        end
 
         it "increments the lock version of the published item" do
           published_lock_version = LockVersion.find_by!(target: published_item)
@@ -126,26 +118,12 @@ RSpec.describe Commands::V2::DiscardDraft do
           }.to change { published_lock_version.reload.number }.to(4)
         end
 
-        it "deletes the draft content item from the draft content store" do
-          allow(PresentedContentStoreWorker).to receive(:perform_async)
-
-          expect(PresentedContentStoreWorker).to receive(:perform_async)
-            .with(
-              content_store: Adapters::DraftContentStore,
-              base_path: base_path,
-              delete: true,
-            )
-
+        it "it doesn't use downstream discard draft worker as it's replaced by the published item" do
+          expect(DownstreamDiscardDraftWorker).to_not receive(:perform_async_in_queue)
           described_class.call(payload)
         end
 
         it "sends the published content item to the draft content store" do
-          expect(PresentedContentStoreWorker).to receive(:perform_async)
-            .with(
-              content_store: Adapters::DraftContentStore,
-              base_path: "/vat-rates",
-              delete: true,
-            )
           expect(PresentedContentStoreWorker).to receive(:perform_async)
             .with(
               content_store: Adapters::DraftContentStore,
@@ -172,14 +150,6 @@ RSpec.describe Commands::V2::DiscardDraft do
           expect(lock_version).to be_nil
         end
 
-        it "does not delete the published linkable" do
-          described_class.call(payload)
-
-          linkable = Linkable.find_by(base_path: "/hat-rates")
-          expect(linkable).not_to be_nil
-          expect(linkable.content_item).to eq(published_item)
-        end
-
         it "deletes the draft" do
           expect {
             described_class.call(payload)
@@ -187,11 +157,45 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
       end
 
+      context "a published content item exists with a different base_path" do
+        let!(:published_item) {
+          FactoryGirl.create(:live_content_item,
+            content_id: content_id,
+            lock_version: 3,
+            base_path: "/hat-rates",
+          )
+        }
+
+        before do
+          FactoryGirl.create(:linkable,
+            content_item: published_item,
+            base_path: "/hat-rates",
+          )
+        end
+
+        it "it uses downstream discard draft worker to remove draft" do
+          expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
+            .with(
+              "downstream_high",
+              a_hash_including(base_path: base_path, content_id: content_id),
+            )
+          described_class.call(payload)
+        end
+
+        it "does not delete the published linkable" do
+          described_class.call(payload)
+
+          linkable = Linkable.find_by(base_path: "/hat-rates")
+          expect(linkable).not_to be_nil
+          expect(linkable.content_item).to eq(published_item)
+        end
+      end
+
       context "when a locale is provided in the payload" do
         let!(:french_draft_item) {
           FactoryGirl.create(:draft_content_item,
             content_id: content_id,
-            base_path: base_path,
+            base_path: "#{base_path}.fr",
             locale: "fr",
           )
         }
