@@ -102,7 +102,6 @@ module Commands
         DownstreamPublishWorker.perform_async_in_queue(
           queue,
           content_item_id: content_item.id,
-          send_to_content_store: true,
           message_queue_update_type: "links",
           payload_version: event.id,
         )

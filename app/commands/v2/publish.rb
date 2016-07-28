@@ -156,7 +156,6 @@ module Commands
         DownstreamPublishWorker.perform_async_in_queue(
           queue,
           content_item_id: content_item.id,
-          send_to_content_store: !pathless?(content_item),
           message_queue_update_type: update_type,
           payload_version: event.id,
         )
