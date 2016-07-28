@@ -272,48 +272,36 @@ RSpec.describe Commands::V2::PatchLinkSet do
       )
     end
 
-    it "sends a request to the live content store" do
-      allow(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
-      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+    it "sends to downstream publish worker" do
+      allow(DownstreamPublishWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamPublishWorker).to receive(:perform_async_in_queue)
         .with(
-          "content_store_high",
-          content_store: Adapters::ContentStore,
-          payload: a_hash_including(:content_item_id, :payload_version),
+          "downstream_high",
+          a_hash_including(
+            :content_item_id,
+            :payload_version,
+            send_to_content_store: true,
+            message_queue_update_type: "links",
+          ),
         )
 
       described_class.call(payload)
     end
 
-    it "sends a low priority request to the live content store for bulk publishing" do
-      allow(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
-      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+    it "sends a low priority request to the downstream publish worker for bulk publishing" do
+      allow(DownstreamPublishWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamPublishWorker).to receive(:perform_async_in_queue)
         .with(
-          "content_store_low",
-          content_store: Adapters::ContentStore,
-          payload: a_hash_including(:content_item_id, :payload_version),
+          "downstream_low",
+          a_hash_including(
+            :content_item_id,
+            :payload_version,
+            send_to_content_store: true,
+            message_queue_update_type: "links",
+          ),
         )
 
       described_class.call(payload.merge(bulk_publishing: true))
-    end
-
-    it "presents the live content item for the downstream request" do
-      expect(Presenters::ContentStorePresenter).to receive(:present)
-        .with(live_content_item, an_instance_of(Fixnum), state_fallback_order: [:published])
-
-      described_class.call(payload)
-    end
-
-    it "sends a message to message queue" do
-      expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-        .with(hash_including(
-                content_id: content_id,
-                title: "Some Title",
-                links: {
-                  topics: topics,
-                  parent: parent,
-                }))
-
-      described_class.call(payload)
     end
 
     context "when a live content item has multiple translations" do
@@ -327,20 +315,16 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "sends the live content item for all locales downstream" do
-        allow(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+        allow(DownstreamPublishWorker).to receive(:perform_async_in_queue)
         [live_content_item, french_live_content_item].each do |ci|
-          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamPublishWorker).to receive(:perform_async_in_queue)
             .with(
-              "content_store_high",
-              content_store: Adapters::ContentStore,
-              payload: {
-                content_item_id: ci.id.to_s,
-                payload_version: an_instance_of(Fixnum)
-              },
+              "downstream_high",
+              content_item_id: ci.id.to_s,
+              payload_version: an_instance_of(Fixnum),
+              send_to_content_store: true,
+              message_queue_update_type: "links",
             )
-
-          expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-            .with(hash_including(title: ci.title))
         end
 
         described_class.call(payload)
@@ -348,16 +332,13 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     context "when 'downstream' is false" do
-      it "does not send a request to either content store" do
-        expect(Adapters::DraftContentStore).not_to receive(:put_content_item)
-        expect(Adapters::ContentStore).not_to receive(:put_content_item)
+      it "does not send a request to presented content store worker" do
         expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
         described_class.call(payload, downstream: false)
       end
 
-      it "does not send a message to the message queue" do
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+      it "does not send a request to downstream publish worker" do
+        expect(DownstreamPublishWorker).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
     end
