@@ -103,17 +103,24 @@ RSpec.describe DownstreamPublishWorker do
     it "rejects draft content items" do
       draft = FactoryGirl.create(:draft_content_item)
 
-      expect {
-        subject.perform(arguments.merge("content_item_id" => draft.id))
-      }.to raise_error(CommandError)
+      expect(Airbrake).to receive(:notify_or_ignore)
+        .with(an_instance_of(AbortWorkerError))
+      subject.perform(arguments.merge("content_item_id" => draft.id))
     end
 
     it "allows live content items" do
       live = FactoryGirl.create(:live_content_item)
 
-      expect {
-        subject.perform(arguments.merge("content_item_id" => live.id))
-      }.not_to raise_error
+      expect(Airbrake).to_not receive(:notify_or_ignore)
+      subject.perform(arguments.merge("content_item_id" => live.id))
+    end
+  end
+
+  describe "no content item" do
+    it "swallows the error" do
+      expect(Airbrake).to receive(:notify_or_ignore)
+        .with(an_instance_of(AbortWorkerError))
+      subject.perform(arguments.merge("content_item_id" => "made-up-id"))
     end
   end
 end

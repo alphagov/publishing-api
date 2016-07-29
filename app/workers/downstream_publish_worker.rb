@@ -1,5 +1,6 @@
 class DownstreamPublishWorker
-  attr_reader :content_item_id, :payload_version, :message_queue_update_type, :update_dependencies
+  attr_reader :content_item_id, :web_content_item, :payload_version, :message_queue_update_type, :update_dependencies
+
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
@@ -12,41 +13,45 @@ class DownstreamPublishWorker
     assign_attributes(args.symbolize_keys)
 
     unless web_content_item
-      raise CommandError.new(
-        code: 404,
-        message: "The content item for id: #{content_item_id} was not found",
-      )
+      raise AbortWorkerError.new("The content item for id: #{content_item_id} was not found")
     end
 
-    unless content_item_state?(:published)
-      raise CommandError.new(
-        code: 500,
-        message: "Will not downstream publish a content item that isn't published",
-      )
+    if web_content_item.state != "published"
+      raise AbortWorkerError.new("Will not downstream publish a content item that isn't published")
     end
 
-    send_to_live_content_store if should_send_to_content_store?
+    send_to_live_content_store if web_content_item.base_path
     enqueue_dependencies if update_dependencies
     broadcast_to_message_queue
+  rescue AbortWorkerError => e
+    Airbrake.notify_or_ignore(e)
   end
 
 private
 
   def assign_attributes(attributes)
     @content_item_id = attributes.fetch(:content_item_id)
+    @web_content_item = Queries::GetWebContentItems.find(content_item_id)
     @payload_version = attributes.fetch(:payload_version)
     @message_queue_update_type = attributes.fetch(:message_queue_update_type)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
   end
 
   def send_to_live_content_store
-    payload = presented_content_store_payload
-    base_path = payload.fetch(:base_path)
-    live_content_store.put_content_item(base_path, payload)
+    payload = Presenters::ContentStorePresenter.present(
+      web_content_item,
+      payload_version,
+      state_fallback_order: live_content_store::DEPENDENCY_FALLBACK_ORDER
+    )
+    live_content_store.put_content_item(web_content_item.base_path, payload)
   end
 
   def broadcast_to_message_queue
-    payload = presented_message_queue_payload
+    payload = Presenters::MessageQueuePresenter.present(
+      web_content_item,
+      state_fallback_order: [:published],
+      update_type: message_queue_update_type,
+    )
     PublishingAPI.service(:queue_publisher).send_message(payload)
   end
 
@@ -54,40 +59,12 @@ private
     Adapters::ContentStore
   end
 
-  def should_send_to_content_store?
-    web_content_item.base_path != nil
-  end
-
-  def web_content_item
-    @web_content_item ||= Queries::GetWebContentItems.(content_item_id).first
-  end
-
-  def content_item_state?(allowed_state)
-    State.where(content_item_id: content_item_id).pluck(:name) == [allowed_state.to_s]
-  end
-
-  def presented_content_store_payload
-    Presenters::ContentStorePresenter.present(
-      web_content_item,
-      payload_version,
-      state_fallback_order: live_content_store::DEPENDENCY_FALLBACK_ORDER
-    )
-  end
-
-  def presented_message_queue_payload
-    Presenters::MessageQueuePresenter.present(
-      web_content_item,
-      state_fallback_order: [:published],
-      update_type: message_queue_update_type,
-    )
-  end
-
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(
       content_store: live_content_store,
-      fields: presented_content_store_payload.keys,
+      fields: [:content_id],
       content_id: web_content_item.content_id,
-      payload_version: payload_version
+      payload_version: payload_version,
     )
   end
 end
