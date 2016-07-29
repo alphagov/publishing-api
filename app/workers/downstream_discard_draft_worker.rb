@@ -1,10 +1,9 @@
 class DownstreamDiscardDraftWorker
   attr_reader :base_path, :content_id, :payload_version, :update_dependencies
+
+  include DownstreamQueue
   include Sidekiq::Worker
   include PerformAsyncInQueue
-
-  HIGH_QUEUE = "downstream_high".freeze
-  LOW_QUEUE = "downstream_low".freeze
 
   sidekiq_options queue: HIGH_QUEUE
 

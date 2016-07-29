@@ -1,10 +1,9 @@
 class DownstreamUnpublishWorker
   attr_reader :content_item_id, :payload_version, :update_dependencies
+
+  include DownstreamQueue
   include Sidekiq::Worker
   include PerformAsyncInQueue
-
-  HIGH_QUEUE = "downstream_high".freeze
-  LOW_QUEUE = "downstream_low".freeze
 
   sidekiq_options queue: HIGH_QUEUE
 
