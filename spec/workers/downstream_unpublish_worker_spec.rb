@@ -74,9 +74,9 @@ RSpec.describe DownstreamUnpublishWorker do
     end
 
     it "uses redirect presenter" do
-      allow(RedirectPresenter).to receive(:present).and_return({})
       expect(RedirectPresenter).to receive(:present)
         .with(a_hash_including(base_path: "/redirect", destination: "/new-path"))
+        .and_return({})
       subject.perform(arguments.merge(content_item_id: redirect_content_item.id))
     end
   end
@@ -101,9 +101,9 @@ RSpec.describe DownstreamUnpublishWorker do
     end
 
     it "uses gone presenter" do
-      allow(GonePresenter).to receive(:present).and_return({})
       expect(GonePresenter).to receive(:present)
         .with(a_hash_including(base_path: "/gone", alternative_path: nil, explanation: "whoops"))
+        .and_return({})
       subject.perform(arguments.merge(content_item_id: gone_content_item.id))
     end
   end
