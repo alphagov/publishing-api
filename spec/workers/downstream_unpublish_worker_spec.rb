@@ -41,8 +41,10 @@ RSpec.describe DownstreamUnpublishWorker do
       FactoryGirl.create(:withdrawn_content_item, base_path: "/withdrawn")
     }
 
-    it "sends to the content store" do
+    it "sends to both content stores" do
       expect(Adapters::ContentStore).to receive(:put_content_item)
+        .with("/withdrawn", a_hash_including(payload_version: payload_version))
+      expect(Adapters::DraftContentStore).to receive(:put_content_item)
         .with("/withdrawn", a_hash_including(payload_version: payload_version))
       subject.perform(arguments.merge(content_item_id: withdrawn_content_item.id))
     end
@@ -63,8 +65,10 @@ RSpec.describe DownstreamUnpublishWorker do
       )
     }
 
-    it "sends to the content store" do
+    it "sends to both content stores" do
       expect(Adapters::ContentStore).to receive(:put_content_item)
+        .with("/redirect", a_hash_including(payload_version: payload_version))
+      expect(Adapters::DraftContentStore).to receive(:put_content_item)
         .with("/redirect", a_hash_including(payload_version: payload_version))
       subject.perform(arguments.merge(content_item_id: redirect_content_item.id))
     end
@@ -88,8 +92,10 @@ RSpec.describe DownstreamUnpublishWorker do
       )
     }
 
-    it "sends to the content store" do
+    it "sends to both content stores" do
       expect(Adapters::ContentStore).to receive(:put_content_item)
+        .with("/gone", a_hash_including(payload_version: payload_version))
+      expect(Adapters::DraftContentStore).to receive(:put_content_item)
         .with("/gone", a_hash_including(payload_version: payload_version))
       subject.perform(arguments.merge(content_item_id: gone_content_item.id))
     end
@@ -111,8 +117,9 @@ RSpec.describe DownstreamUnpublishWorker do
       )
     }
 
-    it "deletes from the live content store" do
+    it "deletes from the both content stores" do
       expect(Adapters::ContentStore).to receive(:delete_content_item).with("/vanish")
+      expect(Adapters::DraftContentStore).to receive(:delete_content_item).with("/vanish")
       subject.perform(arguments.merge(content_item_id: vanish_content_item.id))
     end
   end

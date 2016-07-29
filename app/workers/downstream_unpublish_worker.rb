@@ -25,7 +25,7 @@ class DownstreamUnpublishWorker
       )
     end
 
-    update_content_store if should_send_to_content_store?
+    update_content_stores if should_send_to_content_store?
     enqueue_dependencies if update_dependencies
   end
 
@@ -37,19 +37,23 @@ private
     @update_dependencies = attributes.fetch(:update_dependencies, true)
   end
 
-  def update_content_store
+  def update_content_stores
     case unpublishing.type
     when "withdrawal"
       payload = presented_content_store_payload
       live_content_store.put_content_item(web_content_item.base_path, payload)
+      draft_content_store.put_content_item(web_content_item.base_path, payload)
     when "redirect"
       payload = presented_redirect_payload
       live_content_store.put_content_item(web_content_item.base_path, payload)
+      draft_content_store.put_content_item(web_content_item.base_path, payload)
     when "gone"
       payload = presented_gone_payload
       live_content_store.put_content_item(web_content_item.base_path, payload)
+      draft_content_store.put_content_item(web_content_item.base_path, payload)
     when "vanish"
       live_content_store.delete_content_item(web_content_item.base_path)
+      draft_content_store.delete_content_item(web_content_item.base_path)
     else
       raise CommandError.new(
         code: 500,
@@ -88,6 +92,10 @@ private
 
   def live_content_store
     Adapters::ContentStore
+  end
+
+  def draft_content_store
+    Adapters::DraftContentStore
   end
 
   def should_send_to_content_store?
