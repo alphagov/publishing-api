@@ -58,6 +58,10 @@ module Commands
 
         delete_linkable(content_item)
 
+        after_transaction_commit do
+          send_downstream_unpublish(content_item)
+        end
+
         Success.new(content_id: content_id)
       end
 
@@ -68,26 +72,13 @@ module Commands
           type: "withdrawal",
           explanation: payload.fetch(:explanation),
         )
-
-        after_transaction_commit do
-          send_content_item_downstream(content_item)
-        end
       end
 
       def redirect(content_item)
-        unpublishing = State.unpublish(content_item,
+        State.unpublish(content_item,
           type: "redirect",
           alternative_path: payload.fetch(:alternative_path),
         )
-
-        redirect = RedirectPresenter.present(
-          base_path: Location.find_by(content_item: content_item).base_path,
-          publishing_app: content_item.publishing_app,
-          destination: unpublishing.alternative_path,
-          public_updated_at: Time.zone.now,
-        )
-
-        send_downstream(redirect)
       end
 
       def gone(content_item)
@@ -96,43 +87,24 @@ module Commands
           alternative_path: payload[:alternative_path],
           explanation: payload[:explanation],
         )
-
-        gone = GonePresenter.present(
-          base_path: Location.find_by(content_item: content_item).base_path,
-          publishing_app: content_item.publishing_app,
-          alternative_path: payload[:alternative_path],
-          explanation: payload[:explanation],
-        )
-
-        send_downstream(gone)
       end
 
       def vanish(content_item)
         State.unpublish(content_item, type: "vanish")
-
-        delete_from_downstream(Location.find_by(content_item: content_item).base_path)
       end
 
       def delete_linkable(content_item)
         Linkable.find_by(content_item: content_item).try(:destroy)
       end
 
-      def send_downstream(downstream_payload)
+      def send_downstream_unpublish(content_item)
         return unless downstream
 
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::ContentStore,
-          payload: downstream_payload.merge(payload_version: event.id),
-        )
-      end
-
-      def delete_from_downstream(base_path)
-        return unless downstream
-
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::ContentStore,
-          base_path: base_path,
-          delete: true,
+        DownstreamUnpublishWorker.perform_async_in_queue(
+          DownstreamUnpublishWorker::HIGH_QUEUE,
+          content_item_id: content_item.id,
+          payload_version: event.id,
+          update_dependencies: true,
         )
       end
 

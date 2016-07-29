@@ -56,23 +56,12 @@ RSpec.describe Commands::V2::Unpublish do
         expect(linkable).to be_nil
       end
 
-      it "sends an unpublishing to the live content store" do
-        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+      it "sends an unpublishing downstream" do
+        expect(DownstreamUnpublishWorker).to receive(:perform_async_in_queue)
           .with(
-            base_path: base_path,
-            content_item: a_hash_including(
-              document_type: "gone",
-            )
-        )
-
-        described_class.call(payload)
-      end
-
-      it "does not send to any other downstream system" do
-        allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
-        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+            "downstream_high",
+            a_hash_including(content_item_id: live_content_item.id)
+          )
 
         described_class.call(payload)
       end
@@ -140,22 +129,11 @@ RSpec.describe Commands::V2::Unpublish do
         end
 
         it "sends an unpublishing to the live content store" do
-          expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+          expect(DownstreamUnpublishWorker).to receive(:perform_async_in_queue)
             .with(
-              base_path: start_with(base_path),
-              content_item: a_hash_including(
-                document_type: "gone",
-              )
-          )
-
-          described_class.call(payload_with_allow_draft)
-        end
-
-        it "does not send to any other downstream system" do
-          allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-          expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
-          expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
-          expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+              "downstream_high",
+              a_hash_including(content_item_id: draft_content_item.id)
+            )
 
           described_class.call(payload_with_allow_draft)
         end
@@ -327,26 +305,11 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "sends an unpublishing to the live content store" do
-        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+        expect(DownstreamUnpublishWorker).to receive(:perform_async_in_queue)
           .with(
-            base_path: base_path,
-            content_item: a_hash_including(
-              document_type: "gone",
-              details: {
-                explanation: "This explanation is correct",
-                alternative_path: nil,
-              }
-            )
-        )
-
-        described_class.call(payload)
-      end
-
-      it "does not send to any other downstream system" do
-        allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
-        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+            "downstream_high",
+            a_hash_including(content_item_id: unpublished_content_item.id)
+          )
 
         described_class.call(payload)
       end
@@ -360,10 +323,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for a 'gone'" do
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
-        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+        expect(DownstreamUnpublishWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
           type: "gone",
@@ -373,10 +333,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for a 'redirect'" do
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
-        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+        expect(DownstreamUnpublishWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
           type: "redirect",
@@ -386,10 +343,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for a 'withdrawal'" do
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
-        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+        expect(DownstreamUnpublishWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
           type: "withdrawal",
@@ -399,10 +353,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for 'vanish'" do
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:live_content_store)).not_to receive(:delete_content_item)
-        expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+        expect(DownstreamUnpublishWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
           type: "withdrawal",
