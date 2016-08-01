@@ -39,7 +39,7 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     it "does not send to the downstream publish worker" do
-      expect(DownstreamPublishWorker).not_to receive(:perform_async_in_queue)
+      expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
       described_class.call(payload)
     end
 
