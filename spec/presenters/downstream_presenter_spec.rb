@@ -58,7 +58,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a withdrawn content item" do
-      let!(:content_item) { FactoryGirl.create(:withdrawn_content_item, base_path: base_path) }
+      let!(:content_item) { FactoryGirl.create(:withdrawn_unpublished_content_item, base_path: base_path) }
       let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "merges in a withdrawal notice" do
