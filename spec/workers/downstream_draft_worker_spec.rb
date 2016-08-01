@@ -79,38 +79,4 @@ RSpec.describe DownstreamDraftWorker do
       end
     end
   end
-
-  describe "state protection" do
-    it "rejects unpublished content items" do
-      unpublished = FactoryGirl.create(:content_item, state: "unpublished")
-
-      expect {
-        subject.perform(arguments.merge("content_item_id" => unpublished.id))
-      }.to raise_error(CommandError)
-    end
-
-    it "rejects superseded content items" do
-      superseded = FactoryGirl.create(:content_item, state: "superseded")
-
-      expect {
-        subject.perform(arguments.merge("content_item_id" => superseded.id))
-      }.to raise_error(CommandError)
-    end
-
-    it "allows draft content items" do
-      draft = FactoryGirl.create(:draft_content_item)
-
-      expect {
-        subject.perform(arguments.merge("content_item_id" => draft.id))
-      }.not_to raise_error
-    end
-
-    it "allows live content items" do
-      live = FactoryGirl.create(:live_content_item)
-
-      expect {
-        subject.perform(arguments.merge("content_item_id" => live.id))
-      }.not_to raise_error
-    end
-  end
 end
