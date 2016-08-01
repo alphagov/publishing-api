@@ -18,16 +18,17 @@ module Commands
       raise_validation_command_error(e)
     end
 
-    def initialize(payload, event:, downstream: true, callbacks:)
+    def initialize(payload, event:, downstream: true, nested: false, callbacks:)
       @payload = payload
       @event = event
       @downstream = downstream
+      @nested = nested
       @callbacks = callbacks
     end
 
   private
 
-    attr_reader :payload, :event, :downstream
+    attr_reader :payload, :event, :downstream, :nested
 
     def self.execute_callbacks(callbacks)
       callbacks.each(&:call)

@@ -44,17 +44,7 @@ module Commands
           live_content_item_id: live_content_item_id,
           payload_version: event.id,
           update_dependencies: true,
-        )
-      end
-
-      def send_live_to_draft_content_store(live)
-        return unless downstream
-
-        DownstreamDraftWorker.perform_async_in_queue(
-          DownstreamDraftWorker::HIGH_QUEUE,
-          content_item_id: live.id,
-          payload_version: event.id,
-          update_dependencies: true,
+          ignore_base_path_conflict: nested
         )
       end
 
