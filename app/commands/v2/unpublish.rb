@@ -59,7 +59,7 @@ module Commands
         delete_linkable(content_item)
 
         after_transaction_commit do
-          send_downstream_unpublish(content_item)
+          send_downstream(content_item)
         end
 
         Success.new(content_id: content_id)
@@ -97,11 +97,18 @@ module Commands
         Linkable.find_by(content_item: content_item).try(:destroy)
       end
 
-      def send_downstream_unpublish(content_item)
+      def send_downstream(content_item)
         return unless downstream
 
-        DownstreamUnpublishWorker.perform_async_in_queue(
-          DownstreamUnpublishWorker::HIGH_QUEUE,
+        DownstreamDraftWorker.perform_async_in_queue(
+          DownstreamDraftWorker::HIGH_QUEUE,
+          content_item_id: content_item.id,
+          payload_version: event.id,
+          update_dependencies: true,
+        )
+
+        DownstreamLiveWorker.perform_async_in_queue(
+          DownstreamLiveWorker::HIGH_QUEUE,
           content_item_id: content_item.id,
           payload_version: event.id,
           update_dependencies: true,

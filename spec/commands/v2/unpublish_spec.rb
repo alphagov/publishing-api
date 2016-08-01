@@ -57,7 +57,12 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "sends an unpublishing downstream" do
-        expect(DownstreamUnpublishWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(
+            "downstream_high",
+            a_hash_including(content_item_id: live_content_item.id)
+          )
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
             a_hash_including(content_item_id: live_content_item.id)
@@ -129,7 +134,7 @@ RSpec.describe Commands::V2::Unpublish do
         end
 
         it "sends an unpublishing to the live content store" do
-          expect(DownstreamUnpublishWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
               a_hash_including(content_item_id: draft_content_item.id)
@@ -304,8 +309,28 @@ RSpec.describe Commands::V2::Unpublish do
         expect(unpublishing.alternative_path).to be_nil
       end
 
+      it "sends an unpublishing to the draft content store" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(
+            "downstream_high",
+            a_hash_including(content_item_id: unpublished_content_item.id)
+          )
+
+        described_class.call(payload)
+      end
+
+      it "sends an unpublishing to the draft content store" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(
+            "downstream_high",
+            a_hash_including(content_item_id: unpublished_content_item.id)
+          )
+
+        described_class.call(payload)
+      end
+
       it "sends an unpublishing to the live content store" do
-        expect(DownstreamUnpublishWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
             a_hash_including(content_item_id: unpublished_content_item.id)
@@ -323,7 +348,8 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for a 'gone'" do
-        expect(DownstreamUnpublishWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
           type: "gone",
@@ -333,7 +359,8 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for a 'redirect'" do
-        expect(DownstreamUnpublishWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
           type: "redirect",
@@ -343,7 +370,8 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for a 'withdrawal'" do
-        expect(DownstreamUnpublishWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
           type: "withdrawal",
@@ -353,7 +381,8 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "does not send to any downstream system for 'vanish'" do
-        expect(DownstreamUnpublishWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
 
         redraft_payload = payload.merge(
           type: "withdrawal",
