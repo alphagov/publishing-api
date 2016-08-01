@@ -14,15 +14,11 @@ class DownstreamDraftWorker
       raise AbortWorkerError.new("The content item for id: #{content_item_id} was not found")
     end
 
-    if %w(draft published unpublished).exclude?(web_content_item.state)
-      raise AbortWorkerError.new("Can only downstream draft a draft, published or unpublished content item")
-    end
-
     if web_content_item.base_path
       downstream.send_to_draft_content_store(web_content_item, payload_version)
     end
     enqueue_dependencies if update_dependencies
-  rescue AbortWorkerError => e
+  rescue AbortWorkerError, DownstreamInvariantError => e
     Airbrake.notify_or_ignore(e)
   end
 

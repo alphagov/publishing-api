@@ -1,4 +1,4 @@
-class DownstreamPublishWorker
+class DownstreamLiveWorker
   attr_reader :content_item_id, :web_content_item, :payload_version, :message_queue_update_type, :update_dependencies
 
   include DownstreamQueue
@@ -14,14 +14,18 @@ class DownstreamPublishWorker
       raise AbortWorkerError.new("The content item for id: #{content_item_id} was not found")
     end
 
-    if web_content_item.state != "published"
-      raise AbortWorkerError.new("Will not downstream publish a content item that isn't published")
+    downstream = DownstreamMediator.new(
+      web_content_item: web_content_item,
+      payload_version: payload_version,
+    )
+    downstream.send_to_live_content_store if web_content_item.base_path
+    if web_content_item.state == "published"
+      downstream.broadcast_to_message_queue(
+        message_queue_update_type || web_content_item.update_type
+      )
     end
-
-    send_to_live_content_store if web_content_item.base_path
     enqueue_dependencies if update_dependencies
-    broadcast_to_message_queue
-  rescue AbortWorkerError => e
+  rescue AbortWorkerError, DownstreamInvariantError => e
     Airbrake.notify_or_ignore(e)
   end
 
@@ -35,31 +39,9 @@ private
     @update_dependencies = attributes.fetch(:update_dependencies, true)
   end
 
-  def send_to_live_content_store
-    payload = Presenters::ContentStorePresenter.present(
-      web_content_item,
-      payload_version,
-      state_fallback_order: live_content_store::DEPENDENCY_FALLBACK_ORDER
-    )
-    live_content_store.put_content_item(web_content_item.base_path, payload)
-  end
-
-  def broadcast_to_message_queue
-    payload = Presenters::MessageQueuePresenter.present(
-      web_content_item,
-      state_fallback_order: [:published],
-      update_type: message_queue_update_type,
-    )
-    PublishingAPI.service(:queue_publisher).send_message(payload)
-  end
-
-  def live_content_store
-    Adapters::ContentStore
-  end
-
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(
-      content_store: live_content_store,
+      content_store: Adapters::ContentStore,
       fields: [:content_id],
       content_id: web_content_item.content_id,
       payload_version: payload_version,

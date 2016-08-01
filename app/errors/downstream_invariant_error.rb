@@ -1,0 +1,2 @@
+class DownstreamInvariantError < RuntimeError
+end

@@ -8,24 +8,43 @@ class DownstreamMediator
   end
 
   def send_to_live_content_store
+    # check state is published or unpublished
     send_to_content_store(Adapters::ContentStore)
   end
 
   def send_to_draft_content_store
-    send_to_draft_content_store(Adapters::DraftContentStore)
+    # check state is draft, published, or unpublished
+    send_to_content_store(Adapters::DraftContentStore)
   end
 
   def delete_from_draft_content_store
+    # check there isn't something occupying the item
     Adapters::DraftContentStore.delete_content_item(base_path)
   end
 
   def broadcast_to_message_queue(update_type)
+    # check state is published
     payload = Presenters::MessageQueuePresenter.present(
       web_content_item,
       state_fallback_order: [:published],
       update_type: update_type,
     )
     PublishingAPI.service(:queue_publisher).send_message(payload)
+  end
+
+  def self.send_to_live_content_store(web_content_item, payload_version)
+    mediator = new(web_content_item: web_content_item, payload_version: payload_version)
+    mediator.send_to_live_content_store
+  end
+
+  def self.send_to_draft_content_store(web_content_item, payload_version)
+    mediator = new(web_content_item: web_content_item, payload_version: payload_version)
+    mediator.send_to_draft_content_store
+  end
+
+  def self.delete_from_draft_content_store(base_path, payload_version)
+    mediator = new(base_path: base_path, payload_version: payload_version)
+    mediator.delete_from_draft_content_store
   end
 
 private
@@ -35,6 +54,7 @@ private
   end
 
   def send_to_content_store(content_store)
+    # check base path
     if web_content_item.state == "unpublished"
       case unpublishing.type
       when "withdrawal"
@@ -45,6 +65,9 @@ private
         send_gone_to_content_store(content_store)
       when "vanish"
         content_store.delete_content_item(web_content_item.base_path)
+      when "substitute"
+        # do nothing
+        nil
       else
         raise RuntimeError.new "Unexpected unpublishing type of '#{unpublishing.type}'"
       end
