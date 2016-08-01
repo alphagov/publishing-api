@@ -16,7 +16,7 @@ module Commands
 
         items_for_live_store(filter).pluck(:id, :content_id).each_with_index do |(content_item_id, content_id), index|
           sleep 60 if (index + 1) % 10_000 == 0
-          downstream_publish(content_item_id, content_id)
+          downstream_live(content_item_id, content_id)
         end
       end
 
@@ -48,15 +48,15 @@ module Commands
         end
       end
 
-      def downstream_publish(content_item_id, content_id)
+      def downstream_live(content_item_id, content_id)
         event_payload = {
           content_id: content_id,
           message: "Representing downstream publish",
         }
 
         EventLogger.log_command(self.class, event_payload) do |event|
-          DownstreamPublishWorker.perform_async_in_queue(
-            DownstreamPublishWorker::LOW_QUEUE,
+          DownstreamLiveWorker.perform_async_in_queue(
+            DownstreamLiveWorker::LOW_QUEUE,
             content_item_id: content_item_id,
             payload_version: event.id,
             message_queue_update_type: "links",
