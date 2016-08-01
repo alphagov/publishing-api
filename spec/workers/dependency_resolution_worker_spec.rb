@@ -28,7 +28,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
   end
 
   it "the dependees get queued in the content store worker" do
-    expect(DownstreamPublishWorker).to receive(:perform_async_in_queue).with(
+    expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
       "downstream_low",
       a_hash_including(
         :content_item_id,
@@ -48,7 +48,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
     }
 
     it "doesn't send draft content to the live content store" do
-      expect(DownstreamPublishWorker).to receive(:perform_async_in_queue).with(
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
           content_item_id: live_content_item.id,

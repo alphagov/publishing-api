@@ -42,7 +42,7 @@ private
     if draft?
       downstream_draft(latest_content_item)
     else
-      downstream_publish(latest_content_item)
+      downstream_live(latest_content_item)
     end
   end
 
@@ -59,9 +59,9 @@ private
     )
   end
 
-  def downstream_publish(latest_content_item)
-    DownstreamPublishWorker.perform_async_in_queue(
-      DownstreamPublishWorker::LOW_QUEUE,
+  def downstream_live(latest_content_item)
+    DownstreamLiveWorker.perform_async_in_queue(
+      DownstreamLiveWorker::LOW_QUEUE,
       content_item_id: latest_content_item.id,
       message_queue_update_type: "links",
       payload_version: payload_version,
