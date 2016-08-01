@@ -8,22 +8,34 @@ class DownstreamMediator
   end
 
   def send_to_live_content_store
-    # check state is published or unpublished
+    if %w(published unpublished).exclude?(web_content_item.state)
+      message = "Can only send published and unpublished items to live content store"
+      raise DownstreamInvariantError.new(message)
+    end
     send_to_content_store(Adapters::ContentStore)
   end
 
   def send_to_draft_content_store
-    # check state is draft, published, or unpublished
+    if %w(draft published unpublished).exclude?(web_content_item.state)
+      message = "Can only send draft, published and unpublished items to draft content store"
+      raise DownstreamInvariantError.new(message)
+    end
     send_to_content_store(Adapters::DraftContentStore)
   end
 
   def delete_from_draft_content_store
-    # check there isn't something occupying the item
-    Adapters::DraftContentStore.delete_content_item(base_path)
+    if draft_base_path_conflict?(base_path)
+      message = "Cannot discard '#{base_path}' as there is an item occupying that base path"
+      raise DiscardDraftBasePathConflictError(message)
+    end
+    delete_from_content_store(Adapters::DraftContentStore, base_path)
   end
 
   def broadcast_to_message_queue(update_type)
-    # check state is published
+    if web_content_item.state != "published"
+      message = "Can only send published items to the message queue"
+      raise DownstreamInvariantError.new(message)
+    end
     payload = Presenters::MessageQueuePresenter.present(
       web_content_item,
       state_fallback_order: [:published],
@@ -54,7 +66,11 @@ private
   end
 
   def send_to_content_store(content_store)
-    # check base path
+    if web_content_item.base_path.nil?
+      message = "Can only send items with a base path to content store"
+      raise DownstreamInvariantError.new(message)
+    end
+
     if web_content_item.state == "unpublished"
       case unpublishing.type
       when "withdrawal"
@@ -64,7 +80,7 @@ private
       when "gone"
         send_gone_to_content_store(content_store)
       when "vanish"
-        content_store.delete_content_item(web_content_item.base_path)
+        delete_from_content_store(content_store, web_content_item.base_path)
       when "substitute"
         # do nothing
         nil
@@ -74,6 +90,14 @@ private
     else
       send_content_to_content_store(content_store)
     end
+  end
+
+  def delete_from_content_store(content_store, base_path)
+    if base_path.nil?
+      message = "Can only delete items with a base path from a content store"
+      raise DownstreamInvariantError.new(message)
+    end
+    content_store.delete_content_item(base_path)
   end
 
   def send_content_to_content_store(content_store)
@@ -105,5 +129,13 @@ private
     )
     payload.merge!(payload_version: payload_version)
     content_store.put_content_item(web_content_item.base_path, payload)
+  end
+
+  def draft_base_path_conflict?(base_path)
+    return false unless base_path
+    ContentItemFilter.filter(
+      base_path: base_path,
+      state: %w(draft published unpublished),
+    ).exists?
   end
 end
