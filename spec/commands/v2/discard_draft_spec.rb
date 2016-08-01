@@ -101,7 +101,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
       end
 
-      context "a published content item exists with a different base_path" do
+      context "a published content item exists with the same base_path" do
         let!(:published_item) {
           FactoryGirl.create(:live_content_item,
             content_id: content_id,
@@ -118,16 +118,15 @@ RSpec.describe Commands::V2::DiscardDraft do
           }.to change { published_lock_version.reload.number }.to(4)
         end
 
-        it "it doesn't use downstream discard draft worker as it's replaced by the published item" do
-          expect(DownstreamDiscardDraftWorker).to_not receive(:perform_async_in_queue)
-          described_class.call(payload)
-        end
-
-        it "sends the published content item to the draft content store" do
-          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        it "it uses the downstream discard draft worker" do
+          expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
             .with(
-              DownstreamDraftWorker::HIGH_QUEUE,
-              a_hash_including(:content_item_id, :payload_version),
+              DownstreamDiscardDraftWorker::HIGH_QUEUE,
+              a_hash_including(
+                base_path: base_path,
+                content_id: content_id,
+                live_content_item_id: published_item.id,
+              ),
             )
           described_class.call(payload)
         end
@@ -173,11 +172,15 @@ RSpec.describe Commands::V2::DiscardDraft do
           )
         end
 
-        it "it uses downstream discard draft worker to remove draft" do
+        it "it uses downstream discard draft worker" do
           expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
             .with(
-              "downstream_high",
-              a_hash_including(base_path: base_path, content_id: content_id),
+              DownstreamDiscardDraftWorker::HIGH_QUEUE,
+              a_hash_including(
+                base_path: base_path,
+                content_id: content_id,
+                live_content_item_id: published_item.id,
+              ),
             )
           described_class.call(payload)
         end
@@ -188,6 +191,28 @@ RSpec.describe Commands::V2::DiscardDraft do
           linkable = Linkable.find_by(base_path: "/hat-rates")
           expect(linkable).not_to be_nil
           expect(linkable.content_item).to eq(published_item)
+        end
+      end
+
+      context "an unpublished content item exits" do
+        let(:unpublished_item) {
+          FactoryGirl.create(:unpublished_content_item,
+            base_path: base_path,
+            content_id: content_id,
+          )
+        }
+
+        it "it uses downstream discard draft worker" do
+          expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
+            .with(
+              DownstreamDiscardDraftWorker::HIGH_QUEUE,
+              a_hash_including(
+                base_path: base_path,
+                content_id: content_id,
+                live_content_item_id: unpublished_item.id,
+              ),
+            )
+          described_class.call(payload)
         end
       end
 

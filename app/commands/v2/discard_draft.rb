@@ -13,12 +13,7 @@ module Commands
         increment_live_lock_version if live
 
         after_transaction_commit do
-          live_path = Location.where(content_item: live).pluck(:base_path).first
-
-          send_live_to_draft_content_store(live) if live
-          if !live || live_path != draft_path
-            downstream_discard_draft(draft_path, draft.content_id)
-          end
+          downstream_discard_draft(draft_path, draft.content_id, live.try(:id))
         end
 
         Success.new(content_id: content_id)
@@ -39,13 +34,14 @@ module Commands
         draft.destroy
       end
 
-      def downstream_discard_draft(path_used, content_id)
+      def downstream_discard_draft(path_used, content_id, live_content_item_id)
         return unless downstream
 
         DownstreamDiscardDraftWorker.perform_async_in_queue(
           DownstreamDiscardDraftWorker::HIGH_QUEUE,
           base_path: path_used,
           content_id: content_id,
+          live_content_item_id: live_content_item_id,
           payload_version: event.id,
           update_dependencies: true,
         )
@@ -88,7 +84,7 @@ module Commands
       def live
         @live ||= ContentItemFilter.new(scope: ContentItem.where(content_id: content_id)).filter(
           locale: locale,
-          state: "published",
+          state: %w(published unpublished),
         ).first
       end
 
