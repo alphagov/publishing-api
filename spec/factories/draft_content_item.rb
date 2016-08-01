@@ -29,4 +29,10 @@ FactoryGirl.define do
       FactoryGirl.create(:access_limit, content_item: item)
     end
   end
+
+  factory :pathless_draft_content_item, parent: :draft_content_item do
+    base_path nil
+    schema_name "contact"
+    document_type "contact"
+  end
 end

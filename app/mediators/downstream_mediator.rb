@@ -26,7 +26,7 @@ class DownstreamMediator
   def delete_from_draft_content_store
     if draft_base_path_conflict?(base_path)
       message = "Cannot discard '#{base_path}' as there is an item occupying that base path"
-      raise DiscardDraftBasePathConflictError(message)
+      raise DiscardDraftBasePathConflictError.new(message)
     end
     delete_from_content_store(Adapters::DraftContentStore, base_path)
   end
@@ -39,7 +39,7 @@ class DownstreamMediator
     payload = Presenters::MessageQueuePresenter.present(
       web_content_item,
       state_fallback_order: [:published],
-      update_type: update_type,
+      update_type: update_type || web_content_item.update_type,
     )
     PublishingAPI.service(:queue_publisher).send_message(payload)
   end
