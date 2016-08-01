@@ -107,8 +107,8 @@ module Commands
       end
 
       def downstream_publish(content_item)
-        queue = bulk_publishing? ? DownstreamPublishWorker::LOW_QUEUE : DownstreamPublishWorker::HIGH_QUEUE
-        DownstreamPublishWorker.perform_async_in_queue(
+        queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
+        DownstreamLiveWorker.perform_async_in_queue(
           queue,
           content_item_id: content_item.id,
           message_queue_update_type: "links",

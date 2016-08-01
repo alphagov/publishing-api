@@ -255,8 +255,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends to downstream publish worker" do
-      allow(DownstreamPublishWorker).to receive(:perform_async_in_queue)
-      expect(DownstreamPublishWorker).to receive(:perform_async_in_queue)
+      allow(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
           a_hash_including(
@@ -270,8 +270,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "sends a low priority request to the downstream publish worker for bulk publishing" do
-      allow(DownstreamPublishWorker).to receive(:perform_async_in_queue)
-      expect(DownstreamPublishWorker).to receive(:perform_async_in_queue)
+      allow(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_low",
           a_hash_including(
@@ -295,9 +295,9 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "sends the live content item for all locales downstream" do
-        allow(DownstreamPublishWorker).to receive(:perform_async_in_queue)
+        allow(DownstreamLiveWorker).to receive(:perform_async_in_queue)
         [live_content_item, french_live_content_item].each do |ci|
-          expect(DownstreamPublishWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
               content_item_id: ci.id.to_s,
@@ -317,7 +317,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "does not send a request to downstream publish worker" do
-        expect(DownstreamPublishWorker).not_to receive(:perform_async_in_queue)
+        expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
     end

@@ -15,7 +15,7 @@ class DownstreamDraftWorker
     end
 
     if web_content_item.base_path
-      downstream.send_to_draft_content_store(web_content_item, payload_version)
+      DownstreamMediator.send_to_draft_content_store(web_content_item, payload_version)
     end
     enqueue_dependencies if update_dependencies
   rescue AbortWorkerError, DownstreamInvariantError => e
