@@ -154,9 +154,9 @@ module Commands
       def send_downstream(content_item, update_type)
         return unless downstream
 
-        queue = update_type == 'republish' ? DownstreamPublishWorker::LOW_QUEUE : DownstreamPublishWorker::HIGH_QUEUE
+        queue = update_type == 'republish' ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
 
-        DownstreamPublishWorker.perform_async_in_queue(
+        DownstreamLiveWorker.perform_async_in_queue(
           queue,
           content_item_id: content_item.id,
           message_queue_update_type: update_type,

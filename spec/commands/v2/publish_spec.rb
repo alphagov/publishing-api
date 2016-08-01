@@ -59,7 +59,7 @@ RSpec.describe Commands::V2::Publish do
         end
 
         it "uses the update_type from the draft content item" do
-          expect(DownstreamPublishWorker).to receive(:perform_async_in_queue)
+          expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with("downstream_high", hash_including(message_queue_update_type: "major"))
 
           described_class.call(payload)
@@ -196,7 +196,7 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "sends downstream asynchronously" do
-        expect(DownstreamPublishWorker)
+        expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
@@ -208,7 +208,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "when the 'downstream' parameter is false" do
         it "does not send downstream" do
-          expect(DownstreamPublishWorker).not_to receive(:perform_async_in_queue)
+          expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
           described_class.call(payload, downstream: false)
         end
       end
@@ -283,7 +283,7 @@ RSpec.describe Commands::V2::Publish do
           end
 
           it "uses the stored timestamp for major or minor" do
-            expect(DownstreamPublishWorker)
+            expect(DownstreamLiveWorker)
               .to receive(:perform_async_in_queue)
               .with(
                 "downstream_low",
