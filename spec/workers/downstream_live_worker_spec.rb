@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe DownstreamPublishWorker do
+RSpec.describe DownstreamLiveWorker do
   let(:content_item) { FactoryGirl.create(:live_content_item, base_path: "/foo") }
   let(:arguments) {
     {
@@ -28,10 +28,10 @@ RSpec.describe DownstreamPublishWorker do
       }.to raise_error(KeyError)
     end
 
-    it "requires message_queue_update_type" do
+    it "doesn't require message_queue_update_type" do
       expect {
         subject.perform(arguments.except("message_queue_update_type"))
-      }.to raise_error(KeyError)
+      }.not_to raise_error
     end
 
     it "doesn't require update_dependencies" do
@@ -42,17 +42,36 @@ RSpec.describe DownstreamPublishWorker do
   end
 
   describe "send to live content store" do
-    context "can send to content store" do
-      it "sends put content to live content store" do
+    context "published content item" do
+      it "sends content to live content store" do
         expect(Adapters::ContentStore).to receive(:put_content_item)
         subject.perform(arguments)
       end
+    end
 
-      it "receives the base path" do
-        base_path = Location.where(content_item: content_item).pluck(:base_path).first
+    context "unpublished content item" do
+      let(:unpublished_content_item) { FactoryGirl.create(:unpublished_content_item) }
+      let(:unpublished_arguments) { arguments.merge(content_item_id: unpublished_content_item.id) }
+
+      it "sends content to live content store" do
         expect(Adapters::ContentStore).to receive(:put_content_item)
-          .with(base_path, anything)
-        subject.perform(arguments)
+        subject.perform(unpublished_arguments)
+      end
+    end
+
+    context "superseded content item" do
+      let(:superseded_content_item) { FactoryGirl.create(:live_content_item, state: "superseded") }
+      let(:superseded_arguments) { arguments.merge(content_item_id: superseded_content_item.id) }
+
+      it "doesn't send to live content store" do
+        expect(Adapters::ContentStore).to_not receive(:put_content_item)
+        subject.perform(superseded_arguments)
+      end
+
+      it "absorbs an error" do
+        expect(Airbrake).to receive(:notify_or_ignore)
+          .with(an_instance_of(DownstreamInvariantError))
+        subject.perform(superseded_arguments)
       end
     end
 
@@ -104,7 +123,7 @@ RSpec.describe DownstreamPublishWorker do
       draft = FactoryGirl.create(:draft_content_item)
 
       expect(Airbrake).to receive(:notify_or_ignore)
-        .with(an_instance_of(AbortWorkerError))
+        .with(an_instance_of(DownstreamInvariantError))
       subject.perform(arguments.merge("content_item_id" => draft.id))
     end
 

@@ -35,7 +35,7 @@ private
     @content_item_id = attributes.fetch(:content_item_id)
     @web_content_item = Queries::GetWebContentItems.find(content_item_id)
     @payload_version = attributes.fetch(:payload_version)
-    @message_queue_update_type = attributes.fetch(:message_queue_update_type)
+    @message_queue_update_type = attributes.fetch(:message_queue_update_type, nil)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
   end
 
