@@ -92,7 +92,12 @@ module Commands
         SubstitutionHelper.clear!(
           new_item_document_type: content_item.document_type,
           new_item_content_id: content_item.content_id,
-          state: "published", locale: translation.locale, base_path: location.base_path
+          state: "published",
+          locale: translation.locale,
+          base_path: location.base_path,
+          downstream: downstream,
+          callbacks: callbacks,
+          nested: true,
         )
       end
 

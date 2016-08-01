@@ -1,6 +1,15 @@
 module SubstitutionHelper
   class << self
-    def clear!(new_item_document_type:, new_item_content_id:, base_path:, locale:, state:)
+    def clear!(
+      new_item_document_type:,
+      new_item_content_id:,
+      base_path:,
+      locale:,
+      state:,
+      downstream: true,
+      callbacks: [],
+      nested: false
+    )
       raise NilBasePathError if base_path.nil?
 
       blocking_items = ContentItemFilter.filter(base_path: base_path, locale: locale, state: state)
@@ -11,7 +20,12 @@ module SubstitutionHelper
 
         if mismatch && allowed_to_substitute
           if state == "draft"
-            Commands::V2::DiscardDraft.call(content_id: blocking_item.content_id)
+            Commands::V2::DiscardDraft.call(
+              content_id: blocking_item.content_id,
+              downstream: downstream,
+              nested: nested,
+              callbacks: callbacks,
+            )
           else
             State.substitute(blocking_item)
           end

@@ -116,6 +116,9 @@ module Commands
           state: "draft",
           locale: locale,
           base_path: base_path,
+          downstream: downstream,
+          callbacks: callbacks,
+          nested: true,
         )
       end
 
