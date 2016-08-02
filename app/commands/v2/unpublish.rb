@@ -153,15 +153,6 @@ module Commands
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
         filter.filter(locale: locale, state: "draft").exists?
       end
-
-      def send_content_item_downstream(content_item)
-        return unless downstream
-
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::ContentStore,
-          payload: { content_item_id: content_item.id, payload_version: event.id },
-        )
-      end
     end
   end
 end
