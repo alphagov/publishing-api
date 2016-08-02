@@ -17,6 +17,7 @@ class DownstreamDraftWorker
     if web_content_item.base_path
       DownstreamMediator.send_to_draft_content_store(web_content_item, payload_version)
     end
+
     enqueue_dependencies if update_dependencies
   rescue AbortWorkerError, DownstreamInvariantError => e
     Airbrake.notify_or_ignore(e)

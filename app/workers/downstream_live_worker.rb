@@ -18,12 +18,14 @@ class DownstreamLiveWorker
       web_content_item: web_content_item,
       payload_version: payload_version,
     )
+
     downstream.send_to_live_content_store if web_content_item.base_path
+
     if web_content_item.state == "published"
-      downstream.broadcast_to_message_queue(
-        message_queue_update_type || web_content_item.update_type
-      )
+      update_type = message_queue_update_type || web_content_item.update_type
+      downstream.broadcast_to_message_queue(update_type)
     end
+
     enqueue_dependencies if update_dependencies
   rescue AbortWorkerError, DownstreamInvariantError => e
     Airbrake.notify_or_ignore(e)
