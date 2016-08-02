@@ -7,7 +7,7 @@ module Commands
 
       response = EventLogger.log_command(self, payload) do |event|
         PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, '.')) do
-          new(payload, event: event, downstream: downstream, callbacks: callbacks).call
+          new(payload, event: event, downstream: downstream, callbacks: callbacks, nested: nested).call
         end
       end
 
