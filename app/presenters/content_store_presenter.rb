@@ -1,7 +1,7 @@
 module Presenters
   class ContentStorePresenter
-    def self.present(content_item, payload_version, state_fallback_order:)
-      attributes = DownstreamPresenter.present(content_item, state_fallback_order: state_fallback_order)
+    def self.present(downstream_presenter, payload_version)
+      attributes = downstream_presenter.present
       attributes.except(:update_type).merge(payload_version: payload_version)
     end
   end

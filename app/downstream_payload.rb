@@ -42,8 +42,7 @@ class DownstreamPayload
 
   def message_queue_payload(update_type)
     Presenters::MessageQueuePresenter.present(
-      web_content_item,
-      state_fallback_order: state_fallback_order,
+      downstream_presenter,
       update_type: update_type || web_content_item.update_type,
     )
   end
@@ -56,9 +55,8 @@ private
 
   def content_payload
     Presenters::ContentStorePresenter.present(
-      web_content_item,
-      payload_version,
-      state_fallback_order: state_fallback_order,
+      downstream_presenter,
+      payload_version
     )
   end
 
@@ -80,5 +78,13 @@ private
       explanation: unpublishing.explanation,
     )
     payload.merge(payload_version: payload_version)
+  end
+
+  def downstream_presenter
+    @downstream_presenter ||= Presenters::DownstreamPresenter.new(
+      web_content_item,
+      nil,
+      state_fallback_order: state_fallback_order,
+    )
   end
 end

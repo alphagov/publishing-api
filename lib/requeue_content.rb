@@ -20,9 +20,12 @@ class RequeueContent
 private
 
   def publish_to_queue(content_item)
+    downstream_presenter = Presenters::DownstreamPresenter.new(
+      Queries::GetWebContentItems.find(content_item),
+      state_fallback_order: [:published]
+    )
     queue_payload = Presenters::MessageQueuePresenter.present(
-      content_item,
-      state_fallback_order: [:published],
+      downstream_presenter,
       # FIXME: Rummager currently only listens to the message queue for the
       # update type 'links'. This behaviour will eventually be updated so that
       # it listens to other update types as well. This will happen as part of
