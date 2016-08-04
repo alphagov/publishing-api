@@ -72,7 +72,7 @@ RSpec.describe Queries::GetContentCollection do
       fields: %w(base_path publication_state),
     ).call).to match_array([
       hash_including("base_path" => "/draft", "publication_state" => "draft"),
-      hash_including("base_path" => "/live", "publication_state" => "live"),
+      hash_including("base_path" => "/live", "publication_state" => "published"),
     ])
   end
 
@@ -158,7 +158,7 @@ RSpec.describe Queries::GetContentCollection do
         fields: %w(base_path publication_state),
       ).call).to match_array([
         hash_including("base_path" => "/content.en", "publication_state" => "draft"),
-        hash_including("base_path" => "/content.en", "publication_state" => "live"),
+        hash_including("base_path" => "/content.en", "publication_state" => "published"),
       ])
     end
 
@@ -169,7 +169,7 @@ RSpec.describe Queries::GetContentCollection do
         filters: { locale: 'ar' },
       ).call).to match_array([
         hash_including("base_path" => "/content.ar", "publication_state" => "draft"),
-        hash_including("base_path" => "/content.ar", "publication_state" => "live"),
+        hash_including("base_path" => "/content.ar", "publication_state" => "published"),
       ])
     end
 
@@ -181,8 +181,8 @@ RSpec.describe Queries::GetContentCollection do
       ).call).to match_array([
         hash_including("base_path" => "/content.en", "publication_state" => "draft"),
         hash_including("base_path" => "/content.ar", "publication_state" => "draft"),
-        hash_including("base_path" => "/content.en", "publication_state" => "live"),
-        hash_including("base_path" => "/content.ar", "publication_state" => "live"),
+        hash_including("base_path" => "/content.en", "publication_state" => "published"),
+        hash_including("base_path" => "/content.ar", "publication_state" => "published"),
       ])
     end
   end
