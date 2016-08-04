@@ -12,12 +12,14 @@ class DownstreamDiscardDraftWorker
 
     live_path = live_web_content_item.try(:base_path)
     if live_path
-      DownstreamMediator.send_to_draft_content_store(live_web_content_item, payload_version)
+      DownstreamService.update_draft_content_store(
+        DownstreamPayload.new(live_web_content_item, payload_version, Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER)
+      )
       if base_path && live_path != base_path
-        DownstreamMediator.delete_from_draft_content_store(base_path, payload_version)
+        DownstreamService.discard_from_draft_content_store(base_path)
       end
     elsif base_path
-      DownstreamMediator.delete_from_draft_content_store(base_path, payload_version)
+      DownstreamService.discard_from_draft_content_store(base_path)
     end
 
     enqueue_dependencies if update_dependencies

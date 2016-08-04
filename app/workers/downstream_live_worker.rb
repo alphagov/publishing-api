@@ -14,16 +14,13 @@ class DownstreamLiveWorker
       raise AbortWorkerError.new("The content item for id: #{content_item_id} was not found")
     end
 
-    downstream = DownstreamMediator.new(
-      web_content_item: web_content_item,
-      payload_version: payload_version,
-    )
+    payload = DownstreamPayload.new(web_content_item, payload_version, Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER)
 
-    downstream.send_to_live_content_store if web_content_item.base_path
+    DownstreamService.update_live_content_store(payload) if web_content_item.base_path
 
     if web_content_item.state == "published"
       update_type = message_queue_update_type || web_content_item.update_type
-      downstream.broadcast_to_message_queue(update_type)
+      DownstreamService.broadcast_to_message_queue(payload, update_type)
     end
 
     enqueue_dependencies if update_dependencies
