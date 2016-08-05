@@ -10,6 +10,10 @@ module Queries
       end
     end
 
+    def self.find(content_item_id)
+      call(content_item_id).first
+    end
+
     def self.scope
       content_items = table(:content_items)
       locations = table(:locations)
