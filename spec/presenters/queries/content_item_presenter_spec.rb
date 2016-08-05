@@ -54,18 +54,6 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       it "has a publication state of draft" do
         expect(result.fetch("publication_state")).to eq("draft")
       end
-
-      context "that has a user facing version greater than 1" do
-        before do
-          version = UserFacingVersion.last
-          version.number = 2
-          version.save!
-        end
-
-        it "has a publication state of redrafted" do
-          expect(result.fetch("publication_state")).to eq("redrafted")
-        end
-      end
     end
 
     context "for a published content item" do

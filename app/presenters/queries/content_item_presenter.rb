@@ -117,9 +117,7 @@ module Presenters
       end
 
       PUBLICATION_STATE_SQL = <<-SQL.freeze
-        CASE WHEN (user_facing_versions.number > 1 AND states.name = 'draft') THEN
-          'redrafted'
-        WHEN (states.name = 'published') THEN
+        CASE WHEN (states.name = 'published') THEN
           'live'
         ELSE
           states.name
