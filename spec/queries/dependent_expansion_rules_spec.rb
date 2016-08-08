@@ -30,5 +30,7 @@ RSpec.describe Queries::DependentExpansionRules do
 
   describe "#reverse_name_for(link_type)" do
     specify { expect(subject.reverse_name_for(:parent)).to eq("children") }
+    specify { expect(subject.reverse_name_for(:documents)).to eq("document_collections") }
+    specify { expect(subject.reverse_name_for(:working_groups)).to eq("policies") }
   end
 end
