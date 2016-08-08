@@ -80,7 +80,7 @@ GEM
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     find_a_port (1.0.1)
-    gds-api-adapters (30.2.0)
+    gds-api-adapters (33.0.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -365,7 +365,7 @@ DEPENDENCIES
   deprecated_columns
   factory_girl_rails (= 4.5.0)
   faker
-  gds-api-adapters (= 30.2.0)
+  gds-api-adapters (= 33.0.0)
   gds-sso (= 12.1.0)
   govuk-lint
   govuk_sidekiq (~> 0.0)
