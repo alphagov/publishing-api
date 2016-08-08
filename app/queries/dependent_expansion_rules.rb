@@ -13,6 +13,8 @@ module Queries
     def reverse_name_for(link_type)
       {
         parent: "children",
+        documents: "document_collections",
+        working_groups: 'policies'
       }[link_type.to_sym]
     end
 
