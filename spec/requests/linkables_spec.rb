@@ -60,7 +60,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
       hash_including(
         content_id: policy_2.content_id,
         title: "Policy 2",
-        publication_state: "live",
+        publication_state: "published",
         base_path: "/vat-rates",
         internal_name: "Policy 2"
       ),

@@ -61,8 +61,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         State.find_by!(content_item: content_item).update!(name: "published")
       end
 
-      it "has a publication state of live" do
-        expect(result.fetch("publication_state")).to eq("live")
+      it "has a publication state of published" do
+        expect(result.fetch("publication_state")).to eq("published")
       end
     end
 

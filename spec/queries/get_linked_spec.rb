@@ -154,13 +154,13 @@ RSpec.describe Queries::GetLinked do
             ).to match_array([
               {
                 "title" => "Another VATTY thing",
-                "publication_state" => "live",
+                "publication_state" => "published",
                 "base_path" => "/vatty",
                 "locale" => "en",
               },
               {
                 "title" => "VAT and VATy things",
-                "publication_state" => "live",
+                "publication_state" => "published",
                 "base_path" => "/vat-rates",
                 "locale" => "en",
               }

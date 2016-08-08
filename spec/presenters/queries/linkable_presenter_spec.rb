@@ -31,7 +31,7 @@ RSpec.describe Presenters::Queries::LinkablePresenter do
       end
     end
 
-    context "when state is not 'live'" do
+    context "when state is not 'published'" do
       it "uses the state" do
         output = described_class.present(*args)
         expect(output[:publication_state]).to eq("draft")
@@ -41,9 +41,9 @@ RSpec.describe Presenters::Queries::LinkablePresenter do
     context "when state is 'published'" do
       let(:state) { "published" }
 
-      it "shows as 'live'" do
+      it "shows as 'published'" do
         output = described_class.present(*args)
-        expect(output[:publication_state]).to eq("live")
+        expect(output[:publication_state]).to eq("published")
       end
     end
   end

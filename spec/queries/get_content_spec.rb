@@ -158,12 +158,12 @@ RSpec.describe Queries::GetContent do
       expect(result.fetch("publication_state")).to eq("superseded")
 
       result = subject.call(content_id, version: 2)
-      expect(result.fetch("publication_state")).to eq("live")
+      expect(result.fetch("publication_state")).to eq("published")
     end
 
     it "returns the most recent if version isn't given" do
       result = subject.call(content_id)
-      expect(result.fetch("publication_state")).to eq("live")
+      expect(result.fetch("publication_state")).to eq("published")
     end
   end
 end

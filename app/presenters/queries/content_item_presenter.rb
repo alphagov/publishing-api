@@ -86,7 +86,7 @@ module Presenters
         fields_to_select = fields.map do |field|
           case field
           when :publication_state
-            "#{PUBLICATION_STATE_SQL} AS publication_state"
+            "states.name AS publication_state"
           when :user_facing_version
             "user_facing_versions.number AS user_facing_version"
           when :lock_version
@@ -115,15 +115,6 @@ module Presenters
         return scope unless search_query.present?
         scope.where("title ilike ? OR base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
       end
-
-      PUBLICATION_STATE_SQL = <<-SQL.freeze
-        CASE WHEN (states.name = 'published') THEN
-          'live'
-        ELSE
-          states.name
-        END
-      SQL
-
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
