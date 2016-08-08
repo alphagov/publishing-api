@@ -12,8 +12,7 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
     state = record.is_a?(State) ? record.name : unique_fields[:state]
     user_facing_version = record.is_a?(UserFacingVersion) ? record.number : unique_fields[:user_facing_version]
 
-    required_fields = [state, locale, user_facing_version]
-    required_fields << base_path if content_item.requires_base_path?
+    required_fields = [base_path, state, locale, user_facing_version]
 
     return unless required_fields.all?
 

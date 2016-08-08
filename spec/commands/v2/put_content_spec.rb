@@ -766,9 +766,6 @@ RSpec.describe Commands::V2::PutContent do
 
       context "when schema does not require a base_path" do
         before do
-          allow(Presenters::ContentStorePresenter).to receive(:present)
-            .and_return(base_path: "/vat-rates")
-
           payload.merge!(schema_name: 'government', document_type: 'government').delete(:format)
         end
 
@@ -924,15 +921,61 @@ RSpec.describe Commands::V2::PutContent do
           }.to change(ContentItem, :count).by(1)
         end
       end
+    end
 
-      context "for a pathless format with a path" do
+    context "where a base_path is optional and supplied" do
+      before do
+        payload.merge!(
+          schema_name: "contact",
+          document_type: "contact",
+          previous_version: 2,
+        )
+      end
+
+      it "sends to the content-store" do
+        expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+        described_class.call(payload)
+      end
+
+      # This covers a specific edge case where the content item uniqueness validator
+      # matched anything else with the same state, locale and version because it
+      # was previously ignoring the base path, now it should return without
+      # attempting to validate for pathless formats.
+      context "with other similar pathless items" do
         before do
-          payload[:base_path] = "/vat-rates"
+          FactoryGirl.create(:draft_content_item,
+            content_id: SecureRandom.uuid,
+            base_path: nil,
+            schema_name: "contact",
+            document_type: "contact",
+            locale: "en",
+            user_facing_version: 3,
+          )
         end
 
-        it "sends to the content-store" do
-          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
-          described_class.call(payload)
+        it "doesn't conflict" do
+          expect {
+            described_class.call(payload)
+          }.not_to raise_error
+        end
+      end
+
+      context "when there's a conflicting content item" do
+        before do
+          FactoryGirl.create(:draft_content_item,
+            content_id: content_id,
+            base_path: base_path,
+            schema_name: "contact",
+            document_type: "contact",
+            locale: "en",
+            user_facing_version: 3,
+          )
+        end
+
+        it "conflicts" do
+          expect {
+            described_class.call(payload)
+          }.to raise_error(CommandError, /Conflict/)
         end
       end
     end
