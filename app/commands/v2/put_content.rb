@@ -274,10 +274,6 @@ module Commands
       def send_downstream(content_item)
         return unless downstream
 
-        message = "Enqueuing DownstreamDraftWorker job with "
-        message += "{ content_item_id: #{content_item.id} }"
-        logger.info message
-
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
 
         DownstreamDraftWorker.perform_async_in_queue(
