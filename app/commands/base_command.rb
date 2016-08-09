@@ -7,7 +7,7 @@ module Commands
 
       response = EventLogger.log_command(self, payload) do |event|
         PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, '.')) do
-          new(payload, event: event, downstream: downstream, callbacks: callbacks).call
+          new(payload, event: event, downstream: downstream, callbacks: callbacks, nested: nested).call
         end
       end
 
@@ -18,16 +18,17 @@ module Commands
       raise_validation_command_error(e)
     end
 
-    def initialize(payload, event:, downstream: true, callbacks:)
+    def initialize(payload, event:, downstream: true, nested: false, callbacks:)
       @payload = payload
       @event = event
       @downstream = downstream
+      @nested = nested
       @callbacks = callbacks
     end
 
   private
 
-    attr_reader :payload, :event, :downstream
+    attr_reader :payload, :event, :downstream, :nested
 
     def self.execute_callbacks(callbacks)
       callbacks.each(&:call)

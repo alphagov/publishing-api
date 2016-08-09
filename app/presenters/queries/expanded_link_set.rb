@@ -11,9 +11,9 @@ module Presenters
 
       def links
         if top_level?
-          dependees.merge(dependents).merge(translations)
+          @links ||= dependees.merge(dependents).merge(translations)
         else
-          dependees
+          @links ||= dependees
         end
       end
 

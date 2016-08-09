@@ -46,7 +46,9 @@ private
   end
 
   def presented_payload
-    Presenters::ContentStorePresenter.present(content_item, payload_version, state_fallback_order: content_store::DEPENDENCY_FALLBACK_ORDER)
+    web_content_item = Queries::GetWebContentItems.find(content_item.id)
+    downstream_presenter = Presenters::DownstreamPresenter.new(web_content_item, nil, state_fallback_order: content_store::DEPENDENCY_FALLBACK_ORDER)
+    Presenters::ContentStorePresenter.present(downstream_presenter, payload_version)
   end
 
   def payload_version

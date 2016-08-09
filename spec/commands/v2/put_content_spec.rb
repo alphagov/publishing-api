@@ -28,48 +28,24 @@ RSpec.describe Commands::V2::PutContent do
       }
     }
 
-    it "sends to the draft content store" do
-      expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+    it "sends to the downstream draft worker" do
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
-          "content_store_high",
-          content_store: Adapters::DraftContentStore,
-          payload: a_hash_including(:content_item_id, :payload_version),
+          "downstream_high",
+          a_hash_including(:content_item_id, :payload_version, update_dependencies: true),
         )
 
       described_class.call(payload)
     end
 
-    it "enqueues the dependencies lookup" do
-      expect(DependencyResolutionWorker).to receive(:perform_async)
-        .with(
-          content_store: Adapters::DraftContentStore,
-          fields: anything,
-          content_id: anything,
-          payload_version: instance_of(Fixnum)
-        )
-
-      described_class.call(payload)
-    end
-
-    it "does not send the content item on the message queue" do
-      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
-      described_class.call(payload)
-    end
-
-    it "does not send to the live content store" do
-      expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
-        .with(
-          "content_store_high",
-          content_store: Adapters::ContentStore,
-          payload: a_hash_including(:content_item_id, :payload_version),
-        )
-
+    it "does not send to the downstream publish worker" do
+      expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
       described_class.call(payload)
     end
 
     context "when the 'downstream' parameter is false" do
-      it "does not send any requests to any content store" do
-        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
+      it "does not send to the downstream draft worker" do
+        expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
 
         described_class.call(payload, downstream: false)
       end
@@ -77,11 +53,10 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when the 'bulk_publishing' flag is set" do
       it "enqueues in the correct queue" do
-        expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
-            "content_store_low",
-            content_store: Adapters::DraftContentStore,
-            payload: a_hash_including(:content_item_id, :payload_version),
+            "downstream_low",
+            anything
           )
 
         described_class.call(payload.merge(bulk_publishing: true))
@@ -202,12 +177,7 @@ RSpec.describe Commands::V2::PutContent do
 
         it "sends a create request to the draft content store for the redirect" do
           allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: base_path)
-          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
-            .with(
-              "content_store_high",
-              content_store: Adapters::DraftContentStore,
-              payload: a_hash_including(:content_item_id, :payload_version),
-            ).twice
+          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).twice
 
           described_class.call(payload)
         end
@@ -507,12 +477,7 @@ RSpec.describe Commands::V2::PutContent do
 
         it "sends a create request to the draft content store for the redirect" do
           allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: "/vat-rates")
-          expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
-            .with(
-              "content_store_high",
-              content_store: Adapters::DraftContentStore,
-              payload: a_hash_including(:content_item_id, :payload_version),
-            ).twice
+          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).twice
 
           described_class.call(payload)
         end
@@ -894,8 +859,8 @@ RSpec.describe Commands::V2::PutContent do
         }.to change(ContentItem, :count).by(1)
       end
 
-      it "doesn't send to the draft content store" do
-        expect(PresentedContentStoreWorker).not_to receive(:perform_async_in_queue)
+      it "sends to the downstream draft worker" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         described_class.call(payload)
       end
 
@@ -933,7 +898,7 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       it "sends to the content-store" do
-        expect(PresentedContentStoreWorker).to receive(:perform_async_in_queue)
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         described_class.call(payload)
       end
 

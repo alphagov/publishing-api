@@ -44,4 +44,10 @@ FactoryGirl.define do
     title "Coming soon"
     description "This item will be published soon"
   end
+
+  factory :pathless_live_content_item, parent: :live_content_item do
+    base_path nil
+    schema_name "contact"
+    document_type "contact"
+  end
 end

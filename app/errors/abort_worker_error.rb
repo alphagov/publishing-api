@@ -1,0 +1,2 @@
+class AbortWorkerError < RuntimeError
+end

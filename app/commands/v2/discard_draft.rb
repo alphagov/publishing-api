@@ -6,21 +6,14 @@ module Commands
 
         check_version_and_raise_if_conflicting(draft, payload[:previous_version])
 
-        draft_path = Location.find_by!(content_item: draft).base_path
+        draft_path = Location.where(content_item: draft).pluck(:base_path).first
 
         delete_supporting_objects
         delete_draft_from_database
         increment_live_lock_version if live
 
         after_transaction_commit do
-          if live
-            send_live_to_draft_content_store(live)
-
-            live_path = Location.find_by!(content_item: live).base_path
-            delete_draft_from_draft_content_store(draft_path) if live_path != draft_path
-          else
-            delete_draft_from_draft_content_store(draft_path)
-          end
+          downstream_discard_draft(draft_path, draft.content_id, live.try(:id))
         end
 
         Success.new(content_id: content_id)
@@ -41,22 +34,17 @@ module Commands
         draft.destroy
       end
 
-      def delete_draft_from_draft_content_store(draft_path)
+      def downstream_discard_draft(path_used, content_id, live_content_item_id)
         return unless downstream
 
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::DraftContentStore,
-          base_path: draft_path,
-          delete: true,
-        )
-      end
-
-      def send_live_to_draft_content_store(live)
-        return unless downstream
-
-        PresentedContentStoreWorker.perform_async(
-          content_store: Adapters::DraftContentStore,
-          payload: { content_item_id: live.id, payload_version: event.id },
+        DownstreamDiscardDraftWorker.perform_async_in_queue(
+          DownstreamDiscardDraftWorker::HIGH_QUEUE,
+          base_path: path_used,
+          content_id: content_id,
+          live_content_item_id: live_content_item_id,
+          payload_version: event.id,
+          update_dependencies: true,
+          ignore_base_path_conflict: nested
         )
       end
 
@@ -86,7 +74,7 @@ module Commands
       def live
         @live ||= ContentItemFilter.new(scope: ContentItem.where(content_id: content_id)).filter(
           locale: locale,
-          state: "published",
+          state: %w(published unpublished),
         ).first
       end
 

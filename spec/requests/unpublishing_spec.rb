@@ -23,6 +23,17 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         explanation: "Test withdrawal",
       }.to_json
     }
+    let(:withdrawal_response) {
+      {
+        base_path: base_path,
+        content_item: a_hash_including(
+          withdrawn_notice: {
+            explanation: "Test withdrawal",
+            withdrawn_at: Time.zone.now.iso8601,
+          }
+        ),
+      }
+    }
 
     it "creates an Unpublishing" do
       post "/v2/content/#{content_id}/unpublish", withdrawal_params
@@ -37,15 +48,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     it "sends the withdrawal information to the live content store" do
       Timecop.freeze do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: a_hash_including(
-              withdrawn_notice: {
-                explanation: "Test withdrawal",
-                withdrawn_at: Time.zone.now.iso8601,
-              }
-            )
-        )
+          .with(withdrawal_response)
 
         post "/v2/content/#{content_id}/unpublish", withdrawal_params
 
@@ -53,9 +56,20 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       end
     end
 
-    it "does not send to any other downstream system" do
+    it "sends the withdrawal information to the draft content store" do
+      Timecop.freeze do
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(withdrawal_response)
+
+        post "/v2/content/#{content_id}/unpublish", withdrawal_params
+
+        expect(response.status).to eq(200), response.body
+      end
+    end
+
+    it "does not send to the message queue" do
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-      expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       post "/v2/content/#{content_id}/unpublish", withdrawal_params
@@ -71,6 +85,26 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         alternative_path: "/new-path",
       }.to_json
     }
+    let(:redirect_response) {
+      {
+        base_path: base_path,
+        content_item: {
+          document_type: "redirect",
+          schema_name: "redirect",
+          base_path: base_path,
+          publishing_app: content_item.publishing_app,
+          public_updated_at: Time.zone.now.iso8601,
+          redirects: [
+            {
+              path: base_path,
+              type: "exact",
+              destination: "/new-path",
+            }
+          ],
+          payload_version: anything,
+        },
+      }
+    }
 
     it "creates an Unpublishing" do
       post "/v2/content/#{content_id}/unpublish", redirect_params
@@ -85,24 +119,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     it "sends a redirect to the live content store" do
       Timecop.freeze do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: {
-              document_type: "redirect",
-              schema_name: "redirect",
-              base_path: base_path,
-              publishing_app: content_item.publishing_app,
-              public_updated_at: Time.zone.now.iso8601,
-              redirects: [
-                {
-                  path: base_path,
-                  type: "exact",
-                  destination: "/new-path",
-                }
-              ],
-              payload_version: anything,
-            },
-          )
+          .with(redirect_response)
 
         post "/v2/content/#{content_id}/unpublish", redirect_params
 
@@ -110,9 +127,20 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       end
     end
 
-    it "does not send to any other downstream system" do
+    it "sends a redirect to the draft content store" do
+      Timecop.freeze do
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(redirect_response)
+
+        post "/v2/content/#{content_id}/unpublish", redirect_params
+
+        expect(response.status).to eq(200), response.body
+      end
+    end
+
+    it "does not send to the message queue" do
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-      expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       post "/v2/content/#{content_id}/unpublish", redirect_params
@@ -129,6 +157,28 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         alternative_path: "/new-path",
       }.to_json
     }
+    let(:gone_response) {
+      {
+        base_path: base_path,
+        content_item: {
+          base_path: base_path,
+          document_type: "gone",
+          schema_name: "gone",
+          publishing_app: content_item.publishing_app,
+          details: {
+            explanation: "Test gone",
+            alternative_path: "/new-path",
+          },
+          routes: [
+            {
+              path: base_path,
+              type: "exact",
+            }
+          ],
+          payload_version: anything,
+        },
+      }
+    }
 
     it "creates an Unpublishing" do
       post "/v2/content/#{content_id}/unpublish", gone_params
@@ -144,26 +194,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     it "sends an unpublishing to the live content store" do
       Timecop.freeze do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: {
-              base_path: base_path,
-              document_type: "gone",
-              schema_name: "gone",
-              publishing_app: content_item.publishing_app,
-              details: {
-                explanation: "Test gone",
-                alternative_path: "/new-path",
-              },
-              routes: [
-                {
-                  path: base_path,
-                  type: "exact",
-                }
-              ],
-              payload_version: anything,
-            },
-          )
+          .with(gone_response)
 
         post "/v2/content/#{content_id}/unpublish", gone_params
 
@@ -171,9 +202,20 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       end
     end
 
-    it "does not send to any other downstream system" do
+    it "sends an unpublishing to the draft content store" do
+      Timecop.freeze do
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+          .with(gone_response)
+
+        post "/v2/content/#{content_id}/unpublish", gone_params
+
+        expect(response.status).to eq(200), response.body
+      end
+    end
+
+    it "does not send to the message queue" do
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-      expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       post "/v2/content/#{content_id}/unpublish", gone_params
@@ -209,9 +251,20 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       end
     end
 
-    it "does not send to any other downstream system" do
-      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-      expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
+    it "deletes the content from the draft content store" do
+      Timecop.freeze do
+        expect(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
+          .with(base_path)
+
+        post "/v2/content/#{content_id}/unpublish", vanish_params
+
+        expect(response.status).to eq(200), response.body
+      end
+    end
+
+    it "does not send to the message queue" do
+      allow(PublishingAPI.service(:live_content_store)).to receive(:delete_content_item)
+      allow(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
       post "/v2/content/#{content_id}/unpublish", vanish_params

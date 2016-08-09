@@ -9,13 +9,12 @@ module Presenters
         web_content_item = ::Queries::GetWebContentItems.(web_content_item.id).first
       end
 
-      link_set = LinkSet.find_by(content_id: web_content_item.content_id)
-      new(web_content_item, link_set, state_fallback_order: state_fallback_order).present
+      new(web_content_item, nil, state_fallback_order: state_fallback_order).present
     end
 
-    def initialize(web_content_item, link_set, state_fallback_order:)
+    def initialize(web_content_item, link_set = nil, state_fallback_order:)
       self.web_content_item = web_content_item
-      self.link_set = link_set
+      self.link_set = link_set || LinkSet.find_by(content_id: web_content_item.content_id)
       self.state_fallback_order = state_fallback_order
     end
 
@@ -56,11 +55,11 @@ module Presenters
     end
 
     def link_set_presenter
-      Presenters::Queries::LinkSetPresenter.new(link_set)
+      @link_set_presenter ||= Presenters::Queries::LinkSetPresenter.new(link_set)
     end
 
     def expanded_link_set_presenter
-      Presenters::Queries::ExpandedLinkSet.new(
+      @expanded_link_set_presenter ||= Presenters::Queries::ExpandedLinkSet.new(
         content_id: web_content_item.content_id,
         state_fallback_order: state_fallback_order,
         locale_fallback_order: locale_fallback_order

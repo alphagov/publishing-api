@@ -85,35 +85,35 @@ module Commands
         live_web_content_items = Queries::GetWebContentItems.(live_content_item_ids)
 
         draft_web_content_items.each do |draft_web_content_item|
-          send_to_content_store(draft_web_content_item, Adapters::DraftContentStore)
+          downstream_draft(draft_web_content_item)
         end
 
         live_web_content_items.each do |live_web_content_item|
-          send_to_content_store(live_web_content_item, Adapters::ContentStore)
-          send_to_message_queue(live_web_content_item)
+          downstream_publish(live_web_content_item)
         end
       end
 
-      def content_store_queue
-        payload.fetch(:bulk_publishing, false) ? PresentedContentStoreWorker::LOW_QUEUE : PresentedContentStoreWorker::HIGH_QUEUE
+      def bulk_publishing?
+        payload.fetch(:bulk_publishing, false)
       end
 
-      def send_to_content_store(content_item, content_store)
-        PresentedContentStoreWorker.perform_async_in_queue(
-          content_store_queue,
-          content_store: content_store,
-          payload: { content_item_id: content_item.id, payload_version: event.id },
+      def downstream_draft(content_item)
+        queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        DownstreamDraftWorker.perform_async_in_queue(
+          queue,
+          content_item_id: content_item.id,
+          payload_version: event.id,
         )
       end
 
-      def send_to_message_queue(content_item)
-        payload = Presenters::MessageQueuePresenter.present(
-          content_item,
-          state_fallback_order: [:published],
-          update_type: "links",
+      def downstream_publish(content_item)
+        queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
+        DownstreamLiveWorker.perform_async_in_queue(
+          queue,
+          content_item_id: content_item.id,
+          message_queue_update_type: "links",
+          payload_version: event.id,
         )
-
-        PublishingAPI.service(:queue_publisher).send_message(payload)
       end
     end
   end
