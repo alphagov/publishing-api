@@ -358,8 +358,8 @@ Pact.provider_states_for "GDS API Adapters" do
         user_facing_version: 1,
       )
 
-      link_set1 = FactoryGirl.create(:link_set, content_id: content_id2)
-      link_set2 = FactoryGirl.create(:link_set, content_id: content_id3)
+      link_set1 = FactoryGirl.create(:link_set, content_id: content_id3)
+      link_set2 = FactoryGirl.create(:link_set, content_id: content_id2)
 
       FactoryGirl.create(:link, link_set: link_set1, link_type: "topic", target_content_id: content_id1)
       FactoryGirl.create(:link, link_set: link_set2, link_type: "topic", target_content_id: content_id1)
