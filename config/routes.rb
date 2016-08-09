@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       post "/content/:content_id/publish", to: "content_items#publish"
       post "/content/:content_id/unpublish", to: "content_items#unpublish"
       post "/content/:content_id/discard-draft", to: "content_items#discard_draft"
+      put "/content/:content_id/change-ownership", to: "content_items#change_ownership"
 
       get "/links/:content_id", to: "link_sets#get_links"
       get "/expanded-links/:content_id", to: "link_sets#expanded_links"

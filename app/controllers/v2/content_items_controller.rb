@@ -51,6 +51,11 @@ module V2
       render status: response.code, json: response
     end
 
+    def change_ownership
+      response = Commands::V2::ChangeOwnership.call(content_item)
+      render status: response.code, json: response
+    end
+
   private
 
     def content_item
