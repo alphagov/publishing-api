@@ -24,9 +24,9 @@ class DownstreamDiscardDraftWorker
 
     enqueue_dependencies if update_dependencies
   rescue DiscardDraftBasePathConflictError => e
-    Airbrake.notify_or_ignore(e) unless ignore_base_path_conflict
+    Airbrake.notify_or_ignore(e, parameters: args) unless ignore_base_path_conflict
   rescue AbortWorkerError, DownstreamInvariantError => e
-    Airbrake.notify_or_ignore(e)
+    Airbrake.notify_or_ignore(e, parameters: args)
   end
 
 private

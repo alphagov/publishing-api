@@ -70,7 +70,7 @@ RSpec.describe DownstreamLiveWorker do
 
       it "absorbs an error" do
         expect(Airbrake).to receive(:notify_or_ignore)
-          .with(an_instance_of(DownstreamInvariantError))
+          .with(an_instance_of(DownstreamInvariantError), a_hash_including(:parameters))
         subject.perform(superseded_arguments)
       end
     end
@@ -123,7 +123,7 @@ RSpec.describe DownstreamLiveWorker do
       draft = FactoryGirl.create(:draft_content_item)
 
       expect(Airbrake).to receive(:notify_or_ignore)
-        .with(an_instance_of(DownstreamInvariantError))
+        .with(an_instance_of(DownstreamInvariantError), a_hash_including(:parameters))
       subject.perform(arguments.merge("content_item_id" => draft.id))
     end
 
@@ -138,7 +138,7 @@ RSpec.describe DownstreamLiveWorker do
   describe "no content item" do
     it "swallows the error" do
       expect(Airbrake).to receive(:notify_or_ignore)
-        .with(an_instance_of(AbortWorkerError))
+        .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
       subject.perform(arguments.merge("content_item_id" => "made-up-id"))
     end
   end

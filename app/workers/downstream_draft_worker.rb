@@ -22,7 +22,7 @@ class DownstreamDraftWorker
 
     enqueue_dependencies if update_dependencies
   rescue AbortWorkerError, DownstreamInvariantError => e
-    Airbrake.notify_or_ignore(e)
+    Airbrake.notify_or_ignore(e, parameters: args)
   end
 
 private
