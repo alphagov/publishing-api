@@ -187,7 +187,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
       it "notifies airbrake" do
         expect(Airbrake).to receive(:notify_or_ignore)
-          .with(an_instance_of(DiscardDraftBasePathConflictError))
+          .with(an_instance_of(DiscardDraftBasePathConflictError), a_hash_including(:parameters))
         subject.perform(conflict_arguments)
       end
     end
