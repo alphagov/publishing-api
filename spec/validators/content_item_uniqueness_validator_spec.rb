@@ -104,24 +104,4 @@ RSpec.describe ContentItemUniquenessValidator do
       expect(@content_item.errors).to be_empty
     end
   end
-
-  context "when a duplicate content item exists in a superseded state" do
-    let!(:content_item) do
-      FactoryGirl.create(:content_item,
-        state: "superseded",
-        base_path: base_path,
-      )
-    end
-
-    it "allows duplicates and does not raise an error" do
-      expect {
-        FactoryGirl.create(:content_item,
-          state: "superseded",
-          base_path: base_path,
-        )
-      }.not_to raise_error
-
-      expect(ContentItem.count).to eq(2)
-    end
-  end
 end

@@ -16,11 +16,6 @@ class ContentItemUniquenessValidator < ActiveModel::Validator
 
     return unless required_fields.all?
 
-    # We should only have one content item at a given path (and locale) for each
-    # content store. Superseded content items aren't in either content store so
-    # we can relax this validation.
-    return if state == "superseded"
-
     non_unique = Queries::ContentItemUniqueness.first_non_unique_item(
       content_item,
       base_path: base_path,
