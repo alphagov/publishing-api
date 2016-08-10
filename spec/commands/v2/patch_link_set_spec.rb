@@ -254,8 +254,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       )
     end
 
-    it "sends to downstream publish worker" do
-      allow(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+    it "sends to downstream live worker" do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
@@ -269,8 +268,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload)
     end
 
-    it "sends a low priority request to the downstream publish worker for bulk publishing" do
-      allow(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+    it "sends a low priority request to the downstream live worker for bulk publishing" do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_low",
@@ -295,7 +293,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "sends the live content item for all locales downstream" do
-        allow(DownstreamLiveWorker).to receive(:perform_async_in_queue)
         [live_content_item, french_live_content_item].each do |ci|
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
@@ -316,10 +313,47 @@ RSpec.describe Commands::V2::PatchLinkSet do
         described_class.call(payload, downstream: false)
       end
 
-      it "does not send a request to downstream publish worker" do
+      it "does not send a request to downstream live worker" do
         expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
+    end
+  end
+
+  context "when an unpublished content item exists for the content_id" do
+    let!(:unpublished_content_item) do
+      FactoryGirl.create(:unpublished_content_item,
+        content_id: content_id,
+        base_path: "/some-path",
+        title: "Some Title",
+      )
+    end
+
+    it "sends to downstream draft worker" do
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        .with(
+          "downstream_high",
+          a_hash_including(
+            :content_item_id,
+            :payload_version
+          ),
+        )
+
+      described_class.call(payload)
+    end
+
+    it "sends to downstream live worker" do
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        .with(
+          "downstream_high",
+          a_hash_including(
+            :content_item_id,
+            :payload_version,
+            message_queue_update_type: "links",
+          ),
+        )
+
+      described_class.call(payload)
     end
   end
 
