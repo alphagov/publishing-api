@@ -20,8 +20,9 @@ module SubstitutionHelper
 
         if mismatch && allowed_to_substitute
           if state == "draft"
-            Commands::V2::DiscardDraft.call(
-              content_id: blocking_item.content_id,
+            Commands::V2::DiscardDraft.call({
+                content_id: blocking_item.content_id,
+              },
               downstream: downstream,
               nested: nested,
               callbacks: callbacks,
