@@ -3,7 +3,7 @@ class UserFacingVersion < ActiveRecord::Base
 
   belongs_to :content_item
 
-  validates_with ContentItemUniquenessValidator
+  validates_with VersionForLocaleValidator
 
   def self.filter(content_item_scope, number:)
     join_content_items(content_item_scope)
