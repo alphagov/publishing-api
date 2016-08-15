@@ -8,8 +8,16 @@ RSpec.describe State do
       expect(subject).to be_valid
     end
 
-    context "when another content item has identical supporting objects" do
+    context "when another content item has the same base path" do
       let(:base_path) { "/vat-rates" }
+      let!(:content_item) do
+        FactoryGirl.create(:content_item,
+          state: "draft",
+          base_path: base_path,
+        )
+      end
+
+      subject { FactoryGirl.build(:state, content_item: content_item, name: state) }
 
       before do
         FactoryGirl.create(:content_item,
@@ -18,20 +26,18 @@ RSpec.describe State do
         )
       end
 
-      let(:content_item) do
-        FactoryGirl.create(:content_item,
-          state: "draft",
-          base_path: base_path,
-        )
+      %w(published unpublished).each do |state_name|
+        context "when state is #{state_name}" do
+          let(:state) { state_name }
+          it { is_expected.to be_invalid }
+        end
       end
 
-      subject { FactoryGirl.build(:state, content_item: content_item, name: "published") }
-
-      it "is invalid" do
-        expect(subject).to be_invalid
-
-        error = subject.errors[:content_item].first
-        expect(error).to match(/conflicts with/)
+      %w(draft superseded).each do |state_name|
+        context "when state is #{state_name}" do
+          let(:state) { "superseded" }
+          it { is_expected.to be_valid }
+        end
       end
     end
   end

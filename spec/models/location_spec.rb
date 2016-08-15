@@ -16,7 +16,7 @@ RSpec.describe Location do
       end
     end
 
-    context "when another content item has identical supporting objects" do
+    context "when another content item has the same base path" do
       before do
         FactoryGirl.create(:content_item, base_path: "/foo")
       end
@@ -25,16 +25,11 @@ RSpec.describe Location do
         FactoryGirl.create(:content_item, base_path: "/bar")
       end
 
-      subject {
+      subject do
         FactoryGirl.build(:location, content_item: content_item, base_path: "/foo")
-      }
-
-      it "is invalid" do
-        expect(subject).to be_invalid
-
-        error = subject.errors[:content_item].first
-        expect(error).to match(/conflicts with/)
       end
+
+      it { is_expected.to be_invalid }
     end
   end
 

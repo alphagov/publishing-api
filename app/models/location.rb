@@ -1,7 +1,7 @@
 class Location < ActiveRecord::Base
   belongs_to :content_item
 
-  validates_with ContentItemUniquenessValidator
+  validates_with BasePathForStateValidator
   validates_with RoutesAndRedirectsValidator
 
   validates :base_path, absolute_path: true, if: :base_path_present?
