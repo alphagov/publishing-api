@@ -460,16 +460,34 @@ objects that determine:
 - The workflow state of the content (State)
 - The user-facing version of the content (UserFacingVersion)
 
-ContentItems are unique with regard to these surrounding objects. What this
-means is that no two pieces of content can be in the same locale at the same
-base_path in the same workflow state with the same user-facing version.
+The uniqueness of a ContentItem is ensured by rules based on these objects.
 
-By making this an invariant of the system, we can build our workflow with this
-in mind. For example, when publishing a piece of content, we change the workflow
-state from *draft* to *published*. If there is already a content item occupying
-that base path in a published state, we must consider how the system should
-behave. By stating what these invariants are, it is easier to reason through
-edge cases of behaviour in the system.
+Only one item in either a draft or a live state can be registered at a base_path.
+Thus the rules for a base_path are:
+
+1. A base_path for a draft ContentItem must be distinct from the base_path of
+   any other draft ContentItems.
+2. A base_path for a live ContentItem must be distinct from the base_path for
+   any other live ContentItems
+
+NB
+- A draft ContentItem is a ContentItem with a state of "draft"
+- A live ContentItem is a ContentItem with a state of "published" or
+  "unpublished", however it does not include those with an unpublishing type of
+  "substitute".
+
+There can be only one instance of a ContentItem for a content_id and a
+particular locale with a state of draft.
+
+There can be only one instance of a ContentItem for a content_id and a
+particular locale with a state of published/unpublished.
+
+There can be multiple instance of a ContentItem for a content_id, a particular
+locale and a state of superseded.
+
+Only one instance of a ContentItem for a particular locale can be at a
+user-facing version. Thus a rule exists that no two ContentItems can have
+the same content id, the same user-facing version and the same locale.
 
 ## Lock Version
 
