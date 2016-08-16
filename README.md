@@ -141,7 +141,7 @@ curl https://publishing-api-temp.production.alphagov.co.uk/content<base_path> \
   -d '<content_item_json>'
 ```
 
-See [doc/publishing-api-syntactic-usage.md](doc/publishing-api-syntactic-usage.md)
+See [doc/api.md](doc/api.md)
 and [the pact broker](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest)
 for more information.
 
