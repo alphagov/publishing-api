@@ -150,8 +150,7 @@ Required: Conditionally
 The `routes` are used to configure the GOV.UK router for the content item. The
 `routes` appear as a JSON array and each element in this array is a JSON object
 that contains the properties *path* and *type*. No other properties are
-supported.  The *type* must be set to *exact* to denote that the route maps to
-an exact path on the GOV.UK website.
+supported.
 
 The `routes` are required, except for the case when the content item
 has a `document_type` of *redirect*. In this case, the `routes` must not be
