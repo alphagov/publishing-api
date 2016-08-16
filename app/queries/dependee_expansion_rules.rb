@@ -7,6 +7,7 @@ module Queries
 
     def custom(link_type)
       {
+        redirect: [],
         topical_event: default_fields + [:details],
         placeholder_topical_event: default_fields + [:details],
         organisation: default_fields + [:details],
