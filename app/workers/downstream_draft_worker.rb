@@ -1,3 +1,5 @@
+require 'sidekiq-unique-jobs'
+
 class DownstreamDraftWorker
   attr_reader :web_content_item, :content_item_id, :payload_version, :update_dependencies
 
@@ -5,7 +7,16 @@ class DownstreamDraftWorker
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
-  sidekiq_options queue: HIGH_QUEUE
+  sidekiq_options queue: HIGH_QUEUE,
+                  unique: :until_executing,
+                  unique_args: :uniq_args
+
+  def self.uniq_args(args)
+    [
+      args.first.fetch("content_item_id"),
+      'draft'
+    ]
+  end
 
   def perform(args = {})
     assign_attributes(args.symbolize_keys)

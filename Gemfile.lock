@@ -301,6 +301,9 @@ GEM
       activesupport
       sidekiq (>= 2.6)
       statsd-ruby (>= 1.1.0)
+    sidekiq-unique-jobs (4.0.18)
+      sidekiq (>= 2.6)
+      thor
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -386,6 +389,7 @@ DEPENDENCIES
   rails (= 4.2.7.1)
   rspec
   rspec-rails (~> 3.3)
+  sidekiq-unique-jobs
   simplecov (= 0.10.0)
   simplecov-rcov (= 0.2.3)
   spring

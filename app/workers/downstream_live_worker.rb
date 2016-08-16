@@ -1,3 +1,5 @@
+require 'sidekiq-unique-jobs'
+
 class DownstreamLiveWorker
   attr_reader :content_item_id, :web_content_item, :payload_version, :message_queue_update_type, :update_dependencies
 
@@ -5,7 +7,16 @@ class DownstreamLiveWorker
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
-  sidekiq_options queue: HIGH_QUEUE
+  sidekiq_options queue: HIGH_QUEUE,
+                  unique: :until_executing,
+                  unique_args: :uniq_args
+
+  def self.uniq_args(args)
+    [
+      args.first.fetch("content_item_id"),
+      'live'
+    ]
+  end
 
   def perform(args = {})
     assign_attributes(args.symbolize_keys)
