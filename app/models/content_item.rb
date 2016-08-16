@@ -48,6 +48,10 @@ class ContentItem < ActiveRecord::Base
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
   end
 
+  def pathless?
+    !self.requires_base_path? && !Location.exists?(content_item: self)
+  end
+
 private
 
   def renderable_content?
