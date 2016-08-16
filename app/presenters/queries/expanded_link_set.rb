@@ -39,9 +39,9 @@ module Presenters
             next_level = {}
           end
 
-          expanded_links.merge(
-            links: next_level,
-          )
+          expanded_links.tap do |el|
+            el[:links] = next_level unless expanded_links.empty?
+          end
         end
       end
 
@@ -77,7 +77,7 @@ module Presenters
 
           expanded_links = expand_links(links, type.to_sym, expansion_rules)
 
-          hash[type.to_sym] = expanded_links if expanded_links.any?
+          hash[type.to_sym] = expanded_links.reject(&:empty?) if expanded_links.any?
         end
       end
 
@@ -96,7 +96,7 @@ module Presenters
 
           expanded_links = expand_links(links, type.to_sym, expansion_rules)
 
-          hash[inverted_type_name.to_sym] = expanded_links if expanded_links.any?
+          hash[inverted_type_name.to_sym] = expanded_links.reject(&:empty?) if expanded_links.any?
         end
       end
 

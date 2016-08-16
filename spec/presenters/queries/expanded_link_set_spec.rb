@@ -18,6 +18,23 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     ).links
   }
 
+  context "with content items that are non-renderable" do
+    let!(:draft_a) { create_content_item(a, "/a", "draft") }
+    let!(:redirect) { FactoryGirl.create(:redirect_draft_content_item, content_id: b, base_path: '/b') }
+    let!(:gone) { FactoryGirl.create(:gone_content_item, content_id: c, base_path: '/c') }
+
+    let(:state_fallback_order) { [:draft] }
+
+    context "a simple non-recursive graph" do
+      it "expands the links for node a correctly" do
+        create_link(a, b, "related")
+        create_link(a, c, "related")
+
+        expect(expanded_links[:related]).to match([])
+      end
+    end
+  end
+
   context "with content items in a draft state" do
     let!(:draft_a) { create_content_item(a, "/a", "draft") }
     let!(:draft_b) { create_content_item(b, "/b", "draft") }
