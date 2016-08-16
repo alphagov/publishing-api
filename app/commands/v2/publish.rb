@@ -32,7 +32,7 @@ module Commands
 
         State.supersede(previous_item) if previous_item
 
-        unless pathless?(content_item)
+        unless content_item.pathless?
           if previous_item
             previous_location = Location.find_by(content_item: previous_item)
 
@@ -114,11 +114,6 @@ module Commands
       def set_first_published_at(content_item)
         return if content_item.first_published_at.present?
         content_item.update_attributes!(first_published_at: Time.zone.now)
-      end
-
-      def pathless?(content_item)
-        !Location.exists?(content_item: content_item) &&
-          ContentItem::EMPTY_BASE_PATH_FORMATS.include?(content_item.schema_name || content_item.format)
       end
 
       def publish_redirect_if_content_item_has_moved(new_location, previous_location, translation)
