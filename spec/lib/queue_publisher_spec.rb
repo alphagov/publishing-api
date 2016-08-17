@@ -10,6 +10,7 @@ RSpec.describe QueuePublisher do
         pass: "super_secret",
         recover_from_connection_close: true,
         exchange: "test_exchange",
+        continuation_timeout: 30_000,
       }
     end
     let(:queue_publisher) { QueuePublisher.new(options) }
