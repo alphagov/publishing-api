@@ -6,7 +6,7 @@
   - content_store_high # Deprecated, to be removed with PresentedContentStoreWorker
   - content_store_low # Deprecated, to be removed with PresentedContentStoreWorker
   - downstream_high
-  - downstream_low
   - dependency_resolution
+  - downstream_low
   - experiments
   - default
