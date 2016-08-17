@@ -21,15 +21,19 @@ RSpec.describe "Substituting content that is not published" do
     }
   end
 
+  let(:gone_base_path) { "/vat-rates" }
+
   let(:gone_payload) do
     {
       content_id: another_content_id,
-      base_path: "/vat-rates",
+      base_path: gone_base_path,
       format: "gone",
       publishing_app: "publisher",
-      routes: [{ path: "/vat-rates", type: "exact" }],
+      routes: [{ path: gone_base_path, type: "exact" }],
     }
   end
+
+  before { stub_request(:any, /content-store/) }
 
   describe "after the first substitution" do
     before do
@@ -81,6 +85,8 @@ RSpec.describe "Substituting content that is not published" do
   end
 
   describe "putting a content item in a different locale" do
+    let(:gone_base_path) { "/vat-rates-fr" }
+
     before do
       put_content_command.call(guide_payload)
       put_content_command.call(gone_payload.merge(locale: "fr"))

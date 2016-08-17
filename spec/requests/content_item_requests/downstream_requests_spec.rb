@@ -218,6 +218,7 @@ RSpec.describe "Downstream requests", type: :request do
         draft = FactoryGirl.create(:draft_content_item,
           content_id: content_id,
           base_path: base_path,
+          user_facing_version: 2,
         )
 
         FactoryGirl.create(:access_limit,
@@ -316,7 +317,7 @@ RSpec.describe "Downstream requests", type: :request do
     let(:a) { create_link_set }
     let(:b) { create_link_set }
 
-    let!(:draft_a) { create_content_item(a, "/a", "draft") }
+    let!(:draft_a) { create_content_item(a, "/a", "draft", "en", 2) }
     let!(:published_a) { create_content_item(a, "/a", "published") }
     let!(:draft_b) { create_content_item(b, "/b", "draft") }
 

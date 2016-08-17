@@ -44,7 +44,8 @@ RSpec.describe DependencyResolutionWorker, :perform do
   context "with a draft version available" do
     let!(:draft_content_item) {
       FactoryGirl.create(:draft_content_item,
-        content_id: live_content_item.content_id
+        content_id: live_content_item.content_id,
+        user_facing_version: 2,
       )
     }
 

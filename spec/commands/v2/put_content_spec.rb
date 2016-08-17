@@ -209,12 +209,14 @@ RSpec.describe Commands::V2::PutContent do
           described_class.call(payload)
           Commands::V2::Publish.call(content_id: content_id, update_type: "minor")
 
+          regex = /Content item user_facing_version=(\d+) and locale=en for content item=#{Regexp.quote(content_id)} conflicts/
+
           expect {
             thread1 = Thread.new { described_class.call(payload) }
             thread2 = Thread.new { described_class.call(payload) }
             thread1.join
             thread2.join
-          }.to raise_error(CommandError, /conflicts with a duplicate/)
+          }.to raise_error(CommandError, regex)
 
           expect(State.all.pluck(:name)).to eq %w(superseded published draft)
         end
@@ -265,56 +267,6 @@ RSpec.describe Commands::V2::PutContent do
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
         expect(content_item.first_published_at).to eq(explicit_first_published)
-      end
-    end
-
-    context "when creating a draft when there are multiple unpublished and published items" do
-      before do
-        FactoryGirl.create(:content_item,
-          content_id: content_id,
-          state: "unpublished",
-          lock_version: 2,
-          user_facing_version: 5,
-          base_path: base_path,
-        )
-
-        FactoryGirl.create(:content_item,
-          content_id: content_id,
-          state: "published",
-          lock_version: 3,
-          user_facing_version: 8,
-          base_path: base_path,
-        )
-
-        FactoryGirl.create(:content_item,
-          content_id: content_id,
-          state: "unpublished",
-          lock_version: 5,
-          user_facing_version: 6,
-          base_path: base_path,
-        )
-      end
-
-      it "creates the draft's lock version from the item with the latest user-facing version" do
-        described_class.call(payload)
-
-        content_item = ContentItem.last
-
-        expect(content_item).to be_present
-        expect(content_item.content_id).to eq(content_id)
-        expect(State.find_by!(content_item: content_item).name).to eq("draft")
-        expect(LockVersion.find_by!(target: content_item).number).to eq(4)
-      end
-
-      it "creates the draft's user-facing version from the item with the latest user-facing version" do
-        described_class.call(payload)
-
-        content_item = ContentItem.last
-
-        expect(content_item).to be_present
-        expect(content_item.content_id).to eq(content_id)
-        expect(State.find_by!(content_item: content_item).name).to eq("draft")
-        expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(9)
       end
     end
 

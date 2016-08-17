@@ -96,7 +96,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
 
     context "when there are conflicts for a single content_id" do
       let!(:conflicts) do
-        3.times.map { create_content_item(user_facing_version: 3) }
+        3.times.map { create_content_item(user_facing_version: 5) }
       end
 
       let(:matches) do
@@ -107,7 +107,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
           content_item_ids: conflicts.reverse.map(&:id),
           number_of_duplicates: 1,
           duplicates: [
-            duplicates_row(content_id_a, "en", "3", conflicts)
+            duplicates_row(content_id_a, "en", "5", conflicts)
           ]
         }
       end
@@ -118,7 +118,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
     context "when a single content_id has multiple instances of the same version with different locales" do
       before do
         %w(en fr de).each do |locale|
-          create_content_item(user_facing_version: 3, locale: locale)
+          create_content_item(user_facing_version: 5, locale: locale)
         end
       end
 
@@ -128,18 +128,18 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
     context "when multiple content items have conflicts" do
       let!(:dupes_a) do
         3.times.map do
-          create_content_item(content_id: content_id_a, user_facing_version: 3, locale: "en")
+          create_content_item(content_id: content_id_a, user_facing_version: 5, locale: "en")
         end
       end
 
       let!(:dupes_b) do
         2.times.map do
-          create_content_item(content_id: content_id_b, user_facing_version: 2, locale: "fr")
+          create_content_item(content_id: content_id_b, user_facing_version: 4, locale: "fr")
         end
       end
 
       before do
-        create_content_item(content_id: content_id_b, user_facing_version: 2, locale: "en")
+        create_content_item(content_id: content_id_b, user_facing_version: 3, locale: "en")
       end
 
       let(:matches) do
@@ -150,8 +150,8 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
           content_item_ids: array_including((dupes_a + dupes_b).map(&:id)),
           number_of_duplicates: 2,
           duplicates: array_including(
-            duplicates_row(content_id_a, "en", "3", dupes_a),
-            duplicates_row(content_id_b, "fr", "2", dupes_b),
+            duplicates_row(content_id_a, "en", "5", dupes_a),
+            duplicates_row(content_id_b, "fr", "4", dupes_b),
           )
         }
       end

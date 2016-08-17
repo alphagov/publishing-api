@@ -52,7 +52,7 @@ RSpec.describe V2::ContentItemsController do
     context "searching a field" do
       context "when there is a valid query" do
         let(:previous_live_version) do
-          FactoryGirl.create(:live_content_item,
+          FactoryGirl.create(:superseded_content_item,
                              base_path: "/foo",
                              document_type: "topic",
                              schema_name: "topic",

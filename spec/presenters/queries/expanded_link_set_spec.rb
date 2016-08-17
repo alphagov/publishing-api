@@ -226,7 +226,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(c, d, "parent")
 
         create_content_item(a, "/a-draft", "draft")
-        create_content_item(b, "/b-draft", "draft")
+        create_content_item(b, "/b-draft", "draft", "en", 2)
         create_content_item(d, "/d-draft", "draft")
 
         create_content_item(b, "/b-published", "published")
@@ -270,7 +270,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
         create_content_item(a, "/a-draft", "draft")
         create_content_item(b, "/b-published", "published")
-        create_content_item(c, "/c-draft", "draft")
+        create_content_item(c, "/c-draft", "draft", "en", 2)
         create_content_item(c, "/c-published", "published")
         create_content_item(d, "/d-published", "published")
       end

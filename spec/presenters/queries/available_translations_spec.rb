@@ -8,13 +8,14 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
     ).translations[:available_translations]
   }
 
-  def create_content_item(base_path, state = "published", locale = "en")
+  def create_content_item(base_path, state = "published", locale = "en", version = 1)
     FactoryGirl.create(
       :content_item,
       content_id: link_set.content_id,
       base_path: base_path,
       state: state,
       locale: locale,
+      user_facing_version: version,
     )
   end
 
@@ -56,7 +57,7 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
 
       it "takes the item in the first matching state" do
         es.update_attribute("title", "no habla español")
-        draft_es = create_content_item("/a.es", "draft", "es")
+        draft_es = create_content_item("/a.es", "draft", "es", 2)
         draft_es.update_attribute("title", "mais on parle français")
         expect(translations).to match_array([
           a_hash_including(base_path: "/a", locale: "en"),
