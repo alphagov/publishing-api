@@ -1,3 +1,6 @@
+# This file is replaced as part of deployment and thus options set here won't
+# be reflected when deployed
+
 defaults: &defaults
   host: localhost
   port: 5672

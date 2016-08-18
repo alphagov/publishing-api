@@ -5,6 +5,7 @@ class QueuePublisher
 
     @exchange_name = options.fetch(:exchange)
     @options = options.except(:exchange)
+    @options[:continuation_timeout] = 30_000 unless options[:continuation_timeout]
   end
 
   def connection
