@@ -17,7 +17,7 @@ end
 
 gem "gds-sso", "12.1.0"
 
-gem 'bunny', '2.0.0'
+gem 'bunny', '2.5.1'
 gem 'whenever', '0.9.4', require: false
 gem "govuk_sidekiq", "~> 0.0"
 gem "deprecated_columns"
