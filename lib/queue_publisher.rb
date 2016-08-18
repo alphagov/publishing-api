@@ -12,10 +12,6 @@ class QueuePublisher
     @connection
   end
 
-  def exchange
-    @exchange ||= connect_to_exchange
-  end
-
   class PublishFailedError < StandardError
   end
 
@@ -43,43 +39,36 @@ class QueuePublisher
 private
 
   def publish_message(routing_key, message_data, options = {})
-    publish_options = options.merge(routing_key: routing_key)
+    # we should only have one channel per thread
+    channel = connection.create_channel
 
-    exchange.publish(message_data.to_json, publish_options)
-    success = exchange.wait_for_confirms
-    if !success
-      Airbrake.notify_or_ignore(
-        PublishFailedError.new("Publishing message failed"),
-        parameters: {
-          routing_key: routing_key,
-          message_body: message_data,
-          options: options,
-        }
-      )
+    # Enable publisher confirms, so we get acks back after publishes
+    channel.confirm_select
+
+    # passive parameter ensures we don't create the exchange
+    exchange = channel.topic(@exchange_name, passive: true)
+    begin
+      publish_options = options.merge(routing_key: routing_key)
+
+      exchange.publish(message_data.to_json, publish_options)
+      success = exchange.wait_for_confirms
+      if !success
+        Airbrake.notify_or_ignore(
+          PublishFailedError.new("Publishing message failed"),
+          parameters: {
+            routing_key: routing_key,
+            message_body: message_data,
+            options: options,
+          }
+        )
+      end
+    ensure
+      channel.close if channel.open?
     end
-  rescue Timeout::Error, Bunny::Exception
-    reset_channel
-    raise
   end
 
   def establish_connection
     @connection = Bunny.new(@options)
     @connection.start
-  end
-
-  def connect_to_exchange
-    @channel = connection.create_channel
-
-    # Enable publisher confirms, so we get acks back after publishes.
-    @channel.confirm_select
-
-    # passive parameter ensures we don't create the exchange.
-    @channel.topic(@exchange_name, passive: true)
-  end
-
-  def reset_channel
-    @exchange = nil
-    @channel.close if @channel && @channel.open?
-    @channel = nil
   end
 end

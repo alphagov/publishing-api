@@ -15,7 +15,7 @@ RSpec.describe QueuePublisher do
     let(:queue_publisher) { QueuePublisher.new(options) }
 
     let(:mock_session) { instance_double("Bunny::Session", start: nil, create_channel: mock_channel) }
-    let(:mock_channel) { instance_double("Bunny::Channel", confirm_select: nil, topic: mock_exchange) }
+    let(:mock_channel) { instance_double("Bunny::Channel", confirm_select: nil, topic: mock_exchange, open?: false) }
     let(:mock_exchange) { instance_double("Bunny::Exchange", publish: nil, wait_for_confirms: true) }
     before :each do
       allow(Bunny).to receive(:new) { mock_session }
@@ -36,24 +36,6 @@ RSpec.describe QueuePublisher do
         expect {
           queue_publisher
         }.not_to raise_error
-      end
-
-      it "creates the channel and exchange" do
-        expect(mock_session).to receive(:create_channel).and_return(mock_channel).ordered
-        expect(mock_channel).to receive(:confirm_select).ordered
-        expect(mock_channel).to receive(:topic).with(options[:exchange], passive: true).and_return(mock_exchange).ordered
-
-        expect(queue_publisher.exchange).to eq(mock_exchange)
-      end
-
-      it "memoizes the created channel and exchange" do
-        first_result = queue_publisher.exchange
-
-        expect(mock_session).not_to receive(:create_channel)
-        expect(mock_channel).not_to receive(:confirm_select)
-        expect(mock_channel).not_to receive(:topic)
-
-        expect(queue_publisher.exchange).to eq(first_result)
       end
     end
 
@@ -133,58 +115,6 @@ RSpec.describe QueuePublisher do
 
             queue_publisher.send_message(content_item)
           end
-        end
-
-        shared_examples "closes channel and raises exception" do |expected_exception_class|
-          before :each do
-            allow(mock_channel).to receive_messages(close: nil, open?: true)
-          end
-
-          it "closes the channel" do
-            expect(mock_channel).to receive(:close)
-
-            begin
-              queue_publisher.send_message(content_item)
-            rescue
-              nil
-            end
-          end
-
-          it "raises the exception" do
-            expect {
-              queue_publisher.send_message(content_item)
-            }.to raise_error(expected_exception_class)
-          end
-
-          it "creates a new channel for subsequent messages" do
-            begin
-              queue_publisher.send_message(content_item)
-            rescue
-              nil
-            end
-
-            expect(mock_session).to receive(:create_channel).and_return(mock_channel).ordered
-            expect(mock_channel).to receive(:confirm_select).ordered
-            expect(mock_channel).to receive(:topic).with(options[:exchange], passive: true).and_return(mock_exchange).ordered
-
-            queue_publisher.exchange
-          end
-        end
-
-        context "when sending the message fails" do
-          before :each do
-            allow(mock_exchange).to receive(:publish).and_raise(Bunny::Exception)
-          end
-
-          it_behaves_like "closes channel and raises exception", Bunny::Exception
-        end
-
-        context "when sending the message times out" do
-          before :each do
-            allow(mock_exchange).to receive(:publish).and_raise(Timeout::Error)
-          end
-
-          it_behaves_like "closes channel and raises exception", Timeout::Error
         end
       end
     end
