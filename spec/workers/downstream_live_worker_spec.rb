@@ -2,14 +2,16 @@ require "rails_helper"
 
 RSpec.describe DownstreamLiveWorker do
   let(:content_item) { FactoryGirl.create(:live_content_item, base_path: "/foo") }
-  let(:arguments) {
+  let(:base_arguments) {
     {
       "content_item_id" => content_item.id,
       "payload_version" => 1,
       "message_queue_update_type" => "major",
       "update_dependencies" => true,
+      "alert_on_invariant_error" => true,
     }
   }
+  let(:arguments) { base_arguments }
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
@@ -37,6 +39,12 @@ RSpec.describe DownstreamLiveWorker do
     it "doesn't require update_dependencies" do
       expect {
         subject.perform(arguments.except("update_dependencies"))
+      }.not_to raise_error
+    end
+
+    it "doesn't require alert_on_invariant_error" do
+      expect {
+        subject.perform(arguments.except("alert_on_invariant_error"))
       }.not_to raise_error
     end
   end
@@ -140,6 +148,43 @@ RSpec.describe DownstreamLiveWorker do
       expect(Airbrake).to receive(:notify_or_ignore)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
       subject.perform(arguments.merge("content_item_id" => "made-up-id"))
+    end
+  end
+
+  describe "error alerting" do
+    let(:message) { "Can only send published and unpublished items to the live content store" }
+    let(:logger) { Sidekiq::Logging.logger }
+
+    before do
+      allow(DownstreamService).to receive(:update_live_content_store)
+        .and_raise(DownstreamInvariantError, message)
+    end
+
+    context "when alert_on_invariant_error is true" do
+      let(:arguments) { base_arguments.merge("alert_on_invariant_error" => true) }
+      it "notifies airbrake" do
+        expect(Airbrake).to receive(:notify_or_ignore)
+        subject.perform(arguments)
+      end
+
+      it "doesn't log the message" do
+        expect(logger).to_not receive(:warn).with(message)
+        subject.perform(arguments)
+      end
+    end
+
+    context "when alert_on_invariant_error is false" do
+      let(:arguments) { base_arguments.merge("alert_on_invariant_error" => false) }
+
+      it "doesn't notify airbrake" do
+        expect(Airbrake).to_not receive(:notify_or_ignore)
+        subject.perform(arguments)
+      end
+
+      it "logs the message" do
+        expect(logger).to receive(:warn).with(message)
+        subject.perform(arguments)
+      end
     end
   end
 end
