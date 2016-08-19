@@ -1,5 +1,7 @@
 class DownstreamDiscardDraftWorker
-  attr_reader :base_path, :content_id, :live_content_item_id, :live_web_content_item, :payload_version, :update_dependencies, :ignore_base_path_conflict
+  attr_reader :base_path, :content_id, :live_content_item_id,
+    :live_web_content_item, :payload_version, :update_dependencies,
+    :alert_on_base_path_conflict
 
   include DownstreamQueue
   include Sidekiq::Worker
@@ -24,9 +26,9 @@ class DownstreamDiscardDraftWorker
 
     enqueue_dependencies if update_dependencies
   rescue DiscardDraftBasePathConflictError => e
-    Airbrake.notify_or_ignore(e, parameters: args) unless ignore_base_path_conflict
+    alert_on_base_path_conflict ? notify_airbrake(e, args) : logger.warn(e.message)
   rescue AbortWorkerError, DownstreamInvariantError => e
-    Airbrake.notify_or_ignore(e, parameters: args)
+    notify_airbrake(e, args)
   end
 
 private
@@ -40,7 +42,7 @@ private
     end
     @payload_version = attributes.fetch(:payload_version)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
-    @ignore_base_path_conflict = attributes.fetch(:ignore_base_path_conflict, false)
+    @alert_on_base_path_conflict = attributes.fetch(:alert_on_base_path_conflict, true)
   end
 
   def enqueue_dependencies
@@ -50,5 +52,9 @@ private
       content_id: content_id,
       payload_version: payload_version,
     )
+  end
+
+  def notify_airbrake(error, parameters)
+    Airbrake.notify_or_ignore(error, parameters: parameters)
   end
 end

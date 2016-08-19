@@ -44,7 +44,7 @@ module Commands
           live_content_item_id: live_content_item_id,
           payload_version: event.id,
           update_dependencies: true,
-          ignore_base_path_conflict: nested
+          alert_on_base_path_conflict: !nested
         )
       end
 
