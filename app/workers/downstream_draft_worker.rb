@@ -14,7 +14,8 @@ class DownstreamDraftWorker
   def self.uniq_args(args)
     [
       args.first.fetch("content_item_id"),
-      'draft'
+      args.first.fetch("update_dependencies", true),
+      name,
     ]
   end
 
