@@ -16,7 +16,9 @@ class DownstreamLiveWorker
   def self.uniq_args(args)
     [
       args.first.fetch("content_item_id"),
-      'live'
+      args.first.fetch("message_queue_update_type", nil),
+      args.first.fetch("update_dependencies", true),
+      name,
     ]
   end
 
