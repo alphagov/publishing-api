@@ -21,10 +21,10 @@ RSpec.describe DownstreamService do
     context "draft item" do
       let(:state) { "draft" }
 
-      it "raises a DownstreamInvariantError" do
+      it "raises a DownstreamInvalidStateError" do
         expect {
           DownstreamService.update_live_content_store(downstream_payload)
-        }.to raise_error(DownstreamInvariantError)
+        }.to raise_error(DownstreamInvalidStateError)
       end
     end
 
@@ -153,10 +153,10 @@ RSpec.describe DownstreamService do
         let(:state) { state }
 
         if should_error
-          it "should raise a DownstreamInvariantError" do
+          it "should raise a DownstreamInvalidStateError" do
             expect {
               DownstreamService.broadcast_to_message_queue(downstream_payload, update_type)
-            }.to raise_error(DownstreamInvariantError)
+            }.to raise_error(DownstreamInvalidStateError)
           end
         else
           it "should not raise an error" do

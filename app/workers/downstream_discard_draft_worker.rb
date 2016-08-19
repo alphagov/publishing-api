@@ -27,7 +27,7 @@ class DownstreamDiscardDraftWorker
     enqueue_dependencies if update_dependencies
   rescue DiscardDraftBasePathConflictError => e
     alert_on_base_path_conflict ? notify_airbrake(e, args) : logger.warn(e.message)
-  rescue AbortWorkerError, DownstreamInvariantError => e
+  rescue AbortWorkerError, DownstreamInvalidStateError => e
     notify_airbrake(e, args)
   end
 

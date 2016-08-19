@@ -2,7 +2,7 @@ module DownstreamService
   def self.update_live_content_store(downstream_payload)
     if %w(published unpublished).exclude?(downstream_payload.state)
       message = "Can only send published and unpublished items to live content store"
-      raise DownstreamInvariantError.new(message)
+      raise DownstreamInvalidStateError.new(message)
     end
 
     case downstream_payload.content_store_action
@@ -16,7 +16,7 @@ module DownstreamService
   def self.update_draft_content_store(downstream_payload)
     if %w(draft published unpublished).exclude?(downstream_payload.state)
       message = "Can only send draft, published and unpublished items to draft content store"
-      raise DownstreamInvariantError.new(message)
+      raise DownstreamInvalidStateError.new(message)
     end
 
     case downstream_payload.content_store_action
@@ -30,7 +30,7 @@ module DownstreamService
   def self.broadcast_to_message_queue(downstream_payload, update_type)
     if downstream_payload.state != "published"
       message = "Can only send published items to the message queue"
-      raise DownstreamInvariantError.new(message)
+      raise DownstreamInvalidStateError.new(message)
     end
 
     payload = downstream_payload.message_queue_payload(update_type)

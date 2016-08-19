@@ -2,7 +2,7 @@ require 'sidekiq-unique-jobs'
 
 class DownstreamDraftWorker
   attr_reader :web_content_item, :content_item_id, :payload_version,
-    :update_dependencies, :alert_on_invariant_error
+    :update_dependencies, :alert_on_invalid_state_error
 
   include DownstreamQueue
   include Sidekiq::Worker
@@ -33,8 +33,8 @@ class DownstreamDraftWorker
     end
 
     enqueue_dependencies if update_dependencies
-  rescue DownstreamInvariantError => e
-    alert_on_invariant_error ? notify_airbrake(e, args) : logger.warn(e.message)
+  rescue DownstreamInvalidStateError => e
+    alert_on_invalid_state_error ? notify_airbrake(e, args) : logger.warn(e.message)
   rescue AbortWorkerError => e
     notify_airbrake(e, args)
   end
@@ -46,7 +46,7 @@ private
     @web_content_item = Queries::GetWebContentItems.find(content_item_id)
     @payload_version = attributes.fetch(:payload_version)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
-    @alert_on_invariant_error = attributes.fetch(:alert_on_invariant_error, true)
+    @alert_on_invalid_state_error = attributes.fetch(:alert_on_invalid_state_error, true)
   end
 
   def enqueue_dependencies

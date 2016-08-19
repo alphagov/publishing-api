@@ -7,7 +7,7 @@ RSpec.describe DownstreamDraftWorker do
       "content_item_id" => content_item.id,
       "payload_version" => 1,
       "update_dependencies" => true,
-      "alert_on_invariant_error" => true,
+      "alert_on_invalid_state_error" => true,
     }
   }
   let(:arguments) { base_arguments }
@@ -35,9 +35,9 @@ RSpec.describe DownstreamDraftWorker do
       }.not_to raise_error
     end
 
-    it "doesn't require alert_on_invariant_error" do
+    it "doesn't require alert_on_invalid_state_error" do
       expect {
-        subject.perform(arguments.except("alert_on_invariant_error"))
+        subject.perform(arguments.except("alert_on_invalid_state_error"))
       }.not_to raise_error
     end
   end
@@ -96,11 +96,11 @@ RSpec.describe DownstreamDraftWorker do
 
     before do
       allow(DownstreamService).to receive(:update_draft_content_store)
-        .and_raise(DownstreamInvariantError, message)
+        .and_raise(DownstreamInvalidStateError, message)
     end
 
-    context "when alert_on_invariant_error is true" do
-      let(:arguments) { base_arguments.merge("alert_on_invariant_error" => true) }
+    context "when alert_on_invalid_state_error is true" do
+      let(:arguments) { base_arguments.merge("alert_on_invalid_state_error" => true) }
       it "notifies airbrake" do
         expect(Airbrake).to receive(:notify_or_ignore)
         subject.perform(arguments)
@@ -112,8 +112,8 @@ RSpec.describe DownstreamDraftWorker do
       end
     end
 
-    context "when alert_on_invariant_error is false" do
-      let(:arguments) { base_arguments.merge("alert_on_invariant_error" => false) }
+    context "when alert_on_invalid_state_error is false" do
+      let(:arguments) { base_arguments.merge("alert_on_invalid_state_error" => false) }
 
       it "doesn't notify airbrake" do
         expect(Airbrake).to_not receive(:notify_or_ignore)
