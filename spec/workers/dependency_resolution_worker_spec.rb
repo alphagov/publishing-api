@@ -34,7 +34,8 @@ RSpec.describe DependencyResolutionWorker, :perform do
         :content_item_id,
         :payload_version,
         message_queue_update_type: "links",
-        update_dependencies: false
+        update_dependencies: false,
+        alert_on_invalid_state_error: false,
       ),
     )
     worker_perform
