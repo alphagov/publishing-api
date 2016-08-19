@@ -56,6 +56,7 @@ private
       content_item_id: latest_content_item.id,
       payload_version: payload_version,
       update_dependencies: false,
+      alert_on_invalid_state_error: false,
     )
   end
 
@@ -66,6 +67,7 @@ private
       message_queue_update_type: "links",
       payload_version: payload_version,
       update_dependencies: false,
+      alert_on_invalid_state_error: false,
     )
   end
 end

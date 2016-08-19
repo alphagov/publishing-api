@@ -1,2 +1,2 @@
-class DownstreamInvariantError < RuntimeError
+class DownstreamInvalidStateError < RuntimeError
 end

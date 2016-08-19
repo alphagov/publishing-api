@@ -1,2 +1,2 @@
-class DiscardDraftBasePathConflictError < DownstreamInvariantError
+class DiscardDraftBasePathConflictError < RuntimeError
 end

@@ -15,7 +15,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       "live_content_item_id" => nil,
       "payload_version" => 1,
       "update_dependencies" => true,
-      "ignore_base_path_conflict" => false
+      "alert_on_base_path_conflict" => false
     }
   }
 
@@ -50,9 +50,9 @@ RSpec.describe DownstreamDiscardDraftWorker do
       }.not_to raise_error
     end
 
-    it "doesn't require ignore_base_path_conflict" do
+    it "doesn't require alert_on_base_path_conflict" do
       expect {
-        subject.perform(arguments.except("ignore_base_path_conflict"))
+        subject.perform(arguments.except("alert_on_base_path_conflict"))
       }.not_to raise_error
     end
 
@@ -177,8 +177,8 @@ RSpec.describe DownstreamDiscardDraftWorker do
       FactoryGirl.create(:live_content_item, base_path: "/foo")
     end
 
-    context "ignore_base_path_conflict is set to false" do
-      let(:conflict_arguments) { arguments.merge("ignore_base_path_conflict" => false) }
+    context "alert_on_base_path_conflict is set to true" do
+      let(:conflict_arguments) { arguments.merge("alert_on_base_path_conflict" => true) }
 
       it "doesn't delete content item from content store" do
         expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
@@ -192,8 +192,9 @@ RSpec.describe DownstreamDiscardDraftWorker do
       end
     end
 
-    context "ignore base_path_conflict is set to true" do
-      let(:conflict_arguments) { arguments.merge("ignore_base_path_conflict" => true) }
+    context "alert_on_base_path_conflict is set to false" do
+      let(:conflict_arguments) { arguments.merge("alert_on_base_path_conflict" => false) }
+      let(:logger) { Sidekiq::Logging.logger }
 
       it "doesn't delete content item from content store" do
         expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
@@ -202,6 +203,12 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
       it "doesn't notify aribrake" do
         expect(Airbrake).to_not receive(:notify_or_ignore)
+        subject.perform(conflict_arguments)
+      end
+
+      it "logs the conflict" do
+        expect(Sidekiq::Logging.logger).to receive(:warn)
+          .with(%r{Cannot discard '/foo'})
         subject.perform(conflict_arguments)
       end
     end
