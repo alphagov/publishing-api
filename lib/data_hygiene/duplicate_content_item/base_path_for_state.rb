@@ -1,6 +1,8 @@
 module DataHygiene
   module DuplicateContentItem
     class BasePathForState
+      include DuplicateContentItem::ResultsHelper
+
       def has_duplicates?
         number_of_duplicates > 0
       end
@@ -27,18 +29,13 @@ module DataHygiene
       def build_results
         query_results = ActiveRecord::Base.connection.execute(sql)
         duplicates = query_results.map do |row|
-          content_ids = row["content_ids"][1...-1].split(",")
-          content_items = row["content_items"].scan(/\((.+?)\)/).flatten.map do |id_time|
-            id, time = id_time.split(",")
-            { content_item_id: id.to_i, updated_at: Time.zone.parse(time.gsub(/\\"/, "")) }
-          end
-          row.symbolize_keys.merge(content_items: content_items, content_ids: content_ids)
+          row.symbolize_keys.merge(
+            content_items: content_items_string_to_hash(row["content_items"]),
+            content_ids: content_ids_string_to_array(row["content_ids"]),
+          )
         end
-        content_ids = duplicates.inject(Set.new) { |memo, row| memo.merge(row[:content_ids]) }
-        get_content_item_ids = ->(row) do
-          row[:content_items].map { |pair| pair[:content_item_id] }
-        end
-        content_item_ids = duplicates.map(&get_content_item_ids).flatten.uniq
+        content_ids = content_ids_from_duplicates(duplicates, :content_ids)
+        content_item_ids = content_item_ids_from_duplicates(duplicates)
         {
           distinct_content_ids: content_ids.count,
           content_ids: content_ids.to_a,
