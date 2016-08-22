@@ -45,5 +45,6 @@ module DataHygiene
     class DuplicateContentItemError < StandardError; end;
     class DuplicateVersionForLocaleError < StandardError; end;
     class DuplicateStateForLocaleError < StandardError; end;
+    class DuplicateBasePathForStateError < StandardError; end
   end
 end
