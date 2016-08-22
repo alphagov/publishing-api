@@ -25,6 +25,7 @@ RSpec.describe Queries::DependentExpansionRules do
 
   describe "#recurse?" do
     specify { expect(subject.recurse?(:parent)).to eq(true) }
+    specify { expect(subject.recurse?(:parent_taxons)).to eq(true) }
     specify { expect(subject.recurse?(:foo)).to eq(false) }
   end
 
@@ -32,5 +33,6 @@ RSpec.describe Queries::DependentExpansionRules do
     specify { expect(subject.reverse_name_for(:parent)).to eq("children") }
     specify { expect(subject.reverse_name_for(:documents)).to eq("document_collections") }
     specify { expect(subject.reverse_name_for(:working_groups)).to eq("policies") }
+    specify { expect(subject.reverse_name_for(:parent_taxons)).to eq("child_taxons") }
   end
 end
