@@ -63,6 +63,22 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
     end
   end
 
+  describe ".number_of_duplicates" do
+    subject { described_class.new.number_of_duplicates }
+
+    context "when there are no duplicates" do
+      it { is_expected.to be 0 }
+    end
+
+    context "when there is a duplicate" do
+      before do
+        2.times { create_content_item(state: "published") }
+      end
+
+      it { is_expected.to be 1 }
+    end
+  end
+
   describe ".results" do
     subject { described_class.new.results }
 
@@ -72,6 +88,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
         content_ids: [],
         distinct_content_item_ids: 0,
         content_item_ids: [],
+        number_of_duplicates: 0,
         duplicates: []
       }
     end
@@ -103,6 +120,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
             content_ids: [content_id_a],
             distinct_content_item_ids: 2,
             content_item_ids: array_including(content_items.map(&:id)),
+            number_of_duplicates: 1,
             duplicates: [
               duplicates_row(content_id_a, "en", "live", content_items)
             ]
@@ -123,6 +141,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
             content_ids: [content_id_a],
             distinct_content_item_ids: 4,
             content_item_ids: array_including(drafts.map(&:id)),
+            number_of_duplicates: 1,
             duplicates: [
               duplicates_row(content_id_a, "en", "draft", drafts)
             ]
@@ -190,6 +209,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
           content_item_ids: array_including(
             (dupes_a_draft + dupes_a_live + dupes_b_fr + dupes_b_en).map(&:id)
           ),
+          number_of_duplicates: 4,
           duplicates: array_including(
             duplicates_row(content_id_a, "en", "draft", dupes_a_draft),
             duplicates_row(content_id_a, "en", "live", dupes_a_live),

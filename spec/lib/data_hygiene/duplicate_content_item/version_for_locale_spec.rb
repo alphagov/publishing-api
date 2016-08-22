@@ -61,6 +61,22 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
     end
   end
 
+  describe "number_of_duplicates" do
+    subject { described_class.new.number_of_duplicates }
+
+    context "when there are no duplicates" do
+      it { is_expected.to be 0 }
+    end
+
+    context "when there is a duplicate" do
+      before do
+        2.times { create_content_item(user_facing_version: 1) }
+      end
+
+      it { is_expected.to be 1 }
+    end
+  end
+
   describe ".results" do
     subject { described_class.new.results }
     let(:no_matches) do
@@ -69,6 +85,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
         content_ids: [],
         distinct_content_item_ids: 0,
         content_item_ids: [],
+        number_of_duplicates: 0,
         duplicates: []
       }
     end
@@ -88,6 +105,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
           content_ids: [content_id_a],
           distinct_content_item_ids: 3,
           content_item_ids: conflicts.reverse.map(&:id),
+          number_of_duplicates: 1,
           duplicates: [
             duplicates_row(content_id_a, "en", "3", conflicts)
           ]
@@ -130,6 +148,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
           content_ids: array_including(content_id_a, content_id_b),
           distinct_content_item_ids: 5,
           content_item_ids: array_including((dupes_a + dupes_b).map(&:id)),
+          number_of_duplicates: 2,
           duplicates: array_including(
             duplicates_row(content_id_a, "en", "3", dupes_a),
             duplicates_row(content_id_b, "fr", "2", dupes_b),

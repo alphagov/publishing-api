@@ -63,6 +63,21 @@ RSpec.describe DataHygiene::DuplicateContentItem::BasePathForState do
     end
   end
 
+  describe ".number_of_duplicates" do
+    subject { described_class.new.number_of_duplicates }
+    context "when there are no duplicates" do
+      it { is_expected.to be 0 }
+    end
+
+    context "when there is a duplicate" do
+      before do
+        2.times { create_content_item(state: "published") }
+      end
+
+      it { is_expected.to be 1 }
+    end
+  end
+
   describe ".results" do
     subject { described_class.new.results }
     let(:no_matches) do
@@ -71,6 +86,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::BasePathForState do
         content_ids: [],
         distinct_content_item_ids: 0,
         content_item_ids: [],
+        number_of_duplicates: 0,
         duplicates: []
       }
     end
@@ -127,6 +143,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::BasePathForState do
             content_ids: [content_id_a],
             distinct_content_item_ids: 3,
             content_item_ids: array_including(drafts.map(&:id)),
+            number_of_duplicates: 1,
             duplicates: [
               duplicates_row(base_path_a, "draft", content_id_a, drafts)
             ]
@@ -165,6 +182,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::BasePathForState do
           content_ids: array_including(content_id_a, content_id_b),
           distinct_content_item_ids: 4,
           content_item_ids: array_including((dupes_a + dupes_b).map(&:id)),
+          number_of_duplicates: 2,
           duplicates: array_including(
             duplicates_row(base_path_a, "live", [content_id_a, content_id_b], dupes_a),
             duplicates_row(base_path_b, "draft", content_id_b, dupes_b)

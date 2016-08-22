@@ -1,8 +1,12 @@
 module DataHygiene
-  class DuplicateContentItem
+  module DuplicateContentItem
     class BasePathForState
       def has_duplicates?
-        results[:duplicates].any?
+        number_of_duplicates > 0
+      end
+
+      def number_of_duplicates
+        results[:number_of_duplicates]
       end
 
       def results
@@ -11,7 +15,7 @@ module DataHygiene
 
       def log
         return unless has_duplicates?
-        message = "#{results[:distinct_content_item_ids]} content items with base path for state conflicts"
+        message = "#{results[:number_of_duplicates]} base path for state conflicts"
         Airbrake.notify_or_ignore(
           DuplicateContentItem::DuplicateBasePathForStateError.new(message),
           parameters: results
@@ -40,6 +44,7 @@ module DataHygiene
           content_ids: content_ids.to_a,
           distinct_content_item_ids: content_item_ids.count,
           content_item_ids: content_item_ids,
+          number_of_duplicates: duplicates.count,
           duplicates: duplicates
         }
       end

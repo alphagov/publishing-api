@@ -1,8 +1,12 @@
 module DataHygiene
-  class DuplicateContentItem
+  module DuplicateContentItem
     class StateForLocale
       def has_duplicates?
-        results[:duplicates].any?
+        number_of_duplicates > 0
+      end
+
+      def number_of_duplicates
+        results[:number_of_duplicates]
       end
 
       def results
@@ -39,6 +43,7 @@ module DataHygiene
           content_ids: content_ids,
           distinct_content_item_ids: content_item_ids.count,
           content_item_ids: content_item_ids,
+          number_of_duplicates: duplicates.count,
           duplicates: duplicates
         }
       end
