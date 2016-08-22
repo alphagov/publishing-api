@@ -43,5 +43,6 @@ module DataHygiene
     end
 
     class DuplicateContentItemError < StandardError; end;
+    class DuplicateVersionForLocaleError < StandardError; end;
   end
 end
