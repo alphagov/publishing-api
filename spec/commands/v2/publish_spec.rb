@@ -415,7 +415,7 @@ RSpec.describe Commands::V2::Publish do
 
   context "for a pathless content item format" do
     let(:pathless_content_item) do
-      FactoryGirl.create(:draft_content_item, schema_name: "contact")
+      FactoryGirl.create(:draft_content_item, document_type: "contact")
     end
 
     let(:payload) do
