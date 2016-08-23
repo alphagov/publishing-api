@@ -14,12 +14,13 @@ module Queries
       {
         parent: "children",
         documents: "document_collections",
-        working_groups: 'policies'
+        working_groups: 'policies',
+        parent_taxons: "child_taxons",
       }[link_type.to_sym]
     end
 
     def recursive_link_types
-      [:parent]
+      [:parent, :parent_taxons]
     end
 
   private

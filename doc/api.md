@@ -268,7 +268,7 @@ the draft content store with the published item, if one exists. Uses
 
 **This endpoint will only return content for which the value of `publishing_app`
 matches the name of the application making the request, unless that app's API
-key has `view_all` permissions.** 
+key has `view_all` permissions.**
 
 Retrieves a paginated list of content items for the provided query string
 parameters. If content items exists in both a published and a draft state, the
@@ -367,7 +367,7 @@ Retrieves the link set for the given `content_id`. Returns arrays of
 
 ## `GET /v2/expanded-links/:content_id`
 
-TODO: Request/Response detail
+[Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get-expanded-links_request_given_empty_links_exist_for_content_id_bed722e6-db68-43e5-9079-063f623335a7)
 
 Retrieves the expanded link set for the given `content_id`. Returns arrays of
 details for each linked content item in groupings of `link_type`.
