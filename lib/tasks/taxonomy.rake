@@ -18,7 +18,7 @@ namespace :taxonomy do
         puts "Found #{path_reservations.count} path reservations belonging to collections publisher"
         path_reservations.each do |path_reservation|
           puts "Updating #{path_reservation.base_path} to content-tagger"
-          path_reservation.update_column(publishing_app: "content-tagger")
+          path_reservation.update_column(:publishing_app, "content-tagger")
         end
       end
     end
