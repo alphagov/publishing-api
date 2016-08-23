@@ -1,9 +1,4 @@
 class AccessLimit < ActiveRecord::Base
-  # These are to be removed after deploy
-  belongs_to :target, polymorphic: true
-  deprecated_columns :target_id, :target_type
-  # These are to be removed after deploy
-
   belongs_to :content_item
 
   validate :user_uids_are_strings
