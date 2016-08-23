@@ -3,8 +3,6 @@
 :concurrency:  2
 :logfile: ./log/sidekiq.json.log
 :queues:
-  - content_store_high # Deprecated, to be removed with PresentedContentStoreWorker
-  - content_store_low # Deprecated, to be removed with PresentedContentStoreWorker
   - downstream_high
   - dependency_resolution
   - downstream_low
