@@ -77,8 +77,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       it "does not send any request to the live content store" do
-        expect(PresentedContentStoreWorker).not_to receive(:perform_async)
-          .with(content_store: Adapters::ContentStore)
+        expect(DownstreamLiveWorker).not_to receive(:perform_async)
 
         described_class.call(payload)
       end
