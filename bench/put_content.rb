@@ -14,10 +14,14 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |name, started, fi
   $queries += 1
 end
 
+new_item = (ARGV.first == '--new-item')
+
 content_id = SecureRandom.uuid
 title = Faker::Company.catch_phrase
 
 content_items = 100.times.map do
+  title = Faker::Company.catch_phrase if new_item
+  content_id = SecureRandom.uuid if new_item
   {
     content_id: content_id,
     format: "placeholder",
