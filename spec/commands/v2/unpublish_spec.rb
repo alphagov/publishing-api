@@ -392,22 +392,48 @@ RSpec.describe Commands::V2::Unpublish do
       end
     end
 
-    context "when trying to unpublish a content item with no location" do
-      before do
-        content_item = FactoryGirl.create(:live_content_item,
+    context "when the document has no location" do
+      let!(:live_content_item) do
+        FactoryGirl.create(:live_content_item,
           content_id: content_id,
-          base_path: base_path,
+          base_path: nil,
         )
-
-        Location.find_by(content_item: content_item).destroy
       end
 
-      it "rejects the request with a 422" do
-        expect {
-          described_class.call(payload)
-        }.to raise_error(CommandError, "Cannot unpublish content with no location") { |error|
-          expect(error.code).to eq(422)
-        }
+      before do
+        FactoryGirl.create(:linkable,
+          content_item: live_content_item,
+        )
+      end
+
+      it "sets the content item's state to `unpublished`" do
+        described_class.call(payload)
+
+        state = State.find_by(content_item: live_content_item)
+        expect(state.name).to eq("unpublished")
+      end
+
+      it "creates an Unpublishing" do
+        described_class.call(payload)
+
+        unpublishing = Unpublishing.find_by(content_item: live_content_item)
+        expect(unpublishing.type).to eq("gone")
+        expect(unpublishing.explanation).to eq("Removed for testing porpoises")
+        expect(unpublishing.alternative_path).to eq("/new-path")
+      end
+
+      it "deletes the linkable" do
+        described_class.call(payload)
+
+        linkable = Linkable.find_by(base_path: base_path)
+        expect(linkable).to be_nil
+      end
+
+      it "does not send to any content store" do
+        expect(DownstreamService).not_to receive(:update_live_content_store)
+        expect(DownstreamService).not_to receive(:update_draft_content_store)
+
+        described_class.call(payload)
       end
     end
   end
