@@ -15,11 +15,6 @@ module Commands
           raise_command_error(404, message, fields: {})
         end
 
-        unless Location.where(content_item: content_item).exists?
-          message = "Cannot unpublish content with no location"
-          raise_command_error(422, message, fields: {})
-        end
-
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
         if draft_present?(content_id) && !payload[:allow_draft]
