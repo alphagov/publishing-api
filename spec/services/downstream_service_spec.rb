@@ -94,6 +94,44 @@ RSpec.describe DownstreamService do
       end
     end
 
+    context "when we already a draft at this base path" do
+      let(:message_matcher) { /Can't send (published|unpublished) item/ }
+      before do
+        allow(DownstreamService).to receive(:draft_at_base_path?)
+          .and_return(true)
+      end
+
+      context "when our state is draft" do
+        let(:state) { "draft" }
+
+        it "doesn't raise an error" do
+          expect {
+            DownstreamService.update_draft_content_store(downstream_payload)
+          }.to_not raise_error
+        end
+      end
+
+      context "when our state is published" do
+        let(:state) { "published" }
+
+        it "raises an error" do
+          expect {
+            DownstreamService.update_draft_content_store(downstream_payload)
+          }.to raise_error(DownstreamInvalidStateError, message_matcher)
+        end
+      end
+
+      context "when our state is unpublished" do
+        let(:state) { "unpublished" }
+
+        it "raises an error" do
+          expect {
+            DownstreamService.update_draft_content_store(downstream_payload)
+          }.to raise_error(DownstreamInvalidStateError, message_matcher)
+        end
+      end
+    end
+
     context "put content store action" do
       let(:content_store_action) { :put }
 

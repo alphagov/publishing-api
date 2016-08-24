@@ -18,6 +18,11 @@ module DownstreamService
       message = "Can only send draft, published and unpublished items to draft content store"
       raise DownstreamInvalidStateError.new(message)
     end
+    if downstream_payload.state != "draft" && draft_at_base_path?(downstream_payload.base_path)
+      message = "Can't send #{downstream_payload.state} item to draft content store, as there is a draft occupying the same base path"
+      raise DownstreamInvalidStateError.new(message)
+    end
+
 
     case downstream_payload.content_store_action
     when :put
@@ -44,6 +49,11 @@ module DownstreamService
       raise DiscardDraftBasePathConflictError.new(message)
     end
     Adapters::DraftContentStore.delete_content_item(base_path)
+  end
+
+  def self.draft_at_base_path?(base_path)
+    return false unless base_path
+    ContentItemFilter.filter(base_path: base_path, state: "draft").exists?
   end
 
   def self.discard_draft_base_path_conflict?(base_path)
