@@ -41,7 +41,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
     }
   end
 
-  describe ".has_duplicates?" do
+  describe "#has_duplicates?" do
     subject { described_class.new.has_duplicates? }
 
     context "when there are no duplicates" do
@@ -77,7 +77,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
     end
   end
 
-  describe ".results" do
+  describe "#results" do
     subject { described_class.new.results }
     let(:no_matches) do
       {
@@ -160,7 +160,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
     end
   end
 
-  describe ".log" do
+  describe "#log" do
     subject(:instance) { described_class.new }
 
     context "when there are no duplicates" do
