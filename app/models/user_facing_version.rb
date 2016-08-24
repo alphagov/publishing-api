@@ -28,18 +28,7 @@ private
     true
   end
 
-  def draft_and_live_versions
-    draft = ContentItemFilter.similar_to(content_item, state: "draft", user_version: nil).first
-    live = ContentItemFilter.similar_to(content_item, state: "published", user_version: nil).first
-
-    if draft == content_item
-      draft_version = self
-      live_version = self.class.find_by(content_item: live)
-    elsif live == content_item
-      draft_version = self.class.find_by(content_item: draft)
-      live_version = self
-    end
-
-    [draft_version, live_version]
+  def target
+    content_item
   end
 end
