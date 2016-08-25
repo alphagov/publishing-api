@@ -3,14 +3,6 @@ require "rails_helper"
 RSpec.describe ContentItem do
   subject { FactoryGirl.build(:content_item) }
 
-  def set_new_attributes(item)
-    item.title = "New title"
-  end
-
-  def verify_new_attributes_set
-    expect(described_class.last.title).to eq("New title")
-  end
-
   describe ".renderable_content" do
     let!(:guide) { FactoryGirl.create(:content_item, schema_name: "guide") }
     let!(:redirect) { FactoryGirl.create(:redirect_content_item) }

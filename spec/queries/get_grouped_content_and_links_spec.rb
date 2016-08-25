@@ -8,10 +8,6 @@ RSpec.describe Queries::GetGroupedContentAndLinks do
     )
   end
 
-  def new_content_item
-    SecureRandom.uuid
-  end
-
   describe "#call" do
     context "when no results exist" do
       it "returns an empty array" do
