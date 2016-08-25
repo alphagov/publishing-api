@@ -66,7 +66,7 @@ module Commands
       end
 
       def update_existing_content_item(content_item)
-        check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
+        version = check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
         if content_with_base_path?
           clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
@@ -77,7 +77,8 @@ module Commands
 
         update_content_item(content_item)
         update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
-        increment_lock_version(content_item)
+
+        increment_lock_version(version)
 
         if path_has_changed?(previous_location)
           from_path = previous_location.base_path
@@ -252,8 +253,7 @@ module Commands
         content_item.update_attributes(last_edited_at: last_edited_at) if last_edited_at
       end
 
-      def increment_lock_version(content_item)
-        lock_version = LockVersion.find_by!(target: content_item)
+      def increment_lock_version(lock_version)
         lock_version.increment
         lock_version.save!
       end
