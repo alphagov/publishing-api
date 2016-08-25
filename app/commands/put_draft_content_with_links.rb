@@ -40,11 +40,6 @@ module Commands
       payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
     end
 
-    def add_links_if_not_provided
-      return if payload[:links].present?
-      payload[:links] = {}
-    end
-
     def v2_put_content_payload
       payload
         .except(:links)

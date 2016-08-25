@@ -10,29 +10,6 @@ RSpec.describe LockVersion do
     expect(lock_version).to be_valid
   end
 
-  describe "#copy_version_from" do
-    let(:target) { FactoryGirl.create(:link_set) }
-
-    context "when the target has a lock_version" do
-      before do
-        FactoryGirl.create(:lock_version, target: target, number: 5)
-      end
-
-      it "copies the lock_version number from the target's lock_version" do
-        subject.copy_version_from(target)
-        expect(subject.number).to eq(5)
-      end
-    end
-
-    context "when the target does not have a lock_version" do
-      it "raises an error" do
-        expect {
-          subject.copy_version_from(target)
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-  end
-
   describe "#conflicts_with?(previous_version_number)" do
     before do
       subject.number = 2
@@ -68,17 +45,6 @@ RSpec.describe LockVersion do
       it "does not conflict" do
         expect(subject.conflicts_with?(previous_version_number)).to eq(false)
       end
-    end
-  end
-
-  describe "::in_bulk" do
-    it "returns a hash of LockVersions for a set of items, keyed by item id" do
-      items = 5.times.map do |i|
-        FactoryGirl.create(:draft_content_item, base_path: "/page-#{i}")
-      end
-
-      lock_versions = LockVersion.in_bulk(items, ContentItem)
-      expect(lock_versions.keys).to match_array(items.map(&:id))
     end
   end
 
