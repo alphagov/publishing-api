@@ -1,7 +1,5 @@
 module V2
   class ContentItemsController < ApplicationController
-    include ExperimentControl
-
     def index
       doc_type = query_params.fetch(:document_type) { query_params.fetch(:content_format) }
       pagination = Pagination.new(query_params)
