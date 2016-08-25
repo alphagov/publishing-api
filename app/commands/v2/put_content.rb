@@ -1,6 +1,7 @@
 module Commands
   module V2
     class PutContent < BaseCommand
+      ITEM_NOT_FOUND = Class.new
       def call
         raise_if_links_is_provided
         validate_schema
@@ -42,7 +43,7 @@ module Commands
 
         update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
 
-        if previously_published_item
+        if previously_published_item != ITEM_NOT_FOUND
           set_first_published_at(content_item, previously_published_item)
 
           previous_location = Location.find_by(content_item: previously_published_item)
@@ -168,7 +169,7 @@ module Commands
       end
 
       def lock_version_number_for_new_draft
-        if previously_published_item
+        if previously_published_item != ITEM_NOT_FOUND
           lock_version = LockVersion.find_by!(target: previously_published_item)
           lock_version.number + 1
         else
@@ -177,7 +178,7 @@ module Commands
       end
 
       def user_facing_version_number_for_new_draft
-        if previously_published_item
+        if previously_published_item != ITEM_NOT_FOUND
           user_facing_version = UserFacingVersion.find_by!(content_item: previously_published_item)
           user_facing_version.number + 1
         else
@@ -190,7 +191,7 @@ module Commands
           filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
           content_items = filter.filter(state: %w(published unpublished), locale: locale)
           UserFacingVersion.latest(content_items)
-        )
+        ) || ITEM_NOT_FOUND
       end
 
       def set_first_published_at(content_item, previously_published_item)
