@@ -30,6 +30,6 @@ class LockVersion < ActiveRecord::Base
 private
 
   def content_item_target?
-    target.is_a?(ContentItem)
+    target_type == 'ContentItem'
   end
 end
