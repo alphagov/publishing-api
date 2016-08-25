@@ -338,6 +338,23 @@ RSpec.describe Commands::V2::Unpublish do
 
         described_class.call(payload)
       end
+
+      context "when the unpublishing type is substitute" do
+        let!(:unpublished_content_item) do
+          FactoryGirl.create(:substitute_unpublished_content_item,
+            content_id: content_id,
+          )
+        end
+
+        it "rejects the request with a 404" do
+          message = "Could not find a content item to unpublish"
+          expect {
+            described_class.call(payload)
+          }.to raise_error(CommandError, message) { |error|
+            expect(error.code).to eq(404)
+          }
+        end
+      end
     end
 
     context "with the `downstream` flag set to `false`" do

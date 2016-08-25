@@ -23,4 +23,8 @@ class Unpublishing < ActiveRecord::Base
   def redirect?
     type == "redirect"
   end
+
+  def self.is_substitute?(content_item)
+    where(content_item: content_item).pluck(:type).first == "substitute"
+  end
 end

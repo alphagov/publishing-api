@@ -126,7 +126,8 @@ module Commands
         end
 
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        filter.filter(locale: locale, state: allowed_states).last
+        content_item = filter.filter(locale: locale, state: allowed_states).last
+        content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
       end
 
       def lookup_previous_item(content_item)
