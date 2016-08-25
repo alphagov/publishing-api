@@ -3,14 +3,6 @@ class AccessLimit < ActiveRecord::Base
 
   validate :user_uids_are_strings
 
-  def self.viewable?(target, user_uid: nil)
-    if (access_limit = self.find_by(content_item: target))
-      user_uid.present? && access_limit.users.include?(user_uid)
-    else
-      true
-    end
-  end
-
 private
 
   def user_uids_are_strings
