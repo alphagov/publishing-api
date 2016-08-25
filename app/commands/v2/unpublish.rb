@@ -4,7 +4,7 @@ module Commands
       def call
         validate
         State.supersede(previous_item) if previous_item
-        transision_state
+        transition_state
         delete_linkable
 
         after_transaction_commit do
@@ -16,32 +16,21 @@ module Commands
 
     private
 
-      def transision_state
-        raise_invalid_type unless valid_type?
-        method = {
-          "withdrawal" => method(:withdraw),
-          "redirect" => method(:redirect),
-          "vanish" => method(:vanish),
-          "gone" => method(:gone),
-        }[type]
-
-        begin
-          method.call
-        rescue ActiveRecord::RecordInvalid => e
-          raise_command_error(422, e.message, fields: {})
-        end
+      def transition_state
+        raise_invalid_unpublishing_type unless valid_unpublishing_type?
+        unpublish
       end
 
-      def valid_type?
-        %w(withdrawal redirect gone vanish).include?(type)
+      def valid_unpublishing_type?
+        %w(withdrawal redirect gone vanish).include?(unpublishing_type)
       end
 
-      def type
+      def unpublishing_type
         payload.fetch(:type)
       end
 
-      def raise_invalid_type
-        message = "#{type} is not a valid unpublishing type"
+      def raise_invalid_unpublishing_type
+        message = "#{unpublishing_type} is not a valid unpublishing type"
         raise_command_error(422, message, fields: {})
       end
 
@@ -53,21 +42,21 @@ module Commands
         @content_id ||= payload.fetch(:content_id)
       end
 
-      def validate_allow_discard_draft!
+      def validate_allow_discard_draft
         if payload[:allow_draft] && payload[:discard_drafts]
           message = "allow_draft and discard_drafts cannot be used together"
           raise_command_error(422, message, fields: {})
         end
       end
 
-      def validate_content_item_presence!
+      def validate_content_item_presence
         unless content_item.present?
           message = "Could not find a content item to unpublish"
           raise_command_error(404, message, fields: {})
         end
       end
 
-      def validate_draft_presence!
+      def validate_draft_presence
         if draft_exists? && !payload[:allow_draft]
           if payload[:discard_drafts] == true
             DiscardDraft.call(
@@ -87,36 +76,16 @@ module Commands
       end
 
       def validate
-        validate_allow_discard_draft!
-        validate_content_item_presence!
+        validate_allow_discard_draft
+        validate_content_item_presence
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
-        validate_draft_presence!
+        validate_draft_presence
       end
 
-      def withdraw
-        State.unpublish(content_item,
-          type: "withdrawal",
-          explanation: payload.fetch(:explanation),
-        )
-      end
-
-      def redirect
-        State.unpublish(content_item,
-          type: "redirect",
-          alternative_path: payload.fetch(:alternative_path),
-        )
-      end
-
-      def gone
-        State.unpublish(content_item,
-          type: "gone",
-          alternative_path: payload[:alternative_path],
-          explanation: payload[:explanation],
-        )
-      end
-
-      def vanish
-        State.unpublish(content_item, type: "vanish")
+      def unpublish
+        State.unpublish(content_item, payload.slice(:type, :explanation, :alternative_path))
+      rescue ActiveRecord::RecordInvalid => e
+        raise_command_error(422, e.message, fields: {})
       end
 
       def delete_linkable
