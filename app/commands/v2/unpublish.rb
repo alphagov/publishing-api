@@ -23,7 +23,13 @@ module Commands
           "redirect" => method(:redirect),
           "vanish" => method(:vanish),
           "gone" => method(:gone),
-        }[type].call
+        }[type]
+
+        begin
+          method.call
+        rescue ActiveRecord::RecordInvalid => e
+          raise_command_error(422, e.message, fields: {})
+        end
       end
 
       def valid_type?
