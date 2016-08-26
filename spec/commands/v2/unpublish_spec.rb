@@ -18,6 +18,47 @@ RSpec.describe Commands::V2::Unpublish do
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
 
+    context "when unpublishing is invalid" do
+      let!(:live_content_item) do
+        FactoryGirl.create(:live_content_item,
+          content_id: content_id,
+          base_path: base_path,
+        )
+      end
+
+      before do
+        FactoryGirl.create(:linkable,
+          content_item: live_content_item,
+          base_path: base_path,
+        )
+      end
+
+      let(:payload) do
+        {
+          content_id: content_id,
+          type: "withdrawal",
+          explanation: nil,
+          alternative_path: "/new-path",
+        }
+      end
+
+      it "raises an error when expanation is blank" do
+        msg = "Validation failed: Explanation can't be blank"
+        expect { described_class.call(payload) }
+          .to raise_error(CommandError, msg) do |error|
+            expect(error.code).to eq(422)
+          end
+      end
+
+      it "raises an error when redirected without alternative_path" do
+        msg = "Validation failed: Alternative path can't be blank"
+        expect { described_class.call(payload.merge(type: "redirect", alternative_path: '')) }
+          .to raise_error(CommandError, msg) do |error|
+            expect(error.code).to eq(422)
+          end
+      end
+    end
+
     context "when the document is published" do
       let!(:live_content_item) do
         FactoryGirl.create(:live_content_item,

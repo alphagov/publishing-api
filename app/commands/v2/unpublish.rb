@@ -2,22 +2,62 @@ module Commands
   module V2
     class Unpublish < BaseCommand
       def call
+        validate
+        State.supersede(previous_item) if previous_item
+        transition_state
+        delete_linkable
+
+        after_transaction_commit do
+          send_downstream
+        end
+
+        Success.new(content_id: content_id)
+      end
+
+    private
+
+      def transition_state
+        raise_invalid_unpublishing_type unless valid_unpublishing_type?
+        unpublish
+      end
+
+      def valid_unpublishing_type?
+        %w(withdrawal redirect gone vanish).include?(unpublishing_type)
+      end
+
+      def unpublishing_type
+        payload.fetch(:type)
+      end
+
+      def raise_invalid_unpublishing_type
+        message = "#{unpublishing_type} is not a valid unpublishing type"
+        raise_command_error(422, message, fields: {})
+      end
+
+      def content_item
+        @content_item ||= find_unpublishable_content_item
+      end
+
+      def content_id
+        @content_id ||= payload.fetch(:content_id)
+      end
+
+      def validate_allow_discard_draft
         if payload[:allow_draft] && payload[:discard_drafts]
           message = "allow_draft and discard_drafts cannot be used together"
           raise_command_error(422, message, fields: {})
         end
+      end
 
-        content_id = payload.fetch(:content_id)
-        content_item = find_unpublishable_content_item(content_id)
-
+      def validate_content_item_presence
         unless content_item.present?
           message = "Could not find a content item to unpublish"
           raise_command_error(404, message, fields: {})
         end
+      end
 
-        check_version_and_raise_if_conflicting(content_item, previous_version_number)
-
-        if draft_present?(content_id) && !payload[:allow_draft]
+      def validate_draft_presence
+        if draft_exists? && !payload[:allow_draft]
           if payload[:discard_drafts] == true
             DiscardDraft.call(
               {
@@ -33,66 +73,26 @@ module Commands
             raise_command_error(422, message, fields: {})
           end
         end
-
-        previous_item = lookup_previous_item(content_item)
-        State.supersede(previous_item) if previous_item
-
-        case type = payload.fetch(:type)
-        when "withdrawal"
-          withdraw(content_item)
-        when "redirect"
-          redirect(content_item)
-        when "gone"
-          gone(content_item)
-        when "vanish"
-          vanish(content_item)
-        else
-          message = "#{type} is not a valid unpublishing type"
-          raise_command_error(422, message, fields: {})
-        end
-
-        delete_linkable(content_item)
-
-        after_transaction_commit do
-          send_downstream(content_item)
-        end
-
-        Success.new(content_id: content_id)
       end
 
-    private
-
-      def withdraw(content_item)
-        State.unpublish(content_item,
-          type: "withdrawal",
-          explanation: payload.fetch(:explanation),
-        )
+      def validate
+        validate_allow_discard_draft
+        validate_content_item_presence
+        check_version_and_raise_if_conflicting(content_item, previous_version_number)
+        validate_draft_presence
       end
 
-      def redirect(content_item)
-        State.unpublish(content_item,
-          type: "redirect",
-          alternative_path: payload.fetch(:alternative_path),
-        )
+      def unpublish
+        State.unpublish(content_item, payload.slice(:type, :explanation, :alternative_path))
+      rescue ActiveRecord::RecordInvalid => e
+        raise_command_error(422, e.message, fields: {})
       end
 
-      def gone(content_item)
-        State.unpublish(content_item,
-          type: "gone",
-          alternative_path: payload[:alternative_path],
-          explanation: payload[:explanation],
-        )
-      end
-
-      def vanish(content_item)
-        State.unpublish(content_item, type: "vanish")
-      end
-
-      def delete_linkable(content_item)
+      def delete_linkable
         Linkable.find_by(content_item: content_item).try(:destroy)
       end
 
-      def send_downstream(content_item)
+      def send_downstream
         return unless downstream
 
         DownstreamDraftWorker.perform_async_in_queue(
@@ -118,7 +118,7 @@ module Commands
         payload[:previous_version].to_i if payload[:previous_version]
       end
 
-      def find_unpublishable_content_item(content_id)
+      def find_unpublishable_content_item
         allowed_states = %w(published unpublished)
 
         if payload[:allow_draft]
@@ -130,22 +130,21 @@ module Commands
         content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
       end
 
-      def lookup_previous_item(content_item)
-        previous_items = ContentItemFilter.similar_to(
+      def previous_item
+        raise "There should only be one previous published or unpublished item" if previous_items.size > 1
+        previous_items.first
+      end
+
+      def previous_items
+        @previous_items ||= ContentItemFilter.similar_to(
           content_item,
           state: %w(published unpublished),
           base_path: nil,
           user_version: nil,
         ).to_a
-
-        if previous_items.size > 1
-          raise "There should only be one previous published or unpublished item"
-        end
-
-        previous_items.first
       end
 
-      def draft_present?(content_id)
+      def draft_exists?
         filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
         filter.filter(locale: locale, state: "draft").exists?
       end
