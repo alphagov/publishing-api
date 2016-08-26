@@ -152,4 +152,11 @@ RSpec.describe State do
       )
     end
   end
+
+  describe ".allowed_values" do
+    it "has four allowed values" do
+      expect(described_class.allowed_values).to match_array(
+        %w(draft published unpublished superseded))
+    end
+  end
 end

@@ -3,6 +3,10 @@ class State < ActiveRecord::Base
 
   validates_with ContentItemUniquenessValidator
 
+  def self.allowed_values
+    %w(draft published superseded unpublished)
+  end
+
   def self.filter(content_item_scope, name:)
     join_content_items(content_item_scope)
       .where("states.name" => name)
