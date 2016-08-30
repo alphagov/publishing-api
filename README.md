@@ -56,26 +56,13 @@ directory.
 If you need to delete all traces of a content item from the system, you need to
 do the following:
 ```
+require_relative "helpers/delete_content_item"
 class RemoveYourContentItem < ActiveRecord::Migration
   # Remove /some/base-path
   def up
     content_items = ContentItem.where(content_id: "some-content-id")
 
-    supporting_classes = [
-      AccessLimit,
-      Linkable,
-      Location,
-      State,
-      Translation,
-      Unpublishing,
-      UserFacingVersion,
-    ]
-
-    supporting_classes.each do |klass|
-      klass.where(content_item: content_items).destroy_all
-    end
-
-    LockVersion.where(target: content_items).destroy_all
+    Helpers::DeleteContentItem.destroy_supporting_objects(content_items)
 
     content_items.destroy_all
 
