@@ -21,11 +21,11 @@ private
   end
 
   def draft_and_live_versions
-    result = Queries::DraftAndLiveVersions.call(target, self.class.name.tableize)
+    result = Queries::DraftAndLiveVersions.call(target, self.class.table_name)
     if result["draft"] == self.number
       draft_version = self.number
-      live_version = result["published"]
-    elsif result["published"] == self.number
+      live_version = result["live"]
+    elsif result["live"] == self.number
       draft_version = result["draft"]
       live_version = self.number
     end

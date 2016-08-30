@@ -37,15 +37,29 @@ RSpec.describe Queries::DraftAndLiveVersions do
       base_path: base_path
     )
     FactoryGirl.create(:live_content_item, :with_draft,
-      content_id: content_id,
+      content_id: SecureRandom.uuid,
       lock_version: 2,
       user_facing_version: 5,
     )
   end
 
-  it "finds the right draft and live versions" do
-    result = Queries::DraftAndLiveVersions.call(@item, :user_facing_versions, 'en', base_path)
-    expect(result["draft"]).to eq(5)
-    expect(result["published"]).to eq(4)
+  context "when live item is in published state" do
+    it "finds the right draft and live versions" do
+      result = Queries::DraftAndLiveVersions.call(@item, :user_facing_versions, 'en')
+      expect(result["draft"]).to eq(5)
+      expect(result["live"]).to eq(4)
+    end
+  end
+
+  context "when live item is in unpublished state" do
+    before do
+      State.find_by(content_item: @item).update_column(:name, "unpublished")
+    end
+
+    it "finds the right draft and live version" do
+      result = Queries::DraftAndLiveVersions.call(@item, :user_facing_versions, 'en')
+      expect(result["draft"]).to eq(5)
+      expect(result["live"]).to eq(4)
+    end
   end
 end
