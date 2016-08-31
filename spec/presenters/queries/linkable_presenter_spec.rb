@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Presenters::Queries::LinkablePresenter do
   let(:internal_name) { nil }
   let(:state) { "draft" }
+  let(:date) { Time.now.utc.iso8601 }
 
   let(:args) {
     [
@@ -10,6 +11,8 @@ RSpec.describe Presenters::Queries::LinkablePresenter do
       state,
       "A title",
       "/vat-rates",
+      date,
+      date,
       internal_name,
     ]
   }
@@ -44,6 +47,20 @@ RSpec.describe Presenters::Queries::LinkablePresenter do
       it "shows as 'published'" do
         output = described_class.present(*args)
         expect(output[:publication_state]).to eq("published")
+      end
+    end
+
+    context 'when updated_at is passed' do
+      it 'shows updated_at datetime' do
+        output = described_class.present(*args)
+        expect(output[:updated_at]).to eq(date)
+      end
+    end
+
+    context 'when created_at is passed' do
+      it 'shows created_at datetime' do
+        output = described_class.present(*args)
+        expect(output[:created_at]).to eq(date)
       end
     end
   end
