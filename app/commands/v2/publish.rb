@@ -36,16 +36,19 @@ module Commands
           if previous_item
             previous_location = Location.find_by(content_item: previous_item)
 
-            publish_redirect_if_content_item_has_moved(location, previous_location, translation)
+            if previous_location.base_path != location.base_path
+              publish_redirect(previous_location, translation)
+              remove_linkable(previous_location)
+            end
           end
 
           clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+          update_linkable(location, content_item)
         end
 
         set_public_updated_at(content_item, previous_item, update_type)
         set_first_published_at(content_item)
         State.publish(content_item)
-        update_linkable(content_item)
 
         AccessLimit.find_by(content_item: content_item).try(:destroy)
 
@@ -74,8 +77,13 @@ module Commands
         %w(major minor republish links)
       end
 
-      def update_linkable(content_item)
-        Linkable.where(content_item: content_item).update_all(state: "published")
+      def remove_linkable(location)
+        Linkable.where(base_path: location.base_path).destroy_all
+      end
+
+      def update_linkable(location, content_item)
+        Linkable.where(base_path: location.base_path)
+          .update_all(content_item_id: content_item.id, state: "published")
       end
 
       def find_draft_content_item
@@ -116,9 +124,7 @@ module Commands
         content_item.update_attributes!(first_published_at: Time.zone.now)
       end
 
-      def publish_redirect_if_content_item_has_moved(new_location, previous_location, translation)
-        return if previous_location.base_path == new_location.base_path
-
+      def publish_redirect(previous_location, translation)
         draft_redirect = ContentItemFilter
           .filter(state: "draft", locale: translation.locale, base_path: previous_location.base_path)
           .where(schema_name: "redirect")
