@@ -28,7 +28,8 @@ module Queries
     end
 
     def get_rows(scope)
-      result = ActiveRecord::Base.connection.exec_query(scope.to_sql)
+      scope = scope.to_sql unless scope.is_a? String
+      result = ActiveRecord::Base.connection.exec_query(scope)
 
       result.to_hash.map do |r|
         r.each do |k, v|

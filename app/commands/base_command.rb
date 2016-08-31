@@ -73,6 +73,7 @@ module Commands
 
         raise_command_error(409, "Conflict", fields, friendly_message: friendly_message)
       end
+      current_version
     end
 
     def raise_command_error(code, message, fields, friendly_message: nil)

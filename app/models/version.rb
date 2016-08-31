@@ -20,13 +20,26 @@ private
     errors.add(:number, message)
   end
 
+  def draft_and_live_versions
+    result = Queries::DraftAndLiveVersions.call(target, self.class.table_name)
+    if result["draft"] == self.number
+      draft_version = self.number
+      live_version = result["live"]
+    elsif result["live"] == self.number
+      draft_version = result["draft"]
+      live_version = self.number
+    end
+
+    [draft_version, live_version]
+  end
+
   def draft_cannot_be_behind_live
     draft_version, live_version = draft_and_live_versions
 
     return unless draft_version && live_version
 
-    if draft_version.number < live_version.number
-      mismatch = "(#{draft_version.number} < #{live_version.number})"
+    if draft_version < live_version
+      mismatch = "(#{draft_version} < #{live_version})"
       message = "draft #{self.class.name} cannot be behind the live #{self.class.name} #{mismatch}"
       errors.add(:number, message)
     end

@@ -12,6 +12,7 @@ FactoryGirl.define do
             locale: evaluator.locale,
             base_path: evaluator.base_path,
             lock_version: evaluator.lock_version,
+            user_facing_version: evaluator.draft_version_number,
           )
         )
 

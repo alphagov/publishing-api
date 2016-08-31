@@ -1,6 +1,7 @@
 module Commands
   module V2
     class PutContent < BaseCommand
+      ITEM_NOT_FOUND = Class.new
       def call
         raise_if_links_is_provided
         validate_schema
@@ -42,7 +43,7 @@ module Commands
 
         update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
 
-        if previously_published_item
+        if previously_published_item != ITEM_NOT_FOUND
           set_first_published_at(content_item, previously_published_item)
 
           previous_location = Location.find_by(content_item: previously_published_item)
@@ -65,7 +66,7 @@ module Commands
       end
 
       def update_existing_content_item(content_item)
-        check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
+        version = check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
         if content_with_base_path?
           clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
@@ -76,7 +77,8 @@ module Commands
 
         update_content_item(content_item)
         update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
-        increment_lock_version(content_item)
+
+        increment_lock_version(version)
 
         if path_has_changed?(previous_location)
           from_path = previous_location.base_path
@@ -168,7 +170,7 @@ module Commands
       end
 
       def lock_version_number_for_new_draft
-        if previously_published_item
+        if previously_published_item != ITEM_NOT_FOUND
           lock_version = LockVersion.find_by!(target: previously_published_item)
           lock_version.number + 1
         else
@@ -177,7 +179,7 @@ module Commands
       end
 
       def user_facing_version_number_for_new_draft
-        if previously_published_item
+        if previously_published_item != ITEM_NOT_FOUND
           user_facing_version = UserFacingVersion.find_by!(content_item: previously_published_item)
           user_facing_version.number + 1
         else
@@ -190,7 +192,7 @@ module Commands
           filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
           content_items = filter.filter(state: %w(published unpublished), locale: locale)
           UserFacingVersion.latest(content_items)
-        )
+        ) || ITEM_NOT_FOUND
       end
 
       def set_first_published_at(content_item, previously_published_item)
@@ -251,8 +253,7 @@ module Commands
         content_item.update_attributes(last_edited_at: last_edited_at) if last_edited_at
       end
 
-      def increment_lock_version(content_item)
-        lock_version = LockVersion.find_by!(target: content_item)
+      def increment_lock_version(lock_version)
         lock_version.increment
         lock_version.save!
       end
