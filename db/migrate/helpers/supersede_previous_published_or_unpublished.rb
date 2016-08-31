@@ -1,5 +1,5 @@
 module Helpers
- module SupersedePreviousPublishedOrUnpublished
+  module SupersedePreviousPublishedOrUnpublished
     def self.run
       state_histories = State
         .where(name: %w(published unpublished))
