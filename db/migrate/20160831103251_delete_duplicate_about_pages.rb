@@ -1,3 +1,5 @@
+require_relative "helpers/delete_content_item"
+
 class DeleteDuplicateAboutPages < ActiveRecord::Migration
   # Remove /government/organisations/animal-and-plant-health-agency/corporate_information_pages/623676
   def up
