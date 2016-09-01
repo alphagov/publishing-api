@@ -119,11 +119,20 @@ private
 
   class RedirectValidator
     def validate(location, redirect)
+      path = redirect[:path]
       destination = redirect[:destination]
       type = redirect[:type]
 
+      unless path.present?
+        location.errors[:redirects] << "path must be present"
+      end
+
       unless destination.present?
         location.errors[:redirects] << "destination must be present"
+      end
+
+      if path == destination
+        location.errors[:redirects] << "path cannot equal the destination"
       end
 
       if type == "exact"
