@@ -131,6 +131,10 @@ private
         location.errors[:redirects] << "destination must be present"
       end
 
+      if path == destination
+        location.errors[:redirects] << "path cannot equal the destination"
+      end
+
       if type == "exact"
         unless valid_exact_redirect_target?(destination)
           location.errors[:redirects] << "is not a valid redirect destination"
