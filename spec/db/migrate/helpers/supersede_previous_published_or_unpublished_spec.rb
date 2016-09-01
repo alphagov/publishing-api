@@ -9,6 +9,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
       :unpublished_content_item,
       content_id: content_id,
       user_facing_version: 1,
+      state: "superseded",
     )
   end
 
@@ -25,6 +26,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
       :unpublished_content_item,
       content_id: content_id,
       user_facing_version: 3,
+      state: "superseded",
     )
   end
 
@@ -34,6 +36,10 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
       content_id: content_id,
       user_facing_version: 4,
     )
+  end
+
+  before do
+    State.where(content_item: [unpublished_1, unpublished_2]).update_all(name: "unpublished")
   end
 
   it "supersedes all but the latest published or unpublished item" do

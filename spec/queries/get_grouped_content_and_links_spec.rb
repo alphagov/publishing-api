@@ -138,14 +138,8 @@ RSpec.describe Queries::GetGroupedContentAndLinks do
             :content_item,
             content_id: ordered_content_ids.first,
             base_path: "/vat-rates",
-            state: "published"
-          )
-
-          FactoryGirl.create(
-            :content_item,
-            content_id: ordered_content_ids.first,
-            base_path: "/vat-rates",
-            state: "draft"
+            state: "draft",
+            user_facing_version: 2,
           )
 
           FactoryGirl.create(

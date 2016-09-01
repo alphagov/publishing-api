@@ -131,8 +131,10 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when only a draft is present" do
       let!(:draft_content_item) do
-        FactoryGirl.create(:draft_content_item,
+        FactoryGirl.create(
+          :draft_content_item,
           content_id: content_id,
+          user_facing_version: 3,
         )
       end
 
@@ -231,8 +233,14 @@ RSpec.describe Commands::V2::Unpublish do
             let!(:published_item) do
               FactoryGirl.create(:live_content_item,
                 content_id: content_id,
-                base_path: base_path,
+                base_path: "/different",
+                user_facing_version: 2,
+                state: "superseded",
               )
+            end
+            before do
+              State.where(content_item: published_item).update_all(name: "published")
+              Location.where(content_item: published_item).update_all(base_path: base_path)
             end
 
             it "raises an error stating the inconsistency" do
@@ -274,7 +282,9 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when the document is redrafted" do
       let!(:live_content_item) do
-        FactoryGirl.create(:live_content_item, :with_draft,
+        FactoryGirl.create(
+          :live_content_item,
+          :with_draft,
           content_id: content_id,
         )
       end

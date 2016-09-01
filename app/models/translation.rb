@@ -6,7 +6,8 @@ class Translation < ActiveRecord::Base
     message: 'must be a supported locale'
   }
 
-  validates_with ContentItemUniquenessValidator
+  validates_with VersionForLocaleValidator
+  validates_with StateForLocaleValidator
 
   def self.filter(content_item_scope, locale:)
     join_content_items(content_item_scope)

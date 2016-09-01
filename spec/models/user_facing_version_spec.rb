@@ -36,11 +36,13 @@ RSpec.describe UserFacingVersion do
   describe "validations" do
     let(:content_id) { SecureRandom.uuid }
     let(:base_path) { "/vat-rates" }
+    let(:version) { 1 }
 
     let!(:draft) do
       FactoryGirl.create(:draft_content_item,
         content_id: content_id,
         base_path: base_path,
+        user_facing_version: version + 1,
       )
     end
 
@@ -48,34 +50,23 @@ RSpec.describe UserFacingVersion do
       FactoryGirl.create(:live_content_item,
         content_id: content_id,
         base_path: base_path,
+        user_facing_version: version,
       )
     end
 
     let(:draft_version) { described_class.find_by!(content_item: draft) }
     let(:live_version) { described_class.find_by!(content_item: live) }
 
-    context "when another content item has identical supporting objects" do
+    context "when there are 2 instances of the same version" do
+      subject { draft_version }
+
       before do
-        FactoryGirl.create(:content_item,
-          user_facing_version: 3,
-          base_path: base_path,
-        )
+        draft_version.number = version
+        subject.valid?
       end
 
-      let(:content_item) do
-        FactoryGirl.create(:content_item,
-          user_facing_version: 2,
-          base_path: base_path,
-        )
-      end
-
-      subject {
-        FactoryGirl.build(:user_facing_version, content_item: content_item, number: 3)
-      }
-
-      it "is invalid" do
-        expect(subject).to be_invalid
-
+      it { is_expected.to be_invalid }
+      it "has a conflicts error message" do
         error = subject.errors[:content_item].first
         expect(error).to match(/conflicts with/)
       end
@@ -104,22 +95,6 @@ RSpec.describe UserFacingVersion do
         expect(live_version.errors[:number]).to include(
           "draft UserFacingVersion cannot be behind the live UserFacingVersion (1 < 2)"
         )
-      end
-    end
-
-    context "when the draft version is equal to the live version" do
-      before do
-        draft_version.number = 2
-        live_version.number = 2
-      end
-
-      it "has a valid draft version" do
-        expect(draft_version).to be_valid
-      end
-
-      it "has a valid live version" do
-        draft_version.save!
-        expect(live_version).to be_valid
       end
     end
 

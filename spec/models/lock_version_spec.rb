@@ -66,13 +66,15 @@ RSpec.describe LockVersion do
       FactoryGirl.create(:draft_content_item,
         content_id: content_id,
         base_path: base_path,
+        user_facing_version: 2,
       )
     end
 
     let!(:live) do
       FactoryGirl.create(:live_content_item,
         content_id: content_id,
-        base_path: base_path
+        base_path: base_path,
+        user_facing_version: 1,
       )
     end
 

@@ -18,11 +18,13 @@ RSpec.describe Commands::V2::DiscardDraft do
     end
 
     context "when a draft content item exists for the given content_id" do
+      let(:user_facing_version) { 2 }
       let!(:existing_draft_item) {
         FactoryGirl.create(:access_limited_draft_content_item,
           content_id: content_id,
           base_path: base_path,
           lock_version: 5,
+          user_facing_version: user_facing_version,
         )
       }
 
@@ -106,6 +108,7 @@ RSpec.describe Commands::V2::DiscardDraft do
             content_id: content_id,
             lock_version: 3,
             base_path: base_path,
+            user_facing_version: user_facing_version - 1,
           )
         }
 
@@ -161,6 +164,7 @@ RSpec.describe Commands::V2::DiscardDraft do
             content_id: content_id,
             lock_version: 3,
             base_path: "/hat-rates",
+            user_facing_version: user_facing_version - 1,
           )
         }
 
@@ -198,6 +202,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           FactoryGirl.create(:unpublished_content_item,
             base_path: base_path,
             content_id: content_id,
+            user_facing_version: user_facing_version - 1,
           )
         }
 

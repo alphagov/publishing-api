@@ -15,7 +15,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::BasePathForState do
       base_path: base_path_a,
       locale: "en",
       user_facing_version: @user_facing_version
-    }.merge(options.except(:user_facing_version, :locale))
+    }.merge(options.except(:state, :base_path))
     content_item = FactoryGirl.create(:superseded_content_item, factory_options)
 
     if options[:state]
@@ -112,6 +112,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::BasePathForState do
                 "#{unpublishing_type}_unpublished_content_item",
                 content_id: content_id_a,
                 base_path: base_path_a,
+                user_facing_version: 2,
               )
             end
 

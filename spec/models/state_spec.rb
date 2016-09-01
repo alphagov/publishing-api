@@ -8,30 +8,77 @@ RSpec.describe State do
       expect(subject).to be_valid
     end
 
-    context "when another content item has identical supporting objects" do
+    context "when another content item has the same base path" do
       let(:base_path) { "/vat-rates" }
-
-      before do
-        FactoryGirl.create(:content_item,
-          state: "published",
-          base_path: base_path,
-        )
-      end
-
-      let(:content_item) do
+      let!(:content_item) do
         FactoryGirl.create(:content_item,
           state: "draft",
           base_path: base_path,
         )
       end
 
-      subject { FactoryGirl.build(:state, content_item: content_item, name: "published") }
+      subject { FactoryGirl.build(:state, content_item: content_item, name: state) }
 
-      it "is invalid" do
-        expect(subject).to be_invalid
+      before do
+        FactoryGirl.create(
+          :content_item,
+          state: "published",
+          base_path: base_path,
+        )
+      end
 
-        error = subject.errors[:content_item].first
-        expect(error).to match(/conflicts with/)
+      %w(published unpublished).each do |state_name|
+        context "when state is #{state_name}" do
+          let(:state) { state_name }
+          it { is_expected.to be_invalid }
+        end
+      end
+
+      %w(draft superseded).each do |state_name|
+        context "when state is #{state_name}" do
+          let(:state) { "superseded" }
+          it { is_expected.to be_valid }
+        end
+      end
+    end
+
+    context "when the state conflicts with another instance of this content item" do
+      let(:content_item) do
+        FactoryGirl.create(
+          :content_item,
+          state: "superseded",
+          user_facing_version: 2,
+        )
+      end
+      subject { FactoryGirl.build(:state, content_item: content_item, name: state) }
+      before do
+        FactoryGirl.create(
+          :content_item,
+          content_id: content_item.content_id,
+          state: existing_state,
+          user_facing_version: 1,
+        )
+      end
+
+      {
+        "draft" => { "draft" => false, "published" => true, "unpublished" => true, "superseded" => true },
+        "published" => { "draft" => true, "published" => false, "unpublished" => false, "superseded" => true },
+        "unpublished" => { "draft" => true, "published" => false, "unpublished" => false, "superseded" => true },
+        "superseded" => { "draft" => true, "published" => true, "unpublished" => true, "superseded" => true },
+      }.each do |existing_state_name, possibilities|
+        context "when existing state is #{existing_state_name}" do
+          let(:existing_state) { existing_state_name }
+          possibilities.each do |state_name, should_be_valid|
+            context "when state is #{state_name}" do
+              let(:state) { state_name }
+              if should_be_valid
+                it { is_expected.to be_valid }
+              else
+                it { is_expected.to be_invalid }
+              end
+            end
+          end
+        end
       end
     end
   end

@@ -38,14 +38,18 @@ RSpec.describe Tasks::VersionResolver, :resolve do
   end
 
   context "when two items of the same content_id have identical versions" do
-    before do
+    let(:collision_content_item) do
       FactoryGirl.create(
         :content_item,
         content_id: content_id,
         state: "superseded",
-        user_facing_version: 2,
+        user_facing_version: 4,
         locale: "en"
       )
+    end
+
+    before do
+      UserFacingVersion.where(content_item: collision_content_item).update_all(number: 2)
     end
 
     it "updates the last item one version higher than its predecessor" do

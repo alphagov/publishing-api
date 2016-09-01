@@ -4,7 +4,13 @@ module DependencyResolutionHelper
     link_set.content_id
   end
 
-  def create_content_item(content_id, base_path, state = "published", locale = "en")
+  def create_content_item(
+    content_id,
+    base_path,
+    state = "published",
+    locale = "en",
+    version = 1
+  )
     FactoryGirl.create(
       :content_item,
       content_id: content_id,
@@ -13,6 +19,7 @@ module DependencyResolutionHelper
       locale: locale,
       document_type: 'topical_event',
       details: {},
+      user_facing_version: version,
     )
   end
 
