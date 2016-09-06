@@ -32,13 +32,6 @@ RSpec.describe PathReservation, type: :model do
         expect(reservation).to be_invalid
         expect(reservation.errors[:publishing_app].size).to eq(1)
       end
-
-      it "cannot be changed" do
-        reservation.save!
-        reservation.publishing_app = 'another_app'
-        expect(reservation).to be_invalid
-        expect(reservation.errors[:base_path].size).to eq(1)
-      end
     end
   end
 
@@ -63,7 +56,9 @@ RSpec.describe PathReservation, type: :model do
       it "raises an error" do
         expect {
           described_class.reserve_base_path!("/vat-rates", "publisher")
-        }.to raise_error(ActiveRecord::RecordInvalid, /already registered/)
+        }.to raise_error(
+          ActiveRecord::RecordInvalid, /already reserved/
+        )
       end
     end
 
@@ -82,13 +77,11 @@ RSpec.describe PathReservation, type: :model do
 
     context "when the path reservation was created by the same app in another transaction" do
       it "returns the other reservation" do
-        allow(PathReservation)
-          .to receive(:find_or_initialize_by)
-          .with(base_path: "/vat-rates")
+        expect(PathReservation)
+          .to receive(:create_path_reservation)
           .and_wrap_original do |m, *args|
-            record = m.call(*args)
             PathReservation.create!(publishing_app: "publisher", base_path: "/vat-rates")
-            record
+            m.call(*args)
           end
 
         expect {
@@ -104,18 +97,16 @@ RSpec.describe PathReservation, type: :model do
 
     context "when the path reservation was created by another app in another transaction" do
       it "returns the other reservation" do
-        allow(PathReservation)
-          .to receive(:find_or_initialize_by)
-          .with(base_path: "/vat-rates")
+        expect(PathReservation)
+          .to receive(:create_path_reservation)
           .and_wrap_original do |m, *args|
-            record = m.call(*args)
-            PathReservation.create!(publishing_app: "something-else", base_path: "/vat-rates")
-            record
+            PathReservation.create!(publishing_app: "different", base_path: "/vat-rates")
+            m.call(*args)
           end
 
         expect {
           described_class.reserve_base_path!("/vat-rates", "publisher")
-        }.to raise_error(ActiveRecord::RecordNotUnique)
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end

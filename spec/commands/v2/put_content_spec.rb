@@ -86,7 +86,7 @@ RSpec.describe Commands::V2::PutContent do
       it "raises an error" do
         expect {
           described_class.call(payload)
-        }.to raise_error(CommandError, /is already registered/i)
+        }.to raise_error(CommandError, /is already reserved/i)
       end
     end
 
