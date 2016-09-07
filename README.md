@@ -66,7 +66,7 @@ class RemoveYourContentItem < ActiveRecord::Migration
 
     content_items.destroy_all
 
-    LinkSet.where(content_id: "some-content-id").destroy_all
+    Helpers::DeleteContentItem.destroy_links("some-content-id")
   end
 end
 ```

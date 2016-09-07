@@ -19,5 +19,11 @@ module Helpers
 
       LockVersion.where(target: content_items).destroy_all
     end
+
+    def self.destroy_links(content_ids)
+      content_ids = Array(content_ids)
+      LinkSet.where(content_id: content_ids).destroy_all
+      Link.where(target_content_id: content_ids).destroy_all
+    end
   end
 end
