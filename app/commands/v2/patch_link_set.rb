@@ -28,9 +28,7 @@ module Commands
             links.create!(target_content_id: content_id)
           end
 
-          content_ids_to_delete.each do |content_id|
-            links.find_by!(target_content_id: content_id).destroy
-          end
+          links.where(target_content_id: content_ids_to_delete).delete_all
         end
 
         after_transaction_commit do
