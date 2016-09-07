@@ -21,6 +21,7 @@ module Presenters
     def present
       symbolized_attributes
         .except(*%i{last_edited_at id state user_facing_version}) # only intended to be used by publishing applications
+        .merge(rendered_details)
         .merge(first_published_at)
         .merge(public_updated_at)
         .merge(links)
@@ -61,12 +62,20 @@ module Presenters
       )
     end
 
+    def details_presenter
+      @details_presenter ||= Presenters::DetailsPresenter.new(symbolized_attributes[:details])
+    end
+
     def access_limit
       @access_limit ||= AccessLimit.find_by(content_item_id: web_content_item.id)
     end
 
     def locale_fallback_order
       [web_content_item.locale, ContentItem::DEFAULT_LOCALE].uniq
+    end
+
+    def rendered_details
+      { details: details_presenter.details }
     end
 
     def first_published_at
