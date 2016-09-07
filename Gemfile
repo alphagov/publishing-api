@@ -23,6 +23,7 @@ gem "govuk_sidekiq", "~> 0.0"
 gem "json-schema", require: false
 gem "hashdiff"
 gem "sidekiq-unique-jobs", require: false
+gem "govspeak", "~> 4.0"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
