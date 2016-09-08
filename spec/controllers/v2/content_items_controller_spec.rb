@@ -462,20 +462,20 @@ RSpec.describe V2::ContentItemsController do
       FactoryGirl.create(:draft_content_item, publishing_app: 'specialist_publisher', base_path: '/item3')
     end
 
-    it "displays items filtered by the user's app_name" do
-      request.env['warden'].user.app_name = 'whitehall'
-      get :index, document_type: 'guide', fields: %w(base_path publishing_app)
+    it "displays items filtered by publishing_app parameter" do
+      get :index,
+        document_type: "guide",
+        fields: %w(base_path publishing_app),
+        publishing_app: "whitehall"
       items = parsed_response["results"]
       expect(items.length).to eq(2)
-      expect(items.all? { |i| i["publishing_app"] == 'whitehall' }).to be true
+      expect(items.all? { |i| i["publishing_app"] == "whitehall" }).to be true
     end
 
-    it "displays all items if user has 'view_all' permission" do
-      request.env['warden'].user.permissions << 'view_all'
+    it "displays all items by default" do
       get :index, document_type: 'guide', fields: %w(base_path publishing_app)
       items = parsed_response["results"]
       expect(items.length).to eq(4)
-      expect(items.map { |i| i["publishing_app"] }.uniq).to match_array(%w(whitehall specialist_publisher publisher))
     end
   end
 end

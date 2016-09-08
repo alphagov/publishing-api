@@ -56,9 +56,7 @@ module V2
     end
 
     def publishing_app
-      unless current_user.has_permission?('view_all')
-        current_user.app_name
-      end
+      query_params[:publishing_app]
     end
 
     def filters
