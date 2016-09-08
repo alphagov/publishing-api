@@ -12,7 +12,7 @@ class PathReservation < ActiveRecord::Base
   end
 
   def self.create_path_reservation(base_path, publishing_app)
-    ActiveRecord::Base.transaction do
+    ActiveRecord::Base.transaction(requires_new: true) do
       create!(base_path: base_path, publishing_app: publishing_app)
     end
   rescue ActiveRecord::RecordNotUnique, PG::UniqueViolation
