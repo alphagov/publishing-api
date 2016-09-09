@@ -52,6 +52,25 @@ class ContentItem < ActiveRecord::Base
     !self.requires_base_path? && !Location.exists?(content_item: self)
   end
 
+  # FIXME: This method is used to retrieve a version of .details that doesn't
+  # have text/html, thus this can be used to convert the item to HTML
+  # It is here for comparing our Govspeak output with that that was provided to
+  # us previously and can be removed once we have migrated most applications.
+  def details_for_govspeak_conversion
+    return details unless details.is_a?(Hash)
+
+    value_without_html = lambda do |value|
+      wrapped = Array.wrap(value)
+      html = wrapped.find { |item| item.is_a?(Hash) && item[:content_type] == "text/html" }
+      govspeak = wrapped.find { |item| item.is_a?(Hash) && item[:content_type] == "text/govspeak" }
+      html && govspeak ? wrapped - [html] : value
+    end
+
+    details.deep_dup.each_with_object({}) do |(key, value), memo|
+      memo[key] = value_without_html.call(value)
+    end
+  end
+
 private
 
   def renderable_content?
