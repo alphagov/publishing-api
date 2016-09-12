@@ -63,7 +63,11 @@ class ContentItem < ActiveRecord::Base
       wrapped = Array.wrap(value)
       html = wrapped.find { |item| item.is_a?(Hash) && item[:content_type] == "text/html" }
       govspeak = wrapped.find { |item| item.is_a?(Hash) && item[:content_type] == "text/govspeak" }
-      html && govspeak ? wrapped - [html] : value
+      if html.present? && govspeak.present?
+        wrapped - [html]
+      else
+        value
+      end
     end
 
     details.deep_dup.each_with_object({}) do |(key, value), memo|
