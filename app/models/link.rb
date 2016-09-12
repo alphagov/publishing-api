@@ -6,19 +6,6 @@ class Link < ActiveRecord::Base
   validate :link_type_is_valid
   validate :content_id_is_valid
 
-  def target_content_id
-    passthrough_hash || super
-  end
-
-  def target_content_id=(string_or_hash)
-    case string_or_hash
-    when String
-      super
-    when Hash
-      self.passthrough_hash = string_or_hash
-    end
-  end
-
   def self.filter_content_items(scope, filters)
     join_sql = <<-SQL.strip_heredoc
       INNER JOIN link_sets ON link_sets.content_id = content_items.content_id

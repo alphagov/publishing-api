@@ -287,29 +287,6 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     end
   end
 
-  context "when a link has a 'passthrough_hash'" do
-    let(:state_fallback_order) { [:draft, :published] }
-
-    before do
-      create_link(a, b, "parent")
-      create_link(b, c, "parent")
-
-      create_content_item(a, "/a", "draft")
-      create_content_item(b, "/b", "draft")
-      create_content_item(c, "/c", "draft")
-
-      bc_link = Link.last
-      bc_link.target_content_id = { foo: "bar" }
-      bc_link.save!
-    end
-
-    it "does not expand the fields for those links" do
-      expect(expanded_links[:parent]).to match([
-        a_hash_including(base_path: "/b", links: {})
-      ])
-    end
-  end
-
   describe "multiple translations" do
     let(:state_fallback_order) { [:published] }
     let(:locale_fallback_order) { %w(ar en) }

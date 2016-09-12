@@ -28,7 +28,7 @@ module Presenters
       def expand_links(target_content_ids, type, rules)
         return {} unless expanding_this_type?(type)
 
-        content_items = valid_web_content_items(target_content_ids)
+        content_items = web_content_items(target_content_ids)
 
         content_items.map do |item|
           expanded_links = ExpandLink.new(item, item.document_type.to_sym, rules).expand_link
@@ -66,7 +66,7 @@ module Presenters
         grouped_links = LinkSet
           .eager_load(:links)
           .where(content_id: content_id)
-          .pluck(:link_type, :target_content_id, :passthrough_hash)
+          .pluck(:link_type, :target_content_id)
           .group_by(&:first)
 
         return {} if grouped_links.keys.compact.empty?
@@ -98,15 +98,6 @@ module Presenters
 
           hash[inverted_type_name.to_sym] = expanded_links.reject(&:empty?) if expanded_links.any?
         end
-      end
-
-      def valid_web_content_items(target_content_ids)
-        target_content_ids = without_passsthrough_hashes(target_content_ids)
-        web_content_items(target_content_ids)
-      end
-
-      def without_passsthrough_hashes(target_content_ids)
-        target_content_ids.reject { |content_id| content_id.is_a?(Hash) }
       end
 
       def web_content_items(target_content_ids)

@@ -33,11 +33,11 @@ module Presenters
         #   organisations: [ UUID ],
         # }
 
-        @links ||= link_set.links.pluck(:link_type, :target_content_id, :passthrough_hash).map.with_object({}) do |link, hash|
+        @links ||= link_set.links.pluck(:link_type, :target_content_id).map.with_object({}) do |link, hash|
           type = link[0].to_sym
 
           hash[type] ||= []
-          hash[type] << (link[1] || link[2].deep_symbolize_keys)
+          hash[type] << link[1]
         end
       end
 
