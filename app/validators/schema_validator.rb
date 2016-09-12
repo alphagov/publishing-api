@@ -1,6 +1,8 @@
 require 'json-schema'
 
 class SchemaValidator
+  attr_reader :errors
+
   def initialize(type:, schema_name: nil, schema: nil)
     @type = type
     @schema = schema
@@ -12,7 +14,7 @@ class SchemaValidator
 
     return true if schema_name_exception?
 
-    errors = JSON::Validator.fully_validate(
+    @errors = JSON::Validator.fully_validate(
       schema,
       payload,
       errors_as_objects: true,
@@ -20,15 +22,13 @@ class SchemaValidator
 
     return true if errors.empty?
 
-    errors = Hash[errors.map.with_index { |e, i| [i, present_error(e)] }]
-
     Airbrake.notify_or_ignore(
       {
         error_class: "SchemaValidationError",
         error_message: "Error validating payload against schema '#{schema_name}'"
       },
       parameters: {
-        errors: errors,
+        errors: errors_for_airbrake,
         message_data: payload
       }
     )
@@ -38,6 +38,10 @@ class SchemaValidator
 private
 
   attr_reader :payload, :type
+
+  def errors_for_airbrake
+    Hash[errors.map.with_index { |e, i| [i, present_error(e)] }]
+  end
 
   def present_error(error_hash)
     # The schema key just contains an addressable, which is not informative as

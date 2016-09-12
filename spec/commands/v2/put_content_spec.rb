@@ -715,7 +715,9 @@ RSpec.describe Commands::V2::PutContent do
     it_behaves_like TransactionalCommand
 
     it "validate against schema" do
-      allow(SchemaValidator).to receive(:new).and_return(double('validator', validate: true))
+      allow(SchemaValidator).to receive(:new) {
+        double('validator', validate: true, errors: [])
+      }
       expect(SchemaValidator).to receive(:new)
         .with(type: :schema)
 
@@ -894,6 +896,41 @@ RSpec.describe Commands::V2::PutContent do
             described_class.call(payload)
           }.to raise_error(CommandError, /Conflict/)
         end
+      end
+    end
+
+    context "schema validation fails" do
+      let(:errors) do
+        [{ schema: "a", fragment: "b", message: "c", failed_attribute: "d" }]
+      end
+      let(:validator) do
+        instance_double(SchemaValidator, validate: false, errors: errors)
+      end
+      before do
+        allow(SchemaValidator).to receive(:new) { validator }
+      end
+
+      it "raises command error and exits" do
+        expect(PathReservation).not_to receive(:reserve_base_path!)
+        expect { described_class.call(payload) }.to raise_error { |error|
+          expect(error).to be_a(CommandError)
+          expect(error.code).to eq 422
+          expect(error.error_details).to eq errors
+        }
+      end
+    end
+
+    context "schema validation passes" do
+      let(:validator) do
+        instance_double(SchemaValidator, validate: true, errors: [])
+      end
+      before do
+        allow(SchemaValidator).to receive(:new) { validator }
+      end
+
+      it "returns success" do
+        expect(PathReservation).to receive(:reserve_base_path!)
+        expect { described_class.call(payload) }.not_to raise_error
       end
     end
   end
