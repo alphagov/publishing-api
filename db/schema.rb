@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906160955) do
+ActiveRecord::Schema.define(version: 20160913130622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,6 @@ ActiveRecord::Schema.define(version: 20160906160955) do
     t.string   "link_type",         null: false
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.json     "passthrough_hash"
   end
 
   add_index "links", ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id", using: :btree
