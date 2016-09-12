@@ -80,7 +80,7 @@ RSpec.describe "Downstream timeouts", type: :request do
   end
 
   context "/v2/links" do
-    let(:request_body) { links_attributes.to_json }
+    let(:request_body) { patch_links_attributes.to_json }
     let(:request_path) { "/v2/links/#{content_id}" }
     let(:request_method) { :patch }
     let(:base_path) { "/vat-rates" }
@@ -110,7 +110,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/v2/links/#{content_id}", links_attributes.to_json
+        put "/v2/links/#{content_id}", patch_links_attributes.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(
@@ -128,7 +128,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/v2/links/#{content_id}", links_attributes.to_json
+        put "/v2/links/#{content_id}", patch_links_attributes.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(

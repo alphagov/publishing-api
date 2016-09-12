@@ -6,10 +6,10 @@ RSpec.describe "Downstream requests", type: :request do
       content_item_params
         .except(:access_limited, :update_type)
     }
+
     let(:content_item_for_live_content_store) {
       content_item_for_draft_content_store
     }
-
 
     it "sends content to both content stores" do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
@@ -63,7 +63,6 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_item_for_draft_content_store) {
       v2_content_item
         .except(:update_type)
-        .merge(links: {})
         .merge(expanded_links: {
           available_translations: available_translations
         })
@@ -98,8 +97,6 @@ RSpec.describe "Downstream requests", type: :request do
 
       let(:content_item_for_draft_content_store) do
         v2_content_item.except(:update_type).merge(
-          links: Presenters::Queries::LinkSetPresenter.new(link_set).links
-        ).merge(
           expanded_links: Presenters::Queries::ExpandedLinkSet.new(content_id: link_set.content_id, state_fallback_order: [:draft, :published]).links
         )
       end
@@ -135,14 +132,14 @@ RSpec.describe "Downstream requests", type: :request do
   end
 
   context "/v2/links" do
-    let(:content_item) {
-      v2_content_item.merge(links: links_attributes[:links])
-    }
+    let(:content_item) { v2_content_item }
+
     let(:content_item_for_draft_content_store) {
       content_item
         .except(:update_type)
         .merge(access_limited: access_limit_params)
     }
+
     let(:content_item_for_live_content_store) {
       content_item
         .except(:access_limited, :update_type)
@@ -175,7 +172,7 @@ RSpec.describe "Downstream requests", type: :request do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
         expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
 
-        patch "/v2/links/#{content_id}", links_attributes.to_json
+        patch "/v2/links/#{content_id}", patch_links_attributes.to_json
 
         expect(response).to be_ok, response.body
       end
@@ -207,7 +204,7 @@ RSpec.describe "Downstream requests", type: :request do
               .merge(payload_version: anything)
           )
 
-        patch "/v2/links/#{content_id}", links_attributes.to_json
+        patch "/v2/links/#{content_id}", patch_links_attributes.to_json
 
         expect(response).to be_ok, response.body
       end
@@ -250,7 +247,7 @@ RSpec.describe "Downstream requests", type: :request do
               .merge(payload_version: anything)
           )
 
-        patch "/v2/links/#{content_id}", links_attributes.to_json
+        patch "/v2/links/#{content_id}", patch_links_attributes.to_json
 
         expect(response).to be_ok, response.body
       end
@@ -262,49 +259,7 @@ RSpec.describe "Downstream requests", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
         expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
 
-        patch "/v2/links/#{content_id}", links_attributes.to_json
-
-        expect(response).to be_ok, response.body
-      end
-    end
-
-    context "when sending passthrough links" do
-      def links_attributes
-        {
-          content_id: content_id,
-          links: {
-            organisations: [
-              {
-                content_id: "a-passthrough-content-id",
-                title: "Some passthrough content",
-              }
-            ]
-          }
-        }
-      end
-
-      before do
-        draft = FactoryGirl.create(:draft_content_item,
-          v2_content_item
-            .slice(*ContentItem::TOP_LEVEL_FIELDS)
-            .merge(base_path: base_path)
-        )
-        FactoryGirl.create(:lock_version, target: draft, number: 1)
-        FactoryGirl.create(:access_limit, content_item: draft, users: access_limit_params.fetch(:users))
-      end
-
-      it "sends to the draft content store" do
-        allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
-
-        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: content_item_for_draft_content_store
-              .merge(payload_version: anything)
-              .merge(expanded_links: anything)
-          )
-
-        patch "/v2/links/#{content_id}", links_attributes.to_json
+        patch "/v2/links/#{content_id}", patch_links_attributes.to_json
 
         expect(response).to be_ok, response.body
       end

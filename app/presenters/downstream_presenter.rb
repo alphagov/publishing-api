@@ -40,7 +40,6 @@ module Presenters
     def links
       return {} unless link_set
       {
-        links: link_set_presenter.links,
         expanded_links: expanded_link_set_presenter.links,
       }
     end
@@ -52,10 +51,6 @@ module Presenters
           users: access_limit.users
         }
       }
-    end
-
-    def link_set_presenter
-      @link_set_presenter ||= Presenters::Queries::LinkSetPresenter.new(link_set)
     end
 
     def expanded_link_set_presenter

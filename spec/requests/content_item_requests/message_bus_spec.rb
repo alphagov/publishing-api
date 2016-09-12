@@ -70,7 +70,7 @@ RSpec.describe "Message bus", type: :request do
   end
 
   context "/v2/links" do
-    let(:request_body) { links_attributes.to_json }
+    let(:request_body) { patch_links_attributes.to_json }
     let(:request_path) { "/v2/links/#{content_id}" }
 
     context "with a live content item" do

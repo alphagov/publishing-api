@@ -22,7 +22,6 @@ RSpec.describe Presenters::DownstreamPresenter do
         details: { body: "<p>Something about VAT</p>\n" },
         format: "guide",
         document_type: "guide",
-        links: {},
         expanded_links: {},
         locale: "en",
         need_ids: %w(100123 100124),

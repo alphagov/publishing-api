@@ -38,7 +38,10 @@ module RequestHelpers
         redirects: [],
         update_type: "major",
         analytics_identifier: "GDS01",
-      }.merge(links_attributes)
+        expanded_links: {
+          available_translations: available_translations
+        }
+      }
     end
 
     def access_limit_params
@@ -50,14 +53,11 @@ module RequestHelpers
       }
     end
 
-    def links_attributes
+    def patch_links_attributes
       {
         content_id: content_id,
         links: {
           organisations: ["30986e26-f504-4e14-a93f-a9593c34a8d9"]
-        },
-        expanded_links: {
-          available_translations: available_translations
         }
       }
     end
