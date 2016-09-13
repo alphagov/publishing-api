@@ -7,6 +7,7 @@ module Presenters
     def initialize(content_item_details)
       @content_item_details = SymbolizeJSON.symbolize(content_item_details)
       @body = content_item_details[:body]
+      @body = [@body] if @body.is_a?(Hash)
     end
 
     def details
