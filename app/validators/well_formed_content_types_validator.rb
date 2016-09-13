@@ -44,7 +44,7 @@ private
 
     validate_that_content_is_present!(array) &&
       validate_that_there_are_no_duplicates!(array) &&
-      validate_that_mandatory_content_type_is_present!(array)
+      validate_that_mandatory_content_types_are_present!(array)
   end
 
   def validate_that_content_is_present!(array)
@@ -65,14 +65,30 @@ private
     end
   end
 
-  def validate_that_mandatory_content_type_is_present!(array)
-    mandatory_content_type = options[:must_include]
-    return true unless mandatory_content_type
+  def validate_that_mandatory_content_types_are_present!(array)
+    if options[:must_include]
+      validate_that_mandatory_content_type_is_present!(array, options[:must_include])
+    elsif options[:must_include_one_of]
+      validate_that_one_of_the_mandatory_content_types_is_present!(array, Array(options[:must_include_one_of]))
+    else
+      true
+    end
+  end
 
-    hash = array.detect { |h| h[:content_type] == mandatory_content_type }
+  def validate_that_mandatory_content_type_is_present!(array, mandatory_content_type)
+    no_matches = array.none? { |h| h[:content_type] == mandatory_content_type }
 
-    unless hash
+    if no_matches
       @error_messages << "the '#{mandatory_content_type}' content type is mandatory and it is missing"
+    end
+  end
+
+  def validate_that_one_of_the_mandatory_content_types_is_present!(array, optional_content_types)
+    return true if optional_content_types.empty?
+    no_matches = array.none? { |h| optional_content_types.include?(h[:content_type]) }
+
+    if no_matches
+      @error_messages << "there must be at least one content type of (#{optional_content_types.join(', ')})"
     end
   end
 end
