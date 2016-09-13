@@ -29,7 +29,7 @@ private
   def schema
     @schema || JSON.load(File.read(schema_filepath))
   rescue Errno::ENOENT => error
-    msg = "#{payload} is missing schema_name #{schema_name} or type #{type}"
+    msg = "Unable to find schema for schema_name #{schema_name} and type #{type}"
     Airbrake.notify_or_ignore(error, parameters: { explanation: msg })
     {}
   end
