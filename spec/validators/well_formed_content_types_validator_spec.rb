@@ -85,6 +85,32 @@ RSpec.describe WellFormedContentTypesValidator do
     end
   end
 
+  context "when the 'must_include_one_of' option is set to ['text/html', 'text/govspeak']" do
+    let(:options) { { must_include_one_of: %w(text/html text/govspeak) } }
+
+    it "rejects values that do not have a content type of 'text/html' or 'text/govspeak'" do
+      value = [{ content_type: "text/plain", content: "content" }]
+      subject.validate_each(record, attribute, value)
+      expect(record.errors).to be_present
+      expect(record.errors).to eq(some_attribute: ["there must be at least one content type of (text/html, text/govspeak)"])
+    end
+
+    it "accepts values that do have a content type of 'text/govspeak'" do
+      value = [{ content_type: "text/govspeak", content: "content" }]
+      subject.validate_each(record, attribute, value)
+      expect(record.errors).to be_empty
+    end
+
+    it "accepts values that have a content type of 'text/govspeak' and 'text/html'" do
+      value = [
+        { content_type: "text/govspeak", content: "content" },
+        { content_type: "text/html", content: "content" },
+      ]
+      subject.validate_each(record, attribute, value)
+      expect(record.errors).to be_empty
+    end
+  end
+
   it "rejects values that have duplicate content types" do
     value = [
       { content_type: "text/html", content: "<p>content</p>" },
