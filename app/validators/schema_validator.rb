@@ -19,53 +19,29 @@ class SchemaValidator
       payload,
       errors_as_objects: true,
     )
-
-    return true if errors.empty?
-
-    Airbrake.notify_or_ignore(
-      {
-        error_class: "SchemaValidationError",
-        error_message: "Error validating payload against schema '#{schema_name}'"
-      },
-      parameters: {
-        errors: errors_for_airbrake,
-        message_data: payload
-      }
-    )
-    false
+    errors.empty?
   end
 
 private
 
   attr_reader :payload, :type
 
-  def errors_for_airbrake
-    Hash[errors.map.with_index { |e, i| [i, present_error(e)] }]
-  end
-
-  def present_error(error_hash)
-    # The schema key just contains an addressable, which is not informative as
-    # the schema in use should be clear from the error class and message
-    error_hash = error_hash.reject { |k, _| k == :schema }
-
-    if error_hash.has_key?(:errors)
-      error_hash[:errors] = Hash[
-        error_hash[:errors].map do |k, errors|
-          [k, Hash[errors.map.with_index { |e, i| [i, present_error(e)] }]]
-        end
-      ]
-    end
-
-    error_hash
-  end
-
   def schema
-    @schema || JSON.load(File.read("govuk-content-schemas/formats/#{schema_name}/publisher_v2/#{type}.json"))
+    @schema || JSON.load(File.read(schema_filepath))
   rescue Errno::ENOENT => error
-    Airbrake.notify_or_ignore(error, parameters: {
-      explanation: "#{payload} is missing schema_name #{schema_name} or type #{type}"
-    })
+    msg = "#{payload} is missing schema_name #{schema_name} or type #{type}"
+    Airbrake.notify_or_ignore(error, parameters: { explanation: msg })
     {}
+  end
+
+  def schema_filepath
+    File.join(
+      "govuk-content-schemas",
+      "formats",
+      schema_name,
+      "publisher_v2",
+      "#{type}.json"
+    )
   end
 
   def schema_name
