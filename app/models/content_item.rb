@@ -36,7 +36,7 @@ class ContentItem < ActiveRecord::Base
   validates :content_id, presence: true, uuid: true
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
-  validates :rendering_app, presence: true, dns_hostname: true, if: :renderable_content?
+  validates :rendering_app, presence: true, dns_hostname: true, if: :requires_rendering_app?
   validates :phase, inclusion: {
     in: %w(alpha beta live),
     message: 'must be either alpha, beta, or live'
@@ -56,5 +56,9 @@ private
 
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(document_type)
+  end
+
+  def requires_rendering_app?
+    renderable_content? && document_type != "contact"
   end
 end

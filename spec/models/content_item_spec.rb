@@ -81,6 +81,15 @@ RSpec.describe ContentItem do
       end
     end
 
+    context "when the content item is optionally 'renderable'" do
+      subject { FactoryGirl.build(:content_item, document_type: "contact") }
+
+      it "does not require a rendering_app" do
+        subject.rendering_app = nil
+        expect(subject).to be_valid
+      end
+    end
+
     context "content_id" do
       it "accepts a UUID" do
         subject.content_id = "a7c48dac-f1c6-45a8-b5c1-5c407d45826f"
