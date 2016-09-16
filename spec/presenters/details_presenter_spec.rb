@@ -59,5 +59,34 @@ RSpec.describe Presenters::DetailsPresenter do
 
       it { is_expected.to match(expected_result) }
     end
+
+    context "when we're passed multiple govspeak fields" do
+      let(:content_item_details) do
+        {
+          body: [
+            { content_type: "text/govspeak", content: "**hello**" }
+          ],
+          other: [
+            { content_type: "text/govspeak", content: "**goodbye**" }
+          ],
+
+        }
+      end
+
+      let(:expected_result) do
+        {
+          body: [
+            { content_type: "text/govspeak", content: "**hello**" },
+            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" }
+          ],
+          other: [
+            { content_type: "text/govspeak", content: "**goodbye**" },
+            { content_type: "text/html", content: "<p><strong>goodbye</strong></p>\n" }
+          ],
+        }
+      end
+
+      it { is_expected.to match(expected_result) }
+    end
   end
 end
