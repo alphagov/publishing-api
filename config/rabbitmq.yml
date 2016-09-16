@@ -13,3 +13,15 @@ development:
 test:
   <<: *defaults
   exchange: published_documents_test
+
+production:
+  hosts:
+    - rabbitmq-1.backend
+    - rabbitmq-2.backend
+    - rabbitmq-3.backend
+  user: publishing_api
+  pass: <%= ENV['RABBITMQ_PASSWORD'] %>
+  port: 5672
+  vhost: /
+  exchange: published_documents
+  recover_from_connection_close: true
