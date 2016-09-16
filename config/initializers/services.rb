@@ -28,7 +28,7 @@ PublishingAPI.register_service(
 if ENV['DISABLE_QUEUE_PUBLISHER'] || (Rails.env.test? && ENV['ENABLE_QUEUE_IN_TEST_MODE'].blank?)
   rabbitmq_config = { noop: true }
 else
-  rabbitmq_config = YAML.load_file(Rails.root.join("config", "rabbitmq.yml"))[Rails.env].symbolize_keys
+  rabbitmq_config = Rails.application.config_for(:rabbitmq).symbolize_keys
 end
 
 PublishingAPI.register_service(
