@@ -20,7 +20,7 @@ module Presenters
   private
 
     def append_transformed_govspeak(value)
-      return value if value.is_a?(String)
+      return value if value.is_a?(String) || value.is_a?(Integer)
       value = Array.wrap(value)
       return value unless requires_govspeak_html_transform?(value)
       govspeak = {
