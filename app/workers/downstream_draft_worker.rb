@@ -2,7 +2,8 @@ require 'sidekiq-unique-jobs'
 
 class DownstreamDraftWorker
   attr_reader :web_content_item, :content_item_id, :payload_version,
-    :update_dependencies, :alert_on_invalid_state_error
+    :update_dependencies, :alert_on_invalid_state_error,
+    :dependency_resolution_source_content_id
 
   include DownstreamQueue
   include Sidekiq::Worker
@@ -48,6 +49,10 @@ private
     @payload_version = attributes.fetch(:payload_version)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @alert_on_invalid_state_error = attributes.fetch(:alert_on_invalid_state_error, true)
+    @dependency_resolution_source_content_id = attributes.fetch(
+      :dependency_resolution_source_content_id,
+      nil
+    )
   end
 
   def enqueue_dependencies
