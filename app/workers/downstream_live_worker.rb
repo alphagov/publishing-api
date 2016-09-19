@@ -29,6 +29,12 @@ class DownstreamLiveWorker
       raise AbortWorkerError.new("The content item for id: #{content_item_id} was not found")
     end
 
+    unless dependency_resolution_source_content_id.nil?
+      DownstreamService.set_govuk_dependency_resolution_source_content_id_header(
+        dependency_resolution_source_content_id
+      )
+    end
+
     payload = DownstreamPayload.new(web_content_item, payload_version, Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER)
 
     DownstreamService.update_live_content_store(payload) if web_content_item.base_path
