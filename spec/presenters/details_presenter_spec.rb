@@ -107,5 +107,12 @@ RSpec.describe Presenters::DetailsPresenter do
 
       it { is_expected.to match(expected_result) }
     end
+
+    context "value contains nested array" do
+      let(:content_item_details) { { other: %w(an array of strings) } }
+      it "doesn't try to convert to govspeak" do
+        expect { subject }.to_not raise_error
+      end
+    end
   end
 end
