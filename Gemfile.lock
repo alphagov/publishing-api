@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/alphagov/sidekiq.git
+  revision: cadebcf4977189b8ca534e0ccb2b304d2ac70be2
+  branch: fix-testing-with-overridden-queue
+  specs:
+    sidekiq (4.1.4)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      redis (~> 3.2, >= 3.2.1)
+      sinatra (>= 1.4.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -307,11 +318,6 @@ GEM
     scss_lint (0.44.0)
       rake (~> 10.0)
       sass (~> 3.4.15)
-    sidekiq (4.1.4)
-      concurrent-ruby (~> 1.0)
-      connection_pool (~> 2.2, >= 2.2.0)
-      redis (~> 3.2, >= 3.2.1)
-      sinatra (>= 1.4.7)
     sidekiq-logging-json (0.0.16)
       sidekiq (>= 3, < 5)
     sidekiq-statsd (0.1.5)
@@ -408,6 +414,7 @@ DEPENDENCIES
   rails (= 4.2.7.1)
   rspec
   rspec-rails (~> 3.3)
+  sidekiq!
   sidekiq-unique-jobs
   simplecov (= 0.10.0)
   simplecov-rcov (= 0.2.3)
