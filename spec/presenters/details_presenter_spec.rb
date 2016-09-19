@@ -88,5 +88,24 @@ RSpec.describe Presenters::DetailsPresenter do
 
       it { is_expected.to match(expected_result) }
     end
+
+    context "when we're passed hashes rather than arrays" do
+      let(:content_item_details) do
+        {
+          body: { content_type: "text/govspeak", content: "**hello**" },
+        }
+      end
+
+      let(:expected_result) do
+        {
+          body: [
+            { content_type: "text/govspeak", content: "**hello**" },
+            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" }
+          ],
+        }
+      end
+
+      it { is_expected.to match(expected_result) }
+    end
   end
 end

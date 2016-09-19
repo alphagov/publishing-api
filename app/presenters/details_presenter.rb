@@ -21,6 +21,7 @@ module Presenters
 
     def append_transformed_govspeak(value)
       return value if value.is_a?(String)
+      value = Array.wrap(value)
       return value unless requires_govspeak_html_transform?(value)
       govspeak = {
         content_type: "text/html",
