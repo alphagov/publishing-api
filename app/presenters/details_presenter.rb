@@ -35,7 +35,8 @@ module Presenters
     end
 
     def requires_govspeak_html_transform?(value)
-      value.one? { |hsh| hsh[:content_type] == "text/govspeak" } &&
+      value.all? { |hsh| hsh.is_a?(Hash) } &&
+        value.one? { |hsh| hsh[:content_type] == "text/govspeak" } &&
         value.none? { |hsh| hsh[:content_type] == "text/html" }
     end
 
