@@ -922,7 +922,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "schema validation passes" do
       let(:validator) do
-        instance_double(SchemaValidator, validate: true, errors: [])
+        instance_double(SchemaValidator, validate: true, errors: nil)
       end
       before do
         allow(SchemaValidator).to receive(:new) { validator }

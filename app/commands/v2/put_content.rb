@@ -305,7 +305,7 @@ module Commands
       end
 
       def raise_if_payload_fails_schema_validation
-        return unless schema_validation_errors.any?
+        return if schema_validation_errors.blank?
         message = "The payload did not conform to the schema"
         raise CommandError.new(
           code: 422,
