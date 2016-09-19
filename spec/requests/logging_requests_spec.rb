@@ -30,4 +30,40 @@ RSpec.describe "Logging requests", type: :request do
       "HTTP_GOVUK_REQUEST_ID" => "12345-67890"
     )
   end
+
+  context "with GOVUK-Dependency-Resolution-Source-Content-Id" do
+    include DependencyResolutionHelper
+
+    let(:a) { create_link_set }
+    let(:b) { create_link_set }
+
+    let!(:draft_a) { create_content_item(a, "/a", "draft", "en", 2) }
+    let!(:draft_b) { create_content_item(b, "/b", "draft") }
+
+    before do
+      create_link(a, b, "parent")
+    end
+
+    it "is added to the request to the content store" do
+      stub_request(:put, /draft-content-store.*content\/(a|b)/)
+
+      Sidekiq::Testing.fake! do
+        put(
+          "/v2/content/#{a}",
+          v2_content_item.merge(base_path: "/a", content_id: a).to_json,
+        )
+
+        # Simulate workers running in a separate thread
+        GdsApi::GovukHeaders.clear_headers
+        # Run all workers
+        Sidekiq::Worker.drain_all
+        Sidekiq::Worker.clear_all
+      end
+
+      expect(WebMock).to have_requested(:put, /draft-content-store.*content\/b/)
+        .with(headers: {
+          "GOVUK-Dependency-Resolution-Source-Content-Id" => draft_a.content_id,
+        })
+    end
+  end
 end
