@@ -20,13 +20,14 @@ module Presenters
   private
 
     def append_transformed_govspeak(value)
-      wrapped_value = Array.wrap(value)
-      return value unless requires_govspeak_html_transform?(wrapped_value)
+      return value if value.is_a?(String) || value.is_a?(Integer)
+      value = Array.wrap(value)
+      return value unless requires_govspeak_html_transform?(value)
       govspeak = {
         content_type: "text/html",
-        content: rendered_govspeak(wrapped_value),
+        content: rendered_govspeak(value),
       }
-      wrapped_value + [govspeak]
+      value + [govspeak]
     end
 
     def raw_govspeak(value)
