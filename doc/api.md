@@ -22,6 +22,7 @@ for other apps (eg email-alert-service) to consume.
 - [`GET /v2/linkables`](#get-v2linkables)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
 - [`GET /debug/:content_id`](#get-debugcontent_id)
+- [`PUT /paths/:base_path`](#put-pathsbase_path)
 
 ### Optimistic locking (`previous_version`)
 
@@ -439,3 +440,29 @@ Alternatively add the following host to your hosts file:
 
 And then open
 http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
+
+## `PUT /paths/:base_path`
+
+ [Request/response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_put_a_path_given_no_content_exists)
+
+Reserves a path for a publishing application. Returns success or failure only.
+
+### Path parameters
+- [`base_path`](model.md#base_path)
+  - Identifies the path that will be reserved
+
+### JSON parameters:
+- [`publishing_app`](model.md#publishing_app) *(required)*
+  - The name of the application making this request, words separated with hyphens.
+- `override_existing` (optional)
+  - Explicitly claim a path that has already been reserved by a different
+    publishing_app. If not true, attempting to do this will fail.
+
+### State changes
+- If no path reservation for the supplied base_path is present, one will be
+  created for the supplied publishing_app.
+- If a path reservation exists for the supplied base_path but a different
+  publishing_app, and `override_existing` is not true, the command will fail.
+- If a path reservation exists for the supplied base_path and a different a
+  publishing_app, and `override_existing` is true, the existing reservation will
+  be updated to the supplied publishing_app.
