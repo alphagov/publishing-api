@@ -26,5 +26,20 @@ RSpec.describe "PUT /paths", type: :request do
         do_request
       }.to change(PathReservation, :count).by(1)
     end
+
+    context "with override_existing set" do
+      before do
+        FactoryGirl.create(:path_reservation, base_path: base_path, publishing_app: "another")
+        payload.merge!(override_existing: true)
+      end
+
+      it "updates an existing path" do
+        expect {
+          do_request
+        }.not_to change(PathReservation, :count)
+
+        expect(PathReservation.last.publishing_app).to eq("publisher")
+      end
+    end
   end
 end

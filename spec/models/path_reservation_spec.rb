@@ -60,6 +60,20 @@ RSpec.describe PathReservation, type: :model do
           ActiveRecord::RecordInvalid, /already reserved/
         )
       end
+
+      context "when override_existing is true" do
+        it "updates the existing reservation" do
+          expect {
+            described_class.reserve_base_path!(
+              "/vat-rates", "publisher", override_existing: true
+            )
+          }.not_to raise_error
+          path_reservation = PathReservation.last
+
+          expect(path_reservation.base_path).to eq("/vat-rates")
+          expect(path_reservation.publishing_app).to eq("publisher")
+        end
+      end
     end
 
     context "when the path reservation does not exist" do

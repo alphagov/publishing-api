@@ -2,9 +2,11 @@ class PathReservation < ActiveRecord::Base
   validates :base_path, absolute_path: true
   validates :publishing_app, presence: true
 
-  def self.reserve_base_path!(base_path, publishing_app)
+  def self.reserve_base_path!(base_path, publishing_app, override_existing: false)
     existing = find_by(base_path: base_path)
-    if existing.nil?
+    if existing.present? && override_existing
+      existing.update!(publishing_app: publishing_app)
+    elsif existing.nil?
       create_path_reservation(base_path, publishing_app)
     else
       existing.ensure_unique(publishing_app)
