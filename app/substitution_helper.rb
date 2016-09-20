@@ -39,7 +39,7 @@ module SubstitutionHelper
   private
 
     def substitute?(document_type)
-      %w(coming_soon gone redirect unpublishing).include?(document_type)
+      %w(coming_soon gone redirect unpublishing special_route).include?(document_type)
     end
   end
 
