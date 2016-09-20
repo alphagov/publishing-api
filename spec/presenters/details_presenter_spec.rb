@@ -108,16 +108,6 @@ RSpec.describe Presenters::DetailsPresenter do
       it { is_expected.to match(expected_result) }
     end
 
-    context "when we're passed an image hash" do
-      let(:content_item_details) do
-        { image: { content_type: "image/png", content: "some content" } }
-      end
-
-      it "doesn't wrap the hash in an array" do
-        expect(subject).to eq content_item_details
-      end
-    end
-
     context "value contains nested array" do
       let(:content_item_details) { { other: %w(an array of strings) } }
       it "doesn't try to convert to govspeak" do
