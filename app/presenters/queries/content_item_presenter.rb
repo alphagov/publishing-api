@@ -22,10 +22,7 @@ module Presenters
       end
 
       def self.present(content_item)
-        translation = Translation.find_by!(content_item: content_item)
-
-        scope = ContentItem.where(content_id: content_item.content_id)
-        scope = Translation.filter(scope, locale: translation.locale)
+        scope = ContentItem.where(id: content_item.id)
 
         present_many(scope).first
       end
