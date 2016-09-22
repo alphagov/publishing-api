@@ -2,6 +2,8 @@ require 'queries/get_web_content_items'
 
 module Presenters
   class DownstreamPresenter
+    attr_accessor :link_set
+
     def self.present(web_content_item, state_fallback_order:)
       if web_content_item.is_a?(ContentItem)
         # TODO: Add deprecation notice here once we start to migrate other parts of
@@ -32,7 +34,7 @@ module Presenters
 
   private
 
-    attr_accessor :web_content_item, :link_set, :state_fallback_order
+    attr_accessor :web_content_item, :state_fallback_order
 
     def symbolized_attributes
       SymbolizeJSON.symbolize(web_content_item.as_json.merge(description: web_content_item.description))
