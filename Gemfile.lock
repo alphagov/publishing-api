@@ -108,6 +108,9 @@ GEM
     govuk-lint (0.8.0)
       rubocop (~> 0.35.0)
       scss_lint (~> 0.44.0)
+    govuk_schemas (0.1.0)
+      activesupport
+      json-schema
     govuk_sidekiq (0.0.4)
       airbrake (>= 3.1.0)
       gds-api-adapters (>= 19.1.0)
@@ -388,6 +391,7 @@ DEPENDENCIES
   gds-sso (= 12.1.0)
   govspeak (~> 4.0)
   govuk-lint
+  govuk_schemas (~> 0.1)
   govuk_sidekiq (~> 0.0)
   hashdiff
   json-schema
@@ -417,4 +421,4 @@ DEPENDENCIES
   whenever (= 0.9.4)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

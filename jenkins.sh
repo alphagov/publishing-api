@@ -45,6 +45,15 @@ bundle exec govuk-lint-ruby \
 
 bundle exec rake db:drop db:create db:schema:load
 
+# Clone govuk-content-schemas depedency for contract tests
+rm -rf /tmp/govuk-content-schemas
+git clone git@github.com:alphagov/govuk-content-schemas.git /tmp/govuk-content-schemas
+(
+ cd /tmp/govuk-content-schemas
+ git checkout ${SCHEMA_GIT_COMMIT:-"master"}
+)
+export GOVUK_CONTENT_SCHEMAS_PATH=/tmp/govuk-content-schemas
+
 export RCOV=1
 if bundle exec rake ${TEST_TASK:-"default"}; then
   if [ -n "$PACT_TARGET_BRANCH" ]; then
