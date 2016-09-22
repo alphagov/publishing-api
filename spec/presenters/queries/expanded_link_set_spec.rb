@@ -30,7 +30,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(a, b, "related")
         create_link(a, c, "related")
 
-        expect(expanded_links[:related]).to match([])
+        expect(expanded_links[:related]).to match(nil)
       end
     end
   end
@@ -129,7 +129,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(a, b, "related")
         create_link(a, c, "related")
 
-        expect(expanded_links[:related]).to match([
+        expect(expanded_links[:related].sort_by { |r| r[:base_path] }).to match([
           a_hash_including(base_path: "/b", links: {}),
           a_hash_including(base_path: "/c", links: {}),
         ])

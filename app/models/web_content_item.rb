@@ -28,6 +28,14 @@ WebContentItem = Struct.new(*fields) do
     new(*hash.symbolize_keys.values_at(*members))
   end
 
+  def to_h
+    super.merge(
+      api_url: api_url,
+      web_url: web_url,
+      description: description
+     )
+  end
+
   def api_url
     return unless base_path
     Plek.current.website_root + "/api/content" + base_path

@@ -18,6 +18,7 @@ module Queries
           .join(states).on(states[:content_item_id].eq(content_items[:id]))
           .join(translations).on(translations[:content_item_id].eq(content_items[:id]))
           .where(content_items[:content_id].in(content_ids))
+          .where(content_items[:document_type].not_in(::ContentItem::NON_RENDERABLE_FORMATS))
           .where(states[:name].in(state_fallback_order))
           .where(translations[:locale].in(locale_fallback_order))
           .order(
