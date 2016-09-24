@@ -20,7 +20,7 @@ RSpec.describe Queries::BasePathForState do
       let(:state) { "draft" }
       let(:collision_hash) do
         {
-          id: "#{conflict_content_item.id}",
+          id: conflict_content_item.id,
           content_id: conflict_content_item.content_id,
           locale: "en"
         }
@@ -66,7 +66,7 @@ RSpec.describe Queries::BasePathForState do
         let(:state) { state_name }
         let(:collision_hash) do
           {
-            id: "#{conflict_content_item.id}",
+            id: conflict_content_item.id,
             content_id: conflict_content_item.content_id,
             locale: "en"
           }

@@ -10,10 +10,10 @@ module Queries
         return # The SubstitionHelper will unpublish any item that is in the way
       end
 
-      content_items_table = table(:content_items)
-      states_table = table(:states)
-      locations_table = table(:locations)
-      unpublishings_table = table(:unpublishings)
+      content_items_table = ContentItem.arel_table
+      states_table = State.arel_table
+      locations_table = Location.arel_table
+      unpublishings_table = Unpublishing.arel_table
 
       scope = content_items_table
         .project(

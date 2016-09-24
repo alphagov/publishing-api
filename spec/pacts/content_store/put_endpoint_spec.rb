@@ -19,7 +19,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   let(:body) {
     Presenters::ContentStorePresenter.present(
       Presenters::DownstreamPresenter.new(
-        Queries::GetWebContentItems.find(content_item),
+        Queries::GetWebContentItems.find(content_item.id),
         state_fallback_order: [:published]
       ),
       event.id

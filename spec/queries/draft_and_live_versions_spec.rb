@@ -45,7 +45,7 @@ RSpec.describe Queries::DraftAndLiveVersions do
 
   context "when live item is in published state" do
     it "finds the right draft and live versions" do
-      result = Queries::DraftAndLiveVersions.call(@item, :user_facing_versions, 'en')
+      result = Queries::DraftAndLiveVersions.call(@item, UserFacingVersion, 'en')
       expect(result["draft"]).to eq(5)
       expect(result["live"]).to eq(4)
     end
@@ -57,7 +57,7 @@ RSpec.describe Queries::DraftAndLiveVersions do
     end
 
     it "finds the right draft and live version" do
-      result = Queries::DraftAndLiveVersions.call(@item, :user_facing_versions, 'en')
+      result = Queries::DraftAndLiveVersions.call(@item, UserFacingVersion, 'en')
       expect(result["draft"]).to eq(5)
       expect(result["live"]).to eq(4)
     end

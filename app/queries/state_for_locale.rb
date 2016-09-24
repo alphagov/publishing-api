@@ -5,9 +5,9 @@ module Queries
     def self.conflict(content_item_id, content_id, state, locale)
       return if state == "superseded"
 
-      content_items_table = table(:content_items)
-      translations_table = table(:translations)
-      states_table = table(:states)
+      content_items_table = ContentItem.arel_table
+      translations_table = Translation.arel_table
+      states_table = State.arel_table
 
       if state == "draft"
         state_condition = states_table[:name].eq("draft")

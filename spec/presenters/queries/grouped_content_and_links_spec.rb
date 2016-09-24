@@ -68,7 +68,7 @@ RSpec.describe Presenters::Queries::GroupedContentAndLinks do
                   "publishing_app" => "whitehall",
                   "document_type" => "guide",
                   "schema_name" => "guide",
-                  "user_facing_version" => "2",
+                  "user_facing_version" => 2,
                   "state" => "draft",
                 },
                 {
@@ -77,7 +77,7 @@ RSpec.describe Presenters::Queries::GroupedContentAndLinks do
                   "publishing_app" => "whitehall",
                   "document_type" => "guide",
                   "schema_name" => "guide",
-                  "user_facing_version" => "1",
+                  "user_facing_version" => 1,
                   "state" => "published",
                 },
               ],

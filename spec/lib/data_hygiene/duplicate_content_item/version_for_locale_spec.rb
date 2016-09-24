@@ -107,7 +107,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
           content_item_ids: conflicts.reverse.map(&:id),
           number_of_duplicates: 1,
           duplicates: [
-            duplicates_row(content_id_a, "en", "5", conflicts)
+            duplicates_row(content_id_a, "en", 5, conflicts)
           ]
         }
       end
@@ -150,8 +150,8 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
           content_item_ids: array_including((dupes_a + dupes_b).map(&:id)),
           number_of_duplicates: 2,
           duplicates: array_including(
-            duplicates_row(content_id_a, "en", "5", dupes_a),
-            duplicates_row(content_id_b, "fr", "4", dupes_b),
+            duplicates_row(content_id_a, "en", 5, dupes_a),
+            duplicates_row(content_id_b, "fr", 4, dupes_b),
           )
         }
       end

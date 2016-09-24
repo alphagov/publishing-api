@@ -1,12 +1,12 @@
 module Queries
   module DraftAndLiveVersions
     extend ArelHelpers
-    def self.call(content_item, target_table_name, locale = nil)
-      content_items_table = table(:content_items)
-      states_table = table(:states)
-      translations_table = table(:translations)
-      versions_table = table(target_table_name)
-      versions_fk = target_table_name == "lock_versions" ? :target_id : :content_item_id
+    def self.call(content_item, target_model, locale = nil)
+      content_items_table = ContentItem.arel_table
+      states_table = State.arel_table
+      translations_table = Translation.arel_table
+      versions_table = target_model.arel_table
+      versions_fk = target_model == LockVersion ? :target_id : :content_item_id
 
       if locale.nil?
         locale = translations_table.project(translations_table[:locale])
@@ -33,7 +33,7 @@ module Queries
         .where(content_items_table[:content_id].eq(content_item.content_id))
         .where(translations_table[:locale].eq(locale))
         .where(states_table[:name].in(%w(draft published unpublished)))
-      if target_table_name == "lock_versions"
+      if target_model == LockVersion
         scope.where(versions_table[:target_type].eq("ContentItem"))
       end
 

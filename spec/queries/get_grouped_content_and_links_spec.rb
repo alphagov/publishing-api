@@ -89,7 +89,7 @@ RSpec.describe Queries::GetGroupedContentAndLinks do
           expect(content_item["locale"]).to eq("en")
           expect(content_item["base_path"]).to eq("/capital-gains-tax")
           expect(content_item["state"]).to eq("published")
-          expect(content_item["user_facing_version"]).to eq("1")
+          expect(content_item["user_facing_version"]).to eq(1)
         end
 
         it "returns an empty array for the links" do
