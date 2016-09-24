@@ -40,9 +40,9 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    airbrake (4.2.1)
-      builder
-      multi_json
+    airbrake (5.5.0)
+      airbrake-ruby (~> 1.5)
+    airbrake-ruby (1.5.0)
     amq-protocol (2.0.1)
     arel (7.1.2)
     ast (2.3.0)
@@ -380,7 +380,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 4.2.1)
+  airbrake (~> 5.5)
+  airbrake-ruby (= 1.5)
   bunny (= 2.5.1)
   database_cleaner
   diffy (~> 3.1)

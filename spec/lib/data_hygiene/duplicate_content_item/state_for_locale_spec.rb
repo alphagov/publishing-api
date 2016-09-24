@@ -227,7 +227,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
     subject(:instance) { described_class.new }
     context "when there are no duplicates" do
       it "doesn't log to airbrake" do
-        expect(Airbrake).to_not receive(:notify_or_ignore)
+        expect(Airbrake).to_not receive(:notify)
         instance.log
       end
     end
@@ -239,7 +239,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
 
       it "logs to airbrake" do
         expected_error = DataHygiene::DuplicateContentItem::DuplicateStateForLocaleError
-        expect(Airbrake).to receive(:notify_or_ignore)
+        expect(Airbrake).to receive(:notify)
           .with(an_instance_of(expected_error), parameters: instance.results)
         instance.log
       end

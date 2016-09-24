@@ -98,13 +98,13 @@ RSpec.describe QueuePublisher do
           end
 
           it "notifies errbit of the error" do
-            expect(Airbrake).to receive(:notify_or_ignore).with(an_instance_of(QueuePublisher::PublishFailedError), anything)
+            expect(Airbrake).to receive(:notify).with(an_instance_of(QueuePublisher::PublishFailedError), anything)
 
             queue_publisher.send_message(content_item)
           end
 
           it "includes the message details in the notification" do
-            expect(Airbrake).to receive(:notify_or_ignore).with(
+            expect(Airbrake).to receive(:notify).with(
               anything,
               parameters: {
                 message_body: content_item,

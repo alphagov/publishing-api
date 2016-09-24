@@ -6,7 +6,8 @@ gem "rails", "5.0.0.1"
 gem "unicorn", "~> 4.9.0"
 gem "logstasher", "0.6.2"
 gem "plek", "~> 1.10"
-gem "airbrake", "~> 4.2.1"
+gem 'airbrake', '~> 5.5'
+gem 'airbrake-ruby', '1.5'
 gem "pg"
 
 if ENV["API_DEV"]
