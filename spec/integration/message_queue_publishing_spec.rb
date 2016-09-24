@@ -8,11 +8,11 @@ RSpec.describe "Message queue publishing" do
 
     content_item = generate_random_content_item(base_path)
 
-    put "/v2/content/#{content_id}", content_item.to_json
+    put "/v2/content/#{content_id}", params: content_item.to_json
 
     expect(response).to be_ok
 
-    post "/v2/content/#{content_id}/publish", { update_type: "major", locale: content_item["locale"] }.to_json
+    post "/v2/content/#{content_id}/publish", params: { update_type: "major", locale: content_item["locale"] }.to_json
 
     expect(response).to be_ok
 

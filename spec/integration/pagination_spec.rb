@@ -15,7 +15,7 @@ RSpec.describe "Paging through content items" do
 
   context "when no pagination params are supplied" do
     before do
-      get "/v2/content", content_format: "guide", fields: %w(base_path publishing_app)
+      get "/v2/content", params: { content_format: "guide", fields: %w(base_path publishing_app) }
     end
 
     it "responds successfully" do
@@ -33,10 +33,12 @@ RSpec.describe "Paging through content items" do
   context "when pagination params are supplied" do
     before do
       get "/v2/content",
-        content_format: "guide",
-        fields: %w(base_path publishing_app),
-        offset: "3",
-        per_page: "2"
+        params: {
+          content_format: "guide",
+          fields: %w(base_path publishing_app),
+          offset: "3",
+          per_page: "2"
+        }
     end
 
     it "responds successfully" do

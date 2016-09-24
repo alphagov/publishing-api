@@ -8,7 +8,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/content#{base_path}", content_item_params.to_json
+        put "/content#{base_path}", params: content_item_params.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(
@@ -26,7 +26,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/content#{base_path}", content_item_params.to_json
+        put "/content#{base_path}", params: content_item_params.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(
@@ -46,7 +46,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/draft-content#{base_path}", content_item_params.to_json
+        put "/draft-content#{base_path}", params: content_item_params.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(
@@ -66,7 +66,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/v2/content/#{content_id}", v2_content_item.to_json
+        put "/v2/content/#{content_id}", params: v2_content_item.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(
@@ -110,7 +110,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/v2/links/#{content_id}", patch_links_attributes.to_json
+        put "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(
@@ -128,7 +128,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/v2/links/#{content_id}", patch_links_attributes.to_json
+        put "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(

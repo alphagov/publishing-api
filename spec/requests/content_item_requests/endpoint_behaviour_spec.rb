@@ -5,18 +5,18 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_item) { content_item_params }
 
     it "responds with 200" do
-      put "/content#{base_path}", content_item_params.to_json
+      put "/content#{base_path}", params: content_item_params.to_json
       expect(response.status).to eq(200)
     end
 
     it "responds with the request body" do
-      put "/content#{base_path}", content_item_params.to_json
+      put "/content#{base_path}", params: content_item_params.to_json
       expect(response.body).to eq(content_item_params.to_json)
     end
 
     context "with invalid json" do
       it "responds with 400" do
-        put "/content#{base_path}", "Not JSON"
+        put "/content#{base_path}", params: "Not JSON"
         expect(response.status).to eq(400)
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       end
 
       it "returns the normal 200 response" do
-        put "/content#{base_path}", content_item_params.to_json
+        put "/content#{base_path}", params: content_item_params.to_json
 
         parsed_response_body = parsed_response
         expect(response.status).to eq(200)
@@ -51,7 +51,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
           .with(hash_including(base_path: base_path))
           .at_least(:once)
 
-        put "/content#{base_path}", content_item_params.to_json
+        put "/content#{base_path}", params: content_item_params.to_json
       end
     end
 
@@ -59,7 +59,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       let(:base_path) { "/" }
 
       it "creates the content item" do
-        put "/content#{base_path}", content_item_params.to_json
+        put "/content#{base_path}", params: content_item_params.to_json
 
         expect(response.status).to eq(200)
         expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once
@@ -67,7 +67,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     end
 
     it "validates path ownership" do
-      put "/content#{base_path}", content_item_params.to_json
+      put "/content#{base_path}", params: content_item_params.to_json
 
       expect(PathReservation.count).to eq(1)
       expect(PathReservation.first.base_path).to eq(base_path)
@@ -80,13 +80,13 @@ RSpec.describe "Endpoint behaviour", type: :request do
       }
 
       it "responds with 200" do
-        put "/content#{base_path}", content_item.except(:content_id).to_json
+        put "/content#{base_path}", params: content_item.except(:content_id).to_json
         expect(response.status).to eq(200)
       end
 
       it "responds with the request body" do
         body = content_item.except(:content_id).to_json
-        put "/content#{base_path}", body
+        put "/content#{base_path}", params: body
         expect(response.body).to eq(body)
       end
 
@@ -98,7 +98,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
             .with(hash_including(base_path: base_path))
             .at_least(:once)
 
-          put "/content#{base_path}", content_item.except(:content_id).to_json
+          put "/content#{base_path}", params: content_item.except(:content_id).to_json
         end
       end
 
@@ -106,7 +106,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
         let(:base_path) { "/" }
 
         it "creates the content item" do
-          put "/content#{base_path}", content_item.except(:content_id).to_json
+          put "/content#{base_path}", params: content_item.except(:content_id).to_json
 
           expect(response.status).to eq(200)
           expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once
@@ -114,7 +114,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       end
 
       it "validates path ownership" do
-        put "/content#{base_path}", content_item.except(:content_id).to_json
+        put "/content#{base_path}", params: content_item.except(:content_id).to_json
 
         expect(PathReservation.count).to eq(1)
         expect(PathReservation.first.base_path).to eq(base_path)
@@ -127,18 +127,18 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_item) { content_item_params }
 
     it "responds with 200" do
-      put "/draft-content#{base_path}", content_item_params.to_json
+      put "/draft-content#{base_path}", params: content_item_params.to_json
       expect(response.status).to eq(200)
     end
 
     it "responds with the request body" do
-      put "/draft-content#{base_path}", content_item_params.to_json
+      put "/draft-content#{base_path}", params: content_item_params.to_json
       expect(response.body).to eq(content_item_params.to_json)
     end
 
     context "with invalid json" do
       it "responds with 400" do
-        put "/draft-content#{base_path}", "Not JSON"
+        put "/draft-content#{base_path}", params: "Not JSON"
         expect(response.status).to eq(400)
       end
     end
@@ -156,7 +156,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       end
 
       it "returns the normal 200 response" do
-        put "/draft-content#{base_path}", content_item_params.to_json
+        put "/draft-content#{base_path}", params: content_item_params.to_json
 
         parsed_response_body = parsed_response
         expect(response.status).to eq(200)
@@ -173,7 +173,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
           .with(hash_including(base_path: base_path))
           .at_least(:once)
 
-        put "/draft-content#{base_path}", content_item_params.to_json
+        put "/draft-content#{base_path}", params: content_item_params.to_json
       end
     end
 
@@ -181,7 +181,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       let(:base_path) { "/" }
 
       it "creates the content item" do
-        put "/draft-content#{base_path}", content_item_params.to_json
+        put "/draft-content#{base_path}", params: content_item_params.to_json
 
         expect(response.status).to eq(200)
         expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once
@@ -189,7 +189,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     end
 
     it "validates path ownership" do
-      put "/draft-content#{base_path}", content_item_params.to_json
+      put "/draft-content#{base_path}", params: content_item_params.to_json
 
       expect(PathReservation.count).to eq(1)
       expect(PathReservation.first.base_path).to eq(base_path)
@@ -212,12 +212,12 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_item) { v2_content_item }
 
     it "responds with 200" do
-      put "/v2/content/#{content_id}", content_item.to_json
+      put "/v2/content/#{content_id}", params: content_item.to_json
       expect(response.status).to eq(200)
     end
 
     it "responds with the presented content item" do
-      put "/v2/content/#{content_id}", content_item.to_json
+      put "/v2/content/#{content_id}", params: content_item.to_json
 
       updated_content_item = ContentItem.find_by!(content_id: content_id)
       presented_content_item = Presenters::Queries::ContentItemPresenter.present(
@@ -230,7 +230,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
 
     context "with invalid json" do
       it "responds with 400" do
-        put "/v2/content/#{content_id}", "Not JSON"
+        put "/v2/content/#{content_id}", params: "Not JSON"
         expect(response.status).to eq(400)
       end
     end
@@ -248,7 +248,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       end
 
       it "returns the normal 200 response" do
-        put "/v2/content/#{content_id}", content_item.to_json
+        put "/v2/content/#{content_id}", params: content_item.to_json
 
         parsed_response_body = parsed_response
         expect(response.status).to eq(200)
@@ -265,7 +265,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
           .with(hash_including(base_path: base_path))
           .at_least(:once)
 
-        put "/v2/content/#{content_id}", content_item.to_json
+        put "/v2/content/#{content_id}", params: content_item.to_json
       end
     end
 
@@ -273,7 +273,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       let(:base_path) { "/" }
 
       it "creates the content item" do
-        put "/v2/content/#{content_id}", content_item.to_json
+        put "/v2/content/#{content_id}", params: content_item.to_json
 
         expect(response.status).to eq(200)
         expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once
@@ -281,7 +281,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     end
 
     it "validates path ownership" do
-      put "/v2/content/#{content_id}", content_item.to_json
+      put "/v2/content/#{content_id}", params: content_item.to_json
 
       expect(PathReservation.count).to eq(1)
       expect(PathReservation.first.base_path).to eq(base_path)
@@ -342,7 +342,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     context "PATCH /v2/links/:content_id" do
       context "when creating a link set for a content item to be added later" do
         it "responds with 200" do
-          patch "/v2/links/#{SecureRandom.uuid}", { links: {} }.to_json
+          patch "/v2/links/#{SecureRandom.uuid}", params: { links: {} }.to_json
 
           expect(response.status).to eq(200)
         end

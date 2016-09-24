@@ -26,16 +26,16 @@ RSpec.describe "GET /v2/content", type: :request do
       hash_including(title: "Policy 2"),
     ]
 
-    get "/v2/content", document_type: "policy", fields: ["title"]
+    get "/v2/content", params: { document_type: "policy", fields: ["title"] }
     expect(JSON.parse(response.body, symbolize_names: true)[:results]).to match_array(expected_result)
 
-    get "/v2/content", content_format: "policy", fields: ["title"]
+    get "/v2/content", params: { content_format: "policy", fields: ["title"] }
     expect(JSON.parse(response.body, symbolize_names: true)[:results]).to match_array(expected_result)
   end
 
   context "without a format" do
     it "422s" do
-      get "/v2/content", fields: ["title"]
+      get "/v2/content", params: { fields: ["title"] }
 
       expect(response.status).to eq(422)
     end

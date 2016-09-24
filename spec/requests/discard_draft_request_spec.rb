@@ -18,7 +18,7 @@ RSpec.describe "Discard draft requests", type: :request do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
         expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
 
-        post "/v2/content/#{content_id}/discard-draft", {}.to_json
+        post "/v2/content/#{content_id}/discard-draft", params: {}.to_json
 
         expect(response.status).to eq(200)
       end
@@ -27,7 +27,7 @@ RSpec.describe "Discard draft requests", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
           .with(base_path)
 
-        post "/v2/content/#{content_id}/discard-draft", {}.to_json
+        post "/v2/content/#{content_id}/discard-draft", params: {}.to_json
 
         expect(response.status).to eq(200), response.body
       end
@@ -52,7 +52,7 @@ RSpec.describe "Discard draft requests", type: :request do
           expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
           expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
 
-          post "/v2/content/#{content_id}/discard-draft", {}.to_json
+          post "/v2/content/#{content_id}/discard-draft", params: {}.to_json
 
           expect(response.status).to eq(200)
         end
@@ -64,14 +64,14 @@ RSpec.describe "Discard draft requests", type: :request do
           expect(PublishingAPI.service(:draft_content_store)).not_to receive(:delete_content_item)
             .with(base_path)
 
-          post "/v2/content/#{content_id}/discard-draft", { locale: "fr" }.to_json
+          post "/v2/content/#{content_id}/discard-draft", params: { locale: "fr" }.to_json
         end
       end
     end
 
     context "when a draft content item does not exist" do
       it "responds with 404" do
-        post "/v2/content/#{content_id}/discard-draft", {}.to_json
+        post "/v2/content/#{content_id}/discard-draft", params: {}.to_json
 
         expect(response.status).to eq(404)
       end
@@ -81,7 +81,7 @@ RSpec.describe "Discard draft requests", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
         expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
 
-        post "/v2/content/#{content_id}/discard-draft", {}.to_json
+        post "/v2/content/#{content_id}/discard-draft", params: {}.to_json
       end
 
       context "and a live content item exists" do
@@ -92,7 +92,7 @@ RSpec.describe "Discard draft requests", type: :request do
         end
 
         it "returns a 422" do
-          post "/v2/content/#{content_id}/discard-draft", {}.to_json
+          post "/v2/content/#{content_id}/discard-draft", params: {}.to_json
 
           expect(response.status).to eq(422)
         end
@@ -102,7 +102,7 @@ RSpec.describe "Discard draft requests", type: :request do
           expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
           expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
 
-          post "/v2/content/#{content_id}/discard-draft", {}.to_json
+          post "/v2/content/#{content_id}/discard-draft", params: {}.to_json
         end
       end
     end

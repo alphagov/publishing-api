@@ -9,7 +9,7 @@ RSpec.describe "GET /v2/grouped-content-and-links", type: :request do
         hash_including("content_id" => make_test_id('0001')),
       ]
 
-      get "/v2/grouped-content-and-links", page_size: 1
+      get "/v2/grouped-content-and-links", params: { page_size: 1 }
 
       expect(response.status).to eq(200)
       expect(parsed_response["results"]).to match_array(expected_result)
@@ -18,26 +18,26 @@ RSpec.describe "GET /v2/grouped-content-and-links", type: :request do
     it "defaults to a reasonable batch size when page_size is not provided" do
       create_n_content_items(11)
 
-      get "/v2/grouped-content-and-links", last_seen_content_id: '00000000-0000-0000-0000-000000000000'
+      get "/v2/grouped-content-and-links", params: { last_seen_content_id: '00000000-0000-0000-0000-000000000000' }
 
       expect(response.status).to eq(200)
       expect(parsed_response["results"].size).to eq(10)
     end
 
     it "422s when page_size is not parsed as an integer" do
-      get "/v2/grouped-content-and-links", page_size: 'not a valid integer'
+      get "/v2/grouped-content-and-links", params: { page_size: 'not a valid integer' }
 
       expect(response.status).to eq(422)
     end
 
     it "422s when page_size is too large" do
-      get "/v2/grouped-content-and-links", page_size: 1001
+      get "/v2/grouped-content-and-links", params: { page_size: 1001 }
 
       expect(response.status).to eq(422)
     end
 
     it "returns an empty result set for invalid UUIDs" do
-      get "/v2/grouped-content-and-links", last_seen_content_id: 'not a valid uuid', page_size: 1
+      get "/v2/grouped-content-and-links", params: { last_seen_content_id: 'not a valid uuid', page_size: 1 }
 
       expect(response.status).to eq(200)
     end
@@ -52,7 +52,7 @@ RSpec.describe "GET /v2/grouped-content-and-links", type: :request do
         hash_including("content_id" => make_test_id('0007')),
       ]
 
-      get "/v2/grouped-content-and-links", last_seen_content_id: make_test_id('0003'), page_size: 2
+      get "/v2/grouped-content-and-links", params: { last_seen_content_id: make_test_id('0003'), page_size: 2 }
 
       expect(response.status).to eq(200)
       expect(parsed_response["results"]).to match_array(expected_result)
@@ -65,7 +65,7 @@ RSpec.describe "GET /v2/grouped-content-and-links", type: :request do
         hash_including("content_id" => make_test_id('0008')),
       ]
 
-      get "/v2/grouped-content-and-links", last_seen_content_id: make_test_id('0007'), page_size: 2
+      get "/v2/grouped-content-and-links", params: { last_seen_content_id: make_test_id('0007'), page_size: 2 }
 
       expect(response.status).to eq(200)
       expect(parsed_response["results"]).to match_array(expected_result)
@@ -76,7 +76,7 @@ RSpec.describe "GET /v2/grouped-content-and-links", type: :request do
 
       expected_result = []
 
-      get "/v2/grouped-content-and-links", last_seen_content_id: make_test_id('0008'), page_size: 2
+      get "/v2/grouped-content-and-links", params: { last_seen_content_id: make_test_id('0008'), page_size: 2 }
 
       expect(response.status).to eq(200)
       expect(parsed_response["results"]).to match_array(expected_result)
@@ -112,7 +112,7 @@ RSpec.describe "GET /v2/grouped-content-and-links", type: :request do
       ]
 
 
-      get "/v2/grouped-content-and-links", page_size: 1
+      get "/v2/grouped-content-and-links", params: { page_size: 1 }
 
       expect(response.status).to eq(200)
       expect(parsed_response["results"]).to match_array(expected_result)

@@ -21,20 +21,20 @@ RSpec.describe "Publish intent requests", type: :request do
 
   describe "PUT /publish-intent" do
     it "responds with 200" do
-      put "/publish-intent#{base_path}", content_item.to_json
+      put "/publish-intent#{base_path}", params: content_item.to_json
 
       expect(response.status).to eq(200)
     end
 
     it "responds with a request body" do
-      put "/publish-intent#{base_path}", content_item.to_json
+      put "/publish-intent#{base_path}", params: content_item.to_json
 
       expect(response.body).to eq(content_item.to_json)
     end
 
     context "requested with invalid json" do
       it "returns 400" do
-        put "/publish-intent#{base_path}", "Not JSON"
+        put "/publish-intent#{base_path}", params: "Not JSON"
 
         expect(response.status).to eq(400)
       end
@@ -50,7 +50,7 @@ RSpec.describe "Publish intent requests", type: :request do
 
       it "returns the normal 200 response" do
         begin
-          put "/publish-intent#{base_path}", content_item.to_json
+          put "/publish-intent#{base_path}", params: content_item.to_json
 
           parsed_response_body = parsed_response
           expect(response.status).to eq(200)
@@ -66,7 +66,7 @@ RSpec.describe "Publish intent requests", type: :request do
       let(:base_path) { "/" }
 
       it "creates the content item" do
-        put "/publish-intent#{base_path}", content_item.to_json
+        put "/publish-intent#{base_path}", params: content_item.to_json
 
         expect(response.status).to eq(200)
         expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once
@@ -82,19 +82,19 @@ RSpec.describe "Publish intent requests", type: :request do
         .with(base_path: "/vat-rates", publish_intent: content_item)
         .ordered
 
-      put "/publish-intent#{base_path}", content_item.to_json
+      put "/publish-intent#{base_path}", params: content_item.to_json
     end
 
     it "does not send anything to the draft content store" do
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_publish_intent).never
 
-      put "/publish-intent#{base_path}", content_item.to_json
+      put "/publish-intent#{base_path}", params: content_item.to_json
 
       expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
     end
 
     it "logs a 'PutPublishIntent' event in the event log" do
-      put "/publish-intent#{base_path}", content_item.to_json
+      put "/publish-intent#{base_path}", params: content_item.to_json
 
       expect(Event.count).to eq(1)
       expect(Event.first.action).to eq('PutPublishIntent')
