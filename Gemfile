@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "rails", "4.2.7.1"
+gem "rails", "5.0.0.1"
 
 gem "unicorn", "~> 4.9.0"
 gem "logstasher", "0.6.2"
@@ -15,7 +15,7 @@ else
   gem "gds-api-adapters", "36.3.0"
 end
 
-gem "gds-sso", "12.1.0"
+gem "gds-sso", "13.0.0"
 
 gem 'bunny', '2.5.1'
 gem 'whenever', '0.9.4', require: false
@@ -23,7 +23,7 @@ gem "govuk_sidekiq", "~> 1.0.1"
 gem "json-schema", require: false
 gem "hashdiff"
 gem "sidekiq-unique-jobs", require: false
-gem "govspeak", "~> 5.0"
+gem "govspeak", "~> 5.0.2"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -42,10 +42,10 @@ group :development, :test do
   gem "webmock", require: false
   gem "timecop"
   gem "rspec"
-  gem "rspec-rails", "~> 3.3"
+  gem "rspec-rails", "~> 3.5"
   gem "simplecov", "0.10.0", require: false
   gem "simplecov-rcov", "0.2.3", require: false
-  gem "factory_girl_rails", "4.5.0"
+  gem "factory_girl_rails", "4.7.0"
   gem "pact_broker-client"
   gem "govuk-lint"
   gem "faker"
