@@ -1,4 +1,12 @@
 module SubstitutionHelper
+  SUBSTITUTABLE_DOCUMENT_TYPES = %w(
+    coming_soon
+    gone
+    redirect
+    unpublishing
+    special_route
+  ).freeze
+
   class << self
     def clear!(
       new_item_document_type:,
@@ -39,7 +47,7 @@ module SubstitutionHelper
   private
 
     def substitute?(document_type)
-      %w(coming_soon gone redirect unpublishing special_route).include?(document_type)
+      SUBSTITUTABLE_DOCUMENT_TYPES.include?(document_type)
     end
   end
 
