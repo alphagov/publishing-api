@@ -35,6 +35,26 @@ If `previous_version` is provided, the Publishing API will confirm that the
 provided value matches that of the content item in the Publishing API. If it
 does not, a 409 Conflict response will be given.
 
+### Warnings
+
+Some endpoints may return warnings along with the content items. For
+those that do, in the top level object for the content item, there
+will be a value named "warnings". This will be an object, where the
+names are the warnings that are applicable, and the coresponding
+values are a human readable description of the warning.
+
+#### Content Item Blocking Publish
+
+This warning is only applicable for content items in the draft state, and
+indicates that the draft cannot be published due to the presence of another
+content item.
+
+This will occur when the draft has a different content id from an existing item
+of content, published (or unpublished) at the same base path. Some document
+types are exempt from this restriction, and if either the draft, or the blocking
+content item are of a "substitutable" document type, upon the publish of the
+draft, the blocking item will be unpublished.
+
 ## `PUT /v2/content/:content_id`
 
 [Request/Response detail](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_from_the_Whitehall_application_to_create_a_content_item_at_/test-item_given_/test-item_has_been_reserved_by_the_Publisher_application)
@@ -303,6 +323,9 @@ draft is returned.
 
 Retrieves a single content item for a `content_id` and `locale`. By default the
 most recent version is returned, which may be a draft.
+
+If the returned item is in the draft state, [warnings](#warnings) may be
+included within the response.
 
 ### Path parameters
 - [`content_id`](model.md#content_id)
