@@ -183,4 +183,70 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
     end
   end
+
+  describe "#get_warnings" do
+    before do
+      FactoryGirl.create(:draft_content_item,
+        content_id: content_id,
+        base_path: base_path,
+        user_facing_version: 2,
+      )
+    end
+
+    let(:scope) do
+      ContentItem.where(content_id: content_id)
+    end
+
+    context "when include_warnings is false" do
+      let(:result) do
+        described_class.present_many(scope, include_warnings: false)
+      end
+
+      it "does not include warnings" do
+        expect(result.first.key?("warnings")).to be false
+      end
+    end
+
+    context "when include_warnings is true" do
+      let(:result) do
+        described_class.present_many(scope, include_warnings: true)
+      end
+
+      context "without a blocking content item" do
+        it "does not include warnings" do
+          expect(result.first["warnings"]).to be_empty
+        end
+      end
+
+      context "with a blocking content item" do
+        before do
+          @blocking_content_item = FactoryGirl.create(:content_item,
+            content_id: SecureRandom.uuid,
+            base_path: base_path,
+            user_facing_version: 1,
+            locale: "en",
+            state: "published",
+          )
+        end
+
+        it "includes the warning" do
+          expect(result.first["warnings"]).to have_key(
+            "content_item_blocking_publish"
+          )
+        end
+      end
+
+      context "when a required field is omitted" do
+        it "raises an error" do
+          expect {
+            described_class.present_many(
+              scope,
+              include_warnings: true,
+              fields: described_class::DEFAULT_FIELDS - [:base_path],
+            ).first
+          }.to raise_error(/must be included/)
+        end
+      end
+    end
+  end
 end
