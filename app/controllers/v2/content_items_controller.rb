@@ -26,6 +26,7 @@ module V2
         path_params[:content_id],
         query_params[:locale],
         version: query_params[:version],
+        include_warnings: true,
       )
     end
 
