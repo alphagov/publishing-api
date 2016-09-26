@@ -63,4 +63,20 @@ module DownstreamService
       state: %w(draft published unpublished),
     ).exists?
   end
+
+  # Sets the value for the GOVUK-Dependency-Resolution-Source-Content-Id header.
+  #
+  # The presence of this header should indicate that the request is a result of
+  # the process of dependency resolution within the Publishing API. The value
+  # of the header is the content id on which dependency resolution took place.
+  #
+  # Note that due to the possibility of recursive dependency resolution, there
+  # doesn't have to be a direct dependency between the source content_id
+  # (header value) and the respective content for the request.
+  def self.set_govuk_dependency_resolution_source_content_id_header(value)
+    GdsApi::GovukHeaders.set_header(
+      "govuk_dependency_resolution_source_content_id",
+      value,
+    )
+  end
 end

@@ -20,6 +20,7 @@ gem "gds-sso", "12.1.0"
 gem 'bunny', '2.5.1'
 gem 'whenever', '0.9.4', require: false
 gem "govuk_sidekiq", "~> 0.0"
+gem 'sidekiq', git: "https://github.com/alphagov/sidekiq.git", branch: "fix-testing-with-overridden-queue"
 gem "json-schema", require: false
 gem "hashdiff"
 gem "sidekiq-unique-jobs", require: false
