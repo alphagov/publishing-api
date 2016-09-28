@@ -10,6 +10,7 @@ abort "Refusing to run outside of development" unless Rails.env.development?
 large_reverse = Link.find_by_sql(<<-SQL).first[:target_content_id]
   SELECT target_content_id
   FROM links
+  WHERE links.link_type = 'parent'
   GROUP BY target_content_id
   ORDER BY COUNT (*) DESC
   LIMIT 1

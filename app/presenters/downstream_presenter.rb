@@ -5,6 +5,7 @@ module Presenters
     attr_accessor :link_set
 
     def self.present(web_content_item, state_fallback_order:)
+      return {} unless web_content_item
       if web_content_item.is_a?(ContentItem)
         # TODO: Add deprecation notice here once we start to migrate other parts of
         # the app to use WebContentItem. Adding a notice now would be too noisy

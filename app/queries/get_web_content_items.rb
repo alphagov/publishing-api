@@ -4,8 +4,9 @@ module Queries
 
     def self.call(content_item_ids)
       content_items = table(:content_items)
-
-      get_rows(scope.where(content_items[:id].in(content_item_ids))).map do |row|
+      filtered = scope
+        .where(content_items[:id].in(content_item_ids))
+      get_rows(filtered).map do |row|
         WebContentItem.from_hash(row)
       end
     end
