@@ -86,7 +86,7 @@ RSpec.describe BasePathForStateValidator do
         context "when draft and a missing locale" do
           let(:expected_error) do
             "base path=#{conflict_base_path} conflicts with content_id=" +
-              "#{conflict_content_id}"
+              conflict_content_id.to_s
           end
 
           before do

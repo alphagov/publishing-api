@@ -1,6 +1,6 @@
 module Adapters
   class DraftContentStore
-    DEPENDENCY_FALLBACK_ORDER = [:draft, :published]
+    DEPENDENCY_FALLBACK_ORDER = [:draft, :published].freeze
 
     def self.put_content_item(base_path, content_item)
       CommandError.with_error_handling do

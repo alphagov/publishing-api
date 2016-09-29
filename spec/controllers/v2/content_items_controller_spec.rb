@@ -153,7 +153,7 @@ RSpec.describe V2::ContentItemsController do
       end
       it "responds with the content item as json" do
         parsed_response_body = parsed_response["results"]
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
     end
 
@@ -166,7 +166,7 @@ RSpec.describe V2::ContentItemsController do
       end
       it "responds with the content item as json" do
         parsed_response_body = parsed_response["results"]
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
     end
 
@@ -179,7 +179,7 @@ RSpec.describe V2::ContentItemsController do
       end
       it "responds with the content item as json" do
         parsed_response_body = parsed_response["results"]
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
     end
 
@@ -337,7 +337,7 @@ RSpec.describe V2::ContentItemsController do
 
       it "responds with the content items for the given organistion as json" do
         parsed_response_body = parsed_response["results"]
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
     end
   end
@@ -354,7 +354,7 @@ RSpec.describe V2::ContentItemsController do
 
       it "responds with the content item as json" do
         parsed_response_body = parsed_response
-        expect(parsed_response_body.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.fetch("content_id")).to eq(content_id.to_s)
       end
     end
 
