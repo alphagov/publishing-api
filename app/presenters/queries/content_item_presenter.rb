@@ -22,10 +22,10 @@ module Presenters
         new(scope, params).present_many
       end
 
-      def self.present(content_item)
+      def self.present(content_item, params = {})
         scope = ContentItem.where(id: content_item.id)
 
-        present_many(scope).first
+        present_many(scope, params).first
       end
 
       def initialize(scope, params = {})
