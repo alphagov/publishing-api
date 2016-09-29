@@ -63,6 +63,9 @@ Used to create or update a draft content item. It will restrict creation if
 there is already a draft content item with the same `base_path` and `locale`.
 Uses [optimistic-locking](#optimistic-locking-previous_version).
 
+If the request is successful, this endpoint will respond with the
+presented content item and [warnings](#warnings).
+
 ### Path parameters
 - [`content_id`](model.md#content_id)
   - Specifies the `content_id` of the content to be created or updated.
