@@ -43,6 +43,7 @@ bundle exec govuk-lint-ruby \
   --format clang \
   app config Gemfile lib spec || linting_error=1
 
+bin/rails db:environment:set
 bundle exec rake db:drop db:create db:schema:load
 
 # Clone govuk-content-schemas depedency for contract tests
