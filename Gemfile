@@ -12,15 +12,14 @@ gem "pg"
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else
-  gem "gds-api-adapters", "33.0.0"
+  gem "gds-api-adapters", "36.3.0"
 end
 
 gem "gds-sso", "12.1.0"
 
 gem 'bunny', '2.5.1'
 gem 'whenever', '0.9.4', require: false
-gem "govuk_sidekiq", "~> 0.0"
-gem 'sidekiq', git: "https://github.com/alphagov/sidekiq.git", branch: "fix-testing-with-overridden-queue"
+gem "govuk_sidekiq", "~> 1.0.1"
 gem "json-schema", require: false
 gem "hashdiff"
 gem "sidekiq-unique-jobs", require: false
