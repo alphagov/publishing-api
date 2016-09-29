@@ -220,7 +220,10 @@ RSpec.describe "Endpoint behaviour", type: :request do
       put "/v2/content/#{content_id}", content_item.to_json
 
       updated_content_item = ContentItem.find_by!(content_id: content_id)
-      presented_content_item = Presenters::Queries::ContentItemPresenter.present(updated_content_item)
+      presented_content_item = Presenters::Queries::ContentItemPresenter.present(
+        updated_content_item,
+        include_warnings: true,
+      )
 
       expect(response.body).to eq(presented_content_item.to_json)
     end

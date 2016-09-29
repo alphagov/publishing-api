@@ -26,7 +26,10 @@ module Commands
           send_downstream(content_item)
         end
 
-        response_hash = Presenters::Queries::ContentItemPresenter.present(content_item)
+        response_hash = Presenters::Queries::ContentItemPresenter.present(
+          content_item,
+          include_warnings: true,
+        )
         Success.new(response_hash)
       end
 
