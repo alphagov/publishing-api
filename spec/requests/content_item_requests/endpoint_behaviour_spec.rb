@@ -310,14 +310,20 @@ RSpec.describe "Endpoint behaviour", type: :request do
         get "/v2/content/#{content_id}"
 
         updated_content_item = ContentItem.find_by!(content_id: content_id)
-        presented_content_item = Presenters::Queries::ContentItemPresenter.present(updated_content_item)
+        presented_content_item = Presenters::Queries::ContentItemPresenter.present(
+          updated_content_item,
+          include_warnings: true,
+        )
 
         expect(response.body).to eq(presented_content_item.to_json)
       end
 
       it "responds with the presented content item for the correct locale" do
         FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "ar")
-        presented_content_item = Presenters::Queries::ContentItemPresenter.present(content_item)
+        presented_content_item = Presenters::Queries::ContentItemPresenter.present(
+          content_item,
+          include_warnings: true,
+        )
 
         get "/v2/content/#{content_id}"
 

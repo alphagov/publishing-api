@@ -3,7 +3,8 @@
 module Presenters
   module Queries
     class ContentItemPresenter
-      attr_accessor :scope, :fields, :order, :limit, :offset, :search_query
+      attr_accessor :scope, :fields, :order, :limit, :offset, :search_query,
+                    :include_warnings
 
       DEFAULT_FIELDS = [
         *ContentItem::TOP_LEVEL_FIELDS,
@@ -21,10 +22,10 @@ module Presenters
         new(scope, params).present_many
       end
 
-      def self.present(content_item)
+      def self.present(content_item, params = {})
         scope = ContentItem.where(id: content_item.id)
 
-        present_many(scope).first
+        present_many(scope, params).first
       end
 
       def initialize(scope, params = {})
@@ -34,6 +35,7 @@ module Presenters
         self.limit = params[:limit]
         self.offset = params[:offset]
         self.search_query = params[:search_query]
+        self.include_warnings = params[:include_warnings] || false
       end
 
       def present_many
@@ -140,6 +142,8 @@ module Presenters
             int_columns.each { |c| parse_int_column(result, c) }
             parse_state_history(result)
 
+            result["warnings"] = get_warnings(result) if include_warnings
+
             yielder.yield result
           end
         end
@@ -159,6 +163,29 @@ module Presenters
         column = "state_history"
         return unless result.key?(column)
         result[column] = result[column].map(&:values).to_h
+      end
+
+      def get_warnings(result)
+        required_fields = %i{
+          content_id
+          state_history
+          user_facing_version
+          base_path
+          document_type
+        }
+
+        missing_fields = required_fields - fields
+
+        unless missing_fields.empty?
+          raise "#{missing_fields} must be included if the include_warnings parameter is true"
+        end
+
+        Presenters::Queries::ContentItemWarnings.call(
+          result["content_id"],
+          result["state_history"][result["user_facing_version"]],
+          result["base_path"],
+          result["document_type"],
+        )
       end
 
       # It is substantially faster to evaluate in this way rather than calling
