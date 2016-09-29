@@ -147,11 +147,48 @@ private
 
   private
 
+    def acceptable_destination?(target)
+      target.starts_with?("/") || valid_govuk_campaign_url?(target)
+    end
+
+    def valid_govuk_campaign_url?(target)
+      uri = URI.parse(target)
+      host = uri.host
+      if host =~ /\A.+\.campaign\.gov\.uk\z/i &&
+          %w(http https).include?(uri.scheme)
+        label = host.split(".").first
+        label.present? && valid_subdomain?(label)
+      end
+    rescue
+      false
+    end
+
+    def valid_subdomain?(label)
+      valid_dns_label_range?(label) &&
+        starts_without_hyphen?(label) &&
+        contains_alphnumeric_or_hyphen?(label)
+    end
+
+    def valid_dns_label_range?(label)
+      (1..63) === label.length
+    end
+
+    def starts_without_hyphen?(label)
+      label =~ /\A[^-].*[^-]\z/i
+    end
+
+    def contains_alphnumeric_or_hyphen?(label)
+      label =~ /\A[a-z0-9\-]*\z/i
+    end
+
     def valid_exact_redirect_target?(target)
-      return false unless target.present? && target.starts_with?("/")
+      return false unless target.present? && acceptable_destination?(target)
 
       uri = URI.parse(target)
-      expected = uri.path
+      expected = ""
+      expected << "#{uri.scheme}://" if uri.scheme.present?
+      expected << uri.host if uri.host.present?
+      expected << uri.path if uri.path.present?
       expected << "?#{uri.query}" if uri.query.present?
       expected << "##{uri.fragment}" if uri.fragment.present?
       expected == target
