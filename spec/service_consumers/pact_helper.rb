@@ -100,6 +100,22 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "a draft content item exists with content_id bed722e6-db68-43e5-9079-063f623335a7 with a blocking live item at the same path" do
+    set_up do
+      live = FactoryGirl.create(
+        :live_content_item,
+        base_path: "/blocking_path",
+      )
+      FactoryGirl.create(:lock_version, target: live, number: 1)
+      draft = FactoryGirl.create(
+        :draft_content_item,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        base_path: "/blocking_path",
+      )
+      FactoryGirl.create(:lock_version, target: draft, number: 1)
+    end
+  end
+
   provider_state "a French content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       draft = FactoryGirl.create(
