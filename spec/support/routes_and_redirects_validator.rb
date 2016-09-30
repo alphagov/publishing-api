@@ -160,7 +160,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       end
 
       it "is invalid if the url is a malformed gov.uk campaign external url" do
-        ["://new-vat-rates.campaign.gov.uk/", "http:new-vat-rates.campaign.gov.uk/", "httpsnew-vat-rates.campaign.gov.uk/", "https://new_vat-rates.campaign.gov.uk/", "http://.campaign.gov.uk/", "http://new-vat-rates.campaignjservicepgov.uk/path/to/your/new/vat-rates", "https://fakesite.net/.new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates", "ftp://new-vat-rates.campaign.gov.uk/"].each do |destination|
+        ["://new-vat-rates.campaign.gov.uk/", "http:new-vat-rates.campaign.gov.uk/", "httpsnew-vat-rates.campaign.gov.uk/", "https://new_vat-rates.campaign.gov.uk/", "http://.campaign.gov.uk/", "http://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates", "http://new-vat-rates.campaignjservicepgov.uk/path/to/your/new/vat-rates", "https://fakesite.net/.new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates", "ftp://new-vat-rates.campaign.gov.uk/"].each do |destination|
           content_item.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
 
           expect(subject).to be_invalid
@@ -169,7 +169,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       end
 
       it "is valid if the url is a wellformed gov.uk campaign external url" do
-        ["http://new-vat-rates.campaign.gov.uk/", "https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates"].each do |destination|
+        ["https://new-vat-rates.campaign.gov.uk/", "https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates", "https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates?q=123&&a=23344"].each do |destination|
           content_item.redirects = [{ path: "#{subject.base_path}/new", type: "exact", destination: destination }]
 
           expect(subject).to be_valid
