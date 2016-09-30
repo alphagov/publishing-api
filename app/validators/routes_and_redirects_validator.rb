@@ -154,8 +154,7 @@ private
     def valid_govuk_campaign_url?(target)
       uri = URI.parse(target)
       host = uri.host
-      if host =~ /\A.+\.campaign\.gov\.uk\z/i &&
-          %w(http https).include?(uri.scheme)
+      if host =~ /\A.+\.campaign\.gov\.uk\z/i && uri.scheme == "https"
         label = host.split(".").first
         label.present? && valid_subdomain?(label)
       end
