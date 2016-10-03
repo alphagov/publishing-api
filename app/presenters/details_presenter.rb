@@ -40,7 +40,13 @@ module Presenters
     end
 
     def rendered_govspeak(value)
-      Govspeak::Document.new(raw_govspeak(value)).to_html
+      Govspeak::Document.new(raw_govspeak(value), govspeak_attributes).to_html
+    end
+
+    def govspeak_attributes
+      {
+        attachments: content_item_details[:attachments],
+      }
     end
   end
 end
