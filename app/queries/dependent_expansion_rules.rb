@@ -11,16 +11,11 @@ module Queries
     end
 
     def reverse_name_for(link_type)
-      {
-        parent: "children",
-        documents: "document_collections",
-        working_groups: 'policies',
-        parent_taxons: "child_taxons",
-      }[link_type.to_sym]
+      reverse_names[link_type.to_sym]
     end
 
     def recursive_link_types
-      [:parent, :parent_taxons]
+      reverse_names.keys
     end
 
   private
@@ -43,6 +38,15 @@ module Queries
         :title,
         :web_url
       ]
+    end
+
+    def reverse_names
+      {
+        parent: "children",
+        documents: "document_collections",
+        working_groups: 'policies',
+        parent_taxons: "child_taxons",
+      }
     end
   end
 end
