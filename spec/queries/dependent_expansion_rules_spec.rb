@@ -8,7 +8,7 @@ RSpec.describe Queries::DependentExpansionRules do
       it "returns the default fields" do
         expect(subject.expansion_fields(link_type)).to eq([
           :analytics_identifier,
-          :api_url,
+          :api_path,
           :base_path,
           :content_id,
           :description,
@@ -17,7 +17,6 @@ RSpec.describe Queries::DependentExpansionRules do
           :public_updated_at,
           :schema_name,
           :title,
-          :web_url,
         ])
       end
     end

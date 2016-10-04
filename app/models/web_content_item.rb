@@ -30,15 +30,21 @@ WebContentItem = Struct.new(*fields) do
 
   def to_h
     super.merge(
+      api_path: api_path,
       api_url: api_url,
       web_url: web_url,
       description: description
      )
   end
 
-  def api_url
+  def api_path
     return unless base_path
-    Plek.current.website_root + "/api/content" + base_path
+    "/api/content" + base_path
+  end
+
+  def api_url
+    return unless api_path
+    Plek.current.website_root + api_path
   end
 
   def web_url

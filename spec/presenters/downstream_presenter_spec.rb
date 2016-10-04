@@ -90,6 +90,7 @@ RSpec.describe Presenters::DownstreamPresenter do
         expect(result[:expanded_links]).to eq(
           related: [{
             content_id: b.content_id,
+            api_path: "/api/content/b",
             base_path: "/b",
             title: "VAT rates",
             description: "VAT rates for goods and services",
@@ -97,14 +98,12 @@ RSpec.describe Presenters::DownstreamPresenter do
             document_type: 'guide',
             locale: "en",
             public_updated_at: "2014-05-14T13:00:06Z",
-            api_url: "http://www.dev.gov.uk/api/content/b",
-            web_url: "http://www.dev.gov.uk/b",
             analytics_identifier: "GDS01",
             links: {},
           }],
           available_translations: [{
             analytics_identifier: "GDS01",
-            api_url: "http://www.dev.gov.uk/api/content/a",
+            api_path: "/api/content/a",
             base_path: "/a",
             content_id: a.content_id,
             description: "VAT rates for goods and services",
@@ -113,7 +112,6 @@ RSpec.describe Presenters::DownstreamPresenter do
             locale: "en",
             public_updated_at: "2014-05-14T13:00:06Z",
             title: "VAT rates",
-            web_url: "http://www.dev.gov.uk/a",
           }],
         )
       end
