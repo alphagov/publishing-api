@@ -57,59 +57,6 @@ RSpec.describe Commands::PutDraftContentWithLinks do
     }.to change(ContentItem, :count).by(1)
   end
 
-  it "protects certain links from being overwritten" do
-    stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
-    stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
-
-    link_set = FactoryGirl.create(:link_set, content_id: '60d81299-6ae7-4bab-b4fe-4235d518d50a')
-    protected_link = FactoryGirl.create(:link, link_set: link_set, link_type: 'taxons')
-    normal_link = FactoryGirl.create(:link, link_set: link_set, link_type: 'topics')
-    FactoryGirl.create(:lock_version, target: link_set)
-
-    described_class.call(
-      title: 'Test Title',
-      format: 'placeholder',
-      content_id: '60d81299-6ae7-4bab-b4fe-4235d518d50a',
-      base_path: '/foo',
-      publishing_app: 'whitehall',
-      rendering_app: 'whitehall',
-      public_updated_at: Time.now,
-      routes: [{ path: '/foo', type: "exact" }],
-      update_type: "minor",
-      links: {},
-    )
-
-    expect { normal_link.reload }.to raise_error(ActiveRecord::RecordNotFound)
-    expect { protected_link.reload }.not_to raise_error
-  end
-
-  it "protects links of certains apps from being overwritten" do
-    stub_request(:put, "http://draft-content-store.dev.gov.uk/content/foo")
-    stub_request(:put, "http://content-store.dev.gov.uk/content/foo")
-
-    link_set = FactoryGirl.create(:link_set, content_id: 'dc3643c0-ac02-43b8-a1c2-b93513878685')
-    link_1 = FactoryGirl.create(:link, link_set: link_set, link_type: 'organisations')
-    link_2 = FactoryGirl.create(:link, link_set: link_set, link_type: 'topics')
-
-    FactoryGirl.create(:lock_version, target: link_set)
-
-    described_class.call(
-      title: 'Test Title',
-      format: 'placeholder',
-      content_id: 'dc3643c0-ac02-43b8-a1c2-b93513878685',
-      base_path: '/foo',
-      publishing_app: 'specialist-publisher',
-      rendering_app: 'finder-frontend',
-      public_updated_at: Time.now,
-      routes: [{ path: '/foo', type: "exact" }],
-      update_type: "minor",
-      links: {},
-    )
-
-    expect { link_1.reload }.not_to raise_error
-    expect { link_2.reload }.not_to raise_error
-  end
-
   context "when the downstream flag is set to false" do
     it "does not send any downstream requests" do
       expect(DownstreamDraftWorker).not_to receive(:perform_async)
@@ -137,10 +84,10 @@ RSpec.describe Commands::PutDraftContentWithLinks do
       FactoryGirl.create(:lock_version, target: link_set)
     end
 
-    it "destroys the existing links before making new ones" do
+    it "preserves the links" do
       expect {
         described_class.call(payload)
-      }.to change(Link, :count).by(-1)
+      }.not_to change(Link, :count)
     end
   end
 end
