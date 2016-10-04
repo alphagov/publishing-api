@@ -27,7 +27,7 @@ for other apps (eg email-alert-service) to consume.
 ### Optimistic locking (`previous_version`)
 
 All PUT and POST endpoints take an optional JSON attribute `previous_version`
-in the request. If given, the coresponding value should be a integer. This
+in the request. If given, the corresponding value should be a integer. This
 allows the Publishing API to check that the publishing app sending the request
 intends to update the latest lock version of the model in question.
 
@@ -349,7 +349,8 @@ included within the response.
 Creates or updates a set of links for the given `content_id`. Link sets can be
 created before or after the [PUT request](#put_v2contentcontent-id) for the
 content item. These are tied to a content item solely by matching `content_id`
-and they are not associated with a content items locale or version.
+and they are not associated with a content item's locale or version. The ordering
+of links in the request is preserved.
 
 ### Path parameters
 - [`content_id`](model.md#content_id)
@@ -385,6 +386,7 @@ and they are not associated with a content items locale or version.
 
 Retrieves the link set for the given `content_id`. Returns arrays of
 `content_id`s representing content items. These are grouped by `link_type`.
+The ordering of the returned links matches the ordering when they were created.
 
 ### Path parameters
 - [`content_id`](model.md#content_id)

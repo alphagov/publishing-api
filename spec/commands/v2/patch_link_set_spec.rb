@@ -4,6 +4,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
   let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
   let(:content_id) { SecureRandom.uuid }
   let(:topics) { 3.times.map { SecureRandom.uuid } }
+  let(:topics_shuffled) { topics.shuffle }
   let(:parent) { [SecureRandom.uuid] }
 
   let(:payload) do
@@ -11,6 +12,17 @@ RSpec.describe Commands::V2::PatchLinkSet do
       content_id: content_id,
       links: {
         topics: topics * 2, # test deduplication
+        parent: parent,
+      }
+    }
+  end
+
+  # Shuffle the order of the links to test preservation of ordering
+  let(:payload_shuffled) do
+    {
+      content_id: content_id,
+      links: {
+        topics: topics_shuffled * 2, # test deduplication
         parent: parent,
       }
     }
@@ -32,8 +44,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(link_set.content_id).to eq(content_id)
 
       links = link_set.links
-      expect(links.map(&:link_type)).to eq(%w(topics topics topics parent))
-      expect(links.map(&:target_content_id)).to eq(topics + parent)
+      expect(links.map(&:link_type)).to eq(%w(parent topics topics topics))
+      expect(links.map(&:target_content_id)).to eq(parent + topics)
     end
 
     it "doesn't reject an empty links hash, but doesn't delete links either" do
@@ -64,7 +76,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(lock_version.number).to eq(1)
     end
 
-    it "responds with a success object containing the newly created links" do
+    it "responds with a success object containing the newly created links in the same order as in the request" do
       result = described_class.call(payload)
 
       expect(result).to be_a(Commands::Success)
@@ -76,6 +88,18 @@ RSpec.describe Commands::V2::PatchLinkSet do
           parent: parent,
         },
       )
+    end
+
+    it "re-orders the links when the ordering is changed in the request" do
+      described_class.call(payload_shuffled)
+
+      link_set = LinkSet.last
+      expect(link_set).to be_present
+      expect(link_set.content_id).to eq(content_id)
+
+      links = link_set.links
+      expect(links.map(&:link_type)).to eq(%w(parent topics topics topics))
+      expect(links.map(&:target_content_id)).to eq(parent + topics_shuffled)
     end
   end
 
@@ -121,7 +145,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       links = link_set.links
 
       topics_links = links.where(link_type: "topics")
-      expect(topics_links.map(&:target_content_id)).to match_array(topics)
+      expect(topics_links.map(&:target_content_id)).to eq(topics)
     end
 
     it "does not affect links for groups that do not appear in the payload" do
@@ -145,7 +169,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(lock_version.number).to eq(2)
     end
 
-    it "responds with a success object containing the updated links" do
+    it "responds with a success object containing the updated links in the same order as in the request" do
       result = described_class.call(payload)
 
       expect(result).to be_a(Commands::Success)
