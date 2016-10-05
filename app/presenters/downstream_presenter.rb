@@ -25,8 +25,6 @@ module Presenters
       symbolized_attributes
         .except(*%i{last_edited_at id state user_facing_version}) # only intended to be used by publishing applications
         .merge(rendered_details)
-        .merge(first_published_at)
-        .merge(public_updated_at)
         .merge(links)
         .merge(access_limited)
         .merge(format)
@@ -79,27 +77,6 @@ module Presenters
 
     def rendered_details
       { details: details_presenter.details }
-    end
-
-    def first_published_at
-      if web_content_item.first_published_at.present?
-        { first_published_at: web_content_item.first_published_at }
-      else
-        {}
-      end
-    end
-
-    def public_updated_at
-      return {} unless web_content_item.public_updated_at.present?
-      { public_updated_at: web_content_item.public_updated_at }
-    end
-
-    def base_path
-      { base_path: web_content_item.base_path }
-    end
-
-    def locale
-      { locale: web_content_item.locale }
     end
 
     def format
