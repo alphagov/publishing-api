@@ -18,17 +18,14 @@ module Commands
         lock_version.save!
 
         grouped_links.each do |group, payload_content_ids|
-          links = link_set.links.where(link_type: group)
-          existing_content_ids = links.pluck(:target_content_id)
+          # For each set of links in a LinkSet scoped by link_type, this iterator
+          # deletes the entire existing set and then imports all the links in the
+          # payload, preserving their ordering.
+          link_set.links.where(link_type: group).delete_all
 
-          content_ids_to_create = payload_content_ids - existing_content_ids
-          content_ids_to_delete = existing_content_ids - payload_content_ids
-
-          content_ids_to_create.uniq.each do |content_id|
-            links.create!(target_content_id: content_id)
+          payload_content_ids.uniq.each_with_index do |content_id, i|
+            link_set.links.create!(target_content_id: content_id, link_type: group, position: i)
           end
-
-          links.where(target_content_id: content_ids_to_delete).delete_all
         end
 
         after_transaction_commit do
