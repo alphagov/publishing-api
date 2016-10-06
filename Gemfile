@@ -52,6 +52,6 @@ group :development, :test do
   gem "stackprof", require: false
   gem "spring"
   gem "spring-commands-rspec"
-  gem "govuk_schemas", "~> 0.1"
+  gem "govuk_schemas", "~> 1.0"
   gem "diffy", "~> 3.1", require: false
 end
