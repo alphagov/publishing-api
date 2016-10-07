@@ -23,7 +23,7 @@ module Commands
         end
 
         after_transaction_commit do
-          send_downstream(content_item)
+          send_downstream(content_item.content_id, locale)
         end
 
         response_hash = Presenters::Queries::ContentItemPresenter.present(
@@ -266,14 +266,15 @@ module Commands
         payload.fetch(:bulk_publishing, false)
       end
 
-      def send_downstream(content_item)
+      def send_downstream(content_id, locale)
         return unless downstream
 
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
 
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
-          content_item_id: content_item.id,
+          content_id: content_id,
+          locale: locale,
           payload_version: event.id,
           update_dependencies: true,
         )
