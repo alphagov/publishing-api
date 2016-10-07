@@ -5,6 +5,7 @@ module Presenters
         @content_id = content_id
         @state_fallback_order = Array(state_fallback_order)
         @locale_fallback_order = Array(locale_fallback_order)
+        @visited = []
       end
 
       def links
@@ -13,54 +14,61 @@ module Presenters
 
     private
 
-      attr_reader :state_fallback_order, :locale_fallback_order, :content_id
+      attr_reader :state_fallback_order, :locale_fallback_order, :content_id, :visited
 
-      def parents
-        @parents ||= all_parents.group_by { |e| e["parent_id"] }
+      def children(content_id, type = nil)
+        visited << content_id
+        links = all_links(content_id, type)
+        cached_web_content_items = all_web_content_items(links)
+        level = links.each_with_object({}) do |link, memo|
+          link_type = link['link_type'].to_sym
+          memo[link_type] = expand_level(link, links, cached_web_content_items).compact
+        end
+        level.select { |_k, v| v.present? }
       end
 
-      def all_parents
-        @all_parents ||= recursive_query(recursive_link_types.map { |t| "'#{t}'" }.join(','))
+      def all_web_content_items(links)
+        uniq_links = links.flat_map { |l| JSON.parse(l['target_content_ids']) }.uniq
+        web_content_items(uniq_links).each_with_object({}) { |w, memo| memo[w.content_id] = w }
       end
 
-      def recursive_link_types
-        @recursive_link_types ||= ::Queries::DependentExpansionRules.recursive_link_types
-      end
-
-      def all_web_content_items
-        @all_web_content_items ||= target_content_items.each_with_object({}) do |item, lookup|
-          lookup[item.content_id] = item
+      def expand_level(link, links, all_web_content_items)
+        JSON.parse(link['target_content_ids']).map do |target_id|
+          rules.expand_field(all_web_content_items[target_id]).tap do |expanded|
+            next_level = next_level(links).flatten
+            expanded.merge!(links: next_level.present? ? next_level.first : {}) if expanded
+          end
         end
       end
 
-      def target_content_items
-        web_content_items(all_parents.map { |i| i["target_content_id"] }.uniq)
+      def next_level(current_level)
+        recursive = current_level.select { |k| rules.recurse?(k['link_type']) }
+        return [] unless recursive.present?
+        recursive.map do |r|
+          ids = JSON.parse(r['target_content_ids'])
+          non_visited = ids.reject { |id| visited.flatten.include?(id) }
+          visited << non_visited
+          non_visited.map { |target| children(target, r['link_type']) }.reject(&:blank?)
+        end
       end
 
-      def expand_level(type)
-        return {} unless parents[type]
-        parents[type].group_by { |p| p['link_type'] }.each_with_object({}) do |(parent_type, links), hash|
-          hash[parent_type.to_sym] = expand_links(links).compact
-        end
+      def all_links(content_id, link_type = nil)
+        sql = <<-SQL
+          select links.link_type, json_agg(links.target_content_id) as target_content_ids from links
+          join link_sets on link_sets.id = links.link_set_id
+          where link_sets.content_id = '#{content_id}'
+          #{"and link_type = '#{link_type}'" if link_type}
+          group by links.link_type;
+        SQL
+        ActiveRecord::Base.connection.execute(sql)
       end
 
       def rules
         ::Queries::DependeeExpansionRules
       end
 
-      def expand_links(links)
-        links.uniq { |l| l["target_content_id"] } .map do |link|
-          item = all_web_content_items[link["target_content_id"]]
-          next unless item
-          next_level = expand_level(link["target_content_id"]) if link['cycle'] == 'f'
-          expanded_rules = rules.expansion_fields(item.document_type.to_sym)
-          expanded = item.to_h.select { |k, _v| expanded_rules.include?(k) }
-          expanded.merge(links: (next_level || {}).reject { |_k, v| v.empty? }) if expanded.present?
-        end
-      end
-
       def dependees
-        expand_level(content_id).reject { |_k, v| v.empty? }
+        children(content_id)
       end
 
       def parent
@@ -81,7 +89,7 @@ module Presenters
           items = all_web_content_items.select { |item| link_ids.include?(item.content_id) }
           expanded = dependent_expanded_items(items)
           if parent
-            expanded.map { |e| e[:links] = { "#{type}".to_sym => [expanded_parent] } }
+            expanded.map { |e| e[:links] = { type.to_s.to_sym => [expanded_parent] } }
           else
             expanded.map { |e| e[:links] = {} }
           end
@@ -93,7 +101,7 @@ module Presenters
         Link
           .where(target_content_id: content_id)
           .joins(:link_set)
-          .where(link_type: recursive_link_types)
+          .where(link_type: rules.reverse_recursive_types)
           .pluck(:link_type, :content_id)
       end
 
@@ -102,43 +110,6 @@ module Presenters
           expansion_fields = rules.expansion_fields(item.document_type.to_sym)
           item.to_h.select { |k, _v| expansion_fields.include?(k) }
         end
-      end
-
-      # Fetches all target_content_id where links have a target to the content_item
-      # Capture path of link to prevent infinite recursion and switch flag cycle to true
-      #
-      # Recursion:
-        # Level 0: All links with content_id of any type
-        # Level 1: All links that target level 1, with the same link_type
-        # Level 2: All links that target level 2, with recursive link_types included in level 1
-        # Level 3: Recurse on level 2 etc.
-      # Remove level 0, take all of level 1
-      # only take target_content_ids of recursive link_types from level 1 and above
-      def recursive_query(recursive_types = "'parent'")
-        ActiveRecord::Base.connection.execute(
-          <<-SQL
-          WITH RECURSIVE dependees(level, link_type, target_content_id, parent_id, path, cycle) AS (
-            SELECT 0 AS level, links.link_type, link_sets.content_id, link_sets.content_id, ARRAY[link_sets.content_id], FALSE
-            FROM link_sets
-            JOIN links on links.link_set_id = link_sets.id
-            WHERE link_sets.content_id = '#{content_id}'
-            UNION
-            SELECT level + 1, links.link_type, links.target_content_id, link_sets.content_id AS parent_id, path || links.target_content_id, links.target_content_id = ANY(path)
-            FROM dependees
-            JOIN link_sets
-            ON link_sets.content_id = dependees.target_content_id
-            JOIN links
-            ON link_sets.id = links.link_set_id
-            WHERE
-              level + 1 = 1 AND links.link_type IN (dependees.link_type)
-              OR level + 1 > 1 AND links.link_type IN (#{recursive_types})
-            AND NOT cycle
-          )
-          SELECT DISTINCT(target_content_id), link_type, level, parent_id, path, cycle  FROM dependees
-          WHERE level = 1 OR parent_id IN (SELECT target_content_id FROM dependees WHERE level > 0 AND link_type IN (#{recursive_types}))
-          AND level != 0;
-        SQL
-        )
       end
 
       def web_content_items(target_content_ids)

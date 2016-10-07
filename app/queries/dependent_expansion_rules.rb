@@ -6,6 +6,11 @@ module Queries
       custom(link_type) || default_fields
     end
 
+    def expand_field(web_content_item)
+      return unless web_content_item
+      web_content_item.to_h.slice(*expansion_fields(web_content_item.document_type.to_sym))
+    end
+
     def recurse?(link_type)
       recursive_link_types.include?(link_type.to_sym)
     end
@@ -15,6 +20,10 @@ module Queries
     end
 
     def recursive_link_types
+      reverse_names.keys - [:documents, :working_groups]
+    end
+
+    def reverse_recursive_types
       reverse_names.keys
     end
 
