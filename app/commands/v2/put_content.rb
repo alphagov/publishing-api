@@ -22,6 +22,8 @@ module Commands
           fill_out_new_content_item(content_item)
         end
 
+        ChangeNote.create_from_content_item(payload, content_item)
+
         after_transaction_commit do
           send_downstream(content_item.content_id, locale)
         end

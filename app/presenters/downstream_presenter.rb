@@ -64,7 +64,15 @@ module Presenters
     end
 
     def details_presenter
-      @details_presenter ||= Presenters::DetailsPresenter.new(symbolized_attributes[:details])
+      @details_presenter ||= Presenters::DetailsPresenter.new(
+        symbolized_attributes[:details],
+        change_history_presenter,
+      )
+    end
+
+    def change_history_presenter
+      @change_history_presenter ||=
+        Presenters::ChangeHistoryPresenter.new(web_content_item)
     end
 
     def access_limit

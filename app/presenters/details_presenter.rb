@@ -2,22 +2,29 @@ require "govspeak"
 
 module Presenters
   class DetailsPresenter
-    attr_reader :content_item_details
+    attr_reader :content_item_details, :change_history_presenter
 
-    def initialize(content_item_details)
+    def initialize(content_item_details, change_history_presenter)
       @content_item_details = SymbolizeJSON.symbolize(content_item_details)
+      @change_history_presenter = change_history_presenter
     end
 
     def details
       @_details ||=
         begin
-          content_item_details.each_with_object({}) do |(key, val), seed|
+          updated = content_item_details.each_with_object({}) do |(key, val), seed|
             seed[key] = append_transformed_govspeak(val)
           end
+          updated[:change_history] = change_history unless change_history.blank?
+          updated
         end
     end
 
   private
+
+    def change_history
+      @_change_history ||= change_history_presenter.change_history
+    end
 
     def append_transformed_govspeak(value)
       wrapped_value = Array.wrap(value)

@@ -14,13 +14,21 @@ ActiveRecord::Schema.define(version: 20161013104311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
   create_table "access_limits", force: :cascade do |t|
     t.json     "users",           default: [], null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "content_item_id"
     t.index ["content_item_id"], name: "index_access_limits_on_content_item_id", using: :btree
+  end
+
+  create_table "change_notes", force: :cascade do |t|
+    t.string   "note",             default: ""
+    t.datetime "public_timestamp"
+    t.integer  "content_item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["content_item_id"], name: "index_change_notes_on_content_item_id", using: :btree
   end
 
   create_table "content_items", force: :cascade do |t|
@@ -161,5 +169,6 @@ ActiveRecord::Schema.define(version: 20161013104311) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "change_notes", "content_items"
   add_foreign_key "links", "link_sets"
 end
