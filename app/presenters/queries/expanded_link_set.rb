@@ -34,7 +34,7 @@ module Presenters
       end
 
       def target_content_items
-        web_content_items(all_parents.map { |i| i["target_content_id"] })
+        web_content_items(all_parents.map { |i| i["target_content_id"] }.uniq)
       end
 
       def expand_level(type)
@@ -49,7 +49,7 @@ module Presenters
       end
 
       def expand_links(links)
-        links.map do |link|
+        links.uniq { |l| l["target_content_id"] } .map do |link|
           item = all_web_content_items[link["target_content_id"]]
           next unless item
           next_level = expand_level(link["target_content_id"]) if link['cycle'] == 'f'
