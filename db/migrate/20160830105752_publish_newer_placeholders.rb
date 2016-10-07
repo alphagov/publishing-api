@@ -7,13 +7,17 @@ class PublishNewerPlaceholders < ActiveRecord::Migration
     ]
 
     to_publish.each do |(content_id, locale)|
-      next if already_published?(content_id, locale)
+      next if missing?(content_id) || already_published?(content_id, locale)
       Commands::V2::Publish.call(
         content_id: content_id,
         locale: locale,
         update_type: "minor",
       )
     end
+  end
+
+  def missing?(content_id)
+    ContentItem.where(content_id: content_id).none?
   end
 
   def already_published?(content_id, locale)
