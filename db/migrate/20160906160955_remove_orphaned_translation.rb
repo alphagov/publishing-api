@@ -6,9 +6,10 @@ class RemoveOrphanedTranslation < ActiveRecord::Migration
     #id: 23835, content_id: "5f5890da-7631-11e4-a3cb-005056011aef"
     #Whitehall - edition_id: 649963
 
-    content_item = ContentItem.find(23835)
-    Helpers::DeleteContentItem.destroy_supporting_objects([content_item])
-
-    content_item.destroy
+    content_item = ContentItem.find_by_id(23835)
+    if content_item
+      Helpers::DeleteContentItem.destroy_supporting_objects([content_item])
+      content_item.destroy
+    end
   end
 end
