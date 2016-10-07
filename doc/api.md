@@ -298,9 +298,9 @@ draft is returned.
 - [`document_type`](model.md#document_type) *(required)*
   - The type of content item to return.
 - `fields[]` *(optional)*
-  - Accepts an array of: "analytics_identifier", "api_url", "base_path",
+  - Accepts an array of: "analytics_identifier", "base_path",
     "content_id", "description", "document_type", "locale",
-    "public_updated_at", "schema_name", "title", "web_urls"
+    "public_updated_at", "schema_name", "title"
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - [`locale`](model.md#locale) *(optional, default "en")*
@@ -418,9 +418,9 @@ Retrieves all content items that link to the given `content_id` for some
 - `link_type` *(required)*
   - The type of link between the documents.
 - `fields[]` *(required)*
-  - Accepts an array of: "analytics_identifier", "api_url", "base_path",
+  - Accepts an array of: "analytics_identifier", "base_path",
     "content_id", "description", "document_type", "locale",
-    "public_updated_at", "schema_name", "title", "web_urls"
+    "public_updated_at", "schema_name", "title"
   - Determines which fields will be returned in the response.
 
 ## `GET /v2/linkables`

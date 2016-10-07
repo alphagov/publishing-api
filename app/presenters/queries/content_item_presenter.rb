@@ -16,7 +16,7 @@ module Presenters
         :internal_name,
         :updated_at,
         :state_history,
-      ]
+      ].freeze
 
       def self.present_many(scope, params = {})
         new(scope, params).present_many

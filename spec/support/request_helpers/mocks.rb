@@ -2,6 +2,10 @@ module RequestHelpers
   module Mocks
     extend self
 
+    def api_path
+      "/api/content" + base_path
+    end
+
     def base_path
       "/vat-rates"
     end
@@ -66,7 +70,7 @@ module RequestHelpers
       [
         {
           analytics_identifier: "GDS01",
-          api_url: "http://www.dev.gov.uk/api/content/vat-rates",
+          api_path: "/api/content/vat-rates",
           base_path: "/vat-rates",
           content_id: content_id,
           description: "VAT rates for goods and services",
@@ -75,7 +79,6 @@ module RequestHelpers
           locale: "en",
           public_updated_at: DateTime.parse("2014-05-14T13:00:06Z"),
           title: "VAT rates",
-          web_url: "http://www.dev.gov.uk/vat-rates"
         }
       ]
     end
