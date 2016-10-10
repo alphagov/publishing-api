@@ -20,7 +20,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
     context "when a draft content item exists for the given content_id" do
       let(:user_facing_version) { 2 }
-      let!(:existing_draft_item) {
+      let!(:existing_draft_item) do
         FactoryGirl.create(:access_limited_draft_content_item,
           content_id: content_id,
           base_path: base_path,
@@ -28,7 +28,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           lock_version: 5,
           user_facing_version: user_facing_version,
         )
-      }
+      end
 
       it "deletes the draft item" do
         expect {
@@ -91,7 +91,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       context "a published content item exists with the same base_path" do
-        let!(:published_item) {
+        let!(:published_item) do
           FactoryGirl.create(:live_content_item,
             content_id: content_id,
             lock_version: 3,
@@ -99,7 +99,7 @@ RSpec.describe Commands::V2::DiscardDraft do
             locale: locale,
             user_facing_version: user_facing_version - 1,
           )
-        }
+        end
 
         it "increments the lock version of the published item" do
           published_lock_version = LockVersion.find_by!(target: published_item)
@@ -148,7 +148,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       context "a published content item exists with a different base_path" do
-        let!(:published_item) {
+        let!(:published_item) do
           FactoryGirl.create(:live_content_item,
             content_id: content_id,
             lock_version: 3,
@@ -156,7 +156,7 @@ RSpec.describe Commands::V2::DiscardDraft do
             locale: locale,
             user_facing_version: user_facing_version - 1,
           )
-        }
+        end
 
         it "it uses downstream discard draft worker" do
           expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
@@ -173,14 +173,14 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       context "an unpublished content item exits" do
-        let(:unpublished_item) {
+        let(:unpublished_item) do
           FactoryGirl.create(:unpublished_content_item,
             base_path: base_path,
             content_id: content_id,
             locale: locale,
             user_facing_version: user_facing_version - 1,
           )
-        }
+        end
 
         it "it uses downstream discard draft worker" do
           expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
@@ -197,13 +197,13 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       context "when a locale is provided in the payload" do
-        let!(:french_draft_item) {
+        let!(:french_draft_item) do
           FactoryGirl.create(:draft_content_item,
             content_id: content_id,
             base_path: "#{base_path}.fr",
             locale: "fr",
           )
-        }
+        end
 
         before do
           payload.merge!(locale: "fr")

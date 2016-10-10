@@ -108,12 +108,12 @@ RSpec.describe Commands::V2::Publish do
     context "with another content item blocking the publish action" do
       let(:draft_locale) { Translation.find_by!(content_item: draft_item).locale }
 
-      let!(:other_content_item) {
+      let!(:other_content_item) do
         FactoryGirl.create(:redirect_live_content_item,
           locale: draft_locale,
           base_path: base_path,
         )
-      }
+      end
 
       it "unpublishes the content item which is in the way" do
         described_class.call(payload)
