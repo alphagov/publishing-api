@@ -22,13 +22,13 @@ class DownstreamDiscardDraftWorker
 
     enqueue_dependencies if update_dependencies
   rescue DiscardDraftBasePathConflictError => e
-    alert_on_base_path_conflict ? notify_airbrake(e, args) : logger.warn(e.message)
+    logger.warn(e.message)
   end
 
 private
 
   attr_reader :base_path, :content_id, :locale, :web_content_item,
-    :payload_version, :update_dependencies, :alert_on_base_path_conflict
+    :payload_version, :update_dependencies
 
   def assign_attributes(attributes)
     @base_path = attributes.fetch(:base_path)
@@ -36,7 +36,6 @@ private
     assign_backwards_compatible_content_item(attributes)
     @payload_version = attributes.fetch(:payload_version)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
-    @alert_on_base_path_conflict = attributes.fetch(:alert_on_base_path_conflict, true)
   end
 
   def assign_backwards_compatible_content_item(attributes)
@@ -57,9 +56,5 @@ private
       content_id: content_id,
       payload_version: payload_version,
     )
-  end
-
-  def notify_airbrake(error, parameters)
-    Airbrake.notify(error, parameters: parameters)
   end
 end

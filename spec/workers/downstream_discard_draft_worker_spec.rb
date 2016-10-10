@@ -181,45 +181,21 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
   describe "conflict protection" do
     let(:content_id) { content_item.content_id }
+    let(:logger) { Sidekiq::Logging.logger }
 
     before do
       FactoryGirl.create(:live_content_item, base_path: "/foo")
     end
 
-    context "alert_on_base_path_conflict is set to true" do
-      let(:conflict_arguments) { arguments.merge("alert_on_base_path_conflict" => true) }
-
-      it "doesn't delete content item from content store" do
-        expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
-        subject.perform(conflict_arguments)
-      end
-
-      it "notifies airbrake" do
-        expect(Airbrake).to receive(:notify)
-          .with(an_instance_of(DiscardDraftBasePathConflictError), a_hash_including(:parameters))
-        subject.perform(conflict_arguments)
-      end
+    it "doesn't delete content item from content store" do
+      expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
+      subject.perform(arguments)
     end
 
-    context "alert_on_base_path_conflict is set to false" do
-      let(:conflict_arguments) { arguments.merge("alert_on_base_path_conflict" => false) }
-      let(:logger) { Sidekiq::Logging.logger }
-
-      it "doesn't delete content item from content store" do
-        expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
-        subject.perform(conflict_arguments)
-      end
-
-      it "doesn't notify aribrake" do
-        expect(Airbrake).to_not receive(:notify)
-        subject.perform(conflict_arguments)
-      end
-
-      it "logs the conflict" do
-        expect(Sidekiq::Logging.logger).to receive(:warn)
-          .with(%r{Cannot discard '/foo'})
-        subject.perform(conflict_arguments)
-      end
+    it "logs the conflict" do
+      expect(Sidekiq::Logging.logger).to receive(:warn)
+        .with(%r{Cannot discard '/foo'})
+      subject.perform(arguments)
     end
   end
 end

@@ -44,7 +44,6 @@ module Commands
           locale: locale,
           payload_version: event.id,
           update_dependencies: true,
-          alert_on_base_path_conflict: !nested
         )
       end
 
