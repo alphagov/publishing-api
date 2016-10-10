@@ -30,19 +30,15 @@ private
   end
 
   def downstream_content_item(dependent_content_id)
-    scope = ContentItem.where(content_id: dependent_content_id)
-    if draft?
-      latest_content_item = Queries::GetLatest.call(scope).last
-    else
-      latest_content_item = ContentItemFilter.new(scope: scope).filter(state: "published").last
-    end
+    states = draft? ? %w[draft published unpublished] : %w[published unpublished]
+    locales = Queries::LocalesForContentItem.call(dependent_content_id, states)
 
-    return unless latest_content_item
-
-    if draft?
-      downstream_draft(latest_content_item)
-    else
-      downstream_live(latest_content_item)
+    locales.each do |locale|
+      if draft?
+        downstream_draft(dependent_content_id, locale)
+      else
+        downstream_live(dependent_content_id, locale)
+      end
     end
   end
 
@@ -50,10 +46,11 @@ private
     content_store == Adapters::DraftContentStore
   end
 
-  def downstream_draft(latest_content_item)
+  def downstream_draft(dependent_content_id, locale)
     DownstreamDraftWorker.perform_async_in_queue(
       DownstreamDraftWorker::LOW_QUEUE,
-      content_item_id: latest_content_item.id,
+      content_id: dependent_content_id,
+      locale: locale,
       payload_version: payload_version,
       update_dependencies: false,
       alert_on_invalid_state_error: false,
@@ -61,10 +58,11 @@ private
     )
   end
 
-  def downstream_live(latest_content_item)
+  def downstream_live(dependent_content_id, locale)
     DownstreamLiveWorker.perform_async_in_queue(
       DownstreamLiveWorker::LOW_QUEUE,
-      content_item_id: latest_content_item.id,
+      content_id: dependent_content_id,
+      locale: locale,
       message_queue_update_type: "links",
       payload_version: payload_version,
       update_dependencies: false,
