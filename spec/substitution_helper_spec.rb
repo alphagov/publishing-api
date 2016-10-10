@@ -13,13 +13,6 @@ RSpec.describe SubstitutionHelper do
   }
 
   before do
-    FactoryGirl.create(:linkable,
-      content_item: existing_item,
-      document_type: existing_item.document_type,
-      base_path: existing_base_path,
-      state: "draft",
-    )
-
     stub_request(
       :delete,
       Plek.find('draft-content-store') + "/content#{existing_base_path}"
@@ -69,11 +62,6 @@ RSpec.describe SubstitutionHelper do
           expect(ContentItem.exists?(id: existing_item.id)).to eq(false)
         end
 
-        it "deletes the Linkable" do
-          linkable = Linkable.find_by(content_item: existing_item)
-          expect(linkable).to be_nil
-        end
-
         it "doesn't unpublish any other items" do
           live_item = FactoryGirl.create(:live_content_item,
             document_type: existing_document_type,
@@ -116,11 +104,6 @@ RSpec.describe SubstitutionHelper do
 
         it "discards the existing draft" do
           expect(ContentItem.exists?(id: existing_item.id)).to eq(false)
-        end
-
-        it "deletes the Linkable" do
-          linkable = Linkable.find_by(content_item: existing_item)
-          expect(linkable).to be_nil
         end
 
         it "doesn't unpublish any other items" do

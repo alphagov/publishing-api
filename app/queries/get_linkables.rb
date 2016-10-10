@@ -1,17 +1,41 @@
 module Queries
+  LinkablePresenter = Struct.new(:title, :content_id, :publication_state, :base_path, :internal_name) do
+    def self.from_hash(hash)
+      fields = [
+        hash["title"],
+        hash["content_id"],
+        hash["state"],
+        hash["base_path"],
+        hash["details"].fetch("internal_name", hash['title']),
+      ]
+      new(*fields)
+    end
+  end
+
   class GetLinkables
     def initialize(document_type:)
       @document_type = document_type
     end
 
     def call
-      Linkable
+      latest_updated_at = ContentItem
         .where(document_type: [document_type, "placeholder_#{document_type}"])
-        .includes(:content_item)
-        .pluck(:content_id, :state, :title, :base_path, "content_items.details->>'internal_name' as internal_name")
-        .map { |linkable_data|
-          Presenters::Queries::LinkablePresenter.present(*linkable_data)
-        }
+        .order('updated_at DESC')
+        .limit(1)
+        .pluck(:updated_at)
+        .last
+
+      Rails.cache.fetch ["linkables", document_type, latest_updated_at] do
+        Queries::GetWebContentItems.(
+          Queries::GetContentItemIdsWithFallbacks.(
+            ContentItem.uniq.where(
+              document_type: [document_type, "placeholder_#{document_type}"]
+            ).pluck(:content_id),
+            state_fallback_order: [:published, :draft]
+          ),
+          LinkablePresenter
+        )
+      end
     end
 
   private

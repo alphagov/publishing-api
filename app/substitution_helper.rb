@@ -38,8 +38,6 @@ module SubstitutionHelper
           else
             State.substitute(blocking_item)
           end
-
-          Linkable.find_by(content_item: blocking_item).try(:destroy)
         end
       end
     end

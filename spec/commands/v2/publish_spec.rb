@@ -15,14 +15,6 @@ RSpec.describe Commands::V2::Publish do
       )
     end
 
-    let!(:linkable) {
-      FactoryGirl.create(:linkable,
-        content_item: draft_item,
-        base_path: base_path,
-        state: "draft",
-      )
-    }
-
     let(:expected_content_store_payload) { { base_path: base_path } }
     let(:content_id) { SecureRandom.uuid }
 
@@ -42,12 +34,6 @@ RSpec.describe Commands::V2::Publish do
         update_type: "major",
         previous_version: 2,
       }
-    end
-
-    it "sets the linkable to 'published'" do
-      described_class.call(payload)
-      linkable.reload
-      expect(linkable.state).to eq("published")
     end
 
     context "with no update_type" do
@@ -92,44 +78,11 @@ RSpec.describe Commands::V2::Publish do
         )
       end
 
-      let!(:linkable) {
-        FactoryGirl.create(:linkable,
-          content_item: live_item,
-          base_path: existing_base_path,
-          state: "published",
-        )
-      }
-
       it "marks the previously published item as 'superseded'" do
         described_class.call(payload)
 
         state = State.find_by!(content_item: live_item)
         expect(state.name).to eq("superseded")
-      end
-
-      context "when the base path did not change" do
-        it "updates the linkable to point to the new published item" do
-          described_class.call(payload)
-          expect(Linkable.first.content_item).to eq(draft_item)
-        end
-      end
-
-      context "when the base path changed" do
-        let(:existing_base_path) { '/old-vat-rates' }
-
-        let!(:new_linkable) {
-          FactoryGirl.create(:linkable,
-            content_item: draft_item,
-            base_path: base_path,
-            state: "draft",
-          )
-        }
-
-        it "updates the linkable to point to the new published item" do
-          described_class.call(payload)
-          expect(Linkable.count).to eq(1)
-          expect(Linkable.first.content_item).to eq(draft_item)
-        end
       end
     end
 

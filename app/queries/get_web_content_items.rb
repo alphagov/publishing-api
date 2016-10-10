@@ -2,12 +2,12 @@ module Queries
   class GetWebContentItems
     extend ArelHelpers
 
-    def self.call(content_item_ids)
+    def self.call(content_item_ids, presenter = WebContentItem)
       content_items = ContentItem.arel_table
       filtered = scope
         .where(content_items[:id].in(content_item_ids))
       get_rows(filtered).map do |row|
-        WebContentItem.from_hash(row)
+        presenter.from_hash(row)
       end
     end
 
