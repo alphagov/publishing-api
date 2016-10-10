@@ -300,10 +300,6 @@ RSpec.describe "Endpoint behaviour", type: :request do
         )
       }
 
-      before do
-        FactoryGirl.create(:lock_version, target: content_item, number: 2)
-      end
-
       it "responds with 200" do
         get "/v2/content/#{content_id}"
         expect(response.status).to eq(200)
