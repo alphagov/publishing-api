@@ -46,6 +46,9 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   # config.log_formatter = ::Logger::Formatter.new
 
+  # use memcached on production
+  config.cache_store = :dalli_store, nil, { namespace: :publishing_api }
+
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
   config.logger = ActiveSupport::TaggedLogging.new(Logger.new($stderr))
