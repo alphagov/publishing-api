@@ -51,7 +51,7 @@ module Commands
         AccessLimit.find_by(content_item: content_item).try(:destroy)
 
         after_transaction_commit do
-          send_downstream(content_item, update_type)
+          send_downstream(content_item.content_id, translation.locale, update_type)
         end
 
         Success.new(content_id: content_id)
@@ -150,14 +150,15 @@ module Commands
         previous_items.first
       end
 
-      def send_downstream(content_item, update_type)
+      def send_downstream(content_id, locale, update_type)
         return unless downstream
 
         queue = update_type == 'republish' ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
 
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
-          content_item_id: content_item.id,
+          content_id: content_id,
+          locale: locale,
           message_queue_update_type: update_type,
           payload_version: event.id,
         )

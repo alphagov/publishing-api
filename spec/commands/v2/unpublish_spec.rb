@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Commands::V2::Unpublish do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
+  let(:locale) { "en" }
 
   describe "call" do
     let(:payload) do
@@ -23,6 +24,7 @@ RSpec.describe Commands::V2::Unpublish do
         FactoryGirl.create(:live_content_item,
           content_id: content_id,
           base_path: base_path,
+          locale: locale,
         )
       end
 
@@ -57,6 +59,7 @@ RSpec.describe Commands::V2::Unpublish do
         FactoryGirl.create(:live_content_item,
           content_id: content_id,
           base_path: base_path,
+          locale: locale,
         )
       end
 
@@ -80,12 +83,12 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_item_id: live_content_item.id)
+            a_hash_including(content_id: content_id, locale: locale)
           )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_item_id: live_content_item.id)
+            a_hash_including(content_id: content_id, locale: locale)
           )
 
         described_class.call(payload)
@@ -114,6 +117,7 @@ RSpec.describe Commands::V2::Unpublish do
           :draft_content_item,
           content_id: content_id,
           user_facing_version: 3,
+          locale: locale,
         )
       end
 
@@ -152,7 +156,7 @@ RSpec.describe Commands::V2::Unpublish do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              a_hash_including(content_item_id: draft_content_item.id)
+              a_hash_including(content_id: content_id, locale: locale)
             )
 
           described_class.call(payload_with_allow_draft)
@@ -228,6 +232,7 @@ RSpec.describe Commands::V2::Unpublish do
             FactoryGirl.create(:live_content_item,
               content_id: content_id,
               base_path: base_path,
+              locale: locale,
               user_facing_version: 1,
             )
           end
@@ -258,6 +263,7 @@ RSpec.describe Commands::V2::Unpublish do
           :live_content_item,
           :with_draft,
           content_id: content_id,
+          locale: locale,
         )
       end
 
@@ -307,6 +313,7 @@ RSpec.describe Commands::V2::Unpublish do
         FactoryGirl.create(:unpublished_content_item,
           content_id: content_id,
           base_path: base_path,
+          locale: locale,
           explanation: "This explnatin has a typo",
           alternative_path: "/new-path",
         )
@@ -336,7 +343,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_item_id: unpublished_content_item.id)
+            a_hash_including(content_id: content_id)
           )
 
         described_class.call(payload)
@@ -346,7 +353,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_item_id: unpublished_content_item.id)
+            a_hash_including(content_id: content_id)
           )
 
         described_class.call(payload)
@@ -356,7 +363,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_item_id: unpublished_content_item.id)
+            a_hash_including(content_id: content_id)
           )
 
         described_class.call(payload)
@@ -366,6 +373,7 @@ RSpec.describe Commands::V2::Unpublish do
         let!(:unpublished_content_item) do
           FactoryGirl.create(:substitute_unpublished_content_item,
             content_id: content_id,
+            locale: locale,
           )
         end
 
@@ -384,6 +392,7 @@ RSpec.describe Commands::V2::Unpublish do
       before do
         FactoryGirl.create(:live_content_item, :with_draft,
           content_id: content_id,
+          locale: locale,
         )
       end
 
@@ -436,6 +445,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_content_item) do
         FactoryGirl.create(:live_content_item,
           content_id: content_id,
+          locale: locale,
           base_path: nil,
         )
       end

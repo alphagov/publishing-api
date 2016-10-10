@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Commands::V2::Publish do
   describe "call" do
     let(:base_path) { "/vat-rates" }
+    let(:locale) { "en" }
     let(:user_facing_version) { 5 }
 
     let!(:draft_item) do
@@ -11,6 +12,7 @@ RSpec.describe Commands::V2::Publish do
         content_id: content_id,
         lock_version: 2,
         base_path: base_path,
+        locale: locale,
         user_facing_version: user_facing_version,
       )
     end
@@ -152,7 +154,7 @@ RSpec.describe Commands::V2::Publish do
           .to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(:content_item_id, :payload_version),
+            a_hash_including(:content_id, :locale, :payload_version),
           )
 
         described_class.call(payload)
@@ -239,7 +241,7 @@ RSpec.describe Commands::V2::Publish do
               .to receive(:perform_async_in_queue)
               .with(
                 "downstream_low",
-                a_hash_including(:content_item_id, :payload_version, message_queue_update_type: "republish"),
+                a_hash_including(:content_id, :locale, :payload_version, message_queue_update_type: "republish"),
               )
 
             described_class.call(payload)
