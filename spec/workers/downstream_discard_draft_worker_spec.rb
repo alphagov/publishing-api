@@ -2,22 +2,25 @@ require "rails_helper"
 
 RSpec.describe DownstreamDiscardDraftWorker do
   let(:base_path) { "/foo" }
-  let(:content_item) {
+
+  let(:content_item) do
     FactoryGirl.create(:draft_content_item,
       base_path: base_path,
+      locale: "en",
       title: "Draft",
     )
-  }
-  let(:arguments) {
+  end
+
+  let(:arguments) do
     {
       "base_path" => base_path,
       "content_id" => content_item.content_id,
-      "live_content_item_id" => nil,
+      "locale" => "en",
       "payload_version" => 1,
       "update_dependencies" => true,
       "alert_on_base_path_conflict" => false
     }
-  }
+  end
 
   before do
     content_item.destroy
@@ -36,6 +39,12 @@ RSpec.describe DownstreamDiscardDraftWorker do
       expect {
         subject.perform(arguments.except("content_id"))
       }.to raise_error(KeyError)
+    end
+
+    it "doesn't requires locale" do
+      expect {
+        subject.perform(arguments.except("locale"))
+      }.not_to raise_error
     end
 
     it "requires payload_version" do
@@ -64,16 +73,16 @@ RSpec.describe DownstreamDiscardDraftWorker do
   end
 
   context "has a live content item with same base_path" do
-    let!(:live_content_item) {
+    let!(:live_content_item) do
       FactoryGirl.create(:live_content_item,
         base_path: base_path,
         content_id: content_item.content_id,
         title: "live",
       )
-    }
-    let(:live_content_item_arguments) {
+    end
+    let(:live_content_item_arguments) do
       arguments.merge("live_content_item_id" => live_content_item.id)
-    }
+    end
 
     it "adds the live content item to the draft content store" do
       expect(Adapters::DraftContentStore).to receive(:put_content_item)
@@ -88,16 +97,16 @@ RSpec.describe DownstreamDiscardDraftWorker do
   end
 
   context "has a live content item with a different base_path" do
-    let(:live_content_item) {
+    let(:live_content_item) do
       FactoryGirl.create(:live_content_item,
         base_path: "/bar",
         content_id: content_item.content_id,
         title: "Live",
       )
-    }
-    let(:live_content_item_arguments) {
+    end
+    let(:live_content_item_arguments) do
       arguments.merge("live_content_item_id" => live_content_item.id)
-    }
+    end
 
     it "adds the live content item to the draft content store" do
       expect(Adapters::DraftContentStore).to receive(:put_content_item)

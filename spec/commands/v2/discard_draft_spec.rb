@@ -9,6 +9,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
     let(:content_id) { SecureRandom.uuid }
+    let(:locale) { "en" }
     let(:base_path) { "/vat-rates" }
     let(:payload) { { content_id: content_id } }
 
@@ -23,6 +24,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         FactoryGirl.create(:access_limited_draft_content_item,
           content_id: content_id,
           base_path: base_path,
+          locale: locale,
           lock_version: 5,
           user_facing_version: user_facing_version,
         )
@@ -58,7 +60,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(base_path: base_path, content_id: content_id),
+            a_hash_including(base_path: base_path, content_id: content_id, locale: locale),
           )
 
         described_class.call(payload)
@@ -94,6 +96,7 @@ RSpec.describe Commands::V2::DiscardDraft do
             content_id: content_id,
             lock_version: 3,
             base_path: base_path,
+            locale: locale,
             user_facing_version: user_facing_version - 1,
           )
         }
@@ -113,7 +116,7 @@ RSpec.describe Commands::V2::DiscardDraft do
               a_hash_including(
                 base_path: base_path,
                 content_id: content_id,
-                live_content_item_id: published_item.id,
+                locale: locale,
               ),
             )
           described_class.call(payload)
@@ -150,6 +153,7 @@ RSpec.describe Commands::V2::DiscardDraft do
             content_id: content_id,
             lock_version: 3,
             base_path: "/hat-rates",
+            locale: locale,
             user_facing_version: user_facing_version - 1,
           )
         }
@@ -161,7 +165,7 @@ RSpec.describe Commands::V2::DiscardDraft do
               a_hash_including(
                 base_path: base_path,
                 content_id: content_id,
-                live_content_item_id: published_item.id,
+                locale: locale,
               ),
             )
           described_class.call(payload)
@@ -173,6 +177,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           FactoryGirl.create(:unpublished_content_item,
             base_path: base_path,
             content_id: content_id,
+            locale: locale,
             user_facing_version: user_facing_version - 1,
           )
         }
@@ -184,7 +189,7 @@ RSpec.describe Commands::V2::DiscardDraft do
               a_hash_including(
                 base_path: base_path,
                 content_id: content_id,
-                live_content_item_id: unpublished_item.id,
+                locale: locale,
               ),
             )
           described_class.call(payload)
