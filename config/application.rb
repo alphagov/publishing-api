@@ -21,9 +21,9 @@ module PublishingAPI
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.autoload_paths << "#{config.root}/app"
-    config.autoload_paths << "#{config.root}/lib"
-    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.eager_load_paths << "#{config.root}/app"
+    config.eager_load_paths << "#{config.root}/lib"
+    config.eager_load_paths += Dir["#{config.root}/lib/**/"]
 
     config.i18n.available_locales = [
       :en, :ar, :az, :be, :bg, :bn, :cs, :cy, :de, :dr, :el, :es, :'es-419',
