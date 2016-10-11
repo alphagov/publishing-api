@@ -1,5 +1,5 @@
 class ContentItemsController < ApplicationController
-  before_filter :validate_routing_key_fields, only: [:put_live_content_item]
+  before_action :validate_routing_key_fields, only: [:put_live_content_item]
 
   def put_live_content_item
     response = Commands::PutContentWithLinks.call(content_item)

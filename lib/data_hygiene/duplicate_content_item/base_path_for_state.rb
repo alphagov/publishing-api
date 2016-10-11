@@ -18,7 +18,7 @@ module DataHygiene
       def log
         return unless has_duplicates?
         message = "#{results[:number_of_duplicates]} base path for state conflicts"
-        Airbrake.notify_or_ignore(
+        Airbrake.notify(
           DuplicateContentItem::DuplicateBasePathForStateError.new(message),
           parameters: results
         )

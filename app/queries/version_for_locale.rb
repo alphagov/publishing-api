@@ -3,9 +3,9 @@ module Queries
     extend ArelHelpers
 
     def self.conflict(content_item_id, content_id, locale, user_facing_version)
-      content_items_table = table(:content_items)
-      translations_table = table(:translations)
-      user_facing_versions_table = table(:user_facing_versions)
+      content_items_table = ContentItem.arel_table
+      translations_table = Translation.arel_table
+      user_facing_versions_table = UserFacingVersion.arel_table
 
       scope = content_items_table
         .project(content_items_table[:id])

@@ -20,7 +20,7 @@ RSpec.describe SchemaValidator do
 
       it "logs to airbrake with an unknown schema_name" do
         expect(Airbrake)
-          .to receive(:notify_or_ignore)
+          .to receive(:notify)
           .with(an_instance_of(Errno::ENOENT), a_hash_including(:parameters))
         validator.validate(payload)
       end

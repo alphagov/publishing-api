@@ -77,7 +77,7 @@ RSpec.describe DownstreamLiveWorker do
       end
 
       it "absorbs an error" do
-        expect(Airbrake).to receive(:notify_or_ignore)
+        expect(Airbrake).to receive(:notify)
           .with(an_instance_of(DownstreamInvalidStateError), a_hash_including(:parameters))
         subject.perform(superseded_arguments)
       end
@@ -130,7 +130,7 @@ RSpec.describe DownstreamLiveWorker do
     it "rejects draft content items" do
       draft = FactoryGirl.create(:draft_content_item)
 
-      expect(Airbrake).to receive(:notify_or_ignore)
+      expect(Airbrake).to receive(:notify)
         .with(an_instance_of(DownstreamInvalidStateError), a_hash_including(:parameters))
       subject.perform(arguments.merge("content_item_id" => draft.id))
     end
@@ -138,14 +138,14 @@ RSpec.describe DownstreamLiveWorker do
     it "allows live content items" do
       live = FactoryGirl.create(:live_content_item)
 
-      expect(Airbrake).to_not receive(:notify_or_ignore)
+      expect(Airbrake).to_not receive(:notify)
       subject.perform(arguments.merge("content_item_id" => live.id))
     end
   end
 
   describe "no content item" do
     it "swallows the error" do
-      expect(Airbrake).to receive(:notify_or_ignore)
+      expect(Airbrake).to receive(:notify)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
       subject.perform(arguments.merge("content_item_id" => "made-up-id"))
     end
@@ -163,7 +163,7 @@ RSpec.describe DownstreamLiveWorker do
     context "when alert_on_invalid_state_error is true" do
       let(:arguments) { base_arguments.merge("alert_on_invalid_state_error" => true) }
       it "notifies airbrake" do
-        expect(Airbrake).to receive(:notify_or_ignore)
+        expect(Airbrake).to receive(:notify)
         subject.perform(arguments)
       end
 
@@ -177,7 +177,7 @@ RSpec.describe DownstreamLiveWorker do
       let(:arguments) { base_arguments.merge("alert_on_invalid_state_error" => false) }
 
       it "doesn't notify airbrake" do
-        expect(Airbrake).to_not receive(:notify_or_ignore)
+        expect(Airbrake).to_not receive(:notify)
         subject.perform(arguments)
       end
 

@@ -49,7 +49,7 @@ RSpec.describe Queries::StateForLocale do
             let(:base_state) { base_state }
 
             if should_conflict
-              it { is_expected.to eq id: "#{base_content_item.id}" }
+              it { is_expected.to eq id: base_content_item.id }
             else
               it { is_expected.to be_nil }
             end

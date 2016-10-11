@@ -6,11 +6,11 @@ module Queries
       return if state == "superseded"
       return if state == "unpublished" && Unpublishing.is_substitute?(content_item_id)
 
-      content_items_table = table(:content_items)
-      states_table = table(:states)
-      locations_table = table(:locations)
-      translations_table = table(:translations)
-      unpublishings_table = table(:unpublishings)
+      content_items_table = ContentItem.arel_table
+      states_table = State.arel_table
+      locations_table = Location.arel_table
+      translations_table = Translation.arel_table
+      unpublishings_table = Unpublishing.arel_table
 
       allowed_states = state == "draft" ? %w(draft) : %w(published unpublished)
 

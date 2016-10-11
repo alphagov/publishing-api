@@ -1,3 +1,9 @@
 Lint/HandleExceptions:
   Exclude:
     - "spec/**/*"
+
+AllCops:
+  TargetRubyVersion: 2.3
+
+Style/ConditionalAssignment:
+  Enabled: false

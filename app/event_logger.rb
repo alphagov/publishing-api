@@ -26,9 +26,8 @@ module EventLogger
     end
   end
 
-private
-
   def self.action(command_class)
     command_class.name.split("::")[-1]
   end
+  private_class_method :action
 end

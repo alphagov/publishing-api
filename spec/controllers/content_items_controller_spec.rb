@@ -117,6 +117,6 @@ RSpec.describe ContentItemsController do
 
   def raw_json_put(action:, base_path:, json:)
     request.env["RAW_POST_DATA"] = json
-    put action, base_path: base_path
+    put action, params: { base_path: base_path }
   end
 end

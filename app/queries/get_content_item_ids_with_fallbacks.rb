@@ -6,9 +6,9 @@ module Queries
       state_fallback_order = Array(state_fallback_order).map(&:to_s)
       locale_fallback_order = Array(locale_fallback_order).map(&:to_s)
 
-      content_items = table(:content_items)
-      states = table(:states)
-      translations = table(:translations)
+      content_items = ContentItem.arel_table
+      states = State.arel_table
+      translations = Translation.arel_table
 
       fallbacks = cte(
         content_items.project(

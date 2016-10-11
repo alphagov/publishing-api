@@ -251,7 +251,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
             .with(
               "downstream_high",
               a_hash_including(
-                content_item_id: ci.id.to_s,
+                content_item_id: ci.id,
                 payload_version: an_instance_of(Fixnum),
               ),
             )
@@ -321,7 +321,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              content_item_id: ci.id.to_s,
+              content_item_id: ci.id,
               payload_version: an_instance_of(Fixnum),
               message_queue_update_type: "links",
             )

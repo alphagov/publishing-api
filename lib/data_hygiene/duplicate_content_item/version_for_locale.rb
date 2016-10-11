@@ -18,7 +18,7 @@ module DataHygiene
       def log
         return unless has_duplicates?
         message = "#{results[:distinct_content_item_ids]} content items with version for locale conflicts"
-        Airbrake.notify_or_ignore(
+        Airbrake.notify(
           DuplicateContentItem::DuplicateVersionForLocaleError.new(message),
           parameters: results
         )

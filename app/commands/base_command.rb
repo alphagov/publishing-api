@@ -30,12 +30,12 @@ module Commands
 
     attr_reader :payload, :event, :downstream, :nested
 
-    def self.execute_callbacks(callbacks)
-      callbacks.each(&:call)
-    end
-
     def after_transaction_commit(&block)
       callbacks << block
+    end
+
+    def self.execute_callbacks(callbacks)
+      callbacks.each(&:call)
     end
 
     def self.raise_validation_command_error(e)
@@ -54,6 +54,7 @@ module Commands
         }
       )
     end
+    private_class_method :execute_callbacks, :raise_validation_command_error
 
     def check_version_and_raise_if_conflicting(current_versioned_item, previous_version_number)
       current_version = LockVersion.find_by(target: current_versioned_item)

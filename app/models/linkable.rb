@@ -1,4 +1,4 @@
-class Linkable < ActiveRecord::Base
+class Linkable < ApplicationRecord
   belongs_to :content_item
 
   validates :base_path, presence: true, uniqueness: true

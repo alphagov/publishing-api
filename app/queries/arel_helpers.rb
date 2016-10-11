@@ -2,10 +2,6 @@ module Queries
   module ArelHelpers
     CTE = Struct.new(:table, :compiled_scope)
 
-    def table(table)
-      Arel::Table.new(table, ActiveRecord::Base)
-    end
-
     # Creates a CTE (common table expression, or `WITH` query)
     # from an Arel scope and returns a `CTE` struct wrapping two references to the CTE.
     # A CTE is an alternative to a subquery, it defines a temporary virtual table

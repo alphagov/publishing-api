@@ -36,7 +36,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     }
 
     it "creates an Unpublishing" do
-      post "/v2/content/#{content_id}/unpublish", withdrawal_params
+      post "/v2/content/#{content_id}/unpublish", params: withdrawal_params
 
       expect(response.status).to eq(200), response.body
 
@@ -50,7 +50,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
           .with(withdrawal_response)
 
-        post "/v2/content/#{content_id}/unpublish", withdrawal_params
+        post "/v2/content/#{content_id}/unpublish", params: withdrawal_params
 
         expect(response.status).to eq(200), response.body
       end
@@ -61,7 +61,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(withdrawal_response)
 
-        post "/v2/content/#{content_id}/unpublish", withdrawal_params
+        post "/v2/content/#{content_id}/unpublish", params: withdrawal_params
 
         expect(response.status).to eq(200), response.body
       end
@@ -72,7 +72,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
-      post "/v2/content/#{content_id}/unpublish", withdrawal_params
+      post "/v2/content/#{content_id}/unpublish", params: withdrawal_params
 
       expect(response.status).to eq(200), response.body
     end
@@ -107,7 +107,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     }
 
     it "creates an Unpublishing" do
-      post "/v2/content/#{content_id}/unpublish", redirect_params
+      post "/v2/content/#{content_id}/unpublish", params: redirect_params
 
       expect(response.status).to eq(200), response.body
 
@@ -121,7 +121,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
           .with(redirect_response)
 
-        post "/v2/content/#{content_id}/unpublish", redirect_params
+        post "/v2/content/#{content_id}/unpublish", params: redirect_params
 
         expect(response.status).to eq(200), response.body
       end
@@ -132,7 +132,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(redirect_response)
 
-        post "/v2/content/#{content_id}/unpublish", redirect_params
+        post "/v2/content/#{content_id}/unpublish", params: redirect_params
 
         expect(response.status).to eq(200), response.body
       end
@@ -143,7 +143,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
-      post "/v2/content/#{content_id}/unpublish", redirect_params
+      post "/v2/content/#{content_id}/unpublish", params: redirect_params
 
       expect(response.status).to eq(200), response.body
     end
@@ -181,7 +181,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     }
 
     it "creates an Unpublishing" do
-      post "/v2/content/#{content_id}/unpublish", gone_params
+      post "/v2/content/#{content_id}/unpublish", params: gone_params
 
       expect(response.status).to eq(200), response.body
 
@@ -196,7 +196,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
           .with(gone_response)
 
-        post "/v2/content/#{content_id}/unpublish", gone_params
+        post "/v2/content/#{content_id}/unpublish", params: gone_params
 
         expect(response.status).to eq(200), response.body
       end
@@ -207,7 +207,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(gone_response)
 
-        post "/v2/content/#{content_id}/unpublish", gone_params
+        post "/v2/content/#{content_id}/unpublish", params: gone_params
 
         expect(response.status).to eq(200), response.body
       end
@@ -218,7 +218,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
-      post "/v2/content/#{content_id}/unpublish", gone_params
+      post "/v2/content/#{content_id}/unpublish", params: gone_params
 
       expect(response.status).to eq(200), response.body
     end
@@ -232,7 +232,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     }
 
     it "creates an Unpublishing" do
-      post "/v2/content/#{content_id}/unpublish", vanish_params
+      post "/v2/content/#{content_id}/unpublish", params: vanish_params
 
       expect(response.status).to eq(200), response.body
 
@@ -245,7 +245,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         expect(PublishingAPI.service(:live_content_store)).to receive(:delete_content_item)
           .with(base_path)
 
-        post "/v2/content/#{content_id}/unpublish", vanish_params
+        post "/v2/content/#{content_id}/unpublish", params: vanish_params
 
         expect(response.status).to eq(200), response.body
       end
@@ -256,7 +256,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
           .with(base_path)
 
-        post "/v2/content/#{content_id}/unpublish", vanish_params
+        post "/v2/content/#{content_id}/unpublish", params: vanish_params
 
         expect(response.status).to eq(200), response.body
       end
@@ -267,7 +267,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
-      post "/v2/content/#{content_id}/unpublish", vanish_params
+      post "/v2/content/#{content_id}/unpublish", params: vanish_params
 
       expect(response.status).to eq(200), response.body
     end
@@ -275,7 +275,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
   describe "a bad unpublishing type" do
     it "422s" do
-      post "/v2/content/#{content_id}/unpublish", {
+      post "/v2/content/#{content_id}/unpublish", params: {
         type: "not-correct",
       }.to_json
 

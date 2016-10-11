@@ -53,7 +53,7 @@ private
       exchange.publish(message_data.to_json, publish_options)
       success = exchange.wait_for_confirms
       if !success
-        Airbrake.notify_or_ignore(
+        Airbrake.notify(
           PublishFailedError.new("Publishing message failed"),
           parameters: {
             routing_key: routing_key,

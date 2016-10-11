@@ -102,7 +102,7 @@ RSpec.describe DownstreamDraftWorker do
     context "when alert_on_invalid_state_error is true" do
       let(:arguments) { base_arguments.merge("alert_on_invalid_state_error" => true) }
       it "notifies airbrake" do
-        expect(Airbrake).to receive(:notify_or_ignore)
+        expect(Airbrake).to receive(:notify)
         subject.perform(arguments)
       end
 
@@ -116,7 +116,7 @@ RSpec.describe DownstreamDraftWorker do
       let(:arguments) { base_arguments.merge("alert_on_invalid_state_error" => false) }
 
       it "doesn't notify airbrake" do
-        expect(Airbrake).to_not receive(:notify_or_ignore)
+        expect(Airbrake).to_not receive(:notify)
         subject.perform(arguments)
       end
 

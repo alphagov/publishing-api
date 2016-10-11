@@ -21,7 +21,7 @@ private
   end
 
   def draft_and_live_versions
-    result = Queries::DraftAndLiveVersions.call(target, self.class.table_name)
+    result = Queries::DraftAndLiveVersions.call(target, self.class)
     if result["draft"] == self.number
       draft_version = self.number
       live_version = result["live"]

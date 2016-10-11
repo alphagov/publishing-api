@@ -24,7 +24,7 @@ RSpec.describe "Reallocating base paths of content items" do
       end
 
       it "cannot be replaced by another 'regular' content item" do
-        put "/v2/content/#{content_id}", regular_payload.to_json
+        put "/v2/content/#{content_id}", params: regular_payload.to_json
         expect(response.status).to eq(422)
       end
     end
@@ -58,7 +58,7 @@ RSpec.describe "Reallocating base paths of content items" do
 
       it "raises an error" do
         post "/v2/content/#{draft_content_id}/publish",
-          { update_type: "major", content_id: draft_content_id }.to_json
+          params: { update_type: "major", content_id: draft_content_id }.to_json
 
         expect(response.status).to eq(422)
       end
@@ -72,7 +72,7 @@ RSpec.describe "Reallocating base paths of content items" do
           :draft_content_item,
           base_path: base_path
         )
-        put "/content#{base_path}", regular_payload.to_json
+        put "/content#{base_path}", params: regular_payload.to_json
       end
 
       it "cannot be replaced by another regular content item" do
@@ -87,7 +87,7 @@ RSpec.describe "Reallocating base paths of content items" do
           :with_draft,
           base_path: base_path
         )
-        put "/content#{base_path}", regular_payload.to_json
+        put "/content#{base_path}", params: regular_payload.to_json
       end
 
       it "cannot be replaced by another regular content item" do

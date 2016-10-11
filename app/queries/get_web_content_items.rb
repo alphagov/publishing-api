@@ -3,7 +3,7 @@ module Queries
     extend ArelHelpers
 
     def self.call(content_item_ids)
-      content_items = table(:content_items)
+      content_items = ContentItem.arel_table
       filtered = scope
         .where(content_items[:id].in(content_item_ids))
       get_rows(filtered).map do |row|
@@ -16,11 +16,11 @@ module Queries
     end
 
     def self.scope
-      content_items = table(:content_items)
-      locations = table(:locations)
-      states = table(:states)
-      translations = table(:translations)
-      user_facing_versions = table(:user_facing_versions)
+      content_items = ContentItem.arel_table
+      locations = Location.arel_table
+      states = State.arel_table
+      translations = Translation.arel_table
+      user_facing_versions = UserFacingVersion.arel_table
 
       content_items
         .project(

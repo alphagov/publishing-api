@@ -6,8 +6,8 @@ RSpec.describe "Logging requests", type: :request do
 
   it "adds a request uuid to the content store worker job" do
     Sidekiq::Testing.fake! do
-      put("/v2/content/#{SecureRandom.uuid}", content_item_params.except(:links).to_json,
-        "HTTP_GOVUK_REQUEST_ID" => govuk_request_id,
+      put("/v2/content/#{SecureRandom.uuid}", params: content_item_params.except(:links).to_json,
+        headers: { "HTTP_GOVUK_REQUEST_ID" => govuk_request_id },
       )
       GdsApi::GovukHeaders.clear_headers # Simulate workers running in a separate thread
       Sidekiq::Worker.drain_all # Run all workers
@@ -26,8 +26,8 @@ RSpec.describe "Logging requests", type: :request do
     expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
       .with(hash_including(govuk_request_id: govuk_request_id))
 
-    post("/v2/content/#{draft_content_item.content_id}/publish", { update_type: "minor" }.to_json,
-      "HTTP_GOVUK_REQUEST_ID" => "12345-67890"
+    post("/v2/content/#{draft_content_item.content_id}/publish", params: { update_type: "minor" }.to_json,
+      headers: { "HTTP_GOVUK_REQUEST_ID" => "12345-67890" }
     )
   end
 
@@ -50,7 +50,7 @@ RSpec.describe "Logging requests", type: :request do
       Sidekiq::Testing.fake! do
         put(
           "/v2/content/#{a}",
-          v2_content_item.merge(base_path: "/a", content_id: a).to_json,
+          params: v2_content_item.merge(base_path: "/a", content_id: a).to_json,
         )
 
         # Simulate workers running in a separate thread

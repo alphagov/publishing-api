@@ -125,7 +125,7 @@ module Queries
     end
 
     def sql_value_placeholders(number)
-      (1).upto(number).map { |i| "$#{i}" }.join(',')
+      1.upto(number).map { |i| "$#{i}" }.join(',')
     end
   end
 end

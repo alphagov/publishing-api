@@ -1,4 +1,4 @@
-class UserFacingVersion < ActiveRecord::Base
+class UserFacingVersion < ApplicationRecord
   include Version
 
   belongs_to :content_item

@@ -55,6 +55,6 @@ private
   end
 
   def notify_airbrake(error, parameters)
-    Airbrake.notify_or_ignore(error, parameters: parameters)
+    Airbrake.notify(error, parameters: parameters)
   end
 end

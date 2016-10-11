@@ -1,4 +1,4 @@
-class ContentItem < ActiveRecord::Base
+class ContentItem < ApplicationRecord
   include DefaultAttributes
   include SymbolizeJSON
   include DescriptionOverrides

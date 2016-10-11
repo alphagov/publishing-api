@@ -70,17 +70,17 @@ RSpec.describe V2::ContentItemsController do
         end
 
         it "returns the item when searching for base_path" do
-          get :index, document_type: "topic", q: "foo", locale: "all"
+          get :index, params: { document_type: "topic", q: "foo", locale: "all" }
           expect(parsed_response["results"].map { |i| i["base_path"] }).to eq(["/foo"])
         end
 
         it "returns the item when searching for title" do
-          get :index, document_type: "topic", q: "bar", locale: "all"
+          get :index, params: { document_type: "topic", q: "bar", locale: "all" }
           expect(parsed_response["results"].map { |i| i["base_path"] }).to eq(["/foo"])
         end
 
         it "doesn't return items that are no longer the latest version" do
-          get :index, document_type: "topic", q: "zip", fields: %w(title)
+          get :index, params: { document_type: "topic", q: "zip", fields: %w(title) }
           expect(parsed_response["results"].map { |i| i["title"] }).to eq([])
         end
       end
@@ -88,7 +88,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without providing a locale parameter" do
       before do
-        get :index, document_type: "topic", fields: %w(base_path)
+        get :index, params: { document_type: "topic", fields: %w(base_path) }
       end
 
       it "is successful" do
@@ -106,7 +106,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a specific locale parameter" do
       before do
-        get :index, document_type: "topic", fields: %w(base_path), locale: "ar"
+        get :index, params: { document_type: "topic", fields: %w(base_path), locale: "ar" }
       end
 
       it "is successful" do
@@ -124,7 +124,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a locale parameter set to 'all'" do
       before do
-        get :index, document_type: "topic", fields: %w(base_path), locale: "all"
+        get :index, params: { document_type: "topic", fields: %w(base_path), locale: "all" }
       end
 
       let(:parsed_response_body) { parsed_response["results"] }
@@ -145,7 +145,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "with pagination params" do
       before do
-        get :index, content_format: "topic", fields: ["content_id"], start: "0", page_size: "20"
+        get :index, params: { content_format: "topic", fields: ["content_id"], start: "0", page_size: "20" }
       end
 
       it "is successful" do
@@ -153,33 +153,33 @@ RSpec.describe V2::ContentItemsController do
       end
       it "responds with the content item as json" do
         parsed_response_body = parsed_response["results"]
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
     end
 
     context "without pagination params" do
       before do
-        get :index, content_format: 'topic', fields: ['content_id']
+        get :index, params: { content_format: 'topic', fields: ['content_id'] }
       end
       it "is successful" do
         expect(response.status).to eq(200)
       end
       it "responds with the content item as json" do
         parsed_response_body = parsed_response["results"]
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
     end
 
     context "with all_items param" do
       before do
-        get :index, content_format: "topic", fields: ["content_id"], all_items: "true"
+        get :index, params: { content_format: "topic", fields: ["content_id"], all_items: "true" }
       end
       it "is successful" do
         expect(response.status).to eq(200)
       end
       it "responds with the content item as json" do
         parsed_response_body = parsed_response["results"]
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
     end
 
@@ -194,7 +194,7 @@ RSpec.describe V2::ContentItemsController do
           last_edited_at: Date.new(2016, 2, 2),
         )
 
-        get :index, document_type: "topic", locale: "all", order: order, fields: fields
+        get :index, params: { document_type: "topic", locale: "all", order: order, fields: fields }
       end
 
       context "when ordering by updated_at ascending" do
@@ -328,7 +328,7 @@ RSpec.describe V2::ContentItemsController do
         link_set = FactoryGirl.create(:link_set, content_id: content_id)
         FactoryGirl.create(:link, link_set: link_set, target_content_id: org_content_id)
 
-        get :index, content_format: "topic", fields: ["content_id"], link_organisations: org_content_id.to_s
+        get :index, params: { content_format: "topic", fields: ["content_id"], link_organisations: org_content_id.to_s }
       end
 
       it "is successful" do
@@ -337,7 +337,7 @@ RSpec.describe V2::ContentItemsController do
 
       it "responds with the content items for the given organistion as json" do
         parsed_response_body = parsed_response["results"]
-        expect(parsed_response_body.first.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
     end
   end
@@ -345,7 +345,7 @@ RSpec.describe V2::ContentItemsController do
   describe "show" do
     context "for an existing content item" do
       before do
-        get :show, content_id: content_id
+        get :show, params: { content_id: content_id }
       end
 
       it "is successful" do
@@ -354,13 +354,13 @@ RSpec.describe V2::ContentItemsController do
 
       it "responds with the content item as json" do
         parsed_response_body = parsed_response
-        expect(parsed_response_body.fetch("content_id")).to eq("#{content_id}")
+        expect(parsed_response_body.fetch("content_id")).to eq(content_id.to_s)
       end
     end
 
     context "for a non-existent content item" do
       it "responds with 404" do
-        get :show, content_id: "missing"
+        get :show, params: { content_id: "missing" }
 
         expect(response.status).to eq(404)
       end
@@ -376,7 +376,7 @@ RSpec.describe V2::ContentItemsController do
           .merge("routes" => [{ "path" => "/that-rates", "type" => "exact" }])
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = content_item_hash.to_json
-        put :put_content, content_id: SecureRandom.uuid
+        put :put_content, params: { content_id: SecureRandom.uuid }
       end
 
       it "responds with 200" do
@@ -398,7 +398,7 @@ RSpec.describe V2::ContentItemsController do
 
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = content_item_hash.to_json
-        put :put_content, content_id: content_id
+        put :put_content, params: { content_id: content_id }
       end
 
       it "responds with 200" do
@@ -415,7 +415,7 @@ RSpec.describe V2::ContentItemsController do
       before do
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = ""
-        put :put_content, content_id: content_id
+        put :put_content, params: { content_id: content_id }
       end
 
       it "responds with 400" do
@@ -429,7 +429,7 @@ RSpec.describe V2::ContentItemsController do
       before do
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = { update_type: "major" }.to_json
-        post :publish, content_id: content_id
+        post :publish, params: { content_id: content_id }
       end
 
       it "is successful" do
@@ -447,7 +447,7 @@ RSpec.describe V2::ContentItemsController do
       it "responds with 404" do
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = { update_type: "major" }.to_json
-        post :publish, content_id: "missing"
+        post :publish, params: { content_id: "missing" }
 
         expect(response.status).to eq(404)
       end
@@ -464,16 +464,18 @@ RSpec.describe V2::ContentItemsController do
 
     it "displays items filtered by publishing_app parameter" do
       get :index,
-        document_type: "guide",
-        fields: %w(base_path publishing_app),
-        publishing_app: "whitehall"
+        params: {
+          document_type: "guide",
+          fields: %w(base_path publishing_app),
+          publishing_app: "whitehall"
+        }
       items = parsed_response["results"]
       expect(items.length).to eq(2)
       expect(items.all? { |i| i["publishing_app"] == "whitehall" }).to be true
     end
 
     it "displays all items by default" do
-      get :index, document_type: 'guide', fields: %w(base_path publishing_app)
+      get :index, params: { document_type: 'guide', fields: %w(base_path publishing_app) }
       items = parsed_response["results"]
       expect(items.length).to eq(4)
     end

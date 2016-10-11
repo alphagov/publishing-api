@@ -4,7 +4,7 @@ RSpec.describe "PUT /paths", type: :request do
   let(:request_body) { payload.to_json }
 
   def do_request(body: request_body, headers: {})
-    put request_path, body, headers
+    put request_path, params: body, headers: headers
   end
 
   context "with path /vat-rates" do

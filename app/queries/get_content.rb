@@ -20,8 +20,6 @@ module Queries
       end
     end
 
-  private
-
     def self.raise_not_found(message)
       error_details = {
         error: {
@@ -44,5 +42,6 @@ module Queries
         "Could not find content item with content_id: #{content_id}"
       end
     end
+    private_class_method :raise_not_found, :not_found_message
   end
 end

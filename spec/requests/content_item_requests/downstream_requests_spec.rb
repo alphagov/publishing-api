@@ -29,7 +29,7 @@ RSpec.describe "Downstream requests", type: :request do
             .merge(payload_version: anything)
         )
 
-      put "/content#{base_path}", content_item_params.to_json
+      put "/content#{base_path}", params: content_item_params.to_json
 
       expect(response).to be_ok, response.body
     end
@@ -53,7 +53,7 @@ RSpec.describe "Downstream requests", type: :request do
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
       expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
 
-      put "/draft-content#{base_path}", content_item_params.to_json
+      put "/draft-content#{base_path}", params: content_item_params.to_json
 
       expect(response).to be_ok, response.body
     end
@@ -80,7 +80,7 @@ RSpec.describe "Downstream requests", type: :request do
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
       expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
 
-      put "/v2/content/#{content_id}", v2_content_item.to_json
+      put "/v2/content/#{content_id}", params: v2_content_item.to_json
 
       expect(response).to be_ok, response.body
     end
@@ -104,7 +104,7 @@ RSpec.describe "Downstream requests", type: :request do
       it "sends to the draft content store" do
         allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
 
-        put "/v2/content/#{content_id}", v2_content_item.to_json
+        put "/v2/content/#{content_id}", params: v2_content_item.to_json
         expect(PublishingAPI.service(:draft_content_store)).to have_received(:put_content_item)
           .with(
             base_path: base_path,
@@ -126,7 +126,7 @@ RSpec.describe "Downstream requests", type: :request do
             base_path: "/foo",
             content_item: a_hash_including(content_id: target_content_item.content_id, title: "foo")
           )
-        put "/v2/content/#{content_id}", v2_content_item.to_json
+        put "/v2/content/#{content_id}", params: v2_content_item.to_json
       end
     end
   end
@@ -172,7 +172,7 @@ RSpec.describe "Downstream requests", type: :request do
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
         expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
 
-        patch "/v2/links/#{content_id}", patch_links_attributes.to_json
+        patch "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
         expect(response).to be_ok, response.body
       end
@@ -204,7 +204,7 @@ RSpec.describe "Downstream requests", type: :request do
               .merge(payload_version: anything)
           )
 
-        patch "/v2/links/#{content_id}", patch_links_attributes.to_json
+        patch "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
         expect(response).to be_ok, response.body
       end
@@ -247,7 +247,7 @@ RSpec.describe "Downstream requests", type: :request do
               .merge(payload_version: anything)
           )
 
-        patch "/v2/links/#{content_id}", patch_links_attributes.to_json
+        patch "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
         expect(response).to be_ok, response.body
       end
@@ -259,7 +259,7 @@ RSpec.describe "Downstream requests", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
         expect(PublishingAPI.service(:live_content_store)).not_to receive(:put_content_item)
 
-        patch "/v2/links/#{content_id}", patch_links_attributes.to_json
+        patch "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
         expect(response).to be_ok, response.body
       end
@@ -285,7 +285,7 @@ RSpec.describe "Downstream requests", type: :request do
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(a_hash_including(base_path: '/b'))
-      put "/v2/content/#{a}", v2_content_item.merge(base_path: "/a", content_id: a).to_json
+      put "/v2/content/#{a}", params: v2_content_item.merge(base_path: "/a", content_id: a).to_json
     end
 
     it "doesn't send draft dependencies to the live content store" do
@@ -293,7 +293,7 @@ RSpec.describe "Downstream requests", type: :request do
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:live_content_store)).to_not receive(:put_content_item)
         .with(a_hash_including(base_path: '/b'))
-      post "/v2/content/#{a}/publish", { update_type: "major" }.to_json
+      post "/v2/content/#{a}/publish", params: { update_type: "major" }.to_json
     end
 
     it "doesn't send draft dependencies to the message queue" do
@@ -302,7 +302,7 @@ RSpec.describe "Downstream requests", type: :request do
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:queue_publisher)).to_not receive(:send_message)
         .with(a_hash_including(base_path: '/b'))
-      post "/v2/content/#{a}/publish", { update_type: "major" }.to_json
+      post "/v2/content/#{a}/publish", params: { update_type: "major" }.to_json
     end
   end
 
@@ -346,7 +346,7 @@ RSpec.describe "Downstream requests", type: :request do
             .merge(payload_version: anything)
         )
 
-      post "/v2/content/#{content_id}/publish", { update_type: "major" }.to_json
+      post "/v2/content/#{content_id}/publish", params: { update_type: "major" }.to_json
 
       expect(response).to be_ok, response.body
     end

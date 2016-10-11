@@ -43,7 +43,7 @@ RSpec.describe Queries::VersionForLocale do
       end
 
       context "when content_id is the same" do
-        it { is_expected.to eq id: "#{base_content_item.id}" }
+        it { is_expected.to eq id: base_content_item.id }
       end
     end
   end

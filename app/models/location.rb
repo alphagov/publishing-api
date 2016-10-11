@@ -1,4 +1,4 @@
-class Location < ActiveRecord::Base
+class Location < ApplicationRecord
   belongs_to :content_item
 
   validates_with BasePathForStateValidator

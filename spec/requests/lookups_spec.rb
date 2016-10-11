@@ -15,7 +15,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
     it "returns content_ids for user-visible states (published, unpublished)" do
       create_test_content
 
-      post "/lookup-by-base-path", base_paths: test_base_paths
+      post "/lookup-by-base-path", params: { base_paths: test_base_paths }
 
       expect(parsed_response).to eql(
         "/published-and-draft-page" => "aa491126-77ed-4e81-91fa-8dc7f74e9657",
