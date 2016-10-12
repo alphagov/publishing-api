@@ -7,6 +7,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   let(:b) { create_link_set }
   let(:c) { create_link_set }
   let(:d) { create_link_set }
+  let(:e) { create_link_set }
 
   let(:locale_fallback_order) { "en" }
 
@@ -40,6 +41,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     let!(:draft_b) { create_content_item(b, "/b", "draft") }
     let!(:draft_c) { create_content_item(c, "/c", "draft") }
     let!(:draft_d) { create_content_item(d, "/d", "draft") }
+    let!(:draft_e) { create_content_item(e, "/e", "draft") }
 
     let(:state_fallback_order) { [:draft] }
 
@@ -54,6 +56,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
     context "a connected acyclic graph" do
       it "expands the links for node a correctly" do
+        create_link(a, e, "document")
         create_link(a, b, "parent")
         create_link(b, c, "parent")
         create_link(c, d, "parent")

@@ -22,7 +22,7 @@ module Presenters
         cached_web_content_items = all_web_content_items(links)
         level = links.each_with_object({}) do |link, memo|
           link_type = link['link_type'].to_sym
-          memo[link_type] = expand_level(link, links, cached_web_content_items).compact
+          memo[link_type] = expand_level(link, cached_web_content_items).compact
         end
         level.select { |_k, v| v.present? }
       end
@@ -32,24 +32,21 @@ module Presenters
         web_content_items(uniq_links).each_with_object({}) { |w, memo| memo[w.content_id] = w }
       end
 
-      def expand_level(link, links, all_web_content_items)
+      def expand_level(link, all_web_content_items)
         JSON.parse(link['target_content_ids']).map do |target_id|
           rules.expand_field(all_web_content_items[target_id]).tap do |expanded|
-            next_level = next_level(links).flatten
+            next_level = next_level(link).flatten
             expanded.merge!(links: next_level.present? ? next_level.first : {}) if expanded
           end
         end
       end
 
       def next_level(current_level)
-        recursive = current_level.select { |k| rules.recurse?(k['link_type']) }
-        return [] unless recursive.present?
-        recursive.map do |r|
-          ids = JSON.parse(r['target_content_ids'])
-          non_visited = ids.reject { |id| visited.flatten.include?(id) }
-          visited << non_visited
-          non_visited.map { |target| children(target, r['link_type']) }.reject(&:blank?)
-        end
+        return [] unless rules.recurse?(current_level['link_type'])
+        ids = JSON.parse(current_level['target_content_ids'])
+        non_visited = ids.reject { |id| visited.flatten.include?(id) }
+        visited << non_visited
+        non_visited.map { |target| children(target, current_level['link_type']) }.reject(&:blank?)
       end
 
       def all_links(content_id, link_type = nil)
