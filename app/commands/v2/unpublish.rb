@@ -5,7 +5,6 @@ module Commands
         validate
         State.supersede(previous_item) if previous_item
         transition_state
-        delete_linkable
 
         after_transaction_commit do
           send_downstream
@@ -86,10 +85,6 @@ module Commands
         State.unpublish(content_item, payload.slice(:type, :explanation, :alternative_path))
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, fields: {})
-      end
-
-      def delete_linkable
-        Linkable.find_by(content_item: content_item).try(:destroy)
       end
 
       def send_downstream

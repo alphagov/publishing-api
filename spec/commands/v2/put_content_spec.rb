@@ -319,17 +319,6 @@ RSpec.describe Commands::V2::PutContent do
         location = Location.find_by!(content_item: content_item)
         expect(location.base_path).to eq(base_path)
       end
-
-      it "creates a linkable for the content item" do
-        described_class.call(payload)
-
-        content_item = ContentItem.last
-
-        linkable = Linkable.find_by!(content_item: content_item)
-        expect(linkable.base_path).to eq(base_path)
-        expect(linkable.state).to eq("draft")
-        expect(linkable.document_type).to eq(content_item.document_type)
-      end
     end
 
     context "when the payload is for an already drafted content item" do
@@ -375,14 +364,6 @@ RSpec.describe Commands::V2::PutContent do
 
         lock_version = LockVersion.find_by!(target: previously_drafted_item)
         expect(lock_version.number).to eq(2)
-      end
-
-      it "does not create a new linkable" do
-        expect {
-          described_class.call(payload)
-        }.not_to change {
-          Linkable.count
-        }
       end
 
       context "when the base path has changed" do

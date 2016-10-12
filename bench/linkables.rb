@@ -1,0 +1,29 @@
+# /usr/bin/env ruby
+
+require ::File.expand_path('../../config/environment', __FILE__)
+
+require 'benchmark'
+
+require 'stackprof'
+
+abort "Refusing to run outside of development" unless Rails.env.development?
+
+benchmarks = ContentItem.where(document_type: ['taxon', 'organisation', 'topic', 'mainstream_browse_page', 'policy']).pluck(:document_type).uniq
+
+benchmarks.each do |document_type|
+  queries = 0
+  ActiveSupport::Notifications.subscribe("sql.active_record") { |_| queries += 1 }
+  puts "#{document_type}"
+  StackProf.run(mode: :wall, out: "tmp/linkable_mediator_#{document_type.gsub(/ +/, '_').downcase}_wall.dump") do
+    puts Benchmark.measure {
+      10.times do
+        Queries::GetLinkables.new(
+          document_type: document_type
+        ).call
+        print "."
+      end
+    }
+  end
+  puts "queries: #{queries}"
+  puts ""
+end

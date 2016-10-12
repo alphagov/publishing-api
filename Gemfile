@@ -10,6 +10,7 @@ gem "plek", "~> 1.10"
 gem 'airbrake', '~> 5.5'
 gem 'airbrake-ruby', '1.5'
 gem "pg"
+gem 'dalli'
 
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"

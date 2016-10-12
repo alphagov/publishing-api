@@ -38,12 +38,10 @@ module Commands
 
             if previous_location.base_path != location.base_path
               publish_redirect(previous_location, translation)
-              remove_linkable(previous_location)
             end
           end
 
           clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
-          update_linkable(location, content_item)
         end
 
         set_public_updated_at(content_item, previous_item, update_type)
@@ -75,15 +73,6 @@ module Commands
 
       def valid_update_types
         %w(major minor republish links)
-      end
-
-      def remove_linkable(location)
-        Linkable.where(base_path: location.base_path).destroy_all
-      end
-
-      def update_linkable(location, content_item)
-        Linkable.where(base_path: location.base_path)
-          .update_all(content_item_id: content_item.id, state: "published")
       end
 
       def find_draft_content_item

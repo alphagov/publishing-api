@@ -152,15 +152,6 @@ module Commands
 
         if content_with_base_path?
           Location.create!(content_item: content_item, base_path: base_path)
-
-          if locale == ContentItem::DEFAULT_LOCALE && !Linkable.exists?(base_path: base_path)
-            Linkable.create!(
-              content_item: content_item,
-              base_path: base_path,
-              state: "draft",
-              document_type: content_item.document_type,
-            )
-          end
         end
       end
 
