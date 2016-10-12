@@ -584,6 +584,28 @@ RSpec.describe Commands::V2::PutContent do
         expect(lock_version).to be_present
         expect(lock_version.number).to eq(1)
       end
+
+      context "when a link set was created in between us checking and creating one" do
+        before do
+          allow(LinkSet).to receive(:create!).and_raise(ActiveRecord::RecordNotUnique)
+        end
+
+        it "returns a 409 Command Error" do
+          expect {
+            described_class.call(payload)
+          }.to raise_error(CommandError) { |e| expect(e.code).to eq 409 }
+        end
+
+        it "notifies airbrake" do
+          # this is required as - at the time of writing (2016-10-12) - notify
+          # gets called twice, once for a schema issue and then for this test.
+          allow(Airbrake).to receive(:notify)
+          expect(Airbrake).to receive(:notify).with(an_instance_of(ActiveRecord::RecordNotUnique))
+          expect {
+            described_class.call(payload)
+          }.to raise_error(CommandError)
+        end
+      end
     end
 
     context "when a link set exists for the content id" do
