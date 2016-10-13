@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006115850) do
+ActiveRecord::Schema.define(version: 20161013104311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,20 +74,6 @@ ActiveRecord::Schema.define(version: 20161006115850) do
   end
 
   add_index "link_sets", ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
-
-  create_table "linkables", force: :cascade do |t|
-    t.integer  "content_item_id", null: false
-    t.string   "state",           null: false
-    t.string   "base_path",       null: false
-    t.string   "document_type",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "linkables", ["base_path"], name: "index_linkables_on_base_path", using: :btree
-  add_index "linkables", ["content_item_id"], name: "index_linkables_on_content_item_id", using: :btree
-  add_index "linkables", ["document_type"], name: "index_linkables_on_document_type", using: :btree
-
   create_table "links", force: :cascade do |t|
     t.integer  "link_set_id"
     t.string   "target_content_id"
