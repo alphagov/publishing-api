@@ -429,7 +429,8 @@ Retrieves all content items that link to the given `content_id` for some
 
 Returns abridged versions of all content items matching the given
 `document_type`. Returns `title`, `content_id`, `publication_state`, `base_path`
-and `internal_name` fields.
+from the content item. It also adds a special field `internal_name`, which is
+`details.internal_name` and falls back to `title`.
 
 ### Query string parameters:
 - `document_type` *(required)*

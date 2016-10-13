@@ -13,7 +13,6 @@ module Presenters
         :base_path,
         :locale,
         :lock_version,
-        :internal_name,
         :updated_at,
         :state_history,
       ].freeze
@@ -92,8 +91,6 @@ module Presenters
             "lock_versions.number AS lock_version"
           when :description
             "description->>'value' AS description"
-          when :internal_name
-            "#{INTERNAL_NAME_SQL} AS internal_name"
           when :last_edited_at
             "to_char(last_edited_at, '#{ISO8601_SQL}') as last_edited_at"
           when :public_updated_at
@@ -127,10 +124,6 @@ module Presenters
       SQL
 
       ISO8601_SQL = "YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"".freeze
-
-      # This returns the internal_name from the details hash if it is present,
-      # otherwise it falls back to the content item's title.
-      INTERNAL_NAME_SQL = "COALESCE(details->>'internal_name', title) ".freeze
 
       def parse_results(results)
         json_columns = %w(details routes redirects need_ids state_history)
