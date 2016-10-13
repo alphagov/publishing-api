@@ -26,7 +26,6 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "locale" => "en",
         "base_path" => base_path,
         "title" => "VAT rates",
-        "internal_name" => "VAT rates",
         "document_type" => "guide",
         "schema_name" => "guide",
         "public_updated_at" => "2014-05-14T13:00:06Z",
@@ -96,47 +95,6 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
         results = described_class.present_many(content_items, fields: fields)
         expect(results.first.keys).to match_array(%w(title phase publication_state))
-      end
-    end
-
-    context "when internal_name is requested" do
-      let(:fields) { %w(internal_name) }
-
-      context "and an internal_name is present" do
-        before do
-          details = content_item.details
-          details["internal_name"] = "An internal name"
-
-          content_item.update_attributes(
-            details: details,
-          )
-        end
-
-        it "returns the internal_name" do
-          content_items = ContentItem.where(content_id: content_id)
-
-          results = described_class.present_many(content_items, fields: fields)
-          expect(results.first["internal_name"]).to eq("An internal name")
-        end
-      end
-
-      context "but an internal_name is not present" do
-        before do
-          details = content_item.details
-          details.delete(:internal_name)
-
-          content_item.update_attributes(
-            details: details,
-            title: "A normal title",
-          )
-        end
-
-        it "falls back to the title" do
-          content_items = ContentItem.where(content_id: content_id)
-
-          results = described_class.present_many(content_items, fields: fields)
-          expect(results.first["internal_name"]).to eq("A normal title")
-        end
       end
     end
 
