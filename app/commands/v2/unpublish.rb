@@ -120,7 +120,7 @@ module Commands
           allowed_states = %w(draft)
         end
 
-        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id).lock)
         content_item = filter.filter(locale: locale, state: allowed_states).last
         content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
       end
