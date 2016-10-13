@@ -31,7 +31,7 @@ module Presenters
       def initialize(scope, params = {})
         self.scope = scope
         self.fields = (params[:fields] || DEFAULT_FIELDS).map(&:to_sym)
-        self.order = params[:order]
+        self.order = params[:order] || { "content_items.id" => "asc" }
         self.limit = params[:limit]
         self.offset = params[:offset]
         self.search_query = params[:search_query]

@@ -51,6 +51,7 @@ module Queries
         .join(states).on(content_items[:id].eq(states[:content_item_id]))
         .join(translations).on(content_items[:id].eq(translations[:content_item_id]))
         .join(user_facing_versions).on(content_items[:id].eq(user_facing_versions[:content_item_id]))
+        .order(content_items[:id].asc)
     end
   end
 end
