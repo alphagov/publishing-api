@@ -76,13 +76,17 @@ module Commands
       end
 
       def find_draft_content_item
-        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+        filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
         filter.filter(locale: locale, state: "draft").first
       end
 
       def already_published?
-        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
+        filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
         filter.filter(locale: locale, state: "published").first
+      end
+
+      def pessimistic_content_item_scope
+        ContentItem.where(content_id: content_id).lock
       end
 
       def clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
