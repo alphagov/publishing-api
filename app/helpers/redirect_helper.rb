@@ -1,5 +1,5 @@
 module RedirectHelper
-  def self.create_redirect(old_base_path:, new_base_path:, publishing_app:, callbacks:, content_id: nil, routes: [])
+  def self.create_redirect(old_base_path:, new_base_path:, publishing_app:, callbacks:, content_id: nil, routes: [], options: {})
     payload = RedirectPresenter.present(
       base_path: old_base_path,
       destination: new_base_path,
@@ -8,7 +8,8 @@ module RedirectHelper
       publishing_app: publishing_app
     ).merge(content_id: content_id || SecureRandom.uuid)
 
-    Commands::V2::PutContent.call(payload, callbacks: callbacks, nested: true)
+    Commands::V2::PutContent.call(payload, callbacks: callbacks, nested: true) unless options[:skip_put_content]
+    payload
   end
 
   def self.redirects_for(routes, old_base_path, new_base_path)

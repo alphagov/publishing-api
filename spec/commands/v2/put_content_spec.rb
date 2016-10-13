@@ -210,7 +210,7 @@ RSpec.describe Commands::V2::PutContent do
           described_class.call(payload)
           Commands::V2::Publish.call(content_id: content_id, update_type: "minor")
 
-          regex = /Content item user_facing_version=(\d+) and locale=en for content item=#{Regexp.quote(content_id)} conflicts/
+          regex = /Content item state=draft and locale=en for content item=#{Regexp.quote(content_id)} conflicts/
 
           expect {
             thread1 = Thread.new { described_class.call(payload) }

@@ -30,6 +30,11 @@ module V2
       )
     end
 
+    def import
+      response = Commands::V2::Import.call(content_item)
+      render status: response.code, json: response
+    end
+
     def put_content
       response = Commands::V2::PutContent.call(content_item)
       render status: response.code, json: response

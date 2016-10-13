@@ -18,7 +18,13 @@ module Commands
         if content_item
           update_existing_content_item(content_item)
         else
-          content_item = create_content_item
+          content_item = Services::CreateContentItem.new(
+            payload: convert_format,
+            user_facing_version: user_facing_version_number_for_new_draft,
+            lock_version: lock_version_number_for_new_draft
+          ).create_content_item do |item|
+            clear_draft(item)
+          end
           fill_out_new_content_item(content_item)
         end
 
@@ -37,15 +43,14 @@ module Commands
 
     private
 
+      def clear_draft(content_item)
+        return unless content_with_base_path?
+        clear_draft_items_of_same_locale_and_base_path(
+          content_item, locale, base_path
+        )
+      end
+
       def fill_out_new_content_item(content_item)
-        if content_with_base_path?
-          clear_draft_items_of_same_locale_and_base_path(
-            content_item, locale, base_path)
-        end
-
-        create_supporting_objects(content_item)
-        ensure_link_set_exists(content_item)
-
         update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
 
         if previously_published_item != ITEM_NOT_FOUND
@@ -140,29 +145,6 @@ module Commands
 
       def content_item_attributes_from_payload
         convert_format.slice(*ContentItem::TOP_LEVEL_FIELDS)
-      end
-
-      def create_content_item
-        ContentItem.create!(content_item_attributes_from_payload)
-      end
-
-      def create_supporting_objects(content_item)
-        State.create!(content_item: content_item, name: "draft")
-        Translation.create!(content_item: content_item, locale: locale)
-        UserFacingVersion.create!(content_item: content_item, number: user_facing_version_number_for_new_draft)
-        LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
-
-        if content_with_base_path?
-          Location.create!(content_item: content_item, base_path: base_path)
-        end
-      end
-
-      def ensure_link_set_exists(content_item)
-        existing_link_set = LinkSet.find_by(content_id: content_item.content_id)
-        return if existing_link_set
-
-        link_set = LinkSet.create!(content_id: content_item.content_id)
-        LockVersion.create!(target: link_set, number: 1)
       end
 
       def lock_version_number_for_new_draft
