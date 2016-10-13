@@ -1,11 +1,11 @@
 module V2
   class ContentItemsController < ApplicationController
     def index
-      doc_type = query_params.fetch(:document_type) { query_params.fetch(:content_format) }
+      doc_types = query_params.fetch(:document_type) { query_params.fetch(:content_format) }
       pagination = Pagination.new(query_params)
 
       results = Queries::GetContentCollection.new(
-        document_type: doc_type,
+        document_types: doc_types,
         fields: query_params[:fields],
         filters: filters,
         pagination: pagination,

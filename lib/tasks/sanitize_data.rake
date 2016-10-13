@@ -15,7 +15,7 @@ task :restore_policy_links, [:action] => [:environment] do |_, args|
   puts "Dry run" if dry_run
 
   policy_query = Queries::GetContentCollection.new(
-    document_type: 'policy',
+    document_types: 'policy',
     fields: %w(content_id),
     pagination: NullPagination.new
   )

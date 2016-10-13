@@ -1,9 +1,9 @@
 module Queries
   class GetContentCollection
-    attr_reader :document_type, :fields, :publishing_app, :link_filters, :locale, :pagination, :search_query
+    attr_reader :document_types, :fields, :publishing_app, :link_filters, :locale, :pagination, :search_query
 
-    def initialize(document_type:, fields:, filters: {}, pagination: Pagination.new, search_query: "")
-      self.document_type = document_type
+    def initialize(document_types:, fields:, filters: {}, pagination: Pagination.new, search_query: "")
+      self.document_types = Array(document_types)
       self.fields = fields
       self.publishing_app = filters[:publishing_app]
       self.link_filters = filters[:links]
@@ -34,7 +34,7 @@ module Queries
 
   private
 
-    attr_writer :document_type, :fields, :publishing_app, :locale, :link_filters, :pagination, :search_query
+    attr_writer :document_types, :fields, :publishing_app, :locale, :link_filters, :pagination, :search_query
 
     def content_items
       scope = ContentItem.where(document_type: lookup_document_types)
@@ -46,7 +46,7 @@ module Queries
 
 
     def lookup_document_types
-      [document_type, "placeholder_#{document_type}"]
+      document_types.flat_map { |d| [d, "placeholder_#{d}"] }
     end
 
     def validate_fields!
