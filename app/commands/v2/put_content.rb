@@ -161,6 +161,9 @@ module Commands
 
         link_set = LinkSet.create!(content_id: content_item.content_id)
         LockVersion.create!(target: link_set, number: 1)
+      rescue ActiveRecord::RecordNotUnique => e
+        Airbrake.notify(e)
+        raise_command_error(409, "Concurrent PUT Content requests for same content_id", {})
       end
 
       def lock_version_number_for_new_draft
