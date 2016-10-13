@@ -19,9 +19,9 @@ namespace :represent_downstream do
   desc "
   Represent an individual content_item downstream
   Usage
-  rake 'represent_downstream:content_item[57a1253c-68d3-4a93-bb47-b67b9b4f6b9a]'
+  rake 'represent_downstream:content_id[57a1253c-68d3-4a93-bb47-b67b9b4f6b9a]'
   "
-  task :content_item, [:content_item_id] => :environment do |_t, args|
-    Commands::V2::RepresentDownstream.new.call(ContentItem.where(content_id: args[:content_item_id]))
+  task :content_id, [:content_id] => :environment do |_t, args|
+    Commands::V2::RepresentDownstream.new.call(ContentItem.where(content_id: args[:content_id]))
   end
 end
