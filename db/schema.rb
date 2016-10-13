@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006115850) do
+ActiveRecord::Schema.define(version: 20161013104311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +20,8 @@ ActiveRecord::Schema.define(version: 20161006115850) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "content_item_id"
+    t.index ["content_item_id"], name: "index_access_limits_on_content_item_id", using: :btree
   end
-
-  add_index "access_limits", ["content_item_id"], name: "index_access_limits_on_content_item_id", using: :btree
 
   create_table "content_items", force: :cascade do |t|
     t.string   "content_id"
@@ -45,15 +43,14 @@ ActiveRecord::Schema.define(version: 20161006115850) do
     t.string   "schema_name"
     t.datetime "first_published_at"
     t.datetime "last_edited_at"
+    t.index ["content_id"], name: "index_content_items_on_content_id", using: :btree
+    t.index ["document_type"], name: "index_content_items_on_document_type", using: :btree
+    t.index ["last_edited_at"], name: "index_content_items_on_last_edited_at", using: :btree
+    t.index ["public_updated_at"], name: "index_content_items_on_public_updated_at", using: :btree
+    t.index ["publishing_app"], name: "index_content_items_on_publishing_app", using: :btree
+    t.index ["rendering_app"], name: "index_content_items_on_rendering_app", using: :btree
+    t.index ["updated_at"], name: "index_content_items_on_updated_at", using: :btree
   end
-
-  add_index "content_items", ["content_id"], name: "index_content_items_on_content_id", using: :btree
-  add_index "content_items", ["document_type"], name: "index_content_items_on_document_type", using: :btree
-  add_index "content_items", ["last_edited_at"], name: "index_content_items_on_last_edited_at", using: :btree
-  add_index "content_items", ["public_updated_at"], name: "index_content_items_on_public_updated_at", using: :btree
-  add_index "content_items", ["publishing_app"], name: "index_content_items_on_publishing_app", using: :btree
-  add_index "content_items", ["rendering_app"], name: "index_content_items_on_rendering_app", using: :btree
-  add_index "content_items", ["updated_at"], name: "index_content_items_on_updated_at", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "action",                  null: false
@@ -63,30 +60,15 @@ ActiveRecord::Schema.define(version: 20161006115850) do
     t.datetime "updated_at"
     t.string   "request_id"
     t.string   "content_id"
+    t.index ["content_id"], name: "index_events_on_content_id", using: :btree
   end
-
-  add_index "events", ["content_id"], name: "index_events_on_content_id", using: :btree
 
   create_table "link_sets", force: :cascade do |t|
     t.string   "content_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
   end
-
-  add_index "link_sets", ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
-
-  create_table "linkables", force: :cascade do |t|
-    t.integer  "content_item_id", null: false
-    t.string   "state",           null: false
-    t.string   "base_path",       null: false
-    t.string   "document_type",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "linkables", ["base_path"], name: "index_linkables_on_base_path", using: :btree
-  add_index "linkables", ["content_item_id"], name: "index_linkables_on_content_item_id", using: :btree
-  add_index "linkables", ["document_type"], name: "index_linkables_on_document_type", using: :btree
 
   create_table "links", force: :cascade do |t|
     t.integer  "link_set_id"
@@ -95,23 +77,21 @@ ActiveRecord::Schema.define(version: 20161006115850) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "position",          default: 0, null: false
+    t.index ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id", using: :btree
+    t.index ["link_set_id"], name: "index_links_on_link_set_id", using: :btree
+    t.index ["link_type"], name: "index_links_on_link_type", using: :btree
+    t.index ["target_content_id", "link_type"], name: "index_links_on_target_content_id_and_link_type", using: :btree
+    t.index ["target_content_id"], name: "index_links_on_target_content_id", using: :btree
   end
-
-  add_index "links", ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id", using: :btree
-  add_index "links", ["link_set_id"], name: "index_links_on_link_set_id", using: :btree
-  add_index "links", ["link_type"], name: "index_links_on_link_type", using: :btree
-  add_index "links", ["target_content_id", "link_type"], name: "index_links_on_target_content_id_and_link_type", using: :btree
-  add_index "links", ["target_content_id"], name: "index_links_on_target_content_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "content_item_id", null: false
     t.string   "base_path",       null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["base_path"], name: "index_locations_on_base_path", using: :btree
+    t.index ["content_item_id", "base_path"], name: "index_locations_on_content_item_id_and_base_path", using: :btree
   end
-
-  add_index "locations", ["base_path"], name: "index_locations_on_base_path", using: :btree
-  add_index "locations", ["content_item_id", "base_path"], name: "index_locations_on_content_item_id_and_base_path", using: :btree
 
   create_table "lock_versions", force: :cascade do |t|
     t.integer  "target_id",               null: false
@@ -119,38 +99,34 @@ ActiveRecord::Schema.define(version: 20161006115850) do
     t.integer  "number",      default: 0, null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.index ["target_id", "target_type"], name: "index_lock_versions_on_target_id_and_target_type", using: :btree
   end
-
-  add_index "lock_versions", ["target_id", "target_type"], name: "index_lock_versions_on_target_id_and_target_type", using: :btree
 
   create_table "path_reservations", force: :cascade do |t|
     t.string   "base_path",      null: false
     t.string   "publishing_app", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["base_path"], name: "index_path_reservations_on_base_path", unique: true, using: :btree
   end
-
-  add_index "path_reservations", ["base_path"], name: "index_path_reservations_on_base_path", unique: true, using: :btree
 
   create_table "states", force: :cascade do |t|
     t.integer  "content_item_id", null: false
     t.string   "name",            null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["content_item_id", "name"], name: "index_states_on_content_item_id_and_name", using: :btree
+    t.index ["content_item_id"], name: "index_states_on_content_item_id", using: :btree
   end
-
-  add_index "states", ["content_item_id", "name"], name: "index_states_on_content_item_id_and_name", using: :btree
-  add_index "states", ["content_item_id"], name: "index_states_on_content_item_id", using: :btree
 
   create_table "translations", force: :cascade do |t|
     t.integer  "content_item_id", null: false
     t.string   "locale",          null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["content_item_id", "locale"], name: "index_translations_on_content_item_id_and_locale", using: :btree
+    t.index ["content_item_id"], name: "index_translations_on_content_item_id", using: :btree
   end
-
-  add_index "translations", ["content_item_id", "locale"], name: "index_translations_on_content_item_id_and_locale", using: :btree
-  add_index "translations", ["content_item_id"], name: "index_translations_on_content_item_id", using: :btree
 
   create_table "unpublishings", force: :cascade do |t|
     t.integer  "content_item_id",  null: false
@@ -159,19 +135,17 @@ ActiveRecord::Schema.define(version: 20161006115850) do
     t.string   "alternative_path"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["content_item_id", "type"], name: "index_unpublishings_on_content_item_id_and_type", using: :btree
+    t.index ["content_item_id"], name: "index_unpublishings_on_content_item_id", using: :btree
   end
-
-  add_index "unpublishings", ["content_item_id", "type"], name: "index_unpublishings_on_content_item_id_and_type", using: :btree
-  add_index "unpublishings", ["content_item_id"], name: "index_unpublishings_on_content_item_id", using: :btree
 
   create_table "user_facing_versions", force: :cascade do |t|
     t.integer  "content_item_id",             null: false
     t.integer  "number",          default: 0, null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.index ["content_item_id", "number"], name: "index_user_facing_versions_on_content_item_id_and_number", using: :btree
   end
-
-  add_index "user_facing_versions", ["content_item_id", "number"], name: "index_user_facing_versions_on_content_item_id_and_number", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
