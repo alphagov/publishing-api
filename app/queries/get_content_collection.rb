@@ -1,11 +1,21 @@
 module Queries
   class GetContentCollection
-    attr_reader :document_types, :fields, :publishing_app, :link_filters, :locale, :pagination, :search_query
+    attr_reader(
+      :document_types,
+      :fields,
+      :publishing_app,
+      :link_filters,
+      :locale,
+      :pagination,
+      :search_query,
+      :states,
+    )
 
     def initialize(document_types:, fields:, filters: {}, pagination: Pagination.new, search_query: "")
       self.document_types = Array(document_types)
       self.fields = fields
       self.publishing_app = filters[:publishing_app]
+      self.states = filters[:states]
       self.link_filters = filters[:links]
       self.locale = filters[:locale] || "en"
       self.pagination = pagination
@@ -34,16 +44,25 @@ module Queries
 
   private
 
-    attr_writer :document_types, :fields, :publishing_app, :locale, :link_filters, :pagination, :search_query
+    attr_writer(
+      :document_types,
+      :fields,
+      :publishing_app,
+      :locale,
+      :link_filters,
+      :pagination,
+      :search_query,
+      :states,
+    )
 
     def content_items
       scope = ContentItem.where(document_type: lookup_document_types)
       scope = scope.where(publishing_app: publishing_app) if publishing_app
+      scope = State.filter(scope, name: states) if states.present?
       scope = Link.filter_content_items(scope, link_filters) unless link_filters.blank?
       scope = Translation.filter(scope, locale: locale) unless locale == "all"
       scope
     end
-
 
     def lookup_document_types
       document_types.flat_map { |d| [d, "placeholder_#{d}"] }

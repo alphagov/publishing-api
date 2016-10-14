@@ -319,6 +319,8 @@ draft is returned.
     [`base_path`](model.md#base_path) fields.
 - `publishing_app` *(optional)*
   - Used to restrict content items to those for a given publishing app.
+- `states` *(optional)*
+  - Used to restrict content items to those in the specified states.
 
 ## `GET /v2/content/:content_id`
 
