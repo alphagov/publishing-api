@@ -129,10 +129,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
     context "graph with multiple links of the same type" do
       it "expands the links for node a correctly" do
-        create_link(a, b, "related")
-        create_link(a, c, "related")
+        create_link(a, b, "related", 0)
+        create_link(a, c, "related", 1)
 
-        expect(expanded_links[:related].sort_by { |r| r[:base_path] }).to match([
+        expect(expanded_links[:related]).to match([
           a_hash_including(base_path: "/b", links: {}),
           a_hash_including(base_path: "/c", links: {}),
         ])

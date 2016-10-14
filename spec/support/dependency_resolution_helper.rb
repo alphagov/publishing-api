@@ -23,7 +23,7 @@ module DependencyResolutionHelper
     )
   end
 
-  def create_link(from, to, link_type)
+  def create_link(from, to, link_type, link_position = 0)
     link_set = LinkSet.find_by(content_id: from)
 
     FactoryGirl.create(
@@ -31,6 +31,7 @@ module DependencyResolutionHelper
       link_set: link_set,
       target_content_id: to,
       link_type: link_type,
+      position: link_position
     )
   end
 end

@@ -166,13 +166,16 @@ RSpec.describe Queries::GetGroupedContentAndLinks do
         context "with links" do
           let(:first_target_content_id) { SecureRandom.uuid }
           let(:second_target_content_id) { SecureRandom.uuid }
+          let(:third_target_content_id) { SecureRandom.uuid }
+          let(:fourth_target_content_id) { SecureRandom.uuid }
 
           before do
             FactoryGirl.create(
               :link_set,
               links_hash: {
                 "topics" => [
-                  first_target_content_id
+                  first_target_content_id,
+                  second_target_content_id
                 ]
               },
               content_id: ordered_content_ids.first
@@ -182,7 +185,8 @@ RSpec.describe Queries::GetGroupedContentAndLinks do
               :link_set,
               links_hash: {
                 "topics" => [
-                  second_target_content_id
+                  third_target_content_id,
+                  fourth_target_content_id
                 ]
               },
               content_id: ordered_content_ids.last
@@ -199,6 +203,11 @@ RSpec.describe Queries::GetGroupedContentAndLinks do
                 "content_id" => ordered_content_ids.first,
                 "link_type" => "topics",
                 "target_content_id" => first_target_content_id,
+              },
+              {
+                "content_id" => ordered_content_ids.first,
+                "link_type" => "topics",
+                "target_content_id" => second_target_content_id,
               }
             ])
 
@@ -207,7 +216,12 @@ RSpec.describe Queries::GetGroupedContentAndLinks do
               {
                 "content_id" => ordered_content_ids.last,
                 "link_type" => "topics",
-                "target_content_id" => second_target_content_id,
+                "target_content_id" => third_target_content_id,
+              },
+              {
+                "content_id" => ordered_content_ids.last,
+                "link_type" => "topics",
+                "target_content_id" => fourth_target_content_id,
               }
             ])
           end

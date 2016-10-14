@@ -51,7 +51,9 @@ module Presenters
 
       def all_links(content_id, link_type = nil)
         sql = <<-SQL
-          select links.link_type, json_agg(links.target_content_id) as target_content_ids from links
+          select links.link_type,
+            json_agg(links.target_content_id order by links.link_type asc, links.position asc) as target_content_ids
+          from links
           join link_sets on link_sets.id = links.link_set_id
           where link_sets.content_id = '#{content_id}'
           #{"and link_type = '#{link_type}'" if link_type}
@@ -99,6 +101,7 @@ module Presenters
           .where(target_content_id: content_id)
           .joins(:link_set)
           .where(link_type: rules.reverse_recursive_types)
+          .order(link_type: :asc, position: :asc)
           .pluck(:link_type, :content_id)
       end
 

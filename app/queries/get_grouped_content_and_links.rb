@@ -118,7 +118,8 @@ module Queries
         WHERE
           link_sets.content_id IN (#{sql_value_placeholders(content_ids.size)})
         ORDER BY
-          links.target_content_id ASC
+          links.link_type ASC,
+          links.position ASC
       SQL
 
       ActiveRecord::Base.connection.raw_connection.exec(query, content_ids)
