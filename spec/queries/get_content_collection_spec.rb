@@ -272,6 +272,49 @@ RSpec.describe Queries::GetContentCollection do
     end
   end
 
+  describe "filtering by state" do
+    before do
+      FactoryGirl.create(:draft_content_item, base_path: "/draft")
+      FactoryGirl.create(:live_content_item, base_path: "/published")
+      FactoryGirl.create(:unpublished_content_item, base_path: "/unpublished")
+    end
+
+    it "returns all content if no filter is provided" do
+      results = Queries::GetContentCollection.new(
+        document_types: "guide", fields: %w(base_path)
+      ).call
+
+      expect(results).to match_array([
+        hash_including("base_path" => "/draft"),
+        hash_including("base_path" => "/published"),
+        hash_including("base_path" => "/unpublished"),
+      ])
+
+      results = Queries::GetContentCollection.new(
+        document_types: "guide", filters: { states: [] }, fields: %w(base_path)
+      ).call
+
+      expect(results).to match_array([
+        hash_including("base_path" => "/draft"),
+        hash_including("base_path" => "/published"),
+        hash_including("base_path" => "/unpublished"),
+      ])
+    end
+
+    it "returns content filtered by the provided states" do
+      results = Queries::GetContentCollection.new(
+        document_types: "guide",
+        fields: %w(base_path),
+        filters: { states: %w(draft published) },
+      ).call
+
+      expect(results).to match_array([
+        hash_including("base_path" => "/draft"),
+        hash_including("base_path" => "/published"),
+      ])
+    end
+  end
+
   context "when details hash is requested" do
     it "returns the details hash" do
       FactoryGirl.create(:draft_content_item, base_path: '/z', details: { foo: :bar }, document_type: 'topic', schema_name: 'topic', publishing_app: 'publisher')

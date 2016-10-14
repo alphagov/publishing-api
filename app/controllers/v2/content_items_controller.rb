@@ -60,11 +60,16 @@ module V2
       query_params[:publishing_app]
     end
 
+    def states
+      query_params[:states]
+    end
+
     def filters
       {
         publishing_app: publishing_app,
         locale: query_params[:locale],
         links: link_filters,
+        states: Array(states),
       }
     end
 

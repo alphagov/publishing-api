@@ -458,8 +458,8 @@ RSpec.describe V2::ContentItemsController do
     before do
       FactoryGirl.create(:draft_content_item, publishing_app: 'publisher', base_path: '/content')
       FactoryGirl.create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item1')
-      FactoryGirl.create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item2')
-      FactoryGirl.create(:draft_content_item, publishing_app: 'specialist_publisher', base_path: '/item3')
+      FactoryGirl.create(:live_content_item, publishing_app: 'whitehall', base_path: '/item2')
+      FactoryGirl.create(:unpublished_content_item, publishing_app: 'specialist_publisher', base_path: '/item3')
     end
 
     it "displays items filtered by publishing_app parameter" do
@@ -472,6 +472,17 @@ RSpec.describe V2::ContentItemsController do
       items = parsed_response["results"]
       expect(items.length).to eq(2)
       expect(items.all? { |i| i["publishing_app"] == "whitehall" }).to be true
+    end
+
+    it "filters by state" do
+      get :index, params: { document_type: "guide", states: %w(published draft) }
+
+      items = parsed_response["results"]
+      draft, published = items.partition { |item| item["publication_state"] == "draft" }
+
+      expect(items.length).to eq(3)
+      expect(draft.length).to eq(2)
+      expect(published.length).to eq(1)
     end
 
     it "displays all items by default" do
