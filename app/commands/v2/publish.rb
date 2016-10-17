@@ -32,6 +32,8 @@ module Commands
 
         State.supersede(previous_item) if previous_item
 
+        delete_change_notes_if_not_major_update(content_item, update_type)
+
         unless content_item.pathless?
           if previous_item
             previous_location = Location.find_by(content_item: previous_item)
@@ -58,6 +60,12 @@ module Commands
       end
 
     private
+
+      def delete_change_notes_if_not_major_update(content_item, update_type)
+        unless update_type == "major"
+          ChangeNote.delete_all(content_item: content_item)
+        end
+      end
 
       def content_id
         payload[:content_id]

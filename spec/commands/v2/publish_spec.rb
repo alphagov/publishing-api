@@ -248,6 +248,18 @@ RSpec.describe Commands::V2::Publish do
           end
         end
       end
+
+      context "update_type changes from major to minor" do
+        before do
+          draft_item.update(update_type: "major")
+          payload[:update_type] = "minor"
+          ChangeNote.create(content_item: draft_item)
+        end
+        it "deletes associated ChangeNote records" do
+          expect { described_class.call(payload) }
+            .to change { ChangeNote.count }.by(-1)
+        end
+      end
     end
 
     context "with a first_published_at set on the draft content item" do
