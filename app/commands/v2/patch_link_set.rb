@@ -3,16 +3,10 @@ module Commands
     class PatchLinkSet < BaseCommand
       def call
         raise_unless_links_hash_is_provided
+        link_set = find_or_create_link_set(content_id)
 
-        link_set = LinkSet.find_by(content_id: content_id)
-
-        if link_set
-          check_version_and_raise_if_conflicting(link_set, previous_version_number)
-          lock_version = LockVersion.find_by!(target: link_set)
-        else
-          link_set = LinkSet.create!(content_id: content_id)
-          lock_version = LockVersion.new(target: link_set)
-        end
+        check_version_and_raise_if_conflicting(link_set, previous_version_number)
+        lock_version = LockVersion.find_or_create_by!(target: link_set)
 
         lock_version.increment
         lock_version.save!
@@ -37,6 +31,23 @@ module Commands
       end
 
     private
+
+      def find_or_create_link_set(content_id)
+        begin
+          retries ||= 0
+          LinkSet.transaction(requires_new: true) do
+            LinkSet.find_or_create_by!(content_id: content_id).lock!
+          end
+        rescue ActiveRecord::RecordNotUnique
+          # This should never need more than 1 retry as the scenario this error
+          # would occur is: inbetween rails find_or_create SELECT & INSERT
+          # queries a concurrent request ran an INSERT. Thus on retry the
+          # SELECT would succeed.
+          # So if this actually throws an exception here we probably have a
+          # weird underlying problem.
+          retry if (retries += 1) == 1
+        end
+      end
 
       def content_id
         payload.fetch(:content_id)
