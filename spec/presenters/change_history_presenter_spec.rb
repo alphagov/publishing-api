@@ -52,23 +52,38 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
     end
 
     context "multiple content items for a single content id" do
-      let!(:other_item) do
+      let!(:item1) do
         FactoryGirl.create(
           :content_item,
           details: details,
           content_id: content_id,
-          state: "published",
-          user_facing_version: 2
+          user_facing_version: 1
         )
       end
-      let!(:change_notes) do
-        [
-          ChangeNote.create(content_item: content_item),
-          ChangeNote.create(content_item: other_item)
-        ]
+      let!(:item2) do
+        FactoryGirl.create(
+          :content_item,
+          details: details,
+          content_id: content_id,
+          user_facing_version: 2,
+          state: "published"
+        )
       end
-      it "constructs content history from all change notes for content id" do
-        expect(subject.count).to eq 2
+      before do
+        ChangeNote.create(content_item: item1)
+        ChangeNote.create(content_item: item2)
+      end
+
+      context "reviewing latest version of a content item" do
+        it "constructs content history from all change notes for content id" do
+          expect(described_class.new(item2).change_history.count).to eq 2
+        end
+      end
+
+      context "reviewing older version of a content item" do
+        it "doesn't include change notes corresponding to newer versions" do
+          expect(described_class.new(item1).change_history.count).to eq 1
+        end
       end
     end
   end
