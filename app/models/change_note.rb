@@ -38,8 +38,8 @@ private
   end
 
   def create_from_details_hash_change_history
-    return unless history
-    history_element = history.sort_by { |h| h[:public_timestamp] }.last
+    return unless change_history.present?
+    history_element = change_history.max_by { |h| h[:public_timestamp] }
     ChangeNote.create!(history_element.merge(content_item: content_item))
   end
 
@@ -51,7 +51,7 @@ private
     content_item.details[:change_note]
   end
 
-  def history
+  def change_history
     content_item.details[:change_history]
   end
 end
