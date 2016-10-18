@@ -15,6 +15,7 @@ class Unpublishing < ApplicationRecord
   validates :type, presence: true, inclusion: { in: VALID_TYPES }
   validates :explanation, presence: true, if: :withdrawal?
   validates :alternative_path, presence: true, if: :redirect?
+  validates_with UnpublishingRedirectValidator
 
   def withdrawal?
     type == "withdrawal"
