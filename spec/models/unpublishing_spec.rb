@@ -57,6 +57,26 @@ RSpec.describe Unpublishing do
       expect(subject.errors[:alternative_path].size).to eq(1)
     end
 
+    context "when alternative_path is equal to base_path" do
+      let(:base_path) { "/new-path" }
+      let(:content_item) do
+        FactoryGirl.create(:content_item,
+          base_path: base_path,
+        )
+      end
+
+      it "is invalid" do
+        subject.content_item = content_item
+        subject.type = "redirect"
+        subject.alternative_path = base_path
+
+        expect(subject).to be_invalid
+        expect(subject.errors[:alternative_path]).to include(
+          "base_path matches the unpublishing alternative_path #{base_path}"
+        )
+      end
+    end
+
     it "does not require anything for 'vanish'" do
       subject.type = "vanish"
       subject.alternative_path = nil
