@@ -1,15 +1,19 @@
 require "rails_helper"
 
 RSpec.describe DownstreamDraftWorker do
-  let(:content_item) { FactoryGirl.create(:draft_content_item, base_path: "/foo") }
-  let(:base_arguments) {
+  let(:content_item) do
+    FactoryGirl.create(:draft_content_item, base_path: "/foo", locale: "en")
+  end
+
+  let(:base_arguments) do
     {
-      "content_item_id" => content_item.id,
+      "content_id" => content_item.content_id,
+      "locale" => "en",
       "payload_version" => 1,
       "update_dependencies" => true,
-      "alert_on_invalid_state_error" => true,
     }
-  }
+  end
+
   let(:arguments) { base_arguments }
 
   before do
@@ -17,10 +21,13 @@ RSpec.describe DownstreamDraftWorker do
   end
 
   describe "arguments" do
-    it "requires content_item_id" do
+    it "requires content_item_id or content_id" do
       expect {
-        subject.perform(arguments.except("content_item_id"))
+        subject.perform(arguments.except("content_id"))
       }.to raise_error(KeyError)
+      expect {
+        subject.perform(arguments.merge("content_item_id" => content_item.id))
+      }.not_to raise_error
     end
 
     it "requires payload_version" do
@@ -32,12 +39,6 @@ RSpec.describe DownstreamDraftWorker do
     it "doesn't require update_dependencies" do
       expect {
         subject.perform(arguments.except("update_dependencies"))
-      }.not_to raise_error
-    end
-
-    it "doesn't require alert_on_invalid_state_error" do
-      expect {
-        subject.perform(arguments.except("alert_on_invalid_state_error"))
       }.not_to raise_error
     end
   end
@@ -85,43 +86,6 @@ RSpec.describe DownstreamDraftWorker do
       let(:arguments) { base_arguments.merge("update_dependencies" => false) }
       it "doesn't enqueue dependencies" do
         expect(DependencyResolutionWorker).to_not receive(:perform_async)
-        subject.perform(arguments)
-      end
-    end
-  end
-
-  describe "error alerting" do
-    let(:message) { "Can only send draft, published and unpublished items to the draft content store" }
-    let(:logger) { Sidekiq::Logging.logger }
-
-    before do
-      allow(DownstreamService).to receive(:update_draft_content_store)
-        .and_raise(DownstreamInvalidStateError, message)
-    end
-
-    context "when alert_on_invalid_state_error is true" do
-      let(:arguments) { base_arguments.merge("alert_on_invalid_state_error" => true) }
-      it "notifies airbrake" do
-        expect(Airbrake).to receive(:notify)
-        subject.perform(arguments)
-      end
-
-      it "doesn't log the message" do
-        expect(logger).to_not receive(:warn).with(message)
-        subject.perform(arguments)
-      end
-    end
-
-    context "when alert_on_invalid_state_error is false" do
-      let(:arguments) { base_arguments.merge("alert_on_invalid_state_error" => false) }
-
-      it "doesn't notify airbrake" do
-        expect(Airbrake).to_not receive(:notify)
-        subject.perform(arguments)
-      end
-
-      it "logs the message" do
-        expect(logger).to receive(:warn).with(message)
         subject.perform(arguments)
       end
     end

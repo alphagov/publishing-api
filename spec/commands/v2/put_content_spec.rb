@@ -11,7 +11,7 @@ RSpec.describe Commands::V2::PutContent do
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
 
-    let(:payload) {
+    let(:payload) do
       {
         content_id: content_id,
         base_path: base_path,
@@ -26,13 +26,13 @@ RSpec.describe Commands::V2::PutContent do
         redirects: [],
         phase: "beta",
       }
-    }
+    end
 
     it "sends to the downstream draft worker" do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
-          a_hash_including(:content_item_id, :payload_version, update_dependencies: true),
+          a_hash_including(:content_id, :locale, :payload_version, update_dependencies: true),
         )
 
       described_class.call(payload)
@@ -322,7 +322,7 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "when the payload is for an already drafted content item" do
-      let!(:previously_drafted_item) {
+      let!(:previously_drafted_item) do
         FactoryGirl.create(:draft_content_item,
           content_id: content_id,
           base_path: base_path,
@@ -330,7 +330,7 @@ RSpec.describe Commands::V2::PutContent do
           lock_version: 1,
           publishing_app: "publisher",
         )
-      }
+      end
 
       it "updates the content item" do
         described_class.call(payload)
@@ -433,7 +433,7 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         context "when there is a draft at the new base path" do
-          let!(:substitute_item) {
+          let!(:substitute_item) do
             FactoryGirl.create(:draft_content_item,
               content_id: SecureRandom.uuid,
               base_path: base_path,
@@ -442,7 +442,7 @@ RSpec.describe Commands::V2::PutContent do
               publishing_app: "publisher",
               document_type: "coming_soon",
             )
-          }
+          end
 
           it "deletes the substitute item" do
             described_class.call(payload)
@@ -501,9 +501,9 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       context "when the previous draft has an access limit" do
-        let!(:access_limit) {
+        let!(:access_limit) do
           FactoryGirl.create(:access_limit, content_item: previously_drafted_item, users: ["old-user"])
-        }
+        end
 
         context "when the params includes an access limit" do
           before do
@@ -732,11 +732,11 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "when the draft does exist" do
-      let!(:content_item) {
+      let!(:content_item) do
         FactoryGirl.create(:draft_content_item,
           content_id: content_id,
         )
-      }
+      end
 
       context "with a provided last_edited_at" do
         %w(minor major republish).each do |update_type|

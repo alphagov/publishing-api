@@ -13,7 +13,7 @@ module Commands
         increment_live_lock_version if live
 
         after_transaction_commit do
-          downstream_discard_draft(draft_path, draft.content_id, live.try(:id))
+          downstream_discard_draft(draft_path, draft.content_id, locale)
         end
 
         Success.new(content_id: content_id)
@@ -34,17 +34,16 @@ module Commands
         draft.destroy
       end
 
-      def downstream_discard_draft(path_used, content_id, live_content_item_id)
+      def downstream_discard_draft(path_used, content_id, locale)
         return unless downstream
 
         DownstreamDiscardDraftWorker.perform_async_in_queue(
           DownstreamDiscardDraftWorker::HIGH_QUEUE,
           base_path: path_used,
           content_id: content_id,
-          live_content_item_id: live_content_item_id,
+          locale: locale,
           payload_version: event.id,
           update_dependencies: true,
-          alert_on_base_path_conflict: !nested
         )
       end
 

@@ -2,22 +2,25 @@ require "rails_helper"
 
 RSpec.describe DownstreamDiscardDraftWorker do
   let(:base_path) { "/foo" }
-  let(:content_item) {
+
+  let(:content_item) do
     FactoryGirl.create(:draft_content_item,
       base_path: base_path,
+      locale: "en",
       title: "Draft",
     )
-  }
-  let(:arguments) {
+  end
+
+  let(:arguments) do
     {
       "base_path" => base_path,
       "content_id" => content_item.content_id,
-      "live_content_item_id" => nil,
+      "locale" => "en",
       "payload_version" => 1,
       "update_dependencies" => true,
       "alert_on_base_path_conflict" => false
     }
-  }
+  end
 
   before do
     content_item.destroy
@@ -36,6 +39,12 @@ RSpec.describe DownstreamDiscardDraftWorker do
       expect {
         subject.perform(arguments.except("content_id"))
       }.to raise_error(KeyError)
+    end
+
+    it "doesn't requires locale" do
+      expect {
+        subject.perform(arguments.except("locale"))
+      }.not_to raise_error
     end
 
     it "requires payload_version" do
@@ -64,16 +73,16 @@ RSpec.describe DownstreamDiscardDraftWorker do
   end
 
   context "has a live content item with same base_path" do
-    let!(:live_content_item) {
+    let!(:live_content_item) do
       FactoryGirl.create(:live_content_item,
         base_path: base_path,
         content_id: content_item.content_id,
         title: "live",
       )
-    }
-    let(:live_content_item_arguments) {
+    end
+    let(:live_content_item_arguments) do
       arguments.merge("live_content_item_id" => live_content_item.id)
-    }
+    end
 
     it "adds the live content item to the draft content store" do
       expect(Adapters::DraftContentStore).to receive(:put_content_item)
@@ -88,16 +97,16 @@ RSpec.describe DownstreamDiscardDraftWorker do
   end
 
   context "has a live content item with a different base_path" do
-    let(:live_content_item) {
+    let(:live_content_item) do
       FactoryGirl.create(:live_content_item,
         base_path: "/bar",
         content_id: content_item.content_id,
         title: "Live",
       )
-    }
-    let(:live_content_item_arguments) {
+    end
+    let(:live_content_item_arguments) do
       arguments.merge("live_content_item_id" => live_content_item.id)
-    }
+    end
 
     it "adds the live content item to the draft content store" do
       expect(Adapters::DraftContentStore).to receive(:put_content_item)
@@ -172,45 +181,21 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
   describe "conflict protection" do
     let(:content_id) { content_item.content_id }
+    let(:logger) { Sidekiq::Logging.logger }
 
     before do
       FactoryGirl.create(:live_content_item, base_path: "/foo")
     end
 
-    context "alert_on_base_path_conflict is set to true" do
-      let(:conflict_arguments) { arguments.merge("alert_on_base_path_conflict" => true) }
-
-      it "doesn't delete content item from content store" do
-        expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
-        subject.perform(conflict_arguments)
-      end
-
-      it "notifies airbrake" do
-        expect(Airbrake).to receive(:notify)
-          .with(an_instance_of(DiscardDraftBasePathConflictError), a_hash_including(:parameters))
-        subject.perform(conflict_arguments)
-      end
+    it "doesn't delete content item from content store" do
+      expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
+      subject.perform(arguments)
     end
 
-    context "alert_on_base_path_conflict is set to false" do
-      let(:conflict_arguments) { arguments.merge("alert_on_base_path_conflict" => false) }
-      let(:logger) { Sidekiq::Logging.logger }
-
-      it "doesn't delete content item from content store" do
-        expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
-        subject.perform(conflict_arguments)
-      end
-
-      it "doesn't notify aribrake" do
-        expect(Airbrake).to_not receive(:notify)
-        subject.perform(conflict_arguments)
-      end
-
-      it "logs the conflict" do
-        expect(Sidekiq::Logging.logger).to receive(:warn)
-          .with(%r{Cannot discard '/foo'})
-        subject.perform(conflict_arguments)
-      end
+    it "logs the conflict" do
+      expect(Sidekiq::Logging.logger).to receive(:warn)
+        .with(%r{Cannot discard '/foo'})
+      subject.perform(arguments)
     end
   end
 end

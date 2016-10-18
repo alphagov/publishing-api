@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe DependencyResolutionWorker, :perform do
-  let(:live_content_item) { FactoryGirl.create(:live_content_item) }
+  let(:live_content_item) { FactoryGirl.create(:live_content_item, locale: "en") }
 
   subject(:worker_perform) do
     described_class.new.perform(content_id: "123",
@@ -31,7 +31,8 @@ RSpec.describe DependencyResolutionWorker, :perform do
     expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
       "downstream_low",
       a_hash_including(
-        :content_item_id,
+        :content_id,
+        :locale,
         :payload_version,
         message_queue_update_type: "links",
         update_dependencies: false,
@@ -45,6 +46,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
     let!(:draft_content_item) {
       FactoryGirl.create(:draft_content_item,
         content_id: live_content_item.content_id,
+        locale: "en",
         user_facing_version: 2,
       )
     }
@@ -53,7 +55,8 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_item_id: live_content_item.id,
+          content_id: live_content_item.content_id,
+          locale: "en",
         )
       )
 
@@ -69,7 +72,8 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_item_id: draft_content_item.id,
+          content_id: draft_content_item.content_id,
+          locale: "en",
         )
       )
 
