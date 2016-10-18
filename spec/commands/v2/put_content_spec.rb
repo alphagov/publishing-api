@@ -25,6 +25,7 @@ RSpec.describe Commands::V2::PutContent do
         routes: [{ path: base_path, type: "exact" }],
         redirects: [],
         phase: "beta",
+        change_note: { note: "Info", public_timestamp: Time.now.utc.to_s }
       }
     end
 
@@ -318,6 +319,11 @@ RSpec.describe Commands::V2::PutContent do
 
         location = Location.find_by!(content_item: content_item)
         expect(location.base_path).to eq(base_path)
+      end
+
+      it "creates a change note" do
+        expect { described_class.call(payload) }.
+          to change { ChangeNote.count }.by(1)
       end
     end
 

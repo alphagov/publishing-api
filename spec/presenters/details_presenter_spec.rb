@@ -2,7 +2,14 @@ require "rails_helper"
 
 RSpec.describe Presenters::DetailsPresenter do
   describe ".details" do
-    subject { described_class.new(content_item_details).details }
+    let(:change_history_presenter) do
+      instance_double(Presenters::ChangeHistoryPresenter, change_history: [])
+    end
+    subject do
+      described_class.new(
+        content_item_details, change_history_presenter
+      ).details
+    end
 
     context "when we're passed details without a body" do
       let(:content_item_details) { {} }

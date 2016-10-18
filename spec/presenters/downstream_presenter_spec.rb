@@ -7,6 +7,8 @@ RSpec.describe Presenters::DownstreamPresenter do
 
   let(:state_fallback_order) { [] }
   let(:web_content_item) { web_content_item_for(content_item) }
+  let(:change_history) { { note: "Note", public_timestamp: 1.day.ago.to_s } }
+  let(:details) { { body: "<p>Text</p>\n", change_history: [change_history], } }
 
   subject(:result) { described_class.present(web_content_item, state_fallback_order: state_fallback_order) }
 
@@ -19,7 +21,7 @@ RSpec.describe Presenters::DownstreamPresenter do
         base_path: base_path,
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
-        details: { body: "<p>Something about VAT</p>\n" },
+        details: details,
         format: "guide",
         document_type: "guide",
         expanded_links: {},
@@ -39,8 +41,13 @@ RSpec.describe Presenters::DownstreamPresenter do
     }
 
     context "for a live content item" do
-      let(:content_item) { FactoryGirl.create(:live_content_item, base_path: base_path) }
-      let!(:link_set)    { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
+      let(:content_item) do
+        FactoryGirl.create(
+          :live_content_item,
+          base_path: base_path,
+          details: details)
+      end
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to eq(expected)
@@ -48,7 +55,12 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a draft content item" do
-      let(:content_item) { FactoryGirl.create(:draft_content_item, base_path: base_path) }
+      let(:content_item) do
+        FactoryGirl.create(
+          :draft_content_item,
+          base_path: base_path,
+          details: details)
+      end
       let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "presents the object graph for the content store" do
@@ -57,7 +69,12 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a withdrawn content item" do
-      let!(:content_item) { FactoryGirl.create(:withdrawn_unpublished_content_item, base_path: base_path) }
+      let!(:content_item) do
+        FactoryGirl.create(
+          :withdrawn_unpublished_content_item,
+          base_path: base_path,
+          details: details)
+      end
       let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
 
       it "merges in a withdrawal notice" do
@@ -114,6 +131,22 @@ RSpec.describe Presenters::DownstreamPresenter do
             title: "VAT rates",
           }],
         )
+      end
+    end
+
+    context "for a content item with change notes" do
+      let(:content_item) do
+        FactoryGirl.create(
+          :draft_content_item,
+          base_path: base_path,
+          details: details.slice(:body))
+      end
+      before do
+        ChangeNote.create(change_history.merge(content_item: content_item))
+      end
+
+      it "constructs the change history" do
+        expect(result[:details][:change_history].first["note"]).to eq "Note"
       end
     end
 
