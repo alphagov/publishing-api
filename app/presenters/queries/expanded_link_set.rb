@@ -5,7 +5,7 @@ module Presenters
         @content_id = content_id
         @state_fallback_order = Array(state_fallback_order)
         @locale_fallback_order = Array(locale_fallback_order)
-        @visited = []
+        @level_index = {}
       end
 
       def links
@@ -14,39 +14,42 @@ module Presenters
 
     private
 
-      attr_reader :state_fallback_order, :locale_fallback_order, :content_id, :visited
+      attr_reader :state_fallback_order, :locale_fallback_order, :content_id, :level_index
 
-      def children(content_id, type = nil)
+      def children(content_id, type = nil, visited = [])
         visited << content_id
         links = all_links(content_id, type)
         cached_web_content_items = all_web_content_items(links)
         level = links.each_with_object({}) do |link, memo|
-          link_type = link['link_type'].to_sym
-          memo[link_type] = expand_level(link, cached_web_content_items).compact
+          link_type = link["link_type"].to_sym
+          memo[link_type] = expand_level(link, cached_web_content_items, visited).compact
         end
         level.select { |_k, v| v.present? }
       end
 
       def all_web_content_items(links)
-        uniq_links = links.flat_map { |l| JSON.parse(l['target_content_ids']) }.uniq
+        uniq_links = links.flat_map { |l| JSON.parse(l["target_content_ids"]) }.uniq
         web_content_items(uniq_links).each_with_object({}) { |w, memo| memo[w.content_id] = w }
       end
 
-      def expand_level(link, all_web_content_items)
-        JSON.parse(link['target_content_ids']).map do |target_id|
+      def expand_level(link, all_web_content_items, visited)
+        JSON.parse(link["target_content_ids"]).map do |target_id|
           rules.expand_field(all_web_content_items[target_id]).tap do |expanded|
-            next_level = next_level(link).flatten
-            expanded.merge!(links: next_level.present? ? next_level.first : {}) if expanded
+            next_level = next_level(link, target_id, visited)
+            expanded.merge!(links: next_level) if expanded
           end
         end
       end
 
-      def next_level(current_level)
-        return [] unless rules.recurse?(current_level['link_type'])
-        ids = JSON.parse(current_level['target_content_ids'])
-        non_visited = ids.reject { |id| visited.flatten.include?(id) }
-        visited << non_visited
-        non_visited.map { |target| children(target, current_level['link_type']) }.reject(&:blank?)
+      def next_level(current_level, target_id, visited)
+        return {} if visited.include?(target_id)
+        link_type = current_level["link_type"]
+        level_index[link_type] ||= 0
+        return {} unless rules.recurse?(current_level["link_type"], level_index[link_type])
+        level_index[link_type] += 1
+        visited << target_id
+        next_level_type = rules.next_level(current_level["link_type"], level_index[link_type])
+        children(target_id, next_level_type, visited.uniq)
       end
 
       def all_links(content_id, link_type = nil)

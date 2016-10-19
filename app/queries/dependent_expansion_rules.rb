@@ -11,8 +11,10 @@ module Queries
       web_content_item.to_h.slice(*expansion_fields(web_content_item.document_type.to_sym))
     end
 
-    def recurse?(link_type)
-      recursive_link_types.include?(link_type.to_sym)
+    def recurse?(link_type, level_index = 0)
+      recursive_link_types.any? do |t|
+        t[level_index] == link_type.to_sym || t.last == link_type.to_sym
+      end
     end
 
     def reverse_name_for(link_type)
@@ -20,7 +22,16 @@ module Queries
     end
 
     def recursive_link_types
-      reverse_names.keys - [:documents, :working_groups]
+      [
+        [:parent],
+        [:parent_taxons],
+        [:ordered_related_items, :parent],
+      ]
+    end
+
+    def next_level(type, current_level)
+      group = recursive_link_types.find { |e| e.include?(type.to_sym) }
+      group[current_level] || group.last
     end
 
     def reverse_recursive_types

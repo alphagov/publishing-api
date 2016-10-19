@@ -8,6 +8,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   let(:c) { create_link_set }
   let(:d) { create_link_set }
   let(:e) { create_link_set }
+  let(:f) { create_link_set }
+  let(:g) { create_link_set }
 
   let(:locale_fallback_order) { "en" }
 
@@ -42,6 +44,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     let!(:draft_c) { create_content_item(c, "/c", "draft") }
     let!(:draft_d) { create_content_item(d, "/d", "draft") }
     let!(:draft_e) { create_content_item(e, "/e", "draft") }
+    let!(:draft_f) { create_content_item(f, "/f", "draft") }
+    let!(:draft_g) { create_content_item(g, "/g", "draft") }
 
     let(:state_fallback_order) { [:draft] }
 
@@ -73,6 +77,62 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
                 ]
               })]
             })
+        ])
+      end
+    end
+
+    context "ordered related items" do
+      it "expands the links for node a correctly" do
+        create_link(b, d, "ordered_related_items")
+        create_link(a, b, "ordered_related_items")
+        create_link(b, c, "parent")
+        create_link(c, e, "parent")
+        create_link(a, f, "parent")
+        create_link(f, g, "parent")
+
+        expect(expanded_links[:parent]).to match([
+          a_hash_including(
+            base_path: "/f",
+            links: {
+            parent: [a_hash_including(
+              base_path: "/g",
+              links: {})]
+            }
+          )
+        ])
+
+        expect(expanded_links[:ordered_related_items]).to match([
+          a_hash_including(
+            base_path: "/b",
+            links: {
+            parent: [a_hash_including(
+              base_path: "/c",
+              links: {
+                parent: [
+                  a_hash_including(base_path: "/e", links: {})
+                ]
+              })]
+            }
+          )
+        ])
+      end
+    end
+
+    context "multiple parent taxons" do
+      it "expands all the parents" do
+        create_link(a, b, "parent_taxons")
+        create_link(a, c, "parent_taxons")
+        create_link(b, d, "parent_taxons")
+        create_link(c, d, "parent_taxons")
+
+        expect(expanded_links[:parent_taxons][0][:base_path]).to eq("/b")
+        expect(expanded_links[:parent_taxons][0][:links][:parent_taxons]).to match([
+          a_hash_including(base_path: "/d", links: {})
+        ])
+
+        expect(expanded_links[:parent_taxons][1][:base_path]).to eq("/c")
+        expect(expanded_links[:parent_taxons][1][:links][:parent_taxons]).to match([
+          a_hash_including(base_path: "/d", links: {})
         ])
       end
     end
