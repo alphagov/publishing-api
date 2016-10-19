@@ -75,7 +75,7 @@ module DownstreamService
   # (header value) and the respective content for the request.
   def self.set_govuk_dependency_resolution_source_content_id_header(value)
     GdsApi::GovukHeaders.set_header(
-      "govuk_dependency_resolution_source_content_id",
+      :govuk_dependency_resolution_source_content_id,
       value,
     )
   end
