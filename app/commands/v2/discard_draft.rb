@@ -54,6 +54,7 @@ module Commands
         UserFacingVersion.find_by(content_item: draft).try(:destroy)
         LockVersion.find_by(target: draft).try(:destroy)
         AccessLimit.find_by(content_item: draft).try(:destroy)
+        ChangeNote.where(content_item: draft).destroy_all
       end
 
       def increment_live_lock_version

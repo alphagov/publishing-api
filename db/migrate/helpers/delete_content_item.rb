@@ -21,6 +21,7 @@ module Helpers
         Translation,
         Unpublishing,
         UserFacingVersion,
+        ChangeNote,
       ]
 
       supporting_classes.each do |klass|
