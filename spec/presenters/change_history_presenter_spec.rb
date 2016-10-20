@@ -5,7 +5,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
   let(:content_item) do
     FactoryGirl.create(
       :content_item,
-      details: details,
+      details: details.deep_stringify_keys,
       content_id: content_id,
     )
   end
