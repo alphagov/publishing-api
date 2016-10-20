@@ -24,10 +24,27 @@ RSpec.describe Queries::DependentExpansionRules do
 
   describe "#recurse?" do
     specify { expect(subject.recurse?(:parent)).to eq(true) }
+    specify { expect(subject.recurse?("parent")).to eq(true) }
     specify { expect(subject.recurse?(:parent_taxons)).to eq(true) }
     specify { expect(subject.recurse?(:working_groups)).to eq(false) }
     specify { expect(subject.recurse?(:documents)).to eq(false) }
     specify { expect(subject.recurse?(:foo)).to eq(false) }
+
+    context "multi-level" do
+      specify { expect(subject.recurse?(:ordered_related_items, 0)).to eq(true) }
+      specify { expect(subject.recurse?(:ordered_related_items, 1)).to eq(false) }
+      specify { expect(subject.recurse?(:parent, 1)).to eq(true) }
+      specify { expect(subject.recurse?(:parent, 2)).to eq(true) }
+      specify { expect(subject.recurse?(:parent, 3)).to eq(true) }
+    end
+  end
+
+  describe "#next_level" do
+    specify { expect(subject.next_level(:parent, 2)).to eq(:parent) }
+    specify { expect(subject.next_level(:parent, 0)).to eq(:parent) }
+    specify { expect(subject.next_level(:ordered_related_items, 0)).to eq(:ordered_related_items) }
+    specify { expect(subject.next_level(:ordered_related_items, 1)).to eq(:parent) }
+    specify { expect(subject.next_level(:ordered_related_items, 3)).to eq(:parent) }
   end
 
   describe "#reverse_name_for(link_type)" do

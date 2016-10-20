@@ -11,16 +11,32 @@ module Queries
       web_content_item.to_h.slice(*expansion_fields(web_content_item.document_type.to_sym))
     end
 
-    def recurse?(link_type)
-      recursive_link_types.include?(link_type.to_sym)
+    def recurse?(link_type, level_index = 0)
+      recursive_link_types.any? do |t|
+        t.values_at(level_index, -1).include?(link_type.to_sym)
+      end
     end
 
     def reverse_name_for(link_type)
       reverse_names[link_type.to_sym]
     end
 
+    # eg: ['parent', 'parent_taxons', 'parent'] would expand the parent at
+    # level one, parent_taxons at level two, and parents for all levels
+    # greater then n, (the size of the array), the last element being the
+    # "sticky" recursive element. so for array of size 1, it would recurse on just
+    # that element.
     def recursive_link_types
-      reverse_names.keys - [:documents, :working_groups]
+      [
+        [:parent],
+        [:parent_taxons],
+        [:ordered_related_items, :parent],
+      ]
+    end
+
+    def next_level(type, current_level)
+      group = recursive_link_types.find { |e| e.include?(type.to_sym) }
+      group[current_level] || group.last
     end
 
     def reverse_recursive_types
