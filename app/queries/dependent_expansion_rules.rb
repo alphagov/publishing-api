@@ -13,7 +13,7 @@ module Queries
 
     def recurse?(link_type, level_index = 0)
       recursive_link_types.any? do |t|
-        t[level_index] == link_type.to_sym || t.last == link_type.to_sym
+        t.values_at(level_index, -1).include?(link_type.to_sym)
       end
     end
 

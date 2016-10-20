@@ -41,7 +41,6 @@ module Presenters
 
       def next_level(current_level, target_id, visited, level_index)
         return {} if visited.include?(target_id)
-        link_type = current_level["link_type"]
         return {} unless rules.recurse?(current_level["link_type"], level_index)
         level_index += 1
         visited << target_id
@@ -65,7 +64,6 @@ module Presenters
       def rules
         ::Queries::DependeeExpansionRules
       end
-
     end
   end
 end
