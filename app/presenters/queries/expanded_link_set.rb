@@ -5,7 +5,6 @@ module Presenters
         @content_id = content_id
         @state_fallback_order = Array(state_fallback_order)
         @locale_fallback_order = Array(locale_fallback_order)
-        @level_index = {}
       end
 
       def links
@@ -14,15 +13,15 @@ module Presenters
 
     private
 
-      attr_reader :state_fallback_order, :locale_fallback_order, :content_id, :level_index
+      attr_reader :state_fallback_order, :locale_fallback_order, :content_id
 
-      def children(content_id, type = nil, visited = [])
+      def children(content_id, type = nil, visited = [], level_index = 0)
         visited << content_id
         links = all_links(content_id, type)
         cached_web_content_items = all_web_content_items(links)
         level = links.each_with_object({}) do |link, memo|
           link_type = link["link_type"].to_sym
-          memo[link_type] = expand_level(link, cached_web_content_items, visited).compact
+          memo[link_type] = expand_level(link, cached_web_content_items, visited, level_index).compact
         end
         level.select { |_k, v| v.present? }
       end
@@ -32,24 +31,23 @@ module Presenters
         web_content_items(uniq_links).each_with_object({}) { |w, memo| memo[w.content_id] = w }
       end
 
-      def expand_level(link, all_web_content_items, visited)
+      def expand_level(link, all_web_content_items, visited, level_index)
         JSON.parse(link["target_content_ids"]).map do |target_id|
           rules.expand_field(all_web_content_items[target_id]).tap do |expanded|
-            next_level = next_level(link, target_id, visited)
+            next_level = next_level(link, target_id, visited, level_index)
             expanded.merge!(links: next_level) if expanded
           end
         end
       end
 
-      def next_level(current_level, target_id, visited)
+      def next_level(current_level, target_id, visited, level_index)
         return {} if visited.include?(target_id)
         link_type = current_level["link_type"]
-        level_index[link_type] ||= 0
-        return {} unless rules.recurse?(current_level["link_type"], level_index[link_type])
-        level_index[link_type] += 1
+        return {} unless rules.recurse?(current_level["link_type"], level_index)
+        level_index += 1
         visited << target_id
-        next_level_type = rules.next_level(current_level["link_type"], level_index[link_type])
-        children(target_id, next_level_type, visited.uniq)
+        next_level_type = rules.next_level(current_level["link_type"], level_index)
+        children(target_id, next_level_type, visited.uniq, level_index)
       end
 
       def all_links(content_id, link_type = nil)
