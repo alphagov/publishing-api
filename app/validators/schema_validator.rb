@@ -4,6 +4,7 @@ class SchemaValidator
   attr_reader :errors
 
   def initialize(type:, schema_name: nil, schema: nil)
+    @errors = []
     @type = type
     @schema = schema
     @schema_name = schema_name
@@ -14,7 +15,7 @@ class SchemaValidator
 
     return true if schema_name_exception?
 
-    @errors = JSON::Validator.fully_validate(
+    @errors += JSON::Validator.fully_validate(
       schema,
       payload,
       errors_as_objects: true,
@@ -29,8 +30,8 @@ private
   def schema
     @schema || JSON.load(File.read(schema_filepath))
   rescue Errno::ENOENT => error
-    msg = "Unable to find schema for schema_name #{schema_name} and type #{type}"
-    Airbrake.notify(error, parameters: { explanation: msg })
+    errors << missing_schema_message
+    Airbrake.notify(error, parameters: { explanation: missing_schema_message })
     {}
   end
 
@@ -50,5 +51,9 @@ private
 
   def schema_name_exception?
     schema_name.to_s.match(/placeholder_/)
+  end
+
+  def missing_schema_message
+    "Unable to find schema for schema_name #{schema_name} and type #{type}"
   end
 end
