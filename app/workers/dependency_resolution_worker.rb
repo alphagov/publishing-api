@@ -53,7 +53,6 @@ private
       locale: locale,
       payload_version: payload_version,
       update_dependencies: false,
-      alert_on_invalid_state_error: false,
       dependency_resolution_source_content_id: content_id,
     )
   end
@@ -66,7 +65,6 @@ private
       message_queue_update_type: "links",
       payload_version: payload_version,
       update_dependencies: false,
-      alert_on_invalid_state_error: false,
       dependency_resolution_source_content_id: content_id,
     )
   end
