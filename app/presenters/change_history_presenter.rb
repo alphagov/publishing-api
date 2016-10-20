@@ -7,10 +7,14 @@ module Presenters
     end
 
     def change_history
-      content_item.details[:change_history] || change_notes_for_content_item
+      details[:change_history] || change_notes_for_content_item
     end
 
   private
+
+    def details
+      SymbolizeJSON.symbolize(content_item.details)
+    end
 
     def change_notes_for_content_item
       ChangeNote
