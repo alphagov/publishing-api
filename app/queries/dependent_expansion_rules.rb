@@ -21,6 +21,11 @@ module Queries
       reverse_names[link_type.to_sym]
     end
 
+    # eg: ['parent', 'parent_taxons', 'parent'] would expand the parent at
+    # level one, parent_taxons at level two, and parents for all levels
+    # greater then n, (the size of the array), the last element being the
+    # "sticky" recursive element. so for array of size 1, it would recurse on just
+    # that element.
     def recursive_link_types
       [
         [:parent],
