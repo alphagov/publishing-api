@@ -63,7 +63,7 @@ module Commands
 
       def delete_change_notes_if_not_major_update(content_item, update_type)
         unless update_type == "major"
-          ChangeNote.delete_all(content_item: content_item)
+          ChangeNote.where(content_item: content_item).delete_all
         end
       end
 
