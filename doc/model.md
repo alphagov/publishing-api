@@ -5,6 +5,7 @@ explains some of the design decisions and business needs for it.
 
 Index:
  - [Content Item Fields](#content-item-fields)
+ - [Change Notes](#change-notes)
  - [User Need](#user-need)
  - [General Themes](#general-themes)
  - [Content Item Uniqueness](#content-item-uniqueness)
@@ -389,6 +390,21 @@ component will be added to the front-end to show this (assuming the front-end
 application for that format supports this).
 
 There is more information on what each of the phases mean [here](https://www.gov.uk/service-manual/phases).
+
+## Change Notes
+
+Every content item can have an associated change note in the Publishing API.
+
+This is a plain text description of the changes that have been made in
+a major update of the content.
+
+If the `change_history` has not been specified in the `details` for a
+content item, the change notes will be used to create a
+`change_history` to send to the content store (see the schema in the
+[GOV.UK content schemas][govuk-content-schemas] repository for the
+format).
+
+[govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
 
 ## User Need
 
