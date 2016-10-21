@@ -82,6 +82,9 @@ presented content item and [warnings](#warnings).
   - Required if `schema_name` (or `format`) is not one of "contact" or
     "government".
   - The path that this item will use on [GOV.UK](https://www.gov.uk).
+- `change_note` *(optional)*
+  - Specifies the [change note](model.md#change_notes).
+  - Ignored if the `update_type` is not major.
 - `description` *(optional)*
   - A description of the content that can be displayed publicly.
   - TODO: verify what this is meant for and does, and if this is a string or a
@@ -90,6 +93,15 @@ presented content item and [warnings](#warnings).
   - JSON object representing data specific to the `document_type`.
   - Validation for this can occur through the schema referenced in
     `schema_name`.
+  - **Deprecated**: If there is no top-level `change_note` attribute,
+    and this is a "major" `update_type`, then the Publishing API may
+    extract the `change_note` from the details hash. This behaviour is
+    for backwards compatibility, the top-level `change_note` attribute
+    should be used instead.
+	- If `details` has a member named `change_note`, that is used.
+	- Otherwise, if `details` contains a member named
+      `change_history`, then the `note` with the latest coresponding
+      `public_timestamp` is used.
   - TODO: verify the validation on this field.
 - [`document_type`](model.md#document_type) *(conditionally required)*
   - TODO: Add description.
@@ -193,6 +205,9 @@ item will be sent to the live content store. Uses [optimistic-locking](#optimist
   will have their state set to "superseded".
 - For an `update_type` of "major" the `public_updated_at` field will be updated
   to the current time.
+- For an `update_type` other than "major":
+  - If it exists, the [change note](model.md#change-notes) will be
+    deleted, as change notes are only for major updates.
 - If the content item has a non-blank `base_path`:
   - If the `base_path` of the draft item differs to the published version of
     this content item:
