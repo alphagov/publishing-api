@@ -31,5 +31,11 @@ module PublishingAPI
       :lv, :ms, :pl, :ps, :pt, :ro, :ru, :si, :sk, :so, :sq, :sr, :sw, :ta, :th,
       :tk, :tr, :uk, :ur, :uz, :vi, :zh, :'zh-hk', :'zh-tw'
     ]
+
+    config.s3_export = OpenStruct.new(
+      region: ENV["S3_EXPORT_REGION"] || "eu-west-1",
+      bucket: ENV["S3_EXPORT_BUCKET"],
+      events_key_prefix: "events/",
+    )
   end
 end
