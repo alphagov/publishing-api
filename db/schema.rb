@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20161027165922) do
 
   create_table "events", force: :cascade do |t|
     t.string   "action",                  null: false
-    t.json     "payload",    default: {}, null: false
+    t.json     "payload",    default: {}
     t.string   "user_uid"
     t.datetime "created_at"
     t.datetime "updated_at"
