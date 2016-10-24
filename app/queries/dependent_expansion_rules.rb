@@ -30,7 +30,7 @@ module Queries
       [
         [:parent],
         [:parent_taxons],
-        [:ordered_related_items, :parent],
+        [:ordered_related_items, :mainstream_browse_pages, :parent],
       ]
     end
 
