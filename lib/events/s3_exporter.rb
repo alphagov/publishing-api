@@ -22,7 +22,9 @@ module Events
     attr_reader :created_before, :created_on_or_after
 
     def bucket
-      @bucket ||= s3.bucket(Rails.application.config.s3_export.bucket)
+      bucket_name = Rails.application.config.s3_export.bucket
+      raise BucketNotConfiguredError.new("A bucket has not been configured") unless bucket_name.present?
+      @bucket ||= s3.bucket(bucket_name)
     end
 
     def s3
@@ -59,5 +61,6 @@ module Events
     end
 
     class EventsExportExistsError < RuntimeError; end
+    class BucketNotConfiguredError < RuntimeError; end
   end
 end
