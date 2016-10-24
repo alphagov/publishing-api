@@ -85,19 +85,15 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       it "expands the links for node a correctly" do
         create_link(b, d, "ordered_related_items")
         create_link(a, b, "ordered_related_items")
-        create_link(b, c, "parent")
+        create_link(b, c, "mainstream_browse_pages")
         create_link(c, e, "parent")
-        create_link(a, f, "parent")
+        create_link(a, f, "mainstream_browse_pages")
         create_link(f, g, "parent")
 
-        expect(expanded_links[:parent]).to match([
+        expect(expanded_links[:mainstream_browse_pages]).to match([
           a_hash_including(
             base_path: "/f",
-            links: {
-            parent: [a_hash_including(
-              base_path: "/g",
-              links: {})]
-            }
+            links: {}
           )
         ])
 
@@ -105,7 +101,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           a_hash_including(
             base_path: "/b",
             links: {
-            parent: [a_hash_including(
+            mainstream_browse_pages: [a_hash_including(
               base_path: "/c",
               links: {
                 parent: [

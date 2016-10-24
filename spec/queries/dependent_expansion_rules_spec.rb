@@ -43,7 +43,7 @@ RSpec.describe Queries::DependentExpansionRules do
     specify { expect(subject.next_level(:parent, 2)).to eq(:parent) }
     specify { expect(subject.next_level(:parent, 0)).to eq(:parent) }
     specify { expect(subject.next_level(:ordered_related_items, 0)).to eq(:ordered_related_items) }
-    specify { expect(subject.next_level(:ordered_related_items, 1)).to eq(:parent) }
+    specify { expect(subject.next_level(:ordered_related_items, 1)).to eq(:mainstream_browse_pages) }
     specify { expect(subject.next_level(:ordered_related_items, 3)).to eq(:parent) }
   end
 
