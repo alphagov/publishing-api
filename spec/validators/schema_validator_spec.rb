@@ -66,16 +66,5 @@ RSpec.describe SchemaValidator do
         expect(subject.first[:message]).to match expected
       end
     end
-
-    context "unknown schema name" do
-      let(:schema) { nil }
-      let(:payload) { { schema_name: "test" } }
-
-      it "is populated" do
-        expect(subject.count).to eq 1
-        expected = "Unable to find schema for schema_name test and type schema"
-        expect(subject.first).to match expected
-      end
-    end
   end
 end

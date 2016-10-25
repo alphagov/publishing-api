@@ -30,8 +30,14 @@ private
   def schema
     @schema || JSON.load(File.read(schema_filepath))
   rescue Errno::ENOENT => error
-    errors << missing_schema_message
-    Airbrake.notify(error, parameters: { explanation: missing_schema_message })
+    if Rails.env.development?
+      errors << missing_schema_message
+      errors << dev_help
+    end
+    Airbrake.notify(error, parameters: {
+      explanation: missing_schema_message,
+      schema_path: ENV["GOVUK_CONTENT_SCHEMAS_PATH"],
+    })
     {}
   end
 
@@ -55,5 +61,9 @@ private
 
   def missing_schema_message
     "Unable to find schema for schema_name #{schema_name} and type #{type}"
+  end
+
+  def dev_help
+    "Ensure GOVUK_CONTENT_SCHEMAS_PATH env varibale is set and points to the dist directory of govuk-content-schemas"
   end
 end

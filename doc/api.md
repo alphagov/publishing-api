@@ -51,9 +51,9 @@ content item.
 
 This will occur when the draft has a different content id from an existing item
 of content, published (or unpublished) at the same base path. Some document
-types are exempt from this restriction, and if either the draft, or the blocking
-content item are of a "substitutable" document type, upon the publish of the
-draft, the blocking item will be unpublished.
+types are exempt from this restriction, and if either the draft, or the
+blocking content item are of a "substitutable" document type, upon the publish
+of the draft, the blocking item will be unpublished.
 
 ## `PUT /v2/content/:content_id`
 
@@ -62,6 +62,13 @@ draft, the blocking item will be unpublished.
 Used to create or update a draft content item. It will restrict creation if
 there is already a draft content item with the same `base_path` and `locale`.
 Uses [optimistic-locking](#optimistic-locking-previous_version).
+
+The request must conform to the schema defined in govuk-content-schemas if it
+doesn't a 422 with error message stating that the payload did not conform to the schema,
+and more details in the error details. In development, an error can occur if you do not
+have the govuk-content-schemas locally, in which case ensure that you have pulled the latest
+version of [GOV.UK content schema](https://github.com/alphagov/govuk-content-schemas) and set the
+GOVUK_CONTENT_SCHEMAS_PATH to point to the dist folder.
 
 If the request is successful, this endpoint will respond with the
 presented content item and [warnings](#warnings).
