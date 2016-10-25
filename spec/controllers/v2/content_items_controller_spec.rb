@@ -2,8 +2,12 @@ require "rails_helper"
 
 RSpec.describe V2::ContentItemsController do
   let(:content_id) { SecureRandom.uuid }
+  let(:validator) do
+    instance_double(SchemaValidator, validate: false, errors: [])
+  end
 
   before do
+    allow(SchemaValidator).to receive(:new).and_return(validator)
     stub_request(:any, /content-store/)
 
     @draft = FactoryGirl.create(

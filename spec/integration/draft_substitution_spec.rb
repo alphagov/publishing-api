@@ -33,7 +33,14 @@ RSpec.describe "Substituting content that is not published" do
     }
   end
 
-  before { stub_request(:any, /content-store/) }
+  let(:validator) do
+    instance_double(SchemaValidator, validate: false, errors: [])
+  end
+
+  before do
+    allow(SchemaValidator).to receive(:new).and_return(validator)
+    stub_request(:any, /content-store/)
+  end
 
   describe "after the first substitution" do
     before do
