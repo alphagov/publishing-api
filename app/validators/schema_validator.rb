@@ -43,7 +43,7 @@ private
 
   def schema_filepath
     File.join(
-      "govuk-content-schemas",
+      ENV["GOVUK_CONTENT_SCHEMAS_PATH"],
       "formats",
       schema_name,
       "publisher_v2",
