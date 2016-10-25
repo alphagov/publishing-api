@@ -15,7 +15,6 @@ module Helpers
 
       supporting_classes = [
         AccessLimit,
-        Linkable,
         Location,
         State,
         Translation,
@@ -25,6 +24,7 @@ module Helpers
       ]
 
       supporting_classes.each do |klass|
+        next unless ActiveRecord::Base.connection.data_source_exists?(klass.table_name)
         klass.where(content_item: content_items).destroy_all
       end
 
