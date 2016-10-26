@@ -28,7 +28,7 @@ private
   attr_reader :payload, :type
 
   def schema
-    @schema || JSON.load(File.read(schema_filepath))
+    @schema || find_schema
   rescue Errno::ENOENT => error
     if Rails.env.development?
       errors << missing_schema_message
@@ -41,14 +41,8 @@ private
     {}
   end
 
-  def schema_filepath
-    File.join(
-      ENV["GOVUK_CONTENT_SCHEMAS_PATH"],
-      "formats",
-      schema_name,
-      "publisher_v2",
-      "#{type}.json"
-    )
+  def find_schema
+    GovukSchemas::Schema.find(schema_name, schema_type: type)
   end
 
   def schema_name
@@ -64,6 +58,6 @@ private
   end
 
   def dev_help
-    "Ensure GOVUK_CONTENT_SCHEMAS_PATH env varibale is set and points to the dist directory of govuk-content-schemas"
+    "Ensure GOVUK_CONTENT_SCHEMAS_PATH env variable is set and points to the dist directory of govuk-content-schemas"
   end
 end
