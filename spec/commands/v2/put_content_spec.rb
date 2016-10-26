@@ -2,7 +2,12 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::PutContent do
   describe "call" do
+    let(:validator) do
+      instance_double(SchemaValidator, validate: false, errors: [])
+    end
+
     before do
+      allow(SchemaValidator).to receive(:new).and_return(validator)
       stub_request(:delete, %r{.*content-store.*/content/.*})
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
@@ -789,7 +794,12 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "with a pathless content item payload" do
+      let(:validator) do
+        instance_double(SchemaValidator, validate: false, errors: [])
+      end
+
       before do
+        allow(SchemaValidator).to receive(:new).and_return(validator)
         payload.delete(:base_path)
         payload[:schema_name] = "contact"
       end

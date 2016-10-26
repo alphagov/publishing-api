@@ -4,6 +4,7 @@ class SchemaValidator
   attr_reader :errors
 
   def initialize(type:, schema_name: nil, schema: nil)
+    @errors = []
     @type = type
     @schema = schema
     @schema_name = schema_name
@@ -14,7 +15,7 @@ class SchemaValidator
 
     return true if schema_name_exception?
 
-    @errors = JSON::Validator.fully_validate(
+    @errors += JSON::Validator.fully_validate(
       schema,
       payload,
       errors_as_objects: true,
@@ -27,21 +28,21 @@ private
   attr_reader :payload, :type
 
   def schema
-    @schema || JSON.load(File.read(schema_filepath))
+    @schema || find_schema
   rescue Errno::ENOENT => error
-    msg = "Unable to find schema for schema_name #{schema_name} and type #{type}"
-    Airbrake.notify(error, parameters: { explanation: msg })
+    if Rails.env.development?
+      errors << missing_schema_message
+      errors << dev_help
+    end
+    Airbrake.notify(error, parameters: {
+      explanation: missing_schema_message,
+      schema_path: ENV["GOVUK_CONTENT_SCHEMAS_PATH"],
+    })
     {}
   end
 
-  def schema_filepath
-    File.join(
-      "govuk-content-schemas",
-      "formats",
-      schema_name,
-      "publisher_v2",
-      "#{type}.json"
-    )
+  def find_schema
+    GovukSchemas::Schema.find(schema_name, schema_type: type)
   end
 
   def schema_name
@@ -50,5 +51,13 @@ private
 
   def schema_name_exception?
     schema_name.to_s.match(/placeholder_/)
+  end
+
+  def missing_schema_message
+    "Unable to find schema for schema_name #{schema_name} and type #{type}"
+  end
+
+  def dev_help
+    "Ensure GOVUK_CONTENT_SCHEMAS_PATH env variable is set and points to the dist directory of govuk-content-schemas"
   end
 end
