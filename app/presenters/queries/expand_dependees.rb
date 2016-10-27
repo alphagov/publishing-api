@@ -12,7 +12,7 @@ module Presenters
 
     private
 
-      attr_reader :content_id, :controller
+      attr_reader :content_id, :controller, :state_fallback_order
 
       def parents(content_id, type = nil, visited = [], level_index = 0)
         visited << content_id
@@ -26,17 +26,37 @@ module Presenters
       end
 
       def all_web_content_items(links)
+        web_content_items_including_withdrawn(links).each_with_object({}) do |content_item, memo|
+          memo[content_item.content_id] = content_item
+        end
+      end
+
+      def web_content_items_including_withdrawn(links)
         uniq_links = links.flat_map { |l| JSON.parse(l["target_content_ids"]) }.uniq
-        controller.web_content_items(uniq_links).each_with_object({}) { |w, memo| memo[w.content_id] = w }
+        controller.web_content_items(
+          uniq_links,
+          controller.state_fallback_order + [:withdrawn]
+        )
       end
 
       def expand_level(link, all_web_content_items, visited, level_index)
         JSON.parse(link["target_content_ids"]).map do |target_id|
-          rules.expand_field(all_web_content_items[target_id]).tap do |expanded|
+          web_content_item = all_web_content_items[target_id]
+          next unless link_should_be_expanded?(link["link_type"], web_content_item)
+          rules.expand_field(web_content_item).tap do |expanded|
             next_level = next_level(link, target_id, visited, level_index)
             expanded.merge!(links: next_level) if expanded
           end
         end
+      end
+
+      def link_should_be_expanded?(link_type, web_content_item)
+        return false unless web_content_item
+        web_content_item.state != 'unpublished' || withdrawn_parent?(link_type, web_content_item.state)
+      end
+
+      def withdrawn_parent?(link_type, state)
+        state == "unpublished" && link_type == 'parent'
       end
 
       def next_level(current_level, target_id, visited, level_index)
