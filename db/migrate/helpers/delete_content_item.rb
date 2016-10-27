@@ -15,7 +15,6 @@ module Helpers
 
       supporting_classes = [
         AccessLimit,
-        Linkable,
         Location,
         State,
         Translation,
