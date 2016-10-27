@@ -7,7 +7,6 @@ module Queries
     end
 
     def expand_field(web_content_item)
-      return unless web_content_item
       web_content_item.to_h.slice(*expansion_fields(web_content_item.document_type.to_sym))
     end
 

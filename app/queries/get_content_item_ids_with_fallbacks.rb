@@ -12,7 +12,7 @@ module Queries
       unpublishings = Unpublishing.arel_table
 
       fallback_scope = content_items.project(
-          content_items[:id],
+        content_items[:id],
             content_items[:content_id],
           )
           .join(states).on(states[:content_item_id].eq(content_items[:id]))
