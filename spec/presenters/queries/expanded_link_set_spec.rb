@@ -69,13 +69,13 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           a_hash_including(
             base_path: "/b",
             links: {
-            parent: [a_hash_including(
-              base_path: "/c",
-              links: {
-                parent: [
-                  a_hash_including(base_path: "/d", details: {}, links: {})
-                ]
-              })]
+              parent: [a_hash_including(
+                base_path: "/c",
+                links: {
+                  parent: [
+                    a_hash_including(base_path: "/d", details: {}, links: {})
+                  ]
+                })]
             })
         ])
       end
@@ -101,13 +101,13 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           a_hash_including(
             base_path: "/b",
             links: {
-            mainstream_browse_pages: [a_hash_including(
-              base_path: "/c",
-              links: {
-                parent: [
-                  a_hash_including(base_path: "/e", links: {})
-                ]
-              })]
+              mainstream_browse_pages: [a_hash_including(
+                base_path: "/c",
+                links: {
+                  parent: [
+                    a_hash_including(base_path: "/e", links: {})
+                  ]
+                })]
             }
           )
         ])
