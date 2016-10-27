@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013104311) do
+ActiveRecord::Schema.define(version: 20161027165922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
   create_table "access_limits", force: :cascade do |t|
     t.json     "users",           default: [], null: false
     t.datetime "created_at",                   null: false
@@ -143,6 +144,7 @@ ActiveRecord::Schema.define(version: 20161013104311) do
     t.string   "alternative_path"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "unpublished_at"
     t.index ["content_item_id", "type"], name: "index_unpublishings_on_content_item_id_and_type", using: :btree
     t.index ["content_item_id"], name: "index_unpublishings_on_content_item_id", using: :btree
   end
