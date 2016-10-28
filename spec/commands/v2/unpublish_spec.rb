@@ -109,6 +109,44 @@ RSpec.describe Commands::V2::Unpublish do
           }
         end
       end
+
+      context "and the unpublished_at parameter is set" do
+        let(:payload) do
+          {
+            content_id: content_id,
+            type: "gone",
+            explanation: "Removed for testing porpoises",
+            alternative_path: "/new-path",
+            unpublished_at: DateTime.new(2016, 8, 1, 1, 1, 1).rfc3339
+          }
+        end
+
+        it "ignores the provided unpublished_at" do
+          described_class.call(payload)
+
+          unpublishing = Unpublishing.find_by(content_item: live_content_item)
+          expect(unpublishing.unpublished_at).to be_nil
+        end
+
+        context "for a withdrawal" do
+          let(:payload) do
+            {
+              content_id: content_id,
+              type: "withdrawal",
+              explanation: "Removed for testing porpoises",
+              alternative_path: "/new-path",
+              unpublished_at: DateTime.new(2016, 8, 1, 10, 10, 10).rfc3339
+            }
+          end
+
+          it "persists the provided unpublished_at" do
+            described_class.call(payload)
+
+            unpublishing = Unpublishing.find_by(content_item: live_content_item)
+            expect(unpublishing.unpublished_at).to eq DateTime.new(2016, 8, 1, 10, 10, 10)
+          end
+        end
+      end
     end
 
     context "when only a draft is present" do

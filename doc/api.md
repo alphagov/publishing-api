@@ -262,6 +262,15 @@ type. Uses [optimistic-locking](#optimistic-locking-previous_version).
 - `type` *(required)*
   - Accepts: "gone", "redirect", "withdrawal", "vanish"
   - The type of unpublishing that is being performed.
+- `unpublished_at` *(optional)*
+  - An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) formatted timestamp
+    should be provided, although [other formats](http://apidock.com/rails/String/to_time)
+    may be accepted.
+  - Specifies when this content item was withdrawn. Ignored for unpublishing
+    types other than `withdrawn`.
+  - If omitted, the `withdrawn_at` time will be taken to be the time this call
+    was made.
+
 
 ### State changes
 - If the unpublishing `type` is "gone", "redirect" or "withdrawal":

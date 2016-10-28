@@ -23,16 +23,19 @@ class State < ApplicationRecord
     change_state(content_item, name: "published")
   end
 
-  def self.unpublish(content_item, type:, explanation: nil, alternative_path: nil)
+  def self.unpublish(content_item, type:, explanation: nil, alternative_path: nil, unpublished_at: nil)
     change_state(content_item, name: "unpublished")
 
     unpublishing = Unpublishing.find_by(content_item: content_item)
+
+    unpublished_at = nil unless type == "withdrawal"
 
     if unpublishing.present?
       unpublishing.update_attributes(
         type: type,
         explanation: explanation,
         alternative_path: alternative_path,
+        unpublished_at: unpublished_at,
       )
       unpublishing
     else
@@ -41,6 +44,7 @@ class State < ApplicationRecord
         type: type,
         explanation: explanation,
         alternative_path: alternative_path,
+        unpublished_at: unpublished_at,
       )
     end
   end

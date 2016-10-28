@@ -82,7 +82,10 @@ module Commands
       end
 
       def unpublish
-        State.unpublish(content_item, payload.slice(:type, :explanation, :alternative_path))
+        State.unpublish(
+          content_item,
+          payload.slice(:type, :explanation, :alternative_path, :unpublished_at)
+        )
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, fields: {})
       end
