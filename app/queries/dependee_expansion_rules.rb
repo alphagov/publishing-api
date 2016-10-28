@@ -13,6 +13,7 @@ module Queries
         placeholder_topical_event: default_fields + [:details],
         organisation: default_fields + [:details],
         placeholder_organisation: default_fields + [:details],
+        taxon: default_fields + [:details],
       }[link_type]
     end
   end
