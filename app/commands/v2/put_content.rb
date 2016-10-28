@@ -314,7 +314,7 @@ module Commands
       def schema_validation_errors
         @_validation_errors ||=
           begin
-            validator = SchemaValidator.new(type: :schema)
+            validator = SchemaValidator.new
             validator.validate(payload.except(:content_id))
             validator.errors
           end

@@ -3,9 +3,8 @@ require 'json-schema'
 class SchemaValidator
   attr_reader :errors
 
-  def initialize(type:, schema_name: nil, schema: nil)
+  def initialize(schema_name: nil, schema: nil)
     @errors = []
-    @type = type
     @schema = schema
     @schema_name = schema_name
   end
@@ -25,7 +24,7 @@ class SchemaValidator
 
 private
 
-  attr_reader :payload, :type
+  attr_reader :payload
 
   def schema
     @schema || find_schema
@@ -42,7 +41,7 @@ private
   end
 
   def find_schema
-    GovukSchemas::Schema.find(schema_name, schema_type: type)
+    GovukSchemas::Schema.find(schema_name, schema_type: "publisher_v2")
   end
 
   def schema_name
@@ -54,7 +53,7 @@ private
   end
 
   def missing_schema_message
-    "Unable to find schema for schema_name #{schema_name} and type #{type}"
+    "Unable to find schema for schema_name #{schema_name}"
   end
 
   def dev_help
