@@ -11,7 +11,7 @@ RSpec.describe SchemaValidator do
     }.deep_stringify_keys
   end
 
-  subject(:validator) { SchemaValidator.new(type: :schema, schema: schema) }
+  subject(:validator) { SchemaValidator.new(schema: schema) }
 
   describe "#validate" do
     context "unknown schema name" do

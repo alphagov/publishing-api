@@ -30,6 +30,14 @@ RSpec.describe "Message bus", type: :request do
     end
 
     context "detailed_guide format" do
+      let(:validator) do
+        instance_double(SchemaValidator, validate: false, errors: [])
+      end
+
+      before do
+        allow(SchemaValidator).to receive(:new).and_return(validator)
+      end
+
       it "uses the schema_name for the routing key on publish and 'links' for the link update" do
         put request_path, params: content_item_params.merge(schema_name: "detailed_guide").to_json
 

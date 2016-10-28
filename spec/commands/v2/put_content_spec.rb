@@ -711,7 +711,6 @@ RSpec.describe Commands::V2::PutContent do
         double('validator', validate: true, errors: [])
       }
       expect(SchemaValidator).to receive(:new)
-        .with(type: :schema)
 
       described_class.call(payload)
     end
