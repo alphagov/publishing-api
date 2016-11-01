@@ -20,12 +20,14 @@ RSpec.describe ChangeNote do
     end
 
     context "payload contains top-level change note entry" do
-      let(:payload_change_note) do
-        { note: "Excellent", public_timestamp: 1.day.ago.to_s }
-      end
+      let(:payload_change_note) { "Excellent" }
       it "populates change note from top-level change note entry" do
-        expect { subject }.to change { ChangeNote.count }.by(1)
-        expect(ChangeNote.last.note).to eq "Excellent"
+        Timecop.freeze do
+          expect { subject }.to change { ChangeNote.count }.by(1)
+          result = ChangeNote.last
+          expect(result.note).to eq "Excellent"
+          expect(result.public_timestamp.iso8601).to eq Time.zone.now.iso8601
+        end
       end
     end
 
