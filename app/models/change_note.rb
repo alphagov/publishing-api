@@ -25,7 +25,11 @@ private
 
   def create_from_top_level_change_note
     return unless change_note
-    ChangeNote.create!(change_note.merge(content_item: content_item))
+    ChangeNote.create!(
+      content_item: content_item,
+      note: change_note,
+      public_timestamp: Time.zone.now
+    )
   end
 
   def create_from_details_hash_change_note
