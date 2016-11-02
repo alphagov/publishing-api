@@ -64,9 +64,10 @@ there is already a draft content item with the same `base_path` and `locale`.
 Uses [optimistic-locking](#optimistic-locking-previous_version).
 
 The request must conform to the schema defined in govuk-content-schemas if it
-doesn't a 422 with error message stating that the payload did not conform to the schema,
-and more details in the error details. In development, an error can occur if you do not
-have the govuk-content-schemas locally, in which case ensure that you have pulled the latest
+doesn't a 422 response will be returned with an error message stating that the
+payload did not conform to the schema with further error details. In
+development, an error can occur if you do not have the govuk-content-schemas
+locally, in which case ensure that you have pulled the latest
 version of [GOV.UK content schema](https://github.com/alphagov/govuk-content-schemas) and set the
 GOVUK_CONTENT_SCHEMAS_PATH environment variable to the location on your machine
 - eg `export GOVUK_CONTENT_SCHEMAS_PATH=/var/govuk/govuk-content-schemas`.
