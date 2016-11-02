@@ -49,6 +49,17 @@ RSpec.describe Commands::V2::PutContent do
       described_class.call(payload)
     end
 
+    it "creates an action" do
+      expect(Action.count).to be 0
+      described_class.call(payload)
+      expect(Action.count).to be 1
+      expect(Action.first.attributes).to match a_hash_including(
+        "content_id" => content_id,
+        "locale" => locale,
+        "action" => "PutContent",
+      )
+    end
+
     context "when the 'downstream' parameter is false" do
       it "does not send to the downstream draft worker" do
         expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)

@@ -5,6 +5,17 @@ class Action < ActiveRecord::Base
 
   validate :one_of_content_item_link_set
 
+  def self.create_put_content_action(content_item, locale, event)
+    create!(
+      content_id: content_item.content_id,
+      locale: locale,
+      action: "PutContent",
+      user_uid: event.user_uid,
+      content_item: content_item,
+      event: event,
+    )
+  end
+
 private
 
   def one_of_content_item_link_set
