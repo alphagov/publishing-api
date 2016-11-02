@@ -56,6 +56,8 @@ module Commands
           send_downstream(content_item.content_id, translation.locale, update_type)
         end
 
+        Action.create_publish_action(content_item, locale, event)
+
         Success.new(content_id: content_id)
       end
 

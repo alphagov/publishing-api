@@ -6,10 +6,18 @@ class Action < ActiveRecord::Base
   validate :one_of_content_item_link_set
 
   def self.create_put_content_action(content_item, locale, event)
+    create_publishing_action("PutContent", content_item, locale, event)
+  end
+
+  def self.create_publish_action(content_item, locale, event)
+    create_publishing_action("Publish", content_item, locale, event)
+  end
+
+  def self.create_publishing_action(action, content_item, locale, event)
     create!(
       content_id: content_item.content_id,
       locale: locale,
-      action: "PutContent",
+      action: action,
       user_uid: event.user_uid,
       content_item: content_item,
       event: event,
