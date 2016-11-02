@@ -26,6 +26,8 @@ module Commands
           send_downstream
         end
 
+        Action.create_patch_link_set_action(link_set, event)
+
         presented = Presenters::Queries::LinkSetPresenter.present(link_set)
         Success.new(presented)
       end

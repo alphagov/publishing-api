@@ -29,6 +29,17 @@ class Action < ActiveRecord::Base
     )
   end
 
+  def self.create_patch_link_set_action(link_set, event)
+    create!(
+      content_id: link_set.content_id,
+      locale: nil,
+      action: "PatchLinkSet",
+      user_uid: event.user_uid,
+      link_set: link_set,
+      event: event,
+    )
+  end
+
 private
 
   def one_of_content_item_link_set

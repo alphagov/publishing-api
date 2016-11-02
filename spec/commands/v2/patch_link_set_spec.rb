@@ -35,7 +35,21 @@ RSpec.describe Commands::V2::PatchLinkSet do
       .and_return(expected_content_store_payload)
   end
 
+  shared_examples "creates an action" do
+    it "creates an action" do
+      expect(Action.count).to be 0
+      described_class.call(payload)
+      expect(Action.count).to be 1
+      expect(Action.first.attributes).to match a_hash_including(
+        "content_id" => content_id,
+        "action" => "PatchLinkSet",
+      )
+    end
+  end
+
   context "when no link set exists" do
+    include_examples "creates an action"
+
     it "creates the link set and associated links" do
       described_class.call(payload)
 
@@ -127,6 +141,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       FactoryGirl.create(:lock_version, target: link_set, number: 1)
     end
+
+    include_examples "creates an action"
 
     it "creates links for groups that appear in the payload and not in the database" do
       described_class.call(payload)
