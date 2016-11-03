@@ -4,6 +4,7 @@ class Action < ActiveRecord::Base
   belongs_to :event
 
   validate :one_of_content_item_link_set
+  validates :action, presence: true
 
   def self.create_put_content_action(content_item, locale, event)
     create_publishing_action("PutContent", content_item, locale, event)

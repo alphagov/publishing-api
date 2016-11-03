@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       get "/new-linkables", to: "content_items#new_linkables"
 
       get "/grouped-content-and-links", to: "grouped_content_and_links#index"
+
+      post "/actions/:content_id", to: "actions#create"
     end
   end
 
