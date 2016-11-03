@@ -4,6 +4,12 @@ class ChangeNote < ActiveRecord::Base
   def self.create_from_content_item(payload, content_item)
     ChangeNoteFactory.new(payload, content_item).build
   end
+
+  def self.join_content_items(content_item_scope)
+    content_item_scope.joins(
+      "LEFT JOIN change_notes ON change_notes.content_item_id = content_items.id"
+    )
+  end
 end
 
 class ChangeNoteFactory

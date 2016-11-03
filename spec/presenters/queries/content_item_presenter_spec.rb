@@ -14,14 +14,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     let(:result) { described_class.present(content_item) }
 
-    around do |example|
-      Timecop.freeze(Date.new(2016, 1, 1)) do
-        example.run
-      end
-    end
-
-    it "presents content item attributes as a hash" do
-      expect(result).to eq(
+    let(:payload) do
+      {
         "content_id" => content_id,
         "locale" => "en",
         "base_path" => base_path,
@@ -46,7 +40,17 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "lock_version" => 1,
         "updated_at" => "2016-01-01 00:00:00",
         "state_history" => { 1 => "draft" },
-      )
+      }
+    end
+
+    around do |example|
+      Timecop.freeze(Date.new(2016, 1, 1)) do
+        example.run
+      end
+    end
+
+    it "presents content item attributes as a hash" do
+      expect(result).to eq(payload)
     end
 
     context "for a draft content item" do
@@ -76,6 +80,23 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
         result = described_class.present(content_item)
         expect(result.fetch("locale")).to eq("en")
+      end
+    end
+
+    context "when a change note exists" do
+      let!(:content_item) do
+        FactoryGirl.create(:draft_content_item,
+          content_id: content_id,
+          base_path: base_path,
+          update_type: "major"
+        )
+      end
+
+      it "presents the item including the change note" do
+        expect(result).to eq(payload.merge(
+          "change_note" => "note",
+          "update_type" => "major"
+        ))
       end
     end
   end
