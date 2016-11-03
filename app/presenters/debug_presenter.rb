@@ -77,7 +77,9 @@ module Presenters
     end
 
     def web_content_item
-      WebContentItem.new(latest_content_items.last)
+      ::Queries::GetWebContentItems.find(
+        latest_content_items.last.id
+      )
     end
 
     def web_url
