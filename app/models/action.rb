@@ -18,6 +18,10 @@ class Action < ActiveRecord::Base
     create_publishing_action(action, content_item, locale, event)
   end
 
+  def self.create_discard_draft_action(content_item, locale, event)
+    create_publishing_action("DiscardDraft", content_item, locale, event)
+  end
+
   def self.create_publishing_action(action, content_item, locale, event)
     create!(
       content_id: content_item.content_id,
