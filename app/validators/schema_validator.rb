@@ -57,6 +57,6 @@ private
   end
 
   def dev_help
-    "Ensure GOVUK_CONTENT_SCHEMAS_PATH env variable is set and points to the dist directory of govuk-content-schemas"
+    "Ensure GOVUK_CONTENT_SCHEMAS_PATH env variable is set and points to the root directory of govuk-content-schemas"
   end
 end
