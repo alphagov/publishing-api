@@ -26,7 +26,7 @@ module Presenters
     end
 
     def latest_content_items
-      ::Queries::GetLatest.call(content_items)
+      @latest_content_items ||= ::Queries::GetLatest.call(content_items)
     end
 
     def latest_state_with_locale
@@ -77,7 +77,7 @@ module Presenters
     end
 
     def web_content_item
-      ::Queries::GetWebContentItems.find(
+      @web_content_item ||= ::Queries::GetWebContentItems.find(
         latest_content_items.last.id
       )
     end
