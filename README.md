@@ -29,6 +29,8 @@ the system
 potential to mutate its internal state
 - **Unpublishing**: An object indicating a previously published content item
 which has been removed from the live site.  Can be "gone", "withdrawal", or "redirect".
+- **Action**: A record of activity on a particular Content Item, used to assist
+custom workflows of publishing applications.
 
 For more information, refer to [doc/api.md](doc/api.md) and
 [doc/model.md](doc/model.md).
