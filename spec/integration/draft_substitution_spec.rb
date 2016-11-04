@@ -34,7 +34,7 @@ RSpec.describe "Substituting content that is not published" do
   end
 
   let(:validator) do
-    instance_double(SchemaValidator, validate: false, errors: [])
+    instance_double(SchemaValidator, valid?: true, errors: [])
   end
 
   before do

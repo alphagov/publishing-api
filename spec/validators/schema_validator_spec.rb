@@ -11,7 +11,7 @@ RSpec.describe SchemaValidator do
     }.deep_stringify_keys
   end
 
-  subject(:validator) { SchemaValidator.new(schema: schema) }
+  subject(:validator) { SchemaValidator.new(schema: schema, payload: payload) }
 
   describe "#validate" do
     context "unknown schema name" do
@@ -22,7 +22,7 @@ RSpec.describe SchemaValidator do
         expect(Airbrake)
           .to receive(:notify)
           .with(an_instance_of(Errno::ENOENT), a_hash_including(:parameters))
-        validator.validate(payload)
+        validator.valid?
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe SchemaValidator do
       let(:payload) { { a: 1 } }
 
       it "returns true" do
-        expect(validator.validate(payload)).to be true
+        expect(validator.valid?).to be true
       end
     end
 
@@ -38,14 +38,14 @@ RSpec.describe SchemaValidator do
       let(:payload) { { b: 1 } }
 
       it "returns false" do
-        expect(validator.validate(payload)).to be false
+        expect(validator.valid?).to be false
       end
     end
   end
 
   describe "#errors" do
     subject do
-      validator.validate(payload)
+      validator.valid?
       validator.errors
     end
 

@@ -63,6 +63,9 @@ module Queries
       ]
     end
 
+    # Ensure when modifying the values to also include them in
+    # govuk-content-schemas LINK_NAMES_ADDED_BY_PUBLISHING_API array
+    # in FrontendSchemaGenerator
     def reverse_names
       {
         parent: "children",

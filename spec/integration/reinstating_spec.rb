@@ -50,7 +50,7 @@ RSpec.describe "Reinstating Content Items that were previously unpublished" do
   end
 
   let(:validator) do
-    instance_double(SchemaValidator, validate: false, errors: [])
+    instance_double(SchemaValidator, valid?: true, errors: [])
   end
 
   before do
