@@ -44,7 +44,7 @@ FactoryGirl.define do
       unless evaluator.base_path.nil?
         FactoryGirl.create(:location, base_path: evaluator.base_path, content_item: item)
       end
-      unless item.update_type == 'minor'
+      unless item.update_type == "minor" || evaluator.change_note.nil?
         FactoryGirl.create(:change_note, note: evaluator.change_note, content_item: item)
       end
     end
