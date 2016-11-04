@@ -93,10 +93,11 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
 
       it "presents the item including the change note" do
-        expect(result).to eq(payload.merge(
+        expected = payload.merge(
           "change_note" => "note",
           "update_type" => "major"
-        ))
+        )
+        expect(result).to eq expected
       end
     end
   end
