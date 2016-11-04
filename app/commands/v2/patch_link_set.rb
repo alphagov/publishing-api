@@ -3,6 +3,7 @@ module Commands
     class PatchLinkSet < BaseCommand
       def call
         raise_unless_links_hash_is_provided
+        validate_schema
         link_set = find_or_create_link_set(content_id)
 
         check_version_and_raise_if_conflicting(link_set, previous_version_number)
@@ -120,6 +121,29 @@ module Commands
           message_queue_update_type: "links",
           payload_version: event.id,
         )
+      end
+
+      def validate_schema
+        # There may not be a ContentItem yet.
+        return true unless schema_name
+
+        # Do not raise anything yet
+        # Only send errbit notification
+        schema_validator.valid?
+      end
+
+      def schema_validator
+        @schema_validator ||= SchemaValidator.new(
+          payload: payload[:links],
+          links: true,
+          schema_name: schema_name
+        )
+      end
+
+      def schema_name
+        @schema_name ||= Queries::GetLatest.(
+          ContentItem.where(content_id: payload[:content_id])
+        ).pluck(:schema_name).first
       end
     end
   end

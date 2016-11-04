@@ -116,7 +116,7 @@ GEM
     govuk-lint (1.2.1)
       rubocop (~> 0.39.0)
       scss_lint
-    govuk_schemas (1.0.0)
+    govuk_schemas (2.0.0)
       json-schema (~> 2.5.0)
     govuk_sidekiq (1.0.1)
       airbrake (>= 3.1.0)
@@ -402,7 +402,7 @@ DEPENDENCIES
   gds-sso (= 13.0.0)
   govspeak (~> 5.0.2)
   govuk-lint
-  govuk_schemas (~> 1.0)
+  govuk_schemas
   govuk_sidekiq (~> 1.0.1)
   hashdiff
   json-schema

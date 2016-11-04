@@ -19,7 +19,7 @@ else
 end
 
 gem "gds-sso", "13.0.0"
-gem "govuk_schemas", "~> 1.0"
+gem "govuk_schemas", require: false
 
 gem 'bunny', '2.5.1'
 gem 'whenever', '0.9.4', require: false

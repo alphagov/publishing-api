@@ -1,19 +1,19 @@
 require 'json-schema'
+require 'govuk_schemas'
 
 class SchemaValidator
   attr_reader :errors
 
-  def initialize(schema_name: nil, schema: nil)
-    @errors = []
+  def initialize(payload:, links: false, schema: nil, schema_name: nil)
+    @payload = payload
+    @links = links
     @schema = schema
     @schema_name = schema_name
+    @errors = []
   end
 
-  def validate(payload)
-    @payload = payload
-
+  def valid?
     return true if schema_name_exception?
-
     @errors += JSON::Validator.fully_validate(
       schema,
       payload,
@@ -24,7 +24,7 @@ class SchemaValidator
 
 private
 
-  attr_reader :payload
+  attr_reader :payload, :links
 
   def schema
     @schema || find_schema
@@ -41,7 +41,19 @@ private
   end
 
   def find_schema
-    GovukSchemas::Schema.find(schema_name, schema_type: "publisher_v2")
+    @schema || GovukSchemas::Schema.find(find_type)
+  end
+
+  def find_type
+    if links?
+      { links_schema: schema_name }
+    else
+      { publisher_schema: schema_name }
+    end
+  end
+
+  def links?
+    links
   end
 
   def schema_name

@@ -4,7 +4,7 @@ module Commands
       ITEM_NOT_FOUND = Class.new
       def call
         raise_if_links_is_provided
-        raise_if_payload_fails_schema_validation
+        validate_schema
 
         if publishing_app.blank?
           raise_command_error(422, "publishing_app is required", fields: {
@@ -301,23 +301,18 @@ module Commands
         )
       end
 
-      def raise_if_payload_fails_schema_validation
-        return if schema_validation_errors.blank?
+      def validate_schema
+        return if schema_validator.valid?
         message = "The payload did not conform to the schema"
         raise CommandError.new(
           code: 422,
           message: message,
-          error_details: schema_validation_errors,
+          error_details: schema_validator.errors,
         )
       end
 
-      def schema_validation_errors
-        @_validation_errors ||=
-          begin
-            validator = SchemaValidator.new
-            validator.validate(payload.except(:content_id))
-            validator.errors
-          end
+      def schema_validator
+        @schema_validator ||= SchemaValidator.new(payload: payload.except(:content_id))
       end
     end
   end

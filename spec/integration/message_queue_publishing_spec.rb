@@ -1,4 +1,5 @@
 require "rails_helper"
+require "govuk_schemas"
 
 RSpec.describe "Message queue publishing" do
   it "puts the correct message on the queue" do
@@ -28,7 +29,7 @@ RSpec.describe "Message queue publishing" do
   end
 
   def generate_random_content_item(base_path)
-    GovukSchemas::RandomExample.for_schema("placeholder", schema_type: "publisher").merge_and_validate(
+    GovukSchemas::RandomExample.for_schema(publisher_schema: "placeholder").merge_and_validate(
       base_path: base_path,
       rendering_app: "something", # schema do not enforce a "dns-hostname" pattern yet
       publishing_app: "something", # schema do not enforce a "dns-hostname" pattern yet
@@ -42,7 +43,7 @@ RSpec.describe "Message queue publishing" do
   def ensure_message_queue_payload_validates_against_notification_schema
     expect(PublishingAPI.service(:queue_publisher)).to have_received(:send_message) do |payload|
       errors = JSON::Validator.fully_validate(
-        GovukSchemas::Schema.find("placeholder", schema_type: "notification"),
+        GovukSchemas::Schema.find(notification_schema: "placeholder"),
         payload,
         errors_as_objects: true,
       )
