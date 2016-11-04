@@ -124,6 +124,9 @@ module Commands
       end
 
       def validate_schema
+        # There may not be a ContentItem yet.
+        return true unless schema_name
+
         # Do not raise anything yet
         # Only send errbit notification
         schema_validator.valid?
@@ -138,9 +141,9 @@ module Commands
       end
 
       def schema_name
-        Queries::GetLatest.(
+        @schema_name ||= Queries::GetLatest.(
           ContentItem.where(content_id: payload[:content_id])
-        ).pluck(:schema_name).first || ""
+        ).pluck(:schema_name).first
       end
     end
   end
