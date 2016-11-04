@@ -31,11 +31,9 @@ private
 
   def create_from_top_level_change_note
     return unless change_note
-    ChangeNote.create!(
-      content_item: content_item,
-      note: change_note,
-      public_timestamp: Time.zone.now
-    )
+    ChangeNote.
+      find_or_create_by!(content_item: content_item).
+      update!(note: change_note, public_timestamp: Time.zone.now)
   end
 
   def create_from_details_hash_change_note

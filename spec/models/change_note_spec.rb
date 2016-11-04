@@ -34,6 +34,15 @@ RSpec.describe ChangeNote do
           expect(result.public_timestamp.iso8601).to eq Time.zone.now.iso8601
         end
       end
+
+      context "change note is entered for an existing content item" do
+        it "updates the change note rather than creating a new one" do
+          subject
+          expect {
+            described_class.create_from_content_item(payload, content_item)
+          }.to_not change { ChangeNote.count }
+        end
+      end
     end
 
     context "content item has change_note entry in details hash" do
