@@ -22,7 +22,7 @@ module Presenters
         .where("content_items.content_id" => content_item.content_id)
         .joins("INNER JOIN user_facing_versions ON user_facing_versions.content_item_id = content_items.id")
         .where("user_facing_versions.number <= ?", version_number)
-        .order(public_timestamp: :desc)
+        .order(:public_timestamp)
         .pluck(:note, :public_timestamp)
         .map do |note, timestamp|
           { note: note, public_timestamp: timestamp }.stringify_keys

@@ -36,11 +36,11 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         end
       end
       it "constructs content history from change notes" do
-        expect(subject.map { |item| item["note"] }).to eq %w(1 0)
+        expect(subject.map { |item| item["note"] }).to eq %w(0 1)
       end
     end
 
-    it "orders change notes by public_timestamp" do
+    it "orders change notes by public_timestamp (ascending)" do
       [1, 3, 2].to_a.each do |i|
         ChangeNote.create(
           content_item: content_item,
@@ -48,7 +48,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
           public_timestamp: i.days.ago
         )
       end
-      expect(subject.map { |item| item["note"] }).to eq %w(1 2 3)
+      expect(subject.map { |item| item["note"] }).to eq %w(3 2 1)
     end
 
     context "multiple content items for a single content id" do
