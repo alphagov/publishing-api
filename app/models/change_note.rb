@@ -33,13 +33,18 @@ private
     return unless change_note
     ChangeNote.
       find_or_create_by!(content_item: content_item).
-      update!(note: change_note, public_timestamp: Time.zone.now)
+      update!(
+        note: change_note,
+        content_id: content_item.content_id,
+        public_timestamp: Time.zone.now
+      )
   end
 
   def create_from_details_hash_change_note
     return unless note
     ChangeNote.create!(
       content_item: content_item,
+      content_id: content_item.content_id,
       public_timestamp: content_item.updated_at,
       note: note,
     )
@@ -48,7 +53,12 @@ private
   def create_from_details_hash_change_history
     return unless change_history.present?
     history_element = change_history.max_by { |h| h[:public_timestamp] }
-    ChangeNote.create!(history_element.merge(content_item: content_item))
+    ChangeNote.create!(
+      history_element.merge(
+        content_item: content_item,
+        content_id: content_item.content_id
+      )
+    )
   end
 
   def change_note
