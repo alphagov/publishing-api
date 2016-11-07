@@ -39,6 +39,18 @@ RSpec.describe Commands::V2::DiscardDraft do
         expect(ContentItem.exists?(id: existing_draft_item.id)).to eq(false)
       end
 
+      it "creates an action" do
+        expect(Action.count).to be 0
+        described_class.call(payload)
+        expect(Action.count).to be 1
+        expect(Action.first.attributes).to match a_hash_including(
+          "content_id" => content_id,
+          "locale" => locale,
+          "action" => "DiscardDraft",
+          "content_item_id" => existing_draft_item.id,
+        )
+      end
+
       it "deletes the supporting objects for the draft item" do
         described_class.call(payload)
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027165922) do
+ActiveRecord::Schema.define(version: 20161102115422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,21 @@ ActiveRecord::Schema.define(version: 20161027165922) do
     t.datetime "updated_at",                   null: false
     t.integer  "content_item_id"
     t.index ["content_item_id"], name: "index_access_limits_on_content_item_id", using: :btree
+  end
+
+  create_table "actions", force: :cascade do |t|
+    t.uuid     "content_id",      null: false
+    t.string   "locale"
+    t.string   "action",          null: false
+    t.uuid     "user_uid"
+    t.integer  "content_item_id"
+    t.integer  "link_set_id"
+    t.integer  "event_id",        null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["content_item_id"], name: "index_actions_on_content_item_id", using: :btree
+    t.index ["event_id"], name: "index_actions_on_event_id", using: :btree
+    t.index ["link_set_id"], name: "index_actions_on_link_set_id", using: :btree
   end
 
   create_table "change_notes", force: :cascade do |t|

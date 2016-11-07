@@ -16,6 +16,7 @@ module Commands
           downstream_discard_draft(draft_path, draft.content_id, locale)
         end
 
+        Action.create_discard_draft_action(draft, locale, event)
         Success.new(content_id: content_id)
       end
 

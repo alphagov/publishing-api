@@ -32,6 +32,8 @@ module Commands
           content_item,
           include_warnings: true,
         )
+
+        Action.create_put_content_action(content_item, locale, event)
         Success.new(response_hash)
       end
 

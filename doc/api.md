@@ -15,6 +15,7 @@ for other apps (eg email-alert-service) to consume.
 - [`POST /v2/content/:content_id/discard-draft`](#post-v2contentcontent_iddiscard-draft)
 - [`GET /v2/content`](#get-v2content)
 - [`GET /v2/content/:content_id`](#get-v2contentcontent_id)
+- [`POST /v2/actions/:content_id`](#post-v2actionscontent_id)
 - [`PATCH /v2/links/:content_id`](#patch-v2linkscontent_id)
 - [`GET /v2/links/:content_id`](#get-v2linkscontent_id)
 - [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
@@ -380,6 +381,38 @@ included within the response.
   - Specify a particular user facing version of this content item.
   - If omitted the most recent version is returned.
 
+## `POST /v2/actions/:content_id`
+
+TODO: Request/Response pact for actions
+
+**Note - The usage opportunities for this endpoint is currently in discovery,
+this feature may change significantly in time.**
+
+Creates an action for the content item that is specified, defaults to
+targeting a draft version of the content item but can be specified to target
+live version. Uses [optimistic-locking](#optimistic-locking-previous_version).
+
+### Path parameters
+- [`content_id`](model.md#content_id)
+  - Identifies a content item.
+
+### JSON attributes
+- `action` (required)
+  - Currently an arbitrary name describing the workflow a content item has gone
+    through
+  - Provided in CamelCase
+- `draft` (optional, default: "true")
+  - Whether to target the live or draft version of a content item.
+- [`locale`](model.md#locale) *(optional, default: "en")*
+  - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
+  - Specifies which locale of the draft content item to delete.
+- `previous_version` *(optional, recommended)*
+  - Used to ensure the version being discarded is the current draft.
+
+### State changes
+- The draft content item will be deleted from the Publishing API.
+- The draft content item will be removed from the draft content store.
+- If a published content item exists it will be added to the draft content store.
 ## `PATCH /v2/links/:content_id`
 
 [Request/Response detail][patch-link-set-pact]

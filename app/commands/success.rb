@@ -1,14 +1,11 @@
 module Commands
   class Success
-    attr_reader :data, :message
+    attr_reader :data, :message, :code
 
-    def initialize(data, message: "OK")
+    def initialize(data, message: "OK", code: 200)
       @message = message
       @data = data
-    end
-
-    def code
-      200
+      @code = code
     end
 
     def as_json(_options = nil)
