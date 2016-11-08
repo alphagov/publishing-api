@@ -15,6 +15,7 @@ module Presenters
         :lock_version,
         :updated_at,
         :state_history,
+        :change_note,
       ].freeze
 
       def self.present_many(scope, params = {})
@@ -68,6 +69,7 @@ module Presenters
         scope = UserFacingVersion.join_content_items(scope)
         scope = Translation.join_content_items(scope)
         scope = Location.join_content_items(scope)
+        scope = ChangeNote.join_content_items(scope)
 
         LockVersion.join_content_items(scope)
       end
@@ -99,6 +101,8 @@ module Presenters
             "to_char(first_published_at, '#{ISO8601_SQL}') as first_published_at"
           when :state_history
             "#{STATE_HISTORY_SQL} AS state_history"
+          when :change_note
+            "change_notes.note AS change_note"
           else
             field
           end
@@ -137,7 +141,7 @@ module Presenters
 
             result["warnings"] = get_warnings(result) if include_warnings
 
-            yielder.yield result
+            yielder.yield result.compact
           end
         end
       end
