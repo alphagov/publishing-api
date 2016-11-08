@@ -22,7 +22,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
     expect(Queries::ContentDependencies).to receive(:new).with(
       content_id: "123",
       fields: [:base_path],
-      dependent_lookup: an_instance_of(Queries::GetDependees),
+      dependent_lookup: an_instance_of(Queries::GetDependents),
     ).and_return(content_item_dependee)
     worker_perform
   end
