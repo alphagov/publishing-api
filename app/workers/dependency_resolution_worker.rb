@@ -7,7 +7,7 @@ class DependencyResolutionWorker
   def perform(args = {})
     assign_attributes(args.deep_symbolize_keys)
 
-    content_item_dependees.each do |dependent_content_id|
+    content_item_dependents.each do |dependent_content_id|
       downstream_content_item(dependent_content_id)
     end
   end
@@ -23,10 +23,10 @@ private
     @payload_version = args.fetch(:payload_version)
   end
 
-  def content_item_dependees
+  def content_item_dependents
     Queries::ContentDependencies.new(content_id: content_id,
                                      fields: fields,
-                                     dependent_lookup: Queries::GetDependees.new).call
+                                     dependent_lookup: Queries::GetDependents.new).call
   end
 
   def downstream_content_item(dependent_content_id)
