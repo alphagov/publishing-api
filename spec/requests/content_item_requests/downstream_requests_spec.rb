@@ -86,14 +86,24 @@ RSpec.describe "Downstream requests", type: :request do
     end
 
     context "when a link set exists for the content item" do
+      let(:dependent_content_item) {
+        FactoryGirl.create(:content_item, base_path: "/foo", title: "foo")
+      }
+
       let(:link_set) do
         FactoryGirl.create(:link_set,
-          content_id: v2_content_item[:content_id]
+          content_id: dependent_content_item.content_id
         )
       end
 
-      let(:target_content_item) { FactoryGirl.create(:content_item, base_path: "/foo", title: "foo") }
-      let!(:links) { FactoryGirl.create(:link, link_set: link_set, link_type: "parent", target_content_id: target_content_item.content_id) }
+      let!(:links) {
+        FactoryGirl.create(
+          :link,
+          link_set: link_set,
+          link_type: "parent",
+          target_content_id: v2_content_item[:content_id]
+        )
+      }
 
       let(:content_item_for_draft_content_store) do
         v2_content_item.except(:update_type).merge(
@@ -101,32 +111,40 @@ RSpec.describe "Downstream requests", type: :request do
         )
       end
 
-      it "sends to the draft content store" do
-        allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
+      let(:new_title) { "New Title" }
 
-        put "/v2/content/#{content_id}", params: v2_content_item.to_json
-        expect(PublishingAPI.service(:draft_content_store)).to have_received(:put_content_item)
+      it "both the content item, and dependent content item is updated" do
+        expect(PublishingAPI.service(:draft_content_store))
+          .to receive(:put_content_item)
           .with(
             base_path: base_path,
-            content_item: content_item_for_draft_content_store
-              .merge(payload_version: anything)
-          )
+            content_item: a_hash_including(
+              content_id: content_id,
+            )
+          ).once
 
-        expect(response).to be_ok, response.body
-      end
-
-      it "sends the dependent changes to the draft content store" do
-        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: a_hash_including(content_id: content_id)
-          )
-        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        expect(PublishingAPI.service(:draft_content_store))
+          .to receive(:put_content_item)
           .with(
             base_path: "/foo",
-            content_item: a_hash_including(content_id: target_content_item.content_id, title: "foo")
-          )
-        put "/v2/content/#{content_id}", params: v2_content_item.to_json
+            content_item: a_hash_including(
+              content_id: dependent_content_item.content_id,
+              title: "foo",
+              expanded_links: a_hash_including(
+                parent: contain_exactly(
+                  a_hash_including(
+                    content_id: content_id,
+                    title: new_title
+                  )
+                )
+              )
+            )
+          ).once
+
+        put(
+          "/v2/content/#{content_id}",
+          params: v2_content_item.merge(title: new_title).to_json
+        )
       end
     end
   end
