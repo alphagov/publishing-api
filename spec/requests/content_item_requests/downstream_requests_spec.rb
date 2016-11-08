@@ -277,7 +277,7 @@ RSpec.describe "Downstream requests", type: :request do
     let!(:draft_b) { create_content_item(b, "/b", "draft") }
 
     before do
-      create_link(a, b, "parent")
+      create_link(b, a, "parent")
     end
 
     it "sends the dependencies to the draft content store" do
