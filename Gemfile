@@ -26,7 +26,7 @@ gem 'whenever', '0.9.4', require: false
 gem "govuk_sidekiq", "~> 1.0.1"
 gem "json-schema", require: false
 gem "hashdiff"
-gem "sidekiq-unique-jobs", require: false
+gem "sidekiq-unique-jobs", git: "https://github.com/carlosmartinez/sidekiq-unique-jobs", require: false
 gem "govspeak", "~> 5.0.2"
 gem "diffy", "~> 3.1", require: false
 gem "aws-sdk", "~> 2"
