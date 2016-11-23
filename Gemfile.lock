@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/carlosmartinez/sidekiq-unique-jobs
-  revision: b24fee3d01bf4cd96eff959c8b703be264c00b2c
+  remote: https://github.com/alphagov/sidekiq-unique-jobs
+  revision: 6c03e39c3ad6ba1468d567c22bb99908f6fdb317
   specs:
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
