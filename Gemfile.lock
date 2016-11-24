@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/alphagov/sidekiq-unique-jobs
+  revision: 6c03e39c3ad6ba1468d567c22bb99908f6fdb317
+  specs:
+    sidekiq-unique-jobs (4.0.18)
+      sidekiq (>= 2.6)
+      thor
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -323,9 +331,6 @@ GEM
       activesupport
       sidekiq (>= 2.6)
       statsd-ruby (>= 1.1.0)
-    sidekiq-unique-jobs (4.0.18)
-      sidekiq (>= 2.6)
-      thor
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -419,7 +424,7 @@ DEPENDENCIES
   rails (= 5.0.0.1)
   rspec
   rspec-rails (~> 3.5)
-  sidekiq-unique-jobs
+  sidekiq-unique-jobs!
   simplecov (= 0.10.0)
   simplecov-rcov (= 0.2.3)
   spring
@@ -432,4 +437,4 @@ DEPENDENCIES
   whenever (= 0.9.4)
 
 BUNDLED WITH
-   1.11.2
+   1.13.1
