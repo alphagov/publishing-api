@@ -36,6 +36,7 @@ module PublishingAPI
       region: ENV["S3_EXPORT_REGION"] || "eu-west-1",
       bucket: ENV["EVENT_LOG_AWS_BUCKETNAME"],
       events_key_prefix: "events/",
+      credentials: Aws::Credentials.new(ENV["EVENT_LOG_AWS_ACCESS_ID"], ENV["EVENT_LOG_AWS_SECRET_KEY"]),
     )
   end
 end

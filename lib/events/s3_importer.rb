@@ -36,7 +36,15 @@ module Events
     end
 
     def s3
-      @s3 ||= Aws::S3::Resource.new(region: Rails.application.config.s3_export.region)
+      @s3 ||= Aws::S3::Resource.new(region: region, credentials: credentials)
+    end
+
+    def region
+      Rails.application.config.s3_export.region
+    end
+
+    def credentials
+      Rails.application.config.s3_export.credentials
     end
 
     def attributes(row)
