@@ -1,3 +1,5 @@
+require 'csv'
+
 module Events
   class S3Exporter
     def initialize(created_before, created_on_or_after = nil)

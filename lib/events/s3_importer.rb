@@ -1,3 +1,5 @@
+require 'csv'
+
 module Events
   class S3Importer
     def initialize(s3_key)
