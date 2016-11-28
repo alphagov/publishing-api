@@ -1,3 +1,5 @@
+require 'csv'
+
 module Events
   class S3Exporter
     def initialize(created_before, created_on_or_after = nil)
@@ -28,7 +30,7 @@ module Events
     end
 
     def s3
-      @s3 ||= Aws::S3::Resource.new(region: Rails.application.config.s3_export.region)
+      @s3 ||= Aws::S3::Resource.new
     end
 
     def build_csv(file)
