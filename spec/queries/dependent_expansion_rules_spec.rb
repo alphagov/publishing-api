@@ -39,6 +39,20 @@ RSpec.describe Queries::DependentExpansionRules do
     end
   end
 
+  describe "#valid_link_recursion?" do
+    specify { expect(subject.valid_link_recursion?([:parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?(["parent"])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:parent, :parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:parent, :parent, :parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:parent, :child])).to eq(false) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages, :parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages, :parent, :parent, :parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages, :mainstream_browse_pages, :parent])).to eq(false) }
+    specify { expect(subject.valid_link_recursion?([:mainstream_browse_pages, :ordered_related_items, :parent])).to eq(false) }
+  end
+
   describe "#next_level" do
     specify { expect(subject.next_level(:parent, 2)).to eq(:parent) }
     specify { expect(subject.next_level(:parent, 0)).to eq(:parent) }
