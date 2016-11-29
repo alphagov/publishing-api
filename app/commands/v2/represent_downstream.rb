@@ -24,12 +24,12 @@ module Commands
 
       def items_for_draft_store(filter)
         Queries::GetLatest.call(
-          filter.filter(state: %w{draft published})
+          filter.filter(state: %w{draft published unpublished})
         )
       end
 
       def items_for_live_store(filter)
-        filter.filter(state: "published")
+        filter.filter(state: %w{published unpublished})
       end
 
       def downstream_draft(content_item_id, content_id)
