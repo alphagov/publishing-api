@@ -238,7 +238,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
-          a_hash_including(:content_item_id, :payload_version),
+          a_hash_including(:content_id, :locale, :payload_version),
         )
 
       described_class.call(payload)
@@ -262,12 +262,13 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "sends the draft content items for all locales downstream" do
-        [draft_content_item, french_draft_content_item].each do |ci|
+        %w(en fr).each do |locale|
           expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
               a_hash_including(
-                content_item_id: ci.id,
+                content_id: content_id,
+                locale: locale,
                 payload_version: an_instance_of(Fixnum),
               ),
             )
@@ -299,7 +300,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           "downstream_high",
           a_hash_including(
-            :content_item_id,
+            :content_id,
+            :locale,
             :payload_version,
             message_queue_update_type: "links",
           ),
@@ -313,7 +315,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           "downstream_low",
           a_hash_including(
-            :content_item_id,
+            :content_id,
+            :locale,
             :payload_version,
             message_queue_update_type: "links",
           ),
@@ -333,11 +336,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "sends the live content item for all locales downstream" do
-        [live_content_item, french_live_content_item].each do |ci|
+        %w(en fr).each do |locale|
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              content_item_id: ci.id,
+              content_id: content_id,
+              locale: locale,
               payload_version: an_instance_of(Fixnum),
               message_queue_update_type: "links",
             )
@@ -374,7 +378,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           "downstream_high",
           a_hash_including(
-            :content_item_id,
+            :content_id,
+            :locale,
             :payload_version
           ),
         )
@@ -387,7 +392,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with(
           "downstream_high",
           a_hash_including(
-            :content_item_id,
+            :content_id,
+            :locale,
             :payload_version,
             message_queue_update_type: "links",
           ),
