@@ -68,7 +68,7 @@ RSpec.describe DownstreamDraftWorker do
         )
 
         expect(Adapters::DraftContentStore).to_not receive(:put_content_item)
-        subject.perform(arguments.merge("content_item_id" => pathless.id))
+        subject.perform(arguments.merge("content_id" => pathless.content_id))
       end
     end
   end

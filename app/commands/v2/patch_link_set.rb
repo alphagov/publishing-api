@@ -110,7 +110,8 @@ module Commands
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
-          content_item_id: content_item.id,
+          content_id: content_item.content_id,
+          locale: content_item.locale,
           payload_version: event.id,
         )
       end
@@ -119,7 +120,8 @@ module Commands
         queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
-          content_item_id: content_item.id,
+          content_id: content_item.content_id,
+          locale: content_item.locale,
           message_queue_update_type: "links",
           payload_version: event.id,
         )
