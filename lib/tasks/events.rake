@@ -33,18 +33,4 @@ namespace :events do
       end
     end
   end
-
-  desc "One off task to export events before 1 month ago to S3"
-  task export_all_to_s3: :environment do |_, _args|
-    created_on_or_after = (Date.new(2014, 07, 01)..(Date.today - 1.month)).select(&:sunday?)
-
-    created_on_or_after.each do |created_on_date|
-      created_before = created_on_date + 7.days
-      exported, s3_key = Events::S3Exporter.new(
-        Time.zone.parse(created_before.to_s),
-        Time.zone.parse(created_on_date.to_s)
-      ).export
-      puts "Exported: #{exported}, S3 key: #{s3_key}"
-    end
-  end
 end
