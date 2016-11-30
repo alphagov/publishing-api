@@ -4,11 +4,12 @@ RSpec.describe DependencyResolutionWorker, :perform do
   let(:live_content_item) { FactoryGirl.create(:live_content_item, locale: "en") }
 
   subject(:worker_perform) do
-    described_class.new.perform(content_id: "123",
-                    fields: ["base_path"],
-                    content_store: "Adapters::ContentStore",
-                    payload_version: "123",
-                   )
+    described_class.new.perform(
+      content_id: "123",
+      fields: ["base_path"],
+      content_store: "Adapters::ContentStore",
+      payload_version: "123",
+    )
   end
 
   let(:content_item_dependee) { double(:content_item_dependent, call: []) }
@@ -42,13 +43,13 @@ RSpec.describe DependencyResolutionWorker, :perform do
   end
 
   context "with a draft version available" do
-    let!(:draft_content_item) {
+    let!(:draft_content_item) do
       FactoryGirl.create(:draft_content_item,
         content_id: live_content_item.content_id,
         locale: "en",
         user_facing_version: 2,
       )
-    }
+    end
 
     it "doesn't send draft content to the live content store" do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
