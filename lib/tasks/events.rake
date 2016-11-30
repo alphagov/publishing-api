@@ -15,6 +15,25 @@ namespace :events do
     puts "Imported #{imported} event#{imported == 1 ? '' : 's'} successfully 🍾"
   end
 
+  # $ EVENT_LOG_AWS_ACCESS_ID=AKIAIOSFODNN7EXAMPLE EVENT_LOG_AWS_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY EVENT_LOG_AWS_BUCKETNAME=govuk-publishing-api-event-log-integration S3_EXPORT_REGION=eu-west-1 rake 'events:import_content_item_events[content_id]'
+  desc "import all events for a content item"
+  task :import_content_item_events, [:content_id] => :environment do |_, args|
+    event_dates = Event.where(content_id: args[:content_id])
+                       .where("payload IS NULL")
+                       .pluck(:created_at)
+    importer = Events::S3Importer.new
+    event_dates.each do |event_date|
+      start_event = event_date - event_date.wday
+      key = "events/#{Time.zone.parse(start_event.to_s).strftime('%FT%T%:z')}.csv.gz"
+      begin
+        imported = importer.import(key)
+        puts "Imported #{imported} successfully"
+      rescue Events::S3Importer::BucketNotConfiguredError => e
+        puts "skipped #{key} #{e}"
+      end
+    end
+  end
+
   desc "One off task to export events before 1 month ago to S3"
   task export_all_to_s3: :environment do |_, _args|
     created_on_or_after = (Date.new(2014, 07, 01)..(Date.today - 1.month)).select(&:sunday?)
