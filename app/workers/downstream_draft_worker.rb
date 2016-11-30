@@ -82,6 +82,7 @@ private
       content_store: Adapters::DraftContentStore,
       fields: [:content_id],
       content_id: content_id,
+      locale: locale,
       payload_version: payload_version
     )
   end

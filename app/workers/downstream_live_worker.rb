@@ -87,7 +87,8 @@ private
     DependencyResolutionWorker.perform_async(
       content_store: Adapters::ContentStore,
       fields: [:content_id],
-      content_id: web_content_item.content_id,
+      content_id: content_id,
+      locale: locale,
       payload_version: payload_version,
     )
   end
