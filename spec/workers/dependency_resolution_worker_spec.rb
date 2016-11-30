@@ -13,10 +13,11 @@ RSpec.describe DependencyResolutionWorker, :perform do
   end
 
   let(:content_item_dependee) { double(:content_item_dependent, call: []) }
+  let(:dependencies) { [live_content_item.content_id] }
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
-    allow_any_instance_of(Queries::ContentDependencies).to receive(:call).and_return([live_content_item.content_id])
+    allow_any_instance_of(Queries::ContentDependencies).to receive(:call).and_return(dependencies)
   end
 
   it "finds the content item dependees" do
@@ -83,6 +84,69 @@ RSpec.describe DependencyResolutionWorker, :perform do
         content_store: "Adapters::DraftContentStore",
         payload_version: "123",
       )
+    end
+  end
+
+  context "when there are translations of a content item" do
+    let(:content_id) { SecureRandom.uuid }
+    let(:dependencies) { [] }
+    let!(:en_content_item) do
+      FactoryGirl.create(:live_content_item, content_id: content_id, locale: "en")
+    end
+    let!(:fr_content_item) do
+      FactoryGirl.create(:live_content_item, content_id: content_id, locale: "fr")
+    end
+    let!(:es_content_item) do
+      FactoryGirl.create(:live_content_item, content_id: content_id, locale: "es")
+    end
+
+    context "and locale is specified" do
+      after do
+        described_class.new.perform(
+          content_id: content_id,
+          locale: "en",
+          fields: ["base_path"],
+          content_store: "Adapters::ContentStore",
+          payload_version: "123",
+        )
+      end
+
+      it "downstreams all but the locale specified" do
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+          anything,
+          a_hash_including(content_id: content_id, locale: "fr")
+        )
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+          anything,
+          a_hash_including(content_id: content_id, locale: "es")
+        )
+      end
+    end
+
+    context "but locale is not specified" do
+      after do
+        described_class.new.perform(
+          content_id: content_id,
+          fields: ["base_path"],
+          content_store: "Adapters::ContentStore",
+          payload_version: "123",
+        )
+      end
+
+      it "downstreams all but the locale specified" do
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+          anything,
+          a_hash_including(content_id: content_id, locale: "en")
+        )
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+          anything,
+          a_hash_including(content_id: content_id, locale: "fr")
+        )
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+          anything,
+          a_hash_including(content_id: content_id, locale: "es")
+        )
+      end
     end
   end
 end
