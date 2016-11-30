@@ -48,15 +48,6 @@ RSpec.describe "Discard draft requests", type: :request do
           stub_request(:delete, Plek.find('draft-content-store') + "/content#{french_base_path}")
         end
 
-        it "does not send to the live content store" do
-          expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
-          expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
-
-          post "/v2/content/#{content_id}/discard-draft", params: {}.to_json
-
-          expect(response.status).to eq(200)
-        end
-
         it "only deletes the French content item from the draft content store" do
           expect(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
             .with(french_base_path)
