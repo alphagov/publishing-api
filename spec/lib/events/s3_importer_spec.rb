@@ -52,23 +52,23 @@ RSpec.describe Events::S3Importer do
   end
 
   describe "#import" do
-    subject(:importer) { described_class.new(s3_key) }
+    subject(:importer) { described_class.new }
 
     context "when the events do not exist in our database" do
       it "creates the events" do
         expect(Event.where(id: [10, 11]).count).to eq 0
-        importer.import
+        importer.import(s3_key)
         expect(Event.where(id: [10, 11]).count).to eq 2
       end
 
       it "it sets the expected attributes" do
-        importer.import
+        importer.import(s3_key)
         expect(Event.find(10).attributes).to match(event_10_attributes.stringify_keys)
         expect(Event.find(11).attributes).to match(event_11_attributes.stringify_keys)
       end
 
       it "returns the number of imported items" do
-        expect(importer.import).to be 2
+        expect(importer.import(s3_key)).to be 2
       end
     end
 
@@ -78,18 +78,18 @@ RSpec.describe Events::S3Importer do
 
       it "updates the events" do
         expect(Event.where(id: [10, 11]).count).to eq 2
-        importer.import
+        importer.import(s3_key)
         expect(Event.where(id: [10, 11]).count).to eq 2
       end
 
       it "it sets the expected attributes" do
-        importer.import
+        importer.import(s3_key)
         expect(Event.find(10).attributes).to match(event_10_attributes.stringify_keys)
         expect(Event.find(11).attributes).to match(event_11_attributes.stringify_keys)
       end
 
       it "returns the number of imported items" do
-        expect(importer.import).to be 2
+        expect(importer.import(s3_key)).to be(2)
       end
     end
 
@@ -102,7 +102,7 @@ RSpec.describe Events::S3Importer do
 
       it "raises a BucketNotConfiguredError" do
         expect {
-          importer.import
+          importer.import(s3_key)
         }.to raise_error(described_class::BucketNotConfiguredError, "A bucket has not been configured")
       end
     end
@@ -114,7 +114,7 @@ RSpec.describe Events::S3Importer do
 
       it "raises a EventsImportExistsError" do
         expect {
-          importer.import
+          importer.import(s3_key)
         }.to raise_error(described_class::EventsImportExistsError, "S3 does not have an import for #{s3_key}")
       end
     end
