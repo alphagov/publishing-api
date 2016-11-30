@@ -2,12 +2,8 @@ require 'csv'
 
 module Events
   class S3Importer
-    def initialize(s3_key)
-      @s3_key = s3_key
-    end
-
-    def import
-      file = Zlib::GzipReader.new(object.get.body)
+    def import(s3_key)
+      file = Zlib::GzipReader.new(object(s3_key).get.body)
       csv = CSV.new(file, headers: true)
       csv.each do |row|
         event = Event.find_or_initialize_by(id: row["id"])
@@ -19,15 +15,11 @@ module Events
 
   private
 
-    attr_reader :s3_key
-
-    def object
-      @object ||= begin
-        object = bucket.object(s3_key)
+    def object(s3_key)
+      bucket.object(s3_key).tap do |object|
         unless object.exists?
           raise EventsImportExistsError.new("S3 does not have an import for #{s3_key}")
         end
-        object
       end
     end
 
