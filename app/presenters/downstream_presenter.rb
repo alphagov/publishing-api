@@ -40,7 +40,6 @@ module Presenters
     end
 
     def links
-      return {} unless link_set
       {
         expanded_links: expanded_link_set_presenter.links,
       }
