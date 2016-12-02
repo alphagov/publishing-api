@@ -2,10 +2,13 @@ require "rails_helper"
 
 RSpec.describe DependencyResolutionWorker, :perform do
   let(:live_content_item) { FactoryGirl.create(:live_content_item, locale: "en") }
+  let(:content_id) { SecureRandom.uuid }
+  let(:locale) { "en" }
 
   subject(:worker_perform) do
     described_class.new.perform(
-      content_id: "123",
+      content_id: content_id,
+      locale: locale,
       fields: ["base_path"],
       content_store: "Adapters::ContentStore",
       payload_version: "123",
@@ -13,7 +16,11 @@ RSpec.describe DependencyResolutionWorker, :perform do
   end
 
   let(:content_item_dependee) { double(:content_item_dependent, call: []) }
-  let(:dependencies) { [live_content_item.content_id] }
+  let(:dependencies) do
+    [
+      [live_content_item.content_id, "en"],
+    ]
+  end
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
@@ -22,9 +29,9 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
   it "finds the content item dependees" do
     expect(Queries::ContentDependencies).to receive(:new).with(
-      content_id: "123",
-      fields: [:base_path],
-      dependent_lookup: an_instance_of(Queries::GetDependees),
+      content_id: content_id,
+      locale: locale,
+      state_fallback_order: %w[published unpublished],
     ).and_return(content_item_dependee)
     worker_perform
   end
@@ -88,19 +95,14 @@ RSpec.describe DependencyResolutionWorker, :perform do
   end
 
   context "when there are translations of a content item" do
-    let(:content_id) { SecureRandom.uuid }
-    let(:dependencies) { [] }
-    let!(:en_content_item) do
-      FactoryGirl.create(:live_content_item, content_id: content_id, locale: "en")
-    end
-    let!(:fr_content_item) do
-      FactoryGirl.create(:live_content_item, content_id: content_id, locale: "fr")
-    end
-    let!(:es_content_item) do
-      FactoryGirl.create(:live_content_item, content_id: content_id, locale: "es")
-    end
-
     context "and locale is specified" do
+      let(:dependencies) do
+        [
+          [content_id, "fr"],
+          [content_id, "es"],
+        ]
+      end
+
       after do
         described_class.new.perform(
           content_id: content_id,
@@ -124,6 +126,14 @@ RSpec.describe DependencyResolutionWorker, :perform do
     end
 
     context "but locale is not specified" do
+      let(:dependencies) do
+        [
+          [content_id, "en"],
+          [content_id, "fr"],
+          [content_id, "es"],
+        ]
+      end
+
       after do
         described_class.new.perform(
           content_id: content_id,

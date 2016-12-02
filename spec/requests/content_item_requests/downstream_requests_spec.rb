@@ -114,20 +114,6 @@ RSpec.describe "Downstream requests", type: :request do
 
         expect(response).to be_ok, response.body
       end
-
-      it "sends the dependent changes to the draft content store" do
-        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: a_hash_including(content_id: content_id)
-          )
-        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: "/foo",
-            content_item: a_hash_including(content_id: target_content_item.content_id, title: "foo")
-          )
-        put "/v2/content/#{content_id}", params: v2_content_item.to_json
-      end
     end
   end
 
