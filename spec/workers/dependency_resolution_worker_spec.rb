@@ -9,7 +9,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
     described_class.new.perform(
       content_id: content_id,
       locale: locale,
-      fields: ["base_path"],
       content_store: "Adapters::ContentStore",
       payload_version: "123",
     )
@@ -70,7 +69,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
       described_class.new.perform(
         content_id: "123",
-        fields: ["base_path"],
         content_store: "Adapters::ContentStore",
         payload_version: "123",
       )
@@ -87,7 +85,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
       described_class.new.perform(
         content_id: "123",
-        fields: ["base_path"],
         content_store: "Adapters::DraftContentStore",
         payload_version: "123",
       )
@@ -107,7 +104,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
         described_class.new.perform(
           content_id: content_id,
           locale: "en",
-          fields: ["base_path"],
           content_store: "Adapters::ContentStore",
           payload_version: "123",
         )
@@ -137,7 +133,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
       after do
         described_class.new.perform(
           content_id: content_id,
-          fields: ["base_path"],
           content_store: "Adapters::ContentStore",
           payload_version: "123",
         )

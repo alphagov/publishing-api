@@ -25,7 +25,6 @@ private
     # FIXME: As of December 2016 locale is a optional field to be backwards
     # compatible. By January 2017 it will be safe to make locale required.
     @locale = args[:locale]
-    @fields = args.fetch(:fields, []).map(&:to_sym)
     @content_store = args.fetch(:content_store).constantize
     @payload_version = args.fetch(:payload_version)
   end
