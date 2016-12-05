@@ -7,22 +7,32 @@ module Presenters
     end
 
     def change_history
-      content_item.details[:change_history] || change_notes_for_content_item
+      details[:change_history] || change_notes_for_content_item
     end
 
   private
 
+    def details
+      SymbolizeJSON.symbolize(content_item.details)
+    end
+
     def change_notes_for_content_item
       ChangeNote
-        .joins(:content_item)
-        .where("content_items.content_id" => content_item.content_id)
-        .joins("INNER JOIN user_facing_versions ON user_facing_versions.content_item_id = content_items.id")
-        .where("user_facing_versions.number <= ?", version_number)
-        .order(public_timestamp: :desc)
+        .where(content_id: content_item.content_id)
+        .where("content_item_id IS NULL OR content_item_id IN (?)", content_item_ids)
+        .order(:public_timestamp)
         .pluck(:note, :public_timestamp)
         .map do |note, timestamp|
           { note: note, public_timestamp: timestamp }.stringify_keys
         end
+    end
+
+    def content_item_ids
+      UserFacingVersion.join_content_items(
+        ContentItem.where(content_id: content_item.content_id
+      ))
+      .where("user_facing_versions.number <= ?", version_number)
+      .pluck(:id)
     end
 
     def version_number

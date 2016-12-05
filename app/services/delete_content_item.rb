@@ -20,9 +20,11 @@ module Services
         Translation,
         Unpublishing,
         UserFacingVersion,
+        ChangeNote,
       ]
 
       supporting_classes.each do |klass|
+        next unless ActiveRecord::Base.connection.data_source_exists?(klass.table_name)
         klass.where(content_item: content_items).destroy_all
       end
 

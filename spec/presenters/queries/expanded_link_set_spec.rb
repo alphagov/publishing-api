@@ -69,13 +69,13 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           a_hash_including(
             base_path: "/b",
             links: {
-            parent: [a_hash_including(
-              base_path: "/c",
-              links: {
-                parent: [
-                  a_hash_including(base_path: "/d", details: {}, links: {})
-                ]
-              })]
+              parent: [a_hash_including(
+                base_path: "/c",
+                links: {
+                  parent: [
+                    a_hash_including(base_path: "/d", details: {}, links: {})
+                  ]
+                })]
             })
         ])
       end
@@ -85,19 +85,15 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       it "expands the links for node a correctly" do
         create_link(b, d, "ordered_related_items")
         create_link(a, b, "ordered_related_items")
-        create_link(b, c, "parent")
+        create_link(b, c, "mainstream_browse_pages")
         create_link(c, e, "parent")
-        create_link(a, f, "parent")
+        create_link(a, f, "mainstream_browse_pages")
         create_link(f, g, "parent")
 
-        expect(expanded_links[:parent]).to match([
+        expect(expanded_links[:mainstream_browse_pages]).to match([
           a_hash_including(
             base_path: "/f",
-            links: {
-            parent: [a_hash_including(
-              base_path: "/g",
-              links: {})]
-            }
+            links: {}
           )
         ])
 
@@ -105,13 +101,13 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
           a_hash_including(
             base_path: "/b",
             links: {
-            parent: [a_hash_including(
-              base_path: "/c",
-              links: {
-                parent: [
-                  a_hash_including(base_path: "/e", links: {})
-                ]
-              })]
+              mainstream_browse_pages: [a_hash_including(
+                base_path: "/c",
+                links: {
+                  parent: [
+                    a_hash_including(base_path: "/e", links: {})
+                  ]
+                })]
             }
           )
         ])
@@ -399,7 +395,25 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     end
   end
 
-  describe "expanding dependees" do
+  describe "not expanding withdrawn dependents" do
+    let(:state_fallback_order) { [:published] }
+    let!(:published) { create_content_item(a, "/a") }
+    let!(:withdrawn_child) { FactoryGirl.create(:withdrawn_unpublished_content_item, content_id: b, base_path: '/b') }
+    let!(:published_child) { create_content_item(c, "/c") }
+
+    before do
+      create_link(b, a, "parent")
+      create_link(c, a, "parent")
+    end
+
+    it "doesn't include withdrawn dependents" do
+      base_paths = expanded_links[:children].map { |c| c[:base_path] }
+      expect(base_paths).to_not include("/b")
+      expect(base_paths).to include("/c")
+    end
+  end
+
+  describe "expanding dependents" do
     let(:state_fallback_order) { [:draft, :published] }
 
     before do
@@ -434,6 +448,23 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         expect(expanded_links[:children]).to match([
           a_hash_including(base_path: "/b-published", links: {})
         ])
+      end
+    end
+  end
+
+  context "with a withdrawn content item as a parent" do
+    let!(:published) { create_content_item(a, "/a", "published") }
+    let!(:unpublishing) { FactoryGirl.create(:withdrawn_unpublished_content_item, content_id: b, base_path: '/b') }
+    let!(:unpublishing_not_parent) { FactoryGirl.create(:withdrawn_unpublished_content_item, content_id: c, base_path: '/c') }
+
+    let(:state_fallback_order) { [:published, :withdrawn] }
+
+    context "a simple non-recursive graph" do
+      it "expands the links for node a correctly" do
+        create_link(a, b, "parent")
+        create_link(a, c, "related")
+        expect(expanded_links[:parent]).to match([a_hash_including('base_path': '/b')])
+        expect(expanded_links[:related]).to match(nil)
       end
     end
   end

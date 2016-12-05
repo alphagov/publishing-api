@@ -40,7 +40,6 @@ module Presenters
     end
 
     def links
-      return {} unless link_set
       {
         expanded_links: expanded_link_set_presenter.links,
       }
@@ -95,10 +94,11 @@ module Presenters
       unpublishing = Unpublishing.find_by(content_item_id: web_content_item.id)
 
       if unpublishing && unpublishing.withdrawal?
+        withdrawn_at = (unpublishing.unpublished_at || unpublishing.created_at).iso8601
         {
           withdrawn_notice: {
             explanation: unpublishing.explanation,
-            withdrawn_at: unpublishing.created_at.iso8601,
+            withdrawn_at: withdrawn_at
           },
         }
       else

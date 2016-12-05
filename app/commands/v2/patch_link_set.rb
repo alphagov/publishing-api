@@ -3,6 +3,7 @@ module Commands
     class PatchLinkSet < BaseCommand
       def call
         raise_unless_links_hash_is_provided
+        validate_schema
         link_set = find_or_create_link_set(content_id)
 
         check_version_and_raise_if_conflicting(link_set, previous_version_number)
@@ -25,6 +26,8 @@ module Commands
         after_transaction_commit do
           send_downstream
         end
+
+        Action.create_patch_link_set_action(link_set, event)
 
         presented = Presenters::Queries::LinkSetPresenter.present(link_set)
         Success.new(presented)
@@ -107,7 +110,8 @@ module Commands
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
-          content_item_id: content_item.id,
+          content_id: content_item.content_id,
+          locale: content_item.locale,
           payload_version: event.id,
         )
       end
@@ -116,10 +120,34 @@ module Commands
         queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
-          content_item_id: content_item.id,
+          content_id: content_item.content_id,
+          locale: content_item.locale,
           message_queue_update_type: "links",
           payload_version: event.id,
         )
+      end
+
+      def validate_schema
+        # There may not be a ContentItem yet.
+        return true unless schema_name
+
+        # Do not raise anything yet
+        # Only send errbit notification
+        schema_validator.valid?
+      end
+
+      def schema_validator
+        @schema_validator ||= SchemaValidator.new(
+          payload: payload[:links],
+          links: true,
+          schema_name: schema_name
+        )
+      end
+
+      def schema_name
+        @schema_name ||= Queries::GetLatest.(
+          ContentItem.where(content_id: payload[:content_id])
+        ).pluck(:schema_name).first
       end
     end
   end

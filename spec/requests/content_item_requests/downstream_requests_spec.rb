@@ -342,8 +342,9 @@ RSpec.describe "Downstream requests", type: :request do
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
-          content_item: content_item_for_live_content_store
-            .merge(payload_version: anything)
+          content_item: a_hash_including(
+            content_item_for_live_content_store.merge(payload_version: anything)
+          )
         )
 
       post "/v2/content/#{content_id}/publish", params: { update_type: "major" }.to_json

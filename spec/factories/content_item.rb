@@ -32,6 +32,7 @@ FactoryGirl.define do
       locale "en"
       sequence(:base_path) { |n| "/vat-rates-#{n}" }
       user_facing_version 1
+      change_note "note"
     end
 
     after(:create) do |item, evaluator|
@@ -42,6 +43,9 @@ FactoryGirl.define do
 
       unless evaluator.base_path.nil?
         FactoryGirl.create(:location, base_path: evaluator.base_path, content_item: item)
+      end
+      unless item.update_type == "minor" || evaluator.change_note.nil?
+        FactoryGirl.create(:change_note, note: evaluator.change_note, content_item: item)
       end
     end
   end

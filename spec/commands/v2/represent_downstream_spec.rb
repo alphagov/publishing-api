@@ -6,9 +6,11 @@ RSpec.describe Commands::V2::RepresentDownstream do
   end
 
   describe "call" do
+    let(:locale_content_id) { SecureRandom.uuid }
     before do
       2.times { FactoryGirl.create(:draft_content_item) }
-      2.times { FactoryGirl.create(:live_content_item, document_type: "guidance") }
+      FactoryGirl.create(:live_content_item, content_id: locale_content_id, document_type: "guidance", locale: "en")
+      FactoryGirl.create(:live_content_item, content_id: locale_content_id, document_type: "guidance", locale: "fr")
       FactoryGirl.create(:live_content_item, document_type: "press_release")
     end
 
@@ -39,12 +41,22 @@ RSpec.describe Commands::V2::RepresentDownstream do
           .at_least(1).times
         subject.call(ContentItem.all, false)
       end
+
+      it "updates for each locale" do
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including(locale: "en"))
+          .exactly(2).times
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including(locale: "fr"))
+          .exactly(1).times
+        subject.call(ContentItem.all, false)
+      end
     end
 
     context "scope" do
       it "can specify a scope" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with("downstream_low", a_hash_including(:content_item_id, :payload_version))
+          .with("downstream_low", a_hash_including(:content_id, :locale, :payload_version))
           .exactly(2).times
         subject.call(ContentItem.where(document_type: "guidance"), false)
       end
@@ -55,7 +67,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_low",
-            a_hash_including(:content_item_id, :payload_version, update_dependencies: false)
+            a_hash_including(:content_id, :locale, :payload_version, update_dependencies: false)
           )
           .exactly(5).times
         subject.call(ContentItem.all, true)

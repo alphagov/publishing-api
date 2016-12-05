@@ -15,19 +15,21 @@ gem 'dalli'
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else
-  gem "gds-api-adapters", "36.3.0"
+  gem "gds-api-adapters", "37.5.1"
 end
 
 gem "gds-sso", "13.0.0"
+gem "govuk_schemas", require: false
 
 gem 'bunny', '2.5.1'
 gem 'whenever', '0.9.4', require: false
 gem "govuk_sidekiq", "~> 1.0.1"
 gem "json-schema", require: false
 gem "hashdiff"
-gem "sidekiq-unique-jobs", require: false
+gem "sidekiq-unique-jobs", git: "https://github.com/alphagov/sidekiq-unique-jobs", require: false
 gem "govspeak", "~> 5.0.2"
 gem "diffy", "~> 3.1", require: false
+gem "aws-sdk", "~> 2"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -56,5 +58,4 @@ group :development, :test do
   gem "stackprof", require: false
   gem "spring"
   gem "spring-commands-rspec"
-  gem "govuk_schemas", "~> 1.0"
 end

@@ -22,7 +22,7 @@ class DownstreamDraftWorker
   # "content_item_id" and the updated interface which uses "content_id" and
   # "locale". Both interfaces are supported until we are confident there are
   # no longer items in the sidekiq queue. They should all be long gone by
-  # December 2016 and probably sooner.
+  # January 2017 and probably sooner.
   def perform(args = {})
     assign_attributes(args.symbolize_keys)
 
@@ -82,6 +82,7 @@ private
       content_store: Adapters::DraftContentStore,
       fields: [:content_id],
       content_id: content_id,
+      locale: locale,
       payload_version: payload_version
     )
   end

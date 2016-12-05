@@ -2,7 +2,12 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::PutContent do
   describe "call" do
+    let(:validator) do
+      instance_double(SchemaValidator, valid?: true, errors: [])
+    end
+
     before do
+      allow(SchemaValidator).to receive(:new).and_return(validator)
       stub_request(:delete, %r{.*content-store.*/content/.*})
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
@@ -42,6 +47,17 @@ RSpec.describe Commands::V2::PutContent do
     it "does not send to the downstream publish worker" do
       expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
       described_class.call(payload)
+    end
+
+    it "creates an action" do
+      expect(Action.count).to be 0
+      described_class.call(payload)
+      expect(Action.count).to be 1
+      expect(Action.first.attributes).to match a_hash_including(
+        "content_id" => content_id,
+        "locale" => locale,
+        "action" => "PutContent",
+      )
     end
 
     context "when the 'downstream' parameter is false" do
@@ -701,16 +717,6 @@ RSpec.describe Commands::V2::PutContent do
 
     it_behaves_like TransactionalCommand
 
-    it "validate against schema" do
-      allow(SchemaValidator).to receive(:new) {
-        double('validator', validate: true, errors: [])
-      }
-      expect(SchemaValidator).to receive(:new)
-        .with(type: :schema)
-
-      described_class.call(payload)
-    end
-
     context "when the draft does not exist" do
       context "with a provided last_edited_at" do
         it "stores the provided timestamp" do
@@ -891,10 +897,7 @@ RSpec.describe Commands::V2::PutContent do
         [{ schema: "a", fragment: "b", message: "c", failed_attribute: "d" }]
       end
       let(:validator) do
-        instance_double(SchemaValidator, validate: false, errors: errors)
-      end
-      before do
-        allow(SchemaValidator).to receive(:new) { validator }
+        instance_double(SchemaValidator, valid?: false, errors: errors)
       end
 
       it "raises command error and exits" do
@@ -908,13 +911,6 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "schema validation passes" do
-      let(:validator) do
-        instance_double(SchemaValidator, validate: true, errors: nil)
-      end
-      before do
-        allow(SchemaValidator).to receive(:new) { validator }
-      end
-
       it "returns success" do
         expect(PathReservation).to receive(:reserve_base_path!)
         expect { described_class.call(payload) }.not_to raise_error

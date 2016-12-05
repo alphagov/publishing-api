@@ -60,7 +60,7 @@ RSpec.describe DownstreamLiveWorker do
 
     context "unpublished content item" do
       let(:unpublished_content_item) { FactoryGirl.create(:unpublished_content_item) }
-      let(:unpublished_arguments) { arguments.merge(content_item_id: unpublished_content_item.id) }
+      let(:unpublished_arguments) { arguments.merge(content_id: unpublished_content_item.content_id) }
 
       it "sends content to live content store" do
         expect(Adapters::ContentStore).to receive(:put_content_item)
@@ -70,7 +70,7 @@ RSpec.describe DownstreamLiveWorker do
 
     context "superseded content item" do
       let(:superseded_content_item) { FactoryGirl.create(:live_content_item, state: "superseded") }
-      let(:superseded_arguments) { arguments.merge(content_item_id: superseded_content_item.id) }
+      let(:superseded_arguments) { arguments.merge(content_id: superseded_content_item.content_id) }
 
       it "doesn't send to live content store" do
         expect(Adapters::ContentStore).to_not receive(:put_content_item)
@@ -92,7 +92,7 @@ RSpec.describe DownstreamLiveWorker do
         schema_name: "contact"
       )
       expect(Adapters::ContentStore).to_not receive(:put_content_item)
-      subject.perform(arguments.merge("content_item_id" => pathless.id))
+      subject.perform(arguments.merge("content_id" => pathless.content_id))
     end
   end
 
@@ -133,14 +133,14 @@ RSpec.describe DownstreamLiveWorker do
 
       expect(Airbrake).to receive(:notify)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
-      subject.perform(arguments.merge("content_item_id" => draft.id))
+      subject.perform(arguments.merge("content_id" => draft.content_id))
     end
 
     it "allows live content items" do
       live = FactoryGirl.create(:live_content_item)
 
       expect(Airbrake).to_not receive(:notify)
-      subject.perform(arguments.merge("content_item_id" => live.id))
+      subject.perform(arguments.merge("content_id" => live.content_id))
     end
   end
 
@@ -148,7 +148,7 @@ RSpec.describe DownstreamLiveWorker do
     it "swallows the error" do
       expect(Airbrake).to receive(:notify)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
-      subject.perform(arguments.merge("content_item_id" => "made-up-id"))
+      subject.perform(arguments.merge("content_id" => "made-up-id"))
     end
   end
 end

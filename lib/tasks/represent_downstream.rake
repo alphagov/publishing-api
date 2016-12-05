@@ -17,6 +17,26 @@ namespace :represent_downstream do
   end
 
   desc "
+  Represent downstream for a rendering application
+  Usage
+  rake 'represent_downstream:rendering_app[frontend]'
+  "
+  task :rendering_app, [:rendering_app] => :environment do |_t, args|
+    rendering_app = args[:rendering_app]
+    Commands::V2::RepresentDownstream.new.call(ContentItem.where(rendering_app: rendering_app))
+  end
+
+  desc "
+  Represent downstream for a publishing application
+  Usage
+  rake 'represent_downstream:publishing_app[frontend]'
+  "
+  task :publishing_app, [:publishing_app] => :environment do |_t, args|
+    publishing_app = args[:publishing_app]
+    Commands::V2::RepresentDownstream.new.call(ContentItem.where(publishing_app: publishing_app))
+  end
+
+  desc "
   Represent an individual content_item downstream
   Usage
   rake 'represent_downstream:content_id[57a1253c-68d3-4a93-bb47-b67b9b4f6b9a]'

@@ -345,3 +345,12 @@ on the Publishing API. We currently support simple cases of this in the form
 of /links and /linked and it might make sense to collapse these into a single
 endpoint that leverages the dependency resolution queries to be implemented as
 part of this proposal.
+
+**Govuk-Dependency-Resolution-Source-Content-Id HTTP Header**
+
+The process of dependency resolution can greatly increase the number
+of requests with a specific Govuk-Request-Id. The
+Govuk-Dependency-Resolution-Source-Content-Id HTTP header if specified
+on a request made by the Publishing API indicates that this request is
+a result of dependency resolution. The value of the header is the
+`content_id` on which dependency resolution took place.

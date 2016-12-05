@@ -31,5 +31,10 @@ module PublishingAPI
       :lv, :ms, :pl, :ps, :pt, :ro, :ru, :si, :sk, :so, :sq, :sr, :sw, :ta, :th,
       :tk, :tr, :uk, :ur, :uz, :vi, :zh, :'zh-hk', :'zh-tw'
     ]
+
+    config.s3_export = OpenStruct.new(
+      bucket: ENV["EVENT_LOG_AWS_BUCKETNAME"],
+      events_key_prefix: "events/",
+    )
   end
 end

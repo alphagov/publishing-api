@@ -1,3 +1,5 @@
+require 'govuk_schemas'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -40,4 +42,17 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  if GovukSchemas::Schema.all.empty?
+    raise <<-message
+      No schemas found
+
+      The Publishing API service requires that the
+      govuk-content-schemas are available. These are accessed through
+      the GovukSchemas gem, which defaults to looking for the
+      govuk-content-schemas repository at ../govuk-content-schemas and
+      can be configured through the GOVUK_CONTENT_SCHEMAS_PATH
+      environment variable.
+    message
+  end
 end

@@ -10,6 +10,8 @@ module Commands
           send_downstream
         end
 
+        Action.create_unpublish_action(content_item, unpublishing_type, locale, event)
+
         Success.new(content_id: content_id)
       end
 
@@ -82,7 +84,10 @@ module Commands
       end
 
       def unpublish
-        State.unpublish(content_item, payload.slice(:type, :explanation, :alternative_path))
+        State.unpublish(
+          content_item,
+          payload.slice(:type, :explanation, :alternative_path, :unpublished_at)
+        )
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, fields: {})
       end

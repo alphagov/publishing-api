@@ -14,6 +14,8 @@ RSpec.describe Commands::V2::Unpublish do
         alternative_path: "/new-path",
       }
     end
+    let(:action_payload) { payload }
+    let(:action) { "UnpublishGone" }
 
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
@@ -54,6 +56,19 @@ RSpec.describe Commands::V2::Unpublish do
       end
     end
 
+    shared_examples "creates an action" do
+      it "creates an action" do
+        expect(Action.count).to be 0
+        described_class.call(action_payload)
+        expect(Action.count).to be 1
+        expect(Action.first.attributes).to match a_hash_including(
+          "content_id" => content_id,
+          "locale" => locale,
+          "action" => action,
+        )
+      end
+    end
+
     context "when the document is published" do
       let!(:live_content_item) do
         FactoryGirl.create(:live_content_item,
@@ -62,6 +77,8 @@ RSpec.describe Commands::V2::Unpublish do
           locale: locale,
         )
       end
+
+      include_examples "creates an action"
 
       it "sets the content item's state to `unpublished`" do
         described_class.call(payload)
@@ -109,6 +126,44 @@ RSpec.describe Commands::V2::Unpublish do
           }
         end
       end
+
+      context "and the unpublished_at parameter is set" do
+        let(:payload) do
+          {
+            content_id: content_id,
+            type: "gone",
+            explanation: "Removed for testing porpoises",
+            alternative_path: "/new-path",
+            unpublished_at: DateTime.new(2016, 8, 1, 1, 1, 1).rfc3339
+          }
+        end
+
+        it "ignores the provided unpublished_at" do
+          described_class.call(payload)
+
+          unpublishing = Unpublishing.find_by(content_item: live_content_item)
+          expect(unpublishing.unpublished_at).to be_nil
+        end
+
+        context "for a withdrawal" do
+          let(:payload) do
+            {
+              content_id: content_id,
+              type: "withdrawal",
+              explanation: "Removed for testing porpoises",
+              alternative_path: "/new-path",
+              unpublished_at: DateTime.new(2016, 8, 1, 10, 10, 10).rfc3339
+            }
+          end
+
+          it "persists the provided unpublished_at" do
+            described_class.call(payload)
+
+            unpublishing = Unpublishing.find_by(content_item: live_content_item)
+            expect(unpublishing.unpublished_at).to eq DateTime.new(2016, 8, 1, 10, 10, 10)
+          end
+        end
+      end
     end
 
     context "when only a draft is present" do
@@ -135,6 +190,9 @@ RSpec.describe Commands::V2::Unpublish do
             allow_draft: true,
           )
         end
+
+        let(:action_payload) { payload_with_allow_draft }
+        include_examples "creates an action"
 
         it "sets the content item's state to `unpublished`" do
           described_class.call(payload_with_allow_draft)
@@ -327,6 +385,8 @@ RSpec.describe Commands::V2::Unpublish do
         }
       end
 
+      include_examples "creates an action"
+
       it "updates the Unpublishing" do
         unpublishing = Unpublishing.find_by(content_item: unpublished_content_item)
         expect(unpublishing.explanation).to eq("This explnatin has a typo")
@@ -449,6 +509,8 @@ RSpec.describe Commands::V2::Unpublish do
           base_path: nil,
         )
       end
+
+      include_examples "creates an action"
 
       it "sets the content item's state to `unpublished`" do
         described_class.call(payload)

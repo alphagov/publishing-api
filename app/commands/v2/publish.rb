@@ -56,6 +56,8 @@ module Commands
           send_downstream(content_item.content_id, translation.locale, update_type)
         end
 
+        Action.create_publish_action(content_item, locale, event)
+
         Success.new(content_id: content_id)
       end
 
@@ -63,7 +65,7 @@ module Commands
 
       def delete_change_notes_if_not_major_update(content_item, update_type)
         unless update_type == "major"
-          ChangeNote.delete_all(content_item: content_item)
+          ChangeNote.where(content_item: content_item).delete_all
         end
       end
 

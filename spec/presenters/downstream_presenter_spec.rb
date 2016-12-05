@@ -89,6 +89,30 @@ RSpec.describe Presenters::DownstreamPresenter do
           )
         )
       end
+
+      context "with an overridden unpublished_at" do
+        let!(:content_item) do
+          FactoryGirl.create(
+            :withdrawn_unpublished_content_item,
+            base_path: base_path,
+            details: details,
+            unpublished_at: DateTime.new(2016, 9, 10, 4, 5, 6)
+          )
+        end
+
+        it "merges in a withdrawal notice with the withdrawn_at set correctly" do
+          unpublishing = Unpublishing.find_by(content_item: content_item)
+
+          expect(result).to eq(
+            expected.merge(
+              withdrawn_notice: {
+                explanation: unpublishing.explanation,
+                withdrawn_at: unpublishing.unpublished_at.iso8601,
+              }
+            )
+          )
+        end
+      end
     end
 
     context "for a content item with dependencies" do
@@ -142,7 +166,7 @@ RSpec.describe Presenters::DownstreamPresenter do
           details: details.slice(:body))
       end
       before do
-        ChangeNote.create(change_history.merge(content_item: content_item))
+        ChangeNote.create(change_history.merge(content_item: content_item, content_id: content_item.content_id))
       end
 
       it "constructs the change history" do
