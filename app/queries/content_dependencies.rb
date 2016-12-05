@@ -22,7 +22,7 @@ module Queries
 
     def call
       content_ids = linked_to(content_id) + automatic_reverse_links(content_id) + [content_id]
-      with_locales = content_ids_with_locales(content_ids.uniq, state_fallback_order)
+      with_locales = Queries::LocalesForContentItem.for_many(content_ids.uniq, state_fallback_order)
       calling_item = locale ? [content_id, locale] : nil
       with_locales - [calling_item]
     end
@@ -43,13 +43,6 @@ module Queries
       Link.joins(:link_set)
         .where(link_sets: { content_id: content_id }, link_type: link_types)
         .pluck(:target_content_id)
-    end
-
-    def content_ids_with_locales(content_ids, state_fallback_order)
-      content_ids.each_with_object([]) do |content_id, memo|
-        locales = Queries::LocalesForContentItem.call(content_id, state_fallback_order)
-        locales.each { |locale| memo << [content_id, locale] }
-      end
     end
   end
 end
