@@ -22,7 +22,7 @@ module Queries
 
     def call
       content_ids = linked_to(content_id) + automatic_reverse_links(content_id) + [content_id]
-      with_locales = Queries::LocalesForContentItem.for_many(content_ids.uniq, state_fallback_order)
+      with_locales = Queries::LocalesForContentItems.call(content_ids.uniq, state_fallback_order)
       calling_item = locale ? [content_id, locale] : nil
       with_locales - [calling_item]
     end

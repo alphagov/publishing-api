@@ -10,12 +10,12 @@ module Commands
 
         if draft
           content_ids = content_ids_for_draft_store(filter)
-          with_locales = Queries::LocalesForContentItem.for_many(content_ids, draft_states)
+          with_locales = Queries::LocalesForContentItems.call(content_ids, draft_states)
           with_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
         end
 
         content_ids = content_ids_for_live_store(filter)
-        with_locales = Queries::LocalesForContentItem.for_many(content_ids, live_states)
+        with_locales = Queries::LocalesForContentItems.call(content_ids, live_states)
         with_locales.each_with_index do |(content_id, locale), index|
           sleep 60 if (index + 1) % 10_000 == 0
           downstream_live(content_id, locale)

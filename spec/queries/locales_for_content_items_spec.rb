@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Queries::LocalesForContentItem do
+RSpec.describe Queries::LocalesForContentItems do
   def create_content_item(
     content_id,
     type = :live_content_item,
@@ -17,74 +17,7 @@ RSpec.describe Queries::LocalesForContentItem do
     )
   end
 
-  describe '.for_one' do
-    let(:base_content_id) { "05626609-f046-41cc-ba84-a07d1064ac96" }
-    let(:content_id) { base_content_id }
-    let(:states) { %w[draft published unpublished] }
-    let(:include_substitutes) { false }
-
-    subject { described_class.for_one(content_id, states, include_substitutes) }
-
-    before do
-      create_content_item(base_content_id)
-      create_content_item(base_content_id, :draft_content_item, 2)
-      create_content_item(base_content_id, :draft_content_item, 1, "fr")
-      create_content_item(base_content_id, :unpublished_content_item, 1, "es")
-      create_content_item(base_content_id, :superseded_content_item, 1, "de")
-      create_content_item(base_content_id, :substitute_unpublished_content_item, 1, "cy")
-    end
-
-    it { is_expected.to be_a(Array) }
-
-    context "where there are no content items for the content id" do
-      let(:content_id) { "43466ca6-46d4-4a92-9783-c29a40cc77e3" }
-      it { is_expected.to be_empty }
-    end
-
-    context "when we access draft, published and unpublished content items, excluding substitute unpublishings" do
-      let(:states) { %w[draft published unpublished] }
-      let(:include_substitutes) { false }
-      it { is_expected.to match_array(%w[en fr es]) }
-
-      context "when states are symbols" do
-        let(:states) { %i[draft published unpublished] }
-        it { is_expected.to match_array(%w[en fr es]) }
-      end
-    end
-
-    context "when we access draft items" do
-      let(:states) { %w[draft] }
-
-      it { is_expected.to match_array(%w[en fr]) }
-    end
-
-    context "when we access published items" do
-      let(:states) { %w[published] }
-
-      it { is_expected.to match_array(%w[en]) }
-    end
-
-    context "when we access unpublished items, without substitutes" do
-      let(:states) { %w[unpublished] }
-
-      it { is_expected.to match_array(%w[es]) }
-    end
-
-    context "when we access unpublished items, with substitutes" do
-      let(:states) { %w[unpublished] }
-      let(:include_substitutes) { true }
-
-      it { is_expected.to match_array(%w[es cy]) }
-    end
-
-    context "when we access superseded items" do
-      let(:states) { %w[superseded] }
-
-      it { is_expected.to match_array(%w[de]) }
-    end
-  end
-
-  describe ".for_many" do
+  describe ".call" do
     let(:content_id_1) { SecureRandom.uuid }
     let(:content_id_2) { SecureRandom.uuid }
     let(:base_content_ids) { [content_id_1, content_id_2] }
@@ -92,7 +25,7 @@ RSpec.describe Queries::LocalesForContentItem do
     let(:states) { %w[draft published unpublished] }
     let(:include_substitutes) { false }
 
-    subject { described_class.for_many(content_ids, states, include_substitutes) }
+    subject { described_class.call(content_ids, states, include_substitutes) }
 
     it { is_expected.to be_a(Array) }
 

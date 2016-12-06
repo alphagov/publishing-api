@@ -1,25 +1,13 @@
 module Queries
-  module LocalesForContentItem
+  module LocalesForContentItems
     extend ArelHelpers
-
-    # returns an array of locales:
-    # ["en", "fr"]
-    def self.for_one(
-      content_id,
-      states = %w[draft published unpublished],
-      include_substitutes = false
-    )
-      many = for_many([content_id], states, include_substitutes)
-      single = many.group_by(&:first)[content_id]
-      single ? single.map(&:last) : []
-    end
 
     # returns an array of form:
     # [
     #   [content_id, locale],
     #   [content_id, locale],
     # ]
-    def self.for_many(
+    def self.call(
       content_ids,
       states = %w[draft published unpublished],
       include_substitutes = false
