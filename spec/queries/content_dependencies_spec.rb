@@ -1,99 +1,241 @@
 require "rails_helper"
 
 RSpec.describe Queries::ContentDependencies do
-  let(:parent_content_item) { FactoryGirl.create(:content_item, base_path: "/tax") }
-  let(:child_content_item) { FactoryGirl.create(:content_item, base_path: "/vat-rates") }
-  let(:special_content_item) { FactoryGirl.create(:content_item, base_path: "/something-special") }
+  include DependencyResolutionHelper
 
-  let(:link_set) { FactoryGirl.create(:link_set, content_id: child_content_item.content_id) }
+  let(:content_id) { SecureRandom.uuid }
+  let(:locale) { "en" }
+  let(:state_fallback_order) { %w[published unpublished] }
 
-  let!(:link) {
-    FactoryGirl.create(:link,
-      link_set: link_set,
-      link_type: 'special',
-      target_content_id: special_content_item.content_id,
-    )
-  }
-  let!(:link_2) {
-    FactoryGirl.create(:link,
-      link_set: link_set,
-      link_type: 'parent',
-      target_content_id: parent_content_item.content_id,
-    )
-  }
-
-  describe "dependent lookups" do
-    subject(:dependents) do
-      described_class.new(
-        content_id: parent_content_item.content_id,
-        fields: fields,
-      )
-    end
-
-    context "link_sets" do
-      let(:fields) { [:base_path] }
-
-      it "calculates the correct link_types" do
-        expect_any_instance_of(Queries::GetDependents).to receive(:call).with(
-          content_id: parent_content_item.content_id,
-          recursive_link_types: %w(parent),
-          direct_link_types: [],
-        )
-        dependents.call
-      end
-    end
-
-    context "field changes that require dependent lookup" do
-      let(:fields) { [:base_path, :other_field] }
-      it "returns the dependents" do
-        expect(dependents.call).to match_array([child_content_item.content_id])
-      end
-    end
-
-    context "field changes that do not require dependent lookup" do
-      let(:fields) { [:foo] }
-      it "returns no dependents" do
-        expect(dependents.call).to eq([])
-      end
-    end
+  let(:instance_options) do
+    {
+      content_id: content_id,
+      locale: locale,
+      state_fallback_order: state_fallback_order,
+    }
   end
 
-  describe "dependee lookups" do
-    subject(:dependees) do
-      described_class.new(
-        content_id: child_content_item.content_id,
-        fields: fields,
-        dependent_lookup: Queries::GetDependees.new,
-      )
+  describe "#call" do
+    subject { described_class.new(instance_options).call }
+
+    context "when there are no links or translations" do
+      it { is_expected.to be_empty }
     end
 
-    context "link_sets" do
-      let(:fields) { [:base_path] }
+    context "when there are translations of the content item" do
+      before do
+        create_content_item(content_id, "/a", "published", "en")
+        create_content_item(content_id, "/a.fr", "published", "fr")
+        create_content_item(content_id, "/a.es", "published", "es")
+      end
 
-      it "calculates the correct link_types" do
-        expect_any_instance_of(Queries::GetDependees).to receive(:call).with(
-          content_id: child_content_item.content_id,
-          recursive_link_types: %w(parent),
-          direct_link_types: %w(special)
-        )
-        dependees.call
+      context "and we specify locale as en" do
+        let(:locale) { "en" }
+        let(:translations) do
+          [
+            [content_id, "fr"],
+            [content_id, "es"],
+          ]
+        end
+
+        it { is_expected.to match_array(translations) }
+      end
+
+      context "and we specify locale as es" do
+        let(:locale) { "es" }
+        let(:translations) do
+          [
+            [content_id, "en"],
+            [content_id, "fr"],
+          ]
+        end
+
+        it { is_expected.to match_array(translations) }
+      end
+
+      context "and we don't specify a locale" do
+        let(:locale) { nil }
+        let(:translations) do
+          [
+            [content_id, "en"],
+            [content_id, "fr"],
+            [content_id, "es"],
+          ]
+        end
+
+        it { is_expected.to match_array(translations) }
       end
     end
 
-    context "field changes that require dependee lookup" do
-      let(:fields) { [:base_path, :other_field] }
-      it "returns the dependees" do
-        expect(dependees.call).to match_array([
-          special_content_item.content_id,
-          parent_content_item.content_id,
-        ])
+    context "when there are draft translations of the content item" do
+      before do
+        create_content_item(content_id, "/a", "published", "en")
+        create_content_item(content_id, "/a.cy", "draft", "cy")
+      end
+
+      let(:locale) { "en" }
+      let(:state_fallback_order) { %w[published unpublished] }
+
+      it { is_expected.to be_empty }
+
+      context "but we requested drafts in state_fallback_order" do
+        let(:state_fallback_order) { %w[draft published unpublished] }
+        let(:translations) do
+          [
+            [content_id, "cy"],
+          ]
+        end
+
+        it { is_expected.to match_array(translations) }
       end
     end
 
-    context "field changes that do not require dependee lookup" do
-      let(:fields) { [:foo] }
-      it "returns no dependees" do
-        expect(dependees.call).to eq([])
+    context "when items link to this content item" do
+      before do
+        create_content_item(link_1_content_id, "/link-1", "published", "en")
+        create_content_item(link_2_content_id, "/link-2", "published", "en")
+        create_link(link_1_content_id, content_id, "organisation")
+        create_link(link_2_content_id, content_id, "organisation")
+      end
+
+      let(:link_1_content_id) { SecureRandom.uuid }
+      let(:link_2_content_id) { SecureRandom.uuid }
+      let(:links) do
+        [
+          [link_1_content_id, "en"],
+          [link_2_content_id, "en"],
+        ]
+      end
+
+      it { is_expected.to match_array(links) }
+    end
+
+    context "when items in different translations link to this content item" do
+      before do
+        create_content_item(link_content_id, "/link", "published", "en")
+        create_content_item(link_content_id, "/link.cy", "published", "cy")
+        create_link(link_content_id, content_id, "organisation")
+      end
+
+      let(:link_content_id) { SecureRandom.uuid }
+      let(:links) do
+        [
+          [link_content_id, "en"],
+          [link_content_id, "cy"],
+        ]
+      end
+
+      it { is_expected.to match_array(links) }
+    end
+
+    context "when items in different states link to this content item" do
+      before do
+        create_content_item(link_1_content_id, "/link", "published")
+        create_content_item(link_2_content_id, "/link", "draft")
+        create_link(link_1_content_id, content_id, "organisation")
+        create_link(link_2_content_id, content_id, "organisation")
+      end
+
+      let(:link_1_content_id) { SecureRandom.uuid }
+      let(:link_2_content_id) { SecureRandom.uuid }
+      let(:links) do
+        [
+          [link_1_content_id, "en"],
+        ]
+      end
+
+      it { is_expected.to match_array(links) }
+
+      context "but we use a different state_fallback_order" do
+        let(:state_fallback_order) { %w[draft published unpublished] }
+
+        let(:links) do
+          [
+            [link_1_content_id, "en"],
+            [link_2_content_id, "en"],
+          ]
+        end
+
+        it { is_expected.to match_array(links) }
+      end
+    end
+
+    context "when a graph of parent items link to this content item" do
+      before do
+        create_content_item(great_grandparent_content_id, "/great")
+        create_content_item(grandparent_content_id, "/great/grand")
+        create_content_item(parent_content_id, "/great/grand/parent")
+        create_link(parent_content_id, content_id, "parent")
+        create_link(grandparent_content_id, parent_content_id, "parent")
+        create_link(great_grandparent_content_id, grandparent_content_id, "parent")
+      end
+
+      let(:great_grandparent_content_id) { SecureRandom.uuid }
+      let(:grandparent_content_id) { SecureRandom.uuid }
+      let(:parent_content_id) { SecureRandom.uuid }
+      let(:links) do
+        [
+          [great_grandparent_content_id, "en"],
+          [grandparent_content_id, "en"],
+          [parent_content_id, "en"],
+        ]
+      end
+
+      it { is_expected.to match_array(links) }
+    end
+
+    context "when this content item has a link to an item with a reverse link type" do
+      before do
+        create_content_item(reverse_link_content_id, "/reverse")
+        create_link(content_id, reverse_link_content_id, "documents")
+      end
+
+      let(:reverse_link_content_id) { SecureRandom.uuid }
+      let(:links) do
+        [
+          [reverse_link_content_id, "en"],
+        ]
+      end
+
+      it { is_expected.to match_array(links) }
+
+      context "and there are translations of item that links" do
+        before do
+          create_content_item(reverse_link_content_id, "/reverse.cy", "published", "cy")
+        end
+
+        let(:links) do
+          [
+            [reverse_link_content_id, "en"],
+            [reverse_link_content_id, "cy"],
+          ]
+        end
+
+        it { is_expected.to match_array(links) }
+      end
+    end
+
+    context "when this content has a link to a draft item with a reverse link type" do
+      before do
+        create_content_item(reverse_link_content_id, "/reverse", "draft")
+        create_link(content_id, reverse_link_content_id, "documents")
+      end
+
+      let(:reverse_link_content_id) { SecureRandom.uuid }
+      let(:state_fallback_order) { %w[published unpublished] }
+
+      it { is_expected.to be_empty }
+
+      context "and we allow drafts" do
+        let(:state_fallback_order) { %w[draft published unpublished] }
+
+        let(:links) do
+          [
+            [reverse_link_content_id, "en"],
+          ]
+        end
+
+        it { is_expected.to match_array(links) }
       end
     end
   end

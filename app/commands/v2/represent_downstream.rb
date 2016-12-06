@@ -10,25 +10,19 @@ module Commands
 
         if draft
           content_ids = content_ids_for_draft_store(filter)
-          content_ids_with_locales(content_ids, draft_states).each do |(content_id, locale)|
-            downstream_draft(content_id, locale)
-          end
+          with_locales = Queries::LocalesForContentItems.call(content_ids, draft_states)
+          with_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
         end
 
         content_ids = content_ids_for_live_store(filter)
-        content_ids_with_locales(content_ids, live_states).each_with_index do |(content_id, locale), index|
+        with_locales = Queries::LocalesForContentItems.call(content_ids, live_states)
+        with_locales.each_with_index do |(content_id, locale), index|
           sleep 60 if (index + 1) % 10_000 == 0
           downstream_live(content_id, locale)
         end
       end
 
     private
-
-      def content_ids_with_locales(content_ids, states)
-        content_ids.inject([]) do |memo, content_id|
-          memo + Queries::LocalesForContentItem.call(content_id, states).map { |locale| [content_id, locale] }
-        end
-      end
 
       def content_ids_for_draft_store(filter)
         Queries::GetLatest.call(filter.filter(state: draft_states)).distinct.pluck(:content_id)

@@ -33,6 +33,15 @@ module Queries
       ]
     end
 
+    def valid_link_recursion?(link_types)
+      link_types = link_types.map(&:to_sym)
+      recursive_link_types.any? do |compare|
+        prefix_match = link_types.first(compare.count) == compare.first(link_types.count)
+        suffix = link_types[compare.count..-1] || []
+        prefix_match && (suffix.empty? || suffix.to_set == Set[compare.last])
+      end
+    end
+
     def next_level(type, current_level)
       group = recursive_link_types.find { |e| e.include?(type.to_sym) }
       group[current_level] || group.last
