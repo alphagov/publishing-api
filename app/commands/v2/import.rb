@@ -1,27 +1,24 @@
 module Commands
   module V2
-    class Import
-      def initialize(params)
-        @params = params
-      end
+    class Import < BaseCommand
 
       def call
         ContentItem.transaction do
-          delete_all(params[:content_id])
+          delete_all(payload[:content_id])
           all_content_items.map.with_index do |event, index|
-            create_content_item(event, index, params[:content_id])
+            create_content_item(event, index, payload[:content_id])
           end
         end
 
         send_downstream(all_content_items.find { |e| e[:action] == 'Publish' })
+
+        Success.new(content_id: payload[:content_id])
       end
 
     private
 
-      attr_reader :params
-
       def all_content_items
-        @all_content_items ||= [redirects.compact + params[:content_items]].flatten
+        @all_content_items ||= [redirects.compact + payload[:content_items]].flatten
       end
 
       def send_downstream(content)
@@ -71,11 +68,11 @@ module Commands
       end
 
       def publishing_app
-        @params[:content_items].map { |e| e[:payload][:publishing_app] }.last
+        @payload[:content_items].map { |e| e[:payload][:publishing_app] }.last
       end
 
       def base_paths_and_routes
-        @base_paths ||= params[:content_items].map { |e| [e[:payload][:base_path], e[:payload][:routes]] }.uniq
+        @base_paths ||= payload[:content_items].map { |e| [e[:payload][:base_path], e[:payload][:routes]] }.uniq
       end
 
       def delete_all(content_id)

@@ -17,7 +17,7 @@ RSpec.describe Commands::V2::Import do
       }
     end
 
-    let(:params) do
+    let(:payload) do
       {
         content_id: content_id,
         content_items: [
@@ -40,7 +40,7 @@ RSpec.describe Commands::V2::Import do
       }
     end
 
-    subject { described_class.new(params).call }
+    subject { described_class.call(payload) }
 
     it "creates the full content item history" do
       expect { subject }.to change { ContentItem.count }.by(4)
