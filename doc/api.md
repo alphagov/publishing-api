@@ -412,7 +412,9 @@ live version. Uses [optimistic-locking](#optimistic-locking-previous_version).
 ### State changes
 - The draft content item will be deleted from the Publishing API.
 - The draft content item will be removed from the draft content store.
-- If a published content item exists it will be added to the draft content store.
+- If a published content item exists it will be added to the draft content
+  store.
+
 ## `PATCH /v2/links/:content_id`
 
 [Request/Response detail][patch-link-set-pact]
