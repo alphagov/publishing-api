@@ -395,9 +395,9 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     end
   end
 
-  describe "not expanding withdrawn dependents" do
+  describe "expanding withdrawn dependents" do
     let(:state_fallback_order) { [:published] }
-    let!(:published) { create_content_item(a, "/a") }
+    let!(:published) { FactoryGirl.create(:withdrawn_unpublished_content_item, content_id: a, base_path: '/a') }
     let!(:withdrawn_child) { FactoryGirl.create(:withdrawn_unpublished_content_item, content_id: b, base_path: '/b') }
     let!(:published_child) { create_content_item(c, "/c") }
 
@@ -406,10 +406,15 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       create_link(c, a, "parent")
     end
 
-    it "doesn't include withdrawn dependents" do
+    it "does include withdrawn dependents" do
       base_paths = expanded_links[:children].map { |c| c[:base_path] }
-      expect(base_paths).to_not include("/b")
+      expect(base_paths).to include("/b")
       expect(base_paths).to include("/c")
+    end
+
+    it "includes withdrawn parent of the dependent" do
+      parents_base_paths = expanded_links[:children].map { |c| c[:links][:parent] }.flatten.map { |e| e[:base_path] }
+      expect(parents_base_paths).to eq(['/a', '/a'])
     end
   end
 

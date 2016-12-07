@@ -16,7 +16,10 @@ module Presenters
 
       def dependents
         links = dependent_links
-        all_web_content_items = controller.web_content_items(links.map(&:last))
+        all_web_content_items = controller.web_content_items(
+          links.map(&:last),
+          controller.state_fallback_order + [:withdrawn]
+        )
 
         links.group_by(&:first).each_with_object({}) do |(type, link_array), hash|
           reverse = ::Queries::DependeeExpansionRules.reverse_name_for(type).to_sym
@@ -37,7 +40,10 @@ module Presenters
       end
 
       def parent
-        @parent ||= controller.web_content_items([content_id]).first
+        @parent ||= controller.web_content_items(
+          [content_id],
+          controller.state_fallback_order + [:withdrawn]
+        ).first
       end
 
       def dependent_links
