@@ -21,6 +21,7 @@ fields = %i{
   locale
   state
   user_facing_version
+  unpublishing_type
 }
 
 WebContentItem = Struct.new(*fields) do
@@ -33,8 +34,13 @@ WebContentItem = Struct.new(*fields) do
       api_path: api_path,
       api_url: api_url,
       web_url: web_url,
+      withdrawn: withdrawn?,
       description: description
      )
+  end
+
+  def withdrawn?
+    unpublishing_type == 'withdrawal'
   end
 
   def api_path

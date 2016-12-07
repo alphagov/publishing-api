@@ -25,6 +25,7 @@ RSpec.describe Queries::DependeeExpansionRules do
           :public_updated_at,
           :schema_name,
           :title,
+          :withdrawn,
         ])
       end
     end

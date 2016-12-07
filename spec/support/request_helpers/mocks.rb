@@ -79,6 +79,7 @@ module RequestHelpers
           locale: "en",
           public_updated_at: DateTime.parse("2014-05-14T13:00:06Z"),
           title: "VAT rates",
+          withdrawn: false,
         }
       ]
     end

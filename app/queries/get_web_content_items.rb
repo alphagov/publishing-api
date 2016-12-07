@@ -67,7 +67,8 @@ module Queries
           locations[:base_path],
           states[:name].as("state"),
           translations[:locale],
-          user_facing_versions[:number].as("user_facing_version")
+          user_facing_versions[:number].as("user_facing_version"),
+          unpublishings[:type].as("unpublishing_type")
         )
         .outer_join(locations).on(content_items[:id].eq(locations[:content_item_id]))
         .join(states).on(content_items[:id].eq(states[:content_item_id]))
