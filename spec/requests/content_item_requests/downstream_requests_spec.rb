@@ -1,64 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Downstream requests", type: :request do
-  context "/content" do
-    let(:content_item_for_draft_content_store) {
-      content_item_params
-        .except(:access_limited, :update_type)
-    }
-
-    let(:content_item_for_live_content_store) {
-      content_item_for_draft_content_store
-    }
-
-    it "sends content to both content stores" do
-      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
-      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
-
-      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item_for_draft_content_store
-            .merge(payload_version: anything)
-        )
-
-      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item_for_live_content_store
-            .merge(payload_version: anything)
-        )
-
-      put "/content#{base_path}", params: content_item_params.to_json
-
-      expect(response).to be_ok, response.body
-    end
-  end
-
-  context "/draft-content" do
-    let(:content_item_for_draft_content_store) {
-      content_item_params
-        .except(:update_type)
-    }
-
-    it "sends content to the draft content store only" do
-      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
-
-      expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item_for_draft_content_store
-            .merge(payload_version: anything)
-        )
-      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
-      expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
-
-      put "/draft-content#{base_path}", params: content_item_params.to_json
-
-      expect(response).to be_ok, response.body
-    end
-  end
-
   context "/v2/content" do
     let(:content_item_for_draft_content_store) {
       v2_content_item

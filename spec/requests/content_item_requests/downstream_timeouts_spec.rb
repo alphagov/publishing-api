@@ -1,64 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Downstream timeouts", type: :request do
-  context "/content" do
-    context "draft content store times out" do
-      before do
-        stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
-      end
-
-      it "returns an error" do
-        put "/content#{base_path}", params: content_item_params.to_json
-
-        expect(response.status).to eq(500)
-        expect(parsed_response).to eq(
-          "error" => {
-            "code" => 500,
-            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
-          }
-        )
-      end
-    end
-
-    context "content store times out" do
-      before do
-        stub_request(:put, Plek.find('content-store') + "/content#{base_path}").to_timeout
-      end
-
-      it "returns an error" do
-        put "/content#{base_path}", params: content_item_params.to_json
-
-        expect(response.status).to eq(500)
-        expect(parsed_response).to eq(
-          "error" => {
-            "code" => 500,
-            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
-          }
-        )
-      end
-    end
-  end
-
-  context "/draft-content" do
-    context "draft content store times out" do
-      before do
-        stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
-      end
-
-      it "returns an error" do
-        put "/draft-content#{base_path}", params: content_item_params.to_json
-
-        expect(response.status).to eq(500)
-        expect(parsed_response).to eq(
-          "error" => {
-            "code" => 500,
-            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
-          }
-        )
-      end
-    end
-  end
-
   context "/v2/content" do
     context "draft content store times out" do
       before do
