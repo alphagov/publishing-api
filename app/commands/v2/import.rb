@@ -44,7 +44,9 @@ module Commands
       end
 
       def create_content_item(event, index, content_id)
-        event_payload = event[:payload].slice(*attributes).merge(content_id: content_id)
+        event_payload = event[:payload].slice(*attributes)
+        validate_schema(event_payload)
+        event_payload.merge(content_id: content_id)
         Services::CreateContentItem.new(
           payload: event_payload,
           user_facing_version: index + 1,
@@ -88,6 +90,17 @@ module Commands
 
       def delete_all(content_id)
         Services::DeleteContentItem.destroy_content_items_with_links(content_id)
+      end
+
+      def validate_schema(payload)
+        schema_validator = SchemaValidator.new(payload: payload.except(:content_id))
+        return if schema_validator.valid?
+        message = "The payload did not conform to the schema"
+        raise CommandError.new(
+          code: 422,
+          message: message,
+          error_details: schema_validator.errors,
+        )
       end
     end
   end
