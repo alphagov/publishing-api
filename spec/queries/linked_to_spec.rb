@@ -6,7 +6,7 @@ RSpec.describe Queries::LinkedTo do
   end
 
   describe "#call" do
-    subject { described_class.new.call(content_id: content_id, expansion_rules: expansion_rules) }
+    subject { described_class.new(content_id, expansion_rules).call }
     let(:content_id) { SecureRandom.uuid }
     let(:expansion_rules) { Queries::DependeeExpansionRules }
     let(:recursive_link_types) { [] }

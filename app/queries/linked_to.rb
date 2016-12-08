@@ -8,63 +8,45 @@ module Queries
   # Designed to be used to determine which links to update as part of
   # dependency resoultion.
   class LinkedTo
-    def call(content_id:, expansion_rules:)
-      linked_to(content_id, expansion_rules)
+    def initialize(content_id, expansion_rules)
+      @content_id = content_id
+      @expansion_rules = expansion_rules
     end
 
-    def linked_to(content_id, expansion_rules)
-      all_results = results(content_id, expansion_rules.recursive_link_types)
-      filtered = all_results.select do |result|
-        link_type_path = JSON.parse(result["link_type_path"]).reverse
-        link_type_path.count == 1 || expansion_rules.valid_link_recursion?(link_type_path)
+    def call
+      first_level = links_targetting(content_id)
+      expanded = first_level.flat_map do |(content_id, type)|
+        expand_recursive_links([content_id], [type])
       end
-      filtered.map { |result| JSON.parse(result["content_id_path"]) }.flatten.uniq
+      content_ids = expanded.inject([]) do |memo, hash|
+        only_item = hash[:link_type_path].length == 1
+        valid_recursion = expansion_rules.valid_link_recursion?(hash[:link_type_path].reverse)
+        only_item || valid_recursion ? memo + hash[:content_ids] : memo
+      end
+      content_ids.uniq
     end
 
-    def results(content_id, recursive_link_types)
-      connection = ActiveRecord::Base.connection
-      if recursive_link_types.any?
-        quoted_link_types = recursive_link_types.flatten.map { |s| connection.quote(s) }.join(",")
-        link_type_condition = "found_links.link_type IN (#{quoted_link_types}) AND links.link_type IN (#{quoted_link_types})"
-      else
-        link_type_condition = "1 = 0"
+  private
+
+    attr_reader :content_id, :expansion_rules
+
+    def links_targetting(content_id, types = nil)
+      links_where = { target_content_id: content_id }
+      links_where[:link_type] = types if types.present?
+      LinkSet.joins(:links).where(links: links_where).pluck(:content_id, :link_type)
+    end
+
+    def expand_recursive_links(content_id_path, type_path)
+      next_content_id = content_id_path.last
+      allowed_types = expansion_rules.next_reverse_recursive_types(type_path)
+      cycle = content_id_path.uniq != content_id_path
+      current = { content_ids: content_id_path, link_type_path: type_path }
+      return [current] if allowed_types.empty? || cycle
+      links = links_targetting(next_content_id, allowed_types)
+      expanded_links = links.flat_map do |(content_id, type)|
+        expand_recursive_links(content_id_path + [content_id], type_path + [type])
       end
-      connection.execute(
-        <<-SQL
-          WITH RECURSIVE found_links (
-            content_id, link_type, link_type_path, content_id_path
-          ) AS (
-            -- All links which target this content item
-            SELECT
-              link_sets.content_id,
-              links.link_type,
-              ARRAY[links.link_type],
-              ARRAY[link_sets.content_id]
-            FROM link_sets
-            INNER JOIN links
-              ON link_sets.id = links.link_set_id
-            WHERE links.target_content_id = #{connection.quote(content_id)}
-          UNION
-            -- Recursive links which target a link we have found
-            -- and both previous and current link type are of a recursive type
-            -- and is not one of the parents of this link (to avoid a cycle)
-            SELECT
-              link_sets.content_id,
-              links.link_type,
-              array_append(found_links.link_type_path, links.link_type),
-              array_append(found_links.content_id_path, link_sets.content_id)
-            FROM found_links
-            JOIN links
-              ON links.target_content_id = found_links.content_id
-            JOIN link_sets
-              ON link_sets.id = links.link_set_id
-            WHERE NOT (link_sets.content_id = ANY(found_links.content_id_path))
-              AND #{link_type_condition}
-          )
-          SELECT array_to_json(content_id_path) as content_id_path, array_to_json(link_type_path) as link_type_path
-          FROM found_links;
-        SQL
-      )
+      [current] + expanded_links
     end
   end
 end

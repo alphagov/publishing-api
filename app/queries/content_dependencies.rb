@@ -32,10 +32,7 @@ module Queries
     attr_reader :content_id, :locale, :state_fallback_order
 
     def linked_to(content_id)
-      Queries::LinkedTo.new.(
-        content_id: content_id,
-        expansion_rules: DependeeExpansionRules,
-      )
+      Queries::LinkedTo.new(content_id, DependeeExpansionRules).call
     end
 
     def automatic_reverse_links(content_id)
