@@ -2,6 +2,18 @@ module Commands
   module V2
     class Import < BaseCommand
 
+      def self.call(payload)
+        logger.debug "#{self} called with payload:\n#{payload}"
+
+        response = ContentItem.transaction do
+          PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, '.')) do
+            new(payload, event: nil, downstream: true, nested: false, callbacks: []).call
+          end
+        end
+
+        response
+      end
+
       def call
         unless UuidValidator.valid?(payload[:content_id])
           raise CommandError.new(
@@ -14,11 +26,10 @@ module Commands
             }
           })
         end
-        ContentItem.transaction do
-          delete_all(payload[:content_id])
-          all_content_items.map.with_index do |event, index|
-            create_content_item(event, index, payload[:content_id])
-          end
+
+        delete_all(payload[:content_id])
+        all_content_items.map.with_index do |event, index|
+          create_content_item(event, index, payload[:content_id])
         end
 
         send_downstream(all_content_items.find { |e| e[:action] == 'Publish' })
