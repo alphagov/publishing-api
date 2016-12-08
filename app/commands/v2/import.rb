@@ -62,7 +62,7 @@ module Commands
       end
 
       def redirects
-        return if base_paths_and_routes.count == 1
+        return [] if base_paths_and_routes.count == 1
         base_paths_and_routes.map.with_index do |(base_path, routes), index|
           new_base_path = base_paths_and_routes[index + 1]
           next unless new_base_path
