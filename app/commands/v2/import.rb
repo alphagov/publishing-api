@@ -3,6 +3,17 @@ module Commands
     class Import < BaseCommand
 
       def call
+        unless UuidValidator.valid?(payload[:content_id])
+          raise CommandError.new(
+          code: 422,
+          error_details: {
+            error: {
+              code: 422,
+              message: "Content id not valid",
+              fields: "content_id",
+            }
+          })
+        end
         ContentItem.transaction do
           delete_all(payload[:content_id])
           all_content_items.map.with_index do |event, index|
