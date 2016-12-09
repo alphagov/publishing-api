@@ -89,6 +89,10 @@ module Presenters
             "states.name AS publication_state"
           when :user_facing_version
             "user_facing_versions.number AS user_facing_version"
+          when :base_path
+            "locations.base_path AS base_path"
+          when :locale
+            "translations.locale AS locale"
           when :lock_version
             "lock_versions.number AS lock_version"
           when :description
@@ -113,7 +117,7 @@ module Presenters
 
       def search(scope)
         return scope unless search_query.present?
-        scope.where("title ilike ? OR base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
+        scope.where("title ilike ? OR locations.base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
       end
 
       STATE_HISTORY_SQL = <<-SQL.freeze
