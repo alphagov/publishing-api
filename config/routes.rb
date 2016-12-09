@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       post "/content/:content_id/publish", to: "content_items#publish"
       post "/content/:content_id/unpublish", to: "content_items#unpublish"
       post "/content/:content_id/discard-draft", to: "content_items#discard_draft"
-      post "/content/import", to: "content_items#import"
+      post "/content/:content_id/import", to: "content_items#import"
 
       get "/links/:content_id", to: "link_sets#get_links"
       get "/expanded-links/:content_id", to: "link_sets#expanded_links"
