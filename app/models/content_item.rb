@@ -52,6 +52,11 @@ class ContentItem < ApplicationRecord
     !self.requires_base_path? && !Location.exists?(content_item: self)
   end
 
+  def as_json(options = {})
+    options[:except] ||= [:locale, :state, :base_path, :user_facing_version]
+    super(options)
+  end
+
   # FIXME: This method is used to retrieve a version of .details that doesn't
   # have text/html, thus this can be used to convert the item to HTML
   # It is here for comparing our Govspeak output with that that was provided to

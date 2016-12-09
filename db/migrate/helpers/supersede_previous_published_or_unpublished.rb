@@ -6,7 +6,7 @@ module Helpers
         .joins(:content_item)
         .joins("INNER JOIN translations t on t.content_item_id = content_items.id")
         .joins("INNER JOIN user_facing_versions u on u.content_item_id = content_items.id")
-        .group(:content_id, :locale)
+        .group(:content_id, 't.locale')
         .having("count(content_id) > 1")
         .pluck("json_agg((states.id, u.number))")
         .map do |results|
