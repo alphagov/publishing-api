@@ -86,11 +86,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   describe "V1" do
     let(:attributes) { content_item_params }
     let(:body) do
-      Presenters::DownstreamPresenter::V1.present(
-        attributes,
-        event,
-        update_type: false,
-      )
+      attributes.except(:update_type).merge(payload_version: event.id)
     end
 
     context "when a content item exists that has an lower payload_version than the request" do

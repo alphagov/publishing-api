@@ -105,13 +105,5 @@ module Presenters
         {}
       end
     end
-
-    class V1
-      def self.present(attributes, event, update_type: true, payload_version: true)
-        attributes = attributes.except(:update_type) unless update_type
-        attributes[:payload_version] = event.id if payload_version
-        attributes
-      end
-    end
   end
 end
