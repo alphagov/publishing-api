@@ -31,6 +31,13 @@ potential to mutate its internal state
 which has been removed from the live site.  Can be "gone", "withdrawal", or "redirect".
 - **Action**: A record of activity on a particular Content Item, used to assist
 custom workflows of publishing applications.
+- **Link Expansion**: A process that converts the stored and automatic links for a
+content item into a JSON representation. Further documentation available in
+[doc/link-expansion.md](doc/link-expansion.md)
+- **Dependency Resolution**: A process that determines other content items that
+require updating downstream as a result of a change on a content item. Further
+documentation available in
+[doc/dependency-resolution.md](doc/depedency-resolution.md)
 
 For more information, refer to [doc/api.md](doc/api.md) and
 [doc/model.md](doc/model.md).
