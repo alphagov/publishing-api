@@ -7,12 +7,14 @@ RSpec.describe Commands::V2::Import do
     let(:content_item) do
       {
         document_type: "foo1",
-        schema_name: "foo",
+        schema_name: "generic",
         publishing_app: "foo",
         title: "foo",
         rendering_app: "foo",
         base_path: "/bar",
         routes: [{ "path": "/bar", "type": "exact" }],
+        details: {},
+        locale: "en",
         state: "superseded",
       }
     end
