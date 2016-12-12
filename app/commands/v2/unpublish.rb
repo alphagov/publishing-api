@@ -3,7 +3,7 @@ module Commands
     class Unpublish < BaseCommand
       def call
         validate
-        previous_item.update_attributes!(state: 'superseded') if previous_item
+        previous_item.supersede if previous_item
         transition_state
 
         after_transaction_commit do
@@ -84,10 +84,7 @@ module Commands
       end
 
       def unpublish
-        State.unpublish(
-          content_item,
-          payload.slice(:type, :explanation, :alternative_path, :unpublished_at)
-        )
+        content_item.unpublish(payload.slice(:type, :explanation, :alternative_path, :unpublished_at))
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, fields: {})
       end

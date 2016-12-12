@@ -83,6 +83,7 @@ RSpec.describe Commands::V2::Unpublish do
       it "sets the content item's state to `unpublished`" do
         described_class.call(payload)
 
+
         expect(live_content_item.reload.state).to eq("unpublished")
       end
 
@@ -269,8 +270,8 @@ RSpec.describe Commands::V2::Unpublish do
               )
             end
             before do
-              ContentItem.where(id: published_item.id).update_all(state: "published")
-              ContentItem.where(id: published_item.id).update_all(base_path: base_path)
+              ContentItem.where(content_id: content_id)
+                .update_all(state: 'published', base_path: base_path)
             end
 
             it "raises an error stating the inconsistency" do
