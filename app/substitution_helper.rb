@@ -37,7 +37,7 @@ module SubstitutionHelper
               callbacks: callbacks,
             )
           else
-            State.substitute(blocking_item)
+            blocking_item.substitute
           end
         end
       end
