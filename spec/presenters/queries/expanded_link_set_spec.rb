@@ -198,7 +198,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     context "when the depended on content item has no location" do
       before do
         create_link(a, b, "parent")
-        Location.find_by(base_path: "/b").destroy
+        ContentItem.find_by(base_path: '/b').update_attributes!(base_path: nil)
       end
 
       it "has no web_url" do
