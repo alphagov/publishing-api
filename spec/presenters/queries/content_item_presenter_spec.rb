@@ -61,7 +61,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "for a published content item" do
       before do
-        State.find_by!(content_item: content_item).update!(name: "published")
+        content_item.update_attributes!(state: 'published')
       end
 
       it "has a publication state of published" do
@@ -137,7 +137,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when there are other content items with that content_id" do
       before do
-        UserFacingVersion.last.update!(number: 2)
+        content_item.update_attributes(user_facing_version: 2)
       end
 
       let!(:published_item) do
