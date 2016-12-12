@@ -65,10 +65,6 @@ module Presenters
       end
 
       def join_supporting_objects(scope)
-        scope = State.join_content_items(scope)
-        scope = UserFacingVersion.join_content_items(scope)
-        scope = Translation.join_content_items(scope)
-        scope = Location.join_content_items(scope)
         scope = ChangeNote.join_content_items(scope)
 
         LockVersion.join_content_items(scope)
@@ -86,13 +82,9 @@ module Presenters
         fields_to_select = fields.map do |field|
           case field
           when :publication_state
-            "states.name AS publication_state"
+            "content_items.state AS publication_state"
           when :user_facing_version
-            "user_facing_versions.number AS user_facing_version"
-          when :base_path
-            "locations.base_path AS base_path"
-          when :locale
-            "translations.locale AS locale"
+            "content_items.user_facing_version AS user_facing_version"
           when :lock_version
             "lock_versions.number AS lock_version"
           when :description
@@ -107,6 +99,10 @@ module Presenters
             "#{STATE_HISTORY_SQL} AS state_history"
           when :change_note
             "change_notes.note AS change_note"
+          when :base_path
+            "content_items.base_path as base_path"
+          when :locale
+            "content_items.locale as locale"
           else
             field
           end
@@ -117,15 +113,13 @@ module Presenters
 
       def search(scope)
         return scope unless search_query.present?
-        scope.where("title ilike ? OR locations.base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
+        scope.where("title ilike ? OR content_items.base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
       end
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
-          SELECT json_agg((number, name))
+          SELECT json_agg((user_facing_version, state))
           FROM content_items c
-          JOIN states s ON s.content_item_id = c.id
-          JOIN user_facing_versions u ON u.content_item_id = c.id
           WHERE c.content_id = content_items.content_id
           GROUP BY content_id
         )
