@@ -7,33 +7,29 @@ module Queries
       locale_fallback_order = Array(locale_fallback_order).map(&:to_s)
 
       content_items = ContentItem.arel_table
-      states = State.arel_table
-      translations = Translation.arel_table
       unpublishings = Unpublishing.arel_table
 
       fallback_scope = content_items.project(
         content_items[:id],
             content_items[:content_id],
           )
-          .join(states).on(states[:content_item_id].eq(content_items[:id]))
-          .join(translations).on(translations[:content_item_id].eq(content_items[:id]))
           .where(content_items[:content_id].in(content_ids))
           .where(content_items[:document_type].not_in(::ContentItem::NON_RENDERABLE_FORMATS))
-          .where(translations[:locale].in(locale_fallback_order))
+          .where(content_items[:locale].in(locale_fallback_order))
 
       if state_fallback_order.include?("withdrawn")
-        fallback_scope = fallback_scope.where(states[:name].in(state_fallback_order).or(states[:name]
+        fallback_scope = fallback_scope.where(content_items[:state].in(state_fallback_order).or(content_items[:state]
                                                            .eq("unpublished")
                                                            .and(unpublishings[:type]
                                                                 .eq("withdrawal"))))
         .join(unpublishings, Arel::Nodes::OuterJoin).on(unpublishings[:content_item_id].eq(content_items[:id]))
       else
-        fallback_scope = fallback_scope.where(states[:name].in(state_fallback_order))
+        fallback_scope = fallback_scope.where(content_items[:state].in(state_fallback_order))
       end
 
       fallback_scope = fallback_scope.order(
-        order_by_clause(:states, :name, state_fallback_order),
-        order_by_clause(:translations, :locale, locale_fallback_order)
+        order_by_clause(:content_items, :state, state_fallback_order),
+        order_by_clause(:content_items, :locale, locale_fallback_order)
       )
 
       fallbacks = cte(fallback_scope, as: "fallbacks")
