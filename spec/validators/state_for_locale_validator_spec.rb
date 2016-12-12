@@ -5,45 +5,23 @@ RSpec.describe StateForLocaleValidator do
   let(:locale) { "en" }
 
   let(:content_item) do
-    FactoryGirl.create(
+    FactoryGirl.build(
       :content_item,
       state: state_name,
       locale: locale,
     )
   end
-  let(:state_model) { State.find_by(content_item: content_item) }
-  let(:translation) { Translation.find_by(content_item: content_item) }
 
   describe "#validate" do
-    subject { described_class.new.validate(record) }
-    let(:validate) { subject }
-
-    context "when it's missing a content item" do
-      let(:record) { State.new }
-      it { is_expected.to be_nil }
-    end
+    subject(:validate) { described_class.new.validate(content_item) }
 
     context "when locale is nil" do
-      let(:record) { translation }
-      before { translation.locale = nil }
+      before { content_item.locale = nil }
       it { is_expected.to be_nil }
     end
 
     context "when state is nil" do
-      let(:record) { state_model }
-      before { state_model.name = nil }
-      it { is_expected.to be_nil }
-    end
-
-    context "missing translation object" do
-      let(:record) { state_model }
-      before { translation.destroy }
-      it { is_expected.to be_nil }
-    end
-
-    context "missing state object" do
-      let(:record) { translation }
-      before { state_model.destroy }
+      before { content_item.state = nil }
       it { is_expected.to be_nil }
     end
 
@@ -63,7 +41,6 @@ RSpec.describe StateForLocaleValidator do
             )
           }
           let(:state_name) { hash[:state] }
-          let(:record) { translation }
           let(:expected_error) do
             "state=#{hash[:state]} and locale=fr for content " +
               "item=#{content_item.content_id} conflicts with content item " +
@@ -71,12 +48,12 @@ RSpec.describe StateForLocaleValidator do
           end
 
           before do
-            translation.locale = "fr"
+            content_item.locale = "fr"
             validate
           end
 
-          it "adds the error to the content_item attribute" do
-            expect(translation.errors[:content_item]).to eq([expected_error])
+          it "adds the error to the base attribute" do
+            expect(content_item.errors[:base]).to eq([expected_error])
           end
         end
       end
@@ -90,9 +67,8 @@ RSpec.describe StateForLocaleValidator do
           )
         }
         let(:state_name) { "superseded" }
-        let(:record) { translation }
 
-        before { translation.locale = "fr" }
+        before { content_item.locale = "fr" }
 
         it { is_expected.to be_nil }
       end
