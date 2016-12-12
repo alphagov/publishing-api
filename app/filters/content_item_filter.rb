@@ -22,10 +22,10 @@ class ContentItemFilter
 
   def filter(locale: nil, base_path: nil, state: nil, user_version: nil)
     scope = self.scope
-    scope = Location.filter(scope, base_path: base_path) if base_path
-    scope = Translation.filter(scope, locale: locale) if locale
-    scope = State.filter(scope, name: state) if state
-    scope = UserFacingVersion.filter(scope, number: user_version) if user_version
+    scope = scope.where(locale: locale) if locale
+    scope = scope.where(base_path: base_path) if base_path
+    scope = scope.where(state: state) if state
+    scope = scope.where(user_facing_version: user_version) if user_version
     scope
   end
 
