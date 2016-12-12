@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export PACT_BROKER_BASE_URL=https://pact-broker.dev.publishing.service.gov.uk
-export PACT_TARGET_BRANCH=master
 
 # Cleanup anything left from previous test runs
 git clean -fdx
