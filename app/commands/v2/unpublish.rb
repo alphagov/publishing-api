@@ -3,7 +3,7 @@ module Commands
     class Unpublish < BaseCommand
       def call
         validate
-        State.supersede(previous_item) if previous_item
+        previous_item.supersede if previous_item
         transition_state
 
         after_transaction_commit do
@@ -84,10 +84,7 @@ module Commands
       end
 
       def unpublish
-        State.unpublish(
-          content_item,
-          payload.slice(:type, :explanation, :alternative_path, :unpublished_at)
-        )
+        content_item.unpublish(payload.slice(:type, :explanation, :alternative_path, :unpublished_at))
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, fields: {})
       end
@@ -133,6 +130,7 @@ module Commands
       end
 
       def previous_item
+        p previous_items
         raise "There should only be one previous published or unpublished item" if previous_items.size > 1
         previous_items.first
       end
