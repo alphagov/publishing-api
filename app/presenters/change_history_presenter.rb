@@ -29,7 +29,7 @@ module Presenters
 
     def content_item_ids
       ContentItem.where(content_id: content_item.content_id)
-                 .where("user_facing_version <= ?", latest_version_number)
+                 .where("user_facing_version <= ?", version_number)
                  .pluck(:id)
     end
 
