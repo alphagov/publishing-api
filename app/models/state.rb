@@ -1,9 +1,6 @@
 class State < ApplicationRecord
   belongs_to :content_item
 
-  validates_with BasePathForStateValidator
-  validates_with StateForLocaleValidator
-
   def self.filter(content_item_scope, name:)
     join_content_items(content_item_scope)
       .where("states.name" => name)
