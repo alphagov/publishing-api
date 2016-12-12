@@ -1,9 +1,6 @@
 class State < ApplicationRecord
   belongs_to :content_item
 
-  validates_with BasePathForStateValidator
-  validates_with StateForLocaleValidator
-
   after_save do
     content_item.update_attributes!(state: name)
   end

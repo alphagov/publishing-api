@@ -3,8 +3,6 @@ class UserFacingVersion < ApplicationRecord
 
   belongs_to :content_item
 
-  validates_with VersionForLocaleValidator
-
   after_save do
     content_item.update_attributes!(user_facing_version: number)
   end
