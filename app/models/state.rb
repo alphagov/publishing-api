@@ -21,7 +21,7 @@ class State < ApplicationRecord
   end
 
   def self.unpublish(content_item, type:, explanation: nil, alternative_path: nil, unpublished_at: nil)
-    change_state(content_item, name: "unpublished")
+    content_item.update_attributes!(state: "unpublished")
 
     unpublishing = Unpublishing.find_by(content_item: content_item)
 
