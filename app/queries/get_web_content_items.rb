@@ -16,14 +16,15 @@ module Queries
     end
 
     def self.for_content_store(content_id, locale, include_draft = false)
+      content_items = ContentItem.arel_table
       unpublishings = Unpublishing.arel_table
 
       allowed_states = [:published, :unpublished]
       allowed_states << :draft if include_draft
-      filtered = scope(UserFacingVersion.arel_table[:number].desc)
-        .where(ContentItem.arel_table[:content_id].eq(content_id))
-        .where(Translation.arel_table[:locale].eq(locale))
-        .where(State.arel_table[:name].in(allowed_states))
+      filtered = scope(content_items[:user_facing_version].desc)
+        .where(content_items[:content_id].eq(content_id))
+        .where(content_items[:locale].eq(locale))
+        .where(content_items[:state].in(allowed_states))
         .where(
           unpublishings[:type].eq(nil).or(
             unpublishings[:type].not_eq("substitute")
@@ -38,11 +39,7 @@ module Queries
 
     def self.scope(order = nil)
       content_items = ContentItem.arel_table
-      locations = Location.arel_table
-      states = State.arel_table
-      translations = Translation.arel_table
       unpublishings = Unpublishing.arel_table
-      user_facing_versions = UserFacingVersion.arel_table
 
       content_items
         .project(
@@ -64,18 +61,14 @@ module Queries
           content_items[:schema_name],
           content_items[:title],
           content_items[:update_type],
-          locations[:base_path],
-          states[:name].as("state"),
-          translations[:locale],
-          user_facing_versions[:number].as("user_facing_version")
+          content_items[:base_path],
+          content_items[:state],
+          content_items[:locale],
+          content_items[:user_facing_version]
         )
-        .outer_join(locations).on(content_items[:id].eq(locations[:content_item_id]))
-        .join(states).on(content_items[:id].eq(states[:content_item_id]))
-        .join(translations).on(content_items[:id].eq(translations[:content_item_id]))
-        .join(user_facing_versions).on(content_items[:id].eq(user_facing_versions[:content_item_id]))
         .outer_join(unpublishings).on(
           content_items[:id].eq(unpublishings[:content_item_id])
-            .and(states[:name].eq("unpublished"))
+            .and(content_items[:state].eq("unpublished"))
         )
         .order(order || content_items[:id].asc)
     end
