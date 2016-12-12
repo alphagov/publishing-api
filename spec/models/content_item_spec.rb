@@ -107,6 +107,31 @@ RSpec.describe ContentItem do
       end
     end
 
+    context "base_path" do
+      it "should be an absolute path" do
+        subject.base_path = 'invalid//absolute/path/'
+        expect(subject).to be_invalid
+        expect(subject.errors[:base_path].size).to eq(1)
+      end
+    end
+
+    context "when another content item has the same base path" do
+      before { FactoryGirl.create(:draft_content_item, base_path: "/foo") }
+
+      let(:content_item) do
+        FactoryGirl.build(:content_item, base_path: "/foo", state: "draft")
+      end
+      subject { content_item }
+
+      it { is_expected.to be_invalid }
+
+      context "and the state is different" do
+        before { content_item.state = "published" }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
     context "phase" do
       it "defaults to live" do
         expect(described_class.new.phase).to eq("live")
@@ -128,6 +153,26 @@ RSpec.describe ContentItem do
       it "is invalid with any other phase" do
         subject.phase = "not-a-correct-phase"
         expect(subject).to_not be_valid
+      end
+    end
+
+    context "when the state conflicts with another instance of this content item" do
+      subject { content_item }
+      let(:existing_content_item) { FactoryGirl.create(:draft_content_item) }
+      let(:content_item) do
+        FactoryGirl.build(
+          :draft_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 2
+        )
+      end
+
+      it { is_expected.to be_invalid }
+
+      context "and the states are different" do
+        before { content_item.state = "published" }
+
+        it { is_expected.to be_valid }
       end
     end
   end
