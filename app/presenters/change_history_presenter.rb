@@ -36,7 +36,7 @@ module Presenters
     end
 
     def version_number
-      UserFacingVersion.where(content_item_id: content_item.id).last.number
+      content_item.user_facing_version
     end
   end
 end
