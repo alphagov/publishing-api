@@ -142,7 +142,6 @@ RSpec.describe DownstreamDiscardDraftWorker do
       end
 
       it "receives the base path" do
-        base_path = Location.where(content_item: content_item).pluck(:base_path).first
         expect(Adapters::DraftContentStore).to receive(:delete_content_item)
           .with(base_path)
         subject.perform(arguments)
