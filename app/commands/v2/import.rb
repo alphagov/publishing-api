@@ -55,19 +55,35 @@ module Commands
       end
 
       def create_content_item(event, index, content_id)
-        event_payload = event[:payload].slice(*attributes)
-        validate_schema(event_payload)
-        event_payload = event_payload.merge(content_id: content_id)
+        event_payload = event[:payload]
+        content_item_payload = event_payload.except(:state)
+
+        validate_content_item_payload(content_item_payload)
+
         Services::CreateContentItem.new(
-          payload: event_payload,
+          payload: content_item_payload.merge(content_id: content_id),
           user_facing_version: index + 1,
           lock_version: index + 1,
           state: state(event)
         ).create_content_item
       end
 
+      def validate_content_item_payload(content_item_payload)
+        unrecognised_attributes = content_item_payload.keys - attributes
+
+        unless unrecognised_attributes.empty?
+          raise CommandError.new(
+            code: 422,
+            message: "Unrecognised attributes in payload: #{unrecognised_attributes}"
+          )
+        end
+
+        validate_schema(content_item_payload)
+      end
+
       def attributes
-        @attributes ||= ContentItem.new.attributes.keys.map(&:to_sym) << :base_path
+        @attributes ||=
+          [:base_path, :locale] + ContentItem.new.attributes.keys.map(&:to_sym)
       end
 
       def state(event)
