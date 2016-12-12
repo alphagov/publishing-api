@@ -50,7 +50,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
       published,
       unpublished_2,
       draft
-    ].map { |c| c.state }
+    ].map(&:state)
 
     expect(state_names).to eq %w(
       superseded
