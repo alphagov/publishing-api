@@ -20,18 +20,16 @@ module Presenters
 
       def scope
         scope = ContentItem.where(content_id: content_id)
-        scope = State.join_content_items(scope)
-        scope = Translation.join_content_items(scope)
-        scope.select(*%w(id translations.locale name))
+        scope.select(*%w(id content_items.locale state))
       end
 
       def filter_states
-        scope.where("states.name" => state_fallback_order)
+        scope.where("content_items.state" => state_fallback_order)
       end
 
       def grouped_translations
         filter_states
-          .sort_by { |item| state_fallback_order.index(item.name.to_sym) }
+          .sort_by { |item| state_fallback_order.index(item.state.to_sym) }
           .group_by(&:locale)
       end
 
