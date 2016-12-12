@@ -106,11 +106,11 @@ module Commands
       def validate_schema(payload)
         schema_validator = SchemaValidator.new(payload: payload.except(:content_id))
         return if schema_validator.valid?
-        message = "The payload did not conform to the schema"
+
         raise CommandError.new(
           code: 422,
-          message: message,
-          error_details: schema_validator.errors,
+          message: "Schema validation failed: #{schema_validator.errors}",
+          error_details: schema_validator.errors
         )
       end
     end
