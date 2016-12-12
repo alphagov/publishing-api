@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
   scope format: false do
-    put "/draft-content(/*base_path)", to: "content_items#put_draft_content_item"
-    put "/content(/*base_path)", to: "content_items#put_live_content_item"
-
     put "/publish-intent(/*base_path)", to: "publish_intents#create_or_update"
     get "/publish-intent(/*base_path)", to: "publish_intents#show"
     delete "/publish-intent(/*base_path)", to: "publish_intents#destroy"
@@ -29,8 +26,6 @@ Rails.application.routes.draw do
 
       get "/linkables", to: "content_items#linkables"
       get "/new-linkables", to: "content_items#new_linkables"
-
-      get "/grouped-content-and-links", to: "grouped_content_and_links#index"
 
       post "/actions/:content_id", to: "actions#create"
     end

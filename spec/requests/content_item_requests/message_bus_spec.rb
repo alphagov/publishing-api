@@ -1,40 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Message bus", type: :request do
-  context "/content" do
-    let(:request_path) { "/content#{base_path}" }
-
-    it "places a JSON message on the queue" do
-      expect(DownstreamService).to receive(:broadcast_to_message_queue).with(anything, 'links')
-      expect(DownstreamService).to receive(:broadcast_to_message_queue).with(anything, 'major')
-      put request_path, params: content_item_params.to_json
-    end
-
-    context "minor update type" do
-      it "uses the update type for the routing key on publish and 'links' for the link update" do
-        expect(DownstreamService).to receive(:broadcast_to_message_queue).with(anything, 'links')
-        expect(DownstreamService).to receive(:broadcast_to_message_queue).with(anything, 'minor')
-        put request_path, params: content_item_params.merge(update_type: "minor").to_json
-      end
-    end
-
-    it "publishes a message for a redirect update" do
-      expect(DownstreamService).to_not receive(:broadcast_to_message_queue)
-      put request_path, params: redirect_content_item.to_json
-    end
-  end
-
-  context "/draft-content" do
-    it "doesn't send any messages" do
-      expect(DownstreamService).to_not receive(:broadcast_to_message_queue)
-      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
-
-      put "/draft-content#{base_path}", params: content_item_params.to_json
-
-      expect(response.status).to eq(200)
-    end
-  end
-
   context "/v2/content" do
     it "doesn't send any messages" do
       expect(DownstreamService).to_not receive(:broadcast_to_message_queue)

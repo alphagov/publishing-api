@@ -33,6 +33,32 @@ module Queries
       ]
     end
 
+    def valid_link_recursion?(link_types)
+      link_types = link_types.map(&:to_sym)
+      recursive_link_types.any? do |compare|
+        prefix_match = link_types.first(compare.count) == compare.first(link_types.count)
+        suffix = link_types[compare.count..-1] || []
+        prefix_match && (suffix.empty? || suffix.to_set == Set[compare.last])
+      end
+    end
+
+    def next_reverse_recursive_types(reverse_link_type_path)
+      link_types = reverse_link_type_path.map(&:to_sym)
+      next_types = recursive_link_types.each_with_object([]) do |valid_path, memo|
+        sticky = valid_path.last
+        # strip path to not include sticky
+        without_sticky = link_types.inject([]) do |types, item|
+          types << item
+          types.uniq == [sticky] ? types.uniq : types
+        end
+        # determine if this array is within the link types and which index
+        index = index_inside_array(valid_path, without_sticky.reverse)
+        memo << sticky if index == valid_path.index(sticky)
+        memo << valid_path[index - 1] if index.present? && index > 0
+      end
+      next_types.uniq
+    end
+
     def next_level(type, current_level)
       group = recursive_link_types.find { |e| e.include?(type.to_sym) }
       group[current_level] || group.last
@@ -73,6 +99,14 @@ module Queries
         working_groups: 'policies',
         parent_taxons: "child_taxons",
       }
+    end
+
+    def index_inside_array(super_set, sub_set)
+      index_sequence = sub_set.map { |value| super_set.index(value) }
+      return if index_sequence.include?(nil)
+      first_index = index_sequence[0]
+      last_index = first_index + (sub_set.length - 1)
+      index_sequence == (first_index..last_index).to_a ? first_index : nil
     end
   end
 end

@@ -64,35 +64,4 @@ RSpec.describe "Reallocating base paths of content items" do
       end
     end
   end
-
-  describe "/content" do
-    context "when a base path is occupied by a not-yet-published regular content item" do
-      before do
-        FactoryGirl.create(
-          :draft_content_item,
-          base_path: base_path
-        )
-        put "/content#{base_path}", params: regular_payload.to_json
-      end
-
-      it "cannot be replaced by another regular content item" do
-        expect(response.status).to eq(422)
-      end
-    end
-
-    context "when a base path is occupied by a published regular content item" do
-      before do
-        FactoryGirl.create(
-          :live_content_item,
-          :with_draft,
-          base_path: base_path
-        )
-        put "/content#{base_path}", params: regular_payload.to_json
-      end
-
-      it "cannot be replaced by another regular content item" do
-        expect(response.status).to eq(422)
-      end
-    end
-  end
 end

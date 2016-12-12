@@ -39,6 +39,34 @@ RSpec.describe Queries::DependentExpansionRules do
     end
   end
 
+  describe "#valid_link_recursion?" do
+    specify { expect(subject.valid_link_recursion?([:parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?(["parent"])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:parent, :parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:parent, :parent, :parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:parent, :child])).to eq(false) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages, :parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages, :parent, :parent, :parent])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages, :mainstream_browse_pages, :parent])).to eq(false) }
+    specify { expect(subject.valid_link_recursion?([:mainstream_browse_pages, :ordered_related_items, :parent])).to eq(false) }
+  end
+
+  describe "#next_reverse_recursive_types" do
+    specify { expect(subject.next_reverse_recursive_types([:parent])).to match_array([:parent, :mainstream_browse_pages]) }
+    specify { expect(subject.next_reverse_recursive_types([:parent_taxons])).to match_array([:parent_taxons]) }
+    specify { expect(subject.next_reverse_recursive_types(["parent"])).to match_array([:parent, :mainstream_browse_pages]) }
+    specify { expect(subject.next_reverse_recursive_types([:parent, :parent])).to match_array([:parent, :mainstream_browse_pages]) }
+    specify { expect(subject.next_reverse_recursive_types([:parent, :parent, :parent])).to match_array([:parent, :mainstream_browse_pages]) }
+    specify { expect(subject.next_reverse_recursive_types([:parent, :child])).to be_empty }
+    specify { expect(subject.next_reverse_recursive_types([:mainstream_browse_pages])).to match_array([:ordered_related_items]) }
+    specify { expect(subject.next_reverse_recursive_types([:parent, :mainstream_browse_pages])).to match_array([:ordered_related_items]) }
+    specify { expect(subject.next_reverse_recursive_types([:parent, :parent, :mainstream_browse_pages])).to match_array([:ordered_related_items]) }
+    specify { expect(subject.next_reverse_recursive_types([:parent, :test, :parent, :mainstream_browse_pages])).to be_empty }
+    specify { expect(subject.next_reverse_recursive_types([:ordered_related_items])).to be_empty }
+  end
+
   describe "#next_level" do
     specify { expect(subject.next_level(:parent, 2)).to eq(:parent) }
     specify { expect(subject.next_level(:parent, 0)).to eq(:parent) }

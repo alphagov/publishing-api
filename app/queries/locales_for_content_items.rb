@@ -1,9 +1,14 @@
 module Queries
-  module LocalesForContentItem
+  module LocalesForContentItems
     extend ArelHelpers
 
+    # returns an array of form:
+    # [
+    #   [content_id, locale],
+    #   [content_id, locale],
+    # ]
     def self.call(
-      content_id,
+      content_ids,
       states = %w[draft published unpublished],
       include_substitutes = false
     )
@@ -12,15 +17,20 @@ module Queries
       states_table = State.arel_table
 
       scope = translations_table
-        .project(translations_table[:locale]).distinct
+        .project(
+          content_items_table[:content_id],
+          translations_table[:locale]
+        )
+        .distinct
         .join(content_items_table).on(
           content_items_table[:id].eq(translations_table[:content_item_id])
         )
         .join(states_table).on(
           content_items_table[:id].eq(states_table[:content_item_id])
         )
-        .where(content_items_table[:content_id].eq(content_id))
+        .where(content_items_table[:content_id].in(content_ids))
         .where(states_table[:name].in(states))
+        .order(content_items_table[:content_id].asc, translations_table[:locale].asc)
 
       unless include_substitutes
         unpublishings_table = Unpublishing.arel_table
@@ -36,7 +46,7 @@ module Queries
           )
       end
 
-      get_rows(scope).map { |row| row["locale"] }
+      get_rows(scope).map { |row| [row["content_id"], row["locale"]] }
     end
   end
 end
