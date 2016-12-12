@@ -6,14 +6,12 @@ module Commands
 
         check_version_and_raise_if_conflicting(draft, payload[:previous_version])
 
-        draft_path = Location.where(content_item: draft).pluck(:base_path).first
-
         delete_supporting_objects
         delete_draft_from_database
         increment_live_lock_version if live
 
         after_transaction_commit do
-          downstream_discard_draft(draft_path, draft.content_id, locale)
+          downstream_discard_draft(draft.base_path, draft.content_id, locale)
         end
 
         Action.create_discard_draft_action(draft, locale, event)
