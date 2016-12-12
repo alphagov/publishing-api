@@ -107,11 +107,8 @@ RSpec.describe "Substituting content that is not published" do
       guide_item = ContentItem.first
       gone_item = ContentItem.second
 
-      guide_state = State.find_by!(content_item: guide_item)
-      gone_state = State.find_by!(content_item: gone_item)
-
-      expect(guide_state.name).to eq("draft")
-      expect(gone_state.name).to eq("draft")
+      expect(guide_item.state).to eq("draft")
+      expect(gone_item.state).to eq("draft")
     end
   end
 end
