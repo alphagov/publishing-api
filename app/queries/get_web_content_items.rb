@@ -61,6 +61,10 @@ module Queries
           content_items[:schema_name],
           content_items[:title],
           content_items[:update_type],
+          content_items[:base_path],
+          content_items[:state],
+          content_items[:locale],
+          content_items[:user_facing_version],
           unpublishings[:type].as("unpublishing_type")
         )
         .outer_join(unpublishings).on(
