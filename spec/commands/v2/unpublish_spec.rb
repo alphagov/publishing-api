@@ -512,7 +512,7 @@ RSpec.describe Commands::V2::Unpublish do
       it "sets the content item's state to `unpublished`" do
         described_class.call(payload)
 
-        updated_content_item = ContentItem.find(live_content_item)
+        updated_content_item = ContentItem.find(live_content_item.id)
         expect(updated_content_item.state).to eq("unpublished")
       end
 
