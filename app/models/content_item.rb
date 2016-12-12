@@ -54,9 +54,13 @@ class ContentItem < ApplicationRecord
     message: 'must be a supported locale'
   }
 
+  validate :user_facing_version_must_increase
+  validate :draft_cannot_be_behind_live
+
   validates_with VersionForLocaleValidator
   validates_with BasePathForStateValidator
   validates_with StateForLocaleValidator
+  validates_with RoutesAndRedirectsValidator
 
   def requires_base_path?
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
@@ -70,9 +74,41 @@ class ContentItem < ApplicationRecord
     base_path.present?
   end
 
-  def as_json(options = {})
-    options[:except] ||= [:locale, :state, :base_path, :user_facing_version]
-    super(options)
+  def draft_cannot_be_behind_live
+    if state == "draft"
+      draft_version = user_facing_version
+      live_version = ContentItem.where(
+        content_id: content_id,
+        locale: locale,
+        state: %w(published unpublished),
+      ).pluck(:user_facing_version).first
+    end
+
+    if %w(published unpublished).include?(state)
+      draft_version = ContentItem.where(
+        content_id: content_id,
+        locale: locale,
+        state: "draft",
+      ).pluck(:user_facing_version).first
+      live_version = user_facing_version
+    end
+
+    return unless draft_version && live_version
+
+    if draft_version < live_version
+      mismatch = "(#{draft_version} < #{live_version})"
+      message = "draft content item cannot be behind the live content item #{mismatch}"
+      errors.add(:user_facing_version, message)
+    end
+  end
+
+  def user_facing_version_must_increase
+    return unless persisted?
+    return unless user_facing_version_changed? && user_facing_version <= user_facing_version_was
+
+    mismatch = "(#{user_facing_version} <= #{user_facing_version_was})"
+    message = "cannot be less than or equal to the previous user_facing_version #{mismatch}"
+    errors.add(:user_facing_version, message)
   end
 
   # FIXME: This method is used to retrieve a version of .details that doesn't

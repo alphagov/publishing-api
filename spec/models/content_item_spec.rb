@@ -158,12 +158,14 @@ RSpec.describe ContentItem do
 
     context "when the state conflicts with another instance of this content item" do
       subject { content_item }
-      let(:existing_content_item) { FactoryGirl.create(:draft_content_item) }
+      let(:existing_content_item) do
+        FactoryGirl.create(:draft_content_item, user_facing_version: 2)
+      end
       let(:content_item) do
         FactoryGirl.build(
           :draft_content_item,
           content_id: existing_content_item.content_id,
-          user_facing_version: 2
+          user_facing_version: 1
         )
       end
 
@@ -174,6 +176,102 @@ RSpec.describe ContentItem do
 
         it { is_expected.to be_valid }
       end
+
+      context "and the locales are different" do
+        before { content_item.locale = "fr" }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    context "when the user facing version conflicts with another instance of this content item" do
+      subject { content_item }
+      let(:existing_content_item) { FactoryGirl.create(:draft_content_item) }
+      let(:content_item) do
+        FactoryGirl.build(
+          :draft_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 1
+        )
+      end
+
+      it { is_expected.to be_invalid }
+
+      context "and the locales are different" do
+        before { content_item.locale = "fr" }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    context "when the draft user_facing_version is ahead of the live one" do
+      subject { content_item }
+      let(:existing_content_item) do
+        FactoryGirl.create(:live_content_item, user_facing_version: 1)
+      end
+      let(:content_item) do
+        FactoryGirl.build(
+          :draft_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 2
+        )
+      end
+
+      it { is_expected.to be_valid }
+    end
+
+    context "when the draft user_facing_version is behind the live one" do
+      subject { content_item }
+      let(:existing_content_item) do
+        FactoryGirl.create(:draft_content_item, user_facing_version: 1)
+      end
+      let(:content_item) do
+        FactoryGirl.build(
+          :live_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 2
+        )
+      end
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when the live user_facing_version is ahead of the draft one" do
+      subject { content_item }
+      let(:existing_content_item) do
+        FactoryGirl.create(:live_content_item, user_facing_version: 2)
+      end
+      let(:content_item) do
+        FactoryGirl.build(
+          :draft_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 1
+        )
+      end
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when user_facing_version is incremented" do
+      subject { content_item }
+      let(:content_item) { FactoryGirl.create(:content_item) }
+
+      before { content_item.user_facing_version += 1 }
+      it { is_expected.to be_valid }
+    end
+
+    context "when user_facing_version is decremented" do
+      subject { content_item }
+      let(:content_item) { FactoryGirl.create(:content_item) }
+
+      before { content_item.user_facing_version -= 1 }
+      it { is_expected.to be_invalid }
+    end
+
+    describe "routes and redirects" do
+      subject { content_item }
+      let(:content_item) { FactoryGirl.build(:content_item, base_path: "/vat-rates") }
+      it_behaves_like RoutesAndRedirectsValidator
     end
   end
 
