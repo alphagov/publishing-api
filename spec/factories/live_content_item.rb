@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :live_content_item, parent: :content_item do
     user_facing_version 1
     state "published"
+
     transient do
       draft_version_number 2
     end
