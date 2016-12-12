@@ -57,7 +57,7 @@ module Commands
       def create_content_item(event, index, content_id)
         event_payload = event[:payload].slice(*attributes)
         validate_schema(event_payload)
-        event_payload.merge(content_id: content_id)
+        event_payload = event_payload.merge(content_id: content_id)
         Services::CreateContentItem.new(
           payload: event_payload,
           user_facing_version: index + 1,
