@@ -26,25 +26,18 @@ FactoryGirl.define do
         }
       ]
     }
+    state "draft"
+    locale "en"
+    sequence(:base_path) { |n| "/vat-rates-#{n}" }
+    user_facing_version 1
 
     transient do
       lock_version 1
-      state "draft"
-      locale "en"
-      sequence(:base_path) { |n| "/vat-rates-#{n}" }
-      user_facing_version 1
       change_note "note"
     end
 
     after(:create) do |item, evaluator|
-      FactoryGirl.create(:state, name: evaluator.state, content_item: item)
-      FactoryGirl.create(:translation, locale: evaluator.locale, content_item: item)
       FactoryGirl.create(:lock_version, number: evaluator.lock_version, target: item)
-      FactoryGirl.create(:user_facing_version, number: evaluator.user_facing_version, content_item: item)
-
-      unless evaluator.base_path.nil?
-        FactoryGirl.create(:location, base_path: evaluator.base_path, content_item: item)
-      end
       unless item.update_type == "minor" || evaluator.change_note.nil?
         FactoryGirl.create(:change_note, note: evaluator.change_note, content_item: item)
       end
