@@ -3,7 +3,7 @@ module Commands
     class Unpublish < BaseCommand
       def call
         validate
-        previous_item.supersede if previous_item
+        previous_item.update_attributes!(state: 'superseded') if previous_item
         transition_state
 
         after_transaction_commit do
