@@ -26,7 +26,6 @@ RSpec.describe BasePathForStateValidator do
     end
 
     context "when there are multiple content items" do
-
       let(:conflict_content_id) { SecureRandom.uuid }
       let(:conflict_state_name) { "draft" }
       let(:conflict_base_path) { "/vat-rates-2016" }
