@@ -12,12 +12,14 @@ class ContentItem < ApplicationRecord
 
   TOP_LEVEL_FIELDS = [
     :analytics_identifier,
+    :base_path,
     :content_id,
     :description,
     :details,
     :document_type,
     :first_published_at,
     :last_edited_at,
+    :locale,
     :need_ids,
     :phase,
     :public_updated_at,
@@ -26,7 +28,9 @@ class ContentItem < ApplicationRecord
     :rendering_app,
     :routes,
     :schema_name,
+    :state,
     :title,
+    :user_facing_version,
     :update_type,
   ].freeze
 
