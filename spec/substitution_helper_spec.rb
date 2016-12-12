@@ -26,7 +26,7 @@ RSpec.describe SubstitutionHelper do
         new_item_content_id: new_content_id,
         base_path: existing_base_path,
         locale: "en",
-        state: State.find_by!(content_item: existing_item).name,
+        state: existing_item.state,
       )
     end
 
@@ -79,9 +79,9 @@ RSpec.describe SubstitutionHelper do
             base_path: "/somewhere-else",
           )
 
-          expect(State.find_by!(content_item: live_item).name).not_to eq("unpublished")
-          expect(State.find_by!(content_item: french_item).name).not_to eq("unpublished")
-          expect(State.find_by!(content_item: item_elsewhere).name).not_to eq("unpublished")
+          expect(live_item.state).not_to eq("unpublished")
+          expect(french_item.state).not_to eq("unpublished")
+          expect(item_elsewhere.state).not_to eq("unpublished")
         end
 
         context "when the existing item is published" do
