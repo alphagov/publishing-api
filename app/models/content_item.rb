@@ -65,6 +65,7 @@ class ContentItem < ApplicationRecord
   validates_with VersionForLocaleValidator
   validates_with BasePathForStateValidator
   validates_with StateForLocaleValidator
+  validates_with RoutesAndRedirectsValidator
 
   def requires_base_path?
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
