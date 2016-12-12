@@ -12,10 +12,6 @@ class State < ApplicationRecord
     )
   end
 
-  def self.supersede(content_item)
-    change_state(content_item, name: "superseded")
-  end
-
   def self.publish(content_item)
     change_state(content_item, name: "published")
   end
