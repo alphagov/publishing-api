@@ -11,37 +11,21 @@ RSpec.describe VersionForLocaleValidator do
       locale: locale,
     )
   end
-  let(:translation) { Translation.find_by(content_item: content_item) }
-  let(:user_facing_version) { UserFacingVersion.find_by(content_item: content_item) }
 
   describe "#validate" do
-    subject { described_class.new.validate(record) }
+    subject(:validate) { described_class.new.validate(content_item) }
+
     context "when it's missing a content item" do
-      let(:record) { Translation.new }
       it { is_expected.to be_nil }
     end
 
     context "when locale is nil" do
-      let(:record) { translation }
-      before { translation.locale = nil }
+      before { content_item.locale = nil }
       it { is_expected.to be_nil }
     end
 
     context "when version number is nil" do
-      let(:record) { user_facing_version }
-      before { user_facing_version.number = nil }
-      it { is_expected.to be_nil }
-    end
-
-    context "missing translation object" do
-      let(:record) { user_facing_version }
-      before { translation.destroy }
-      it { is_expected.to be_nil }
-    end
-
-    context "missing user_facing_version object" do
-      let(:record) { translation }
-      before { user_facing_version.destroy }
+      before { content_item.user_facing_version = nil }
       it { is_expected.to be_nil }
     end
 
@@ -54,19 +38,18 @@ RSpec.describe VersionForLocaleValidator do
           user_facing_version: version,
         )
       }
-      let(:record) { translation }
       let(:expected_error) do
         "user_facing_version=#{version} and locale=fr for content item=" +
           "#{content_item.content_id} conflicts with content item " +
           "id=#{conflict_content_item.id}"
       end
       before do
-        translation.locale = "fr"
-        subject
+        content_item.locale = "fr"
+        validate
       end
 
-      it "adds the error to the content_item attribute" do
-        expect(translation.errors[:content_item]).to eq([expected_error])
+      it "adds the error to the base attribute" do
+        expect(content_item.errors[:base]).to eq([expected_error])
       end
     end
   end
