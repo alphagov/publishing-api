@@ -130,7 +130,6 @@ module Commands
       end
 
       def previous_item
-        p previous_items
         raise "There should only be one previous published or unpublished item" if previous_items.size > 1
         previous_items.first
       end
