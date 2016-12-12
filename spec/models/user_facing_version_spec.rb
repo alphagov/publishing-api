@@ -57,21 +57,6 @@ RSpec.describe UserFacingVersion do
     let(:draft_version) { described_class.find_by!(content_item: draft) }
     let(:live_version) { described_class.find_by!(content_item: live) }
 
-    context "when there are 2 instances of the same version" do
-      subject { draft_version }
-
-      before do
-        draft_version.number = version
-        subject.valid?
-      end
-
-      it { is_expected.to be_invalid }
-      it "has a conflicts error message" do
-        error = subject.errors[:content_item].first
-        expect(error).to match(/conflicts with/)
-      end
-    end
-
     context "when the draft version is behind the live version" do
       before do
         draft_version.number = 1
