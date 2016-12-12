@@ -267,6 +267,12 @@ RSpec.describe ContentItem do
       before { content_item.user_facing_version -= 1 }
       it { is_expected.to be_invalid }
     end
+
+    describe "routes and redirects" do
+      subject { content_item }
+      let(:content_item) { FactoryGirl.build(:content_item, base_path: "/vat-rates") }
+      it_behaves_like RoutesAndRedirectsValidator
+    end
   end
 
   context "EMPTY_BASE_PATH_FORMATS" do
