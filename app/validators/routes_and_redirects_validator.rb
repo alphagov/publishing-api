@@ -1,93 +1,89 @@
 class RoutesAndRedirectsValidator < ActiveModel::Validator
-  def validate(location)
-    content_item = location.content_item
-    base_path = location.base_path
+  def validate(record)
+    return unless record.base_path.present?
 
-    return unless content_item.present?
-    return unless base_path.present?
-
-    routes = content_item.routes || []
-    redirects = content_item.redirects || []
-    document_type = content_item.document_type
+    routes = record.routes || []
+    redirects = record.redirects || []
+    document_type = record.document_type
 
     routes.each do |route|
-      RouteValidator.new.validate(location, :routes, route)
+      RouteValidator.new.validate(record, :routes, route)
     end
 
     redirects.each do |redirect|
-      RouteValidator.new.validate(location, :redirects, redirect)
-      RedirectValidator.new.validate(location, redirect)
+      RouteValidator.new.validate(record, :redirects, redirect)
+      RedirectValidator.new.validate(record, redirect)
     end
 
-    must_have_unique_paths(location, routes, redirects)
+    must_have_unique_paths(record, routes, redirects)
 
     if document_type == "redirect"
-      redirects_must_not_have_routes(location, routes)
-      redirects_must_include_base_path(location, redirects)
+      redirects_must_not_have_routes(record, routes)
+      redirects_must_include_base_path(record, redirects)
     else
-      routes_must_include_base_path(location, routes)
+      routes_must_include_base_path(record, routes)
     end
   end
 
 private
 
-  def must_have_unique_paths(location, routes, redirects)
+  def must_have_unique_paths(record, routes, redirects)
     paths = routes.map { |r| r[:path] }
     unless paths == paths.uniq
-      location.errors[:routes] << "must have unique paths"
+      record.errors[:routes] << "must have unique paths"
     end
 
     paths += redirects.map { |r| r[:path] }
     unless paths == paths.uniq
-      location.errors[:redirects] << "must have unique paths"
+      record.errors[:redirects] << "must have unique paths"
     end
   end
 
-  def redirects_must_not_have_routes(location, routes)
+  def redirects_must_not_have_routes(record, routes)
     if routes.any?
-      location.errors[:routes] << "redirect items cannot have routes"
+      record.errors[:routes] << "redirect items cannot have routes"
     end
   end
 
-  def redirects_must_include_base_path(location, redirects)
-    if redirects.none? { |r| r[:path] == location.base_path }
-      location.errors[:redirects] << "must include the base path"
+  def redirects_must_include_base_path(record, redirects)
+    if redirects.none? { |r| r[:path] == record.base_path }
+      record.errors[:redirects] << "must include the base path"
     end
   end
 
-  def routes_must_include_base_path(location, routes)
-    if routes.none? { |r| r[:path] == location.base_path }
-      location.errors[:routes] << "must include the base path"
+  def routes_must_include_base_path(record, routes)
+    if routes.none? { |r| r[:path] == record.base_path }
+      record.errors[:routes] << "must include the base path"
     end
   end
 
   class RouteValidator
-    def validate(location, attribute, route)
+    def validate(record, attribute, route)
       type = route[:type]
       path = route[:path]
 
       unless type.present?
-        location.errors[attribute] << "type must be present"
+        record.errors[attribute] << "type must be present"
       end
 
       unless path.present?
-        location.errors[attribute] << "path must be present"
+        record.errors[attribute] << "path must be present"
       end
 
       unless type.present? && %(exact prefix).include?(type)
-        location.errors[attribute] << "type must be either 'exact' or 'prefix'"
+        record.errors[attribute] << "type must be either 'exact' or 'prefix'"
       end
 
       unsupported_keys = additional_keys(route, attribute)
       if unsupported_keys.any?
-        location.errors[attribute] << "unsupported keys: #{unsupported_keys.join(', ')}"
+        record.errors[attribute] << "unsupported keys: #{unsupported_keys.join(', ')}"
       end
 
       validator = AbsolutePathValidator.new(attributes: attribute)
-      validator.validate_each(location, attribute, path)
+      validator.validate_each(record, attribute, path)
 
-      unless path.present? && below_base_path?(path, location.base_path)
-        location.errors[attribute] << "path must be below the base path"
+      unless path.present? && below_base_path?(path, record.base_path)
+        record.errors[attribute] << "path must be below the base path"
       end
     end
 
@@ -118,30 +114,30 @@ private
   end
 
   class RedirectValidator
-    def validate(location, redirect)
+    def validate(record, redirect)
       path = redirect[:path]
       destination = redirect[:destination]
       type = redirect[:type]
 
       unless path.present?
-        location.errors[:redirects] << "path must be present"
+        record.errors[:redirects] << "path must be present"
       end
 
       unless destination.present?
-        location.errors[:redirects] << "destination must be present"
+        record.errors[:redirects] << "destination must be present"
       end
 
       if path == destination
-        location.errors[:redirects] << "path cannot equal the destination"
+        record.errors[:redirects] << "path cannot equal the destination"
       end
 
       if type == "exact"
         unless valid_exact_redirect_target?(destination)
-          location.errors[:redirects] << "is not a valid redirect destination"
+          record.errors[:redirects] << "is not a valid redirect destination"
         end
       else
         validator = AbsolutePathValidator.new(attributes: :redirects)
-        validator.validate_each(location, :redirects, destination)
+        validator.validate_each(record, :redirects, destination)
       end
     end
 
