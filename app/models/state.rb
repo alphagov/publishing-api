@@ -15,5 +15,4 @@ class State < ApplicationRecord
       "INNER JOIN states ON states.content_item_id = content_items.id"
     )
   end
-
 end
