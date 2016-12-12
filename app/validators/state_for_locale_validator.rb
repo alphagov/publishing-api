@@ -1,37 +1,20 @@
 class StateForLocaleValidator < ActiveModel::Validator
   def validate(record)
-    return unless record.content_item
+    return unless record.state && record.locale && %w(draft published unpublished).include?(record.state)
 
-    content_item = record.content_item
-    state = content_item_state(record)
-    locale = content_item_locale(record)
+    criteria = {
+      content_id: record.content_id,
+      state: record.state == "draft" ? "draft" : %w(published unpublished),
+      locale: record.locale,
+    }
 
-    return unless state && locale && %w(draft published unpublished).include?(state)
-
-    conflict = Queries::StateForLocale.conflict(
-      content_item.id,
-      content_item.content_id,
-      state,
-      locale
-    )
+    conflict = ContentItem.where(criteria).where.not(id: record.id).first
 
     if conflict
-      error = "state=#{state} and locale=#{locale} for content "
-      error << "item=#{content_item.content_id} conflicts with content "
-      error << "item id=#{conflict[:id]}"
-      record.errors.add(:content_item, error)
+      error = "state=#{record.state} and locale=#{record.locale} "
+      error << "for content item=#{record.content_id} conflicts with "
+      error << "content item id=#{conflict[:id]}"
+      record.errors.add(:base, error)
     end
-  end
-
-private
-
-  def content_item_state(record)
-    return record.name if record.is_a?(State)
-    State.where(content_item: record.content_item).pluck(:name).first
-  end
-
-  def content_item_locale(record)
-    return record.locale if record.is_a?(Translation)
-    Translation.where(content_item: record.content_item).pluck(:locale).first
   end
 end
