@@ -22,7 +22,7 @@ module Presenters
         scope = ContentItem.where(content_id: content_id)
         scope = State.join_content_items(scope)
         scope = Translation.join_content_items(scope)
-        scope.select(*%w(id locale name))
+        scope.select(*%w(id translations.locale name))
       end
 
       def filter_states
