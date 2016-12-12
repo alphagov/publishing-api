@@ -83,8 +83,8 @@ RSpec.describe Commands::V2::Unpublish do
       it "sets the content item's state to `unpublished`" do
         described_class.call(payload)
 
-        state = State.find_by(content_item: live_content_item)
-        expect(state.name).to eq("unpublished")
+        updated_item = ContentItem.find(live_content_item.id)
+        expect(updated_item.state).to eq("unpublished")
       end
 
       it "creates an Unpublishing" do
@@ -197,8 +197,8 @@ RSpec.describe Commands::V2::Unpublish do
         it "sets the content item's state to `unpublished`" do
           described_class.call(payload_with_allow_draft)
 
-          state = State.find_by(content_item: draft_content_item)
-          expect(state.name).to eq("unpublished")
+          updated_item = ContentItem.find(draft_content_item.id)
+          expect(updated_item.state).to eq("unpublished")
         end
 
         it "creates an Unpublishing" do
@@ -249,18 +249,17 @@ RSpec.describe Commands::V2::Unpublish do
           it "supersedes the unpublished item" do
             described_class.call(payload.merge(allow_draft: true))
 
-            state = State.find_by(content_item: previous_content_item)
-            expect(state.name).to eq("superseded")
+            updated_item = ContentItem.find(previous_content_item.id)
+            expect(updated_item.state).to eq("superseded")
           end
 
           it "does not supersede unpublished items in a different locale" do
-            t = Translation.find_by!(content_item: previous_content_item)
-            t.update!(locale: "fr")
+            previous_content_item.update!(locale: 'fr')
 
             described_class.call(payload.merge(allow_draft: true))
 
-            state = State.find_by(content_item: previous_content_item)
-            expect(state.name).to eq("unpublished")
+            updated_item = ContentItem.find(previous_content_item.id)
+            expect(updated_item.state).to eq("unpublished")
           end
 
           context "when the system is in an inconsistent state" do
@@ -273,8 +272,8 @@ RSpec.describe Commands::V2::Unpublish do
               )
             end
             before do
-              State.where(content_item: published_item).update_all(name: "published")
-              Location.where(content_item: published_item).update_all(base_path: base_path)
+              ContentItem.where(content_id: content_id)
+                .update_all(state: 'published', base_path: base_path)
             end
 
             it "raises an error stating the inconsistency" do
@@ -298,18 +297,17 @@ RSpec.describe Commands::V2::Unpublish do
           it "supersedes the published item" do
             described_class.call(payload.merge(allow_draft: true))
 
-            state = State.find_by(content_item: previous_content_item)
-            expect(state.name).to eq("superseded")
+            updated_item = ContentItem.find(previous_content_item.id)
+            expect(updated_item.state).to eq("superseded")
           end
 
           it "does not supersede published items in a different locale" do
-            t = Translation.find_by!(content_item: previous_content_item)
-            t.update!(locale: "fr")
+            previous_content_item.update!(locale: "fr")
 
             described_class.call(payload.merge(allow_draft: true))
 
-            state = State.find_by(content_item: previous_content_item)
-            expect(state.name).to eq("published")
+            updated_item = ContentItem.find(previous_content_item.id)
+            expect(updated_item.state).to eq("published")
           end
         end
       end
@@ -352,8 +350,7 @@ RSpec.describe Commands::V2::Unpublish do
           content_items = ContentItem.where(content_id: content_id)
           expect(content_items.count).to eq(1)
 
-          state = State.find_by(content_item: content_items.first)
-          expect(state.name).to eq("unpublished")
+          expect(content_items.first.state).to eq("unpublished")
         end
 
         it "unpublishes the content item" do
@@ -515,8 +512,8 @@ RSpec.describe Commands::V2::Unpublish do
       it "sets the content item's state to `unpublished`" do
         described_class.call(payload)
 
-        state = State.find_by(content_item: live_content_item)
-        expect(state.name).to eq("unpublished")
+        updated_content_item = ContentItem.find(live_content_item.id)
+        expect(updated_content_item.state).to eq("unpublished")
       end
 
       it "creates an Unpublishing" do

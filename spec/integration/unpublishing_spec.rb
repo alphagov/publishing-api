@@ -67,11 +67,8 @@ RSpec.describe "Unpublishing Content Items" do
         superseded_item = content_items.first
         unpublished_item = content_items.last
 
-        superseded = State.find_by!(content_item: superseded_item)
-        unpublished = State.find_by!(content_item: unpublished_item)
-
-        expect(superseded.name).to eq("superseded")
-        expect(unpublished.name).to eq("unpublished")
+        expect(superseded_item.state).to eq("superseded")
+        expect(unpublished_item.state).to eq("unpublished")
       end
     end
   end

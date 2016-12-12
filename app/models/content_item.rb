@@ -98,6 +98,47 @@ class ContentItem < ApplicationRecord
     end
   end
 
+  def publish
+    update_attributes!(state: 'published')
+  end
+
+  def supersede
+    update_attributes!(state: 'superseded')
+  end
+
+  def unpublish(type:, explanation: nil, alternative_path: nil, unpublished_at: nil)
+    update_attributes!(state: 'unpublished')
+
+    unpublishing = Unpublishing.find_by(content_item: self)
+
+    unpublished_at = nil unless type == "withdrawal"
+
+    if unpublishing.present?
+      unpublishing.update_attributes(
+        type: type,
+        explanation: explanation,
+        alternative_path: alternative_path,
+        unpublished_at: unpublished_at,
+      )
+      unpublishing
+    else
+      Unpublishing.create!(
+        content_item: self,
+        type: type,
+        explanation: explanation,
+        alternative_path: alternative_path,
+        unpublished_at: unpublished_at,
+      )
+    end
+  end
+
+  def substitute
+    unpublish(
+      type: "substitute",
+      explanation: "Automatically unpublished to make way for another content item",
+    )
+  end
+
 private
 
   def renderable_content?
