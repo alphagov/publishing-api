@@ -44,7 +44,7 @@ RSpec.describe Queries::BasePathForState do
         %w(published unpublished superseded).each do |state|
           context "when the content item is #{state}" do
             before do
-              State.find_by(content_item: conflict_content_item).update(name: state)
+              conflict_content_item.update(state: state)
             end
 
             it { is_expected.to be_nil }
@@ -125,20 +125,5 @@ RSpec.describe Queries::BasePathForState do
 
       it { is_expected.to be_nil }
     end
-
-    # {
-    #   draft_content_item: "draft",
-    #   superseded_content_item: "superseded",
-    #   substitute_unpublished_content_item: "substitute unpublished content item",
-    # }.each do |type, name|
-    #   describe "#{name} content item" do
-    #     let!(:content_item) { create_content_item(type) }
-    #
-    #     context "when we use this content items base path and a different content item id" do
-    #       subject { described_class.conflict_with_live_content(content_item.id + 1, base_path) }
-    #       it { is_expected.to be_nil }
-    #     end
-    #   end
-    # end
   end
 end
