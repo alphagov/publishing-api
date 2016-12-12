@@ -16,15 +16,15 @@ module Queries
     end
 
     def self.for_content_store(content_id, locale, include_draft = false)
-      unpublishings = Unpublishing.arel_table
       content_items = ContentItem.arel_table
+      unpublishings = Unpublishing.arel_table
 
       allowed_states = [:published, :unpublished]
       allowed_states << :draft if include_draft
-      filtered = scope(content_items[:number].desc)
+      filtered = scope(content_items[:user_facing_version].desc)
         .where(content_items[:content_id].eq(content_id))
         .where(content_items[:locale].eq(locale))
-        .where(content_items[:name].in(allowed_states))
+        .where(content_items[:state].in(allowed_states))
         .where(
           unpublishings[:type].eq(nil).or(
             unpublishings[:type].not_eq("substitute")
