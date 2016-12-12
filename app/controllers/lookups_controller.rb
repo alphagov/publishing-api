@@ -7,7 +7,7 @@ class LookupsController < ApplicationController
 
     base_paths_and_content_ids = ContentItemFilter
       .filter(state: states, base_path: base_paths)
-      .pluck('locations.base_path', :content_id)
+      .pluck(:base_path, :content_id)
       .uniq
 
     response = Hash[base_paths_and_content_ids]
