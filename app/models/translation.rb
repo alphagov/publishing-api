@@ -6,9 +6,6 @@ class Translation < ApplicationRecord
     message: 'must be a supported locale'
   }
 
-  validates_with VersionForLocaleValidator
-  validates_with StateForLocaleValidator
-
   after_save do
     content_item.update_attributes!(locale: locale)
   end
