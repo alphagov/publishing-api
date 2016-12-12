@@ -33,6 +33,7 @@ class ContentItem < ApplicationRecord
   validates :schema_name, presence: true
   validates :document_type, presence: true
 
+  validates :base_path, absolute_path: true, if: :base_path_present?
   validates :content_id, presence: true, uuid: true
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
@@ -44,12 +45,25 @@ class ContentItem < ApplicationRecord
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include_one_of: %w(text/html text/govspeak) }
 
+  validates :locale, inclusion: {
+    in: I18n.available_locales.map(&:to_s),
+    message: 'must be a supported locale'
+  }
+
+  validates_with VersionForLocaleValidator
+  validates_with BasePathForStateValidator
+  validates_with StateForLocaleValidator
+
   def requires_base_path?
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
   end
 
   def pathless?
-    !self.requires_base_path? && !Location.exists?(content_item: self)
+    !self.requires_base_path? && !base_path
+  end
+
+  def base_path_present?
+    base_path.present?
   end
 
   # FIXME: This method is used to retrieve a version of .details that doesn't
