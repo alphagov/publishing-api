@@ -12,7 +12,6 @@ module Commands
           end
         end
 
-        translation = Translation.find_by!(content_item: content_item)
         location = Location.find_by(content_item: content_item)
         update_type = payload[:update_type] || content_item.update_type
 
@@ -39,11 +38,11 @@ module Commands
             previous_location = Location.find_by(content_item: previous_item)
 
             if previous_location.base_path != location.base_path
-              publish_redirect(previous_location, translation)
+              publish_redirect(previous_location, content_item.locale)
             end
           end
 
-          clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+          clear_published_items_of_same_locale_and_base_path(content_item, content_item.locale, location)
         end
 
         set_public_updated_at(content_item, previous_item, update_type)
@@ -53,7 +52,7 @@ module Commands
         AccessLimit.find_by(content_item: content_item).try(:destroy)
 
         after_transaction_commit do
-          send_downstream(content_item.content_id, translation.locale, update_type)
+          send_downstream(content_item.content_id, content_item.locale, update_type)
         end
 
         Action.create_publish_action(content_item, locale, event)
@@ -99,12 +98,12 @@ module Commands
         ContentItem.where(content_id: content_id).lock
       end
 
-      def clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+      def clear_published_items_of_same_locale_and_base_path(content_item, locale, location)
         SubstitutionHelper.clear!(
           new_item_document_type: content_item.document_type,
           new_item_content_id: content_item.content_id,
           state: "published",
-          locale: translation.locale,
+          locale: locale,
           base_path: location.base_path,
           downstream: downstream,
           callbacks: callbacks,
@@ -127,16 +126,16 @@ module Commands
         content_item.update_attributes!(first_published_at: Time.zone.now)
       end
 
-      def publish_redirect(previous_location, translation)
+      def publish_redirect(previous_location, locale)
         draft_redirect = ContentItemFilter
-          .filter(state: "draft", locale: translation.locale, base_path: previous_location.base_path)
+          .filter(state: "draft", locale: locale, base_path: previous_location.base_path)
           .where(schema_name: "redirect")
           .first
 
         self.class.call(
           {
             content_id: draft_redirect.content_id,
-            locale: translation.locale,
+            locale: locale,
             update_type: "major",
           },
           downstream: downstream,
