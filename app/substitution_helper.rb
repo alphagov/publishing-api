@@ -20,7 +20,7 @@ module SubstitutionHelper
     )
       raise NilBasePathError if base_path.nil?
 
-      blocking_items = ContentItemFilter.filter(base_path: base_path, locale: locale, state: state)
+      blocking_items = ContentItem.where(base_path: base_path, locale: locale, state: state)
 
       blocking_items.each do |blocking_item|
         mismatch = (blocking_item.content_id != new_item_content_id)
