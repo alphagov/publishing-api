@@ -46,8 +46,7 @@ RSpec.describe SubstitutionHelper do
         }
 
         it "does not unpublish the existing published item" do
-          state = State.find_by!(content_item: existing_item)
-          expect(state.name).not_to eq("unpublished")
+          expect(existing_item.state).not_to eq("unpublished")
         end
       end
     end
@@ -93,8 +92,7 @@ RSpec.describe SubstitutionHelper do
           }
 
           it "unpublishes the existing published item" do
-            state = State.find_by!(content_item: existing_item)
-            expect(state.name).to eq("unpublished")
+            expect(existing_item.reload.state).to eq("unpublished")
           end
         end
       end
@@ -123,9 +121,9 @@ RSpec.describe SubstitutionHelper do
             base_path: "/somewhere-else",
           )
 
-          expect(State.find_by!(content_item: live_item).name).not_to eq("unpublished")
-          expect(State.find_by!(content_item: french_item).name).not_to eq("unpublished")
-          expect(State.find_by!(content_item: item_elsewhere).name).not_to eq("unpublished")
+          expect(live_item.state).not_to eq("unpublished")
+          expect(french_item.state).not_to eq("unpublished")
+          expect(item_elsewhere.state).not_to eq("unpublished")
         end
 
         context "when the existing item is published" do
@@ -137,8 +135,7 @@ RSpec.describe SubstitutionHelper do
           }
 
           it "unpublishes the existing published item" do
-            state = State.find_by!(content_item: existing_item)
-            expect(state.name).to eq("unpublished")
+            expect(existing_item.reload.state).to eq("unpublished")
           end
         end
       end
@@ -157,8 +154,7 @@ RSpec.describe SubstitutionHelper do
           }
 
           it "does not unpublish the existing item" do
-            state = State.find_by!(content_item: existing_item)
-            expect(state.name).not_to eq("unpublished")
+            expect(existing_item.state).not_to eq("unpublished")
           end
         end
       end

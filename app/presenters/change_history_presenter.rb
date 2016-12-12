@@ -28,12 +28,11 @@ module Presenters
     end
 
     def content_item_ids
-      UserFacingVersion.join_content_items(
-        ContentItem.where(content_id: content_item.content_id
-      ))
-      .where("user_facing_versions.number <= ?", version_number)
-      .pluck(:id)
+      ContentItem.where(content_id: content_item.content_id)
+                 .where("user_facing_version <= ?", version_number)
+                 .pluck(:id)
     end
+
 
     def version_number
       content_item.user_facing_version
