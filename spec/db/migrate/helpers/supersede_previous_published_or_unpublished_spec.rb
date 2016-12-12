@@ -50,7 +50,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
       published,
       unpublished_2,
       draft
-    ].map { |c| State.find_by!(content_item: c).name }
+    ].map { |c| c.state }
 
     expect(state_names).to eq %w(
       superseded
@@ -70,8 +70,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
     subject.run
 
-    state_name = State.find_by!(content_item: french_item).name
-    expect(state_name).to eq("published")
+    expect(french_item.state).to eq("published")
   end
 
   it "returns a count of states that have been superseded" do
