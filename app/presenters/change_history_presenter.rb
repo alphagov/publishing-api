@@ -28,15 +28,13 @@ module Presenters
     end
 
     def content_item_ids
-      UserFacingVersion.join_content_items(
-        ContentItem.where(content_id: content_item.content_id
-      ))
-      .where("user_facing_versions.number <= ?", version_number)
-      .pluck(:id)
+      ContentItem.where(content_id: content_item.content_id)
+                 .where("user_facing_version <= ?", latest_version_number)
+                 .pluck(:id)
     end
 
-    def version_number
-      UserFacingVersion.where(content_item_id: content_item.id).last.number
+    def latest_version_number
+      ContentItem.where(id: content_item.id).pluck(:user_facing_version).last
     end
   end
 end
