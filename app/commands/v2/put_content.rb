@@ -107,10 +107,9 @@ module Commands
 
       def find_previously_drafted_content_item
         ContentItem.where(
-          content_id: content_id,
-          locale: locale,
+          id: pessimistic_content_item_scope.pluck(:id),
           state: "draft",
-        ).lock.first
+        ).first
       end
 
       def clear_draft_items_of_same_locale_and_base_path
@@ -175,6 +174,10 @@ module Commands
         else
           1
         end
+      end
+
+      def pessimistic_content_item_scope
+        ContentItem.where(content_id: content_id, locale: locale).lock
       end
 
       def previously_published_item
