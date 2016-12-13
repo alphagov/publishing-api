@@ -18,7 +18,7 @@ RSpec.describe Queries::GetLatest do
   end
 
   def base_paths(result)
-    result.map { |content_item| content_item.base_path }
+    result.map(&:base_path)
   end
 
   it "returns a scope of the latest content_items for the given scope" do
