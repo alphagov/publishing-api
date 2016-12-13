@@ -5,16 +5,12 @@ module Commands
         self.to_s
       end
 
-      def call(scope, draft = false)
-        filter = ContentItemFilter.new(scope: scope)
-
+      def call(content_ids, draft = false)
         if draft
-          content_ids = content_ids_for_draft_store(filter)
           with_locales = Queries::LocalesForContentItems.call(content_ids, draft_states)
           with_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
         end
 
-        content_ids = content_ids_for_live_store(filter)
         with_locales = Queries::LocalesForContentItems.call(content_ids, live_states)
         with_locales.each_with_index do |(content_id, locale), index|
           sleep 60 if (index + 1) % 10_000 == 0
@@ -23,14 +19,6 @@ module Commands
       end
 
     private
-
-      def content_ids_for_draft_store(filter)
-        Queries::GetLatest.call(filter.filter(state: draft_states)).distinct.pluck(:content_id)
-      end
-
-      def content_ids_for_live_store(filter)
-        filter.filter(state: live_states).distinct.pluck(:content_id)
-      end
 
       def draft_states
         %w{draft published unpublished}
