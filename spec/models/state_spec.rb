@@ -63,9 +63,9 @@ RSpec.describe State do
       unpublishing = nil
       expect {
         unpublishing = live_item.unpublish(
-                                  type: "gone",
-                                  explanation: "A test explanation",
-                                  alternative_path: "/some-path",
+          type: "gone",
+          explanation: "A test explanation",
+          alternative_path: "/some-path",
         )
       }.to change(Unpublishing, :count).by(1)
 
@@ -76,9 +76,9 @@ RSpec.describe State do
       # successfully created an unpublishing, now try to modify it
       expect {
         unpublishing = live_item.unpublish(
-                                  type: "redirect",
-                                  explanation: "A test explanation",
-                                  alternative_path: "/redirected-some-path",
+          type: "redirect",
+          explanation: "A test explanation",
+          alternative_path: "/redirected-some-path",
         )
       }.to change(Unpublishing, :count).by(0)
 
