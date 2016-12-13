@@ -42,15 +42,17 @@ module Commands
       end
 
       def find_content_item
-        allowed_states = draft? ? %w(draft) : %w(published unpublished)
+        content_item = ContentItem.find_by(
+          content_id: content_id,
+          locale: locale,
+          state: draft? ? %w(draft) : %w(published unpublished),
+        )
 
-        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        found_content_item = filter.filter(locale: locale, state: allowed_states).last
-        unless found_content_item
+        unless content_item
           message = "Could not find a content item to associate this action with"
           raise_command_error(404, message, fields: {})
         end
-        found_content_item
+        content_item
       end
 
       def previous_version_number
