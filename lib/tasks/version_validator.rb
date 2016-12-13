@@ -18,9 +18,9 @@ module Tasks
           versions = parse(r.fetch("versions")).map(&:to_i)
           states = parse(r.fetch("states"))
           base_paths = parse(r.fetch("base_paths"))
-          version_ids = parse(r.fetch("version_ids")).map(&:to_i)
+          content_item_ids = parse(r.fetch("content_item_ids")).map(&:to_i)
 
-          items = versions.zip(states, base_paths, version_ids)
+          items = versions.zip(states, base_paths, content_item_ids)
           items.sort! { |a, b| workflow_sort(a, b) }
 
           valid_version_sequence = true
@@ -47,24 +47,17 @@ module Tasks
       def query
         <<-SQL
           select
-            ci.content_id,
-            t.locale,
+            content_id,
+            locale,
 
             -- select arrays of supporting attributes
-            array_agg(s.name) as states,
-            array_agg(v.number) as versions,
-            array_agg(l.base_path) as base_paths,
-            array_agg(v.id) as version_ids
+            array_agg(state) as states,
+            array_agg(user_facing_version) as versions,
+            array_agg(base_path) as base_paths,
+            array_agg(id) as content_item_ids
 
-          from content_items ci
-
-          -- join supporting objects
-          join states s on s.content_item_id = ci.id
-          join user_facing_versions v on v.content_item_id = ci.id
-          join translations t on t.content_item_id = ci.id
-          join locations l on l.content_item_id = ci.id
-
-          group by ci.content_id, t.locale
+          from content_items
+          group by content_id, locale
         SQL
       end
 
