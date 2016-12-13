@@ -48,8 +48,8 @@ module DataHygiene
       def sql
         <<-SQL
           SELECT content_items.content_id,
-            translations.locale,
-            CASE states.name
+            content_items.locale,
+            CASE content_items.state
               WHEN 'draft' THEN 'draft' ELSE 'live'
             END AS state_content_store,
             ARRAY_AGG(
@@ -57,12 +57,8 @@ module DataHygiene
               ORDER BY content_items.updated_at DESC
             ) as content_items
           FROM content_items
-          INNER JOIN translations
-            ON translations.content_item_id = content_items.id
-          INNER JOIN states
-            ON states.content_item_id = content_items.id
-          WHERE states.name IN ('draft', 'published', 'unpublished')
-          GROUP BY content_items.content_id, translations.locale, state_content_store
+          WHERE content_items.state IN ('draft', 'published', 'unpublished')
+          GROUP BY content_items.content_id, content_items.locale, state_content_store
           HAVING COUNT(*) > 1
         SQL
       end
