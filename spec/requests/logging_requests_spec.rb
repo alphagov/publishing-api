@@ -40,6 +40,14 @@ RSpec.describe "Logging requests", type: :request do
     let!(:draft_a) { create_content_item(a, "/a", "draft", "en", 2) }
     let!(:draft_b) { create_content_item(b, "/b", "draft") }
 
+    let(:params) do
+      v2_content_item.merge(
+        content_id: a,
+        base_path: "/a",
+        routes: [{ path: "/a", type: "exact" }],
+      )
+    end
+
     before do
       create_link(a, b, "parent")
     end
@@ -48,10 +56,7 @@ RSpec.describe "Logging requests", type: :request do
       stub_request(:put, /draft-content-store.*content\/(a|b)/)
 
       Sidekiq::Testing.fake! do
-        put(
-          "/v2/content/#{a}",
-          params: v2_content_item.merge(base_path: "/a", content_id: a).to_json,
-        )
+        put("/v2/content/#{a}", params: params.to_json)
 
         # Simulate workers running in a separate thread
         GdsApi::GovukHeaders.clear_headers
