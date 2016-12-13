@@ -213,7 +213,9 @@ RSpec.describe "Downstream requests", type: :request do
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(a_hash_including(base_path: '/b'))
-      put "/v2/content/#{a}", params: v2_content_item.merge(base_path: "/a", content_id: a).to_json
+      params = v2_content_item.merge(base_path: "/a", content_id: a,
+                                     routes: [{ path: '/a', type: 'exact' }]).to_json
+      put "/v2/content/#{a}", params: params
     end
 
     it "doesn't send draft dependencies to the live content store" do
