@@ -180,6 +180,7 @@ module Commands
       def previously_published_item
         @previously_published_item ||=
           ContentItem.where(
+            content_id: content_id,
             state: %w(published unpublished),
             locale: locale,
           ).order(user_facing_version: :desc).first || ITEM_NOT_FOUND
