@@ -39,7 +39,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
   end
 
   before do
-    State.where(content_item: [unpublished_1, unpublished_2]).update_all(name: "unpublished")
+    ContentItem.where(id: [unpublished_1.id, unpublished_2.id]).update_all(state: "unpublished")
   end
 
   it "supersedes all but the latest published or unpublished item" do
@@ -50,7 +50,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
       published,
       unpublished_2,
       draft
-    ].map(&:state)
+    ].map(&:reload).map(&:state)
 
     expect(state_names).to eq %w(
       superseded
