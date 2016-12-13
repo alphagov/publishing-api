@@ -26,7 +26,7 @@ module Commands
 
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
-        previous_item = lookup_previous_item(content_item)
+        previous_item = lookup_previous_item
 
         previous_item.supersede if previous_item
 
@@ -84,17 +84,18 @@ module Commands
       end
 
       def find_draft_content_item
-        filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
-        filter.filter(locale: locale, state: "draft").first
+        ContentItem.find_by(
+          id: pessimistic_content_item_scope.pluck(:id),
+          state: "draft",
+        )
       end
 
       def already_published?
-        filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
-        filter.filter(locale: locale, state: "published").first
+        ContentItem.exists?(content_id: content_id, locale: locale, state: "published")
       end
 
       def pessimistic_content_item_scope
-        ContentItem.where(content_id: content_id).lock
+        ContentItem.where(content_id: content_id, locale: locale).lock
       end
 
       def clear_published_items_of_same_locale_and_base_path(content_item, locale, base_path)
@@ -126,10 +127,12 @@ module Commands
       end
 
       def publish_redirect(previous_base_path, locale)
-        draft_redirect = ContentItemFilter
-          .filter(state: "draft", locale: locale, base_path: previous_base_path)
-          .where(schema_name: "redirect")
-          .first
+        draft_redirect = ContentItem.find_by(
+          state: "draft",
+          locale: locale,
+          base_path: previous_base_path,
+          schema_name: "redirect",
+        )
 
         self.class.call(
           {
@@ -143,13 +146,12 @@ module Commands
         ) if draft_redirect
       end
 
-      def lookup_previous_item(content_item)
-        previous_items = ContentItemFilter.similar_to(
-          content_item,
+      def lookup_previous_item
+        previous_items = ContentItem.where(
+          content_id: content_id,
+          locale: locale,
           state: %w(published unpublished),
-          base_path: nil,
-          user_version: nil,
-        ).to_a
+        )
 
         if previous_items.size > 1
           raise "There should only be one previous published or unpublished item"
