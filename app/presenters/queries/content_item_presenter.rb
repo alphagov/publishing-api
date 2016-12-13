@@ -6,7 +6,7 @@ module Presenters
       attr_accessor :scope, :fields, :order, :limit, :offset, :search_query,
                     :include_warnings
 
-      DEFAULT_FIELDS = [
+      DEFAULT_FIELDS = ([
         *ContentItem::TOP_LEVEL_FIELDS,
         :publication_state,
         :user_facing_version,
@@ -16,7 +16,7 @@ module Presenters
         :updated_at,
         :state_history,
         :change_note,
-      ].freeze
+      ] - [:state]).freeze  # state appears as 'publication_state'
 
       def self.present_many(scope, params = {})
         new(scope, params).present_many
