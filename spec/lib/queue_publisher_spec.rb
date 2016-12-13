@@ -45,7 +45,8 @@ RSpec.describe QueuePublisher do
           base_path: "/vat-rates",
           title: "VAT Rates",
           description: "VAT rates for goods and services",
-          format: "guide",
+          document_type: "guide",
+          schema_name: "guide",
           publishing_app: "publisher",
           locale: "en",
           details: {
@@ -63,7 +64,7 @@ RSpec.describe QueuePublisher do
       end
 
       it "uses a routing key of format.update_type" do
-        expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{content_item[:format]}.#{content_item[:update_type]}"))
+        expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{content_item[:schema_name]}.#{content_item[:update_type]}"))
 
         queue_publisher.send_message(content_item)
       end
@@ -72,7 +73,7 @@ RSpec.describe QueuePublisher do
         let(:content_item) { super().stringify_keys }
 
         it "correctly calculates routing key" do
-          expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{content_item['format']}.#{content_item['update_type']}"))
+          expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{content_item['schema_name']}.#{content_item['update_type']}"))
 
           queue_publisher.send_message(content_item)
         end
@@ -108,7 +109,7 @@ RSpec.describe QueuePublisher do
               anything,
               parameters: {
                 message_body: content_item,
-                routing_key: "#{content_item[:format]}.#{content_item[:update_type]}",
+                routing_key: "#{content_item[:schema_name]}.#{content_item[:update_type]}",
                 options: { content_type: "application/json", persistent: true },
               }
             )
