@@ -2,7 +2,7 @@ namespace :represent_downstream do
   desc "Represent all content_items downstream"
   task all: :environment do
     Commands::V2::RepresentDownstream.new.call(
-      ContentItem.where("document_type != 'travel_advice'")
+      ContentItem.where("document_type != 'travel_advice'").pluck(:content_id)
     )
   end
 
@@ -13,7 +13,8 @@ namespace :represent_downstream do
   "
   task :document_type, [:document_type] => :environment do |_t, args|
     document_type = args[:document_type]
-    Commands::V2::RepresentDownstream.new.call(ContentItem.where(document_type: document_type))
+    content_ids = ContentItem.where(document_type: document_type).pluck(:content_id)
+    Commands::V2::RepresentDownstream.new.call(content_ids)
   end
 
   desc "
@@ -23,7 +24,8 @@ namespace :represent_downstream do
   "
   task :rendering_app, [:rendering_app] => :environment do |_t, args|
     rendering_app = args[:rendering_app]
-    Commands::V2::RepresentDownstream.new.call(ContentItem.where(rendering_app: rendering_app))
+    content_ids = ContentItem.where(rendering_app: rendering_app).pluck(:content_id)
+    Commands::V2::RepresentDownstream.new.call(content_ids)
   end
 
   desc "
@@ -33,7 +35,8 @@ namespace :represent_downstream do
   "
   task :publishing_app, [:publishing_app] => :environment do |_t, args|
     publishing_app = args[:publishing_app]
-    Commands::V2::RepresentDownstream.new.call(ContentItem.where(publishing_app: publishing_app))
+    content_ids = ContentItem.where(publishing_app: publishing_app)
+    Commands::V2::RepresentDownstream.new.call(content_ids)
   end
 
   desc "
@@ -42,6 +45,6 @@ namespace :represent_downstream do
   rake 'represent_downstream:content_id[57a1253c-68d3-4a93-bb47-b67b9b4f6b9a]'
   "
   task :content_id, [:content_id] => :environment do |_t, args|
-    Commands::V2::RepresentDownstream.new.call(ContentItem.where(content_id: args[:content_id]))
+    Commands::V2::RepresentDownstream.new.call([args[:content_id]])
   end
 end
