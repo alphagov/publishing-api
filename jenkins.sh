@@ -16,7 +16,7 @@ bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment --without devel
 bundle exec govuk-lint-ruby \
   --format html --out rubocop-${GIT_COMMIT}.html \
   --format clang \
-  app config Gemfile lib spec
+  app config Gemfile lib spec || linting_error=1
 
 bin/rails db:environment:set
 bundle exec rake db:drop db:create db:schema:load
@@ -35,6 +35,12 @@ if bundle exec rake ${TEST_TASK:-"default"}; then
   if [ -n "$PACT_TARGET_BRANCH" ]; then
     bundle exec rake pact:publish:branch
   fi
+
+  if [ "$linting_error" = 1 ]; then
+    echo "Linting errors detected"
+    exit 1
+  fi
 else
   exit 1
 fi
+
