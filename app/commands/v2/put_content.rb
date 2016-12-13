@@ -194,7 +194,7 @@ module Commands
       end
 
       def document_type
-        content_item_attributes_from_payload[:document_type]
+        payload[:document_type]
       end
 
       def base_path
