@@ -11,17 +11,16 @@ RSpec.describe State do
 
   describe ".unpublish" do
     let(:live_item) { FactoryGirl.create(:live_content_item) }
-    let(:live_state) { State.find_by!(content_item: live_item) }
 
     it "changes the state name to 'unpublished'" do
       expect {
-        described_class.unpublish(live_item, type: "gone")
-      }.to change { live_state.reload.name }.to("unpublished")
+        live_item.unpublish(type: "gone")
+      }.to change { live_item.reload.state }.to("unpublished")
     end
 
     it "creates an unpublishing" do
       expect {
-        described_class.unpublish(live_item,
+        live_item.unpublish(
           type: "gone",
           explanation: "A test explanation",
           alternative_path: "/some-path",
@@ -39,7 +38,7 @@ RSpec.describe State do
     it "updates an existing unpublishing" do
       unpublishing = nil
       expect {
-        unpublishing = described_class.unpublish(live_item,
+        unpublishing = live_item.unpublish(
                                   type: "gone",
                                   explanation: "A test explanation",
                                   alternative_path: "/some-path",
@@ -52,7 +51,7 @@ RSpec.describe State do
 
       # successfully created an unpublishing, now try to modify it
       expect {
-        unpublishing = described_class.unpublish(live_item,
+        unpublishing = live_item.unpublish(
                                   type: "redirect",
                                   explanation: "A test explanation",
                                   alternative_path: "/redirected-some-path",

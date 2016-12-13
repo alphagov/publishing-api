@@ -18,7 +18,7 @@ RSpec.describe Queries::GetLatest do
   end
 
   def base_paths(result)
-    result.map { |i| Location.find_by!(content_item: i).base_path }
+    result.map { |content_item| content_item.base_path }
   end
 
   it "returns a scope of the latest content_items for the given scope" do
@@ -30,7 +30,7 @@ RSpec.describe Queries::GetLatest do
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/a3", "/b1", "/b2"])
 
-    scope = Translation.filter(scope, locale: "fr")
+    scope = scope.where(locale: 'fr')
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/b2"])
   end

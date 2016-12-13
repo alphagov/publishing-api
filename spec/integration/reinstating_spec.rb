@@ -131,11 +131,11 @@ RSpec.describe "Reinstating Content Items that were previously unpublished" do
           expect(superseded3_item.state).to eq("superseded")
           expect(published_item.state).to eq("published")
 
-          expect(superseded1_version_item.user_facing_version).to eq(1)
-          expect(superseded2_version_item.user_facing_version).to eq(2)
-          expect(unpublished_version_item.user_facing_version).to eq(1)
-          expect(superseded3_version_item.user_facing_version).to eq(3)
-          expect(published_version_item.user_facing_version).to eq(4)
+          expect(superseded1_item.user_facing_version).to eq(1)
+          expect(superseded2_item.user_facing_version).to eq(2)
+          expect(unpublished_item.user_facing_version).to eq(1)
+          expect(superseded3_item.user_facing_version).to eq(3)
+          expect(published_item.user_facing_version).to eq(4)
         end
       end
     end
