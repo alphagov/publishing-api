@@ -85,43 +85,33 @@ module Commands
       def send_downstream
         return unless downstream
 
-        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        draft_content_item_ids = Queries::GetLatest.call(
-          filter.filter(state: %w{draft published unpublished})).pluck(:id)
-        draft_web_content_items = Queries::GetWebContentItems.(draft_content_item_ids)
+        draft_locales = Queries::LocalesForContentItems.call([content_id])
+        draft_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
 
-        live_content_item_ids = filter.filter(state: %w{published unpublished}).pluck(:id)
-        live_web_content_items = Queries::GetWebContentItems.(live_content_item_ids)
-
-        draft_web_content_items.each do |draft_web_content_item|
-          downstream_draft(draft_web_content_item)
-        end
-
-        live_web_content_items.each do |live_web_content_item|
-          downstream_live(live_web_content_item)
-        end
+        live_locales = Queries::LocalesForContentItems.call([content_id], %w[published unpublished])
+        live_locales.each { |(content_id, locale)| downstream_live(content_id, locale) }
       end
 
       def bulk_publishing?
         payload.fetch(:bulk_publishing, false)
       end
 
-      def downstream_draft(content_item)
+      def downstream_draft(content_id, locale)
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
-          content_id: content_item.content_id,
-          locale: content_item.locale,
+          content_id: content_id,
+          locale: locale,
           payload_version: event.id,
         )
       end
 
-      def downstream_live(content_item)
+      def downstream_live(content_id, locale)
         queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
-          content_id: content_item.content_id,
-          locale: content_item.locale,
+          content_id: content_id,
+          locale: locale,
           message_queue_update_type: "links",
           payload_version: event.id,
         )
