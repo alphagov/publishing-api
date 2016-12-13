@@ -163,11 +163,11 @@ class ContentItem < ApplicationRecord
   end
 
   def publish
-    update_attributes!(state: "published")
+    update_attributes!(state: 'published', content_store: 'live')
   end
 
   def supersede
-    update_attributes!(state: "superseded")
+    update_attributes!(state: 'superseded', content_store: nil)
   end
 
   def unpublish(type:, explanation: nil, alternative_path: nil, unpublished_at: nil)

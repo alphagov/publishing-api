@@ -224,7 +224,7 @@ RSpec.describe Commands::V2::PutContent do
             thread2 = Thread.new { described_class.call(payload) }
             thread1.join
             thread2.join
-          }.to raise_error(CommandError, regex)
+          }.to raise_error(ActiveRecord::RecordNotUnique)
 
           expect(ContentItem.all.pluck(:state)).to eq %w(superseded published draft)
         end

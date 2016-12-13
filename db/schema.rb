@@ -73,9 +73,11 @@ ActiveRecord::Schema.define(version: 20161216111426) do
     t.string   "locale"
     t.integer  "user_facing_version"
     t.string   "base_path"
+    t.string   "content_store"
     t.index ["content_id"], name: "index_content_items_on_content_id", using: :btree
     t.index ["document_type"], name: "index_content_items_on_document_type", using: :btree
     t.index ["last_edited_at"], name: "index_content_items_on_last_edited_at", using: :btree
+    t.index ["locale", "content_id", "content_store"], name: "index_content_items_on_locale_and_content_id_and_content_store", unique: true, using: :btree
     t.index ["public_updated_at"], name: "index_content_items_on_public_updated_at", using: :btree
     t.index ["publishing_app"], name: "index_content_items_on_publishing_app", using: :btree
     t.index ["rendering_app"], name: "index_content_items_on_rendering_app", using: :btree
