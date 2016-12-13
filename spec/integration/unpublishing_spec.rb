@@ -48,9 +48,8 @@ RSpec.describe "Unpublishing Content Items" do
       expect(content_items.count).to eq(1)
 
       unpublished_item = content_items.last
-      unpublished = State.find_by!(content_item: unpublished_item)
 
-      expect(unpublished.name).to eq("unpublished")
+      expect(unpublished_item.state).to eq("unpublished")
     end
 
     describe "after the second unpublishing" do
