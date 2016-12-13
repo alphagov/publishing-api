@@ -7,11 +7,11 @@ class RequeueContent
 
   def call
     if number_of_items.present?
-      ContentItemFilter.filter(state: :published).limit(number_of_items).each do |content_item|
+      ContentItem.where(state: :published).limit(number_of_items).each do |content_item|
         publish_to_queue(content_item)
       end
     else
-      ContentItemFilter.filter(state: :published).find_each do |content_item|
+      ContentItem.where(state: :published).find_each do |content_item|
         publish_to_queue(content_item)
       end
     end
