@@ -56,19 +56,18 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
     context "multiple content items for a single content id" do
       let(:item1) do
         FactoryGirl.create(
-          :content_item,
+          :superseded_content_item,
           details: details,
           content_id: content_id,
-          user_facing_version: 1
+          user_facing_version: 1,
         )
       end
       let(:item2) do
         FactoryGirl.create(
-          :content_item,
+          :live_content_item,
           details: details,
           content_id: content_id,
           user_facing_version: 2,
-          state: "published"
         )
       end
       before do
