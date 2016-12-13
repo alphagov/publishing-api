@@ -57,7 +57,7 @@ private
   end
 
   def schema_name
-    @schema_name || payload[:schema_name] || payload[:format]
+    @schema_name || payload[:schema_name]
   end
 
   def schema_name_exception?
