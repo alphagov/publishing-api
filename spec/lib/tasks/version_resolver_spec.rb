@@ -33,7 +33,7 @@ RSpec.describe Tasks::VersionResolver, :resolve do
     it "does not resolve any versions" do
       expect { described_class.resolve }.not_to output(/Invalid version sequence/).to_stdout
 
-      expect(UserFacingVersion.all.map(&:number).sort).to eq([1, 2, 3])
+      expect(ContentItem.all.map(&:user_facing_version).sort).to eq([1, 2, 3])
     end
   end
 
@@ -49,14 +49,14 @@ RSpec.describe Tasks::VersionResolver, :resolve do
     end
 
     before do
-      UserFacingVersion.where(content_item: collision_content_item).update_all(number: 2)
+      collision_content_item.update_attribute(:user_facing_version, 2)
     end
 
     it "updates the last item one version higher than its predecessor" do
       expect { described_class.resolve }.to output(
         /Resolved versions for #{content_id} from \[1, 2, 2, 3\] to \[1, 2, 3, 4\]/).to_stdout
 
-      expect(UserFacingVersion.all.map(&:number).sort).to eq([1, 2, 3, 4])
+      expect(ContentItem.all.map(&:user_facing_version).sort).to eq([1, 2, 3, 4])
     end
   end
 end
