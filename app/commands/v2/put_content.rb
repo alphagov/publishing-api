@@ -232,6 +232,7 @@ module Commands
             locale: locale,
             state: "draft",
             user_facing_version: content_item.user_facing_version,
+            routes: content_item.routes,
           )
         )
         content_item.save!
