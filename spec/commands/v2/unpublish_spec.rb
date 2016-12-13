@@ -270,8 +270,7 @@ RSpec.describe Commands::V2::Unpublish do
               )
             end
             before do
-              ContentItem.where(content_id: content_id)
-                .update_all(state: 'published', base_path: base_path)
+              published_item.update_columns(state: "published", base_path: base_path)
             end
 
             it "raises an error stating the inconsistency" do
