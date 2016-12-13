@@ -16,7 +16,7 @@ module Presenters
         :updated_at,
         :state_history,
         :change_note,
-      ] - [:state]).freeze  # state appears as 'publication_state'
+      ] - [:state]).freeze # state appears as 'publication_state'
 
       def self.present_many(scope, params = {})
         new(scope, params).present_many
