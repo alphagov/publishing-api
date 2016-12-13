@@ -59,17 +59,19 @@ module Commands
       end
 
       def draft
-        @draft ||= ContentItemFilter.new(scope: ContentItem.where(content_id: content_id)).filter(
+        @draft ||= ContentItem.find_by(
+          content_id: content_id,
           locale: locale,
           state: "draft",
-        ).first
+        )
       end
 
       def live
-        @live ||= ContentItemFilter.new(scope: ContentItem.where(content_id: content_id)).filter(
+        @live ||= ContentItem.find_by(
+          content_id: content_id,
           locale: locale,
           state: %w(published unpublished),
-        ).first
+        )
       end
 
       def content_id
