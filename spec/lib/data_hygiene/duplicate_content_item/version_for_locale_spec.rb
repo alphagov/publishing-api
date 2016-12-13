@@ -12,8 +12,13 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
       content_id: content_id_a,
       locale: "en",
       user_facing_version: @user_facing_version
-    }.merge(options)
+    }.merge(options.except(:user_facing_version, :locale))
     content_item = FactoryGirl.create(:superseded_content_item, factory_options)
+
+    update = {}
+    update[:user_facing_version] = options[:user_facing_version] if options[:user_facing_version]
+    update[:locale] = options[:locale] if options[:locale]
+    content_item.update_columns(update) unless update.empty?
 
     content_item
   end
