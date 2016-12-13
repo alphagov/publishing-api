@@ -55,9 +55,9 @@ benchmarks = {
 }
 
 benchmarks.each do |name, content_id|
-  content_item_ids = Queries::GetLatest.(ContentItemFilter.new(
-    scope: ContentItem.where(content_id: content_id)
-  ).filter(state: 'published')).pluck(:id)
+  content_item_ids = Queries::GetLatest.(
+    ContentItem.where(content_id: content_id, state: :published)
+  ).pluck(:id)
 
   web_content_item = Queries::GetWebContentItems.(content_item_ids).first
 

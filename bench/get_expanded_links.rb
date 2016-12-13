@@ -50,13 +50,7 @@ SQL
 def get_content_id_and_locale(content_id)
   [
     content_id,
-    Translation.join_content_items(
-      Queries::GetLatest.call(
-        ContentItemFilter.new(
-          scope: ContentItem.where(content_id: content_id)
-        ).filter(state: 'published')
-      )
-    ).pluck(:locale).first
+    ContentItem.where(content_id: content_id, state: :published).pluck(:locale).first,
   ]
 end
 
