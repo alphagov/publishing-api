@@ -124,8 +124,12 @@ module Commands
           allowed_states = %w(draft)
         end
 
-        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id).lock)
-        content_item = filter.filter(locale: locale, state: allowed_states).last
+        content_item = ContentItem.where(
+          content_id: content_id,
+          locale: locale,
+          state: allowed_states
+        ).lock.first
+
         content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
       end
 
@@ -135,17 +139,19 @@ module Commands
       end
 
       def previous_items
-        @previous_items ||= ContentItemFilter.similar_to(
-          content_item,
+        @previous_items ||= ContentItem.where(
+          content_id: content_id,
+          locale: locale,
           state: %w(published unpublished),
-          base_path: nil,
-          user_version: nil,
-        ).to_a
+        )
       end
 
       def draft_exists?
-        filter = ContentItemFilter.new(scope: ContentItem.where(content_id: content_id))
-        filter.filter(locale: locale, state: "draft").exists?
+        ContentItem.where(
+          content_id: content_id,
+          locale: locale,
+          state: "draft",
+        ).exists?
       end
     end
   end
