@@ -18,6 +18,15 @@ module Commands
         if content_item
           update_existing_content_item(content_item)
         else
+          if content_with_base_path?
+            clear_draft_items_of_same_locale_and_base_path(
+              content_id,
+              content_item_attributes_from_payload[:document_type],
+              locale,
+              base_path
+            )
+          end
+
           content_item = create_content_item
           fill_out_new_content_item(content_item)
         end
@@ -40,12 +49,6 @@ module Commands
     private
 
       def fill_out_new_content_item(content_item)
-        if content_with_base_path?
-          clear_draft_items_of_same_locale_and_base_path(
-            content_item, locale, base_path
-          )
-        end
-
         create_supporting_objects(content_item)
         ensure_link_set_exists(content_item)
 
@@ -75,7 +78,12 @@ module Commands
         version = check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
         if content_with_base_path?
-          clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+          clear_draft_items_of_same_locale_and_base_path(
+            content_item.content_id,
+            content_item.document_type,
+            locale,
+            base_path
+          )
 
           previous_base_path = content_item.base_path
           previous_routes = content_item.routes
@@ -117,10 +125,10 @@ module Commands
         ).lock.first
       end
 
-      def clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+      def clear_draft_items_of_same_locale_and_base_path(content_id, document_type, locale, base_path)
         SubstitutionHelper.clear!(
-          new_item_document_type: content_item.document_type,
-          new_item_content_id: content_item.content_id,
+          new_item_document_type: document_type,
+          new_item_content_id: content_id,
           state: "draft",
           locale: locale,
           base_path: base_path,
