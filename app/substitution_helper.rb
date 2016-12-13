@@ -30,7 +30,7 @@ module SubstitutionHelper
           if state == "draft"
             Commands::V2::DiscardDraft.call({
                 content_id: blocking_item.content_id,
-                locae: locale,
+                locale: locale,
               },
               downstream: downstream,
               nested: nested,
