@@ -6,10 +6,9 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
   let!(:unpublished_1) do
     FactoryGirl.create(
-      :unpublished_content_item,
+      :superseded_content_item,
       content_id: content_id,
       user_facing_version: 1,
-      state: "superseded",
     )
   end
 
@@ -23,10 +22,9 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
   let!(:unpublished_2) do
     FactoryGirl.create(
-      :unpublished_content_item,
+      :superseded_content_item,
       content_id: content_id,
       user_facing_version: 3,
-      state: "superseded",
     )
   end
 
