@@ -25,8 +25,18 @@ RSpec.describe Queries::DependeeExpansionRules do
           :public_updated_at,
           :schema_name,
           :title,
+          :withdrawn,
         ])
       end
     end
+  end
+
+  describe "#recurse?" do
+    specify { expect(subject.recurse?(:parent)).to eq(true) }
+    specify { expect(subject.recurse?(:foo)).to eq(false) }
+  end
+
+  describe "#reverse_name_for(link_type)" do
+    specify { expect(subject.reverse_name_for(:parent)).to eq("children") }
   end
 end

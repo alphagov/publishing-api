@@ -86,6 +86,7 @@ module Queries
         :public_updated_at,
         :schema_name,
         :title,
+        :withdrawn,
       ]
     end
 
