@@ -17,7 +17,6 @@ FactoryGirl.define do
     phase "beta"
     update_type "minor"
     analytics_identifier "GDS01"
-    content_store "draft"
     routes {
       [
         {
@@ -27,6 +26,7 @@ FactoryGirl.define do
       ]
     }
     state "draft"
+    content_store "draft"
     locale "en"
     sequence(:base_path) { |n| "/vat-rates-#{n}" }
     user_facing_version 1

@@ -96,11 +96,10 @@ RSpec.describe Queries::GetContent do
         state: "published",
       )
 
-      FactoryGirl.create(:content_item,
+      FactoryGirl.create(:superseded_content_item,
         content_id: content_id,
         user_facing_version: 2,
         title: "Submitted Title",
-        state: "submitted",
       )
     end
 
@@ -140,14 +139,12 @@ RSpec.describe Queries::GetContent do
 
   describe "requesting specific versions" do
     before do
-      FactoryGirl.create(:content_item,
-        state: "superseded",
+      FactoryGirl.create(:superseded_content_item,
         content_id: content_id,
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:content_item,
-        state: "published",
+      FactoryGirl.create(:live_content_item,
         content_id: content_id,
         user_facing_version: 2,
       )
