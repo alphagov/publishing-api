@@ -1,5 +1,5 @@
 class PopulateContentStoreField < ActiveRecord::Migration[5.0]
-  def change
+  def up
     execute "UPDATE content_items SET content_store = (
              SELECT
              CASE
@@ -15,5 +15,8 @@ class PopulateContentStoreField < ActiveRecord::Migration[5.0]
               unpublishings.content_item_id = c.id
              WHERE c.id = content_items.id
              )"
+  end
+
+  def down
   end
 end

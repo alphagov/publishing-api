@@ -3,6 +3,11 @@ class ContentItem < ApplicationRecord
   include SymbolizeJSON
   include DescriptionOverrides
 
+  enum content_store: {
+    draft: "draft",
+    live:  "live",
+  }
+
   DEFAULT_LOCALE = "en".freeze
 
   TOP_LEVEL_FIELDS = [

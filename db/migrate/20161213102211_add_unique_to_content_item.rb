@@ -4,4 +4,3 @@ class AddUniqueToContentItem < ActiveRecord::Migration[5.0]
     add_index :content_items, [:content_id, :locale, :content_store], unique: true
   end
 end
-
