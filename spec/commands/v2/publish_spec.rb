@@ -313,11 +313,11 @@ RSpec.describe Commands::V2::Publish do
       it "publishes the redirect already created, from the old location to the new location" do
         described_class.call(payload)
 
-        redirect = ContentItemFilter.filter(
+        redirect = ContentItem.find_by(
           base_path: "/hat-rates",
           locale: "en",
           state: "published",
-        ).first
+        )
 
         expect(redirect).to be_present
         expect(redirect.schema_name).to eq("redirect")
