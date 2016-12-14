@@ -1,17 +1,6 @@
 module Commands
   module V2
     class Import < BaseCommand
-
-      def self.call(payload)
-        response = ContentItem.transaction do
-          PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, '.')) do
-            new(payload, event: nil, downstream: true, nested: false, callbacks: []).call
-          end
-        end
-
-        response
-      end
-
       def call
         unless UuidValidator.valid?(payload[:content_id])
           raise CommandError.new(
@@ -50,7 +39,7 @@ module Commands
           content_id: content[:content_id],
           locale: 'en',
           message_queue_update_type: content[:payload][:update_type],
-          payload_version: 1 #event.id
+          payload_version: event.id
         )
       end
 
