@@ -10,12 +10,6 @@ existing piece of content.
 
 - **Content Item**: A distinct piece of content to be managed by the app. The
 majority of things relate to a Content Item
-- **Translation**: An object that captures the locale of a piece of content
-- **Location**: An object that captures the base_path of a piece of content
-and used to denote the location of the content on GOV.UK
-- **State**: An object that captures the state of a piece of a content
-- **User Facing Version**: An object that captures the version of a piece of
-content, which increases over the history of a Content Item
 - **Lock Version**: An object that helps to facilitates the prevention of losing
 work when multiple users are updating the same content simultaneously
 - **Link Set**: A collection of links to other content items. It is used to
