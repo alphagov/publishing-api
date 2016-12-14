@@ -30,7 +30,9 @@ module Commands
           create_content_item(event, index, payload[:content_id])
         end
 
-        send_downstream(all_content_items.find { |e| e[:action] == 'Publish' })
+        after_transaction_commit do
+          send_downstream(all_content_items.find { |e| e[:action] == 'Publish' })
+        end
 
         Success.new(content_id: payload[:content_id])
       end
