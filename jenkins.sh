@@ -1,6 +1,11 @@
 #!/bin/bash
 
+set -e
+
 export PACT_BROKER_BASE_URL=https://pact-broker.dev.publishing.service.gov.uk
+export GOVUK_CONTENT_SCHEMAS_PATH=/tmp/govuk-content-schemas
+export RAILS_ENV=test
+export RCOV=1
 
 # Cleanup anything left from previous test runs
 git clean -fdx
@@ -10,37 +15,23 @@ git clean -fdx
 # is master.
 git merge --no-commit origin/master || git merge --abort
 
-export RAILS_ENV=test
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment --without development
 
-bundle exec govuk-lint-ruby \
-  --format html --out rubocop-${GIT_COMMIT}.html \
-  --format clang \
-  app config Gemfile lib spec || linting_error=1
+bundle exec govuk-lint-ruby app config Gemfile lib spec
 
 bin/rails db:environment:set
 bundle exec rake db:drop db:create db:schema:load
 
 # Clone govuk-content-schemas depedency for contract tests
-rm -rf /tmp/govuk-content-schemas
-git clone git@github.com:alphagov/govuk-content-schemas.git /tmp/govuk-content-schemas
+rm -rf $GOVUK_CONTENT_SCHEMAS_PATH
+git clone git@github.com:alphagov/govuk-content-schemas.git $GOVUK_CONTENT_SCHEMAS_PATH
 (
- cd /tmp/govuk-content-schemas
+ cd $GOVUK_CONTENT_SCHEMAS_PATH
  git checkout ${SCHEMA_GIT_COMMIT:-"deployed-to-production"}
 )
-export GOVUK_CONTENT_SCHEMAS_PATH=/tmp/govuk-content-schemas
 
-export RCOV=1
-if bundle exec rake ${TEST_TASK:-"default"}; then
-  if [ -n "$PACT_TARGET_BRANCH" ]; then
-    bundle exec rake pact:publish:branch
-  fi
+bundle exec rake ${TEST_TASK:-"default"}
 
-  if [ "$linting_error" = 1 ]; then
-    echo "Linting errors detected"
-    exit 1
-  fi
-else
-  exit 1
+if [ -n "$PACT_TARGET_BRANCH" ]; then
+  bundle exec rake pact:publish:branch
 fi
-
