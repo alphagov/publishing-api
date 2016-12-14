@@ -63,7 +63,7 @@ RSpec.describe QueuePublisher do
         queue_publisher.send_message(content_item)
       end
 
-      it "uses a routing key of format.update_type" do
+      it "uses a routing key of schema_name.update_type" do
         expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{content_item[:schema_name]}.#{content_item[:update_type]}"))
 
         queue_publisher.send_message(content_item)
