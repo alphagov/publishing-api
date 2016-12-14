@@ -3,8 +3,6 @@ module Commands
     class Import < BaseCommand
 
       def self.call(payload)
-        logger.debug "#{self} called with payload:\n#{payload}"
-
         response = ContentItem.transaction do
           PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, '.')) do
             new(payload, event: nil, downstream: true, nested: false, callbacks: []).call
