@@ -5,7 +5,7 @@ RSpec.describe BasePathForStateValidator do
   let(:base_path) { "/vat-rates" }
 
   let(:content_item) do
-    FactoryGirl.create(
+    FactoryGirl.build(
       :content_item,
       state: state_name,
       base_path: base_path,
