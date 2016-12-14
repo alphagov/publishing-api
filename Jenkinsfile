@@ -20,6 +20,15 @@ node {
             }
           }
         }
+
+        publishHTML(target: [
+          allowMissing: false,
+          alwaysLinkToLastBuild: false,
+          keepAll: true,
+          reportDir: 'coverage/rcov',
+          reportFiles: 'index.html',
+          reportName: 'RCov Report'
+        ])
       }
 
       stage("Push release tag") {
