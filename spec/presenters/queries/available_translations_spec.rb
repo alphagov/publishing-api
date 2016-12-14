@@ -14,6 +14,7 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
       content_id: link_set.content_id,
       base_path: base_path,
       state: state,
+      content_store: state == 'draft' ? 'draft' : 'live',
       locale: locale,
       user_facing_version: version,
     )

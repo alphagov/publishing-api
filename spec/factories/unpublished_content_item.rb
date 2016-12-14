@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :unpublished_content_item, parent: :content_item, aliases: [:gone_unpublished_content_item] do
     state "unpublished"
+    content_store "live"
     transient do
       unpublishing_type "gone"
       explanation "Removed for testing reasons"
