@@ -6,7 +6,7 @@ module Queries
       def call(content_item_scope)
         scope = Translation.join_content_items(content_item_scope)
         scope = UserFacingVersion.join_content_items(scope)
-        scope = scope.select(:id, :content_id, :locale, :number)
+        scope = scope.select(:id, :content_id, 'translations.locale', :number)
 
         ContentItem.joins <<-SQL
           INNER JOIN (

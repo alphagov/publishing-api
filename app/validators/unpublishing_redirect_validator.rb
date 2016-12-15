@@ -4,7 +4,7 @@ class UnpublishingRedirectValidator < ActiveModel::Validator
 
     base_path = Location.join_content_items(
       ContentItem.where(id: unpublishing.content_item_id)
-    ).pluck(:base_path).first
+    ).pluck('locations.base_path').first
 
     if base_path == unpublishing.alternative_path
       unpublishing.errors.add(
