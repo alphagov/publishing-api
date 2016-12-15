@@ -106,10 +106,10 @@ module Commands
       end
 
       def find_previously_drafted_content_item
-        ContentItem.where(
+        ContentItem.find_by(
           id: pessimistic_content_item_scope.pluck(:id),
           state: "draft",
-        ).first
+        )
       end
 
       def clear_draft_items_of_same_locale_and_base_path
@@ -182,11 +182,11 @@ module Commands
 
       def previously_published_item
         @previously_published_item ||=
-          ContentItem.where(
+          ContentItem.find_by(
             content_id: content_id,
             state: %w(published unpublished),
             locale: locale,
-          ).order(user_facing_version: :desc).first || ITEM_NOT_FOUND
+          ) || ITEM_NOT_FOUND
       end
 
       def set_first_published_at(content_item, previously_published_item)
