@@ -15,22 +15,18 @@ module Commands
         end
 
         delete_all(payload[:content_id])
-        all_content_items.map.with_index do |event, index|
+        payload[:content_items].map.with_index do |event, index|
           create_content_item(event, index, payload[:content_id])
         end
 
         after_transaction_commit do
-          send_downstream(all_content_items.find { |e| e[:action] == 'Publish' })
+          send_downstream(payload[:content_items].find { |e| e[:action] == 'Publish' })
         end
 
         Success.new(content_id: payload[:content_id])
       end
 
     private
-
-      def all_content_items
-        @all_content_items ||= [redirects.compact + payload[:content_items]].flatten
-      end
 
       def send_downstream(content)
         return unless content
@@ -77,31 +73,6 @@ module Commands
 
       def state(event)
         event[:payload][:state] || 'superseded'
-      end
-
-      def redirects
-        return [] if base_paths_and_routes.count == 1
-        base_paths_and_routes.map.with_index do |(base_path, routes), index|
-          new_base_path = base_paths_and_routes[index + 1]
-          next unless new_base_path
-          {
-            payload: RedirectHelper.create_redirect(
-              publishing_app: publishing_app,
-              old_base_path: base_path,
-              new_base_path: new_base_path.first,
-              routes: routes,
-              options: { skip_put_content: true }, callbacks: nil,
-            )
-          }
-        end
-      end
-
-      def publishing_app
-        @payload[:content_items].map { |e| e[:payload][:publishing_app] }.last
-      end
-
-      def base_paths_and_routes
-        @base_paths ||= payload[:content_items].map { |e| [e[:payload][:base_path], e[:payload][:routes]] }.uniq
       end
 
       def delete_all(content_id)
