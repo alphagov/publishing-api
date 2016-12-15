@@ -28,7 +28,6 @@ content_items = 100.times.map do
   title = Faker::Company.catch_phrase
   {
     content_id: SecureRandom.uuid,
-    format: "placeholder",
     schema_name: "placeholder",
     document_type: "placeholder",
     title: title,

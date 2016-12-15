@@ -25,7 +25,6 @@ content_items = 100.times.map do
   content_id = SecureRandom.uuid if new_item
   {
     content_id: content_id,
-    format: "placeholder",
     schema_name: "placeholder",
     document_type: "placeholder",
     title: title,

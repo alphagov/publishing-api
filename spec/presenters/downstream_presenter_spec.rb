@@ -22,7 +22,6 @@ RSpec.describe Presenters::DownstreamPresenter do
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
         details: details,
-        format: "guide",
         document_type: "guide",
         expanded_links: {},
         locale: "en",

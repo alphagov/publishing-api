@@ -250,7 +250,8 @@ RSpec.describe "Downstream requests", type: :request do
         .merge(
           base_path: base_path,
           locale: "en",
-          format: "guide",
+          document_type: "guide",
+          schema_name: "guide",
         )
         .except(
           :id,
