@@ -108,20 +108,17 @@ fields in the content item to be present, namely `title`, `rendering_app` and
 
 Example: *2015-01-01T12:00:00Z*
 
-Required: Conditionally
+Required: No
 
 The `public_updated_at` records the last time the content item was updated. This
 is the time that will appear alongside the content item in the front-end to
 inform users of the time at which that particular content item was updated. The
 `public_updated_at` must use the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601).
 
-The `public_updated_at` is required except in cases where the content item is
-non-renderable (see [**document_type**](#document_type)). This will not be set
-automatically and must be provided by the publishing application.
-
-Note: This is subject to change. It may be that we automatically set
-`public_updated_at` on behalf of publishing applications in the future. Please
-speak to the Publishing Platform team if you have questions about this.
+If the `public_updated_at` field is omitted it is set to a value dependent on
+whether the update_type is minor or major. For a major update it is set to the
+current date and time, whereas for a minor one it is set to the previous
+versions `public_updated_at`.
 
 ### `routes`
 
