@@ -33,10 +33,7 @@ module Presenters
 
       def web_content_items_including_withdrawn(links)
         uniq_links = links.flat_map { |l| JSON.parse(l["target_content_ids"]) }.uniq
-        controller.web_content_items(
-          uniq_links,
-          controller.state_fallback_order + [:withdrawn]
-        )
+        controller.web_content_items(uniq_links)
       end
 
       def expand_level(link, all_web_content_items, visited, level_index)
