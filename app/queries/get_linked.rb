@@ -29,10 +29,10 @@ module Queries
     attr_accessor :target_content_id, :link_type, :fields
 
     def validate_presence_of_item!
-      return if ContentItem.where(
+      return if ContentItem.exists?(
         content_id: target_content_id,
         state: %w(draft published),
-      ).exists?
+      )
 
       raise CommandError.new(code: 404, error_details: {
         error: {
