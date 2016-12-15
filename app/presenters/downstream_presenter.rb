@@ -87,7 +87,10 @@ module Presenters
     end
 
     def format
-      { format: web_content_item.schema_name }
+      {
+        schema_name: web_content_item.schema_name,
+        document_type: web_content_item.document_type
+      }
     end
 
     def withdrawal_notice

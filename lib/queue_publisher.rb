@@ -23,7 +23,7 @@ class QueuePublisher
 
   def routing_key(content_item)
     normalised = content_item.symbolize_keys
-    "#{normalised[:format]}.#{normalised[:update_type]}"
+    "#{normalised[:schema_name]}.#{normalised[:update_type]}"
   end
 
   def send_heartbeat

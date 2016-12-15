@@ -69,7 +69,8 @@ Using the publishing API v2 client adapter with a valid content_id and payload, 
     rendering_app: "frontend",
     publishing_app: "my-shiny-publishing-app",
     public_updated_at: "2014-05-14T13:00:06.000Z",
-    format: "guide",
+    document_type: "guide",
+    schema_name: "guide",
     routes: [{
       path: "/vat-rates", type: "exact"
     }]
@@ -88,7 +89,8 @@ The response body would contain a presentation of the saved content item includi
   "base_path":"/vat-rates",
   "title":"VAT rates",
   "description":"VAT rates for goods and services",
-  "format":"guide",
+  "document_type":"guide",
+  "schema_name":"guide",
   "public_updated_at":"2014-05-14T13:00:06.000Z",
   "details":{"body":"Something about VAT"},
   "access_limited":["8f3173bb-ee2a-48a2-aa86-f2f030830888"],

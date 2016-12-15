@@ -21,8 +21,9 @@ Publishing to the message queue can be disabled by setting the
 
 After a content item is added or updated, a message is published to RabbitMQ.
 It will be published to the `published_documents` topic exchange with the
-routing_key `"#{content_item.format}.#{content_item.update_type}"`. Interested parties can
-subscribe to this exchange to perform post-publishing actions. For example, a
-search indexing service would be able to add/update the search index based on
-these messages. Or an email notification service would be able to send email
-updates (see https://github.com/alphagov/email-alert-service).
+routing_key `"#{content_item.schema_name}.#{content_item.update_type}"`.
+Interested parties can subscribe to this exchange to perform post-publishing
+actions. For example, a search indexing service would be able to add/update the
+search index based on these messages. Or an email notification service would be
+able to send email updates (see
+https://github.com/alphagov/email-alert-service).

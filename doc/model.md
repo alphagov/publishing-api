@@ -90,7 +90,7 @@ as specified in the GOV.UK content schemas.
 
 Examples: *manual, policy, redirect*
 
-Required: Conditionally
+Required: Yes
 
 The `document_type` specifies the type of content item that will be rendered.
 It is used downstream to render the content item according to a specific layout
@@ -99,29 +99,10 @@ for that `document_type` and to filter a list of objects in publishing apps.
 There is not a formal list of acceptable values for `document_type`. It
 should be in the form of a-z string with underscore separators.
 
-This field, together with `schema_name`, replaces the `format` field. It is
-required in the absence of a `format` field.
-
 If the `document_type` is one of either *redirect* or *gone*, the content item is
 considered non-renderable and this waives the requirement for some of the other
 fields in the content item to be present, namely `title`, `rendering_app` and
 `public_updated_at`.
-
-### format
-
-**Deprecated**
-
-Examples: *manual, policy, redirect*
-
-Required: Conditionally
-
-The `format` specifies the data format of the content item as per the
-[GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
-It is used downstream to render the content item according a specific layout for
-that `format`.
-
-This field has been replaced by sending both the `document_type` and
-`schema_name` fields. Both of which are required if this field is omitted.
 
 ### `public_updated_at`
 
@@ -223,13 +204,11 @@ non-renderable (see [**document_type**](#document_type)).
 
 Examples: *manual, policy, redirect*
 
-Required: Conditionally
+Required: Yes
 
 The `schema_name` specifies the schema file used to validate the request
 as per the
 [GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
-
-This field is required when the deprecated field `format` is not provided.
 
 At present, not all content goes through the publishing pipeline, but there is
 still a need to link to content items on our legacy infrastructure. There are
