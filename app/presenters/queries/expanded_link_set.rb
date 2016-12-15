@@ -13,13 +13,13 @@ module Presenters
         @links ||= dependees.merge(dependents).merge(translations)
       end
 
-      def web_content_items(target_content_ids, fallback_order = state_fallback_order)
+      def web_content_items(target_content_ids)
         return [] unless target_content_ids.present?
         ::Queries::GetWebContentItems.(
           ::Queries::GetContentItemIdsWithFallbacks.(
             target_content_ids,
             locale_fallback_order: locale_fallback_order,
-            state_fallback_order: fallback_order
+            state_fallback_order: state_fallback_order + [:withdrawn]
           )
         )
       end
