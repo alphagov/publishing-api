@@ -30,8 +30,7 @@ RSpec.describe Commands::V2::Import do
           {
             action: "PutContent",
             payload: content_item.merge(
-              state: "draft",
-              base_path: "/foo", routes: [{ "path": "/foo", "type": "exact" }],
+              title: "bar",
             ),
           },
           {
@@ -45,36 +44,31 @@ RSpec.describe Commands::V2::Import do
     subject { described_class.call(payload) }
 
     it "creates the full content item history" do
-      expect { subject }.to change { ContentItem.count }.by(4)
+      expect { subject }.to change { ContentItem.count }.by(3)
     end
 
     it "creates the full location history" do
-      expect { subject }.to change { Location.count }.by(4)
+      expect { subject }.to change { Location.count }.by(3)
     end
 
     it "creates the full Translation history" do
-      expect { subject }.to change { Translation.count }.by(4)
+      expect { subject }.to change { Translation.count }.by(3)
     end
 
     it "creates the state history" do
       subject
-      expect(State.all.map(&:name)).to match_array(%w(superseded superseded draft published))
+      expect(State.all.map(&:name)).to match_array(%w(superseded superseded published))
     end
 
     it "creates the full User facing version history" do
       subject
-      expect(UserFacingVersion.all.map(&:number)).to match_array([1, 2, 3, 4])
+      expect(UserFacingVersion.all.map(&:number)).to match_array([1, 2, 3])
     end
 
     it "creates the full Lock version history" do
       subject
       content_item_ids = ContentItem.where(content_id: content_id).map(&:id)
-      expect(LockVersion.where(target_id: content_item_ids).map(&:number)).to match_array([1, 2, 3, 4])
-    end
-
-    it "creates a redirect" do
-      subject
-      expect(ContentItem.where(document_type: 'redirect')).to_not be_empty
+      expect(LockVersion.where(target_id: content_item_ids).map(&:number)).to match_array([1, 2, 3])
     end
 
     it "sends the last published item to the content_store" do
