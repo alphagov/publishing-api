@@ -23,7 +23,7 @@ module Presenters
 
     def present
       symbolized_attributes
-        .except(*%i{last_edited_at id state user_facing_version api_url web_url}) # only intended to be used by publishing applications
+        .except(*%i{last_edited_at id state user_facing_version api_url web_url unpublishing_type}) # only intended to be used by publishing applications
         .merge(rendered_details)
         .merge(links)
         .merge(access_limited)
@@ -87,7 +87,11 @@ module Presenters
     end
 
     def format
-      { format: web_content_item.schema_name }
+      {
+        format: web_content_item.schema_name,
+        schema_name: web_content_item.schema_name,
+        document_type: web_content_item.document_type
+      }
     end
 
     def withdrawal_notice

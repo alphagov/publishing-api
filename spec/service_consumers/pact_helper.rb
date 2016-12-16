@@ -272,7 +272,7 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
-  provider_state "there is content with format 'topic'" do
+  provider_state "there is content with document_type 'topic'" do
     set_up do
       FactoryGirl.create(:draft_content_item,
         title: 'Content Item A',
@@ -297,7 +297,7 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
-  provider_state "there is content with format 'topic' for multiple publishing apps" do
+  provider_state "there is content with document_type 'topic' for multiple publishing apps" do
     set_up do
       content_item = FactoryGirl.create(
         :draft_content_item,

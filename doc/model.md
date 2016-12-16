@@ -90,7 +90,7 @@ as specified in the GOV.UK content schemas.
 
 Examples: *manual, policy, redirect*
 
-Required: Conditionally
+Required: Yes
 
 The `document_type` specifies the type of content item that will be rendered.
 It is used downstream to render the content item according to a specific layout
@@ -99,48 +99,26 @@ for that `document_type` and to filter a list of objects in publishing apps.
 There is not a formal list of acceptable values for `document_type`. It
 should be in the form of a-z string with underscore separators.
 
-This field, together with `schema_name`, replaces the `format` field. It is
-required in the absence of a `format` field.
-
 If the `document_type` is one of either *redirect* or *gone*, the content item is
 considered non-renderable and this waives the requirement for some of the other
 fields in the content item to be present, namely `title`, `rendering_app` and
 `public_updated_at`.
 
-### format
-
-**Deprecated**
-
-Examples: *manual, policy, redirect*
-
-Required: Conditionally
-
-The `format` specifies the data format of the content item as per the
-[GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
-It is used downstream to render the content item according a specific layout for
-that `format`.
-
-This field has been replaced by sending both the `document_type` and
-`schema_name` fields. Both of which are required if this field is omitted.
-
 ### `public_updated_at`
 
 Example: *2015-01-01T12:00:00Z*
 
-Required: Conditionally
+Required: No
 
 The `public_updated_at` records the last time the content item was updated. This
 is the time that will appear alongside the content item in the front-end to
 inform users of the time at which that particular content item was updated. The
 `public_updated_at` must use the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601).
 
-The `public_updated_at` is required except in cases where the content item is
-non-renderable (see [**document_type**](#document_type)). This will not be set
-automatically and must be provided by the publishing application.
-
-Note: This is subject to change. It may be that we automatically set
-`public_updated_at` on behalf of publishing applications in the future. Please
-speak to the Publishing Platform team if you have questions about this.
+If the `public_updated_at` field is omitted it is set to a value dependent on
+whether the update_type is minor or major. For a major update it is set to the
+current date and time, whereas for a minor one it is set to the previous
+versions `public_updated_at`.
 
 ### `routes`
 
@@ -223,13 +201,11 @@ non-renderable (see [**document_type**](#document_type)).
 
 Examples: *manual, policy, redirect*
 
-Required: Conditionally
+Required: Yes
 
 The `schema_name` specifies the schema file used to validate the request
 as per the
 [GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
-
-This field is required when the deprecated field `format` is not provided.
 
 At present, not all content goes through the publishing pipeline, but there is
 still a need to link to content items on our legacy infrastructure. There are

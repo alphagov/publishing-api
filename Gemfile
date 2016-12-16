@@ -15,7 +15,7 @@ gem 'dalli'
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else
-  gem "gds-api-adapters", "38.0.0"
+  gem "gds-api-adapters", "38.1.0"
 end
 
 gem "gds-sso", "13.0.0"

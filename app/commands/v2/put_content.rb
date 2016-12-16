@@ -136,17 +136,8 @@ module Commands
         )
       end
 
-      def convert_format
-        payload.tap do |attributes|
-          if attributes.has_key?(:format)
-            attributes[:document_type] ||= attributes[:format]
-            attributes[:schema_name] ||= attributes[:format]
-          end
-        end
-      end
-
       def content_item_attributes_from_payload
-        convert_format.slice(*ContentItem::TOP_LEVEL_FIELDS)
+        payload.slice(*ContentItem::TOP_LEVEL_FIELDS)
       end
 
       def lock_version_number_for_new_draft
@@ -209,7 +200,7 @@ module Commands
       end
 
       def base_path_required?
-        !ContentItem::EMPTY_BASE_PATH_FORMATS.include?(payload[:format] || payload[:schema_name])
+        !ContentItem::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
       end
 
       def locale

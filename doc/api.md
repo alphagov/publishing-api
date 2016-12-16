@@ -89,7 +89,7 @@ presented content item and [warnings](#warnings).
 - [`analytics_identifier`](model.md#analytics_identifier) *(optional)*
   - An identifier to track the content item in analytics software.
 - [`base_path`](model.md#base_path) *(conditionally required)*
-  - Required if `schema_name` (or `format`) is not one of "contact" or
+  - Required if `schema_name` is not one of "contact" or
     "government".
   - The path that this item will use on [GOV.UK](https://www.gov.uk).
 - `change_note` *(optional)*
@@ -113,13 +113,8 @@ presented content item and [warnings](#warnings).
       `change_history`, then the `note` with the latest coresponding
       `public_timestamp` is used.
   - TODO: verify the validation on this field.
-- [`document_type`](model.md#document_type) *(conditionally required)*
+- [`document_type`](model.md#document_type)
   - TODO: Add description.
-  - Required if `format` is not provided.
-- [`format`](model.md#format) **Deprecated** *(conditionally required)*
-  - Superseded by the `document_type` and `schema_name` fields.
-  - This is required if either `document_type` or `schema_name` is not
-    specified.
 - `last_edited_at` *(optional)*
   - An [ISO 8601][iso-8601] formatted timestamp should be provided, although
     [other formats][to-time-docs] may be accepted.
@@ -155,14 +150,13 @@ presented content item and [warnings](#warnings).
   - The hostname for the frontend application that will render this content
     item.
 - [`routes`](model.md#routes) *(conditionally required)*
-  - Required for a `document_type` (or `format`) that is not "redirect".
+  - Required for a `document_type` that is not "redirect".
   - An array of route values. (TODO: link directly to example)
-- [`schema_name`](model.md#schema_name) *(conditionally required)*
-  - Required if `format` is not provided.
+- [`schema_name`](model.md#schema_name)
   - The name of the [GOV.UK content schema][govuk-content-schemas-repo]
     that the request body will be validated against.
 - [`title`](model.md#title) *(conditionally required)*
-  - Required for a `document_type` (or `format`) that is not "redirect" or
+  - Required for a `document_type` that is not "redirect" or
     "gone".
 - [`update_type`](model.md#update_type) *(optional)*
   - Accepts: "major", "minor", "republish"

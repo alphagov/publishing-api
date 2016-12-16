@@ -248,6 +248,8 @@ RSpec.describe "Downstream requests", type: :request do
         .merge(
           base_path: base_path,
           locale: "en",
+          document_type: "guide",
+          schema_name: "guide",
           format: "guide",
         )
         .except(
@@ -262,6 +264,10 @@ RSpec.describe "Downstream requests", type: :request do
           :draft_content_item_id,
           :live_content_item_id,
           :last_edited_at,
+
+          # hide attributes that won't exist when calling as_json
+          :state,
+          :user_facing_version
         )
     }
 

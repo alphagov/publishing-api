@@ -13,7 +13,8 @@ RSpec.describe "Substituting content that is not published" do
       title: "Some Title",
       publishing_app: "publisher",
       rendering_app: "frontend",
-      format: "guide",
+      schema_name: "guide",
+      document_type: "guide",
       locale: "en",
       routes: [{ path: "/vat-rates", type: "exact" }],
       redirects: [],
@@ -27,7 +28,8 @@ RSpec.describe "Substituting content that is not published" do
     {
       content_id: another_content_id,
       base_path: gone_base_path,
-      format: "gone",
+      schema_name: "gone",
+      document_type: "gone",
       publishing_app: "publisher",
       routes: [{ path: gone_base_path, type: "exact" }],
     }
