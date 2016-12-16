@@ -21,24 +21,15 @@ module Commands
         end
 
         after_transaction_commit do
-          send_downstream(payload[:content_items].find { |e| e[:action] == 'Publish' })
+          Commands::V2::RepresentDownstream.new.call(
+            ContentItem.where(content_id: payload[:content_id])
+          )
         end
 
         Success.new(content_id: payload[:content_id])
       end
 
     private
-
-      def send_downstream(content)
-        return unless content
-        DownstreamLiveWorker.perform_async_in_queue(
-          DownstreamLiveWorker::LOW_QUEUE,
-          content_id: content[:content_id],
-          locale: 'en',
-          message_queue_update_type: content[:payload][:update_type],
-          payload_version: event.id
-        )
-      end
 
       def create_content_item(event, index, content_id)
         event_payload = event[:payload]
