@@ -41,7 +41,7 @@ module Commands
           payload: content_item_payload.merge(content_id: content_id),
           user_facing_version: index + 1,
           lock_version: index + 1,
-          state: state(event)
+          state: event_payload[:state]
         ).create_content_item
       end
 
@@ -69,10 +69,6 @@ module Commands
       def attributes
         @attributes ||=
           [:base_path, :locale] + ContentItem.new.attributes.keys.map(&:to_sym)
-      end
-
-      def state(event)
-        event[:payload][:state] || 'superseded'
       end
 
       def delete_all(content_id)
