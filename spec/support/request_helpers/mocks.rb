@@ -22,6 +22,7 @@ module RequestHelpers
         description: "VAT rates for goods and services",
         document_type: "guide",
         schema_name: "guide",
+        format: "guide",
         need_ids: %w(100123 100124),
         first_published_at: "2014-01-02T03:04:05Z",
         public_updated_at: "2014-05-14T13:00:06Z",
@@ -88,6 +89,7 @@ module RequestHelpers
         base_path: "/crb-checks",
         document_type: "redirect",
         schema_name: "redirect",
+        format: "redirect",
         public_updated_at: "2014-05-14T13:00:06Z",
         publishing_app: "publisher",
         redirects: [

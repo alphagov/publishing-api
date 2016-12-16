@@ -250,6 +250,7 @@ RSpec.describe "Downstream requests", type: :request do
           locale: "en",
           document_type: "guide",
           schema_name: "guide",
+          format: "guide",
         )
         .except(
           :id,
