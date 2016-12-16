@@ -176,7 +176,8 @@ class ContentItem < ApplicationRecord
   end
 
   def unpublish(type:, explanation: nil, alternative_path: nil, unpublished_at: nil)
-    update_attributes!(state: "unpublished")
+    content_store = "live" unless type == "substitute"
+    update_attributes!(state: "unpublished", content_store: content_store)
 
     unpublishing = Unpublishing.find_by(content_item: self)
 
