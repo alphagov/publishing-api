@@ -19,7 +19,7 @@ module Commands
           update_existing_content_item(content_item)
         else
           content_item = Services::CreateContentItem.new(
-            payload: convert_format,
+            payload: payload,
             user_facing_version: user_facing_version_number_for_new_draft,
             lock_version: lock_version_number_for_new_draft
           ).create_content_item do |item|
