@@ -55,7 +55,15 @@ module Commands
           )
         end
 
-        validate_schema(content_item_payload)
+        schema_validator = SchemaValidator.new(payload: content_item_payload)
+
+        unless schema_validator.valid?
+          raise CommandError.new(
+            code: 422,
+            message: "Schema validation failed: #{schema_validator.errors}",
+            error_details: schema_validator.errors
+          )
+        end
       end
 
       def attributes
@@ -69,17 +77,6 @@ module Commands
 
       def delete_all(content_id)
         Services::DeleteContentItem.destroy_content_items_with_links(content_id)
-      end
-
-      def validate_schema(payload)
-        schema_validator = SchemaValidator.new(payload: payload.except(:content_id))
-        return if schema_validator.valid?
-
-        raise CommandError.new(
-          code: 422,
-          message: "Schema validation failed: #{schema_validator.errors}",
-          error_details: schema_validator.errors
-        )
       end
     end
   end
