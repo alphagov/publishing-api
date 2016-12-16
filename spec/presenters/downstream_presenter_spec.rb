@@ -23,6 +23,7 @@ RSpec.describe Presenters::DownstreamPresenter do
         description: "VAT rates for goods and services",
         details: details,
         document_type: "guide",
+        format: "guide",
         expanded_links: {},
         locale: "en",
         need_ids: %w(100123 100124),
