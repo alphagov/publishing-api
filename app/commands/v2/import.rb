@@ -4,14 +4,15 @@ module Commands
       def call
         unless UuidValidator.valid?(payload[:content_id])
           raise CommandError.new(
-          code: 422,
-          error_details: {
-            error: {
-              code: 422,
-              message: "Content id not valid",
-              fields: "content_id",
+            code: 422,
+            error_details: {
+              error: {
+                code: 422,
+                message: "Content id not valid",
+                fields: "content_id",
+              }
             }
-          })
+          )
         end
 
         delete_all(payload[:content_id])
