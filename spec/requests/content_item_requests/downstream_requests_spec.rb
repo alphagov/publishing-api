@@ -285,7 +285,8 @@ RSpec.describe "Downstream requests", type: :request do
           content_item: a_hash_including(
             content_id: content_id,
             locale: 'en',
-            format: 'guide',
+            document_type: 'guide',
+            details: { body: "<p>Something about VAT</p>\n" },
             payload_version: anything,
           )
         )
