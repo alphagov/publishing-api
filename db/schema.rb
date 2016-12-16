@@ -69,6 +69,10 @@ ActiveRecord::Schema.define(version: 20161216111426) do
     t.string   "schema_name"
     t.datetime "first_published_at"
     t.datetime "last_edited_at"
+    t.string   "state"
+    t.string   "locale"
+    t.integer  "user_facing_version"
+    t.string   "base_path"
     t.index ["content_id"], name: "index_content_items_on_content_id", using: :btree
     t.index ["document_type"], name: "index_content_items_on_document_type", using: :btree
     t.index ["last_edited_at"], name: "index_content_items_on_last_edited_at", using: :btree
