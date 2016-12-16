@@ -6,6 +6,10 @@ class Location < ApplicationRecord
 
   validates :base_path, absolute_path: true, if: :base_path_present?
 
+  after_save do
+    content_item.update_attributes!(base_path: base_path)
+  end
+
   def self.filter(content_item_scope, base_path:)
     join_content_items(content_item_scope)
       .where("locations.base_path" => base_path)
