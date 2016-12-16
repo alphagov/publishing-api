@@ -1,8 +1,9 @@
 require "rails_helper"
 
-RSpec.describe Commands::V2::Import do
+RSpec.describe Commands::V2::Import, type: :request do
   describe "#call" do
     let(:content_id) { SecureRandom.uuid }
+    let(:base_path) { "/bar" }
 
     let(:content_item) do
       {
@@ -11,7 +12,7 @@ RSpec.describe Commands::V2::Import do
         publishing_app: "foo",
         title: "foo",
         rendering_app: "foo",
-        base_path: "/bar",
+        base_path: base_path,
         routes: [{ "path": "/bar", "type": "exact" }],
         details: {},
         locale: "en",
