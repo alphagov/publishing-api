@@ -71,7 +71,7 @@ require_relative "helpers/delete_content_item"
 class RemoveYourContentItem < ActiveRecord::Migration
   # Remove /some/base-path
   def up
-    Helpers::DeleteContentItem.destroy_content_items_with_links("some-content-id")
+    Services::DeleteContentItem.destroy_content_items_with_links("some-content-id")
   end
 end
 ```
@@ -84,7 +84,7 @@ class RemoveYourContentInstance < ActiveRecord::Migration
   def up
     content_items = ContentItem.where(id: 123)
 
-    Helpers::DeleteContentItem.destroy_supporting_objects(content_items)
+    Services::DeleteContentItem.destroy_supporting_objects(content_items)
 
     content_items.destroy_all
   end
@@ -98,7 +98,7 @@ require_relative "helpers/delete_content_item"
 class RemoveLinks < ActiveRecord::Migration
   # Remove /some/base-path
   def up
-    Helpers::DeleteContentItem.destroy_links("some-content-id")
+    Services::DeleteContentItem.destroy_links("some-content-id")
   end
 end
 ```
