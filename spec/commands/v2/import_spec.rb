@@ -23,21 +23,15 @@ RSpec.describe Commands::V2::Import, type: :request do
     let(:payload) do
       {
         content_id: content_id,
-        content_items: [
-          {
-            action: "PutContent",
-            payload: content_item,
-          },
-          {
-            action: "PutContent",
-            payload: content_item.merge(
-              title: "bar",
-            ),
-          },
-          {
-            action: "Publish",
-            payload: content_item.merge(state: "published", update_type: "major"),
-          },
+        history: [
+          content_item,
+          content_item.merge(
+            title: "bar",
+          ),
+          content_item.merge(
+            state: "published",
+            update_type: "major",
+          ),
         ]
       }
     end

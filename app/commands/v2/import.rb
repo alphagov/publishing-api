@@ -16,7 +16,7 @@ module Commands
         end
 
         delete_all(payload[:content_id])
-        payload[:content_items].map.with_index do |event, index|
+        payload[:history].map.with_index do |event, index|
           create_content_item(event, index, payload[:content_id])
         end
 
@@ -31,22 +31,19 @@ module Commands
 
     private
 
-      def create_content_item(event, index, content_id)
-        event_payload = event[:payload]
-        content_item_payload = event_payload.except(:state)
-
-        validate_content_item_payload(content_item_payload)
+      def create_content_item(history_entry, index, content_id)
+        validate_history_entry(history_entry)
 
         Services::CreateContentItem.new(
-          payload: content_item_payload.merge(content_id: content_id),
+          payload: history_entry.merge(content_id: content_id),
           user_facing_version: index + 1,
           lock_version: index + 1,
-          state: event_payload[:state]
+          state: history_entry[:state]
         ).create_content_item
       end
 
-      def validate_content_item_payload(content_item_payload)
-        unrecognised_attributes = content_item_payload.keys - attributes
+      def validate_history_entry(history_entry)
+        unrecognised_attributes = history_entry.keys - attributes
 
         unless unrecognised_attributes.empty?
           raise CommandError.new(
@@ -55,7 +52,7 @@ module Commands
           )
         end
 
-        schema_validator = SchemaValidator.new(payload: content_item_payload)
+        schema_validator = SchemaValidator.new(payload: history_entry.except(:state))
 
         unless schema_validator.valid?
           raise CommandError.new(
