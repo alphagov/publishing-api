@@ -1,6 +1,4 @@
 class UserFacingVersion < ApplicationRecord
-  include Version
-
   belongs_to :content_item
 
   def self.filter(content_item_scope, number:)
