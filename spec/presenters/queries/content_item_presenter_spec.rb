@@ -199,12 +199,11 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
       context "with a blocking content item" do
         before do
-          @blocking_content_item = FactoryGirl.create(:content_item,
+          @blocking_content_item = FactoryGirl.create(:live_content_item,
             content_id: SecureRandom.uuid,
             base_path: base_path,
             user_facing_version: 1,
             locale: "en",
-            state: "published",
           )
         end
 
