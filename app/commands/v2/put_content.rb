@@ -133,6 +133,7 @@ module Commands
         attributes = content_item_attributes_from_payload.merge(
           locale: locale,
           state: "draft",
+          content_store: "draft",
           user_facing_version: user_facing_version_number_for_new_draft,
         )
         ContentItem.create!(attributes)

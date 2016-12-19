@@ -5,17 +5,15 @@ RSpec.describe Tasks::VersionValidator do
 
   before do
     FactoryGirl.create(
-      :content_item,
+      :superseded_content_item,
       content_id: content_id,
-      state: "superseded",
       user_facing_version: 1,
       locale: "en"
     )
 
     FactoryGirl.create(
-      :content_item,
+      :live_content_item,
       content_id: content_id,
-      state: "published",
       user_facing_version: 2,
       locale: "en"
     )

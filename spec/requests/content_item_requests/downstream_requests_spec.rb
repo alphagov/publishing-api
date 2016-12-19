@@ -200,8 +200,8 @@ RSpec.describe "Downstream requests", type: :request do
     let(:a) { create_link_set }
     let(:b) { create_link_set }
 
-    let!(:draft_a) { create_content_item(a, "/a", "draft", "en", 2) }
-    let!(:published_a) { create_content_item(a, "/a", "published") }
+    let!(:draft_a) { create_content_item(a, "/a", "superseded", "en", 1) }
+    let!(:published_a) { create_content_item(a, "/a", "published", 'en', 2) }
     let!(:draft_b) { create_content_item(b, "/b", "draft") }
 
     before do
@@ -219,20 +219,24 @@ RSpec.describe "Downstream requests", type: :request do
     end
 
     it "doesn't send draft dependencies to the live content store" do
+      published_a.update_attributes!(state: 'draft', content_store: 'draft')
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:live_content_store)).to_not receive(:put_content_item)
         .with(a_hash_including(base_path: '/b'))
       post "/v2/content/#{a}/publish", params: { update_type: "major" }.to_json
+      expect(response.code).to eq("200")
     end
 
     it "doesn't send draft dependencies to the message queue" do
+      published_a.update_attributes!(state: 'draft', content_store: 'draft')
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:queue_publisher)).to_not receive(:send_message)
         .with(a_hash_including(base_path: '/b'))
       post "/v2/content/#{a}/publish", params: { update_type: "major" }.to_json
+      expect(response.code).to eq("200")
     end
   end
 
@@ -279,7 +283,11 @@ RSpec.describe "Downstream requests", type: :request do
         .with(
           base_path: base_path,
           content_item: a_hash_including(
-            content_item_for_live_content_store.merge(payload_version: anything)
+            content_id: content_id,
+            locale: 'en',
+            document_type: 'guide',
+            details: { body: "<p>Something about VAT</p>\n" },
+            payload_version: anything,
           )
         )
 

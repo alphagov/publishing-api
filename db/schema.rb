@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216111426) do
+ActiveRecord::Schema.define(version: 20161216120129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,9 @@ ActiveRecord::Schema.define(version: 20161216111426) do
     t.string   "locale"
     t.integer  "user_facing_version"
     t.string   "base_path"
+    t.string   "content_store"
+    t.index ["base_path", "content_store"], name: "index_content_items_on_base_path_and_content_store", unique: true, using: :btree
+    t.index ["content_id", "locale", "content_store"], name: "index_content_items_on_content_id_and_locale_and_content_store", unique: true, using: :btree
     t.index ["content_id"], name: "index_content_items_on_content_id", using: :btree
     t.index ["document_type"], name: "index_content_items_on_document_type", using: :btree
     t.index ["last_edited_at"], name: "index_content_items_on_last_edited_at", using: :btree

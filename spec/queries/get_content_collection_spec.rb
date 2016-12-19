@@ -456,11 +456,10 @@ RSpec.describe Queries::GetContentCollection do
         content_id = SecureRandom.uuid
 
         FactoryGirl.create(
-          :content_item,
+          :live_content_item,
           content_id: content_id,
           document_type: 'topic',
           schema_name: 'topic',
-          state: "published",
           user_facing_version: 1,
         )
 

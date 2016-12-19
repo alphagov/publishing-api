@@ -233,9 +233,8 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when creating a draft for a previously unpublished content item" do
       before do
-        FactoryGirl.create(:content_item,
+        FactoryGirl.create(:unpublished_content_item,
           content_id: content_id,
-          state: "unpublished",
           lock_version: 2,
           user_facing_version: 5,
           base_path: base_path,

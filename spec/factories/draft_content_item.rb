@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :draft_content_item, parent: :content_item do
     state "draft"
+    content_store "draft"
   end
 
   factory :redirect_draft_content_item, parent: :draft_content_item do

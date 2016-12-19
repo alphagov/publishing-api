@@ -26,6 +26,7 @@ FactoryGirl.define do
       ]
     }
     state "draft"
+    content_store "draft"
     locale "en"
     sequence(:base_path) { |n| "/vat-rates-#{n}" }
     user_facing_version 1

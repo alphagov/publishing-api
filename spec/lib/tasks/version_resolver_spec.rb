@@ -5,25 +5,22 @@ RSpec.describe Tasks::VersionResolver, :resolve do
 
   before do
     FactoryGirl.create(
-      :content_item,
+      :live_content_item,
       content_id: content_id,
-      state: "published",
       user_facing_version: 2,
       locale: "en"
     )
 
     FactoryGirl.create(
-      :content_item,
+      :superseded_content_item,
       content_id: content_id,
-      state: "superseded",
       user_facing_version: 1,
       locale: "en"
     )
 
     FactoryGirl.create(
-      :content_item,
+      :draft_content_item,
       content_id: content_id,
-      state: "draft",
       user_facing_version: 3,
       locale: "en"
     )
@@ -40,9 +37,8 @@ RSpec.describe Tasks::VersionResolver, :resolve do
   context "when two items of the same content_id have identical versions" do
     let(:collision_content_item) do
       FactoryGirl.create(
-        :content_item,
+        :superseded_content_item,
         content_id: content_id,
-        state: "superseded",
         user_facing_version: 4,
         locale: "en"
       )
