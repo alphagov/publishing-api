@@ -261,15 +261,18 @@ RSpec.describe Commands::V2::Unpublish do
 
           context "when the system is in an inconsistent state" do
             let!(:published_item) do
-              FactoryGirl.create(:live_content_item,
+              FactoryGirl.create(:superseded_content_item,
                 content_id: content_id,
                 base_path: "/different",
                 user_facing_version: 2,
-                state: "superseded",
               )
             end
             before do
-              published_item.update_columns(state: "published", base_path: base_path)
+              published_item.update_columns(
+                state: "published",
+                content_store: "live",
+                base_path: base_path
+              )
             end
 
             it "raises an error stating the inconsistency" do
