@@ -172,7 +172,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       it "constructs the change history" do
-        expect(result[:details][:change_history].first["note"]).to eq "Note"
+        expect(result[:details][:change_history].first[:note]).to eq "Note"
       end
     end
 

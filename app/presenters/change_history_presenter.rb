@@ -17,14 +17,13 @@ module Presenters
     end
 
     def change_notes_for_content_item
-      ChangeNote
+      change_notes = ChangeNote
         .where(content_id: content_item.content_id)
         .where("content_item_id IS NULL OR content_item_id IN (?)", content_item_ids)
         .order(:public_timestamp)
         .pluck(:note, :public_timestamp)
-        .map do |note, timestamp|
-          { note: note, public_timestamp: timestamp }.stringify_keys
-        end
+        .map { |note, timestamp| { note: note, public_timestamp: timestamp } }
+      SymbolizeJSON.symbolize(change_notes.as_json)
     end
 
     def content_item_ids
