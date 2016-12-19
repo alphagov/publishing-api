@@ -2,22 +2,34 @@ require "rails_helper"
 require "govuk_schemas"
 
 RSpec.describe "Message queue publishing" do
-  it "puts the correct message on the queue" do
-    base_path = "/#{SecureRandom.hex}"
+  shared_examples "puts message on queue" do
+    it "puts the correct message on the queue" do
+      base_path = "/#{SecureRandom.hex}"
 
-    stub_content_store_calls(base_path)
+      stub_content_store_calls(base_path)
 
-    content_item = generate_random_content_item(base_path)
+      content_item = generate_random_content_item(base_path, change_note)
 
-    put "/v2/content/#{content_id}", params: content_item.to_json
+      put "/v2/content/#{content_id}", params: content_item.to_json
 
-    expect(response).to be_ok
+      expect(response).to be_ok
 
-    post "/v2/content/#{content_id}/publish", params: { update_type: "major", locale: content_item["locale"] }.to_json
+      post "/v2/content/#{content_id}/publish", params: { locale: content_item["locale"] }.to_json
 
-    expect(response).to be_ok
+      expect(response).to be_ok
 
-    ensure_message_queue_payload_validates_against_notification_schema
+      ensure_message_queue_payload_validates_against_notification_schema
+    end
+  end
+
+  context "when there is a change note" do
+    let(:change_note) { true }
+    include_examples "puts message on queue"
+  end
+
+  context "when there is not a change note" do
+    let(:change_note) { false }
+    include_examples "puts message on queue"
   end
 
   def stub_content_store_calls(base_path)
@@ -28,15 +40,25 @@ RSpec.describe "Message queue publishing" do
       .to_return(status: 200)
   end
 
-  def generate_random_content_item(base_path)
-    GovukSchemas::RandomExample.for_schema(publisher_schema: "placeholder").merge_and_validate(
+  def generate_random_content_item(base_path, change_note)
+    random = GovukSchemas::RandomExample.for_schema(publisher_schema: "placeholder")
+
+    if change_note
+      details = random.payload["details"].merge("change_note" => Faker::Lorem.sentence)
+    else
+      details = random.payload["details"].except("change_note")
+    end
+
+    random.merge_and_validate(
       base_path: base_path,
+      details: details,
       rendering_app: "something", # schema do not enforce a "dns-hostname" pattern yet
       publishing_app: "something", # schema do not enforce a "dns-hostname" pattern yet
       redirects: [], # is not validated in schemas yet
       routes: [
         { path: base_path, type: "prefix" } # hard to do in schemas
-      ]
+      ],
+      update_type: "major",
     )
   end
 
