@@ -20,6 +20,7 @@ FactoryGirl.define do
   end
 
   factory :withdrawn_unpublished_content_item, parent: :unpublished_content_item do
+    content_store 'live'
     transient do
       unpublishing_type "withdrawal"
       unpublished_at nil
@@ -27,6 +28,7 @@ FactoryGirl.define do
   end
 
   factory :redirect_unpublished_content_item, parent: :unpublished_content_item do
+    content_store 'live'
     transient do
       unpublishing_type "redirect"
       unpublished_at nil
@@ -34,6 +36,7 @@ FactoryGirl.define do
   end
 
   factory :vanish_unpublished_content_item, parent: :unpublished_content_item do
+    content_store 'live'
     transient do
       unpublishing_type "vanish"
       unpublished_at nil
@@ -41,6 +44,7 @@ FactoryGirl.define do
   end
 
   factory :substitute_unpublished_content_item, parent: :unpublished_content_item do
+    content_store nil
     transient do
       unpublishing_type "substitute"
       unpublished_at nil

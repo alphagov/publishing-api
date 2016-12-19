@@ -28,7 +28,7 @@ class State < ApplicationRecord
   end
 
   def self.unpublish(content_item, type:, explanation: nil, alternative_path: nil, unpublished_at: nil)
-    change_state(content_item, name: "unpublished")
+    change_state(content_item, name: "unpublished", type: type)
 
     unpublishing = Unpublishing.find_by(content_item: content_item)
 
@@ -60,9 +60,17 @@ class State < ApplicationRecord
     )
   end
 
-  def self.change_state(content_item, name:)
+  def self.content_store_from_name(name, type)
+    return if name == "superseded"
+    return if type == 'substitute'
+    name == "draft" ? "draft" : "live"
+  end
+  private_class_method :content_store_from_name
+
+  def self.change_state(content_item, name:, type: nil)
     state = self.find_by!(content_item: content_item)
     state.update_attributes!(name: name)
+    content_item.update_attributes!(content_store: content_store_from_name(name, type))
   end
   private_class_method :change_state
 end
