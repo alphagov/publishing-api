@@ -1,10 +1,6 @@
 class State < ApplicationRecord
   belongs_to :content_item
 
-  after_save do
-    content_item.update_attributes!(state: name)
-  end
-
   def self.filter(content_item_scope, name:)
     join_content_items(content_item_scope)
       .where("states.name" => name)
