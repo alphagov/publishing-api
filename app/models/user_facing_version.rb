@@ -3,10 +3,6 @@ class UserFacingVersion < ApplicationRecord
 
   belongs_to :content_item
 
-  after_save do
-    content_item.update_attributes!(user_facing_version: number)
-  end
-
   def self.filter(content_item_scope, number:)
     join_content_items(content_item_scope)
       .where("user_facing_versions.number" => number)
