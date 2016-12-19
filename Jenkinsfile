@@ -13,8 +13,7 @@ node {
     stage("Build") {
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'pact-broker-ci-dev',
         usernameVariable: 'PACT_BROKER_USERNAME', passwordVariable: 'PACT_BROKER_PASSWORD']]) {
-        def pact_branch = (env.BRANCH_NAME == 'master' ? 'master' : "branch-${env.BRANCH_NAME}")
-        withEnv(["PACT_TARGET_BRANCH=${pact_branch}"]) {
+        withEnv(["PACT_TARGET_BRANCH=branch-${env.BRANCH_NAME}"]) {
           sshagent(['govuk-ci-ssh-key']) {
             sh "${WORKSPACE}/jenkins.sh"
           }
