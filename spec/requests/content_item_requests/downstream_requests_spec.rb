@@ -267,7 +267,8 @@ RSpec.describe "Downstream requests", type: :request do
 
           # hide attributes that won't exist when calling as_json
           :state,
-          :user_facing_version
+          :user_facing_version,
+          :content_store,
         )
     }
 
