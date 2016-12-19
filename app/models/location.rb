@@ -1,8 +1,6 @@
 class Location < ApplicationRecord
   belongs_to :content_item
 
-  validates :base_path, absolute_path: true, if: :base_path_present?
-
   def self.filter(content_item_scope, base_path:)
     join_content_items(content_item_scope)
       .where("locations.base_path" => base_path)

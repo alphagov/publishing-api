@@ -1,11 +1,6 @@
 class Translation < ApplicationRecord
   belongs_to :content_item
 
-  validates :locale, inclusion: {
-    in: I18n.available_locales.map(&:to_s),
-    message: 'must be a supported locale'
-  }
-
   def self.filter(content_item_scope, locale:)
     join_content_items(content_item_scope)
       .where("translations.locale" => locale)
