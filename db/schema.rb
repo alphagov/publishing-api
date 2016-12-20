@@ -85,6 +85,12 @@ ActiveRecord::Schema.define(version: 20161220161528) do
     t.index ["updated_at"], name: "index_content_items_on_updated_at", using: :btree
   end
 
+  create_table "documents", force: :cascade do |t|
+    t.uuid   "content_id", null: false
+    t.string "locale", null: false
+    t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true, using: :btree
+  end
+
   create_table "events", force: :cascade do |t|
     t.string   "action",                  null: false
     t.json     "payload",    default: {}
