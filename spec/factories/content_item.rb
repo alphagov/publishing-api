@@ -17,6 +17,7 @@ FactoryGirl.define do
     phase "beta"
     update_type "minor"
     analytics_identifier "GDS01"
+    content_store "draft"
     routes {
       [
         {

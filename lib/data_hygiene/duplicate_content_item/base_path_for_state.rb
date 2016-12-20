@@ -53,7 +53,7 @@ module DataHygiene
               WHEN 'draft'
               THEN 'draft'
               ELSE 'live'
-            END AS content_store,
+            END AS state_content_store,
             ARRAY_AGG(DISTINCT content_items.content_id) as content_ids,
             ARRAY_AGG(
               ROW(content_items.id, content_items.updated_at)
@@ -70,7 +70,7 @@ module DataHygiene
           WHERE locations.base_path IS NOT NULL
             AND states.name IN ('draft', 'published', 'unpublished')
             AND (unpublishings.type IS NULL OR unpublishings.type != 'substitute')
-          GROUP BY locations.base_path, content_store
+          GROUP BY locations.base_path, state_content_store
           HAVING COUNT(*) > 1
         SQL
       end

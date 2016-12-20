@@ -100,6 +100,12 @@ RSpec.describe State do
     let(:draft_item) { FactoryGirl.create(:draft_content_item) }
     let(:draft_state) { State.find_by!(content_item: draft_item) }
 
+    it "changes the content_item content_store to nil" do
+      expect {
+        described_class.supersede(draft_item)
+      }.to change { draft_item.reload.content_store }.to(nil)
+    end
+
     it "changes the state name to 'superseded'" do
       expect {
         described_class.supersede(draft_item)
@@ -111,6 +117,12 @@ RSpec.describe State do
     let(:draft_item) { FactoryGirl.create(:draft_content_item) }
     let(:draft_state) { State.find_by!(content_item: draft_item) }
 
+    it "changes the content_item content_store to live" do
+      expect {
+        described_class.publish(draft_item)
+      }.to change { draft_item.reload.content_store }.from('draft').to('live')
+    end
+
     it "changes the state name to 'published'" do
       expect {
         described_class.publish(draft_item)
@@ -121,6 +133,30 @@ RSpec.describe State do
   describe ".unpublish" do
     let(:live_item) { FactoryGirl.create(:live_content_item) }
     let(:live_state) { State.find_by!(content_item: live_item) }
+
+    it "doesn't change the content_item content_store if it is not a substitute" do
+      expect {
+        described_class.unpublish(live_item, type: "gone", explanation: 'gone')
+      }.to_not change { live_item.reload.content_store }
+    end
+
+    it "doesn't change the content_item content_store if it is not a substitute" do
+      expect {
+        described_class.unpublish(live_item, type: "vanish", explanation: 'gone')
+      }.to_not change { live_item.reload.content_store }
+    end
+
+    it "doesn't change the content_item content_store if it is not a substitute" do
+      expect {
+        described_class.unpublish(live_item, type: "withdrawal", explanation: 'gone')
+      }.to_not change { live_item.reload.content_store }
+    end
+
+    it "changes the content_item content_store to nil when substitute" do
+      expect {
+        described_class.unpublish(live_item, type: "substitute")
+      }.to change { live_item.reload.content_store }.to(nil)
+    end
 
     it "changes the state name to 'unpublished'" do
       expect {
@@ -178,6 +214,12 @@ RSpec.describe State do
   describe ".substitute" do
     let(:live_item) { FactoryGirl.create(:live_content_item) }
     let(:live_state) { State.find_by!(content_item: live_item) }
+
+    it "changes the content_store to nil" do
+      expect {
+        described_class.substitute(live_item)
+      }.to change { live_item.reload.content_store }.to(nil)
+    end
 
     it "changes the state name to 'unpublished'" do
       expect {

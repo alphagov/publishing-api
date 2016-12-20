@@ -38,7 +38,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::BasePathForState do
 
     {
       base_path: base_path,
-      content_store: content_store,
+      state_content_store: content_store,
       content_ids: array_including(content_ids),
       content_items: array_including(content_items_entry),
     }

@@ -51,7 +51,7 @@ module DataHygiene
             translations.locale,
             CASE states.name
               WHEN 'draft' THEN 'draft' ELSE 'live'
-            END AS content_store,
+            END AS state_content_store,
             ARRAY_AGG(
               ROW(content_items.id, content_items.updated_at)
               ORDER BY content_items.updated_at DESC
@@ -62,7 +62,7 @@ module DataHygiene
           INNER JOIN states
             ON states.content_item_id = content_items.id
           WHERE states.name IN ('draft', 'published', 'unpublished')
-          GROUP BY content_items.content_id, translations.locale, content_store
+          GROUP BY content_items.content_id, translations.locale, state_content_store
           HAVING COUNT(*) > 1
         SQL
       end
