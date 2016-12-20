@@ -177,4 +177,4 @@ see the rake task for more details.
 
 ## Licence
 
-[MIT License](LICENCE)
+[MIT License](LICENSE)
