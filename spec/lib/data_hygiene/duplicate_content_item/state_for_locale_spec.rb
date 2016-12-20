@@ -36,7 +36,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
     {
       content_id: content_id,
       locale: locale,
-      content_store: content_store,
+      state_content_store: content_store,
       content_items: array_including(content_items_entry),
     }
   end
