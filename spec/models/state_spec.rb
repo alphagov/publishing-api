@@ -12,30 +12,6 @@ RSpec.describe State do
   describe ".unpublish" do
     let(:live_item) { FactoryGirl.create(:live_content_item) }
 
-    it "doesn't change the content_item content_store if it is not a substitute" do
-      expect {
-        described_class.unpublish(live_item, type: "gone", explanation: 'gone')
-      }.to_not change { live_item.reload.content_store }
-    end
-
-    it "doesn't change the content_item content_store if it is not a substitute" do
-      expect {
-        described_class.unpublish(live_item, type: "vanish", explanation: 'gone')
-      }.to_not change { live_item.reload.content_store }
-    end
-
-    it "doesn't change the content_item content_store if it is not a substitute" do
-      expect {
-        described_class.unpublish(live_item, type: "withdrawal", explanation: 'gone')
-      }.to_not change { live_item.reload.content_store }
-    end
-
-    it "changes the content_item content_store to nil when substitute" do
-      expect {
-        described_class.unpublish(live_item, type: "substitute")
-      }.to change { live_item.reload.content_store }.to(nil)
-    end
-
     it "changes the state name to 'unpublished'" do
       expect {
         live_item.unpublish(type: "gone")

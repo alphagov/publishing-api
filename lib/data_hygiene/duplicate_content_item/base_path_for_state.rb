@@ -66,7 +66,7 @@ module DataHygiene
           WHERE content_items.base_path IS NOT NULL
             AND content_items.state IN ('draft', 'published', 'unpublished')
             AND (unpublishings.type IS NULL OR unpublishings.type != 'substitute')
-          GROUP BY locations.base_path, state_content_store
+          GROUP BY content_items.base_path, state_content_store
           HAVING COUNT(*) > 1
         SQL
       end
