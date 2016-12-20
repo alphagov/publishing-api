@@ -32,17 +32,42 @@ module Commands
     private
 
       def create_content_item(history_entry, index, content_id)
-        validate_history_entry(history_entry)
+        validate_history_entry(history_entry, index)
 
-        Services::CreateContentItem.new(
+        state_name = state_name_from_history_entry_state(history_entry[:state])
+
+        content_item = Services::CreateContentItem.new(
           payload: history_entry.merge(content_id: content_id),
           user_facing_version: index + 1,
           lock_version: index + 1,
-          state: history_entry[:state]
+          state: state_name
         ).create_content_item
+
+        update_content_item_state_information(content_item, history_entry[:state])
       end
 
-      def validate_history_entry(history_entry)
+      def state_name_from_history_entry_state(state)
+        if state.instance_of? String then state else state[:name] end
+      end
+
+      def update_content_item_state_information(content_item, state_info)
+        # The unpublished state requires extra information, but all
+        # other states don't
+        return if ["draft", "published", "superseded"].include?(state_info)
+
+        state_name = state_info[:name]
+
+        if state_name == "unpublished"
+          State.unpublish(
+            content_item,
+            state_info.slice(
+              *%i(type explanation alternative_path unpublished_at)
+            )
+          )
+        end
+      end
+
+      def validate_history_entry(history_entry, index)
         unrecognised_attributes = history_entry.keys - attributes
 
         unless unrecognised_attributes.empty?
@@ -59,6 +84,55 @@ module Commands
             code: 422,
             message: "Schema validation failed: #{schema_validator.errors}",
             error_details: schema_validator.errors
+          )
+        end
+
+        unless history_entry.key?(:state)
+          raise_command_error(
+            422,
+            "Missing state from history entry #{index}",
+          )
+        end
+
+        state = history_entry[:state]
+
+        if state.instance_of? String
+          if state == "unpublished"
+            raise_command_error(
+              422,
+              "Error processing history entry #{index}. "\
+              "For a state of unpublished, a type must be provided",
+              {}
+            )
+          end
+
+          state_name = state
+        elsif state.instance_of? Hash
+          unless state.key?(:name)
+            raise_command_error(
+              422,
+              "Missing name for history entry state for history entry #{index}",
+              {}
+            )
+          end
+
+          state_name = state[:name]
+        else
+          raise_command_error(
+            422,
+            "state for history entry #{index} is not a string or object",
+            {}
+          )
+        end
+
+        supported_states = ["draft", "published", "unpublished", "superseded"]
+
+        unless supported_states.include?(state_name)
+          raise CommandError.new(
+            code: 422,
+            message: "Unsupported state used at index #{index}: \
+                      #{history_entry[:state]}, \
+                      only #{supported_states} are supported"
           )
         end
       end
