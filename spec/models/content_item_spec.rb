@@ -349,4 +349,40 @@ RSpec.describe ContentItem do
   it_behaves_like DefaultAttributes
   it_behaves_like WellFormedContentTypesValidator
   it_behaves_like DescriptionOverrides
+
+  context "#publish" do
+    it "changes the content_store to live" do
+      expect { subject.publish }.to change { subject.content_store }.from("draft").to("live")
+    end
+
+    it "changes the state to published" do
+      expect { subject.publish }.to change { subject.state }.from("draft").to("published")
+    end
+  end
+
+  context "#supersede" do
+    it "changes the content_store to nil" do
+      expect { subject.supersede }.to change { subject.content_store }.from("draft").to(nil)
+    end
+
+    it "changes the state to superseded" do
+      expect { subject.supersede }.to change { subject.state }.from("draft").to("superseded")
+    end
+  end
+
+  context "#unpublish" do
+    subject { FactoryGirl.build(:live_content_item) }
+
+    it "changes the content_store to nil when type substitute" do
+      expect { subject.unpublish(type: "substitute") }.to change { subject.content_store }.from("live").to(nil)
+    end
+
+    it "leaves the content_store as live with a type of anything else" do
+      expect { subject.unpublish(type: "gone") }.to_not change { subject.content_store }
+    end
+
+    it "changes the state to unpublished" do
+      expect { subject.unpublish(type: "substitute") }.to change { subject.state }.from("published").to("unpublished")
+    end
+  end
 end
