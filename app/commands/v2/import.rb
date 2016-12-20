@@ -22,7 +22,8 @@ module Commands
 
         after_transaction_commit do
           Commands::V2::RepresentDownstream.new.call(
-            ContentItem.where(content_id: payload[:content_id])
+            ContentItem.where(content_id: payload[:content_id]),
+            true
           )
         end
 
