@@ -84,5 +84,52 @@ RSpec.describe Commands::V2::Import, type: :request do
         expect(State.where(content_item_id: existing_content_item)).to be_empty
       end
     end
+
+    context "with a unpublished content item" do
+      let!(:payload) do
+        {
+          content_id: content_id,
+          history: [
+            content_item.merge(
+              state: {
+                name: "unpublished",
+                type: "gone"
+              }
+            )
+          ]
+        }
+      end
+
+      it "correctly sets the unpublishing type" do
+        subject
+
+        content_item = ContentItem.find_by(content_id: content_id)
+        unpublishing = Unpublishing.find_by(content_item: content_item)
+
+        expect(unpublishing.type).to eq("gone")
+      end
+
+      context "when missing the type information" do
+        let!(:payload) do
+          {
+            content_id: content_id,
+            history: [
+              content_item.merge(
+                state: "unpublished"
+              )
+            ]
+          }
+        end
+
+        it "raises a command error" do
+          expect {
+            subject.call
+          }.to raise_error(
+            CommandError,
+            /For a state of unpublished, a type must be provided/
+          )
+        end
+      end
+    end
   end
 end
