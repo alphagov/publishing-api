@@ -168,15 +168,16 @@ class ContentItem < ApplicationRecord
   end
 
   def publish
-    update_attributes!(state: "published")
+    update_attributes!(state: "published", content_store: "live")
   end
 
   def supersede
-    update_attributes!(state: "superseded")
+    update_attributes!(state: "superseded", content_store: nil)
   end
 
   def unpublish(type:, explanation: nil, alternative_path: nil, unpublished_at: nil)
-    update_attributes!(state: "unpublished")
+    content_store = type == "substitute" ? nil : "live"
+    update_attributes!(state: "unpublished", content_store: content_store)
 
     unpublishing = Unpublishing.find_by(content_item: self)
 
