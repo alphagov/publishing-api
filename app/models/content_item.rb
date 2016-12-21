@@ -37,20 +37,16 @@ class ContentItem < ApplicationRecord
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
   EMPTY_BASE_PATH_FORMATS = %w(contact government).freeze
 
-  scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
-
   belongs_to :document
 
-<<<<<<< 641beea5841f4257abe5a5a1230a06e73f810d7f
-=======
+  scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
+
   validates :document, presence: true
 
->>>>>>> Populate documents from content items
   validates :schema_name, presence: true
   validates :document_type, presence: true
 
   validates :base_path, absolute_path: true, if: :base_path_present?
-  validates :content_id, presence: true, uuid: true
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :requires_rendering_app?
@@ -60,11 +56,6 @@ class ContentItem < ApplicationRecord
   }
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include_one_of: %w(text/html text/govspeak) }
-
-  validates :locale, inclusion: {
-    in: I18n.available_locales.map(&:to_s),
-    message: 'must be a supported locale'
-  }
 
   validate :user_facing_version_must_increase
   validate :draft_cannot_be_behind_live
@@ -115,6 +106,24 @@ class ContentItem < ApplicationRecord
     end
   end
 
+  def content_id
+    document.content_id if document
+  end
+
+  def content_id=(new_content_id)
+    self.document = Document.find_or_create_by(content_id: new_content_id,
+                                               locale: locale)
+  end
+
+  def locale
+    document.locale if document
+  end
+
+  def locale=(new_locale)
+    self.document = Document.find_or_create_by(content_id: content_id,
+                                               locale: new_locale)
+  end
+
   def requires_base_path?
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
   end
@@ -131,16 +140,14 @@ class ContentItem < ApplicationRecord
     if state == "draft"
       draft_version = user_facing_version
       live_version = ContentItem.where(
-        content_id: content_id,
-        locale: locale,
+        document: document,
         state: %w(published unpublished),
       ).pluck(:user_facing_version).first
     end
 
     if %w(published unpublished).include?(state)
       draft_version = ContentItem.where(
-        content_id: content_id,
-        locale: locale,
+        document: document,
         state: "draft",
       ).pluck(:user_facing_version).first
       live_version = user_facing_version
