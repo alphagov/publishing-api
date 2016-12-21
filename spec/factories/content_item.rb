@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :content_item do
-    content_id { SecureRandom.uuid }
+    document { FactoryGirl.create(:document) }
     title "VAT rates"
     description "VAT rates for goods and services"
     schema_name "guide"
@@ -27,7 +27,6 @@ FactoryGirl.define do
     }
     state "draft"
     content_store "draft"
-    locale "en"
     sequence(:base_path) { |n| "/vat-rates-#{n}" }
     user_facing_version 1
 
