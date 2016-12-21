@@ -6,6 +6,7 @@ module Queries
       return if state == "superseded"
       return if state == "unpublished" && Unpublishing.is_substitute?(content_item_id)
 
+      documents_table = Document.arel_table
       content_items_table = ContentItem.arel_table
       unpublishings_table = Unpublishing.arel_table
 
@@ -14,12 +15,13 @@ module Queries
       scope = content_items_table
         .project(
           content_items_table[:id],
-          content_items_table[:content_id],
-          content_items_table[:locale]
+          documents_table[:content_id],
+          documents_table[:locale],
         )
         .where(content_items_table[:id].not_eq(content_item_id))
         .where(content_items_table[:state].in(allowed_states))
         .where(content_items_table[:base_path].eq(base_path))
+        .join(documents_table).on(documents_table[:id].eq(content_items_table[:document_id]))
 
       if %w(published unpublished).include?(state)
         unpublished_state = content_items_table[:state].eq("unpublished")
