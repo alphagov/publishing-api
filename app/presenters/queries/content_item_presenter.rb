@@ -102,7 +102,9 @@ module Presenters
           when :base_path
             "content_items.base_path as base_path"
           when :locale
-            "content_items.locale as locale"
+            "documents_content_items.locale as locale"
+          when :content_id
+            "documents_content_items.content_id as content_id"
           when :total
             "COUNT(*) OVER () as total"
           else
@@ -122,8 +124,8 @@ module Presenters
         (
           SELECT json_agg((user_facing_version, state))
           FROM content_items c
-          WHERE c.content_id = content_items.content_id
-          GROUP BY content_id
+          WHERE c.document_id = documents_content_items.id
+          GROUP BY documents_content_items.content_id
         )
       SQL
 

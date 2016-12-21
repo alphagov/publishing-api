@@ -8,7 +8,7 @@ class Link < ApplicationRecord
 
   def self.filter_content_items(scope, filters)
     join_sql = <<-SQL.strip_heredoc
-      INNER JOIN link_sets ON link_sets.content_id = content_items.content_id
+      INNER JOIN link_sets ON link_sets.content_id = documents.content_id
       INNER JOIN links ON links.link_set_id = link_sets.id
     SQL
 
