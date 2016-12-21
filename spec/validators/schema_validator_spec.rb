@@ -26,6 +26,15 @@ RSpec.describe SchemaValidator do
       end
     end
 
+    context "empty schema name" do
+      let(:schema) { nil }
+      let(:payload) { { schema_name: "" } }
+
+      it "returns false" do
+        expect(validator.valid?).to be false
+      end
+    end
+
     context "valid payload" do
       let(:payload) { { a: 1 } }
 
@@ -64,6 +73,16 @@ RSpec.describe SchemaValidator do
         expect(subject.count).to eq 1
         expected = /property '#\/' did not contain a required property of 'a'/
         expect(subject.first[:message]).to match expected
+      end
+    end
+
+    context "empty schema name" do
+      let(:schema) { nil }
+      let(:payload) { { schema_name: "" } }
+      let(:message) { "Schema could not be validated as the schema_name was not provided" }
+
+      it "has an error" do
+        expect(subject).to match_array([message])
       end
     end
   end

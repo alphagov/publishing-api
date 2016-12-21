@@ -28,10 +28,12 @@ private
 
   def schema
     @schema || find_schema
+  rescue NoSchemaNameError
+    errors << no_schema_name_message
+    {}
   rescue Errno::ENOENT => error
     if Rails.env.development?
       errors << missing_schema_message
-      errors << dev_help if GovukSchemas::Schema.all.empty?
     end
     Airbrake.notify(error, parameters: {
       explanation: missing_schema_message,
@@ -41,10 +43,11 @@ private
   end
 
   def find_schema
-    @schema || GovukSchemas::Schema.find(find_type)
+    GovukSchemas::Schema.find(find_type)
   end
 
   def find_type
+    raise NoSchemaNameError.new("No schema name provided") unless schema_name.present?
     if links?
       { links_schema: schema_name }
     else
@@ -68,7 +71,10 @@ private
     "Unable to find schema for schema_name #{schema_name}"
   end
 
-  def dev_help
-    "Ensure GOVUK_CONTENT_SCHEMAS_PATH env variable is set and points to the root directory of govuk-content-schemas"
+  def no_schema_name_message
+    "Schema could not be validated as the schema_name was not provided"
+  end
+
+  class NoSchemaNameError < StandardError
   end
 end
