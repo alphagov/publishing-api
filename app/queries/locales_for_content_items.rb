@@ -12,17 +12,20 @@ module Queries
       states = %w[draft published unpublished],
       include_substitutes = false
     )
+      documents_table = Document.arel_table
       content_items_table = ContentItem.arel_table
 
-      scope = content_items_table
+      scope = documents_table
         .project(
-          content_items_table[:content_id],
-          content_items_table[:locale]
+          documents_table[:content_id],
+          documents_table[:locale]
         )
         .distinct
-        .where(content_items_table[:content_id].in(content_ids))
-        .where(content_items_table[:state].in(states))
-        .order(content_items_table[:content_id].asc, content_items_table[:locale].asc)
+        .join(content_items_table)
+          .on(content_items_table[:document_id].eq(documents_table[:id])
+            .and(content_items_table[:state].in(states)))
+        .where(documents_table[:content_id].in(content_ids))
+        .order(documents_table[:content_id].asc, documents_table[:locale].asc)
 
       unless include_substitutes
         unpublishings_table = Unpublishing.arel_table
