@@ -81,7 +81,7 @@ module Commands
 
       def previously_drafted_item
         @previously_drafted_item ||= ContentItem.find_by(
-          id: pessimistic_content_item_scope.pluck(:id),
+          document_id: pessimistic_document_scope.pluck(:id),
           state: "draft",
         )
       end
@@ -103,8 +103,8 @@ module Commands
         payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
-      def pessimistic_content_item_scope
-        ContentItem.where(content_id: content_id, locale: locale).lock
+      def pessimistic_document_scope
+        Document.where(content_id: content_id, locale: locale).lock
       end
 
       def content_id

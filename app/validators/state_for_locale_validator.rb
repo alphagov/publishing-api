@@ -3,9 +3,8 @@ class StateForLocaleValidator < ActiveModel::Validator
     return unless record.state && record.locale && %w(draft published unpublished).include?(record.state)
 
     criteria = {
-      content_id: record.content_id,
+      document: record.document,
       state: record.state == "draft" ? "draft" : %w(published unpublished),
-      locale: record.locale,
     }
 
     conflict = ContentItem.where(criteria).where.not(id: record.id).order(nil).first
