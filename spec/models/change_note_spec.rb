@@ -6,8 +6,7 @@ RSpec.describe ChangeNote do
   let(:payload_change_note) { nil }
   let(:update_type) { "major" }
   let(:content_item) do
-    FactoryGirl.create(
-      :content_item,
+    FactoryGirl.create(:content_item,
       update_type: update_type,
       details: details,
       change_note: nil,
