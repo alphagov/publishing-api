@@ -18,8 +18,8 @@ RSpec.describe ContentItem do
       expect(subject).to be_valid
     end
 
-    it "requires a content_id" do
-      subject.content_id = nil
+    it "requires a document" do
+      subject.document = nil
       expect(subject).to be_invalid
     end
 
@@ -90,23 +90,6 @@ RSpec.describe ContentItem do
       end
     end
 
-    context "content_id" do
-      it "accepts a UUID" do
-        subject.content_id = "a7c48dac-f1c6-45a8-b5c1-5c407d45826f"
-        expect(subject).to be_valid
-      end
-
-      it "does not accept an arbitrary string" do
-        subject.content_id = "bacon"
-        expect(subject).not_to be_valid
-      end
-
-      it "does not accept an empty string" do
-        subject.content_id = ""
-        expect(subject).not_to be_valid
-      end
-    end
-
     context "base_path" do
       it "should be an absolute path" do
         subject.base_path = 'invalid//absolute/path/'
@@ -162,9 +145,8 @@ RSpec.describe ContentItem do
         FactoryGirl.create(:draft_content_item, user_facing_version: 2)
       end
       let(:content_item) do
-        FactoryGirl.build(
-          :draft_content_item,
-          content_id: existing_content_item.content_id,
+        FactoryGirl.build(:draft_content_item,
+          document: existing_content_item.document,
           user_facing_version: 1
         )
       end
