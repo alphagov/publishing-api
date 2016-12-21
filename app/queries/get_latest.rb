@@ -4,9 +4,12 @@ module Queries
       # Returns a new scope for the content items with the highest user-facing
       # version number per content_id and locale of the given scope.
       def call(content_item_scope)
-        scope = content_item_scope.select(:id, :content_id, 'content_items.locale', :user_facing_version)
+        scope = content_item_scope.select(:id, 'documents.content_id',
+                                          'documents.locale',
+                                          :user_facing_version)
+          .joins(:document)
 
-        ContentItem.joins <<-SQL
+        ContentItem.joins(:document).joins <<-SQL
           INNER JOIN (
             WITH scope AS (#{scope.to_sql})
             SELECT s1.id FROM scope s1

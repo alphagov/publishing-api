@@ -26,11 +26,11 @@ RSpec.describe Queries::GetLatest do
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/a3", "/b1", "/b2", "/c2"])
 
-    scope = scope.where(content_id: [a, b])
+    scope = scope.where('documents.content_id': [a, b])
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/a3", "/b1", "/b2"])
 
-    scope = scope.where(locale: 'fr')
+    scope = scope.where('documents.locale': 'fr')
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/b2"])
   end

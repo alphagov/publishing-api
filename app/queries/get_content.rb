@@ -3,7 +3,8 @@ module Queries
     def self.call(content_id, locale = nil, version: nil, include_warnings: false)
       locale_to_use = locale || ContentItem::DEFAULT_LOCALE
 
-      content_items = ContentItem.where(content_id: content_id, locale: locale_to_use)
+      content_items = ContentItem.joins(:document).
+        where('documents.content_id': content_id, 'documents.locale': locale_to_use)
       content_items = content_items.where(user_facing_version: version) if version
 
       response = Presenters::Queries::ContentItemPresenter.present_many(
@@ -31,7 +32,7 @@ module Queries
     end
 
     def self.not_found_message(content_id, locale, version)
-      if (locale || version) && ContentItem.exists?(content_id: content_id)
+      if (locale || version) && Document.exists?(content_id: content_id)
         locale_message = locale ? "locale: #{locale}" : nil
         version_message = version ? "version: #{version}" : nil
         reason = [locale_message, version_message].compact.join(" and ")

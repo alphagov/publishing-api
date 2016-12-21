@@ -12,6 +12,7 @@ module Queries
         return # The SubstitionHelper will unpublish any item that is in the way
       end
 
+      documents_table = Document.arel_table
       content_items_table = ContentItem.arel_table
       unpublishings_table = Unpublishing.arel_table
 
@@ -19,10 +20,13 @@ module Queries
         .project(
           content_items_table[:id]
         )
+        .join(documents_table).on(
+          documents_table[:id].eq(content_items_table[:document_id])
+        )
         .outer_join(unpublishings_table).on( # LEFT OUTER JOIN
           content_items_table[:id].eq(unpublishings_table[:content_item_id])
         )
-        .where(content_items_table[:content_id].not_eq(content_id))
+        .where(documents_table[:content_id].not_eq(content_id))
         .where(content_items_table[:state].in(%w(published unpublished)))
         .where(content_items_table[:document_type].not_in(
                  SubstitutionHelper::SUBSTITUTABLE_DOCUMENT_TYPES
