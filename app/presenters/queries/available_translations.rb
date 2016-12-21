@@ -19,8 +19,9 @@ module Presenters
       attr_reader :content_id, :state_fallback_order, :expanded_translations
 
       def grouped_translations
-        ContentItem.where(content_id: content_id, state: state_fallback_order)
-          .pluck(:id, :locale, :state)
+        ContentItem.joins(:document)
+          .where('documents.content_id': content_id, state: state_fallback_order)
+          .pluck(:id, 'documents.locale', :state)
           .sort_by { |(_, _, state)| state_fallback_order.index(state.to_sym) }
           .group_by { |(_, locale)| locale }
       end

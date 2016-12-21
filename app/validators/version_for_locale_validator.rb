@@ -3,9 +3,8 @@ class VersionForLocaleValidator < ActiveModel::Validator
     return unless record.locale && record.user_facing_version
 
     criteria = {
-      content_id: record.content_id,
+      document: record.document,
       user_facing_version: record.user_facing_version,
-      locale: record.locale,
     }
 
     conflict = ContentItem.where(criteria).where.not(id: record.id).first
