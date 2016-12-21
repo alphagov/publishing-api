@@ -48,18 +48,14 @@ module DataHygiene
       def sql
         <<-SQL
           SELECT content_items.content_id,
-            translations.locale as locale,
-            user_facing_versions.number as user_facing_version,
+            content_items.locale,
+            content_items.user_facing_version,
             ARRAY_AGG(
               ROW(content_items.id, content_items.updated_at)
               ORDER BY content_items.updated_at DESC
             ) as content_items
           FROM content_items
-          INNER JOIN translations
-            ON translations.content_item_id = content_items.id
-          INNER JOIN user_facing_versions
-            ON user_facing_versions.content_item_id = content_items.id
-          GROUP BY content_id, translations.locale, user_facing_versions.number
+          GROUP BY content_id, content_items.locale, content_items.user_facing_version
           HAVING COUNT(*) > 1
         SQL
       end

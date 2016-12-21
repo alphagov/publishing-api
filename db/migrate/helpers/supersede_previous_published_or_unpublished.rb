@@ -1,28 +1,25 @@
 module Helpers
   module SupersedePreviousPublishedOrUnpublished
     def self.run
-      state_histories = State
-        .where(name: %w(published unpublished))
-        .joins(:content_item)
-        .joins("INNER JOIN translations t on t.content_item_id = content_items.id")
-        .joins("INNER JOIN user_facing_versions u on u.content_item_id = content_items.id")
-        .group(:content_id, 't.locale')
+      state_histories = ContentItem
+        .where(state: %w(published unpublished))
+        .group(:content_id, :locale)
         .having("count(content_id) > 1")
-        .pluck("json_agg((states.id, u.number))")
+        .pluck("json_agg((id, user_facing_version))")
         .map do |results|
-          results.map { |row| { state_id: row["f1"], version: row["f2"] } }
+          results.map { |row| { content_item_id: row["f1"], version: row["f2"] } }
         end
 
-      states_to_supersede = state_histories.flat_map do |history|
+      content_items_to_supersede = state_histories.flat_map do |history|
         newest = history.max_by { |r| r[:version] }
 
         history.delete(newest)
-        history.map { |r| r[:state_id] }
+        history.map { |r| r[:content_item_id] }
       end
 
-      State.where(id: states_to_supersede).update_all(name: "superseded")
+      ContentItem.where(id: content_items_to_supersede).update_all(state: "superseded")
 
-      states_to_supersede.count
+      content_items_to_supersede.count
     end
   end
 end

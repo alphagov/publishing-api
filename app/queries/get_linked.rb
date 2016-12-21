@@ -29,8 +29,10 @@ module Queries
     attr_accessor :target_content_id, :link_type, :fields
 
     def validate_presence_of_item!
-      filter = ContentItemFilter.new(scope: ContentItem.where(content_id: target_content_id))
-      return if filter.filter(state: %w(draft published)).exists?
+      return if ContentItem.exists?(
+        content_id: target_content_id,
+        state: %w(draft published),
+      )
 
       raise CommandError.new(code: 404, error_details: {
         error: {

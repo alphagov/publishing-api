@@ -444,15 +444,15 @@ difficult to work with.
 
 ## Content Item Uniqueness
 
-The ContentItem model is a simple model that houses content. It is surrounded by
-objects that determine:
+The ContentItem model is a model that houses content. It contains fields that
+determines its uniqueness. These are:
 
-- The locale of the content (Translation)
-- The base_path of the content (Location)
-- The workflow state of the content (State)
-- The user-facing version of the content (UserFacingVersion)
+- The `locale` of the content
+- The `base_path` of the content
+- The workflow `state` of the content
+- The `user_facing_version` of the content
 
-The uniqueness of a ContentItem is ensured by rules based on these objects.
+The uniqueness of a ContentItem is ensured by rules based on these values.
 
 Only one item in either a draft or a live state can be registered at a base_path.
 Thus the rules for a base_path are:

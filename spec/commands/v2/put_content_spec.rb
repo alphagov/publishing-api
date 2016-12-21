@@ -127,7 +127,7 @@ RSpec.describe Commands::V2::PutContent do
 
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
-        expect(State.find_by!(content_item: content_item).name).to eq("draft")
+        expect(content_item.state).to eq("draft")
         expect(LockVersion.find_by!(target: content_item).number).to eq(3)
       end
 
@@ -138,8 +138,8 @@ RSpec.describe Commands::V2::PutContent do
 
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
-        expect(State.find_by!(content_item: content_item).name).to eq("draft")
-        expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(6)
+        expect(content_item.state).to eq("draft")
+        expect(content_item.user_facing_version).to eq(6)
       end
 
       it "copies over the first_published_at timestamp" do
@@ -163,23 +163,16 @@ RSpec.describe Commands::V2::PutContent do
         it "sets the correct base path on the location" do
           described_class.call(payload)
 
-          content_item = ContentItemFilter.filter(
-            base_path: "/moved",
-            state: "draft",
-          ).first
-
-          location = Location.find_by!(content_item: content_item)
-
-          expect(location.base_path).to eq("/moved")
+          expect(ContentItem.where(base_path: "/moved", state: "draft")).to exist
         end
 
         it "creates a redirect" do
           described_class.call(payload)
 
-          redirect = ContentItemFilter.filter(
+          redirect = ContentItem.find_by(
             base_path: base_path,
             state: "draft",
-          ).first
+          )
 
           expect(redirect).to be_present
           expect(redirect.schema_name).to eq("redirect")
@@ -210,9 +203,7 @@ RSpec.describe Commands::V2::PutContent do
 
             content_item = ContentItem.last
             expect(content_item.title).to eq("French Title")
-
-            translation = Translation.find_by!(content_item: content_item)
-            expect(translation.locale).to eq("fr")
+            expect(content_item.locale).to eq("fr")
           end
         end
       end
@@ -226,7 +217,7 @@ RSpec.describe Commands::V2::PutContent do
           described_class.call(payload)
           Commands::V2::Publish.call(content_id: content_id, update_type: "minor")
 
-          regex = /Content item user_facing_version=(\d+) and locale=en for content item=#{Regexp.quote(content_id)} conflicts/
+          regex = /user_facing_version=(\d+) and locale=en for content item=#{Regexp.quote(content_id)} conflicts/
 
           expect {
             thread1 = Thread.new { described_class.call(payload) }
@@ -235,16 +226,15 @@ RSpec.describe Commands::V2::PutContent do
             thread2.join
           }.to raise_error(CommandError, regex)
 
-          expect(State.all.pluck(:name)).to eq %w(superseded published draft)
+          expect(ContentItem.all.pluck(:state)).to eq %w(superseded published draft)
         end
       end
     end
 
     context "when creating a draft for a previously unpublished content item" do
       before do
-        FactoryGirl.create(:content_item,
+        FactoryGirl.create(:unpublished_content_item,
           content_id: content_id,
-          state: "unpublished",
           lock_version: 2,
           user_facing_version: 5,
           base_path: base_path,
@@ -258,7 +248,7 @@ RSpec.describe Commands::V2::PutContent do
 
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
-        expect(State.find_by!(content_item: content_item).name).to eq("draft")
+        expect(content_item.state).to eq("draft")
         expect(LockVersion.find_by!(target: content_item).number).to eq(3)
       end
 
@@ -269,8 +259,8 @@ RSpec.describe Commands::V2::PutContent do
 
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
-        expect(State.find_by!(content_item: content_item).name).to eq("draft")
-        expect(UserFacingVersion.find_by!(content_item: content_item).number).to eq(6)
+        expect(content_item.state).to eq("draft")
+        expect(content_item.user_facing_version).to eq(6)
       end
 
       it "allows the setting of first_published_at" do
@@ -297,20 +287,18 @@ RSpec.describe Commands::V2::PutContent do
         expect(content_item.title).to eq("Some Title")
       end
 
-      it "creates a state for the content item" do
+      it "sets a draft state for the content item" do
         described_class.call(payload)
         content_item = ContentItem.last
 
-        state = State.find_by!(content_item: content_item)
-        expect(state.name).to eq("draft")
+        expect(content_item.state).to eq("draft")
       end
 
-      it "creates a user-facing version for the content item" do
+      it "sets a user-facing version of 1 for the content item" do
         described_class.call(payload)
         content_item = ContentItem.last
 
-        user_facing_version = UserFacingVersion.find_by!(content_item: content_item)
-        expect(user_facing_version.number).to eq(1)
+        expect(content_item.user_facing_version).to eq(1)
       end
 
       it "creates a lock version for the content item" do
@@ -319,22 +307,6 @@ RSpec.describe Commands::V2::PutContent do
 
         lock_version = LockVersion.find_by!(target: content_item)
         expect(lock_version.number).to eq(1)
-      end
-
-      it "creates a translation for the content item" do
-        described_class.call(payload)
-        content_item = ContentItem.last
-
-        translation = Translation.find_by!(content_item: content_item)
-        expect(translation.locale).to eq("en")
-      end
-
-      it "creates a location for the content item" do
-        described_class.call(payload)
-        content_item = ContentItem.last
-
-        location = Location.find_by!(content_item: content_item)
-        expect(location.base_path).to eq(base_path)
       end
 
       it "creates a change note" do
@@ -376,8 +348,7 @@ RSpec.describe Commands::V2::PutContent do
         described_class.call(payload)
         previously_drafted_item.reload
 
-        user_facing_version = UserFacingVersion.find_by!(content_item: previously_drafted_item)
-        expect(user_facing_version.number).to eq(1)
+        expect(previously_drafted_item.user_facing_version).to eq(1)
       end
 
       it "increments the lock version for the content item" do
@@ -389,29 +360,27 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       context "when the base path has changed" do
-        let(:previous_location) { Location.find_by!(content_item: previously_drafted_item) }
-
         before do
           previously_drafted_item.update_attributes!(
             routes: [{ path: "/old-path", type: "exact" }, { path: "/old-path.atom", type: "exact" }],
+            base_path: "/old-path",
           )
-          previous_location.update_attributes!(base_path: "/old-path")
         end
 
         it "updates the location's base path" do
           described_class.call(payload)
-          previous_location.reload
+          previously_drafted_item.reload
 
-          expect(previous_location.base_path).to eq("/vat-rates")
+          expect(previously_drafted_item.base_path).to eq("/vat-rates")
         end
 
         it "creates a redirect" do
           described_class.call(payload)
 
-          redirect = ContentItemFilter.filter(
+          redirect = ContentItem.find_by(
             base_path: "/old-path",
             state: "draft",
-          ).first
+          )
 
           expect(redirect).to be_present
           expect(redirect.schema_name).to eq("redirect")
@@ -449,8 +418,7 @@ RSpec.describe Commands::V2::PutContent do
             content_item = ContentItem.last
             expect(content_item.title).to eq("French Title")
 
-            translation = Translation.find_by!(content_item: content_item)
-            expect(translation.locale).to eq("fr")
+            expect(content_item.locale).to eq("fr")
           end
         end
 
@@ -514,11 +482,10 @@ RSpec.describe Commands::V2::PutContent do
         it "resets those attributes to their defaults from the database" do
           described_class.call(payload)
           content_item = ContentItem.last
-          translation = Translation.find_by!(content_item: content_item)
 
           expect(content_item.redirects).to eq([])
           expect(content_item.phase).to eq("live")
-          expect(translation.locale).to eq("en")
+          expect(content_item.locale).to eq("en")
         end
       end
 

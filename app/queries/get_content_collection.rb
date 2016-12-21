@@ -58,9 +58,9 @@ module Queries
     def content_items
       scope = ContentItem.where(document_type: lookup_document_types)
       scope = scope.where(publishing_app: publishing_app) if publishing_app
-      scope = State.filter(scope, name: states) if states.present?
+      scope = scope.where(state: states) if states.present?
+      scope = scope.where(locale: locale) unless locale == "all"
       scope = Link.filter_content_items(scope, link_filters) unless link_filters.blank?
-      scope = Translation.filter(scope, locale: locale) unless locale == "all"
       scope
     end
 

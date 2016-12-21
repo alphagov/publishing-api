@@ -5,9 +5,9 @@ class LookupsController < ApplicationController
     states = %w(published unpublished)
     base_paths = params.fetch(:base_paths)
 
-    base_paths_and_content_ids = ContentItemFilter
-      .filter(state: states, base_path: base_paths)
-      .pluck('locations.base_path', :content_id)
+    base_paths_and_content_ids = ContentItem
+      .where(state: states, base_path: base_paths)
+      .pluck(:base_path, :content_id)
       .uniq
 
     response = Hash[base_paths_and_content_ids]

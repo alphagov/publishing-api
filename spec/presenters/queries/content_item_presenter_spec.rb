@@ -61,7 +61,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "for a published content item" do
       before do
-        State.find_by!(content_item: content_item).update!(name: "published")
+        content_item.update_attributes!(state: 'published')
       end
 
       it "has a publication state of published" do
@@ -71,7 +71,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the content item exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:content_item, content_id: content_id, locale: "fr")
+        FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "fr")
       end
 
       it "presents the item with matching locale" do
@@ -104,7 +104,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "#present_many" do
     let!(:content_item) do
-      FactoryGirl.create(:content_item,
+      FactoryGirl.create(:draft_content_item,
         content_id: content_id,
       )
     end
@@ -137,14 +137,13 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when there are other content items with that content_id" do
       before do
-        UserFacingVersion.last.update!(number: 2)
+        content_item.update_attributes(user_facing_version: 2)
       end
 
       let!(:published_item) do
         FactoryGirl.create(
-          :content_item,
+          :live_content_item,
           content_id: content_id,
-          state: "published",
           user_facing_version: 1,
         )
       end
@@ -200,12 +199,11 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
       context "with a blocking content item" do
         before do
-          @blocking_content_item = FactoryGirl.create(:content_item,
+          @blocking_content_item = FactoryGirl.create(:live_content_item,
             content_id: SecureRandom.uuid,
             base_path: base_path,
             user_facing_version: 1,
             locale: "en",
-            state: "published",
           )
         end
 

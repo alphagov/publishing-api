@@ -53,15 +53,15 @@ module DownstreamService
 
   def self.draft_at_base_path?(base_path)
     return false unless base_path
-    ContentItemFilter.filter(base_path: base_path, state: "draft").exists?
+    ContentItem.exists?(base_path: base_path, state: "draft")
   end
 
   def self.discard_draft_base_path_conflict?(base_path)
     return false unless base_path
-    ContentItemFilter.filter(
+    ContentItem.exists?(
       base_path: base_path,
       state: %w(draft published unpublished),
-    ).exists?
+    )
   end
 
   # Sets the value for the GOVUK-Dependency-Resolution-Source-Content-Id header.

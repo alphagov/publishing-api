@@ -12,8 +12,6 @@ module Commands
           end
         end
 
-        translation = Translation.find_by!(content_item: content_item)
-        location = Location.find_by(content_item: content_item)
         update_type = payload[:update_type] || content_item.update_type
 
         if update_type.blank?
@@ -28,32 +26,32 @@ module Commands
 
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
-        previous_item = lookup_previous_item(content_item)
+        previous_item = lookup_previous_item
 
-        State.supersede(previous_item) if previous_item
+        previous_item.supersede if previous_item
 
         delete_change_notes_if_not_major_update(content_item, update_type)
 
         unless content_item.pathless?
           if previous_item
-            previous_location = Location.find_by(content_item: previous_item)
+            previous_base_path = previous_item.base_path
 
-            if previous_location.base_path != location.base_path
-              publish_redirect(previous_location, translation)
+            if previous_base_path != content_item.base_path
+              publish_redirect(previous_base_path, content_item.locale)
             end
           end
 
-          clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+          clear_published_items_of_same_locale_and_base_path(content_item, content_item.locale, content_item.base_path)
         end
 
         set_public_updated_at(content_item, previous_item, update_type)
         set_first_published_at(content_item)
-        State.publish(content_item)
+        content_item.publish
 
         AccessLimit.find_by(content_item: content_item).try(:destroy)
 
         after_transaction_commit do
-          send_downstream(content_item.content_id, translation.locale, update_type)
+          send_downstream(content_item.content_id, content_item.locale, update_type)
         end
 
         Action.create_publish_action(content_item, locale, event)
@@ -86,26 +84,27 @@ module Commands
       end
 
       def find_draft_content_item
-        filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
-        filter.filter(locale: locale, state: "draft").first
+        ContentItem.find_by(
+          id: pessimistic_content_item_scope.pluck(:id),
+          state: "draft",
+        )
       end
 
       def already_published?
-        filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
-        filter.filter(locale: locale, state: "published").first
+        ContentItem.exists?(content_id: content_id, locale: locale, state: "published")
       end
 
       def pessimistic_content_item_scope
-        ContentItem.where(content_id: content_id).lock
+        ContentItem.where(content_id: content_id, locale: locale).lock
       end
 
-      def clear_published_items_of_same_locale_and_base_path(content_item, translation, location)
+      def clear_published_items_of_same_locale_and_base_path(content_item, locale, base_path)
         SubstitutionHelper.clear!(
           new_item_document_type: content_item.document_type,
           new_item_content_id: content_item.content_id,
           state: "published",
-          locale: translation.locale,
-          base_path: location.base_path,
+          locale: locale,
+          base_path: base_path,
           downstream: downstream,
           callbacks: callbacks,
           nested: true,
@@ -127,16 +126,18 @@ module Commands
         content_item.update_attributes!(first_published_at: Time.zone.now)
       end
 
-      def publish_redirect(previous_location, translation)
-        draft_redirect = ContentItemFilter
-          .filter(state: "draft", locale: translation.locale, base_path: previous_location.base_path)
-          .where(schema_name: "redirect")
-          .first
+      def publish_redirect(previous_base_path, locale)
+        draft_redirect = ContentItem.find_by(
+          state: "draft",
+          locale: locale,
+          base_path: previous_base_path,
+          schema_name: "redirect",
+        )
 
         self.class.call(
           {
             content_id: draft_redirect.content_id,
-            locale: translation.locale,
+            locale: locale,
             update_type: "major",
           },
           downstream: downstream,
@@ -145,13 +146,12 @@ module Commands
         ) if draft_redirect
       end
 
-      def lookup_previous_item(content_item)
-        previous_items = ContentItemFilter.similar_to(
-          content_item,
+      def lookup_previous_item
+        previous_items = ContentItem.where(
+          content_id: content_id,
+          locale: locale,
           state: %w(published unpublished),
-          base_path: nil,
-          user_version: nil,
-        ).to_a
+        )
 
         if previous_items.size > 1
           raise "There should only be one previous published or unpublished item"

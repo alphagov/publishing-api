@@ -18,15 +18,10 @@ RSpec.describe DataHygiene::DuplicateContentItem::BasePathForState do
     }.merge(options.except(:state, :base_path))
     content_item = FactoryGirl.create(:superseded_content_item, factory_options)
 
-    if options[:state]
-      State.find_by(content_item: content_item)
-        .update_attribute(:name, options[:state])
-    end
-
-    if options[:base_path]
-      Location.find_by(content_item: content_item)
-        .update_attribute(:base_path, options[:base_path])
-    end
+    update = {}
+    update[:state] = options[:state] if options[:state]
+    update[:base_path] = options[:base_path] if options[:base_path]
+    content_item.update_columns(update) unless update.empty?
 
     content_item
   end

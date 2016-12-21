@@ -18,31 +18,21 @@ module Presenters
 
       attr_reader :content_id, :state_fallback_order, :expanded_translations
 
-      def scope
-        scope = ContentItem.where(content_id: content_id)
-        scope = State.join_content_items(scope)
-        scope = Translation.join_content_items(scope)
-        scope.select(*%w(id translations.locale name))
-      end
-
-      def filter_states
-        scope.where("states.name" => state_fallback_order)
-      end
-
       def grouped_translations
-        filter_states
-          .sort_by { |item| state_fallback_order.index(item.name.to_sym) }
-          .group_by(&:locale)
+        ContentItem.where(content_id: content_id, state: state_fallback_order)
+          .pluck(:id, :locale, :state)
+          .sort_by { |(_, _, state)| state_fallback_order.index(state.to_sym) }
+          .group_by { |(_, locale)| locale }
       end
 
-      def expand_translation(item)
+      def expand_translation(id)
         expansion_rules = ::Queries::DependentExpansionRules
-        web_item = ::Queries::GetWebContentItems.call(item.id).first
+        web_item = ::Queries::GetWebContentItems.call(id).first
         web_item.to_h.select { |f| expansion_rules.expansion_fields(:available_translations).include?(f) }
       end
 
       def expanded_translations
-        @expanded_translations ||= grouped_translations.map { |_, items| expand_translation(items.first) }
+        @expanded_translations ||= grouped_translations.map { |_, (id)| expand_translation(id) }
       end
     end
   end

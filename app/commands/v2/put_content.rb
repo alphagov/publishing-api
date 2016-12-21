@@ -18,6 +18,8 @@ module Commands
         if content_item
           update_existing_content_item(content_item)
         else
+          clear_draft_items_of_same_locale_and_base_path if content_with_base_path?
+
           content_item = create_content_item
           fill_out_new_content_item(content_item)
         end
@@ -40,11 +42,6 @@ module Commands
     private
 
       def fill_out_new_content_item(content_item)
-        if content_with_base_path?
-          clear_draft_items_of_same_locale_and_base_path(
-            content_item, locale, base_path)
-        end
-
         create_supporting_objects(content_item)
         ensure_link_set_exists(content_item)
 
@@ -53,14 +50,12 @@ module Commands
         if previously_published_item != ITEM_NOT_FOUND
           set_first_published_at(content_item, previously_published_item)
 
-          previous_location = Location.find_by(content_item: previously_published_item)
+          previous_base_path = previously_published_item.base_path
           previous_routes = previously_published_item.routes
 
-          if path_has_changed?(previous_location)
-            from_path = previous_location.base_path
-
+          if path_has_changed?(previous_base_path)
             create_redirect(
-              from_path: from_path,
+              from_path: previous_base_path,
               to_path: base_path,
               routes: previous_routes,
             )
@@ -76,9 +71,9 @@ module Commands
         version = check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
         if content_with_base_path?
-          clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+          clear_draft_items_of_same_locale_and_base_path
 
-          previous_location = Location.find_by!(content_item: content_item)
+          previous_base_path = content_item.base_path
           previous_routes = content_item.routes
         end
 
@@ -87,12 +82,9 @@ module Commands
 
         increment_lock_version(version)
 
-        if path_has_changed?(previous_location)
-          from_path = previous_location.base_path
-          update_path(previous_location, new_path: base_path)
-
+        if path_has_changed?(previous_base_path)
           create_redirect(
-            from_path: from_path,
+            from_path: previous_base_path,
             to_path: base_path,
             routes: previous_routes,
           )
@@ -114,14 +106,16 @@ module Commands
       end
 
       def find_previously_drafted_content_item
-        filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
-        filter.filter(locale: locale, state: "draft").first
+        ContentItem.find_by(
+          id: pessimistic_content_item_scope.pluck(:id),
+          state: "draft",
+        )
       end
 
-      def clear_draft_items_of_same_locale_and_base_path(content_item, locale, base_path)
+      def clear_draft_items_of_same_locale_and_base_path
         SubstitutionHelper.clear!(
-          new_item_document_type: content_item.document_type,
-          new_item_content_id: content_item.content_id,
+          new_item_document_type: document_type,
+          new_item_content_id: content_id,
           state: "draft",
           locale: locale,
           base_path: base_path,
@@ -136,18 +130,16 @@ module Commands
       end
 
       def create_content_item
-        ContentItem.create!(content_item_attributes_from_payload)
+        attributes = content_item_attributes_from_payload.merge(
+          locale: locale,
+          state: "draft",
+          user_facing_version: user_facing_version_number_for_new_draft,
+        )
+        ContentItem.create!(attributes)
       end
 
       def create_supporting_objects(content_item)
-        State.create!(content_item: content_item, name: "draft")
-        Translation.create!(content_item: content_item, locale: locale)
-        UserFacingVersion.create!(content_item: content_item, number: user_facing_version_number_for_new_draft)
         LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
-
-        if content_with_base_path?
-          Location.create!(content_item: content_item, base_path: base_path)
-        end
       end
 
       def ensure_link_set_exists(content_item)
@@ -169,19 +161,23 @@ module Commands
 
       def user_facing_version_number_for_new_draft
         if previously_published_item != ITEM_NOT_FOUND
-          user_facing_version = UserFacingVersion.find_by!(content_item: previously_published_item)
-          user_facing_version.number + 1
+          previously_published_item.user_facing_version + 1
         else
           1
         end
       end
 
+      def pessimistic_content_item_scope
+        ContentItem.where(content_id: content_id, locale: locale).lock
+      end
+
       def previously_published_item
-        @previously_published_item ||= (
-          filter = ContentItemFilter.new(scope: pessimistic_content_item_scope)
-          content_items = filter.filter(state: %w(published unpublished), locale: locale)
-          UserFacingVersion.latest(content_items)
-        ) || ITEM_NOT_FOUND
+        @previously_published_item ||=
+          ContentItem.find_by(
+            content_id: content_id,
+            state: %w(published unpublished),
+            locale: locale,
+          ) || ITEM_NOT_FOUND
       end
 
       def set_first_published_at(content_item, previously_published_item)
@@ -192,21 +188,17 @@ module Commands
         end
       end
 
-      def pessimistic_content_item_scope
-        ContentItem.where(content_id: content_id).lock
-      end
-
-      def path_has_changed?(location)
+      def path_has_changed?(previous_base_path)
         return false unless content_with_base_path?
-        location.base_path != base_path
-      end
-
-      def update_path(location, new_path:)
-        location.update_attributes!(base_path: new_path)
+        previous_base_path != base_path
       end
 
       def content_id
         payload.fetch(:content_id)
+      end
+
+      def document_type
+        payload[:document_type]
       end
 
       def base_path
@@ -230,7 +222,13 @@ module Commands
       end
 
       def update_content_item(content_item)
-        content_item.assign_attributes_with_defaults(content_item_attributes_from_payload)
+        content_item.assign_attributes_with_defaults(
+          content_item_attributes_from_payload.merge(
+            locale: locale,
+            state: "draft",
+            user_facing_version: content_item.user_facing_version,
+          )
+        )
         content_item.save!
       end
 

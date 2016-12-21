@@ -6,10 +6,9 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
   let!(:unpublished_1) do
     FactoryGirl.create(
-      :unpublished_content_item,
+      :superseded_content_item,
       content_id: content_id,
       user_facing_version: 1,
-      state: "superseded",
     )
   end
 
@@ -23,10 +22,9 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
   let!(:unpublished_2) do
     FactoryGirl.create(
-      :unpublished_content_item,
+      :superseded_content_item,
       content_id: content_id,
       user_facing_version: 3,
-      state: "superseded",
     )
   end
 
@@ -39,7 +37,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
   end
 
   before do
-    State.where(content_item: [unpublished_1, unpublished_2]).update_all(name: "unpublished")
+    ContentItem.where(id: [unpublished_1.id, unpublished_2.id]).update_all(state: "unpublished")
   end
 
   it "supersedes all but the latest published or unpublished item" do
@@ -50,7 +48,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
       published,
       unpublished_2,
       draft
-    ].map { |c| State.find_by!(content_item: c).name }
+    ].map(&:reload).map(&:state)
 
     expect(state_names).to eq %w(
       superseded
@@ -70,8 +68,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
     subject.run
 
-    state_name = State.find_by!(content_item: french_item).name
-    expect(state_name).to eq("published")
+    expect(french_item.state).to eq("published")
   end
 
   it "returns a count of states that have been superseded" do
