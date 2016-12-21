@@ -18,7 +18,8 @@ module Queries
         .joins(:link_set)
         .pluck(:content_id)
 
-      content_items = ContentItem.where(content_id: content_ids)
+      content_items = ContentItem.joins(:document)
+        .where('documents.content_id': content_ids)
 
       presented = presenter.present_many(content_items, fields: fields)
       presented.map { |p| filter_fields(p).as_json }
@@ -29,8 +30,8 @@ module Queries
     attr_accessor :target_content_id, :link_type, :fields
 
     def validate_presence_of_item!
-      return if ContentItem.exists?(
-        content_id: target_content_id,
+      return if ContentItem.joins(:document).exists?(
+        'documents.content_id': target_content_id,
         state: %w(draft published),
       )
 
