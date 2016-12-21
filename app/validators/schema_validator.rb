@@ -31,7 +31,7 @@ private
   rescue Errno::ENOENT => error
     if Rails.env.development?
       errors << missing_schema_message
-      errors << dev_help
+      errors << dev_help if GovukSchemas::Schema.all.empty?
     end
     Airbrake.notify(error, parameters: {
       explanation: missing_schema_message,
