@@ -128,6 +128,7 @@ RSpec.describe Commands::V2::PutContent do
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
         expect(content_item.state).to eq("draft")
+        expect(content_item.content_store).to eq("draft")
         expect(LockVersion.find_by!(target: content_item).number).to eq(3)
       end
 
@@ -331,6 +332,13 @@ RSpec.describe Commands::V2::PutContent do
         previously_drafted_item.reload
 
         expect(previously_drafted_item.title).to eq("Some Title")
+      end
+
+      it "keeps the content_store as draft" do
+        described_class.call(payload)
+        previously_drafted_item.reload
+
+        expect(previously_drafted_item.content_store).to eq("draft")
       end
 
       it "keeps the first_published_at timestamp if present" do
