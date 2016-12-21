@@ -6,16 +6,18 @@ module Queries
       state_fallback_order = Array(state_fallback_order).map(&:to_s)
       locale_fallback_order = Array(locale_fallback_order).map(&:to_s)
 
+      documents = Document.arel_table
       content_items = ContentItem.arel_table
       unpublishings = Unpublishing.arel_table
 
       fallback_scope = content_items.project(
-        content_items[:id],
-            content_items[:content_id],
+            content_items[:id],
+            documents[:content_id],
           )
-          .where(content_items[:content_id].in(content_ids))
+          .where(documents[:content_id].in(content_ids))
           .where(content_items[:document_type].not_in(::ContentItem::NON_RENDERABLE_FORMATS))
-          .where(content_items[:locale].in(locale_fallback_order))
+          .where(documents[:locale].in(locale_fallback_order))
+          .join(documents).on(documents[:id].eq(content_items[:document_id]))
 
       if state_fallback_order.include?("withdrawn")
         fallback_scope = fallback_scope.where(content_items[:state].in(state_fallback_order).or(content_items[:state]
@@ -29,7 +31,7 @@ module Queries
 
       fallback_scope = fallback_scope.order(
         order_by_clause(:content_items, :state, state_fallback_order),
-        order_by_clause(:content_items, :locale, locale_fallback_order)
+        order_by_clause(:documents, :locale, locale_fallback_order)
       )
 
       fallbacks = cte(fallback_scope, as: "fallbacks")
