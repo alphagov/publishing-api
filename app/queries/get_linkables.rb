@@ -28,9 +28,9 @@ module Queries
       Rails.cache.fetch ["linkables", document_type, latest_updated_at] do
         Queries::GetWebContentItems.(
           Queries::GetContentItemIdsWithFallbacks.(
-            ContentItem.distinct.where(
+            ContentItem.distinct.joins(:document).where(
               document_type: [document_type, "placeholder_#{document_type}"]
-            ).pluck(:content_id),
+            ).pluck('documents.content_id'),
             state_fallback_order: [:published, :draft]
           ),
           LinkablePresenter
