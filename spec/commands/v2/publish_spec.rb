@@ -6,19 +6,19 @@ RSpec.describe Commands::V2::Publish do
     let(:locale) { "en" }
     let(:user_facing_version) { 5 }
 
+    let!(:document) { FactoryGirl.create(:document, locale: locale) }
+
     let!(:draft_item) do
       FactoryGirl.create(
         :draft_content_item,
-        content_id: content_id,
+        document: document,
         lock_version: 2,
         base_path: base_path,
-        locale: locale,
         user_facing_version: user_facing_version,
       )
     end
 
     let(:expected_content_store_payload) { { base_path: base_path } }
-    let(:content_id) { SecureRandom.uuid }
 
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
@@ -32,7 +32,7 @@ RSpec.describe Commands::V2::Publish do
 
     let(:payload) do
       {
-        content_id: content_id,
+        content_id: document.content_id,
         update_type: "major",
         previous_version: 2,
       }
@@ -74,7 +74,7 @@ RSpec.describe Commands::V2::Publish do
 
       let!(:live_item) do
         FactoryGirl.create(:live_content_item,
-          content_id: draft_item.content_id,
+          document: draft_item.document,
           base_path: existing_base_path,
           user_facing_version: user_facing_version - 1,
         )
@@ -91,7 +91,7 @@ RSpec.describe Commands::V2::Publish do
     context "when the content item was previously unpublished" do
       let!(:live_item) do
         FactoryGirl.create(:unpublished_content_item,
-          content_id: draft_item.content_id,
+          document: draft_item.document,
           base_path: base_path,
           user_facing_version: user_facing_version - 1,
         )
@@ -162,7 +162,7 @@ RSpec.describe Commands::V2::Publish do
         described_class.call(payload)
         expect(Action.count).to be 1
         expect(Action.first.attributes).to match a_hash_including(
-          "content_id" => content_id,
+          "content_id" => document.content_id,
           "locale" => locale,
           "action" => "Publish",
         )
@@ -211,7 +211,7 @@ RSpec.describe Commands::V2::Publish do
             public_updated_at = Time.zone.now - 2.years
 
             FactoryGirl.create(:live_content_item,
-              content_id: draft_item.content_id,
+              document: draft_item.document,
               public_updated_at: public_updated_at,
               base_path: base_path,
             )
@@ -225,7 +225,7 @@ RSpec.describe Commands::V2::Publish do
             public_updated_at = Time.zone.now - 2.years
 
             FactoryGirl.create(:unpublished_content_item,
-              content_id: draft_item.content_id,
+              document: draft_item.document,
               public_updated_at: public_updated_at,
               base_path: base_path,
             )
@@ -299,7 +299,7 @@ RSpec.describe Commands::V2::Publish do
     context "when the base_path differs from the previously published item" do
       let!(:live_item) do
         FactoryGirl.create(:live_content_item,
-          content_id: draft_item.content_id,
+          document: draft_item.document,
           base_path: "/hat-rates",
         )
       end
@@ -313,9 +313,9 @@ RSpec.describe Commands::V2::Publish do
       it "publishes the redirect already created, from the old location to the new location" do
         described_class.call(payload)
 
-        redirect = ContentItem.find_by(
+        redirect = ContentItem.joins(:document).find_by(
           base_path: "/hat-rates",
-          locale: "en",
+          "documents.locale": "en",
           state: "published",
         )
 
@@ -371,7 +371,7 @@ RSpec.describe Commands::V2::Publish do
       context "but a published item does exist" do
         before do
           FactoryGirl.create(:live_content_item,
-            content_id: content_id,
+            document: document,
             base_path: base_path,
           )
         end
@@ -389,8 +389,7 @@ RSpec.describe Commands::V2::Publish do
 
   context "for a pathless content item format" do
     let(:pathless_content_item) do
-      FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(:draft_content_item,
         document_type: "contact",
         user_facing_version: 2,
         base_path: nil,
@@ -415,9 +414,8 @@ RSpec.describe Commands::V2::Publish do
 
       context "with a previously published item" do
         let!(:live_content_item) do
-          FactoryGirl.create(
-            :live_content_item,
-            content_id: pathless_content_item.content_id,
+          FactoryGirl.create(:live_content_item,
+            document: pathless_content_item.document,
             document_type: "contact",
             user_facing_version: 1,
           )

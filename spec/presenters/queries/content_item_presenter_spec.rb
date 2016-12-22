@@ -113,7 +113,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       let(:fields) { %w(title phase publication_state) }
 
       it "returns the requested fields" do
-        content_items = ContentItem.where(content_id: content_id)
+        content_items = ContentItem.joins(:document)
+          .where("documents.content_id": content_id)
 
         results = described_class.present_many(content_items, fields: fields)
         expect(results.first.keys).to match_array(%w(title phase publication_state))
@@ -126,7 +127,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
 
       it "presents a content item for each locale" do
-        content_items = ContentItem.where(content_id: content_id)
+        content_items = ContentItem.joins(:document)
+          .where("documents.content_id": content_id)
 
         results = described_class.present_many(content_items)
         locales = results.map { |r| r.fetch("locale") }
@@ -148,7 +150,9 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         )
       end
 
-      let(:content_items) { ContentItem.where(content_id: content_id) }
+      let(:content_items) do
+        ContentItem.joins(:document).where("documents.content_id": content_id)
+      end
 
       it "returns a versioned history of states for the content item" do
         results = described_class.present_many(content_items)
@@ -173,7 +177,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     let(:scope) do
-      ContentItem.where(content_id: content_id)
+      ContentItem.joins(:document).where("documents.content_id": content_id)
     end
 
     context "when include_warnings is false" do
@@ -200,10 +204,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       context "with a blocking content item" do
         before do
           @blocking_content_item = FactoryGirl.create(:live_content_item,
-            content_id: SecureRandom.uuid,
             base_path: base_path,
             user_facing_version: 1,
-            locale: "en",
           )
         end
 
