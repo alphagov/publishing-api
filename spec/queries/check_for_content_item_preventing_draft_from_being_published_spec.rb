@@ -166,5 +166,43 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
         expect(subject).to eq(@blocking_content_item.id)
       end
     end
+
+    context "with no base_path" do
+      let(:base_path) { nil }
+
+      let!(:blocking_content_item) do
+        FactoryGirl.create(:live_content_item,
+          content_id: SecureRandom.uuid,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+          locale: "en",
+        )
+      end
+
+      let!(:blocking_content_item_2) do
+        FactoryGirl.create(:live_content_item,
+          content_id: SecureRandom.uuid,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+          locale: "en",
+        )
+      end
+
+      let!(:content) do
+        FactoryGirl.create(:draft_content_item,
+          content_id: content_id,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+          locale: "en",
+        )
+      end
+
+      it "doesn't raise any errors" do
+        expect { subject }.to_not raise_error
+      end
+    end
   end
 end
