@@ -47,8 +47,8 @@ module DataHygiene
 
       def sql
         <<-SQL
-          SELECT content_items.content_id,
-            content_items.locale,
+          SELECT documents.content_id,
+            documents.locale,
             CASE content_items.state
               WHEN 'draft' THEN 'draft' ELSE 'live'
             END AS state_content_store,
@@ -57,8 +57,9 @@ module DataHygiene
               ORDER BY content_items.updated_at DESC
             ) as content_items
           FROM content_items
+          JOIN documents ON documents.id = content_items.document_id
           WHERE content_items.state IN ('draft', 'published', 'unpublished')
-          GROUP BY content_items.content_id, content_items.locale, state_content_store
+          GROUP BY documents.content_id, documents.locale, state_content_store
           HAVING COUNT(*) > 1
         SQL
       end

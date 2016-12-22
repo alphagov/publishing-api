@@ -54,7 +54,7 @@ module DataHygiene
               THEN 'draft'
               ELSE 'live'
             END AS state_content_store,
-            ARRAY_AGG(DISTINCT content_items.content_id) as content_ids,
+            ARRAY_AGG(DISTINCT documents.content_id) as content_ids,
             ARRAY_AGG(
               ROW(content_items.id, content_items.updated_at)
               ORDER BY content_items.updated_at DESC
@@ -63,6 +63,7 @@ module DataHygiene
           LEFT JOIN unpublishings
             ON content_items.state = 'unpublished'
             AND unpublishings.content_item_id = content_items.id
+          JOIN documents ON documents.id = content_items.document_id
           WHERE content_items.base_path IS NOT NULL
             AND content_items.state IN ('draft', 'published', 'unpublished')
             AND (unpublishings.type IS NULL OR unpublishings.type != 'substitute')
