@@ -45,7 +45,8 @@ RSpec.describe "Unpublishing Content Items" do
     end
 
     it "unpublishes the content item" do
-      content_items = ContentItem.where(content_id: content_id)
+      content_items = ContentItem.joins(:document)
+        .where("documents.content_id": content_id)
       expect(content_items.count).to eq(1)
 
       unpublished_item = content_items.last
@@ -61,7 +62,8 @@ RSpec.describe "Unpublishing Content Items" do
       end
 
       it "unpublishes the new content item and supersedes the old content item" do
-        content_items = ContentItem.where(content_id: content_id)
+        content_items = ContentItem.joins(:document)
+          .where("documents.content_id": content_id)
         expect(content_items.count).to eq(2)
 
         superseded_item = content_items.first
