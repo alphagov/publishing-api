@@ -107,6 +107,31 @@ RSpec.describe ContentItem do
       end
     end
 
+    context "base_path" do
+      it "should be an absolute path" do
+        subject.base_path = 'invalid//absolute/path/'
+        expect(subject).to be_invalid
+        expect(subject.errors[:base_path].size).to eq(1)
+      end
+    end
+
+    context "when another content item has the same base path" do
+      before { FactoryGirl.create(:draft_content_item, base_path: "/foo") }
+
+      let(:content_item) do
+        FactoryGirl.build(:content_item, base_path: "/foo", state: "draft")
+      end
+      subject { content_item }
+
+      it { is_expected.to be_invalid }
+
+      context "and the state is different" do
+        before { content_item.state = "published" }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
     context "phase" do
       it "defaults to live" do
         expect(described_class.new.phase).to eq("live")
@@ -129,6 +154,124 @@ RSpec.describe ContentItem do
         subject.phase = "not-a-correct-phase"
         expect(subject).to_not be_valid
       end
+    end
+
+    context "when the state conflicts with another instance of this content item" do
+      subject { content_item }
+      let(:existing_content_item) do
+        FactoryGirl.create(:draft_content_item, user_facing_version: 2)
+      end
+      let(:content_item) do
+        FactoryGirl.build(
+          :draft_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 1
+        )
+      end
+
+      it { is_expected.to be_invalid }
+
+      context "and the states are different" do
+        before { content_item.state = "published" }
+
+        it { is_expected.to be_valid }
+      end
+
+      context "and the locales are different" do
+        before { content_item.locale = "fr" }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    context "when the user facing version conflicts with another instance of this content item" do
+      subject { content_item }
+      let(:existing_content_item) { FactoryGirl.create(:draft_content_item) }
+      let(:content_item) do
+        FactoryGirl.build(
+          :draft_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 1
+        )
+      end
+
+      it { is_expected.to be_invalid }
+
+      context "and the locales are different" do
+        before { content_item.locale = "fr" }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    context "when the draft user_facing_version is ahead of the live one" do
+      subject { content_item }
+      let(:existing_content_item) do
+        FactoryGirl.create(:live_content_item, user_facing_version: 1)
+      end
+      let(:content_item) do
+        FactoryGirl.build(
+          :draft_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 2
+        )
+      end
+
+      it { is_expected.to be_valid }
+    end
+
+    context "when the draft user_facing_version is behind the live one" do
+      subject { content_item }
+      let(:existing_content_item) do
+        FactoryGirl.create(:draft_content_item, user_facing_version: 1)
+      end
+      let(:content_item) do
+        FactoryGirl.build(
+          :live_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 2
+        )
+      end
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when the live user_facing_version is ahead of the draft one" do
+      subject { content_item }
+      let(:existing_content_item) do
+        FactoryGirl.create(:live_content_item, user_facing_version: 2)
+      end
+      let(:content_item) do
+        FactoryGirl.build(
+          :draft_content_item,
+          content_id: existing_content_item.content_id,
+          user_facing_version: 1
+        )
+      end
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when user_facing_version is incremented" do
+      subject { content_item }
+      let(:content_item) { FactoryGirl.create(:content_item) }
+
+      before { content_item.user_facing_version += 1 }
+      it { is_expected.to be_valid }
+    end
+
+    context "when user_facing_version is decremented" do
+      subject { content_item }
+      let(:content_item) { FactoryGirl.create(:content_item) }
+
+      before { content_item.user_facing_version -= 1 }
+      it { is_expected.to be_invalid }
+    end
+
+    describe "routes and redirects" do
+      subject { content_item }
+      let(:content_item) { FactoryGirl.build(:content_item, base_path: "/vat-rates") }
+      it_behaves_like RoutesAndRedirectsValidator
     end
   end
 
@@ -206,4 +349,40 @@ RSpec.describe ContentItem do
   it_behaves_like DefaultAttributes
   it_behaves_like WellFormedContentTypesValidator
   it_behaves_like DescriptionOverrides
+
+  context "#publish" do
+    it "changes the content_store to live" do
+      expect { subject.publish }.to change { subject.content_store }.from("draft").to("live")
+    end
+
+    it "changes the state to published" do
+      expect { subject.publish }.to change { subject.state }.from("draft").to("published")
+    end
+  end
+
+  context "#supersede" do
+    it "changes the content_store to nil" do
+      expect { subject.supersede }.to change { subject.content_store }.from("draft").to(nil)
+    end
+
+    it "changes the state to superseded" do
+      expect { subject.supersede }.to change { subject.state }.from("draft").to("superseded")
+    end
+  end
+
+  context "#unpublish" do
+    subject { FactoryGirl.build(:live_content_item) }
+
+    it "changes the content_store to nil when type substitute" do
+      expect { subject.unpublish(type: "substitute") }.to change { subject.content_store }.from("live").to(nil)
+    end
+
+    it "leaves the content_store as live with a type of anything else" do
+      expect { subject.unpublish(type: "gone") }.to_not change { subject.content_store }
+    end
+
+    it "changes the state to unpublished" do
+      expect { subject.unpublish(type: "substitute") }.to change { subject.state }.from("published").to("unpublished")
+    end
+  end
 end

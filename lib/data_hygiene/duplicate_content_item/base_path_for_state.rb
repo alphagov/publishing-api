@@ -48,8 +48,8 @@ module DataHygiene
 
       def sql
         <<-SQL
-          SELECT locations.base_path,
-            CASE states.name
+          SELECT content_items.base_path,
+            CASE content_items.state
               WHEN 'draft'
               THEN 'draft'
               ELSE 'live'
@@ -60,17 +60,13 @@ module DataHygiene
               ORDER BY content_items.updated_at DESC
             ) as content_items
           FROM content_items
-          INNER JOIN locations
-            ON locations.content_item_id = content_items.id
-          INNER JOIN states
-            ON states.content_item_id = content_items.id
           LEFT JOIN unpublishings
-            ON states.name = 'unpublished'
+            ON content_items.state = 'unpublished'
             AND unpublishings.content_item_id = content_items.id
-          WHERE locations.base_path IS NOT NULL
-            AND states.name IN ('draft', 'published', 'unpublished')
+          WHERE content_items.base_path IS NOT NULL
+            AND content_items.state IN ('draft', 'published', 'unpublished')
             AND (unpublishings.type IS NULL OR unpublishings.type != 'substitute')
-          GROUP BY locations.base_path, state_content_store
+          GROUP BY content_items.base_path, state_content_store
           HAVING COUNT(*) > 1
         SQL
       end

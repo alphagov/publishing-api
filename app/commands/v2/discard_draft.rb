@@ -6,14 +6,12 @@ module Commands
 
         check_version_and_raise_if_conflicting(draft, payload[:previous_version])
 
-        draft_path = Location.where(content_item: draft).pluck(:base_path).first
-
         delete_supporting_objects
         delete_draft_from_database
         increment_live_lock_version if live
 
         after_transaction_commit do
-          downstream_discard_draft(draft_path, draft.content_id, locale)
+          downstream_discard_draft(draft.base_path, draft.content_id, locale)
         end
 
         Action.create_discard_draft_action(draft, locale, event)
@@ -49,9 +47,9 @@ module Commands
       end
 
       def delete_supporting_objects
+        Location.find_by(content_item: draft).try(:destroy)
         State.find_by(content_item: draft).try(:destroy)
         Translation.find_by(content_item: draft).try(:destroy)
-        Location.find_by(content_item: draft).try(:destroy)
         UserFacingVersion.find_by(content_item: draft).try(:destroy)
         LockVersion.find_by(target: draft).try(:destroy)
         AccessLimit.find_by(content_item: draft).try(:destroy)
@@ -65,17 +63,19 @@ module Commands
       end
 
       def draft
-        @draft ||= ContentItemFilter.new(scope: ContentItem.where(content_id: content_id)).filter(
+        @draft ||= ContentItem.find_by(
+          content_id: content_id,
           locale: locale,
           state: "draft",
-        ).first
+        )
       end
 
       def live
-        @live ||= ContentItemFilter.new(scope: ContentItem.where(content_id: content_id)).filter(
+        @live ||= ContentItem.find_by(
+          content_id: content_id,
           locale: locale,
           state: %w(published unpublished),
-        ).first
+        )
       end
 
       def content_id

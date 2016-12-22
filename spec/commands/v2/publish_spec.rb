@@ -83,8 +83,8 @@ RSpec.describe Commands::V2::Publish do
       it "marks the previously published item as 'superseded'" do
         described_class.call(payload)
 
-        state = State.find_by!(content_item: live_item)
-        expect(state.name).to eq("superseded")
+        new_item = ContentItem.find(live_item.id)
+        expect(new_item.state).to eq("superseded")
       end
     end
 
@@ -100,13 +100,13 @@ RSpec.describe Commands::V2::Publish do
       it "marks the previously unpublished item as 'superseded'" do
         described_class.call(payload)
 
-        state = State.find_by!(content_item: live_item)
-        expect(state.name).to eq("superseded")
+        new_item = ContentItem.find(live_item.id)
+        expect(new_item.state).to eq("superseded")
       end
     end
 
     context "with another content item blocking the publish action" do
-      let(:draft_locale) { Translation.find_by!(content_item: draft_item).locale }
+      let(:draft_locale) { draft_item.locale }
 
       let!(:other_content_item) do
         FactoryGirl.create(:redirect_live_content_item,
@@ -118,14 +118,11 @@ RSpec.describe Commands::V2::Publish do
       it "unpublishes the content item which is in the way" do
         described_class.call(payload)
 
-        state = State.find_by!(content_item: other_content_item)
-        expect(state.name).to eq("unpublished")
+        updated_other_content_item = ContentItem.find(other_content_item.id)
 
-        translation = Translation.find_by!(content_item: other_content_item)
-        expect(translation.locale).to eq(draft_locale)
-
-        location = Location.find_by!(content_item: other_content_item)
-        expect(location.base_path).to eq(base_path)
+        expect(updated_other_content_item.state).to eq("unpublished")
+        expect(updated_other_content_item.locale).to eq(draft_locale)
+        expect(updated_other_content_item.base_path).to eq(base_path)
       end
     end
 
@@ -145,8 +142,8 @@ RSpec.describe Commands::V2::Publish do
       it "changes the state of the draft item to 'published'" do
         described_class.call(payload)
 
-        state = State.find_by!(content_item: draft_item)
-        expect(state.name).to eq("published")
+        updated_draft_item = ContentItem.find(draft_item.id)
+        expect(updated_draft_item.state).to eq("published")
       end
 
       it "sends downstream asynchronously" do
@@ -316,11 +313,11 @@ RSpec.describe Commands::V2::Publish do
       it "publishes the redirect already created, from the old location to the new location" do
         described_class.call(payload)
 
-        redirect = ContentItemFilter.filter(
+        redirect = ContentItem.find_by(
           base_path: "/hat-rates",
           locale: "en",
           state: "published",
-        ).first
+        )
 
         expect(redirect).to be_present
         expect(redirect.schema_name).to eq("redirect")
@@ -329,8 +326,8 @@ RSpec.describe Commands::V2::Publish do
       it "supersedes the previously published item" do
         described_class.call(payload)
 
-        state = State.find_by!(content_item: live_item)
-        expect(state.name).to eq("superseded")
+        updated_item = ContentItem.find(live_item.id)
+        expect(updated_item.state).to eq("superseded")
       end
     end
 
@@ -396,6 +393,7 @@ RSpec.describe Commands::V2::Publish do
         :draft_content_item,
         document_type: "contact",
         user_facing_version: 2,
+        base_path: nil,
       )
     end
 
@@ -408,16 +406,11 @@ RSpec.describe Commands::V2::Publish do
     end
 
     context "with no Location" do
-      before do
-        location = Location.find_by(content_item: pathless_content_item)
-        location.destroy
-      end
-
       it "publishes the item" do
         described_class.call(payload)
 
-        state = State.find_by!(content_item: pathless_content_item)
-        expect(state.name).to eq("published")
+        updated_item = ContentItem.find(pathless_content_item.id)
+        expect(updated_item.state).to eq("published")
       end
 
       context "with a previously published item" do
@@ -433,8 +426,8 @@ RSpec.describe Commands::V2::Publish do
         it "publishes the draft" do
           described_class.call(payload)
 
-          state = State.find_by!(content_item: pathless_content_item)
-          expect(state.name).to eq("published")
+          updated_item = ContentItem.find(pathless_content_item.id)
+          expect(updated_item.state).to eq("published")
         end
       end
     end

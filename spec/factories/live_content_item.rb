@@ -1,10 +1,11 @@
 FactoryGirl.define do
   factory :live_content_item, parent: :content_item do
-    content_store 'live'
+    user_facing_version 1
+    state "published"
+    content_store "live"
+
     transient do
-      user_facing_version 1
       draft_version_number 2
-      state "published"
     end
 
     trait :with_draft do

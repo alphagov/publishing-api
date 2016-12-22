@@ -17,13 +17,6 @@ package "Event Log" {
   class Event
 }
 
-package "Uniqueness Constraint" {
-  class Location
-  class Translation
-  class State
-  class UserFacingVersion
-}
-
 package "Access Control" {
   class AccessLimit
   class User
@@ -33,12 +26,8 @@ ContentItem <-- LinkSet
 ContentItem <-up- Link
 LinkSet *--> Link
 
-ContentItem <-- Location
-ContentItem <-- Translation
-ContentItem <-- State
 ContentItem <.. LockVersion
 
-ContentItem <-- UserFacingVersion
 ContentItem <-down- AccessLimit
 LockVersion ..> LinkSet
 AccessLimit o--> User

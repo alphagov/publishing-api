@@ -13,8 +13,8 @@ RSpec.describe "Substituting content that is not published" do
       title: "Some Title",
       publishing_app: "publisher",
       rendering_app: "frontend",
-      schema_name: "guide",
       document_type: "guide",
+      schema_name: "guide",
       locale: "en",
       routes: [{ path: "/vat-rates", type: "exact" }],
       redirects: [],
@@ -28,8 +28,8 @@ RSpec.describe "Substituting content that is not published" do
     {
       content_id: another_content_id,
       base_path: gone_base_path,
-      schema_name: "gone",
       document_type: "gone",
+      schema_name: "gone",
       publishing_app: "publisher",
       routes: [{ path: gone_base_path, type: "exact" }],
     }
@@ -54,10 +54,9 @@ RSpec.describe "Substituting content that is not published" do
       expect(ContentItem.count).to eq(1)
 
       content_item = ContentItem.first
-      state = State.find_by!(content_item: content_item)
 
       expect(content_item.document_type).to eq("gone")
-      expect(state.name).to eq("draft")
+      expect(content_item.state).to eq("draft")
     end
 
     describe "after the second substitution" do
@@ -69,10 +68,9 @@ RSpec.describe "Substituting content that is not published" do
         expect(ContentItem.count).to eq(1)
 
         content_item = ContentItem.first
-        state = State.find_by!(content_item: content_item)
 
         expect(content_item.document_type).to eq("guide")
-        expect(state.name).to eq("draft")
+        expect(content_item.state).to eq("draft")
       end
 
       describe "after the third substitution" do
@@ -84,10 +82,9 @@ RSpec.describe "Substituting content that is not published" do
           expect(ContentItem.count).to eq(1)
 
           content_item = ContentItem.first
-          state = State.find_by!(content_item: content_item)
 
           expect(content_item.document_type).to eq("gone")
-          expect(state.name).to eq("draft")
+          expect(content_item.state).to eq("draft")
         end
       end
     end
@@ -107,11 +104,8 @@ RSpec.describe "Substituting content that is not published" do
       guide_item = ContentItem.first
       gone_item = ContentItem.second
 
-      guide_state = State.find_by!(content_item: guide_item)
-      gone_state = State.find_by!(content_item: gone_item)
-
-      expect(guide_state.name).to eq("draft")
-      expect(gone_state.name).to eq("draft")
+      expect(guide_item.state).to eq("draft")
+      expect(gone_item.state).to eq("draft")
     end
   end
 end

@@ -18,28 +18,28 @@ RSpec.describe Commands::V2::RepresentDownstream do
       it "sends to downstream live worker" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .exactly(3).times
-        subject.call(ContentItem.all, false)
+        subject.call(ContentItem.pluck(:content_id), false)
       end
 
       it "uses 'downstream_low' queue" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with("downstream_low", anything)
           .at_least(1).times
-        subject.call(ContentItem.all, false)
+        subject.call(ContentItem.pluck(:content_id), false)
       end
 
       it "doesn't update dependencies" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including(update_dependencies: false))
           .at_least(1).times
-        subject.call(ContentItem.all, false)
+        subject.call(ContentItem.pluck(:content_id), false)
       end
 
       it "has a message_queue_update_type of 'links'" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including(message_queue_update_type: "links"))
           .at_least(1).times
-        subject.call(ContentItem.all, false)
+        subject.call(ContentItem.pluck(:content_id), false)
       end
 
       it "updates for each locale" do
@@ -49,7 +49,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(anything, a_hash_including(locale: "fr"))
           .exactly(1).times
-        subject.call(ContentItem.all, false)
+        subject.call(ContentItem.pluck(:content_id), false)
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with("downstream_low", a_hash_including(:content_id, :locale, :payload_version))
           .exactly(2).times
-        subject.call(ContentItem.where(document_type: "guidance"), false)
+        subject.call(ContentItem.where(document_type: "guidance").pluck(:content_id), false)
       end
     end
 
@@ -70,12 +70,12 @@ RSpec.describe Commands::V2::RepresentDownstream do
             a_hash_including(:content_id, :locale, :payload_version, update_dependencies: false)
           )
           .exactly(5).times
-        subject.call(ContentItem.all, true)
+        subject.call(ContentItem.pluck(:content_id), true)
       end
 
       it "can not send to downstream draft worker" do
         expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue)
-        subject.call(ContentItem.all, false)
+        subject.call(ContentItem.pluck(:content_id), false)
       end
     end
   end

@@ -6,34 +6,28 @@ module Queries
     # specified content_id and base_path from being published (from the draft
     # state).
     def self.call(content_id, base_path, document_type)
+      return unless base_path
+
       if SubstitutionHelper::SUBSTITUTABLE_DOCUMENT_TYPES.include?(document_type)
         return # The SubstitionHelper will unpublish any item that is in the way
       end
 
       content_items_table = ContentItem.arel_table
-      states_table = State.arel_table
-      locations_table = Location.arel_table
       unpublishings_table = Unpublishing.arel_table
 
       scope = content_items_table
         .project(
           content_items_table[:id]
         )
-        .join(states_table).on(
-          content_items_table[:id].eq(states_table[:content_item_id])
-        )
-        .join(locations_table).on(
-          content_items_table[:id].eq(locations_table[:content_item_id])
-        )
         .outer_join(unpublishings_table).on( # LEFT OUTER JOIN
           content_items_table[:id].eq(unpublishings_table[:content_item_id])
         )
         .where(content_items_table[:content_id].not_eq(content_id))
-        .where(states_table[:name].in(%w(published unpublished)))
+        .where(content_items_table[:state].in(%w(published unpublished)))
         .where(content_items_table[:document_type].not_in(
                  SubstitutionHelper::SUBSTITUTABLE_DOCUMENT_TYPES
         ))
-        .where(locations_table[:base_path].eq(base_path))
+        .where(content_items_table[:base_path].eq(base_path))
         .where(
           unpublishings_table[:type].not_eq("substitute")
           .or(unpublishings_table[:type].eq(nil))

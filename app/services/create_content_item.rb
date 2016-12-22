@@ -2,7 +2,7 @@ module Services
   class CreateContentItem
     attr_reader :base_path, :payload, :user_facing_version, :lock_version, :state
 
-    def initialize(payload:, user_facing_version:, lock_version:, state: 'draft')
+    def initialize(payload:, user_facing_version:, lock_version:, state: 'draft', content_store: "draft")
       @payload = payload
       @user_facing_version = user_facing_version
       @lock_version = lock_version
@@ -24,14 +24,7 @@ module Services
     end
 
     def create_supporting_objects(content_item)
-      State.create!(content_item: content_item, name: state)
-      Translation.create!(content_item: content_item, locale: locale)
-      UserFacingVersion.create!(content_item: content_item, number: user_facing_version)
       LockVersion.create!(target: content_item, number: lock_version)
-
-      if content_with_base_path?
-        Location.create!(content_item: content_item, base_path: base_path)
-      end
 
       ensure_link_set_exists(content_item)
     end

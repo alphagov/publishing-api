@@ -12,12 +12,14 @@ class ContentItem < ApplicationRecord
 
   TOP_LEVEL_FIELDS = [
     :analytics_identifier,
+    :base_path,
     :content_id,
     :description,
     :details,
     :document_type,
     :first_published_at,
     :last_edited_at,
+    :locale,
     :need_ids,
     :phase,
     :public_updated_at,
@@ -26,7 +28,9 @@ class ContentItem < ApplicationRecord
     :rendering_app,
     :routes,
     :schema_name,
+    :state,
     :title,
+    :user_facing_version,
     :update_type,
   ].freeze
 
@@ -38,6 +42,7 @@ class ContentItem < ApplicationRecord
   validates :schema_name, presence: true
   validates :document_type, presence: true
 
+  validates :base_path, absolute_path: true, if: :base_path_present?
   validates :content_id, presence: true, uuid: true
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
@@ -49,17 +54,94 @@ class ContentItem < ApplicationRecord
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include_one_of: %w(text/html text/govspeak) }
 
+  validates :locale, inclusion: {
+    in: I18n.available_locales.map(&:to_s),
+    message: 'must be a supported locale'
+  }
+
+  validate :user_facing_version_must_increase
+  validate :draft_cannot_be_behind_live
+
+  validates_with VersionForLocaleValidator
+  validates_with BasePathForStateValidator
+  validates_with StateForLocaleValidator
+  validates_with RoutesAndRedirectsValidator
+
+  # Temporary code until we kill Location, State, Translation, and
+  # UserFacing Version
+  after_save do
+    if changes[:base_path] && changes[:base_path].last
+      Location.find_or_initialize_by(content_item_id: id)
+        .update!(base_path: changes[:base_path].last)
+    end
+
+    if changes[:base_path] && !changes[:base_path].last
+      Location.find_by(content_item_id: id).try(:destroy)
+    end
+
+    if changes[:state]
+      State.find_or_initialize_by(content_item_id: id)
+        .update!(name: changes[:state].last)
+    end
+
+    if changes[:locale]
+      Translation.find_or_initialize_by(content_item_id: id)
+        .update!(locale: changes[:locale].last)
+    end
+
+    if changes[:user_facing_version]
+      UserFacingVersion.find_or_initialize_by(content_item_id: id)
+        .update!(number: changes[:user_facing_version].last)
+    end
+  end
+
   def requires_base_path?
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
   end
 
   def pathless?
-    !self.requires_base_path? && !Location.exists?(content_item: self)
+    !self.requires_base_path? && !base_path
   end
 
-  def as_json(options = {})
-    options[:except] ||= [:locale, :state, :base_path, :user_facing_version]
-    super(options)
+  def base_path_present?
+    base_path.present?
+  end
+
+  def draft_cannot_be_behind_live
+    if state == "draft"
+      draft_version = user_facing_version
+      live_version = ContentItem.where(
+        content_id: content_id,
+        locale: locale,
+        state: %w(published unpublished),
+      ).pluck(:user_facing_version).first
+    end
+
+    if %w(published unpublished).include?(state)
+      draft_version = ContentItem.where(
+        content_id: content_id,
+        locale: locale,
+        state: "draft",
+      ).pluck(:user_facing_version).first
+      live_version = user_facing_version
+    end
+
+    return unless draft_version && live_version
+
+    if draft_version < live_version
+      mismatch = "(#{draft_version} < #{live_version})"
+      message = "draft content item cannot be behind the live content item #{mismatch}"
+      errors.add(:user_facing_version, message)
+    end
+  end
+
+  def user_facing_version_must_increase
+    return unless persisted?
+    return unless user_facing_version_changed? && user_facing_version <= user_facing_version_was
+
+    mismatch = "(#{user_facing_version} <= #{user_facing_version_was})"
+    message = "cannot be less than or equal to the previous user_facing_version #{mismatch}"
+    errors.add(:user_facing_version, message)
   end
 
   # FIXME: This method is used to retrieve a version of .details that doesn't
@@ -83,6 +165,48 @@ class ContentItem < ApplicationRecord
     details.deep_dup.each_with_object({}) do |(key, value), memo|
       memo[key] = value_without_html.call(value)
     end
+  end
+
+  def publish
+    update_attributes!(state: "published", content_store: "live")
+  end
+
+  def supersede
+    update_attributes!(state: "superseded", content_store: nil)
+  end
+
+  def unpublish(type:, explanation: nil, alternative_path: nil, unpublished_at: nil)
+    content_store = type == "substitute" ? nil : "live"
+    update_attributes!(state: "unpublished", content_store: content_store)
+
+    unpublishing = Unpublishing.find_by(content_item: self)
+
+    unpublished_at = nil unless type == "withdrawal"
+
+    if unpublishing.present?
+      unpublishing.update_attributes(
+        type: type,
+        explanation: explanation,
+        alternative_path: alternative_path,
+        unpublished_at: unpublished_at,
+      )
+      unpublishing
+    else
+      Unpublishing.create!(
+        content_item: self,
+        type: type,
+        explanation: explanation,
+        alternative_path: alternative_path,
+        unpublished_at: unpublished_at,
+      )
+    end
+  end
+
+  def substitute
+    unpublish(
+      type: "substitute",
+      explanation: "Automatically unpublished to make way for another content item",
+    )
   end
 
 private

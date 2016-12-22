@@ -1,23 +1,9 @@
 class UserFacingVersion < ApplicationRecord
-  include Version
-
   belongs_to :content_item
-
-  validates_with VersionForLocaleValidator
-
-  after_save do
-    content_item.update_attributes!(user_facing_version: number)
-  end
 
   def self.filter(content_item_scope, number:)
     join_content_items(content_item_scope)
       .where("user_facing_versions.number" => number)
-  end
-
-  def self.latest(content_item_scope)
-    join_content_items(content_item_scope)
-      .order("user_facing_versions.number asc")
-      .last
   end
 
   def self.join_content_items(content_item_scope)
