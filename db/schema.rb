@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20161220161528) do
     t.string   "schema_name"
     t.datetime "first_published_at"
     t.datetime "last_edited_at"
-    t.string   "state"
-    t.string   "locale"
-    t.integer  "user_facing_version"
+    t.string   "state",                                         null: false
+    t.string   "locale",                                        null: false
+    t.integer  "user_facing_version",  default: 1,              null: false
     t.string   "base_path"
     t.string   "content_store"
     t.index ["content_id", "state", "locale"], name: "index_content_items_on_content_id_and_state_and_locale", using: :btree
