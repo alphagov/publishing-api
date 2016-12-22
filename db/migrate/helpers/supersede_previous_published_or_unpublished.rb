@@ -2,10 +2,11 @@ module Helpers
   module SupersedePreviousPublishedOrUnpublished
     def self.run
       state_histories = ContentItem
+        .joins(:document)
         .where(state: %w(published unpublished))
-        .group(:content_id, :locale)
-        .having("count(content_id) > 1")
-        .pluck("json_agg((id, user_facing_version))")
+        .group("documents.content_id", :locale)
+        .having("count(documents.content_id) > 1")
+        .pluck("json_agg((content_items.id, user_facing_version))")
         .map do |results|
           results.map { |row| { content_item_id: row["f1"], version: row["f2"] } }
         end
