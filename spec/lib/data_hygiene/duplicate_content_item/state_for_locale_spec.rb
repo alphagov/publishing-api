@@ -15,10 +15,9 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
     }.merge(options.except(:state, :locale))
     content_item = FactoryGirl.create(:superseded_content_item, factory_options)
 
-    update = {}
-    update[:state] = options[:state] if options[:state]
-    update[:locale] = options[:locale] if options[:locale]
-    content_item.update_columns(update) unless update.empty?
+    content_item.state = options[:state] if options[:state]
+    content_item.locale = options[:locale] if options[:locale]
+    content_item.save!
 
     content_item
   end
