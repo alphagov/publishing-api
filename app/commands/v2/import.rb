@@ -56,7 +56,7 @@ module Commands
       def update_content_item_state_information(content_item, state_info)
         # The unpublished state requires extra information, but all
         # other states don't
-        return if ["draft", "published", "superseded"].include?(state_info)
+        return if %w(draft published superseded).include?(state_info)
 
         state_name = state_info[:name]
 
@@ -127,7 +127,7 @@ module Commands
           )
         end
 
-        supported_states = ["draft", "published", "unpublished", "superseded"]
+        supported_states = %w(draft published unpublished superseded)
 
         unless supported_states.include?(state_name)
           raise CommandError.new(
