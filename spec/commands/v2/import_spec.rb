@@ -58,6 +58,13 @@ RSpec.describe Commands::V2::Import, type: :request do
       expect(LockVersion.where(target_id: content_item_ids).map(&:number)).to match_array([1, 2, 3])
     end
 
+    it "sets content_store correctly" do
+      subject
+      expect(
+        ContentItem.all.pluck(:content_store)
+      ).to match_array([nil, nil, "live"])
+    end
+
     it "sends the last published item to the content_store" do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
       subject
