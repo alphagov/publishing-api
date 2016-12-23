@@ -125,8 +125,7 @@ module Commands
         end
 
         content_item = ContentItem.joins(:document).where(
-          'documents.content_id': content_id,
-          'documents.locale': locale,
+          documents: { content_id: content_id, locale: locale },
           state: allowed_states
         ).lock.first
 
@@ -140,16 +139,14 @@ module Commands
 
       def previous_items
         @previous_items ||= ContentItem.joins(:document).where(
-          'documents.content_id': content_id,
-          'documents.locale': locale,
+          documents: { content_id: content_id, locale: locale },
           state: %w(published unpublished),
         )
       end
 
       def draft_exists?
         ContentItem.joins(:document).where(
-          'documents.content_id': content_id,
-          'documents.locale': locale,
+          documents: { content_id: content_id, locale: locale },
           state: "draft",
         ).exists?
       end
