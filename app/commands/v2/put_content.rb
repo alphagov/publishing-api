@@ -18,6 +18,15 @@ module Commands
         if content_item
           update_existing_content_item(content_item)
         else
+          if content_with_base_path?
+            clear_draft_items_of_same_locale_and_base_path(
+              content_id,
+              document_type,
+              locale,
+              base_path
+            )
+          end
+
           content_item = Services::CreateContentItem.new(
             payload: payload.merge(
               state: "draft",
@@ -25,9 +34,7 @@ module Commands
               locale: locale
             ),
             lock_version: lock_version_number_for_new_draft
-          ).create_content_item do |item|
-            clear_draft(item)
-          end
+          ).create_content_item
 
           fill_out_new_content_item(content_item)
         end
@@ -48,13 +55,6 @@ module Commands
       end
 
     private
-
-      def clear_draft(content_item)
-        return unless content_with_base_path?
-        clear_draft_items_of_same_locale_and_base_path(
-          content_item.content_id, content_item.document_type, locale, base_path
-        )
-      end
 
       def fill_out_new_content_item(content_item)
         update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
