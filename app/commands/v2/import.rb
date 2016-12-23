@@ -54,18 +54,17 @@ module Commands
       end
 
       def update_content_item_state_information(content_item, state_info)
-        # The unpublished state requires extra information, but all
-        # other states don't
-        return if %w(draft published superseded).include?(state_info)
-
-        state_name = state_info[:name]
-
-        if state_name == "unpublished"
+        case state_name_from_history_entry_state(state_info)
+        when "unpublished"
           content_item.unpublish(
             state_info.slice(
               *%i(type explanation alternative_path unpublished_at)
             )
           )
+        when "superseded"
+          content_item.supersede
+        when "published"
+          content_item.publish
         end
       end
 
