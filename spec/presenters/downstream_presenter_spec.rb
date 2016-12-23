@@ -197,6 +197,33 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
     end
 
+    context "for an access-limited item" do
+      let!(:access_limit) {
+        FactoryGirl.create(:access_limit, content_item: content_item)
+      }
+
+      context "in draft" do
+        let(:content_item) { FactoryGirl.create(:draft_content_item) }
+
+        it "populates the access_limited hash" do
+          expect(result[:access_limited][:users].length).to eq(1)
+        end
+      end
+
+      context "in live" do
+        let(:content_item) { FactoryGirl.create(:live_content_item) }
+
+        it "does not send an access_limited hash" do
+          expect(result).not_to include(:access_limited)
+        end
+
+        it "notifies Airbrake" do
+          expect(Airbrake).to receive(:notify)
+          result
+        end
+      end
+    end
+
     describe "rendering govspeak" do
       let(:details) do
         {
