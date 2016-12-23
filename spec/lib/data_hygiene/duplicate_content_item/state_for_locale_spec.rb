@@ -17,7 +17,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::StateForLocale do
 
     content_item.state = options[:state] if options[:state]
     content_item.locale = options[:locale] if options[:locale]
-    content_item.save!
+    content_item.save(validate: false)  # because we're testing a validator
 
     content_item
   end
