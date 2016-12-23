@@ -59,8 +59,7 @@ module Commands
         state_name = state_info[:name]
 
         if state_name == "unpublished"
-          State.unpublish(
-            content_item,
+          content_item.unpublish(
             state_info.slice(
               *%i(type explanation alternative_path unpublished_at)
             )
