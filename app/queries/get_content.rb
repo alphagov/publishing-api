@@ -3,8 +3,8 @@ module Queries
     def self.call(content_id, locale = nil, version: nil, include_warnings: false)
       locale_to_use = locale || ContentItem::DEFAULT_LOCALE
 
-      content_items = ContentItem.joins(:document).
-        where('documents.content_id': content_id, 'documents.locale': locale_to_use)
+      content_items = ContentItem.joins(:document)
+        .where(documents: {content_id: content_id, locale: locale_to_use})
       content_items = content_items.where(user_facing_version: version) if version
 
       response = Presenters::Queries::ContentItemPresenter.present_many(
