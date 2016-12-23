@@ -71,16 +71,30 @@ RSpec.describe Commands::V2::Import, type: :request do
     end
 
     context "with an existing content item" do
-      let!(:existing_content_item) { FactoryGirl.create(:content_item, content_id: content_id).id }
+      let!(:existing_content_item) {
+        FactoryGirl.create(:content_item, content_id: content_id)
+      }
+
+      before do
+        stub_request(
+          :delete,
+          Plek.new.find('draft-content-store') + "/content" + \
+          existing_content_item.base_path
+        )
+      end
 
       it "deletes previous content items" do
         subject
-        expect(ContentItem.where(id: existing_content_item)).to be_empty
+        expect(
+          ContentItem.where(id: existing_content_item.id)
+        ).to be_empty
       end
 
       it "deletes previous states" do
         subject
-        expect(State.where(content_item_id: existing_content_item)).to be_empty
+        expect(
+          State.where(content_item_id: existing_content_item.id)
+        ).to be_empty
       end
     end
 
@@ -127,6 +141,53 @@ RSpec.describe Commands::V2::Import, type: :request do
             CommandError,
             /For a state of unpublished, a type must be provided/
           )
+        end
+      end
+    end
+
+    context "with existing content" do
+      let!(:first_payload) do
+        payload.merge(
+          history: [content_item.merge(state: "published")]
+        )
+      end
+
+      let(:second_base_path) { "/foo" }
+
+      let!(:second_payload) do
+        payload.merge(
+          history: [
+            content_item.merge(
+              state: "published",
+              base_path: second_base_path,
+              routes: [{ "path": second_base_path, "type": "exact" }]
+            )
+          ]
+        )
+      end
+
+      it "deletes removed content from the contet store" do
+        def draft_path(base_path)
+          Plek.new.find('draft-content-store') + "/content" + base_path
+        end
+
+        def live_path(base_path)
+          Plek.new.find('content-store') + "/content" + base_path
+        end
+
+        described_class.call(first_payload)
+
+        stubs = [
+          stub_request(:put, live_path(second_base_path)),
+          stub_request(:put, draft_path(second_base_path)),
+          stub_request(:delete, live_path(base_path)),
+          stub_request(:delete, draft_path(base_path))
+        ]
+
+        described_class.call(second_payload)
+
+        stubs.each do |stub|
+          expect(stub).to have_been_requested.once
         end
       end
     end
