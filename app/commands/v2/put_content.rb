@@ -19,8 +19,11 @@ module Commands
           update_existing_content_item(content_item)
         else
           content_item = Services::CreateContentItem.new(
-            payload: payload,
-            user_facing_version: user_facing_version_number_for_new_draft,
+            payload: payload.merge(
+              state: "draft",
+              user_facing_version: user_facing_version_number_for_new_draft,
+              locale: locale
+            ),
             lock_version: lock_version_number_for_new_draft
           ).create_content_item do |item|
             clear_draft(item)
@@ -49,7 +52,7 @@ module Commands
       def clear_draft(content_item)
         return unless content_with_base_path?
         clear_draft_items_of_same_locale_and_base_path(
-          content_item, locale, base_path
+          content_item.content_id, content_item.document_type, locale, base_path
         )
       end
 

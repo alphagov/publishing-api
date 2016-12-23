@@ -22,7 +22,7 @@ module Commands
 
         after_transaction_commit do
           Commands::V2::RepresentDownstream.new.call(
-            ContentItem.where(content_id: payload[:content_id]),
+            payload[:content_id],
             true
           )
         end
@@ -38,10 +38,12 @@ module Commands
         state_name = state_name_from_history_entry_state(history_entry[:state])
 
         content_item = Services::CreateContentItem.new(
-          payload: history_entry.merge(content_id: content_id),
-          user_facing_version: index + 1,
+          payload: history_entry.merge(
+            content_id: content_id,
+            user_facing_version: index + 1,
+            state: state_name
+          ),
           lock_version: index + 1,
-          state: state_name
         ).create_content_item
 
         update_content_item_state_information(content_item, history_entry[:state])

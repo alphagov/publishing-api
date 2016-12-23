@@ -42,22 +42,14 @@ RSpec.describe Commands::V2::Import, type: :request do
       expect { subject }.to change { ContentItem.count }.by(3)
     end
 
-    it "creates the full location history" do
-      expect { subject }.to change { Location.count }.by(3)
-    end
-
-    it "creates the full Translation history" do
-      expect { subject }.to change { Translation.count }.by(3)
-    end
-
     it "creates the state history" do
       subject
-      expect(State.all.map(&:name)).to match_array(%w(superseded superseded published))
+      expect(ContentItem.all.map(&:state)).to match_array(%w(superseded superseded published))
     end
 
     it "creates the full User facing version history" do
       subject
-      expect(UserFacingVersion.all.map(&:number)).to match_array([1, 2, 3])
+      expect(ContentItem.all.map(&:user_facing_version)).to match_array([1, 2, 3])
     end
 
     it "creates the full Lock version history" do
