@@ -50,7 +50,7 @@ module Commands
       end
 
       def state_name_from_history_entry_state(state)
-        if state.instance_of? String then state else state[:name] end
+        state.instance_of?(String) ? state : state[:name]
       end
 
       def update_content_item_state_information(content_item, state_info)
