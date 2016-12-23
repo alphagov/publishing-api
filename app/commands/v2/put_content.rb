@@ -225,12 +225,16 @@ module Commands
       def update_content_item(content_item)
         content_item.assign_attributes_with_defaults(
           content_item_attributes_from_payload.merge(
-            locale: locale,
             state: "draft",
             content_store: "draft",
             user_facing_version: content_item.user_facing_version,
           )
         )
+
+        # update these fields to also update the underlying document
+        content_item.content_id = content_id
+        content_item.locale = locale
+
         content_item.save!
       end
 
