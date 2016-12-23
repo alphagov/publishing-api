@@ -175,9 +175,8 @@ module Commands
       def previously_published_item
         @previously_published_item ||=
           ContentItem.joins(:document).find_by(
-            "documents.content_id": content_id,
+            documents: { content_id: content_id, locale: locale },
             state: %w(published unpublished),
-            "documents.locale": locale,
           ) || ITEM_NOT_FOUND
       end
 
