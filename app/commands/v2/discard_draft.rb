@@ -62,16 +62,14 @@ module Commands
 
       def draft
         @draft ||= ContentItem.joins(:document).find_by(
-          'documents.content_id': content_id,
-          'documents.locale': locale,
+          documents: { content_id: content_id, locale: locale },
           state: "draft",
         )
       end
 
       def live
         @live ||= ContentItem.joins(:document).find_by(
-          'documents.content_id': content_id,
-          'documents.locale': locale,
+          documents: { content_id: content_id, locale: locale },
           state: %w(published unpublished),
         )
       end
