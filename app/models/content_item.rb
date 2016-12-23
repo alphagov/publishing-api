@@ -14,6 +14,7 @@ class ContentItem < ApplicationRecord
     :analytics_identifier,
     :base_path,
     :content_id,
+    :content_store,
     :description,
     :details,
     :document_type,
