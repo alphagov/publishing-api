@@ -43,8 +43,7 @@ module Commands
 
       def find_content_item
         content_item = ContentItem.joins(:document).find_by(
-          'documents.content_id': content_id,
-          'documents.locale': locale,
+          documents: { content_id: content_id, locale: locale },
           state: draft? ? %w(draft) : %w(published unpublished),
         )
 

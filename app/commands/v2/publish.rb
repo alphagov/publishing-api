@@ -113,8 +113,8 @@ module Commands
 
       def already_published?
         ContentItem.joins(:document)
-          .exists?("documents.content_id": content_id,
-                   "documents.locale": locale, state: "published")
+          .exists?(documents: { content_id: content_id, locale: locale },
+                   state: "published")
       end
 
       def pessimistic_document_scope
