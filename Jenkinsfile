@@ -31,12 +31,13 @@ node {
     }
 
     stage("Push release tag") {
-      echo 'Pushing tag'
       govuk.pushTag(REPOSITORY, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
     }
 
-    // Deploy on Integration (only master)
-    govuk.deployIntegration(REPOSITORY, env.BRANCH_NAME, 'release', 'deploy')
+    stage("Deploy on Integration") {
+      govuk.deployIntegration(REPOSITORY, env.BRANCH_NAME, 'release', 'deploy')
+    }
+
   } catch (e) {
     currentBuild.result = "FAILED"
     step([$class: 'Mailer',
