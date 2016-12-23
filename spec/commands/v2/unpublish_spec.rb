@@ -337,7 +337,8 @@ RSpec.describe Commands::V2::Unpublish do
         it "discards the draft" do
           described_class.call(payload)
 
-          content_items = ContentItem.where(content_id: content_id)
+          content_items = ContentItem.joins(:document)
+            .where(documents: { content_id: content_id })
           expect(content_items.count).to eq(1)
 
           expect(content_items.last.state).to eq("unpublished")
