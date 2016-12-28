@@ -13,7 +13,7 @@ module Commands
         end
 
         PathReservation.reserve_base_path!(base_path, publishing_app) if content_with_base_path?
-        content_item = find_previously_drafted_content_item
+        content_item = previously_drafted_content_item
 
         if content_item
           update_existing_content_item(content_item)
@@ -105,11 +105,8 @@ module Commands
         end
       end
 
-      def find_previously_drafted_content_item
-        ContentItem.find_by(
-          document_id: pessimistic_document_scope.pluck(:id),
-          state: "draft",
-        )
+      def previously_drafted_content_item
+        ContentItem.find_by(document: document, state: "draft")
       end
 
       def clear_draft_items_of_same_locale_and_base_path
@@ -168,8 +165,8 @@ module Commands
         end
       end
 
-      def pessimistic_document_scope
-        Document.where(content_id: content_id, locale: locale).lock
+      def document
+        Document.find_or_create_by(content_id: content_id, locale: locale)
       end
 
       def previously_published_item
