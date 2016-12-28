@@ -80,10 +80,7 @@ module Commands
       end
 
       def previously_drafted_item
-        @previously_drafted_item ||= ContentItem.find_by(
-          document_id: pessimistic_document_scope.pluck(:id),
-          state: "draft",
-        )
+        @previously_drafted_item ||= ContentItem.find_by(document: document, state: "draft")
       end
 
       def clear_draft_items_of_same_locale_and_base_path
@@ -103,8 +100,8 @@ module Commands
         payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
-      def pessimistic_document_scope
-        Document.where(content_id: content_id, locale: locale).lock
+      def document
+        Document.find_or_create_by(content_id: content_id, locale: locale)
       end
 
       def content_id
