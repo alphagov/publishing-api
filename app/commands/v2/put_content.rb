@@ -80,7 +80,7 @@ module Commands
       end
 
       def previously_drafted_item
-        @previously_drafted_item ||= ContentItem.find_by(document: document, state: "draft")
+        @previously_drafted_item ||= document.lock!.content_items.where(state: "draft").last
       end
 
       def clear_draft_items_of_same_locale_and_base_path
