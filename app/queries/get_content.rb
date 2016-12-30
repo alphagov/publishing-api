@@ -4,7 +4,7 @@ module Queries
       locale_to_use = locale || ContentItem::DEFAULT_LOCALE
 
       content_items = ContentItem.joins(:document)
-        .where(documents: {content_id: content_id, locale: locale_to_use})
+        .where(documents: { content_id: content_id, locale: locale_to_use })
       content_items = content_items.where(user_facing_version: version) if version
 
       response = Presenters::Queries::ContentItemPresenter.present_many(
