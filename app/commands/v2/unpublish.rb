@@ -5,6 +5,7 @@ module Commands
         validate
         previous_item.supersede if previous_item
         transition_state
+        AccessLimit.find_by(content_item: content_item).try(:destroy)
 
         after_transaction_commit do
           send_downstream
