@@ -17,7 +17,7 @@ RSpec.describe DataHygiene::DuplicateContentItem::VersionForLocale do
 
     content_item.user_facing_version = options[:user_facing_version] if options[:user_facing_version]
     content_item.locale = options[:locale] if options[:locale]
-    content_item.save(validate: false)  # because we're testing a validator
+    content_item.save(validate: false) # because we're testing a validator
 
     content_item
   end
