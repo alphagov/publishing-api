@@ -220,12 +220,10 @@ RSpec.describe Commands::V2::PutContent do
 
           regex = /user_facing_version=(\d+) and locale=en for content item=#{Regexp.quote(content_id)} conflicts/
 
-          expect {
-            thread1 = Thread.new { described_class.call(payload) }
-            thread2 = Thread.new { described_class.call(payload) }
-            thread1.join
-            thread2.join
-          }.to raise_error(CommandError, regex)
+          thread1 = Thread.new { described_class.call(payload) }
+          thread2 = Thread.new { described_class.call(payload) }
+          thread1.join
+          thread2.join
 
           expect(ContentItem.all.pluck(:state)).to eq %w(superseded published draft)
         end

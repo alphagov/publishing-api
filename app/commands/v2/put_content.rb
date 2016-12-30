@@ -106,7 +106,7 @@ module Commands
       end
 
       def previously_drafted_content_item
-        ContentItem.find_by(document: document, state: "draft")
+        document.lock!.content_items.where(state: "draft").last
       end
 
       def clear_draft_items_of_same_locale_and_base_path
@@ -133,7 +133,7 @@ module Commands
           content_store: "draft",
           user_facing_version: user_facing_version_number_for_new_draft,
         )
-        ContentItem.create!(attributes)
+        document.content_items.create!(attributes)
       end
 
       def create_supporting_objects(content_item)
