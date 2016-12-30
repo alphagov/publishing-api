@@ -208,6 +208,21 @@ RSpec.describe Commands::V2::Unpublish do
           expect(unpublishing.alternative_path).to eq("/new-path")
         end
 
+        context "where there is an access limit" do
+          before do
+            AccessLimit.create!(
+              content_item: draft_content_item,
+              users: [SecureRandom.uuid]
+            )
+          end
+
+          it "removes the access limit model" do
+            expect {
+              described_class.call(payload_with_allow_draft)
+            }.to change(AccessLimit, :count).by(-1)
+          end
+        end
+
         it "sends an unpublishing to the live content store" do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
