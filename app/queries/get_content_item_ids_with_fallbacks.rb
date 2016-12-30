@@ -10,10 +10,8 @@ module Queries
       content_items = ContentItem.arel_table
       unpublishings = Unpublishing.arel_table
 
-      fallback_scope = content_items.project(
-            content_items[:id],
-            documents[:content_id],
-          )
+      fallback_scope = content_items.project(content_items[:id],
+                                             documents[:content_id])
           .where(documents[:content_id].in(content_ids))
           .where(content_items[:document_type].not_in(::ContentItem::NON_RENDERABLE_FORMATS))
           .where(documents[:locale].in(locale_fallback_order))
