@@ -1,5 +1,5 @@
 class Document < ApplicationRecord
-  has_many :content_item
+  has_many :content_items
 
   validates :content_id, presence: true, uuid: true
 
