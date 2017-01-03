@@ -3,7 +3,7 @@ module Commands
     class Unpublish < BaseCommand
       def call
         validate
-        previous_item.supersede if previous_item_should_be_superseded?
+        document.live.supersede if live_edition_should_be_superseded?
         transition_state
         AccessLimit.find_by(content_item: content_item).try(:destroy)
 
@@ -131,19 +131,12 @@ module Commands
         content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
       end
 
-      def previous_item_should_be_superseded?
-        previous_item && find_unpublishable_content_item != previous_item
+      def live_edition_should_be_superseded?
+        document.live && find_unpublishable_content_item != document.live
       end
 
       def previous_item
-        raise "There should only be one previous published or unpublished item" if previous_items.size > 1
-        previous_items.first
-      end
-
-      def previous_items
-        @previous_items ||= document.content_items.where(
-          state: %w(published unpublished),
-        ).order(nil)
+        document.previous_item
       end
 
       def document
