@@ -95,7 +95,8 @@ class ContentItem < ApplicationRecord
   end
 
   def as_json(options = {})
-    super(options).merge(content_id: content_id, locale: locale)
+    super(options).merge(content_id: document.content_id,
+                         locale: document.locale)
   end
 
   # FIXME remove the following four methods
@@ -129,19 +130,15 @@ class ContentItem < ApplicationRecord
   end
 
   def draft_cannot_be_behind_live
+    return unless document
+
     if state == "draft"
       draft_version = user_facing_version
-      live_version = ContentItem.where(
-        document: document,
-        state: %w(published unpublished),
-      ).pluck(:user_facing_version).first
+      live_version = document.previous.user_facing_version if document.previous
     end
 
     if %w(published unpublished).include?(state)
-      draft_version = ContentItem.where(
-        document: document,
-        state: "draft",
-      ).pluck(:user_facing_version).first
+      draft_version = document.draft.user_facing_version if document.draft
       live_version = user_facing_version
     end
 
