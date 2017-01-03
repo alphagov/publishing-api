@@ -60,18 +60,16 @@ module Commands
         LockVersion.find_by!(target: live).increment!
       end
 
+      def document
+        @document ||= Queries::GetDocument.(content_id, locale)
+      end
+
       def draft
-        @draft ||= ContentItem.joins(:document).find_by(
-          documents: { content_id: content_id, locale: locale },
-          state: "draft",
-        )
+        @draft ||= document.draft
       end
 
       def live
-        @live ||= ContentItem.joins(:document).find_by(
-          documents: { content_id: content_id, locale: locale },
-          state: %w(published unpublished),
-        )
+        @live ||= document.live
       end
 
       def content_id
@@ -79,7 +77,7 @@ module Commands
       end
 
       def locale
-        payload[:locale] || ContentItem::DEFAULT_LOCALE
+        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
     end
   end

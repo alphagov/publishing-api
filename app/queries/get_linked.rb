@@ -19,7 +19,7 @@ module Queries
         .pluck(:content_id)
 
       content_items = ContentItem.joins(:document)
-        .where('documents.content_id': content_ids)
+        .where(documents: { content_id: content_ids })
 
       presented = presenter.present_many(content_items, fields: fields)
       presented.map { |p| filter_fields(p).as_json }
@@ -31,7 +31,7 @@ module Queries
 
     def validate_presence_of_item!
       return if ContentItem.joins(:document).exists?(
-        'documents.content_id': target_content_id,
+        documents: { content_id: target_content_id },
         state: %w(draft published),
       )
 
