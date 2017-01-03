@@ -125,10 +125,8 @@ module Commands
           allowed_states = %w(draft)
         end
 
-        content_item = ContentItem.joins(:document).where(
-          documents: { content_id: content_id, locale: locale },
-          state: allowed_states
-        ).order(nil).lock.first
+        content_item = document.content_items.where(state: allowed_states)
+          .order(nil).lock.first
 
         content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
       end
@@ -139,17 +137,17 @@ module Commands
       end
 
       def previous_items
-        @previous_items ||= ContentItem.joins(:document).where(
-          documents: { content_id: content_id, locale: locale },
+        @previous_items ||= document.content_items.where(
           state: %w(published unpublished),
         ).order(nil)
       end
 
+      def document
+        @document ||= Queries::GetDocument.(content_id, locale)
+      end
+
       def draft_exists?
-        ContentItem.joins(:document).where(
-          documents: { content_id: content_id, locale: locale },
-          state: "draft",
-        ).exists?
+        document.content_items.where(state: "draft").exists?
       end
     end
   end
