@@ -9,7 +9,7 @@ class Document < ApplicationRecord
   }
 
   def draft
-    draft_items = content_items.where(state: "draft")
+    draft_items = content_items.where(content_store: "draft")
 
     if draft_items.size > 1
       raise "There should only be one draft item"
@@ -19,7 +19,7 @@ class Document < ApplicationRecord
   end
 
   def live
-    live_items = content_items.where(state: %w(published unpublished))
+    live_items = content_items.where(content_store: "live")
 
     if live_items.size > 1
       raise "There should only be one previous published or unpublished item"
