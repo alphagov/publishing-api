@@ -54,7 +54,7 @@ module Commands
       end
 
       def previous_item
-        @previous_item ||= lookup_previous_item
+        document.previous_item
       end
 
       def redirect_old_base_path
