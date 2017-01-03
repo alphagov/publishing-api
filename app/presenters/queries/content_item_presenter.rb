@@ -61,7 +61,7 @@ module Presenters
       end
 
       def latest
-        ::Queries::GetLatest.call(self.scope)
+        ::Queries::GetLatest.call(self.scope.joins(:document))
       end
 
       def join_supporting_objects(scope)
@@ -102,9 +102,9 @@ module Presenters
           when :base_path
             "content_items.base_path as base_path"
           when :locale
-            "documents_content_items.locale as locale"
+            "documents.locale as locale"
           when :content_id
-            "documents_content_items.content_id as content_id"
+            "documents.content_id as content_id"
           when :total
             "COUNT(*) OVER () as total"
           else
@@ -124,8 +124,8 @@ module Presenters
         (
           SELECT json_agg((user_facing_version, state))
           FROM content_items c
-          WHERE c.document_id = documents_content_items.id
-          GROUP BY documents_content_items.content_id
+          WHERE c.document_id = documents.id
+          GROUP BY documents.content_id
         )
       SQL
 
