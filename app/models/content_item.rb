@@ -106,6 +106,10 @@ class ContentItem < ApplicationRecord
     end
   end
 
+  def as_json(options = {})
+    super(options).merge(content_id: content_id, locale: locale)
+  end
+
   # FIXME remove the following four methods
   def content_id
     document.content_id if document
