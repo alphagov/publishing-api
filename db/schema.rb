@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20161221074658) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.string "content_id", null: false
+    t.uuid   "content_id", null: false
     t.string "locale", null: false
     t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true, using: :btree
   end

@@ -1,7 +1,7 @@
 class CreateDocuments < ActiveRecord::Migration[5.0]
   def change
     create_table :documents do |t|
-      t.string :content_id, null: false
+      t.uuid :content_id, null: false
       t.string :locale, null: false
     end
 
