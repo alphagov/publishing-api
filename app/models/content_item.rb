@@ -94,13 +94,7 @@ class ContentItem < ApplicationRecord
     end
   end
 
-<<<<<<< 8f5d27e6dff38326bdd2c99768a00b50eeec7e65
-  before_validation do
-    self.document = Document.find_or_create_by(content_id: content_id,
-                                               locale: locale)
-  end
-
-=======
+  # FIXME remove the following four methods
   def content_id
     document.content_id if document
   end
@@ -118,8 +112,6 @@ class ContentItem < ApplicationRecord
     self.document = Document.find_or_create_by(content_id: content_id,
                                                locale: new_locale)
   end
-
->>>>>>> Update documents and content_items models
   def requires_base_path?
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
   end
