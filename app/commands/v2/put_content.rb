@@ -226,6 +226,8 @@ module Commands
           )
         )
 
+        # FIXME replace this when 'content_id' and 'locale' fields are removed
+        # from ContentItem model
         # update these fields to also update the underlying document
         content_item.content_id = content_id
         content_item.locale = locale
