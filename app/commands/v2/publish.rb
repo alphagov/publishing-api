@@ -2,7 +2,7 @@ module Commands
   module V2
     class Publish < BaseCommand
       def call
-        unless (content_item = find_draft_content_item)
+        unless (content_item = document.draft)
           if already_published?
             message = "Cannot publish an already published content item"
             raise_command_error(400, message, fields: {})
@@ -26,7 +26,7 @@ module Commands
 
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
-        previous_item = lookup_previous_item
+        previous_item = document.live
 
         previous_item.supersede if previous_item
 
@@ -75,6 +75,10 @@ module Commands
         payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
+      def document
+        @document ||= Queries::GetDocument.(content_id, locale)
+      end
+
       def previous_version_number
         payload[:previous_version].to_i if payload[:previous_version]
       end
@@ -83,21 +87,8 @@ module Commands
         %w(major minor republish links)
       end
 
-      def find_draft_content_item
-        ContentItem.find_by(
-          document_id: pessimistic_document_scope.pluck(:id),
-          state: "draft",
-        )
-      end
-
       def already_published?
-        ContentItem.joins(:document)
-          .exists?(documents: { content_id: content_id, locale: locale },
-                   state: "published")
-      end
-
-      def pessimistic_document_scope
-        Document.where(content_id: content_id, locale: locale).lock
+        document.content_items.exists?(state: "published")
       end
 
       def clear_published_items_of_same_locale_and_base_path(content_item, locale, base_path)
@@ -146,19 +137,6 @@ module Commands
           callbacks: callbacks,
           nested: true,
         ) if draft_redirect
-      end
-
-      def lookup_previous_item
-        previous_items = ContentItem.where(
-          document_id: pessimistic_document_scope.pluck(:id),
-          state: %w(published unpublished),
-        )
-
-        if previous_items.size > 1
-          raise "There should only be one previous published or unpublished item"
-        end
-
-        previous_items.order("content_id").first
       end
 
       def send_downstream(content_id, locale, update_type)
