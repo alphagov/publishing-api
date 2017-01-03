@@ -49,6 +49,10 @@ module Commands
         @update_type ||= payload[:update_type] || content_item.update_type
       end
 
+      def content_item
+        document.draft
+      end
+
       def previous_item
         @previous_item ||= lookup_previous_item
       end
@@ -96,6 +100,10 @@ module Commands
         payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
+      def document
+        @document ||= Queries::GetDocument.(content_id, locale)
+      end
+
       def previous_version_number
         payload[:previous_version].to_i if payload[:previous_version]
       end
@@ -104,21 +112,8 @@ module Commands
         %w(major minor republish links)
       end
 
-      def content_item
-        @content_item ||= ContentItem.find_by(
-          document_id: pessimistic_document_scope.pluck(:id),
-          state: "draft",
-        )
-      end
-
       def already_published?
-        ContentItem.joins(:document)
-          .exists?(documents: { content_id: content_id, locale: locale },
-                   state: "published")
-      end
-
-      def pessimistic_document_scope
-        Document.where(content_id: content_id, locale: locale).lock
+        document.content_items.exists?(state: "published")
       end
 
       def clear_published_items_of_same_locale_and_base_path
@@ -167,19 +162,6 @@ module Commands
           callbacks: callbacks,
           nested: true,
         ) if draft_redirect
-      end
-
-      def lookup_previous_item
-        previous_items = ContentItem.where(
-          document_id: pessimistic_document_scope.pluck(:id),
-          state: %w(published unpublished),
-        )
-
-        if previous_items.size > 1
-          raise "There should only be one previous published or unpublished item"
-        end
-
-        previous_items.order("content_id").first
       end
 
       def send_downstream(content_id, locale, update_type)
