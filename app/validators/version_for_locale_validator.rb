@@ -1,6 +1,6 @@
 class VersionForLocaleValidator < ActiveModel::Validator
   def validate(record)
-    return unless record.locale && record.user_facing_version
+    return unless record.document && record.user_facing_version
 
     criteria = {
       document: record.document,
