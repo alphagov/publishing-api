@@ -13,7 +13,7 @@ module Commands
         end
 
         PathReservation.reserve_base_path!(base_path, publishing_app) if content_with_base_path?
-        content_item = previously_drafted_content_item
+        content_item = document.draft
 
         if content_item
           update_existing_content_item(content_item)
@@ -103,10 +103,6 @@ module Commands
         else
           AccessLimit.create!(content_item: content_item, users: users)
         end
-      end
-
-      def previously_drafted_content_item
-        document.lock!.content_items.where(state: "draft").last
       end
 
       def clear_draft_items_of_same_locale_and_base_path

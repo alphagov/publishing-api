@@ -3,7 +3,7 @@ module Commands
     class Unpublish < BaseCommand
       def call
         validate
-        previous_item.supersede if previous_item
+        document.live.supersede if document.live
         transition_state
         AccessLimit.find_by(content_item: content_item).try(:destroy)
 
@@ -132,14 +132,7 @@ module Commands
       end
 
       def previous_item
-        raise "There should only be one previous published or unpublished item" if previous_items.size > 1
-        previous_items.first
-      end
-
-      def previous_items
-        @previous_items ||= document.content_items.where(
-          state: %w(published unpublished),
-        ).order(nil)
+        document.previous_item
       end
 
       def document
