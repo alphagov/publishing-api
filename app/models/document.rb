@@ -9,10 +9,22 @@ class Document < ApplicationRecord
   }
 
   def draft
-    content_items.find_by(state: "draft")
+    draft_items = content_items.where(state: "draft")
+
+    if draft_items.size > 1
+      raise "There should only be one draft item"
+    end
+
+    draft_items.first
   end
 
   def live
-    content_items.find_by(state: %w(published unpublished))
+    live_items = content_items.where(state: %w(published unpublished))
+
+    if live_items.size > 1
+      raise "There should only be one previous published or unpublished item"
+    end
+
+    live_items.first
   end
 end
