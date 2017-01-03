@@ -1,19 +1,17 @@
-module Queries
-  module GetDocument
-    def self.call(content_id, locale = nil)
-      locale_to_use = locale || ContentItem::DEFAULT_LOCALE
+module FindOrCreateLocked
+  extend ActiveSupport::Concern
 
+  class_methods do
+    def find_or_create_locked(params)
       begin
         retries ||= 0
-        Document.transaction(requires_new: true) do
-          Document.find_or_create_by!(
-            content_id: content_id,
-            locale: locale_to_use
-          ).lock!
+        self.transaction(requires_new: true) do
+          entity = self.lock.find_by(params)
+          entity || self.create!(params).lock!
         end
       rescue ActiveRecord::RecordNotUnique
         # This should never need more than 1 retry as the scenario this error
-        # would occur is: inbetween rails find_or_create SELECT & INSERT
+        # would occur is: inbetween rails find_by and create SELECT & INSERT
         # queries a concurrent request ran an INSERT. Thus on retry the
         # SELECT would succeed.
         # So if this actually throws an exception here we probably have a
