@@ -293,7 +293,7 @@ RSpec.describe Commands::V2::Unpublish do
             it "raises an error stating the inconsistency" do
               expect {
                 described_class.call(payload.merge(allow_draft: true))
-              }.to raise_error(/There should only be one previous/)
+              }.to raise_error(CommandError)
             end
           end
         end
