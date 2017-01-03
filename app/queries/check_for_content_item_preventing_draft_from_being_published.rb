@@ -1,7 +1,5 @@
 module Queries
   module CheckForContentItemPreventingDraftFromBeingPublished
-    extend ArelHelpers
-
     # Checks for any content item which would prevent a content item with the
     # specified content_id and base_path from being published (from the draft
     # state).
@@ -12,38 +10,14 @@ module Queries
         return # The SubstitionHelper will unpublish any item that is in the way
       end
 
-      documents_table = Document.arel_table
-      content_items_table = ContentItem.arel_table
-      unpublishings_table = Unpublishing.arel_table
+      conflicts = ContentItem.joins(:document)
+        .where(base_path: base_path, content_store: :live)
+        .where.not(
+          documents: { content_id: content_id },
+          document_type: SubstitutionHelper::SUBSTITUTABLE_DOCUMENT_TYPES,
+        ).pluck(:id)
 
-      scope = content_items_table
-        .project(
-          content_items_table[:id]
-        )
-        .join(documents_table).on(
-          documents_table[:id].eq(content_items_table[:document_id])
-        )
-        .outer_join(unpublishings_table).on( # LEFT OUTER JOIN
-          content_items_table[:id].eq(unpublishings_table[:content_item_id])
-        )
-        .where(documents_table[:content_id].not_eq(content_id))
-        .where(content_items_table[:state].in(%w(published unpublished)))
-        .where(content_items_table[:document_type].not_in(
-                 SubstitutionHelper::SUBSTITUTABLE_DOCUMENT_TYPES
-        ))
-        .where(content_items_table[:base_path].eq(base_path))
-        .where(
-          unpublishings_table[:type].not_eq("substitute")
-          .or(unpublishings_table[:type].eq(nil))
-        )
-
-      rows = get_rows(scope)
-
-      if rows.length > 1
-        raise "Multiple rows returned in CheckForContentItemPreventingDraftFromBeingPublished"
-      end
-
-      rows.first["id"].to_i if rows.first
+      conflicts.first unless conflicts.empty?
     end
   end
 end
