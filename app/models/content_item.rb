@@ -108,6 +108,7 @@ class ContentItem < ApplicationRecord
     end
   end
 
+  # FIXME remove the following four methods
   def content_id
     document.content_id if document
   end
