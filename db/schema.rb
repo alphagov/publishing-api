@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221074658) do
+ActiveRecord::Schema.define(version: 20170103114819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20161221074658) do
 
   create_table "documents", force: :cascade do |t|
     t.uuid   "content_id", null: false
-    t.string "locale", null: false
+    t.string "locale",     null: false
     t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true, using: :btree
   end
 
@@ -96,12 +96,12 @@ ActiveRecord::Schema.define(version: 20161221074658) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "request_id"
-    t.string   "content_id"
+    t.uuid     "content_id"
     t.index ["content_id"], name: "index_events_on_content_id", using: :btree
   end
 
   create_table "link_sets", force: :cascade do |t|
-    t.string   "content_id"
+    t.uuid     "content_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20161221074658) do
 
   create_table "links", force: :cascade do |t|
     t.integer  "link_set_id"
-    t.string   "target_content_id"
+    t.uuid     "target_content_id"
     t.string   "link_type",                     null: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false

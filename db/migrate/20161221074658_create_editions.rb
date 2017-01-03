@@ -3,13 +3,13 @@ class CreateEditions < ActiveRecord::Migration[5.0]
     add_column :content_items, :document_id, :integer
     add_foreign_key :content_items, :documents
 
-    execute 'UPDATE content_items SET document_id = (
+    execute "UPDATE content_items SET document_id = (
                SELECT id FROM documents
-               WHERE documents.content_id = content_items.content_id AND
+               WHERE documents.content_id = content_items.content_id::uuid AND
                   documents.locale = content_items.locale
-             )'
+             )"
 
-    change_column :content_items, :document_id, :integer, :null => false
+    change_column :content_items, :document_id, :integer, null: false
 
     remove_column :content_items, :content_id
     remove_column :content_items, :locale
@@ -18,13 +18,16 @@ class CreateEditions < ActiveRecord::Migration[5.0]
   end
 
   def down
-    add_column :content_items, :content_id, :string, null: false
-    add_column :content_items, :locale, :string, null: false
+    add_column :content_items, :content_id, :string
+    add_column :content_items, :locale, :string
 
-    execute 'UPDATE content_items
+    execute "UPDATE content_items
              SET content_id = t.content_id, locale = t.locale
              FROM (SELECT id, content_id, locale FROM documents) t
-             WHERE t.id = content_items.document_id'
+             WHERE t.id = content_items.document_id"
+
+    change_column :content_items, :content_id, :string, null: false
+    change_column :content_items, :locale, :string, null: false
 
     remove_foreign_key :content_items, :documents
     remove_column :content_items, :document_id
