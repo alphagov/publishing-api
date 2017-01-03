@@ -13,10 +13,14 @@ ActiveSupport::Notifications.subscribe("sql.active_record") { |_| queries += 1 }
 StackProf.run(mode: :wall, out: "tmp/get_content_items_wall.dump") do
   puts Benchmark.measure {
     10.times do
-      Queries::GetContentCollection.new(
-        document_types: ['taxon', 'organisation', 'topic', 'mainstream_browse_page', 'policy'],
-        fields: ['content_id', 'document_type', 'title', 'base_path']
-      ).call
+      Presenters::ResultsPresenter.new(
+        Queries::GetContentCollection.new(
+          document_types: ['taxon', 'organisation', 'topic', 'mainstream_browse_page', 'policy'],
+          fields: ['content_id', 'document_type', 'title', 'base_path']
+        ),
+        Pagination.new,
+        'http://dev.gov.uk'
+      ).present
       print "."
     end
   }
