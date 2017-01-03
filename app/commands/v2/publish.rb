@@ -101,7 +101,10 @@ module Commands
       end
 
       def document
-        @document ||= Queries::GetDocument.(content_id, locale)
+        @document ||= Document.find_or_create_locked(
+          content_id: content_id,
+          locale: locale,
+        )
       end
 
       def previous_version_number
