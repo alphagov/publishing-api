@@ -119,20 +119,13 @@ module Commands
       end
 
       def find_unpublishable_content_item
-        allowed_states = %w(published unpublished)
-
         if payload[:allow_draft]
-          allowed_states = %w(draft)
+          content_item = document.draft
+        else
+          content_item = document.previous
         end
 
-        content_item = document.content_items.where(state: allowed_states)
-          .order(nil).lock.first
-
         content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
-      end
-
-      def previous_item
-        document.previous_item
       end
 
       def document
@@ -143,7 +136,7 @@ module Commands
       end
 
       def draft_exists?
-        document.content_items.where(state: "draft").exists?
+        document.draft.present?
       end
     end
   end
