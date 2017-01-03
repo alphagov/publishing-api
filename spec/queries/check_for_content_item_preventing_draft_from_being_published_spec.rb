@@ -52,11 +52,10 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
 
     context "with a unpublished item, of type \"substitute\", and a draft at the same base path" do
       before do
-        FactoryGirl.create(:unpublished_content_item,
+        FactoryGirl.create(:substitute_unpublished_content_item,
           content_id: SecureRandom.uuid,
           base_path: base_path,
           document_type: document_type,
-          unpublishing_type: "substitute",
           user_facing_version: 1,
           locale: "en",
         )
