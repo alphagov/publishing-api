@@ -459,7 +459,7 @@ RSpec.describe V2::ContentItemsController do
       it "responds with 404" do
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = { update_type: "major" }.to_json
-        post :publish, params: { content_id: "missing" }
+        post :publish, params: { content_id: SecureRandom.uuid }
 
         expect(response.status).to eq(404)
       end
