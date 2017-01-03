@@ -1,6 +1,6 @@
 module Queries
   module GetDocument
-    def self.call(content_id, locale = nil, version: nil, include_warnings: false)
+    def self.call(content_id, locale = nil)
       locale_to_use = locale || ContentItem::DEFAULT_LOCALE
 
       begin
@@ -8,7 +8,7 @@ module Queries
         Document.transaction(requires_new: true) do
           Document.find_or_create_by!(
             content_id: content_id,
-            locale: locale
+            locale: locale_to_use
           ).lock!
         end
       rescue ActiveRecord::RecordNotUnique
