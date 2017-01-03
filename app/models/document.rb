@@ -1,4 +1,6 @@
 class Document < ApplicationRecord
+  include FindOrCreateLocked
+
   has_many :content_items
   has_one :draft, -> { where(content_store: "draft") }, class_name: ContentItem
   has_one :live, -> { where(content_store: "live") }, class_name: ContentItem
