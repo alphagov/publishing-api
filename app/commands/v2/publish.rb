@@ -157,7 +157,7 @@ module Commands
           raise "There should only be one previous published or unpublished item"
         end
 
-        previous_items.first
+        previous_items.order("content_id").first
       end
 
       def send_downstream(content_id, locale, update_type)
