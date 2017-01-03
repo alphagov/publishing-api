@@ -11,4 +11,8 @@ class Document < ApplicationRecord
     in: I18n.available_locales.map(&:to_s),
     message: 'must be a supported locale'
   }
+
+  def previous
+    content_items.find_by(state: %w(published unpublished))
+  end
 end
