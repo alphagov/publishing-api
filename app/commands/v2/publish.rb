@@ -27,7 +27,6 @@ module Commands
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
         previous_item = document.live
-
         previous_item.supersede if previous_item
 
         delete_change_notes_if_not_major_update(content_item, update_type)
