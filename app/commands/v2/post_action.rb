@@ -29,6 +29,10 @@ module Commands
         payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
+      def document
+        @document ||= Queries::GetDocument.(content_id, locale)
+      end
+
       def draft?
         payload[:draft].nil? ? true : payload[:draft]
       end
@@ -42,10 +46,7 @@ module Commands
       end
 
       def find_content_item
-        content_item = ContentItem.joins(:document).find_by(
-          documents: { content_id: content_id, locale: locale },
-          state: draft? ? %w(draft) : %w(published unpublished),
-        )
+        content_item = draft? ? document.draft : document.live
 
         unless content_item
           message = "Could not find a content item to associate this action with"

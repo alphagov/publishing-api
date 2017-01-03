@@ -3,7 +3,7 @@ module Commands
     class Unpublish < BaseCommand
       def call
         validate
-        previous_item.supersede if previous_item
+        document.live.supersede if document.live
         transition_state
 
         after_transaction_commit do
@@ -128,17 +128,6 @@ module Commands
           .lock.first
 
         content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
-      end
-
-      def previous_item
-        raise "There should only be one previous published or unpublished item" if previous_items.size > 1
-        previous_items.first
-      end
-
-      def previous_items
-        @previous_items ||= document.content_items.where(
-          state: %w(published unpublished),
-        )
       end
 
       def document
