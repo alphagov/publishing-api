@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220161528) do
+ActiveRecord::Schema.define(version: 20161221074633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,12 @@ ActiveRecord::Schema.define(version: 20161220161528) do
     t.index ["rendering_app"], name: "index_content_items_on_rendering_app", using: :btree
     t.index ["state", "base_path"], name: "index_content_items_on_state_and_base_path", using: :btree
     t.index ["updated_at"], name: "index_content_items_on_updated_at", using: :btree
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.uuid   "content_id", null: false
+    t.string "locale",     null: false
+    t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true, using: :btree
   end
 
   create_table "events", force: :cascade do |t|
