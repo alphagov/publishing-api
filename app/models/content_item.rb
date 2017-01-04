@@ -117,6 +117,7 @@ class ContentItem < ApplicationRecord
     self.document = Document.find_or_create_by(content_id: content_id,
                                                locale: new_locale)
   end
+
   def requires_base_path?
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
   end
