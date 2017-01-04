@@ -5,13 +5,13 @@ RSpec.describe Queries::ContentDependencies do
 
   let(:content_id) { SecureRandom.uuid }
   let(:locale) { "en" }
-  let(:state_fallback_order) { %w[published unpublished] }
+  let(:content_stores) { %w[live] }
 
   let(:instance_options) do
     {
       content_id: content_id,
       locale: locale,
-      state_fallback_order: state_fallback_order,
+      content_stores: content_stores,
     }
   end
 
@@ -74,12 +74,12 @@ RSpec.describe Queries::ContentDependencies do
       end
 
       let(:locale) { "en" }
-      let(:state_fallback_order) { %w[published unpublished] }
+      let(:content_stores) { %w[live] }
 
       it { is_expected.to be_empty }
 
-      context "but we requested drafts in state_fallback_order" do
-        let(:state_fallback_order) { %w[draft published unpublished] }
+      context "but we requested drafts in content_stores" do
+        let(:content_stores) { %w[draft live] }
         let(:translations) do
           [
             [content_id, "cy"],
@@ -146,8 +146,8 @@ RSpec.describe Queries::ContentDependencies do
 
       it { is_expected.to match_array(links) }
 
-      context "but we use a different state_fallback_order" do
-        let(:state_fallback_order) { %w[draft published unpublished] }
+      context "and we include drafts" do
+        let(:content_stores) { %w[draft live] }
 
         let(:links) do
           [
@@ -222,12 +222,12 @@ RSpec.describe Queries::ContentDependencies do
       end
 
       let(:reverse_link_content_id) { SecureRandom.uuid }
-      let(:state_fallback_order) { %w[published unpublished] }
+      let(:content_stores) { %w[live] }
 
       it { is_expected.to be_empty }
 
       context "and we allow drafts" do
-        let(:state_fallback_order) { %w[draft published unpublished] }
+        let(:content_stores) { %w[draft live] }
 
         let(:links) do
           [
