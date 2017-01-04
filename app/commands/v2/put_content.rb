@@ -27,7 +27,7 @@ module Commands
         ChangeNote.create_from_content_item(payload, content_item)
 
         after_transaction_commit do
-          send_downstream(content_item.content_id, locale)
+          send_downstream(content_item.content_id, document.locale)
         end
 
         response_hash = Presenters::Queries::ContentItemPresenter.present(
@@ -35,7 +35,7 @@ module Commands
           include_warnings: true,
         )
 
-        Action.create_put_content_action(content_item, locale, event)
+        Action.create_put_content_action(content_item, document.locale, event)
         Success.new(response_hash)
       end
 
@@ -108,9 +108,9 @@ module Commands
       def clear_draft_items_of_same_locale_and_base_path
         SubstitutionHelper.clear!(
           new_item_document_type: document_type,
-          new_item_content_id: content_id,
+          new_item_content_id: document.content_id,
           state: "draft",
-          locale: locale,
+          locale: document.locale,
           base_path: base_path,
           downstream: downstream,
           callbacks: callbacks,
@@ -124,7 +124,7 @@ module Commands
 
       def create_content_item
         attributes = content_item_attributes_from_payload.merge(
-          locale: locale,
+          locale: document.locale,
           state: "draft",
           content_store: "draft",
           user_facing_version: user_facing_version_number_for_new_draft,
@@ -163,8 +163,8 @@ module Commands
 
       def document
         @document ||= Document.find_or_create_locked(
-          content_id: content_id,
-          locale: locale,
+          content_id: payload.fetch(:content_id),
+          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
         )
       end
 
@@ -189,10 +189,6 @@ module Commands
         previous_base_path != base_path
       end
 
-      def content_id
-        payload.fetch(:content_id)
-      end
-
       def document_type
         payload[:document_type]
       end
@@ -207,10 +203,6 @@ module Commands
 
       def base_path_required?
         !ContentItem::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
-      end
-
-      def locale
-        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
       def publishing_app
@@ -229,8 +221,8 @@ module Commands
         # FIXME replace this when 'content_id' and 'locale' fields are removed
         # from ContentItem model
         # update these fields to also update the underlying document
-        content_item.content_id = content_id
-        content_item.locale = locale
+        content_item.content_id = document.content_id
+        content_item.locale = document.locale
 
         content_item.save!
       end

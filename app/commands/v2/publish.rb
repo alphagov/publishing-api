@@ -7,7 +7,7 @@ module Commands
             message = "Cannot publish an already published content item"
             raise_command_error(400, message, fields: {})
           else
-            message = "Item with content_id #{content_id} and locale #{locale} does not exist"
+            message = "Item with content_id #{document.content_id} and locale #{document.locale} does not exist"
             raise_command_error(404, message, fields: {})
           end
         end
@@ -53,9 +53,9 @@ module Commands
           send_downstream(content_item.content_id, content_item.locale, update_type)
         end
 
-        Action.create_publish_action(content_item, locale, event)
+        Action.create_publish_action(content_item, document.locale, event)
 
-        Success.new(content_id: content_id)
+        Success.new(content_id: document.content_id)
       end
 
     private
@@ -66,18 +66,10 @@ module Commands
         end
       end
 
-      def content_id
-        payload[:content_id]
-      end
-
-      def locale
-        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
-      end
-
       def document
         @document ||= Document.find_or_create_locked(
-          content_id: content_id,
-          locale: locale,
+          content_id: payload[:content_id],
+          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
         )
       end
 

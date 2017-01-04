@@ -11,9 +11,10 @@ module Commands
           send_downstream
         end
 
-        Action.create_unpublish_action(content_item, unpublishing_type, locale, event)
+        Action.create_unpublish_action(content_item, unpublishing_type,
+                                       document.locale, event)
 
-        Success.new(content_id: content_id)
+        Success.new(content_id: document.content_id)
       end
 
     private
@@ -40,10 +41,6 @@ module Commands
         @content_item ||= find_unpublishable_content_item
       end
 
-      def content_id
-        @content_id ||= payload.fetch(:content_id)
-      end
-
       def validate_allow_discard_draft
         if payload[:allow_draft] && payload[:discard_drafts]
           message = "allow_draft and discard_drafts cannot be used together"
@@ -59,12 +56,12 @@ module Commands
       end
 
       def validate_draft_presence
-        if draft_exists? && !payload[:allow_draft]
+        if document.draft.present? && !payload[:allow_draft]
           if payload[:discard_drafts] == true
             DiscardDraft.call(
               {
-                content_id: content_id,
-                locale: locale,
+                content_id: document.content_id,
+                locale: document.locale,
               },
               downstream: downstream,
               callbacks: callbacks,
@@ -96,7 +93,7 @@ module Commands
         DownstreamDraftWorker.perform_async_in_queue(
           DownstreamDraftWorker::HIGH_QUEUE,
           content_id: content_item.content_id,
-          locale: locale,
+          locale: document.locale,
           payload_version: event.id,
           update_dependencies: true,
         )
@@ -104,14 +101,10 @@ module Commands
         DownstreamLiveWorker.perform_async_in_queue(
           DownstreamLiveWorker::HIGH_QUEUE,
           content_id: content_item.content_id,
-          locale: locale,
+          locale: document.locale,
           payload_version: event.id,
           update_dependencies: true,
         )
-      end
-
-      def locale
-        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
       def previous_version_number
@@ -130,13 +123,9 @@ module Commands
 
       def document
         @document ||= Document.find_or_create_locked(
-          content_id: content_id,
-          locale: locale,
+          content_id: payload.fetch(:content_id),
+          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
         )
-      end
-
-      def draft_exists?
-        document.draft.present?
       end
     end
   end
