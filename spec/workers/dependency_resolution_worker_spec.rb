@@ -30,7 +30,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
     expect(Queries::ContentDependencies).to receive(:new).with(
       content_id: content_id,
       locale: locale,
-      state_fallback_order: %w[published unpublished],
+      content_stores: %w[live],
     ).and_return(content_item_dependee)
     worker_perform
   end
