@@ -1,7 +1,7 @@
 class Document < ApplicationRecord
-  has_many :content_items
+  has_many :content_item
 
-  validates :content_id, presence: true
+  validates :content_id, presence: true, uuid: true
 
   validates :locale, inclusion: {
     in: I18n.available_locales.map(&:to_s),

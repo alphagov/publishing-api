@@ -41,6 +41,11 @@ class ContentItem < ApplicationRecord
 
   belongs_to :document
 
+<<<<<<< 641beea5841f4257abe5a5a1230a06e73f810d7f
+=======
+  validates :document, presence: true
+
+>>>>>>> Populate documents from content items
   validates :schema_name, presence: true
   validates :document_type, presence: true
 
