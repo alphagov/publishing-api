@@ -41,6 +41,7 @@ private
   end
 
   def respond_with_command_error(error)
+    error = error.cause unless error.is_a?(CommandError)
     render status: error.code, json: error
   end
 

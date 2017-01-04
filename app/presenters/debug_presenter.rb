@@ -15,14 +15,7 @@ module Presenters
     end
 
     def user_facing_versions
-      UserFacingVersion.join_content_items(content_items).pluck("user_facing_versions.number")
-    end
-
-    def locales
-      State.join_content_items(
-        Translation
-        .join_content_items(content_items))
-        .select("locale, content_items.id as id, states.name as state")
+      content_items.map(&:user_facing_version).sort.reverse
     end
 
     def latest_content_items
@@ -30,7 +23,7 @@ module Presenters
     end
 
     def latest_state_with_locale
-      Translation.join_content_items(State.join_content_items(latest_content_items)).pluck("translations.locale, states.name")
+      latest_content_items.map { |ci| [ci.locale, ci.state] }
     end
 
     def link_set
@@ -59,15 +52,13 @@ module Presenters
     end
 
     def states
-      @states = []
-      locales.group_by(&:locale).each do |locale, local_states|
-        @states << [locale, '']
-        @states << [{ v: local_states.first.id.to_s, f: local_states.first.state }, locale]
-        local_states[1..-1].each_with_index do |state, index|
-          @states << [{ v: state.id.to_s, f: state.state }, local_states[(index + 1) - 1].try(:id).to_s]
+      content_items.group_by(&:locale).each_with_object([]) do |(locale, content_items), states|
+        states << [locale, '']
+        states << [{ v: content_items.first.id.to_s, f: content_items.first.state }, locale]
+        content_items[1..-1].each_with_index do |content_item, index|
+          states << [{ v: content_item.id.to_s, f: content_item.state }, content_items[index].try(:id).to_s]
         end
       end
-      @states
     end
 
     def event_timeline
