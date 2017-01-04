@@ -30,11 +30,10 @@ private
   end
 
   def dependencies
-    states = draft? ? %w[draft published unpublished] : %w[published unpublished]
     Queries::ContentDependencies.new(
       content_id: content_id,
       locale: locale,
-      state_fallback_order: states,
+      content_stores: draft? ? %w[draft live] : %w[live],
     ).call
   end
 
