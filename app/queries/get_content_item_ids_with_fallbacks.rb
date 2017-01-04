@@ -1,62 +1,57 @@
 module Queries
   class GetContentItemIdsWithFallbacks
-    extend ArelHelpers
+    def self.call(content_ids, state_fallback_order:, locale_fallback_order: ContentItem::DEFAULT_LOCALE)
+      state_fallback_order = Array.wrap(state_fallback_order).map(&:to_s)
+      locale_fallback_order = Array.wrap(locale_fallback_order).map(&:to_s)
 
-    def self.call(content_ids, locale_fallback_order: ContentItem::DEFAULT_LOCALE, state_fallback_order:)
-      state_fallback_order = Array(state_fallback_order).map(&:to_s)
-      locale_fallback_order = Array(locale_fallback_order).map(&:to_s)
-
-      documents = Document.arel_table
-      content_items = ContentItem.arel_table
-      unpublishings = Unpublishing.arel_table
-
-      fallback_scope = content_items.project(content_items[:id],
-                                             documents[:content_id])
-          .where(documents[:content_id].in(content_ids))
-          .where(content_items[:document_type].not_in(::ContentItem::NON_RENDERABLE_FORMATS))
-          .where(documents[:locale].in(locale_fallback_order))
-          .join(documents).on(documents[:id].eq(content_items[:document_id]))
-
-      if state_fallback_order.include?("withdrawn")
-        fallback_scope = fallback_scope.where(content_items[:state].in(state_fallback_order).or(content_items[:state]
-                                                           .eq("unpublished")
-                                                           .and(unpublishings[:type]
-                                                                .eq("withdrawal"))))
-        .join(unpublishings, Arel::Nodes::OuterJoin).on(unpublishings[:content_item_id].eq(content_items[:id]))
-      else
-        fallback_scope = fallback_scope.where(content_items[:state].in(state_fallback_order))
-      end
-
-      fallback_scope = fallback_scope.order(
-        order_by_clause(:content_items, :state, state_fallback_order),
-        order_by_clause(:documents, :locale, locale_fallback_order)
-      )
-
-      fallbacks = cte(fallback_scope, as: "fallbacks")
-
-      aggregates = cte(
-        fallbacks.table
-          .project(Arel::Nodes::NamedFunction.new("array_agg", [fallbacks.table[:id]], "ids"))
-          .group(fallbacks.table[:content_id])
-          .with(fallbacks.compiled_scope),
-        as: "aggregates"
-      )
-
-      get_column(
-        aggregates.table
-          .project(Arel::Nodes::SqlLiteral.new('aggregates.ids[1] AS id'))
-          .with(aggregates.compiled_scope)
-          .to_sql
-      )
+      ContentItem.joins(:document).left_outer_joins(:unpublishing)
+        .where(documents: { content_id: content_ids })
+        .where(where_state(state_fallback_order))
+        .where(documents: { locale: locale_fallback_order })
+        .where.not(document_type: ContentItem::NON_RENDERABLE_FORMATS)
+        .order("documents.content_id ASC")
+        .order(order_by_clause("content_items", "state", state_ordering(state_fallback_order)))
+        .order(order_by_clause("documents", "locale", locale_fallback_order))
+        .pluck("DISTINCT ON (documents.content_id) content_id, content_items.id")
+        .map(&:last)
     end
 
-    # Arel::Nodes::Case is coming in arel master
+    def self.where_state(state_fallback_order)
+      without_withdrawn = state_fallback_order - ["withdrawn"]
+      if without_withdrawn.present?
+        state_check = ContentItem.arel_table[:state].in(without_withdrawn)
+      else
+        state_check = nil
+      end
+
+      if state_fallback_order.include?("withdrawn")
+        withdrawn_check = ContentItem.arel_table[:state].eq("unpublished")
+                            .and(Unpublishing.arel_table[:type].eq("withdrawal"))
+      else
+        withdrawn_check = nil
+      end
+
+      if state_check && withdrawn_check
+        state_check.or(withdrawn_check)
+      else
+        state_check || withdrawn_check
+      end
+    end
+    private_class_method :where_state
+
     def self.order_by_clause(table, attribute, values)
       sql = %{CASE "#{table}"."#{attribute}" }
       sql << values.map.with_index { |v, i| "WHEN '#{v}' THEN #{i}" }.join(" ")
       sql << " ELSE #{values.size} END"
-      Arel::Nodes::SqlLiteral.new(sql)
     end
     private_class_method :order_by_clause
+
+    # We have a special case where a state of withdrawn can be passed in,
+    # this is not actually a state but an unpublishing type. So when this is
+    # passed in it is changed to "unpublished" for ordering purposes.
+    def self.state_ordering(state_fallback_order)
+      state_fallback_order.map { |state| state == "withdrawn" ? "unpublished" : state }
+    end
+    private_class_method :state_ordering
   end
 end
