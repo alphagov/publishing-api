@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20170105104520) do
     t.string   "base_path"
     t.string   "content_store"
     t.uuid     "content_id",                                    null: false
+    t.integer  "document_id"
     t.index ["content_id", "state", "locale"], name: "index_content_items_on_content_id_and_state_and_locale", using: :btree
     t.index ["content_id"], name: "index_content_items_on_content_id", using: :btree
     t.index ["document_type"], name: "index_content_items_on_document_type", using: :btree
@@ -204,5 +205,6 @@ ActiveRecord::Schema.define(version: 20170105104520) do
   end
 
   add_foreign_key "change_notes", "content_items"
+  add_foreign_key "content_items", "documents"
   add_foreign_key "links", "link_sets"
 end
