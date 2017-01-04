@@ -39,6 +39,7 @@ class ContentItem < ApplicationRecord
   EMPTY_BASE_PATH_FORMATS = %w(contact government).freeze
 
   belongs_to :document
+  has_one :unpublishing
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
 
