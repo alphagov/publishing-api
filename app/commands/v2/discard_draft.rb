@@ -11,11 +11,12 @@ module Commands
         increment_live_lock_version if live
 
         after_transaction_commit do
-          downstream_discard_draft(draft.base_path, draft.content_id, locale)
+          downstream_discard_draft(draft.base_path, draft.content_id,
+                                   document.locale)
         end
 
-        Action.create_discard_draft_action(draft, locale, event)
-        Success.new(content_id: content_id)
+        Action.create_discard_draft_action(draft, document.locale, event)
+        Success.new(content_id: document.content_id)
       end
 
     private
@@ -62,8 +63,8 @@ module Commands
 
       def document
         @document ||= Document.find_or_create_locked(
-          content_id: content_id,
-          locale: locale,
+          content_id: payload[:content_id],
+          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
         )
       end
 
@@ -73,14 +74,6 @@ module Commands
 
       def live
         @live ||= document.live
-      end
-
-      def content_id
-        payload[:content_id]
-      end
-
-      def locale
-        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
     end
   end

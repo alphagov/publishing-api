@@ -9,7 +9,7 @@ module Commands
         update_content_dependencies(content_item)
 
         after_transaction_commit do
-          send_downstream(content_item.content_id, locale)
+          send_downstream(content_item.content_id, document.locale)
         end
 
         Success.new(present_response(content_item))
@@ -85,11 +85,11 @@ module Commands
 
       def clear_draft_items_of_same_locale_and_base_path
         SubstitutionHelper.clear!(
-          new_item_document_type: payload[:document_type],
-          new_item_content_id: content_id,
+          new_item_document_type: document_type,
+          new_item_content_id: document.content_id,
           state: "draft",
-          locale: locale,
-          base_path: payload[:base_path],
+          locale: document.locale,
+          base_path: base_path,
           downstream: downstream,
           callbacks: callbacks,
           nested: true,
@@ -102,8 +102,8 @@ module Commands
 
       def document
         @document ||= Document.find_or_create_locked(
-          content_id: content_id,
-          locale: locale,
+          content_id: payload.fetch(:content_id),
+          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
         )
       end
 

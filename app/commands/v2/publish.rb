@@ -3,7 +3,6 @@ module Commands
     class Publish < BaseCommand
       def call
         validate
-
         publish_content_item
 
         after_transaction_commit do
@@ -92,18 +91,10 @@ module Commands
         ChangeNote.where(content_item: content_item).delete_all
       end
 
-      def content_id
-        payload[:content_id]
-      end
-
-      def locale
-        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
-      end
-
       def document
         @document ||= Document.find_or_create_locked(
-          content_id: content_id,
-          locale: locale,
+          content_id: payload[:content_id],
+          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
         )
       end
 

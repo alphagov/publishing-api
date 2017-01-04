@@ -5,8 +5,8 @@ module Commands
         check_version_and_raise_if_conflicting(content_item, previous_version_number)
 
         Action.create!(
-          content_id: content_id,
-          locale: locale,
+          content_id: document.content_id,
+          locale: document.locale,
           action: action_type,
           content_item: content_item,
           user_uid: event.user_uid,
@@ -14,25 +14,17 @@ module Commands
         )
 
         Success.new(
-          { content_id: content_id, locale: locale, action: action_type },
+          { content_id: document.content_id, locale: document.locale, action: action_type },
           code: 201,
         )
       end
 
     private
 
-      def content_id
-        payload.fetch(:content_id)
-      end
-
-      def locale
-        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
-      end
-
       def document
         @document ||= Document.find_or_create_locked(
-          content_id: content_id,
-          locale: locale,
+          content_id: payload.fetch(:content_id),
+          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
         )
       end
 
