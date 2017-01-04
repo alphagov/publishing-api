@@ -22,10 +22,9 @@ RSpec.describe Queries::LocalesForContentItems do
     let(:content_id_2) { SecureRandom.uuid }
     let(:base_content_ids) { [content_id_1, content_id_2] }
     let(:content_ids) { base_content_ids }
-    let(:states) { %w[draft published unpublished] }
-    let(:include_substitutes) { false }
+    let(:content_stores) { %w[draft live] }
 
-    subject { described_class.call(content_ids, states, include_substitutes) }
+    subject { described_class.call(content_ids, content_stores) }
 
     it { is_expected.to be_a(Array) }
 
@@ -88,8 +87,8 @@ RSpec.describe Queries::LocalesForContentItems do
 
       it { is_expected.to match_array(results) }
 
-      context "but we're only filtering on published / unpublished" do
-        let(:states) { %w[published unpublished] }
+      context "but we're only filtering on live " do
+        let(:content_stores) { %w[live] }
 
         let(:results) do
           [
@@ -114,34 +113,6 @@ RSpec.describe Queries::LocalesForContentItems do
       end
 
       it { is_expected.to match_array(results) }
-    end
-
-    context "when some of the items are unpublished type substite" do
-      before do
-        create_content_item(content_id_1, :live_content_item, 1, "en", "path-1")
-        create_content_item(content_id_2, :substitute_unpublished_content_item, 1, "en", "path-2")
-      end
-
-      let(:results) do
-        [
-          [content_id_1, "en"],
-        ]
-      end
-
-      it { is_expected.to match_array(results) }
-
-      context "and we're including substitutes" do
-        let(:include_substitutes) { true }
-
-        let(:results) do
-          [
-            [content_id_1, "en"],
-            [content_id_2, "en"],
-          ]
-        end
-
-        it { is_expected.to match_array(results) }
-      end
     end
   end
 end
