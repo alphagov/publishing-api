@@ -9,6 +9,6 @@ class RemoveInvalidContentIds < ActiveRecord::Migration[5.0]
     link_sets_to_remove = [40, 42, 26, 39, 61, 20, 41, 83, 51, 44, 90, 88, 29,
                            18, 86, 89, 87, 94, 92]
 
-    LinkSet.where(content_id: link_sets_to_remove).delete_all
+    LinkSet.where(content_id: link_sets_to_remove).destroy_all
   end
 end
