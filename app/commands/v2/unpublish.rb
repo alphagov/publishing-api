@@ -129,7 +129,7 @@ module Commands
           content_id: content_id,
           locale: locale,
           state: allowed_states
-        ).lock.first
+        ).order(nil).lock.first
 
         content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
       end
@@ -144,7 +144,7 @@ module Commands
           content_id: content_id,
           locale: locale,
           state: %w(published unpublished),
-        )
+        ).order(nil)
       end
 
       def draft_exists?
