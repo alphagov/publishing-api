@@ -40,6 +40,19 @@ private
     respond_with_command_error(error)
   end
 
+  def validate_uuid(uuid)
+    return true if uuid =~ /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+  end
+
+  def ensure_valid_content_id
+    raise CommandError.new(code: 400, error_details: {
+      error: {
+        code: 400,
+        message: "Invalid Content ID"
+      }
+    }) unless validate_uuid path_params[:content_id]
+  end
+
   def respond_with_command_error(error)
     error = error.cause unless error.is_a?(CommandError)
     render status: error.code, json: error

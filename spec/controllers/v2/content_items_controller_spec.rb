@@ -371,10 +371,10 @@ RSpec.describe V2::ContentItemsController do
     end
 
     context "for an invalid content ID" do
-      it "responds with 404" do
+      it "responds with 400" do
         get :show, params: { content_id: "invalid" }
 
-        expect(response.status).to eq(404)
+        expect(response.status).to eq(400)
       end
     end
   end
