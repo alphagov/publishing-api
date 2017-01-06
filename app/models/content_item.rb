@@ -100,9 +100,18 @@ class ContentItem < ApplicationRecord
     end
   end
 
-  before_validation do
-    self.document = Document.find_or_create_by(content_id: content_id,
-                                               locale: locale)
+  before_validation { ensure_document }
+  before_save { ensure_document }
+
+  def document_requires_updating?
+    !document || (changes[:locale] || changes[:content_id]) || (document.locale != locale || document.content_id != content_id)
+  end
+
+  def ensure_document
+    if document_requires_updating?
+      self.document = Document.find_or_create_by(content_id: content_id,
+                                                 locale: locale)
+    end
   end
 
   def requires_base_path?
