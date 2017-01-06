@@ -7,7 +7,7 @@ class ChangeNote < ActiveRecord::Base
 
   def self.join_content_items(content_item_scope)
     content_item_scope.joins(
-      "LEFT JOIN change_notes ON change_notes.content_item_id = content_items.id"
+      "LEFT JOIN change_notes ON change_notes.content_item_id = editions.id"
     )
   end
 end

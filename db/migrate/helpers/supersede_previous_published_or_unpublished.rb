@@ -6,7 +6,7 @@ module Helpers
         .where(state: %w(published unpublished))
         .group("documents.content_id", :locale)
         .having("count(documents.content_id) > 1")
-        .pluck("json_agg((content_items.id, user_facing_version))")
+        .pluck("json_agg((editions.id, user_facing_version))")
         .map do |results|
           results.map { |row| { content_item_id: row["f1"], version: row["f2"] } }
         end

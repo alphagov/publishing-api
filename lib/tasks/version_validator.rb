@@ -54,10 +54,10 @@ module Tasks
             array_agg(state) as states,
             array_agg(user_facing_version) as versions,
             array_agg(base_path) as base_paths,
-            array_agg(content_items.id) as content_item_ids
+            array_agg(editions.id) as content_item_ids
 
-          FROM content_items
-          JOIN documents ON documents.id = content_items.document_id
+          FROM editions
+          JOIN documents ON documents.id = editions.document_id
           GROUP BY documents.content_id, documents.locale
         SQL
       end

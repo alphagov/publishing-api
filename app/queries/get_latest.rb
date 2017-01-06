@@ -8,7 +8,7 @@ module Queries
       def inner_scope(content_item_scope)
         content_item_scope
           .order(:document_id, user_facing_version: :desc)
-          .select("distinct on(content_items.document_id) content_items.document_id, content_items.id")
+          .select("distinct on(editions.document_id) editions.document_id, editions.id")
           .map(&:id)
       end
     end

@@ -8,7 +8,7 @@ class Location < ApplicationRecord
 
   def self.join_content_items(content_item_scope)
     content_item_scope.joins(
-      "INNER JOIN locations ON locations.content_item_id = content_items.id"
+      "INNER JOIN locations ON locations.content_item_id = editions.id"
     )
   end
 

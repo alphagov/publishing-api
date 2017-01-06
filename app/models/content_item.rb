@@ -1,4 +1,6 @@
 class ContentItem < ApplicationRecord
+  self.table_name = "editions"
+
   include DefaultAttributes
   include SymbolizeJSON
   include DescriptionOverrides

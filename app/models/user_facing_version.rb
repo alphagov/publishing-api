@@ -8,7 +8,7 @@ class UserFacingVersion < ApplicationRecord
 
   def self.join_content_items(content_item_scope)
     content_item_scope.joins(
-      "INNER JOIN user_facing_versions ON user_facing_versions.content_item_id = content_items.id"
+      "INNER JOIN user_facing_versions ON user_facing_versions.content_item_id = editions.id"
     )
   end
 
