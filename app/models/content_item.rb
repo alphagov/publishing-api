@@ -95,20 +95,6 @@ class ContentItem < ApplicationRecord
     end
   end
 
-  before_validation { ensure_document }
-  before_save { ensure_document }
-
-  def document_requires_updating?
-    !document || document.locale != locale || document.content_id != content_id
-  end
-
-  def ensure_document
-    if document_requires_updating?
-      self.document = Document.find_or_create_by(content_id: content_id,
-                                                 locale: locale)
-    end
-  end
-
   def as_json(options = {})
     super(options).merge(content_id: document.content_id,
                          locale: document.locale)
