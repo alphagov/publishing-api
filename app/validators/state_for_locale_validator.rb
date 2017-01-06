@@ -8,7 +8,7 @@ class StateForLocaleValidator < ActiveModel::Validator
       locale: record.locale,
     }
 
-    conflict = ContentItem.where(criteria).where.not(id: record.id).first
+    conflict = ContentItem.where(criteria).where.not(id: record.id).order(nil).first
 
     if conflict
       error = "state=#{record.state} and locale=#{record.locale} "
