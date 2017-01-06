@@ -27,10 +27,10 @@ RSpec.describe Tasks::VersionValidator do
     end
   end
 
-  context "when two items of the same content_id have identical versions" do
+  context "when two items of the same content_id have a gap between versions" do
     before do
       item = ContentItem.last
-      item.user_facing_version = 1
+      item.user_facing_version = 3
       item.save!(validate: false)
     end
 
@@ -39,19 +39,20 @@ RSpec.describe Tasks::VersionValidator do
         subject.validate
       }.to output(/Invalid version sequence for #{content_id}/).to_stdout
     end
+  end
 
-    context "but the content items have different locales" do
-      before do
-        item = ContentItem.last
-        item.locale = 'fr'
-        item.save!(validate: false)
-      end
+  context "when content items have the same version but different locale" do
+    before do
+      item = ContentItem.last
+      item.locale = 'fr'
+      item.user_facing_version = 1
+      item.save!(validate: false)
+    end
 
-      it "does not output any problems" do
-        expect {
-          subject.validate
-        }.not_to output(/Invalid version sequence/).to_stdout
-      end
+    it "does not output any problems" do
+      expect {
+        subject.validate
+      }.not_to output(/Invalid version sequence/).to_stdout
     end
   end
 
