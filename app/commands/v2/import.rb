@@ -219,7 +219,9 @@ module Commands
       end
 
       def delete_all(content_id)
-        Services::DeleteContentItem.destroy_content_items_with_links(content_id)
+        content_items = ContentItem.where(content_id: content_id)
+        Services::DeleteContentItem.destroy_supporting_objects(content_items)
+        content_items.destroy_all
       end
     end
   end
