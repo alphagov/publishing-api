@@ -104,7 +104,7 @@ class ContentItem < ApplicationRecord
   before_save { ensure_document }
 
   def document_requires_updating?
-    !document || (changes[:locale] || changes[:content_id]) || (document.locale != locale || document.content_id != content_id)
+    !document || document.locale != locale || document.content_id != content_id
   end
 
   def ensure_document
