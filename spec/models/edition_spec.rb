@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ContentItem do
+RSpec.describe Edition do
   subject { FactoryGirl.build(:content_item) }
 
   describe ".renderable_content" do
