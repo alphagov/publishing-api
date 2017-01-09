@@ -72,14 +72,8 @@ ActiveRecord::Schema.define(version: 20170109161435) do
     t.integer  "user_facing_version",  default: 1,              null: false
     t.string   "base_path"
     t.string   "content_store"
-    t.uuid     "content_id",                                    null: false
-    t.string   "locale",                                        null: false
     t.integer  "document_id",                                   null: false
     t.index ["base_path", "content_store"], name: "index_content_items_on_base_path_and_content_store", unique: true, using: :btree
-    t.index ["content_id", "locale", "content_store"], name: "index_content_items_on_content_id_and_locale_and_content_store", unique: true, using: :btree
-    t.index ["content_id", "locale", "user_facing_version"], name: "index_unique_ufv_content_id_locale", unique: true, using: :btree
-    t.index ["content_id", "state", "locale"], name: "index_content_items_on_content_id_and_state_and_locale", using: :btree
-    t.index ["content_id"], name: "index_content_items_on_content_id", using: :btree
     t.index ["document_id", "content_store"], name: "index_content_items_on_document_id_and_content_store", unique: true, using: :btree
     t.index ["document_id", "state"], name: "index_content_items_on_document_id_and_state", using: :btree
     t.index ["document_id", "user_facing_version"], name: "index_content_items_on_document_id_and_user_facing_version", unique: true, using: :btree
