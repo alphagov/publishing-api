@@ -16,7 +16,7 @@ RSpec.describe Queries::GetContent do
     let(:incorrect_locale) { "fr" }
 
     before do
-      FactoryGirl.create(:content_item,
+      FactoryGirl.create(:edition,
         content_id: content_id,
         base_path: "/vat-rates",
         user_facing_version: 1,
@@ -68,13 +68,13 @@ RSpec.describe Queries::GetContent do
 
   context "when a draft and a live content item exists for the content_id" do
     before do
-      FactoryGirl.create(:draft_content_item,
+      FactoryGirl.create(:draft_edition,
         content_id: content_id,
         title: "Draft Title",
         user_facing_version: 2,
       )
 
-      FactoryGirl.create(:live_content_item,
+      FactoryGirl.create(:live_edition,
         content_id: content_id,
         title: "Live Title",
         user_facing_version: 1,
@@ -89,14 +89,14 @@ RSpec.describe Queries::GetContent do
 
   context "when content items exist in non-draft, non-live states" do
     before do
-      FactoryGirl.create(:content_item,
+      FactoryGirl.create(:edition,
         content_id: content_id,
         user_facing_version: 1,
         title: "Published Title",
         state: "published",
       )
 
-      FactoryGirl.create(:superseded_content_item,
+      FactoryGirl.create(:superseded_edition,
         content_id: content_id,
         user_facing_version: 2,
         title: "Submitted Title",
@@ -111,14 +111,14 @@ RSpec.describe Queries::GetContent do
 
   context "when content items exist in multiple locales" do
     before do
-      FactoryGirl.create(:content_item,
+      FactoryGirl.create(:edition,
         content_id: content_id,
         user_facing_version: 2,
         title: "French Title",
         locale: "fr",
       )
 
-      FactoryGirl.create(:content_item,
+      FactoryGirl.create(:edition,
         content_id: content_id,
         user_facing_version: 1,
         title: "English Title",
@@ -139,12 +139,12 @@ RSpec.describe Queries::GetContent do
 
   describe "requesting specific versions" do
     before do
-      FactoryGirl.create(:superseded_content_item,
+      FactoryGirl.create(:superseded_edition,
         content_id: content_id,
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:live_content_item,
+      FactoryGirl.create(:live_edition,
         content_id: content_id,
         user_facing_version: 2,
       )

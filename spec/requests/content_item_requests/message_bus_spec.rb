@@ -6,7 +6,7 @@ RSpec.describe "Message bus", type: :request do
       expect(DownstreamService).to_not receive(:broadcast_to_message_queue)
       expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
-      put "/v2/content/#{content_id}", params: v2_content_item.to_json
+      put "/v2/content/#{content_id}", params: v2_edition.to_json
 
       expect(response.status).to eq(200)
     end
@@ -17,8 +17,8 @@ RSpec.describe "Message bus", type: :request do
     let(:request_path) { "/v2/links/#{content_id}" }
 
     context "with a live content item" do
-      let!(:live_content_item) {
-        FactoryGirl.create(:live_content_item,
+      let!(:live_edition) {
+        FactoryGirl.create(:live_edition,
           content_id: content_id,
           base_path: base_path,
         )
@@ -33,8 +33,8 @@ RSpec.describe "Message bus", type: :request do
     end
 
     context "with a draft content item" do
-      let!(:draft_content_item) {
-        FactoryGirl.create(:draft_content_item,
+      let!(:draft_edition) {
+        FactoryGirl.create(:draft_edition,
           content_id: content_id,
           base_path: base_path,
         )
@@ -53,7 +53,7 @@ RSpec.describe "Message bus", type: :request do
 
   context "/v2/publish" do
     before do
-      FactoryGirl.create(:draft_content_item,
+      FactoryGirl.create(:draft_edition,
         content_id: content_id,
         document_type: "guide",
         schema_name: "guide",

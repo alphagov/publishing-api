@@ -6,7 +6,7 @@ class DownstreamDiscardDraftWorker
   sidekiq_options queue: HIGH_QUEUE
 
   # FIXME: This worker can be initialised using a legacy interface with
-  # "live_content_item_id" and the updated interface which uses "locale".
+  # "live_edition_id" and the updated interface which uses "locale".
   # Both interfaces are supported until we are confident there are no longer
   # items in the sidekiq queue. They should all be long gone by
   # December 2016 and probably sooner.
@@ -46,10 +46,10 @@ private
   def assign_backwards_compatible_content_item(attributes)
     if attributes[:locale]
       @locale = attributes[:locale]
-      @web_content_item = Queries::GetWebContentItems.for_content_store(content_id, locale, true)
+      @web_content_item = Queries::GetWebEditions.for_content_store(content_id, locale, true)
     else
-      content_item_id = attributes[:live_content_item_id]
-      @web_content_item = content_item_id ? Queries::GetWebContentItems.find(content_item_id) : nil
+      edition_id = attributes[:live_edition_id]
+      @web_content_item = edition_id ? Queries::GetWebEditions.find(edition_id) : nil
       @locale = web_content_item.try(:locale)
     end
   end

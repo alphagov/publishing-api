@@ -22,8 +22,8 @@ RSpec.describe Commands::V2::Unpublish do
     end
 
     context "when unpublishing is invalid" do
-      let!(:live_content_item) do
-        FactoryGirl.create(:live_content_item,
+      let!(:live_edition) do
+        FactoryGirl.create(:live_edition,
           content_id: content_id,
           base_path: base_path,
           locale: locale,
@@ -70,8 +70,8 @@ RSpec.describe Commands::V2::Unpublish do
     end
 
     context "when the document is published" do
-      let!(:live_content_item) do
-        FactoryGirl.create(:live_content_item,
+      let!(:live_edition) do
+        FactoryGirl.create(:live_edition,
           content_id: content_id,
           base_path: base_path,
           locale: locale,
@@ -83,13 +83,13 @@ RSpec.describe Commands::V2::Unpublish do
       it "sets the content item's state to `unpublished`" do
         described_class.call(payload)
 
-        expect(live_content_item.reload.state).to eq("unpublished")
+        expect(live_edition.reload.state).to eq("unpublished")
       end
 
       it "creates an Unpublishing" do
         described_class.call(payload)
 
-        unpublishing = Unpublishing.find_by(content_item: live_content_item)
+        unpublishing = Unpublishing.find_by(edition: live_edition)
         expect(unpublishing.type).to eq("gone")
         expect(unpublishing.explanation).to eq("Removed for testing porpoises")
         expect(unpublishing.alternative_path).to eq("/new-path")
@@ -140,7 +140,7 @@ RSpec.describe Commands::V2::Unpublish do
         it "ignores the provided unpublished_at" do
           described_class.call(payload)
 
-          unpublishing = Unpublishing.find_by(content_item: live_content_item)
+          unpublishing = Unpublishing.find_by(edition: live_edition)
           expect(unpublishing.unpublished_at).to be_nil
         end
 
@@ -158,7 +158,7 @@ RSpec.describe Commands::V2::Unpublish do
           it "persists the provided unpublished_at" do
             described_class.call(payload)
 
-            unpublishing = Unpublishing.find_by(content_item: live_content_item)
+            unpublishing = Unpublishing.find_by(edition: live_edition)
             expect(unpublishing.unpublished_at).to eq DateTime.new(2016, 8, 1, 10, 10, 10)
           end
         end
@@ -166,9 +166,9 @@ RSpec.describe Commands::V2::Unpublish do
     end
 
     context "when only a draft is present" do
-      let!(:draft_content_item) do
+      let!(:draft_edition) do
         FactoryGirl.create(
-          :draft_content_item,
+          :draft_edition,
           content_id: content_id,
           user_facing_version: 3,
           locale: locale,
@@ -196,13 +196,13 @@ RSpec.describe Commands::V2::Unpublish do
         it "sets the content item's state to `unpublished`" do
           described_class.call(payload_with_allow_draft)
 
-          expect(draft_content_item.reload.state).to eq("unpublished")
+          expect(draft_edition.reload.state).to eq("unpublished")
         end
 
         it "creates an Unpublishing" do
           described_class.call(payload_with_allow_draft)
 
-          unpublishing = Unpublishing.find_by(content_item: draft_content_item)
+          unpublishing = Unpublishing.find_by(edition: draft_edition)
           expect(unpublishing.type).to eq("gone")
           expect(unpublishing.explanation).to eq("Removed for testing porpoises")
           expect(unpublishing.alternative_path).to eq("/new-path")
@@ -211,7 +211,7 @@ RSpec.describe Commands::V2::Unpublish do
         context "where there is an access limit" do
           before do
             AccessLimit.create!(
-              content_item: draft_content_item,
+              edition: draft_edition,
               users: [SecureRandom.uuid]
             )
           end
@@ -251,8 +251,8 @@ RSpec.describe Commands::V2::Unpublish do
         end
 
         context "when there is a previously unpublished content item" do
-          let!(:previous_content_item) do
-            FactoryGirl.create(:unpublished_content_item,
+          let!(:previous_edition) do
+            FactoryGirl.create(:unpublished_edition,
               content_id: content_id,
               base_path: base_path,
               user_facing_version: 1,
@@ -262,22 +262,22 @@ RSpec.describe Commands::V2::Unpublish do
           it "supersedes the unpublished item" do
             described_class.call(payload.merge(allow_draft: true))
 
-            expect(previous_content_item.reload.state).to eq("superseded")
+            expect(previous_edition.reload.state).to eq("superseded")
           end
 
           it "does not supersede unpublished items in a different locale" do
-            t = ContentItem.find_by!(id: previous_content_item.id)
+            t = Edition.find_by!(id: previous_edition.id)
             t.update!(locale: "fr")
 
             described_class.call(payload.merge(allow_draft: true))
 
-            expect(previous_content_item.reload.state).to eq("unpublished")
+            expect(previous_edition.reload.state).to eq("unpublished")
           end
         end
 
         context "when there is a previously published content item" do
-          let!(:previous_content_item) do
-            FactoryGirl.create(:live_content_item,
+          let!(:previous_edition) do
+            FactoryGirl.create(:live_edition,
               content_id: content_id,
               base_path: base_path,
               locale: locale,
@@ -288,25 +288,25 @@ RSpec.describe Commands::V2::Unpublish do
           it "supersedes the published item" do
             described_class.call(payload.merge(allow_draft: true))
 
-            expect(previous_content_item.reload.state).to eq("superseded")
+            expect(previous_edition.reload.state).to eq("superseded")
           end
 
           it "does not supersede published items in a different locale" do
-            t = ContentItem.find_by!(id: previous_content_item.id)
+            t = Edition.find_by!(id: previous_edition.id)
             t.update!(locale: "fr")
 
             described_class.call(payload.merge(allow_draft: true))
 
-            expect(previous_content_item.reload.state).to eq("published")
+            expect(previous_edition.reload.state).to eq("published")
           end
         end
       end
     end
 
     context "when the document is redrafted" do
-      let!(:live_content_item) do
+      let!(:live_edition) do
         FactoryGirl.create(
-          :live_content_item,
+          :live_edition,
           :with_draft,
           content_id: content_id,
           locale: locale,
@@ -337,26 +337,26 @@ RSpec.describe Commands::V2::Unpublish do
         it "discards the draft" do
           described_class.call(payload)
 
-          content_items = ContentItem.joins(:document)
+          editions = Edition.joins(:document)
             .where(documents: { content_id: content_id })
-          expect(content_items.count).to eq(1)
+          expect(editions.count).to eq(1)
 
-          expect(content_items.last.state).to eq("unpublished")
+          expect(editions.last.state).to eq("unpublished")
         end
 
         it "unpublishes the content item" do
           described_class.call(payload)
-          live_content_item.reload
+          live_edition.reload
 
-          unpublishing = Unpublishing.find_by(content_item: live_content_item)
+          unpublishing = Unpublishing.find_by(edition: live_edition)
           expect(unpublishing).not_to be_nil
         end
       end
     end
 
     context "when the document is already unpublished" do
-      let!(:unpublished_content_item) do
-        FactoryGirl.create(:unpublished_content_item,
+      let!(:unpublished_edition) do
+        FactoryGirl.create(:unpublished_edition,
           content_id: content_id,
           base_path: base_path,
           locale: locale,
@@ -376,7 +376,7 @@ RSpec.describe Commands::V2::Unpublish do
       include_examples "creates an action"
 
       it "updates the Unpublishing" do
-        unpublishing = Unpublishing.find_by(content_item: unpublished_content_item)
+        unpublishing = Unpublishing.find_by(edition: unpublished_edition)
         expect(unpublishing.explanation).to eq("This explnatin has a typo")
 
         described_class.call(payload)
@@ -418,8 +418,8 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       context "when the unpublishing type is substitute" do
-        let!(:unpublished_content_item) do
-          FactoryGirl.create(:substitute_unpublished_content_item,
+        let!(:unpublished_edition) do
+          FactoryGirl.create(:substitute_unpublished_edition,
             content_id: content_id,
             locale: locale,
           )
@@ -438,7 +438,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "with the `downstream` flag set to `false`" do
       before do
-        FactoryGirl.create(:live_content_item, :with_draft,
+        FactoryGirl.create(:live_edition, :with_draft,
           content_id: content_id,
           locale: locale,
         )
@@ -490,8 +490,8 @@ RSpec.describe Commands::V2::Unpublish do
     end
 
     context "when the document has no location" do
-      let!(:live_content_item) do
-        FactoryGirl.create(:live_content_item,
+      let!(:live_edition) do
+        FactoryGirl.create(:live_edition,
           content_id: content_id,
           locale: locale,
           base_path: nil,
@@ -503,13 +503,13 @@ RSpec.describe Commands::V2::Unpublish do
       it "sets the content item's state to `unpublished`" do
         described_class.call(payload)
 
-        expect(live_content_item.reload.state).to eq("unpublished")
+        expect(live_edition.reload.state).to eq("unpublished")
       end
 
       it "creates an Unpublishing" do
         described_class.call(payload)
 
-        unpublishing = Unpublishing.find_by(content_item: live_content_item)
+        unpublishing = Unpublishing.find_by(edition: live_edition)
         expect(unpublishing.type).to eq("gone")
         expect(unpublishing.explanation).to eq("Removed for testing porpoises")
         expect(unpublishing.alternative_path).to eq("/new-path")

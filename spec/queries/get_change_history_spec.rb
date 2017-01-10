@@ -14,26 +14,26 @@ RSpec.describe Queries::GetChangeHistory do
   subject { described_class }
 
   let!(:item1) do
-    FactoryGirl.create(:content_item, details: details, publishing_app: app1)
+    FactoryGirl.create(:edition, details: details, publishing_app: app1)
   end
   let!(:item2) do
-    FactoryGirl.create(:content_item, details: details, publishing_app: app1)
+    FactoryGirl.create(:edition, details: details, publishing_app: app1)
   end
   let!(:item3) do
-    FactoryGirl.create(:content_item, details: details, publishing_app: app2)
+    FactoryGirl.create(:edition, details: details, publishing_app: app2)
   end
   let!(:item4) do
-    FactoryGirl.create(:content_item, details: {}, publishing_app: app2)
+    FactoryGirl.create(:edition, details: {}, publishing_app: app2)
   end
 
   it "gets application-specific history data" do
-    ids = subject.(app1).map { |res| res[:content_item_id] }
+    ids = subject.(app1).map { |res| res[:edition_id] }
     expect(ids).to match_array [item1.id, item1.id, item2.id, item2.id]
   end
 
   it "returns array of hashes with note, timestamp and item id" do
     result = subject.(app1)
-    expected = details[:change_history].first.merge(content_item_id: item1.id)
+    expected = details[:change_history].first.merge(edition_id: item1.id)
     expect(result).to include expected
   end
 end

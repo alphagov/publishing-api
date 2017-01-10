@@ -11,7 +11,7 @@ class DownstreamDraftWorker
 
   def self.uniq_args(args)
     [
-      args.first["content_id"] || args.first["content_item_id"],
+      args.first["content_id"] || args.first["edition_id"],
       args.first["locale"],
       args.first.fetch("update_dependencies", true),
       name,
@@ -19,7 +19,7 @@ class DownstreamDraftWorker
   end
 
   # FIXME: This worker can be initialised using a legacy interface with
-  # "content_item_id" and the updated interface which uses "content_id" and
+  # "edition_id" and the updated interface which uses "content_id" and
   # "locale". Both interfaces are supported until we are confident there are
   # no longer items in the sidekiq queue. They should all be long gone by
   # January 2017 and probably sooner.
@@ -54,7 +54,7 @@ private
 
   def assign_attributes(attributes)
     assign_backwards_compatible_content_item(attributes)
-    @web_content_item = Queries::GetWebContentItems.for_content_store(content_id, locale, true)
+    @web_content_item = Queries::GetWebEditions.for_content_store(content_id, locale, true)
     @payload_version = attributes.fetch(:payload_version)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @dependency_resolution_source_content_id = attributes.fetch(
@@ -64,10 +64,10 @@ private
   end
 
   def assign_backwards_compatible_content_item(attributes)
-    if attributes[:content_item_id]
-      web_content_item = Queries::GetWebContentItems.find(attributes[:content_item_id])
+    if attributes[:edition_id]
+      web_content_item = Queries::GetWebEditions.find(attributes[:edition_id])
       unless web_content_item
-        raise AbortWorkerError.new("A content item was not found for content_item_id: #{attributes[:content_item_id]}")
+        raise AbortWorkerError.new("A content item was not found for edition_id: #{attributes[:edition_id]}")
       end
       @content_id = web_content_item.content_id
       @locale = web_content_item.locale

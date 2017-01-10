@@ -48,13 +48,13 @@ module Commands
       end
 
       def delete_supporting_objects
-        Location.find_by(content_item: draft).try(:destroy)
-        State.find_by(content_item: draft).try(:destroy)
-        Translation.find_by(content_item: draft).try(:destroy)
-        UserFacingVersion.find_by(content_item: draft).try(:destroy)
+        Location.find_by(edition: draft).try(:destroy)
+        State.find_by(edition: draft).try(:destroy)
+        Translation.find_by(edition: draft).try(:destroy)
+        UserFacingVersion.find_by(edition: draft).try(:destroy)
         LockVersion.find_by(target: draft).try(:destroy)
-        AccessLimit.find_by(content_item: draft).try(:destroy)
-        ChangeNote.where(content_item: draft).destroy_all
+        AccessLimit.find_by(edition: draft).try(:destroy)
+        ChangeNote.where(edition: draft).destroy_all
       end
 
       def increment_live_lock_version
@@ -66,7 +66,7 @@ module Commands
       def document
         @document ||= Document.find_or_create_locked(
           content_id: payload[:content_id],
-          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
+          locale: payload.fetch(:locale, Edition::DEFAULT_LOCALE),
         )
       end
 

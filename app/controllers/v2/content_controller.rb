@@ -1,5 +1,5 @@
 module V2
-  class ContentItemsController < ApplicationController
+  class ContentController < ApplicationController
     def index
       doc_types = query_params.fetch(:document_type) { query_params.fetch(:content_format) }
       pagination = Pagination.new(query_params)

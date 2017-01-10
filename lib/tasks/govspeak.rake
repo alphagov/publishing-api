@@ -16,8 +16,8 @@ namespace :govspeak do
       same_html += 1 if comparer.same_html?
       trivial_differences += 1 if !comparer.same_html? && comparer.pretty_much_same_html?
       next if comparer.pretty_much_same_html?
-      state = State.where(content_item_id: content_item.id).pluck(:name).first
-      base_path = Location.where(content_item_id: content_item.id).pluck(:base_path).first
+      state = State.where(edition_id: content_item.id).pluck(:name).first
+      base_path = Location.where(edition_id: content_item.id).pluck(:base_path).first
       puts "Content Item #{content_item.id} #{content_item.content_id} #{state} #{base_path}"
       comparer.diffs.each do |field, diff|
         next if diff == []

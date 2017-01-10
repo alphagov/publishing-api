@@ -1,5 +1,5 @@
 class UserFacingVersion < ApplicationRecord
-  belongs_to :content_item
+  belongs_to :edition
 
   def self.filter(content_item_scope, number:)
     join_content_items(content_item_scope)
@@ -8,7 +8,7 @@ class UserFacingVersion < ApplicationRecord
 
   def self.join_content_items(content_item_scope)
     content_item_scope.joins(
-      "INNER JOIN user_facing_versions ON user_facing_versions.content_item_id = editions.id"
+      "INNER JOIN user_facing_versions ON user_facing_versions.edition_id = editions.id"
     )
   end
 

@@ -45,12 +45,12 @@ module Queries
       :states,
     )
 
-    def content_items
-      scope = ContentItem.where(document_type: lookup_document_types)
+    def editions
+      scope = Edition.where(document_type: lookup_document_types)
       scope = scope.where(publishing_app: publishing_app) if publishing_app
       scope = scope.where(state: states) if states.present?
       scope = scope.joins(:document).where(documents: { locale: locale }) unless locale == "all"
-      scope = Link.filter_content_items(scope, link_filters) unless link_filters.blank?
+      scope = Link.filter_editions(scope, link_filters) unless link_filters.blank?
       scope
     end
 
@@ -82,7 +82,7 @@ module Queries
 
     def query
       @query ||= presenter.new(
-        content_items,
+        editions,
         fields: fields,
         order: pagination.order,
         offset: pagination.offset,
@@ -93,7 +93,7 @@ module Queries
     end
 
     def presenter
-      Presenters::Queries::ContentItemPresenter
+      Presenters::Queries::EditionPresenter
     end
   end
 end

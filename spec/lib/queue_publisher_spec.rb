@@ -40,7 +40,7 @@ RSpec.describe QueuePublisher do
     end
 
     describe "sending a message" do
-      let(:content_item) {
+      let(:edition) {
         {
           base_path: "/vat-rates",
           title: "VAT Rates",
@@ -58,24 +58,24 @@ RSpec.describe QueuePublisher do
       }
 
       it "sends the json representation of the item on the message queue" do
-        expect(mock_exchange).to receive(:publish).with(content_item.to_json, hash_including(content_type: "application/json"))
+        expect(mock_exchange).to receive(:publish).with(edition.to_json, hash_including(content_type: "application/json"))
 
-        queue_publisher.send_message(content_item)
+        queue_publisher.send_message(edition)
       end
 
       it "uses a routing key of schema_name.update_type" do
-        expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{content_item[:schema_name]}.#{content_item[:update_type]}"))
+        expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{edition[:schema_name]}.#{edition[:update_type]}"))
 
-        queue_publisher.send_message(content_item)
+        queue_publisher.send_message(edition)
       end
 
       context "content item using string keys" do
-        let(:content_item) { super().stringify_keys }
+        let(:edition) { super().stringify_keys }
 
         it "correctly calculates routing key" do
-          expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{content_item['schema_name']}.#{content_item['update_type']}"))
+          expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: "#{edition['schema_name']}.#{edition['update_type']}"))
 
-          queue_publisher.send_message(content_item)
+          queue_publisher.send_message(edition)
         end
       end
 
@@ -83,13 +83,13 @@ RSpec.describe QueuePublisher do
         custom_routing_key = "my_routing.key"
         expect(mock_exchange).to receive(:publish).with(anything, hash_including(routing_key: custom_routing_key))
 
-        queue_publisher.send_message(content_item, routing_key: custom_routing_key)
+        queue_publisher.send_message(edition, routing_key: custom_routing_key)
       end
 
       it "sends the message as persistent" do
         expect(mock_exchange).to receive(:publish).with(anything, hash_including(persistent: true))
 
-        queue_publisher.send_message(content_item)
+        queue_publisher.send_message(edition)
       end
 
       describe "error handling" do
@@ -101,20 +101,20 @@ RSpec.describe QueuePublisher do
           it "notifies errbit of the error" do
             expect(Airbrake).to receive(:notify).with(an_instance_of(QueuePublisher::PublishFailedError), anything)
 
-            queue_publisher.send_message(content_item)
+            queue_publisher.send_message(edition)
           end
 
           it "includes the message details in the notification" do
             expect(Airbrake).to receive(:notify).with(
               anything,
               parameters: {
-                message_body: content_item,
-                routing_key: "#{content_item[:schema_name]}.#{content_item[:update_type]}",
+                message_body: edition,
+                routing_key: "#{edition[:schema_name]}.#{edition[:update_type]}",
                 options: { content_type: "application/json", persistent: true },
               }
             )
 
-            queue_publisher.send_message(content_item)
+            queue_publisher.send_message(edition)
           end
         end
       end

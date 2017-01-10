@@ -5,14 +5,14 @@ RSpec.describe Tasks::VersionValidator do
 
   before do
     FactoryGirl.create(
-      :superseded_content_item,
+      :superseded_edition,
       content_id: content_id,
       user_facing_version: 1,
       locale: "en"
     )
 
     FactoryGirl.create(
-      :live_content_item,
+      :live_edition,
       content_id: content_id,
       user_facing_version: 2,
       locale: "en"
@@ -29,7 +29,7 @@ RSpec.describe Tasks::VersionValidator do
 
   context "when two items of the same content_id have a gap between versions" do
     before do
-      item = ContentItem.last
+      item = Edition.last
       item.user_facing_version = 3
       item.save!(validate: false)
     end
@@ -43,7 +43,7 @@ RSpec.describe Tasks::VersionValidator do
 
   context "when content items have the same version but different locale" do
     before do
-      item = ContentItem.last
+      item = Edition.last
       item.locale = 'fr'
       item.user_facing_version = 1
       item.save!(validate: false)
@@ -58,7 +58,7 @@ RSpec.describe Tasks::VersionValidator do
 
   context "when the version sequence does not begin at zero" do
     before do
-      item = ContentItem.first
+      item = Edition.first
       item.user_facing_version = 3
       item.save!(validate: false)
     end

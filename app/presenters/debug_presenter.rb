@@ -11,7 +11,7 @@ module Presenters
     end
 
     def content_items
-      @content_items ||= ContentItem.where(content_id: content_id)
+      @content_items ||= Edition.where(content_id: content_id)
     end
 
     def user_facing_versions
@@ -68,7 +68,7 @@ module Presenters
     end
 
     def web_content_item
-      @web_content_item ||= ::Queries::GetWebContentItems.find(
+      @web_content_item ||= ::Queries::GetWebEditions.find(
         latest_content_items.last.id
       )
     end

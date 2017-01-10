@@ -24,7 +24,7 @@ fields = %i{
   unpublishing_type
 }
 
-WebContentItem = Struct.new(*fields) do
+WebEdition = Struct.new(*fields) do
   def self.from_hash(hash)
     new(*hash.symbolize_keys.values_at(*members))
   end

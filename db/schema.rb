@@ -127,12 +127,12 @@ ActiveRecord::Schema.define(version: 20170110075625) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.integer  "content_item_id", null: false
+    t.integer  "edition_id", null: false
     t.string   "base_path",       null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["base_path"], name: "index_locations_on_base_path", using: :btree
-    t.index ["content_item_id", "base_path"], name: "index_locations_on_content_item_id_and_base_path", using: :btree
+    t.index ["edition_id", "base_path"], name: "index_locations_on_edition_id_and_base_path", using: :btree
   end
 
   create_table "lock_versions", force: :cascade do |t|

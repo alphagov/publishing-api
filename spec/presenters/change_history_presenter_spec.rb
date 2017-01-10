@@ -2,15 +2,15 @@ require "rails_helper"
 
 RSpec.describe Presenters::ChangeHistoryPresenter do
   let(:content_id) { SecureRandom.uuid }
-  let(:content_item) do
+  let(:edition) do
     FactoryGirl.create(
-      :content_item,
+      :edition,
       details: details.deep_stringify_keys,
       content_id: content_id,
     )
   end
   let(:details) { {} }
-  subject { described_class.new(content_item).change_history }
+  subject { described_class.new(edition).change_history }
 
   describe "#change_history" do
     context "details hash includes content_history" do
@@ -29,8 +29,8 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       before do
         2.times do |i|
           ChangeNote.create(
-            content_item: content_item,
-            content_id: content_item.content_id,
+            edition: edition,
+            content_id: edition.content_id,
             note: i.to_s,
             public_timestamp: Time.now.utc
           )
@@ -44,8 +44,8 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
     it "orders change notes by public_timestamp (ascending)" do
       [1, 3, 2].to_a.each do |i|
         ChangeNote.create(
-          content_item: content_item,
-          content_id: content_item.content_id,
+          edition: edition,
+          content_id: edition.content_id,
           note: i.to_s,
           public_timestamp: i.days.ago
         )
@@ -56,7 +56,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
     context "multiple content items for a single content id" do
       let(:item1) do
         FactoryGirl.create(
-          :superseded_content_item,
+          :superseded_edition,
           details: details,
           content_id: content_id,
           user_facing_version: 1,
@@ -64,15 +64,15 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       end
       let(:item2) do
         FactoryGirl.create(
-          :live_content_item,
+          :live_edition,
           details: details,
           content_id: content_id,
           user_facing_version: 2,
         )
       end
       before do
-        ChangeNote.create(content_item: item1, content_id: content_id)
-        ChangeNote.create(content_item: item2, content_id: content_id)
+        ChangeNote.create(edition: item1, content_id: content_id)
+        ChangeNote.create(edition: item2, content_id: content_id)
         ChangeNote.create(content_id: content_id)
       end
 

@@ -53,12 +53,12 @@ module DownstreamService
 
   def self.draft_at_base_path?(base_path)
     return false unless base_path
-    ContentItem.exists?(base_path: base_path, state: "draft")
+    Edition.exists?(base_path: base_path, state: "draft")
   end
 
   def self.discard_draft_base_path_conflict?(base_path)
     return false unless base_path
-    ContentItem.exists?(
+    Edition.exists?(
       base_path: base_path,
       state: %w(draft published unpublished),
     )

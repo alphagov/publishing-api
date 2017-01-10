@@ -1,5 +1,5 @@
 class Translation < ApplicationRecord
-  belongs_to :content_item
+  belongs_to :edition
 
   def self.filter(content_item_scope, locale:)
     join_content_items(content_item_scope)
@@ -8,7 +8,7 @@ class Translation < ApplicationRecord
 
   def self.join_content_items(content_item_scope)
     content_item_scope.joins(
-      "INNER JOIN translations ON translations.content_item_id = editions.id"
+      "INNER JOIN translations ON translations.edition_id = editions.id"
     )
   end
 end

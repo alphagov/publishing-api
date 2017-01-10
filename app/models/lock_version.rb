@@ -2,8 +2,8 @@ class LockVersion < ApplicationRecord
   include Version
   belongs_to :target, polymorphic: true
 
-  def self.join_content_items(content_item_scope)
-    content_item_scope.joins(
+  def self.join_editions(scope)
+    scope.joins(
       "INNER JOIN lock_versions ON
         lock_versions.target_id = editions.id AND
         lock_versions.target_type = 'ContentItem'"

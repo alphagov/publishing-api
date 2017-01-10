@@ -1,5 +1,5 @@
 module Queries
-  module LocalesForContentItems
+  module LocalesForEditions
     # returns an array of form:
     # [
     #   [content_id, locale],
@@ -9,7 +9,7 @@ module Queries
       content_ids,
       content_stores = %w[draft live]
     )
-      Document.joins(:content_items)
+      Document.joins(:editions)
         .where(
           content_id: content_ids,
           editions: { content_store: content_stores }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DataHygiene::GovspeakCompare do
-  let(:content_item) { FactoryGirl.create(:content_item, details: details) }
+  let(:edition) { FactoryGirl.create(:edition, details: details) }
   let(:details) do
     { body: [
         { content_type: "text/html", content: body_html },
@@ -20,7 +20,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
   let(:other_govspeak) { body_govspeak }
 
   describe '.published_html' do
-    subject { described_class.new(content_item).published_html }
+    subject { described_class.new(edition).published_html }
 
     context "when details is an empty hash" do
       let(:details) { {} }
@@ -53,7 +53,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
   end
 
   describe '.generated_html' do
-    subject { described_class.new(content_item).generated_html }
+    subject { described_class.new(edition).generated_html }
 
     context "when details is an empty hash" do
       let(:details) { {} }
@@ -79,7 +79,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
   end
 
   describe '.diffs' do
-    subject { described_class.new(content_item).diffs }
+    subject { described_class.new(edition).diffs }
 
     context "when published_html is the same as generated_html" do
       let(:body_html) { "<p>Hello World</p>\n" }
@@ -141,7 +141,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
   end
 
   describe 'same_html?' do
-    subject { described_class.new(content_item).same_html? }
+    subject { described_class.new(edition).same_html? }
 
     context "when govspeak will render to the same HTML" do
       let(:body_html) { "<p>Foo</p>\n" }
@@ -164,7 +164,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
   end
 
   describe 'pretty_much_same_html?' do
-    subject { described_class.new(content_item).pretty_much_same_html? }
+    subject { described_class.new(edition).pretty_much_same_html? }
 
     context "when govspeak will render to the same HTML" do
       let(:body_html) { "<p>Foo</p>\n" }

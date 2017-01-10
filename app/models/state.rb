@@ -1,5 +1,5 @@
 class State < ApplicationRecord
-  belongs_to :content_item
+  belongs_to :edition
 
   def self.filter(content_item_scope, name:)
     join_content_items(content_item_scope)
@@ -8,7 +8,7 @@ class State < ApplicationRecord
 
   def self.join_content_items(content_item_scope)
     content_item_scope.joins(
-      "INNER JOIN states ON states.content_item_id = editions.id"
+      "INNER JOIN states ON states.edition_id = editions.id"
     )
   end
 end

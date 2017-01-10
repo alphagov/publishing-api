@@ -8,7 +8,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/v2/content/#{content_id}", params: v2_content_item.to_json
+        put "/v2/content/#{content_id}", params: v2_edition.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(
@@ -28,20 +28,20 @@ RSpec.describe "Downstream timeouts", type: :request do
     let(:base_path) { "/vat-rates" }
 
     before do
-      FactoryGirl.create(:live_content_item,
-        v2_content_item
-          .slice(*ContentItem::TOP_LEVEL_FIELDS)
+      FactoryGirl.create(:live_edition,
+        v2_edition
+          .slice(*Edition::TOP_LEVEL_FIELDS)
           .merge(base_path: base_path, user_facing_version: 1)
       )
 
-      draft = FactoryGirl.create(:draft_content_item,
-        v2_content_item
-          .slice(*ContentItem::TOP_LEVEL_FIELDS)
+      draft = FactoryGirl.create(:draft_edition,
+        v2_edition
+          .slice(*Edition::TOP_LEVEL_FIELDS)
           .merge(base_path: base_path, user_facing_version: 2)
       )
 
       FactoryGirl.create(:access_limit,
-        content_item: draft,
+        edition: draft,
         users: access_limit_params.fetch(:users),
       )
     end

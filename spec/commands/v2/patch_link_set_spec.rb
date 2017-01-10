@@ -226,8 +226,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
   end
 
   context "when a draft content item exists for the content_id" do
-    let!(:draft_content_item) do
-      FactoryGirl.create(:draft_content_item,
+    let!(:draft_edition) do
+      FactoryGirl.create(:draft_edition,
         content_id: content_id,
         base_path: "/some-path",
         title: "Some Title",
@@ -252,8 +252,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     context "when a draft content item has multiple translations" do
-      let!(:french_draft_content_item) do
-        FactoryGirl.create(:draft_content_item,
+      let!(:french_draft_edition) do
+        FactoryGirl.create(:draft_edition,
           content_id: content_id,
           base_path: "/french-path",
           title: "French Title",
@@ -287,8 +287,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
   end
 
   context "when a live content item exists for the content_id" do
-    let!(:live_content_item) do
-      FactoryGirl.create(:live_content_item,
+    let!(:live_edition) do
+      FactoryGirl.create(:live_edition,
         content_id: content_id,
         base_path: "/some-path",
         title: "Some Title",
@@ -326,8 +326,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     context "when a live content item has multiple translations" do
-      let!(:french_live_content_item) do
-        FactoryGirl.create(:live_content_item,
+      let!(:french_live_edition) do
+        FactoryGirl.create(:live_edition,
           content_id: content_id,
           base_path: "/french-path",
           title: "French Title",
@@ -365,8 +365,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
   end
 
   context "when an unpublished content item exists for the content_id" do
-    let!(:unpublished_content_item) do
-      FactoryGirl.create(:unpublished_content_item,
+    let!(:unpublished_edition) do
+      FactoryGirl.create(:unpublished_edition,
         content_id: content_id,
         base_path: "/some-path",
         title: "Some Title",

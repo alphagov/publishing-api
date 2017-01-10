@@ -415,23 +415,23 @@ checked into this repository.
 
 ## General Themes
 
-You can see that ContentItem is central to the app's object model. The majority
-of models within the app relate to ContentItem in some way. This shouldn't be
+You can see that Edition is central to the app's object model. The majority
+of models within the app relate to Edition in some way. This shouldn't be
 surprising as the Publishing API's core responsibility is to provide workflow
 as a service for managing content.
 
-Note that all of the arrows are pointing inwards to ContentItem and not the
+Note that all of the arrows are pointing inwards to Edition and not the
 other way around. This indicates that these models have visibility of the
-ContentItem whereas ContentItem is shielded from the complexity of these
+Edition whereas Edition is shielded from the complexity of these
 models. This improves extensibility as new concepts can be added without having
-to re-open ContentItem to add new behaviour. See the
+to re-open Edition to add new behaviour. See the
 [open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle) for
 more explanation of this approach.
 
 Consider the alternative where all of this information resides in fields on the
-ContentItem. If this were the case, we'd have to repeatedly update this model
+Edition. If this were the case, we'd have to repeatedly update this model
 when almost any piece of business logic changes within the app. If the
-ContentItem has multiple responsibilities, this could be made more difficult as
+Edition has multiple responsibilities, this could be made more difficult as
 this class would be significantly more complicated. By breaking distinct
 concepts into separate models, it is easier to reason about a specific piece of
 business logic.
@@ -444,7 +444,7 @@ difficult to work with.
 
 ## Content Item Uniqueness
 
-The ContentItem model is a model that houses content. It contains fields that
+The Edition model is a model that houses content. It contains fields that
 determines its uniqueness. These are:
 
 - The `locale` of the content
@@ -452,33 +452,33 @@ determines its uniqueness. These are:
 - The workflow `state` of the content
 - The `user_facing_version` of the content
 
-The uniqueness of a ContentItem is ensured by rules based on these values.
+The uniqueness of a Edition is ensured by rules based on these values.
 
 Only one item in either a draft or a live state can be registered at a base_path.
 Thus the rules for a base_path are:
 
-1. A base_path for a draft ContentItem must be distinct from the base_path of
-   any other draft ContentItems.
-2. A base_path for a live ContentItem must be distinct from the base_path for
-   any other live ContentItems
+1. A base_path for a draft Edition must be distinct from the base_path of
+   any other draft Editions.
+2. A base_path for a live Edition must be distinct from the base_path for
+   any other live Editions
 
 NB
-- A draft ContentItem is a ContentItem with a state of "draft"
-- A live ContentItem is a ContentItem with a state of "published" or
+- A draft Edition is a Edition with a state of "draft"
+- A live Edition is a Edition with a state of "published" or
   "unpublished", however it does not include those with an unpublishing type of
   "substitute".
 
-There can be only one instance of a ContentItem for a content_id and a
+There can be only one instance of a Edition for a content_id and a
 particular locale with a state of draft.
 
-There can be only one instance of a ContentItem for a content_id and a
+There can be only one instance of a Edition for a content_id and a
 particular locale with a state of published/unpublished.
 
-There can be multiple instance of a ContentItem for a content_id, a particular
+There can be multiple instance of a Edition for a content_id, a particular
 locale and a state of superseded.
 
-Only one instance of a ContentItem for a particular locale can be at a
-user-facing version. Thus a rule exists that no two ContentItems can have
+Only one instance of a Edition for a particular locale can be at a
+user-facing version. Thus a rule exists that no two Editions can have
 the same content id, the same user-facing version and the same locale.
 
 ## Lock Version

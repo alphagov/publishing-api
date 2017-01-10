@@ -18,7 +18,7 @@ RSpec.describe V2::ActionsController do
     context "when a content item exists" do
       before do
         FactoryGirl.create(
-          :draft_content_item,
+          :draft_edition,
           content_id: content_id,
           locale: locale,
           lock_version: 5

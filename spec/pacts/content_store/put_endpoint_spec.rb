@@ -4,9 +4,9 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   include Pact::Consumer::RSpec
   include RequestHelpers::Mocks
 
-  let!(:content_item) do
+  let!(:edition) do
     FactoryGirl.create(
-      :live_content_item,
+      :live_edition,
       content_id: content_id,
       base_path: "/vat-rates"
     )
@@ -19,7 +19,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   let(:body) {
     Presenters::ContentStorePresenter.present(
       Presenters::DownstreamPresenter.new(
-        Queries::GetWebContentItems.find(content_item.id),
+        Queries::GetWebEditions.find(edition.id),
         state_fallback_order: [:published]
       ),
       event.id
@@ -49,7 +49,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
     end
 
     it "accepts in-order messages to the content store" do
-      response = client.put_content_item(base_path: "/vat-rates", content_item: body)
+      response = client.put_edition(base_path: "/vat-rates", edition: body)
       expect(response.code).to eq(200)
     end
   end
@@ -78,13 +78,13 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
 
     it "rejects out-of-order messages to the content store" do
       expect {
-        client.put_content_item(base_path: "/vat-rates", content_item: body)
+        client.put_edition(base_path: "/vat-rates", edition: body)
       }.to raise_error(GdsApi::HTTPConflict)
     end
   end
 
   describe "V1" do
-    let(:attributes) { content_item_params }
+    let(:attributes) { edition_params }
     let(:body) do
       attributes.except(:update_type).merge(payload_version: event.id)
     end
@@ -112,7 +112,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
       end
 
       it "accepts in-order messages to the content store" do
-        response = client.put_content_item(base_path: "/vat-rates", content_item: body)
+        response = client.put_edition(base_path: "/vat-rates", edition: body)
         expect(response.code).to eq(200)
       end
     end
@@ -141,7 +141,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
 
       it "rejects out-of-order messages to the content store" do
         expect {
-          client.put_content_item(base_path: "/vat-rates", content_item: body)
+          client.put_edition(base_path: "/vat-rates", edition: body)
         }.to raise_error(GdsApi::HTTPConflict)
       end
     end

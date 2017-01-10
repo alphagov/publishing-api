@@ -13,24 +13,24 @@ RSpec.describe "Endpoint behaviour", type: :request do
   end
 
   context "PUT /v2/content/:content_id" do
-    let(:content_item) { v2_content_item }
+    let(:edition) { v2_edition }
 
     it "responds with 200" do
-      put "/v2/content/#{content_id}", params: content_item.to_json
+      put "/v2/content/#{content_id}", params: edition.to_json
       expect(response.status).to eq(200)
     end
 
     it "responds with the presented content item" do
-      put "/v2/content/#{content_id}", params: content_item.to_json
+      put "/v2/content/#{content_id}", params: edition.to_json
 
-      updated_content_item = ContentItem.joins(:document)
+      updated_edition = Edition.joins(:document)
         .find_by!("documents.content_id": content_id)
-      presented_content_item = Presenters::Queries::ContentItemPresenter.present(
-        updated_content_item,
+      presented_edition = Presenters::Queries::EditionPresenter.present(
+        updated_edition,
         include_warnings: true,
       )
 
-      expect(response.body).to eq(presented_content_item.to_json)
+      expect(response.body).to eq(presented_edition.to_json)
     end
 
     context "with invalid json" do
@@ -53,12 +53,12 @@ RSpec.describe "Endpoint behaviour", type: :request do
       end
 
       it "returns the normal 200 response" do
-        put "/v2/content/#{content_id}", params: content_item.to_json
+        put "/v2/content/#{content_id}", params: edition.to_json
 
         parsed_response_body = parsed_response
         expect(response.status).to eq(200)
-        expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
-        expect(parsed_response_body["title"]).to eq(content_item[:title])
+        expect(parsed_response_body["content_id"]).to eq(edition[:content_id])
+        expect(parsed_response_body["title"]).to eq(edition[:title])
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
           .with(hash_including(base_path: base_path))
           .at_least(:once)
 
-        put "/v2/content/#{content_id}", params: content_item.to_json
+        put "/v2/content/#{content_id}", params: edition.to_json
       end
     end
 
@@ -78,7 +78,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       let(:base_path) { "/" }
 
       it "creates the content item" do
-        put "/v2/content/#{content_id}", params: content_item.to_json
+        put "/v2/content/#{content_id}", params: edition.to_json
 
         expect(response.status).to eq(200)
         expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once
@@ -86,11 +86,11 @@ RSpec.describe "Endpoint behaviour", type: :request do
     end
 
     it "validates path ownership" do
-      put "/v2/content/#{content_id}", params: content_item.to_json
+      put "/v2/content/#{content_id}", params: edition.to_json
 
       expect(PathReservation.count).to eq(1)
       expect(PathReservation.first.base_path).to eq(base_path)
-      expect(PathReservation.first.publishing_app).to eq(content_item[:publishing_app])
+      expect(PathReservation.first.publishing_app).to eq(edition[:publishing_app])
     end
   end
 
@@ -98,9 +98,9 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_id) { SecureRandom.uuid }
 
     context "when the content item exists" do
-      let!(:content_item) {
+      let!(:edition) {
         FactoryGirl.create(
-          :draft_content_item,
+          :draft_edition,
           content_id: content_id,
         )
       }
@@ -113,26 +113,26 @@ RSpec.describe "Endpoint behaviour", type: :request do
       it "responds with the presented content item" do
         get "/v2/content/#{content_id}"
 
-        updated_content_item = ContentItem.joins(:document)
+        updated_edition = Edition.joins(:document)
           .find_by!("documents.content_id": content_id)
-        presented_content_item = Presenters::Queries::ContentItemPresenter.present(
-          updated_content_item,
+        presented_edition = Presenters::Queries::EditionPresenter.present(
+          updated_edition,
           include_warnings: true,
         )
 
-        expect(response.body).to eq(presented_content_item.to_json)
+        expect(response.body).to eq(presented_edition.to_json)
       end
 
       it "responds with the presented content item for the correct locale" do
-        FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "ar")
-        presented_content_item = Presenters::Queries::ContentItemPresenter.present(
-          content_item,
+        FactoryGirl.create(:draft_edition, content_id: content_id, locale: "ar")
+        presented_edition = Presenters::Queries::EditionPresenter.present(
+          edition,
           include_warnings: true,
         )
 
         get "/v2/content/#{content_id}"
 
-        expect(response.body).to eq(presented_content_item.to_json)
+        expect(response.body).to eq(presented_edition.to_json)
       end
     end
 

@@ -4,16 +4,16 @@ RSpec.describe BasePathForStateValidator do
   let(:state_name) { "draft" }
   let(:base_path) { "/vat-rates" }
 
-  let(:content_item) do
+  let(:edition) do
     FactoryGirl.build(
-      :content_item,
+      :edition,
       state: state_name,
       base_path: base_path,
     )
   end
 
   describe ".validate" do
-    subject(:validate) { described_class.new.validate(content_item) }
+    subject(:validate) { described_class.new.validate(edition) }
 
     context "when state is nil" do
       let(:state_name) { nil }
@@ -31,9 +31,9 @@ RSpec.describe BasePathForStateValidator do
       let(:conflict_base_path) { "/vat-rates-2016" }
       let(:conflict_locale) { "en" }
 
-      let!(:conflict_content_item) do
+      let!(:conflict_edition) do
         FactoryGirl.create(
-          :content_item,
+          :edition,
           content_id: conflict_content_id,
           state: conflict_state_name,
           base_path: conflict_base_path,
@@ -42,7 +42,7 @@ RSpec.describe BasePathForStateValidator do
         )
       end
 
-      before { content_item.base_path = conflict_base_path }
+      before { edition.base_path = conflict_base_path }
 
       context "when state is draft" do
         let(:state_name) { "draft" }
@@ -54,8 +54,8 @@ RSpec.describe BasePathForStateValidator do
           end
           before { validate }
 
-          it "adds the error to content_item attribute" do
-            expect(content_item.errors[:base]).to eq([expected_error])
+          it "adds the error to edition attribute" do
+            expect(edition.errors[:base]).to eq([expected_error])
           end
         end
       end
@@ -77,8 +77,8 @@ RSpec.describe BasePathForStateValidator do
             end
             before { validate }
 
-            it "adds the error to content_item attribute" do
-              expect(content_item.errors[:base]).to eq([expected_error])
+            it "adds the error to edition attribute" do
+              expect(edition.errors[:base]).to eq([expected_error])
             end
           end
         end

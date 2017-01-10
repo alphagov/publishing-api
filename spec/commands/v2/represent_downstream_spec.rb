@@ -8,12 +8,12 @@ RSpec.describe Commands::V2::RepresentDownstream do
   describe "call" do
     let(:locale_document) { FactoryGirl.create(:document) }
     before do
-      2.times { FactoryGirl.create(:draft_content_item) }
-      FactoryGirl.create(:live_content_item,
+      2.times { FactoryGirl.create(:draft_edition) }
+      FactoryGirl.create(:live_edition,
         document: locale_document, document_type: "guidance", locale: "en")
-      FactoryGirl.create(:live_content_item,
+      FactoryGirl.create(:live_edition,
         document: locale_document, document_type: "guidance", locale: "fr")
-      FactoryGirl.create(:live_content_item, document_type: "press_release")
+      FactoryGirl.create(:live_edition, document_type: "press_release")
     end
 
     context "downstream live" do
@@ -60,7 +60,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with("downstream_low", a_hash_including(:content_id, :locale, :payload_version))
           .exactly(2).times
-        subject.call(ContentItem.joins(:document)
+        subject.call(Edition.joins(:document)
           .where(document_type: "guidance").pluck('documents.content_id'), false)
       end
     end

@@ -1,9 +1,9 @@
 class Document < ApplicationRecord
   include FindOrCreateLocked
 
-  has_many :content_items
-  has_one :draft, -> { where(content_store: "draft") }, class_name: ContentItem
-  has_one :live, -> { where(content_store: "live") }, class_name: ContentItem
+  has_many :editions
+  has_one :draft, -> { where(content_store: "draft") }, class_name: Edition
+  has_one :live, -> { where(content_store: "live") }, class_name: Edition
 
   validates :content_id, presence: true, uuid: true
 
@@ -13,6 +13,6 @@ class Document < ApplicationRecord
   }
 
   def previous
-    content_items.find_by(state: %w(published unpublished))
+    editions.find_by(state: %w(published unpublished))
   end
 end

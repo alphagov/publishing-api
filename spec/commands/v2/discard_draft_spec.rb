@@ -21,7 +21,7 @@ RSpec.describe Commands::V2::DiscardDraft do
     context "when a draft content item exists for the given content_id" do
       let(:user_facing_version) { 2 }
       let!(:existing_draft_item) do
-        FactoryGirl.create(:access_limited_draft_content_item,
+        FactoryGirl.create(:access_limited_draft_edition,
           content_id: content_id,
           base_path: base_path,
           locale: locale,
@@ -29,14 +29,14 @@ RSpec.describe Commands::V2::DiscardDraft do
           user_facing_version: user_facing_version,
         )
       end
-      let!(:change_note) { ChangeNote.create(content_item: existing_draft_item) }
+      let!(:change_note) { ChangeNote.create(edition: existing_draft_item) }
 
       it "deletes the draft item" do
         expect {
           described_class.call(payload)
-        }.to change(ContentItem, :count).by(-1)
+        }.to change(Edition, :count).by(-1)
 
-        expect(ContentItem.exists?(id: existing_draft_item.id)).to eq(false)
+        expect(Edition.exists?(id: existing_draft_item.id)).to eq(false)
       end
 
       it "creates an action" do
@@ -47,20 +47,20 @@ RSpec.describe Commands::V2::DiscardDraft do
           "content_id" => content_id,
           "locale" => locale,
           "action" => "DiscardDraft",
-          "content_item_id" => existing_draft_item.id,
+          "edition_id" => existing_draft_item.id,
         )
       end
 
       it "deletes the supporting objects for the draft item" do
         described_class.call(payload)
 
-        state = State.find_by(content_item: existing_draft_item)
-        translation = Translation.find_by(content_item: existing_draft_item)
-        location = Location.find_by(content_item: existing_draft_item)
-        access_limit = AccessLimit.find_by(content_item: existing_draft_item)
-        user_facing_version = UserFacingVersion.find_by(content_item: existing_draft_item)
+        state = State.find_by(edition: existing_draft_item)
+        translation = Translation.find_by(edition: existing_draft_item)
+        location = Location.find_by(edition: existing_draft_item)
+        access_limit = AccessLimit.find_by(edition: existing_draft_item)
+        user_facing_version = UserFacingVersion.find_by(edition: existing_draft_item)
         lock_version = LockVersion.find_by(target: existing_draft_item)
-        change_notes = ChangeNote.where(content_item: existing_draft_item)
+        change_notes = ChangeNote.where(edition: existing_draft_item)
 
         expect(state).to be_nil
         expect(translation).to be_nil
@@ -107,7 +107,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "a published content item exists with the same base_path" do
         let!(:published_item) do
-          FactoryGirl.create(:live_content_item,
+          FactoryGirl.create(:live_edition,
             content_id: content_id,
             lock_version: 3,
             base_path: base_path,
@@ -140,11 +140,11 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the supporting objects for the draft item" do
           described_class.call(payload)
 
-          state = State.find_by(content_item: existing_draft_item)
-          translation = Translation.find_by(content_item: existing_draft_item)
-          location = Location.find_by(content_item: existing_draft_item)
-          access_limit = AccessLimit.find_by(content_item: existing_draft_item)
-          user_facing_version = UserFacingVersion.find_by(content_item: existing_draft_item)
+          state = State.find_by(edition: existing_draft_item)
+          translation = Translation.find_by(edition: existing_draft_item)
+          location = Location.find_by(edition: existing_draft_item)
+          access_limit = AccessLimit.find_by(edition: existing_draft_item)
+          user_facing_version = UserFacingVersion.find_by(edition: existing_draft_item)
           lock_version = LockVersion.find_by(target: existing_draft_item)
 
           expect(state).to be_nil
@@ -158,13 +158,13 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the draft" do
           expect {
             described_class.call(payload)
-          }.to change(ContentItem, :count).by(-1)
+          }.to change(Edition, :count).by(-1)
         end
       end
 
       context "a published content item exists with a different base_path" do
         let!(:published_item) do
-          FactoryGirl.create(:live_content_item,
+          FactoryGirl.create(:live_edition,
             content_id: content_id,
             lock_version: 3,
             base_path: "/hat-rates",
@@ -189,7 +189,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "an unpublished content item exits" do
         let(:unpublished_item) do
-          FactoryGirl.create(:unpublished_content_item,
+          FactoryGirl.create(:unpublished_edition,
             base_path: base_path,
             content_id: content_id,
             locale: locale,
@@ -213,7 +213,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "when a locale is provided in the payload" do
         let!(:french_draft_item) do
-          FactoryGirl.create(:draft_content_item,
+          FactoryGirl.create(:draft_edition,
             content_id: content_id,
             base_path: "#{base_path}.fr",
             locale: "fr",
@@ -227,15 +227,15 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the draft for the given locale" do
           expect {
             described_class.call(payload)
-          }.to change(ContentItem, :count).by(-1)
+          }.to change(Edition, :count).by(-1)
 
-          expect(ContentItem.exists?(id: french_draft_item.id)).to eq(false),
+          expect(Edition.exists?(id: french_draft_item.id)).to eq(false),
             "The French draft item was not removed"
         end
 
         it "does not delete the english content item" do
           described_class.call(payload)
-          expect(ContentItem.exists?(id: existing_draft_item.id)).to eq(true),
+          expect(Edition.exists?(id: existing_draft_item.id)).to eq(true),
             "The English draft item was removed"
         end
       end
@@ -252,7 +252,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "and a published content item exists" do
         before do
-          FactoryGirl.create(:live_content_item, content_id: content_id)
+          FactoryGirl.create(:live_edition, content_id: content_id)
         end
 
         it "raises a command error with code 422" do

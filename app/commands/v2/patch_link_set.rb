@@ -68,10 +68,10 @@ module Commands
       def send_downstream
         return unless downstream
 
-        draft_locales = Queries::LocalesForContentItems.call([content_id], %w[draft live])
+        draft_locales = Queries::LocalesForEditions.call([content_id], %w[draft live])
         draft_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
 
-        live_locales = Queries::LocalesForContentItems.call([content_id], %w[live])
+        live_locales = Queries::LocalesForEditions.call([content_id], %w[live])
         live_locales.each { |(content_id, locale)| downstream_live(content_id, locale) }
       end
 
@@ -101,7 +101,7 @@ module Commands
       end
 
       def validate_schema
-        # There may not be a ContentItem yet.
+        # There may not be a Edition yet.
         return true unless schema_name
 
         # Do not raise anything yet
@@ -119,7 +119,7 @@ module Commands
 
       def schema_name
         @schema_name ||= Queries::GetLatest.(
-          ContentItem.where(documents: { content_id: content_id }).joins(:document)
+          Edition.where(documents: { content_id: content_id }).joins(:document)
         ).pluck(:schema_name).first
       end
     end

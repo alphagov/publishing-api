@@ -13,42 +13,42 @@ module Commands
         end
 
         PathReservation.reserve_base_path!(base_path, publishing_app) if content_with_base_path?
-        content_item = document.draft
+        edition = document.draft
 
-        if content_item
-          update_existing_content_item(content_item)
+        if edition
+          update_existing_edition(edition)
         else
           clear_draft_items_of_same_locale_and_base_path if content_with_base_path?
 
-          content_item = create_content_item
-          fill_out_new_content_item(content_item)
+          edition = create_edition
+          fill_out_new_edition(edition)
         end
 
-        ChangeNote.create_from_content_item(payload, content_item)
+        ChangeNote.create_from_edition(payload, edition)
 
         after_transaction_commit do
-          send_downstream(content_item.content_id, document.locale)
+          send_downstream(edition.content_id, document.locale)
         end
 
-        response_hash = Presenters::Queries::ContentItemPresenter.present(
-          content_item,
+        response_hash = Presenters::Queries::EditionPresenter.present(
+          edition,
           include_warnings: true,
         )
 
-        Action.create_put_content_action(content_item, document.locale, event)
+        Action.create_put_content_action(edition, document.locale, event)
         Success.new(response_hash)
       end
 
     private
 
-      def fill_out_new_content_item(content_item)
-        create_supporting_objects(content_item)
-        ensure_link_set_exists(content_item)
+      def fill_out_new_edition(edition)
+        create_supporting_objects(edition)
+        ensure_link_set_exists(edition)
 
-        update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
+        update_last_edited_at_if_needed(edition, payload[:last_edited_at])
 
         if previously_published_item != ITEM_NOT_FOUND
-          set_first_published_at(content_item, previously_published_item)
+          set_first_published_at(edition, previously_published_item)
 
           previous_base_path = previously_published_item.base_path
           previous_routes = previously_published_item.routes
@@ -63,22 +63,22 @@ module Commands
         end
 
         if payload[:access_limited] && (users = payload[:access_limited][:users])
-          AccessLimit.create!(content_item: content_item, users: users)
+          AccessLimit.create!(edition: edition, users: users)
         end
       end
 
-      def update_existing_content_item(content_item)
-        version = check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
+      def update_existing_edition(edition)
+        version = check_version_and_raise_if_conflicting(edition, payload[:previous_version])
 
         if content_with_base_path?
           clear_draft_items_of_same_locale_and_base_path
 
-          previous_base_path = content_item.base_path
-          previous_routes = content_item.routes
+          previous_base_path = edition.base_path
+          previous_routes = edition.routes
         end
 
-        update_content_item(content_item)
-        update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
+        update_edition(edition)
+        update_last_edited_at_if_needed(edition, payload[:last_edited_at])
 
         increment_lock_version(version)
 
@@ -91,17 +91,17 @@ module Commands
         end
 
         if payload[:access_limited] && (users = payload[:access_limited][:users])
-          create_or_update_access_limit(content_item, users: users)
+          create_or_update_access_limit(edition, users: users)
         else
-          AccessLimit.find_by(content_item: content_item).try(:destroy)
+          AccessLimit.find_by(edition: edition).try(:destroy)
         end
       end
 
-      def create_or_update_access_limit(content_item, users:)
-        if (access_limit = AccessLimit.find_by(content_item: content_item))
+      def create_or_update_access_limit(edition, users:)
+        if (access_limit = AccessLimit.find_by(edition: edition))
           access_limit.update_attributes!(users: users)
         else
-          AccessLimit.create!(content_item: content_item, users: users)
+          AccessLimit.create!(edition: edition, users: users)
         end
       end
 
@@ -118,29 +118,29 @@ module Commands
         )
       end
 
-      def content_item_attributes_from_payload
-        payload.slice(*ContentItem::TOP_LEVEL_FIELDS)
+      def edition_attributes_from_payload
+        payload.slice(*Edition::TOP_LEVEL_FIELDS)
       end
 
-      def create_content_item
-        attributes = content_item_attributes_from_payload.merge(
+      def create_edition
+        attributes = edition_attributes_from_payload.merge(
           locale: document.locale,
           state: "draft",
           content_store: "draft",
           user_facing_version: user_facing_version_number_for_new_draft,
         )
-        document.content_items.create!(attributes)
+        document.editions.create!(attributes)
       end
 
-      def create_supporting_objects(content_item)
-        LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
+      def create_supporting_objects(edition)
+        LockVersion.create!(target: edition, number: lock_version_number_for_new_draft)
       end
 
-      def ensure_link_set_exists(content_item)
-        existing_link_set = LinkSet.find_by(content_id: content_item.content_id)
+      def ensure_link_set_exists(edition)
+        existing_link_set = LinkSet.find_by(content_id: edition.content_id)
         return if existing_link_set
 
-        link_set = LinkSet.create!(content_id: content_item.content_id)
+        link_set = LinkSet.create!(content_id: edition.content_id)
         LockVersion.create!(target: link_set, number: 1)
       end
 
@@ -164,21 +164,21 @@ module Commands
       def document
         @document ||= Document.find_or_create_locked(
           content_id: payload.fetch(:content_id),
-          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
+          locale: payload.fetch(:locale, Edition::DEFAULT_LOCALE),
         )
       end
 
       def previously_published_item
         @previously_published_item ||=
-          ContentItem.find_by(
+          Edition.find_by(
             document: document,
             state: %w(published unpublished),
           ) || ITEM_NOT_FOUND
       end
 
-      def set_first_published_at(content_item, previously_published_item)
-        if content_item.first_published_at.nil?
-          content_item.update_attributes(
+      def set_first_published_at(edition, previously_published_item)
+        if edition.first_published_at.nil?
+          edition.update_attributes(
             first_published_at: previously_published_item.first_published_at,
           )
         end
@@ -202,37 +202,37 @@ module Commands
       end
 
       def base_path_required?
-        !ContentItem::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
+        !Edition::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
       end
 
       def publishing_app
         payload[:publishing_app]
       end
 
-      def update_content_item(content_item)
-        content_item.assign_attributes_with_defaults(
-          content_item_attributes_from_payload.merge(
+      def update_edition(edition)
+        edition.assign_attributes_with_defaults(
+          edition_attributes_from_payload.merge(
             state: "draft",
             content_store: "draft",
-            user_facing_version: content_item.user_facing_version,
+            user_facing_version: edition.user_facing_version,
           )
         )
 
         # FIXME replace this when 'content_id' and 'locale' fields are removed
-        # from ContentItem model
+        # from Edition model
         # update these fields to also update the underlying document
-        content_item.content_id = document.content_id
-        content_item.locale = document.locale
+        edition.content_id = document.content_id
+        edition.locale = document.locale
 
-        content_item.save!
+        edition.save!
       end
 
-      def update_last_edited_at_if_needed(content_item, last_edited_at = nil)
+      def update_last_edited_at_if_needed(edition, last_edited_at = nil)
         if last_edited_at.nil? && %w(major minor).include?(payload[:update_type])
           last_edited_at = Time.zone.now
         end
 
-        content_item.update_attributes(last_edited_at: last_edited_at) if last_edited_at
+        edition.update_attributes(last_edited_at: last_edited_at) if last_edited_at
       end
 
       def increment_lock_version(lock_version)

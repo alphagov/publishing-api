@@ -1,5 +1,5 @@
 class Location < ApplicationRecord
-  belongs_to :content_item
+  belongs_to :edition
 
   def self.filter(content_item_scope, base_path:)
     join_content_items(content_item_scope)
@@ -8,7 +8,7 @@ class Location < ApplicationRecord
 
   def self.join_content_items(content_item_scope)
     content_item_scope.joins(
-      "INNER JOIN locations ON locations.content_item_id = editions.id"
+      "INNER JOIN locations ON locations.edition_id = editions.id"
     )
   end
 

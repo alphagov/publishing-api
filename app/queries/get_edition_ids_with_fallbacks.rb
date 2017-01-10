@@ -1,14 +1,14 @@
 module Queries
-  class GetContentItemIdsWithFallbacks
-    def self.call(content_ids, state_fallback_order:, locale_fallback_order: ContentItem::DEFAULT_LOCALE)
+  class GetEditionIdsWithFallbacks
+    def self.call(content_ids, state_fallback_order:, locale_fallback_order: Edition::DEFAULT_LOCALE)
       state_fallback_order = Array.wrap(state_fallback_order).map(&:to_s)
       locale_fallback_order = Array.wrap(locale_fallback_order).map(&:to_s)
 
-      ContentItem.joins(:document).left_outer_joins(:unpublishing)
+      Edition.joins(:document).left_outer_joins(:unpublishing)
         .where(documents: { content_id: content_ids })
         .where(where_state(state_fallback_order))
         .where(documents: { locale: locale_fallback_order })
-        .where.not(document_type: ContentItem::NON_RENDERABLE_FORMATS)
+        .where.not(document_type: Edition::NON_RENDERABLE_FORMATS)
         .order("documents.content_id ASC")
         .order(order_by_clause("editions", "state", state_ordering(state_fallback_order)))
         .order(order_by_clause("documents", "locale", locale_fallback_order))
@@ -19,13 +19,13 @@ module Queries
     def self.where_state(state_fallback_order)
       without_withdrawn = state_fallback_order - ["withdrawn"]
       if without_withdrawn.present?
-        state_check = ContentItem.arel_table[:state].in(without_withdrawn)
+        state_check = Edition.arel_table[:state].in(without_withdrawn)
       else
         state_check = nil
       end
 
       if state_fallback_order.include?("withdrawn")
-        withdrawn_check = ContentItem.arel_table[:state].eq("unpublished")
+        withdrawn_check = Edition.arel_table[:state].eq("unpublished")
                             .and(Unpublishing.arel_table[:type].eq("withdrawal"))
       else
         withdrawn_check = nil

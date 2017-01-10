@@ -1,5 +1,5 @@
 module Queries
-  module CheckForContentItemPreventingDraftFromBeingPublished
+  module CheckForEditionPreventingDraftFromBeingPublished
     # Checks for any content item which would prevent a content item with the
     # specified content_id and base_path from being published (from the draft
     # state).
@@ -10,7 +10,7 @@ module Queries
         return # The SubstitionHelper will unpublish any item that is in the way
       end
 
-      conflicts = ContentItem.joins(:document)
+      conflicts = Edition.joins(:document)
         .where(base_path: base_path, content_store: :live)
         .where.not(
           documents: { content_id: content_id },

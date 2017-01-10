@@ -4,7 +4,7 @@ RSpec.describe V2::LinkSetsController do
   let(:content_id) { SecureRandom.uuid }
 
   before do
-    FactoryGirl.create(:draft_content_item, content_id: content_id)
+    FactoryGirl.create(:draft_edition, content_id: content_id)
     stub_request(:any, /content-store/)
   end
 

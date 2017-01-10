@@ -71,26 +71,26 @@ class Edition < ApplicationRecord
   # UserFacing Version
   after_save do
     if changes[:base_path] && changes[:base_path].last
-      Location.find_or_initialize_by(content_item_id: id)
+      Location.find_or_initialize_by(edition_id: id)
         .update!(base_path: changes[:base_path].last)
     end
 
     if changes[:base_path] && !changes[:base_path].last
-      Location.find_by(content_item_id: id).try(:destroy)
+      Location.find_by(edition_id: id).try(:destroy)
     end
 
     if changes[:state]
-      State.find_or_initialize_by(content_item_id: id)
+      State.find_or_initialize_by(edition_id: id)
         .update!(name: changes[:state].last)
     end
 
     if changes[:locale]
-      Translation.find_or_initialize_by(content_item_id: id)
+      Translation.find_or_initialize_by(edition_id: id)
         .update!(locale: changes[:locale].last)
     end
 
     if changes[:user_facing_version]
-      UserFacingVersion.find_or_initialize_by(content_item_id: id)
+      UserFacingVersion.find_or_initialize_by(edition_id: id)
         .update!(number: changes[:user_facing_version].last)
     end
   end
@@ -197,7 +197,7 @@ class Edition < ApplicationRecord
     content_store = type == "substitute" ? nil : "live"
     update_attributes!(state: "unpublished", content_store: content_store)
 
-    unpublishing = Unpublishing.find_by(content_item: self)
+    unpublishing = Unpublishing.find_by(edition: self)
 
     unpublished_at = nil unless type == "withdrawal"
 
@@ -211,7 +211,7 @@ class Edition < ApplicationRecord
       unpublishing
     else
       Unpublishing.create!(
-        content_item: self,
+        edition: self,
         type: type,
         explanation: explanation,
         alternative_path: alternative_path,

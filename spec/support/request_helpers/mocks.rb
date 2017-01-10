@@ -14,7 +14,7 @@ module RequestHelpers
       "582e1d3f-690e-4115-a948-e05b3c6b3d88"
     end
 
-    def content_item_params
+    def edition_params
       {
         content_id: content_id,
         base_path: base_path,
@@ -84,7 +84,7 @@ module RequestHelpers
       ]
     end
 
-    def redirect_content_item
+    def redirect_edition
       {
         base_path: "/crb-checks",
         document_type: "redirect",
@@ -103,8 +103,8 @@ module RequestHelpers
       }
     end
 
-    def v2_content_item
-      content_item_params
+    def v2_edition
+      edition_params
         .except(:links)
         .merge(base_path: base_path)
     end

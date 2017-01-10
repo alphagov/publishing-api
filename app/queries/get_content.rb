@@ -1,13 +1,13 @@
 module Queries
   module GetContent
     def self.call(content_id, locale = nil, version: nil, include_warnings: false)
-      locale_to_use = locale || ContentItem::DEFAULT_LOCALE
+      locale_to_use = locale || Edition::DEFAULT_LOCALE
 
-      content_items = ContentItem.joins(:document)
+      content_items = Edition.joins(:document)
         .where(documents: { content_id: content_id, locale: locale_to_use })
       content_items = content_items.where(user_facing_version: version) if version
 
-      response = Presenters::Queries::ContentItemPresenter.present_many(
+      response = Presenters::Queries::EditionPresenter.present_many(
         content_items,
         include_warnings: include_warnings
       ).first

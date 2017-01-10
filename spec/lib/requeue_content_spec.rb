@@ -2,12 +2,12 @@ require "rails_helper"
 
 RSpec.describe RequeueContent do
   before do
-    ContentItem.destroy_all
+    Edition.destroy_all
   end
 
-  let!(:content_item1) { FactoryGirl.create(:live_content_item, base_path: '/ci1') }
-  let!(:content_item2) { FactoryGirl.create(:live_content_item, base_path: '/ci2') }
-  let!(:content_item3) { FactoryGirl.create(:live_content_item, base_path: '/ci3') }
+  let!(:edition1) { FactoryGirl.create(:live_edition, base_path: '/ci1') }
+  let!(:edition2) { FactoryGirl.create(:live_edition, base_path: '/ci2') }
+  let!(:edition3) { FactoryGirl.create(:live_edition, base_path: '/ci3') }
 
   describe "#call" do
     it "by default, it republishes all content items" do

@@ -4,7 +4,7 @@ module DependencyResolutionHelper
     link_set.content_id
   end
 
-  def create_content_item(
+  def create_edition(
     content_id,
     base_path,
     state = "published",
@@ -12,7 +12,7 @@ module DependencyResolutionHelper
     version = 1
   )
     FactoryGirl.create(
-      :content_item,
+      :edition,
       content_id: content_id,
       base_path: base_path,
       state: state,

@@ -6,7 +6,7 @@ module Queries
       expanded_link_set = Presenters::Queries::ExpandedLinkSet.new(
         content_id: content_id,
         state_fallback_order: [:draft, :published],
-        locale_fallback_order: [locale, ContentItem::DEFAULT_LOCALE].compact
+        locale_fallback_order: [locale, Edition::DEFAULT_LOCALE].compact
       )
 
       {

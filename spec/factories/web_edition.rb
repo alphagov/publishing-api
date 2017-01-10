@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :draft_web_content_item, class: WebContentItem do
+  factory :draft_web_edition, class: WebEdition do
     content_id { SecureRandom.uuid }
     title "VAT rates"
     description "VAT rates for goods and services"
@@ -36,9 +36,9 @@ FactoryGirl.define do
     state "published"
   end
 
-  factory :live_web_content_item, parent: :draft_web_content_item, traits: [:live]
+  factory :live_web_edition, parent: :draft_web_edition, traits: [:live]
 
-  factory :gone_draft_web_content_item, parent: :draft_web_content_item do
+  factory :gone_draft_web_edition, parent: :draft_web_edition do
     sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
     schema_name "gone"
     document_type "gone"
