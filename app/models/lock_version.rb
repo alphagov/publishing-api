@@ -4,6 +4,7 @@ class LockVersion < ApplicationRecord
 
   after_save do
     item = lock_version_target
+    return unless item
     item.update_column(:lock_version, number) if number > item.lock_version
   end
 

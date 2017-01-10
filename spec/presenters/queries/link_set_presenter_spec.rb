@@ -7,7 +7,7 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
 
     subject(:result) do
       FactoryGirl.create(:lock_version, target: link_set, number: 101)
-      @result = Presenters::Queries::LinkSetPresenter.present(link_set)
+      Presenters::Queries::LinkSetPresenter.present(link_set)
     end
 
     it "returns link set attributes as a hash" do
