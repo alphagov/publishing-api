@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Downstream requests", type: :request do
   context "/v2/content" do
-    let(:content_item_for_draft_content_store) {
-      v2_content_item
+    let(:edition_for_draft_content_store) {
+      v2_edition
         .except(:update_type)
         .merge(expanded_links: {
           available_translations: available_translations
@@ -16,13 +16,13 @@ RSpec.describe "Downstream requests", type: :request do
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(
           base_path: base_path,
-          content_item: content_item_for_draft_content_store
+          content_item: edition_for_draft_content_store
             .merge(payload_version: anything)
         )
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
       expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
 
-      put "/v2/content/#{content_id}", params: v2_content_item.to_json
+      put "/v2/content/#{content_id}", params: v2_edition.to_json
 
       expect(response).to be_ok, response.body
     end
@@ -30,15 +30,15 @@ RSpec.describe "Downstream requests", type: :request do
     context "when a link set exists for the content item" do
       let(:link_set) do
         FactoryGirl.create(:link_set,
-          content_id: v2_content_item[:content_id]
+          content_id: v2_edition[:content_id]
         )
       end
 
-      let(:target_content_item) { FactoryGirl.create(:content_item, base_path: "/foo", title: "foo") }
-      let!(:links) { FactoryGirl.create(:link, link_set: link_set, link_type: "parent", target_content_id: target_content_item.content_id) }
+      let(:target_edition) { FactoryGirl.create(:edition, base_path: "/foo", title: "foo") }
+      let!(:links) { FactoryGirl.create(:link, link_set: link_set, link_type: "parent", target_content_id: target_edition.content_id) }
 
-      let(:content_item_for_draft_content_store) do
-        v2_content_item.except(:update_type).merge(
+      let(:edition_for_draft_content_store) do
+        v2_edition.except(:update_type).merge(
           expanded_links: Presenters::Queries::ExpandedLinkSet.new(content_id: link_set.content_id, state_fallback_order: [:draft, :published]).links
         )
       end
@@ -46,11 +46,11 @@ RSpec.describe "Downstream requests", type: :request do
       it "sends to the draft content store" do
         allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
 
-        put "/v2/content/#{content_id}", params: v2_content_item.to_json
+        put "/v2/content/#{content_id}", params: v2_edition.to_json
         expect(PublishingAPI.service(:draft_content_store)).to have_received(:put_content_item)
           .with(
             base_path: base_path,
-            content_item: content_item_for_draft_content_store
+            content_item: edition_for_draft_content_store
               .merge(payload_version: anything)
           )
 
@@ -60,22 +60,22 @@ RSpec.describe "Downstream requests", type: :request do
   end
 
   context "/v2/links" do
-    let(:content_item) { v2_content_item }
+    let(:edition) { v2_edition }
 
-    let(:content_item_for_draft_content_store) {
-      content_item
+    let(:edition_for_draft_content_store) {
+      edition
         .except(:update_type)
         .merge(access_limited: access_limit_params)
     }
 
-    let(:content_item_for_live_content_store) {
-      content_item
+    let(:edition_for_live_content_store) {
+      edition
         .except(:access_limited, :update_type)
     }
 
     context "when only a draft content item exists for the link set" do
       before do
-        draft = FactoryGirl.create(:draft_content_item,
+        draft = FactoryGirl.create(:draft_edition,
           content_id: content_id,
           base_path: base_path,
         )
@@ -84,7 +84,7 @@ RSpec.describe "Downstream requests", type: :request do
 
         FactoryGirl.create(:access_limit,
           users: access_limit_params.fetch(:users),
-          content_item: draft,
+          edition: draft,
         )
       end
 
@@ -94,7 +94,7 @@ RSpec.describe "Downstream requests", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(
             base_path: base_path,
-            content_item: content_item_for_draft_content_store
+            content_item: edition_for_draft_content_store
               .merge(payload_version: anything)
           )
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
@@ -108,7 +108,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when only a live content item exists for the link set" do
       before do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           content_id: content_id,
           base_path: base_path,
         )
@@ -121,14 +121,14 @@ RSpec.describe "Downstream requests", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(
             base_path: base_path,
-            content_item: content_item_for_live_content_store
+            content_item: edition_for_live_content_store
               .merge(payload_version: anything)
           )
 
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
           .with(
             base_path: base_path,
-            content_item: content_item_for_live_content_store
+            content_item: edition_for_live_content_store
               .merge(payload_version: anything)
           )
 
@@ -140,7 +140,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when draft and live content items exists for the link set" do
       before do
-        draft = FactoryGirl.create(:draft_content_item,
+        draft = FactoryGirl.create(:draft_edition,
           content_id: content_id,
           base_path: base_path,
           user_facing_version: 2,
@@ -148,10 +148,10 @@ RSpec.describe "Downstream requests", type: :request do
 
         FactoryGirl.create(:access_limit,
           users: access_limit_params.fetch(:users),
-          content_item: draft,
+          edition: draft,
         )
 
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           content_id: content_id,
           base_path: base_path,
         )
@@ -164,14 +164,14 @@ RSpec.describe "Downstream requests", type: :request do
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
           .with(
             base_path: base_path,
-            content_item: content_item_for_draft_content_store
+            content_item: edition_for_draft_content_store
               .merge(payload_version: anything)
           )
 
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
           .with(
             base_path: base_path,
-            content_item: content_item_for_live_content_store
+            content_item: edition_for_live_content_store
               .merge(payload_version: anything)
           )
 
@@ -200,9 +200,9 @@ RSpec.describe "Downstream requests", type: :request do
     let(:a) { create_link_set }
     let(:b) { create_link_set }
 
-    let!(:draft_a) { create_content_item(a, "/a", "superseded", "en", 1) }
-    let!(:published_a) { create_content_item(a, "/a", "published", 'en', 2) }
-    let!(:draft_b) { create_content_item(b, "/b", "draft") }
+    let!(:draft_a) { create_edition(a, "/a", "superseded", "en", 1) }
+    let!(:published_a) { create_edition(a, "/a", "published", 'en', 2) }
+    let!(:draft_b) { create_edition(b, "/b", "draft") }
 
     before do
       create_link(a, b, "parent")
@@ -213,7 +213,7 @@ RSpec.describe "Downstream requests", type: :request do
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(a_hash_including(base_path: '/b'))
-      params = v2_content_item.merge(base_path: "/a", content_id: a,
+      params = v2_edition.merge(base_path: "/a", content_id: a,
                                      routes: [{ path: '/a', type: 'exact' }]).to_json
       put "/v2/content/#{a}", params: params
     end
@@ -243,13 +243,13 @@ RSpec.describe "Downstream requests", type: :request do
   context "/v2/publish" do
     let(:content_id) { SecureRandom.uuid }
     let!(:draft) {
-      FactoryGirl.create(:draft_content_item,
+      FactoryGirl.create(:draft_edition,
         content_id: content_id,
         base_path: base_path,
       )
     }
 
-    let(:content_item_for_live_content_store) {
+    let(:edition_for_live_content_store) {
       draft.attributes.deep_symbolize_keys
         .merge(
           base_path: base_path,
@@ -267,8 +267,8 @@ RSpec.describe "Downstream requests", type: :request do
           :old_description,
           :created_at,
           :updated_at,
-          :draft_content_item_id,
-          :live_content_item_id,
+          :draft_edition_id,
+          :live_edition_id,
           :last_edited_at,
 
           # hide attributes that won't exist when calling as_json

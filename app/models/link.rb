@@ -6,9 +6,9 @@ class Link < ApplicationRecord
   validate :link_type_is_valid
   validate :content_id_is_valid
 
-  def self.filter_content_items(scope, filters)
+  def self.filter_editions(scope, filters)
     join_sql = <<-SQL.strip_heredoc
-      INNER JOIN link_sets ON link_sets.content_id = content_items.content_id
+      INNER JOIN link_sets ON link_sets.content_id = documents.content_id
       INNER JOIN links ON links.link_set_id = link_sets.id
     SQL
 

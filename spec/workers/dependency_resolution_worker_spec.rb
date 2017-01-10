@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe DependencyResolutionWorker, :perform do
-  let(:live_content_item) { FactoryGirl.create(:live_content_item, locale: "en") }
+  let(:live_edition) { FactoryGirl.create(:live_edition, locale: "en") }
   let(:content_id) { SecureRandom.uuid }
   let(:locale) { "en" }
 
@@ -14,10 +14,10 @@ RSpec.describe DependencyResolutionWorker, :perform do
     )
   end
 
-  let(:content_item_dependee) { double(:content_item_dependent, call: []) }
+  let(:edition_dependee) { double(:edition_dependent, call: []) }
   let(:dependencies) do
     [
-      [live_content_item.content_id, "en"],
+      [live_edition.content_id, "en"],
     ]
   end
 
@@ -30,8 +30,8 @@ RSpec.describe DependencyResolutionWorker, :perform do
     expect(Queries::ContentDependencies).to receive(:new).with(
       content_id: content_id,
       locale: locale,
-      state_fallback_order: %w[published unpublished],
-    ).and_return(content_item_dependee)
+      content_stores: %w[live],
+    ).and_return(edition_dependee)
     worker_perform
   end
 
@@ -50,9 +50,9 @@ RSpec.describe DependencyResolutionWorker, :perform do
   end
 
   context "with a draft version available" do
-    let!(:draft_content_item) do
-      FactoryGirl.create(:draft_content_item,
-        content_id: live_content_item.content_id,
+    let!(:draft_edition) do
+      FactoryGirl.create(:draft_edition,
+        content_id: live_edition.content_id,
         locale: "en",
         user_facing_version: 2,
       )
@@ -62,7 +62,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id: live_content_item.content_id,
+          content_id: live_edition.content_id,
           locale: "en",
         )
       )
@@ -78,7 +78,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id: draft_content_item.content_id,
+          content_id: draft_edition.content_id,
           locale: "en",
         )
       )

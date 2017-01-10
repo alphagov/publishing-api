@@ -9,7 +9,7 @@ namespace :data_extractor do
 
       sql = "select content_items.content_id, links.link_type, count(*) " \
       "from states " \
-      "join content_items on states.content_item_id = content_items.id " \
+      "join content_items on states.edition_id = content_items.id " \
       "join link_sets on ( link_sets.content_id = content_items.content_id ) " \
       "join links on ( links.link_set_id = link_sets.id ) " \
       "where states.name = 'published'" \

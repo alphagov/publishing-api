@@ -4,14 +4,14 @@ namespace :data_cleanup do
     attributes = Unpublishing
       .where(type: "substitute")
       .joins(:content_item)
-      .pluck(:content_item_id, :content_id)
+      .pluck(:edition_id, :content_id)
 
-    content_item_ids, content_ids = attributes
+    edition_ids, content_ids = attributes
       .flatten
       .partition
       .with_index { |_, index| index.even? }
 
-    puts "Removing #{content_item_ids.count} content items"
+    puts "Removing #{edition_ids.count} content items"
 
     supporting_classes = [
       AccessLimit,
@@ -25,21 +25,21 @@ namespace :data_cleanup do
 
     supporting_classes.each do |klass|
       puts "-- Removing all associated #{klass} objects"
-      klass.where(content_item_id: content_item_ids).destroy_all
+      klass.where(edition_id: edition_ids).destroy_all
     end
 
     LockVersion.where(
-      target_id: content_item_ids,
-      target_type: "ContentItem"
+      target_id: edition_ids,
+      target_type: "Edition"
     ).destroy_all
 
-    ContentItem.where(id: content_item_ids).destroy_all
+    Edition.where(id: edition_ids).destroy_all
 
     puts "Checking link sets"
     content_ids.each do |content_id|
       # Remove linkset if there's no content items left
       # for that content ID.
-      unless ContentItem.exists?(content_id: content_id)
+      unless Edition.exists?(content_id: content_id)
         puts "-- Removing orphaned LinkSet for content ID '#{content_id}'"
         LinkSet.where(content_id: content_id).destroy_all
       end

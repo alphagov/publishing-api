@@ -14,22 +14,22 @@ module Queries
   #     added as dependencies, as well as all translations of the content_ids
   #     found.
   class ContentDependencies
-    def initialize(content_id:, locale:, state_fallback_order:)
+    def initialize(content_id:, locale:, content_stores:)
       @content_id = content_id
       @locale = locale
-      @state_fallback_order = state_fallback_order
+      @content_stores = content_stores
     end
 
     def call
       content_ids = linked_to(content_id) + automatic_reverse_links(content_id) + [content_id]
-      with_locales = Queries::LocalesForContentItems.call(content_ids.uniq, state_fallback_order)
+      with_locales = Queries::LocalesForEditions.call(content_ids.uniq, content_stores)
       calling_item = locale ? [content_id, locale] : nil
       with_locales - [calling_item]
     end
 
   private
 
-    attr_reader :content_id, :locale, :state_fallback_order
+    attr_reader :content_id, :locale, :content_stores
 
     def linked_to(content_id)
       Queries::LinkedTo.new(content_id, DependeeExpansionRules).call

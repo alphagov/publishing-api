@@ -6,7 +6,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
   let!(:unpublished_1) do
     FactoryGirl.create(
-      :superseded_content_item,
+      :superseded_edition,
       content_id: content_id,
       user_facing_version: 1,
     )
@@ -14,7 +14,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
   let!(:published) do
     FactoryGirl.create(
-      :live_content_item,
+      :live_edition,
       content_id: content_id,
       user_facing_version: 2,
     )
@@ -22,7 +22,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
   let!(:unpublished_2) do
     FactoryGirl.create(
-      :superseded_content_item,
+      :superseded_edition,
       content_id: content_id,
       user_facing_version: 3,
     )
@@ -30,14 +30,14 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
   let!(:draft) do
     FactoryGirl.create(
-      :draft_content_item,
+      :draft_edition,
       content_id: content_id,
       user_facing_version: 4,
     )
   end
 
   before do
-    ContentItem.where(id: [unpublished_1.id, unpublished_2.id]).update_all(state: "unpublished")
+    Edition.where(id: [unpublished_1.id, unpublished_2.id]).update_all(state: "unpublished")
   end
 
   it "supersedes all but the latest published or unpublished item" do
@@ -60,7 +60,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
 
   it "does not supersede states for content items in other locales" do
     french_item = FactoryGirl.create(
-      :live_content_item,
+      :live_edition,
       content_id: content_id,
       user_facing_version: 1,
       locale: "fr",

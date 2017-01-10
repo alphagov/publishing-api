@@ -53,11 +53,11 @@ benchmarks = {
 }
 
 benchmarks.each do |name, content_id|
-  content_item_ids = Queries::GetLatest.(
-    ContentItem.where(content_id: content_id, state: :published)
+  edition_ids = Queries::GetLatest.(
+    Edition.where(content_id: content_id, state: :published)
   ).pluck(:id)
 
-  web_content_item = Queries::GetWebContentItems.(content_item_ids).first
+  web_content_item = Queries::GetWebEditions.(edition_ids).first
 
   puts "#{name}: #{content_id}"
   StackProf.run(mode: :wall, out: "tmp/downstream_presenter_#{name.gsub(/ +/, '_').downcase}_wall.dump") do

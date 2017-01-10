@@ -20,7 +20,7 @@ RSpec.describe "DELETE endpoint pact with the Content Store", pact: true do
     end
 
     it "responds with a 200 status code" do
-      response = client.delete_content_item("/vat-rates")
+      response = client.delete_edition("/vat-rates")
       expect(response.code).to eq(200)
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe "DELETE endpoint pact with the Content Store", pact: true do
 
     it "responds with a 404 status code" do
       expect {
-        client.delete_content_item("/vat-rates")
+        client.delete_edition("/vat-rates")
       }.to raise_error(GdsApi::HTTPNotFound)
     end
   end

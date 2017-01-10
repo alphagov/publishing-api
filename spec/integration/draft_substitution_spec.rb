@@ -51,12 +51,12 @@ RSpec.describe "Substituting content that is not published" do
     end
 
     it "discards the guide" do
-      expect(ContentItem.count).to eq(1)
+      expect(Edition.count).to eq(1)
 
-      content_item = ContentItem.first
+      edition = Edition.first
 
-      expect(content_item.document_type).to eq("gone")
-      expect(content_item.state).to eq("draft")
+      expect(edition.document_type).to eq("gone")
+      expect(edition.state).to eq("draft")
     end
 
     describe "after the second substitution" do
@@ -65,12 +65,12 @@ RSpec.describe "Substituting content that is not published" do
       end
 
       it "discards the gone" do
-        expect(ContentItem.count).to eq(1)
+        expect(Edition.count).to eq(1)
 
-        content_item = ContentItem.first
+        edition = Edition.first
 
-        expect(content_item.document_type).to eq("guide")
-        expect(content_item.state).to eq("draft")
+        expect(edition.document_type).to eq("guide")
+        expect(edition.state).to eq("draft")
       end
 
       describe "after the third substitution" do
@@ -79,12 +79,12 @@ RSpec.describe "Substituting content that is not published" do
         end
 
         it "discards the guide" do
-          expect(ContentItem.count).to eq(1)
+          expect(Edition.count).to eq(1)
 
-          content_item = ContentItem.first
+          edition = Edition.first
 
-          expect(content_item.document_type).to eq("gone")
-          expect(content_item.state).to eq("draft")
+          expect(edition.document_type).to eq("gone")
+          expect(edition.state).to eq("draft")
         end
       end
     end
@@ -99,10 +99,10 @@ RSpec.describe "Substituting content that is not published" do
     end
 
     it "does not discard the guide" do
-      expect(ContentItem.count).to eq(2)
+      expect(Edition.count).to eq(2)
 
-      guide_item = ContentItem.first
-      gone_item = ContentItem.second
+      guide_item = Edition.first
+      gone_item = Edition.second
 
       expect(guide_item.state).to eq("draft")
       expect(gone_item.state).to eq("draft")

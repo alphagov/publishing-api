@@ -11,11 +11,12 @@ module Commands
         increment_live_lock_version if live
 
         after_transaction_commit do
-          downstream_discard_draft(draft.base_path, draft.content_id, locale)
+          downstream_discard_draft(draft.base_path, draft.content_id,
+                                   document.locale)
         end
 
-        Action.create_discard_draft_action(draft, locale, event)
-        Success.new(content_id: content_id)
+        Action.create_discard_draft_action(draft, document.locale, event)
+        Success.new(content_id: document.content_id)
       end
 
     private
@@ -47,13 +48,13 @@ module Commands
       end
 
       def delete_supporting_objects
-        Location.find_by(content_item: draft).try(:destroy)
-        State.find_by(content_item: draft).try(:destroy)
-        Translation.find_by(content_item: draft).try(:destroy)
-        UserFacingVersion.find_by(content_item: draft).try(:destroy)
+        Location.find_by(edition: draft).try(:destroy)
+        State.find_by(edition: draft).try(:destroy)
+        Translation.find_by(edition: draft).try(:destroy)
+        UserFacingVersion.find_by(edition: draft).try(:destroy)
         LockVersion.find_by(target: draft).try(:destroy)
-        AccessLimit.find_by(content_item: draft).try(:destroy)
-        ChangeNote.where(content_item: draft).destroy_all
+        AccessLimit.find_by(edition: draft).try(:destroy)
+        ChangeNote.where(edition: draft).destroy_all
       end
 
       def increment_live_lock_version
@@ -62,28 +63,19 @@ module Commands
         lock_version.save!
       end
 
-      def draft
-        @draft ||= ContentItem.find_by(
-          content_id: content_id,
-          locale: locale,
-          state: "draft",
+      def document
+        @document ||= Document.find_or_create_locked(
+          content_id: payload[:content_id],
+          locale: payload.fetch(:locale, Edition::DEFAULT_LOCALE),
         )
+      end
+
+      def draft
+        @draft ||= document.draft
       end
 
       def live
-        @live ||= ContentItem.find_by(
-          content_id: content_id,
-          locale: locale,
-          state: %w(published unpublished),
-        )
-      end
-
-      def content_id
-        payload[:content_id]
-      end
-
-      def locale
-        payload[:locale] || ContentItem::DEFAULT_LOCALE
+        @live ||= document.live
       end
     end
   end

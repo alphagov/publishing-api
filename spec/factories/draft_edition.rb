@@ -1,10 +1,10 @@
 FactoryGirl.define do
-  factory :draft_content_item, parent: :content_item do
+  factory :draft_edition, parent: :edition do
     state "draft"
     content_store "draft"
   end
 
-  factory :redirect_draft_content_item, parent: :draft_content_item do
+  factory :redirect_draft_edition, parent: :draft_edition do
     transient do
       destination "/somewhere"
     end
@@ -15,21 +15,21 @@ FactoryGirl.define do
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => destination }] }
   end
 
-  factory :gone_draft_content_item, parent: :draft_content_item do
+  factory :gone_draft_edition, parent: :draft_edition do
     sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
     schema_name "gone"
     document_type "gone"
   end
 
-  factory :access_limited_draft_content_item, parent: :draft_content_item do
+  factory :access_limited_draft_edition, parent: :draft_edition do
     sequence(:base_path) { |n| "/access-limited-#{n}" }
 
     after(:create) do |item, _|
-      FactoryGirl.create(:access_limit, content_item: item)
+      FactoryGirl.create(:access_limit, edition: item)
     end
   end
 
-  factory :pathless_draft_content_item, parent: :draft_content_item do
+  factory :pathless_draft_edition, parent: :draft_edition do
     base_path nil
     schema_name "contact"
     document_type "contact"

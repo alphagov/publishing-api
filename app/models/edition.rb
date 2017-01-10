@@ -1,4 +1,4 @@
-class ContentItem < ApplicationRecord
+class Edition < ApplicationRecord
   include DefaultAttributes
   include SymbolizeJSON
   include DescriptionOverrides
@@ -38,13 +38,17 @@ class ContentItem < ApplicationRecord
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
   EMPTY_BASE_PATH_FORMATS = %w(contact government).freeze
 
+  belongs_to :document
+  has_one :unpublishing
+
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
+
+  validates :document, presence: true
 
   validates :schema_name, presence: true
   validates :document_type, presence: true
 
   validates :base_path, absolute_path: true, if: :base_path_present?
-  validates :content_id, presence: true, uuid: true
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :requires_rendering_app?
@@ -54,11 +58,6 @@ class ContentItem < ApplicationRecord
   }
   validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include_one_of: %w(text/html text/govspeak) }
-
-  validates :locale, inclusion: {
-    in: I18n.available_locales.map(&:to_s),
-    message: 'must be a supported locale'
-  }
 
   validate :user_facing_version_must_increase
   validate :draft_cannot_be_behind_live
@@ -72,28 +71,52 @@ class ContentItem < ApplicationRecord
   # UserFacing Version
   after_save do
     if changes[:base_path] && changes[:base_path].last
-      Location.find_or_initialize_by(content_item_id: id)
+      Location.find_or_initialize_by(edition_id: id)
         .update!(base_path: changes[:base_path].last)
     end
 
     if changes[:base_path] && !changes[:base_path].last
-      Location.find_by(content_item_id: id).try(:destroy)
+      Location.find_by(edition_id: id).try(:destroy)
     end
 
     if changes[:state]
-      State.find_or_initialize_by(content_item_id: id)
+      State.find_or_initialize_by(edition_id: id)
         .update!(name: changes[:state].last)
     end
 
     if changes[:locale]
-      Translation.find_or_initialize_by(content_item_id: id)
+      Translation.find_or_initialize_by(edition_id: id)
         .update!(locale: changes[:locale].last)
     end
 
     if changes[:user_facing_version]
-      UserFacingVersion.find_or_initialize_by(content_item_id: id)
+      UserFacingVersion.find_or_initialize_by(edition_id: id)
         .update!(number: changes[:user_facing_version].last)
     end
+  end
+
+  def as_json(options = {})
+    super(options).merge(content_id: document.content_id,
+                         locale: document.locale)
+  end
+
+  # FIXME remove the following four methods
+  def content_id
+    document.content_id if document
+  end
+
+  def content_id=(new_content_id)
+    self.document = Document.find_or_create_by(content_id: new_content_id,
+                                               locale: locale)
+  end
+
+  def locale
+    document.locale if document
+  end
+
+  def locale=(new_locale)
+    self.document = Document.find_or_create_by(content_id: content_id,
+                                               locale: new_locale)
   end
 
   def requires_base_path?
@@ -109,21 +132,15 @@ class ContentItem < ApplicationRecord
   end
 
   def draft_cannot_be_behind_live
+    return unless document
+
     if state == "draft"
       draft_version = user_facing_version
-      live_version = ContentItem.where(
-        content_id: content_id,
-        locale: locale,
-        state: %w(published unpublished),
-      ).pluck(:user_facing_version).first
+      live_version = document.previous.user_facing_version if document.previous
     end
 
     if %w(published unpublished).include?(state)
-      draft_version = ContentItem.where(
-        content_id: content_id,
-        locale: locale,
-        state: "draft",
-      ).pluck(:user_facing_version).first
+      draft_version = document.draft.user_facing_version if document.draft
       live_version = user_facing_version
     end
 
@@ -180,7 +197,7 @@ class ContentItem < ApplicationRecord
     content_store = type == "substitute" ? nil : "live"
     update_attributes!(state: "unpublished", content_store: content_store)
 
-    unpublishing = Unpublishing.find_by(content_item: self)
+    unpublishing = Unpublishing.find_by(edition: self)
 
     unpublished_at = nil unless type == "withdrawal"
 
@@ -194,7 +211,7 @@ class ContentItem < ApplicationRecord
       unpublishing
     else
       Unpublishing.create!(
-        content_item: self,
+        edition: self,
         type: type,
         explanation: explanation,
         alternative_path: alternative_path,

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe V2::ContentItemsController do
+RSpec.describe V2::ContentController do
   let(:content_id) { SecureRandom.uuid }
   let(:validator) do
     instance_double(SchemaValidator, valid?: true, errors: [])
@@ -10,8 +10,7 @@ RSpec.describe V2::ContentItemsController do
     allow(SchemaValidator).to receive(:new).and_return(validator)
     stub_request(:any, /content-store/)
 
-    @draft = FactoryGirl.create(
-      :draft_content_item,
+    @draft = FactoryGirl.create(:draft_edition,
       content_id: content_id,
       base_path: "/content.en",
       document_type: "topic",
@@ -24,8 +23,7 @@ RSpec.describe V2::ContentItemsController do
   describe "index" do
     before do
       @en_draft_content = @draft
-      @ar_draft_content = FactoryGirl.create(
-        :draft_content_item,
+      @ar_draft_content = FactoryGirl.create(:draft_edition,
         content_id: content_id,
         locale: "ar",
         base_path: "/content.ar",
@@ -33,8 +31,7 @@ RSpec.describe V2::ContentItemsController do
         schema_name: "topic",
         user_facing_version: 2,
       )
-      @en_live_content = FactoryGirl.create(
-        :live_content_item,
+      @en_live_content = FactoryGirl.create(:live_edition,
         content_id: content_id,
         locale: "en",
         base_path: "/content.en",
@@ -42,8 +39,7 @@ RSpec.describe V2::ContentItemsController do
         schema_name: "topic",
         user_facing_version: 1,
       )
-      @ar_live_content = FactoryGirl.create(
-        :live_content_item,
+      @ar_live_content = FactoryGirl.create(:live_edition,
         content_id: content_id,
         locale: "ar",
         base_path: "/content.ar",
@@ -56,15 +52,15 @@ RSpec.describe V2::ContentItemsController do
     context "searching a field" do
       context "when there is a valid query" do
         let(:previous_live_version) do
-          FactoryGirl.create(:superseded_content_item,
+          FactoryGirl.create(:superseded_edition,
                              base_path: "/foo",
                              document_type: "topic",
                              schema_name: "topic",
                              title: "zip",
                              user_facing_version: 1)
         end
-        let!(:content_item) do
-          FactoryGirl.create(:live_content_item,
+        let!(:edition) do
+          FactoryGirl.create(:live_edition,
                              base_path: "/foo",
                              content_id: previous_live_version.content_id,
                              document_type: "topic",
@@ -371,10 +367,10 @@ RSpec.describe V2::ContentItemsController do
     end
 
     context "for an invalid content ID" do
-      it "responds with 404" do
+      it "responds with 400" do
         get :show, params: { content_id: "invalid" }
 
-        expect(response.status).to eq(404)
+        expect(response.status).to eq(400)
       end
     end
   end
@@ -382,12 +378,12 @@ RSpec.describe V2::ContentItemsController do
   describe "put_content" do
     context "with valid request params for a new content item" do
       before do
-        content_item_hash = @draft.as_json
-        content_item_hash = content_item_hash
+        edition_hash = @draft.as_json
+        edition_hash = edition_hash
           .merge("base_path" => "/that-rates")
           .merge("routes" => [{ "path" => "/that-rates", "type" => "exact" }])
         request.env["CONTENT_TYPE"] = "application/json"
-        request.env["RAW_POST_DATA"] = content_item_hash.to_json
+        request.env["RAW_POST_DATA"] = edition_hash.to_json
         put :put_content, params: { content_id: SecureRandom.uuid }
       end
 
@@ -403,13 +399,13 @@ RSpec.describe V2::ContentItemsController do
 
     context "with valid request params for an existing content item" do
       before do
-        content_item_hash = @draft.as_json
-        content_item_hash = content_item_hash
+        edition_hash = @draft.as_json
+        edition_hash = edition_hash
           .merge("base_path" => "/that-rates")
           .merge("routes" => [{ "path" => "/that-rates", "type" => "exact" }])
 
         request.env["CONTENT_TYPE"] = "application/json"
-        request.env["RAW_POST_DATA"] = content_item_hash.to_json
+        request.env["RAW_POST_DATA"] = edition_hash.to_json
         put :put_content, params: { content_id: content_id }
       end
 
@@ -459,7 +455,7 @@ RSpec.describe V2::ContentItemsController do
       it "responds with 404" do
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = { update_type: "major" }.to_json
-        post :publish, params: { content_id: "missing" }
+        post :publish, params: { content_id: SecureRandom.uuid }
 
         expect(response.status).to eq(404)
       end
@@ -468,10 +464,10 @@ RSpec.describe V2::ContentItemsController do
 
   describe "index" do
     before do
-      FactoryGirl.create(:draft_content_item, publishing_app: 'publisher', base_path: '/content')
-      FactoryGirl.create(:draft_content_item, publishing_app: 'whitehall', base_path: '/item1')
-      FactoryGirl.create(:live_content_item, publishing_app: 'whitehall', base_path: '/item2')
-      FactoryGirl.create(:unpublished_content_item, publishing_app: 'specialist_publisher', base_path: '/item3')
+      FactoryGirl.create(:draft_edition, publishing_app: 'publisher', base_path: '/content')
+      FactoryGirl.create(:draft_edition, publishing_app: 'whitehall', base_path: '/item1')
+      FactoryGirl.create(:live_edition, publishing_app: 'whitehall', base_path: '/item2')
+      FactoryGirl.create(:unpublished_edition, publishing_app: 'specialist_publisher', base_path: '/item3')
     end
 
     it "displays items filtered by publishing_app parameter" do

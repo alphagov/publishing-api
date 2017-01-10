@@ -18,7 +18,7 @@ module Queries
     end
 
     def call
-      latest_updated_at = ContentItem
+      latest_updated_at = Edition
         .where(document_type: [document_type, "placeholder_#{document_type}"])
         .order('updated_at DESC')
         .limit(1)
@@ -26,11 +26,11 @@ module Queries
         .last
 
       Rails.cache.fetch ["linkables", document_type, latest_updated_at] do
-        Queries::GetWebContentItems.(
-          Queries::GetContentItemIdsWithFallbacks.(
-            ContentItem.distinct.where(
+        Queries::GetWebEditions.(
+          Queries::GetEditionIdsWithFallbacks.(
+            Edition.distinct.joins(:document).where(
               document_type: [document_type, "placeholder_#{document_type}"]
-            ).pluck(:content_id),
+            ).pluck('documents.content_id'),
             state_fallback_order: [:published, :draft]
           ),
           LinkablePresenter

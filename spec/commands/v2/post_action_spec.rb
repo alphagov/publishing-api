@@ -67,7 +67,7 @@ RSpec.describe Commands::V2::PostAction do
     context "when a draft content item exists" do
       before do
         FactoryGirl.create(
-          :draft_content_item,
+          :draft_edition,
           content_id: content_id,
           locale: locale,
           lock_version: 6,
@@ -84,7 +84,7 @@ RSpec.describe Commands::V2::PostAction do
     context "when a published content item exists" do
       before do
         FactoryGirl.create(
-          :live_content_item,
+          :live_edition,
           content_id: content_id,
           locale: locale,
           lock_version: 6,

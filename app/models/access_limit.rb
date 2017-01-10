@@ -1,5 +1,5 @@
 class AccessLimit < ApplicationRecord
-  belongs_to :content_item
+  belongs_to :edition
 
   validate :user_uids_are_strings
 

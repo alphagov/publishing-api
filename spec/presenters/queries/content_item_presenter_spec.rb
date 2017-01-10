@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe Presenters::Queries::ContentItemPresenter do
+RSpec.describe Presenters::Queries::EditionPresenter do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
 
   describe "present" do
-    let!(:content_item) do
-      FactoryGirl.create(:draft_content_item,
+    let!(:edition) do
+      FactoryGirl.create(:draft_edition,
         content_id: content_id,
         base_path: base_path
       )
     end
 
-    let(:result) { described_class.present(content_item) }
+    let(:result) { described_class.present(edition) }
 
     let(:payload) do
       {
@@ -61,7 +61,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "for a published content item" do
       before do
-        content_item.update_attributes!(state: 'published')
+        edition.update_attributes!(state: 'published')
       end
 
       it "has a publication state of published" do
@@ -71,21 +71,21 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the content item exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "fr")
+        FactoryGirl.create(:draft_edition, content_id: content_id, locale: "fr")
       end
 
       it "presents the item with matching locale" do
         result = described_class.present(french_item)
         expect(result.fetch("locale")).to eq("fr")
 
-        result = described_class.present(content_item)
+        result = described_class.present(edition)
         expect(result.fetch("locale")).to eq("en")
       end
     end
 
     context "when a change note exists" do
-      let!(:content_item) do
-        FactoryGirl.create(:draft_content_item,
+      let!(:edition) do
+        FactoryGirl.create(:draft_edition,
           content_id: content_id,
           base_path: base_path,
           update_type: "major"
@@ -103,8 +103,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
   end
 
   describe "#present_many" do
-    let!(:content_item) do
-      FactoryGirl.create(:draft_content_item,
+    let!(:edition) do
+      FactoryGirl.create(:draft_edition,
         content_id: content_id,
       )
     end
@@ -113,22 +113,24 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       let(:fields) { %w(title phase publication_state) }
 
       it "returns the requested fields" do
-        content_items = ContentItem.where(content_id: content_id)
+        editions = Edition.joins(:document)
+          .where("documents.content_id": content_id)
 
-        results = described_class.present_many(content_items, fields: fields)
+        results = described_class.present_many(editions, fields: fields)
         expect(results.first.keys).to match_array(%w(title phase publication_state))
       end
     end
 
     context "when the content item exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:content_item, content_id: content_id, locale: "fr")
+        FactoryGirl.create(:edition, content_id: content_id, locale: "fr")
       end
 
       it "presents a content item for each locale" do
-        content_items = ContentItem.where(content_id: content_id)
+        editions = Edition.joins(:document)
+          .where("documents.content_id": content_id)
 
-        results = described_class.present_many(content_items)
+        results = described_class.present_many(editions)
         locales = results.map { |r| r.fetch("locale") }
 
         expect(locales).to match_array(%w(fr en))
@@ -137,21 +139,23 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when there are other content items with that content_id" do
       before do
-        content_item.update_attributes(user_facing_version: 2)
+        edition.update_attributes(user_facing_version: 2)
       end
 
       let!(:published_item) do
         FactoryGirl.create(
-          :live_content_item,
+          :live_edition,
           content_id: content_id,
           user_facing_version: 1,
         )
       end
 
-      let(:content_items) { ContentItem.where(content_id: content_id) }
+      let(:editions) do
+        Edition.joins(:document).where("documents.content_id": content_id)
+      end
 
       it "returns a versioned history of states for the content item" do
-        results = described_class.present_many(content_items)
+        results = described_class.present_many(editions)
         expect(results.count).to eq(1)
 
         state_history = results.first.fetch("state_history")
@@ -165,7 +169,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "#get_warnings" do
     before do
-      FactoryGirl.create(:draft_content_item,
+      FactoryGirl.create(:draft_edition,
         content_id: content_id,
         base_path: base_path,
         user_facing_version: 2,
@@ -173,7 +177,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     let(:scope) do
-      ContentItem.where(content_id: content_id)
+      Edition.joins(:document).where("documents.content_id": content_id)
     end
 
     context "when include_warnings is false" do
@@ -199,17 +203,15 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
       context "with a blocking content item" do
         before do
-          @blocking_content_item = FactoryGirl.create(:live_content_item,
-            content_id: SecureRandom.uuid,
+          @blocking_edition = FactoryGirl.create(:live_edition,
             base_path: base_path,
             user_facing_version: 1,
-            locale: "en",
           )
         end
 
         it "includes the warning" do
           expect(result.first["warnings"]).to have_key(
-            "content_item_blocking_publish"
+            "edition_blocking_publish"
           )
         end
       end

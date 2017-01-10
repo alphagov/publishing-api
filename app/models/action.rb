@@ -1,5 +1,5 @@
 class Action < ActiveRecord::Base
-  belongs_to :content_item
+  belongs_to :edition
   belongs_to :link_set
   belongs_to :event
 
@@ -23,13 +23,13 @@ class Action < ActiveRecord::Base
     create_publishing_action("DiscardDraft", content_item, locale, event)
   end
 
-  def self.create_publishing_action(action, content_item, locale, event)
+  def self.create_publishing_action(action, edition, locale, event)
     create!(
-      content_id: content_item.content_id,
+      content_id: edition.content_id,
       locale: locale,
       action: action,
       user_uid: event.user_uid,
-      content_item: content_item,
+      edition: edition,
       event: event,
     )
   end
@@ -48,7 +48,7 @@ class Action < ActiveRecord::Base
 private
 
   def one_of_content_item_link_set
-    if content_item_id && link_set_id || content_item && link_set
+    if edition_id && link_set_id || edition && link_set
       errors.add(:base, "can not be associated with both a content item and link set")
     end
   end

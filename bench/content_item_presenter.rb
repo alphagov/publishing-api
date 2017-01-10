@@ -10,12 +10,12 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |name, started, fi
 end
 
 def present(number_of_items)
-  scope = ContentItem.limit(number_of_items).order("id DESC")
+  scope = Edition.limit(number_of_items).order("id DESC")
   $queries = 0
 
   puts "Presenting #{number_of_items} content items"
   StackProf.run(mode: :wall, out: "tmp/content_item_presenter_#{number_of_items}_wall.dump") do
-    puts Benchmark.measure { Presenters::Queries::ContentItemPresenter.present_many(scope).to_a }
+    puts Benchmark.measure { Presenters::Queries::EditionPresenter.present_many(scope).to_a }
   end
   puts "  Queries: #{$queries}"
 end

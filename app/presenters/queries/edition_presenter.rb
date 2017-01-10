@@ -2,12 +2,12 @@
 # if editing its behaviour and make sure to compare benchmarks.
 module Presenters
   module Queries
-    class ContentItemPresenter
+    class EditionPresenter
       attr_accessor :scope, :fields, :order, :limit, :offset, :search_query,
                     :include_warnings
 
       DEFAULT_FIELDS = ([
-        *ContentItem::TOP_LEVEL_FIELDS,
+        *Edition::TOP_LEVEL_FIELDS,
         :publication_state,
         :user_facing_version,
         :base_path,
@@ -23,7 +23,7 @@ module Presenters
       end
 
       def self.present(content_item, params = {})
-        scope = ContentItem.where(id: content_item.id)
+        scope = Edition.where(id: content_item.id)
 
         present_many(scope, params).first
       end
@@ -31,7 +31,7 @@ module Presenters
       def initialize(scope, params = {})
         self.scope = scope
         self.fields = (params[:fields] || DEFAULT_FIELDS).map(&:to_sym)
-        self.order = params[:order] || { "content_items.id" => "asc" }
+        self.order = params[:order] || { "editions.id" => "asc" }
         self.limit = params[:limit]
         self.offset = params[:offset]
         self.search_query = params[:search_query]
@@ -61,13 +61,13 @@ module Presenters
       end
 
       def latest
-        ::Queries::GetLatest.call(self.scope)
+        ::Queries::GetLatest.call(self.scope.joins(:document))
       end
 
       def join_supporting_objects(scope)
-        scope = ChangeNote.join_content_items(scope)
+        scope = ChangeNote.join_editions(scope)
 
-        LockVersion.join_content_items(scope)
+        LockVersion.join_editions(scope)
       end
 
       def order_and_paginate
@@ -82,9 +82,9 @@ module Presenters
         fields_to_select = fields.map do |field|
           case field
           when :publication_state
-            "content_items.state AS publication_state"
+            "editions.state AS publication_state"
           when :user_facing_version
-            "content_items.user_facing_version AS user_facing_version"
+            "editions.user_facing_version AS user_facing_version"
           when :lock_version
             "lock_versions.number AS lock_version"
           when :description
@@ -100,9 +100,11 @@ module Presenters
           when :change_note
             "change_notes.note AS change_note"
           when :base_path
-            "content_items.base_path as base_path"
+            "editions.base_path as base_path"
           when :locale
-            "content_items.locale as locale"
+            "documents.locale as locale"
+          when :content_id
+            "documents.content_id as content_id"
           when :total
             "COUNT(*) OVER () as total"
           else
@@ -115,15 +117,15 @@ module Presenters
 
       def search(scope)
         return scope unless search_query.present?
-        scope.where("title ilike ? OR content_items.base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
+        scope.where("title ilike ? OR editions.base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
       end
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
           SELECT json_agg((user_facing_version, state))
-          FROM content_items c
-          WHERE c.content_id = content_items.content_id
-          GROUP BY content_id
+          FROM editions c
+          WHERE c.document_id = documents.id
+          GROUP BY documents.content_id
         )
       SQL
 
@@ -177,7 +179,7 @@ module Presenters
           raise "#{missing_fields} must be included if the include_warnings parameter is true"
         end
 
-        Presenters::Queries::ContentItemWarnings.call(
+        Presenters::Queries::EditionWarnings.call(
           result["content_id"],
           result["state_history"][result["user_facing_version"]],
           result["base_path"],

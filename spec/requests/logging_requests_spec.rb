@@ -6,7 +6,7 @@ RSpec.describe "Logging requests", type: :request do
 
   it "adds a request uuid to the content store worker job" do
     Sidekiq::Testing.fake! do
-      put("/v2/content/#{SecureRandom.uuid}", params: content_item_params.except(:links).to_json,
+      put("/v2/content/#{SecureRandom.uuid}", params: edition_params.except(:links).to_json,
         headers: { "HTTP_GOVUK_REQUEST_ID" => govuk_request_id },
       )
       GdsApi::GovukHeaders.clear_headers # Simulate workers running in a separate thread
@@ -21,12 +21,12 @@ RSpec.describe "Logging requests", type: :request do
   end
 
   it "adds a request uuid to the message bus" do
-    draft_content_item = FactoryGirl.create(:draft_content_item, base_path: base_path)
+    draft_edition = FactoryGirl.create(:draft_edition, base_path: base_path)
 
     expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
       .with(hash_including(govuk_request_id: govuk_request_id))
 
-    post("/v2/content/#{draft_content_item.content_id}/publish", params: { update_type: "minor" }.to_json,
+    post("/v2/content/#{draft_edition.content_id}/publish", params: { update_type: "minor" }.to_json,
       headers: { "HTTP_GOVUK_REQUEST_ID" => "12345-67890" }
     )
   end
@@ -37,11 +37,11 @@ RSpec.describe "Logging requests", type: :request do
     let(:a) { create_link_set }
     let(:b) { create_link_set }
 
-    let!(:draft_a) { create_content_item(a, "/a", "draft", "en", 2) }
-    let!(:draft_b) { create_content_item(b, "/b", "draft") }
+    let!(:draft_a) { create_edition(a, "/a", "draft", "en", 2) }
+    let!(:draft_b) { create_edition(b, "/b", "draft") }
 
     let(:params) do
-      v2_content_item.merge(
+      v2_edition.merge(
         content_id: a,
         base_path: "/a",
         routes: [{ path: "/a", type: "exact" }],

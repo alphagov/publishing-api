@@ -19,8 +19,8 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     ]
   }
 
-  let(:content_item) {
-    FactoryGirl.create(:content_item,
+  let(:edition) {
+    FactoryGirl.create(:edition,
       state: "published",
       document_type: "placeholder",
       schema_name: "placeholder",
@@ -32,7 +32,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
   }
 
   it "returns expanded links" do
-    organisation = FactoryGirl.create(:content_item,
+    organisation = FactoryGirl.create(:edition,
       state: "published",
       document_type: "organisation",
       schema_name: "organisation",
@@ -41,16 +41,16 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     )
 
     link_set = FactoryGirl.create(:link_set,
-      content_id: content_item.content_id,
+      content_id: edition.content_id,
     )
 
     FactoryGirl.create(:link, link_set: link_set, target_content_id: organisation.content_id, link_type: 'organisations')
 
-    get "/v2/expanded-links/#{content_item.content_id}"
+    get "/v2/expanded-links/#{edition.content_id}"
 
     expect(parsed_response).to eql(
       "version" => 0,
-      "content_id" => content_item.content_id,
+      "content_id" => edition.content_id,
       "expanded_links" => {
         "organisations" => [
           {
@@ -76,14 +76,14 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
   it "returns only translations if there are no links" do
     link_set = FactoryGirl.create(:link_set,
-      content_id: content_item.content_id,
+      content_id: edition.content_id,
     )
 
     get "/v2/expanded-links/#{link_set.content_id}"
 
     expect(parsed_response).to eql(
       "version" => 0,
-      "content_id" => content_item.content_id,
+      "content_id" => edition.content_id,
       "expanded_links" => {
         "available_translations" => translations,
       },
@@ -92,7 +92,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
   it "returns a version if the link set has a version" do
     link_set = FactoryGirl.create(:link_set,
-      content_id: content_item.content_id,
+      content_id: edition.content_id,
     )
 
     FactoryGirl.create(:lock_version, target: link_set, number: 11)
@@ -101,7 +101,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     expect(parsed_response).to eql(
       "version" => 11,
-      "content_id" => content_item.content_id,
+      "content_id" => edition.content_id,
       "expanded_links" => {
         "available_translations" => translations,
       },

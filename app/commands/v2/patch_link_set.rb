@@ -4,7 +4,7 @@ module Commands
       def call
         raise_unless_links_hash_is_provided
         validate_schema
-        link_set = find_or_create_link_set(content_id)
+        link_set = LinkSet.find_or_create_locked(content_id: content_id)
 
         check_version_and_raise_if_conflicting(link_set, previous_version_number)
         lock_version = LockVersion.find_or_create_by!(target: link_set)
@@ -34,23 +34,6 @@ module Commands
       end
 
     private
-
-      def find_or_create_link_set(content_id)
-        begin
-          retries ||= 0
-          LinkSet.transaction(requires_new: true) do
-            LinkSet.find_or_create_by!(content_id: content_id).lock!
-          end
-        rescue ActiveRecord::RecordNotUnique
-          # This should never need more than 1 retry as the scenario this error
-          # would occur is: inbetween rails find_or_create SELECT & INSERT
-          # queries a concurrent request ran an INSERT. Thus on retry the
-          # SELECT would succeed.
-          # So if this actually throws an exception here we probably have a
-          # weird underlying problem.
-          retry if (retries += 1) == 1
-        end
-      end
 
       def content_id
         payload.fetch(:content_id)
@@ -85,10 +68,10 @@ module Commands
       def send_downstream
         return unless downstream
 
-        draft_locales = Queries::LocalesForContentItems.call([content_id])
+        draft_locales = Queries::LocalesForEditions.call([content_id], %w[draft live])
         draft_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
 
-        live_locales = Queries::LocalesForContentItems.call([content_id], %w[published unpublished])
+        live_locales = Queries::LocalesForEditions.call([content_id], %w[live])
         live_locales.each { |(content_id, locale)| downstream_live(content_id, locale) }
       end
 
@@ -118,7 +101,7 @@ module Commands
       end
 
       def validate_schema
-        # There may not be a ContentItem yet.
+        # There may not be a Edition yet.
         return true unless schema_name
 
         # Do not raise anything yet
@@ -136,7 +119,7 @@ module Commands
 
       def schema_name
         @schema_name ||= Queries::GetLatest.(
-          ContentItem.where(content_id: payload[:content_id])
+          Edition.where(documents: { content_id: content_id }).joins(:document)
         ).pluck(:schema_name).first
       end
     end

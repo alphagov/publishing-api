@@ -5,9 +5,10 @@ class LookupsController < ApplicationController
     states = %w(published unpublished)
     base_paths = params.fetch(:base_paths)
 
-    base_paths_and_content_ids = ContentItem
+    base_paths_and_content_ids = Edition
+      .joins(:document)
       .where(state: states, base_path: base_paths)
-      .pluck(:base_path, :content_id)
+      .pluck(:base_path, 'documents.content_id')
       .uniq
 
     response = Hash[base_paths_and_content_ids]

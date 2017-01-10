@@ -3,7 +3,7 @@ module Presenters
     class ExpandedLinkSet
       attr_reader :state_fallback_order
 
-      def initialize(content_id:, state_fallback_order:, locale_fallback_order: ContentItem::DEFAULT_LOCALE)
+      def initialize(content_id:, state_fallback_order:, locale_fallback_order: Edition::DEFAULT_LOCALE)
         @content_id = content_id
         @state_fallback_order = Array(state_fallback_order.freeze)
         @locale_fallback_order = Array(locale_fallback_order.freeze)
@@ -15,8 +15,8 @@ module Presenters
 
       def web_content_items(target_content_ids)
         return [] unless target_content_ids.present?
-        ::Queries::GetWebContentItems.(
-          ::Queries::GetContentItemIdsWithFallbacks.(
+        ::Queries::GetWebEditions.(
+          ::Queries::GetEditionIdsWithFallbacks.(
             target_content_ids,
             locale_fallback_order: locale_fallback_order,
             state_fallback_order: state_fallback_order + [:withdrawn]

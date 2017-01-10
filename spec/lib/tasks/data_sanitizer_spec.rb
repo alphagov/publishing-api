@@ -3,21 +3,21 @@ require "rails_helper"
 RSpec.describe Tasks::DataSanitizer do
   let!(:non_limited_draft) do
     FactoryGirl.create(
-      :draft_content_item,
+      :draft_edition,
       base_path: "/non-limited-draft",
     )
   end
 
   let!(:limited_draft) do
     FactoryGirl.create(
-      :access_limited_draft_content_item,
+      :access_limited_draft_edition,
       base_path: "/limited-draft",
     )
   end
 
-  let!(:live_content_item) do
+  let!(:live_edition) do
     FactoryGirl.create(
-      :live_content_item,
+      :live_edition,
       base_path: "/live-item",
     )
   end
@@ -31,9 +31,9 @@ RSpec.describe Tasks::DataSanitizer do
   it "deletes all access limited drafts" do
     Tasks::DataSanitizer.delete_access_limited(stdout)
 
-    expect(ContentItem.exists?(limited_draft.id)).to eq(false)
-    expect(ContentItem.exists?(non_limited_draft.id)).to eq(true)
-    expect(ContentItem.exists?(live_content_item.id)).to eq(true)
+    expect(Edition.exists?(limited_draft.id)).to eq(false)
+    expect(Edition.exists?(non_limited_draft.id)).to eq(true)
+    expect(Edition.exists?(live_edition.id)).to eq(true)
   end
 
   it "deletes access limited drafts from the draft content store" do
@@ -46,9 +46,9 @@ RSpec.describe Tasks::DataSanitizer do
   it "removes the limited draft" do
     expect {
       Tasks::DataSanitizer.delete_access_limited(stdout)
-    }.to change(ContentItem, :count).by(-1)
+    }.to change(Edition, :count).by(-1)
 
-    expect(ContentItem.exists?(limited_draft.id)).to eq(false)
+    expect(Edition.exists?(limited_draft.id)).to eq(false)
     expect(AccessLimit.count).to be_zero
   end
 end

@@ -41,7 +41,7 @@ RSpec.describe Link do
     end
   end
 
-  describe ".filter_content_items" do
+  describe ".filter_editions" do
     let(:scope) { double(:scope) }
 
     it "modifies a scope to filter linked content items" do
@@ -49,7 +49,7 @@ RSpec.describe Link do
       expect(scope).to receive(:where)
         .with("links.link_type": "organisations", "links.target_content_id": "12345")
 
-      described_class.filter_content_items(scope, "organisations" => "12345")
+      described_class.filter_editions(scope, "organisations" => "12345")
     end
   end
 end

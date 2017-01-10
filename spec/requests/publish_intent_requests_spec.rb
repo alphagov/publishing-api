@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Publish intent requests", type: :request do
-  let(:content_item) {
+  let(:edition) {
     {
       publish_time: (Time.zone.now + 3.hours).iso8601,
       publishing_app: "publisher",
@@ -21,15 +21,15 @@ RSpec.describe "Publish intent requests", type: :request do
 
   describe "PUT /publish-intent" do
     it "responds with 200" do
-      put "/publish-intent#{base_path}", params: content_item.to_json
+      put "/publish-intent#{base_path}", params: edition.to_json
 
       expect(response.status).to eq(200)
     end
 
     it "responds with a request body" do
-      put "/publish-intent#{base_path}", params: content_item.to_json
+      put "/publish-intent#{base_path}", params: edition.to_json
 
-      expect(response.body).to eq(content_item.to_json)
+      expect(response.body).to eq(edition.to_json)
     end
 
     context "requested with invalid json" do
@@ -50,12 +50,12 @@ RSpec.describe "Publish intent requests", type: :request do
 
       it "returns the normal 200 response" do
         begin
-          put "/publish-intent#{base_path}", params: content_item.to_json
+          put "/publish-intent#{base_path}", params: edition.to_json
 
           parsed_response_body = parsed_response
           expect(response.status).to eq(200)
-          expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
-          expect(parsed_response_body["title"]).to eq(content_item[:title])
+          expect(parsed_response_body["content_id"]).to eq(edition[:content_id])
+          expect(parsed_response_body["title"]).to eq(edition[:title])
         ensure
           PublishingAPI.swallow_connection_errors = @swallow_connection_errors
         end
@@ -66,7 +66,7 @@ RSpec.describe "Publish intent requests", type: :request do
       let(:base_path) { "/" }
 
       it "creates the content item" do
-        put "/publish-intent#{base_path}", params: content_item.to_json
+        put "/publish-intent#{base_path}", params: edition.to_json
 
         expect(response.status).to eq(200)
         expect(a_request(:put, %r{.*/(content|publish-intent)/$})).to have_been_made.at_least_once
@@ -74,27 +74,27 @@ RSpec.describe "Publish intent requests", type: :request do
     end
 
     let(:expected_event_payload) {
-      content_item.merge(base_path: base_path)
+      edition.merge(base_path: base_path)
     }
 
     it "sends to live content store" do
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_publish_intent)
-        .with(base_path: "/vat-rates", publish_intent: content_item)
+        .with(base_path: "/vat-rates", publish_intent: edition)
         .ordered
 
-      put "/publish-intent#{base_path}", params: content_item.to_json
+      put "/publish-intent#{base_path}", params: edition.to_json
     end
 
     it "does not send anything to the draft content store" do
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_publish_intent).never
 
-      put "/publish-intent#{base_path}", params: content_item.to_json
+      put "/publish-intent#{base_path}", params: edition.to_json
 
       expect(WebMock).not_to have_requested(:any, /draft-content-store.*/)
     end
 
     it "logs a 'PutPublishIntent' event in the event log" do
-      put "/publish-intent#{base_path}", params: content_item.to_json
+      put "/publish-intent#{base_path}", params: edition.to_json
 
       expect(Event.count).to eq(1)
       expect(Event.first.action).to eq('PutPublishIntent')
@@ -106,13 +106,13 @@ RSpec.describe "Publish intent requests", type: :request do
   describe "GET /publish-intent/base-path" do
     it "passes the JSON through from the content store" do
       stubbed_get = stub_request(:get, %r{^content-store.*/publish-intent/foo})
-        .to_return(body: content_item.to_json)
+        .to_return(body: edition.to_json)
 
       get "/publish-intent/foo"
 
       expect(stubbed_get).to have_been_requested
       expect(response.status).to eq(200)
-      expect(response.body).to eq(content_item.to_json)
+      expect(response.body).to eq(edition.to_json)
     end
   end
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe WebContentItem do
+RSpec.describe WebEdition do
   let(:hash) do
     {
       id: 1,

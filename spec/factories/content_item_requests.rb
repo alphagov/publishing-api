@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :content_item_request_data, class: Hash do
+  factory :edition_request_data, class: Hash do
     content_id { SecureRandom.uuid }
     sequence(:base_path) { |n| "/test-content-#{n}" }
     title "Test content"

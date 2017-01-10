@@ -4,7 +4,7 @@ hide circle
 hide empty fields
 hide empty methods
 
-class ContentItem
+class Edition
 class LockVersion
 class PathReservation
 
@@ -22,13 +22,13 @@ package "Access Control" {
   class User
 }
 
-ContentItem <-- LinkSet
-ContentItem <-up- Link
+Edition <-- LinkSet
+Edition <-up- Link
 LinkSet *--> Link
 
-ContentItem <.. LockVersion
+Edition <.. LockVersion
 
-ContentItem <-down- AccessLimit
+Edition <-down- AccessLimit
 LockVersion ..> LinkSet
 AccessLimit o--> User
 

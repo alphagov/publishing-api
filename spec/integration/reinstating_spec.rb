@@ -71,11 +71,11 @@ RSpec.describe "Reinstating Content Items that were previously unpublished" do
     end
 
     it "puts the content items into the correct states and versions" do
-      expect(ContentItem.count).to eq(3)
+      expect(Edition.count).to eq(3)
 
-      superseded1_item = ContentItem.first
-      superseded2_item = ContentItem.second
-      published_item = ContentItem.third
+      superseded1_item = Edition.first
+      superseded2_item = Edition.second
+      published_item = Edition.third
 
       expect(superseded1_item.state).to eq("superseded")
       expect(superseded2_item.state).to eq("unpublished")
@@ -94,12 +94,12 @@ RSpec.describe "Reinstating Content Items that were previously unpublished" do
       end
 
       it "puts the content items into the correct states and versions" do
-        expect(ContentItem.count).to eq(4)
+        expect(Edition.count).to eq(4)
 
-        superseded1_item = ContentItem.first
-        superseded2_item = ContentItem.second
-        unpublished_item = ContentItem.third
-        published_item = ContentItem.fourth
+        superseded1_item = Edition.first
+        superseded2_item = Edition.second
+        unpublished_item = Edition.third
+        published_item = Edition.fourth
 
         expect(superseded1_item.state).to eq("superseded")
         expect(superseded2_item.state).to eq("superseded")
@@ -119,13 +119,13 @@ RSpec.describe "Reinstating Content Items that were previously unpublished" do
         end
 
         it "puts the content items into the correct states and versions" do
-          expect(ContentItem.count).to eq(5)
+          expect(Edition.count).to eq(5)
 
-          superseded1_item = ContentItem.first
-          superseded2_item = ContentItem.second
-          unpublished_item = ContentItem.third
-          superseded3_item = ContentItem.fourth
-          published_item = ContentItem.fifth
+          superseded1_item = Edition.first
+          superseded2_item = Edition.second
+          unpublished_item = Edition.third
+          superseded3_item = Edition.fourth
+          published_item = Edition.fifth
 
           expect(superseded1_item.state).to eq("superseded")
           expect(superseded2_item.state).to eq("superseded")
