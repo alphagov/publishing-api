@@ -315,7 +315,7 @@ RSpec.describe Commands::V2::Publish do
 
         redirect = ContentItem.joins(:document).find_by(
           base_path: "/hat-rates",
-          "documents.locale": "en",
+          documents: { locale: "en" },
           state: "published",
         )
 
