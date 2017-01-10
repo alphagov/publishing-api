@@ -3,6 +3,7 @@ module Commands
     class Publish < BaseCommand
       def call
         validate
+
         publish_content_item
 
         after_transaction_commit do
@@ -31,7 +32,7 @@ module Commands
       end
 
       def create_publish_action
-        Action.create_publish_action(content_item, locale, event)
+        Action.create_publish_action(content_item, document.locale, event)
       end
 
       def remove_access_limit
@@ -53,7 +54,7 @@ module Commands
       end
 
       def previous_item
-        document.previous_item
+        document.previous
       end
 
       def redirect_old_base_path
@@ -96,6 +97,14 @@ module Commands
           content_id: payload[:content_id],
           locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
         )
+      end
+
+      def content_id
+        document.content_id
+      end
+
+      def locale
+        document.locale
       end
 
       def previous_version_number
