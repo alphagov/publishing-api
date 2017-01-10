@@ -1,7 +1,10 @@
 require "rails_helper"
 
 RSpec.describe LockVersion do
-  subject { FactoryGirl.build(:lock_version) }
+  subject do
+    content_item = FactoryGirl.create(:content_item)
+    FactoryGirl.build(:lock_version, target: content_item)
+  end
 
   it "starts version numbers at 0" do
     content_item = FactoryGirl.create(:content_item)
@@ -53,8 +56,14 @@ RSpec.describe LockVersion do
       subject.increment
       expect(subject.number).to eq(1)
 
+      expect(subject.lock_version_target.lock_version).to eq(1)
+
       subject.increment
       expect(subject.number).to eq(2)
+
+      subject.save
+
+      expect(subject.lock_version_target.lock_version).to eq(2)
     end
   end
 end
