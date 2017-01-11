@@ -42,7 +42,7 @@ module Commands
       def validate
         no_draft_item_exists unless content_item
         validate_update_type
-        check_version_and_raise_if_conflicting(content_item, previous_version_number)
+        check_version_and_raise_if_conflicting(document, previous_version_number)
       end
 
       def update_type

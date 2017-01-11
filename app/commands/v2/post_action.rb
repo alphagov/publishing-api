@@ -2,7 +2,7 @@ module Commands
   module V2
     class PostAction < BaseCommand
       def call
-        check_version_and_raise_if_conflicting(content_item, previous_version_number)
+        check_version_and_raise_if_conflicting(document, previous_version_number)
 
         Action.create!(
           content_id: document.content_id,

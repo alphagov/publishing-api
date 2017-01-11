@@ -4,11 +4,11 @@ module Commands
       def call
         raise_error_if_missing_draft!
 
-        check_version_and_raise_if_conflicting(draft, payload[:previous_version])
+        check_version_and_raise_if_conflicting(document, payload[:previous_version])
 
         delete_supporting_objects
         delete_draft_from_database
-        increment_live_lock_version if live
+        increment_lock_version if live
 
         after_transaction_commit do
           downstream_discard_draft(draft.base_path, draft.content_id,
@@ -58,7 +58,7 @@ module Commands
       end
 
       def increment_live_lock_version
-        LockVersion.find_by!(target: live).increment!
+        document.increment! :stale_lock_version
       end
 
       def document

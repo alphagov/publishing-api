@@ -65,9 +65,7 @@ module Presenters
       end
 
       def join_supporting_objects(scope)
-        scope = ChangeNote.join_content_items(scope)
-
-        LockVersion.join_content_items(scope)
+        ChangeNote.join_content_items(scope)
       end
 
       def order_and_paginate
@@ -86,7 +84,7 @@ module Presenters
           when :user_facing_version
             "content_items.user_facing_version AS user_facing_version"
           when :lock_version
-            "lock_versions.number AS lock_version"
+            "documents.stale_lock_version AS lock_version"
           when :description
             "description->>'value' AS description"
           when :last_edited_at

@@ -31,12 +31,15 @@ FactoryGirl.define do
     user_facing_version 1
 
     transient do
-      lock_version 1
+      lock_version nil
       change_note "note"
     end
 
     after(:create) do |item, evaluator|
-      FactoryGirl.create(:lock_version, number: evaluator.lock_version, target: item)
+      unless evaluator.lock_version.nil?
+        item.document.update! stale_lock_version: evaluator.lock_version
+      end
+
       unless item.update_type == "minor" || evaluator.change_note.nil?
         FactoryGirl.create(:change_note, note: evaluator.change_note, content_item: item)
       end

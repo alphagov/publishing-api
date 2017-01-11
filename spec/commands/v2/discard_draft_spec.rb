@@ -94,8 +94,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "when the draft's lock version differs from the given lock version" do
         before do
-          lock_version = LockVersion.find_by!(target: existing_draft_item)
-          payload[:previous_version] = lock_version.number - 1
+          payload[:previous_version] = existing_draft_item.document.stale_lock_version - 1
         end
 
         it "raises an error" do
@@ -117,11 +116,9 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
 
         it "increments the lock version of the published item" do
-          published_lock_version = LockVersion.find_by!(target: published_item)
-
           expect {
             described_class.call(payload)
-          }.to change { published_lock_version.reload.number }.to(4)
+          }.to change { published_item.document.reload.stale_lock_version }.to(4)
         end
 
         it "it uses the downstream discard draft worker" do

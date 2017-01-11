@@ -84,10 +84,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       link_set = LinkSet.last
       expect(link_set).to be_present
-
-      lock_version = LockVersion.find_by(target: link_set)
-      expect(lock_version).to be_present
-      expect(lock_version.number).to eq(1)
+      expect(link_set.stale_lock_version).to eq(1)
     end
 
     it "responds with a success object containing the newly created links in the same order as in the request" do
@@ -179,10 +176,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       link_set = LinkSet.last
       expect(link_set).to be_present
-
-      lock_version = LockVersion.find_by(target: link_set)
-      expect(lock_version).to be_present
-      expect(lock_version.number).to eq(2)
+      expect(link_set.stale_lock_version).to eq(2)
     end
 
     it "responds with a success object containing the updated links in the same order as in the request" do
