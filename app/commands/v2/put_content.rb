@@ -42,7 +42,6 @@ module Commands
                                      payload, callbacks).create
       end
 
-
       def present_response(content_item)
         Presenters::Queries::ContentItemPresenter.present(
           content_item,

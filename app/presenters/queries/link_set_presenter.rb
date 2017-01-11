@@ -2,26 +2,19 @@ module Presenters
   module Queries
     class LinkSetPresenter
       def self.present(link_set)
-        lock_version = LockVersion.find_by(target: link_set)
-        new(link_set, lock_version).present
+        new(link_set).present
       end
 
-      def initialize(link_set, lock_version = nil)
+      def initialize(link_set)
         self.link_set = link_set
-        self.lock_version = lock_version
       end
 
       def present
-        base = {
+        {
           content_id: link_set.content_id,
           links: links,
+          version: link_set.stale_lock_version,
         }
-
-        if lock_version
-          base.merge(version: lock_version.number)
-        else
-          base
-        end
       end
 
       def links

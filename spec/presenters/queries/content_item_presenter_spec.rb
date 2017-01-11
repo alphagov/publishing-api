@@ -4,10 +4,15 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
 
+  let!(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let!(:fr_document) do
+    FactoryGirl.create(:document, content_id: content_id, locale: "fr")
+  end
+
   describe "present" do
     let!(:content_item) do
       FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
+        document: document,
         base_path: base_path
       )
     end
@@ -71,7 +76,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the content item exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:draft_content_item, content_id: content_id, locale: "fr")
+        FactoryGirl.create(:draft_content_item, document: fr_document)
       end
 
       it "presents the item with matching locale" do
@@ -86,7 +91,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     context "when a change note exists" do
       let!(:content_item) do
         FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
           update_type: "major"
         )
@@ -104,9 +109,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "#present_many" do
     let!(:content_item) do
-      FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
-      )
+      FactoryGirl.create(:draft_content_item, document: document)
     end
 
     context "when an array of fields is provided" do
@@ -123,7 +126,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the content item exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:content_item, content_id: content_id, locale: "fr")
+        FactoryGirl.create(:content_item, document: fr_document)
       end
 
       it "presents a content item for each locale" do
@@ -143,19 +146,14 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
 
       let!(:published_item) do
-        FactoryGirl.create(
-          :live_content_item,
-          content_id: content_id,
+        FactoryGirl.create(:live_content_item,
+          document: document,
           user_facing_version: 1,
         )
       end
 
-      let(:content_items) do
-        ContentItem.joins(:document).where("documents.content_id": content_id)
-      end
-
       it "returns a versioned history of states for the content item" do
-        results = described_class.present_many(content_items)
+        results = described_class.present_many(document.content_items)
         expect(results.count).to eq(1)
 
         state_history = results.first.fetch("state_history")
@@ -170,15 +168,13 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
   describe "#get_warnings" do
     before do
       FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
+        document: document,
         base_path: base_path,
         user_facing_version: 2,
       )
     end
 
-    let(:scope) do
-      ContentItem.joins(:document).where("documents.content_id": content_id)
-    end
+    let(:scope) { document.content_items }
 
     context "when include_warnings is false" do
       let(:result) do

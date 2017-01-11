@@ -6,13 +6,15 @@ RSpec.describe Commands::V2::Publish do
     let(:locale) { "en" }
     let(:user_facing_version) { 5 }
 
-    let!(:document) { FactoryGirl.create(:document, locale: locale) }
+    let!(:document) do
+      FactoryGirl.create(:document,
+        locale: locale,
+        stale_lock_version: 2)
+    end
 
     let!(:draft_item) do
-      FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(:draft_content_item,
         document: document,
-        lock_version: 2,
         base_path: base_path,
         user_facing_version: user_facing_version,
       )

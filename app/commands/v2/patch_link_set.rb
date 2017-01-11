@@ -7,7 +7,8 @@ module Commands
         link_set = LinkSet.find_or_create_locked(content_id: content_id)
 
         check_version_and_raise_if_conflicting(link_set, previous_version_number)
-        LockVersion.find_or_create_by!(target: link_set).increment!
+
+        link_set.increment! :stale_lock_version
 
         grouped_links.each do |group, payload_content_ids|
           # For each set of links in a LinkSet scoped by link_type, this iterator

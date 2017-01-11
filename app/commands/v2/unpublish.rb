@@ -77,7 +77,7 @@ module Commands
       def validate
         validate_allow_discard_draft
         validate_content_item_presence
-        check_version_and_raise_if_conflicting(content_item, previous_version_number)
+        check_version_and_raise_if_conflicting(document, previous_version_number)
         validate_draft_presence
       end
 

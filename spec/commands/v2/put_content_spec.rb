@@ -129,7 +129,7 @@ RSpec.describe Commands::V2::PutContent do
         expect(content_item.content_id).to eq(content_id)
         expect(content_item.state).to eq("draft")
         expect(content_item.content_store).to eq("draft")
-        expect(LockVersion.find_by!(target: content_item).number).to eq(3)
+        expect(content_item.document.stale_lock_version).to eq(3)
       end
 
       it "creates the draft's user-facing version using the live's user-facing version as a starting point" do
@@ -246,7 +246,7 @@ RSpec.describe Commands::V2::PutContent do
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
         expect(content_item.state).to eq("draft")
-        expect(LockVersion.find_by!(target: content_item).number).to eq(3)
+        expect(content_item.document.stale_lock_version).to eq(3)
       end
 
       it "creates the draft's user-facing version using the unpublished user-facing version as a starting point" do
@@ -302,8 +302,7 @@ RSpec.describe Commands::V2::PutContent do
         described_class.call(payload)
         content_item = ContentItem.last
 
-        lock_version = LockVersion.find_by!(target: content_item)
-        expect(lock_version.number).to eq(1)
+        expect(content_item.document.stale_lock_version).to eq(1)
       end
 
       it "creates a change note" do
@@ -359,8 +358,7 @@ RSpec.describe Commands::V2::PutContent do
         described_class.call(payload)
         previously_drafted_item.reload
 
-        lock_version = LockVersion.find_by!(target: previously_drafted_item)
-        expect(lock_version.number).to eq(2)
+        expect(previously_drafted_item.document.stale_lock_version).to eq(2)
       end
 
       context "when the base path has changed" do
@@ -445,9 +443,7 @@ RSpec.describe Commands::V2::PutContent do
 
           context "conflicting version" do
             before do
-              lock_version = LockVersion.find_by!(target: previously_drafted_item)
-              lock_version.update_attributes!(number: 2)
-
+              previously_drafted_item.document.update!(stale_lock_version: 2)
               payload.merge!(previous_version: 1)
             end
 
@@ -463,9 +459,7 @@ RSpec.describe Commands::V2::PutContent do
 
       context "with a 'previous_version' which does not match the current lock_version of the draft item" do
         before do
-          lock_version = LockVersion.find_by!(target: previously_drafted_item)
-          lock_version.update_attributes!(number: 2)
-
+          previously_drafted_item.document.update!(stale_lock_version: 2)
           payload.merge!(previous_version: 1)
         end
 
@@ -572,10 +566,9 @@ RSpec.describe Commands::V2::PutContent do
         }.to change(LinkSet, :count).by(1)
 
         link_set = LinkSet.last
-        lock_version = LockVersion.find_by(target: link_set)
 
-        expect(lock_version).to be_present
-        expect(lock_version.number).to eq(1)
+        expect(link_set).to be_present
+        expect(link_set.stale_lock_version).to eq(1)
       end
     end
 
