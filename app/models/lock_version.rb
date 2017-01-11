@@ -4,7 +4,7 @@ class LockVersion < ApplicationRecord
 
   after_save do
     item = lock_version_target
-    item.update_column(:lock_version, number) if item && number > item.lock_version
+    item.update_column(:stale_lock_version, number) if item && number > item.stale_lock_version
   end
 
   def self.join_content_items(content_item_scope)

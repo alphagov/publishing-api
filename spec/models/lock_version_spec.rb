@@ -56,14 +56,14 @@ RSpec.describe LockVersion do
       subject.increment
       expect(subject.number).to eq(1)
 
-      expect(subject.lock_version_target.lock_version).to eq(1)
+      expect(subject.lock_version_target.stale_lock_version).to eq(1)
 
       subject.increment
       expect(subject.number).to eq(2)
 
       subject.save
 
-      expect(subject.lock_version_target.lock_version).to eq(2)
+      expect(subject.lock_version_target.stale_lock_version).to eq(2)
     end
   end
 end
