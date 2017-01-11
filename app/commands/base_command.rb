@@ -65,7 +65,7 @@ module Commands
         friendly_message = "A lock-version conflict occurred. The " +
           "`previous_version` you've sent (#{previous_version}) is not the " +
           "same as the current lock version of the content item " +
-          "(#{current_version})." +
+          "(#{current_version})."
 
         fields = {
           fields: {
