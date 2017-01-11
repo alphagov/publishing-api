@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20170111161439) do
   create_table "documents", force: :cascade do |t|
     t.uuid    "content_id",                     null: false
     t.string  "locale",                         null: false
-    t.integer "stale_lock_version", default: 1, null: false
+    t.integer "stale_lock_version", default: 0, null: false
     t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true, using: :btree
   end
 
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 20170111161439) do
     t.uuid     "content_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "stale_lock_version", default: 1
+    t.integer  "stale_lock_version", default: 0
     t.index ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
   end
 
