@@ -408,7 +408,7 @@ Pact.provider_states_for "GDS API Adapters" do
         lock_version: 1
       )
 
-      link_set = FactoryGirl.create(:link_set,
+      FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 3,
       )
