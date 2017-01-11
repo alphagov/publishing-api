@@ -51,6 +51,16 @@ class FixWelshPublisherContentLocales < ActiveRecord::Migration[5.0]
       c.update!(locale: 'cy')
     end
 
-    Commands::V2::RepresentDownstream.new.call(welsh_content_ids, true)
+    # NOTE: Calling `RepresentDownstream` as part of the migration caused
+    # several errors along the lines of:
+    #
+    # "A downstreamable content item was not found for content_id:
+    # 12cd2a97-e005-4f99-a4d1-a5e9fa1c4415 and locale: cy"
+    #
+    # This is presumably because the transaction had not finished yet by the
+    # time the worker got to executing the commands. Instead it would be
+    # better to trigger RepresentDownstream manually
+
+    # Commands::V2::RepresentDownstream.new.call(welsh_content_ids, true)
   end
 end
