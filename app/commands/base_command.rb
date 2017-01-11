@@ -61,7 +61,7 @@ module Commands
 
       current_version = current_versioned_item.stale_lock_version
 
-      if current_version != previous_version
+      if current_version != previous_version.to_i
         friendly_message = "A lock-version conflict occurred. The " +
           "`previous_version` you've sent (#{previous_version}) is not the " +
           "same as the current lock version of the content item " +
