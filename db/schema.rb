@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106113200) do
+ActiveRecord::Schema.define(version: 20170109151629) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,9 +44,6 @@ ActiveRecord::Schema.define(version: 20170106113200) do
     t.integer  "content_item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "content_items", force: :cascade do |t|
     t.string   "content_id"
     t.index ["content_id"], name: "index_change_notes_on_content_id", using: :btree
     t.index ["content_item_id"], name: "index_change_notes_on_content_item_id", using: :btree
