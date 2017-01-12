@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 20170111161439) do
   end
 
   create_table "content_items", force: :cascade do |t|
-    t.uuid     "content_id"
     t.string   "title"
     t.datetime "public_updated_at"
     t.json     "details",              default: {}
@@ -74,6 +73,7 @@ ActiveRecord::Schema.define(version: 20170111161439) do
     t.integer  "user_facing_version",  default: 1,              null: false
     t.string   "base_path"
     t.string   "content_store"
+    t.uuid     "content_id",                                    null: false
     t.integer  "document_id",                                   null: false
     t.index ["base_path", "content_store"], name: "index_content_items_on_base_path_and_content_store", unique: true, using: :btree
     t.index ["content_id", "locale", "content_store"], name: "index_content_items_on_content_id_and_locale_and_content_store", unique: true, using: :btree
