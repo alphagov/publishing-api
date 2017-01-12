@@ -8,12 +8,16 @@ existing piece of content.
 
 ## Nomenclature
 
-- **Content Item**: A distinct piece of content to be managed by the app. The
-majority of things relate to a Content Item
-- **Lock Version**: An object that helps to facilitates the prevention of losing
-work when multiple users are updating the same content simultaneously
-- **Link Set**: A collection of links to other content items. It is used to
+- **Document**: A document is a piece of content in a particular locale. It is
+associated with editions that represent the versions of the document.
+- **Edition**: The content of a document is represented by an edition, it
+represents a distinct version of a Document.
+- **Content Item**: A representation of content that can be sent to a
+[content store](https://github.com/alphagov/content-store).
+- **Link Set**: A collection of links to other documents. It is used to
 capture relationships between pieces of content (e.g. parent/child)
+- **Unpublishing**: An object indicating a previously published edition
+which has been removed from the live site.  Can be "gone", "withdrawal", or "redirect".
 - **User**: A user of the system, which is used to restrict what content is
 returned from the API as well as prevent certain actions on content
 - **Path Reservation**: An object that attributes a path on GOV.UK to a piece of
@@ -21,22 +25,20 @@ content. It is used when paths need to be reserved before that content enters
 the system
 - **Event Log**: A log of all requests to the Publishing API that have the
 potential to mutate its internal state
-- **Unpublishing**: An object indicating a previously published content item
-which has been removed from the live site.  Can be "gone", "withdrawal", or "redirect".
-- **Action**: A record of activity on a particular Content Item, used to assist
+- **Action**: A record of activity on a particular edition, used to assist
 custom workflows of publishing applications.
-- **Link Expansion**: A process that converts the stored and automatic links for a
-content item into a JSON representation. Further documentation available in
+- **Link Expansion**: A process that converts the stored and automatic links for
+an edition into a JSON representation. Further documentation available in
 [doc/link-expansion.md](doc/link-expansion.md)
-- **Dependency Resolution**: A process that determines other content items that
-require updating downstream as a result of a change on a content item. Further
+- **Dependency Resolution**: A process that determines other editions that
+require updating downstream as a result of a change to an edition. Further
 documentation available in
 [doc/dependency-resolution.md](doc/depedency-resolution.md)
 
 For more information, refer to [doc/api.md](doc/api.md) and
 [doc/model.md](doc/model.md).
 
-Generated content items are pushed "downstream" to the content-store, where the frontends
+Editions of documents are pushed "downstream" to the content-store, where the frontends
 pull the resulting JSON to render a page. [content-store field documentation](https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md).
 
 ## Technical documentation
@@ -54,45 +56,46 @@ decision records in the
 [doc/arch](https://github.com/alphagov/publishing-api/blob/master/doc/arch)
 directory.
 
-### Deleting content items
+### Deleting Documents, Editions and Links
 
-To delete all traces of a content item you will need to create a migration.
+To delete content from the Publishing API you will need to create a data
+migration.
 
-If you need to delete all traces of a content item from the system:
+If you need to delete all traces of a document from the system:
 
 ```
-require_relative "helpers/delete_content_item"
-class RemoveYourContentItem < ActiveRecord::Migration
+require_relative "helpers/delete_content"
+class RemoveYourDocument < ActiveRecord::Migration
   # Remove /some/base-path
   def up
-    Helpers::DeleteContentItem.destroy_content_items_with_links("some-content-id")
+    Helpers::DeleteContent.destroy_document_with_links("some-content-id")
   end
 end
 ```
 
-If you need to delete an instance of a particular content item:
+If you need to delete a single edition:
 
 ```
-require_relative "helpers/delete_content_item"
-class RemoveYourContentInstance < ActiveRecord::Migration
+require_relative "helpers/delete_content"
+class RemoveYourEdition < ActiveRecord::Migration
   def up
-    content_items = ContentItem.where(id: 123)
+    editions = Edition.where(id: 123)
 
-    Helpers::DeleteContentItem.destroy_supporting_objects(content_items)
+    Helpers::DeleteContent.destroy_supporting_objects(editions)
 
-    content_items.destroy_all
+    editions.destroy_all
   end
 end
 ```
 
-If you need to delete just the links for a content item:
+If you need to delete just the links for a document:
 
 ```
-require_relative "helpers/delete_content_item"
+require_relative "helpers/delete_content"
 class RemoveLinks < ActiveRecord::Migration
   # Remove /some/base-path
   def up
-    Helpers::DeleteContentItem.destroy_links("some-content-id")
+    Helpers::DeleteContent.destroy_links("some-content-id")
   end
 end
 ```
@@ -148,10 +151,10 @@ variable.
 ## Example API requests
 
 ``` sh
-curl https://publishing-api-temp.production.alphagov.co.uk/content<base_path> \
+curl https://publishing-api.dev.gov.uk/content/<content_id> \
   -X PUT \
   -H 'Content-type: application/json' \
-  -d '<content_item_json>'
+  -d '<content_json>'
 ```
 
 See [doc/api.md](doc/api.md)
