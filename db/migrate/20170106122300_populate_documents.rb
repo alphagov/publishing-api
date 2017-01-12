@@ -5,8 +5,4 @@ class PopulateDocuments < ActiveRecord::Migration[5.0]
                WHERE (content_id, locale) NOT IN (SELECT content_id, locale FROM documents)
                GROUP BY content_id, locale"
   end
-
-  def down
-    execute "DELETE FROM documents"
-  end
 end

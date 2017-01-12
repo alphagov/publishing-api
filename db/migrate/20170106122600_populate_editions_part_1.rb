@@ -6,9 +6,4 @@ class PopulateEditionsPart1 < ActiveRecord::Migration[5.0]
                   documents.locale = content_items.locale
              )"
   end
-
-  def down
-    change_column :content_items, :content_id, :uuid, null: false
-    change_column :content_items, :locale, :string, null: false
-  end
 end
