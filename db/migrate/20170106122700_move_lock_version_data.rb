@@ -13,18 +13,4 @@ class MoveLockVersionData < ActiveRecord::Migration[5.0]
                    GROUP BY document_id) t
              WHERE documents.id = t.document_id"
   end
-
-  def down
-    execute "UPDATE lock_versions
-             SET number = t.lock_version
-             FROM (SELECT id, lock_version FROM link_sets) t
-             WHERE lock_versions.target_id = t.id"
-
-    execute "UPDATE lock_versions
-             SET number = t.lock_version
-             FROM (SELECT content_items.id AS id, lock_version
-                   FROM content_items LEFT JOIN documents
-                   ON documents.id = content_items.document_id) t
-             WHERE lock_versions.target_id = t.id"
-  end
 end
