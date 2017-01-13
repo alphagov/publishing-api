@@ -374,6 +374,11 @@ RSpec.describe Commands::V2::Unpublish do
 
       include_examples "creates an action"
 
+      it "maintains the state of unpublished" do
+        described_class.call(payload)
+        expect(unpublished_content_item.reload.state).to eq("unpublished")
+      end
+
       it "updates the Unpublishing" do
         unpublishing = Unpublishing.find_by(content_item: unpublished_content_item)
         expect(unpublishing.explanation).to eq("This explnatin has a typo")
