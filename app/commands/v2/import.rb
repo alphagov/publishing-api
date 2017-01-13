@@ -18,8 +18,17 @@ module Commands
         previous_content_store_base_paths = get_base_path_content_store_pairs
 
         delete_all(payload[:content_id])
-        payload[:history].map.with_index do |event, index|
+        content_items = payload[:history].map.with_index do |event, index|
           create_content_item(event, index, payload[:content_id])
+        end
+
+        not_draft_content_item = nil
+        content_items.reverse_each do |content_item|
+          if not_draft_content_item.present?
+            content_item.supersede
+          elsif content_item.state != "draft"
+            not_draft_content_item = content_item
+          end
         end
 
         new_content_store_base_paths = get_base_path_content_store_pairs
@@ -49,36 +58,41 @@ module Commands
       def create_content_item(history_entry, index, content_id)
         validate_history_entry(history_entry, index)
 
-        state_name = state_name_from_history_entry_state(history_entry[:state])
-
-        content_item = Services::CreateContentItem.new(
-          payload: history_entry.merge(
+        create_content_item_service = Services::CreateContentItem.new(
+          payload: history_entry.except("states").merge(
             content_id: content_id,
             user_facing_version: index + 1,
-            state: state_name
+            state: "draft",
           ),
           lock_version: index + 1,
-        ).create_content_item
+        )
 
-        update_content_item_state_information(content_item, history_entry[:state])
+        create_content_item_service.create_content_item do |content_item|
+          update_content_item_state_information(content_item, history_entry[:states])
+        end
       end
 
-      def state_name_from_history_entry_state(state)
-        state.instance_of?(String) ? state : state[:name]
-      end
-
-      def update_content_item_state_information(content_item, state_info)
-        case state_name_from_history_entry_state(state_info)
-        when "unpublished"
-          content_item.unpublish(
-            state_info.slice(
-              *%i(type explanation alternative_path unpublished_at)
+      def update_content_item_state_information(content_item, states)
+        states.each do |state|
+          case state[:name]
+          when "unpublished"
+            content_item.unpublish(
+              state.slice(
+                *%i(type explanation alternative_path unpublished_at)
+              )
             )
-          )
-        when "superseded"
-          content_item.supersede
-        when "published"
-          content_item.publish
+          when "superseded"
+            content_item.supersede
+          when "published"
+            content_item.publish
+          when "draft"
+            content_item.state = "draft"
+          else
+            raise CommandError.new(
+              code: 422,
+              message: "Unrecognised state: #{state[:name]}."
+            )
+          end
         end
       end
 
@@ -92,7 +106,7 @@ module Commands
           )
         end
 
-        schema_validator = SchemaValidator.new(payload: history_entry.except(:state))
+        schema_validator = SchemaValidator.new(payload: history_entry.except(:states))
 
         unless schema_validator.valid?
           raise CommandError.new(
@@ -102,27 +116,25 @@ module Commands
           )
         end
 
-        unless history_entry.key?(:state)
+        unless history_entry.key?(:states)
           raise_command_error(
             422,
-            "Missing state from history entry #{index}",
+            "Missing states from history entry #{index}",
           )
         end
 
-        state = history_entry[:state]
-
-        if state.instance_of? String
-          if state == "unpublished"
-            raise_command_error(
-              422,
-              "Error processing history entry #{index}. "\
-              "For a state of unpublished, a type must be provided",
-              {}
-            )
+        history_entry[:states].each do |state|
+          if state[:name] == "unpublished"
+            unless state.key?(:type)
+              raise_command_error(
+                422,
+                "Error processing history entry #{index}. "\
+                "For a state of unpublished, a type must be provided",
+                {}
+              )
+            end
           end
 
-          state_name = state
-        elsif state.instance_of? Hash
           unless state.key?(:name)
             raise_command_error(
               422,
@@ -131,24 +143,16 @@ module Commands
             )
           end
 
-          state_name = state[:name]
-        else
-          raise_command_error(
-            422,
-            "state for history entry #{index} is not a string or object",
-            {}
-          )
-        end
+          supported_states = %w(draft published unpublished superseded)
 
-        supported_states = %w(draft published unpublished superseded)
-
-        unless supported_states.include?(state_name)
-          raise CommandError.new(
-            code: 422,
-            message: "Unsupported state used at index #{index}: \
-                      #{history_entry[:state]}, \
-                      only #{supported_states} are supported"
-          )
+          unless supported_states.include?(state[:name])
+            raise CommandError.new(
+              code: 422,
+              message: "Unsupported state used at index #{index}: \
+                        #{history_entry[:state]}, \
+                        only #{supported_states} are supported"
+            )
+          end
         end
       end
 
@@ -215,7 +219,7 @@ module Commands
 
       def attributes
         @attributes ||=
-          [:base_path, :locale] + ContentItem.new.attributes.keys.map(&:to_sym)
+          [:base_path, :locale, :states] + ContentItem.new.attributes.keys.map(&:to_sym) - [:state]
       end
 
       def delete_all(content_id)

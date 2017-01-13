@@ -16,7 +16,7 @@ RSpec.describe Commands::V2::Import, type: :request do
         routes: [{ "path": "/bar", "type": "exact" }],
         details: {},
         locale: "en",
-        state: "superseded",
+        states: [{ name: "superseded" }],
       }
     end
 
@@ -29,7 +29,7 @@ RSpec.describe Commands::V2::Import, type: :request do
             title: "bar",
           ),
           content_item.merge(
-            state: "published",
+            states: [{ name: "published" }],
             update_type: "major",
           ),
         ]
@@ -104,10 +104,10 @@ RSpec.describe Commands::V2::Import, type: :request do
           content_id: content_id,
           history: [
             content_item.merge(
-              state: {
+              states: [{
                 name: "unpublished",
                 type: "gone"
-              }
+              }]
             )
           ]
         }
@@ -128,7 +128,7 @@ RSpec.describe Commands::V2::Import, type: :request do
             content_id: content_id,
             history: [
               content_item.merge(
-                state: "unpublished"
+                states: [{ name: "unpublished" }]
               )
             ]
           }
@@ -148,7 +148,7 @@ RSpec.describe Commands::V2::Import, type: :request do
     context "with existing content" do
       let!(:first_payload) do
         payload.merge(
-          history: [content_item.merge(state: "published")]
+          history: [content_item.merge(states: [{ name: "published" }])]
         )
       end
 
@@ -158,7 +158,7 @@ RSpec.describe Commands::V2::Import, type: :request do
         payload.merge(
           history: [
             content_item.merge(
-              state: "published",
+              states: [{ name: "published" }],
               base_path: second_base_path,
               routes: [{ "path": second_base_path, "type": "exact" }]
             )
