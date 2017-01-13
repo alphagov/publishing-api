@@ -1,11 +1,8 @@
 class PopulateEditionsPart1 < ActiveRecord::Migration[5.0]
-  disable_ddl_transaction!
-
   def up
-    execute "UPDATE content_items SET document_id = (
-               SELECT id FROM documents
-               WHERE documents.content_id = content_items.content_id AND
-                  documents.locale = content_items.locale
-             )"
+    Document.find_each do |doc|
+        ContentItem.where(content_id: doc.content_id, locale: doc.locale)
+            .update_all(document_id: doc.id)
+    end
   end
 end
