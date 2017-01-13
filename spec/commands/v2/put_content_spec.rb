@@ -377,41 +377,8 @@ RSpec.describe Commands::V2::PutContent do
 
         it "updates the location's base path" do
           described_class.call(payload)
-          previously_drafted_item.reload
 
-          expect(previously_drafted_item.base_path).to eq("/vat-rates")
-        end
-
-        it "creates a redirect" do
-          described_class.call(payload)
-
-          redirect = ContentItem.find_by(
-            base_path: "/old-path",
-            state: "draft",
-          )
-
-          expect(redirect).to be_present
-          expect(redirect.schema_name).to eq("redirect")
-          expect(redirect.publishing_app).to eq("publisher")
-
-          expect(redirect.redirects).to eq([
-            {
-              path: "/old-path",
-              type: "exact",
-              destination: base_path
-            }, {
-              path: "/old-path.atom",
-              type: "exact",
-              destination: "#{base_path}.atom"
-            }
-          ])
-        end
-
-        it "sends a create request to the draft content store for the redirect" do
-          allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: "/vat-rates")
-          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).twice
-
-          described_class.call(payload)
+          expect(previously_drafted_item.reload.base_path).to eq("/vat-rates")
         end
 
         context "when the locale differs from the existing draft content item" do

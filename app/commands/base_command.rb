@@ -26,6 +26,27 @@ module Commands
       @callbacks = callbacks
     end
 
+    def check_version_and_raise_if_conflicting(current_versioned_item, previous_version_number)
+      current_version = LockVersion.find_by(target: current_versioned_item)
+
+      return unless current_versioned_item && current_version
+
+      if current_version.conflicts_with?(previous_version_number)
+        friendly_message = "A lock-version conflict occurred. The `previous_version` you've sent " +
+          "(#{previous_version_number}) is not the same as the current " +
+          "lock version of the content item (#{current_version.number})."
+
+        fields = {
+          fields: {
+            previous_version: ["does not match"],
+          },
+        }
+
+        raise_command_error(409, "Conflict", fields, friendly_message: friendly_message)
+      end
+      current_version
+    end
+
   private
 
     attr_reader :payload, :event, :downstream, :nested
@@ -55,27 +76,6 @@ module Commands
       )
     end
     private_class_method :execute_callbacks, :raise_validation_command_error
-
-    def check_version_and_raise_if_conflicting(current_versioned_item, previous_version_number)
-      current_version = LockVersion.find_by(target: current_versioned_item)
-
-      return unless current_versioned_item && current_version
-
-      if current_version.conflicts_with?(previous_version_number)
-        friendly_message = "A lock-version conflict occurred. The `previous_version` you've sent " +
-          "(#{previous_version_number}) is not the same as the current " +
-          "lock version of the content item (#{current_version.number})."
-
-        fields = {
-          fields: {
-            previous_version: ["does not match"],
-          },
-        }
-
-        raise_command_error(409, "Conflict", fields, friendly_message: friendly_message)
-      end
-      current_version
-    end
 
     def raise_command_error(code, message, fields, friendly_message: nil)
       raise CommandError.new(
