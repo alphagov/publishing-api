@@ -1,4 +1,6 @@
 class PopulateEditionsPart1 < ActiveRecord::Migration[5.0]
+  disable_ddl_transaction!
+
   def up
     execute "UPDATE content_items SET document_id = (
                SELECT id FROM documents
