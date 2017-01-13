@@ -2,13 +2,14 @@
 
 This is the primary interface from publishing apps to the publishing pipeline.
 Applications PUT items as JSON conforming to a schema specified in
-[govuk-content-schemas][govuk-content-schemas-repo]
+[govuk-content-schemas][govuk-content-schemas-repo].
 
 Content locations are arbitrated internally by the Publishing API, the content
 is then forwarded to the live and draft content stores, and placed on the
-message queue for other apps (eg email-alert-service) to consume.
+message queue for other apps (e.g. `email-alert-service`) to consume.
 
-## Endpoints index
+## Endpoints
+
 - [`PUT /v2/content/:content_id`](#put-v2contentcontent_id)
 - [`POST /v2/content/:content_id/publish`](#post-v2contentcontent_idpublish)
 - [`POST /v2/content/:content_id/unpublish`](#post-v2contentcontent_idunpublish)
@@ -69,10 +70,12 @@ If the request is successful, this endpoint will respond with the
 presented edition and [warnings](#warnings).
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Specifies the `content_id` of the content to be created or updated.
 
 ### JSON attributes
+
 - `access_limited` *(optional)*
   - A JSON object with a key of "users" the value of which is a array of UUIDs
     identifying users.
@@ -144,6 +147,7 @@ presented edition and [warnings](#warnings).
   - Accepts: "major", "minor", "republish"
 
 ### State changes
+
 - If a `base_path` is provided it is reserved for use of the given
   `publishing_app`.
 - Any draft editions for different documents that have a matching `base_path`
@@ -169,10 +173,12 @@ will be presented in the live content store. Uses
 [optimistic-locking](#optimistic-locking-previous_version).
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Identifies the document which has an edition to publish.
 
 ### JSON attributes
+
 - `update_type` *(conditionally required)*
   - Accepts: "major", "minor", "republish"
   - Will fallback to the `update_type` set when the draft was created if not
@@ -185,6 +191,7 @@ will be presented in the live content store. Uses
     update to the document.
 
 ### State changes
+
 - The draft edition for a document matching `content_id` and `locale` will
   change state to "published"
 - Any previously published editions for this document will have their state set
@@ -216,10 +223,12 @@ be updated or removed from the live content store depending on the unpublishing
 type. Uses [optimistic-locking][optimistic-locking].
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Identifies the document which will have an edition unpublished.
 
 ### JSON attributes
+
 - `allow_draft` *(optional)*
   - Boolean value, cannot be `true` if `discard_drafts` is also `true`.
   - Specifies that only a draft edition will be unpublished.
@@ -251,6 +260,7 @@ type. Uses [optimistic-locking][optimistic-locking].
 
 
 ### State changes
+
 - If the unpublishing `type` is "gone", "redirect" or "withdrawal":
   - If the document matching `content_id` and `locale` has a draft state and
     `allow_draft` is `true`:
@@ -279,10 +289,12 @@ the draft content store with the published item, if one exists. Uses
 [optimistic-locking][optimistic-locking].
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Identifies the document with a draft edition.
 
 ### JSON attributes
+
 - `locale` *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - With content_id, specifies the document with a draft edition.
@@ -290,6 +302,7 @@ the draft content store with the published item, if one exists. Uses
   - Used to ensure the edition being discarded is the current draft.
 
 ### State changes
+
 - The draft edition will be deleted from the Publishing API.
 - The draft edition will be removed from the draft content store.
 - If a published edition exists it will be added to the draft content store.
@@ -303,6 +316,7 @@ parameters. If editions exists in both a published and a draft for a document
 and a state has been specified, the draft is returned.
 
 ### Query string parameters
+
 - `document_type` *(required)*
   - The type of editions to return.
 - `fields[]` *(optional)*
@@ -340,10 +354,12 @@ If the returned item is in the draft state, [warnings](#warnings) may be
 included within the response.
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Identifies the document to be returned.
 
 ### Query string parameters
+
 - `locale` *(optional, default "en")*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - Used to return a specific locale.
@@ -363,10 +379,12 @@ targeting a draft edition but can be specified to target
 live version. Uses [optimistic-locking][optimistic-locking].
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Identifies the document of which edition will be targeted.
 
 ### JSON attributes
+
 - `action` *(required)*
   - Currently an arbitrary name describing the workflow a edition has gone
     through
@@ -390,27 +408,32 @@ are not associated with a locale or a particular edition. The ordering of links
 in the request is preserved.
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Identifies the documents the links are for.
 
 ### JSON attributes
+
 - `links` *(required)*
   - A JSON object containing arrays of [`content_id`](model.md#content_id)s for
     each `link_type`.
   - An empty array for a `link_type` will delete that `link_type`.
 
-```javascript
-  "links": {
-    "organisations": [
-      "591436ab-c2ae-416f-a3c5-1901d633fbfb"
-    ],
-    "unwanted_link_type": []
+```json
+  {
+    "links": {
+      "organisations": [
+        "591436ab-c2ae-416f-a3c5-1901d633fbfb"
+      ],
+      "unwanted_link_type": []
+    }
   }
 ```
 - `previous_version` *(optional, recommended)*
   - Used to ensure that we are updating the current version of the link set.
 
 ### State changes
+
 - A link set is created or updated, with the `lock_version` of the link set
   being incremented.
 - The draft content store is updated if there are editions of documents
@@ -427,6 +450,7 @@ Retrieves the link set for the given `content_id`. Returns arrays of
 The ordering of the returned links matches the ordering when they were created.
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Identifies the documents links will be retrieved for.
 
@@ -438,6 +462,7 @@ Retrieves the expanded link set for the given `content_id`. Returns arrays of
 details for each linked edition in groupings of `link_type`.
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Identifies the link set links will be retrieved for.
 
@@ -449,10 +474,12 @@ Retrieves all editions that link to the given `content_id` for some
 `link_type`.
 
 ### Path parameters
+
 - [`content_id`](model.md#content_id)
   - Identifies the link set editions may be linked to.
 
 ### Query string parameters
+
 - `link_type` *(required)*
   - The type of link between the documents.
 - `fields[]` *(required)*
@@ -471,6 +498,7 @@ from the document and edition. It also adds a special field `internal_name`,
 which is `details.internal_name` and falls back to `title`.
 
 ### Query string parameters:
+
 - `document_type` *(required)*
   - The `document_type` value that returned editions has.
 
@@ -482,6 +510,7 @@ Retrieves live editions for a given collection of base paths. Returns
 a mapping of `base_path` to `content_id`.
 
 ### POST parameters:
+
 - `base_paths[]` *(required)*
   - An array of `base_path`s to query by.
 
@@ -492,10 +521,12 @@ a mapping of `base_path` to `content_id`.
 Reserves a path for a publishing application. Returns success or failure only.
 
 ### Path parameters
+
 - `base_path`
   - Identifies the path that will be reserved
 
 ### JSON parameters:
+
 - `publishing_app` *(required)*
   - The name of the application making this request, words separated with hyphens.
 - `override_existing` *(optional)*
@@ -503,6 +534,7 @@ Reserves a path for a publishing application. Returns success or failure only.
     publishing_app. If not true, attempting to do this will fail.
 
 ### State changes
+
 - If no path reservation for the supplied base_path is present, one will be
   created for the supplied publishing_app.
 - If a path reservation exists for the supplied base_path but a different
@@ -556,3 +588,4 @@ http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-
 [index-linkables-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_linkables_request_given_there_is_content_with_format_'topic'
 [lookup-by-base-path-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_/lookup-by-base-path-request_given_there_are_live_content_items_with_base_paths_/foo_and_/bar
 [reserve-path-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_put_a_path_given_no_content_exists
+[rfc-3339]: https://www.ietf.org/rfc/rfc3339.txt

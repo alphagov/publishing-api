@@ -4,8 +4,8 @@ hide circle
 hide empty fields
 hide empty methods
 
-class ContentItem
-class LockVersion
+class Document
+class Edition
 class PathReservation
 
 package "Dependencies" {
@@ -22,14 +22,13 @@ package "Access Control" {
   class User
 }
 
-ContentItem <-- LinkSet
-ContentItem <-up- Link
+Edition <-- LinkSet
+Edition <-up- Link
 LinkSet *--> Link
 
-ContentItem <.. LockVersion
-
-ContentItem <-down- AccessLimit
-LockVersion ..> LinkSet
+Edition <-down- AccessLimit
 AccessLimit o--> User
+
+Document <-- Edition
 
 @enduml
