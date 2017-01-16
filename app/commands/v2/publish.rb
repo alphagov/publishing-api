@@ -168,11 +168,11 @@ module Commands
       end
 
       def update_dependencies?
-        (dependency_fields & ContentItemDiff.new(content_item).field_diff).present?
+        (dependency_fields & EditionDiff.new(edition).field_diff).present?
       end
 
       def dependency_fields
-        Queries::DependentExpansionRules.expansion_fields(content_item.document_type)
+        Queries::DependentExpansionRules.expansion_fields(edition.document_type)
       end
 
       def send_downstream(content_id, locale, update_type)

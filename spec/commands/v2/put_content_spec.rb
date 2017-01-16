@@ -841,5 +841,16 @@ RSpec.describe Commands::V2::PutContent do
         expect { described_class.call(payload) }.not_to raise_error
       end
     end
+
+    context "field doesn't change between drafts" do
+      it "doesn't update the dependencies" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including(update_dependencies: true))
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including(update_dependencies: false))
+        described_class.call(payload)
+        described_class.call(payload)
+      end
+    end
   end
 end
