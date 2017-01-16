@@ -9,10 +9,8 @@ module Presenters
       DEFAULT_FIELDS = ([
         *ContentItem::TOP_LEVEL_FIELDS,
         :publication_state,
-        :user_facing_version,
-        :base_path,
+        :content_id,
         :locale,
-        :lock_version,
         :updated_at,
         :state_history,
         :change_note,
