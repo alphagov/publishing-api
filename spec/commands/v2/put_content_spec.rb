@@ -112,24 +112,11 @@ RSpec.describe Commands::V2::PutContent do
 
       before do
         FactoryGirl.create(:live_content_item,
-          content_id: content_id,
-          lock_version: 2,
+          document: FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 5),
           user_facing_version: 5,
           first_published_at: first_published_at,
           base_path: base_path,
         )
-      end
-
-      it "creates the draft's lock version using the live's lock version as a starting point" do
-        described_class.call(payload)
-
-        content_item = ContentItem.last
-
-        expect(content_item).to be_present
-        expect(content_item.content_id).to eq(content_id)
-        expect(content_item.state).to eq("draft")
-        expect(content_item.content_store).to eq("draft")
-        expect(content_item.document.stale_lock_version).to eq(3)
       end
 
       it "creates the draft's user-facing version using the live's user-facing version as a starting point" do
@@ -231,8 +218,7 @@ RSpec.describe Commands::V2::PutContent do
     context "when creating a draft for a previously unpublished content item" do
       before do
         FactoryGirl.create(:unpublished_content_item,
-          content_id: content_id,
-          lock_version: 2,
+          document: FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 2),
           user_facing_version: 5,
           base_path: base_path,
         )
@@ -312,12 +298,14 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "when the payload is for an already drafted content item" do
+      let(:document) do
+        FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 1)
+      end
       let!(:previously_drafted_item) do
         FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
           title: "Old Title",
-          lock_version: 1,
           publishing_app: "publisher",
         )
       end
@@ -354,11 +342,10 @@ RSpec.describe Commands::V2::PutContent do
         expect(previously_drafted_item.user_facing_version).to eq(1)
       end
 
-      it "increments the lock version for the content item" do
+      it "increments the lock version for the document" do
         described_class.call(payload)
-        previously_drafted_item.reload
 
-        expect(previously_drafted_item.document.stale_lock_version).to eq(2)
+        expect(document.reload.stale_lock_version).to eq(2)
       end
 
       context "when the base path has changed" do
@@ -427,10 +414,8 @@ RSpec.describe Commands::V2::PutContent do
         context "when there is a draft at the new base path" do
           let!(:substitute_item) do
             FactoryGirl.create(:draft_content_item,
-              content_id: SecureRandom.uuid,
               base_path: base_path,
               title: "Substitute Content",
-              lock_version: 1,
               publishing_app: "publisher",
               document_type: "coming_soon",
             )
@@ -663,9 +648,7 @@ RSpec.describe Commands::V2::PutContent do
         it "stores the provided timestamp" do
           last_edited_at = 1.year.ago
 
-          described_class.call(payload.merge(
-                                 last_edited_at: last_edited_at
-                              ))
+          described_class.call(payload.merge(last_edited_at: last_edited_at))
 
           content_item = ContentItem.last
 
@@ -687,7 +670,7 @@ RSpec.describe Commands::V2::PutContent do
     context "when the draft does exist" do
       let!(:content_item) do
         FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: content_id)
         )
       end
 
@@ -697,10 +680,12 @@ RSpec.describe Commands::V2::PutContent do
             it "stores the provided timestamp" do
               last_edited_at = 1.year.ago
 
-              described_class.call(payload.merge(
-                                     update_type: update_type,
-                                     last_edited_at: last_edited_at
-                                   ))
+              described_class.call(
+                payload.merge(
+                  update_type: update_type,
+                  last_edited_at: last_edited_at,
+                )
+              )
 
               content_item.reload
 
@@ -724,9 +709,7 @@ RSpec.describe Commands::V2::PutContent do
         it "dosen't change last_edited_at" do
           old_last_edited_at = content_item.last_edited_at
 
-          described_class.call(payload.merge(
-                                 update_type: "republish"
-                               ))
+          described_class.call(payload.merge(update_type: "republish"))
 
           content_item.reload
 
@@ -754,7 +737,10 @@ RSpec.describe Commands::V2::PutContent do
 
       context "for an existing draft content item" do
         let!(:draft_content_item) do
-          FactoryGirl.create(:draft_content_item, content_id: content_id, title: "Old Title")
+          FactoryGirl.create(:draft_content_item,
+            document: FactoryGirl.create(:document, content_id: content_id),
+            title: "Old Title"
+          )
         end
 
         it "updates the draft" do
@@ -765,7 +751,10 @@ RSpec.describe Commands::V2::PutContent do
 
       context "for an existing live content item" do
         let!(:live_content_item) do
-          FactoryGirl.create(:live_content_item, content_id: content_id, title: "Old Title")
+          FactoryGirl.create(:live_content_item,
+            document: FactoryGirl.create(:document, content_id: content_id),
+            title: "Old Title"
+          )
         end
 
         it "creates a new draft" do
@@ -781,7 +770,6 @@ RSpec.describe Commands::V2::PutContent do
         payload.merge!(
           schema_name: "contact",
           document_type: "contact",
-          previous_version: 2,
         )
       end
 
@@ -797,11 +785,9 @@ RSpec.describe Commands::V2::PutContent do
       context "with other similar pathless items" do
         before do
           FactoryGirl.create(:draft_content_item,
-            content_id: SecureRandom.uuid,
             base_path: nil,
             schema_name: "contact",
             document_type: "contact",
-            locale: "en",
             user_facing_version: 3,
           )
         end
@@ -816,11 +802,9 @@ RSpec.describe Commands::V2::PutContent do
       context "when there's a conflicting content item" do
         before do
           FactoryGirl.create(:draft_content_item,
-            content_id: content_id,
             base_path: base_path,
             schema_name: "contact",
             document_type: "contact",
-            locale: "en",
             user_facing_version: 3,
           )
         end
@@ -828,7 +812,7 @@ RSpec.describe Commands::V2::PutContent do
         it "conflicts" do
           expect {
             described_class.call(payload)
-          }.to raise_error(CommandError, /Conflict/)
+          }.to raise_error(CommandError, /base path=\/vat-rates conflicts/)
         end
       end
     end
