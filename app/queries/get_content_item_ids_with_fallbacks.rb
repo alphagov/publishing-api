@@ -12,7 +12,7 @@ module Queries
         .order("documents.content_id ASC")
         .order(order_by_clause("content_items", "state", state_ordering(state_fallback_order)))
         .order(order_by_clause("documents", "locale", locale_fallback_order))
-        .pluck("DISTINCT ON (documents.content_id) content_id, content_items.id")
+        .pluck("DISTINCT ON (documents.content_id) documents.content_id, content_items.id")
         .map(&:last)
     end
 
