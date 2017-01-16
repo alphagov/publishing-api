@@ -49,8 +49,6 @@ module Commands
         previous_base_path != base_path
       end
 
-    private
-
       class NoPreviousPublishedItem
         def lock_version_number
           1
