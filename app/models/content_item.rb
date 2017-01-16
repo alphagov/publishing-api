@@ -67,7 +67,7 @@ class ContentItem < ApplicationRecord
   validates_with RoutesAndRedirectsValidator
 
   # Temporary code until we kill Location, State, Translation, and
-  # UserFacing Version
+  # UserFacingVersion
   after_save do
     if changes[:base_path] && changes[:base_path].last
       Location.find_or_initialize_by(content_item_id: id)
