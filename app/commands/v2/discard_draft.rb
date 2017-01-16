@@ -6,32 +6,35 @@ module Commands
 
         check_version_and_raise_if_conflicting(document, payload[:previous_version])
 
-        delete_supporting_objects
+        delete_supporting_objects(document.draft)
         delete_draft_from_database
-        increment_lock_version if live
+        increment_lock_version
 
         after_transaction_commit do
-          downstream_discard_draft(draft.base_path, draft.content_id,
-                                   document.locale)
+          downstream_discard_draft(
+            document.draft.base_path,
+            document.content_id,
+            document.locale
+          )
         end
 
-        Action.create_discard_draft_action(draft, document.locale, event)
+        Action.create_discard_draft_action(document.draft, document.locale, event)
         Success.new(content_id: document.content_id)
       end
 
     private
 
       def raise_error_if_missing_draft!
-        return if draft.present?
+        return if document.draft.present?
 
-        code = live.present? ? 422 : 404
+        code = document.live.present? ? 422 : 404
         message = "There is no draft content item to discard"
 
         raise CommandError.new(code: code, message: message)
       end
 
       def delete_draft_from_database
-        draft.destroy
+        document.draft.destroy
       end
 
       def downstream_discard_draft(path_used, content_id, locale)
@@ -47,14 +50,14 @@ module Commands
         )
       end
 
-      def delete_supporting_objects
-        Location.find_by(content_item: draft).try(:destroy)
-        State.find_by(content_item: draft).try(:destroy)
-        Translation.find_by(content_item: draft).try(:destroy)
-        UserFacingVersion.find_by(content_item: draft).try(:destroy)
-        LockVersion.find_by(target: draft).try(:destroy)
-        AccessLimit.find_by(content_item: draft).try(:destroy)
-        ChangeNote.where(content_item: draft).destroy_all
+      def delete_supporting_objects(content_item)
+        Location.find_by(content_item: content_item).try(:destroy)
+        State.find_by(content_item: content_item).try(:destroy)
+        Translation.find_by(content_item: content_item).try(:destroy)
+        UserFacingVersion.find_by(content_item: content_item).try(:destroy)
+        LockVersion.find_by(target: content_item).try(:destroy)
+        AccessLimit.find_by(content_item: content_item).try(:destroy)
+        ChangeNote.where(content_item: content_item).destroy_all
       end
 
       def increment_live_lock_version
@@ -66,14 +69,6 @@ module Commands
           content_id: payload[:content_id],
           locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
         )
-      end
-
-      def draft
-        @draft ||= document.draft
-      end
-
-      def live
-        @live ||= document.live
       end
     end
   end
