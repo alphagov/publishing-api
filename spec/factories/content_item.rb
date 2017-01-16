@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :content_item do
-    document { FactoryGirl.create(:document) }
+    document
     title "VAT rates"
     description "VAT rates for goods and services"
     schema_name "guide"
@@ -31,15 +31,10 @@ FactoryGirl.define do
     user_facing_version 1
 
     transient do
-      lock_version nil
       change_note "note"
     end
 
     after(:create) do |item, evaluator|
-      unless evaluator.lock_version.nil?
-        item.document.update! stale_lock_version: evaluator.lock_version
-      end
-
       unless item.update_type == "minor" || evaluator.change_note.nil?
         FactoryGirl.create(:change_note, note: evaluator.change_note, content_item: item)
       end
