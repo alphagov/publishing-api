@@ -18,34 +18,40 @@ module Commands
       end
 
       def call
-        update_existing_content_item
-        content_item
+        update_lock_version
+        update_content_item
       end
 
-      def update_existing_content_item
-        version = put_content.check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
+    private
 
-        update_content_item
-
+      def update_lock_version
+        version = put_content.send(:check_version_and_raise_if_conflicting, content_item, payload[:previous_version])
         version.increment!
       end
 
       def update_content_item
-        assign_attributes_with_defaults(
-          content_item_attributes_from_payload.merge( locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
-                                                     state: "draft",
-                                                     content_store: "draft",
-                                                     user_facing_version: content_item.user_facing_version,
-                                                    )
-        )
+        assign_attributes_with_defaults
         content_item.save!
+        content_item
       end
 
-      def assign_attributes_with_defaults(attributes)
-        new_attributes = content_item.class.column_defaults.symbolize_keys
-        .merge(attributes.symbolize_keys)
-        .except(*ATTRIBUTES_PROTECTED_FROM_RESET)
+      def assign_attributes_with_defaults
         content_item.assign_attributes(new_attributes)
+      end
+
+      def new_attributes
+        content_item.class.column_defaults.symbolize_keys
+          .merge(attributes.symbolize_keys)
+          .except(*ATTRIBUTES_PROTECTED_FROM_RESET)
+      end
+
+      def attributes
+        content_item_attributes_from_payload.merge(
+          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
+          state: "draft",
+          content_store: "draft",
+          user_facing_version: content_item.user_facing_version,
+        )
       end
 
       def content_item_attributes_from_payload
