@@ -66,6 +66,13 @@ class ContentItem < ApplicationRecord
   validates_with StateForLocaleValidator
   validates_with RoutesAndRedirectsValidator
 
+  # Temporary code until we remove content_id and locale fields
+  before_save do
+    next unless document
+    self.content_id = document.content_id unless content_id == document.content_id
+    self.locale = document.locale unless locale == document.locale
+  end
+
   # Temporary code until we kill Location, State, Translation, and
   # UserFacingVersion
   after_save do
@@ -110,25 +117,6 @@ class ContentItem < ApplicationRecord
   def as_json(options = {})
     super(options).merge(content_id: document.content_id,
                          locale: document.locale)
-  end
-
-  # FIXME remove the following four methods
-  def content_id
-    document.content_id if document
-  end
-
-  def content_id=(new_content_id)
-    self.document = Document.find_or_create_by(content_id: new_content_id,
-                                               locale: locale)
-  end
-
-  def locale
-    document.locale if document
-  end
-
-  def locale=(new_locale)
-    self.document = Document.find_or_create_by(content_id: content_id,
-                                               locale: new_locale)
   end
 
   def requires_base_path?
