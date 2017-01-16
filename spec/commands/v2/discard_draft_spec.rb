@@ -8,10 +8,16 @@ RSpec.describe Commands::V2::DiscardDraft do
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
-    let(:content_id) { SecureRandom.uuid }
-    let(:locale) { "en" }
+    let(:document) do
+      FactoryGirl.create(:document,
+        content_id: SecureRandom.uuid,
+        locale: "en",
+        stale_lock_version: stale_lock_version,
+      )
+    end
+    let(:stale_lock_version) { 1 }
     let(:base_path) { "/vat-rates" }
-    let(:payload) { { content_id: content_id } }
+    let(:payload) { { content_id: document.content_id } }
 
     before do
       allow(Presenters::ContentStorePresenter).to receive(:present)
@@ -22,10 +28,8 @@ RSpec.describe Commands::V2::DiscardDraft do
       let(:user_facing_version) { 2 }
       let!(:existing_draft_item) do
         FactoryGirl.create(:access_limited_draft_content_item,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
-          locale: locale,
-          lock_version: 5,
           user_facing_version: user_facing_version,
         )
       end
@@ -44,8 +48,8 @@ RSpec.describe Commands::V2::DiscardDraft do
         described_class.call(payload)
         expect(Action.count).to be 1
         expect(Action.first.attributes).to match a_hash_including(
-          "content_id" => content_id,
-          "locale" => locale,
+          "content_id" => document.content_id,
+          "locale" => document.locale,
           "action" => "DiscardDraft",
           "content_item_id" => existing_draft_item.id,
         )
@@ -75,7 +79,11 @@ RSpec.describe Commands::V2::DiscardDraft do
         expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(base_path: base_path, content_id: content_id, locale: locale),
+            a_hash_including(
+              base_path: base_path,
+              content_id: document.content_id,
+              locale: document.locale,
+            ),
           )
 
         described_class.call(payload)
@@ -94,7 +102,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "when the draft's lock version differs from the given lock version" do
         before do
-          payload[:previous_version] = existing_draft_item.document.stale_lock_version - 1
+          payload[:previous_version] = document.stale_lock_version - 1
         end
 
         it "raises an error" do
@@ -105,12 +113,11 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       context "a published content item exists with the same base_path" do
+        let(:stale_lock_version) { 3 }
         let!(:published_item) do
           FactoryGirl.create(:live_content_item,
-            content_id: content_id,
-            lock_version: 3,
+            document: document,
             base_path: base_path,
-            locale: locale,
             user_facing_version: user_facing_version - 1,
           )
         end
@@ -118,7 +125,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "increments the lock version of the published item" do
           expect {
             described_class.call(payload)
-          }.to change { published_item.document.reload.stale_lock_version }.to(4)
+          }.to change { document.reload.stale_lock_version }.to(4)
         end
 
         it "it uses the downstream discard draft worker" do
@@ -127,8 +134,8 @@ RSpec.describe Commands::V2::DiscardDraft do
               DownstreamDiscardDraftWorker::HIGH_QUEUE,
               a_hash_including(
                 base_path: base_path,
-                content_id: content_id,
-                locale: locale,
+                content_id: document.content_id,
+                locale: document.locale,
               ),
             )
           described_class.call(payload)
@@ -162,10 +169,8 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "a published content item exists with a different base_path" do
         let!(:published_item) do
           FactoryGirl.create(:live_content_item,
-            content_id: content_id,
-            lock_version: 3,
+            document: document,
             base_path: "/hat-rates",
-            locale: locale,
             user_facing_version: user_facing_version - 1,
           )
         end
@@ -176,8 +181,8 @@ RSpec.describe Commands::V2::DiscardDraft do
               DownstreamDiscardDraftWorker::HIGH_QUEUE,
               a_hash_including(
                 base_path: base_path,
-                content_id: content_id,
-                locale: locale,
+                content_id: document.content_id,
+                locale: document.locale,
               ),
             )
           described_class.call(payload)
@@ -187,9 +192,8 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "an unpublished content item exits" do
         let(:unpublished_item) do
           FactoryGirl.create(:unpublished_content_item,
+            document: document,
             base_path: base_path,
-            content_id: content_id,
-            locale: locale,
             user_facing_version: user_facing_version - 1,
           )
         end
@@ -200,8 +204,8 @@ RSpec.describe Commands::V2::DiscardDraft do
               DownstreamDiscardDraftWorker::HIGH_QUEUE,
               a_hash_including(
                 base_path: base_path,
-                content_id: content_id,
-                locale: locale,
+                content_id: document.content_id,
+                locale: document.locale,
               ),
             )
           described_class.call(payload)
@@ -209,11 +213,13 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       context "when a locale is provided in the payload" do
+        let(:french_document) do
+          FactoryGirl.create(:document, content_id: document.content_id, locale: "fr")
+        end
         let!(:french_draft_item) do
           FactoryGirl.create(:draft_content_item,
-            content_id: content_id,
+            document: french_document,
             base_path: "#{base_path}.fr",
-            locale: "fr",
           )
         end
 
@@ -249,7 +255,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "and a published content item exists" do
         before do
-          FactoryGirl.create(:live_content_item, content_id: content_id)
+          FactoryGirl.create(:live_content_item, document: document)
         end
 
         it "raises a command error with code 422" do
