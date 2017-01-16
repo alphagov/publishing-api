@@ -57,9 +57,7 @@ module Commands
       end
 
       def increment_live_lock_version
-        lock_version = LockVersion.find_by!(target: live)
-        lock_version.increment
-        lock_version.save!
+        LockVersion.find_by!(target: live).increment!
       end
 
       def draft
