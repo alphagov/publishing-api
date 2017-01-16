@@ -2,53 +2,48 @@ module Commands
   module V2
     class PutContent < BaseCommand
       def call
-        validate
+        PutContentValidator.new(payload, self).validate
         prepare_content_with_base_path
 
-        content_item = find_or_create_content_item
+        content_item = create_or_update_content_item
         update_content_dependencies(content_item)
 
         after_transaction_commit do
           send_downstream(content_item.content_id, locale)
         end
 
-        Success.new(
-          response_hash(content_item)
-        )
+        Success.new(present_response(content_item))
       end
+
+    private
 
       def content_with_base_path?
         base_path_required? || payload.has_key?(:base_path)
       end
 
-    private
-
       def prepare_content_with_base_path
         return unless content_with_base_path?
-        PathReservation.reserve_base_path!(payload[:base_path], publishing_app)
+        PathReservation.reserve_base_path!(payload[:base_path], payload[:publishing_app])
         clear_draft_items_of_same_locale_and_base_path
       end
 
       def update_content_dependencies(content_item)
+        create_redirect
         access_limit(content_item)
-        update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
+        update_last_edited_at(content_item, payload[:last_edited_at])
         ChangeNote.create_from_content_item(payload, content_item)
         Action.create_put_content_action(content_item, locale, event)
       end
 
-      def validate
-        raise_if_links_are_provided
-        validate_schema
-
-        if publishing_app.blank?
-          raise_command_error(422, "publishing_app is required", fields: {
-            publishing_app: ["is required"]
-          })
-        end
-
+      def create_redirect
+        return unless content_with_base_path?
+        RedirectHelper::Redirect.new(previously_published_item,
+                                     previously_drafted_item,
+                                     payload, callbacks).create
       end
 
-      def response_hash(content_item)
+
+      def present_response(content_item)
         Presenters::Queries::ContentItemPresenter.present(
           content_item,
           include_warnings: true,
@@ -65,23 +60,29 @@ module Commands
         end
       end
 
-      def find_or_create_content_item
-        content_item = find_previously_drafted_content_item
-
-        if content_item
-          UpdateExistingDraftContentItem.new(content_item, self, payload).call
+      def create_or_update_content_item
+        if previously_drafted_item
+          UpdateExistingDraftContentItem.new(previously_drafted_item, self, payload).call
         else
-          content_item = CreateDraftContentItem.new(self, payload).call
+          new_draft_content_item = CreateDraftContentItem.new(self, payload, previously_published_item).call
         end
-        content_item
+        previously_drafted_item || new_draft_content_item
       end
+
+      def previously_published_item
+        @previously_published_item ||=
+          PreviouslyPublishedItem.new(content_id,
+                                      payload[:base_path],
+                                      locale, self).call
+      end
+
 
       def base_path_required?
         !ContentItem::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
       end
 
-      def find_previously_drafted_content_item
-        ContentItem.find_by(
+      def previously_drafted_item
+        @previously_drafted_item = ContentItem.find_by(
           id: pessimistic_content_item_scope.pluck(:id),
           state: "draft",
         )
@@ -112,11 +113,7 @@ module Commands
         payload.fetch(:content_id)
       end
 
-      def publishing_app
-        payload[:publishing_app]
-      end
-
-      def update_last_edited_at_if_needed(content_item, last_edited_at = nil)
+      def update_last_edited_at(content_item, last_edited_at = nil)
         if last_edited_at.nil? && %w(major minor).include?(payload[:update_type])
           last_edited_at = Time.zone.now
         end
@@ -140,39 +137,6 @@ module Commands
           payload_version: event.id,
           update_dependencies: true,
         )
-      end
-
-      def raise_if_links_are_provided
-        return unless payload.has_key?(:links)
-        message = "The 'links' parameter should not be provided to this endpoint."
-
-        raise CommandError.new(
-          code: 400,
-          message: message,
-          error_details: {
-            error: {
-              code: 400,
-              message: message,
-              fields: {
-                links: ["is not a valid parameter"],
-              }
-            }
-          }
-        )
-      end
-
-      def validate_schema
-        return if schema_validator.valid?
-        message = "The payload did not conform to the schema"
-        raise CommandError.new(
-          code: 422,
-          message: message,
-          error_details: schema_validator.errors,
-        )
-      end
-
-      def schema_validator
-        @schema_validator ||= SchemaValidator.new(payload: payload.except(:content_id))
       end
     end
   end
