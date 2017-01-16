@@ -222,7 +222,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
   context "when a draft content item exists for the content_id" do
     let!(:draft_content_item) do
       FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
+        document: FactoryGirl.create(:document, content_id: content_id),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -248,10 +248,9 @@ RSpec.describe Commands::V2::PatchLinkSet do
     context "when a draft content item has multiple translations" do
       let!(:french_draft_content_item) do
         FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: content_id, locale: "fr"),
           base_path: "/french-path",
           title: "French Title",
-          locale: "fr",
         )
       end
 
@@ -283,7 +282,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
   context "when a live content item exists for the content_id" do
     let!(:live_content_item) do
       FactoryGirl.create(:live_content_item,
-        content_id: content_id,
+        document: FactoryGirl.create(:document, content_id: content_id),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -322,10 +321,9 @@ RSpec.describe Commands::V2::PatchLinkSet do
     context "when a live content item has multiple translations" do
       let!(:french_live_content_item) do
         FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: content_id, locale: "fr"),
           base_path: "/french-path",
           title: "French Title",
-          locale: "fr",
         )
       end
 
@@ -361,7 +359,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
   context "when an unpublished content item exists for the content_id" do
     let!(:unpublished_content_item) do
       FactoryGirl.create(:unpublished_content_item,
-        content_id: content_id,
+        document: FactoryGirl.create(:document, content_id: content_id),
         base_path: "/some-path",
         title: "Some Title",
       )
