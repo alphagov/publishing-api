@@ -150,29 +150,33 @@ module Commands
       end
 
       def draft_content_store_base_paths_to_discard(
-        previous_content_store_base_paths,
-        new_content_store_base_paths
+        previous_content_store_base_path_pairs,
+        new_content_store_base_path_pairs
       )
+        previous_content_store_base_paths =
+          previous_content_store_base_path_pairs.map(&:first)
+        new_content_store_base_paths =
+          new_content_store_base_path_pairs.map(&:first)
+
         # As the draft content store should also contain whatever
         # content is in the live content store if no draft exists,
         # to find base_paths that need deleting from the draft
         # store, its necessary to check all the base paths.
-        previous_content_store_base_paths.map { |x| x[0] } - \
-          new_content_store_base_paths.map { |x| x[0] }
+        previous_content_store_base_paths - new_content_store_base_paths
       end
 
       def live_content_store_base_path_to_delete(
-        previous_content_store_base_paths,
-        new_content_store_base_paths
+        previous_content_store_base_path_pairs,
+        new_content_store_base_path_pairs
       )
         previous_live_base_path =
           live_base_path_from_base_path_content_store_pairs(
-            previous_content_store_base_paths
+            previous_content_store_base_path_pairs
           )
 
         new_live_base_path =
           live_base_path_from_base_path_content_store_pairs(
-            new_content_store_base_paths
+            new_content_store_base_path_pairs
           )
 
         if !previous_live_base_path.nil? &&
