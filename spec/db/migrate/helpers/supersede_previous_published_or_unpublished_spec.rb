@@ -2,12 +2,12 @@ require "rails_helper"
 require Rails.root + "db/migrate/helpers/supersede_previous_published_or_unpublished"
 
 RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
-  let(:content_id) { SecureRandom.uuid }
+  let(:document) { FactoryGirl.create(:document) }
 
   let!(:unpublished_1) do
     FactoryGirl.create(
       :superseded_content_item,
-      content_id: content_id,
+      document: document,
       user_facing_version: 1,
     )
   end
@@ -15,7 +15,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
   let!(:published) do
     FactoryGirl.create(
       :live_content_item,
-      content_id: content_id,
+      document: document,
       user_facing_version: 2,
     )
   end
@@ -23,7 +23,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
   let!(:unpublished_2) do
     FactoryGirl.create(
       :superseded_content_item,
-      content_id: content_id,
+      document: document,
       user_facing_version: 3,
     )
   end
@@ -31,7 +31,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
   let!(:draft) do
     FactoryGirl.create(
       :draft_content_item,
-      content_id: content_id,
+      document: document,
       user_facing_version: 4,
     )
   end
@@ -59,11 +59,14 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
   end
 
   it "does not supersede states for content items in other locales" do
+    document_fr = FactoryGirl.create(:document,
+      content_id: document.content_id,
+      locale: "fr",
+    )
     french_item = FactoryGirl.create(
       :live_content_item,
-      content_id: content_id,
+      document: document_fr,
       user_facing_version: 1,
-      locale: "fr",
     )
 
     subject.run
