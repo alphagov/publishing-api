@@ -6,13 +6,16 @@ RSpec.describe Commands::V2::RepresentDownstream do
   end
 
   describe "call" do
-    let(:locale_document) { FactoryGirl.create(:document) }
     before do
       2.times { FactoryGirl.create(:draft_content_item) }
       FactoryGirl.create(:live_content_item,
-        document: locale_document, document_type: "guidance", locale: "en")
+        document: FactoryGirl.create(:document, locale: "en"),
+        document_type: "guidance",
+      )
       FactoryGirl.create(:live_content_item,
-        document: locale_document, document_type: "guidance", locale: "fr")
+        document: FactoryGirl.create(:document, locale: "fr"),
+        document_type: "guidance",
+      )
       FactoryGirl.create(:live_content_item, document_type: "press_release")
     end
 
