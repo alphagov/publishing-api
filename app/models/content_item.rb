@@ -40,6 +40,8 @@ class ContentItem < ApplicationRecord
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
 
+  belongs_to :document
+
   validates :schema_name, presence: true
   validates :document_type, presence: true
 
@@ -93,6 +95,19 @@ class ContentItem < ApplicationRecord
     if changes[:user_facing_version]
       UserFacingVersion.find_or_initialize_by(content_item_id: id)
         .update!(number: changes[:user_facing_version].last)
+    end
+  end
+
+  before_save { ensure_document }
+
+  def document_requires_updating?
+    !document || document.locale != locale || document.content_id != content_id
+  end
+
+  def ensure_document
+    if document_requires_updating?
+      self.document = Document.find_or_create_by(content_id: content_id,
+                                                 locale: locale)
     end
   end
 
