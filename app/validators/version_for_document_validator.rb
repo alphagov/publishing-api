@@ -1,4 +1,4 @@
-class VersionForLocaleValidator < ActiveModel::Validator
+class VersionForDocumentValidator < ActiveModel::Validator
   def validate(record)
     return unless record.document && record.user_facing_version
 
@@ -11,8 +11,8 @@ class VersionForLocaleValidator < ActiveModel::Validator
 
     if conflict
       error = "user_facing_version=#{record.user_facing_version} and "
-      error << "locale=#{record.locale} for content item=#{record.content_id} "
-      error << "conflicts with content item id=#{conflict[:id]}"
+      error << "document=#{record.document_id} conflicts with content item "
+      error << "id=#{conflict[:id]}"
       record.errors.add(:base, error)
     end
   end

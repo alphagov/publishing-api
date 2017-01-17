@@ -59,7 +59,7 @@ class ContentItem < ApplicationRecord
   validate :user_facing_version_must_increase
   validate :draft_cannot_be_behind_live
 
-  validates_with VersionForLocaleValidator
+  validates_with VersionForDocumentValidator
   validates_with BasePathForStateValidator
   validates_with StateForDocumentValidator
   validates_with RoutesAndRedirectsValidator
