@@ -61,7 +61,7 @@ class ContentItem < ApplicationRecord
 
   validates_with VersionForLocaleValidator
   validates_with BasePathForStateValidator
-  validates_with StateForLocaleValidator
+  validates_with StateForDocumentValidator
   validates_with RoutesAndRedirectsValidator
 
   # Temporary code until we remove content_id and locale fields
