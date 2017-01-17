@@ -1,22 +1,22 @@
 require "rails_helper"
 
-RSpec.describe StateForLocaleValidator do
+RSpec.describe StateForDocumentValidator do
   let(:state_name) { "draft" }
-  let(:locale) { "en" }
+  let(:document) { FactoryGirl.create(:document) }
 
   let(:content_item) do
     FactoryGirl.build(
       :content_item,
       state: state_name,
-      locale: locale,
+      document: document,
     )
   end
 
   describe "#validate" do
     subject(:validate) { described_class.new.validate(content_item) }
 
-    context "when locale is nil" do
-      before { content_item.locale = nil }
+    context "when document is nil" do
+      before { content_item.document = nil }
       it { is_expected.to be_nil }
     end
 
@@ -25,7 +25,7 @@ RSpec.describe StateForLocaleValidator do
       it { is_expected.to be_nil }
     end
 
-    context "when version, state and content_id can conflict" do
+    context "when state and document can conflict" do
       [
         { factory: :draft_content_item, state: "draft", scenario: "both items are drafts" },
         { factory: :live_content_item, state: "published", scenario: "both items are published" },
@@ -36,19 +36,16 @@ RSpec.describe StateForLocaleValidator do
           let!(:conflict_content_item) {
             FactoryGirl.create(
               hash[:factory],
-              content_id: content_item.content_id,
-              locale: "fr",
+              document: document,
             )
           }
           let(:state_name) { hash[:state] }
           let(:expected_error) do
-            "state=#{hash[:state]} and locale=fr for content " +
-              "item=#{content_item.content_id} conflicts with content item " +
-              "id=#{conflict_content_item.id}"
+            "state=#{hash[:state]} and document=#{document.id} conflicts " +
+              "with content item id=#{conflict_content_item.id}"
           end
 
           before do
-            content_item.locale = "fr"
             validate
           end
 
@@ -62,13 +59,10 @@ RSpec.describe StateForLocaleValidator do
         let!(:conflict_content_item) {
           FactoryGirl.create(
             :superseded_content_item,
-            content_id: content_item.content_id,
-            locale: "fr",
+            document: document,
           )
         }
         let(:state_name) { "superseded" }
-
-        before { content_item.locale = "fr" }
 
         it { is_expected.to be_nil }
       end
