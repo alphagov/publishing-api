@@ -4,6 +4,12 @@ RSpec.describe Commands::V2::Unpublish do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
   let(:locale) { "en" }
+  let(:document) do
+    FactoryGirl.create(:document,
+      content_id: content_id,
+      locale: locale,
+    )
+  end
 
   describe "call" do
     let(:payload) do
@@ -24,9 +30,8 @@ RSpec.describe Commands::V2::Unpublish do
     context "when unpublishing is invalid" do
       let!(:live_content_item) do
         FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
-          locale: locale,
         )
       end
 
@@ -72,9 +77,8 @@ RSpec.describe Commands::V2::Unpublish do
     context "when the document is published" do
       let!(:live_content_item) do
         FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
-          locale: locale,
         )
       end
 
@@ -169,9 +173,8 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:draft_content_item) do
         FactoryGirl.create(
           :draft_content_item,
-          content_id: content_id,
+          document: document,
           user_facing_version: 3,
-          locale: locale,
         )
       end
 
@@ -253,9 +256,15 @@ RSpec.describe Commands::V2::Unpublish do
         context "when there is a previously unpublished content item" do
           let!(:previous_content_item) do
             FactoryGirl.create(:unpublished_content_item,
-              content_id: content_id,
+              document: document,
               base_path: base_path,
               user_facing_version: 1,
+            )
+          end
+          let(:french_document) do
+            FactoryGirl.create(:document,
+              content_id: document.content_id,
+              locale: "fr",
             )
           end
 
@@ -266,8 +275,8 @@ RSpec.describe Commands::V2::Unpublish do
           end
 
           it "does not supersede unpublished items in a different locale" do
-            t = ContentItem.find_by!(id: previous_content_item.id)
-            t.update!(locale: "fr")
+            ContentItem.find_by!(id: previous_content_item.id)
+              .update(document: french_document)
 
             described_class.call(payload.merge(allow_draft: true))
 
@@ -278,10 +287,15 @@ RSpec.describe Commands::V2::Unpublish do
         context "when there is a previously published content item" do
           let!(:previous_content_item) do
             FactoryGirl.create(:live_content_item,
-              content_id: content_id,
+              document: document,
               base_path: base_path,
-              locale: locale,
               user_facing_version: 1,
+            )
+          end
+          let(:french_document) do
+            FactoryGirl.create(:document,
+              content_id: document.content_id,
+              locale: "fr",
             )
           end
 
@@ -292,8 +306,8 @@ RSpec.describe Commands::V2::Unpublish do
           end
 
           it "does not supersede published items in a different locale" do
-            t = ContentItem.find_by!(id: previous_content_item.id)
-            t.update!(locale: "fr")
+            ContentItem.find_by!(id: previous_content_item.id)
+              .update(document: french_document)
 
             described_class.call(payload.merge(allow_draft: true))
 
@@ -308,8 +322,7 @@ RSpec.describe Commands::V2::Unpublish do
         FactoryGirl.create(
           :live_content_item,
           :with_draft,
-          content_id: content_id,
-          locale: locale,
+          document: document,
         )
       end
 
@@ -357,9 +370,8 @@ RSpec.describe Commands::V2::Unpublish do
     context "when the document is already unpublished" do
       let!(:unpublished_content_item) do
         FactoryGirl.create(:unpublished_content_item,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
-          locale: locale,
           explanation: "This explnatin has a typo",
           alternative_path: "/new-path",
         )
@@ -425,8 +437,7 @@ RSpec.describe Commands::V2::Unpublish do
       context "when the unpublishing type is substitute" do
         let!(:unpublished_content_item) do
           FactoryGirl.create(:substitute_unpublished_content_item,
-            content_id: content_id,
-            locale: locale,
+            document: document,
           )
         end
 
@@ -443,10 +454,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "with the `downstream` flag set to `false`" do
       before do
-        FactoryGirl.create(:live_content_item, :with_draft,
-          content_id: content_id,
-          locale: locale,
-        )
+        FactoryGirl.create(:live_content_item, :with_draft, document: document)
       end
 
       it "does not send to any downstream system for a 'gone'" do
@@ -497,8 +505,7 @@ RSpec.describe Commands::V2::Unpublish do
     context "when the document has no location" do
       let!(:live_content_item) do
         FactoryGirl.create(:live_content_item,
-          content_id: content_id,
-          locale: locale,
+          document: document,
           base_path: nil,
         )
       end
