@@ -364,7 +364,15 @@ RSpec.describe V2::ContentItemsController do
 
     context "for a non-existent content item" do
       it "responds with 404" do
-        get :show, params: { content_id: "missing" }
+        get :show, params: { content_id: SecureRandom.uuid }
+
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context "for an invalid content ID" do
+      it "responds with 404" do
+        get :show, params: { content_id: "invalid" }
 
         expect(response.status).to eq(404)
       end

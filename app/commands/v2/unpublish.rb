@@ -3,8 +3,9 @@ module Commands
     class Unpublish < BaseCommand
       def call
         validate
-        previous_item.supersede if previous_item
+        previous_item.supersede if previous_item_should_be_superseded?
         transition_state
+        AccessLimit.find_by(content_item: content_item).try(:destroy)
 
         after_transaction_commit do
           send_downstream
@@ -128,9 +129,13 @@ module Commands
           content_id: content_id,
           locale: locale,
           state: allowed_states
-        ).lock.first
+        ).order(nil).lock.first
 
         content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
+      end
+
+      def previous_item_should_be_superseded?
+        previous_item && find_unpublishable_content_item != previous_item
       end
 
       def previous_item
@@ -143,7 +148,7 @@ module Commands
           content_id: content_id,
           locale: locale,
           state: %w(published unpublished),
-        )
+        ).order(nil)
       end
 
       def draft_exists?

@@ -13,33 +13,23 @@ module Queries
 
     def initialize(document_types:, fields:, filters: {}, pagination: Pagination.new, search_query: "")
       self.document_types = Array(document_types)
-      self.fields = fields
+      self.fields = (fields || default_fields) + ["total"]
       self.publishing_app = filters[:publishing_app]
       self.states = filters[:states]
       self.link_filters = filters[:links]
       self.locale = filters[:locale] || "en"
       self.pagination = pagination
       self.search_query = search_query.strip
+
+      validate_fields!
     end
 
     def call
-      validate_fields!
-
-      presenter.present_many(
-        content_items,
-        fields: fields,
-        order: pagination.order,
-        offset: pagination.offset,
-        locale: locale,
-        limit: pagination.per_page,
-        search_query: search_query
-      )
+      query.present_many
     end
 
     def total
-      @total ||= presenter.new(content_items,
-                               locale: locale,
-                               search_query: search_query).total
+      query.total
     end
 
   private
@@ -83,7 +73,23 @@ module Queries
     end
 
     def permitted_fields
+      default_fields + ["total"]
+    end
+
+    def default_fields
       presenter::DEFAULT_FIELDS.map(&:to_s)
+    end
+
+    def query
+      @query ||= presenter.new(
+        content_items,
+        fields: fields,
+        order: pagination.order,
+        offset: pagination.offset,
+        locale: locale,
+        limit: pagination.per_page,
+        search_query: search_query
+      )
     end
 
     def presenter

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220161528) do
+ActiveRecord::Schema.define(version: 20170116143200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20161220161528) do
   end
 
   create_table "content_items", force: :cascade do |t|
-    t.string   "content_id"
+    t.uuid     "content_id",                                    null: false
     t.string   "title"
     t.datetime "public_updated_at"
     t.json     "details",              default: {}
@@ -74,8 +74,16 @@ ActiveRecord::Schema.define(version: 20161220161528) do
     t.integer  "user_facing_version",  default: 1,              null: false
     t.string   "base_path"
     t.string   "content_store"
+    t.integer  "document_id",                                   null: false
+    t.index ["base_path", "content_store"], name: "index_content_items_on_base_path_and_content_store", unique: true, using: :btree
+    t.index ["content_id", "locale", "content_store"], name: "index_content_items_on_content_id_and_locale_and_content_store", unique: true, using: :btree
+    t.index ["content_id", "locale", "user_facing_version"], name: "index_unique_ufv_content_id_locale", unique: true, using: :btree
     t.index ["content_id", "state", "locale"], name: "index_content_items_on_content_id_and_state_and_locale", using: :btree
     t.index ["content_id"], name: "index_content_items_on_content_id", using: :btree
+    t.index ["document_id", "content_store"], name: "index_content_items_on_document_id_and_content_store", unique: true, using: :btree
+    t.index ["document_id", "state"], name: "index_content_items_on_document_id_and_state", using: :btree
+    t.index ["document_id", "user_facing_version"], name: "index_content_items_on_document_id_and_user_facing_version", unique: true, using: :btree
+    t.index ["document_id"], name: "index_content_items_on_document_id", using: :btree
     t.index ["document_type"], name: "index_content_items_on_document_type", using: :btree
     t.index ["last_edited_at"], name: "index_content_items_on_last_edited_at", using: :btree
     t.index ["public_updated_at"], name: "index_content_items_on_public_updated_at", using: :btree
@@ -85,6 +93,13 @@ ActiveRecord::Schema.define(version: 20161220161528) do
     t.index ["updated_at"], name: "index_content_items_on_updated_at", using: :btree
   end
 
+  create_table "documents", force: :cascade do |t|
+    t.uuid    "content_id",                     null: false
+    t.string  "locale",                         null: false
+    t.integer "stale_lock_version", default: 0, null: false
+    t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true, using: :btree
+  end
+
   create_table "events", force: :cascade do |t|
     t.string   "action",                  null: false
     t.json     "payload",    default: {}
@@ -92,20 +107,21 @@ ActiveRecord::Schema.define(version: 20161220161528) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "request_id"
-    t.string   "content_id"
+    t.uuid     "content_id"
     t.index ["content_id"], name: "index_events_on_content_id", using: :btree
   end
 
   create_table "link_sets", force: :cascade do |t|
-    t.string   "content_id"
+    t.uuid     "content_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "stale_lock_version", default: 0
     t.index ["content_id"], name: "index_link_sets_on_content_id", unique: true, using: :btree
   end
 
   create_table "links", force: :cascade do |t|
     t.integer  "link_set_id"
-    t.string   "target_content_id"
+    t.uuid     "target_content_id"
     t.string   "link_type",                     null: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
@@ -196,5 +212,6 @@ ActiveRecord::Schema.define(version: 20161220161528) do
   end
 
   add_foreign_key "change_notes", "content_items"
+  add_foreign_key "content_items", "documents"
   add_foreign_key "links", "link_sets"
 end

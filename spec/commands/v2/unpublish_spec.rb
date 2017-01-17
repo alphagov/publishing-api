@@ -208,6 +208,21 @@ RSpec.describe Commands::V2::Unpublish do
           expect(unpublishing.alternative_path).to eq("/new-path")
         end
 
+        context "where there is an access limit" do
+          before do
+            AccessLimit.create!(
+              content_item: draft_content_item,
+              users: [SecureRandom.uuid]
+            )
+          end
+
+          it "removes the access limit model" do
+            expect {
+              described_class.call(payload_with_allow_draft)
+            }.to change(AccessLimit, :count).by(-1)
+          end
+        end
+
         it "sends an unpublishing to the live content store" do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
@@ -257,29 +272,6 @@ RSpec.describe Commands::V2::Unpublish do
             described_class.call(payload.merge(allow_draft: true))
 
             expect(previous_content_item.reload.state).to eq("unpublished")
-          end
-
-          context "when the system is in an inconsistent state" do
-            let!(:published_item) do
-              FactoryGirl.create(:superseded_content_item,
-                content_id: content_id,
-                base_path: "/different",
-                user_facing_version: 2,
-              )
-            end
-            before do
-              published_item.update_columns(
-                state: "published",
-                content_store: "live",
-                base_path: base_path
-              )
-            end
-
-            it "raises an error stating the inconsistency" do
-              expect {
-                described_class.call(payload.merge(allow_draft: true))
-              }.to raise_error(/There should only be one previous/)
-            end
           end
         end
 
@@ -381,6 +373,11 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       include_examples "creates an action"
+
+      it "maintains the state of unpublished" do
+        described_class.call(payload)
+        expect(unpublished_content_item.reload.state).to eq("unpublished")
+      end
 
       it "updates the Unpublishing" do
         unpublishing = Unpublishing.find_by(content_item: unpublished_content_item)

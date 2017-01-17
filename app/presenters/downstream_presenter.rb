@@ -47,11 +47,19 @@ module Presenters
 
     def access_limited
       return {} unless access_limit
-      {
-        access_limited: {
-          users: access_limit.users
+      if web_content_item.state != 'draft'
+        Airbrake.notify(
+          'Tried to send non-draft item with access_limited data',
+          content_id: web_content_item.content_id
+        )
+        {}
+      else
+        {
+          access_limited: {
+            users: access_limit.users
+          }
         }
-      }
+      end
     end
 
     def expanded_link_set_presenter

@@ -1,31 +1,32 @@
 module Presenters
   class ResultsPresenter
     def initialize(results, pagination, request_url)
-      @results = results
+      @results = results.call
+      @total = results.total
       @pagination = pagination
       @request_url = request_url.to_s
     end
 
     def present
       {
-        total: results.total,
+        total: total,
         pages: pagination_pages,
         current_page: current_page,
         links: links,
-        results: results.call
+        results: results
       }
     end
 
   private
 
-    attr_reader :results, :pagination, :request_url
+    attr_reader :results, :pagination, :request_url, :total
 
     def current_page
       pagination.page.to_i
     end
 
     def pagination_pages
-      pagination.pages(results.total)
+      pagination.pages(total)
     end
 
     def links

@@ -43,13 +43,13 @@ module Presenters
       end
 
       def total
-        full_scope.count
+        results.first.nil? ? 0 : results.first["total"]
       end
 
     private
 
       def results
-        execute_query(ordered_fields)
+        @results ||= execute_query(ordered_fields)
       end
 
       def ordered_fields
@@ -103,6 +103,8 @@ module Presenters
             "content_items.base_path as base_path"
           when :locale
             "content_items.locale as locale"
+          when :total
+            "COUNT(*) OVER () as total"
           else
             field
           end
@@ -139,7 +141,7 @@ module Presenters
 
             result["warnings"] = get_warnings(result) if include_warnings
 
-            yielder.yield result.compact
+            yielder.yield(result.except("total").compact)
           end
         end
       end
