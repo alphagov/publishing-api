@@ -89,13 +89,6 @@ RSpec.describe Commands::V2::Import, type: :request do
           ContentItem.where(id: existing_content_item.id)
         ).to be_empty
       end
-
-      it "deletes previous states" do
-        subject
-        expect(
-          State.where(content_item_id: existing_content_item.id)
-        ).to be_empty
-      end
     end
 
     context "with a unpublished content item" do
