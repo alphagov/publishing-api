@@ -31,13 +31,19 @@ RSpec.describe BasePathForStateValidator do
       let(:conflict_base_path) { "/vat-rates-2016" }
       let(:conflict_locale) { "en" }
 
+      let(:conflict_document) do
+        FactoryGirl.create(:document,
+          content_id: conflict_content_id,
+          locale: conflict_locale,
+        )
+      end
+
       let!(:conflict_content_item) do
         FactoryGirl.create(
           :content_item,
-          content_id: conflict_content_id,
+          document: conflict_document,
           state: conflict_state_name,
           base_path: conflict_base_path,
-          locale: conflict_locale,
           user_facing_version: 2,
         )
       end
