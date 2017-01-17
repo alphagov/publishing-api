@@ -3,15 +3,10 @@ module Commands
     class Import < BaseCommand
       def call
         unless UuidValidator.valid?(payload[:content_id])
-          raise CommandError.new(
-            code: 422,
-            error_details: {
-              error: {
-                code: 422,
-                message: "Content id not valid",
-                fields: "content_id",
-              }
-            }
+          raise_command_error(
+            422,
+            "Provided content_id not a valid UUID",
+            fields: {}
           )
         end
 
