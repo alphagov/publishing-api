@@ -70,12 +70,10 @@ module Commands
       end
 
       def previously_published_item
-        @previously_published_item ||=
-          PreviouslyPublishedItem.new(content_id,
-                                      payload[:base_path],
-                                      locale, self).call
+        @previously_published_item ||= PreviouslyPublishedItem.new(
+          content_id, payload[:base_path], locale, self
+        ).call
       end
-
 
       def base_path_required?
         !ContentItem::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
