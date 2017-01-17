@@ -18,7 +18,7 @@ module Commands
         previous_content_store_base_paths = get_base_path_content_store_pairs
 
         delete_all(payload[:content_id])
-        content_items = payload[:history].map.with_index do |event, index|
+        payload[:history].map.with_index do |event, index|
           create_content_item(event, index, payload[:content_id])
         end
 
