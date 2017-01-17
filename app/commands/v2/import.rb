@@ -25,19 +25,16 @@ module Commands
         new_content_store_base_paths = get_base_path_content_store_pairs
 
         after_transaction_commit do
-          Commands::V2::RepresentDownstream.new.call(
-            payload[:content_id],
-            true
-          )
-
-          delete_content_from_live_content_store(
-            previous_content_store_base_paths,
-            new_content_store_base_paths
-          )
-
-          delete_content_from_draft_content_store(
-            previous_content_store_base_paths,
-            new_content_store_base_paths
+          ImportWorker.perform_async(
+            content_id: payload[:content_id],
+            draft_base_paths_to_discard: draft_content_store_base_paths_to_discard(
+              previous_content_store_base_paths,
+              new_content_store_base_paths
+            ),
+            live_base_path_to_delete: live_content_store_base_path_to_delete(
+              previous_content_store_base_paths,
+              new_content_store_base_paths
+            )
           )
         end
 
@@ -152,7 +149,7 @@ module Commands
         ).group(:base_path).pluck(:base_path, "ARRAY_AGG(content_store)")
       end
 
-      def delete_content_from_draft_content_store(
+      def draft_content_store_base_paths_to_discard(
         previous_content_store_base_paths,
         new_content_store_base_paths
       )
@@ -160,16 +157,11 @@ module Commands
         # content is in the live content store if no draft exists,
         # to find base_paths that need deleting from the draft
         # store, its necessary to check all the base paths.
-        draft_base_paths_to_delete =
-          previous_content_store_base_paths.map { |x| x[0] } - \
+        previous_content_store_base_paths.map { |x| x[0] } - \
           new_content_store_base_paths.map { |x| x[0] }
-
-        draft_base_paths_to_delete.each do |base_path|
-          DownstreamService.discard_from_draft_content_store(base_path)
-        end
       end
 
-      def delete_content_from_live_content_store(
+      def live_content_store_base_path_to_delete(
         previous_content_store_base_paths,
         new_content_store_base_paths
       )
@@ -186,9 +178,7 @@ module Commands
         if !previous_live_base_path.nil? &&
             previous_live_base_path != new_live_base_path
 
-          Adapters::ContentStore.delete_content_item(
-            previous_live_base_path
-          )
+          previous_live_base_path
         end
       end
 
