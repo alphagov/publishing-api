@@ -11,10 +11,8 @@ FactoryGirl.define do
     trait :with_draft do
       after(:create) do |live_content_item, evaluator|
         draft = FactoryGirl.create(:draft_content_item,
-          live_content_item.as_json(only: %i[title content_id schema_name document_type routes redirects]).merge(
-            locale: evaluator.locale,
+          live_content_item.as_json(only: %i[title document_id schema_name document_type routes redirects]).merge(
             base_path: evaluator.base_path,
-            lock_version: evaluator.lock_version,
             user_facing_version: evaluator.draft_version_number,
           )
         )
