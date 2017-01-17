@@ -158,12 +158,6 @@ RSpec.describe ContentItem do
 
         it { is_expected.to be_valid }
       end
-
-      context "and the locales are different" do
-        before { content_item.locale = "fr" }
-
-        it { is_expected.to be_valid }
-      end
     end
 
     context "when the user facing version conflicts with another instance of this content item" do
@@ -172,18 +166,12 @@ RSpec.describe ContentItem do
       let(:content_item) do
         FactoryGirl.build(
           :draft_content_item,
-          content_id: existing_content_item.content_id,
+          document: existing_content_item.document,
           user_facing_version: 1
         )
       end
 
       it { is_expected.to be_invalid }
-
-      context "and the locales are different" do
-        before { content_item.locale = "fr" }
-
-        it { is_expected.to be_valid }
-      end
     end
 
     context "when the draft user_facing_version is ahead of the live one" do
@@ -210,7 +198,7 @@ RSpec.describe ContentItem do
       let(:content_item) do
         FactoryGirl.build(
           :live_content_item,
-          content_id: existing_content_item.content_id,
+          document: existing_content_item.document,
           user_facing_version: 2
         )
       end
@@ -226,7 +214,7 @@ RSpec.describe ContentItem do
       let(:content_item) do
         FactoryGirl.build(
           :draft_content_item,
-          content_id: existing_content_item.content_id,
+          document: existing_content_item.document,
           user_facing_version: 1
         )
       end
