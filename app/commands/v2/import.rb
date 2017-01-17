@@ -22,15 +22,6 @@ module Commands
           create_content_item(event, index, payload[:content_id])
         end
 
-        not_draft_content_item = nil
-        content_items.reverse_each do |content_item|
-          if not_draft_content_item.present?
-            content_item.supersede
-          elsif content_item.state != "draft"
-            not_draft_content_item = content_item
-          end
-        end
-
         new_content_store_base_paths = get_base_path_content_store_pairs
 
         after_transaction_commit do
