@@ -42,8 +42,6 @@ class ContentItem < ApplicationRecord
 
   belongs_to :document
 
-  validates :document, presence: true
-
   validates :schema_name, presence: true
   validates :document_type, presence: true
 
@@ -100,7 +98,6 @@ class ContentItem < ApplicationRecord
     end
   end
 
-  before_validation { ensure_document }
   before_save { ensure_document }
 
   def document_requires_updating?
