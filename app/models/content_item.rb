@@ -134,19 +134,19 @@ class ContentItem < ApplicationRecord
 
     if state == "draft"
       draft_version = user_facing_version
-      live_version = document.previous.user_facing_version if document.previous
+      published_unpublished_version = document.published_or_unpublished.try(:user_facing_version)
     end
 
     if %w(published unpublished).include?(state)
       draft_version = document.draft.user_facing_version if document.draft
-      live_version = user_facing_version
+      published_unpublished_version = user_facing_version
     end
 
-    return unless draft_version && live_version
+    return unless draft_version && published_unpublished_version
 
-    if draft_version < live_version
-      mismatch = "(#{draft_version} < #{live_version})"
-      message = "draft content item cannot be behind the live content item #{mismatch}"
+    if draft_version < published_unpublished_version
+      mismatch = "(#{draft_version} < #{published_unpublished_version})"
+      message = "draft content item cannot be behind the published/unpublished content item #{mismatch}"
       errors.add(:user_facing_version, message)
     end
   end

@@ -50,11 +50,11 @@ module Commands
       end
 
       def content_item
-        @content_item ||= document.draft
+        document.draft
       end
 
       def previous_item
-        @previous_item ||= document.previous
+        document.published_or_unpublished
       end
 
       def redirect_old_base_path
