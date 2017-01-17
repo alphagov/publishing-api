@@ -27,7 +27,7 @@ module Commands
       def raise_error_if_missing_draft!
         return if document.draft.present?
 
-        code = document.live.present? ? 422 : 404
+        code = document.published_or_unpublished.present? ? 422 : 404
         message = "There is no draft content item to discard"
 
         raise CommandError.new(code: code, message: message)

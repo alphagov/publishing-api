@@ -41,7 +41,7 @@ module Commands
       end
 
       def find_content_item
-        content_item = draft? ? document.draft : document.live
+        content_item = draft? ? document.draft : document.published_or_unpublished
 
         unless content_item
           message = "Could not find a content item to associate this action with"
