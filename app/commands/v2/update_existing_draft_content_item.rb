@@ -30,9 +30,10 @@ module Commands
       end
 
       def update_content_item
+        old_item = content_item.dup
         assign_attributes_with_defaults
         content_item.save!
-        content_item
+        [content_item, old_item]
       end
 
       def assign_attributes_with_defaults

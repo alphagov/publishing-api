@@ -65,6 +65,12 @@ module Commands
         def path_has_changed?
           false
         end
+
+        def previous_base_path
+        end
+
+        def routes
+        end
       end
     end
   end

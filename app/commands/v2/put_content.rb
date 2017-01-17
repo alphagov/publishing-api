@@ -38,7 +38,7 @@ module Commands
       def create_redirect
         return unless content_with_base_path?
         RedirectHelper::Redirect.new(previously_published_item,
-                                     previously_drafted_item,
+                                     @previous_item,
                                      payload, callbacks).create
       end
 
@@ -62,11 +62,11 @@ module Commands
 
       def create_or_update_content_item
         if previously_drafted_item
-          UpdateExistingDraftContentItem.new(previously_drafted_item, self, payload).call
+          updated_item, @previous_item = UpdateExistingDraftContentItem.new(previously_drafted_item, self, payload).call
         else
           new_draft_content_item = CreateDraftContentItem.new(self, payload, previously_published_item).call
         end
-        previously_drafted_item || new_draft_content_item
+        updated_item || new_draft_content_item
       end
 
       def previously_published_item
@@ -82,7 +82,7 @@ module Commands
       end
 
       def previously_drafted_item
-        @previously_drafted_item = ContentItem.find_by(
+        @previously_drafted_item ||= ContentItem.find_by(
           id: pessimistic_content_item_scope.pluck(:id),
           state: "draft",
         )
