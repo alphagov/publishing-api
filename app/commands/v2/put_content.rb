@@ -18,24 +18,9 @@ module Commands
         if content_item
           update_existing_content_item(content_item)
         else
-          if content_with_base_path?
-            clear_draft_items_of_same_locale_and_base_path(
-              content_id,
-              document_type,
-              locale,
-              base_path
-            )
-          end
+          clear_draft_items_of_same_locale_and_base_path if content_with_base_path?
 
-          content_item = Services::CreateContentItem.new(
-            payload: payload.merge(
-              state: "draft",
-              user_facing_version: user_facing_version_number_for_new_draft,
-              locale: locale
-            ),
-            lock_version: lock_version_number_for_new_draft
-          ).create_content_item
-
+          content_item = create_content_item
           fill_out_new_content_item(content_item)
         end
 
@@ -57,6 +42,9 @@ module Commands
     private
 
       def fill_out_new_content_item(content_item)
+        create_supporting_objects(content_item)
+        ensure_link_set_exists(content_item)
+
         update_last_edited_at_if_needed(content_item, payload[:last_edited_at])
 
         if previously_published_item != ITEM_NOT_FOUND
@@ -83,12 +71,7 @@ module Commands
         version = check_version_and_raise_if_conflicting(content_item, payload[:previous_version])
 
         if content_with_base_path?
-          clear_draft_items_of_same_locale_and_base_path(
-            content_item.content_id,
-            content_item.document_type,
-            locale,
-            base_path
-          )
+          clear_draft_items_of_same_locale_and_base_path
 
           previous_base_path = content_item.base_path
           previous_routes = content_item.routes
@@ -129,7 +112,7 @@ module Commands
         )
       end
 
-      def clear_draft_items_of_same_locale_and_base_path(content_id, document_type, locale, base_path)
+      def clear_draft_items_of_same_locale_and_base_path
         SubstitutionHelper.clear!(
           new_item_document_type: document_type,
           new_item_content_id: content_id,
@@ -144,6 +127,28 @@ module Commands
 
       def content_item_attributes_from_payload
         payload.slice(*ContentItem::TOP_LEVEL_FIELDS)
+      end
+
+      def create_content_item
+        attributes = content_item_attributes_from_payload.merge(
+          locale: locale,
+          state: "draft",
+          content_store: "draft",
+          user_facing_version: user_facing_version_number_for_new_draft,
+        )
+        ContentItem.create!(attributes)
+      end
+
+      def create_supporting_objects(content_item)
+        LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
+      end
+
+      def ensure_link_set_exists(content_item)
+        existing_link_set = LinkSet.find_by(content_id: content_item.content_id)
+        return if existing_link_set
+
+        link_set = LinkSet.create!(content_id: content_item.content_id)
+        LockVersion.create!(target: link_set, number: 1)
       end
 
       def lock_version_number_for_new_draft

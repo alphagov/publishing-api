@@ -1,3 +1,5 @@
+require_relative "helpers/delete_content_item"
+
 class RemoveOrphanedTranslation < ActiveRecord::Migration
   def up
     #/guidance/equitable-life-payment-scheme.de
@@ -6,7 +8,7 @@ class RemoveOrphanedTranslation < ActiveRecord::Migration
 
     content_item = ContentItem.find_by_id(23835)
     if content_item
-      Services::DeleteContentItem.destroy_supporting_objects([content_item])
+      Helpers::DeleteContentItem.destroy_supporting_objects([content_item])
       content_item.destroy
     end
   end

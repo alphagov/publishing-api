@@ -1,3 +1,5 @@
+require_relative "helpers/delete_content_item"
+
 class December16RemoveConflictingContentItems < ActiveRecord::Migration[5.0]
   def up
     to_remove = [
@@ -20,7 +22,7 @@ class December16RemoveConflictingContentItems < ActiveRecord::Migration[5.0]
       1067658, # conflicts with 1067659
     ]
     content_items = ContentItem.where(id: to_remove)
-    Services::DeleteContentItem.destroy_supporting_objects(content_items)
+    Helpers::DeleteContentItem.destroy_supporting_objects(content_items)
     content_items.destroy_all
   end
 

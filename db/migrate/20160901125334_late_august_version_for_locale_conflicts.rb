@@ -1,3 +1,5 @@
+require_relative "helpers/delete_content_item"
+
 class LateAugustVersionForLocaleConflicts < ActiveRecord::Migration
   def up
     updated_time_range = -> (hash) do
@@ -13,7 +15,7 @@ class LateAugustVersionForLocaleConflicts < ActiveRecord::Migration
   end
 
   def delete(content_item)
-    Services::DeleteContentItem.destroy_supporting_objects(content_item)
+    Helpers::DeleteContentItem.destroy_supporting_objects(content_item)
     content_item.destroy
   end
 

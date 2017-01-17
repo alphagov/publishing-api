@@ -58,18 +58,16 @@ module Commands
       def create_content_item(history_entry, index, content_id)
         validate_history_entry(history_entry, index)
 
-        create_content_item_service = Services::CreateContentItem.new(
-          payload: history_entry.except("states").merge(
+        content_item = ContentItem.create!(
+          history_entry.except(:states).merge(
             content_id: content_id,
             user_facing_version: index + 1,
             state: "draft",
-          ),
-          lock_version: index + 1,
+          )
         )
+        LockVersion.create!(target: content_item, number: index + 1)
 
-        create_content_item_service.create_content_item do |content_item|
-          update_content_item_state_information(content_item, history_entry[:states])
-        end
+        update_content_item_state_information(content_item, history_entry[:states])
       end
 
       def update_content_item_state_information(content_item, states)
@@ -224,7 +222,7 @@ module Commands
 
       def delete_all(content_id)
         content_items = ContentItem.where(content_id: content_id)
-        Services::DeleteContentItem.destroy_supporting_objects(content_items)
+        LockVersion.where(target: content_items).destroy_all
         content_items.destroy_all
       end
     end
