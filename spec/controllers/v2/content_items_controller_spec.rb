@@ -5,18 +5,22 @@ RSpec.describe V2::ContentItemsController do
   let(:validator) do
     instance_double(SchemaValidator, valid?: true, errors: [])
   end
+  let(:document_en) do
+    FactoryGirl.create(:document, content_id: content_id, locale: "en")
+  end
+  let(:document_ar) do
+    FactoryGirl.create(:document, content_id: content_id, locale: "ar")
+  end
 
   before do
     allow(SchemaValidator).to receive(:new).and_return(validator)
     stub_request(:any, /content-store/)
 
-    @draft = FactoryGirl.create(
-      :draft_content_item,
-      content_id: content_id,
+    @draft = FactoryGirl.create(:draft_content_item,
+      document: document_en,
       base_path: "/content.en",
       document_type: "topic",
       schema_name: "topic",
-      locale: "en",
       user_facing_version: 2,
     )
   end
@@ -24,19 +28,15 @@ RSpec.describe V2::ContentItemsController do
   describe "index" do
     before do
       @en_draft_content = @draft
-      @ar_draft_content = FactoryGirl.create(
-        :draft_content_item,
-        content_id: content_id,
-        locale: "ar",
+      @ar_draft_content = FactoryGirl.create(:draft_content_item,
+        document: document_ar,
         base_path: "/content.ar",
         document_type: "topic",
         schema_name: "topic",
         user_facing_version: 2,
       )
-      @en_live_content = FactoryGirl.create(
-        :live_content_item,
-        content_id: content_id,
-        locale: "en",
+      @en_live_content = FactoryGirl.create(:live_content_item,
+        document: document_en,
         base_path: "/content.en",
         document_type: "topic",
         schema_name: "topic",
@@ -44,8 +44,7 @@ RSpec.describe V2::ContentItemsController do
       )
       @ar_live_content = FactoryGirl.create(
         :live_content_item,
-        content_id: content_id,
-        locale: "ar",
+        document: document_ar,
         base_path: "/content.ar",
         document_type: "topic",
         schema_name: "topic",
@@ -57,20 +56,22 @@ RSpec.describe V2::ContentItemsController do
       context "when there is a valid query" do
         let(:previous_live_version) do
           FactoryGirl.create(:superseded_content_item,
-                             base_path: "/foo",
-                             document_type: "topic",
-                             schema_name: "topic",
-                             title: "zip",
-                             user_facing_version: 1)
+            base_path: "/foo",
+            document_type: "topic",
+            schema_name: "topic",
+            title: "zip",
+            user_facing_version: 1,
+          )
         end
         let!(:content_item) do
           FactoryGirl.create(:live_content_item,
-                             base_path: "/foo",
-                             content_id: previous_live_version.content_id,
-                             document_type: "topic",
-                             schema_name: "topic",
-                             title: "bar",
-                             user_facing_version: 2)
+            base_path: "/foo",
+            document: previous_live_version.document,
+            document_type: "topic",
+            schema_name: "topic",
+            title: "bar",
+            user_facing_version: 2,
+          )
         end
 
         it "returns the item when searching for base_path" do
