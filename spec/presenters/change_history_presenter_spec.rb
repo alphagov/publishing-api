@@ -9,8 +9,9 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       details: details.deep_stringify_keys,
     )
   end
+  let(:web_content_item) { Queries::GetWebContentItems.find(content_item.id) }
   let(:details) { {} }
-  subject { described_class.new(content_item).change_history }
+  subject { described_class.new(web_content_item).change_history }
 
   describe "#change_history" do
     context "details hash includes content_history" do
@@ -61,6 +62,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
           user_facing_version: 1,
         )
       end
+      let(:web_content_item1) { Queries::GetWebContentItems.find(item1.id) }
       let(:item2) do
         FactoryGirl.create(:live_content_item,
           document: document,
@@ -68,6 +70,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
           user_facing_version: 2,
         )
       end
+      let(:web_content_item2) { Queries::GetWebContentItems.find(item2.id) }
       before do
         ChangeNote.create(content_item: item1, content_id: content_id)
         ChangeNote.create(content_item: item2, content_id: content_id)
@@ -76,13 +79,13 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
 
       context "reviewing latest version of a content item" do
         it "constructs content history from all change notes for content id" do
-          expect(described_class.new(item2).change_history.count).to eq 3
+          expect(described_class.new(web_content_item2).change_history.count).to eq 3
         end
       end
 
       context "reviewing older version of a content item" do
         it "doesn't include change notes corresponding to newer versions" do
-          expect(described_class.new(item1).change_history.count).to eq 2
+          expect(described_class.new(web_content_item1).change_history.count).to eq 2
         end
       end
     end
