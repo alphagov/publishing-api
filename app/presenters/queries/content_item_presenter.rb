@@ -11,6 +11,7 @@ module Presenters
         :publication_state,
         :content_id,
         :locale,
+        :lock_version,
         :updated_at,
         :state_history,
         :change_note,
