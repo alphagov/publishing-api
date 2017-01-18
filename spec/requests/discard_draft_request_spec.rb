@@ -3,12 +3,14 @@ require "rails_helper"
 RSpec.describe "Discard draft requests", type: :request do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
+  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let(:fr_document) { FactoryGirl.create(:document, content_id: content_id, locale: "fr") }
 
   describe "POST /v2/content/:content_id/discard-draft" do
     context "when a draft content item exists" do
       let!(:draft_content_item) do
         FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+          document: document,
           title: "draft",
           base_path: base_path,
         )
@@ -37,9 +39,8 @@ RSpec.describe "Discard draft requests", type: :request do
 
         let!(:french_draft_content_item) do
           FactoryGirl.create(:draft_content_item,
-            content_id: content_id,
+            document: fr_document,
             title: "draft",
-            locale: "fr",
             base_path: french_base_path,
           )
         end
@@ -77,9 +78,7 @@ RSpec.describe "Discard draft requests", type: :request do
 
       context "and a live content item exists" do
         before do
-          FactoryGirl.create(:live_content_item,
-            content_id: content_id,
-          )
+          FactoryGirl.create(:live_content_item, document: document)
         end
 
         it "returns a 422" do
