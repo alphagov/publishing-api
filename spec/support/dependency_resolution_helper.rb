@@ -5,25 +5,17 @@ module DependencyResolutionHelper
   end
 
   def create_content_item(
-    document,
+    content_id,
     base_path,
-    state = "published",
-    version = 1
+    factory: :live_content_item,
+    locale: "en",
+    version: 1
   )
-    FactoryGirl.create(:content_item,
-      document: document,
+    FactoryGirl.create(factory,
+      document: Document.find_or_create_by(content_id: content_id, locale: locale),
       base_path: base_path,
-      state: state,
-      content_store: content_store_for(state),
-      document_type: 'topical_event',
-      details: {},
       user_facing_version: version,
     )
-  end
-
-  def content_store_for(state)
-    return if state == 'superseded'
-    state == 'draft' ? 'draft' : 'live'
   end
 
   def create_link(from, to, link_type, link_position = 0)
