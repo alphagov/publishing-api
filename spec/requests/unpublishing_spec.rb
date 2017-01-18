@@ -9,12 +9,13 @@ require "rails_helper"
 RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
-  let!(:content_item) {
+  let!(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let!(:content_item) do
     FactoryGirl.create(:live_content_item,
-      content_id: content_id,
+      document: document,
       base_path: base_path,
     )
-  }
+  end
 
   describe "withdrawing" do
     let(:withdrawal_params) {
