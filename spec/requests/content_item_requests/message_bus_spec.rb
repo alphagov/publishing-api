@@ -19,7 +19,7 @@ RSpec.describe "Message bus", type: :request do
     context "with a live content item" do
       let!(:live_content_item) {
         FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
       }
@@ -35,7 +35,7 @@ RSpec.describe "Message bus", type: :request do
     context "with a draft content item" do
       let!(:draft_content_item) {
         FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
       }
@@ -54,7 +54,7 @@ RSpec.describe "Message bus", type: :request do
   context "/v2/publish" do
     before do
       FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
+        document: FactoryGirl.create(:document, content_id: content_id),
         document_type: "guide",
         schema_name: "guide",
         base_path: base_path,
