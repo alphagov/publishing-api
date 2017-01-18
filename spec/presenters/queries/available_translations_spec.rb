@@ -9,13 +9,11 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
   }
 
   def create_content_item(base_path, state = "published", locale = "en", version = 1)
-    FactoryGirl.create(
-      :content_item,
-      content_id: link_set.content_id,
+    FactoryGirl.create(:content_item,
+      document: Document.find_or_create_by(content_id: link_set.content_id, locale: locale),
       base_path: base_path,
       state: state,
       content_store: state == 'draft' ? 'draft' : 'live',
-      locale: locale,
       user_facing_version: version,
     )
   end
