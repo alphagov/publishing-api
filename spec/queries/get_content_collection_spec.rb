@@ -167,10 +167,30 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "the locale filter parameter" do
     before do
-      FactoryGirl.create(:draft_content_item, base_path: '/content.en', document_type: 'topic', schema_name: 'topic', locale: 'en')
-      FactoryGirl.create(:draft_content_item, base_path: '/content.ar', document_type: 'topic', schema_name: 'topic', locale: 'ar')
-      FactoryGirl.create(:live_content_item, base_path: '/content.en', document_type: 'topic', schema_name: 'topic', locale: 'en')
-      FactoryGirl.create(:live_content_item, base_path: '/content.ar', document_type: 'topic', schema_name: 'topic', locale: 'ar')
+      FactoryGirl.create(:draft_content_item,
+        document: FactoryGirl.create(:document, locale: "en"),
+        base_path: '/content.en',
+        document_type: 'topic',
+        schema_name: 'topic',
+      )
+      FactoryGirl.create(:draft_content_item,
+        document: FactoryGirl.create(:document, locale: "ar"),
+        base_path: '/content.ar',
+        document_type: 'topic',
+        schema_name: 'topic',
+      )
+      FactoryGirl.create(:live_content_item,
+        document: FactoryGirl.create(:document, locale: "en"),
+        base_path: '/content.en',
+        document_type: 'topic',
+        schema_name: 'topic',
+      )
+      FactoryGirl.create(:live_content_item,
+        document: FactoryGirl.create(:document, locale: "ar"),
+        base_path: '/content.ar',
+        document_type: 'topic',
+        schema_name: 'topic',
+      )
     end
 
     it "returns the content items filtered by 'en' locale by default" do
@@ -217,22 +237,19 @@ RSpec.describe Queries::GetContentCollection do
       draft_2_content_id = SecureRandom.uuid
       live_1_content_id = SecureRandom.uuid
 
-      FactoryGirl.create(
-        :draft_content_item,
-        content_id: draft_1_content_id,
+      FactoryGirl.create(:draft_content_item,
+        document: FactoryGirl.create(:document, content_id: draft_1_content_id),
         base_path: "/foo",
         publishing_app: "specialist-publisher"
       )
 
-      FactoryGirl.create(
-        :draft_content_item,
-        content_id: draft_2_content_id,
+      FactoryGirl.create(:draft_content_item,
+        document: FactoryGirl.create(:document, content_id: draft_2_content_id),
         base_path: "/bar"
       )
 
-      FactoryGirl.create(
-        :live_content_item,
-        content_id: live_1_content_id,
+      FactoryGirl.create(:live_content_item,
+        document: FactoryGirl.create(:document, content_id: live_1_content_id),
         base_path: "/baz"
       )
 
@@ -453,22 +470,19 @@ RSpec.describe Queries::GetContentCollection do
 
     context "when there are multiple versions of the same content item" do
       before do
-        content_id = SecureRandom.uuid
+        document = FactoryGirl.create(:document)
 
-        FactoryGirl.create(
-          :live_content_item,
-          content_id: content_id,
+        FactoryGirl.create(:live_content_item,
+          document: document,
           document_type: 'topic',
           schema_name: 'topic',
           user_facing_version: 1,
         )
 
-        FactoryGirl.create(
-          :content_item,
-          content_id: content_id,
+        FactoryGirl.create(:draft_content_item,
+          document: document,
           document_type: 'topic',
           schema_name: 'topic',
-          state: "draft",
           user_facing_version: 2,
         )
       end
