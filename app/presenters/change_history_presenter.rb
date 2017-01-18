@@ -1,9 +1,9 @@
 module Presenters
   class ChangeHistoryPresenter
-    attr_reader :content_item
+    attr_reader :web_content_item
 
-    def initialize(content_item)
-      @content_item = content_item
+    def initialize(web_content_item)
+      @web_content_item = web_content_item
     end
 
     def change_history
@@ -13,7 +13,7 @@ module Presenters
   private
 
     def details
-      SymbolizeJSON.symbolize(content_item.details)
+      SymbolizeJSON.symbolize(web_content_item.details)
     end
 
     def change_notes_for_content_item
@@ -34,11 +34,11 @@ module Presenters
     end
 
     def version_number
-      content_item.user_facing_version
+      web_content_item.user_facing_version
     end
 
     def content_id
-      content_item.document.content_id
+      web_content_item.content_id
     end
   end
 end
