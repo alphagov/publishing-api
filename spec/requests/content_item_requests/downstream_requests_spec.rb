@@ -202,9 +202,12 @@ RSpec.describe "Downstream requests", type: :request do
     let(:a) { create_link_set }
     let(:b) { create_link_set }
 
-    let!(:draft_a) { create_content_item(a, "/a", "superseded", "en", 1) }
-    let!(:published_a) { create_content_item(a, "/a", "published", 'en', 2) }
-    let!(:draft_b) { create_content_item(b, "/b", "draft") }
+    let!(:doc_a) { FactoryGirl.create(:document, content_id: a) }
+    let!(:doc_b) { FactoryGirl.create(:document, content_id: b) }
+
+    let!(:draft_a) { create_content_item(doc_a, "/a", "superseded", 1) }
+    let!(:published_a) { create_content_item(doc_a, "/a", "published", 2) }
+    let!(:draft_b) { create_content_item(doc_b, "/b", "draft") }
 
     before do
       create_link(a, b, "parent")
@@ -246,7 +249,7 @@ RSpec.describe "Downstream requests", type: :request do
     let(:content_id) { SecureRandom.uuid }
     let!(:draft) {
       FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
+        document: FactoryGirl.create(:document, content_id: content_id),
         base_path: base_path,
       )
     }

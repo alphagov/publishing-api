@@ -37,8 +37,11 @@ RSpec.describe "Logging requests", type: :request do
     let(:a) { create_link_set }
     let(:b) { create_link_set }
 
-    let!(:draft_a) { create_content_item(a, "/a", "draft", "en", 2) }
-    let!(:draft_b) { create_content_item(b, "/b", "draft") }
+    let(:doc_a) { FactoryGirl.create(:document, content_id: a) }
+    let(:doc_b) { FactoryGirl.create(:document, content_id: b) }
+
+    let!(:draft_a) { create_content_item(doc_a, "/a", "draft", 2) }
+    let!(:draft_b) { create_content_item(doc_b, "/b", "draft") }
 
     let(:params) do
       v2_content_item.merge(
