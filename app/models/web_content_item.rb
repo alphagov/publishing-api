@@ -61,4 +61,8 @@ WebContentItem = Struct.new(*fields) do
   def description
     self[:description]["value"]
   end
+
+  def document
+    Document.find_by(content_id: content_id, locale: locale)
+  end
 end
