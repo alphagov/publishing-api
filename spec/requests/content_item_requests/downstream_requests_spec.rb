@@ -76,7 +76,7 @@ RSpec.describe "Downstream requests", type: :request do
     context "when only a draft content item exists for the link set" do
       before do
         draft = FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
 
@@ -109,7 +109,7 @@ RSpec.describe "Downstream requests", type: :request do
     context "when only a live content item exists for the link set" do
       before do
         FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
       end
@@ -140,8 +140,10 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when draft and live content items exists for the link set" do
       before do
+        document = FactoryGirl.create(:document, content_id: content_id)
+
         draft = FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
           user_facing_version: 2,
         )
@@ -152,7 +154,7 @@ RSpec.describe "Downstream requests", type: :request do
         )
 
         FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
         )
       end
