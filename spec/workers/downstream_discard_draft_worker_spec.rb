@@ -6,7 +6,6 @@ RSpec.describe DownstreamDiscardDraftWorker do
   let(:content_item) do
     FactoryGirl.create(:draft_content_item,
       base_path: base_path,
-      locale: "en",
       title: "Draft",
     )
   end
@@ -76,7 +75,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     let!(:live_content_item) do
       FactoryGirl.create(:live_content_item,
         base_path: base_path,
-        content_id: content_item.content_id,
+        document: content_item.document,
         title: "live",
       )
     end
@@ -100,7 +99,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     let(:live_content_item) do
       FactoryGirl.create(:live_content_item,
         base_path: "/bar",
-        content_id: content_item.content_id,
+        document: content_item.document,
         title: "Live",
       )
     end
@@ -149,8 +148,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
 
     it "wont send to content store without a base_path" do
-      pathless = FactoryGirl.create(
-        :draft_content_item,
+      pathless = FactoryGirl.create(:draft_content_item,
         base_path: nil,
         document_type: "contact",
         schema_name: "contact"

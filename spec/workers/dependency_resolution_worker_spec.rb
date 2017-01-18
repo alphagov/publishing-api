@@ -1,9 +1,10 @@
 require "rails_helper"
 
 RSpec.describe DependencyResolutionWorker, :perform do
-  let(:live_content_item) { FactoryGirl.create(:live_content_item, locale: "en") }
   let(:content_id) { SecureRandom.uuid }
   let(:locale) { "en" }
+  let(:document) { FactoryGirl.create(:document, content_id: content_id, locale: locale) }
+  let(:live_content_item) { FactoryGirl.create(:live_content_item, document: document) }
 
   subject(:worker_perform) do
     described_class.new.perform(
@@ -52,8 +53,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
   context "with a draft version available" do
     let!(:draft_content_item) do
       FactoryGirl.create(:draft_content_item,
-        content_id: live_content_item.content_id,
-        locale: "en",
+        document: document,
         user_facing_version: 2,
       )
     end
