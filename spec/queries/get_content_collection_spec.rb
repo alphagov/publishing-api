@@ -3,35 +3,31 @@ require "rails_helper"
 RSpec.describe Queries::GetContentCollection do
   context "document_type" do
     before do
-      FactoryGirl.create(
-        :draft_content_item,
-        base_path: '/a',
-        document_type: 'topic',
-        schema_name: 'topic',
+      FactoryGirl.create(:draft_content_item,
+        base_path: "/a",
+        document_type: "topic",
+        schema_name: "topic",
       )
-      FactoryGirl.create(
-        :draft_content_item,
-        base_path: '/b',
-        document_type: 'topic',
-        schema_name: 'topic',
+      FactoryGirl.create(:draft_content_item,
+        base_path: "/b",
+        document_type: "topic",
+        schema_name: "topic",
       )
-      FactoryGirl.create(
-        :draft_content_item,
-        base_path: '/c',
-        document_type: 'mainstream_browse_page',
-        schema_name: 'mainstream_browse_page',
+      FactoryGirl.create(:draft_content_item,
+        base_path: "/c",
+        document_type: "mainstream_browse_page",
+        schema_name: "mainstream_browse_page",
       )
-      FactoryGirl.create(
-        :draft_content_item,
-        base_path: '/d',
-        document_type: 'another_type',
-        schema_name: 'another_type',
+      FactoryGirl.create(:draft_content_item,
+        base_path: "/d",
+        document_type: "another_type",
+        schema_name: "another_type",
       )
     end
 
     it "returns the content items matching the type" do
       expect(Queries::GetContentCollection.new(
-        document_types: 'topic',
+        document_types: "topic",
         fields: %w(base_path locale publication_state),
       ).call).to match_array([
         hash_including("base_path" => "/a", "publication_state" => "draft", "locale" => "en"),
@@ -52,21 +48,19 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   it "returns the content items of the given format, and placeholder_format" do
-    FactoryGirl.create(
-      :draft_content_item,
-      base_path: '/a',
-      document_type: 'topic',
-      schema_name: 'topic',
+    FactoryGirl.create(:draft_content_item,
+      base_path: "/a",
+      document_type: "topic",
+      schema_name: "topic",
     )
-    FactoryGirl.create(
-      :draft_content_item,
-      base_path: '/b',
-      document_type: 'placeholder_topic',
-      schema_name: 'placeholder_topic'
+    FactoryGirl.create(:draft_content_item,
+      base_path: "/b",
+      document_type: "placeholder_topic",
+      schema_name: "placeholder_topic"
     )
 
     expect(Queries::GetContentCollection.new(
-      document_types: 'topic',
+      document_types: "topic",
       fields: %w(base_path publication_state),
     ).call).to match_array([
       hash_including("base_path" => "/a", "publication_state" => "draft"),
@@ -75,21 +69,19 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   it "includes the publishing state of the item" do
-    FactoryGirl.create(
-      :draft_content_item,
-      base_path: '/draft',
-      document_type: 'topic',
-      schema_name: 'topic',
+    FactoryGirl.create(:draft_content_item,
+      base_path: "/draft",
+      document_type: "topic",
+      schema_name: "topic",
     )
-    FactoryGirl.create(
-      :live_content_item,
-      base_path: '/live',
-      document_type: 'topic',
-      schema_name: 'topic',
+    FactoryGirl.create(:live_content_item,
+      base_path: "/live",
+      document_type: "topic",
+      schema_name: "topic",
     )
 
     expect(Queries::GetContentCollection.new(
-      document_types: 'topic',
+      document_types: "topic",
       fields: %w(base_path publication_state),
     ).call).to match_array([
       hash_including("base_path" => "/draft", "publication_state" => "draft"),
@@ -100,8 +92,8 @@ RSpec.describe Queries::GetContentCollection do
   context "when there's no items for the format" do
     it "returns an empty array" do
       expect(Queries::GetContentCollection.new(
-        document_types: 'topic',
-        fields: ['base_path'],
+        document_types: "topic",
+        fields: ["base_path"],
       ).call.to_a).to eq([])
     end
   end
@@ -110,8 +102,8 @@ RSpec.describe Queries::GetContentCollection do
     it "raises an error" do
       expect {
         Queries::GetContentCollection.new(
-          document_types: 'topic',
-          fields: ['not_existing'],
+          document_types: "topic",
+          fields: ["not_existing"],
         ).call
       }.to raise_error(CommandError)
     end
@@ -119,34 +111,31 @@ RSpec.describe Queries::GetContentCollection do
 
   context "filtering by publishing_app" do
     before do
-      FactoryGirl.create(
-        :draft_content_item,
-        base_path: '/a',
-        document_type: 'topic',
-        schema_name: 'topic',
-        publishing_app: 'publisher'
+      FactoryGirl.create(:draft_content_item,
+        base_path: "/a",
+        document_type: "topic",
+        schema_name: "topic",
+        publishing_app: "publisher"
       )
-      FactoryGirl.create(
-        :draft_content_item,
-        base_path: '/b',
-        document_type: 'topic',
-        schema_name: 'topic',
-        publishing_app: 'publisher'
+      FactoryGirl.create(:draft_content_item,
+        base_path: "/b",
+        document_type: "topic",
+        schema_name: "topic",
+        publishing_app: "publisher"
       )
-      FactoryGirl.create(
-        :draft_content_item,
-        base_path: '/c',
-        document_type: 'topic',
-        schema_name: 'topic',
-        publishing_app: 'whitehall'
+      FactoryGirl.create(:draft_content_item,
+        base_path: "/c",
+        document_type: "topic",
+        schema_name: "topic",
+        publishing_app: "whitehall"
       )
     end
 
     it "returns items corresponding to the publishing_app parameter if present" do
       expect(Queries::GetContentCollection.new(
-        document_types: 'topic',
+        document_types: "topic",
         fields: %w(publishing_app publication_state),
-        filters: { publishing_app: 'publisher' }
+        filters: { publishing_app: "publisher" }
       ).call).to match_array([
         hash_including("publishing_app" => "publisher", "publication_state" => "draft"),
         hash_including("publishing_app" => "publisher", "publication_state" => "draft")
@@ -155,7 +144,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns items for all apps if publishing_app is not present" do
       expect(Queries::GetContentCollection.new(
-        document_types: 'topic',
+        document_types: "topic",
         fields: %w(publishing_app publication_state)
       ).call).to match_array([
         hash_including("publishing_app" => "publisher", "publication_state" => "draft"),
@@ -169,33 +158,33 @@ RSpec.describe Queries::GetContentCollection do
     before do
       FactoryGirl.create(:draft_content_item,
         document: FactoryGirl.create(:document, locale: "en"),
-        base_path: '/content.en',
-        document_type: 'topic',
-        schema_name: 'topic',
+        base_path: "/content.en",
+        document_type: "topic",
+        schema_name: "topic",
       )
       FactoryGirl.create(:draft_content_item,
         document: FactoryGirl.create(:document, locale: "ar"),
-        base_path: '/content.ar',
-        document_type: 'topic',
-        schema_name: 'topic',
+        base_path: "/content.ar",
+        document_type: "topic",
+        schema_name: "topic",
       )
       FactoryGirl.create(:live_content_item,
         document: FactoryGirl.create(:document, locale: "en"),
-        base_path: '/content.en',
-        document_type: 'topic',
-        schema_name: 'topic',
+        base_path: "/content.en",
+        document_type: "topic",
+        schema_name: "topic",
       )
       FactoryGirl.create(:live_content_item,
         document: FactoryGirl.create(:document, locale: "ar"),
-        base_path: '/content.ar',
-        document_type: 'topic',
-        schema_name: 'topic',
+        base_path: "/content.ar",
+        document_type: "topic",
+        schema_name: "topic",
       )
     end
 
     it "returns the content items filtered by 'en' locale by default" do
       expect(Queries::GetContentCollection.new(
-        document_types: 'topic',
+        document_types: "topic",
         fields: %w(base_path publication_state),
       ).call).to match_array([
         hash_including("base_path" => "/content.en", "publication_state" => "draft"),
@@ -205,9 +194,9 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns the content items filtered by locale parameter" do
       expect(Queries::GetContentCollection.new(
-        document_types: 'topic',
+        document_types: "topic",
         fields: %w(base_path publication_state),
-        filters: { locale: 'ar' },
+        filters: { locale: "ar" },
       ).call).to match_array([
         hash_including("base_path" => "/content.ar", "publication_state" => "draft"),
         hash_including("base_path" => "/content.ar", "publication_state" => "published"),
@@ -216,9 +205,9 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns all content items if the locale parameter is 'all'" do
       expect(Queries::GetContentCollection.new(
-        document_types: 'topic',
+        document_types: "topic",
         fields: %w(base_path publication_state),
-        filters: { locale: 'all' },
+        filters: { locale: "all" },
       ).call).to match_array([
         hash_including("base_path" => "/content.en", "publication_state" => "draft"),
         hash_including("base_path" => "/content.ar", "publication_state" => "draft"),
@@ -333,13 +322,27 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   context "when details hash is requested" do
+    before do
+      FactoryGirl.create(:draft_content_item,
+        base_path: "/z",
+        details: { foo: :bar },
+        document_type: "topic",
+        schema_name: "topic",
+        publishing_app: "publisher"
+      )
+      FactoryGirl.create(:draft_content_item,
+        base_path: "/b",
+        details: { baz: :bat },
+        document_type: "placeholder_topic",
+        schema_name: "placeholder_topic",
+        publishing_app: "publisher"
+      )
+    end
     it "returns the details hash" do
-      FactoryGirl.create(:draft_content_item, base_path: '/z', details: { foo: :bar }, document_type: 'topic', schema_name: 'topic', publishing_app: 'publisher')
-      FactoryGirl.create(:draft_content_item, base_path: '/b', details: { baz: :bat }, document_type: 'placeholder_topic', schema_name: 'placeholder_topic', publishing_app: 'publisher')
       expect(Queries::GetContentCollection.new(
-        document_types: 'topic',
+        document_types: "topic",
         fields: %w(details publication_state),
-        filters: { publishing_app: 'publisher' }
+        filters: { publishing_app: "publisher" }
       ).call).to match_array([
         hash_including("details" => { "foo" => "bar" }, "publication_state" => "draft"),
         hash_including("details" => { "baz" => "bat" }, "publication_state" => "draft"),
@@ -348,12 +351,25 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   describe "search_fields" do
-    let!(:content_item_foo) { FactoryGirl.create(:live_content_item, base_path: '/bar/foo', document_type: 'topic', schema_name: 'topic', title: "Baz") }
-    let!(:content_item_zip) { FactoryGirl.create(:live_content_item, base_path: '/baz', document_type: 'topic', schema_name: 'topic', title: 'zip') }
+    before do
+      FactoryGirl.create(:live_content_item,
+        base_path: "/bar/foo",
+        document_type: "topic",
+        schema_name: "topic",
+        title: "Baz",
+      )
+      FactoryGirl.create(:live_content_item,
+        base_path: "/baz",
+        document_type: "topic",
+        schema_name: "topic",
+        title: "zip"
+      )
+    end
+
     subject do
       Queries::GetContentCollection.new(
-        document_types: 'topic',
-        fields: ['base_path'],
+        document_types: "topic",
+        fields: ["base_path"],
         search_query: search_query
       )
     end
@@ -376,18 +392,32 @@ RSpec.describe Queries::GetContentCollection do
   describe "pagination" do
     context "with multiple content items" do
       before do
-        FactoryGirl.create(:draft_content_item, base_path: '/a', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-06")
-        FactoryGirl.create(:draft_content_item, base_path: '/b', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-05")
-        FactoryGirl.create(:draft_content_item, base_path: '/c', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-04")
-        FactoryGirl.create(:draft_content_item, base_path: '/d', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-03")
-        FactoryGirl.create(:live_content_item, base_path: '/live1', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-02")
-        FactoryGirl.create(:live_content_item, base_path: '/live2', document_type: 'topic', schema_name: 'topic', public_updated_at: "2010-01-01")
+        [
+          ["/a", "2010-01-06"], ["/b", "2010-01-05"], ["/c", "2010-01-04"], ["/d", "2010-01-03"]
+        ].each do |(base_path, public_updated_at)|
+          FactoryGirl.create(:draft_content_item,
+            base_path: base_path,
+            document_type: "topic",
+            schema_name: "topic",
+            public_updated_at: public_updated_at,
+          )
+        end
+        [
+          ["/live1", "2010-01-02"], ["/live2", "2010-01-01"]
+        ].each do |(base_path, public_updated_at)|
+          FactoryGirl.create(:live_content_item,
+            base_path: base_path,
+            document_type: "topic",
+            schema_name: "topic",
+            public_updated_at: public_updated_at,
+          )
+        end
       end
 
       it "limits the results returned" do
         content_items = Queries::GetContentCollection.new(
-          document_types: 'topic',
-          fields: ['publishing_app'],
+          document_types: "topic",
+          fields: ["publishing_app"],
           pagination: Pagination.new(offset: 0, per_page: 3)
         ).call
 
@@ -396,29 +426,29 @@ RSpec.describe Queries::GetContentCollection do
 
       it "fetches results from a specified index" do
         content_items = Queries::GetContentCollection.new(
-          document_types: 'topic',
-          fields: ['base_path'],
+          document_types: "topic",
+          fields: ["base_path"],
           pagination: Pagination.new(offset: 1, per_page: 2)
         ).call
 
-        expect(content_items.first['base_path']).to eq('/b')
+        expect(content_items.first["base_path"]).to eq("/b")
       end
 
       it "when per_page is higher than results we only receive remaining content items" do
         content_items = Queries::GetContentCollection.new(
-          document_types: 'topic',
-          fields: ['base_path'],
+          document_types: "topic",
+          fields: ["base_path"],
           pagination: Pagination.new(offset: 3, per_page: 8)
         ).call.to_a
 
-        expect(content_items.first['base_path']).to eq('/d')
-        expect(content_items.last['base_path']).to eq('/live2')
+        expect(content_items.first["base_path"]).to eq("/d")
+        expect(content_items.last["base_path"]).to eq("/live2")
       end
 
       it "returns all items when no pagination params are specified" do
         content_items = Queries::GetContentCollection.new(
-          document_types: 'topic',
-          fields: ['publishing_app'],
+          document_types: "topic",
+          fields: ["publishing_app"],
         ).call
 
         expect(content_items.count).to eq(6)
@@ -428,42 +458,42 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "result order" do
     before do
-      FactoryGirl.create(:content_item, base_path: "/c4", title: 'D', public_updated_at: DateTime.parse('2014-06-14'))
-      FactoryGirl.create(:content_item, base_path: "/c1", title: 'A', public_updated_at: DateTime.parse('2014-06-13'))
-      FactoryGirl.create(:content_item, base_path: "/c3", title: 'C', public_updated_at: DateTime.parse('2014-06-17'))
-      FactoryGirl.create(:content_item, base_path: "/c2", title: 'B', public_updated_at: DateTime.parse('2014-06-15'))
+      FactoryGirl.create(:content_item, base_path: "/c4", title: "D", public_updated_at: "2014-06-14")
+      FactoryGirl.create(:content_item, base_path: "/c1", title: "A", public_updated_at: "2014-06-13")
+      FactoryGirl.create(:content_item, base_path: "/c3", title: "C", public_updated_at: "2014-06-17")
+      FactoryGirl.create(:content_item, base_path: "/c2", title: "B", public_updated_at: "2014-06-15")
     end
 
     it "returns content items in default order" do
       content_items = Queries::GetContentCollection.new(
-        document_types: 'guide',
+        document_types: "guide",
         fields: %w(public_updated_at),
       ).call.to_a
 
       expect(content_items.count).to eq(4)
-      expect(content_items.first['public_updated_at']).to eq('2014-06-17T00:00:00Z')
-      expect(content_items.last['public_updated_at']).to eq('2014-06-13T00:00:00Z')
+      expect(content_items.first["public_updated_at"]).to eq("2014-06-17T00:00:00Z")
+      expect(content_items.last["public_updated_at"]).to eq("2014-06-13T00:00:00Z")
     end
 
     it "returns paginated content items in default order" do
       content_items = Queries::GetContentCollection.new(
-        document_types: 'guide',
+        document_types: "guide",
         fields: %w(public_updated_at),
         pagination: Pagination.new(offset: 2, per_page: 4)
       ).call.to_a
 
-      expect(content_items.first['public_updated_at']).to eq('2014-06-14T00:00:00Z')
-      expect(content_items.last['public_updated_at']).to eq('2014-06-13T00:00:00Z')
+      expect(content_items.first["public_updated_at"]).to eq("2014-06-14T00:00:00Z")
+      expect(content_items.last["public_updated_at"]).to eq("2014-06-13T00:00:00Z")
     end
   end
 
   describe "#total" do
     it "returns the number of content items" do
-      FactoryGirl.create(:content_item, base_path: '/a', schema_name: 'topic', document_type: 'topic')
-      FactoryGirl.create(:content_item, base_path: '/b', schema_name: 'topic', document_type: 'topic')
+      FactoryGirl.create(:content_item, base_path: "/a", schema_name: "topic", document_type: "topic")
+      FactoryGirl.create(:content_item, base_path: "/b", schema_name: "topic", document_type: "topic")
 
       expect(Queries::GetContentCollection.new(
-        document_types: 'topic',
+        document_types: "topic",
         fields: %w(base_path locale publication_state),
       ).total).to eq(2)
     end
@@ -474,27 +504,27 @@ RSpec.describe Queries::GetContentCollection do
 
         FactoryGirl.create(:live_content_item,
           document: document,
-          document_type: 'topic',
-          schema_name: 'topic',
+          document_type: "topic",
+          schema_name: "topic",
           user_facing_version: 1,
         )
 
         FactoryGirl.create(:draft_content_item,
           document: document,
-          document_type: 'topic',
-          schema_name: 'topic',
+          document_type: "topic",
+          schema_name: "topic",
           user_facing_version: 2,
         )
       end
 
       it "returns the latest item only" do
         expect(Queries::GetContentCollection.new(
-          document_types: 'topic',
+          document_types: "topic",
           fields: %w(base_path locale publication_state),
         ).total).to eq(1)
 
         expect(Queries::GetContentCollection.new(
-          document_types: 'topic',
+          document_types: "topic",
           fields: %w(base_path locale publication_state),
         ).call.first["publication_state"]).to eq("draft")
       end
