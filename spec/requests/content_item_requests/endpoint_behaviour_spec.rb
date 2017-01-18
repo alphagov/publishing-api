@@ -101,7 +101,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       let!(:content_item) {
         FactoryGirl.create(
           :draft_content_item,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: content_id),
         )
       }
 
