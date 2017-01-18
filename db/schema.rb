@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20170116143200) do
   end
 
   create_table "content_items", force: :cascade do |t|
-    t.uuid     "content_id",                                    null: false
+    t.uuid     "content_id"
     t.string   "title"
     t.datetime "public_updated_at"
     t.json     "details",              default: {}
