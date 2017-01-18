@@ -11,13 +11,15 @@ module DependencyResolutionHelper
     locale = "en",
     version = 1
   )
-    FactoryGirl.create(
-      :content_item,
-      content_id: content_id,
+    document = FactoryGirl.create(:document,
+                                  content_id: content_id,
+                                  locale: locale)
+
+    FactoryGirl.create(:content_item,
+      document: document,
       base_path: base_path,
       state: state,
       content_store: content_store_for(state),
-      locale: locale,
       document_type: 'topical_event',
       details: {},
       user_facing_version: version,
@@ -32,8 +34,7 @@ module DependencyResolutionHelper
   def create_link(from, to, link_type, link_position = 0)
     link_set = LinkSet.find_or_create_by(content_id: from)
 
-    FactoryGirl.create(
-      :link,
+    FactoryGirl.create(:link,
       link_set: link_set,
       target_content_id: to,
       link_type: link_type,
