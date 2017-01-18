@@ -2,11 +2,11 @@ require "rails_helper"
 
 RSpec.describe Presenters::ChangeHistoryPresenter do
   let(:content_id) { SecureRandom.uuid }
+  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
   let(:content_item) do
-    FactoryGirl.create(
-      :content_item,
+    FactoryGirl.create(:content_item,
+      document: document,
       details: details.deep_stringify_keys,
-      content_id: content_id,
     )
   end
   let(:details) { {} }
@@ -30,7 +30,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         2.times do |i|
           ChangeNote.create(
             content_item: content_item,
-            content_id: content_item.content_id,
+            content_id: content_id,
             note: i.to_s,
             public_timestamp: Time.now.utc
           )
@@ -45,7 +45,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       [1, 3, 2].to_a.each do |i|
         ChangeNote.create(
           content_item: content_item,
-          content_id: content_item.content_id,
+          content_id: content_id,
           note: i.to_s,
           public_timestamp: i.days.ago
         )
@@ -55,18 +55,16 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
 
     context "multiple content items for a single content id" do
       let(:item1) do
-        FactoryGirl.create(
-          :superseded_content_item,
+        FactoryGirl.create(:superseded_content_item,
+          document: document,
           details: details,
-          content_id: content_id,
           user_facing_version: 1,
         )
       end
       let(:item2) do
-        FactoryGirl.create(
-          :live_content_item,
+        FactoryGirl.create(:live_content_item,
+          document: document,
           details: details,
-          content_id: content_id,
           user_facing_version: 2,
         )
       end
