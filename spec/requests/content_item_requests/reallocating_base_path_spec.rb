@@ -31,8 +31,8 @@ RSpec.describe "Reallocating base paths of content items" do
   end
 
   describe "publishing a draft which has a different content_id to the published content item on the same base_path" do
-    let(:draft_content_id) { SecureRandom.uuid }
-    let(:live_content_id) { SecureRandom.uuid }
+    let(:draft_document) { FactoryGirl.create(:document) }
+    let(:live_document) { FactoryGirl.create(:document) }
 
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
@@ -42,13 +42,13 @@ RSpec.describe "Reallocating base paths of content items" do
       before do
         draft = FactoryGirl.create(
           :draft_content_item,
-          content_id: draft_content_id,
+          document: draft_document,
           base_path: base_path
         )
 
         live = FactoryGirl.create(
           :live_content_item,
-          content_id: live_content_id,
+          document: live_document,
           base_path: base_path
         )
 
@@ -57,8 +57,8 @@ RSpec.describe "Reallocating base paths of content items" do
       end
 
       it "raises an error" do
-        post "/v2/content/#{draft_content_id}/publish",
-          params: { update_type: "major", content_id: draft_content_id }.to_json
+        post "/v2/content/#{draft_document.content_id}/publish",
+          params: { update_type: "major", content_id: draft_document.content_id }.to_json
 
         expect(response.status).to eq(422)
       end
