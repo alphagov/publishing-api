@@ -17,11 +17,9 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
     context "when a content item is in a draft state" do
       let(:content_ids) { [SecureRandom.uuid] }
+      let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
       let!(:draft_content_item) do
-        FactoryGirl.create(
-          :draft_content_item,
-          content_id: content_ids.first,
-        )
+        FactoryGirl.create(:draft_content_item, document: document)
       end
 
       context "and the state_fallback order is [draft]" do
@@ -42,17 +40,16 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
     context "when a content item is in draft and unpublished (withdrawn) states" do
       let(:content_ids) { [SecureRandom.uuid] }
+      let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
       let!(:draft_content_item) do
-        FactoryGirl.create(
-          :draft_content_item,
-          content_id: content_ids.first,
+        FactoryGirl.create(:draft_content_item,
+          document: document,
           user_facing_version: 2,
         )
       end
       let!(:withdrawn_content_item) do
-        FactoryGirl.create(
-          :withdrawn_unpublished_content_item,
-          content_id: content_ids.first,
+        FactoryGirl.create(:withdrawn_unpublished_content_item,
+          document: document,
           user_facing_version: 1,
         )
       end
@@ -70,26 +67,30 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
     context "when a content item is in multiple locales" do
       let(:content_ids) { [SecureRandom.uuid] }
-      let!(:fr_draft_content_item) do
-        FactoryGirl.create(
-          :draft_content_item,
+      let(:fr_document) do
+        FactoryGirl.create(:document,
           content_id: content_ids.first,
           locale: "fr",
         )
       end
-      let!(:en_draft_content_item) do
-        FactoryGirl.create(
-          :draft_content_item,
+      let(:en_document) do
+        FactoryGirl.create(:document,
           content_id: content_ids.first,
           locale: "en",
+        )
+      end
+      let!(:fr_draft_content_item) do
+        FactoryGirl.create(:draft_content_item, document: fr_document)
+      end
+      let!(:en_draft_content_item) do
+        FactoryGirl.create(:draft_content_item,
+          document: en_document,
           user_facing_version: 2,
         )
       end
       let!(:en_published_content_item) do
-        FactoryGirl.create(
-          :live_content_item,
-          content_id: content_ids.first,
-          locale: "en",
+        FactoryGirl.create(:live_content_item,
+          document: en_document,
           user_facing_version: 1,
         )
       end
@@ -139,31 +140,29 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
     context "when multiple content items are requested" do
       let(:content_ids) { [SecureRandom.uuid, SecureRandom.uuid] }
+      let(:vat_document) { FactoryGirl.create(:document, content_id: content_ids.first) }
+      let(:tax_rates_document) { FactoryGirl.create(:document, content_id: content_ids.last) }
       let!(:vat_draft_content_item) do
-        FactoryGirl.create(
-          :draft_content_item,
-          content_id: content_ids.first,
+        FactoryGirl.create(:draft_content_item,
+          document: vat_document,
           user_facing_version: 2,
         )
       end
       let!(:vat_published_content_item) do
-        FactoryGirl.create(
-          :live_content_item,
-          content_id: content_ids.first,
+        FactoryGirl.create(:live_content_item,
+          document: vat_document,
           user_facing_version: 1,
         )
       end
       let!(:tax_rates_draft_content_item) do
-        FactoryGirl.create(
-          :draft_content_item,
-          content_id: content_ids.last,
+        FactoryGirl.create(:draft_content_item,
+          document: tax_rates_document,
           user_facing_version: 2,
         )
       end
       let!(:tax_rates_withdrawn_content_item) do
-        FactoryGirl.create(
-          :withdrawn_unpublished_content_item,
-          content_id: content_ids.last,
+        FactoryGirl.create(:withdrawn_unpublished_content_item,
+          document: tax_rates_document,
           user_facing_version: 1,
         )
       end
@@ -189,18 +188,17 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
     context "when there is a non-renderable document type" do
       let(:content_ids) { [SecureRandom.uuid] }
+      let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
       let!(:draft_content_item) do
-        FactoryGirl.create(
-          :draft_content_item,
-          content_id: content_ids.first,
+        FactoryGirl.create(:draft_content_item,
+          document: document,
           document_type: "gone",
           user_facing_version: 2,
         )
       end
       let!(:published_content_item) do
-        FactoryGirl.create(
-          :live_content_item,
-          content_id: content_ids.first,
+        FactoryGirl.create(:live_content_item,
+          document: document,
           user_facing_version: 1,
         )
       end
