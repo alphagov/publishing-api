@@ -1,12 +1,14 @@
 fields = %i{
   id
   analytics_identifier
+  base_path
   content_id
   description
   details
   document_type
   first_published_at
   last_edited_at
+  locale
   need_ids
   phase
   public_updated_at
@@ -14,14 +16,12 @@ fields = %i{
   redirects
   rendering_app
   routes
+  state
   schema_name
   title
-  update_type
-  base_path
-  locale
-  state
-  user_facing_version
   unpublishing_type
+  update_type
+  user_facing_version
 }
 
 WebContentItem = Struct.new(*fields) do
