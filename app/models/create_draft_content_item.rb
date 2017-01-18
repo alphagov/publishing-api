@@ -11,7 +11,7 @@ class CreateDraftContentItem
     end
   end
 
-  private
+private
 
   attr_reader :payload, :put_content, :previously_published_item
 

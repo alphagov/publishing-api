@@ -35,7 +35,7 @@ class LockVersion < ApplicationRecord
   end
 
   def increment!
-    self.number += 1
+    increment
     save!
   end
 

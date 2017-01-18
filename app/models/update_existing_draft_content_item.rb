@@ -20,7 +20,7 @@ class UpdateExistingDraftContentItem
     update_content_item
   end
 
-  private
+private
 
   def update_lock_version
     version = put_content.send(:check_version_and_raise_if_conflicting, content_item, payload[:previous_version])
