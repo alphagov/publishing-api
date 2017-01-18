@@ -35,13 +35,13 @@ RSpec.describe Queries::GetLinked do
     context "when a content item with no draft exists" do
       before do
         FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: content_id),
           base_path: "/vat-rules-2020",
           title: "VAT rules 2020",
         )
 
         FactoryGirl.create(:live_content_item,
-          content_id: target_content_id,
+          document: FactoryGirl.create(:document, content_id: target_content_id),
           base_path: "/vat-org",
         )
       end
@@ -76,7 +76,7 @@ RSpec.describe Queries::GetLinked do
       before do
         FactoryGirl.create(:live_content_item,
           :with_draft,
-          content_id: target_content_id,
+          document: FactoryGirl.create(:document, content_id: target_content_id),
           base_path: "/pay-now"
         )
       end
@@ -108,7 +108,7 @@ RSpec.describe Queries::GetLinked do
       context "content items link to the wanted content item" do
         before do
           FactoryGirl.create(:live_content_item,
-            content_id: content_id,
+            document: FactoryGirl.create(:document, content_id: content_id),
             title: "VAT and VATy things",
             base_path: "/vat-rates",
           )
@@ -125,11 +125,10 @@ RSpec.describe Queries::GetLinked do
 
           content_item = FactoryGirl.create(:live_content_item,
             base_path: '/vatty',
-            content_id: SecureRandom.uuid,
             title: "Another VATTY thing"
           )
           FactoryGirl.create(:link_set,
-            content_id: content_item.content_id,
+            content_id: content_item.document.content_id,
             links: [
               FactoryGirl.create(:link,
                 link_type: "organisations",
@@ -185,21 +184,18 @@ RSpec.describe Queries::GetLinked do
 
       context "draft items linking to the wanted draft item" do
         before do
-          FactoryGirl.create(
-            :live_content_item,
+          FactoryGirl.create(:live_content_item,
             :with_draft,
-            content_id: another_target_content_id,
+            document: FactoryGirl.create(:document, content_id: another_target_content_id),
             base_path: "/send-now"
           )
 
-          FactoryGirl.create(
-            :draft_content_item,
-            content_id: content_id,
+          FactoryGirl.create(:draft_content_item,
+            document: FactoryGirl.create(:document, content_id: content_id),
             title: "HMRC documents"
           )
 
-          FactoryGirl.create(
-            :link_set,
+          FactoryGirl.create(:link_set,
             content_id: content_id,
             links: [
               FactoryGirl.create(
@@ -210,16 +206,14 @@ RSpec.describe Queries::GetLinked do
             ]
           )
 
-          content_item = FactoryGirl.create(
-            :draft_content_item,
+          content_item = FactoryGirl.create(:draft_content_item,
             base_path: '/other-hmrc-document',
-            content_id: SecureRandom.uuid,
             title: "Another HMRC document"
           )
 
           FactoryGirl.create(
             :link_set,
-            content_id: content_item.content_id,
+            content_id: content_item.document.content_id,
             links: [
               FactoryGirl.create(
                 :link,
@@ -234,6 +228,7 @@ RSpec.describe Queries::GetLinked do
             ]
           )
         end
+
         it "returns array of hashes, with requested fields" do
           expect(
             Queries::GetLinked.new(
