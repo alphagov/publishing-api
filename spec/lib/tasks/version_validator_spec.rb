@@ -2,20 +2,17 @@ require "rails_helper"
 
 RSpec.describe Tasks::VersionValidator do
   let(:content_id) { SecureRandom.uuid }
+  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
 
   before do
-    FactoryGirl.create(
-      :superseded_content_item,
-      content_id: content_id,
+    FactoryGirl.create(:superseded_content_item,
+      document: document,
       user_facing_version: 1,
-      locale: "en"
     )
 
-    FactoryGirl.create(
-      :live_content_item,
-      content_id: content_id,
+    FactoryGirl.create(:live_content_item,
+      document: document,
       user_facing_version: 2,
-      locale: "en"
     )
   end
 
@@ -46,6 +43,7 @@ RSpec.describe Tasks::VersionValidator do
       item = ContentItem.last
       item.locale = 'fr'
       item.user_facing_version = 1
+      item.ensure_document
       item.save!(validate: false)
     end
 
