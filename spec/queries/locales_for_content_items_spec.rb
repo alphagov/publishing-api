@@ -10,8 +10,7 @@ RSpec.describe Queries::LocalesForContentItems do
   )
     FactoryGirl.create(
       type,
-      content_id: content_id,
-      locale: locale,
+      document: Document.find_or_create_by(content_id: content_id, locale: locale),
       base_path: "/#{base_path_prefix}-#{locale}",
       user_facing_version: user_facing_version,
     )
