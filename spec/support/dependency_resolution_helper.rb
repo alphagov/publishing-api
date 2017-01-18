@@ -5,16 +5,11 @@ module DependencyResolutionHelper
   end
 
   def create_content_item(
-    content_id,
+    document,
     base_path,
     state = "published",
-    locale = "en",
     version = 1
   )
-    document = FactoryGirl.create(:document,
-                                  content_id: content_id,
-                                  locale: locale)
-
     FactoryGirl.create(:content_item,
       document: document,
       base_path: base_path,

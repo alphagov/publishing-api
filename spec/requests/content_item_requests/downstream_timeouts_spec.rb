@@ -28,16 +28,18 @@ RSpec.describe "Downstream timeouts", type: :request do
     let(:base_path) { "/vat-rates" }
 
     before do
+      document = FactoryGirl.create(:document, content_id: content_id)
+
       FactoryGirl.create(:live_content_item,
         v2_content_item
           .slice(*ContentItem::TOP_LEVEL_FIELDS)
-          .merge(base_path: base_path, user_facing_version: 1)
+          .merge(base_path: base_path, user_facing_version: 1, document: document)
       )
 
       draft = FactoryGirl.create(:draft_content_item,
         v2_content_item
           .slice(*ContentItem::TOP_LEVEL_FIELDS)
-          .merge(base_path: base_path, user_facing_version: 2)
+          .merge(base_path: base_path, user_facing_version: 2, document: document)
       )
 
       FactoryGirl.create(:access_limit,
