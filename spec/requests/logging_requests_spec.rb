@@ -37,12 +37,6 @@ RSpec.describe "Logging requests", type: :request do
     let(:a) { create_link_set }
     let(:b) { create_link_set }
 
-    let(:doc_a) { FactoryGirl.create(:document, content_id: a) }
-    let(:doc_b) { FactoryGirl.create(:document, content_id: b) }
-
-    let!(:draft_a) { create_content_item(doc_a, "/a", "draft", 2) }
-    let!(:draft_b) { create_content_item(doc_b, "/b", "draft") }
-
     let(:params) do
       v2_content_item.merge(
         content_id: a,
@@ -52,6 +46,8 @@ RSpec.describe "Logging requests", type: :request do
     end
 
     before do
+      create_content_item(a, "/a")
+      create_content_item(b, "/b")
       create_link(a, b, "parent")
     end
 
@@ -70,7 +66,7 @@ RSpec.describe "Logging requests", type: :request do
 
       expect(WebMock).to have_requested(:put, /draft-content-store.*content\/b/)
         .with(headers: {
-          "GOVUK-Dependency-Resolution-Source-Content-Id" => draft_a.content_id,
+          "GOVUK-Dependency-Resolution-Source-Content-Id" => a,
         })
     end
   end

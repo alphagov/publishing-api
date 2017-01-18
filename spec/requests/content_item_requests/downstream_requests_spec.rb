@@ -202,14 +202,10 @@ RSpec.describe "Downstream requests", type: :request do
     let(:a) { create_link_set }
     let(:b) { create_link_set }
 
-    let!(:doc_a) { FactoryGirl.create(:document, content_id: a) }
-    let!(:doc_b) { FactoryGirl.create(:document, content_id: b) }
-
-    let!(:draft_a) { create_content_item(doc_a, "/a", "superseded", 1) }
-    let!(:published_a) { create_content_item(doc_a, "/a", "published", 2) }
-    let!(:draft_b) { create_content_item(doc_b, "/b", "draft") }
-
     before do
+      create_content_item(a, "/a", version: 1)
+      create_content_item(a, "/a", factory: :draft_content_item, version: 2)
+      create_content_item(b, "/b", factory: :draft_content_item)
       create_link(a, b, "parent")
     end
 
@@ -224,7 +220,6 @@ RSpec.describe "Downstream requests", type: :request do
     end
 
     it "doesn't send draft dependencies to the live content store" do
-      published_a.update_attributes!(state: 'draft', content_store: 'draft')
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:live_content_store)).to_not receive(:put_content_item)
@@ -234,7 +229,6 @@ RSpec.describe "Downstream requests", type: :request do
     end
 
     it "doesn't send draft dependencies to the message queue" do
-      published_a.update_attributes!(state: 'draft', content_store: 'draft')
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
         .with(a_hash_including(base_path: '/a'))
