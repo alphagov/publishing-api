@@ -6,8 +6,8 @@ class CreateDraftContentItem
   end
 
   def call
-    content_item.tap do
-      fill_out_new_content_item
+    edition.tap do
+      fill_out_new_edition
     end
   end
 
@@ -15,17 +15,17 @@ private
 
   attr_reader :payload, :put_content, :previously_published_item
 
-  def content_item
-    @content_item ||= create_content_item
+  def edition
+    @edition ||= create_edition
   end
 
-  def create_content_item
-    attributes = content_item_attributes_from_payload.merge(
+  def create_edition
+    attributes = edition_attributes_from_payload.merge(
       state: "draft",
       content_store: "draft",
       user_facing_version: user_facing_version_number_for_new_draft,
     )
-    document.content_items.create!(attributes)
+    document.editions.create!(attributes)
   end
 
   def user_facing_version_number_for_new_draft
@@ -36,7 +36,7 @@ private
     put_content.document
   end
 
-  def fill_out_new_content_item
+  def fill_out_new_edition
     document.increment! :stale_lock_version
     ensure_link_set_exists
 
@@ -52,13 +52,13 @@ private
 
   def set_first_published_at
     return unless previously_published_item.set_first_published_at?
-    return if content_item.first_published_at
-    content_item.update_attributes(
+    return if edition.first_published_at
+    edition.update_attributes(
       first_published_at: previously_published_item.first_published_at,
     )
   end
 
-  def content_item_attributes_from_payload
+  def edition_attributes_from_payload
     payload.slice(*ContentItem::TOP_LEVEL_FIELDS)
   end
 end

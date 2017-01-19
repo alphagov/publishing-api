@@ -9,7 +9,7 @@ module Queries
       content_ids,
       content_stores = %w[draft live]
     )
-      Document.joins(:content_items)
+      Document.joins(:editions)
         .where(
           content_id: content_ids,
           content_items: { content_store: content_stores }

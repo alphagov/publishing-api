@@ -1,7 +1,7 @@
 class Document < ApplicationRecord
   include FindOrCreateLocked
 
-  has_many :content_items, class_name: Edition
+  has_many :editions
   has_one :draft, -> { where(content_store: "draft") }, class_name: Edition
   has_one :live, -> { where(content_store: "live") }, class_name: Edition
 
