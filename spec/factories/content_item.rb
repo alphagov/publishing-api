@@ -36,7 +36,7 @@ FactoryGirl.define do
 
     after(:create) do |item, evaluator|
       unless item.update_type == "minor" || evaluator.change_note.nil?
-        FactoryGirl.create(:change_note, note: evaluator.change_note, content_item: item)
+        FactoryGirl.create(:change_note, note: evaluator.change_note, edition: item)
       end
     end
   end

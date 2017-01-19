@@ -33,7 +33,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           user_facing_version: user_facing_version,
         )
       end
-      let!(:change_note) { ChangeNote.create(content_item: existing_draft_item) }
+      let!(:change_note) { ChangeNote.create(edition: existing_draft_item) }
 
       it "deletes the draft item" do
         expect {
@@ -64,7 +64,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         access_limit = AccessLimit.find_by(edition: existing_draft_item)
         user_facing_version = UserFacingVersion.find_by(content_item: existing_draft_item)
         lock_version = LockVersion.find_by(target: existing_draft_item)
-        change_notes = ChangeNote.where(content_item: existing_draft_item)
+        change_notes = ChangeNote.where(edition: existing_draft_item)
 
         expect(state).to be_nil
         expect(translation).to be_nil
