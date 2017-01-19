@@ -205,7 +205,7 @@ class Edition < ApplicationRecord
     content_store = type == "substitute" ? nil : "live"
     update_attributes!(state: "unpublished", content_store: content_store)
 
-    unpublishing = Unpublishing.find_by(content_item: self)
+    unpublishing = Unpublishing.find_by(edition: self)
 
     unpublished_at = nil unless type == "withdrawal"
 
@@ -219,7 +219,7 @@ class Edition < ApplicationRecord
       unpublishing
     else
       Unpublishing.create!(
-        content_item: self,
+        edition: self,
         type: type,
         explanation: explanation,
         alternative_path: alternative_path,
