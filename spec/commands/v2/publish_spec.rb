@@ -85,7 +85,7 @@ RSpec.describe Commands::V2::Publish do
       it "marks the previously published item as 'superseded'" do
         described_class.call(payload)
 
-        new_item = ContentItem.find(live_item.id)
+        new_item = Edition.find(live_item.id)
         expect(new_item.state).to eq("superseded")
       end
     end
@@ -102,7 +102,7 @@ RSpec.describe Commands::V2::Publish do
       it "marks the previously unpublished item as 'superseded'" do
         described_class.call(payload)
 
-        new_item = ContentItem.find(live_item.id)
+        new_item = Edition.find(live_item.id)
         expect(new_item.state).to eq("superseded")
       end
     end
@@ -120,7 +120,7 @@ RSpec.describe Commands::V2::Publish do
       it "unpublishes the content item which is in the way" do
         described_class.call(payload)
 
-        updated_other_content_item = ContentItem.find(other_content_item.id)
+        updated_other_content_item = Edition.find(other_content_item.id)
 
         expect(updated_other_content_item.state).to eq("unpublished")
         expect(updated_other_content_item.locale).to eq(draft_locale)
@@ -144,7 +144,7 @@ RSpec.describe Commands::V2::Publish do
       it "changes the state of the draft item to 'published'" do
         described_class.call(payload)
 
-        updated_draft_item = ContentItem.find(draft_item.id)
+        updated_draft_item = Edition.find(draft_item.id)
         expect(updated_draft_item.state).to eq("published")
       end
 
@@ -220,7 +220,7 @@ RSpec.describe Commands::V2::Publish do
 
             described_class.call(payload)
 
-            expect(ContentItem.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
+            expect(Edition.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
           end
 
           it "preserves the public_updated_at value from the last unpublished item" do
@@ -234,7 +234,7 @@ RSpec.describe Commands::V2::Publish do
 
             described_class.call(payload)
 
-            expect(ContentItem.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
+            expect(Edition.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
           end
         end
 
@@ -315,7 +315,7 @@ RSpec.describe Commands::V2::Publish do
       it "publishes the redirect already created, from the old location to the new location" do
         described_class.call(payload)
 
-        redirect = ContentItem.joins(:document).find_by(
+        redirect = Edition.joins(:document).find_by(
           base_path: "/hat-rates",
           documents: { locale: "en" },
           state: "published",
@@ -328,7 +328,7 @@ RSpec.describe Commands::V2::Publish do
       it "supersedes the previously published item" do
         described_class.call(payload)
 
-        updated_item = ContentItem.find(live_item.id)
+        updated_item = Edition.find(live_item.id)
         expect(updated_item.state).to eq("superseded")
       end
     end
@@ -410,7 +410,7 @@ RSpec.describe Commands::V2::Publish do
       it "publishes the item" do
         described_class.call(payload)
 
-        updated_item = ContentItem.find(pathless_content_item.id)
+        updated_item = Edition.find(pathless_content_item.id)
         expect(updated_item.state).to eq("published")
       end
 
@@ -426,7 +426,7 @@ RSpec.describe Commands::V2::Publish do
         it "publishes the draft" do
           described_class.call(payload)
 
-          updated_item = ContentItem.find(pathless_content_item.id)
+          updated_item = Edition.find(pathless_content_item.id)
           expect(updated_item.state).to eq("published")
         end
       end

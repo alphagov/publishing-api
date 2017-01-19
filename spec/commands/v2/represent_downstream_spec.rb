@@ -63,7 +63,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with("downstream_low", a_hash_including(:content_id, :locale, :payload_version))
           .exactly(2).times
-        subject.call(ContentItem.joins(:document)
+        subject.call(Edition.joins(:document)
           .where(document_type: "guidance").pluck('documents.content_id'), false)
       end
     end

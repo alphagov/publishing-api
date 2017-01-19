@@ -7,7 +7,7 @@ module Queries
       return if state == "unpublished" && Unpublishing.is_substitute?(content_item_id)
 
       documents_table = Document.arel_table
-      content_items_table = ContentItem.arel_table
+      content_items_table = Edition.arel_table
       unpublishings_table = Unpublishing.arel_table
 
       allowed_states = state == "draft" ? %w(draft) : %w(published unpublished)

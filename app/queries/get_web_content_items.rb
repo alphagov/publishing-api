@@ -3,7 +3,7 @@ module Queries
     extend ArelHelpers
 
     def self.call(content_item_ids, presenter = WebContentItem)
-      content_items = ContentItem.arel_table
+      content_items = Edition.arel_table
       filtered = scope
         .where(content_items[:id].in(content_item_ids))
       get_rows(filtered).map do |row|
@@ -17,7 +17,7 @@ module Queries
 
     def self.for_content_store(content_id, locale, include_draft = false)
       documents = Document.arel_table
-      content_items = ContentItem.arel_table
+      content_items = Edition.arel_table
       unpublishings = Unpublishing.arel_table
 
       allowed_states = [:published, :unpublished]
@@ -40,7 +40,7 @@ module Queries
 
     def self.scope(order = nil)
       documents = Document.arel_table
-      content_items = ContentItem.arel_table
+      content_items = Edition.arel_table
       unpublishings = Unpublishing.arel_table
 
       content_items

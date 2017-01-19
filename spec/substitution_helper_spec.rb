@@ -34,7 +34,7 @@ RSpec.describe SubstitutionHelper do
       let(:new_content_id) { existing_item.content_id }
 
       it "does not discard the existing draft" do
-        expect(ContentItem.exists?(id: existing_item.id)).to eq(true)
+        expect(Edition.exists?(id: existing_item.id)).to eq(true)
       end
 
       context "when the existing item is published" do
@@ -58,7 +58,7 @@ RSpec.describe SubstitutionHelper do
         let(:existing_document_type) { "gone" }
 
         it "discards the existing draft" do
-          expect(ContentItem.exists?(id: existing_item.id)).to eq(false)
+          expect(Edition.exists?(id: existing_item.id)).to eq(false)
         end
 
         it "doesn't unpublish any other items" do
@@ -101,7 +101,7 @@ RSpec.describe SubstitutionHelper do
         let(:new_document_type) { "gone" }
 
         it "discards the existing draft" do
-          expect(ContentItem.exists?(id: existing_item.id)).to eq(false)
+          expect(Edition.exists?(id: existing_item.id)).to eq(false)
         end
 
         it "doesn't unpublish any other items" do
@@ -142,7 +142,7 @@ RSpec.describe SubstitutionHelper do
 
       context "when neither item has a document_type that is substitutable" do
         it "does not discard the existing draft" do
-          expect(ContentItem.exists?(id: existing_item.id)).to eq(true)
+          expect(Edition.exists?(id: existing_item.id)).to eq(true)
         end
 
         context "when the existing item is published" do

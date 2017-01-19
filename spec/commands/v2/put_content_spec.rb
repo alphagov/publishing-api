@@ -122,7 +122,7 @@ RSpec.describe Commands::V2::PutContent do
       it "creates the draft's user-facing version using the live's user-facing version as a starting point" do
         described_class.call(payload)
 
-        content_item = ContentItem.last
+        content_item = Edition.last
 
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
@@ -133,7 +133,7 @@ RSpec.describe Commands::V2::PutContent do
       it "copies over the first_published_at timestamp" do
         described_class.call(payload)
 
-        content_item = ContentItem.last
+        content_item = Edition.last
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
 
@@ -151,13 +151,13 @@ RSpec.describe Commands::V2::PutContent do
         it "sets the correct base path on the location" do
           described_class.call(payload)
 
-          expect(ContentItem.where(base_path: "/moved", state: "draft")).to exist
+          expect(Edition.where(base_path: "/moved", state: "draft")).to exist
         end
 
         it "creates a redirect" do
           described_class.call(payload)
 
-          redirect = ContentItem.find_by(
+          redirect = Edition.find_by(
             base_path: base_path,
             state: "draft",
           )
@@ -187,9 +187,9 @@ RSpec.describe Commands::V2::PutContent do
 
           it "creates a separate draft content item in the given locale" do
             described_class.call(payload)
-            expect(ContentItem.count).to eq(2)
+            expect(Edition.count).to eq(2)
 
-            content_item = ContentItem.last
+            content_item = Edition.last
             expect(content_item.title).to eq("French Title")
             expect(content_item.locale).to eq("fr")
           end
@@ -210,7 +210,7 @@ RSpec.describe Commands::V2::PutContent do
           thread1.join
           thread2.join
 
-          expect(ContentItem.all.pluck(:state)).to eq %w(superseded published draft)
+          expect(Edition.all.pluck(:state)).to eq %w(superseded published draft)
         end
       end
     end
@@ -227,7 +227,7 @@ RSpec.describe Commands::V2::PutContent do
       it "creates the draft's lock version using the unpublished lock version as a starting point" do
         described_class.call(payload)
 
-        content_item = ContentItem.last
+        content_item = Edition.last
 
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
@@ -238,7 +238,7 @@ RSpec.describe Commands::V2::PutContent do
       it "creates the draft's user-facing version using the unpublished user-facing version as a starting point" do
         described_class.call(payload)
 
-        content_item = ContentItem.last
+        content_item = Edition.last
 
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
@@ -252,7 +252,7 @@ RSpec.describe Commands::V2::PutContent do
 
         described_class.call(payload)
 
-        content_item = ContentItem.last
+        content_item = Edition.last
 
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
@@ -263,7 +263,7 @@ RSpec.describe Commands::V2::PutContent do
     context "when the payload is for a brand new content item" do
       it "creates a content item" do
         described_class.call(payload)
-        content_item = ContentItem.last
+        content_item = Edition.last
 
         expect(content_item).to be_present
         expect(content_item.content_id).to eq(content_id)
@@ -272,21 +272,21 @@ RSpec.describe Commands::V2::PutContent do
 
       it "sets a draft state for the content item" do
         described_class.call(payload)
-        content_item = ContentItem.last
+        content_item = Edition.last
 
         expect(content_item.state).to eq("draft")
       end
 
       it "sets a user-facing version of 1 for the content item" do
         described_class.call(payload)
-        content_item = ContentItem.last
+        content_item = Edition.last
 
         expect(content_item.user_facing_version).to eq(1)
       end
 
       it "creates a lock version for the content item" do
         described_class.call(payload)
-        content_item = ContentItem.last
+        content_item = Edition.last
 
         expect(content_item.document.stale_lock_version).to eq(1)
       end
@@ -366,7 +366,7 @@ RSpec.describe Commands::V2::PutContent do
         it "creates a redirect" do
           described_class.call(payload)
 
-          redirect = ContentItem.find_by(
+          redirect = Edition.find_by(
             base_path: "/old-path",
             state: "draft",
           )
@@ -402,9 +402,9 @@ RSpec.describe Commands::V2::PutContent do
 
           it "creates a separate draft content item in the given locale" do
             described_class.call(payload)
-            expect(ContentItem.count).to eq(2)
+            expect(Edition.count).to eq(2)
 
-            content_item = ContentItem.last
+            content_item = Edition.last
             expect(content_item.title).to eq("French Title")
 
             expect(content_item.locale).to eq("fr")
@@ -423,7 +423,7 @@ RSpec.describe Commands::V2::PutContent do
 
           it "deletes the substitute item" do
             described_class.call(payload)
-            expect(ContentItem.exists?(id: substitute_item.id)).to eq(false)
+            expect(Edition.exists?(id: substitute_item.id)).to eq(false)
           end
 
           context "conflicting version" do
@@ -436,7 +436,7 @@ RSpec.describe Commands::V2::PutContent do
               expect {
                 described_class.call(payload)
               }.to raise_error(CommandError, /Conflict/)
-              expect(ContentItem.exists?(id: substitute_item.id)).to eq(true)
+              expect(Edition.exists?(id: substitute_item.id)).to eq(true)
             end
           end
         end
@@ -464,7 +464,7 @@ RSpec.describe Commands::V2::PutContent do
 
         it "resets those attributes to their defaults from the database" do
           described_class.call(payload)
-          content_item = ContentItem.last
+          content_item = Edition.last
 
           expect(content_item.redirects).to eq([])
           expect(content_item.phase).to eq("live")
@@ -529,7 +529,7 @@ RSpec.describe Commands::V2::PutContent do
 
         access_limit = AccessLimit.last
         expect(access_limit.users).to eq(["new-user"])
-        expect(access_limit.content_item).to eq(ContentItem.last)
+        expect(access_limit.content_item).to eq(Edition.last)
       end
     end
 
@@ -650,7 +650,7 @@ RSpec.describe Commands::V2::PutContent do
 
           described_class.call(payload.merge(last_edited_at: last_edited_at))
 
-          content_item = ContentItem.last
+          content_item = Edition.last
 
           expect(content_item.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
         end
@@ -660,7 +660,7 @@ RSpec.describe Commands::V2::PutContent do
         Timecop.freeze do
           described_class.call(payload)
 
-          content_item = ContentItem.last
+          content_item = Edition.last
 
           expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
         end
@@ -727,7 +727,7 @@ RSpec.describe Commands::V2::PutContent do
       it "saves the content as draft" do
         expect {
           described_class.call(payload)
-        }.to change(ContentItem, :count).by(1)
+        }.to change(Edition, :count).by(1)
       end
 
       it "sends to the downstream draft worker" do
@@ -760,7 +760,7 @@ RSpec.describe Commands::V2::PutContent do
         it "creates a new draft" do
           expect {
             described_class.call(payload)
-          }.to change(ContentItem, :count).by(1)
+          }.to change(Edition, :count).by(1)
         end
       end
     end

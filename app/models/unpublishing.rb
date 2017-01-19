@@ -1,7 +1,7 @@
 class Unpublishing < ApplicationRecord
   self.inheritance_column = nil
 
-  belongs_to :content_item
+  belongs_to :content_item, class_name: Edition
 
   VALID_TYPES = %w(
     gone

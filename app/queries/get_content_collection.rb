@@ -46,7 +46,7 @@ module Queries
     )
 
     def content_items
-      scope = ContentItem.where(document_type: lookup_document_types)
+      scope = Edition.where(document_type: lookup_document_types)
       scope = scope.where(publishing_app: publishing_app) if publishing_app
       scope = scope.where(state: states) if states.present?
       scope = scope.joins(:document).where(documents: { locale: locale }) unless locale == "all"

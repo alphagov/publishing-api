@@ -7,7 +7,7 @@ class StateForDocumentValidator < ActiveModel::Validator
       state: record.state == "draft" ? "draft" : %w(published unpublished),
     }
 
-    conflict = ContentItem.where(criteria).where.not(id: record.id).order(nil).first
+    conflict = Edition.where(criteria).where.not(id: record.id).order(nil).first
 
     if conflict
       error = "state=#{record.state} and document=#{record.document_id} "

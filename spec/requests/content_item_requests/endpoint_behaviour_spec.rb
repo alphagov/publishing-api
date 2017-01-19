@@ -23,7 +23,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     it "responds with the presented content item" do
       put "/v2/content/#{content_id}", params: content_item.to_json
 
-      updated_content_item = ContentItem.joins(:document)
+      updated_content_item = Edition.joins(:document)
         .find_by!("documents.content_id": content_id)
       presented_content_item = Presenters::Queries::ContentItemPresenter.present(
         updated_content_item,
@@ -113,7 +113,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       it "responds with the presented content item" do
         get "/v2/content/#{content_id}"
 
-        updated_content_item = ContentItem.joins(:document)
+        updated_content_item = Edition.joins(:document)
           .find_by!("documents.content_id": content_id)
         presented_content_item = Presenters::Queries::ContentItemPresenter.present(
           updated_content_item,

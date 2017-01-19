@@ -13,6 +13,16 @@ RSpec.describe LockVersion do
     expect(lock_version).to be_valid
   end
 
+  it "works with a ContentItem target_type" do
+    content_item = FactoryGirl.create(:content_item)
+    lock_version = LockVersion.create!(target: content_item)
+    lock_version.update_attributes!(target_type: "ContentItem")
+
+    expect(lock_version.number).to be_zero
+    expect(lock_version).to be_valid
+    expect(lock_version.target).to_not be_nil
+  end
+
   describe "#conflicts_with?(previous_version_number)" do
     before do
       subject.number = 2

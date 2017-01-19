@@ -6,7 +6,7 @@ module Presenters
 
     def self.present(web_content_item, state_fallback_order:)
       return {} unless web_content_item
-      if web_content_item.is_a?(ContentItem)
+      if web_content_item.is_a?(Edition)
         # TODO: Add deprecation notice here once we start to migrate other parts of
         # the app to use WebContentItem. Adding a notice now would be too noisy
         web_content_item = ::Queries::GetWebContentItems.(web_content_item.id).first
@@ -87,7 +87,7 @@ module Presenters
     end
 
     def locale_fallback_order
-      [web_content_item.locale, ContentItem::DEFAULT_LOCALE].uniq
+      [web_content_item.locale, Edition::DEFAULT_LOCALE].uniq
     end
 
     def rendered_details

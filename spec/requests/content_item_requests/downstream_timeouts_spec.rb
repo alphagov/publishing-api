@@ -32,13 +32,13 @@ RSpec.describe "Downstream timeouts", type: :request do
 
       FactoryGirl.create(:live_content_item,
         v2_content_item
-          .slice(*ContentItem::TOP_LEVEL_FIELDS)
+          .slice(*Edition::TOP_LEVEL_FIELDS)
           .merge(base_path: base_path, user_facing_version: 1, document: document)
       )
 
       draft = FactoryGirl.create(:draft_content_item,
         v2_content_item
-          .slice(*ContentItem::TOP_LEVEL_FIELDS)
+          .slice(*Edition::TOP_LEVEL_FIELDS)
           .merge(base_path: base_path, user_facing_version: 2, document: document)
       )
 

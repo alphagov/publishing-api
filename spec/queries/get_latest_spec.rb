@@ -25,7 +25,7 @@ RSpec.describe Queries::GetLatest do
   end
 
   it "returns a scope of the latest content_items for the given scope" do
-    scope = ContentItem.all
+    scope = Edition.all
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/a3", "/b1", "/b2", "/c2"])
 

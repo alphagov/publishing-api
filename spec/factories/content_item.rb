@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :content_item do
+  factory :content_item, class: "Edition" do
     document
     title "VAT rates"
     description "VAT rates for goods and services"
