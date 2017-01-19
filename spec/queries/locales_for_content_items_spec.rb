@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Queries::LocalesForContentItems do
-  def create_content_item(
+  def create_edition(
     content_id,
-    type = :live_content_item,
+    type = :live_edition,
     user_facing_version = 1,
     locale = "en",
     base_path_prefix = "vat"
@@ -33,8 +33,8 @@ RSpec.describe Queries::LocalesForContentItems do
 
     context "when there are two live content items in english" do
       before do
-        create_content_item(content_id_1, :live_content_item, 1, "en", "path-1")
-        create_content_item(content_id_2, :live_content_item, 1, "en", "path-2")
+        create_edition(content_id_1, :live_edition, 1, "en", "path-1")
+        create_edition(content_id_2, :live_edition, 1, "en", "path-2")
       end
 
       let(:results) do
@@ -49,12 +49,12 @@ RSpec.describe Queries::LocalesForContentItems do
 
     context "when there are live content items in multiple locales" do
       before do
-        create_content_item(content_id_1, :live_content_item, 1, "en", "path-1")
-        create_content_item(content_id_1, :live_content_item, 1, "cy", "path-1")
-        create_content_item(content_id_1, :live_content_item, 1, "fr", "path-1")
-        create_content_item(content_id_2, :live_content_item, 1, "es", "path-2")
-        create_content_item(content_id_2, :live_content_item, 1, "cy", "path-2")
-        create_content_item(content_id_2, :live_content_item, 1, "de", "path-2")
+        create_edition(content_id_1, :live_edition, 1, "en", "path-1")
+        create_edition(content_id_1, :live_edition, 1, "cy", "path-1")
+        create_edition(content_id_1, :live_edition, 1, "fr", "path-1")
+        create_edition(content_id_2, :live_edition, 1, "es", "path-2")
+        create_edition(content_id_2, :live_edition, 1, "cy", "path-2")
+        create_edition(content_id_2, :live_edition, 1, "de", "path-2")
       end
 
       let(:results) do
@@ -73,8 +73,8 @@ RSpec.describe Queries::LocalesForContentItems do
 
     context "when some of the items are drafts" do
       before do
-        create_content_item(content_id_1, :live_content_item, 1, "en", "path-1")
-        create_content_item(content_id_2, :draft_content_item, 1, "en", "path-2")
+        create_edition(content_id_1, :live_edition, 1, "en", "path-1")
+        create_edition(content_id_2, :draft_edition, 1, "en", "path-2")
       end
 
       let(:results) do
@@ -101,8 +101,8 @@ RSpec.describe Queries::LocalesForContentItems do
 
     context "when some of the items are superseded" do
       before do
-        create_content_item(content_id_1, :live_content_item, 1, "en", "path-1")
-        create_content_item(content_id_2, :superseded_content_item, 1, "en", "path-2")
+        create_edition(content_id_1, :live_edition, 1, "en", "path-1")
+        create_edition(content_id_2, :superseded_edition, 1, "en", "path-2")
       end
 
       let(:results) do

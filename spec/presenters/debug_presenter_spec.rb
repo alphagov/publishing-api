@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe Presenters::DebugPresenter do
   let(:document) { FactoryGirl.create(:document) }
 
-  let!(:content_item) do
-    FactoryGirl.create(:draft_content_item,
+  let!(:edition) do
+    FactoryGirl.create(:draft_edition,
                        document: document,
                        user_facing_version: 3)
   end

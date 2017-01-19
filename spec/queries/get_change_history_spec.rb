@@ -14,16 +14,16 @@ RSpec.describe Queries::GetChangeHistory do
   subject { described_class }
 
   let!(:item1) do
-    FactoryGirl.create(:content_item, details: details, publishing_app: app1)
+    FactoryGirl.create(:edition, details: details, publishing_app: app1)
   end
   let!(:item2) do
-    FactoryGirl.create(:content_item, details: details, publishing_app: app1)
+    FactoryGirl.create(:edition, details: details, publishing_app: app1)
   end
   let!(:item3) do
-    FactoryGirl.create(:content_item, details: details, publishing_app: app2)
+    FactoryGirl.create(:edition, details: details, publishing_app: app2)
   end
   let!(:item4) do
-    FactoryGirl.create(:content_item, details: {}, publishing_app: app2)
+    FactoryGirl.create(:edition, details: {}, publishing_app: app2)
   end
 
   it "gets application-specific history data" do

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "GET /v2/content", type: :request do
   let!(:policy_1) {
-    FactoryGirl.create(:content_item,
+    FactoryGirl.create(:edition,
       state: "draft",
       document_type: "policy",
       schema_name: "policy",
@@ -12,7 +12,7 @@ RSpec.describe "GET /v2/content", type: :request do
   }
 
   let!(:policy_2) {
-    FactoryGirl.create(:content_item,
+    FactoryGirl.create(:edition,
       state: "published",
       document_type: "policy",
       schema_name: "policy",

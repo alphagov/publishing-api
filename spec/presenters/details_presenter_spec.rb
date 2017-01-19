@@ -6,33 +6,31 @@ RSpec.describe Presenters::DetailsPresenter do
       instance_double(Presenters::ChangeHistoryPresenter, change_history: [])
     end
     subject do
-      described_class.new(
-        content_item_details, change_history_presenter
-      ).details
+      described_class.new(edition_details, change_history_presenter).details
     end
 
     context "when we're passed details without a body" do
-      let(:content_item_details) { {} }
+      let(:edition_details) { {} }
 
       it "matches original details" do
-        is_expected.to match(content_item_details)
+        is_expected.to match(edition_details)
       end
     end
 
     context "when we're passed a body which isn't enumerable" do
-      let(:content_item_details) do
+      let(:edition_details) do
         {
           body: "Something about VAT"
         }
       end
 
       it "matches original details" do
-        is_expected.to match(content_item_details)
+        is_expected.to match(edition_details)
       end
     end
 
     context "when we're passed details with govspeak and HTML" do
-      let(:content_item_details) do
+      let(:edition_details) do
         {
           body: [
             { content_type: "text/html", content: "<b>html</b>" },
@@ -42,12 +40,12 @@ RSpec.describe Presenters::DetailsPresenter do
       end
 
       it "matches original details" do
-        is_expected.to match(content_item_details)
+        is_expected.to match(edition_details)
       end
     end
 
     context "when we're passed govspeak without HTML" do
-      let(:content_item_details) do
+      let(:edition_details) do
         {
           body: [
             { content_type: "text/govspeak", content: "**hello**" }
@@ -68,7 +66,7 @@ RSpec.describe Presenters::DetailsPresenter do
     end
 
     context "when we're passed multiple govspeak fields" do
-      let(:content_item_details) do
+      let(:edition_details) do
         {
           body: [
             { content_type: "text/govspeak", content: "**hello**" }
@@ -97,7 +95,7 @@ RSpec.describe Presenters::DetailsPresenter do
     end
 
     context "when we're passed hashes rather than arrays" do
-      let(:content_item_details) do
+      let(:edition_details) do
         {
           body: { content_type: "text/govspeak", content: "**hello**" },
         }
@@ -116,17 +114,17 @@ RSpec.describe Presenters::DetailsPresenter do
     end
 
     context "when we're passed an image hash" do
-      let(:content_item_details) do
+      let(:edition_details) do
         { image: { content_type: "image/png", content: "some content" } }
       end
 
       it "doesn't wrap the hash in an array" do
-        expect(subject).to eq content_item_details
+        expect(subject).to eq edition_details
       end
     end
 
     context "value contains nested array" do
-      let(:content_item_details) { { other: %w(an array of strings) } }
+      let(:edition_details) { { other: %w(an array of strings) } }
       it "doesn't try to convert to govspeak" do
         expect { subject }.to_not raise_error
       end

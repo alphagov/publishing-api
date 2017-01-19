@@ -10,7 +10,7 @@ RSpec.describe State do
   end
 
   describe ".unpublish" do
-    let(:live_item) { FactoryGirl.create(:live_content_item) }
+    let(:live_item) { FactoryGirl.create(:live_edition) }
 
     it "changes the state name to 'unpublished'" do
       expect {

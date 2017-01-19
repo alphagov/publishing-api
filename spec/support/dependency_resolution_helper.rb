@@ -4,10 +4,10 @@ module DependencyResolutionHelper
     link_set.content_id
   end
 
-  def create_content_item(
+  def create_edition(
     content_id,
     base_path,
-    factory: :live_content_item,
+    factory: :live_edition,
     locale: "en",
     version: 1
   )

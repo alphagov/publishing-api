@@ -42,7 +42,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     context "for a live content item" do
       let(:edition) do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           base_path: base_path,
           details: details)
       end
@@ -55,7 +55,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     context "for a draft content item" do
       let(:edition) do
-        FactoryGirl.create(:draft_content_item,
+        FactoryGirl.create(:draft_edition,
           base_path: base_path,
           details: details)
       end
@@ -68,7 +68,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     context "for a withdrawn content item" do
       let!(:edition) do
-        FactoryGirl.create(:withdrawn_unpublished_content_item,
+        FactoryGirl.create(:withdrawn_unpublished_edition,
           base_path: base_path,
           details: details)
       end
@@ -89,7 +89,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
       context "with an overridden unpublished_at" do
         let!(:edition) do
-          FactoryGirl.create(:withdrawn_unpublished_content_item,
+          FactoryGirl.create(:withdrawn_unpublished_edition,
             base_path: base_path,
             details: details,
             unpublished_at: DateTime.new(2016, 9, 10, 4, 5, 6)
@@ -112,8 +112,8 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a content item with dependencies" do
-      let(:a) { FactoryGirl.create(:content_item, base_path: "/a") }
-      let(:b) { FactoryGirl.create(:content_item, base_path: "/b") }
+      let(:a) { FactoryGirl.create(:edition, base_path: "/a") }
+      let(:b) { FactoryGirl.create(:edition, base_path: "/b") }
 
       before do
         FactoryGirl.create(:link_set, content_id: a.content_id, links: [
@@ -158,7 +158,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     context "for a content item with change notes" do
       let(:edition) do
-        FactoryGirl.create(:draft_content_item,
+        FactoryGirl.create(:draft_edition,
           base_path: base_path,
           details: details.slice(:body))
       end
@@ -172,7 +172,7 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     describe "conditional attributes" do
-      let!(:edition) { FactoryGirl.create(:live_content_item) }
+      let!(:edition) { FactoryGirl.create(:live_edition) }
       let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.content_id) }
 
       context "when the link_set is not present" do
@@ -184,7 +184,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       context "when the public_updated_at is not present" do
-        let(:edition) { FactoryGirl.create(:gone_draft_content_item) }
+        let(:edition) { FactoryGirl.create(:gone_draft_edition) }
 
         it "does not raise an error" do
           expect { result }.not_to raise_error
@@ -198,7 +198,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       }
 
       context "in draft" do
-        let(:edition) { FactoryGirl.create(:draft_content_item) }
+        let(:edition) { FactoryGirl.create(:draft_edition) }
 
         it "populates the access_limited hash" do
           expect(result[:access_limited][:users].length).to eq(1)
@@ -206,7 +206,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       context "in live" do
-        let(:edition) { FactoryGirl.create(:live_content_item) }
+        let(:edition) { FactoryGirl.create(:live_edition) }
 
         it "does not send an access_limited hash" do
           expect(result).not_to include(:access_limited)
@@ -232,7 +232,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       let(:edition) do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           base_path: base_path,
           details: details,
         )

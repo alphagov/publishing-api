@@ -9,7 +9,7 @@ RSpec.describe "Reallocating base paths of content items" do
   end
 
   let(:regular_payload) do
-    FactoryGirl.build(:draft_content_item,
+    FactoryGirl.build(:draft_edition,
       content_id: content_id,
     ).as_json.deep_symbolize_keys.merge(base_path: base_path)
   end
@@ -17,8 +17,7 @@ RSpec.describe "Reallocating base paths of content items" do
   describe "/v2/content" do
     context "when a base path is occupied by a 'regular' content item" do
       before do
-        FactoryGirl.create(
-          :draft_content_item,
+        FactoryGirl.create(:draft_edition,
           base_path: base_path,
         )
       end
@@ -40,14 +39,12 @@ RSpec.describe "Reallocating base paths of content items" do
 
     context "when both content items are 'regular' content items" do
       before do
-        draft = FactoryGirl.create(
-          :draft_content_item,
+        draft = FactoryGirl.create(:draft_edition,
           document: draft_document,
           base_path: base_path
         )
 
-        live = FactoryGirl.create(
-          :live_content_item,
+        live = FactoryGirl.create(:live_edition,
           document: live_document,
           base_path: base_path
         )

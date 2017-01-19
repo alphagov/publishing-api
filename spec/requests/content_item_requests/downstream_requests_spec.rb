@@ -34,8 +34,8 @@ RSpec.describe "Downstream requests", type: :request do
         )
       end
 
-      let(:target_content_item) { FactoryGirl.create(:content_item, base_path: "/foo", title: "foo") }
-      let!(:links) { FactoryGirl.create(:link, link_set: link_set, link_type: "parent", target_content_id: target_content_item.content_id) }
+      let(:target_edition) { FactoryGirl.create(:edition, base_path: "/foo", title: "foo") }
+      let!(:links) { FactoryGirl.create(:link, link_set: link_set, link_type: "parent", target_content_id: target_edition.content_id) }
 
       let(:content_item_for_draft_content_store) do
         v2_content_item.except(:update_type).merge(
@@ -75,7 +75,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when only a draft content item exists for the link set" do
       before do
-        draft = FactoryGirl.create(:draft_content_item,
+        draft = FactoryGirl.create(:draft_edition,
           document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
@@ -108,7 +108,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when only a live content item exists for the link set" do
       before do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
@@ -142,7 +142,7 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         document = FactoryGirl.create(:document, content_id: content_id)
 
-        draft = FactoryGirl.create(:draft_content_item,
+        draft = FactoryGirl.create(:draft_edition,
           document: document,
           base_path: base_path,
           user_facing_version: 2,
@@ -153,7 +153,7 @@ RSpec.describe "Downstream requests", type: :request do
           edition: draft,
         )
 
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           document: document,
           base_path: base_path,
         )
@@ -203,9 +203,9 @@ RSpec.describe "Downstream requests", type: :request do
     let(:b) { create_link_set }
 
     before do
-      create_content_item(a, "/a", version: 1)
-      create_content_item(a, "/a", factory: :draft_content_item, version: 2)
-      create_content_item(b, "/b", factory: :draft_content_item)
+      create_edition(a, "/a", version: 1)
+      create_edition(a, "/a", factory: :draft_edition, version: 2)
+      create_edition(b, "/b", factory: :draft_edition)
       create_link(a, b, "parent")
     end
 
@@ -242,7 +242,7 @@ RSpec.describe "Downstream requests", type: :request do
   context "/v2/publish" do
     let(:content_id) { SecureRandom.uuid }
     let!(:draft) {
-      FactoryGirl.create(:draft_content_item,
+      FactoryGirl.create(:draft_edition,
         document: FactoryGirl.create(:document, content_id: content_id),
         base_path: base_path,
       )

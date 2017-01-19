@@ -24,9 +24,9 @@ RSpec.describe Queries::ContentDependencies do
 
     context "when there are translations of the content item" do
       before do
-        create_content_item(content_id, "/a", locale: "en")
-        create_content_item(content_id, "/a.fr", locale: "fr")
-        create_content_item(content_id, "/a.es", locale: "es")
+        create_edition(content_id, "/a", locale: "en")
+        create_edition(content_id, "/a.fr", locale: "fr")
+        create_edition(content_id, "/a.es", locale: "es")
       end
 
       context "and we specify locale as en" do
@@ -69,8 +69,8 @@ RSpec.describe Queries::ContentDependencies do
 
     context "when there are draft translations of the content item" do
       before do
-        create_content_item(content_id, "/a", locale: "en")
-        create_content_item(content_id, "/a.cy", factory: :draft_content_item, locale: "cy")
+        create_edition(content_id, "/a", locale: "en")
+        create_edition(content_id, "/a.cy", factory: :draft_edition, locale: "cy")
       end
 
       let(:locale) { "en" }
@@ -92,8 +92,8 @@ RSpec.describe Queries::ContentDependencies do
 
     context "when items link to this content item" do
       before do
-        create_content_item(link_1_content_id, "/link-1", locale: "en")
-        create_content_item(link_2_content_id, "/link-2", locale: "en")
+        create_edition(link_1_content_id, "/link-1", locale: "en")
+        create_edition(link_2_content_id, "/link-2", locale: "en")
         create_link(link_1_content_id, content_id, "organisation")
         create_link(link_2_content_id, content_id, "organisation")
       end
@@ -112,8 +112,8 @@ RSpec.describe Queries::ContentDependencies do
 
     context "when items in different translations link to this content item" do
       before do
-        create_content_item(link_content_id, "/link", locale: "en")
-        create_content_item(link_content_id, "/link.cy", locale: "cy")
+        create_edition(link_content_id, "/link", locale: "en")
+        create_edition(link_content_id, "/link.cy", locale: "cy")
         create_link(link_content_id, content_id, "organisation")
       end
 
@@ -130,8 +130,8 @@ RSpec.describe Queries::ContentDependencies do
 
     context "when items in different states link to this content item" do
       before do
-        create_content_item(link_1_content_id, "/link")
-        create_content_item(link_2_content_id, "/link", factory: :draft_content_item)
+        create_edition(link_1_content_id, "/link")
+        create_edition(link_2_content_id, "/link", factory: :draft_edition)
         create_link(link_1_content_id, content_id, "organisation")
         create_link(link_2_content_id, content_id, "organisation")
       end
@@ -162,9 +162,9 @@ RSpec.describe Queries::ContentDependencies do
 
     context "when a graph of parent items link to this content item" do
       before do
-        create_content_item(great_grandparent_content_id, "/great")
-        create_content_item(grandparent_content_id, "/great/grand")
-        create_content_item(parent_content_id, "/great/grand/parent")
+        create_edition(great_grandparent_content_id, "/great")
+        create_edition(grandparent_content_id, "/great/grand")
+        create_edition(parent_content_id, "/great/grand/parent")
         create_link(parent_content_id, content_id, "parent")
         create_link(grandparent_content_id, parent_content_id, "parent")
         create_link(great_grandparent_content_id, grandparent_content_id, "parent")
@@ -186,7 +186,7 @@ RSpec.describe Queries::ContentDependencies do
 
     context "when this content item has a link to an item with a reverse link type" do
       before do
-        create_content_item(reverse_link_content_id, "/reverse")
+        create_edition(reverse_link_content_id, "/reverse")
         create_link(content_id, reverse_link_content_id, "documents")
       end
 
@@ -201,7 +201,7 @@ RSpec.describe Queries::ContentDependencies do
 
       context "and there are translations of item that links" do
         before do
-          create_content_item(reverse_link_content_id, "/reverse.cy", locale: "cy")
+          create_edition(reverse_link_content_id, "/reverse.cy", locale: "cy")
         end
 
         let(:links) do
@@ -217,7 +217,7 @@ RSpec.describe Queries::ContentDependencies do
 
     context "when this content has a link to a draft item with a reverse link type" do
       before do
-        create_content_item(reverse_link_content_id, "/reverse", factory: :draft_content_item)
+        create_edition(reverse_link_content_id, "/reverse", factory: :draft_edition)
         create_link(content_id, reverse_link_content_id, "documents")
       end
 

@@ -3,13 +3,13 @@ require "rails_helper"
 RSpec.describe Presenters::ChangeHistoryPresenter do
   let(:content_id) { SecureRandom.uuid }
   let(:document) { FactoryGirl.create(:document, content_id: content_id) }
-  let(:content_item) do
-    FactoryGirl.create(:content_item,
+  let(:edition) do
+    FactoryGirl.create(:edition,
       document: document,
       details: details.deep_stringify_keys,
     )
   end
-  let(:web_content_item) { Queries::GetWebContentItems.find(content_item.id) }
+  let(:web_content_item) { Queries::GetWebContentItems.find(edition.id) }
   let(:details) { {} }
   subject { described_class.new(web_content_item).change_history }
 
@@ -30,7 +30,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       before do
         2.times do |i|
           ChangeNote.create(
-            edition: content_item,
+            edition: edition,
             content_id: content_id,
             note: i.to_s,
             public_timestamp: Time.now.utc
@@ -45,7 +45,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
     it "orders change notes by public_timestamp (ascending)" do
       [1, 3, 2].to_a.each do |i|
         ChangeNote.create(
-          edition: content_item,
+          edition: edition,
           content_id: content_id,
           note: i.to_s,
           public_timestamp: i.days.ago
@@ -56,7 +56,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
 
     context "multiple content items for a single content id" do
       let(:item1) do
-        FactoryGirl.create(:superseded_content_item,
+        FactoryGirl.create(:superseded_edition,
           document: document,
           details: details,
           user_facing_version: 1,
@@ -64,7 +64,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       end
       let(:web_content_item1) { Queries::GetWebContentItems.find(item1.id) }
       let(:item2) do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           document: document,
           details: details,
           user_facing_version: 2,

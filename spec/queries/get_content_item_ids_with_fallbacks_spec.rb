@@ -18,13 +18,13 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
     context "when a content item is in a draft state" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
-      let!(:draft_content_item) do
-        FactoryGirl.create(:draft_content_item, document: document)
+      let!(:draft_edition) do
+        FactoryGirl.create(:draft_edition, document: document)
       end
 
       context "and the state_fallback order is [draft]" do
         let(:state_fallback_order) { %w(draft) }
-        it { is_expected.to match_array([draft_content_item.id]) }
+        it { is_expected.to match_array([draft_edition.id]) }
       end
 
       context "and the state_fallback order is [published]" do
@@ -34,21 +34,21 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
       context "and the state_fallback order is [published, draft]" do
         let(:state_fallback_order) { %w(published draft) }
-        it { is_expected.to match_array([draft_content_item.id]) }
+        it { is_expected.to match_array([draft_edition.id]) }
       end
     end
 
     context "when a content item is in draft and unpublished (withdrawn) states" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
-      let!(:draft_content_item) do
-        FactoryGirl.create(:draft_content_item,
+      let!(:draft_edition) do
+        FactoryGirl.create(:draft_edition,
           document: document,
           user_facing_version: 2,
         )
       end
-      let!(:withdrawn_content_item) do
-        FactoryGirl.create(:withdrawn_unpublished_content_item,
+      let!(:withdrawn_edition) do
+        FactoryGirl.create(:withdrawn_unpublished_edition,
           document: document,
           user_facing_version: 1,
         )
@@ -56,12 +56,12 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
       context "and the state_fallback order is [draft, withdrawn]" do
         let(:state_fallback_order) { %w(draft withdrawn) }
-        it { is_expected.to match_array([draft_content_item.id]) }
+        it { is_expected.to match_array([draft_edition.id]) }
       end
 
       context "and the state_fallback order is [withdrawn, draft]" do
         let(:state_fallback_order) { %w(withdrawn draft) }
-        it { is_expected.to match_array([withdrawn_content_item.id]) }
+        it { is_expected.to match_array([withdrawn_edition.id]) }
       end
     end
 
@@ -79,17 +79,17 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
           locale: "en",
         )
       end
-      let!(:fr_draft_content_item) do
-        FactoryGirl.create(:draft_content_item, document: fr_document)
+      let!(:fr_draft_edition) do
+        FactoryGirl.create(:draft_edition, document: fr_document)
       end
-      let!(:en_draft_content_item) do
-        FactoryGirl.create(:draft_content_item,
+      let!(:en_draft_edition) do
+        FactoryGirl.create(:draft_edition,
           document: en_document,
           user_facing_version: 2,
         )
       end
-      let!(:en_published_content_item) do
-        FactoryGirl.create(:live_content_item,
+      let!(:en_published_edition) do
+        FactoryGirl.create(:live_edition,
           document: en_document,
           user_facing_version: 1,
         )
@@ -100,7 +100,7 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
         context "and the state_fallback_order is [draft]" do
           let(:state_fallback_order) { %w(draft) }
-          it { is_expected.to match_array(fr_draft_content_item.id) }
+          it { is_expected.to match_array(fr_draft_edition.id) }
         end
 
         context "and the state_fallback_order is [published]" do
@@ -114,12 +114,12 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
         context "and the state_fallback_order is [draft]" do
           let(:state_fallback_order) { %w(draft) }
-          it { is_expected.to match_array(fr_draft_content_item.id) }
+          it { is_expected.to match_array(fr_draft_edition.id) }
         end
 
         context "and the state_fallback_order is [published]" do
           let(:state_fallback_order) { %w(published) }
-          it { is_expected.to match_array(en_published_content_item.id) }
+          it { is_expected.to match_array(en_published_edition.id) }
         end
       end
 
@@ -128,12 +128,12 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
         context "and the state_fallback_order is [draft]" do
           let(:state_fallback_order) { %w(draft) }
-          it { is_expected.to match_array(en_draft_content_item.id) }
+          it { is_expected.to match_array(en_draft_edition.id) }
         end
 
         context "and the state_fallback_order is [published]" do
           let(:state_fallback_order) { %w(published) }
-          it { is_expected.to match_array(en_published_content_item.id) }
+          it { is_expected.to match_array(en_published_edition.id) }
         end
       end
     end
@@ -142,26 +142,26 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
       let(:content_ids) { [SecureRandom.uuid, SecureRandom.uuid] }
       let(:vat_document) { FactoryGirl.create(:document, content_id: content_ids.first) }
       let(:tax_rates_document) { FactoryGirl.create(:document, content_id: content_ids.last) }
-      let!(:vat_draft_content_item) do
-        FactoryGirl.create(:draft_content_item,
+      let!(:vat_draft_edition) do
+        FactoryGirl.create(:draft_edition,
           document: vat_document,
           user_facing_version: 2,
         )
       end
-      let!(:vat_published_content_item) do
-        FactoryGirl.create(:live_content_item,
+      let!(:vat_published_edition) do
+        FactoryGirl.create(:live_edition,
           document: vat_document,
           user_facing_version: 1,
         )
       end
-      let!(:tax_rates_draft_content_item) do
-        FactoryGirl.create(:draft_content_item,
+      let!(:tax_rates_draft_edition) do
+        FactoryGirl.create(:draft_edition,
           document: tax_rates_document,
           user_facing_version: 2,
         )
       end
-      let!(:tax_rates_withdrawn_content_item) do
-        FactoryGirl.create(:withdrawn_unpublished_content_item,
+      let!(:tax_rates_withdrawn_edition) do
+        FactoryGirl.create(:withdrawn_unpublished_edition,
           document: tax_rates_document,
           user_facing_version: 1,
         )
@@ -169,19 +169,19 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
       context "and the state_fallback order is [draft, published]" do
         let(:state_fallback_order) { %w(draft published) }
-        let(:expected) { [vat_draft_content_item.id, tax_rates_draft_content_item.id] }
+        let(:expected) { [vat_draft_edition.id, tax_rates_draft_edition.id] }
         it { is_expected.to match_array(expected) }
       end
 
       context "and the state_fallback order is [published, draft]" do
         let(:state_fallback_order) { %w(published draft) }
-        let(:expected) { [vat_published_content_item.id, tax_rates_draft_content_item.id] }
+        let(:expected) { [vat_published_edition.id, tax_rates_draft_edition.id] }
         it { is_expected.to match_array(expected) }
       end
 
       context "and the state_fallback order is [withdrawn, draft]" do
         let(:state_fallback_order) { %w(withdrawn draft) }
-        let(:expected) { [vat_draft_content_item.id, tax_rates_withdrawn_content_item.id] }
+        let(:expected) { [vat_draft_edition.id, tax_rates_withdrawn_edition.id] }
         it { is_expected.to match_array(expected) }
       end
     end
@@ -189,15 +189,15 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
     context "when there is a non-renderable document type" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
-      let!(:draft_content_item) do
-        FactoryGirl.create(:draft_content_item,
+      let!(:draft_edition) do
+        FactoryGirl.create(:draft_edition,
           document: document,
           document_type: "gone",
           user_facing_version: 2,
         )
       end
-      let!(:published_content_item) do
-        FactoryGirl.create(:live_content_item,
+      let!(:published_edition) do
+        FactoryGirl.create(:live_edition,
           document: document,
           user_facing_version: 1,
         )
@@ -210,12 +210,12 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
       context "and the state_fallback order is [published]" do
         let(:state_fallback_order) { %w(published) }
-        it { is_expected.to match_array([published_content_item.id]) }
+        it { is_expected.to match_array([published_edition.id]) }
       end
 
       context "and the state_fallback order is [draft, published]" do
         let(:state_fallback_order) { %w(draft published) }
-        it { is_expected.to match_array([published_content_item.id]) }
+        it { is_expected.to match_array([published_edition.id]) }
       end
     end
   end

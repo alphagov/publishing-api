@@ -4,7 +4,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
   let(:content_id) { SecureRandom.uuid }
   let(:locale) { "en" }
   let(:document) { FactoryGirl.create(:document, content_id: content_id, locale: locale) }
-  let(:live_content_item) { FactoryGirl.create(:live_content_item, document: document) }
+  let(:live_edition) { FactoryGirl.create(:live_edition, document: document) }
 
   subject(:worker_perform) do
     described_class.new.perform(
@@ -15,10 +15,10 @@ RSpec.describe DependencyResolutionWorker, :perform do
     )
   end
 
-  let(:content_item_dependee) { double(:content_item_dependent, call: []) }
+  let(:edition_dependee) { double(:edition_dependent, call: []) }
   let(:dependencies) do
     [
-      [live_content_item.content_id, "en"],
+      [live_edition.content_id, "en"],
     ]
   end
 
@@ -27,12 +27,12 @@ RSpec.describe DependencyResolutionWorker, :perform do
     allow_any_instance_of(Queries::ContentDependencies).to receive(:call).and_return(dependencies)
   end
 
-  it "finds the content item dependees" do
+  it "finds the edition dependees" do
     expect(Queries::ContentDependencies).to receive(:new).with(
       content_id: content_id,
       locale: locale,
       content_stores: %w[live],
-    ).and_return(content_item_dependee)
+    ).and_return(edition_dependee)
     worker_perform
   end
 
@@ -51,8 +51,8 @@ RSpec.describe DependencyResolutionWorker, :perform do
   end
 
   context "with a draft version available" do
-    let!(:draft_content_item) do
-      FactoryGirl.create(:draft_content_item,
+    let!(:draft_edition) do
+      FactoryGirl.create(:draft_edition,
         document: document,
         user_facing_version: 2,
       )
@@ -62,7 +62,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id: live_content_item.content_id,
+          content_id: live_edition.content_id,
           locale: "en",
         )
       )
@@ -78,7 +78,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id: draft_content_item.content_id,
+          content_id: draft_edition.content_id,
           locale: "en",
         )
       )
@@ -91,7 +91,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
     end
   end
 
-  context "when there are translations of a content item" do
+  context "when there are translations of an edition" do
     context "and locale is specified" do
       let(:dependencies) do
         [

@@ -21,7 +21,7 @@ RSpec.describe V2::ActionsController do
     let(:json_payload) { payload.to_json }
 
     context "when a content item exists" do
-      before { FactoryGirl.create(:draft_content_item, document: document) }
+      before { FactoryGirl.create(:draft_edition, document: document) }
 
       context "and the request is valid" do
         it "returns 201" do

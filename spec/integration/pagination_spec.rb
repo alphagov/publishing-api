@@ -3,8 +3,7 @@ require "rails_helper"
 RSpec.describe "Paging through content items" do
   before do
     5.times do |n|
-      FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(:draft_edition,
         base_path: "/content-#{n}",
         document_type: "guide",
         schema_name: "guide",

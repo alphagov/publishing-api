@@ -5,7 +5,7 @@ RSpec.describe V2::LinkSetsController do
   let(:document) { FactoryGirl.create(:document, content_id: content_id) }
 
   before do
-    FactoryGirl.create(:draft_content_item, document: document)
+    FactoryGirl.create(:draft_edition, document: document)
     stub_request(:any, /content-store/)
   end
 
