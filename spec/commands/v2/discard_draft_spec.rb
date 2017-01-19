@@ -58,7 +58,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       it "deletes the supporting objects for the draft item" do
         described_class.call(payload)
 
-        state = State.find_by(content_item: existing_draft_item)
+        state = State.find_by(edition: existing_draft_item)
         translation = Translation.find_by(content_item: existing_draft_item)
         location = Location.find_by(edition: existing_draft_item)
         access_limit = AccessLimit.find_by(edition: existing_draft_item)
@@ -144,7 +144,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the supporting objects for the draft item" do
           described_class.call(payload)
 
-          state = State.find_by(content_item: existing_draft_item)
+          state = State.find_by(edition: existing_draft_item)
           translation = Translation.find_by(content_item: existing_draft_item)
           location = Location.find_by(edition: existing_draft_item)
           access_limit = AccessLimit.find_by(edition: existing_draft_item)
