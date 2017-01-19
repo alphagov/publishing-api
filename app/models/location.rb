@@ -1,5 +1,5 @@
 class Location < ApplicationRecord
-  belongs_to :content_item, class_name: Edition
+  belongs_to :edition, foreign_key: "content_item_id"
 
   def self.filter(content_item_scope, base_path:)
     join_content_items(content_item_scope)
