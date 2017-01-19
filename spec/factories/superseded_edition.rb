@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :superseded_content_item, parent: :live_content_item do
+  factory :superseded_edition, parent: :live_edition do
     content_store nil
     state "superseded"
   end

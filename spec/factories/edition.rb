@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :content_item, class: "Edition" do
+  factory :edition, aliases: [:draft_edition] do
     document
     title "VAT rates"
     description "VAT rates for goods and services"
@@ -41,7 +41,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :redirect_content_item, parent: :content_item do
+  factory :redirect_edition, aliases: [:redirect_draft_edition], parent: :edition do
     transient do
       destination "/somewhere"
     end
@@ -52,9 +52,23 @@ FactoryGirl.define do
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => destination }] }
   end
 
-  factory :gone_content_item, parent: :content_item do
+  factory :gone_edition, aliases: [:gone_draft_edition], parent: :edition do
     sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
     schema_name "gone"
     document_type "gone"
+  end
+
+  factory :access_limited_edition, aliases: [:access_limited_draft_edition], parent: :edition do
+    sequence(:base_path) { |n| "/access-limited-#{n}" }
+
+    after(:create) do |item, _|
+      FactoryGirl.create(:access_limit, edition: item)
+    end
+  end
+
+  factory :pathless_edition, aliases: [:pathless_draft_edition], parent: :edition do
+    base_path nil
+    schema_name "contact"
+    document_type "contact"
   end
 end
