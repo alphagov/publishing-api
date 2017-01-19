@@ -116,7 +116,7 @@ module Commands
       end
 
       def already_published?
-        document.content_items.exists?(state: "published")
+        document.editions.exists?(state: "published")
       end
 
       def clear_published_items_of_same_locale_and_base_path
