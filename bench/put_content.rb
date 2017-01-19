@@ -85,7 +85,7 @@ ensure
   Location.where(content_item: scope).delete_all
   State.where(content_item: scope).delete_all
   Translation.where(content_item: scope).delete_all
-  UserFacingVersion.where(content_item: scope).delete_all
+  UserFacingVersion.where(edition: scope).delete_all
   LockVersion.where(target: scope).delete_all
   scope.delete_all
 end

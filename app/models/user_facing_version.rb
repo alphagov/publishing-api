@@ -1,24 +1,24 @@
 class UserFacingVersion < ApplicationRecord
-  belongs_to :content_item, class_name: Edition
+  belongs_to :edition, foreign_key: "content_item_id"
 
-  def self.filter(content_item_scope, number:)
-    join_content_items(content_item_scope)
+  def self.filter(edition_scope, number:)
+    join_content_items(edition_scope)
       .where("user_facing_versions.number" => number)
   end
 
-  def self.join_content_items(content_item_scope)
-    content_item_scope.joins(
+  def self.join_content_items(edition_scope)
+    edition_scope.joins(
       "INNER JOIN user_facing_versions ON user_facing_versions.content_item_id = content_items.id"
     )
   end
 
 private
 
-  def content_item_target?
+  def edition_target?
     true
   end
 
   def target
-    content_item
+    edition
   end
 end

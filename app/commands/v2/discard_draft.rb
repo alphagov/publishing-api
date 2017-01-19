@@ -54,7 +54,7 @@ module Commands
         Location.find_by(content_item: content_item).try(:destroy)
         State.find_by(content_item: content_item).try(:destroy)
         Translation.find_by(content_item: content_item).try(:destroy)
-        UserFacingVersion.find_by(content_item: content_item).try(:destroy)
+        UserFacingVersion.find_by(edition: content_item).try(:destroy)
         LockVersion.find_by(target: content_item).try(:destroy)
         AccessLimit.find_by(edition: content_item).try(:destroy)
         ChangeNote.where(edition: content_item).destroy_all
