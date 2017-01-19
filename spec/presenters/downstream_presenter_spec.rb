@@ -168,7 +168,7 @@ RSpec.describe Presenters::DownstreamPresenter do
           details: details.slice(:body))
       end
       before do
-        ChangeNote.create(change_history.merge(content_item: content_item, content_id: content_item.content_id))
+        ChangeNote.create(change_history.merge(edition: content_item, content_id: content_item.content_id))
       end
 
       it "constructs the change history" do

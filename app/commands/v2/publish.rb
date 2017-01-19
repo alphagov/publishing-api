@@ -89,7 +89,7 @@ module Commands
       end
 
       def delete_change_notes
-        ChangeNote.where(content_item: content_item).delete_all
+        ChangeNote.where(edition: content_item).delete_all
       end
 
       def document

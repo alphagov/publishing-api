@@ -30,7 +30,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       before do
         2.times do |i|
           ChangeNote.create(
-            content_item: content_item,
+            edition: content_item,
             content_id: content_id,
             note: i.to_s,
             public_timestamp: Time.now.utc
@@ -45,7 +45,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
     it "orders change notes by public_timestamp (ascending)" do
       [1, 3, 2].to_a.each do |i|
         ChangeNote.create(
-          content_item: content_item,
+          edition: content_item,
           content_id: content_id,
           note: i.to_s,
           public_timestamp: i.days.ago
@@ -72,8 +72,8 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       end
       let(:web_content_item2) { Queries::GetWebContentItems.find(item2.id) }
       before do
-        ChangeNote.create(content_item: item1, content_id: content_id)
-        ChangeNote.create(content_item: item2, content_id: content_id)
+        ChangeNote.create(edition: item1, content_id: content_id)
+        ChangeNote.create(edition: item2, content_id: content_id)
         ChangeNote.create(content_id: content_id)
       end
 

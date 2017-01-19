@@ -1,5 +1,5 @@
 class ChangeNote < ActiveRecord::Base
-  belongs_to :content_item, class_name: Edition
+  belongs_to :edition, foreign_key: "content_item_id"
 
   def self.create_from_content_item(payload, content_item)
     ChangeNoteFactory.new(payload, content_item).build
@@ -32,7 +32,7 @@ private
   def create_from_top_level_change_note
     return unless change_note
     ChangeNote.
-      find_or_create_by!(content_item: content_item).
+      find_or_create_by!(edition: content_item).
       update!(
         note: change_note,
         content_id: content_item.content_id,
@@ -43,7 +43,7 @@ private
   def create_from_details_hash_change_note
     return unless note
     ChangeNote.create!(
-      content_item: content_item,
+      edition: content_item,
       content_id: content_item.content_id,
       public_timestamp: content_item.updated_at,
       note: note,
@@ -55,7 +55,7 @@ private
     history_element = change_history.max_by { |h| h[:public_timestamp] }
     ChangeNote.create!(
       history_element.merge(
-        content_item: content_item,
+        edition: content_item,
         content_id: content_item.content_id
       )
     )
