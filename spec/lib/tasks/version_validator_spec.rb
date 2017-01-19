@@ -5,12 +5,12 @@ RSpec.describe Tasks::VersionValidator do
   let(:document) { FactoryGirl.create(:document, content_id: content_id) }
 
   before do
-    FactoryGirl.create(:superseded_content_item,
+    FactoryGirl.create(:superseded_edition,
       document: document,
       user_facing_version: 1,
     )
 
-    FactoryGirl.create(:live_content_item,
+    FactoryGirl.create(:live_edition,
       document: document,
       user_facing_version: 2,
     )

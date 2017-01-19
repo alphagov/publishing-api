@@ -21,12 +21,12 @@ RSpec.describe "Logging requests", type: :request do
   end
 
   it "adds a request uuid to the message bus" do
-    draft_content_item = FactoryGirl.create(:draft_content_item, base_path: base_path)
+    draft_edition = FactoryGirl.create(:draft_edition, base_path: base_path)
 
     expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
       .with(hash_including(govuk_request_id: govuk_request_id))
 
-    post("/v2/content/#{draft_content_item.content_id}/publish", params: { update_type: "minor" }.to_json,
+    post("/v2/content/#{draft_edition.document.content_id}/publish", params: { update_type: "minor" }.to_json,
       headers: { "HTTP_GOVUK_REQUEST_ID" => "12345-67890" }
     )
   end
@@ -46,8 +46,8 @@ RSpec.describe "Logging requests", type: :request do
     end
 
     before do
-      create_content_item(a, "/a")
-      create_content_item(b, "/b")
+      create_edition(a, "/a")
+      create_edition(b, "/b")
       create_link(a, b, "parent")
     end
 

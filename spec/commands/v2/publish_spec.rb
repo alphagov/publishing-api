@@ -13,7 +13,7 @@ RSpec.describe Commands::V2::Publish do
     end
 
     let!(:draft_item) do
-      FactoryGirl.create(:draft_content_item,
+      FactoryGirl.create(:draft_edition,
         document: document,
         base_path: base_path,
         user_facing_version: user_facing_version,
@@ -75,7 +75,7 @@ RSpec.describe Commands::V2::Publish do
       let(:existing_base_path) { base_path }
 
       let!(:live_item) do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           document: draft_item.document,
           base_path: existing_base_path,
           user_facing_version: user_facing_version - 1,
@@ -92,7 +92,7 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the content item was previously unpublished" do
       let!(:live_item) do
-        FactoryGirl.create(:unpublished_content_item,
+        FactoryGirl.create(:unpublished_edition,
           document: draft_item.document,
           base_path: base_path,
           user_facing_version: user_facing_version - 1,
@@ -110,8 +110,8 @@ RSpec.describe Commands::V2::Publish do
     context "with another content item blocking the publish action" do
       let(:draft_locale) { draft_item.locale }
 
-      let!(:other_content_item) do
-        FactoryGirl.create(:redirect_live_content_item,
+      let!(:other_edition) do
+        FactoryGirl.create(:redirect_live_edition,
           locale: draft_locale,
           base_path: base_path,
         )
@@ -120,11 +120,11 @@ RSpec.describe Commands::V2::Publish do
       it "unpublishes the content item which is in the way" do
         described_class.call(payload)
 
-        updated_other_content_item = Edition.find(other_content_item.id)
+        updated_other_edition = Edition.find(other_edition.id)
 
-        expect(updated_other_content_item.state).to eq("unpublished")
-        expect(updated_other_content_item.locale).to eq(draft_locale)
-        expect(updated_other_content_item.base_path).to eq(base_path)
+        expect(updated_other_edition.state).to eq("unpublished")
+        expect(updated_other_edition.locale).to eq(draft_locale)
+        expect(updated_other_edition.base_path).to eq(base_path)
       end
     end
 
@@ -212,7 +212,7 @@ RSpec.describe Commands::V2::Publish do
           it "preserves the public_updated_at value from the last published item" do
             public_updated_at = Time.zone.now - 2.years
 
-            FactoryGirl.create(:live_content_item,
+            FactoryGirl.create(:live_edition,
               document: draft_item.document,
               public_updated_at: public_updated_at,
               base_path: base_path,
@@ -226,7 +226,7 @@ RSpec.describe Commands::V2::Publish do
           it "preserves the public_updated_at value from the last unpublished item" do
             public_updated_at = Time.zone.now - 2.years
 
-            FactoryGirl.create(:unpublished_content_item,
+            FactoryGirl.create(:unpublished_edition,
               document: draft_item.document,
               public_updated_at: public_updated_at,
               base_path: base_path,
@@ -300,14 +300,14 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the base_path differs from the previously published item" do
       let!(:live_item) do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           document: draft_item.document,
           base_path: "/hat-rates",
         )
       end
 
       before do
-        FactoryGirl.create(:redirect_draft_content_item,
+        FactoryGirl.create(:redirect_draft_edition,
           base_path: "/hat-rates",
         )
       end
@@ -372,7 +372,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "but a published item does exist" do
         before do
-          FactoryGirl.create(:live_content_item,
+          FactoryGirl.create(:live_edition,
             document: document,
             base_path: base_path,
           )
@@ -390,8 +390,8 @@ RSpec.describe Commands::V2::Publish do
   end
 
   context "for a pathless content item format" do
-    let(:pathless_content_item) do
-      FactoryGirl.create(:draft_content_item,
+    let(:pathless_edition) do
+      FactoryGirl.create(:draft_edition,
         document_type: "contact",
         user_facing_version: 2,
         base_path: nil,
@@ -400,7 +400,7 @@ RSpec.describe Commands::V2::Publish do
 
     let(:payload) do
       {
-        content_id: pathless_content_item.content_id,
+        content_id: pathless_edition.content_id,
         update_type: "major",
         previous_version: 1,
       }
@@ -410,14 +410,14 @@ RSpec.describe Commands::V2::Publish do
       it "publishes the item" do
         described_class.call(payload)
 
-        updated_item = Edition.find(pathless_content_item.id)
+        updated_item = Edition.find(pathless_edition.id)
         expect(updated_item.state).to eq("published")
       end
 
       context "with a previously published item" do
-        let!(:live_content_item) do
-          FactoryGirl.create(:live_content_item,
-            document: pathless_content_item.document,
+        let!(:live_edition) do
+          FactoryGirl.create(:live_edition,
+            document: pathless_edition.document,
             document_type: "contact",
             user_facing_version: 1,
           )
@@ -426,7 +426,7 @@ RSpec.describe Commands::V2::Publish do
         it "publishes the draft" do
           described_class.call(payload)
 
-          updated_item = Edition.find(pathless_content_item.id)
+          updated_item = Edition.find(pathless_edition.id)
           expect(updated_item.state).to eq("published")
         end
       end

@@ -10,14 +10,14 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
   end
 
   describe "present" do
-    let!(:content_item) do
-      FactoryGirl.create(:draft_content_item,
+    let!(:edition) do
+      FactoryGirl.create(:draft_edition,
         document: document,
         base_path: base_path
       )
     end
 
-    let(:result) { described_class.present(content_item) }
+    let(:result) { described_class.present(edition) }
 
     let(:payload) do
       {
@@ -66,7 +66,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "for a published content item" do
       before do
-        content_item.update_attributes!(state: 'published')
+        edition.update_attributes!(state: 'published')
       end
 
       it "has a publication state of published" do
@@ -76,21 +76,21 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the content item exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:draft_content_item, document: fr_document)
+        FactoryGirl.create(:draft_edition, document: fr_document)
       end
 
       it "presents the item with matching locale" do
         result = described_class.present(french_item)
         expect(result.fetch("locale")).to eq("fr")
 
-        result = described_class.present(content_item)
+        result = described_class.present(edition)
         expect(result.fetch("locale")).to eq("en")
       end
     end
 
     context "when a change note exists" do
-      let!(:content_item) do
-        FactoryGirl.create(:draft_content_item,
+      let!(:edition) do
+        FactoryGirl.create(:draft_edition,
           document: document,
           base_path: base_path,
           update_type: "major"
@@ -108,8 +108,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
   end
 
   describe "#present_many" do
-    let!(:content_item) do
-      FactoryGirl.create(:draft_content_item, document: document)
+    let!(:edition) do
+      FactoryGirl.create(:draft_edition, document: document)
     end
 
     context "when an array of fields is provided" do
@@ -126,7 +126,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the content item exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:content_item, document: fr_document)
+        FactoryGirl.create(:edition, document: fr_document)
       end
 
       it "presents a content item for each locale" do
@@ -142,11 +142,11 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when there are other content items with that content_id" do
       before do
-        content_item.update_attributes(user_facing_version: 2)
+        edition.update_attributes(user_facing_version: 2)
       end
 
       let!(:published_item) do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           document: document,
           user_facing_version: 1,
         )
@@ -167,7 +167,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "#get_warnings" do
     before do
-      FactoryGirl.create(:draft_content_item,
+      FactoryGirl.create(:draft_edition,
         document: document,
         base_path: base_path,
         user_facing_version: 2,
@@ -199,7 +199,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
       context "with a blocking content item" do
         before do
-          @blocking_content_item = FactoryGirl.create(:live_content_item,
+          @blocking_edition = FactoryGirl.create(:live_edition,
             base_path: base_path,
             user_facing_version: 1,
           )

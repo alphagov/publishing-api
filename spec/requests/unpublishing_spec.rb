@@ -11,7 +11,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   let(:base_path) { "/vat-rates" }
   let!(:document) { FactoryGirl.create(:document, content_id: content_id) }
   let!(:edition) do
-    FactoryGirl.create(:live_content_item,
+    FactoryGirl.create(:live_edition,
       document: document,
       base_path: base_path,
     )

@@ -27,7 +27,7 @@ RSpec.describe Commands::V2::DiscardDraft do
     context "when a draft content item exists for the given content_id" do
       let(:user_facing_version) { 2 }
       let!(:existing_draft_item) do
-        FactoryGirl.create(:access_limited_draft_content_item,
+        FactoryGirl.create(:access_limited_draft_edition,
           document: document,
           base_path: base_path,
           user_facing_version: user_facing_version,
@@ -115,7 +115,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "a published content item exists with the same base_path" do
         let(:stale_lock_version) { 3 }
         let!(:published_item) do
-          FactoryGirl.create(:live_content_item,
+          FactoryGirl.create(:live_edition,
             document: document,
             base_path: base_path,
             user_facing_version: user_facing_version - 1,
@@ -168,7 +168,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "a published content item exists with a different base_path" do
         let!(:published_item) do
-          FactoryGirl.create(:live_content_item,
+          FactoryGirl.create(:live_edition,
             document: document,
             base_path: "/hat-rates",
             user_facing_version: user_facing_version - 1,
@@ -191,7 +191,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "an unpublished content item exits" do
         let(:unpublished_item) do
-          FactoryGirl.create(:unpublished_content_item,
+          FactoryGirl.create(:unpublished_edition,
             document: document,
             base_path: base_path,
             user_facing_version: user_facing_version - 1,
@@ -217,7 +217,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           FactoryGirl.create(:document, content_id: document.content_id, locale: "fr")
         end
         let!(:french_draft_item) do
-          FactoryGirl.create(:draft_content_item,
+          FactoryGirl.create(:draft_edition,
             document: french_document,
             base_path: "#{base_path}.fr",
           )
@@ -255,7 +255,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "and a published content item exists" do
         before do
-          FactoryGirl.create(:live_content_item, document: document)
+          FactoryGirl.create(:live_edition, document: document)
         end
 
         it "raises a command error with code 422" do

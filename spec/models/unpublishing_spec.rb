@@ -88,15 +88,15 @@ RSpec.describe Unpublishing do
   describe ".is_subtitute?" do
     subject { described_class.is_substitute?(edition) }
     context "when unpublished with type 'substitute'" do
-      let(:edition) { FactoryGirl.create(:substitute_unpublished_content_item) }
+      let(:edition) { FactoryGirl.create(:substitute_unpublished_edition) }
       it { is_expected.to be true }
     end
     context "when unpublished with type 'gone'" do
-      let(:edition) { FactoryGirl.create(:gone_unpublished_content_item) }
+      let(:edition) { FactoryGirl.create(:gone_unpublished_edition) }
       it { is_expected.to be false }
     end
     context "when content item is published" do
-      let(:edition) { FactoryGirl.create(:live_content_item) }
+      let(:edition) { FactoryGirl.create(:live_edition) }
       it { is_expected.to be false }
     end
     context "when there isn't a content item" do

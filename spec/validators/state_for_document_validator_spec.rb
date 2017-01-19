@@ -4,36 +4,35 @@ RSpec.describe StateForDocumentValidator do
   let(:state_name) { "draft" }
   let(:document) { FactoryGirl.create(:document) }
 
-  let(:content_item) do
-    FactoryGirl.build(
-      :content_item,
+  let(:edition) do
+    FactoryGirl.build(:edition,
       state: state_name,
       document: document,
     )
   end
 
   describe "#validate" do
-    subject(:validate) { described_class.new.validate(content_item) }
+    subject(:validate) { described_class.new.validate(edition) }
 
     context "when document is nil" do
-      before { content_item.document = nil }
+      before { edition.document = nil }
       it { is_expected.to be_nil }
     end
 
     context "when state is nil" do
-      before { content_item.state = nil }
+      before { edition.state = nil }
       it { is_expected.to be_nil }
     end
 
     context "when state and document can conflict" do
       [
-        { factory: :draft_content_item, state: "draft", scenario: "both items are drafts" },
-        { factory: :live_content_item, state: "published", scenario: "both items are published" },
-        { factory: :live_content_item, state: "unpublished", scenario: "existing item is published and new item is unpublished" },
-        { factory: :unpublished_content_item, state: "published", name: "existing item is unpublished and new item is published" },
+        { factory: :draft_edition, state: "draft", scenario: "both items are drafts" },
+        { factory: :live_edition, state: "published", scenario: "both items are published" },
+        { factory: :live_edition, state: "unpublished", scenario: "existing item is published and new item is unpublished" },
+        { factory: :unpublished_edition, state: "published", name: "existing item is unpublished and new item is published" },
       ].each do |hash|
         context "when #{hash[:scenario]}" do
-          let!(:conflict_content_item) {
+          let!(:conflict_edition) {
             FactoryGirl.create(
               hash[:factory],
               document: document,
@@ -42,7 +41,7 @@ RSpec.describe StateForDocumentValidator do
           let(:state_name) { hash[:state] }
           let(:expected_error) do
             "state=#{hash[:state]} and document=#{document.id} conflicts " +
-              "with content item id=#{conflict_content_item.id}"
+              "with content item id=#{conflict_edition.id}"
           end
 
           before do
@@ -50,17 +49,14 @@ RSpec.describe StateForDocumentValidator do
           end
 
           it "adds the error to the base attribute" do
-            expect(content_item.errors[:base]).to eq([expected_error])
+            expect(edition.errors[:base]).to eq([expected_error])
           end
         end
       end
 
       context "when state is superseded" do
-        let!(:conflict_content_item) {
-          FactoryGirl.create(
-            :superseded_content_item,
-            document: document,
-          )
+        let!(:conflict_edition) {
+          FactoryGirl.create(:superseded_edition, document: document)
         }
         let(:state_name) { "superseded" }
 

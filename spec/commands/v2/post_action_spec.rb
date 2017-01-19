@@ -71,7 +71,7 @@ RSpec.describe Commands::V2::PostAction do
     end
 
     context "when a draft content item exists" do
-      before { FactoryGirl.create(:draft_content_item, document: document) }
+      before { FactoryGirl.create(:draft_edition, document: document) }
 
       include_examples "action behaviour"
       context "and we specify the action is not for a draft" do
@@ -81,7 +81,7 @@ RSpec.describe Commands::V2::PostAction do
     end
 
     context "when a published content item exists" do
-      before { FactoryGirl.create(:live_content_item, document: document) }
+      before { FactoryGirl.create(:live_edition, document: document) }
 
       let(:draft) { false }
 

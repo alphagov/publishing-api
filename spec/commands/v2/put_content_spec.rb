@@ -111,7 +111,7 @@ RSpec.describe Commands::V2::PutContent do
       let(:first_published_at) { 1.year.ago }
 
       before do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           document: FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 5),
           user_facing_version: 5,
           first_published_at: first_published_at,
@@ -122,22 +122,22 @@ RSpec.describe Commands::V2::PutContent do
       it "creates the draft's user-facing version using the live's user-facing version as a starting point" do
         described_class.call(payload)
 
-        content_item = Edition.last
+        edition = Edition.last
 
-        expect(content_item).to be_present
-        expect(content_item.content_id).to eq(content_id)
-        expect(content_item.state).to eq("draft")
-        expect(content_item.user_facing_version).to eq(6)
+        expect(edition).to be_present
+        expect(edition.content_id).to eq(content_id)
+        expect(edition.state).to eq("draft")
+        expect(edition.user_facing_version).to eq(6)
       end
 
       it "copies over the first_published_at timestamp" do
         described_class.call(payload)
 
-        content_item = Edition.last
-        expect(content_item).to be_present
-        expect(content_item.content_id).to eq(content_id)
+        edition = Edition.last
+        expect(edition).to be_present
+        expect(edition.content_id).to eq(content_id)
 
-        expect(content_item.first_published_at.iso8601).to eq(first_published_at.iso8601)
+        expect(edition.first_published_at.iso8601).to eq(first_published_at.iso8601)
       end
 
       context "and the base path has changed" do
@@ -189,9 +189,9 @@ RSpec.describe Commands::V2::PutContent do
             described_class.call(payload)
             expect(Edition.count).to eq(2)
 
-            content_item = Edition.last
-            expect(content_item.title).to eq("French Title")
-            expect(content_item.locale).to eq("fr")
+            edition = Edition.last
+            expect(edition.title).to eq("French Title")
+            expect(edition.locale).to eq("fr")
           end
         end
       end
@@ -217,7 +217,7 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when creating a draft for a previously unpublished content item" do
       before do
-        FactoryGirl.create(:unpublished_content_item,
+        FactoryGirl.create(:unpublished_edition,
           document: FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 2),
           user_facing_version: 5,
           base_path: base_path,
@@ -227,23 +227,23 @@ RSpec.describe Commands::V2::PutContent do
       it "creates the draft's lock version using the unpublished lock version as a starting point" do
         described_class.call(payload)
 
-        content_item = Edition.last
+        edition = Edition.last
 
-        expect(content_item).to be_present
-        expect(content_item.content_id).to eq(content_id)
-        expect(content_item.state).to eq("draft")
-        expect(content_item.document.stale_lock_version).to eq(3)
+        expect(edition).to be_present
+        expect(edition.content_id).to eq(content_id)
+        expect(edition.state).to eq("draft")
+        expect(edition.document.stale_lock_version).to eq(3)
       end
 
       it "creates the draft's user-facing version using the unpublished user-facing version as a starting point" do
         described_class.call(payload)
 
-        content_item = Edition.last
+        edition = Edition.last
 
-        expect(content_item).to be_present
-        expect(content_item.content_id).to eq(content_id)
-        expect(content_item.state).to eq("draft")
-        expect(content_item.user_facing_version).to eq(6)
+        expect(edition).to be_present
+        expect(edition.content_id).to eq(content_id)
+        expect(edition.state).to eq("draft")
+        expect(edition.user_facing_version).to eq(6)
       end
 
       it "allows the setting of first_published_at" do
@@ -252,43 +252,43 @@ RSpec.describe Commands::V2::PutContent do
 
         described_class.call(payload)
 
-        content_item = Edition.last
+        edition = Edition.last
 
-        expect(content_item).to be_present
-        expect(content_item.content_id).to eq(content_id)
-        expect(content_item.first_published_at).to eq(explicit_first_published)
+        expect(edition).to be_present
+        expect(edition.content_id).to eq(content_id)
+        expect(edition.first_published_at).to eq(explicit_first_published)
       end
     end
 
     context "when the payload is for a brand new content item" do
       it "creates a content item" do
         described_class.call(payload)
-        content_item = Edition.last
+        edition = Edition.last
 
-        expect(content_item).to be_present
-        expect(content_item.content_id).to eq(content_id)
-        expect(content_item.title).to eq("Some Title")
+        expect(edition).to be_present
+        expect(edition.content_id).to eq(content_id)
+        expect(edition.title).to eq("Some Title")
       end
 
       it "sets a draft state for the content item" do
         described_class.call(payload)
-        content_item = Edition.last
+        edition = Edition.last
 
-        expect(content_item.state).to eq("draft")
+        expect(edition.state).to eq("draft")
       end
 
       it "sets a user-facing version of 1 for the content item" do
         described_class.call(payload)
-        content_item = Edition.last
+        edition = Edition.last
 
-        expect(content_item.user_facing_version).to eq(1)
+        expect(edition.user_facing_version).to eq(1)
       end
 
       it "creates a lock version for the content item" do
         described_class.call(payload)
-        content_item = Edition.last
+        edition = Edition.last
 
-        expect(content_item.document.stale_lock_version).to eq(1)
+        expect(edition.document.stale_lock_version).to eq(1)
       end
 
       it "creates a change note" do
@@ -302,7 +302,7 @@ RSpec.describe Commands::V2::PutContent do
         FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 1)
       end
       let!(:previously_drafted_item) do
-        FactoryGirl.create(:draft_content_item,
+        FactoryGirl.create(:draft_edition,
           document: document,
           base_path: base_path,
           title: "Old Title",
@@ -404,16 +404,16 @@ RSpec.describe Commands::V2::PutContent do
             described_class.call(payload)
             expect(Edition.count).to eq(2)
 
-            content_item = Edition.last
-            expect(content_item.title).to eq("French Title")
+            edition = Edition.last
+            expect(edition.title).to eq("French Title")
 
-            expect(content_item.locale).to eq("fr")
+            expect(edition.locale).to eq("fr")
           end
         end
 
         context "when there is a draft at the new base path" do
           let!(:substitute_item) do
-            FactoryGirl.create(:draft_content_item,
+            FactoryGirl.create(:draft_edition,
               base_path: base_path,
               title: "Substitute Content",
               publishing_app: "publisher",
@@ -464,11 +464,11 @@ RSpec.describe Commands::V2::PutContent do
 
         it "resets those attributes to their defaults from the database" do
           described_class.call(payload)
-          content_item = Edition.last
+          edition = Edition.last
 
-          expect(content_item.redirects).to eq([])
-          expect(content_item.phase).to eq("live")
-          expect(content_item.locale).to eq("en")
+          expect(edition.redirects).to eq([])
+          expect(edition.phase).to eq("live")
+          expect(edition.locale).to eq("en")
         end
       end
 
@@ -650,9 +650,9 @@ RSpec.describe Commands::V2::PutContent do
 
           described_class.call(payload.merge(last_edited_at: last_edited_at))
 
-          content_item = Edition.last
+          edition = Edition.last
 
-          expect(content_item.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
+          expect(edition.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
         end
       end
 
@@ -660,16 +660,16 @@ RSpec.describe Commands::V2::PutContent do
         Timecop.freeze do
           described_class.call(payload)
 
-          content_item = Edition.last
+          edition = Edition.last
 
-          expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+          expect(edition.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
         end
       end
     end
 
     context "when the draft does exist" do
-      let!(:content_item) do
-        FactoryGirl.create(:draft_content_item,
+      let!(:edition) do
+        FactoryGirl.create(:draft_edition,
           document: FactoryGirl.create(:document, content_id: content_id)
         )
       end
@@ -687,9 +687,9 @@ RSpec.describe Commands::V2::PutContent do
                 )
               )
 
-              content_item.reload
+              edition.reload
 
-              expect(content_item.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
+              expect(edition.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
             end
           end
         end
@@ -699,21 +699,21 @@ RSpec.describe Commands::V2::PutContent do
         Timecop.freeze do
           described_class.call(payload)
 
-          content_item.reload
+          edition.reload
 
-          expect(content_item.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+          expect(edition.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
         end
       end
 
       context "when other update type" do
         it "dosen't change last_edited_at" do
-          old_last_edited_at = content_item.last_edited_at
+          old_last_edited_at = edition.last_edited_at
 
           described_class.call(payload.merge(update_type: "republish"))
 
-          content_item.reload
+          edition.reload
 
-          expect(content_item.last_edited_at).to eq(old_last_edited_at)
+          expect(edition.last_edited_at).to eq(old_last_edited_at)
         end
       end
     end
@@ -736,8 +736,8 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       context "for an existing draft content item" do
-        let!(:draft_content_item) do
-          FactoryGirl.create(:draft_content_item,
+        let!(:draft_edition) do
+          FactoryGirl.create(:draft_edition,
             document: FactoryGirl.create(:document, content_id: content_id),
             title: "Old Title"
           )
@@ -745,13 +745,13 @@ RSpec.describe Commands::V2::PutContent do
 
         it "updates the draft" do
           described_class.call(payload)
-          expect(draft_content_item.reload.title).to eq("Some Title")
+          expect(draft_edition.reload.title).to eq("Some Title")
         end
       end
 
       context "for an existing live content item" do
-        let!(:live_content_item) do
-          FactoryGirl.create(:live_content_item,
+        let!(:live_edition) do
+          FactoryGirl.create(:live_edition,
             document: FactoryGirl.create(:document, content_id: content_id),
             title: "Old Title"
           )
@@ -784,7 +784,7 @@ RSpec.describe Commands::V2::PutContent do
       # attempting to validate for pathless formats.
       context "with other similar pathless items" do
         before do
-          FactoryGirl.create(:draft_content_item,
+          FactoryGirl.create(:draft_edition,
             base_path: nil,
             schema_name: "contact",
             document_type: "contact",
@@ -801,7 +801,7 @@ RSpec.describe Commands::V2::PutContent do
 
       context "when there's a conflicting content item" do
         before do
-          FactoryGirl.create(:draft_content_item,
+          FactoryGirl.create(:draft_edition,
             base_path: base_path,
             schema_name: "contact",
             document_type: "contact",

@@ -6,7 +6,7 @@ RSpec.describe SubstitutionHelper do
   let(:existing_base_path) { "/vat-rates" }
 
   let!(:existing_item) {
-    FactoryGirl.create(:draft_content_item,
+    FactoryGirl.create(:draft_edition,
       document_type: existing_document_type,
       base_path: existing_base_path,
     )
@@ -39,7 +39,7 @@ RSpec.describe SubstitutionHelper do
 
       context "when the existing item is published" do
         let!(:existing_item) {
-          FactoryGirl.create(:live_content_item,
+          FactoryGirl.create(:live_edition,
             document_type: existing_document_type,
             base_path: existing_base_path,
           )
@@ -62,18 +62,18 @@ RSpec.describe SubstitutionHelper do
         end
 
         it "doesn't unpublish any other items" do
-          live_item = FactoryGirl.create(:live_content_item,
+          live_item = FactoryGirl.create(:live_edition,
             document_type: existing_document_type,
             base_path: existing_base_path,
           )
 
-          french_item = FactoryGirl.create(:draft_content_item,
+          french_item = FactoryGirl.create(:draft_edition,
             document_type: existing_document_type,
             base_path: existing_base_path,
             locale: "fr",
           )
 
-          item_elsewhere = FactoryGirl.create(:draft_content_item,
+          item_elsewhere = FactoryGirl.create(:draft_edition,
             document_type: existing_document_type,
             base_path: "/somewhere-else",
           )
@@ -85,7 +85,7 @@ RSpec.describe SubstitutionHelper do
 
         context "when the existing item is published" do
           let!(:existing_item) {
-            FactoryGirl.create(:live_content_item,
+            FactoryGirl.create(:live_edition,
               document_type: existing_document_type,
               base_path: existing_base_path,
             )
@@ -105,18 +105,18 @@ RSpec.describe SubstitutionHelper do
         end
 
         it "doesn't unpublish any other items" do
-          live_item = FactoryGirl.create(:live_content_item,
+          live_item = FactoryGirl.create(:live_edition,
             document_type: existing_document_type,
             base_path: existing_base_path,
           )
 
-          french_item = FactoryGirl.create(:draft_content_item,
+          french_item = FactoryGirl.create(:draft_edition,
             document_type: existing_document_type,
             base_path: existing_base_path,
             locale: "fr",
           )
 
-          item_elsewhere = FactoryGirl.create(:draft_content_item,
+          item_elsewhere = FactoryGirl.create(:draft_edition,
             document_type: existing_document_type,
             base_path: "/somewhere-else",
           )
@@ -128,7 +128,7 @@ RSpec.describe SubstitutionHelper do
 
         context "when the existing item is published" do
           let!(:existing_item) {
-            FactoryGirl.create(:live_content_item,
+            FactoryGirl.create(:live_edition,
               document_type: existing_document_type,
               base_path: existing_base_path,
             )
@@ -147,7 +147,7 @@ RSpec.describe SubstitutionHelper do
 
         context "when the existing item is published" do
           let!(:existing_item) {
-            FactoryGirl.create(:live_content_item,
+            FactoryGirl.create(:live_edition,
               document_type: existing_document_type,
               base_path: existing_base_path,
             )

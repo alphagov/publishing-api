@@ -17,12 +17,12 @@ RSpec.describe "Message bus", type: :request do
     let(:request_path) { "/v2/links/#{content_id}" }
 
     context "with a live content item" do
-      let!(:live_content_item) {
-        FactoryGirl.create(:live_content_item,
+      before do
+        FactoryGirl.create(:live_edition,
           document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
-      }
+      end
 
       it "sends a message with a 'links' routing key" do
         expect(DownstreamService).to receive(:broadcast_to_message_queue).with(anything, 'links')
@@ -33,12 +33,12 @@ RSpec.describe "Message bus", type: :request do
     end
 
     context "with a draft content item" do
-      let!(:draft_content_item) {
-        FactoryGirl.create(:draft_content_item,
+      before do
+        FactoryGirl.create(:draft_edition,
           document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
-      }
+      end
 
       it "doesn't send any messages" do
         expect(DownstreamService).to_not receive(:broadcast_to_message_queue)
@@ -53,7 +53,7 @@ RSpec.describe "Message bus", type: :request do
 
   context "/v2/publish" do
     before do
-      FactoryGirl.create(:draft_content_item,
+      FactoryGirl.create(:draft_edition,
         document: FactoryGirl.create(:document, content_id: content_id),
         document_type: "guide",
         schema_name: "guide",

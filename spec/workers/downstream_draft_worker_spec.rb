@@ -1,13 +1,13 @@
 require "rails_helper"
 
 RSpec.describe DownstreamDraftWorker do
-  let(:content_item) do
-    FactoryGirl.create(:draft_content_item, base_path: "/foo", locale: "en")
+  let(:edition) do
+    FactoryGirl.create(:draft_edition, base_path: "/foo", locale: "en")
   end
 
   let(:base_arguments) do
     {
-      "content_id" => content_item.content_id,
+      "content_id" => edition.content_id,
       "locale" => "en",
       "payload_version" => 1,
       "update_dependencies" => true,
@@ -26,7 +26,7 @@ RSpec.describe DownstreamDraftWorker do
         subject.perform(arguments.except("content_id"))
       }.to raise_error(KeyError)
       expect {
-        subject.perform(arguments.merge("content_item_id" => content_item.id))
+        subject.perform(arguments.merge("content_item_id" => edition.id))
       }.not_to raise_error
     end
 
@@ -44,24 +44,23 @@ RSpec.describe DownstreamDraftWorker do
   end
 
   describe "sends to draft content store" do
-    context "content item has a base path" do
+    context "edition has a base path" do
       it "sends put content to draft content store" do
         expect(Adapters::DraftContentStore).to receive(:put_content_item)
         subject.perform(arguments)
       end
 
       it "receives the base path" do
-        base_path = Edition.where(id: content_item.id).pluck(:base_path).first
+        base_path = Edition.where(id: edition.id).pluck(:base_path).first
         expect(Adapters::DraftContentStore).to receive(:put_content_item)
           .with(base_path, anything)
         subject.perform(arguments)
       end
     end
 
-    context "content item has a nil base path" do
+    context "edition has a nil base path" do
       it "doesn't send the item to the draft content store" do
-        pathless = FactoryGirl.create(
-          :draft_content_item,
+        pathless = FactoryGirl.create(:draft_edition,
           base_path: nil,
           document_type: "contact",
           schema_name: "contact",

@@ -1,13 +1,13 @@
 require "rails_helper"
 
 RSpec.describe DownstreamLiveWorker do
-  let(:content_item) do
-    FactoryGirl.create(:live_content_item, base_path: "/foo", locale: "en")
+  let(:edition) do
+    FactoryGirl.create(:live_edition, base_path: "/foo", locale: "en")
   end
 
   let(:base_arguments) do
     {
-      "content_id" => content_item.content_id,
+      "content_id" => edition.content_id,
       "locale" => "en",
       "payload_version" => 1,
       "message_queue_update_type" => "major",
@@ -27,7 +27,7 @@ RSpec.describe DownstreamLiveWorker do
         subject.perform(arguments.except("content_id"))
       }.to raise_error(KeyError)
       expect {
-        subject.perform(arguments.merge("content_item_id" => content_item.id))
+        subject.perform(arguments.merge("content_item_id" => edition.id))
       }.not_to raise_error
     end
 
@@ -59,8 +59,8 @@ RSpec.describe DownstreamLiveWorker do
     end
 
     context "unpublished content item" do
-      let(:unpublished_content_item) { FactoryGirl.create(:unpublished_content_item) }
-      let(:unpublished_arguments) { arguments.merge(content_id: unpublished_content_item.content_id) }
+      let(:unpublished_edition) { FactoryGirl.create(:unpublished_edition) }
+      let(:unpublished_arguments) { arguments.merge(content_id: unpublished_edition.content_id) }
 
       it "sends content to live content store" do
         expect(Adapters::ContentStore).to receive(:put_content_item)
@@ -69,8 +69,8 @@ RSpec.describe DownstreamLiveWorker do
     end
 
     context "superseded content item" do
-      let(:superseded_content_item) { FactoryGirl.create(:live_content_item, state: "superseded") }
-      let(:superseded_arguments) { arguments.merge(content_id: superseded_content_item.content_id) }
+      let(:superseded_edition) { FactoryGirl.create(:superseded_edition) }
+      let(:superseded_arguments) { arguments.merge(content_id: superseded_edition.content_id) }
 
       it "doesn't send to live content store" do
         expect(Adapters::ContentStore).to_not receive(:put_content_item)
@@ -85,8 +85,7 @@ RSpec.describe DownstreamLiveWorker do
     end
 
     it "wont send to content store without a base_path" do
-      pathless = FactoryGirl.create(
-        :live_content_item,
+      pathless = FactoryGirl.create(:live_edition,
         base_path: nil,
         document_type: "contact",
         schema_name: "contact"
@@ -129,7 +128,7 @@ RSpec.describe DownstreamLiveWorker do
 
   describe "draft-to-live protection" do
     it "rejects draft content items" do
-      draft = FactoryGirl.create(:draft_content_item)
+      draft = FactoryGirl.create(:draft_edition)
 
       expect(Airbrake).to receive(:notify)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
@@ -137,7 +136,7 @@ RSpec.describe DownstreamLiveWorker do
     end
 
     it "allows live content items" do
-      live = FactoryGirl.create(:live_content_item)
+      live = FactoryGirl.create(:live_edition)
 
       expect(Airbrake).to_not receive(:notify)
       subject.perform(arguments.merge("content_id" => live.content_id))

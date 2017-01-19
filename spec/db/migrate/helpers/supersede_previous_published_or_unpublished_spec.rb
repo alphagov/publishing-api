@@ -5,32 +5,28 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
   let(:document) { FactoryGirl.create(:document) }
 
   let!(:unpublished_1) do
-    FactoryGirl.create(
-      :superseded_content_item,
+    FactoryGirl.create(:superseded_edition,
       document: document,
       user_facing_version: 1,
     )
   end
 
   let!(:published) do
-    FactoryGirl.create(
-      :live_content_item,
+    FactoryGirl.create(:live_edition,
       document: document,
       user_facing_version: 2,
     )
   end
 
   let!(:unpublished_2) do
-    FactoryGirl.create(
-      :superseded_content_item,
+    FactoryGirl.create(:superseded_edition,
       document: document,
       user_facing_version: 3,
     )
   end
 
   let!(:draft) do
-    FactoryGirl.create(
-      :draft_content_item,
+    FactoryGirl.create(:draft_edition,
       document: document,
       user_facing_version: 4,
     )
@@ -63,8 +59,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
       content_id: document.content_id,
       locale: "fr",
     )
-    french_item = FactoryGirl.create(
-      :live_content_item,
+    french_item = FactoryGirl.create(:live_edition,
       document: document_fr,
       user_facing_version: 1,
     )
