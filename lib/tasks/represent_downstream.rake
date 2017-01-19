@@ -2,7 +2,7 @@ namespace :represent_downstream do
   desc "Represent all content_items downstream"
   task all: :environment do
     Commands::V2::RepresentDownstream.new.call(
-        Edition.where("document_type != 'travel_advice'").pluck(:content_id)
+      Edition.where("document_type != 'travel_advice'").pluck(:content_id)
     )
   end
 
