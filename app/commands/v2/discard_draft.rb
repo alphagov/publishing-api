@@ -51,7 +51,7 @@ module Commands
       end
 
       def delete_supporting_objects(content_item)
-        Location.find_by(content_item: content_item).try(:destroy)
+        Location.find_by(edition: content_item).try(:destroy)
         State.find_by(content_item: content_item).try(:destroy)
         Translation.find_by(content_item: content_item).try(:destroy)
         UserFacingVersion.find_by(edition: content_item).try(:destroy)
