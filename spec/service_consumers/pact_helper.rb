@@ -94,7 +94,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      draft = FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_content_item, document: document)
     end
   end
 
@@ -126,7 +126,7 @@ Pact.provider_states_for "GDS API Adapters" do
         locale: "fr",
       )
 
-      draft = FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_content_item, document: document)
     end
   end
 
@@ -134,7 +134,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      live = FactoryGirl.create(:live_content_item, document: document)
+      FactoryGirl.create(:live_content_item, document: document)
     end
   end
 
@@ -182,7 +182,7 @@ Pact.provider_states_for "GDS API Adapters" do
         locale: "fr",
       )
 
-      draft = FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_content_item, document: document)
     end
   end
 
@@ -251,7 +251,7 @@ Pact.provider_states_for "GDS API Adapters" do
         stale_lock_version: 3,
       )
 
-      draft = FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_content_item, document: document)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
@@ -266,7 +266,7 @@ Pact.provider_states_for "GDS API Adapters" do
         stale_lock_version: 1,
       )
 
-      draft = FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_content_item, document: document)
 
       linkset = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
