@@ -199,7 +199,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     context "for an access-limited item" do
       let!(:access_limit) {
-        FactoryGirl.create(:access_limit, content_item: content_item)
+        FactoryGirl.create(:access_limit, edition: content_item)
       }
 
       context "in draft" do

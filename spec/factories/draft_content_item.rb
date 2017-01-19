@@ -25,7 +25,7 @@ FactoryGirl.define do
     sequence(:base_path) { |n| "/access-limited-#{n}" }
 
     after(:create) do |item, _|
-      FactoryGirl.create(:access_limit, content_item: item)
+      FactoryGirl.create(:access_limit, edition: item)
     end
   end
 

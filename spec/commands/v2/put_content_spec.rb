@@ -474,7 +474,7 @@ RSpec.describe Commands::V2::PutContent do
 
       context "when the previous draft has an access limit" do
         let!(:access_limit) do
-          FactoryGirl.create(:access_limit, content_item: previously_drafted_item, users: ["old-user"])
+          FactoryGirl.create(:access_limit, edition: previously_drafted_item, users: ["old-user"])
         end
 
         context "when the params includes an access limit" do
@@ -510,7 +510,7 @@ RSpec.describe Commands::V2::PutContent do
               described_class.call(payload)
             }.to change(AccessLimit, :count).by(1)
 
-            access_limit = AccessLimit.find_by!(content_item: previously_drafted_item)
+            access_limit = AccessLimit.find_by!(edition: previously_drafted_item)
             expect(access_limit.users).to eq(["new-user"])
           end
         end
@@ -529,7 +529,7 @@ RSpec.describe Commands::V2::PutContent do
 
         access_limit = AccessLimit.last
         expect(access_limit.users).to eq(["new-user"])
-        expect(access_limit.content_item).to eq(Edition.last)
+        expect(access_limit.edition).to eq(Edition.last)
       end
     end
 

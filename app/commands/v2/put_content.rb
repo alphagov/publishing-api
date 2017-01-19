@@ -5,14 +5,14 @@ module Commands
         PutContentValidator.new(payload, self).validate
         prepare_content_with_base_path
 
-        content_item = create_or_update_content_item
-        update_content_dependencies(content_item)
+        edition = create_or_update_edition
+        update_content_dependencies(edition)
 
         after_transaction_commit do
           send_downstream(document.content_id, document.locale)
         end
 
-        Success.new(present_response(content_item))
+        Success.new(present_response(edition))
       end
 
       def document
@@ -33,12 +33,12 @@ module Commands
         clear_draft_items_of_same_locale_and_base_path
       end
 
-      def update_content_dependencies(content_item)
+      def update_content_dependencies(edition)
         create_redirect
-        access_limit(content_item)
-        update_last_edited_at(content_item, payload[:last_edited_at])
-        ChangeNote.create_from_content_item(payload, content_item)
-        Action.create_put_content_action(content_item, document.locale, event)
+        access_limit(edition)
+        update_last_edited_at(edition, payload[:last_edited_at])
+        ChangeNote.create_from_content_item(payload, edition)
+        Action.create_put_content_action(edition, document.locale, event)
       end
 
       def create_redirect
@@ -48,30 +48,30 @@ module Commands
                                      payload, callbacks).create
       end
 
-      def present_response(content_item)
+      def present_response(edition)
         Presenters::Queries::ContentItemPresenter.present(
-          content_item,
+          edition,
           include_warnings: true,
         )
       end
 
-      def access_limit(content_item)
+      def access_limit(edition)
         if payload[:access_limited] && (users = payload[:access_limited][:users])
-          AccessLimit.find_or_create_by(content_item: content_item).tap do |access_limit|
+          AccessLimit.find_or_create_by(edition: edition).tap do |access_limit|
             access_limit.update_attributes!(users: users)
           end
         else
-          AccessLimit.find_by(content_item: content_item).try(:destroy)
+          AccessLimit.find_by(edition: edition).try(:destroy)
         end
       end
 
-      def create_or_update_content_item
+      def create_or_update_edition
         if previously_drafted_item
           updated_item, @previous_item = UpdateExistingDraftContentItem.new(previously_drafted_item, self, payload).call
         else
-          new_draft_content_item = CreateDraftContentItem.new(self, payload, previously_published_item).call
+          new_draft_edition = CreateDraftContentItem.new(self, payload, previously_published_item).call
         end
-        updated_item || new_draft_content_item
+        updated_item || new_draft_edition
       end
 
       def previously_published_item
@@ -101,12 +101,12 @@ module Commands
         )
       end
 
-      def update_last_edited_at(content_item, last_edited_at = nil)
+      def update_last_edited_at(edition, last_edited_at = nil)
         if last_edited_at.nil? && %w(major minor).include?(payload[:update_type])
           last_edited_at = Time.zone.now
         end
 
-        content_item.update_attributes(last_edited_at: last_edited_at) if last_edited_at
+        edition.update_attributes(last_edited_at: last_edited_at) if last_edited_at
       end
 
       def bulk_publishing?

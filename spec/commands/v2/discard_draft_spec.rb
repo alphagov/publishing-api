@@ -61,7 +61,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         state = State.find_by(content_item: existing_draft_item)
         translation = Translation.find_by(content_item: existing_draft_item)
         location = Location.find_by(content_item: existing_draft_item)
-        access_limit = AccessLimit.find_by(content_item: existing_draft_item)
+        access_limit = AccessLimit.find_by(edition: existing_draft_item)
         user_facing_version = UserFacingVersion.find_by(content_item: existing_draft_item)
         lock_version = LockVersion.find_by(target: existing_draft_item)
         change_notes = ChangeNote.where(content_item: existing_draft_item)
@@ -147,7 +147,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           state = State.find_by(content_item: existing_draft_item)
           translation = Translation.find_by(content_item: existing_draft_item)
           location = Location.find_by(content_item: existing_draft_item)
-          access_limit = AccessLimit.find_by(content_item: existing_draft_item)
+          access_limit = AccessLimit.find_by(edition: existing_draft_item)
           user_facing_version = UserFacingVersion.find_by(content_item: existing_draft_item)
           lock_version = LockVersion.find_by(target: existing_draft_item)
 

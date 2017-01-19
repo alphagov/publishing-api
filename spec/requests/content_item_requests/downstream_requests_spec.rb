@@ -84,7 +84,7 @@ RSpec.describe "Downstream requests", type: :request do
 
         FactoryGirl.create(:access_limit,
           users: access_limit_params.fetch(:users),
-          content_item: draft,
+          edition: draft,
         )
       end
 
@@ -150,7 +150,7 @@ RSpec.describe "Downstream requests", type: :request do
 
         FactoryGirl.create(:access_limit,
           users: access_limit_params.fetch(:users),
-          content_item: draft,
+          edition: draft,
         )
 
         FactoryGirl.create(:live_content_item,

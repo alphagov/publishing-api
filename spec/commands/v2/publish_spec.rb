@@ -335,7 +335,7 @@ RSpec.describe Commands::V2::Publish do
 
     context "when an access limit is set on the draft content item" do
       before do
-        FactoryGirl.create(:access_limit, content_item: draft_item)
+        FactoryGirl.create(:access_limit, edition: draft_item)
       end
 
       it "destroys the access limit" do
@@ -343,7 +343,7 @@ RSpec.describe Commands::V2::Publish do
           described_class.call(payload)
         }.to change(AccessLimit, :count).by(-1)
 
-        expect(AccessLimit.exists?(content_item: draft_item)).to eq(false)
+        expect(AccessLimit.exists?(edition: draft_item)).to eq(false)
       end
     end
 
