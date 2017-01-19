@@ -4,7 +4,7 @@ RSpec.describe Action do
   describe "Content Item and Link Set presence" do
     let(:content_item) { nil }
     let(:link_set) { nil }
-    subject { FactoryGirl.build(:action, content_item: content_item, link_set: link_set) }
+    subject { FactoryGirl.build(:action, edition: content_item, link_set: link_set) }
 
     context "No Content Item or Link Set" do
       it { is_expected.to be_valid }

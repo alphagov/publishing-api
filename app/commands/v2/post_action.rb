@@ -8,7 +8,7 @@ module Commands
           content_id: document.content_id,
           locale: document.locale,
           action: action_type,
-          content_item: content_item,
+          edition: content_item,
           user_uid: event.user_uid,
           event: event,
         )
