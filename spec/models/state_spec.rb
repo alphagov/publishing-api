@@ -29,7 +29,7 @@ RSpec.describe State do
 
       unpublishing = Unpublishing.last
 
-      expect(unpublishing.content_item).to eq(live_item)
+      expect(unpublishing.edition).to eq(live_item)
       expect(unpublishing.type).to eq("gone")
       expect(unpublishing.explanation).to eq("A test explanation")
       expect(unpublishing.alternative_path).to eq("/some-path")

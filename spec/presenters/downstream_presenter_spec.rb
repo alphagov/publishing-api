@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::DownstreamPresenter do
-  def web_content_item_for(content_item)
-    Queries::GetWebContentItems.(content_item.id).first
+  def web_content_item_for(edition)
+    Queries::GetWebContentItems.(edition.id).first
   end
 
   let(:state_fallback_order) { [] }
-  let(:web_content_item) { web_content_item_for(content_item) }
+  let(:web_content_item) { web_content_item_for(edition) }
   let(:change_history) { { note: "Note", public_timestamp: 1.day.ago.to_s } }
   let(:details) { { body: "<p>Text</p>\n", change_history: [change_history], } }
 
@@ -17,7 +17,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     let(:expected) {
       {
-        content_id: content_item.content_id,
+        content_id: edition.content_id,
         base_path: base_path,
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
@@ -41,13 +41,12 @@ RSpec.describe Presenters::DownstreamPresenter do
     }
 
     context "for a live content item" do
-      let(:content_item) do
-        FactoryGirl.create(
-          :live_content_item,
+      let(:edition) do
+        FactoryGirl.create(:live_content_item,
           base_path: base_path,
           details: details)
       end
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to eq(expected)
@@ -55,13 +54,12 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a draft content item" do
-      let(:content_item) do
-        FactoryGirl.create(
-          :draft_content_item,
+      let(:edition) do
+        FactoryGirl.create(:draft_content_item,
           base_path: base_path,
           details: details)
       end
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to eq(expected)
@@ -69,16 +67,15 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a withdrawn content item" do
-      let!(:content_item) do
-        FactoryGirl.create(
-          :withdrawn_unpublished_content_item,
+      let!(:edition) do
+        FactoryGirl.create(:withdrawn_unpublished_content_item,
           base_path: base_path,
           details: details)
       end
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.content_id) }
 
       it "merges in a withdrawal notice" do
-        unpublishing = Unpublishing.find_by(content_item: content_item)
+        unpublishing = Unpublishing.find_by(edition: edition)
 
         expect(result).to eq(
           expected.merge(
@@ -91,9 +88,8 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       context "with an overridden unpublished_at" do
-        let!(:content_item) do
-          FactoryGirl.create(
-            :withdrawn_unpublished_content_item,
+        let!(:edition) do
+          FactoryGirl.create(:withdrawn_unpublished_content_item,
             base_path: base_path,
             details: details,
             unpublished_at: DateTime.new(2016, 9, 10, 4, 5, 6)
@@ -101,7 +97,7 @@ RSpec.describe Presenters::DownstreamPresenter do
         end
 
         it "merges in a withdrawal notice with the withdrawn_at set correctly" do
-          unpublishing = Unpublishing.find_by(content_item: content_item)
+          unpublishing = Unpublishing.find_by(edition: edition)
 
           expect(result).to eq(
             expected.merge(
@@ -161,14 +157,13 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     context "for a content item with change notes" do
-      let(:content_item) do
-        FactoryGirl.create(
-          :draft_content_item,
+      let(:edition) do
+        FactoryGirl.create(:draft_content_item,
           base_path: base_path,
           details: details.slice(:body))
       end
       before do
-        ChangeNote.create(change_history.merge(edition: content_item, content_id: content_item.content_id))
+        ChangeNote.create(change_history.merge(edition: edition, content_id: edition.content_id))
       end
 
       it "constructs the change history" do
@@ -177,8 +172,8 @@ RSpec.describe Presenters::DownstreamPresenter do
     end
 
     describe "conditional attributes" do
-      let!(:content_item) { FactoryGirl.create(:live_content_item) }
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_item.content_id) }
+      let!(:edition) { FactoryGirl.create(:live_content_item) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.content_id) }
 
       context "when the link_set is not present" do
         before { link_set.destroy }
@@ -189,7 +184,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       context "when the public_updated_at is not present" do
-        let(:content_item) { FactoryGirl.create(:gone_draft_content_item) }
+        let(:edition) { FactoryGirl.create(:gone_draft_content_item) }
 
         it "does not raise an error" do
           expect { result }.not_to raise_error
@@ -199,11 +194,11 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     context "for an access-limited item" do
       let!(:access_limit) {
-        FactoryGirl.create(:access_limit, edition: content_item)
+        FactoryGirl.create(:access_limit, edition: edition)
       }
 
       context "in draft" do
-        let(:content_item) { FactoryGirl.create(:draft_content_item) }
+        let(:edition) { FactoryGirl.create(:draft_content_item) }
 
         it "populates the access_limited hash" do
           expect(result[:access_limited][:users].length).to eq(1)
@@ -211,7 +206,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       context "in live" do
-        let(:content_item) { FactoryGirl.create(:live_content_item) }
+        let(:edition) { FactoryGirl.create(:live_content_item) }
 
         it "does not send an access_limited hash" do
           expect(result).not_to include(:access_limited)
@@ -236,9 +231,8 @@ RSpec.describe Presenters::DownstreamPresenter do
         }
       end
 
-      let(:content_item) do
-        FactoryGirl.create(
-          :live_content_item,
+      let(:edition) do
+        FactoryGirl.create(:live_content_item,
           base_path: base_path,
           details: details,
         )

@@ -10,7 +10,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
   let!(:document) { FactoryGirl.create(:document, content_id: content_id) }
-  let!(:content_item) do
+  let!(:edition) do
     FactoryGirl.create(:live_content_item,
       document: document,
       base_path: base_path,
@@ -41,7 +41,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
       expect(response.status).to eq(200), response.body
 
-      unpublishing = Unpublishing.find_by(content_item: content_item)
+      unpublishing = Unpublishing.find_by(edition: edition)
       expect(unpublishing.type).to eq("withdrawal")
       expect(unpublishing.explanation).to eq("Test withdrawal")
     end
@@ -93,7 +93,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           document_type: "redirect",
           schema_name: "redirect",
           base_path: base_path,
-          publishing_app: content_item.publishing_app,
+          publishing_app: edition.publishing_app,
           public_updated_at: Time.zone.now.iso8601,
           redirects: [
             {
@@ -112,7 +112,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
       expect(response.status).to eq(200), response.body
 
-      unpublishing = Unpublishing.find_by(content_item: content_item)
+      unpublishing = Unpublishing.find_by(edition: edition)
       expect(unpublishing.type).to eq("redirect")
       expect(unpublishing.alternative_path).to eq("/new-path")
     end
@@ -165,7 +165,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           base_path: base_path,
           document_type: "gone",
           schema_name: "gone",
-          publishing_app: content_item.publishing_app,
+          publishing_app: edition.publishing_app,
           details: {
             explanation: "Test gone",
             alternative_path: "/new-path",
@@ -186,7 +186,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
       expect(response.status).to eq(200), response.body
 
-      unpublishing = Unpublishing.find_by(content_item: content_item)
+      unpublishing = Unpublishing.find_by(edition: edition)
       expect(unpublishing.type).to eq("gone")
       expect(unpublishing.explanation).to eq("Test gone")
       expect(unpublishing.alternative_path).to eq("/new-path")
@@ -237,7 +237,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
       expect(response.status).to eq(200), response.body
 
-      unpublishing = Unpublishing.find_by(content_item: content_item)
+      unpublishing = Unpublishing.find_by(edition: edition)
       expect(unpublishing.type).to eq("vanish")
     end
 

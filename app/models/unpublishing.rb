@@ -1,7 +1,7 @@
 class Unpublishing < ApplicationRecord
   self.inheritance_column = nil
 
-  belongs_to :content_item, class_name: Edition
+  belongs_to :edition, foreign_key: "content_item_id"
 
   VALID_TYPES = %w(
     gone
@@ -11,7 +11,7 @@ class Unpublishing < ApplicationRecord
     withdrawal
   ).freeze
 
-  validates :content_item, presence: true, uniqueness: true
+  validates :edition, presence: true, uniqueness: true
   validates :type, presence: true, inclusion: { in: VALID_TYPES }
   validates :explanation, presence: true, if: :withdrawal?
   validates :alternative_path, presence: true, if: :redirect?
@@ -25,7 +25,7 @@ class Unpublishing < ApplicationRecord
     type == "redirect"
   end
 
-  def self.is_substitute?(content_item)
-    where(content_item: content_item).pluck(:type).first == "substitute"
+  def self.is_substitute?(edition)
+    where(edition: edition).pluck(:type).first == "substitute"
   end
 end
