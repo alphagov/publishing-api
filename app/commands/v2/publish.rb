@@ -36,7 +36,7 @@ module Commands
       end
 
       def remove_access_limit
-        AccessLimit.find_by(content_item: content_item).try(:destroy)
+        AccessLimit.find_by(edition: content_item).try(:destroy)
       end
 
       def validate

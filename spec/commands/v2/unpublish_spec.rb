@@ -214,7 +214,7 @@ RSpec.describe Commands::V2::Unpublish do
         context "where there is an access limit" do
           before do
             AccessLimit.create!(
-              content_item: draft_content_item,
+              edition: draft_content_item,
               users: [SecureRandom.uuid]
             )
           end

@@ -6,7 +6,7 @@ module Commands
 
         previous.supersede if previous_edition_should_be_superseded?
         transition_state
-        AccessLimit.find_by(content_item: content_item).try(:destroy)
+        AccessLimit.find_by(edition: content_item).try(:destroy)
 
         after_transaction_commit do
           send_downstream
