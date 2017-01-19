@@ -37,7 +37,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
   end
 
   before do
-    ContentItem.where(id: [unpublished_1.id, unpublished_2.id]).update_all(state: "unpublished")
+    Edition.where(id: [unpublished_1.id, unpublished_2.id]).update_all(state: "unpublished")
   end
 
   it "supersedes all but the latest published or unpublished item" do

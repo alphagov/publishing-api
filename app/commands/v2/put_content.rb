@@ -18,12 +18,11 @@ module Commands
       def document
         @document ||= Document.find_or_create_locked(
           content_id: payload.fetch(:content_id),
-          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
+          locale: payload.fetch(:locale, Edition::DEFAULT_LOCALE),
         )
       end
 
     private
-
       def content_with_base_path?
         base_path_required? || payload.has_key?(:base_path)
       end
@@ -82,7 +81,7 @@ module Commands
       end
 
       def base_path_required?
-        !ContentItem::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
+        !Edition::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
       end
 
       def previously_drafted_item

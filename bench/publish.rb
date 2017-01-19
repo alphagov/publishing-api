@@ -77,7 +77,7 @@ begin
   puts "#{$queries} SQL queries"
 
 ensure
-  scope = ContentItem.where(publishing_app: 'performance-testing')
+  scope = Edition.where(publishing_app: 'performance-testing')
   LinkSet.includes(:links).where(content_id: scope.pluck(:content_id)).destroy_all
   Location.where(content_item: scope).delete_all
   State.where(content_item: scope).delete_all

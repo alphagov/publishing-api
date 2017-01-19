@@ -275,7 +275,7 @@ RSpec.describe Commands::V2::Unpublish do
           end
 
           it "does not supersede unpublished items in a different locale" do
-            ContentItem.find_by!(id: previous_content_item.id)
+            Edition.find_by!(id: previous_content_item.id)
               .update(document: french_document)
 
             described_class.call(payload.merge(allow_draft: true))
@@ -306,7 +306,7 @@ RSpec.describe Commands::V2::Unpublish do
           end
 
           it "does not supersede published items in a different locale" do
-            ContentItem.find_by!(id: previous_content_item.id)
+            Edition.find_by!(id: previous_content_item.id)
               .update(document: french_document)
 
             described_class.call(payload.merge(allow_draft: true))
@@ -350,7 +350,7 @@ RSpec.describe Commands::V2::Unpublish do
         it "discards the draft" do
           described_class.call(payload)
 
-          content_items = ContentItem.joins(:document)
+          content_items = Edition.joins(:document)
             .where(documents: { content_id: content_id })
           expect(content_items.count).to eq(1)
 

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe RequeueContent do
   before do
-    ContentItem.destroy_all
+    Edition.destroy_all
   end
 
   let!(:content_item1) { FactoryGirl.create(:live_content_item, base_path: '/ci1') }

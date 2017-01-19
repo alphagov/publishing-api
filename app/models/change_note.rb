@@ -1,5 +1,5 @@
 class ChangeNote < ActiveRecord::Base
-  belongs_to :content_item
+  belongs_to :content_item, class_name: Edition
 
   def self.create_from_content_item(payload, content_item)
     ChangeNoteFactory.new(payload, content_item).build

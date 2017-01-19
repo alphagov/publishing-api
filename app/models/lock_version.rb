@@ -23,7 +23,7 @@ class LockVersion < ApplicationRecord
   end
 
   def lock_version_target
-    if content_item_target?
+    if edition_target?
       target.document
     else
       target
@@ -41,8 +41,9 @@ class LockVersion < ApplicationRecord
 
 private
 
-  def content_item_target?
-    target_type == 'ContentItem'
+  def edition_target?
+    # The 'Edition' class used to be called the 'ContentItem' class.
+    %w(ContentItem Edition).include? target_type
   end
 
   def numbers_must_increase

@@ -1,5 +1,5 @@
 class Action < ActiveRecord::Base
-  belongs_to :content_item
+  belongs_to :content_item, class_name: Edition
   belongs_to :link_set
   belongs_to :event
 

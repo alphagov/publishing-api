@@ -7,7 +7,7 @@ class VersionForDocumentValidator < ActiveModel::Validator
       user_facing_version: record.user_facing_version,
     }
 
-    conflict = ContentItem.where(criteria).where.not(id: record.id).order(nil).first
+    conflict = Edition.where(criteria).where.not(id: record.id).order(nil).first
 
     if conflict
       error = "user_facing_version=#{record.user_facing_version} and "

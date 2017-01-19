@@ -1,7 +1,7 @@
 module Helpers
   module SupersedePreviousPublishedOrUnpublished
     def self.run
-      state_histories = ContentItem
+      state_histories = Edition
         .joins(:document)
         .where(state: %w(published unpublished))
         .group("documents.content_id", :locale)
@@ -18,7 +18,7 @@ module Helpers
         history.map { |r| r[:content_item_id] }
       end
 
-      ContentItem.where(id: content_items_to_supersede).update_all(state: "superseded")
+      Edition.where(id: content_items_to_supersede).update_all(state: "superseded")
 
       content_items_to_supersede.count
     end

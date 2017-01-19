@@ -12,7 +12,7 @@ module Queries
     end
 
     def self.content_items(publishing_app)
-      ContentItem.
+      Edition.
         where(publishing_app: publishing_app).
         where("json_array_length(details->'change_history') > 0")
     end

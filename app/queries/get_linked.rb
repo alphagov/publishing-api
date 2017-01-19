@@ -18,7 +18,7 @@ module Queries
         .joins(:link_set)
         .pluck(:content_id)
 
-      content_items = ContentItem.joins(:document)
+      content_items = Edition.joins(:document)
         .where(documents: { content_id: content_ids })
 
       presented = presenter.present_many(content_items, fields: fields)
@@ -30,7 +30,7 @@ module Queries
     attr_accessor :target_content_id, :link_type, :fields
 
     def validate_presence_of_item!
-      return if ContentItem.joins(:document).exists?(
+      return if Edition.joins(:document).exists?(
         documents: { content_id: target_content_id },
         state: %w(draft published),
       )
@@ -68,7 +68,7 @@ module Queries
     end
 
     def permitted_fields
-      ContentItem.column_names + %w(content_id base_path locale publication_state)
+      Edition.column_names + %w(content_id base_path locale publication_state)
     end
 
     def presenter

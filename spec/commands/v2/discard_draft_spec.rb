@@ -38,9 +38,9 @@ RSpec.describe Commands::V2::DiscardDraft do
       it "deletes the draft item" do
         expect {
           described_class.call(payload)
-        }.to change(ContentItem, :count).by(-1)
+        }.to change(Edition, :count).by(-1)
 
-        expect(ContentItem.exists?(id: existing_draft_item.id)).to eq(false)
+        expect(Edition.exists?(id: existing_draft_item.id)).to eq(false)
       end
 
       it "creates an action" do
@@ -162,7 +162,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the draft" do
           expect {
             described_class.call(payload)
-          }.to change(ContentItem, :count).by(-1)
+          }.to change(Edition, :count).by(-1)
         end
       end
 
@@ -230,16 +230,16 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the draft for the given locale" do
           expect {
             described_class.call(payload)
-          }.to change(ContentItem, :count).by(-1)
+          }.to change(Edition, :count).by(-1)
 
-          expect(ContentItem.exists?(id: french_draft_item.id)).to eq(false),
-            "The French draft item was not removed"
+          expect(Edition.exists?(id: french_draft_item.id)).to eq(false),
+                                                               "The French draft item was not removed"
         end
 
         it "does not delete the english content item" do
           described_class.call(payload)
-          expect(ContentItem.exists?(id: existing_draft_item.id)).to eq(true),
-            "The English draft item was removed"
+          expect(Edition.exists?(id: existing_draft_item.id)).to eq(true),
+                                                                 "The English draft item was removed"
         end
       end
 

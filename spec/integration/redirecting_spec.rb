@@ -43,21 +43,21 @@ RSpec.describe "Redirecting content items that are redrafted" do
     end
 
     it "sets up the content items in the expected initial state" do
-      expect(ContentItem.count).to eq(3)
+      expect(Edition.count).to eq(3)
 
-      content_item = ContentItem.first
+      content_item = Edition.first
       expect(content_item.schema_name).to eq("guide")
       expect(content_item.state).to eq("published")
       expect(content_item.base_path).to eq("/foo")
       expect(content_item.user_facing_version).to eq(1)
 
-      content_item = ContentItem.second
+      content_item = Edition.second
       expect(content_item.schema_name).to eq("guide")
       expect(content_item.state).to eq("draft")
       expect(content_item.base_path).to eq("/bar")
       expect(content_item.user_facing_version).to eq(2)
 
-      content_item = ContentItem.third
+      content_item = Edition.third
       expect(content_item.schema_name).to eq("redirect")
       expect(content_item.state).to eq("draft")
       expect(content_item.base_path).to eq("/foo")
@@ -70,21 +70,21 @@ RSpec.describe "Redirecting content items that are redrafted" do
       end
 
       it "transitions the states of the content items correctly" do
-        expect(ContentItem.count).to eq(3)
+        expect(Edition.count).to eq(3)
 
-        content_item = ContentItem.first
+        content_item = Edition.first
         expect(content_item.schema_name).to eq("guide")
         expect(content_item.state).to eq("superseded")
         expect(content_item.base_path).to eq("/foo")
         expect(content_item.user_facing_version).to eq(1)
 
-        content_item = ContentItem.second
+        content_item = Edition.second
         expect(content_item.schema_name).to eq("guide")
         expect(content_item.state).to eq("published")
         expect(content_item.base_path).to eq("/bar")
         expect(content_item.user_facing_version).to eq(2)
 
-        content_item = ContentItem.third
+        content_item = Edition.third
         expect(content_item.schema_name).to eq("redirect")
         expect(content_item.state).to eq("published")
         expect(content_item.base_path).to eq("/foo")
@@ -102,21 +102,21 @@ RSpec.describe "Redirecting content items that are redrafted" do
     end
 
     it "sets up the content items in the expected initial state" do
-      expect(ContentItem.count).to eq(3)
+      expect(Edition.count).to eq(3)
 
-      content_item = ContentItem.first
+      content_item = Edition.first
       expect(content_item.schema_name).to eq("guide")
       expect(content_item.state).to eq("published")
       expect(content_item.base_path).to eq("/foo")
       expect(content_item.user_facing_version).to eq(1)
 
-      content_item = ContentItem.second
+      content_item = Edition.second
       expect(content_item.schema_name).to eq("guide")
       expect(content_item.state).to eq("draft")
       expect(content_item.base_path).to eq("/bar")
       expect(content_item.user_facing_version).to eq(2)
 
-      content_item = ContentItem.third
+      content_item = Edition.third
       expect(content_item.schema_name).to eq("redirect")
       expect(content_item.state).to eq("draft")
       expect(content_item.base_path).to eq("/foo")
@@ -129,21 +129,21 @@ RSpec.describe "Redirecting content items that are redrafted" do
       end
 
       it "transitions the states of the content items correctly" do
-        expect(ContentItem.count).to eq(3)
+        expect(Edition.count).to eq(3)
 
-        content_item = ContentItem.first
+        content_item = Edition.first
         expect(content_item.schema_name).to eq("guide")
         expect(content_item.state).to eq("superseded")
         expect(content_item.base_path).to eq("/foo")
         expect(content_item.user_facing_version).to eq(1)
 
-        content_item = ContentItem.second
+        content_item = Edition.second
         expect(content_item.schema_name).to eq("guide")
         expect(content_item.state).to eq("published")
         expect(content_item.base_path).to eq("/bar")
         expect(content_item.user_facing_version).to eq(2)
 
-        content_item = ContentItem.third
+        content_item = Edition.third
         expect(content_item.schema_name).to eq("redirect")
         expect(content_item.state).to eq("published")
         expect(content_item.base_path).to eq("/foo")

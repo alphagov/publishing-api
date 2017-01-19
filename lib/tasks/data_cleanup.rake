@@ -33,13 +33,13 @@ namespace :data_cleanup do
       target_type: "ContentItem"
     ).destroy_all
 
-    ContentItem.where(id: content_item_ids).destroy_all
+    Edition.where(id: content_item_ids).destroy_all
 
     puts "Checking link sets"
     content_ids.each do |content_id|
       # Remove linkset if there's no content items left
       # for that content ID.
-      unless ContentItem.exists?(content_id: content_id)
+      unless Edition.exists?(content_id: content_id)
         puts "-- Removing orphaned LinkSet for content ID '#{content_id}'"
         LinkSet.where(content_id: content_id).destroy_all
       end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ContentItem do
+RSpec.describe Edition do
   subject { FactoryGirl.build(:content_item) }
 
   describe ".renderable_content" do
@@ -247,7 +247,7 @@ RSpec.describe ContentItem do
 
   context "EMPTY_BASE_PATH_FORMATS" do
     it "defines formats not requiring a base_path attibute" do
-      expect(ContentItem::EMPTY_BASE_PATH_FORMATS).to eq(%w(contact government))
+      expect(Edition::EMPTY_BASE_PATH_FORMATS).to eq(%w(contact government))
     end
   end
 

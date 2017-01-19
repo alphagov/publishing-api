@@ -7,7 +7,7 @@ module Presenters
                     :include_warnings
 
       DEFAULT_FIELDS = ([
-        *ContentItem::TOP_LEVEL_FIELDS,
+        *Edition::TOP_LEVEL_FIELDS,
         :publication_state,
         :content_id,
         :locale,
@@ -22,7 +22,7 @@ module Presenters
       end
 
       def self.present(content_item, params = {})
-        scope = ContentItem.where(id: content_item.id)
+        scope = Edition.where(id: content_item.id)
 
         present_many(scope, params).first
       end

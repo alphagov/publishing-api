@@ -38,8 +38,8 @@ RSpec.describe "Superseding Content Items" do
     before { call_commands }
 
     it "creates and publishes a content item" do
-      expect(ContentItem.count).to eq(1)
-      content_item = ContentItem.first
+      expect(Edition.count).to eq(1)
+      content_item = Edition.first
 
       expect(content_item.state).to eq("published")
       expect(content_item.user_facing_version).to eq(1)
@@ -49,10 +49,10 @@ RSpec.describe "Superseding Content Items" do
       before { call_commands }
 
       it "supersedes the previously published content item" do
-        expect(ContentItem.count).to eq(2)
+        expect(Edition.count).to eq(2)
 
-        superseded_content_item = ContentItem.first
-        published_content_item = ContentItem.second
+        superseded_content_item = Edition.first
+        published_content_item = Edition.second
 
         expect(superseded_content_item.state).to eq("superseded")
         expect(published_content_item.state).to eq("published")
@@ -65,11 +65,11 @@ RSpec.describe "Superseding Content Items" do
         before { call_commands }
 
         it "supersedes the previously published content item (again)" do
-          expect(ContentItem.count).to eq(3)
+          expect(Edition.count).to eq(3)
 
-          superseded1_content_item = ContentItem.first
-          superseded2_content_item = ContentItem.second
-          published_content_item = ContentItem.third
+          superseded1_content_item = Edition.first
+          superseded2_content_item = Edition.second
+          published_content_item = Edition.third
 
           expect(superseded1_content_item.state).to eq("superseded")
           expect(superseded2_content_item.state).to eq("superseded")

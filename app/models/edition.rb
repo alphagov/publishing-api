@@ -1,4 +1,7 @@
-class ContentItem < ApplicationRecord
+class Edition < ApplicationRecord
+  self.table_name = "content_items"
+
+  include DefaultAttributes
   include SymbolizeJSON
   include DescriptionOverrides
 
@@ -36,7 +39,7 @@ class ContentItem < ApplicationRecord
   EMPTY_BASE_PATH_FORMATS = %w(contact government).freeze
 
   belongs_to :document
-  has_one :unpublishing
+  has_one :unpublishing, foreign_key: "content_item_id"
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
 
@@ -242,3 +245,7 @@ private
     renderable_content? && document_type != "contact"
   end
 end
+
+# Needed to work around the fact that we use a polymorphic type and to avoid including a migration which changed
+# the class name in the database, we simply make sure it is still available under its old name.
+ContentItem = Edition

@@ -31,9 +31,9 @@ RSpec.describe Tasks::DataSanitizer do
   it "deletes all access limited drafts" do
     Tasks::DataSanitizer.delete_access_limited(stdout)
 
-    expect(ContentItem.exists?(limited_draft.id)).to eq(false)
-    expect(ContentItem.exists?(non_limited_draft.id)).to eq(true)
-    expect(ContentItem.exists?(live_content_item.id)).to eq(true)
+    expect(Edition.exists?(limited_draft.id)).to eq(false)
+    expect(Edition.exists?(non_limited_draft.id)).to eq(true)
+    expect(Edition.exists?(live_content_item.id)).to eq(true)
   end
 
   it "deletes access limited drafts from the draft content store" do
@@ -46,9 +46,9 @@ RSpec.describe Tasks::DataSanitizer do
   it "removes the limited draft" do
     expect {
       Tasks::DataSanitizer.delete_access_limited(stdout)
-    }.to change(ContentItem, :count).by(-1)
+    }.to change(Edition, :count).by(-1)
 
-    expect(ContentItem.exists?(limited_draft.id)).to eq(false)
+    expect(Edition.exists?(limited_draft.id)).to eq(false)
     expect(AccessLimit.count).to be_zero
   end
 end

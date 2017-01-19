@@ -19,13 +19,13 @@ RSpec.shared_examples_for TransactionalCommand do
         raise "Uh oh, command failed half-way through processing"
       end
 
-      previous_count = ContentItem.count
+      previous_count = Edition.count
 
       expect {
         described_class.call(payload)
       }.to raise_error(/half-way through/)
 
-      new_count = ContentItem.count
+      new_count = Edition.count
 
       expect(new_count).to eq(previous_count),
         "The transaction should have been rolled back"

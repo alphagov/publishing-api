@@ -45,7 +45,7 @@ RSpec.describe EventLogger do
       else
         # The original transaction should have been rolled back, so there should be no
         # corresponding ContentItem in the database
-        expect(ContentItem.where(document: document).count).to eq(0)
+        expect(Edition.where(document: document).count).to eq(0)
         FactoryGirl.create(:live_content_item, document: document)
       end
     end
@@ -53,7 +53,7 @@ RSpec.describe EventLogger do
     # The second time it was called, it should have succeeded and created an
     # event and a content item
     expect(Event.count).to eq(1)
-    expect(ContentItem.count).to eq(1)
+    expect(Edition.count).to eq(1)
   end
 
   it "retries five times in case if a CommandRetryableError is thrown, then raises CommandError" do

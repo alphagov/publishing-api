@@ -24,7 +24,7 @@ module Commands
       def document
         @document ||= Document.find_or_create_locked(
           content_id: payload.fetch(:content_id),
-          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
+          locale: payload.fetch(:locale, Edition::DEFAULT_LOCALE),
         )
       end
 

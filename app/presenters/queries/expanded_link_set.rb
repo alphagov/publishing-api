@@ -3,7 +3,7 @@ module Presenters
     class ExpandedLinkSet
       attr_reader :state_fallback_order
 
-      def initialize(content_id:, state_fallback_order:, locale_fallback_order: ContentItem::DEFAULT_LOCALE)
+      def initialize(content_id:, state_fallback_order:, locale_fallback_order: Edition::DEFAULT_LOCALE)
         @content_id = content_id
         @state_fallback_order = Array(state_fallback_order.freeze)
         @locale_fallback_order = Array(locale_fallback_order.freeze)
