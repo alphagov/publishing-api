@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :unpublished_content_item, parent: :content_item, aliases: [:gone_unpublished_content_item] do
+  factory :unpublished_edition, parent: :edition, aliases: [:gone_unpublished_edition] do
     state "unpublished"
     content_store "live"
     transient do
@@ -9,9 +9,9 @@ FactoryGirl.define do
       unpublished_at nil
     end
 
-    after(:create) do |content_item, evaluator|
+    after(:create) do |edition, evaluator|
       FactoryGirl.create(:unpublishing,
-        content_item: content_item,
+        edition: edition,
         type: evaluator.unpublishing_type,
         explanation: evaluator.explanation,
         alternative_path: evaluator.alternative_path,
@@ -20,7 +20,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :withdrawn_unpublished_content_item, parent: :unpublished_content_item do
+  factory :withdrawn_unpublished_edition, parent: :unpublished_edition do
     content_store 'live'
     transient do
       unpublishing_type "withdrawal"
@@ -28,7 +28,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :redirect_unpublished_content_item, parent: :unpublished_content_item do
+  factory :redirect_unpublished_edition, parent: :unpublished_edition do
     content_store 'live'
     transient do
       unpublishing_type "redirect"
@@ -36,7 +36,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :vanish_unpublished_content_item, parent: :unpublished_content_item do
+  factory :vanish_unpublished_edition, parent: :unpublished_edition do
     content_store 'live'
     transient do
       unpublishing_type "vanish"
@@ -44,7 +44,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :substitute_unpublished_content_item, parent: :unpublished_content_item do
+  factory :substitute_unpublished_edition, parent: :unpublished_edition do
     content_store nil
     transient do
       unpublishing_type "substitute"
