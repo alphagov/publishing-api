@@ -22,7 +22,7 @@ RSpec.describe Queries::ContentDependencies do
       it { is_expected.to be_empty }
     end
 
-    context "when there are translations of the content item" do
+    context "when there are translations of the edition" do
       before do
         create_edition(content_id, "/a", locale: "en")
         create_edition(content_id, "/a.fr", locale: "fr")
@@ -67,7 +67,7 @@ RSpec.describe Queries::ContentDependencies do
       end
     end
 
-    context "when there are draft translations of the content item" do
+    context "when there are draft translations of the edition" do
       before do
         create_edition(content_id, "/a", locale: "en")
         create_edition(content_id, "/a.cy", factory: :draft_edition, locale: "cy")
@@ -90,7 +90,7 @@ RSpec.describe Queries::ContentDependencies do
       end
     end
 
-    context "when items link to this content item" do
+    context "when items link to this edition" do
       before do
         create_edition(link_1_content_id, "/link-1", locale: "en")
         create_edition(link_2_content_id, "/link-2", locale: "en")
@@ -110,7 +110,7 @@ RSpec.describe Queries::ContentDependencies do
       it { is_expected.to match_array(links) }
     end
 
-    context "when items in different translations link to this content item" do
+    context "when items in different translations link to this edition" do
       before do
         create_edition(link_content_id, "/link", locale: "en")
         create_edition(link_content_id, "/link.cy", locale: "cy")
@@ -128,7 +128,7 @@ RSpec.describe Queries::ContentDependencies do
       it { is_expected.to match_array(links) }
     end
 
-    context "when items in different states link to this content item" do
+    context "when items in different states link to this edition" do
       before do
         create_edition(link_1_content_id, "/link")
         create_edition(link_2_content_id, "/link", factory: :draft_edition)
@@ -160,7 +160,7 @@ RSpec.describe Queries::ContentDependencies do
       end
     end
 
-    context "when a graph of parent items link to this content item" do
+    context "when a graph of parent items link to this edition" do
       before do
         create_edition(great_grandparent_content_id, "/great")
         create_edition(grandparent_content_id, "/great/grand")
@@ -184,7 +184,7 @@ RSpec.describe Queries::ContentDependencies do
       it { is_expected.to match_array(links) }
     end
 
-    context "when this content item has a link to an item with a reverse link type" do
+    context "when this edition has a link to an item with a reverse link type" do
       before do
         create_edition(reverse_link_content_id, "/reverse")
         create_link(content_id, reverse_link_content_id, "documents")

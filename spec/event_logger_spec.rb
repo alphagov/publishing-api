@@ -51,7 +51,7 @@ RSpec.describe EventLogger do
     end
 
     # The second time it was called, it should have succeeded and created an
-    # event and a content item
+    # event and an edition
     expect(Event.count).to eq(1)
     expect(Edition.count).to eq(1)
   end

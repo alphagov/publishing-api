@@ -14,7 +14,7 @@ RSpec.describe VersionForDocumentValidator do
   describe "#validate" do
     subject(:validate) { described_class.new.validate(edition) }
 
-    context "when it's missing a content item" do
+    context "when it's missing a edition" do
       it { is_expected.to be_nil }
     end
 
@@ -37,7 +37,7 @@ RSpec.describe VersionForDocumentValidator do
       }
       let(:expected_error) do
         "user_facing_version=#{version} and document=#{document.id} " +
-          "conflicts with content item id=#{conflict_edition.id}"
+          "conflicts with edition id=#{conflict_edition.id}"
       end
 
       before do

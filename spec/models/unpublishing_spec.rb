@@ -95,11 +95,11 @@ RSpec.describe Unpublishing do
       let(:edition) { FactoryGirl.create(:gone_unpublished_edition) }
       it { is_expected.to be false }
     end
-    context "when content item is published" do
+    context "when edition is published" do
       let(:edition) { FactoryGirl.create(:live_edition) }
       it { is_expected.to be false }
     end
-    context "when there isn't a content item" do
+    context "when there isn't an edition" do
       let(:edition) { nil }
       it { is_expected.to be false }
     end

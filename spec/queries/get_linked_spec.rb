@@ -32,7 +32,7 @@ RSpec.describe Queries::GetLinked do
       end
     end
 
-    context "when a content item with no draft exists" do
+    context "when a edition with no draft exists" do
       before do
         FactoryGirl.create(:live_edition,
           document: FactoryGirl.create(:document, content_id: content_id),
@@ -56,7 +56,7 @@ RSpec.describe Queries::GetLinked do
         ).to eq([])
       end
 
-      context "where another content item is linked to it" do
+      context "where another edition is linked to it" do
         before do
           link_set = FactoryGirl.create(:link_set, content_id: content_id)
           FactoryGirl.create(:link, link_set: link_set, target_content_id: target_content_id)
@@ -72,7 +72,7 @@ RSpec.describe Queries::GetLinked do
       end
     end
 
-    context "when a content item with draft exists "do
+    context "when a document with draft exists "do
       before do
         FactoryGirl.create(:live_edition,
           :with_draft,
@@ -81,7 +81,7 @@ RSpec.describe Queries::GetLinked do
         )
       end
 
-      context "but no content item links to it" do
+      context "but no edition links to it" do
         it "returns an empty array" do
           expect(
             Queries::GetLinked.new(
@@ -105,7 +105,7 @@ RSpec.describe Queries::GetLinked do
         end
       end
 
-      context "content items link to the wanted content item" do
+      context "editions link to the wanted edition" do
         before do
           FactoryGirl.create(:live_edition,
             document: FactoryGirl.create(:document, content_id: content_id),

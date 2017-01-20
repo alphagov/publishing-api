@@ -8,7 +8,7 @@ RSpec.describe RequeueContent do
   end
 
   describe "#call" do
-    it "by default, it republishes all content items" do
+    it "by default, it republishes all editions" do
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message).exactly(3).times
       RequeueContent.new.call
     end

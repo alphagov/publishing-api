@@ -25,7 +25,7 @@ RSpec.describe Queries::GetContentCollection do
       )
     end
 
-    it "returns the content items matching the type" do
+    it "returns the editions matching the type" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
         fields: %w(base_path locale publication_state),
@@ -35,7 +35,7 @@ RSpec.describe Queries::GetContentCollection do
       ])
     end
 
-    it "returns the content items matching all types when given an array" do
+    it "returns the editions matching all types when given an array" do
       expect(Queries::GetContentCollection.new(
         document_types: %w(topic mainstream_browse_page),
         fields: %w(base_path locale publication_state),
@@ -47,7 +47,7 @@ RSpec.describe Queries::GetContentCollection do
     end
   end
 
-  it "returns the content items of the given format, and placeholder_format" do
+  it "returns the editions of the given format, and placeholder_format" do
     FactoryGirl.create(:draft_edition,
       base_path: "/a",
       document_type: "topic",
@@ -182,7 +182,7 @@ RSpec.describe Queries::GetContentCollection do
       )
     end
 
-    it "returns the content items filtered by 'en' locale by default" do
+    it "returns the editions filtered by 'en' locale by default" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
         fields: %w(base_path publication_state),
@@ -192,7 +192,7 @@ RSpec.describe Queries::GetContentCollection do
       ])
     end
 
-    it "returns the content items filtered by locale parameter" do
+    it "returns the editions filtered by locale parameter" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
         fields: %w(base_path publication_state),
@@ -203,7 +203,7 @@ RSpec.describe Queries::GetContentCollection do
       ])
     end
 
-    it "returns all content items if the locale parameter is 'all'" do
+    it "returns all editions if the locale parameter is 'all'" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
         fields: %w(base_path publication_state),
@@ -251,7 +251,7 @@ RSpec.describe Queries::GetContentCollection do
       FactoryGirl.create(:link, link_set: link_set_3, target_content_id: someorg_content_id)
     end
 
-    it "filters content items by organisation" do
+    it "filters editions by organisation" do
       result = Queries::GetContentCollection.new(
         document_types: "guide",
         filters: { links: { organisations: someorg_content_id } },
@@ -264,7 +264,7 @@ RSpec.describe Queries::GetContentCollection do
       ])
     end
 
-    it "filters content items by organisation and other filters" do
+    it "filters editions by organisation and other filters" do
       result = Queries::GetContentCollection.new(
         document_types: "guide",
         filters: {
@@ -376,21 +376,21 @@ RSpec.describe Queries::GetContentCollection do
 
     context "base_path and title" do
       let(:search_query) { "baz" }
-      it "finds the content item" do
+      it "finds the edition" do
         expect(subject.call.map(&:to_hash)).to match_array([{ "base_path" => "/bar/foo" }, { "base_path" => "/baz" }])
       end
     end
 
     context "title" do
       let(:search_query) { "zip" }
-      it "finds the content item" do
+      it "finds the edition" do
         expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/baz" }])
       end
     end
   end
 
   describe "pagination" do
-    context "with multiple content items" do
+    context "with multiple editions" do
       before do
         [
           ["/a", "2010-01-06"], ["/b", "2010-01-05"], ["/c", "2010-01-04"], ["/d", "2010-01-03"]
@@ -434,7 +434,7 @@ RSpec.describe Queries::GetContentCollection do
         expect(editions.first["base_path"]).to eq("/b")
       end
 
-      it "when per_page is higher than results we only receive remaining content items" do
+      it "when per_page is higher than results we only receive remaining editions" do
         editions = Queries::GetContentCollection.new(
           document_types: "topic",
           fields: ["base_path"],
@@ -464,7 +464,7 @@ RSpec.describe Queries::GetContentCollection do
       FactoryGirl.create(:edition, base_path: "/c2", title: "B", public_updated_at: "2014-06-15")
     end
 
-    it "returns content items in default order" do
+    it "returns editions in default order" do
       editions = Queries::GetContentCollection.new(
         document_types: "guide",
         fields: %w(public_updated_at),
@@ -475,7 +475,7 @@ RSpec.describe Queries::GetContentCollection do
       expect(editions.last["public_updated_at"]).to eq("2014-06-13T00:00:00Z")
     end
 
-    it "returns paginated content items in default order" do
+    it "returns paginated editions in default order" do
       editions = Queries::GetContentCollection.new(
         document_types: "guide",
         fields: %w(public_updated_at),
@@ -488,7 +488,7 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   describe "#total" do
-    it "returns the number of content items" do
+    it "returns the number of editions" do
       FactoryGirl.create(:edition, base_path: "/a", schema_name: "topic", document_type: "topic")
       FactoryGirl.create(:edition, base_path: "/b", schema_name: "topic", document_type: "topic")
 
@@ -498,7 +498,7 @@ RSpec.describe Queries::GetContentCollection do
       ).total).to eq(2)
     end
 
-    context "when there are multiple versions of the same content item" do
+    context "when there are multiple versions of the same edition" do
       before do
         document = FactoryGirl.create(:document)
 

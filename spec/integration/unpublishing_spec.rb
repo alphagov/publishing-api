@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Unpublishing Content Items" do
+RSpec.describe "Unpublishing editions" do
   let(:put_content_command) { Commands::V2::PutContent }
   let(:publish_command) { Commands::V2::Publish }
   let(:unpublish_command) { Commands::V2::Unpublish }
@@ -44,7 +44,7 @@ RSpec.describe "Unpublishing Content Items" do
       unpublish_command.call(unpublish_payload)
     end
 
-    it "unpublishes the content item" do
+    it "unpublishes the edition" do
       editions = Edition.joins(:document)
         .where("documents.content_id": content_id)
       expect(editions.count).to eq(1)
@@ -61,7 +61,7 @@ RSpec.describe "Unpublishing Content Items" do
         unpublish_command.call(unpublish_payload)
       end
 
-      it "unpublishes the new content item and supersedes the old content item" do
+      it "unpublishes the new edition and supersedes the old edition" do
         editions = Edition.joins(:document)
           .where("documents.content_id": content_id)
         expect(editions.count).to eq(2)

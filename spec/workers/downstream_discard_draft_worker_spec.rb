@@ -71,7 +71,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
   end
 
-  context "has a live content item with same base_path" do
+  context "has a live edition with same base_path" do
     let!(:live_edition) do
       FactoryGirl.create(:live_edition,
         base_path: base_path,
@@ -83,7 +83,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       arguments.merge("live_content_item_id" => live_edition.id)
     end
 
-    it "adds the live content item to the draft content store" do
+    it "adds the live edition to the draft content store" do
       expect(Adapters::DraftContentStore).to receive(:put_content_item)
         .with(base_path, a_hash_including(title: live_edition.title))
       subject.perform(live_content_item_arguments)
@@ -95,7 +95,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
   end
 
-  context "has a live content item with a different base_path" do
+  context "has a live edition with a different base_path" do
     let(:live_edition) do
       FactoryGirl.create(:live_edition,
         base_path: "/bar",
@@ -107,7 +107,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       arguments.merge("live_content_item_id" => live_edition.id)
     end
 
-    it "adds the live content item to the draft content store" do
+    it "adds the live edition to the draft content store" do
       expect(Adapters::DraftContentStore).to receive(:put_content_item)
         .with("/bar", a_hash_including(title: live_edition.title))
       subject.perform(live_content_item_arguments)
@@ -120,7 +120,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
   end
 
-  context "doesn't have a live content item" do
+  context "doesn't have a live edition" do
     it "doesn't add to live draft content store" do
       expect(Adapters::DraftContentStore).to_not receive(:put_content_item)
       subject.perform(arguments)
@@ -184,7 +184,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       FactoryGirl.create(:live_edition, base_path: "/foo")
     end
 
-    it "doesn't delete content item from content store" do
+    it "doesn't delete edition from content store" do
       expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
       subject.perform(arguments)
     end

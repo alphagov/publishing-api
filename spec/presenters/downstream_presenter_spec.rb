@@ -40,7 +40,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       }
     }
 
-    context "for a live content item" do
+    context "for a live edition" do
       let(:edition) do
         FactoryGirl.create(:live_edition,
           base_path: base_path,
@@ -53,7 +53,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
     end
 
-    context "for a draft content item" do
+    context "for a draft edition" do
       let(:edition) do
         FactoryGirl.create(:draft_edition,
           base_path: base_path,
@@ -66,7 +66,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
     end
 
-    context "for a withdrawn content item" do
+    context "for a withdrawn edition" do
       let!(:edition) do
         FactoryGirl.create(:withdrawn_unpublished_edition,
           base_path: base_path,
@@ -111,7 +111,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
     end
 
-    context "for a content item with dependencies" do
+    context "for a edition with dependencies" do
       let(:a) { FactoryGirl.create(:edition, base_path: "/a") }
       let(:b) { FactoryGirl.create(:edition, base_path: "/b") }
 
@@ -121,7 +121,7 @@ RSpec.describe Presenters::DownstreamPresenter do
         ])
       end
 
-      it "expands the links for the content item" do
+      it "expands the links for the edition" do
         result = described_class.present(web_content_item_for(a), state_fallback_order: [:draft])
 
         expect(result[:expanded_links]).to eq(
@@ -156,7 +156,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
     end
 
-    context "for a content item with change notes" do
+    context "for a edition with change notes" do
       let(:edition) do
         FactoryGirl.create(:draft_edition,
           base_path: base_path,

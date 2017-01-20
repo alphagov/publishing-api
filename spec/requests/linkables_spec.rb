@@ -28,7 +28,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
     end
   end
 
-  it "returns the title, content ID, state, internal name and base path for all content items of a given format" do
+  it "returns the title, content ID, state, internal name and base path for all editions of a given format" do
     get "/v2/linkables", params: { document_type: "policy" }
 
     expect(JSON.parse(response.body, symbolize_names: true)).to match_array([

@@ -31,14 +31,14 @@ RSpec.describe Tasks::VersionValidator do
       item.save!(validate: false)
     end
 
-    it "outputs that the content item has an invalid version sequence" do
+    it "outputs that the edition has an invalid version sequence" do
       expect {
         subject.validate
       }.to output(/Invalid version sequence for #{content_id}/).to_stdout
     end
   end
 
-  context "when content items have the same version but different locale" do
+  context "when editions have the same version but different locale" do
     before do
       item = Edition.last
       item.document = FactoryGirl.create(:document,
@@ -63,7 +63,7 @@ RSpec.describe Tasks::VersionValidator do
       item.save!(validate: false)
     end
 
-    it "outputs that the content item has an invalid version sequence" do
+    it "outputs that the edition has an invalid version sequence" do
       expect {
         subject.validate
       }.to output(/Invalid version sequence for #{content_id}/).to_stdout

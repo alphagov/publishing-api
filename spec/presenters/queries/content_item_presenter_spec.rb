@@ -54,17 +54,17 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
     end
 
-    it "presents content item attributes as a hash" do
+    it "presents edition attributes as a hash" do
       expect(result).to eq(payload)
     end
 
-    context "for a draft content item" do
+    context "for a draft edition" do
       it "has a publication state of draft" do
         expect(result.fetch("publication_state")).to eq("draft")
       end
     end
 
-    context "for a published content item" do
+    context "for a published edition" do
       before do
         edition.update_attributes!(state: 'published')
       end
@@ -74,7 +74,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
     end
 
-    context "when the content item exists in multiple locales" do
+    context "when the edition exists in multiple locales" do
       let!(:french_item) do
         FactoryGirl.create(:draft_edition, document: fr_document)
       end
@@ -124,12 +124,12 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
     end
 
-    context "when the content item exists in multiple locales" do
+    context "when the edition exists in multiple locales" do
       let!(:french_item) do
         FactoryGirl.create(:edition, document: fr_document)
       end
 
-      it "presents a content item for each locale" do
+      it "presents a edition for each locale" do
         editions = Edition.joins(:document)
           .where("documents.content_id": content_id)
 
@@ -140,7 +140,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
     end
 
-    context "when there are other content items with that content_id" do
+    context "when there are other editions with that content_id" do
       before do
         edition.update_attributes(user_facing_version: 2)
       end
@@ -152,7 +152,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         )
       end
 
-      it "returns a versioned history of states for the content item" do
+      it "returns a versioned history of states for the edition" do
         results = described_class.present_many(document.editions)
         expect(results.count).to eq(1)
 
@@ -191,13 +191,13 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         described_class.present_many(scope, include_warnings: true)
       end
 
-      context "without a blocking content item" do
+      context "without a blocking edition" do
         it "does not include warnings" do
           expect(result.first["warnings"]).to be_empty
         end
       end
 
-      context "with a blocking content item" do
+      context "with a blocking edition" do
         before do
           @blocking_edition = FactoryGirl.create(:live_edition,
             base_path: base_path,

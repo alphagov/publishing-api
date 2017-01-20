@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Superseding Content Items" do
+RSpec.describe "Superseding editions" do
   let(:put_content_command) { Commands::V2::PutContent }
   let(:publish_command) { Commands::V2::Publish }
 
@@ -37,7 +37,7 @@ RSpec.describe "Superseding Content Items" do
   describe "after the first pair is called" do
     before { call_commands }
 
-    it "creates and publishes a content item" do
+    it "creates and publishes an edition" do
       expect(Edition.count).to eq(1)
       edition = Edition.first
 
@@ -48,7 +48,7 @@ RSpec.describe "Superseding Content Items" do
     describe "after the second pair is called" do
       before { call_commands }
 
-      it "supersedes the previously published content item" do
+      it "supersedes the previously published edition" do
         expect(Edition.count).to eq(2)
 
         superseded_edition = Edition.first
@@ -64,7 +64,7 @@ RSpec.describe "Superseding Content Items" do
       describe "after the third pair is called" do
         before { call_commands }
 
-        it "supersedes the previously published content item (again)" do
+        it "supersedes the previously published edition (again)" do
           expect(Edition.count).to eq(3)
 
           superseded1_edition = Edition.first

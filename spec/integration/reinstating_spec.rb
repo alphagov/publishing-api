@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Reinstating Content Items that were previously unpublished" do
+RSpec.describe "Reinstating editions that were previously unpublished" do
   let(:put_content_command) { Commands::V2::PutContent }
   let(:publish_command) { Commands::V2::Publish }
 
@@ -59,7 +59,7 @@ RSpec.describe "Reinstating Content Items that were previously unpublished" do
     allow(SchemaValidator).to receive(:new).and_return(validator)
   end
 
-  describe "after the content item is unpublished" do
+  describe "after the edition is unpublished" do
     before do
       2.times do
         put_content_command.call(guide_draft_payload)
@@ -70,7 +70,7 @@ RSpec.describe "Reinstating Content Items that were previously unpublished" do
       publish_command.call(redirect_publish_payload)
     end
 
-    it "puts the content items into the correct states and versions" do
+    it "puts the editions into the correct states and versions" do
       expect(Edition.count).to eq(3)
 
       superseded1_item = Edition.first
@@ -87,13 +87,13 @@ RSpec.describe "Reinstating Content Items that were previously unpublished" do
         "The redirect should be regarded as a new piece of content"
     end
 
-    describe "after the original content item has been reinstated" do
+    describe "after the original edition has been reinstated" do
       before do
         put_content_command.call(guide_draft_payload)
         publish_command.call(guide_publish_payload)
       end
 
-      it "puts the content items into the correct states and versions" do
+      it "puts the editions into the correct states and versions" do
         expect(Edition.count).to eq(4)
 
         superseded1_item = Edition.first
@@ -112,13 +112,13 @@ RSpec.describe "Reinstating Content Items that were previously unpublished" do
         expect(published_item.user_facing_version).to eq(3)
       end
 
-      describe "after the original content item has been superseded (again)" do
+      describe "after the original edition has been superseded (again)" do
         before do
           put_content_command.call(guide_draft_payload)
           publish_command.call(guide_publish_payload)
         end
 
-        it "puts the content items into the correct states and versions" do
+        it "puts the editions into the correct states and versions" do
           expect(Edition.count).to eq(5)
 
           superseded1_item = Edition.first

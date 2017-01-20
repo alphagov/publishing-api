@@ -24,7 +24,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         .and_return(expected_content_store_payload)
     end
 
-    context "when a draft content item exists for the given content_id" do
+    context "when a draft edition exists for the given content_id" do
       let(:user_facing_version) { 2 }
       let!(:existing_draft_item) do
         FactoryGirl.create(:access_limited_draft_edition,
@@ -112,7 +112,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
       end
 
-      context "a published content item exists with the same base_path" do
+      context "a published edition exists with the same base_path" do
         let(:stale_lock_version) { 3 }
         let!(:published_item) do
           FactoryGirl.create(:live_edition,
@@ -166,7 +166,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
       end
 
-      context "a published content item exists with a different base_path" do
+      context "a published edition exists with a different base_path" do
         let!(:published_item) do
           FactoryGirl.create(:live_edition,
             document: document,
@@ -189,7 +189,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
       end
 
-      context "an unpublished content item exits" do
+      context "an unpublished edition exits" do
         let(:unpublished_item) do
           FactoryGirl.create(:unpublished_edition,
             document: document,
@@ -236,7 +236,7 @@ RSpec.describe Commands::V2::DiscardDraft do
                                                                "The French draft item was not removed"
         end
 
-        it "does not delete the english content item" do
+        it "does not delete the english edition" do
           described_class.call(payload)
           expect(Edition.exists?(id: existing_draft_item.id)).to eq(true),
                                                                  "The English draft item was removed"
@@ -246,14 +246,14 @@ RSpec.describe Commands::V2::DiscardDraft do
       it_behaves_like TransactionalCommand
     end
 
-    context "when no draft content item exists for the given content_id" do
+    context "when no draft edition exists for the given content_id" do
       it "raises a command error with code 404" do
         expect { described_class.call(payload) }.to raise_error(CommandError) do |error|
           expect(error.code).to eq(404)
         end
       end
 
-      context "and a published content item exists" do
+      context "and a published edition exists" do
         before do
           FactoryGirl.create(:live_edition, document: document)
         end

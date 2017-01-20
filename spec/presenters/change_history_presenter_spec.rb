@@ -54,7 +54,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       expect(subject.map { |item| item[:note] }).to eq %w(3 2 1)
     end
 
-    context "multiple content items for a single content id" do
+    context "multiple editions for a single content id" do
       let(:item1) do
         FactoryGirl.create(:superseded_edition,
           document: document,
@@ -77,13 +77,13 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         ChangeNote.create(content_id: content_id)
       end
 
-      context "reviewing latest version of a content item" do
+      context "reviewing latest version of a edition" do
         it "constructs content history from all change notes for content id" do
           expect(described_class.new(web_content_item2).change_history.count).to eq 3
         end
       end
 
-      context "reviewing older version of a content item" do
+      context "reviewing older version of a edition" do
         it "doesn't include change notes corresponding to newer versions" do
           expect(described_class.new(web_content_item1).change_history.count).to eq 2
         end

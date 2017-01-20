@@ -65,7 +65,7 @@ RSpec.describe "Publish intent requests", type: :request do
     context "with the root path as a base_path" do
       let(:base_path) { "/" }
 
-      it "creates the content item" do
+      it "creates the reservation" do
         put "/publish-intent#{base_path}", params: content_item.to_json
 
         expect(response.status).to eq(200)

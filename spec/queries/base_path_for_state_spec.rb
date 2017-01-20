@@ -8,7 +8,7 @@ RSpec.describe Queries::BasePathForState do
     subject { described_class.conflict(edition_id, state, base_path) }
     let(:base_path) { conflict_base_path }
 
-    context "when content item is a draft" do
+    context "when edition is a draft" do
       let!(:conflict_edition) do
         FactoryGirl.create(:draft_edition, base_path: conflict_base_path)
       end
@@ -28,18 +28,18 @@ RSpec.describe Queries::BasePathForState do
         it { is_expected.to be_nil }
       end
 
-      context "when we use this content items base path and content item id" do
+      context "when we use this editions base path and edition id" do
         let(:edition_id) { conflict_edition.id }
         it { is_expected.to be_nil }
       end
 
-      context "when we use this content items base path and a different content item id" do
+      context "when we use this editions base path and a different edition id" do
         it "should be a collision" do
           is_expected.to match(collision_hash)
         end
 
         %w(published unpublished superseded).each do |state|
-          context "when the content item is #{state}" do
+          context "when the edition is #{state}" do
             before do
               conflict_edition.update(state: state)
             end
@@ -54,7 +54,7 @@ RSpec.describe Queries::BasePathForState do
       "published" => :live_edition,
       "unpublished" => :unpublished_edition,
     }.each do |state_name, factory|
-      context "when content item is #{state_name}" do
+      context "when edition is #{state_name}" do
         let!(:conflict_edition) do
           FactoryGirl.create(factory, base_path: conflict_base_path)
         end
@@ -74,12 +74,12 @@ RSpec.describe Queries::BasePathForState do
           it { is_expected.to be_nil }
         end
 
-        context "when we use this content items base path and content item id" do
+        context "when we use this editions base path and edition id" do
           let(:edition_id) { conflict_edition.id }
           it { is_expected.to be_nil }
         end
 
-        context "when we use this content items base path and a different content item id" do
+        context "when we use this editions base path and a different edition id" do
           it "should be a collision" do
             is_expected.to match(collision_hash)
           end
@@ -95,7 +95,7 @@ RSpec.describe Queries::BasePathForState do
       end
     end
 
-    context "when content item is unpublished with substitute" do
+    context "when edition is unpublished with substitute" do
       let!(:conflict_edition) do
         FactoryGirl.create(:substitute_unpublished_edition,
           base_path: conflict_base_path
@@ -108,7 +108,7 @@ RSpec.describe Queries::BasePathForState do
       it { is_expected.to be_nil }
     end
 
-    context "when content item is superseded" do
+    context "when edition is superseded" do
       let!(:conflict_edition) do
         FactoryGirl.create(:superseded_edition,
           base_path: conflict_base_path

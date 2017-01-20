@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Reallocating base paths of content items" do
+RSpec.describe "Reallocating base paths of editions" do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
 
@@ -15,21 +15,21 @@ RSpec.describe "Reallocating base paths of content items" do
   end
 
   describe "/v2/content" do
-    context "when a base path is occupied by a 'regular' content item" do
+    context "when a base path is occupied by a 'regular' edition" do
       before do
         FactoryGirl.create(:draft_edition,
           base_path: base_path,
         )
       end
 
-      it "cannot be replaced by another 'regular' content item" do
+      it "cannot be replaced by another 'regular' edition" do
         put "/v2/content/#{content_id}", params: regular_payload.to_json
         expect(response.status).to eq(422)
       end
     end
   end
 
-  describe "publishing a draft which has a different content_id to the published content item on the same base_path" do
+  describe "publishing a draft which has a different content_id to the published edition on the same base_path" do
     let(:draft_document) { FactoryGirl.create(:document) }
     let(:live_document) { FactoryGirl.create(:document) }
 
@@ -37,7 +37,7 @@ RSpec.describe "Reallocating base paths of content items" do
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
 
-    context "when both content items are 'regular' content items" do
+    context "when both editions are 'regular' editions" do
       before do
         draft = FactoryGirl.create(:draft_edition,
           document: draft_document,
