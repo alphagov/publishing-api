@@ -42,7 +42,7 @@ class LockVersion < ApplicationRecord
 private
 
   def content_item_target?
-    target_type == 'ContentItem'
+    %w(ContentItem Edition).include? target_type
   end
 
   def numbers_must_increase
