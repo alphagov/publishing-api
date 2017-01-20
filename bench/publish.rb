@@ -9,9 +9,9 @@ require 'stackprof'
 
 abort "Refusing to run outside of development" unless Rails.env.development?
 
-def publish(content_items)
+def publish(editions)
   puts Benchmark.measure {
-    content_items.each do |item|
+    editions.each do |item|
       Commands::V2::Publish.call(content_id: item[:content_id], update_type: 'major')
       print "."
     end
@@ -24,7 +24,7 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |name, started, fi
   $queries += 1
 end
 
-content_items = 100.times.map do
+editions = 100.times.map do
   title = Faker::Company.catch_phrase
   {
     content_id: SecureRandom.uuid,
@@ -51,7 +51,7 @@ end
 
 begin
   puts "Creating drafts..."
-  content_items.each do |item|
+  editions.each do |item|
     Commands::V2::PutContent.call(item)
   end
 
@@ -59,12 +59,12 @@ begin
 
   puts "Publishing..."
 
-  StackProf.run(mode: :wall, out: "tmp/publish_wall.dump") { publish(content_items) }
+  StackProf.run(mode: :wall, out: "tmp/publish_wall.dump") { publish(editions) }
 
   puts "#{$queries} SQL queries"
 
   puts "Creating new drafts..."
-  content_items.each do |item|
+  editions.each do |item|
     Commands::V2::PutContent.call(item.merge(title: Faker::Company.catch_phrase))
   end
 
@@ -72,16 +72,16 @@ begin
 
   puts "Superseding..."
 
-  StackProf.run(mode: :wall, out: "tmp/supersede_wall.dump") { publish(content_items) }
+  StackProf.run(mode: :wall, out: "tmp/supersede_wall.dump") { publish(editions) }
 
   puts "#{$queries} SQL queries"
 
 ensure
   scope = Edition.where(publishing_app: 'performance-testing')
   LinkSet.includes(:links).where(content_id: scope.pluck(:content_id)).destroy_all
-  Location.where(content_item: scope).delete_all
-  State.where(content_item: scope).delete_all
-  Translation.where(content_item: scope).delete_all
+  Location.where(edition: scope).delete_all
+  State.where(edition: scope).delete_all
+  Translation.where(edition: scope).delete_all
   UserFacingVersion.where(edition: scope).delete_all
   LockVersion.where(target: scope).delete_all
   PathReservation.where(publishing_app: 'performance-testing').delete_all
