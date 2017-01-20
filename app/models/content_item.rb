@@ -71,6 +71,13 @@ class ContentItem < ApplicationRecord
     self.locale = document.locale unless locale == document.locale
   end
 
+  after_save do
+    lock_version = LockVersion.find_or_create_by(target: self)
+    if document.stale_lock_version < lock_version.number
+      lock_version.update! number: document.stale_lock_version
+    end
+  end
+
   # Temporary code until we kill Location, State, Translation, and
   # UserFacingVersion
   after_save do
