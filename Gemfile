@@ -9,6 +9,7 @@ gem "logstasher", "0.6.2"
 gem "plek", "~> 1.10"
 gem 'airbrake', '~> 5.5'
 gem 'airbrake-ruby', '1.5'
+gem 'appsignal', '~> 2.0'
 gem "pg"
 gem 'dalli'
 
