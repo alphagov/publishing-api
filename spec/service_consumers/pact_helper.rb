@@ -154,7 +154,7 @@ Pact.provider_states_for "GDS API Adapters" do
       )
 
       document = FactoryGirl.create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
-      linked_organisation = FactoryGirl.create(:edition, document: document)
+      FactoryGirl.create(:edition, document: document)
       FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: document.content_id)
     end
   end
