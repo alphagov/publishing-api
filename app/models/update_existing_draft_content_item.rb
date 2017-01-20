@@ -1,6 +1,7 @@
 class UpdateExistingDraftContentItem
   ATTRIBUTES_PROTECTED_FROM_RESET = [
     :id,
+    :document_id,
     :created_at,
     :updated_at,
     :first_published_at,
@@ -23,8 +24,12 @@ class UpdateExistingDraftContentItem
 private
 
   def update_lock_version
-    version = put_content.send(:check_version_and_raise_if_conflicting, content_item, payload[:previous_version])
-    version.increment!
+    put_content.send(:check_version_and_raise_if_conflicting, document, payload[:previous_version])
+    document.increment! :stale_lock_version
+  end
+
+  def document
+    put_content.document
   end
 
   def update_content_item
@@ -40,8 +45,8 @@ private
 
   def new_attributes
     content_item.class.column_defaults.symbolize_keys
-    .merge(attributes.symbolize_keys)
-    .except(*ATTRIBUTES_PROTECTED_FROM_RESET)
+      .merge(attributes.symbolize_keys)
+      .except(*ATTRIBUTES_PROTECTED_FROM_RESET)
   end
 
   def attributes

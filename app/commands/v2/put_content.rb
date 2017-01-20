@@ -9,10 +9,17 @@ module Commands
         update_content_dependencies(content_item)
 
         after_transaction_commit do
-          send_downstream(content_item.content_id, document.locale)
+          send_downstream(document.content_id, document.locale)
         end
 
         Success.new(present_response(content_item))
+      end
+
+      def document
+        @document ||= Document.find_or_create_locked(
+          content_id: payload.fetch(:content_id),
+          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
+        )
       end
 
     private
@@ -32,7 +39,7 @@ module Commands
         access_limit(content_item)
         update_last_edited_at(content_item, payload[:last_edited_at])
         ChangeNote.create_from_content_item(payload, content_item)
-        Action.create_put_content_action(content_item, locale, event)
+        Action.create_put_content_action(content_item, document.locale, event)
       end
 
       def create_redirect
@@ -70,7 +77,7 @@ module Commands
 
       def previously_published_item
         @previously_published_item ||= PreviouslyPublishedItem.new(
-          content_id, payload[:base_path], locale, self
+          document.content_id, payload[:base_path], document.locale, self
         ).call
       end
 
@@ -79,35 +86,20 @@ module Commands
       end
 
       def previously_drafted_item
-        @previously_drafted_item ||= document.lock!.content_items.where(state: "draft").last
+        @previously_drafted_item ||= document.draft
       end
 
       def clear_draft_items_of_same_locale_and_base_path
         SubstitutionHelper.clear!(
-          new_item_document_type: document_type,
+          new_item_document_type: payload[:document_type],
           new_item_content_id: document.content_id,
           state: "draft",
           locale: document.locale,
-          base_path: base_path,
+          base_path: payload[:base_path],
           downstream: downstream,
           callbacks: callbacks,
           nested: true,
         )
-      end
-
-      def locale
-        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
-      end
-
-      def document
-        @document ||= Document.find_or_create_locked(
-          content_id: payload.fetch(:content_id),
-          locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
-        )
-      end
-
-      def content_id
-        payload.fetch(:content_id)
       end
 
       def update_last_edited_at(content_item, last_edited_at = nil)
