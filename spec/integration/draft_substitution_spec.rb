@@ -53,10 +53,10 @@ RSpec.describe "Substituting content that is not published" do
     it "discards the guide" do
       expect(Edition.count).to eq(1)
 
-      content_item = Edition.first
+      edition = Edition.first
 
-      expect(content_item.document_type).to eq("gone")
-      expect(content_item.state).to eq("draft")
+      expect(edition.document_type).to eq("gone")
+      expect(edition.state).to eq("draft")
     end
 
     describe "after the second substitution" do
@@ -67,10 +67,10 @@ RSpec.describe "Substituting content that is not published" do
       it "discards the gone" do
         expect(Edition.count).to eq(1)
 
-        content_item = Edition.first
+        edition = Edition.first
 
-        expect(content_item.document_type).to eq("guide")
-        expect(content_item.state).to eq("draft")
+        expect(edition.document_type).to eq("guide")
+        expect(edition.state).to eq("draft")
       end
 
       describe "after the third substitution" do
@@ -81,10 +81,10 @@ RSpec.describe "Substituting content that is not published" do
         it "discards the guide" do
           expect(Edition.count).to eq(1)
 
-          content_item = Edition.first
+          edition = Edition.first
 
-          expect(content_item.document_type).to eq("gone")
-          expect(content_item.state).to eq("draft")
+          expect(edition.document_type).to eq("gone")
+          expect(edition.state).to eq("draft")
         end
       end
     end
