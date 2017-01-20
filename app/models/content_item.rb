@@ -1,5 +1,4 @@
 class ContentItem < ApplicationRecord
-  include DefaultAttributes
   include SymbolizeJSON
   include DescriptionOverrides
 
@@ -223,6 +222,10 @@ class ContentItem < ApplicationRecord
       type: "substitute",
       explanation: "Automatically unpublished to make way for another content item",
     )
+  end
+
+  def lock_version_number
+    LockVersion.find_by!(target: self).number
   end
 
 private

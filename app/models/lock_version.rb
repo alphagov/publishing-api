@@ -1,6 +1,6 @@
 class LockVersion < ApplicationRecord
-  include Version
   belongs_to :target, polymorphic: true
+  validate :numbers_must_increase
 
   after_save do
     item = lock_version_target
@@ -30,9 +30,27 @@ class LockVersion < ApplicationRecord
     end
   end
 
+  def increment
+    self.number += 1
+  end
+
+  def increment!
+    increment
+    save!
+  end
+
 private
 
   def content_item_target?
     target_type == 'ContentItem'
+  end
+
+  def numbers_must_increase
+    return unless persisted?
+    return unless number_changed? && number <= number_was
+
+    mismatch = "(#{number} <= #{number_was})"
+    message = "cannot be less than or equal to the previous number #{mismatch}"
+    errors.add(:number, message)
   end
 end
