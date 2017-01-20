@@ -237,6 +237,24 @@ class Edition < ApplicationRecord
 
 private
 
+  # These are private whilst they are legacy attributes, that are currently
+  # kept for easy rollback to a previous iteration of the codebase
+  def content_id
+    self[:content_id]
+  end
+
+  def content_id=(val)
+    write_attribute(:content_id, val)
+  end
+
+  def locale
+    self[:locale]
+  end
+
+  def locale=(val)
+    write_attribute(:locale, val)
+  end
+
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(document_type)
   end
