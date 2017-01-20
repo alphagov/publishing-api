@@ -1,4 +1,4 @@
-class UpdateExistingDraftContentItem
+class UpdateExistingDraftEdition
   ATTRIBUTES_PROTECTED_FROM_RESET = [
     :id,
     :document_id,
@@ -10,17 +10,17 @@ class UpdateExistingDraftContentItem
     :last_edited_at,
   ].freeze
 
-  attr_reader :payload, :put_content, :content_item
+  attr_reader :payload, :put_content, :edition
 
-  def initialize(content_item, put_content, payload)
-    @content_item = content_item
+  def initialize(edition, put_content, payload)
+    @edition = edition
     @put_content = put_content
     @payload = payload
   end
 
   def call
     update_lock_version
-    update_content_item
+    update_edition
   end
 
 private
@@ -34,32 +34,32 @@ private
     put_content.document
   end
 
-  def update_content_item
-    old_item = content_item.dup
+  def update_edition
+    old_edition = edition.dup
     assign_attributes_with_defaults
-    content_item.save!
-    [content_item, old_item]
+    edition.save!
+    [edition, old_edition]
   end
 
   def assign_attributes_with_defaults
-    content_item.assign_attributes(new_attributes)
+    edition.assign_attributes(new_attributes)
   end
 
   def new_attributes
-    content_item.class.column_defaults.symbolize_keys
+    edition.class.column_defaults.symbolize_keys
       .merge(attributes.symbolize_keys)
       .except(*ATTRIBUTES_PROTECTED_FROM_RESET)
   end
 
   def attributes
-    content_item_attributes_from_payload.merge(
+    edition_attributes_from_payload.merge(
       state: "draft",
       content_store: "draft",
-      user_facing_version: content_item.user_facing_version,
+      user_facing_version: edition.user_facing_version,
     )
   end
 
-  def content_item_attributes_from_payload
+  def edition_attributes_from_payload
     payload.slice(*ContentItem::TOP_LEVEL_FIELDS)
   end
 end

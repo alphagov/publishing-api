@@ -1,4 +1,4 @@
-class CreateDraftContentItem
+class CreateDraftEdition
   def initialize(put_content, payload, previously_published_item)
     @put_content = put_content
     @payload = payload

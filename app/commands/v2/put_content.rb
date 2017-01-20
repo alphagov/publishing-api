@@ -68,9 +68,9 @@ module Commands
 
       def create_or_update_edition
         if previously_drafted_item
-          updated_item, @previous_item = UpdateExistingDraftContentItem.new(previously_drafted_item, self, payload).call
+          updated_item, @previous_item = UpdateExistingDraftEdition.new(previously_drafted_item, self, payload).call
         else
-          new_draft_edition = CreateDraftContentItem.new(self, payload, previously_published_item).call
+          new_draft_edition = CreateDraftEdition.new(self, payload, previously_published_item).call
         end
         updated_item || new_draft_edition
       end
