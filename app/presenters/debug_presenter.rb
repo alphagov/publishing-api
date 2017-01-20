@@ -10,20 +10,21 @@ module Presenters
       @content_id = content_id
     end
 
-    def content_items
-      @content_items ||= Edition.joins(:document).where(documents: { content_id: content_id })
+    def editions
+      @editions ||= Edition.joins(:document)
+        .where(documents: { content_id: content_id })
     end
 
     def user_facing_versions
-      content_items.map(&:user_facing_version).sort.reverse
+      editions.map(&:user_facing_version).sort.reverse
     end
 
-    def latest_content_items
-      @latest_content_items ||= ::Queries::GetLatest.call(content_items)
+    def latest_editions
+      @latest_editions ||= ::Queries::GetLatest.call(editions)
     end
 
     def latest_state_with_locale
-      latest_content_items.map { |ci| [ci.locale, ci.state] }
+      latest_editions.map { |ci| [ci.locale, ci.state] }
     end
 
     def link_set
@@ -52,11 +53,11 @@ module Presenters
     end
 
     def states
-      content_items.group_by(&:locale).each_with_object([]) do |(locale, content_items), states|
+      editions.group_by(&:locale).each_with_object([]) do |(locale, editions), states|
         states << [locale, '']
-        states << [{ v: content_items.first.id.to_s, f: content_items.first.state }, locale]
-        content_items[1..-1].each_with_index do |content_item, index|
-          states << [{ v: content_item.id.to_s, f: content_item.state }, content_items[index].try(:id).to_s]
+        states << [{ v: editions.first.id.to_s, f: editions.first.state }, locale]
+        editions[1..-1].each_with_index do |edition, index|
+          states << [{ v: edition.id.to_s, f: edition.state }, editions[index].try(:id).to_s]
         end
       end
     end
@@ -69,7 +70,7 @@ module Presenters
 
     def web_content_item
       @web_content_item ||= ::Queries::GetWebContentItems.find(
-        latest_content_items.last.id
+        latest_editions.last.id
       )
     end
 

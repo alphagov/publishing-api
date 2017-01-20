@@ -6,13 +6,13 @@ module Commands
 
         previous.supersede if previous_edition_should_be_superseded?
         transition_state
-        AccessLimit.find_by(edition: content_item).try(:destroy)
+        AccessLimit.find_by(edition: edition).try(:destroy)
 
         after_transaction_commit do
           send_downstream
         end
 
-        Action.create_unpublish_action(content_item, unpublishing_type,
+        Action.create_unpublish_action(edition, unpublishing_type,
                                        document.locale, event)
 
         Success.new(content_id: document.content_id)
@@ -38,8 +38,8 @@ module Commands
         raise_command_error(422, message, fields: {})
       end
 
-      def content_item
-        @content_item ||= find_unpublishable_content_item
+      def edition
+        @edition ||= find_unpublishable_edition
       end
 
       def validate_allow_discard_draft
@@ -49,8 +49,8 @@ module Commands
         end
       end
 
-      def validate_content_item_presence
-        unless content_item.present?
+      def validate_edition_presence
+        unless edition.present?
           message = "Could not find a content item to unpublish"
           raise_command_error(404, message, fields: {})
         end
@@ -77,13 +77,13 @@ module Commands
 
       def validate
         validate_allow_discard_draft
-        validate_content_item_presence
+        validate_edition_presence
         check_version_and_raise_if_conflicting(document, previous_version_number)
         validate_draft_presence
       end
 
       def unpublish
-        content_item.unpublish(payload.slice(:type, :explanation, :alternative_path, :unpublished_at))
+        edition.unpublish(payload.slice(:type, :explanation, :alternative_path, :unpublished_at))
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, fields: {})
       end
@@ -93,7 +93,7 @@ module Commands
 
         DownstreamDraftWorker.perform_async_in_queue(
           DownstreamDraftWorker::HIGH_QUEUE,
-          content_id: content_item.content_id,
+          content_id: edition.content_id,
           locale: document.locale,
           payload_version: event.id,
           update_dependencies: true,
@@ -101,7 +101,7 @@ module Commands
 
         DownstreamLiveWorker.perform_async_in_queue(
           DownstreamLiveWorker::HIGH_QUEUE,
-          content_id: content_item.content_id,
+          content_id: edition.content_id,
           locale: document.locale,
           payload_version: event.id,
           update_dependencies: true,
@@ -112,14 +112,14 @@ module Commands
         payload[:previous_version].to_i if payload[:previous_version]
       end
 
-      def find_unpublishable_content_item
+      def find_unpublishable_edition
         if payload[:allow_draft]
-          content_item = document.draft
+          edition = document.draft
         else
-          content_item = previous
+          edition = previous
         end
 
-        content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
+        edition if edition && (payload[:allow_draft] || !Unpublishing.is_substitute?(edition))
       end
 
       def previous
@@ -127,7 +127,7 @@ module Commands
       end
 
       def previous_edition_should_be_superseded?
-        previous && find_unpublishable_content_item != previous
+        previous && find_unpublishable_edition != previous
       end
 
       def document

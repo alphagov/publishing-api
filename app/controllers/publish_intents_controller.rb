@@ -4,7 +4,7 @@ class PublishIntentsController < ApplicationController
   end
 
   def create_or_update
-    response = Commands::PutPublishIntent.call(content_item)
+    response = Commands::PutPublishIntent.call(edition)
     render status: response.code, json: response
   end
 
@@ -15,7 +15,7 @@ class PublishIntentsController < ApplicationController
 
 private
 
-  def content_item
+  def edition
     payload.merge(base_path: base_path)
   end
 end

@@ -18,10 +18,10 @@ module Queries
         .joins(:link_set)
         .pluck(:content_id)
 
-      content_items = Edition.joins(:document)
+      editions = Edition.joins(:document)
         .where(documents: { content_id: content_ids })
 
-      presented = presenter.present_many(content_items, fields: fields)
+      presented = presenter.present_many(editions, fields: fields)
       presented.map { |p| filter_fields(p).as_json }
     end
 

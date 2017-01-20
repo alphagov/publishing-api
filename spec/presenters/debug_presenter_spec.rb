@@ -15,9 +15,9 @@ RSpec.describe Presenters::DebugPresenter do
     described_class.new(document.content_id)
   end
 
-  describe ".content_items" do
+  describe ".editions" do
     it "has one entry" do
-      expect(subject.content_items.length).to eq(1)
+      expect(subject.editions.length).to eq(1)
     end
   end
 
@@ -31,9 +31,9 @@ RSpec.describe Presenters::DebugPresenter do
     end
   end
 
-  describe ".latest_content_items" do
+  describe ".latest_editions" do
     it "has one entry" do
-      expect(subject.latest_content_items.length).to eq(1)
+      expect(subject.latest_editions.length).to eq(1)
     end
   end
 
