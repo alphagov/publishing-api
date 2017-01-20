@@ -23,6 +23,7 @@ module Commands
       end
 
     private
+
       def content_with_base_path?
         base_path_required? || payload.has_key?(:base_path)
       end
