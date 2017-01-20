@@ -123,8 +123,15 @@ class Edition < ApplicationRecord
   end
 
   def as_json(options = {})
-    super(options).merge(content_id: document.content_id,
-                         locale: document.locale)
+    %i[content_id locale].each do |field|
+      next if Array.wrap(options[:methods]).include?(field)
+      only = Array.wrap(options[:only]) || []
+      except = Array.wrap(options[:except]) || []
+      if (only.empty? || only.include?(field)) && (except.empty? || !except.include?(field))
+        options[:methods] = (options[:methods] || []) + [field]
+      end
+    end
+    super(options)
   end
 
   def requires_base_path?
