@@ -44,7 +44,11 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
       content_id: edition.document.content_id,
     )
 
-    FactoryGirl.create(:link, link_set: link_set, target_content_id: organisation.content_id, link_type: 'organisations')
+    FactoryGirl.create(:link,
+      link_set: link_set,
+      target_content_id: organisation.document.content_id,
+      link_type: "organisations",
+    )
 
     get "/v2/expanded-links/#{edition.document.content_id}"
 

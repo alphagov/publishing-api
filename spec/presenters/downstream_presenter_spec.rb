@@ -17,7 +17,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     let(:expected) {
       {
-        content_id: edition.content_id,
+        content_id: edition.document.content_id,
         base_path: base_path,
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
@@ -46,7 +46,7 @@ RSpec.describe Presenters::DownstreamPresenter do
           base_path: base_path,
           details: details)
       end
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.content_id) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to eq(expected)
@@ -59,7 +59,7 @@ RSpec.describe Presenters::DownstreamPresenter do
           base_path: base_path,
           details: details)
       end
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.content_id) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to eq(expected)
@@ -72,7 +72,7 @@ RSpec.describe Presenters::DownstreamPresenter do
           base_path: base_path,
           details: details)
       end
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.content_id) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
 
       it "merges in a withdrawal notice" do
         unpublishing = Unpublishing.find_by(edition: edition)
@@ -116,8 +116,8 @@ RSpec.describe Presenters::DownstreamPresenter do
       let(:b) { FactoryGirl.create(:edition, base_path: "/b") }
 
       before do
-        FactoryGirl.create(:link_set, content_id: a.content_id, links: [
-          FactoryGirl.create(:link, link_type: "related", target_content_id: b.content_id)
+        FactoryGirl.create(:link_set, content_id: a.document.content_id, links: [
+          FactoryGirl.create(:link, link_type: "related", target_content_id: b.document.content_id)
         ])
       end
 
@@ -126,7 +126,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
         expect(result[:expanded_links]).to eq(
           related: [{
-            content_id: b.content_id,
+            content_id: b.document.content_id,
             api_path: "/api/content/b",
             base_path: "/b",
             title: "VAT rates",
@@ -143,7 +143,7 @@ RSpec.describe Presenters::DownstreamPresenter do
             analytics_identifier: "GDS01",
             api_path: "/api/content/a",
             base_path: "/a",
-            content_id: a.content_id,
+            content_id: a.document.content_id,
             description: "VAT rates for goods and services",
             schema_name: "guide",
             document_type: 'guide',
@@ -163,7 +163,7 @@ RSpec.describe Presenters::DownstreamPresenter do
           details: details.slice(:body))
       end
       before do
-        ChangeNote.create(change_history.merge(edition: edition, content_id: edition.content_id))
+        ChangeNote.create(change_history.merge(edition: edition, content_id: edition.document.content_id))
       end
 
       it "constructs the change history" do
@@ -173,7 +173,7 @@ RSpec.describe Presenters::DownstreamPresenter do
 
     describe "conditional attributes" do
       let!(:edition) { FactoryGirl.create(:live_edition) }
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.content_id) }
+      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
 
       context "when the link_set is not present" do
         before { link_set.destroy }

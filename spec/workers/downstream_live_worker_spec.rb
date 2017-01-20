@@ -2,12 +2,12 @@ require "rails_helper"
 
 RSpec.describe DownstreamLiveWorker do
   let(:edition) do
-    FactoryGirl.create(:live_edition, base_path: "/foo", locale: "en")
+    FactoryGirl.create(:live_edition, base_path: "/foo")
   end
 
   let(:base_arguments) do
     {
-      "content_id" => edition.content_id,
+      "content_id" => edition.document.content_id,
       "locale" => "en",
       "payload_version" => 1,
       "message_queue_update_type" => "major",
@@ -60,7 +60,7 @@ RSpec.describe DownstreamLiveWorker do
 
     context "unpublished content item" do
       let(:unpublished_edition) { FactoryGirl.create(:unpublished_edition) }
-      let(:unpublished_arguments) { arguments.merge(content_id: unpublished_edition.content_id) }
+      let(:unpublished_arguments) { arguments.merge(content_id: unpublished_edition.document.content_id) }
 
       it "sends content to live content store" do
         expect(Adapters::ContentStore).to receive(:put_content_item)
@@ -70,7 +70,7 @@ RSpec.describe DownstreamLiveWorker do
 
     context "superseded content item" do
       let(:superseded_edition) { FactoryGirl.create(:superseded_edition) }
-      let(:superseded_arguments) { arguments.merge(content_id: superseded_edition.content_id) }
+      let(:superseded_arguments) { arguments.merge(content_id: superseded_edition.document.content_id) }
 
       it "doesn't send to live content store" do
         expect(Adapters::ContentStore).to_not receive(:put_content_item)
@@ -91,7 +91,7 @@ RSpec.describe DownstreamLiveWorker do
         schema_name: "contact"
       )
       expect(Adapters::ContentStore).to_not receive(:put_content_item)
-      subject.perform(arguments.merge("content_id" => pathless.content_id))
+      subject.perform(arguments.merge("content_id" => pathless.document.content_id))
     end
   end
 
@@ -132,14 +132,14 @@ RSpec.describe DownstreamLiveWorker do
 
       expect(Airbrake).to receive(:notify)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
-      subject.perform(arguments.merge("content_id" => draft.content_id))
+      subject.perform(arguments.merge("content_id" => draft.document.content_id))
     end
 
     it "allows live content items" do
       live = FactoryGirl.create(:live_edition)
 
       expect(Airbrake).to_not receive(:notify)
-      subject.perform(arguments.merge("content_id" => live.content_id))
+      subject.perform(arguments.merge("content_id" => live.document.content_id))
     end
   end
 

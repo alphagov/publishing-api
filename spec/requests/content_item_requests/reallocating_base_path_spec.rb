@@ -10,7 +10,7 @@ RSpec.describe "Reallocating base paths of content items" do
 
   let(:regular_payload) do
     FactoryGirl.build(:draft_edition,
-      content_id: content_id,
+      document: FactoryGirl.create(:document, content_id: content_id),
     ).as_json.deep_symbolize_keys.merge(base_path: base_path)
   end
 

@@ -4,6 +4,8 @@ module DefaultAttributes
   ATTRIBUTES_PROTECTED_FROM_RESET = [
     :id,
     :document_id,
+    :content_id,
+    :locale,
     :created_at,
     :updated_at,
     :first_published_at,

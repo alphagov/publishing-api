@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
   let(:content_id) { SecureRandom.uuid }
+  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
   let(:base_path) { "/vat-rates" }
   let(:document_type) { "guide" }
 
@@ -17,11 +18,10 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
     context "with a single content item" do
       before do
         FactoryGirl.create(:draft_edition,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
       end
 
@@ -31,19 +31,17 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
     context "with two content items of different locales" do
       before do
         FactoryGirl.create(:draft_edition,
-          content_id: content_id,
+          document: document,
           base_path: base_path + ".en",
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
 
         FactoryGirl.create(:draft_edition,
-          content_id: content_id,
+          document: FactoryGirl.create(:document, content_id: document.content_id, locale: "es"),
           base_path: base_path + ".es",
           document_type: document_type,
           user_facing_version: 1,
-          locale: "es",
         )
       end
 
@@ -53,19 +51,15 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
     context "with a unpublished item, of type \"substitute\", and a draft at the same base path" do
       before do
         FactoryGirl.create(:substitute_unpublished_edition,
-          content_id: SecureRandom.uuid,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
 
         FactoryGirl.create(:draft_edition,
-          content_id: content_id,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
       end
 
@@ -75,19 +69,16 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
     context "with a published item, with a substitutable document_type, and a draft at the same base path" do
       before do
         FactoryGirl.create(:live_edition,
-          content_id: SecureRandom.uuid,
           base_path: base_path,
           document_type: "unpublishing",
           user_facing_version: 1,
-          locale: "en",
         )
 
         FactoryGirl.create(:draft_edition,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
       end
 
@@ -99,19 +90,16 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
 
       before do
         FactoryGirl.create(:live_edition,
-          content_id: SecureRandom.uuid,
           base_path: base_path,
           document_type: "guide",
           user_facing_version: 1,
-          locale: "en",
         )
 
         FactoryGirl.create(:draft_edition,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
       end
 
@@ -121,19 +109,16 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
     context "with a unpublished item, and a draft at the same base path" do
       before do
         @blocking_edition = FactoryGirl.create(:gone_unpublished_edition,
-          content_id: SecureRandom.uuid,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
 
         FactoryGirl.create(:edition,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
       end
 
@@ -145,19 +130,16 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
     context "with a published item, and a draft at the same base path" do
       before do
         @blocking_edition = FactoryGirl.create(:live_edition,
-          content_id: SecureRandom.uuid,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
 
         FactoryGirl.create(:draft_edition,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
       end
 
@@ -171,31 +153,26 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
 
       let!(:blocking_edition) do
         FactoryGirl.create(:live_edition,
-          content_id: SecureRandom.uuid,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
       end
 
       let!(:blocking_edition_2) do
         FactoryGirl.create(:live_edition,
-          content_id: SecureRandom.uuid,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
       end
 
       let!(:content) do
         FactoryGirl.create(:draft_edition,
-          content_id: content_id,
+          document: document,
           base_path: base_path,
           document_type: document_type,
           user_facing_version: 1,
-          locale: "en",
         )
       end
 

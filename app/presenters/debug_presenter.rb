@@ -24,7 +24,7 @@ module Presenters
     end
 
     def latest_state_with_locale
-      latest_editions.map { |ci| [ci.locale, ci.state] }
+      latest_editions.map { |ci| [ci.document.locale, ci.state] }
     end
 
     def link_set
@@ -53,7 +53,8 @@ module Presenters
     end
 
     def states
-      editions.group_by(&:locale).each_with_object([]) do |(locale, editions), states|
+      grouped_editions = editions.group_by { |e| e.document.locale }
+      grouped_editions.each_with_object([]) do |(locale, editions), states|
         states << [locale, '']
         states << [{ v: editions.first.id.to_s, f: editions.first.state }, locale]
         editions[1..-1].each_with_index do |edition, index|

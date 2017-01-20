@@ -13,7 +13,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
   let(:arguments) do
     {
       "base_path" => base_path,
-      "content_id" => edition.content_id,
+      "content_id" => edition.document.content_id,
       "locale" => "en",
       "payload_version" => 1,
       "update_dependencies" => true,
@@ -155,7 +155,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       )
       expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
       subject.perform(
-        arguments.merge("content_id" => pathless.content_id, "base_path" => nil)
+        arguments.merge("content_id" => pathless.document.content_id, "base_path" => nil)
       )
     end
   end

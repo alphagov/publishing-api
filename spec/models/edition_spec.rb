@@ -180,7 +180,7 @@ RSpec.describe Edition do
       end
       let(:edition) do
         FactoryGirl.build(:draft_edition,
-          content_id: existing_edition.content_id,
+          document: existing_edition.document,
           user_facing_version: 2
         )
       end

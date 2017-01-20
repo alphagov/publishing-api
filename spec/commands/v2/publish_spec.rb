@@ -76,7 +76,7 @@ RSpec.describe Commands::V2::Publish do
 
       let!(:live_item) do
         FactoryGirl.create(:live_edition,
-          document: draft_item.document,
+          document: document,
           base_path: existing_base_path,
           user_facing_version: user_facing_version - 1,
         )
@@ -108,11 +108,11 @@ RSpec.describe Commands::V2::Publish do
     end
 
     context "with another content item blocking the publish action" do
-      let(:draft_locale) { draft_item.locale }
+      let(:draft_locale) { document.locale }
 
       let!(:other_edition) do
         FactoryGirl.create(:redirect_live_edition,
-          locale: draft_locale,
+          document: FactoryGirl.create(:document, locale: draft_locale),
           base_path: base_path,
         )
       end
@@ -123,7 +123,7 @@ RSpec.describe Commands::V2::Publish do
         updated_other_edition = Edition.find(other_edition.id)
 
         expect(updated_other_edition.state).to eq("unpublished")
-        expect(updated_other_edition.locale).to eq(draft_locale)
+        expect(updated_other_edition.document.locale).to eq(draft_locale)
         expect(updated_other_edition.base_path).to eq(base_path)
       end
     end
@@ -400,7 +400,7 @@ RSpec.describe Commands::V2::Publish do
 
     let(:payload) do
       {
-        content_id: pathless_edition.content_id,
+        content_id: pathless_edition.document.content_id,
         update_type: "major",
         previous_version: 1,
       }

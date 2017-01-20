@@ -7,7 +7,7 @@ module Commands
         publish_edition
 
         after_transaction_commit do
-          send_downstream(edition.content_id, edition.locale, update_type)
+          send_downstream(document.content_id, document.locale, update_type)
         end
 
         Success.new(content_id: content_id)
@@ -62,7 +62,7 @@ module Commands
         previous_base_path = previous_item.base_path
 
         if previous_base_path != edition.base_path
-          publish_redirect(previous_base_path, edition.locale)
+          publish_redirect(previous_base_path, document.locale)
         end
       end
 
@@ -122,9 +122,9 @@ module Commands
       def clear_published_items_of_same_locale_and_base_path
         SubstitutionHelper.clear!(
           new_item_document_type: edition.document_type,
-          new_item_content_id: edition.content_id,
+          new_item_content_id: document.content_id,
           state: "published",
-          locale: edition.locale,
+          locale: document.locale,
           base_path: edition.base_path,
           downstream: downstream,
           callbacks: callbacks,
@@ -157,8 +157,8 @@ module Commands
 
         self.class.call(
           {
-            content_id: draft_redirect.content_id,
-            locale: locale,
+            content_id: draft_redirect.document.content_id,
+            locale: draft_redirect.document.locale,
             update_type: "major",
           },
           downstream: downstream,

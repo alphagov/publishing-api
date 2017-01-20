@@ -24,14 +24,14 @@ module SubstitutionHelper
         .where(base_path: base_path, state: state, "documents.locale": locale)
 
       blocking_items.each do |blocking_item|
-        mismatch = (blocking_item.content_id != new_item_content_id)
+        mismatch = (blocking_item.document.content_id != new_item_content_id)
         allowed_to_substitute = (substitute?(new_item_document_type) || substitute?(blocking_item.document_type))
 
         if mismatch && allowed_to_substitute
           if state == "draft"
             Commands::V2::DiscardDraft.call({
-                content_id: blocking_item.content_id,
-                locale: locale,
+                content_id: blocking_item.document.content_id,
+                locale: blocking_item.document.locale,
               },
               downstream: downstream,
               nested: nested,

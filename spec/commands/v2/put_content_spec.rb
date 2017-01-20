@@ -125,7 +125,7 @@ RSpec.describe Commands::V2::PutContent do
         edition = Edition.last
 
         expect(edition).to be_present
-        expect(edition.content_id).to eq(content_id)
+        expect(edition.document.content_id).to eq(content_id)
         expect(edition.state).to eq("draft")
         expect(edition.user_facing_version).to eq(6)
       end
@@ -135,7 +135,7 @@ RSpec.describe Commands::V2::PutContent do
 
         edition = Edition.last
         expect(edition).to be_present
-        expect(edition.content_id).to eq(content_id)
+        expect(edition.document.content_id).to eq(content_id)
 
         expect(edition.first_published_at.iso8601).to eq(first_published_at.iso8601)
       end
@@ -191,7 +191,7 @@ RSpec.describe Commands::V2::PutContent do
 
             edition = Edition.last
             expect(edition.title).to eq("French Title")
-            expect(edition.locale).to eq("fr")
+            expect(edition.document.locale).to eq("fr")
           end
         end
       end
@@ -230,7 +230,7 @@ RSpec.describe Commands::V2::PutContent do
         edition = Edition.last
 
         expect(edition).to be_present
-        expect(edition.content_id).to eq(content_id)
+        expect(edition.document.content_id).to eq(content_id)
         expect(edition.state).to eq("draft")
         expect(edition.document.stale_lock_version).to eq(3)
       end
@@ -241,7 +241,7 @@ RSpec.describe Commands::V2::PutContent do
         edition = Edition.last
 
         expect(edition).to be_present
-        expect(edition.content_id).to eq(content_id)
+        expect(edition.document.content_id).to eq(content_id)
         expect(edition.state).to eq("draft")
         expect(edition.user_facing_version).to eq(6)
       end
@@ -255,7 +255,7 @@ RSpec.describe Commands::V2::PutContent do
         edition = Edition.last
 
         expect(edition).to be_present
-        expect(edition.content_id).to eq(content_id)
+        expect(edition.document.content_id).to eq(content_id)
         expect(edition.first_published_at).to eq(explicit_first_published)
       end
     end
@@ -266,7 +266,7 @@ RSpec.describe Commands::V2::PutContent do
         edition = Edition.last
 
         expect(edition).to be_present
-        expect(edition.content_id).to eq(content_id)
+        expect(edition.document.content_id).to eq(content_id)
         expect(edition.title).to eq("Some Title")
       end
 
@@ -407,7 +407,7 @@ RSpec.describe Commands::V2::PutContent do
             edition = Edition.last
             expect(edition.title).to eq("French Title")
 
-            expect(edition.locale).to eq("fr")
+            expect(edition.document.locale).to eq("fr")
           end
         end
 
@@ -468,7 +468,7 @@ RSpec.describe Commands::V2::PutContent do
 
           expect(edition.redirects).to eq([])
           expect(edition.phase).to eq("live")
-          expect(edition.locale).to eq("en")
+          expect(edition.document.locale).to eq("en")
         end
       end
 

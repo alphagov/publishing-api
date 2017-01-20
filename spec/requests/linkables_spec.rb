@@ -33,14 +33,14 @@ RSpec.describe "GET /v2/linkables", type: :request do
 
     expect(JSON.parse(response.body, symbolize_names: true)).to match_array([
       hash_including(
-        content_id: policy_1.content_id,
+        content_id: policy_1.document.content_id,
         title: "Policy 1",
         publication_state: "draft",
         base_path: "/cat-rates",
         internal_name: "Cat rates (do not use for actual cats)",
       ),
       hash_including(
-        content_id: policy_2.content_id,
+        content_id: policy_2.document.content_id,
         title: "Policy 2",
         publication_state: "published",
         base_path: "/vat-rates",

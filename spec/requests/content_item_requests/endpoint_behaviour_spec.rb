@@ -98,11 +98,8 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_id) { SecureRandom.uuid }
 
     context "when the content item exists" do
-      let!(:edition) {
-        FactoryGirl.create(:draft_edition,
-          document: FactoryGirl.create(:document, content_id: content_id),
-        )
-      }
+      let(:document) { FactoryGirl.create(:document, content_id: content_id) }
+      let!(:edition) { FactoryGirl.create(:draft_edition, document: document) }
 
       it "responds with 200" do
         get "/v2/content/#{content_id}"
@@ -118,18 +115,6 @@ RSpec.describe "Endpoint behaviour", type: :request do
           updated_edition,
           include_warnings: true,
         )
-
-        expect(response.body).to eq(presented_content_item.to_json)
-      end
-
-      it "responds with the presented content item for the correct locale" do
-        FactoryGirl.create(:draft_edition, content_id: content_id, locale: "ar")
-        presented_content_item = Presenters::Queries::ContentItemPresenter.present(
-          edition,
-          include_warnings: true,
-        )
-
-        get "/v2/content/#{content_id}"
 
         expect(response.body).to eq(presented_content_item.to_json)
       end

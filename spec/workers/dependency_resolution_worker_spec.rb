@@ -18,7 +18,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
   let(:edition_dependee) { double(:edition_dependent, call: []) }
   let(:dependencies) do
     [
-      [live_edition.content_id, "en"],
+      [content_id, "en"],
     ]
   end
 
@@ -62,7 +62,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id: live_edition.content_id,
+          content_id: content_id,
           locale: "en",
         )
       )
@@ -78,7 +78,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id: draft_edition.content_id,
+          content_id: content_id,
           locale: "en",
         )
       )

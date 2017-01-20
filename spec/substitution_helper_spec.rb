@@ -31,7 +31,7 @@ RSpec.describe SubstitutionHelper do
     end
 
     context "when the content_id is the same as the existing item" do
-      let(:new_content_id) { existing_item.content_id }
+      let(:new_content_id) { existing_item.document.content_id }
 
       it "does not discard the existing draft" do
         expect(Edition.exists?(id: existing_item.id)).to eq(true)
@@ -68,9 +68,9 @@ RSpec.describe SubstitutionHelper do
           )
 
           french_item = FactoryGirl.create(:draft_edition,
+            document: FactoryGirl.create(:document, locale: "fr"),
             document_type: existing_document_type,
             base_path: existing_base_path,
-            locale: "fr",
           )
 
           item_elsewhere = FactoryGirl.create(:draft_edition,
@@ -111,9 +111,9 @@ RSpec.describe SubstitutionHelper do
           )
 
           french_item = FactoryGirl.create(:draft_edition,
+            document: FactoryGirl.create(:document, locale: "fr"),
             document_type: existing_document_type,
             base_path: existing_base_path,
-            locale: "fr",
           )
 
           item_elsewhere = FactoryGirl.create(:draft_edition,
