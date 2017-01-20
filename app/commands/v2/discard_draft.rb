@@ -60,7 +60,7 @@ module Commands
         ChangeNote.where(content_item: content_item).destroy_all
       end
 
-      def increment_live_lock_version
+      def increment_lock_version
         document.increment! :stale_lock_version
       end
 

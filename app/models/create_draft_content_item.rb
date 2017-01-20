@@ -21,36 +21,33 @@ private
 
   def create_content_item
     attributes = content_item_attributes_from_payload.merge(
-      locale: locale,
       state: "draft",
       content_store: "draft",
       user_facing_version: user_facing_version_number_for_new_draft,
     )
-    ContentItem.create!(attributes)
-  end
-
-  def lock_version_number_for_new_draft
-    previously_published_item.lock_version_number
+    document.content_items.create!(attributes)
   end
 
   def user_facing_version_number_for_new_draft
     previously_published_item.user_facing_version
   end
 
-  def locale
-    payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
+  def document
+    put_content.document
   end
 
   def fill_out_new_content_item
-    LockVersion.create!(target: content_item, number: lock_version_number_for_new_draft)
+    document.increment! :stale_lock_version
     ensure_link_set_exists
 
     set_first_published_at
   end
 
   def ensure_link_set_exists
-    link_set = LinkSet.find_or_create_by!(content_id: content_item.content_id)
-    LockVersion.find_or_create_by!(target: link_set, number: 1)
+    link_set = LinkSet.find_or_create_by!(content_id: document.content_id)
+    if link_set.stale_lock_version == 0
+      link_set.increment! :stale_lock_version
+    end
   end
 
   def set_first_published_at

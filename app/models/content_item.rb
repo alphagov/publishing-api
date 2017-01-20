@@ -225,10 +225,6 @@ class ContentItem < ApplicationRecord
     )
   end
 
-  def lock_version_number
-    LockVersion.find_by!(target: self).number
-  end
-
 private
 
   def renderable_content?
