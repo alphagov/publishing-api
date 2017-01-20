@@ -21,8 +21,8 @@ module Presenters
         new(scope, params).present_many
       end
 
-      def self.present(content_item, params = {})
-        scope = Edition.where(id: content_item.id)
+      def self.present(edition, params = {})
+        scope = Edition.where(id: edition.id)
 
         present_many(scope, params).first
       end
