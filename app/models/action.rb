@@ -6,21 +6,21 @@ class Action < ActiveRecord::Base
   validate :one_of_content_item_link_set
   validates :action, presence: true
 
-  def self.create_put_content_action(content_item, locale, event)
-    create_publishing_action("PutContent", content_item, locale, event)
+  def self.create_put_content_action(edition, locale, event)
+    create_publishing_action("PutContent", edition, locale, event)
   end
 
-  def self.create_publish_action(content_item, locale, event)
-    create_publishing_action("Publish", content_item, locale, event)
+  def self.create_publish_action(edition, locale, event)
+    create_publishing_action("Publish", edition, locale, event)
   end
 
-  def self.create_unpublish_action(content_item, unpublishing_type, locale, event)
+  def self.create_unpublish_action(edition, unpublishing_type, locale, event)
     action = "Unpublish#{unpublishing_type.camelize}"
-    create_publishing_action(action, content_item, locale, event)
+    create_publishing_action(action, edition, locale, event)
   end
 
-  def self.create_discard_draft_action(content_item, locale, event)
-    create_publishing_action("DiscardDraft", content_item, locale, event)
+  def self.create_discard_draft_action(edition, locale, event)
+    create_publishing_action("DiscardDraft", edition, locale, event)
   end
 
   def self.create_publishing_action(action, edition, locale, event)

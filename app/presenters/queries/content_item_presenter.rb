@@ -64,7 +64,7 @@ module Presenters
       end
 
       def join_supporting_objects(scope)
-        ChangeNote.join_content_items(scope)
+        ChangeNote.join_editions(scope)
       end
 
       def order_and_paginate
