@@ -41,7 +41,7 @@ RSpec.describe Link do
     end
   end
 
-  describe ".filter_content_items" do
+  describe ".filter_editions" do
     let(:scope) { double(:scope) }
 
     it "modifies a scope to filter linked content items" do
