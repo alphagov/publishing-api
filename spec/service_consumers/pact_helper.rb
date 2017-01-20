@@ -70,7 +70,7 @@ Pact.provider_states_for "GDS API Adapters" do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
       draft = FactoryGirl.create(
-        :draft_content_item,
+        :draft_edition,
         base_path: "/robots.txt",
         document: document,
         title: "Instructions for crawler robots",
@@ -94,7 +94,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_edition, document: document)
     end
   end
 
@@ -103,7 +103,7 @@ Pact.provider_states_for "GDS API Adapters" do
       live_document = FactoryGirl.create(:document)
 
       live = FactoryGirl.create(
-        :live_content_item,
+        :live_edition,
         document: live_document,
         base_path: "/blocking_path",
       )
@@ -111,7 +111,7 @@ Pact.provider_states_for "GDS API Adapters" do
       draft_document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
       draft = FactoryGirl.create(
-        :draft_content_item,
+        :draft_edition,
         document: draft_document,
         base_path: "/blocking_path",
       )
@@ -126,7 +126,7 @@ Pact.provider_states_for "GDS API Adapters" do
         locale: "fr",
       )
 
-      FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_edition, document: document)
     end
   end
 
@@ -134,7 +134,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:live_content_item, document: document)
+      FactoryGirl.create(:live_edition, document: document)
     end
   end
 
@@ -142,7 +142,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:unpublished_content_item, document: document)
+      FactoryGirl.create(:unpublished_edition, document: document)
     end
   end
 
@@ -154,7 +154,7 @@ Pact.provider_states_for "GDS API Adapters" do
       )
 
       document = FactoryGirl.create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
-      linked_organisation = FactoryGirl.create(:content_item, document: document)
+      linked_organisation = FactoryGirl.create(:edition, document: document)
       FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: linked_organisation.content_id)
     end
   end
@@ -182,7 +182,7 @@ Pact.provider_states_for "GDS API Adapters" do
         locale: "fr",
       )
 
-      FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_edition, document: document)
     end
   end
 
@@ -193,7 +193,7 @@ Pact.provider_states_for "GDS API Adapters" do
       ar_doc = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "ar")
 
       FactoryGirl.create(
-        :draft_content_item,
+        :draft_edition,
         document: en_doc,
         document_type: "topic",
         schema_name: "topic",
@@ -202,7 +202,7 @@ Pact.provider_states_for "GDS API Adapters" do
       )
 
       FactoryGirl.create(
-        :draft_content_item,
+        :draft_edition,
         document: fr_doc,
         document_type: "topic",
         schema_name: "topic",
@@ -211,7 +211,7 @@ Pact.provider_states_for "GDS API Adapters" do
       )
 
       FactoryGirl.create(
-        :draft_content_item,
+        :draft_edition,
         document: ar_doc,
         document_type: "topic",
         schema_name: "topic",
@@ -225,7 +225,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:superseded_content_item,
+      FactoryGirl.create(:superseded_edition,
         document: document,
         document_type: "topic",
         schema_name: "topic",
@@ -233,7 +233,7 @@ Pact.provider_states_for "GDS API Adapters" do
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:live_content_item,
+      FactoryGirl.create(:live_edition,
         document: document,
         document_type: "topic",
         schema_name: "topic",
@@ -251,7 +251,7 @@ Pact.provider_states_for "GDS API Adapters" do
         stale_lock_version: 3,
       )
 
-      FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_edition, document: document)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
@@ -266,7 +266,7 @@ Pact.provider_states_for "GDS API Adapters" do
         stale_lock_version: 1,
       )
 
-      FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_edition, document: document)
 
       linkset = FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
@@ -282,7 +282,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document_a = FactoryGirl.create(:document, content_id: "aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa")
 
-      FactoryGirl.create(:draft_content_item,
+      FactoryGirl.create(:draft_edition,
         title: 'Content Item A',
         document: document_a,
         base_path: '/a-base-path',
@@ -296,7 +296,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
       document_b = FactoryGirl.create(:document, content_id: "bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb")
 
-      FactoryGirl.create(:live_content_item,
+      FactoryGirl.create(:live_edition,
         title: 'Content Item B',
         document: document_b,
         base_path: '/another-base-path',
@@ -313,8 +313,8 @@ Pact.provider_states_for "GDS API Adapters" do
       document_b = FactoryGirl.create(:document)
       document_c = FactoryGirl.create(:document)
 
-      content_item = FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(
+        :draft_edition,
         document: document_a,
         title: 'Content Item A',
         base_path: '/a-base-path',
@@ -322,8 +322,8 @@ Pact.provider_states_for "GDS API Adapters" do
         schema_name: "topic",
       )
 
-      content_item = FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(
+        :draft_edition,
         document: document_b,
         title: 'Content Item B',
         base_path: '/another-base-path',
@@ -331,8 +331,8 @@ Pact.provider_states_for "GDS API Adapters" do
         schema_name: "topic",
       )
 
-      content_item = FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(
+        :draft_edition,
         document: document_c,
         title: 'Content Item C',
         base_path: '/yet-another-base-path',
@@ -354,19 +354,19 @@ Pact.provider_states_for "GDS API Adapters" do
       document_3 = FactoryGirl.create(:document, content_id: content_id3)
 
       FactoryGirl.create(
-        :live_content_item,
+        :live_edition,
         document: document_1,
         user_facing_version: 1,
       )
 
       FactoryGirl.create(
-        :draft_content_item,
+        :draft_edition,
         document: document_1,
         user_facing_version: 2
       )
 
       FactoryGirl.create(
-        :live_content_item,
+        :live_edition,
         document: document_3,
         base_path: '/item-b',
         public_updated_at: '2015-01-02',
@@ -374,7 +374,7 @@ Pact.provider_states_for "GDS API Adapters" do
       )
 
       FactoryGirl.create(
-        :live_content_item,
+        :live_edition,
         document: document_2,
         base_path: '/item-a',
         public_updated_at: '2015-01-01',
@@ -394,7 +394,7 @@ Pact.provider_states_for "GDS API Adapters" do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
       FactoryGirl.create(
-        :draft_content_item,
+        :draft_edition,
         document: document,
         document_type: "topic",
         schema_name: "topic",
@@ -411,7 +411,7 @@ Pact.provider_states_for "GDS API Adapters" do
         stale_lock_version: 3,
       )
 
-      FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_edition, document: document)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
@@ -425,7 +425,7 @@ Pact.provider_states_for "GDS API Adapters" do
         stale_lock_version: 3
       )
 
-      FactoryGirl.create(:live_content_item, document: document)
+      FactoryGirl.create(:live_edition, document: document)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
@@ -440,7 +440,7 @@ Pact.provider_states_for "GDS API Adapters" do
         stale_lock_version: 1,
       )
 
-      FactoryGirl.create(:draft_content_item, document: document)
+      FactoryGirl.create(:draft_edition, document: document)
 
       FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
@@ -456,11 +456,11 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document_1 = FactoryGirl.create(:document, content_id: "08f86d00-e95f-492f-af1d-470c5ba4752e")
 
-      FactoryGirl.create(:live_content_item, base_path: '/foo', document: document_1)
+      FactoryGirl.create(:live_edition, base_path: '/foo', document: document_1)
 
       document_2 = FactoryGirl.create(:document, content_id: "ca6c58a6-fb9d-479d-b3e6-74908781cb18")
 
-      FactoryGirl.create(:live_content_item, base_path: '/bar', document: document_2)
+      FactoryGirl.create(:live_edition, base_path: '/bar', document: document_2)
     end
   end
 end
