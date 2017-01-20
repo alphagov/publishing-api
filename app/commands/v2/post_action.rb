@@ -8,7 +8,7 @@ module Commands
           content_id: document.content_id,
           locale: document.locale,
           action: action_type,
-          edition: content_item,
+          edition: edition,
           user_uid: event.user_uid,
           event: event,
         )
@@ -32,22 +32,23 @@ module Commands
         payload[:draft].nil? ? true : payload[:draft]
       end
 
-      def content_item
-        @content_item ||= find_content_item
+      def edition
+        @edition ||= find_edition
       end
 
       def action_type
         payload[:action]
       end
 
-      def find_content_item
-        content_item = draft? ? document.draft : document.published_or_unpublished
+      def find_edition
+        edition = draft? ? document.draft : document.published_or_unpublished
 
-        unless content_item
+        unless edition
           message = "Could not find a content item to associate this action with"
           raise_command_error(404, message, fields: {})
         end
-        content_item
+
+        edition
       end
 
       def previous_version_number

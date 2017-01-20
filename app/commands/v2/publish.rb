@@ -4,10 +4,10 @@ module Commands
       def call
         validate
 
-        publish_content_item
+        publish_edition
 
         after_transaction_commit do
-          send_downstream(content_item.content_id, content_item.locale, update_type)
+          send_downstream(edition.content_id, edition.locale, update_type)
         end
 
         Success.new(content_id: content_id)
@@ -15,41 +15,41 @@ module Commands
 
     private
 
-      def publish_content_item
+      def publish_edition
         delete_change_notes unless update_type == "major"
         previous_item.supersede if previous_item
 
-        unless content_item.pathless?
+        unless edition.pathless?
           redirect_old_base_path
           clear_published_items_of_same_locale_and_base_path
         end
 
         set_public_updated_at
         set_first_published_at
-        content_item.publish
+        edition.publish
         remove_access_limit
         create_publish_action
       end
 
       def create_publish_action
-        Action.create_publish_action(content_item, document.locale, event)
+        Action.create_publish_action(edition, document.locale, event)
       end
 
       def remove_access_limit
-        AccessLimit.find_by(edition: content_item).try(:destroy)
+        AccessLimit.find_by(edition: edition).try(:destroy)
       end
 
       def validate
-        no_draft_item_exists unless content_item
+        no_draft_item_exists unless edition
         validate_update_type
         check_version_and_raise_if_conflicting(document, previous_version_number)
       end
 
       def update_type
-        @update_type ||= payload[:update_type] || content_item.update_type
+        @update_type ||= payload[:update_type] || edition.update_type
       end
 
-      def content_item
+      def edition
         document.draft
       end
 
@@ -61,8 +61,8 @@ module Commands
         return unless previous_item
         previous_base_path = previous_item.base_path
 
-        if previous_base_path != content_item.base_path
-          publish_redirect(previous_base_path, content_item.locale)
+        if previous_base_path != edition.base_path
+          publish_redirect(previous_base_path, edition.locale)
         end
       end
 
@@ -89,7 +89,7 @@ module Commands
       end
 
       def delete_change_notes
-        ChangeNote.where(edition: content_item).delete_all
+        ChangeNote.where(edition: edition).delete_all
       end
 
       def document
@@ -121,11 +121,11 @@ module Commands
 
       def clear_published_items_of_same_locale_and_base_path
         SubstitutionHelper.clear!(
-          new_item_document_type: content_item.document_type,
-          new_item_content_id: content_item.content_id,
+          new_item_document_type: edition.document_type,
+          new_item_content_id: edition.content_id,
           state: "published",
-          locale: content_item.locale,
-          base_path: content_item.base_path,
+          locale: edition.locale,
+          base_path: edition.base_path,
           downstream: downstream,
           callbacks: callbacks,
           nested: true,
@@ -133,18 +133,18 @@ module Commands
       end
 
       def set_public_updated_at
-        return if content_item.public_updated_at.present?
+        return if edition.public_updated_at.present?
 
         if update_type == "major"
-          content_item.update_attributes!(public_updated_at: Time.zone.now)
+          edition.update_attributes!(public_updated_at: Time.zone.now)
         elsif update_type == "minor"
-          content_item.update_attributes!(public_updated_at: previous_item.public_updated_at)
+          edition.update_attributes!(public_updated_at: previous_item.public_updated_at)
         end
       end
 
       def set_first_published_at
-        return if content_item.first_published_at.present?
-        content_item.update_attributes!(first_published_at: Time.zone.now)
+        return if edition.first_published_at.present?
+        edition.update_attributes!(first_published_at: Time.zone.now)
       end
 
       def publish_redirect(previous_base_path, locale)

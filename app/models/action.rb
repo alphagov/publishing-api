@@ -3,7 +3,7 @@ class Action < ActiveRecord::Base
   belongs_to :link_set
   belongs_to :event
 
-  validate :one_of_content_item_link_set
+  validate :one_of_edition_link_set
   validates :action, presence: true
 
   def self.create_put_content_action(edition, locale, event)
@@ -47,7 +47,7 @@ class Action < ActiveRecord::Base
 
 private
 
-  def one_of_content_item_link_set
+  def one_of_edition_link_set
     if content_item_id && link_set_id || edition && link_set
       errors.add(:base, "can not be associated with both a content item and link set")
     end
