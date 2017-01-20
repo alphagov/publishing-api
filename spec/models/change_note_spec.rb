@@ -13,8 +13,8 @@ RSpec.describe ChangeNote do
     )
   end
 
-  describe ".create_from_content_item" do
-    subject { described_class.create_from_content_item(payload, edition) }
+  describe ".create_from_edition" do
+    subject { described_class.create_from_edition(payload, edition) }
 
     context "update_type is not major" do
       let(:update_type) { "minor" }
@@ -38,7 +38,7 @@ RSpec.describe ChangeNote do
         it "updates the change note rather than creating a new one" do
           subject
           expect {
-            described_class.create_from_content_item(payload, edition)
+            described_class.create_from_edition(payload, edition)
           }.to_not change { ChangeNote.count }
         end
       end
