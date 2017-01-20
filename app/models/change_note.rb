@@ -35,7 +35,7 @@ private
       find_or_create_by!(edition: edition).
       update!(
         note: change_note,
-        content_id: edition.content_id,
+        content_id: edition.document.content_id,
         public_timestamp: Time.zone.now
       )
   end
@@ -44,7 +44,7 @@ private
     return unless note
     ChangeNote.create!(
       edition: edition,
-      content_id: edition.content_id,
+      content_id: edition.document.content_id,
       public_timestamp: edition.updated_at,
       note: note,
     )
@@ -56,7 +56,7 @@ private
     ChangeNote.create!(
       history_element.merge(
         edition: edition,
-        content_id: edition.content_id
+        content_id: edition.document.content_id
       )
     )
   end

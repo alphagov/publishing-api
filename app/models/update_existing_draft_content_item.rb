@@ -2,6 +2,8 @@ class UpdateExistingDraftContentItem
   ATTRIBUTES_PROTECTED_FROM_RESET = [
     :id,
     :document_id,
+    :content_id,
+    :locale,
     :created_at,
     :updated_at,
     :first_published_at,
@@ -51,7 +53,6 @@ private
 
   def attributes
     content_item_attributes_from_payload.merge(
-      locale: payload.fetch(:locale, ContentItem::DEFAULT_LOCALE),
       state: "draft",
       content_store: "draft",
       user_facing_version: content_item.user_facing_version,

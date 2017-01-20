@@ -93,7 +93,7 @@ module Commands
 
         DownstreamDraftWorker.perform_async_in_queue(
           DownstreamDraftWorker::HIGH_QUEUE,
-          content_id: edition.content_id,
+          content_id: document.content_id,
           locale: document.locale,
           payload_version: event.id,
           update_dependencies: true,
@@ -101,7 +101,7 @@ module Commands
 
         DownstreamLiveWorker.perform_async_in_queue(
           DownstreamLiveWorker::HIGH_QUEUE,
-          content_id: edition.content_id,
+          content_id: document.content_id,
           locale: document.locale,
           payload_version: event.id,
           update_dependencies: true,

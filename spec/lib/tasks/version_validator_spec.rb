@@ -41,9 +41,11 @@ RSpec.describe Tasks::VersionValidator do
   context "when content items have the same version but different locale" do
     before do
       item = Edition.last
-      item.locale = 'fr'
+      item.document = FactoryGirl.create(:document,
+        content_id: item.document.content_id,
+        locale: "fr"
+      )
       item.user_facing_version = 1
-      item.ensure_document
       item.save!(validate: false)
     end
 

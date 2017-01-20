@@ -25,7 +25,7 @@ class Action < ActiveRecord::Base
 
   def self.create_publishing_action(action, edition, locale, event)
     create!(
-      content_id: edition.content_id,
+      content_id: edition.document.content_id,
       locale: locale,
       action: action,
       user_uid: event.user_uid,

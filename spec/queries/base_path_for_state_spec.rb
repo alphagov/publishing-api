@@ -18,7 +18,7 @@ RSpec.describe Queries::BasePathForState do
       let(:collision_hash) do
         {
           id: conflict_edition.id,
-          content_id: conflict_edition.content_id,
+          content_id: conflict_edition.document.content_id,
           locale: "en"
         }
       end
@@ -64,7 +64,7 @@ RSpec.describe Queries::BasePathForState do
         let(:collision_hash) do
           {
             id: conflict_edition.id,
-            content_id: conflict_edition.content_id,
+            content_id: conflict_edition.document.content_id,
             locale: "en"
           }
         end
