@@ -11,7 +11,7 @@ class VersionForDocumentValidator < ActiveModel::Validator
 
     if conflict
       error = "user_facing_version=#{record.user_facing_version} and "
-      error << "document=#{record.document_id} conflicts with content item "
+      error << "document=#{record.document_id} conflicts with edition "
       error << "id=#{conflict[:id]}"
       record.errors.add(:base, error)
     end

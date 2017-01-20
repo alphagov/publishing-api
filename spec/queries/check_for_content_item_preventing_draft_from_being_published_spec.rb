@@ -15,7 +15,7 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
       end
     end
 
-    context "with a single content item" do
+    context "with a single edition" do
       before do
         FactoryGirl.create(:draft_edition,
           document: document,
@@ -28,7 +28,7 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
       include_examples "check succeeds"
     end
 
-    context "with two content items of different locales" do
+    context "with two editions of different locales" do
       before do
         FactoryGirl.create(:draft_edition,
           document: document,
@@ -122,7 +122,7 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
         )
       end
 
-      it "fails, returning the id of the content item" do
+      it "fails, returning the id of the edition" do
         expect(subject).to eq(@blocking_edition.id)
       end
     end
@@ -143,7 +143,7 @@ RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
         )
       end
 
-      it "fails, returning the id of the content item" do
+      it "fails, returning the id of the edition" do
         expect(subject).to eq(@blocking_edition.id)
       end
     end

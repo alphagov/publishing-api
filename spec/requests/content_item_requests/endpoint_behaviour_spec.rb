@@ -20,7 +20,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       expect(response.status).to eq(200)
     end
 
-    it "responds with the presented content item" do
+    it "responds with the presented edition" do
       put "/v2/content/#{content_id}", params: content_item.to_json
 
       updated_edition = Edition.joins(:document)
@@ -77,7 +77,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
     context "with the root path as a base_path" do
       let(:base_path) { "/" }
 
-      it "creates the content item" do
+      it "creates the edition" do
         put "/v2/content/#{content_id}", params: content_item.to_json
 
         expect(response.status).to eq(200)
@@ -97,7 +97,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
   context "GET /v2/content/:content_id" do
     let(:content_id) { SecureRandom.uuid }
 
-    context "when the content item exists" do
+    context "when the document exists" do
       let(:document) { FactoryGirl.create(:document, content_id: content_id) }
       let!(:edition) { FactoryGirl.create(:draft_edition, document: document) }
 
@@ -106,7 +106,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
         expect(response.status).to eq(200)
       end
 
-      it "responds with the presented content item" do
+      it "responds with the presented edition" do
         get "/v2/content/#{content_id}"
 
         updated_edition = Edition.joins(:document)
@@ -120,7 +120,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
       end
     end
 
-    context "when the content item does not exist" do
+    context "when the document does not exist" do
       it "responds with 404" do
         get "/v2/content/#{SecureRandom.uuid}"
         expect(response.status).to eq(404)
@@ -130,7 +130,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
 
   context "/links" do
     context "PATCH /v2/links/:content_id" do
-      context "when creating a link set for a content item to be added later" do
+      context "when creating a link set for a document to be added later" do
         it "responds with 200" do
           patch "/v2/links/#{SecureRandom.uuid}", params: { links: {} }.to_json
 

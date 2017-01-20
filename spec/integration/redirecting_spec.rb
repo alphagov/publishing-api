@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Redirecting content items that are redrafted" do
+RSpec.describe "Redirecting editions that are redrafted" do
   let(:put_content) { Commands::V2::PutContent }
   let(:publish) { Commands::V2::Publish }
 
@@ -42,7 +42,7 @@ RSpec.describe "Redirecting content items that are redrafted" do
       put_content.call(moved_payload)
     end
 
-    it "sets up the content items in the expected initial state" do
+    it "sets up the editions in the expected initial state" do
       expect(Edition.count).to eq(3)
 
       edition = Edition.first
@@ -69,7 +69,7 @@ RSpec.describe "Redirecting content items that are redrafted" do
         publish.call(publish_payload)
       end
 
-      it "transitions the states of the content items correctly" do
+      it "transitions the states of the editions correctly" do
         expect(Edition.count).to eq(3)
 
         edition = Edition.first
@@ -101,7 +101,7 @@ RSpec.describe "Redirecting content items that are redrafted" do
       put_content.call(moved_payload)
     end
 
-    it "sets up the content items in the expected initial state" do
+    it "sets up the editions in the expected initial state" do
       expect(Edition.count).to eq(3)
 
       edition = Edition.first
@@ -128,7 +128,7 @@ RSpec.describe "Redirecting content items that are redrafted" do
         publish.call(publish_payload)
       end
 
-      it "transitions the states of the content items correctly" do
+      it "transitions the states of the editions correctly" do
         expect(Edition.count).to eq(3)
 
         edition = Edition.first

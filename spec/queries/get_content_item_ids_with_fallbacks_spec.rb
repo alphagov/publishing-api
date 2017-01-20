@@ -15,7 +15,7 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
 
     it { is_expected.to be_a(Array) }
 
-    context "when a content item is in a draft state" do
+    context "when a edition is in a draft state" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
@@ -38,7 +38,7 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
       end
     end
 
-    context "when a content item is in draft and unpublished (withdrawn) states" do
+    context "when a edition is in draft and unpublished (withdrawn) states" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
@@ -65,7 +65,7 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
       end
     end
 
-    context "when a content item is in multiple locales" do
+    context "when a edition is in multiple locales" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:fr_document) do
         FactoryGirl.create(:document,
@@ -138,7 +138,7 @@ RSpec.describe Queries::GetContentItemIdsWithFallbacks do
       end
     end
 
-    context "when multiple content items are requested" do
+    context "when multiple editions are requested" do
       let(:content_ids) { [SecureRandom.uuid, SecureRandom.uuid] }
       let(:vat_document) { FactoryGirl.create(:document, content_id: content_ids.first) }
       let(:tax_rates_document) { FactoryGirl.create(:document, content_id: content_ids.last) }

@@ -99,7 +99,7 @@ RSpec.describe V2::ContentItemsController do
         expect(response.status).to eq(200)
       end
 
-      it "responds with the english content item as json" do
+      it "responds with the english edition as json" do
         parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.length).to eq(1)
 
@@ -117,7 +117,7 @@ RSpec.describe V2::ContentItemsController do
         expect(response.status).to eq(200)
       end
 
-      it "responds with the specific locale content item as json" do
+      it "responds with the specific locale edition as json" do
         parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.length).to eq(1)
 
@@ -141,7 +141,7 @@ RSpec.describe V2::ContentItemsController do
         expect(parsed_response_body.length).to eq(2)
       end
 
-      it "responds with all the localised content items as json" do
+      it "responds with all the localised editions as json" do
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
         expect(base_paths.sort). to eq ["/content.en", "/content.ar"].sort
       end
@@ -155,7 +155,7 @@ RSpec.describe V2::ContentItemsController do
       it "is successful" do
         expect(response.status).to eq(200)
       end
-      it "responds with the content item as json" do
+      it "responds with the edition as json" do
         parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
@@ -168,7 +168,7 @@ RSpec.describe V2::ContentItemsController do
       it "is successful" do
         expect(response.status).to eq(200)
       end
-      it "responds with the content item as json" do
+      it "responds with the edition as json" do
         parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
@@ -181,7 +181,7 @@ RSpec.describe V2::ContentItemsController do
       it "is successful" do
         expect(response.status).to eq(200)
       end
-      it "responds with the content item as json" do
+      it "responds with the edition as json" do
         parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
@@ -339,7 +339,7 @@ RSpec.describe V2::ContentItemsController do
         expect(response.status).to eq(200)
       end
 
-      it "responds with the content items for the given organistion as json" do
+      it "responds with the editions for the given organistion as json" do
         parsed_response_body = parsed_response["results"]
         expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
       end
@@ -347,7 +347,7 @@ RSpec.describe V2::ContentItemsController do
   end
 
   describe "show" do
-    context "for an existing content item" do
+    context "for an existing edition" do
       before do
         get :show, params: { content_id: content_id }
       end
@@ -356,13 +356,13 @@ RSpec.describe V2::ContentItemsController do
         expect(response.status).to eq(200)
       end
 
-      it "responds with the content item as json" do
+      it "responds with the edition as json" do
         parsed_response_body = parsed_response
         expect(parsed_response_body.fetch("content_id")).to eq(content_id.to_s)
       end
     end
 
-    context "for a non-existent content item" do
+    context "for a non-existent edition" do
       it "responds with 404" do
         get :show, params: { content_id: SecureRandom.uuid }
 
@@ -380,7 +380,7 @@ RSpec.describe V2::ContentItemsController do
   end
 
   describe "put_content" do
-    context "with valid request params for a new content item" do
+    context "with valid request params for a new edition" do
       before do
         edition_hash = @draft.as_json.merge(
           "base_path" => "/that-rates",
@@ -395,13 +395,13 @@ RSpec.describe V2::ContentItemsController do
         expect(response.status).to eq(200)
       end
 
-      it "responds with the content item" do
+      it "responds with the edition" do
         parsed_response_body = parsed_response
         expect(parsed_response_body["base_path"]).to eq("/that-rates")
       end
     end
 
-    context "with valid request params for an existing content item" do
+    context "with valid request params for an existing edition" do
       before do
         edition_hash = @draft.as_json.merge(
           "base_path" => "/that-rates",
@@ -417,7 +417,7 @@ RSpec.describe V2::ContentItemsController do
         expect(response.status).to eq(200)
       end
 
-      it "responds with the content item" do
+      it "responds with the edition" do
         parsed_response_body = parsed_response
         expect(parsed_response_body["content_id"]).to eq(content_id)
       end
@@ -437,7 +437,7 @@ RSpec.describe V2::ContentItemsController do
   end
 
   describe "publish" do
-    context "for an existing draft content item" do
+    context "for an existing draft edition" do
       before do
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = { update_type: "major" }.to_json
@@ -455,7 +455,7 @@ RSpec.describe V2::ContentItemsController do
       end
     end
 
-    context "for a non-existent content item" do
+    context "for a non-existent edition" do
       it "responds with 404" do
         request.env["CONTENT_TYPE"] = "application/json"
         request.env["RAW_POST_DATA"] = { update_type: "major" }.to_json

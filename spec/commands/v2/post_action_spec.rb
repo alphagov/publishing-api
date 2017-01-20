@@ -70,7 +70,7 @@ RSpec.describe Commands::V2::PostAction do
       end
     end
 
-    context "when a draft content item exists" do
+    context "when a draft edition exists" do
       before { FactoryGirl.create(:draft_edition, document: document) }
 
       include_examples "action behaviour"
@@ -80,7 +80,7 @@ RSpec.describe Commands::V2::PostAction do
       end
     end
 
-    context "when a published content item exists" do
+    context "when a published edition exists" do
       before { FactoryGirl.create(:live_edition, document: document) }
 
       let(:draft) { false }
@@ -93,7 +93,7 @@ RSpec.describe Commands::V2::PostAction do
       end
     end
 
-    context "when no content item exists" do
+    context "when no edition exists" do
       include_examples "raises a 404 command error"
     end
   end

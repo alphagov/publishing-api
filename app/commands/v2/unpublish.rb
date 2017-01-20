@@ -51,7 +51,7 @@ module Commands
 
       def validate_edition_presence
         unless edition.present?
-          message = "Could not find a content item to unpublish"
+          message = "Could not find an edition to unpublish"
           raise_command_error(404, message, fields: {})
         end
       end

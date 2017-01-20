@@ -54,7 +54,7 @@ RSpec.describe Helpers::SupersedePreviousPublishedOrUnpublished do
     )
   end
 
-  it "does not supersede states for content items in other locales" do
+  it "does not supersede states for editions in other locales" do
     document_fr = FactoryGirl.create(:document,
       content_id: document.content_id,
       locale: "fr",

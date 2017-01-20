@@ -27,11 +27,11 @@ RSpec.describe Queries::LocalesForContentItems do
 
     it { is_expected.to be_a(Array) }
 
-    context "when there are no content items" do
+    context "when there are no editions" do
       it { is_expected.to be_empty }
     end
 
-    context "when there are two live content items in english" do
+    context "when there are two live editions in english" do
       before do
         create_edition(content_id_1, :live_edition, 1, "en", "path-1")
         create_edition(content_id_2, :live_edition, 1, "en", "path-2")
@@ -47,7 +47,7 @@ RSpec.describe Queries::LocalesForContentItems do
       it { is_expected.to match_array(results) }
     end
 
-    context "when there are live content items in multiple locales" do
+    context "when there are live editions in multiple locales" do
       before do
         create_edition(content_id_1, :live_edition, 1, "en", "path-1")
         create_edition(content_id_1, :live_edition, 1, "cy", "path-1")

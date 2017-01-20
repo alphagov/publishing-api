@@ -27,7 +27,7 @@ RSpec.describe "Downstream requests", type: :request do
       expect(response).to be_ok, response.body
     end
 
-    context "when a link set exists for the content item" do
+    context "when a link set exists for the edition" do
       let(:link_set) do
         FactoryGirl.create(:link_set,
           content_id: v2_content_item[:content_id]
@@ -73,7 +73,7 @@ RSpec.describe "Downstream requests", type: :request do
         .except(:access_limited, :update_type)
     }
 
-    context "when only a draft content item exists for the link set" do
+    context "when only a draft edition exists for the link set" do
       before do
         draft = FactoryGirl.create(:draft_edition,
           document: FactoryGirl.create(:document, content_id: content_id),
@@ -106,7 +106,7 @@ RSpec.describe "Downstream requests", type: :request do
       end
     end
 
-    context "when only a live content item exists for the link set" do
+    context "when only a live edition exists for the link set" do
       before do
         FactoryGirl.create(:live_edition,
           document: FactoryGirl.create(:document, content_id: content_id),
@@ -138,7 +138,7 @@ RSpec.describe "Downstream requests", type: :request do
       end
     end
 
-    context "when draft and live content items exists for the link set" do
+    context "when draft and live editions exists for the link set" do
       before do
         document = FactoryGirl.create(:document, content_id: content_id)
 
@@ -183,7 +183,7 @@ RSpec.describe "Downstream requests", type: :request do
       end
     end
 
-    context "when a content item does not exist for the link set" do
+    context "when an edition does not exist for the link set" do
       it "does not send to either content store" do
         expect(WebMock).not_to have_requested(:any, /.*content-store.*/)
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)

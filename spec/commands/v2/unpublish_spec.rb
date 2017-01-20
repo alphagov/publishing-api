@@ -84,7 +84,7 @@ RSpec.describe Commands::V2::Unpublish do
 
       include_examples "creates an action"
 
-      it "sets the content item's state to `unpublished`" do
+      it "sets the edition's state to `unpublished`" do
         described_class.call(payload)
 
         expect(live_edition.reload.state).to eq("unpublished")
@@ -124,7 +124,7 @@ RSpec.describe Commands::V2::Unpublish do
         it "rejects the request with a 404" do
           expect {
             described_class.call(payload_with_allow_draft)
-          }.to raise_error(CommandError, "Could not find a content item to unpublish") { |error|
+          }.to raise_error(CommandError, "Could not find an edition to unpublish") { |error|
             expect(error.code).to eq(404)
           }
         end
@@ -180,7 +180,7 @@ RSpec.describe Commands::V2::Unpublish do
       it "rejects the request with a 404" do
         expect {
           described_class.call(payload)
-        }.to raise_error(CommandError, "Could not find a content item to unpublish") { |error|
+        }.to raise_error(CommandError, "Could not find an edition to unpublish") { |error|
           expect(error.code).to eq(404)
         }
       end
@@ -195,7 +195,7 @@ RSpec.describe Commands::V2::Unpublish do
         let(:action_payload) { payload_with_allow_draft }
         include_examples "creates an action"
 
-        it "sets the content item's state to `unpublished`" do
+        it "sets the edition's state to `unpublished`" do
           described_class.call(payload_with_allow_draft)
 
           expect(draft_edition.reload.state).to eq("unpublished")
@@ -252,7 +252,7 @@ RSpec.describe Commands::V2::Unpublish do
           end
         end
 
-        context "when there is a previously unpublished content item" do
+        context "when there is a previously unpublished edition" do
           let!(:previous_edition) do
             FactoryGirl.create(:unpublished_edition,
               document: document,
@@ -283,7 +283,7 @@ RSpec.describe Commands::V2::Unpublish do
           end
         end
 
-        context "when there is a previously published content item" do
+        context "when there is a previously published edition" do
           let!(:previous_edition) do
             FactoryGirl.create(:live_edition,
               document: document,
@@ -355,7 +355,7 @@ RSpec.describe Commands::V2::Unpublish do
           expect(editions.last.state).to eq("unpublished")
         end
 
-        it "unpublishes the content item" do
+        it "unpublishes the edition" do
           described_class.call(payload)
           live_edition.reload
 
@@ -440,7 +440,7 @@ RSpec.describe Commands::V2::Unpublish do
         end
 
         it "rejects the request with a 404" do
-          message = "Could not find a content item to unpublish"
+          message = "Could not find an edition to unpublish"
           expect {
             described_class.call(payload)
           }.to raise_error(CommandError, message) { |error|
@@ -510,7 +510,7 @@ RSpec.describe Commands::V2::Unpublish do
 
       include_examples "creates an action"
 
-      it "sets the content item's state to `unpublished`" do
+      it "sets the edition's state to `unpublished`" do
         described_class.call(payload)
 
         expect(live_edition.reload.state).to eq("unpublished")

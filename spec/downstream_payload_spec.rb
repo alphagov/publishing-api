@@ -25,7 +25,7 @@ RSpec.describe DownstreamPayload do
   end
 
   describe "#unpublished?" do
-    context "unpublished content item" do
+    context "unpublished edition" do
       let(:web_content_item) { create_web_content_item(:unpublished_edition) }
 
       it "returns true" do
@@ -33,7 +33,7 @@ RSpec.describe DownstreamPayload do
       end
     end
 
-    context "published content item" do
+    context "published edition" do
       let(:web_content_item) { create_web_content_item(:live_edition) }
 
       it "returns false" do

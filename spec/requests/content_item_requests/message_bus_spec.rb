@@ -16,7 +16,7 @@ RSpec.describe "Message bus", type: :request do
     let(:request_body) { patch_links_attributes.to_json }
     let(:request_path) { "/v2/links/#{content_id}" }
 
-    context "with a live content item" do
+    context "with a live edition" do
       before do
         FactoryGirl.create(:live_edition,
           document: FactoryGirl.create(:document, content_id: content_id),
@@ -32,7 +32,7 @@ RSpec.describe "Message bus", type: :request do
       end
     end
 
-    context "with a draft content item" do
+    context "with a draft edition" do
       before do
         FactoryGirl.create(:draft_edition,
           document: FactoryGirl.create(:document, content_id: content_id),

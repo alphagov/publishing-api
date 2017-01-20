@@ -8,7 +8,7 @@ RSpec.describe Edition do
     let!(:redirect) { FactoryGirl.create(:redirect_edition) }
     let!(:gone) { FactoryGirl.create(:gone_edition) }
 
-    it "returns content items that do not have a schema_name of 'redirect' or 'gone'" do
+    it "returns editions that do not have a schema_name of 'redirect' or 'gone'" do
       expect(described_class.renderable_content).to eq [guide]
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe Edition do
       expect(subject).to be_invalid
     end
 
-    context "when the content item is 'renderable'" do
+    context "when the edition is 'renderable'" do
       before do
         subject.document_type = "guide"
       end
@@ -67,7 +67,7 @@ RSpec.describe Edition do
       end
     end
 
-    context "when the content item is not 'renderable'" do
+    context "when the edition is not 'renderable'" do
       subject { FactoryGirl.build(:redirect_edition) }
 
       it "does not require a title" do
@@ -81,7 +81,7 @@ RSpec.describe Edition do
       end
     end
 
-    context "when the content item is optionally 'renderable'" do
+    context "when the edition is optionally 'renderable'" do
       subject { FactoryGirl.build(:edition, document_type: "contact") }
 
       it "does not require a rendering_app" do
@@ -98,7 +98,7 @@ RSpec.describe Edition do
       end
     end
 
-    context "when another content item has the same base path" do
+    context "when another edition has the same base path" do
       before { FactoryGirl.create(:draft_edition, base_path: "/foo") }
 
       let(:edition) do
@@ -139,7 +139,7 @@ RSpec.describe Edition do
       end
     end
 
-    context "when the state conflicts with another instance of this content item" do
+    context "when the state conflicts with another instance of this edition" do
       subject { edition }
       let(:existing_edition) do
         FactoryGirl.create(:draft_edition, user_facing_version: 2)
@@ -160,7 +160,7 @@ RSpec.describe Edition do
       end
     end
 
-    context "when the user facing version conflicts with another instance of this content item" do
+    context "when the user facing version conflicts with another instance of this edition" do
       subject { edition }
       let(:existing_edition) { FactoryGirl.create(:draft_edition) }
       let(:edition) do

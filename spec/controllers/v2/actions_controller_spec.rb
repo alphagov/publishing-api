@@ -20,7 +20,7 @@ RSpec.describe V2::ActionsController do
     end
     let(:json_payload) { payload.to_json }
 
-    context "when a content item exists" do
+    context "when an edition exists" do
       before { FactoryGirl.create(:draft_edition, document: document) }
 
       context "and the request is valid" do
@@ -49,7 +49,7 @@ RSpec.describe V2::ActionsController do
       end
     end
 
-    context "when the content item does not exist" do
+    context "when the edition does not exist" do
       it "returns 404" do
         post(:create, params: params, body: json_payload)
         expect(response).to have_http_status(404)

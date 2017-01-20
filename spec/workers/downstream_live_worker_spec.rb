@@ -51,14 +51,14 @@ RSpec.describe DownstreamLiveWorker do
   end
 
   describe "send to live content store" do
-    context "published content item" do
+    context "published edition" do
       it "sends content to live content store" do
         expect(Adapters::ContentStore).to receive(:put_content_item)
         subject.perform(arguments)
       end
     end
 
-    context "unpublished content item" do
+    context "unpublished edition" do
       let(:unpublished_edition) { FactoryGirl.create(:unpublished_edition) }
       let(:unpublished_arguments) { arguments.merge(content_id: unpublished_edition.document.content_id) }
 
@@ -68,7 +68,7 @@ RSpec.describe DownstreamLiveWorker do
       end
     end
 
-    context "superseded content item" do
+    context "superseded edition" do
       let(:superseded_edition) { FactoryGirl.create(:superseded_edition) }
       let(:superseded_arguments) { arguments.merge(content_id: superseded_edition.document.content_id) }
 
@@ -127,7 +127,7 @@ RSpec.describe DownstreamLiveWorker do
   end
 
   describe "draft-to-live protection" do
-    it "rejects draft content items" do
+    it "rejects draft editions" do
       draft = FactoryGirl.create(:draft_edition)
 
       expect(Airbrake).to receive(:notify)
@@ -135,7 +135,7 @@ RSpec.describe DownstreamLiveWorker do
       subject.perform(arguments.merge("content_id" => draft.document.content_id))
     end
 
-    it "allows live content items" do
+    it "allows live editions" do
       live = FactoryGirl.create(:live_edition)
 
       expect(Airbrake).to_not receive(:notify)
@@ -143,7 +143,7 @@ RSpec.describe DownstreamLiveWorker do
     end
   end
 
-  describe "no content item" do
+  describe "no edition" do
     it "swallows the error" do
       expect(Airbrake).to receive(:notify)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))

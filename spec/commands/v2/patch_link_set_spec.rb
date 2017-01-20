@@ -219,7 +219,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
   end
 
-  context "when a draft content item exists for the content_id" do
+  context "when a draft edition exists for the content_id" do
     before do
       FactoryGirl.create(:draft_edition,
         document: FactoryGirl.create(:document, content_id: content_id),
@@ -245,7 +245,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload.merge(bulk_publishing: true))
     end
 
-    context "when a draft content item has multiple translations" do
+    context "when a draft edition has multiple translations" do
       before do
         FactoryGirl.create(:draft_edition,
           document: FactoryGirl.create(:document, content_id: content_id, locale: "fr"),
@@ -254,7 +254,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
         )
       end
 
-      it "sends the draft content items for all locales downstream" do
+      it "sends the draft editions for all locales downstream" do
         %w(en fr).each do |locale|
           expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
             .with(
@@ -279,7 +279,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
   end
 
-  context "when a live content item exists for the content_id" do
+  context "when a live edition exists for the content_id" do
     before do
       FactoryGirl.create(:live_edition,
         document: FactoryGirl.create(:document, content_id: content_id),
@@ -318,7 +318,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload.merge(bulk_publishing: true))
     end
 
-    context "when a live content item has multiple translations" do
+    context "when a live edition has multiple translations" do
       before do
         FactoryGirl.create(:live_edition,
           document: FactoryGirl.create(:document, content_id: content_id, locale: "fr"),
@@ -327,7 +327,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
         )
       end
 
-      it "sends the live content item for all locales downstream" do
+      it "sends the live edition for all locales downstream" do
         %w(en fr).each do |locale|
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
@@ -356,7 +356,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
   end
 
-  context "when an unpublished content item exists for the content_id" do
+  context "when an unpublished edition exists for the content_id" do
     before do
       FactoryGirl.create(:unpublished_edition,
         document: FactoryGirl.create(:document, content_id: content_id),

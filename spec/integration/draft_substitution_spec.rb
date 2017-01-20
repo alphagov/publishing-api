@@ -90,7 +90,7 @@ RSpec.describe "Substituting content that is not published" do
     end
   end
 
-  describe "putting a content item in a different locale" do
+  describe "putting an edition in a different locale" do
     let(:gone_base_path) { "/vat-rates-fr" }
 
     before do

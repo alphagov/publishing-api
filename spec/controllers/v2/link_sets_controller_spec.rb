@@ -35,7 +35,7 @@ RSpec.describe V2::LinkSetsController do
       end
     end
 
-    context "for an existing content item" do
+    context "for an existing edition" do
       before do
         get :get_linked, params: { content_id: content_id, link_type: "topic", fields: ["content_id"] }
       end
@@ -45,7 +45,7 @@ RSpec.describe V2::LinkSetsController do
       end
     end
 
-    context "for a non-existing content item" do
+    context "for a non-existing edition" do
       before do
         get :get_linked, params: { content_id: SecureRandom.uuid, link_type: "topic", fields: ["content_id"] }
       end

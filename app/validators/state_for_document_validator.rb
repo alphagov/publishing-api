@@ -11,7 +11,7 @@ class StateForDocumentValidator < ActiveModel::Validator
 
     if conflict
       error = "state=#{record.state} and document=#{record.document_id} "
-      error << "conflicts with content item id=#{conflict[:id]}"
+      error << "conflicts with edition id=#{conflict[:id]}"
       record.errors.add(:base, error)
     end
   end

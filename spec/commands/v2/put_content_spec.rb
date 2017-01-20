@@ -107,7 +107,7 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when creating a draft for a previously published content item" do
+    context "when creating a draft for a previously published edition" do
       let(:first_published_at) { 1.year.ago }
 
       before do
@@ -180,12 +180,12 @@ RSpec.describe Commands::V2::PutContent do
           described_class.call(payload)
         end
 
-        context "when the locale differs from the existing draft content item" do
+        context "when the locale differs from the existing draft edition" do
           before do
             payload.merge!(locale: "fr", title: "French Title")
           end
 
-          it "creates a separate draft content item in the given locale" do
+          it "creates a separate draft edition in the given locale" do
             described_class.call(payload)
             expect(Edition.count).to eq(2)
 
@@ -215,7 +215,7 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when creating a draft for a previously unpublished content item" do
+    context "when creating a draft for a previously unpublished edition" do
       before do
         FactoryGirl.create(:unpublished_edition,
           document: FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 2),
@@ -260,8 +260,8 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when the payload is for a brand new content item" do
-      it "creates a content item" do
+    context "when the payload is for a brand new edition" do
+      it "creates an edition" do
         described_class.call(payload)
         edition = Edition.last
 
@@ -270,21 +270,21 @@ RSpec.describe Commands::V2::PutContent do
         expect(edition.title).to eq("Some Title")
       end
 
-      it "sets a draft state for the content item" do
+      it "sets a draft state for the edition" do
         described_class.call(payload)
         edition = Edition.last
 
         expect(edition.state).to eq("draft")
       end
 
-      it "sets a user-facing version of 1 for the content item" do
+      it "sets a user-facing version of 1 for the edition" do
         described_class.call(payload)
         edition = Edition.last
 
         expect(edition.user_facing_version).to eq(1)
       end
 
-      it "creates a lock version for the content item" do
+      it "creates a lock version for the edition" do
         described_class.call(payload)
         edition = Edition.last
 
@@ -297,7 +297,7 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when the payload is for an already drafted content item" do
+    context "when the payload is for an already drafted edition" do
       let(:document) do
         FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 1)
       end
@@ -310,7 +310,7 @@ RSpec.describe Commands::V2::PutContent do
         )
       end
 
-      it "updates the content item" do
+      it "updates the edition" do
         described_class.call(payload)
         previously_drafted_item.reload
 
@@ -335,7 +335,7 @@ RSpec.describe Commands::V2::PutContent do
         expect(previously_drafted_item.first_published_at.iso8601).to eq(first_published_at.iso8601)
       end
 
-      it "does not increment the user-facing version for the content item" do
+      it "does not increment the user-facing version for the edition" do
         described_class.call(payload)
         previously_drafted_item.reload
 
@@ -395,12 +395,12 @@ RSpec.describe Commands::V2::PutContent do
           described_class.call(payload)
         end
 
-        context "when the locale differs from the existing draft content item" do
+        context "when the locale differs from the existing draft edition" do
           before do
             payload.merge!(locale: "fr", title: "French Title")
           end
 
-          it "creates a separate draft content item in the given locale" do
+          it "creates a separate draft edition in the given locale" do
             described_class.call(payload)
             expect(Edition.count).to eq(2)
 
@@ -718,7 +718,7 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "with a pathless content item payload" do
+    context "with a pathless edition payload" do
       before do
         payload.delete(:base_path)
         payload[:schema_name] = "contact"
@@ -735,7 +735,7 @@ RSpec.describe Commands::V2::PutContent do
         described_class.call(payload)
       end
 
-      context "for an existing draft content item" do
+      context "for an existing draft edition" do
         let!(:draft_edition) do
           FactoryGirl.create(:draft_edition,
             document: FactoryGirl.create(:document, content_id: content_id),
@@ -749,7 +749,7 @@ RSpec.describe Commands::V2::PutContent do
         end
       end
 
-      context "for an existing live content item" do
+      context "for an existing live edition" do
         let!(:live_edition) do
           FactoryGirl.create(:live_edition,
             document: FactoryGirl.create(:document, content_id: content_id),
@@ -778,7 +778,7 @@ RSpec.describe Commands::V2::PutContent do
         described_class.call(payload)
       end
 
-      # This covers a specific edge case where the content item uniqueness validator
+      # This covers a specific edge case where the edition uniqueness validator
       # matched anything else with the same state, locale and version because it
       # was previously ignoring the base path, now it should return without
       # attempting to validate for pathless formats.
@@ -799,7 +799,7 @@ RSpec.describe Commands::V2::PutContent do
         end
       end
 
-      context "when there's a conflicting content item" do
+      context "when there's a conflicting edition" do
         before do
           FactoryGirl.create(:draft_edition,
             base_path: base_path,

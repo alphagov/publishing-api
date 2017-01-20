@@ -45,12 +45,12 @@ RSpec.describe Commands::V2::Publish do
         payload.delete(:update_type)
       end
 
-      context "with an update_type stored on the draft content item" do
+      context "with an update_type stored on the draft edition" do
         before do
           draft_item.update_attributes!(update_type: "major")
         end
 
-        it "uses the update_type from the draft content item" do
+        it "uses the update_type from the draft edition" do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with("downstream_high", hash_including(message_queue_update_type: "major"))
 
@@ -58,7 +58,7 @@ RSpec.describe Commands::V2::Publish do
         end
       end
 
-      context "without an update_type stored on the draft content item" do
+      context "without an update_type stored on the draft edition" do
         before do
           draft_item.update_attributes!(update_type: nil)
         end
@@ -71,7 +71,7 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "when the content item was previously published" do
+    context "when the edition was previously published" do
       let(:existing_base_path) { base_path }
 
       let!(:live_item) do
@@ -90,7 +90,7 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "when the content item was previously unpublished" do
+    context "when the edition was previously unpublished" do
       let!(:live_item) do
         FactoryGirl.create(:unpublished_edition,
           document: draft_item.document,
@@ -107,7 +107,7 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "with another content item blocking the publish action" do
+    context "with another edition blocking the publish action" do
       let(:draft_locale) { document.locale }
 
       let!(:other_edition) do
@@ -117,7 +117,7 @@ RSpec.describe Commands::V2::Publish do
         )
       end
 
-      it "unpublishes the content item which is in the way" do
+      it "unpublishes the edition which is in the way" do
         described_class.call(payload)
 
         updated_other_edition = Edition.find(other_edition.id)
@@ -177,7 +177,7 @@ RSpec.describe Commands::V2::Publish do
         end
       end
 
-      context "with a public_updated_at set on the draft content item" do
+      context "with a public_updated_at set on the draft edition" do
         let(:public_updated_at) { Time.zone.now - 1.year }
 
         before do
@@ -191,7 +191,7 @@ RSpec.describe Commands::V2::Publish do
         end
       end
 
-      context "with no public_updated_at set on the draft content item" do
+      context "with no public_updated_at set on the draft edition" do
         before do
           draft_item.update_attributes!(public_updated_at: nil)
         end
@@ -272,7 +272,7 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "with a first_published_at set on the draft content item" do
+    context "with a first_published_at set on the draft edition" do
       let(:first_published_at) { Time.zone.now - 1.year }
 
       before do
@@ -286,7 +286,7 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "with no first_published_at set on the draft content item" do
+    context "with no first_published_at set on the draft edition" do
       before do
         draft_item.update_attributes!(first_published_at: nil)
       end
@@ -333,7 +333,7 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "when an access limit is set on the draft content item" do
+    context "when an access limit is set on the draft edition" do
       before do
         FactoryGirl.create(:access_limit, edition: draft_item)
       end
@@ -381,7 +381,7 @@ RSpec.describe Commands::V2::Publish do
         it "raises an error to indicate it has already been published" do
           expect {
             described_class.call(payload)
-          }.to raise_error(CommandError, /already published content item/)
+          }.to raise_error(CommandError, /already published edition/)
         end
       end
     end
@@ -389,7 +389,7 @@ RSpec.describe Commands::V2::Publish do
     it_behaves_like TransactionalCommand
   end
 
-  context "for a pathless content item format" do
+  context "for a pathless edition format" do
     let(:pathless_edition) do
       FactoryGirl.create(:draft_edition,
         document_type: "contact",

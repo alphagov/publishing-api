@@ -37,9 +37,9 @@ module Queries
         version_message = version ? "version: #{version}" : nil
         reason = [locale_message, version_message].compact.join(" and ")
 
-        "Could not find #{reason} for content item with content_id: #{content_id}"
+        "Could not find #{reason} for document with content_id: #{content_id}"
       else
-        "Could not find content item with content_id: #{content_id}"
+        "Could not find document with content_id: #{content_id}"
       end
     end
     private_class_method :raise_not_found, :not_found_message
