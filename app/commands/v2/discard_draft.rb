@@ -28,7 +28,7 @@ module Commands
         return if document.draft.present?
 
         code = document.published_or_unpublished.present? ? 422 : 404
-        message = "There is no draft content item to discard"
+        message = "There is not a draft edition of this document to discard"
 
         raise CommandError.new(code: code, message: message)
       end

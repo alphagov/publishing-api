@@ -44,7 +44,7 @@ module Commands
         edition = draft? ? document.draft : document.published_or_unpublished
 
         unless edition
-          message = "Could not find a content item to associate this action with"
+          message = "Could not find an edition to associate this action with"
           raise_command_error(404, message, fields: {})
         end
 

@@ -49,7 +49,7 @@ private
 
   def one_of_edition_link_set
     if content_item_id && link_set_id || edition && link_set
-      errors.add(:base, "can not be associated with both a content item and link set")
+      errors.add(:base, "can not be associated with both an edition and link set")
     end
   end
 end

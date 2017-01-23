@@ -163,7 +163,7 @@ class Edition < ApplicationRecord
 
     if draft_version < published_unpublished_version
       mismatch = "(#{draft_version} < #{published_unpublished_version})"
-      message = "draft content item cannot be behind the published/unpublished content item #{mismatch}"
+      message = "draft edition cannot be behind the published/unpublished edition #{mismatch}"
       errors.add(:user_facing_version, message)
     end
   end
@@ -238,7 +238,7 @@ class Edition < ApplicationRecord
   def substitute
     unpublish(
       type: "substitute",
-      explanation: "Automatically unpublished to make way for another content item",
+      explanation: "Automatically unpublished to make way for another document",
     )
   end
 
