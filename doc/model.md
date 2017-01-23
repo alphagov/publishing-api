@@ -4,7 +4,8 @@ This document outlines the Publishing API's model in moderate detail and
 explains some of the design decisions and business needs for it.
 
 Index:
- - [Content Item Fields](#content-item-fields)
+ - [Document Fields](#document-fields)
+ - [Edition Fields](#edition-fields)
  - [Change Notes](#change-notes)
  - [User Need](#user-need)
  - [General Themes](#general-themes)
@@ -13,7 +14,52 @@ Index:
  - [User-Facing Version](#user-facing-version)
  - [Workflow](#workflow)
 
-## Content Item Fields
+## Document Fields
+
+A document represents a single piece of content, uniquely referenced by its
+`content_id` and `locale` fields. Documents exist primarily as an object to
+lock requests on.
+
+### `content_id`
+
+Example: *d296ea8e-31ad-4e0b-9deb-026da695bb65*
+
+Required: Yes
+
+The `content_id` is a content items main identifier and it forms its identity
+as it travels through the pipeline. This is why requests to create and query
+content item are keyed by `content_id` in the URL of the request.
+
+Each `content_id` refers to a single piece of content, with a couple of caveats:
+
+- Content IDs are shared across locales – the English and French lock versions of a
+content item share a `content_id`
+
+- `content_ids` are shared across publish states – the draft and live lock versions of
+a content item share a `content_id`
+
+`content_ids` are [UUIDs](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)
+and will not be accepted by the Publishing API otherwise.
+
+### `locale`
+
+Example: *en*
+
+Required: No
+
+The `locale` is the language in which the content item is written. Front-end
+applications will optionally provide this string when querying the content store
+in order to retrieve documents in a given `locale`.
+
+A list of valid locales can be viewed in the Publishing API [here](https://github.com/alphagov/publishing-api/blob/9caeccc856ad372e332f56d64d0a96ab5df76b27/config/application.rb#L32-L37).
+This field is not required and if a `locale` is not provided, it will be set to
+*en* automatically.
+
+## Edition Fields
+
+Each document will have a number of editions which represent the underlying
+content. A _ContentItem_ can be considered the join of an edition with a
+document, as this used to be the case in the database.
 
 ### `base_path`
 
@@ -29,24 +75,7 @@ of a content item must have different `base_paths`.
 
 ### `content_id`
 
-Example: *d296ea8e-31ad-4e0b-9deb-026da695bb65*
-
-Required: Yes
-
-The `content_id` is the content item’s main identifier and it forms its identity
-as it travels through the pipeline. This is why requests to create and query
-content items are keyed by `content_id` in the URL of the request.
-
-Each `content_id` refers to a single piece of content, with a couple of caveats:
-
-- Content IDs are shared across locales – the English and French lock versions of a
-content item share a `content_id`
-
-- `content_ids` are shared across publish states – the draft and live lock versions of
-a content item share a `content_id`
-
-`content_ids` are [UUIDs](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)
-and will not be accepted by the Publishing API otherwise.
+See [Document Fields](#document-fields).
 
 Note: Previously, the `base_path` was a content item's main identifier. This is
 no longer the case. It has been changed to `content_id` because base paths had
@@ -325,17 +354,7 @@ appropriate content when `links` change for a content item.
 
 ### `locale`
 
-Example: *en*
-
-Required: No
-
-The `locale` is the language in which the content item is written. Front-end
-applications will optionally provide this string when querying the content store
-in order to retrieve content items in a given `locale`.
-
-A list of valid locales can be viewed in the Publishing API [here](https://github.com/alphagov/publishing-api/blob/9caeccc856ad372e332f56d64d0a96ab5df76b27/config/application.rb#L32-L37).
-This field is not required and if a `locale` is not provided, it will be set to
-*en* automatically.
+See [Document Fields](#document-fields).
 
 ### `need_ids`
 
@@ -483,10 +502,12 @@ the same content id, the same user-facing version and the same locale.
 
 ## Lock Version
 
-The lock version exists to prevent destructive changes being made to data when
-multiple people are editing the same piece of content at the same time. It does
-this by tracking a system-level version for arbitrary models in the domain.
-Currently, we make use of lock versions for content items and link sets.
+The lock version (internally known as `stale_lock_version` to avoid conflicting
+with the built-in Rails `lock_version`) exists to prevent destructive changes
+being made to data when multiple people are editing the same piece of content
+at the same time. It does this by tracking a system-level version for arbitrary
+models in the domain. Currently, we make use of lock versions for documents
+and link sets.
 
 The lock version differs from the user-facing version in that it is an internal
 system version that is not intended to be shown to a user. Instead, it forms
