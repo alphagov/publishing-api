@@ -44,6 +44,8 @@ class FixJohnCorderyContentItems < ActiveRecord::Migration[5.0]
     new_content_item = ContentItem.where(content_id: new_content_id).first
     old_content_item = ContentItem.where(content_id: old_content_id).first
 
+    return unless new_content_item
+
     # Update the user facing version of the new item, it should be +1 on what
     # it was
     new_content_item.update_column(:user_facing_version, new_content_item.user_facing_version += 1)
