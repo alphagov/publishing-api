@@ -70,7 +70,7 @@ module DataHygiene
     # This method strips out a lot of the common differences that are the result
     # of different versions of govspeak rendering.
     # It was wrote when testing Specialist Publisher documents and may need
-    # additional items when comparing content items published from different apps
+    # additional items when comparing editions published from different apps
     def basically_match(s)
       s = s.dup
       # strip span surrounding an inline-attachment as this element
