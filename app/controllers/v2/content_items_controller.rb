@@ -22,8 +22,6 @@ module V2
     end
 
     def show
-      ensure_valid_content_id
-
       render json: Queries::GetContent.call(
         path_params[:content_id],
         query_params[:locale],

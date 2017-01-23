@@ -126,6 +126,14 @@ RSpec.describe "Endpoint behaviour", type: :request do
         expect(response.status).to eq(404)
       end
     end
+
+    context "when an invalid UUID is used as content_id" do
+      it "responds with 404" do
+        expect {
+          get "/v2/content/INVALID_UUID"
+        }.to raise_error(ActionController::RoutingError)
+      end
+    end
   end
 
   context "/links" do

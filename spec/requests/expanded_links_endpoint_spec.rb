@@ -113,12 +113,13 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
   end
 
   it "returns 404 if the link set is not found" do
-    get "/v2/expanded-links/I-DO-NOT-EXIST"
+    content_id = SecureRandom.uuid
+    get "/v2/expanded-links/#{content_id}"
 
     expect(parsed_response).to eql(
       "error" => {
         "code" => 404,
-        "message" => "Could not find link set with content_id: I-DO-NOT-EXIST",
+        "message" => "Could not find link set with content_id: #{content_id}",
       }
     )
   end
