@@ -66,10 +66,10 @@ module Commands
       def send_downstream
         return unless downstream
 
-        draft_locales = Queries::LocalesForContentItems.call([content_id], %w[draft live])
+        draft_locales = Queries::LocalesForEditions.call([content_id], %w[draft live])
         draft_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
 
-        live_locales = Queries::LocalesForContentItems.call([content_id], %w[live])
+        live_locales = Queries::LocalesForEditions.call([content_id], %w[live])
         live_locales.each { |(content_id, locale)| downstream_live(content_id, locale) }
       end
 

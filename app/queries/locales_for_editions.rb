@@ -1,5 +1,5 @@
 module Queries
-  module LocalesForContentItems
+  module LocalesForEditions
     # returns an array of form:
     # [
     #   [content_id, locale],
