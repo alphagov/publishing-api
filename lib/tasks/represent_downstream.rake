@@ -1,5 +1,5 @@
 namespace :represent_downstream do
-  desc "Represent all content_items downstream"
+  desc "Represent all editions downstream"
   task all: :environment do
     Commands::V2::RepresentDownstream.new.call(
       Edition.where("document_type != 'travel_advice'").pluck(:content_id)
@@ -40,7 +40,7 @@ namespace :represent_downstream do
   end
 
   desc "
-  Represent an individual content_item downstream
+  Represent an individual edition downstream
   Usage
   rake 'represent_downstream:content_id[57a1253c-68d3-4a93-bb47-b67b9b4f6b9a]'
   "
