@@ -7,7 +7,7 @@ module Queries
 
       def inner_scope(edition_scope)
         edition_scope
-          .order(:document_id, user_facing_version: :desc)
+          .reorder(:document_id, ["user_facing_version DESC"] + edition_scope.order_values)
           .select("distinct on(content_items.document_id) content_items.document_id, content_items.id")
           .map(&:id)
       end
