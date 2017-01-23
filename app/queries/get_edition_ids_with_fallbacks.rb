@@ -1,5 +1,5 @@
 module Queries
-  class GetContentItemIdsWithFallbacks
+  class GetEditionIdsWithFallbacks
     def self.call(content_ids, state_fallback_order:, locale_fallback_order: Edition::DEFAULT_LOCALE)
       state_fallback_order = Array.wrap(state_fallback_order).map(&:to_s)
       locale_fallback_order = Array.wrap(locale_fallback_order).map(&:to_s)
