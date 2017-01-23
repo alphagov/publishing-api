@@ -2,10 +2,10 @@ require "diffy"
 
 module DataHygiene
   class GovspeakCompare
-    attr_reader :content_item
+    attr_reader :edition
 
-    def initialize(content_item)
-      @content_item = content_item
+    def initialize(edition)
+      @edition = edition
     end
 
     def published_html
@@ -15,7 +15,7 @@ module DataHygiene
     def generated_html
       @generated_html ||= html_from_details(
         Presenters::DetailsPresenter.new(
-          content_item.details_for_govspeak_conversion,
+          edition.details_for_govspeak_conversion,
           Presenters::ChangeHistoryPresenter.new(web_content_item)
         ).details
       )
@@ -37,7 +37,7 @@ module DataHygiene
   private
 
     def web_content_item
-      @web_content_item ||= Queries::GetWebContentItems.find(content_item.id)
+      @web_content_item ||= Queries::GetWebContentItems.find(edition.id)
     end
 
     def calculate_diffs
@@ -83,7 +83,7 @@ module DataHygiene
     end
 
     def format_published_html
-      html_details = html_from_details(content_item.details)
+      html_details = html_from_details(edition.details)
       html_details.each_with_object({}) do |(key, value), memo|
         # pushed through nokogiri to catch minor html differences (<br /> -> <br>, unicode characters)
         memo[key] = Nokogiri::HTML.fragment(value).to_html

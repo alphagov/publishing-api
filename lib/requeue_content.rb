@@ -7,21 +7,21 @@ class RequeueContent
 
   def call
     if number_of_items.present?
-      Edition.where(state: :published).limit(number_of_items).each do |content_item|
-        publish_to_queue(content_item)
+      Edition.where(state: :published).limit(number_of_items).each do |edition|
+        publish_to_queue(edition)
       end
     else
-      Edition.where(state: :published).find_each do |content_item|
-        publish_to_queue(content_item)
+      Edition.where(state: :published).find_each do |edition|
+        publish_to_queue(edition)
       end
     end
   end
 
 private
 
-  def publish_to_queue(content_item)
+  def publish_to_queue(edition)
     downstream_presenter = Presenters::DownstreamPresenter.new(
-      Queries::GetWebContentItems.find(content_item.id),
+      Queries::GetWebContentItems.find(edition.id),
       state_fallback_order: [:published]
     )
     queue_payload = Presenters::MessageQueuePresenter.present(
