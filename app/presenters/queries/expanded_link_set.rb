@@ -16,7 +16,7 @@ module Presenters
       def web_content_items(target_content_ids)
         return [] unless target_content_ids.present?
         ::Queries::GetWebContentItems.(
-          ::Queries::GetContentItemIdsWithFallbacks.(
+          ::Queries::GetEditionIdsWithFallbacks.(
             target_content_ids,
             locale_fallback_order: locale_fallback_order,
             state_fallback_order: state_fallback_order + [:withdrawn]

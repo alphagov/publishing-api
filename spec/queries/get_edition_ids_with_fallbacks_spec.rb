@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Queries::GetContentItemIdsWithFallbacks do
+RSpec.describe Queries::GetEditionIdsWithFallbacks do
   describe ".call" do
     let(:state_fallback_order) { %w(published) }
     let(:locale_fallback_order) { %w(en) }
