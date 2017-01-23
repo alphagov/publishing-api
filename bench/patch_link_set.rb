@@ -31,9 +31,7 @@ editions = 100.times.map do
     redirects: [],
     publishing_app: "performance-testing",
     rendering_app: "performance-testing",
-    details: {
-      body: "<p>#{Faker::Lorem.paragraphs(10)}</p>"
-    },
+    details: {},
     phase: 'live',
     need_ids: []
   }
