@@ -37,7 +37,7 @@ private
   end
 
   def fill_out_new_edition
-    document.increment! :stale_lock_version
+    document.increment!(:stale_lock_version)
     ensure_link_set_exists
 
     set_first_published_at
@@ -46,7 +46,7 @@ private
   def ensure_link_set_exists
     link_set = LinkSet.find_or_create_by!(content_id: document.content_id)
     if link_set.stale_lock_version == 0
-      link_set.increment! :stale_lock_version
+      link_set.increment!(:stale_lock_version)
     end
   end
 
@@ -59,6 +59,6 @@ private
   end
 
   def edition_attributes_from_payload
-    payload.slice(*ContentItem::TOP_LEVEL_FIELDS)
+    payload.slice(*Edition::TOP_LEVEL_FIELDS)
   end
 end

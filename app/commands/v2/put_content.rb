@@ -77,7 +77,7 @@ module Commands
 
       def previously_published_item
         @previously_published_item ||= PreviouslyPublishedItem.new(
-          document.content_id, payload[:base_path], document.locale, self
+          document, payload[:base_path], self
         ).call
       end
 
@@ -86,7 +86,7 @@ module Commands
       end
 
       def previously_drafted_item
-        @previously_drafted_item ||= document.draft
+        document.draft
       end
 
       def clear_draft_items_of_same_locale_and_base_path

@@ -27,7 +27,7 @@ private
 
   def update_lock_version
     put_content.send(:check_version_and_raise_if_conflicting, document, payload[:previous_version])
-    document.increment! :stale_lock_version
+    document.increment!(:stale_lock_version)
   end
 
   def document
@@ -60,6 +60,6 @@ private
   end
 
   def edition_attributes_from_payload
-    payload.slice(*ContentItem::TOP_LEVEL_FIELDS)
+    payload.slice(*Edition::TOP_LEVEL_FIELDS)
   end
 end
