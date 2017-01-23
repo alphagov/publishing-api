@@ -183,6 +183,15 @@ class Edition < ApplicationRecord
     )
   end
 
+  def gone?
+    if state == "unpublished"
+      unpublishing = Unpublishing.find_by!(edition: self)
+      unpublishing.type == "gone"
+    else
+      document_type == "gone"
+    end
+  end
+
 private
 
   def check_document_fields_from_options(options)
