@@ -232,14 +232,12 @@ RSpec.describe Commands::V2::DiscardDraft do
             described_class.call(payload)
           }.to change(Edition, :count).by(-1)
 
-          expect(Edition.exists?(id: french_draft_item.id)).to eq(false),
-                                                               "The French draft item was not removed"
+          expect(Edition.where(id: french_draft_item.id)).not_to exist
         end
 
         it "does not delete the english edition" do
           described_class.call(payload)
-          expect(Edition.exists?(id: existing_draft_item.id)).to eq(true),
-                                                                 "The English draft item was removed"
+          expect(Edition.where(id: existing_draft_item.id)).to exist
         end
       end
 
