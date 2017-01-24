@@ -33,8 +33,7 @@ RSpec.describe StateForDocumentValidator do
       ].each do |hash|
         context "when #{hash[:scenario]}" do
           let!(:conflict_edition) {
-            FactoryGirl.create(
-              hash[:factory],
+            FactoryGirl.create(hash[:factory],
               document: document,
             )
           }

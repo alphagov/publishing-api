@@ -115,8 +115,7 @@ RSpec.describe Queries::GetLinked do
           FactoryGirl.create(:link_set,
             content_id: content_id,
             links: [
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "organisations",
                 target_content_id: target_content_id
               )
@@ -198,8 +197,7 @@ RSpec.describe Queries::GetLinked do
           FactoryGirl.create(:link_set,
             content_id: content_id,
             links: [
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "organisations",
                 target_content_id: another_target_content_id
               ),
@@ -211,17 +209,14 @@ RSpec.describe Queries::GetLinked do
             title: "Another HMRC document"
           )
 
-          FactoryGirl.create(
-            :link_set,
+          FactoryGirl.create(:link_set,
             content_id: edition.document.content_id,
             links: [
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "organisations",
                 target_content_id: another_target_content_id
               ),
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "related_links",
                 target_content_id: SecureRandom.uuid
               )

@@ -69,8 +69,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      draft = FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         base_path: "/robots.txt",
         document: document,
         title: "Instructions for crawler robots",
@@ -100,18 +99,14 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a draft content item exists with content_id bed722e6-db68-43e5-9079-063f623335a7 with a blocking live item at the same path" do
     set_up do
-      live_document = FactoryGirl.create(:document)
-
-      live = FactoryGirl.create(
-        :live_edition,
-        document: live_document,
+      FactoryGirl.create(:live_edition,
+        document: FactoryGirl.create(:document),
         base_path: "/blocking_path",
       )
 
       draft_document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      draft = FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         document: draft_document,
         base_path: "/blocking_path",
       )
@@ -120,8 +115,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a French content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      document = FactoryGirl.create(
-        :document,
+      document = FactoryGirl.create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
       )
@@ -161,7 +155,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "empty links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      link_set = FactoryGirl.create(:link_set,
+      FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 2,
       )
@@ -176,8 +170,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 and locale: fr" do
     set_up do
-      document = FactoryGirl.create(
-        :document,
+      document = FactoryGirl.create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
       )
@@ -192,8 +185,7 @@ Pact.provider_states_for "GDS API Adapters" do
       fr_doc = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
       ar_doc = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "ar")
 
-      FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         document: en_doc,
         document_type: "topic",
         schema_name: "topic",
@@ -201,8 +193,7 @@ Pact.provider_states_for "GDS API Adapters" do
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         document: fr_doc,
         document_type: "topic",
         schema_name: "topic",
@@ -210,8 +201,7 @@ Pact.provider_states_for "GDS API Adapters" do
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         document: ar_doc,
         document_type: "topic",
         schema_name: "topic",
@@ -245,8 +235,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
     set_up do
-      document = FactoryGirl.create(
-        :document,
+      document = FactoryGirl.create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 3,
       )
@@ -260,15 +249,14 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
     set_up do
-      document = FactoryGirl.create(
-        :document,
+      document = FactoryGirl.create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 1,
       )
 
       FactoryGirl.create(:draft_edition, document: document)
 
-      linkset = FactoryGirl.create(:link_set,
+      FactoryGirl.create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 3,
       )
@@ -280,7 +268,9 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "there is content with document_type 'topic'" do
     set_up do
-      document_a = FactoryGirl.create(:document, content_id: "aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa")
+      document_a = FactoryGirl.create(:document,
+        content_id: "aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa",
+      )
 
       FactoryGirl.create(:draft_edition,
         title: 'Content Item A',
@@ -294,7 +284,9 @@ Pact.provider_states_for "GDS API Adapters" do
         },
       )
 
-      document_b = FactoryGirl.create(:document, content_id: "bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb")
+      document_b = FactoryGirl.create(:document,
+        content_id: "bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb",
+      )
 
       FactoryGirl.create(:live_edition,
         title: 'Content Item B',
@@ -313,8 +305,7 @@ Pact.provider_states_for "GDS API Adapters" do
       document_b = FactoryGirl.create(:document)
       document_c = FactoryGirl.create(:document)
 
-      FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         document: document_a,
         title: 'Content Item A',
         base_path: '/a-base-path',
@@ -322,8 +313,7 @@ Pact.provider_states_for "GDS API Adapters" do
         schema_name: "topic",
       )
 
-      FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         document: document_b,
         title: 'Content Item B',
         base_path: '/another-base-path',
@@ -331,8 +321,7 @@ Pact.provider_states_for "GDS API Adapters" do
         schema_name: "topic",
       )
 
-      FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         document: document_c,
         title: 'Content Item C',
         base_path: '/yet-another-base-path',
@@ -353,28 +342,24 @@ Pact.provider_states_for "GDS API Adapters" do
       document_2 = FactoryGirl.create(:document, content_id: content_id2)
       document_3 = FactoryGirl.create(:document, content_id: content_id3)
 
-      FactoryGirl.create(
-        :live_edition,
+      FactoryGirl.create(:live_edition,
         document: document_1,
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         document: document_1,
         user_facing_version: 2
       )
 
-      FactoryGirl.create(
-        :live_edition,
+      FactoryGirl.create(:live_edition,
         document: document_3,
         base_path: '/item-b',
         public_updated_at: '2015-01-02',
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(
-        :live_edition,
+      FactoryGirl.create(:live_edition,
         document: document_2,
         base_path: '/item-a',
         public_updated_at: '2015-01-01',
@@ -393,8 +378,7 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(
-        :draft_edition,
+      FactoryGirl.create(:draft_edition,
         document: document,
         document_type: "topic",
         schema_name: "topic",
@@ -405,8 +389,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
-      document = FactoryGirl.create(
-        :document,
+      document = FactoryGirl.create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 3,
       )
@@ -434,8 +417,7 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
-      document = FactoryGirl.create(
-        :document,
+      document = FactoryGirl.create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 1,
       )
