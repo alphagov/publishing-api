@@ -9,52 +9,52 @@ existing piece of content.
 ## Nomenclature
 
 - **Document**: A document is a piece of content in a particular locale. It is
-associated with editions that represent the versions of the document.
+  associated with editions that represent the versions of the document.
 - **Edition**: The content of a document is represented by an edition, it
-represents a distinct version of a Document.
+  represents a distinct version of a Document.
 - **Content Item**: A representation of content that can be sent to a
-[content store](https://github.com/alphagov/content-store).
+  [content store][content-store].
 - **Link Set**: A collection of links to other documents. It is used to
-capture relationships between pieces of content (e.g. parent/child)
+  capture relationships between pieces of content (e.g. parent/child)
 - **Unpublishing**: An object indicating a previously published edition
-which has been removed from the live site.  Can be "gone", "withdrawal", or "redirect".
+  which has been removed from the live site.  Can be "gone", "withdrawal", or
+  "redirect".
 - **User**: A user of the system, which is used to restrict what content is
-returned from the API as well as prevent certain actions on content
+  returned from the API as well as prevent certain actions on content.
 - **Path Reservation**: An object that attributes a path on GOV.UK to a piece of
-content. It is used when paths need to be reserved before that content enters
-the system
+  content. It is used when paths need to be reserved before that content enters
+  the system.
 - **Event Log**: A log of all requests to the Publishing API that have the
-potential to mutate its internal state
+  potential to mutate its internal state.
 - **Action**: A record of activity on a particular edition, used to assist
-custom workflows of publishing applications.
+  custom workflows of publishing applications.
 - **Link Expansion**: A process that converts the stored and automatic links for
-an edition into a JSON representation. Further documentation available in
-[doc/link-expansion.md](doc/link-expansion.md)
+  an edition into a JSON representation. Further documentation available in
+  [doc/link-expansion.md](doc/link-expansion.md).
 - **Dependency Resolution**: A process that determines other editions that
-require updating downstream as a result of a change to an edition. Further
-documentation available in
-[doc/dependency-resolution.md](doc/depedency-resolution.md)
+  require updating downstream as a result of a change to an edition. Further
+  documentation available in
+  [doc/dependency-resolution.md](doc/depedency-resolution.md).
 
 For more information, refer to [doc/api.md](doc/api.md) and
 [doc/model.md](doc/model.md).
 
-Editions of documents are pushed "downstream" to the content-store, where the frontends
-pull the resulting JSON to render a page. [content-store field documentation](https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md).
+Editions of documents are pushed "downstream" to the content-store as
+[content items][content-store-field-documentation]. Frontends pull content items
+from the content store to render a page.
 
 ## Technical documentation
 
 The Publishing API is a [Ruby on Rails](http://rubyonrails.org/) application
 that exposes an internal API to publishing applications. It stores its data in a
 [Postgresql](http://www.postgresql.org/) database and sends content downstream
-to the draft and live [Content Stores](https://github.com/alphagov/content-store)
-as well as on a [Rabbit](https://www.rabbitmq.com/) message queue. Some of the
-processing of requests is handled asynchronously through [Sidekiq](http://sidekiq.org/)
+to the draft and live [Content Stores][content-store] as well as on a
+[Rabbit](https://www.rabbitmq.com/) message queue. Some of the processing of
+requests is handled asynchronously through [Sidekiq](http://sidekiq.org/)
 which stores jobs in [Redis](http://redis.io/).
 
 Decisions about the design of the Publishing API are recorded as architecture
-decision records in the
-[doc/arch](https://github.com/alphagov/publishing-api/blob/master/doc/arch)
-directory.
+decision records in the [doc/arch](doc/arch) directory.
 
 ### Deleting Documents, Editions and Links
 
@@ -104,7 +104,8 @@ end
 
 - [postgres](http://www.postgresql.org/) - the app uses a postgres database
 - [redis](http://redis.io/) - the Sidekiq worker stores its jobs in Redis
-- [alphagov/content-store](https://github.com/alphagov/content-store) - content is sent to multiple content-stores (draft and live)
+- [alphagov/content-store][content-store] - content is sent to multiple
+  content-stores (draft and live)
 
 These dependencies are set up on the dev vm and if you use bowl to run the app,
 it will start both the draft and live content store for you. For more
@@ -115,7 +116,8 @@ information about RabbitMQ, see [doc/rabbitmq.md](doc/rabbitmq.md).
 `./startup.sh`
 
 It downloads and installs dependencies and starts the app on port 3093.
-When using GOV.UK virtual machine the app is available at `publishing-api.dev.gov.uk`.
+When using GOV.UK virtual machine the app is available at
+`publishing-api.dev.gov.uk`.
 
 ## Running the test suite
 
@@ -123,12 +125,15 @@ You can run the tests locally with: `bundle exec rake`.
 
 The publishing API includes contract tests which verify that the service
 behaves in the way expected by its clients. We use a library called
-[`pact`](https://github.com/realestate-com-au/pact) which follows the
-*consumer driven contract testing* pattern. What this means is:
+[`pact`][pact] which follows the *consumer driven contract testing* pattern.
+What this means is:
 
-- the expected interactions are defined in the [publishing_api_test.rb in gds-api-adapters](https://github.com/alphagov/gds-api-adapters/blob/master/test/publishing_api_test.rb#L19)
-- when these tests are run they output a pactfile which is published to [the pact broker](https://pact-broker.dev.publishing.service.gov.uk/)
-- the build of publishing api will use this pactfile to test the publishing-api service
+- the expected interactions are defined in the [publishing_api_test.rb in
+  gds-api-adapters][gds-api-adapters-publishing-api-tests]
+- when these tests are run they output a pactfile which is published to
+  [the pact broker][pact-broker]
+- the build of publishing api will use this pactfile to test the publishing-api
+  service
 
 The pacts are verified as part of the main test suite run. This verifies
 against the pactfiles from both the latest release version, and the master
@@ -141,12 +146,11 @@ $ bundle exec rake pact:verify
 ```
 
 If you need to run the contract tests against a branch instead of [the
-pact-broker](https://pact-broker.dev.publishing.service.gov.uk/), you can run
-them against your local gds-api-adapters directory by setting the `USE_LOCAL_PACT`
-env variable. This will cause pact to look for the pactfile in
+pact-broker][pact-broker], you can run them against your local gds-api-adapters
+directory by setting the `USE_LOCAL_PACT` env variable. This will cause pact to
+look for the pactfile in
 `../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json`. You can
-additionally override this location by setting the `GDS_API_PACT_PATH`
-variable.
+additionally override this location by setting the `GDS_API_PACT_PATH` variable.
 
 ## Example API requests
 
@@ -157,9 +161,8 @@ curl https://publishing-api.dev.gov.uk/content/<content_id> \
   -d '<content_json>'
 ```
 
-See [doc/api.md](doc/api.md)
-and [the pact broker](https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest)
-for more information.
+See [doc/api.md](doc/api.md) and [the pact broker][pact-broker-latest] for more
+information.
 
 ## Events
 
@@ -175,3 +178,10 @@ see the rake task for more details.
 ## Licence
 
 [MIT License](LICENSE)
+
+[content-store]: https://github.com/alphagov/content-store
+[content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md
+[pact]: https://github.com/realestate-com-au/pact
+[gds-api-adapters-publishing-api-tests]: https://github.com/alphagov/gds-api-adapters/blob/master/test/publishing_api_test.rb#L19
+[pact-broker]: https://pact-broker.dev.publishing.service.gov.uk/
+[pact-broker-latest]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
