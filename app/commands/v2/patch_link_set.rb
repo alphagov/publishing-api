@@ -8,7 +8,7 @@ module Commands
 
         check_version_and_raise_if_conflicting(link_set, previous_version_number)
 
-        link_set.increment! :stale_lock_version
+        link_set.increment!(:stale_lock_version)
 
         grouped_links.each do |group, payload_content_ids|
           # For each set of links in a LinkSet scoped by link_type, this iterator

@@ -61,7 +61,7 @@ module Commands
       end
 
       def increment_lock_version
-        document.increment! :stale_lock_version
+        document.increment!(:stale_lock_version)
       end
 
       def document
