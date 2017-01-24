@@ -114,12 +114,10 @@ module Commands
 
       def find_unpublishable_edition
         if payload[:allow_draft]
-          edition = document.draft
-        else
-          edition = previous
+          document.draft
+        elsif previous && !Unpublishing.is_substitute?(previous)
+          previous
         end
-
-        edition if edition && (payload[:allow_draft] || !Unpublishing.is_substitute?(edition))
       end
 
       def previous
