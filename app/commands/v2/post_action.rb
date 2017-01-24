@@ -33,14 +33,6 @@ module Commands
       end
 
       def edition
-        @edition ||= find_edition
-      end
-
-      def action_type
-        payload[:action]
-      end
-
-      def find_edition
         edition = draft? ? document.draft : document.published_or_unpublished
 
         unless edition
@@ -49,6 +41,10 @@ module Commands
         end
 
         edition
+      end
+
+      def action_type
+        payload[:action]
       end
 
       def previous_version_number
