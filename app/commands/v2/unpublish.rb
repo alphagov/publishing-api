@@ -125,7 +125,7 @@ module Commands
       end
 
       def previous_edition_should_be_superseded?
-        previous && find_unpublishable_edition != previous
+        previous && (find_unpublishable_edition != previous)
       end
 
       def document
