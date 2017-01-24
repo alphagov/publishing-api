@@ -315,7 +315,7 @@ RSpec.describe Commands::V2::Publish do
       it "publishes the redirect already created, from the old location to the new location" do
         described_class.call(payload)
 
-        redirect = Edition.joins(:document).find_by(
+        redirect = Edition.with_document.find_by(
           base_path: "/hat-rates",
           documents: { locale: "en" },
           state: "published",

@@ -148,7 +148,7 @@ module Commands
       end
 
       def publish_redirect(previous_base_path, locale)
-        draft_redirect = Edition.joins(:document).find_by(
+        draft_redirect = Edition.with_document.find_by(
           state: "draft",
           "documents.locale": locale,
           base_path: previous_base_path,

@@ -3,7 +3,7 @@ module Queries
     def self.call(content_id, locale = nil, version: nil, include_warnings: false)
       locale_to_use = locale || Edition::DEFAULT_LOCALE
 
-      editions = Edition.joins(:document)
+      editions = Edition.with_document
         .where(documents: { content_id: content_id, locale: locale_to_use })
       editions = editions.where(user_facing_version: version) if version
 

@@ -18,8 +18,7 @@ module Queries
         .joins(:link_set)
         .pluck(:content_id)
 
-      editions = Edition.joins(:document)
-        .where(documents: { content_id: content_ids })
+      editions = Edition.with_document.where("documents.content_id": content_ids)
 
       presented = presenter.present_many(editions, fields: fields)
       presented.map { |p| filter_fields(p).as_json }

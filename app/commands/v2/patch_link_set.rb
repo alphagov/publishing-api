@@ -117,7 +117,7 @@ module Commands
 
       def schema_name
         @schema_name ||= Queries::GetLatest.(
-          Edition.where(documents: { content_id: content_id }).joins(:document)
+          Edition.with_document.where("documents.content_id": content_id)
         ).pluck(:schema_name).first
       end
     end

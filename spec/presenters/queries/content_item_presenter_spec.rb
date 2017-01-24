@@ -116,8 +116,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       let(:fields) { %w(title phase publication_state) }
 
       it "returns the requested fields" do
-        editions = Edition.joins(:document)
-          .where("documents.content_id": content_id)
+        editions = Edition.with_document.where("documents.content_id": content_id)
 
         results = described_class.present_many(editions, fields: fields)
         expect(results.first.keys).to match_array(%w(title phase publication_state))
@@ -130,8 +129,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
 
       it "presents a edition for each locale" do
-        editions = Edition.joins(:document)
-          .where("documents.content_id": content_id)
+        editions = Edition.with_document.where("documents.content_id": content_id)
 
         results = described_class.present_many(editions)
         locales = results.map { |r| r.fetch("locale") }

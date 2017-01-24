@@ -213,7 +213,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     context "when the depended on edition does not exist" do
       before do
         create_link(a, b, "parent")
-        Edition.joins(:document).find_by('documents.content_id': b).destroy
+        Edition.with_document.find_by('documents.content_id': b).destroy
       end
 
       it "does not have a parent" do

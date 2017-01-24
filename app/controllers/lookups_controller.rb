@@ -5,8 +5,7 @@ class LookupsController < ApplicationController
     states = %w(published unpublished)
     base_paths = params.fetch(:base_paths)
 
-    base_paths_and_content_ids = Edition
-      .joins(:document)
+    base_paths_and_content_ids = Edition.with_document
       .where(state: states, base_path: base_paths)
       .pluck(:base_path, 'documents.content_id')
       .uniq

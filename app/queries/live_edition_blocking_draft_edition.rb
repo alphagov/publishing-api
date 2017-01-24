@@ -10,10 +10,10 @@ module Queries
         return # The SubstitionHelper will unpublish any item that is in the way
       end
 
-      conflicts = Edition.joins(:document)
+      conflicts = Edition.with_document
         .where(base_path: base_path, content_store: :live)
         .where.not(
-          documents: { content_id: content_id },
+          "documents.content_id": content_id,
           document_type: SubstitutionHelper::SUBSTITUTABLE_DOCUMENT_TYPES,
         ).pluck(:id)
 

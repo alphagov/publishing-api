@@ -4,7 +4,7 @@ module Queries
       state_fallback_order = Array.wrap(state_fallback_order).map(&:to_s)
       locale_fallback_order = Array.wrap(locale_fallback_order).map(&:to_s)
 
-      Edition.joins(:document).left_outer_joins(:unpublishing)
+      Edition.with_document.left_outer_joins(:unpublishing)
         .where(documents: { content_id: content_ids })
         .where(where_state(state_fallback_order))
         .where(documents: { locale: locale_fallback_order })

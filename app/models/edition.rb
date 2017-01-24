@@ -42,6 +42,7 @@ class Edition < ApplicationRecord
   has_one :unpublishing, foreign_key: "content_item_id"
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
+  scope :with_document, -> { joins(:document) }
 
   validates :document, presence: true
 

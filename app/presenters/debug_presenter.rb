@@ -11,8 +11,7 @@ module Presenters
     end
 
     def editions
-      @editions ||= Edition.joins(:document)
-        .where(documents: { content_id: content_id })
+      @editions ||= Edition.with_document.where("documents.content_id": content_id)
     end
 
     def user_facing_versions

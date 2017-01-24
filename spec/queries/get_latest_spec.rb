@@ -29,7 +29,7 @@ RSpec.describe Queries::GetLatest do
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/a3", "/b1", "/b2", "/c2"])
 
-    scope = scope.joins(:document)
+    scope = scope.with_document
       .where('documents.content_id': [document_a.content_id, document_b.content_id])
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/a3", "/b1", "/b2"])

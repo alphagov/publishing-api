@@ -20,7 +20,7 @@ module SubstitutionHelper
     )
       raise NilBasePathError if base_path.nil?
 
-      blocking_items = Edition.joins(:document)
+      blocking_items = Edition.with_document
         .where(base_path: base_path, state: state, "documents.locale": locale)
 
       blocking_items.each do |blocking_item|

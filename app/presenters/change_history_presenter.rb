@@ -27,7 +27,7 @@ module Presenters
     end
 
     def content_item_ids
-      Edition.joins(:document)
+      Edition.with_document
         .where("documents.content_id": content_id)
         .where("user_facing_version <= ?", version_number)
         .pluck(:id)

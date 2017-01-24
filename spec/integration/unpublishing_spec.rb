@@ -45,12 +45,10 @@ RSpec.describe "Unpublishing editions" do
     end
 
     it "unpublishes the edition" do
-      editions = Edition.joins(:document)
-        .where("documents.content_id": content_id)
+      editions = Edition.with_document.where("documents.content_id": content_id)
       expect(editions.count).to eq(1)
 
       unpublished_item = editions.last
-
       expect(unpublished_item.state).to eq("unpublished")
     end
 
