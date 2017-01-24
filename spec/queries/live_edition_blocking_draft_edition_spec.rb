@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Queries::CheckForContentItemPreventingDraftFromBeingPublished do
+RSpec.describe Queries::LiveEditionBlockingDraftEdition do
   let(:content_id) { SecureRandom.uuid }
   let(:document) { FactoryGirl.create(:document, content_id: content_id) }
   let(:base_path) { "/vat-rates" }

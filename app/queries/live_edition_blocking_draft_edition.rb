@@ -1,6 +1,6 @@
 module Queries
-  module CheckForContentItemPreventingDraftFromBeingPublished
-    # Checks for any content item which would prevent a content item with the
+  module LiveEditionBlockingDraftEdition
+    # Checks for a live edition which would prevent a draft edition with the
     # specified content_id and base_path from being published (from the draft
     # state).
     def self.call(content_id, base_path, document_type)
