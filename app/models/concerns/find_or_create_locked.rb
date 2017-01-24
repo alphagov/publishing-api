@@ -16,7 +16,7 @@ module FindOrCreateLocked
         # SELECT would succeed.
         # So if this actually throws an exception here we probably have a
         # weird underlying problem.
-        retry if (retries += 1) == 1
+        (retries += 1) == 1 ? retry : raise
       end
     end
   end
