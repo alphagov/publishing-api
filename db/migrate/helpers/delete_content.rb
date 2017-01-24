@@ -1,17 +1,19 @@
 module Helpers
-  module DeleteContentItem
-    def self.destroy_content_items_with_links(content_ids)
+  module DeleteContent
+    def self.destroy_document_with_links(content_ids)
       content_ids = Array(content_ids)
 
-      content_items = ContentItem.where(content_id: content_ids)
-      destroy_supporting_objects(content_items)
-      content_items.destroy_all
+      Document.where(content_id: content_ids).each do |document|
+        destroy_supporting_objects(documents.editions)
+        document.editions.destroy_all
+        document.destroy
+      end
 
       destroy_links(content_ids)
     end
 
-    def self.destroy_supporting_objects(content_items)
-      content_items = Array(content_items)
+    def self.destroy_edition_supporting_objects(editions)
+      editions = Array(editions)
 
       supporting_classes = [
         AccessLimit,
@@ -25,10 +27,10 @@ module Helpers
 
       supporting_classes.each do |klass|
         next unless ActiveRecord::Base.connection.data_source_exists?(klass.table_name)
-        klass.where(content_item: content_items).destroy_all
+        klass.where(edition: editions).destroy_all
       end
 
-      LockVersion.where(target: content_items).destroy_all
+      LockVersion.where(target: editions).destroy_all
     end
 
     def self.destroy_links(content_ids)
