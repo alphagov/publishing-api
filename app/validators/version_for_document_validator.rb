@@ -10,9 +10,9 @@ class VersionForDocumentValidator < ActiveModel::Validator
     conflict = Edition.where(criteria).where.not(id: record.id).order(nil).first
 
     if conflict
-      error = "user_facing_version=#{record.user_facing_version} and "
-      error << "document=#{record.document_id} conflicts with edition "
-      error << "id=#{conflict[:id]}"
+      error = "user_facing_version=#{record.user_facing_version} and "\
+        "document=#{record.document_id} conflicts with edition "\
+        "id=#{conflict[:id]}"
       record.errors.add(:base, error)
     end
   end
