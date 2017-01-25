@@ -1,6 +1,18 @@
 class ChangeWithdrawnToUnpublished < ActiveRecord::Migration
-  # Migration has been removed as it will no longer execute due to changes in
-  # the codebase
   def up
+    create_table :unpublishings do |t|
+      t.references :content_item, null: false
+      t.string :type, null: false
+      t.string :explanation
+      t.string :alternative_url
+      t.timestamps
+    end
+
+    add_index :unpublishings, :content_item_id
+    add_index :unpublishings, [:content_item_id, :type]
+  end
+
+  def down
+    drop_table :unpublishings
   end
 end
