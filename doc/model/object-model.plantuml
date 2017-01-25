@@ -4,31 +4,38 @@ hide circle
 hide empty fields
 hide empty methods
 
-class Document
-class Edition
-class PathReservation
+class content_id
 
-package "Dependencies" {
+package "Linking" {
   class LinkSet
   class Link
 }
 
-package "Event Log" {
+package "History" {
   class Event
+  class Action
 }
 
-package "Access Control" {
+package "Content" {
+  class Document
+  class Edition
+  class Unpublishing
+  class ChangeNote
   class AccessLimit
-  class User
+  class PathReservation
 }
 
-Edition <-- LinkSet
-Edition <-up- Link
-LinkSet *--> Link
+Document -up-> content_id
+LinkSet -up-> content_id
+Event -up-> content_id
+Action -up-> content_id
+Document *-down- Edition
+LinkSet *-right- Link
+ChangeNote -up-> Edition
 
-Edition <-down- AccessLimit
-AccessLimit o--> User
-
-Document <-- Edition
+AccessLimit -up-> Edition
+Unpublishing -up-> Edition
+Action -> Edition
+Link .> content_id
 
 @enduml
