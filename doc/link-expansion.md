@@ -279,7 +279,8 @@ By default links contain the following fields:
 - `base_path` - The public path to this item
 - `content_id` - A UUID to represents the document
 - `description` - A short description of the content
-- `document_type` - A document type - often identical to schema_name
+- `document_type` - This describes a type of document used on GOV.UK and
+  allowed by the schema
 - `locale` - The language this document is written in
 - `public_updated_at` - The date/time that this document  was last changed
 - `schema_name` - The [GOV.UK content schema][govuk-content-schema] that this
