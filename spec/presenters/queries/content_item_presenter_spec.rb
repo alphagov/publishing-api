@@ -45,6 +45,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "lock_version" => 1,
         "updated_at" => "2016-01-01 00:00:00",
         "state_history" => { 1 => "draft" },
+        "content_store" => "draft",
       }
     end
 
