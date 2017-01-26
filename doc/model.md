@@ -10,7 +10,7 @@
   - [Edition](#edition)
     - [Workflow](#workflow)
     - [Uniqueness](#uniqueness)
-    - [Substitutiion](#substitution)
+    - [Substitution](#substitution)
   - [Unpublishing](#unpublishing)
   - [ChangeNote](#changenote)
   - [AccessLimit](#accesslimit)
