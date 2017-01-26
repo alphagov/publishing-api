@@ -19,8 +19,8 @@ existing piece of content.
 - **Unpublishing**: An object indicating a previously published edition
   which has been removed from the live site.  Can be "gone", "withdrawal", or
   "redirect".
-- **User**: A user of the system, which is used to restrict what content is
-  returned from the API as well as prevent certain actions on content.
+- **User**: A user of the system, which is used to track who initiated requests
+  and to restrict access to draft content.
 - **Path Reservation**: An object that attributes a path on GOV.UK to a piece of
   content. It is used when paths need to be reserved before that content enters
   the system.
