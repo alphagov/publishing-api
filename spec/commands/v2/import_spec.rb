@@ -138,6 +138,47 @@ RSpec.describe Commands::V2::Import, type: :request do
       end
     end
 
+    context "with a invalid array of states" do
+      def payload_for_states(states)
+        history = states.map do |state|
+          if state == "unpublished"
+            state_hash = { name: state,
+                           type: "withdrawal",
+                           explanation: "placeholder" }
+          else
+            state_hash = { name: state }
+          end
+
+          content_item.merge(states: [state_hash])
+        end
+
+        {
+          content_id: content_id,
+          history: history
+        }
+      end
+
+      [%w(draft published),
+       %w(draft draft),
+       %w(published published),
+       %w(superseded),
+       %w(superseded superseded),
+       %w(draft superseded),
+       %w(published superseded),
+       %w(unpublished superseded),
+       %w(unpublished unpublished)].each do |states|
+        let!(:payload) do
+          payload_for_states(states)
+        end
+
+        it "rejects states: #{states}" do
+          expect {
+            subject.call
+          }.to raise_error(CommandError)
+        end
+      end
+    end
+
     context "with existing content" do
       let!(:first_payload) do
         payload.merge(
