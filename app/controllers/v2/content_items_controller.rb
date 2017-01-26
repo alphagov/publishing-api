@@ -31,7 +31,9 @@ module V2
     end
 
     def import
-      response = Commands::V2::Import.call(content_item)
+      response = Commands::V2::Import.call(
+        edition.merge(locale: query_params[:locale])
+      )
       render status: response.code, json: response
     end
 

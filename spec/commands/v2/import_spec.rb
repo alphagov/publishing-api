@@ -15,7 +15,6 @@ RSpec.describe Commands::V2::Import, type: :request do
         base_path: base_path,
         routes: [{ "path": "/bar", "type": "exact" }],
         details: {},
-        locale: "en",
         states: [{ name: "superseded" }],
       }
     end
@@ -23,6 +22,7 @@ RSpec.describe Commands::V2::Import, type: :request do
     let(:payload) do
       {
         content_id: content_id,
+        locale: "en",
         history: [
           content_item,
           content_item.merge(
@@ -39,29 +39,23 @@ RSpec.describe Commands::V2::Import, type: :request do
     subject { described_class.call(payload) }
 
     it "creates the full content item history" do
-      expect { subject }.to change { ContentItem.count }.by(3)
+      expect { subject }.to change { Edition.count }.by(3)
     end
 
     it "creates the state history" do
       subject
-      expect(ContentItem.all.map(&:state)).to match_array(%w(superseded superseded published))
+      expect(Edition.all.map(&:state)).to match_array(%w(superseded superseded published))
     end
 
     it "creates the full User facing version history" do
       subject
-      expect(ContentItem.all.map(&:user_facing_version)).to match_array([1, 2, 3])
-    end
-
-    it "creates the full Lock version history" do
-      subject
-      content_item_ids = ContentItem.where(content_id: content_id).map(&:id)
-      expect(LockVersion.where(target_id: content_item_ids).map(&:number)).to match_array([1, 2, 3])
+      expect(Edition.all.map(&:user_facing_version)).to match_array([1, 2, 3])
     end
 
     it "sets content_store correctly" do
       subject
       expect(
-        ContentItem.all.pluck(:content_store)
+        Edition.all.pluck(:content_store)
       ).to match_array([nil, nil, "live"])
     end
 
@@ -70,31 +64,11 @@ RSpec.describe Commands::V2::Import, type: :request do
       subject
     end
 
-    context "with an existing content item" do
-      let!(:existing_content_item) {
-        FactoryGirl.create(:content_item, content_id: content_id)
-      }
-
-      before do
-        stub_request(
-          :delete,
-          Plek.new.find('draft-content-store') + "/content" + \
-          existing_content_item.base_path
-        )
-      end
-
-      it "deletes previous content items" do
-        subject
-        expect(
-          ContentItem.where(id: existing_content_item.id)
-        ).to be_empty
-      end
-    end
-
     context "with a unpublished content item" do
       let!(:payload) do
         {
           content_id: content_id,
+          locale: "en",
           history: [
             content_item.merge(
               states: [{
@@ -109,8 +83,8 @@ RSpec.describe Commands::V2::Import, type: :request do
       it "correctly sets the unpublishing type" do
         subject
 
-        content_item = ContentItem.find_by(content_id: content_id)
-        unpublishing = Unpublishing.find_by(content_item: content_item)
+        edition = Edition.find_by(content_id: content_id)
+        unpublishing = Unpublishing.find_by(edition: edition)
 
         expect(unpublishing.type).to eq("gone")
       end
@@ -119,6 +93,7 @@ RSpec.describe Commands::V2::Import, type: :request do
         let!(:payload) do
           {
             content_id: content_id,
+            locale: "en",
             history: [
               content_item.merge(
                 states: [{ name: "unpublished" }]
@@ -135,6 +110,29 @@ RSpec.describe Commands::V2::Import, type: :request do
             /For a state of unpublished, a type must be provided/
           )
         end
+      end
+    end
+
+    context "with history elements containing locale" do
+      let!(:payload) do
+        {
+          content_id: content_id,
+          locale: "en",
+          history: [
+            content_item.merge(
+              locale: "cy",
+            )
+          ]
+        }
+      end
+
+      it "raises a command error" do
+        expect {
+          subject.call
+        }.to raise_error(
+          CommandError,
+          /Unrecognised attributes in payload: \[:locale\]/
+        )
       end
     end
 

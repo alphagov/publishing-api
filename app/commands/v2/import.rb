@@ -10,14 +10,34 @@ module Commands
           )
         end
 
-        previous_content_store_base_paths = get_base_path_content_store_pairs
+        content_id, locale = payload.values_at(:content_id, :locale)
 
-        delete_all(payload[:content_id])
-        payload[:history].map.with_index do |event, index|
-          create_content_item(event, index, payload[:content_id])
+        if locale.nil?
+          raise CommandError.new(
+            code: 422,
+            message: "A locale must be specified"
+          )
         end
 
-        new_content_store_base_paths = get_base_path_content_store_pairs
+        previous_document =
+          Document.find_by(content_id: content_id, locale: locale)
+
+        if previous_document
+          previous_content_store_base_paths = get_base_path_content_store_pairs(
+            previous_document
+          )
+
+          delete_all(previous_document)
+        else
+          previous_content_store_base_paths = []
+        end
+
+        document = create_document(content_id, locale)
+        payload[:history].map.with_index do |event, index|
+          create_edition(document, event, index)
+        end
+
+        new_content_store_base_paths = get_base_path_content_store_pairs(document)
 
         after_transaction_commit do
           ImportWorker.perform_async(
@@ -38,17 +58,22 @@ module Commands
 
     private
 
-      def create_content_item(history_entry, index, content_id)
-        validate_history_entry(history_entry, index)
+      def create_document(content_id, locale)
+        Document.create(
+          content_id: content_id,
+          locale: locale
+        )
+      end
 
-        content_item = ContentItem.create!(
+      def create_edition(document, history_entry, index)
+        validate_history_entry(document.locale, history_entry, index)
+
+        content_item = document.editions.create!(
           history_entry.except(:states).merge(
-            content_id: content_id,
             user_facing_version: index + 1,
             state: "draft",
           )
         )
-        LockVersion.create!(target: content_item, number: index + 1)
 
         update_content_item_state_information(content_item, history_entry[:states])
       end
@@ -77,7 +102,7 @@ module Commands
         end
       end
 
-      def validate_history_entry(history_entry, index)
+      def validate_history_entry(locale, history_entry, index)
         unrecognised_attributes = history_entry.keys - attributes
 
         unless unrecognised_attributes.empty?
@@ -87,7 +112,9 @@ module Commands
           )
         end
 
-        schema_validator = SchemaValidator.new(payload: history_entry.except(:states))
+        schema_validator = SchemaValidator.new(
+          payload: history_entry.except(:states).merge(locale: locale)
+        )
 
         unless schema_validator.valid?
           raise CommandError.new(
@@ -137,9 +164,8 @@ module Commands
         end
       end
 
-      def get_base_path_content_store_pairs
-        ContentItem.where(
-          content_id: payload[:content_id],
+      def get_base_path_content_store_pairs(document)
+        document.editions.where(
           state: %w(draft published unpublished)
         ).group(:base_path).pluck(:base_path, "ARRAY_AGG(content_store)")
       end
@@ -197,13 +223,12 @@ module Commands
 
       def attributes
         @attributes ||=
-          [:base_path, :locale, :states] + ContentItem.new.attributes.keys.map(&:to_sym) - [:state]
+          [:base_path, :states] + Edition.new.attributes.keys.map(&:to_sym) - [:state, :locale]
       end
 
-      def delete_all(content_id)
-        content_items = ContentItem.where(content_id: content_id)
-        LockVersion.where(target: content_items).destroy_all
-        content_items.destroy_all
+      def delete_all(document)
+        document.editions.destroy_all
+        document.destroy
       end
     end
   end
