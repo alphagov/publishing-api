@@ -28,7 +28,7 @@ namespace :queue do
     end
   end
 
-  desc "Add published content items to the message queue, optionally specifying a limit on the number of items"
+  desc "Add published editions to the message queue, optionally specifying a limit on the number of items"
   task :requeue_content, [:number_of_items] => :environment do |_, args|
     RequeueContent.new(number_of_items: args[:number_of_items]).call
   end

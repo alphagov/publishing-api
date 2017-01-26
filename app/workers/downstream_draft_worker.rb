@@ -27,7 +27,7 @@ class DownstreamDraftWorker
     assign_attributes(args.symbolize_keys)
 
     unless web_content_item
-      raise AbortWorkerError.new("A downstreamable content item was not found for content_id: #{content_id} and locale: #{locale}")
+      raise AbortWorkerError.new("A downstreamable edition was not found for content_id: #{content_id} and locale: #{locale}")
     end
 
     unless dependency_resolution_source_content_id.nil?

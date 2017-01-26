@@ -84,10 +84,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       link_set = LinkSet.last
       expect(link_set).to be_present
-
-      lock_version = LockVersion.find_by(target: link_set)
-      expect(lock_version).to be_present
-      expect(lock_version.number).to eq(1)
+      expect(link_set.stale_lock_version).to eq(1)
     end
 
     it "responds with a success object containing the newly created links in the same order as in the request" do
@@ -179,10 +176,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       link_set = LinkSet.last
       expect(link_set).to be_present
-
-      lock_version = LockVersion.find_by(target: link_set)
-      expect(lock_version).to be_present
-      expect(lock_version.number).to eq(2)
+      expect(link_set.stale_lock_version).to eq(2)
     end
 
     it "responds with a success object containing the updated links in the same order as in the request" do
@@ -225,10 +219,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
   end
 
-  context "when a draft content item exists for the content_id" do
-    let!(:draft_content_item) do
-      FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
+  context "when a draft edition exists for the content_id" do
+    before do
+      FactoryGirl.create(:draft_edition,
+        document: FactoryGirl.create(:document, content_id: content_id),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -251,17 +245,16 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload.merge(bulk_publishing: true))
     end
 
-    context "when a draft content item has multiple translations" do
-      let!(:french_draft_content_item) do
-        FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+    context "when a draft edition has multiple translations" do
+      before do
+        FactoryGirl.create(:draft_edition,
+          document: FactoryGirl.create(:document, content_id: content_id, locale: "fr"),
           base_path: "/french-path",
           title: "French Title",
-          locale: "fr",
         )
       end
 
-      it "sends the draft content items for all locales downstream" do
+      it "sends the draft editions for all locales downstream" do
         %w(en fr).each do |locale|
           expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
             .with(
@@ -286,10 +279,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
   end
 
-  context "when a live content item exists for the content_id" do
-    let!(:live_content_item) do
-      FactoryGirl.create(:live_content_item,
-        content_id: content_id,
+  context "when a live edition exists for the content_id" do
+    before do
+      FactoryGirl.create(:live_edition,
+        document: FactoryGirl.create(:document, content_id: content_id),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -325,17 +318,16 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload.merge(bulk_publishing: true))
     end
 
-    context "when a live content item has multiple translations" do
-      let!(:french_live_content_item) do
-        FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+    context "when a live edition has multiple translations" do
+      before do
+        FactoryGirl.create(:live_edition,
+          document: FactoryGirl.create(:document, content_id: content_id, locale: "fr"),
           base_path: "/french-path",
           title: "French Title",
-          locale: "fr",
         )
       end
 
-      it "sends the live content item for all locales downstream" do
+      it "sends the live edition for all locales downstream" do
         %w(en fr).each do |locale|
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
@@ -364,10 +356,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
   end
 
-  context "when an unpublished content item exists for the content_id" do
-    let!(:unpublished_content_item) do
-      FactoryGirl.create(:unpublished_content_item,
-        content_id: content_id,
+  context "when an unpublished edition exists for the content_id" do
+    before do
+      FactoryGirl.create(:unpublished_edition,
+        document: FactoryGirl.create(:document, content_id: content_id),
         base_path: "/some-path",
         title: "Some Title",
       )

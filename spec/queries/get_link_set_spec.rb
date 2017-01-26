@@ -17,22 +17,19 @@ RSpec.describe Queries::GetLinkSet do
       let(:related) { [SecureRandom.uuid, SecureRandom.uuid] }
 
       before do
-        FactoryGirl.create(
-          :link,
+        FactoryGirl.create(:link,
           link_set: link_set,
           link_type: "parent",
           target_content_id: parent.first
         )
 
-        FactoryGirl.create(
-          :link,
+        FactoryGirl.create(:link,
           link_set: link_set,
           link_type: "related",
           target_content_id: related.first
         )
 
-        FactoryGirl.create(
-          :link,
+        FactoryGirl.create(:link,
           link_set: link_set,
           link_type: "related",
           target_content_id: related.last

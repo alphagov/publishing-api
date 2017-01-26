@@ -2,15 +2,25 @@ require "rails_helper"
 
 RSpec.describe LockVersion do
   subject do
-    content_item = FactoryGirl.create(:content_item)
-    FactoryGirl.build(:lock_version, target: content_item)
+    edition = FactoryGirl.create(:edition)
+    FactoryGirl.build(:lock_version, target: edition)
   end
 
   it "starts version numbers at 0" do
-    content_item = FactoryGirl.create(:content_item)
-    lock_version = LockVersion.create!(target: content_item)
+    edition = FactoryGirl.create(:edition)
+    lock_version = LockVersion.create!(target: edition)
     expect(lock_version.number).to be_zero
     expect(lock_version).to be_valid
+  end
+
+  it "works with a ContentItem target_type" do
+    edition = FactoryGirl.create(:edition)
+    lock_version = LockVersion.create!(target: edition)
+    lock_version.update_attributes!(target_type: "ContentItem")
+
+    expect(lock_version.number).to be_zero
+    expect(lock_version).to be_valid
+    expect(lock_version.target).to_not be_nil
   end
 
   describe "#conflicts_with?(previous_version_number)" do

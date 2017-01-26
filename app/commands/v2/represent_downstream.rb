@@ -7,11 +7,11 @@ module Commands
 
       def call(content_ids, draft = false)
         if draft
-          with_locales = Queries::LocalesForContentItems.call(content_ids, draft_states)
+          with_locales = Queries::LocalesForEditions.call(content_ids, %w[draft live])
           with_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
         end
 
-        with_locales = Queries::LocalesForContentItems.call(content_ids, live_states)
+        with_locales = Queries::LocalesForEditions.call(content_ids, %w[live])
         with_locales.each_with_index do |(content_id, locale), index|
           sleep 60 if (index + 1) % 10_000 == 0
           downstream_live(content_id, locale)
@@ -19,14 +19,6 @@ module Commands
       end
 
     private
-
-      def draft_states
-        %w{draft published unpublished}
-      end
-
-      def live_states
-        %w{published unpublished}
-      end
 
       def downstream_draft(content_id, locale)
         event_payload = {

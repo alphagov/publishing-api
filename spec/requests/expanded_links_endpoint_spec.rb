@@ -19,38 +19,42 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     ]
   }
 
-  let(:content_item) {
-    FactoryGirl.create(:content_item,
+  let(:edition) {
+    FactoryGirl.create(:edition,
       state: "published",
       document_type: "placeholder",
       schema_name: "placeholder",
       title: "Some title",
       base_path: "/some-path",
       description: "Some description",
-      content_id: "10529c0d-f4b3-4c7d-9589-35ba6a6d1a12"
+      document: FactoryGirl.create(:document, content_id: "10529c0d-f4b3-4c7d-9589-35ba6a6d1a12")
     )
   }
 
   it "returns expanded links" do
-    organisation = FactoryGirl.create(:content_item,
+    organisation = FactoryGirl.create(:edition,
       state: "published",
       document_type: "organisation",
       schema_name: "organisation",
       base_path: "/my-super-org",
-      content_id: "9b5ae6f5-f127-4843-9333-c157a404dd2d",
+      document: FactoryGirl.create(:document, content_id: "9b5ae6f5-f127-4843-9333-c157a404dd2d")
     )
 
     link_set = FactoryGirl.create(:link_set,
-      content_id: content_item.content_id,
+      content_id: edition.document.content_id,
     )
 
-    FactoryGirl.create(:link, link_set: link_set, target_content_id: organisation.content_id, link_type: 'organisations')
+    FactoryGirl.create(:link,
+      link_set: link_set,
+      target_content_id: organisation.document.content_id,
+      link_type: "organisations",
+    )
 
-    get "/v2/expanded-links/#{content_item.content_id}"
+    get "/v2/expanded-links/#{edition.document.content_id}"
 
     expect(parsed_response).to eql(
       "version" => 0,
-      "content_id" => content_item.content_id,
+      "content_id" => edition.document.content_id,
       "expanded_links" => {
         "organisations" => [
           {
@@ -76,14 +80,14 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
   it "returns only translations if there are no links" do
     link_set = FactoryGirl.create(:link_set,
-      content_id: content_item.content_id,
+      content_id: edition.document.content_id,
     )
 
     get "/v2/expanded-links/#{link_set.content_id}"
 
     expect(parsed_response).to eql(
       "version" => 0,
-      "content_id" => content_item.content_id,
+      "content_id" => edition.document.content_id,
       "expanded_links" => {
         "available_translations" => translations,
       },
@@ -92,7 +96,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
   it "returns a version if the link set has a version" do
     link_set = FactoryGirl.create(:link_set,
-      content_id: content_item.content_id,
+      content_id: edition.document.content_id,
     )
 
     FactoryGirl.create(:lock_version, target: link_set, number: 11)
@@ -101,7 +105,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     expect(parsed_response).to eql(
       "version" => 11,
-      "content_id" => content_item.content_id,
+      "content_id" => edition.document.content_id,
       "expanded_links" => {
         "available_translations" => translations,
       },
@@ -109,12 +113,13 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
   end
 
   it "returns 404 if the link set is not found" do
-    get "/v2/expanded-links/I-DO-NOT-EXIST"
+    content_id = SecureRandom.uuid
+    get "/v2/expanded-links/#{content_id}"
 
     expect(parsed_response).to eql(
       "error" => {
         "code" => 404,
-        "message" => "Could not find link set with content_id: I-DO-NOT-EXIST",
+        "message" => "Could not find link set with content_id: #{content_id}",
       }
     )
   end

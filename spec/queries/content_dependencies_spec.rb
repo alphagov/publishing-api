@@ -5,13 +5,13 @@ RSpec.describe Queries::ContentDependencies do
 
   let(:content_id) { SecureRandom.uuid }
   let(:locale) { "en" }
-  let(:state_fallback_order) { %w[published unpublished] }
+  let(:content_stores) { %w[live] }
 
   let(:instance_options) do
     {
       content_id: content_id,
       locale: locale,
-      state_fallback_order: state_fallback_order,
+      content_stores: content_stores,
     }
   end
 
@@ -22,11 +22,11 @@ RSpec.describe Queries::ContentDependencies do
       it { is_expected.to be_empty }
     end
 
-    context "when there are translations of the content item" do
+    context "when there are translations of the edition" do
       before do
-        create_content_item(content_id, "/a", "published", "en")
-        create_content_item(content_id, "/a.fr", "published", "fr")
-        create_content_item(content_id, "/a.es", "published", "es")
+        create_edition(content_id, "/a", locale: "en")
+        create_edition(content_id, "/a.fr", locale: "fr")
+        create_edition(content_id, "/a.es", locale: "es")
       end
 
       context "and we specify locale as en" do
@@ -67,19 +67,19 @@ RSpec.describe Queries::ContentDependencies do
       end
     end
 
-    context "when there are draft translations of the content item" do
+    context "when there are draft translations of the edition" do
       before do
-        create_content_item(content_id, "/a", "published", "en")
-        create_content_item(content_id, "/a.cy", "draft", "cy")
+        create_edition(content_id, "/a", locale: "en")
+        create_edition(content_id, "/a.cy", factory: :draft_edition, locale: "cy")
       end
 
       let(:locale) { "en" }
-      let(:state_fallback_order) { %w[published unpublished] }
+      let(:content_stores) { %w[live] }
 
       it { is_expected.to be_empty }
 
-      context "but we requested drafts in state_fallback_order" do
-        let(:state_fallback_order) { %w[draft published unpublished] }
+      context "but we requested drafts in content_stores" do
+        let(:content_stores) { %w[draft live] }
         let(:translations) do
           [
             [content_id, "cy"],
@@ -90,10 +90,10 @@ RSpec.describe Queries::ContentDependencies do
       end
     end
 
-    context "when items link to this content item" do
+    context "when items link to this edition" do
       before do
-        create_content_item(link_1_content_id, "/link-1", "published", "en")
-        create_content_item(link_2_content_id, "/link-2", "published", "en")
+        create_edition(link_1_content_id, "/link-1", locale: "en")
+        create_edition(link_2_content_id, "/link-2", locale: "en")
         create_link(link_1_content_id, content_id, "organisation")
         create_link(link_2_content_id, content_id, "organisation")
       end
@@ -110,10 +110,10 @@ RSpec.describe Queries::ContentDependencies do
       it { is_expected.to match_array(links) }
     end
 
-    context "when items in different translations link to this content item" do
+    context "when items in different translations link to this edition" do
       before do
-        create_content_item(link_content_id, "/link", "published", "en")
-        create_content_item(link_content_id, "/link.cy", "published", "cy")
+        create_edition(link_content_id, "/link", locale: "en")
+        create_edition(link_content_id, "/link.cy", locale: "cy")
         create_link(link_content_id, content_id, "organisation")
       end
 
@@ -128,10 +128,10 @@ RSpec.describe Queries::ContentDependencies do
       it { is_expected.to match_array(links) }
     end
 
-    context "when items in different states link to this content item" do
+    context "when items in different states link to this edition" do
       before do
-        create_content_item(link_1_content_id, "/link", "published")
-        create_content_item(link_2_content_id, "/link", "draft")
+        create_edition(link_1_content_id, "/link")
+        create_edition(link_2_content_id, "/link", factory: :draft_edition)
         create_link(link_1_content_id, content_id, "organisation")
         create_link(link_2_content_id, content_id, "organisation")
       end
@@ -146,8 +146,8 @@ RSpec.describe Queries::ContentDependencies do
 
       it { is_expected.to match_array(links) }
 
-      context "but we use a different state_fallback_order" do
-        let(:state_fallback_order) { %w[draft published unpublished] }
+      context "and we include drafts" do
+        let(:content_stores) { %w[draft live] }
 
         let(:links) do
           [
@@ -160,11 +160,11 @@ RSpec.describe Queries::ContentDependencies do
       end
     end
 
-    context "when a graph of parent items link to this content item" do
+    context "when a graph of parent items link to this edition" do
       before do
-        create_content_item(great_grandparent_content_id, "/great")
-        create_content_item(grandparent_content_id, "/great/grand")
-        create_content_item(parent_content_id, "/great/grand/parent")
+        create_edition(great_grandparent_content_id, "/great")
+        create_edition(grandparent_content_id, "/great/grand")
+        create_edition(parent_content_id, "/great/grand/parent")
         create_link(parent_content_id, content_id, "parent")
         create_link(grandparent_content_id, parent_content_id, "parent")
         create_link(great_grandparent_content_id, grandparent_content_id, "parent")
@@ -184,9 +184,9 @@ RSpec.describe Queries::ContentDependencies do
       it { is_expected.to match_array(links) }
     end
 
-    context "when this content item has a link to an item with a reverse link type" do
+    context "when this edition has a link to an item with a reverse link type" do
       before do
-        create_content_item(reverse_link_content_id, "/reverse")
+        create_edition(reverse_link_content_id, "/reverse")
         create_link(content_id, reverse_link_content_id, "documents")
       end
 
@@ -201,7 +201,7 @@ RSpec.describe Queries::ContentDependencies do
 
       context "and there are translations of item that links" do
         before do
-          create_content_item(reverse_link_content_id, "/reverse.cy", "published", "cy")
+          create_edition(reverse_link_content_id, "/reverse.cy", locale: "cy")
         end
 
         let(:links) do
@@ -217,17 +217,17 @@ RSpec.describe Queries::ContentDependencies do
 
     context "when this content has a link to a draft item with a reverse link type" do
       before do
-        create_content_item(reverse_link_content_id, "/reverse", "draft")
+        create_edition(reverse_link_content_id, "/reverse", factory: :draft_edition)
         create_link(content_id, reverse_link_content_id, "documents")
       end
 
       let(:reverse_link_content_id) { SecureRandom.uuid }
-      let(:state_fallback_order) { %w[published unpublished] }
+      let(:content_stores) { %w[live] }
 
       it { is_expected.to be_empty }
 
       context "and we allow drafts" do
-        let(:state_fallback_order) { %w[draft published unpublished] }
+        let(:content_stores) { %w[draft live] }
 
         let(:links) do
           [

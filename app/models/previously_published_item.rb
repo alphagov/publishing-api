@@ -1,8 +1,7 @@
 class PreviouslyPublishedItem
-  def initialize(content_id, base_path, locale, put_content)
-    @content_id = content_id
+  def initialize(document, base_path, put_content)
+    @document = document
     @base_path = base_path
-    @locale = locale
     @put_content = put_content
   end
 
@@ -10,17 +9,10 @@ class PreviouslyPublishedItem
     previously_published_item ? self : NoPreviousPublishedItem.new
   end
 
-  attr_reader :content_id, :base_path, :locale, :put_content
+  attr_reader :document, :base_path, :put_content
 
   def previously_published_item
-    @previously_published_item ||=
-      ContentItem.find_by(content_id: content_id,
-                          state: %w(published unpublished),
-                          locale: locale)
-  end
-
-  def lock_version_number
-    previously_published_item.lock_version_number + 1
+    document.published_or_unpublished
   end
 
   def user_facing_version
@@ -48,10 +40,6 @@ class PreviouslyPublishedItem
   end
 
   class NoPreviousPublishedItem
-    def lock_version_number
-      1
-    end
-
     def user_facing_version
       1
     end

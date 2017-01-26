@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "GET /v2/linkables", type: :request do
   let!(:policy_1) {
-    FactoryGirl.create(:content_item,
+    FactoryGirl.create(:edition,
       state: "draft",
       document_type: "policy",
       title: "Policy 1",
@@ -14,7 +14,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
   }
 
   let!(:policy_2) {
-    FactoryGirl.create(:content_item,
+    FactoryGirl.create(:edition,
       state: "published",
       document_type: "policy",
       title: "Policy 2",
@@ -28,19 +28,19 @@ RSpec.describe "GET /v2/linkables", type: :request do
     end
   end
 
-  it "returns the title, content ID, state, internal name and base path for all content items of a given format" do
+  it "returns the title, content ID, state, internal name and base path for all editions of a given format" do
     get "/v2/linkables", params: { document_type: "policy" }
 
     expect(JSON.parse(response.body, symbolize_names: true)).to match_array([
       hash_including(
-        content_id: policy_1.content_id,
+        content_id: policy_1.document.content_id,
         title: "Policy 1",
         publication_state: "draft",
         base_path: "/cat-rates",
         internal_name: "Cat rates (do not use for actual cats)",
       ),
       hash_including(
-        content_id: policy_2.content_id,
+        content_id: policy_2.document.content_id,
         title: "Policy 2",
         publication_state: "published",
         base_path: "/vat-rates",

@@ -59,14 +59,14 @@ RSpec.describe Unpublishing do
 
     context "when alternative_path is equal to base_path" do
       let(:base_path) { "/new-path" }
-      let(:content_item) do
-        FactoryGirl.create(:content_item,
+      let(:edition) do
+        FactoryGirl.create(:edition,
           base_path: base_path,
         )
       end
 
       it "is invalid" do
-        subject.content_item = content_item
+        subject.edition = edition
         subject.type = "redirect"
         subject.alternative_path = base_path
 
@@ -86,21 +86,21 @@ RSpec.describe Unpublishing do
   end
 
   describe ".is_subtitute?" do
-    subject { described_class.is_substitute?(content_item) }
+    subject { described_class.is_substitute?(edition) }
     context "when unpublished with type 'substitute'" do
-      let(:content_item) { FactoryGirl.create(:substitute_unpublished_content_item) }
+      let(:edition) { FactoryGirl.create(:substitute_unpublished_edition) }
       it { is_expected.to be true }
     end
     context "when unpublished with type 'gone'" do
-      let(:content_item) { FactoryGirl.create(:gone_unpublished_content_item) }
+      let(:edition) { FactoryGirl.create(:gone_unpublished_edition) }
       it { is_expected.to be false }
     end
-    context "when content item is published" do
-      let(:content_item) { FactoryGirl.create(:live_content_item) }
+    context "when edition is published" do
+      let(:edition) { FactoryGirl.create(:live_edition) }
       it { is_expected.to be false }
     end
-    context "when there isn't a content item" do
-      let(:content_item) { nil }
+    context "when there isn't an edition" do
+      let(:edition) { nil }
       it { is_expected.to be false }
     end
   end

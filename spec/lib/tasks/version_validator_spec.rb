@@ -2,20 +2,17 @@ require "rails_helper"
 
 RSpec.describe Tasks::VersionValidator do
   let(:content_id) { SecureRandom.uuid }
+  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
 
   before do
-    FactoryGirl.create(
-      :superseded_content_item,
-      content_id: content_id,
+    FactoryGirl.create(:superseded_edition,
+      document: document,
       user_facing_version: 1,
-      locale: "en"
     )
 
-    FactoryGirl.create(
-      :live_content_item,
-      content_id: content_id,
+    FactoryGirl.create(:live_edition,
+      document: document,
       user_facing_version: 2,
-      locale: "en"
     )
   end
 
@@ -29,22 +26,25 @@ RSpec.describe Tasks::VersionValidator do
 
   context "when two items of the same content_id have a gap between versions" do
     before do
-      item = ContentItem.last
+      item = Edition.last
       item.user_facing_version = 3
       item.save!(validate: false)
     end
 
-    it "outputs that the content item has an invalid version sequence" do
+    it "outputs that the edition has an invalid version sequence" do
       expect {
         subject.validate
       }.to output(/Invalid version sequence for #{content_id}/).to_stdout
     end
   end
 
-  context "when content items have the same version but different locale" do
+  context "when editions have the same version but different locale" do
     before do
-      item = ContentItem.last
-      item.locale = 'fr'
+      item = Edition.last
+      item.document = FactoryGirl.create(:document,
+        content_id: item.document.content_id,
+        locale: "fr"
+      )
       item.user_facing_version = 1
       item.save!(validate: false)
     end
@@ -58,12 +58,12 @@ RSpec.describe Tasks::VersionValidator do
 
   context "when the version sequence does not begin at zero" do
     before do
-      item = ContentItem.first
+      item = Edition.first
       item.user_facing_version = 3
       item.save!(validate: false)
     end
 
-    it "outputs that the content item has an invalid version sequence" do
+    it "outputs that the edition has an invalid version sequence" do
       expect {
         subject.validate
       }.to output(/Invalid version sequence for #{content_id}/).to_stdout

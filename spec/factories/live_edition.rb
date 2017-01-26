@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :live_content_item, parent: :content_item do
+  factory :live_edition, parent: :edition do
     user_facing_version 1
     state "published"
     content_store "live"
@@ -9,12 +9,10 @@ FactoryGirl.define do
     end
 
     trait :with_draft do
-      after(:create) do |live_content_item, evaluator|
-        draft = FactoryGirl.create(:draft_content_item,
-          live_content_item.as_json(only: %i[title content_id schema_name document_type routes redirects]).merge(
-            locale: evaluator.locale,
+      after(:create) do |live_edition, evaluator|
+        draft = FactoryGirl.create(:draft_edition,
+          live_edition.as_json(only: %i[title document_id schema_name document_type routes redirects]).merge(
             base_path: evaluator.base_path,
-            lock_version: evaluator.lock_version,
             user_facing_version: evaluator.draft_version_number,
           )
         )
@@ -28,7 +26,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :redirect_live_content_item, parent: :live_content_item do
+  factory :redirect_live_edition, parent: :live_edition do
     sequence(:base_path) { |n| "/test-redirect-#{n}" }
     schema_name "redirect"
     document_type "redirect"
@@ -36,20 +34,20 @@ FactoryGirl.define do
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => '/somewhere' }] }
   end
 
-  factory :gone_live_content_item, parent: :live_content_item do
+  factory :gone_live_edition, parent: :live_edition do
     sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
     schema_name "gone"
     document_type "gone"
   end
 
-  factory :coming_soon_live_content_item, parent: :live_content_item do
+  factory :coming_soon_live_edition, parent: :live_edition do
     schema_name "coming_soon"
     document_type "coming_soon"
     title "Coming soon"
     description "This item will be published soon"
   end
 
-  factory :pathless_live_content_item, parent: :live_content_item do
+  factory :pathless_live_edition, parent: :live_edition do
     base_path nil
     schema_name "contact"
     document_type "contact"

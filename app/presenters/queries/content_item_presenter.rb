@@ -7,10 +7,9 @@ module Presenters
                     :include_warnings
 
       DEFAULT_FIELDS = ([
-        *ContentItem::TOP_LEVEL_FIELDS,
+        *Edition::TOP_LEVEL_FIELDS,
         :publication_state,
-        :user_facing_version,
-        :base_path,
+        :content_id,
         :locale,
         :lock_version,
         :updated_at,
@@ -22,8 +21,8 @@ module Presenters
         new(scope, params).present_many
       end
 
-      def self.present(content_item, params = {})
-        scope = ContentItem.where(id: content_item.id)
+      def self.present(edition, params = {})
+        scope = Edition.where(id: edition.id)
 
         present_many(scope, params).first
       end
@@ -61,13 +60,11 @@ module Presenters
       end
 
       def latest
-        ::Queries::GetLatest.call(self.scope)
+        ::Queries::GetLatest.call(self.scope.joins(:document))
       end
 
       def join_supporting_objects(scope)
-        scope = ChangeNote.join_content_items(scope)
-
-        LockVersion.join_content_items(scope)
+        ChangeNote.join_editions(scope)
       end
 
       def order_and_paginate
@@ -86,7 +83,7 @@ module Presenters
           when :user_facing_version
             "content_items.user_facing_version AS user_facing_version"
           when :lock_version
-            "lock_versions.number AS lock_version"
+            "documents.stale_lock_version AS lock_version"
           when :description
             "description->>'value' AS description"
           when :last_edited_at
@@ -102,7 +99,9 @@ module Presenters
           when :base_path
             "content_items.base_path as base_path"
           when :locale
-            "content_items.locale as locale"
+            "documents.locale as locale"
+          when :content_id
+            "documents.content_id as content_id"
           when :total
             "COUNT(*) OVER () as total"
           else
@@ -122,8 +121,8 @@ module Presenters
         (
           SELECT json_agg((user_facing_version, state))
           FROM content_items c
-          WHERE c.content_id = content_items.content_id
-          GROUP BY content_id
+          WHERE c.document_id = documents.id
+          GROUP BY documents.content_id
         )
       SQL
 

@@ -2,15 +2,20 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::PostAction do
   describe ".call" do
-    let(:content_id) { SecureRandom.uuid }
-    let(:locale) { "en" }
+    let(:document) do
+      FactoryGirl.create(:document,
+        content_id: SecureRandom.uuid,
+        locale: "en",
+        stale_lock_version: 6,
+      )
+    end
     let(:action) { "FactCheck" }
     let(:draft) { nil }
 
     let(:payload) do
       {
-        content_id: content_id,
-        locale: locale,
+        content_id: document.content_id,
+        locale: document.locale,
         action: action,
         draft: draft,
       }
@@ -64,15 +69,8 @@ RSpec.describe Commands::V2::PostAction do
       end
     end
 
-    context "when a draft content item exists" do
-      before do
-        FactoryGirl.create(
-          :draft_content_item,
-          content_id: content_id,
-          locale: locale,
-          lock_version: 6,
-        )
-      end
+    context "when a draft edition exists" do
+      before { FactoryGirl.create(:draft_edition, document: document) }
 
       include_examples "action behaviour"
       context "and we specify the action is not for a draft" do
@@ -81,15 +79,8 @@ RSpec.describe Commands::V2::PostAction do
       end
     end
 
-    context "when a published content item exists" do
-      before do
-        FactoryGirl.create(
-          :live_content_item,
-          content_id: content_id,
-          locale: locale,
-          lock_version: 6,
-        )
-      end
+    context "when a published edition exists" do
+      before { FactoryGirl.create(:live_edition, document: document) }
 
       let(:draft) { false }
 
@@ -101,7 +92,7 @@ RSpec.describe Commands::V2::PostAction do
       end
     end
 
-    context "when no content item exists" do
+    context "when no edition exists" do
       include_examples "raises a 404 command error"
     end
   end

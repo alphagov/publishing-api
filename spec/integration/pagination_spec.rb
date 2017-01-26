@@ -1,10 +1,9 @@
 require "rails_helper"
 
-RSpec.describe "Paging through content items" do
+RSpec.describe "Paging through editions" do
   before do
     5.times do |n|
-      FactoryGirl.create(
-        :draft_content_item,
+      FactoryGirl.create(:draft_edition,
         base_path: "/content-#{n}",
         document_type: "guide",
         schema_name: "guide",
@@ -22,7 +21,7 @@ RSpec.describe "Paging through content items" do
       expect(response).to be_successful
     end
 
-    it "responds with content items in the correct order" do
+    it "responds with editions in the correct order" do
       parsed_response_body = parsed_response["results"]
       expect(parsed_response_body.size).to eq(5)
       expect(parsed_response_body.first["base_path"]).to eq("/content-0")
@@ -45,7 +44,7 @@ RSpec.describe "Paging through content items" do
       expect(response).to be_successful
     end
 
-    it "responds with content items limited by page_size" do
+    it "responds with editions limited by page_size" do
       parsed_response_body = parsed_response["results"]
       expect(parsed_response_body.size).to eq(2)
       expect(parsed_response_body.first["base_path"]).to eq("/content-3")

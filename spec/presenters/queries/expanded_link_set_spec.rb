@@ -21,10 +21,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     ).links
   }
 
-  context "with content items that are non-renderable" do
-    let!(:draft_a) { create_content_item(a, "/a", "draft") }
-    let!(:redirect) { FactoryGirl.create(:redirect_draft_content_item, content_id: b, base_path: '/b') }
-    let!(:gone) { FactoryGirl.create(:gone_content_item, content_id: c, base_path: '/c') }
+  context "with editions that are non-renderable" do
+    let!(:draft_a) { create_edition(a, "/a", factory: :draft_edition) }
+    let!(:redirect) { create_edition(b, "/b", factory: :redirect_draft_edition) }
+    let!(:gone) { create_edition(c, "/c", factory: :gone_edition) }
 
     let(:state_fallback_order) { [:draft] }
 
@@ -38,14 +38,14 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     end
   end
 
-  context "with content items in a draft state" do
-    let!(:draft_a) { create_content_item(a, "/a", "draft") }
-    let!(:draft_b) { create_content_item(b, "/b", "draft") }
-    let!(:draft_c) { create_content_item(c, "/c", "draft") }
-    let!(:draft_d) { create_content_item(d, "/d", "draft") }
-    let!(:draft_e) { create_content_item(e, "/e", "draft") }
-    let!(:draft_f) { create_content_item(f, "/f", "draft") }
-    let!(:draft_g) { create_content_item(g, "/g", "draft") }
+  context "with editions in a draft state" do
+    let!(:draft_a) { create_edition(a, "/a", factory: :draft_edition) }
+    let!(:draft_b) { create_edition(b, "/b", factory: :draft_edition) }
+    let!(:draft_c) { create_edition(c, "/c", factory: :draft_edition) }
+    let!(:draft_d) { create_edition(d, "/d", factory: :draft_edition) }
+    let!(:draft_e) { create_edition(e, "/e", factory: :draft_edition) }
+    let!(:draft_f) { create_edition(f, "/f", factory: :draft_edition) }
+    let!(:draft_g) { create_edition(g, "/g", factory: :draft_edition) }
 
     let(:state_fallback_order) { [:draft] }
 
@@ -73,7 +73,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
                 base_path: "/c",
                 links: {
                   parent: [
-                    a_hash_including(base_path: "/d", details: {}, links: {})
+                    a_hash_including(base_path: "/d", links: {})
                   ]
                 })]
             })
@@ -195,10 +195,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
     end
 
-    context "when the depended on content item has no location" do
+    context "when the depended on edition has no location" do
       before do
         create_link(a, b, "parent")
-        ContentItem.find_by(base_path: '/b').update_attributes!(base_path: nil)
+        Edition.find_by(base_path: '/b').update_attributes!(base_path: nil)
       end
 
       it "has no web_url" do
@@ -210,10 +210,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
     end
 
-    context "when the depended on content item does not exist" do
+    context "when the depended on edition does not exist" do
       before do
         create_link(a, b, "parent")
-        ContentItem.find_by(content_id: b).destroy
+        Edition.with_document.find_by('documents.content_id': b).destroy
       end
 
       it "does not have a parent" do
@@ -222,15 +222,15 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     end
   end
 
-  context "with content items in different states" do
-    context "when a content item is in a state that does not match the provided state" do
+  context "with editions in different states" do
+    context "when a edition is in a state that does not match the provided state" do
       before do
         create_link(a, b, "related")
         create_link(a, c, "related")
 
-        create_content_item(a, "/a", "draft")
-        create_content_item(b, "/b", "draft")
-        create_content_item(c, "/c", "published")
+        create_edition(a, "/a", factory: :draft_edition)
+        create_edition(b, "/b", factory: :draft_edition)
+        create_edition(c, "/c")
       end
 
       context "when requested with a draft state" do
@@ -254,11 +254,11 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
     end
 
-    context "when a published content item is linked to content in draft" do
+    context "when a published edition is linked to content in draft" do
       before do
         create_link(a, b, "related")
-        create_content_item(a, "/a-published", "published")
-        create_content_item(b, "/b-draft", "draft")
+        create_edition(a, "/a-published")
+        create_edition(b, "/b-draft", factory: :draft_edition)
       end
 
       context "with a fallback to published" do
@@ -278,18 +278,18 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
     end
 
-    context "when one of the recursive content items does not match the provided state" do
+    context "when one of the recursive editions does not match the provided state" do
       before do
         create_link(a, b, "parent")
         create_link(b, c, "parent")
         create_link(c, d, "parent")
 
-        create_content_item(a, "/a-draft", "draft")
-        create_content_item(b, "/b-draft", "draft", "en", 2)
-        create_content_item(d, "/d-draft", "draft")
+        create_edition(a, "/a-draft", factory: :draft_edition)
+        create_edition(b, "/b-draft", factory: :draft_edition, version: 2)
+        create_edition(d, "/d-draft", factory: :draft_edition)
 
-        create_content_item(b, "/b-published", "published")
-        create_content_item(c, "/c-published", "published")
+        create_edition(b, "/b-published")
+        create_edition(c, "/c-published")
       end
 
       context "when requested with a draft state" do
@@ -316,7 +316,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     end
 
     # We need to support an array of states to cater for the DiscardDraft
-    # command which deletes the draft content item and sends the published item
+    # command which deletes the draft edition and sends the published item
     # to the draft content store. This means that we need to try to find a
     # draft, but fall back to the published item (if it exists).
     context "when an array of states is provided" do
@@ -327,14 +327,14 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_link(b, c, "parent")
         create_link(c, d, "parent")
 
-        create_content_item(a, "/a-draft", "draft")
-        create_content_item(b, "/b-published", "published")
-        create_content_item(c, "/c-draft", "draft", "en", 2)
-        create_content_item(c, "/c-published", "published")
-        create_content_item(d, "/d-published", "published")
+        create_edition(a, "/a-draft", factory: :draft_edition)
+        create_edition(b, "/b-published")
+        create_edition(c, "/c-draft", factory: :draft_edition, version: 2)
+        create_edition(c, "/c-published")
+        create_edition(d, "/d-published")
       end
 
-      it "expands for the content item of the first state that matches" do
+      it "expands for the edition of the first state that matches" do
         expect(expanded_links[:parent]).to match([
           a_hash_including(base_path: "/b-published", links: {
             parent: [a_hash_including(base_path: "/c-draft", links: {
@@ -352,12 +352,12 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
     before do
       create_link(a, b, "organisation")
-      create_content_item(a, "/a", "published", "en")
-      create_content_item(b, "/b", "published", "en")
+      create_edition(a, "/a", locale: "en")
+      create_edition(b, "/b", locale: "en")
     end
 
     context "when a linked item exists in multiple locales" do
-      let!(:arabic_b) { create_content_item(b, "/b.ar", "published", "ar") }
+      let!(:arabic_b) { create_edition(b, "/b.ar", locale: "ar") }
 
       it "links to the item in the matching locale" do
         expect(expanded_links[:organisation]).to match([
@@ -368,7 +368,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
     context "when the item exists in the matching locale but a fallback state" do
       let(:state_fallback_order) { [:draft, :published] }
-      let!(:arabic_b) { create_content_item(b, "/b.ar", "published", "ar") }
+      let!(:arabic_b) { create_edition(b, "/b.ar", locale: "ar") }
 
       it "links to the item in the matching locale" do
         expect(expanded_links[:organisation]).to match([
@@ -397,11 +397,11 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
 
   describe "expanding withdrawn dependents" do
     let(:state_fallback_order) { [:published] }
-    let!(:published) { FactoryGirl.create(:withdrawn_unpublished_content_item, content_id: a, base_path: '/a') }
-    let!(:withdrawn_child) { FactoryGirl.create(:withdrawn_unpublished_content_item, content_id: b, base_path: '/b') }
-    let!(:published_child) { create_content_item(c, "/c") }
 
     before do
+      create_edition(a, "/a", factory: :withdrawn_unpublished_edition)
+      create_edition(b, "/b", factory: :withdrawn_unpublished_edition)
+      create_edition(c, "/c")
       create_link(b, a, "parent")
       create_link(c, a, "parent")
     end
@@ -422,10 +422,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     let(:state_fallback_order) { [:draft, :published] }
 
     before do
-      create_content_item(a, "/a-draft", "draft")
-      create_content_item(b, "/b-published")
-      create_content_item(c, "/c-published")
-      create_content_item(d, "/d-published")
+      create_edition(a, "/a-draft", factory: :draft_edition)
+      create_edition(b, "/b-published")
+      create_edition(c, "/c-published")
+      create_edition(d, "/d-published")
 
       create_link(d, c, "parent")
       create_link(c, b, "parent")
@@ -457,17 +457,22 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     end
   end
 
-  context "with a withdrawn content item as a parent" do
-    let!(:published) { create_content_item(a, "/a", "published") }
-    let!(:unpublishing) { FactoryGirl.create(:withdrawn_unpublished_content_item, content_id: b, base_path: '/b') }
-    let!(:unpublishing_not_parent) { FactoryGirl.create(:withdrawn_unpublished_content_item, content_id: c, base_path: '/c') }
-
+  context "with a withdrawn edition as a parent" do
     let(:state_fallback_order) { [:published, :withdrawn] }
 
+    before do
+      create_edition(a, "/a")
+      create_edition(b, "/b", factory: :withdrawn_unpublished_edition)
+      create_edition(c, "/c", factory: :withdrawn_unpublished_edition)
+    end
+
     context "a simple non-recursive graph" do
-      it "expands the links for node a correctly" do
+      before do
         create_link(a, b, "parent")
         create_link(a, c, "related")
+      end
+
+      it "expands the links for node a correctly" do
         expect(expanded_links[:parent]).to match([a_hash_including('base_path': '/b')])
         expect(expanded_links[:related]).to match(nil)
       end

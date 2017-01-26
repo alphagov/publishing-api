@@ -163,9 +163,9 @@ for more information.
 Events older then a month are archived to S3, you can import these events back
 into your local DB by running the rake tasks in lib/tasks/events.rake, after
 you set up the relavent ENV variables. For example if you want to find all the
-events that are relavant for a particular content item you can run:
+events that are relavant for a particular content_id you can run:
 ```sh
-rake 'events:import_content_item_events[a796ca43-021b-4960-9c99-f41bb8ef2266]'
+rake 'events:import_content_id_events[a796ca43-021b-4960-9c99-f41bb8ef2266]'
 ```
 see the rake task for more details.
 

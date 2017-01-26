@@ -8,10 +8,10 @@ class LockVersion < ApplicationRecord
     item.update_column(:stale_lock_version, number) if number > (item.stale_lock_version || -1)
   end
 
-  def self.join_content_items(content_item_scope)
-    content_item_scope.joins(
+  def self.join_editions(edition_scope)
+    edition_scope.joins(
       "INNER JOIN lock_versions ON
-        lock_versions.target_id = content_items.id AND
+        lock_versions.target_id = editions.id AND
         lock_versions.target_type = 'ContentItem'"
     )
   end
@@ -23,7 +23,7 @@ class LockVersion < ApplicationRecord
   end
 
   def lock_version_target
-    if content_item_target?
+    if edition_target?
       target.document
     else
       target
@@ -41,7 +41,8 @@ class LockVersion < ApplicationRecord
 
 private
 
-  def content_item_target?
+  def edition_target?
+    # The 'Edition' class used to be called the 'ContentItem' class.
     %w(ContentItem Edition).include? target_type
   end
 

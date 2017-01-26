@@ -27,15 +27,15 @@ RSpec.describe "Downstream requests", type: :request do
       expect(response).to be_ok, response.body
     end
 
-    context "when a link set exists for the content item" do
+    context "when a link set exists for the edition" do
       let(:link_set) do
         FactoryGirl.create(:link_set,
           content_id: v2_content_item[:content_id]
         )
       end
 
-      let(:target_content_item) { FactoryGirl.create(:content_item, base_path: "/foo", title: "foo") }
-      let!(:links) { FactoryGirl.create(:link, link_set: link_set, link_type: "parent", target_content_id: target_content_item.content_id) }
+      let(:target_edition) { FactoryGirl.create(:edition, base_path: "/foo", title: "foo") }
+      let!(:links) { FactoryGirl.create(:link, link_set: link_set, link_type: "parent", target_content_id: target_edition.document.content_id) }
 
       let(:content_item_for_draft_content_store) do
         v2_content_item.except(:update_type).merge(
@@ -73,10 +73,10 @@ RSpec.describe "Downstream requests", type: :request do
         .except(:access_limited, :update_type)
     }
 
-    context "when only a draft content item exists for the link set" do
+    context "when only a draft edition exists for the link set" do
       before do
-        draft = FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+        draft = FactoryGirl.create(:draft_edition,
+          document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
 
@@ -84,7 +84,7 @@ RSpec.describe "Downstream requests", type: :request do
 
         FactoryGirl.create(:access_limit,
           users: access_limit_params.fetch(:users),
-          content_item: draft,
+          edition: draft,
         )
       end
 
@@ -106,10 +106,10 @@ RSpec.describe "Downstream requests", type: :request do
       end
     end
 
-    context "when only a live content item exists for the link set" do
+    context "when only a live edition exists for the link set" do
       before do
-        FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+        FactoryGirl.create(:live_edition,
+          document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
       end
@@ -138,21 +138,23 @@ RSpec.describe "Downstream requests", type: :request do
       end
     end
 
-    context "when draft and live content items exists for the link set" do
+    context "when draft and live editions exists for the link set" do
       before do
-        draft = FactoryGirl.create(:draft_content_item,
-          content_id: content_id,
+        document = FactoryGirl.create(:document, content_id: content_id)
+
+        draft = FactoryGirl.create(:draft_edition,
+          document: document,
           base_path: base_path,
           user_facing_version: 2,
         )
 
         FactoryGirl.create(:access_limit,
           users: access_limit_params.fetch(:users),
-          content_item: draft,
+          edition: draft,
         )
 
-        FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+        FactoryGirl.create(:live_edition,
+          document: document,
           base_path: base_path,
         )
       end
@@ -181,7 +183,7 @@ RSpec.describe "Downstream requests", type: :request do
       end
     end
 
-    context "when a content item does not exist for the link set" do
+    context "when an edition does not exist for the link set" do
       it "does not send to either content store" do
         expect(WebMock).not_to have_requested(:any, /.*content-store.*/)
         expect(PublishingAPI.service(:draft_content_store)).not_to receive(:put_content_item)
@@ -200,11 +202,10 @@ RSpec.describe "Downstream requests", type: :request do
     let(:a) { create_link_set }
     let(:b) { create_link_set }
 
-    let!(:draft_a) { create_content_item(a, "/a", "superseded", "en", 1) }
-    let!(:published_a) { create_content_item(a, "/a", "published", 'en', 2) }
-    let!(:draft_b) { create_content_item(b, "/b", "draft") }
-
     before do
+      create_edition(a, "/a", version: 1)
+      create_edition(a, "/a", factory: :draft_edition, version: 2)
+      create_edition(b, "/b", factory: :draft_edition)
       create_link(a, b, "parent")
     end
 
@@ -219,7 +220,6 @@ RSpec.describe "Downstream requests", type: :request do
     end
 
     it "doesn't send draft dependencies to the live content store" do
-      published_a.update_attributes!(state: 'draft', content_store: 'draft')
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:live_content_store)).to_not receive(:put_content_item)
@@ -229,7 +229,6 @@ RSpec.describe "Downstream requests", type: :request do
     end
 
     it "doesn't send draft dependencies to the message queue" do
-      published_a.update_attributes!(state: 'draft', content_store: 'draft')
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
         .with(a_hash_including(base_path: '/a'))
@@ -243,8 +242,8 @@ RSpec.describe "Downstream requests", type: :request do
   context "/v2/publish" do
     let(:content_id) { SecureRandom.uuid }
     let!(:draft) {
-      FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
+      FactoryGirl.create(:draft_edition,
+        document: FactoryGirl.create(:document, content_id: content_id),
         base_path: base_path,
       )
     }

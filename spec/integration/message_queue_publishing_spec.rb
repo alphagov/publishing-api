@@ -8,13 +8,13 @@ RSpec.describe "Message queue publishing" do
 
       stub_content_store_calls(base_path)
 
-      content_item = generate_random_content_item(base_path, change_note)
+      edition = generate_random_edition(base_path, change_note)
 
-      put "/v2/content/#{content_id}", params: content_item.to_json
+      put "/v2/content/#{content_id}", params: edition.to_json
 
       expect(response).to be_ok
 
-      post "/v2/content/#{content_id}/publish", params: { locale: content_item["locale"] }.to_json
+      post "/v2/content/#{content_id}/publish", params: { locale: edition["locale"] }.to_json
 
       expect(response).to be_ok
 
@@ -40,7 +40,7 @@ RSpec.describe "Message queue publishing" do
       .to_return(status: 200)
   end
 
-  def generate_random_content_item(base_path, change_note)
+  def generate_random_edition(base_path, change_note)
     random = GovukSchemas::RandomExample.for_schema(publisher_schema: "placeholder")
 
     if change_note

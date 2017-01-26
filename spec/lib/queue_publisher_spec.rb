@@ -69,7 +69,7 @@ RSpec.describe QueuePublisher do
         queue_publisher.send_message(content_item)
       end
 
-      context "content item using string keys" do
+      context "edition using string keys" do
         let(:content_item) { super().stringify_keys }
 
         it "correctly calculates routing key" do
