@@ -19,13 +19,13 @@ RSpec.describe Queries::LinkedTo do
       it { is_expected.to be_empty }
     end
 
-    context "when our content item links to items but they don't link back" do
+    context "when our document links to items but they don't link back" do
       before { create_link_set(content_id, organistion: [SecureRandom.uuid]) }
 
       it { is_expected.to be_empty }
     end
 
-    context "when there are links to our content item" do
+    context "when there are links to our document" do
       let(:links_to_content_id) { SecureRandom.uuid }
       let(:linked_to) { [links_to_content_id] }
       before { create_link_set(links_to_content_id, organistion: [content_id]) }

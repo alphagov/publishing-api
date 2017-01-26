@@ -3,17 +3,19 @@ module Commands
     class Unpublish < BaseCommand
       def call
         validate
-        previous_item.supersede if previous_item_should_be_superseded?
+
+        previous.supersede if previous_edition_should_be_superseded?
         transition_state
-        AccessLimit.find_by(content_item: content_item).try(:destroy)
+        AccessLimit.find_by(edition: edition).try(:destroy)
 
         after_transaction_commit do
           send_downstream
         end
 
-        Action.create_unpublish_action(content_item, unpublishing_type, locale, event)
+        Action.create_unpublish_action(edition, unpublishing_type,
+                                       document.locale, event)
 
-        Success.new(content_id: content_id)
+        Success.new(content_id: document.content_id)
       end
 
     private
@@ -36,12 +38,8 @@ module Commands
         raise_command_error(422, message, fields: {})
       end
 
-      def content_item
-        @content_item ||= find_unpublishable_content_item
-      end
-
-      def content_id
-        @content_id ||= payload.fetch(:content_id)
+      def edition
+        @edition ||= find_unpublishable_edition
       end
 
       def validate_allow_discard_draft
@@ -51,20 +49,20 @@ module Commands
         end
       end
 
-      def validate_content_item_presence
-        unless content_item.present?
-          message = "Could not find a content item to unpublish"
+      def validate_edition_presence
+        unless edition.present?
+          message = "Could not find an edition to unpublish"
           raise_command_error(404, message, fields: {})
         end
       end
 
       def validate_draft_presence
-        if draft_exists? && !payload[:allow_draft]
+        if document.draft.present? && !payload[:allow_draft]
           if payload[:discard_drafts] == true
             DiscardDraft.call(
               {
-                content_id: content_id,
-                locale: locale,
+                content_id: document.content_id,
+                locale: document.locale,
               },
               downstream: downstream,
               callbacks: callbacks,
@@ -79,13 +77,13 @@ module Commands
 
       def validate
         validate_allow_discard_draft
-        validate_content_item_presence
-        check_version_and_raise_if_conflicting(content_item, previous_version_number)
+        validate_edition_presence
+        check_version_and_raise_if_conflicting(document, previous_version_number)
         validate_draft_presence
       end
 
       def unpublish
-        content_item.unpublish(payload.slice(:type, :explanation, :alternative_path, :unpublished_at))
+        edition.unpublish(payload.slice(:type, :explanation, :alternative_path, :unpublished_at))
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, fields: {})
       end
@@ -95,68 +93,46 @@ module Commands
 
         DownstreamDraftWorker.perform_async_in_queue(
           DownstreamDraftWorker::HIGH_QUEUE,
-          content_id: content_item.content_id,
-          locale: locale,
+          content_id: document.content_id,
+          locale: document.locale,
           payload_version: event.id,
           update_dependencies: true,
         )
 
         DownstreamLiveWorker.perform_async_in_queue(
           DownstreamLiveWorker::HIGH_QUEUE,
-          content_id: content_item.content_id,
-          locale: locale,
+          content_id: document.content_id,
+          locale: document.locale,
           payload_version: event.id,
           update_dependencies: true,
         )
-      end
-
-      def locale
-        payload.fetch(:locale, ContentItem::DEFAULT_LOCALE)
       end
 
       def previous_version_number
         payload[:previous_version].to_i if payload[:previous_version]
       end
 
-      def find_unpublishable_content_item
-        allowed_states = %w(published unpublished)
-
+      def find_unpublishable_edition
         if payload[:allow_draft]
-          allowed_states = %w(draft)
+          document.draft
+        elsif previous && !Unpublishing.is_substitute?(previous)
+          previous
         end
-
-        content_item = ContentItem.where(
-          content_id: content_id,
-          locale: locale,
-          state: allowed_states
-        ).order(nil).lock.first
-
-        content_item if content_item && (payload[:allow_draft] || !Unpublishing.is_substitute?(content_item))
       end
 
-      def previous_item_should_be_superseded?
-        previous_item && find_unpublishable_content_item != previous_item
+      def previous
+        document.published_or_unpublished
       end
 
-      def previous_item
-        raise "There should only be one previous published or unpublished item" if previous_items.size > 1
-        previous_items.first
+      def previous_edition_should_be_superseded?
+        previous && (find_unpublishable_edition != previous)
       end
 
-      def previous_items
-        @previous_items ||= ContentItem.where(
-          content_id: content_id,
-          locale: locale,
-          state: %w(published unpublished),
-        ).order(nil)
-      end
-
-      def draft_exists?
-        ContentItem.where(
-          content_id: content_id,
-          locale: locale,
-          state: "draft",
-        ).exists?
+      def document
+        @document ||= Document.find_or_create_locked(
+          content_id: payload.fetch(:content_id),
+          locale: payload.fetch(:locale, Edition::DEFAULT_LOCALE),
+        )
       end
     end
   end

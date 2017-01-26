@@ -2,28 +2,26 @@ require "rails_helper"
 
 RSpec.describe V2::ActionsController do
   describe ".create" do
-    let(:content_id) { SecureRandom.uuid }
-    let(:locale) { "en" }
+    let(:document) do
+      FactoryGirl.create(:document,
+        content_id: SecureRandom.uuid,
+        locale: "en",
+        stale_lock_version: 5,
+      )
+    end
     let(:action) { "FactCheck" }
 
-    let(:params) { { content_id: content_id, format: :json } }
+    let(:params) { { content_id: document.content_id, format: :json } }
     let(:payload) do
       {
-        locale: locale,
+        locale: document.locale,
         action: action,
       }
     end
     let(:json_payload) { payload.to_json }
 
-    context "when a content item exists" do
-      before do
-        FactoryGirl.create(
-          :draft_content_item,
-          content_id: content_id,
-          locale: locale,
-          lock_version: 5
-        )
-      end
+    context "when an edition exists" do
+      before { FactoryGirl.create(:draft_edition, document: document) }
 
       context "and the request is valid" do
         it "returns 201" do
@@ -51,7 +49,7 @@ RSpec.describe V2::ActionsController do
       end
     end
 
-    context "when the content item does not exist" do
+    context "when the edition does not exist" do
       it "returns 404" do
         post(:create, params: params, body: json_payload)
         expect(response).to have_http_status(404)

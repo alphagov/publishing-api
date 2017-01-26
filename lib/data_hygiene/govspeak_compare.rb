@@ -2,10 +2,10 @@ require "diffy"
 
 module DataHygiene
   class GovspeakCompare
-    attr_reader :content_item
+    attr_reader :edition
 
-    def initialize(content_item)
-      @content_item = content_item
+    def initialize(edition)
+      @edition = edition
     end
 
     def published_html
@@ -15,8 +15,8 @@ module DataHygiene
     def generated_html
       @generated_html ||= html_from_details(
         Presenters::DetailsPresenter.new(
-          content_item.details_for_govspeak_conversion,
-          Presenters::ChangeHistoryPresenter.new(content_item)
+          edition.details_for_govspeak_conversion,
+          Presenters::ChangeHistoryPresenter.new(web_content_item)
         ).details
       )
     end
@@ -35,6 +35,10 @@ module DataHygiene
     end
 
   private
+
+    def web_content_item
+      @web_content_item ||= Queries::GetWebContentItems.find(edition.id)
+    end
 
     def calculate_diffs
       keys = (published_html.keys + generated_html.keys).uniq.sort
@@ -66,7 +70,7 @@ module DataHygiene
     # This method strips out a lot of the common differences that are the result
     # of different versions of govspeak rendering.
     # It was wrote when testing Specialist Publisher documents and may need
-    # additional items when comparing content items published from different apps
+    # additional items when comparing editions published from different apps
     def basically_match(s)
       s = s.dup
       # strip span surrounding an inline-attachment as this element
@@ -79,7 +83,7 @@ module DataHygiene
     end
 
     def format_published_html
-      html_details = html_from_details(content_item.details)
+      html_details = html_from_details(edition.details)
       html_details.each_with_object({}) do |(key, value), memo|
         # pushed through nokogiri to catch minor html differences (<br /> -> <br>, unicode characters)
         memo[key] = Nokogiri::HTML.fragment(value).to_html

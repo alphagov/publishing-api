@@ -36,28 +36,28 @@ module V2
     end
 
     def put_content
-      response = Commands::V2::PutContent.call(content_item)
+      response = Commands::V2::PutContent.call(edition)
       render status: response.code, json: response
     end
 
     def publish
-      response = Commands::V2::Publish.call(content_item)
+      response = Commands::V2::Publish.call(edition)
       render status: response.code, json: response
     end
 
     def unpublish
-      response = Commands::V2::Unpublish.call(content_item)
+      response = Commands::V2::Unpublish.call(edition)
       render status: response.code, json: response
     end
 
     def discard_draft
-      response = Commands::V2::DiscardDraft.call(content_item)
+      response = Commands::V2::DiscardDraft.call(edition)
       render status: response.code, json: response
     end
 
   private
 
-    def content_item
+    def edition
       payload.merge(content_id: path_params[:content_id])
     end
 

@@ -20,7 +20,7 @@ redraft = (ARGV.first == '--redraft')
 content_id = SecureRandom.uuid
 title = Faker::Company.catch_phrase
 
-content_items = 100.times.map do
+editions = 100.times.map do
   title = Faker::Company.catch_phrase if new_item
   content_id = SecureRandom.uuid if new_item
   {
@@ -38,9 +38,7 @@ content_items = 100.times.map do
     redirects: [],
     publishing_app: "performance-testing",
     rendering_app: "performance-testing",
-    details: {
-      body: "<p>#{Faker::Lorem.paragraphs(10)}</p>"
-    },
+    details: {},
     phase: 'live',
     need_ids: []
   }
@@ -49,7 +47,7 @@ end
 begin
   if redraft
     puts "Creating published items..."
-    content_items.each do |item|
+    editions.each do |item|
       Commands::V2::PutContent.call(item)
       Commands::V2::Publish.call(content_id: item[:content_id], update_type: 'major')
     end
@@ -58,7 +56,7 @@ begin
     puts "Publishing..."
     StackProf.run(mode: :wall, out: "tmp/put_content_wall.dump") do
       puts Benchmark.measure {
-        content_items.each do |item|
+        editions.each do |item|
           Commands::V2::PutContent.call(item.merge(title: Faker::Company.catch_phrase))
           print "."
         end
@@ -68,7 +66,7 @@ begin
   else
     StackProf.run(mode: :wall, out: "tmp/put_content_wall.dump") do
       puts Benchmark.measure {
-        content_items.each do |item|
+        editions.each do |item|
           Commands::V2::PutContent.call(item)
           print "."
         end
@@ -80,12 +78,12 @@ begin
   puts "#{$queries} SQL queries"
 
 ensure
-  scope = ContentItem.where(publishing_app: 'performance-testing')
+  scope = Edition.where(publishing_app: 'performance-testing')
   LinkSet.includes(:links).where(content_id: scope.pluck(:content_id)).destroy_all
-  Location.where(content_item: scope).delete_all
-  State.where(content_item: scope).delete_all
-  Translation.where(content_item: scope).delete_all
-  UserFacingVersion.where(content_item: scope).delete_all
+  Location.where(edition: scope).delete_all
+  State.where(edition: scope).delete_all
+  Translation.where(edition: scope).delete_all
+  UserFacingVersion.where(edition: scope).delete_all
   LockVersion.where(target: scope).delete_all
   scope.delete_all
 end

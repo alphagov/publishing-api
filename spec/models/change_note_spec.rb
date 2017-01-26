@@ -5,17 +5,16 @@ RSpec.describe ChangeNote do
   let(:details) { {} }
   let(:payload_change_note) { nil }
   let(:update_type) { "major" }
-  let(:content_item) do
-    FactoryGirl.create(
-      :content_item,
+  let(:edition) do
+    FactoryGirl.create(:edition,
       update_type: update_type,
       details: details,
       change_note: nil,
     )
   end
 
-  describe ".create_from_content_item" do
-    subject { described_class.create_from_content_item(payload, content_item) }
+  describe ".create_from_edition" do
+    subject { described_class.create_from_edition(payload, edition) }
 
     context "update_type is not major" do
       let(:update_type) { "minor" }
@@ -35,17 +34,17 @@ RSpec.describe ChangeNote do
         end
       end
 
-      context "change note is entered for an existing content item" do
+      context "change note is entered for an existing edition" do
         it "updates the change note rather than creating a new one" do
           subject
           expect {
-            described_class.create_from_content_item(payload, content_item)
+            described_class.create_from_edition(payload, edition)
           }.to_not change { ChangeNote.count }
         end
       end
     end
 
-    context "content item has change_note entry in details hash" do
+    context "edition has change_note entry in details hash" do
       let(:details) { { change_note: "Marvellous" }.stringify_keys }
       it "populates change note from details hash" do
         expect { subject }.to change { ChangeNote.count }.by(1)
@@ -53,21 +52,21 @@ RSpec.describe ChangeNote do
       end
     end
 
-    context "content item has change_note entry in details hash" do
+    context "edition has change_note entry in details hash" do
       let(:details) { { change_history: [] } }
       it "populates change note from details hash" do
         expect { subject }.to_not change { ChangeNote.count }
       end
     end
 
-    context "content item has change_note entry in details hash" do
+    context "edition has change_note entry in details hash" do
       let(:details) { { change_history: nil } }
       it "populates change note from details hash" do
         expect { subject }.to_not change { ChangeNote.count }
       end
     end
 
-    context "content item has change_history entry in details hash" do
+    context "edition has change_history entry in details hash" do
       let(:details) do
         { change_history: [
           { public_timestamp: 3.day.ago.to_s, note: "note 3" },

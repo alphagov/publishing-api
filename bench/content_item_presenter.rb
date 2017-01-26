@@ -10,7 +10,7 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |name, started, fi
 end
 
 def present(number_of_items)
-  scope = ContentItem.limit(number_of_items).order("id DESC")
+  scope = Edition.limit(number_of_items).order(id: :desc)
   $queries = 0
 
   puts "Presenting #{number_of_items} content items"

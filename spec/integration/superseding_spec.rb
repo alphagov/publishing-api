@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Superseding Content Items" do
+RSpec.describe "Superseding editions" do
   let(:put_content_command) { Commands::V2::PutContent }
   let(:publish_command) { Commands::V2::Publish }
 
@@ -37,47 +37,47 @@ RSpec.describe "Superseding Content Items" do
   describe "after the first pair is called" do
     before { call_commands }
 
-    it "creates and publishes a content item" do
-      expect(ContentItem.count).to eq(1)
-      content_item = ContentItem.first
+    it "creates and publishes an edition" do
+      expect(Edition.count).to eq(1)
+      edition = Edition.first
 
-      expect(content_item.state).to eq("published")
-      expect(content_item.user_facing_version).to eq(1)
+      expect(edition.state).to eq("published")
+      expect(edition.user_facing_version).to eq(1)
     end
 
     describe "after the second pair is called" do
       before { call_commands }
 
-      it "supersedes the previously published content item" do
-        expect(ContentItem.count).to eq(2)
+      it "supersedes the previously published edition" do
+        expect(Edition.count).to eq(2)
 
-        superseded_content_item = ContentItem.first
-        published_content_item = ContentItem.second
+        superseded_edition = Edition.first
+        published_edition = Edition.second
 
-        expect(superseded_content_item.state).to eq("superseded")
-        expect(published_content_item.state).to eq("published")
+        expect(superseded_edition.state).to eq("superseded")
+        expect(published_edition.state).to eq("published")
 
-        expect(superseded_content_item.user_facing_version).to eq(1)
-        expect(published_content_item.user_facing_version).to eq(2)
+        expect(superseded_edition.user_facing_version).to eq(1)
+        expect(published_edition.user_facing_version).to eq(2)
       end
 
       describe "after the third pair is called" do
         before { call_commands }
 
-        it "supersedes the previously published content item (again)" do
-          expect(ContentItem.count).to eq(3)
+        it "supersedes the previously published edition (again)" do
+          expect(Edition.count).to eq(3)
 
-          superseded1_content_item = ContentItem.first
-          superseded2_content_item = ContentItem.second
-          published_content_item = ContentItem.third
+          superseded1_edition = Edition.first
+          superseded2_edition = Edition.second
+          published_edition = Edition.third
 
-          expect(superseded1_content_item.state).to eq("superseded")
-          expect(superseded2_content_item.state).to eq("superseded")
-          expect(published_content_item.state).to eq("published")
+          expect(superseded1_edition.state).to eq("superseded")
+          expect(superseded2_edition.state).to eq("superseded")
+          expect(published_edition.state).to eq("published")
 
-          expect(superseded1_content_item.user_facing_version).to eq(1)
-          expect(superseded2_content_item.user_facing_version).to eq(2)
-          expect(published_content_item.user_facing_version).to eq(3)
+          expect(superseded1_edition.user_facing_version).to eq(1)
+          expect(superseded2_edition.user_facing_version).to eq(2)
+          expect(published_edition.user_facing_version).to eq(3)
         end
       end
     end

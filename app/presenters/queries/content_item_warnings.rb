@@ -4,7 +4,7 @@ module Presenters
       def self.call(content_id, state, base_path, document_type)
         return unless state == "draft"
 
-        blocking_content_item_id = ::Queries::CheckForContentItemPreventingDraftFromBeingPublished.call(
+        blocking_content_item_id = ::Queries::LiveEditionBlockingDraftEdition.call(
           content_id,
           base_path,
           document_type,

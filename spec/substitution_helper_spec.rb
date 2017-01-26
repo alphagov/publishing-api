@@ -6,7 +6,7 @@ RSpec.describe SubstitutionHelper do
   let(:existing_base_path) { "/vat-rates" }
 
   let!(:existing_item) {
-    FactoryGirl.create(:draft_content_item,
+    FactoryGirl.create(:draft_edition,
       document_type: existing_document_type,
       base_path: existing_base_path,
     )
@@ -31,15 +31,15 @@ RSpec.describe SubstitutionHelper do
     end
 
     context "when the content_id is the same as the existing item" do
-      let(:new_content_id) { existing_item.content_id }
+      let(:new_content_id) { existing_item.document.content_id }
 
       it "does not discard the existing draft" do
-        expect(ContentItem.exists?(id: existing_item.id)).to eq(true)
+        expect(Edition.exists?(id: existing_item.id)).to eq(true)
       end
 
       context "when the existing item is published" do
         let!(:existing_item) {
-          FactoryGirl.create(:live_content_item,
+          FactoryGirl.create(:live_edition,
             document_type: existing_document_type,
             base_path: existing_base_path,
           )
@@ -58,22 +58,22 @@ RSpec.describe SubstitutionHelper do
         let(:existing_document_type) { "gone" }
 
         it "discards the existing draft" do
-          expect(ContentItem.exists?(id: existing_item.id)).to eq(false)
+          expect(Edition.exists?(id: existing_item.id)).to eq(false)
         end
 
         it "doesn't unpublish any other items" do
-          live_item = FactoryGirl.create(:live_content_item,
+          live_item = FactoryGirl.create(:live_edition,
             document_type: existing_document_type,
             base_path: existing_base_path,
           )
 
-          french_item = FactoryGirl.create(:draft_content_item,
+          french_item = FactoryGirl.create(:draft_edition,
+            document: FactoryGirl.create(:document, locale: "fr"),
             document_type: existing_document_type,
             base_path: existing_base_path,
-            locale: "fr",
           )
 
-          item_elsewhere = FactoryGirl.create(:draft_content_item,
+          item_elsewhere = FactoryGirl.create(:draft_edition,
             document_type: existing_document_type,
             base_path: "/somewhere-else",
           )
@@ -85,7 +85,7 @@ RSpec.describe SubstitutionHelper do
 
         context "when the existing item is published" do
           let!(:existing_item) {
-            FactoryGirl.create(:live_content_item,
+            FactoryGirl.create(:live_edition,
               document_type: existing_document_type,
               base_path: existing_base_path,
             )
@@ -101,22 +101,22 @@ RSpec.describe SubstitutionHelper do
         let(:new_document_type) { "gone" }
 
         it "discards the existing draft" do
-          expect(ContentItem.exists?(id: existing_item.id)).to eq(false)
+          expect(Edition.exists?(id: existing_item.id)).to eq(false)
         end
 
         it "doesn't unpublish any other items" do
-          live_item = FactoryGirl.create(:live_content_item,
+          live_item = FactoryGirl.create(:live_edition,
             document_type: existing_document_type,
             base_path: existing_base_path,
           )
 
-          french_item = FactoryGirl.create(:draft_content_item,
+          french_item = FactoryGirl.create(:draft_edition,
+            document: FactoryGirl.create(:document, locale: "fr"),
             document_type: existing_document_type,
             base_path: existing_base_path,
-            locale: "fr",
           )
 
-          item_elsewhere = FactoryGirl.create(:draft_content_item,
+          item_elsewhere = FactoryGirl.create(:draft_edition,
             document_type: existing_document_type,
             base_path: "/somewhere-else",
           )
@@ -128,7 +128,7 @@ RSpec.describe SubstitutionHelper do
 
         context "when the existing item is published" do
           let!(:existing_item) {
-            FactoryGirl.create(:live_content_item,
+            FactoryGirl.create(:live_edition,
               document_type: existing_document_type,
               base_path: existing_base_path,
             )
@@ -142,12 +142,12 @@ RSpec.describe SubstitutionHelper do
 
       context "when neither item has a document_type that is substitutable" do
         it "does not discard the existing draft" do
-          expect(ContentItem.exists?(id: existing_item.id)).to eq(true)
+          expect(Edition.exists?(id: existing_item.id)).to eq(true)
         end
 
         context "when the existing item is published" do
           let!(:existing_item) {
-            FactoryGirl.create(:live_content_item,
+            FactoryGirl.create(:live_edition,
               document_type: existing_document_type,
               base_path: existing_base_path,
             )

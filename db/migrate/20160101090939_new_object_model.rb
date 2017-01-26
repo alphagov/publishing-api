@@ -1,6 +1,7 @@
 class NewObjectModel < ActiveRecord::Migration
   class DraftContentItem < ActiveRecord::Base; end
   class LiveContentItem < ActiveRecord::Base; end
+  class ContentItem < ActiveRecord::Base; end
 
   def up
     create_table :locations do |t|

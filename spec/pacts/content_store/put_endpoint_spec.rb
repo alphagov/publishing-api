@@ -4,10 +4,9 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   include Pact::Consumer::RSpec
   include RequestHelpers::Mocks
 
-  let!(:content_item) do
-    FactoryGirl.create(
-      :live_content_item,
-      content_id: content_id,
+  let!(:edition) do
+    FactoryGirl.create(:live_edition,
+      document: FactoryGirl.create(:document, content_id: content_id),
       base_path: "/vat-rates"
     )
   end
@@ -19,7 +18,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   let(:body) {
     Presenters::ContentStorePresenter.present(
       Presenters::DownstreamPresenter.new(
-        Queries::GetWebContentItems.find(content_item.id),
+        Queries::GetWebContentItems.find(edition.id),
         state_fallback_order: [:published]
       ),
       event.id

@@ -3,10 +3,9 @@ require "rails_helper"
 RSpec.describe DownstreamDiscardDraftWorker do
   let(:base_path) { "/foo" }
 
-  let(:content_item) do
-    FactoryGirl.create(:draft_content_item,
+  let(:edition) do
+    FactoryGirl.create(:draft_edition,
       base_path: base_path,
-      locale: "en",
       title: "Draft",
     )
   end
@@ -14,7 +13,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
   let(:arguments) do
     {
       "base_path" => base_path,
-      "content_id" => content_item.content_id,
+      "content_id" => edition.document.content_id,
       "locale" => "en",
       "payload_version" => 1,
       "update_dependencies" => true,
@@ -23,7 +22,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
   end
 
   before do
-    content_item.destroy
+    edition.destroy
     stub_request(:put, %r{.*content-store.*/content/.*})
     stub_request(:delete, %r{.*content-store.*/content/.*})
   end
@@ -72,21 +71,21 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
   end
 
-  context "has a live content item with same base_path" do
-    let!(:live_content_item) do
-      FactoryGirl.create(:live_content_item,
+  context "has a live edition with same base_path" do
+    let!(:live_edition) do
+      FactoryGirl.create(:live_edition,
         base_path: base_path,
-        content_id: content_item.content_id,
+        document: edition.document,
         title: "live",
       )
     end
     let(:live_content_item_arguments) do
-      arguments.merge("live_content_item_id" => live_content_item.id)
+      arguments.merge("live_content_item_id" => live_edition.id)
     end
 
-    it "adds the live content item to the draft content store" do
+    it "adds the live edition to the draft content store" do
       expect(Adapters::DraftContentStore).to receive(:put_content_item)
-        .with(base_path, a_hash_including(title: live_content_item.title))
+        .with(base_path, a_hash_including(title: live_edition.title))
       subject.perform(live_content_item_arguments)
     end
 
@@ -96,21 +95,21 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
   end
 
-  context "has a live content item with a different base_path" do
-    let(:live_content_item) do
-      FactoryGirl.create(:live_content_item,
+  context "has a live edition with a different base_path" do
+    let(:live_edition) do
+      FactoryGirl.create(:live_edition,
         base_path: "/bar",
-        content_id: content_item.content_id,
+        document: edition.document,
         title: "Live",
       )
     end
     let(:live_content_item_arguments) do
-      arguments.merge("live_content_item_id" => live_content_item.id)
+      arguments.merge("live_content_item_id" => live_edition.id)
     end
 
-    it "adds the live content item to the draft content store" do
+    it "adds the live edition to the draft content store" do
       expect(Adapters::DraftContentStore).to receive(:put_content_item)
-        .with("/bar", a_hash_including(title: live_content_item.title))
+        .with("/bar", a_hash_including(title: live_edition.title))
       subject.perform(live_content_item_arguments)
     end
 
@@ -121,7 +120,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
   end
 
-  context "doesn't have a live content item" do
+  context "doesn't have a live edition" do
     it "doesn't add to live draft content store" do
       expect(Adapters::DraftContentStore).to_not receive(:put_content_item)
       subject.perform(arguments)
@@ -149,15 +148,14 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
 
     it "wont send to content store without a base_path" do
-      pathless = FactoryGirl.create(
-        :draft_content_item,
+      pathless = FactoryGirl.create(:draft_edition,
         base_path: nil,
         document_type: "contact",
         schema_name: "contact"
       )
       expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
       subject.perform(
-        arguments.merge("content_id" => pathless.content_id, "base_path" => nil)
+        arguments.merge("content_id" => pathless.document.content_id, "base_path" => nil)
       )
     end
   end
@@ -179,14 +177,14 @@ RSpec.describe DownstreamDiscardDraftWorker do
   end
 
   describe "conflict protection" do
-    let(:content_id) { content_item.content_id }
+    let(:content_id) { edition.content_id }
     let(:logger) { Sidekiq::Logging.logger }
 
     before do
-      FactoryGirl.create(:live_content_item, base_path: "/foo")
+      FactoryGirl.create(:live_edition, base_path: "/foo")
     end
 
-    it "doesn't delete content item from content store" do
+    it "doesn't delete edition from content store" do
       expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
       subject.perform(arguments)
     end

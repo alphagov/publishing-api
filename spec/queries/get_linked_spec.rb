@@ -32,16 +32,16 @@ RSpec.describe Queries::GetLinked do
       end
     end
 
-    context "when a content item with no draft exists" do
+    context "when a edition with no draft exists" do
       before do
-        FactoryGirl.create(:live_content_item,
-          content_id: content_id,
+        FactoryGirl.create(:live_edition,
+          document: FactoryGirl.create(:document, content_id: content_id),
           base_path: "/vat-rules-2020",
           title: "VAT rules 2020",
         )
 
-        FactoryGirl.create(:live_content_item,
-          content_id: target_content_id,
+        FactoryGirl.create(:live_edition,
+          document: FactoryGirl.create(:document, content_id: target_content_id),
           base_path: "/vat-org",
         )
       end
@@ -56,7 +56,7 @@ RSpec.describe Queries::GetLinked do
         ).to eq([])
       end
 
-      context "where another content item is linked to it" do
+      context "where another edition is linked to it" do
         before do
           link_set = FactoryGirl.create(:link_set, content_id: content_id)
           FactoryGirl.create(:link, link_set: link_set, target_content_id: target_content_id)
@@ -72,16 +72,16 @@ RSpec.describe Queries::GetLinked do
       end
     end
 
-    context "when a content item with draft exists "do
+    context "when a document with draft exists "do
       before do
-        FactoryGirl.create(:live_content_item,
+        FactoryGirl.create(:live_edition,
           :with_draft,
-          content_id: target_content_id,
+          document: FactoryGirl.create(:document, content_id: target_content_id),
           base_path: "/pay-now"
         )
       end
 
-      context "but no content item links to it" do
+      context "but no edition links to it" do
         it "returns an empty array" do
           expect(
             Queries::GetLinked.new(
@@ -105,31 +105,29 @@ RSpec.describe Queries::GetLinked do
         end
       end
 
-      context "content items link to the wanted content item" do
+      context "editions link to the wanted edition" do
         before do
-          FactoryGirl.create(:live_content_item,
-            content_id: content_id,
+          FactoryGirl.create(:live_edition,
+            document: FactoryGirl.create(:document, content_id: content_id),
             title: "VAT and VATy things",
             base_path: "/vat-rates",
           )
           FactoryGirl.create(:link_set,
             content_id: content_id,
             links: [
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "organisations",
                 target_content_id: target_content_id
               )
             ]
           )
 
-          content_item = FactoryGirl.create(:live_content_item,
+          edition = FactoryGirl.create(:live_edition,
             base_path: '/vatty',
-            content_id: SecureRandom.uuid,
             title: "Another VATTY thing"
           )
           FactoryGirl.create(:link_set,
-            content_id: content_item.content_id,
+            content_id: edition.document.content_id,
             links: [
               FactoryGirl.create(:link,
                 link_type: "organisations",
@@ -185,55 +183,47 @@ RSpec.describe Queries::GetLinked do
 
       context "draft items linking to the wanted draft item" do
         before do
-          FactoryGirl.create(
-            :live_content_item,
+          FactoryGirl.create(:live_edition,
             :with_draft,
-            content_id: another_target_content_id,
+            document: FactoryGirl.create(:document, content_id: another_target_content_id),
             base_path: "/send-now"
           )
 
-          FactoryGirl.create(
-            :draft_content_item,
-            content_id: content_id,
+          FactoryGirl.create(:draft_edition,
+            document: FactoryGirl.create(:document, content_id: content_id),
             title: "HMRC documents"
           )
 
-          FactoryGirl.create(
-            :link_set,
+          FactoryGirl.create(:link_set,
             content_id: content_id,
             links: [
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "organisations",
                 target_content_id: another_target_content_id
               ),
             ]
           )
 
-          content_item = FactoryGirl.create(
-            :draft_content_item,
+          edition = FactoryGirl.create(:draft_edition,
             base_path: '/other-hmrc-document',
-            content_id: SecureRandom.uuid,
             title: "Another HMRC document"
           )
 
-          FactoryGirl.create(
-            :link_set,
-            content_id: content_item.content_id,
+          FactoryGirl.create(:link_set,
+            content_id: edition.document.content_id,
             links: [
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "organisations",
                 target_content_id: another_target_content_id
               ),
-              FactoryGirl.create(
-                :link,
+              FactoryGirl.create(:link,
                 link_type: "related_links",
                 target_content_id: SecureRandom.uuid
               )
             ]
           )
         end
+
         it "returns array of hashes, with requested fields" do
           expect(
             Queries::GetLinked.new(

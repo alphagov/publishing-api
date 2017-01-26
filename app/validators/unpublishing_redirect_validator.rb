@@ -1,8 +1,8 @@
 class UnpublishingRedirectValidator < ActiveModel::Validator
   def validate(unpublishing)
-    return unless unpublishing.content_item
+    return unless unpublishing.edition
 
-    base_path = unpublishing.content_item.base_path
+    base_path = unpublishing.edition.base_path
 
     if base_path == unpublishing.alternative_path
       unpublishing.errors.add(

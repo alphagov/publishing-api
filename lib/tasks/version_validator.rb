@@ -46,18 +46,19 @@ module Tasks
 
       def query
         <<-SQL
-          select
-            content_id,
-            locale,
+          SELECT
+            documents.content_id,
+            documents.locale,
 
             -- select arrays of supporting attributes
             array_agg(state) as states,
             array_agg(user_facing_version) as versions,
             array_agg(base_path) as base_paths,
-            array_agg(id) as content_item_ids
+            array_agg(content_items.id) as content_item_ids
 
-          from content_items
-          group by content_id, locale
+          FROM content_items
+          JOIN documents ON documents.id = content_items.document_id
+          GROUP BY documents.content_id, documents.locale
         SQL
       end
 

@@ -8,35 +8,39 @@ RSpec.describe Commands::V2::DiscardDraft do
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
-    let(:content_id) { SecureRandom.uuid }
-    let(:locale) { "en" }
+    let(:document) do
+      FactoryGirl.create(:document,
+        content_id: SecureRandom.uuid,
+        locale: "en",
+        stale_lock_version: stale_lock_version,
+      )
+    end
+    let(:stale_lock_version) { 1 }
     let(:base_path) { "/vat-rates" }
-    let(:payload) { { content_id: content_id } }
+    let(:payload) { { content_id: document.content_id } }
 
     before do
       allow(Presenters::ContentStorePresenter).to receive(:present)
         .and_return(expected_content_store_payload)
     end
 
-    context "when a draft content item exists for the given content_id" do
+    context "when a draft edition exists for the given content_id" do
       let(:user_facing_version) { 2 }
       let!(:existing_draft_item) do
-        FactoryGirl.create(:access_limited_draft_content_item,
-          content_id: content_id,
+        FactoryGirl.create(:access_limited_draft_edition,
+          document: document,
           base_path: base_path,
-          locale: locale,
-          lock_version: 5,
           user_facing_version: user_facing_version,
         )
       end
-      let!(:change_note) { ChangeNote.create(content_item: existing_draft_item) }
+      let!(:change_note) { ChangeNote.create(edition: existing_draft_item) }
 
       it "deletes the draft item" do
         expect {
           described_class.call(payload)
-        }.to change(ContentItem, :count).by(-1)
+        }.to change(Edition, :count).by(-1)
 
-        expect(ContentItem.exists?(id: existing_draft_item.id)).to eq(false)
+        expect(Edition.exists?(id: existing_draft_item.id)).to eq(false)
       end
 
       it "creates an action" do
@@ -44,8 +48,8 @@ RSpec.describe Commands::V2::DiscardDraft do
         described_class.call(payload)
         expect(Action.count).to be 1
         expect(Action.first.attributes).to match a_hash_including(
-          "content_id" => content_id,
-          "locale" => locale,
+          "content_id" => document.content_id,
+          "locale" => document.locale,
           "action" => "DiscardDraft",
           "content_item_id" => existing_draft_item.id,
         )
@@ -54,13 +58,13 @@ RSpec.describe Commands::V2::DiscardDraft do
       it "deletes the supporting objects for the draft item" do
         described_class.call(payload)
 
-        state = State.find_by(content_item: existing_draft_item)
-        translation = Translation.find_by(content_item: existing_draft_item)
-        location = Location.find_by(content_item: existing_draft_item)
-        access_limit = AccessLimit.find_by(content_item: existing_draft_item)
-        user_facing_version = UserFacingVersion.find_by(content_item: existing_draft_item)
+        state = State.find_by(edition: existing_draft_item)
+        translation = Translation.find_by(edition: existing_draft_item)
+        location = Location.find_by(edition: existing_draft_item)
+        access_limit = AccessLimit.find_by(edition: existing_draft_item)
+        user_facing_version = UserFacingVersion.find_by(edition: existing_draft_item)
         lock_version = LockVersion.find_by(target: existing_draft_item)
-        change_notes = ChangeNote.where(content_item: existing_draft_item)
+        change_notes = ChangeNote.where(edition: existing_draft_item)
 
         expect(state).to be_nil
         expect(translation).to be_nil
@@ -75,7 +79,11 @@ RSpec.describe Commands::V2::DiscardDraft do
         expect(DownstreamDiscardDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(base_path: base_path, content_id: content_id, locale: locale),
+            a_hash_including(
+              base_path: base_path,
+              content_id: document.content_id,
+              locale: document.locale,
+            ),
           )
 
         described_class.call(payload)
@@ -94,8 +102,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "when the draft's lock version differs from the given lock version" do
         before do
-          lock_version = LockVersion.find_by!(target: existing_draft_item)
-          payload[:previous_version] = lock_version.number - 1
+          payload[:previous_version] = document.stale_lock_version - 1
         end
 
         it "raises an error" do
@@ -105,23 +112,20 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
       end
 
-      context "a published content item exists with the same base_path" do
+      context "a published edition exists with the same base_path" do
+        let(:stale_lock_version) { 3 }
         let!(:published_item) do
-          FactoryGirl.create(:live_content_item,
-            content_id: content_id,
-            lock_version: 3,
+          FactoryGirl.create(:live_edition,
+            document: document,
             base_path: base_path,
-            locale: locale,
             user_facing_version: user_facing_version - 1,
           )
         end
 
         it "increments the lock version of the published item" do
-          published_lock_version = LockVersion.find_by!(target: published_item)
-
           expect {
             described_class.call(payload)
-          }.to change { published_lock_version.reload.number }.to(4)
+          }.to change { document.reload.stale_lock_version }.to(4)
         end
 
         it "it uses the downstream discard draft worker" do
@@ -130,8 +134,8 @@ RSpec.describe Commands::V2::DiscardDraft do
               DownstreamDiscardDraftWorker::HIGH_QUEUE,
               a_hash_including(
                 base_path: base_path,
-                content_id: content_id,
-                locale: locale,
+                content_id: document.content_id,
+                locale: document.locale,
               ),
             )
           described_class.call(payload)
@@ -140,11 +144,11 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the supporting objects for the draft item" do
           described_class.call(payload)
 
-          state = State.find_by(content_item: existing_draft_item)
-          translation = Translation.find_by(content_item: existing_draft_item)
-          location = Location.find_by(content_item: existing_draft_item)
-          access_limit = AccessLimit.find_by(content_item: existing_draft_item)
-          user_facing_version = UserFacingVersion.find_by(content_item: existing_draft_item)
+          state = State.find_by(edition: existing_draft_item)
+          translation = Translation.find_by(edition: existing_draft_item)
+          location = Location.find_by(edition: existing_draft_item)
+          access_limit = AccessLimit.find_by(edition: existing_draft_item)
+          user_facing_version = UserFacingVersion.find_by(edition: existing_draft_item)
           lock_version = LockVersion.find_by(target: existing_draft_item)
 
           expect(state).to be_nil
@@ -158,17 +162,15 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the draft" do
           expect {
             described_class.call(payload)
-          }.to change(ContentItem, :count).by(-1)
+          }.to change(Edition, :count).by(-1)
         end
       end
 
-      context "a published content item exists with a different base_path" do
+      context "a published edition exists with a different base_path" do
         let!(:published_item) do
-          FactoryGirl.create(:live_content_item,
-            content_id: content_id,
-            lock_version: 3,
+          FactoryGirl.create(:live_edition,
+            document: document,
             base_path: "/hat-rates",
-            locale: locale,
             user_facing_version: user_facing_version - 1,
           )
         end
@@ -179,20 +181,19 @@ RSpec.describe Commands::V2::DiscardDraft do
               DownstreamDiscardDraftWorker::HIGH_QUEUE,
               a_hash_including(
                 base_path: base_path,
-                content_id: content_id,
-                locale: locale,
+                content_id: document.content_id,
+                locale: document.locale,
               ),
             )
           described_class.call(payload)
         end
       end
 
-      context "an unpublished content item exits" do
+      context "an unpublished edition exits" do
         let(:unpublished_item) do
-          FactoryGirl.create(:unpublished_content_item,
+          FactoryGirl.create(:unpublished_edition,
+            document: document,
             base_path: base_path,
-            content_id: content_id,
-            locale: locale,
             user_facing_version: user_facing_version - 1,
           )
         end
@@ -203,8 +204,8 @@ RSpec.describe Commands::V2::DiscardDraft do
               DownstreamDiscardDraftWorker::HIGH_QUEUE,
               a_hash_including(
                 base_path: base_path,
-                content_id: content_id,
-                locale: locale,
+                content_id: document.content_id,
+                locale: document.locale,
               ),
             )
           described_class.call(payload)
@@ -212,11 +213,13 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       context "when a locale is provided in the payload" do
+        let(:french_document) do
+          FactoryGirl.create(:document, content_id: document.content_id, locale: "fr")
+        end
         let!(:french_draft_item) do
-          FactoryGirl.create(:draft_content_item,
-            content_id: content_id,
+          FactoryGirl.create(:draft_edition,
+            document: french_document,
             base_path: "#{base_path}.fr",
-            locale: "fr",
           )
         end
 
@@ -227,32 +230,30 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the draft for the given locale" do
           expect {
             described_class.call(payload)
-          }.to change(ContentItem, :count).by(-1)
+          }.to change(Edition, :count).by(-1)
 
-          expect(ContentItem.exists?(id: french_draft_item.id)).to eq(false),
-            "The French draft item was not removed"
+          expect(Edition.where(id: french_draft_item.id)).not_to exist
         end
 
-        it "does not delete the english content item" do
+        it "does not delete the english edition" do
           described_class.call(payload)
-          expect(ContentItem.exists?(id: existing_draft_item.id)).to eq(true),
-            "The English draft item was removed"
+          expect(Edition.where(id: existing_draft_item.id)).to exist
         end
       end
 
       it_behaves_like TransactionalCommand
     end
 
-    context "when no draft content item exists for the given content_id" do
+    context "when no draft edition exists for the given content_id" do
       it "raises a command error with code 404" do
         expect { described_class.call(payload) }.to raise_error(CommandError) do |error|
           expect(error.code).to eq(404)
         end
       end
 
-      context "and a published content item exists" do
+      context "and a published edition exists" do
         before do
-          FactoryGirl.create(:live_content_item, content_id: content_id)
+          FactoryGirl.create(:live_edition, document: document)
         end
 
         it "raises a command error with code 422" do

@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe Queries::GetContent do
   let(:content_id) { SecureRandom.uuid }
+  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let(:fr_document) { FactoryGirl.create(:document, content_id: content_id, locale: "fr") }
 
-  context "when no content item exists for the content_id" do
+  context "when no edition exists for the content_id" do
     it "raises a command error" do
       expect {
         subject.call(content_id)
@@ -11,20 +13,19 @@ RSpec.describe Queries::GetContent do
     end
   end
 
-  context "when a content item exists for the content_id" do
+  context "when a edition exists for the content_id" do
     let(:incorrect_version) { 2 }
     let(:incorrect_locale) { "fr" }
 
     before do
-      FactoryGirl.create(:content_item,
-        content_id: content_id,
+      FactoryGirl.create(:edition,
+        document: document,
         base_path: "/vat-rates",
         user_facing_version: 1,
-        locale: "en",
       )
     end
 
-    it "presents the content item" do
+    it "presents the edition" do
       result = subject.call(content_id)
 
       expect(result).to include(
@@ -41,23 +42,23 @@ RSpec.describe Queries::GetContent do
       )
     end
 
-    context "when a content item for the requested version does not exist" do
+    context "when a edition for the requested version does not exist" do
       it "raises a command error" do
         expect {
           subject.call(content_id, version: incorrect_version)
-        }.to raise_error(CommandError, /version: #{incorrect_version} for content item/)
+        }.to raise_error(CommandError, /version: #{incorrect_version} for document/)
       end
     end
 
-    context "when a content item for the requested locale does not exist" do
+    context "when a edition for the requested locale does not exist" do
       it "raises a command error" do
         expect {
           subject.call(content_id, incorrect_locale)
-        }.to raise_error(CommandError, /locale: #{incorrect_locale} for content item/)
+        }.to raise_error(CommandError, /locale: #{incorrect_locale} for document/)
       end
     end
 
-    context "when a content item for the requested version and locale does not exist" do
+    context "when a edition for the requested version and locale does not exist" do
       it "raises a command error" do
         expect {
           subject.call(content_id, incorrect_locale, version: incorrect_version)
@@ -66,72 +67,70 @@ RSpec.describe Queries::GetContent do
     end
   end
 
-  context "when a draft and a live content item exists for the content_id" do
+  context "when a draft and a live edition exists for the content_id" do
     before do
-      FactoryGirl.create(:draft_content_item,
-        content_id: content_id,
+      FactoryGirl.create(:draft_edition,
+        document: document,
         title: "Draft Title",
         user_facing_version: 2,
       )
 
-      FactoryGirl.create(:live_content_item,
-        content_id: content_id,
+      FactoryGirl.create(:live_edition,
+        document: document,
         title: "Live Title",
         user_facing_version: 1,
       )
     end
 
-    it "presents the draft content item" do
+    it "presents the draft edition" do
       result = subject.call(content_id)
       expect(result.fetch("title")).to eq("Draft Title")
     end
   end
 
-  context "when content items exist in non-draft, non-live states" do
+  context "when editions exist in non-draft, non-live states" do
     before do
-      FactoryGirl.create(:content_item,
-        content_id: content_id,
+      FactoryGirl.create(:edition,
+        document: document,
         user_facing_version: 1,
         title: "Published Title",
         state: "published",
       )
 
-      FactoryGirl.create(:superseded_content_item,
-        content_id: content_id,
+      FactoryGirl.create(:superseded_edition,
+        document: document,
         user_facing_version: 2,
         title: "Submitted Title",
       )
     end
 
-    it "includes these content items" do
+    it "includes these editions" do
       result = subject.call(content_id)
       expect(result.fetch("title")).to eq("Submitted Title")
     end
   end
 
-  context "when content items exist in multiple locales" do
+  context "when editions exist in multiple locales" do
     before do
-      FactoryGirl.create(:content_item,
-        content_id: content_id,
+      FactoryGirl.create(:edition,
+        document: fr_document,
         user_facing_version: 2,
         title: "French Title",
-        locale: "fr",
       )
 
-      FactoryGirl.create(:content_item,
-        content_id: content_id,
+      FactoryGirl.create(:edition,
+        document: document,
         user_facing_version: 1,
         title: "English Title",
-        locale: "en",
       )
     end
 
-    it "returns the english content item by default" do
+    it "returns the english edition by default" do
       result = subject.call(content_id)
       expect(result.fetch("title")).to eq("English Title")
     end
 
-    it "filters content items by the specified locale" do
+    it "filters editions by the specified locale" do
       result = subject.call(content_id, "fr")
       expect(result.fetch("title")).to eq("French Title")
     end
@@ -139,13 +138,13 @@ RSpec.describe Queries::GetContent do
 
   describe "requesting specific versions" do
     before do
-      FactoryGirl.create(:superseded_content_item,
-        content_id: content_id,
+      FactoryGirl.create(:superseded_edition,
+        document: document,
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:live_content_item,
-        content_id: content_id,
+      FactoryGirl.create(:live_edition,
+        document: document,
         user_facing_version: 2,
       )
     end

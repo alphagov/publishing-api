@@ -10,7 +10,7 @@ RSpec.describe State do
   end
 
   describe ".unpublish" do
-    let(:live_item) { FactoryGirl.create(:live_content_item) }
+    let(:live_item) { FactoryGirl.create(:live_edition) }
 
     it "changes the state name to 'unpublished'" do
       expect {
@@ -29,7 +29,7 @@ RSpec.describe State do
 
       unpublishing = Unpublishing.last
 
-      expect(unpublishing.content_item).to eq(live_item)
+      expect(unpublishing.edition).to eq(live_item)
       expect(unpublishing.type).to eq("gone")
       expect(unpublishing.explanation).to eq("A test explanation")
       expect(unpublishing.alternative_path).to eq("/some-path")
