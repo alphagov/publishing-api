@@ -4,8 +4,8 @@ class Link < ApplicationRecord
   belongs_to :link_set
   belongs_to :edition, foreign_key: "content_item_id"
 
+  validates :target_content_id, presence: true
   validate :link_type_is_valid
-  validate :content_id_is_valid
   validate :link_set_xor_edition_presence
 
   def self.filter_editions(scope, filters)
@@ -35,12 +35,6 @@ private
   def link_type_is_valid
     unless link_type.match(/\A[a-z0-9_]+\z/) && link_type != "available_translations"
       errors.add(:link, "Invalid link type: #{link_type}")
-    end
-  end
-
-  def content_id_is_valid
-    unless target_content_id.is_a?(Hash) || UuidValidator.valid?(target_content_id)
-      errors.add(:link, "target_content_id must be a valid UUID")
     end
   end
 end

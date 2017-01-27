@@ -1,43 +1,65 @@
 require 'rails_helper'
 
 RSpec.describe Link do
-  let(:valid_uuid) { "df633bb7-8825-4cf6-96dd-752c9949da69" }
-  let(:valid_link_type) { "organisations" }
-
   describe "validating link_type" do
-    it "allows link types that are underscored alphanumeric" do
-      %w(word word2word word_word).each do |link_type|
-        link = Link.create(link_type: link_type, target_content_id: valid_uuid)
-        expect(link).to be_valid
+    subject(:link) { FactoryGirl.build(:link, link_type: link_type) }
+    before { link.validate }
+
+    shared_examples "invalid link_type" do
+      it { is_expected.to be_invalid }
+      it "has an error on :link" do
+        error = "Invalid link type: #{link_type}"
+        expect(link.errors.to_hash).to eq(link: [error])
       end
     end
 
-    it "rejects link types with non-allowed characters" do
-      [
-        'Uppercase',
-        'space space',
-        'dash-ed',
-        'punctuation!',
-        '',
-      ].each do |link_type|
-        link = Link.create(link_type: link_type, target_content_id: valid_uuid)
-        expect(link).not_to be_valid, "expected item not to be valid with links_type '#{link_type}'"
-        expect(link.errors[:link]).to eq(["Invalid link type: #{link_type}"])
-      end
+    context "lowercase alphanumeric link_type" do
+      let(:link_type) { "word2word" }
+      it { is_expected.to be_valid }
     end
 
-    it "rejects reserved link type available_translations" do
-      link = Link.create(link_type: "available_translations", target_content_id: valid_uuid)
-      expect(link).not_to be_valid, "expected item not to be valid with links key 'available_translations'"
-      expect(link.errors[:link]).to eq(["Invalid link type: available_translations"])
+    context "underscore seperated link_type" do
+      let(:link_type) { "word_word" }
+      it { is_expected.to be_valid }
+    end
+
+    context "uppercase characters in link_type" do
+      let(:link_type) { "Uppercase" }
+      include_examples "invalid link_type"
+    end
+
+    context "space characters in link_type" do
+      let(:link_type) { "space space" }
+      include_examples "invalid link_type"
+    end
+
+    context "dash characters in link_type" do
+      let(:link_type) { "dash-ed" }
+      include_examples "invalid link_type"
+    end
+
+    context "punctuation characters in link_type" do
+      let(:link_type) { "punctuation!" }
+      include_examples "invalid link_type"
+    end
+
+    context "available_translations link_type" do
+      let(:link_type) { "available_translations" }
+      include_examples "invalid link_type"
     end
   end
 
   describe "validating target_content_id" do
-    it 'rejects non-UUID content IDs' do
-      link = Link.create(link_type: valid_link_type, target_content_id: "this-id-is-not-an-uuid")
-      expect(link).not_to be_valid
-      expect(link.errors[:link]).to eq(["target_content_id must be a valid UUID"])
+    subject(:link) { FactoryGirl.build(:link, target_content_id: target_content_id) }
+
+    context "missing target_content_id" do
+      let(:target_content_id) { SecureRandom.uuid }
+      it { is_expected.to be_valid }
+    end
+
+    context "present target_content_id" do
+      let(:target_content_id) { nil }
+      it { is_expected.to be_invalid }
     end
   end
 
