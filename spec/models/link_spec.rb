@@ -41,6 +41,49 @@ RSpec.describe Link do
     end
   end
 
+  describe "validating link set XOR edition association" do
+    subject(:link) do
+      FactoryGirl.build(:link, link_set: link_set, edition: edition)
+    end
+    let(:error) { "must be associated with a link set or an edition" }
+    let(:link_errors) { link.errors.to_hash }
+    before { link.validate }
+
+    context "edition and link_set are nil" do
+      let(:edition) { nil }
+      let(:link_set) { nil }
+
+      it { is_expected.to be_invalid }
+      it "has an error on base" do
+        expect(link_errors).to eq(base: [error])
+      end
+    end
+
+    context "edition is not nil and link_set is nil" do
+      let(:edition) { FactoryGirl.build(:edition) }
+      let(:link_set) { nil }
+
+      it { is_expected.to be_valid }
+    end
+
+    context "edition is nil and link_set is not nil" do
+      let(:edition) { nil }
+      let(:link_set) { FactoryGirl.build(:link_set) }
+
+      it { is_expected.to be_valid }
+    end
+
+    context "edition and link_set are not nil" do
+      let(:edition) { FactoryGirl.build(:edition) }
+      let(:link_set) { FactoryGirl.build(:link_set) }
+
+      it { is_expected.to be_invalid }
+      it "has an error on base" do
+        expect(link_errors).to eq(base: [error])
+      end
+    end
+  end
+
   describe ".filter_editions" do
     let(:scope) { double(:scope) }
 

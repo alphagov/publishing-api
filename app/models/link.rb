@@ -6,6 +6,7 @@ class Link < ApplicationRecord
 
   validate :link_type_is_valid
   validate :content_id_is_valid
+  validate :link_set_xor_edition_presence
 
   def self.filter_editions(scope, filters)
     join_sql = <<-SQL.strip_heredoc
@@ -24,6 +25,12 @@ class Link < ApplicationRecord
   end
 
 private
+
+  def link_set_xor_edition_presence
+    unless link_set.blank? ^ edition.blank?
+      errors.add(:base, "must be associated with a link set or an edition")
+    end
+  end
 
   def link_type_is_valid
     unless link_type.match(/\A[a-z0-9_]+\z/) && link_type != "available_translations"
