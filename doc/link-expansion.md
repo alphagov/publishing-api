@@ -18,25 +18,25 @@
 ## Introduction
 
 Link expansion is a concept in the Publishing API which describes the process
-of converting the stored links of a content item into a JSON representation
+of converting the stored links of an edition into a JSON representation
 containing the details of these links. It is used in the Publishing API
-during the process of sending a content item downstream to the
+during the process of sending an edition downstream to the
 [Content Store][content-store].
 
-The process involves determining which content items should and can be linked
+The process involves determining which editions should and can be linked
 to, the versions of them that are linked, and the fields that will be included
 in the representation. It replaces a process in the Content Store which was
 used to determine and expand links at the point of request.
 
 A closely related process to this is
 [dependency-resolution](dependency-resolution.md). This is something of a
-reversal in link expansion and has the role of determining which content items
+reversal in link expansion and has the role of determining which editions
 will need re-presenting to the content store as a result of an update to a
-content item.
+document.
 
 ## Example Output
 
-Below is an abridged example of a content item represented as JSON after link
+Below is an abridged example of an edition represented as JSON after link
 expansion has occurred.
 
 ```json
@@ -101,26 +101,26 @@ above example there are two types of link: `organisations` and
 
 ## When it occurs
 
-Link expansion occurs at the point a content item is represented to the
+Link expansion occurs at the point an edition is represented to the
 Content Store - which is normally the result of a [Sidekiq](http://sidekiq.org/)
 worker process such as [DownstreamDraftWorker][downstream-draft-worker] or
 [DownstreamLiveWorker][downstream-live-worker].
 
 ## Link sources
 
-The links for a content item are a combination of links which are added
+The links for a edition are a combination of links which are added
 via [`patch-link-set`](api.md#patch-v2linkscontent_id) and those that are
 determined automatically.
 
 ### Links added via `patch-link-set` (dependees)
 
-Links added via `patch-link-set` are stored for a content item as a
+Links added via `patch-link-set` are stored for a document as a
 collection of content ids, all with a link type and ordering index. These are
 always presented as part of link expansion, and some of the link types provided
 here may also include the links for the linked item if they are of a
 [recursive link type](#recursive-links).
 
-These are considered to be **depenees** of a content item and are determined
+These are considered to be **depenees** of a document and are determined
 using the [`Presenters::Queries::ExpandDependees`][expand-dependees] class.
 
 ### Links added automatically
@@ -132,8 +132,8 @@ expansion, these are reverse links and available translations.
 
 Some types of links are presented when they are the target of a link.
 
-Consider item `A` which links to item `B` - with type `reciprocal` - and `B` does
-not have a link to `A`. Under normal circumstances this will mean that the
+Consider item `A` which links to item `B` - with type `reciprocal` - and `B`
+does not have a link to `A`. Under normal circumstances this will mean that the
 links for `A` would include `B`, yet `B` would not include `A` in it's
 links. However if `reciprocal` is defined as a reverse link it will also be
 included in the links for `B`, under a link type of the defined reverse name
@@ -146,24 +146,23 @@ item `D` with type `parent`. In `C` you would have a group of `parents`
 links which includes `D`, whereas in `D` you would have a group of
 `children` links which includes `C`.
 
-Reverse links are considered to be **dependents** of a content item and are
-determined using the [`Presenters::Queries::ExpandDependents`][expand-dependents]
-class.
+Reverse links are considered to be **dependents** of a document and are determined
+using the [`Presenters::Queries::ExpandDependents`][expand-dependents] class.
 
 #### Available translations
 
-A content item can be available in multiple translations. This will be
-determined by content items sharing the same [`content_id`][content-id] and
+A document can be available in multiple translations. This will be
+determined by documents sharing the same [`content_id`][content-id] and
 having different [`locale`][locale] values.
 
-The links for a content item will include all the translations of a content
-item, including the current locale.
+The links for an edition will include the available translations of editions
+of documents matching the same `content_id`, including the current locale.
 
 **Example**
 
 For item `E` which exists in English ("en") and Welsh ("cy") the available
 translations links include a link to the "en" and "cy" variations of the
-content item.
+document.
 
 ### Recursive links
 
@@ -246,22 +245,21 @@ The rules for recursive link types are defined in
 
 ## Which states are linked
 
-Whether an item is linked to is dependant on whether the content item being
-linked to exists in a particular [state](model.md#state). The states that are
-applicable are determined by the state of the content item that link expansion
-is performed for.
+Whether an item is linked to is dependant on whether an edition of a document
+being linked to exists in a particular [state](model.md#state). The states that
+are applicable are determined by the state of the content item that link
+expansion is performed for.
 
-### Content item has a state of `published` or `unpublished`
+### Edition has a state of `published` or `unpublished`
 
-Reverse links are included if a content item exists for them in a `published`
-state.
+Reverse links are included if a edition exists for them in a `published` state.
 
-All other link types are included when a content exists in either a `published`
+All other link types are included when a edition exists in either a `published`
 state or a `unpublished` state with a type of `withdrawn`.
 
-### Content item has a state of `draft`
+### Edition has a state of `draft`
 
-Content items follow the same rules as those for `published` or `unpublished`
+Editions follow the same rules as those for `published` or `unpublished`
 however draft items are also included for all link types.
 
 ## Link presentation
@@ -279,16 +277,17 @@ By default links contain the following fields:
 - `analytics_identifier` - Used to track a content item in analytics software
 - `api_path` - The path to the JSON representation of this item
 - `base_path` - The public path to this item
-- `content_id` - A UUID to represents the content item
-- `description` - A short description of the content item
-- `document_type` - The document of the content item
-- `locale` - The language the content item linked to is in
-- `public_updated_at` - The date/time that a content item was last changed
-- `schema_name` - The [GOV.UK content schema][govuk-content-schema] that a
-  content item conforms to
-- `title` - The title of a content item
+- `content_id` - A UUID to represents the document
+- `description` - A short description of the content
+- `document_type` - This describes a type of document used on GOV.UK and
+  allowed by the schema
+- `locale` - The language this document is written in
+- `public_updated_at` - The date/time that this document  was last changed
+- `schema_name` - The [GOV.UK content schema][govuk-content-schema] that this
+  edition conforms to
+- `title` - The title of the edition
 - `links` - Any [recursive links](#recursive-links) that are presented with a
-  link representation of a content item
+  link representation of an edition
 
 The fields can and are customised in some cases. This can be done on a
 `link_type` basis. These customisations can be performed in

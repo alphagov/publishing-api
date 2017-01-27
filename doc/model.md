@@ -1,516 +1,253 @@
 # Publishing API's Model
 
-This document outlines the Publishing API's model in moderate detail and
-explains some of the design decisions and business needs for it.
-
-Index:
- - [Content Item Fields](#content-item-fields)
- - [Change Notes](#change-notes)
- - [User Need](#user-need)
- - [General Themes](#general-themes)
- - [Content Item Uniqueness](#content-item-uniqueness)
- - [Lock Version](#lock-version)
- - [User-Facing Version](#user-facing-version)
- - [Workflow](#workflow)
-
-## Content Item Fields
-
-### `base_path`
-
-Example: */vat-rates*
-
-Required: Yes
-
-The `base_path` specifies the route at which the content item will be served on
-the GOV.UK website. Content items must have unique `base_paths` and the
-Publishing API will not accept the request if this is not the case. This
-uniqueness constraint extends to locale, as well. The English and French lock version
-of a content item must have different `base_paths`.
-
-### `content_id`
-
-Example: *d296ea8e-31ad-4e0b-9deb-026da695bb65*
-
-Required: Yes
-
-The `content_id` is the content item’s main identifier and it forms its identity
-as it travels through the pipeline. This is why requests to create and query
-content items are keyed by `content_id` in the URL of the request.
-
-Each `content_id` refers to a single piece of content, with a couple of caveats:
-
-- Content IDs are shared across locales – the English and French lock versions of a
-content item share a `content_id`
-
-- `content_ids` are shared across publish states – the draft and live lock versions of
-a content item share a `content_id`
-
-`content_ids` are [UUIDs](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)
-and will not be accepted by the Publishing API otherwise.
-
-Note: Previously, the `base_path` was a content item's main identifier. This is
-no longer the case. It has been changed to `content_id` because base paths had
-a tendency to change.
-
-### `publishing_app`
-
-Example: *collections-publisher*
-
-Required: Yes
-
-The `publishing_app` identifies the application that published the content item.
-When a content item is created, its `base_path` is registered to the
-`publishing_app`. The path may not be used by a content item that was created
-with a different `publishing_app`.
-
-The `publishing_app` can then be used to filter content items when requests are
-made to the Publishing API. The `publishing_app` is also used as a means of
-auditing which applications are making use of the publishing pipeline.
-
-Note: The value of the `publishing_app` field should be hyphenated as this is
-the convention used in the Router API.
-
-### `details`
-
-Example: *{ body: "Something about VAT" }*
-
-Required: Conditionally
-
-The `details` (sometimes referred to as “details hash”) contains content and
-other attributes that are specific to the `schema_name` of the content item. The
-[GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas)
-determine which fields appear in the details and which are required. The details
-can contain arbitrary JSON that will be stored against the content item.
-
-Not all schemas have required fields and so details is not required unless the
-schema demands it. If it is not set, it will default to an empty JSON object
-as specified in the GOV.UK content schemas.
-
-## document_type
-
-Examples: *manual, policy, redirect*
-
-Required: Yes
-
-The `document_type` specifies the type of content item that will be rendered.
-It is used downstream to render the content item according to a specific layout
-for that `document_type` and to filter a list of objects in publishing apps.
-
-There is not a formal list of acceptable values for `document_type`. It
-should be in the form of a-z string with underscore separators.
-
-If the `document_type` is one of either *redirect* or *gone*, the content item is
-considered non-renderable and this waives the requirement for some of the other
-fields in the content item to be present, namely `title`, `rendering_app` and
-`public_updated_at`.
-
-### `public_updated_at`
-
-Example: *2015-01-01T12:00:00Z*
-
-Required: No
-
-The `public_updated_at` records the last time the content item was updated. This
-is the time that will appear alongside the content item in the front-end to
-inform users of the time at which that particular content item was updated. The
-`public_updated_at` must use the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601).
-
-If the `public_updated_at` field is omitted it is set to a value dependent on
-whether the update_type is minor or major. For a major update it is set to the
-current date and time, whereas for a minor one it is set to the previous
-versions `public_updated_at`.
-
-### `routes`
-
-Example: *[{ path: “/vat-rates”, type: "exact" }]*
-
-Required: Conditionally
-
-The `routes` are used to configure the GOV.UK router for the content item. The
-`routes` appear as a JSON array and each element in this array is a JSON object
-that contains the properties *path* and *type*. No other properties are
-supported.
-
-The `routes` are required, except for the case when the content item
-has a `document_type` of *redirect*. In this case, the `routes` must not be
-present as it doesn’t make sense to have routes for a redirect. When the
-`document_type` is anything except *redirect*, the routes must include
-the `base_path` of the content item.
-
-If additional `routes` are specified other than the one for the `base_path`, all
-of these `routes` must reside under the `base_path`. Here is an example:
-
-```
-[
-  { path: “/vat-rates”, type: "exact" },
-  { path: “/vat-rates/tax-thresholds”, type: "exact" },
-  { path: “/vat-rates/more-resources”, type: "exact" }
-]
-```
-
-Note: Collectively, routes and redirects must have unique paths. The Publishing
-API will not accept content items where the routes and redirects conflict with
-each other.
-
-### `redirects`
-
-Example: *[{ path: “/vat-rates/tax-thresholds”, type: "exact", destination: “/vat-rates/bands” }]*
-
-Required: Conditionally
-
-The `redirects` are used to configure the GOV.UK router to specify redirects
-related to the content item. The `redirects` appear as a JSON array and each
-element in this array is a JSON object that contains the properties *path*,
-*type* and *destination*. No other properties are supported. The *type* must be
-set to one of either *exact* or *prefix*.
-
-An *exact type* denotes that the *path* should be checked for an exact match
-against the user’s request URL when determining whether a redirect should occur.
-A *prefix type* denotes that any subpath under the specified path should be
-redirected to the destination. You can think of these as “exact” and “wildcard”
-matches, respectively. Although *prefix* types are supported, they are
-discouraged. Please speak to the Publishing Platform team if you'd like to make
-use of this feature.
-
-The `redirects` are optional, except for the case when the content
-item has a `document_type` of *redirect*. In this case, the redirects must be
-present and they must include the `base_path` of content_item in the *path*
-property.
-
-Redirects are subject to the same requirement as routes in that their paths must
-reside under the `base_path` of the content item (see [**routes**](#routes)).
-
-Note: Collectively, routes and redirects must have unique paths. The Publishing
-API will not accept content items where the routes and redirects conflict with
-each other.
-
-### `rendering_app`
-
-Example: *government-frontend*
-
-Required: Conditionally
-
-The `rendering_app` identifies the front-end application that is responsible for
-rendering the content item. The router will use this information to direct
-users' requests to the appropriate front-end application.
-
-The `rendering_app` is required except in cases where the content item is
-non-renderable (see [**document_type**](#document_type)).
-
-### schema_name
-
-Examples: *manual, policy, redirect*
-
-Required: Yes
-
-The `schema_name` specifies the schema file used to validate the request
-as per the
-[GOV.UK content schemas](https://github.com/alphagov/govuk-content-schemas).
-
-At present, not all content goes through the publishing pipeline, but there is
-still a need to link to content items on our legacy infrastructure. There are
-some special formats that can be used in these cases. The `schema_name` should be
-prefixed with *placeholder_* or set to *placeholder*. See
-[here](https://github.com/alphagov/content-store/blob/master/doc/placeholder_item.md)
-for more information.
-
-### `title`
-
-Example: *VAT rates*
-
-Required: Conditionally
-
-The `title` names the content item. It is required except in cases where the
-content item is non-renderable (see [**document_type**](#document_type)).
-
-### `update_type`
-
-Example: *major*
-
-Required: Conditionally
-
-The `update_type` is an indicator of the importance of the change to the content
-item since the last time it was published. This field is required when
-publishing the content item.
-
-There’s no restriction on what the `update_type` should be, but at present we
-use:
-
-- *minor* - for minor edits that won’t be important to users
-
-- *major* - for major edits that will be important to users
-
-- *republish* - for when the content item needs to be re-sent to downstream
-systems
-
-- *links* - for when only the links of the content item have changed
-
-Please discuss with the Publishing Platform team if you'd like to introduce new
-`update_types`.
-
-An example case for when a republish `update_type` should be used is when there
-had previously been a problem with a downstream system and that system did not
-act on publish events correctly. For example, there could have been a problem
-with sending email alerts and so one way that this could be rectified might be
-to republish the content items.
-
-The *links* `update_type` is set automatically when the /links endpoint is used.
-There is no need to set this manually. All of these `update_types` form part of
-the routing key when the content item document is placed on the message queue,
-together with the `document_type` of the content item (e.g. *policy.major*).
-
-The *major* `update_type` is the only `update_type` that currently triggers email
-alerts to be sent to users.
-
-### `access_limited`
-
-Example: *{ users: ["bf3e4b4f-f02d-4658-95a7-df7c74cd0f50"] }*
-
-Required: No
-
-The `access_limited` field determines who should be granted access to the
-content item before it has been published. At the point of publish the content
-item is public and everyone has access to it. This field should be used when a
-content item needs to be drafted but it should not be visible on
-content-preview (except for authorised users) until a publish occurs. Typically,
-members of the organisation that created the content are in the list of
-authorised users.
-
-The value of this field should be set to a JSON object that contains the key
-*users* and a value that is an array of [UUIDs](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97).
-These are the users that should be granted access to the content item. At
-present, the only supported key is *users*.  If `access_limited` is not set, no
-access restriction will be placed on the content item.
-
-When front-end applications make requests to the content store, they must supply
-the user they are making the request on behalf of if the content item is
-restricted. An authentication proxy, that sits in front of the content store,
-will reject the request if the supplied [UUID](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)
-is not in the list of `access_limited` *users* for the content item. An example
-of this header can be seen [here](https://github.com/alphagov/content-store/pull/129).
-
-### `analytics_identifier`
-
-Example: *GDS01*
-
-Required: No
-
-The `analytics_identifier` is the identifier that is used to track the content
-item in analytics software. The front-end applications are responsible for
-rendering the `analytics_identifier` in the metadata of the page (if present) so
-that information about user activity can be tracked for the content item.
-
-### `links`
-
-Example: *{ “related”: [“8242a29f-8ad1-4fbe-9f71-f9e57ea5f1ea”] }*
-
-Required: No
-
-The `links` contain the [UUIDs](https://github.com/alphagov/govuk-content-schemas/blob/44dfad0cc241b7bd9576f0a7cf7f3fdeac8ddfce/formats/metadata.json#L94-L97)
-of other content items that this content item links to. For example, if a
-content item has some attachments or contacts that it references, these content
-items should appear in the `links` of the content item.
-
-The `links` for content items are managed separately to the content item itself.
-When changing `links`, it is not necessary to republish the content item.
-Instead, these changes will immediately be sent downstream to the draft content
-store and also to the live content store if the content item has previously been
-published.
-
-An update to the `links` causes a message to be placed on the message queue.
-This message will have a special update_type of links (see [**update_type**](#update_type)).
-Email alerts will not be sent when the update_type is links.
-This queue is consumed by the Rummager application in order to reindex the
-appropriate content when `links` change for a content item.
-
-### `locale`
-
-Example: *en*
-
-Required: No
-
-The `locale` is the language in which the content item is written. Front-end
-applications will optionally provide this string when querying the content store
-in order to retrieve content items in a given `locale`.
-
-A list of valid locales can be viewed in the Publishing API [here](https://github.com/alphagov/publishing-api/blob/9caeccc856ad372e332f56d64d0a96ab5df76b27/config/application.rb#L32-L37).
-This field is not required and if a `locale` is not provided, it will be set to
-*en* automatically.
-
-### `need_ids`
-
-Example: *["1234", "1235"]*
-
-Required: No
-
-The `need_ids` are the identifiers of [user needs](https://www.gov.uk/design-principles)
-that are entered through the [Maslow application](https://github.com/alphagov/maslow).
-They are passed through to the content store, untouched by the pipeline. The
-front-end applications can then use the `need_ids` to present pages to users
-that show how effectively users' needs are being met. [Here is an example](https://www.gov.uk/info/overseas-passports).
-
-### `phase`
-
-Examples: *alpha, beta, live*
-
-Required: No
-
-The `phase` is an optional field that may be used to indicate the ‘Service
-Design Phase’ of the content item. The phase must be one of either *alpha*,
-*beta* or *live*. If the `phase` is not specified, the Publishing API will
-default it to *live*.
-
-Content items will be published to the content store regardless of their
-`phase`.  If a content item has a `phase` of either *alpha* or *beta*, a visual
-component will be added to the front-end to show this (assuming the front-end
-application for that format supports this).
-
-There is more information on what each of the phases mean [here](https://www.gov.uk/service-manual/phases).
-
-## Change Notes
-
-Every content item can have an associated change note in the Publishing API.
-
-This is a plain text description of the changes that have been made in
-a major update of the content.
-
-If the `change_history` has not been specified in the `details` for a
-content item, the change notes will be used to create a
-`change_history` to send to the content store (see the schema in the
-[GOV.UK content schemas][govuk-content-schemas] repository for the
-format).
-
-[govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
-
-## User Need
-
-We based this object model on the needs of our users. In the Publishing Platform
-team, we are in a unique position such that the majority of our users are in
-fact other developers working on their respective publishing applications.
-
-In summary, this object model aims to address the following needs:
-
-- Enable *dependency resolution* work. Specifically, this includes the ability
-to support features such as Govspeak, Related Links and Breadcrumbs
-
-- Enable *historical editions* by preserving historical versions of content
-items (not just the latest draft/published)
-
-In addition to these user needs, we also aim to:
-
-- Reduce complexity in the system. Specifically, we'd like to separate out
-concepts where appropriate and reduce duplication (previously we had separate
-models for draft and live content items)
-
-- Improve flexibility by moving towards a model that caters for changing
-requirements without requiring significant re-writes of application code
-
-## High-level Diagram
+# Contents
+
+- [Introduction](#introduction)
+  - [content_id](#content_id)
+  - [Diagram](#diagram)
+- [Content](#content)
+  - [Document](#document)
+  - [Edition](#edition)
+    - [Workflow](#workflow)
+    - [Uniqueness](#uniqueness)
+    - [Substitution](#substitution)
+  - [Unpublishing](#unpublishing)
+  - [ChangeNote](#changenote)
+  - [AccessLimit](#accesslimit)
+  - [PathReservation](#pathreservation)
+- [Linking](#linking)
+  - [LinkSet](#linkset)
+  - [Link](#link)
+- [History](#history)
+  - [Event](#event)
+  - [Action](#action)
+
+# Introduction
+
+This document serves as a broad introduction to the domain models used in
+the Publishing API and their respective purposes. They can be separated into
+3 areas of concern:
+
+- [Content](#content) - Content that is stored in the Publishing API.
+- [Linking](#linking) - Links between content that is stored.
+- [History](#history) - The storing of operations that may have altered content
+  or links.
+
+These areas are all interconnected through the use of shared `content_id`
+fields.
+
+## content_id
+
+`content_id` is a [UUID][uuid] value that is used to identify distinct pieces
+of content that are used on GOV.UK. It is generated from within a publishing
+application and the same `content_id` is used for content that is available in
+multiple translations. Different iterations of the same piece of content all
+share the same `content_id`.
+
+Each piece of content stored in the Publishing API is associated with a
+`content_id`, the links stored are relationships between `content_ids`, and
+history is associated with a `content_id`.
+
+## Diagram
 
 The following is a high-level diagram that was generated with
-[plantuml](http://plantuml.com/plantuml/). The source that generated this diagram is
-checked into this repository.
+[plantuml](http://plantuml.com/plantuml/). The
+[source](model/object-model.plantuml) that generated this diagram is checked
+into this repository.
 
 ![Diagram of the object model](model/object-model.png)
 
-## General Themes
+# Content
 
-You can see that ContentItem is central to the app's object model. The majority
-of models within the app relate to ContentItem in some way. This shouldn't be
-surprising as the Publishing API's core responsibility is to provide workflow
-as a service for managing content.
+## Document
 
-Note that all of the arrows are pointing inwards to ContentItem and not the
-other way around. This indicates that these models have visibility of the
-ContentItem whereas ContentItem is shielded from the complexity of these
-models. This improves extensibility as new concepts can be added without having
-to re-open ContentItem to add new behaviour. See the
-[open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle) for
-more explanation of this approach.
+A document represents all iterations of a piece of content in a particular
+locale. It is associated with multiple editions that represent distinct
+versions of a piece of content.
 
-Consider the alternative where all of this information resides in fields on the
-ContentItem. If this were the case, we'd have to repeatedly update this model
-when almost any piece of business logic changes within the app. If the
-ContentItem has multiple responsibilities, this could be made more difficult as
-this class would be significantly more complicated. By breaking distinct
-concepts into separate models, it is easier to reason about a specific piece of
-business logic.
+The concerns of a document are which iterations are represented on draft and
+live content stores; and the [lock version][optimistic-locking] for the content.
 
-An example of a model that has a large number of responsibilities is
-[Edition](https://github.com/alphagov/whitehall/blob/master/app/models/edition.rb)
-in the Whitehall application. This has become a
-[God object](https://en.wikipedia.org/wiki/God_object) that is arguably quite
-difficult to work with.
+A document stores the [`content_id`](#content_id), locale and lock version for
+content. It is designed to be a simple model so that it can be used for
+database level locking of concurrent requests.
 
-## Content Item Uniqueness
+## Edition
 
-The ContentItem model is a model that houses content. It contains fields that
-determines its uniqueness. These are:
+An edition is a particular iteration of a piece of content. It stores most
+of the data that is used to represent content in the content store and is
+associated with a document. There are [uniqueness constraints](#uniqueness)
+to ensure there are not conflicting Editions. Previously an Edition was named
+ContentItem.
 
-- The `locale` of the content
-- The `base_path` of the content
-- The workflow `state` of the content
-- The `user_facing_version` of the content
+Most of the fields stored on an edition are defined as part of the
+[/put-content/:content_id][put-content-api] API.
 
-The uniqueness of a ContentItem is ensured by rules based on these values.
+Key fields that are set internally by the Publishing API are:
 
-Only one item in either a draft or a live state can be registered at a base_path.
-Thus the rules for a base_path are:
+- `state` - where an edition is in its [publishing workflow](#workflow), can
+  be "draft", "published", "unpublished" or "superseded".
+- `user_facing_version` - an integer that stores which iteration of a document
+  an edition is.
+- `content_store` - indicates whether an edition is intended for draft, live or
+  no content store.
 
-1. A base_path for a draft ContentItem must be distinct from the base_path of
-   any other draft ContentItems.
-2. A base_path for a live ContentItem must be distinct from the base_path for
-   any other live ContentItems
+Documents that have an edition with a "live" `content_store` value will have
+the corresponding edition presented on the live content store.
+All documents where there is an edition with a "draft" or "live" value of
+`content_store` are presented on the draft content store. With the draft
+edition presented if available, otherwise the live one.
 
-NB
-- A draft ContentItem is a ContentItem with a state of "draft"
-- A live ContentItem is a ContentItem with a state of "published" or
-  "unpublished", however it does not include those with an unpublishing type of
-  "substitute".
+### Workflow
 
-There can be only one instance of a ContentItem for a content_id and a
-particular locale with a state of draft.
+An edition can be in one of four states: "draft", "published", "unpublished"
+and "superseded".
 
-There can be only one instance of a ContentItem for a content_id and a
-particular locale with a state of published/unpublished.
+At any one time a document can contain:
 
-There can be multiple instance of a ContentItem for a content_id, a particular
-locale and a state of superseded.
+- **1 edition** in a "draft" state
+- **1 edition** in a "published" or "unpublished" state
+- **any number of editions** in a "superseded" state
 
-Only one instance of a ContentItem for a particular locale can be at a
-user-facing version. Thus a rule exists that no two ContentItems can have
-the same content id, the same user-facing version and the same locale.
+When the first edition of a document is created it is in a "draft" state and
+available on the draft content store. The content can be updated any number of
+times before publishing.
 
-## Lock Version
+Once an edition has been published it is possible to create a new edition of
+the draft - thereby having 1 draft edition and 1 published edition of a
+document.
 
-The lock version exists to prevent destructive changes being made to data when
-multiple people are editing the same piece of content at the same time. It does
-this by tracking a system-level version for arbitrary models in the domain.
-Currently, we make use of lock versions for content items and link sets.
+A published edition can be unpublished, which will create an
+[`unpublishing`](#unpublishing) for the edition. The unpublished edition will
+be represented on the live content store.
 
-The lock version differs from the user-facing version in that it is an internal
-system version that is not intended to be shown to a user. Instead, it forms
-part contract between publishing apps and the Publishing API. It is not
-mandatory that publishing apps make use of the lock version feature, but it is
-strongly recommended that they do to prevent losses to work.
+If a draft is published while there is already a published or unpublished
+edition. The previous edition will have its `state` updated to "superseded"
+and will be replaced on the live content store with the newly published
+edition.
 
-## User-Facing Version
+### Uniqueness
 
-The user-facing version, as the name implies, is the version for a piece of
-content that is visible to users in publishing applications. This number changes
-as a result of the user re-drafting a piece of content and it stays the same as
-the content item transitions between states such as *draft* and *published*.
+There are uniqueness constraints to ensure conflicting editions cannot be
+stored:
 
-Longer term, we intend to use this model to support the user need related to
-historical versions of content items. The object model is flexible enough to
-support retrieval of older versions of content. Currently, there's no mechanism
-to get these older pieces of content, but this could be added in time.
+- **No two editions can share the same `base_path` and `content_store` values.**
+  This ensures there can't be multiple documents that are trying to use the
+  same path on GOV.UK.
+- **For a document there can't be two editions with the same `user_facing_version`.**
+  This prevents there being two editions sharing the same version number.
+- **For a document there can't be two editions on the same content store.** This
+  prevents an edition being accidentally available in multiple versions in
+  multiple places.
 
-## Workflow
+### Substitution
 
-The following is a workflow diagram that was generated with
-[graphviz](http://www.webgraphviz.com/). It shows how a content item's
-user-facing version and state transition as actions are performed on it. The
-source that generated this diagram is checked into this repository.
+When creating and publishing editions an existing edition with the
+same base_path will be blocked due to [uniqueness constraints](#uniqueness).
+However when one of the items that conflicts is considered substitutable
+(typically a non-content type) the operation can continue and the blocking item
+will be discarded, in the case of a draft; or [unpublished](#unpublishing) if it
+is published.
 
-![Diagram of workflow](model/workflow.png)
+## Unpublishing
+
+When an edition is unpublished an Unpublishing model is used to represent the
+type of unpublishing and associated meta data so that the unpublished edition
+can be represented correctly in the content store.
+
+There are 5 types an unpublishing can be:
+
+- **`withdrawal`** - The edition will still be readable on GOV.UK but will have a
+  withdrawn banner, provided with an `explanation` and an optional
+  `alternative_path`.
+- **`redirect`** - Attempts to access the edition on GOV.UK will be redirected to a
+  provided `alternative_path`
+- **`gone`** - Attempts to access the edition on GOV.UK will receive a 410 Gone
+  HTTP response.
+- **`vanish`** - Attempts to access the edition on GOV.UK will receive a 404 Not
+  Found HTTP response.
+- **`substitute`** - This type cannot be set by a user and is automatically
+  created when an edition is [substituted](#substitution).
+
+## ChangeNote
+
+An Edition can be associated with a ChangeNote, which stores a note describing
+the changes that have occurred between major editions of a Document and the
+time the changes occurred.
+
+When presenting an edition of a Document to the content store, the change notes
+for that edition and all previous editions are combined to create a list of
+the change notes for the document.
+
+## AccessLimit
+
+AccessLimit is a concept that is associated with an Edition in a
+"draft" state. It is used to store a list of user id's (UIDs that represent
+users in [signon][signon]) which will be the only users who can view the
+Edition in the draft environment.
+
+## PathReservation
+
+A PathReservation is a model that associates a path (in the URI context of
+`https://gov.uk/<path>`) with a publishing application. This model is used to
+restrict the usage of paths to a particular publishing application.
+
+These are created when content is created or moved, and can be created
+before content exists to ensure that no other app can use the path.
+
+# Linking
+
+Associations between content in the Publishing API is stored through `Links`,
+these are used to indicate a relationship with the documents of one
+[`content_id`](#content_id) with the documents of a different `content_id`.
+
+## LinkSet
+
+A LinkSet is a model that is used to represent the association of a
+[`content_id`](#content_id) and a collection of [Links](#link).
+
+It stores a lock version number for usage in
+[optimist locking][optimistic-locking].
+
+## Link
+
+A Link represents the association to another `content_id` - known as the
+`target_content_id`. A `link_type` and ordering is also stored on a Link.
+`link_type` is used to represent the relationship between the content of
+the content_id. It is common for a link to have multiple relationships to
+content of the same `link_type`, the ordering field is used to store the order
+in which the links of a certain `link_type` was specified.
+
+# History
+
+The Publishing API stores information on operations that change the state of
+data stored in the Publishing API. These are stored through the Event and
+Action models.
+
+## Event
+
+An Event is used to store the details of data that may change state within the
+Publishing API. It stores data that identifies the end user and web request that
+initiated the operation; which operation and which content will be affected;
+and the payload of the input. Only operations that successfully complete are
+stored as Events.
+
+Events are used as a debugging and reference tool by developers of the
+Publishing API. As they generate large amounts of data the full details of
+them are not stored permanently.
+
+## Action
+
+An Action is used to store the change history of a piece of content in the
+Publishing API. They are associated with both a [`content_id`](#content_id) and
+an [Edition](#edition). Requests that change the state in the Publishing API
+create Actions that store which action was performed and the end user who
+initiated the request.
+
+Actions can be created by publishing applications to store additional data
+on the workflow of content.
+
+[uuid]: https://en.wikipedia.org/wiki/Universally_unique_identifier
+[optimistic-locking]: api.md#optimistic-locking-previous_version
+[signon]: https://github.com/alphagov/signon
+[put-content-api]: api.md#put-v2contentcontent_id
