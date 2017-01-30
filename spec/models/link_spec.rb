@@ -67,7 +67,7 @@ RSpec.describe Link do
     subject(:link) do
       FactoryGirl.build(:link, link_set: link_set, edition: edition)
     end
-    let(:error) { "must be associated with a link set or an edition" }
+
     let(:link_errors) { link.errors.to_hash }
     before { link.validate }
 
@@ -76,9 +76,6 @@ RSpec.describe Link do
       let(:link_set) { nil }
 
       it { is_expected.to be_invalid }
-      it "has an error on base" do
-        expect(link_errors).to eq(base: [error])
-      end
     end
 
     context "edition is not nil and link_set is nil" do
@@ -100,9 +97,6 @@ RSpec.describe Link do
       let(:link_set) { FactoryGirl.build(:link_set) }
 
       it { is_expected.to be_invalid }
-      it "has an error on base" do
-        expect(link_errors).to eq(base: [error])
-      end
     end
   end
 
