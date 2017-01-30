@@ -6,7 +6,7 @@ class Link < ApplicationRecord
 
   validates :target_content_id, presence: true
   validate :link_type_is_valid
-  validate :link_set_xor_edition_presence
+  validate :association_presence
 
   def self.filter_editions(scope, filters)
     join_sql = <<-SQL.strip_heredoc
@@ -26,9 +26,11 @@ class Link < ApplicationRecord
 
 private
 
-  def link_set_xor_edition_presence
-    unless link_set.blank? ^ edition.blank?
-      errors.add(:base, "must be associated with a link set or an edition")
+  def association_presence
+    if link_set.blank? && edition.blank?
+      errors.add(:base, "must have a link set or an edition")
+    elsif link_set.present? && edition.present?
+      errors.add(:base, "must be associated with a link set or an edition, not both")
     end
   end
 
