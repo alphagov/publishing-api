@@ -28,4 +28,10 @@ class Unpublishing < ApplicationRecord
   def self.is_substitute?(edition)
     where(edition: edition).pluck(:type).first == "substitute"
   end
+
+  def self.join_editions(edition_scope)
+    edition_scope.joins(
+      "LEFT OUTER JOIN unpublishings ON content_items.id = unpublishings.content_item_id"
+    )
+  end
 end
