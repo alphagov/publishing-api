@@ -3,7 +3,7 @@ module Presenters
     class ExpandedLinkSet
       attr_reader :draft
 
-      def initialize(content_id:, draft:, locale_fallback_order: Edition::DEFAULT_LOCALE, edition_id:)
+      def initialize(content_id:, draft:, locale_fallback_order: Edition::DEFAULT_LOCALE, edition_id: nil)
         @content_id = content_id
         @draft = draft
         @locale_fallback_order = Array(locale_fallback_order).freeze
