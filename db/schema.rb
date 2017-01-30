@@ -121,8 +121,8 @@ ActiveRecord::Schema.define(version: 20170208172603) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "position",          default: 0, null: false
-    t.integer  "content_item_id"
-    t.index ["content_item_id"], name: "index_links_on_content_item_id", using: :btree
+    t.integer  "edition_id"
+    t.index ["edition_id"], name: "index_links_on_edition_id", using: :btree
     t.index ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id", using: :btree
     t.index ["link_set_id"], name: "index_links_on_link_set_id", using: :btree
     t.index ["link_type"], name: "index_links_on_link_type", using: :btree
