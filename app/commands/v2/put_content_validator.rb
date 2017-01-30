@@ -7,7 +7,6 @@ module Commands
       end
 
       def validate
-        raise_if_links_are_provided
         validate_schema
 
         if payload[:publishing_app].blank?
@@ -20,25 +19,6 @@ module Commands
     private
 
       attr_reader :payload, :put_content
-
-      def raise_if_links_are_provided
-        return unless payload.has_key?(:links)
-        message = "The 'links' parameter should not be provided to this endpoint."
-
-        raise CommandError.new(
-          code: 400,
-          message: message,
-          error_details: {
-            error: {
-              code: 400,
-              message: message,
-              fields: {
-                links: ["is not a valid parameter"],
-              }
-            }
-          }
-        )
-      end
 
       def validate_schema
         return if schema_validator.valid?
