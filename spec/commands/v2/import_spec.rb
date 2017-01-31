@@ -83,7 +83,8 @@ RSpec.describe Commands::V2::Import, type: :request do
       it "correctly sets the unpublishing type" do
         subject
 
-        edition = Edition.find_by(content_id: content_id)
+        document = Document.find_by(content_id: content_id, locale: "en")
+        edition = Edition.find_by(document: document)
         unpublishing = Unpublishing.find_by(edition: edition)
 
         expect(unpublishing.type).to eq("gone")
