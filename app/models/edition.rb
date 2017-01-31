@@ -65,27 +65,8 @@ class Edition < ApplicationRecord
   validates_with StateForDocumentValidator
   validates_with RoutesAndRedirectsValidator
 
-  # Temporary code until we remove content_id and locale fields
-  before_save do
-    next unless document
-    self.content_id = document.content_id unless content_id == document.content_id
-    self.locale = document.locale unless locale == document.locale
-  end
-
-  before_save { ensure_document }
-
-  def document_requires_updating?
-    !document || document.locale != locale || document.content_id != content_id
-  end
-
-  def ensure_document
-    if document_requires_updating?
-      self.document = Document.find_or_create_by(content_id: content_id,
-                                                 locale: locale)
-    end
-  end
-
   def as_json(options = {})
+    # ensure 'content_id' and 'locale' exist in methods
     %i[content_id locale].each do |field|
       next if Array.wrap(options[:methods]).include?(field)
       only = Array.wrap(options[:only]) || []
@@ -94,7 +75,15 @@ class Edition < ApplicationRecord
         options[:methods] = (options[:methods] || []) + [field]
       end
     end
-    super(options)
+
+    # take the 'content_id' and 'locale' from the document
+    json = super(options)
+    %i[content_id locale].each do |field|
+      if Array.wrap(options[:methods]).include?(field)
+        json[field] = document.send(field)
+      end
+    end
+    json
   end
 
   def requires_base_path?
