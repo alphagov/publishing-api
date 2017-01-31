@@ -54,13 +54,4 @@ private
     message = "cannot be less than or equal to the previous number #{mismatch}"
     errors.add(:number, message)
   end
-
-  def numbers_must_increase
-    return unless persisted?
-    return unless number_changed? && number <= number_was
-
-    mismatch = "(#{number} <= #{number_was})"
-    message = "cannot be less than or equal to the previous number #{mismatch}"
-    errors.add(:number, message)
-  end
 end
