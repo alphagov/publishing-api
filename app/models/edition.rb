@@ -66,23 +66,14 @@ class Edition < ApplicationRecord
   validates_with RoutesAndRedirectsValidator
 
   def as_json(options = {})
-    # ensure 'content_id' and 'locale' exist in methods
-    %i[content_id locale].each do |field|
-      next if Array.wrap(options[:methods]).include?(field)
-      only = Array.wrap(options[:only]) || []
-      except = Array.wrap(options[:except]) || []
-      if (only.empty? || only.include?(field)) && (except.empty? || !except.include?(field))
-        options[:methods] = (options[:methods] || []) + [field]
-      end
-    end
+    document_fields = %i[content_id locale]
 
-    # take the 'content_id' and 'locale' from the document
+    push_document_fields_into_options(document_fields, options)
+
     json = super(options)
-    %i[content_id locale].each do |field|
-      if Array.wrap(options[:methods]).include?(field)
-        json[field] = document.send(field)
-      end
-    end
+
+    push_document_fields_into_json(document_fields, options, json)
+
     json
   end
 
@@ -195,6 +186,25 @@ class Edition < ApplicationRecord
   end
 
 private
+
+  def push_document_fields_into_options(document_fields, options)
+    methods = Array.wrap(options[:methods])
+    document_fields.each do |field|
+      next if methods.include?(field)
+      only = Array.wrap(options[:only])
+      except = Array.wrap(options[:except])
+      if (only.empty? || only.include?(field)) && !except.include?(field)
+        options[:methods] = methods.push(field)
+      end
+    end
+  end
+
+  def push_document_fields_into_json(document_fields, options, json)
+    methods = Array.wrap(options[:methods])
+    document_fields.each do |field|
+      json[field] = document.send(field) if methods.include?(field)
+    end
+  end
 
   # These are private whilst they are legacy attributes, that are currently
   # kept for easy rollback to a previous iteration of the codebase
