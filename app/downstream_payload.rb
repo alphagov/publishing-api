@@ -50,7 +50,7 @@ class DownstreamPayload
 private
 
   def unpublishing
-    @unpublishing ||= Unpublishing.find_by!(content_item_id: web_content_item.id)
+    @unpublishing ||= Unpublishing.find_by!(edition_id: web_content_item.id)
   end
 
   def content_payload

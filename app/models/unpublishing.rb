@@ -1,7 +1,7 @@
 class Unpublishing < ApplicationRecord
   self.inheritance_column = nil
 
-  belongs_to :edition, foreign_key: "content_item_id"
+  belongs_to :edition
 
   VALID_TYPES = %w(
     gone
@@ -31,7 +31,7 @@ class Unpublishing < ApplicationRecord
 
   def self.join_editions(edition_scope)
     edition_scope.joins(
-      "LEFT OUTER JOIN unpublishings ON content_items.id = unpublishings.content_item_id"
+      "LEFT OUTER JOIN unpublishings ON editions.id = unpublishings.edition_id"
     )
   end
 end

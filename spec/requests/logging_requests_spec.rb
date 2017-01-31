@@ -41,6 +41,7 @@ RSpec.describe "Logging requests", type: :request do
       v2_content_item.merge(
         content_id: a,
         base_path: "/a",
+        title: "foo",
         routes: [{ path: "/a", type: "exact" }],
       )
     end

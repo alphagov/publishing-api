@@ -12,7 +12,7 @@ module Queries
       Document.joins(:editions)
         .where(
           content_id: content_ids,
-          content_items: { content_store: content_stores }
+          editions: { content_store: content_stores }
         )
         .distinct
         .order(:content_id, :locale)

@@ -76,11 +76,9 @@ RSpec.describe "Downstream requests", type: :request do
     context "when only a draft edition exists for the link set" do
       before do
         draft = FactoryGirl.create(:draft_edition,
-          document: FactoryGirl.create(:document, content_id: content_id),
+          document: FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 1),
           base_path: base_path,
         )
-
-        FactoryGirl.create(:lock_version, target: draft, number: 1)
 
         FactoryGirl.create(:access_limit,
           users: access_limit_params.fetch(:users),
@@ -214,7 +212,7 @@ RSpec.describe "Downstream requests", type: :request do
         .with(a_hash_including(base_path: '/a'))
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(a_hash_including(base_path: '/b'))
-      params = v2_content_item.merge(base_path: "/a", content_id: a,
+      params = v2_content_item.merge(base_path: "/a", content_id: a, title: "foo",
                                      routes: [{ path: '/a', type: 'exact' }]).to_json
       put "/v2/content/#{a}", params: params
     end

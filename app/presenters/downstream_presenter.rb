@@ -83,7 +83,7 @@ module Presenters
     end
 
     def access_limit
-      @access_limit ||= AccessLimit.find_by(content_item_id: web_content_item.id)
+      @access_limit ||= AccessLimit.find_by(edition_id: web_content_item.id)
     end
 
     def locale_fallback_order
@@ -103,7 +103,7 @@ module Presenters
     end
 
     def withdrawal_notice
-      unpublishing = Unpublishing.find_by(content_item_id: web_content_item.id)
+      unpublishing = Unpublishing.find_by(edition_id: web_content_item.id)
 
       if unpublishing && unpublishing.withdrawal?
         withdrawn_at = (unpublishing.unpublished_at || unpublishing.created_at).iso8601

@@ -69,8 +69,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
         ]
       )
 
-      FactoryGirl.create(:lock_version, target: link_set)
-
       described_class.call(
         content_id: link_set.content_id,
         links: {}
@@ -120,6 +118,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     before do
       link_set = FactoryGirl.create(:link_set,
         content_id: content_id,
+        stale_lock_version: 1,
         links: [
           FactoryGirl.create(:link,
             link_type: "topics",
@@ -135,8 +134,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           ),
         ]
       )
-
-      FactoryGirl.create(:lock_version, target: link_set, number: 1)
     end
 
     include_examples "creates an action"

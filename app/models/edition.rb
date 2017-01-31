@@ -1,6 +1,4 @@
 class Edition < ApplicationRecord
-  self.table_name = "content_items"
-
   include SymbolizeJSON
   include DescriptionOverrides
 
@@ -38,7 +36,7 @@ class Edition < ApplicationRecord
   EMPTY_BASE_PATH_FORMATS = %w(contact government).freeze
 
   belongs_to :document
-  has_one :unpublishing, foreign_key: "content_item_id"
+  has_one :unpublishing
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
   scope :with_document, -> { joins(:document) }
@@ -67,71 +65,14 @@ class Edition < ApplicationRecord
   validates_with StateForDocumentValidator
   validates_with RoutesAndRedirectsValidator
 
-  # Temporary code until we remove content_id and locale fields
-  before_save do
-    next unless document
-    self.content_id = document.content_id unless content_id == document.content_id
-    self.locale = document.locale unless locale == document.locale
-  end
-
-  after_save do
-    lock_version = LockVersion.find_or_create_by(target: self)
-    if document.stale_lock_version < lock_version.number
-      lock_version.update! number: document.stale_lock_version
-    end
-  end
-
-  # Temporary code until we kill Location, State, Translation, and
-  # UserFacingVersion
-  after_save do
-    if changes[:base_path] && changes[:base_path].last
-      Location.find_or_initialize_by(content_item_id: id)
-        .update!(base_path: changes[:base_path].last)
-    end
-
-    if changes[:base_path] && !changes[:base_path].last
-      Location.find_by(content_item_id: id).try(:destroy)
-    end
-
-    if changes[:state]
-      State.find_or_initialize_by(content_item_id: id)
-        .update!(name: changes[:state].last)
-    end
-
-    if changes[:locale]
-      Translation.find_or_initialize_by(content_item_id: id)
-        .update!(locale: changes[:locale].last)
-    end
-
-    if changes[:user_facing_version]
-      UserFacingVersion.find_or_initialize_by(content_item_id: id)
-        .update!(number: changes[:user_facing_version].last)
-    end
-  end
-
-  before_save { ensure_document }
-
-  def document_requires_updating?
-    !document || document.locale != locale || document.content_id != content_id
-  end
-
-  def ensure_document
-    if document_requires_updating?
-      self.document = Document.find_or_create_by(content_id: content_id,
-                                                 locale: locale)
-    end
-  end
-
   def as_json(options = {})
-    %i[content_id locale].each do |field|
-      next if Array.wrap(options[:methods]).include?(field)
-      only = Array.wrap(options[:only]) || []
-      except = Array.wrap(options[:except]) || []
-      if (only.empty? || only.include?(field)) && (except.empty? || !except.include?(field))
-        options[:methods] = (options[:methods] || []) + [field]
-      end
-    end
-    super(options)
+    document_fields = check_document_fields_from_options(options)
+
+    json = super(options)
+
+    push_document_fields_into_json(document_fields, json)
+
+    json
   end
 
   def requires_base_path?
@@ -244,22 +185,30 @@ class Edition < ApplicationRecord
 
 private
 
-  # These are private whilst they are legacy attributes, that are currently
-  # kept for easy rollback to a previous iteration of the codebase
-  def content_id
-    self[:content_id]
+  def check_document_fields_from_options(options)
+    methods = Array.wrap(options[:methods])
+    document_fields = []
+
+    %i[content_id locale].each do |field|
+      if methods.include?(field)
+        document_fields.push(field)
+        options[:methods] = methods - [field]
+      else
+        only = Array.wrap(options[:only])
+        except = Array.wrap(options[:except])
+        if (only.empty? || only.include?(field)) && !except.include?(field)
+          document_fields.push(field)
+        end
+      end
+    end
+
+    document_fields
   end
 
-  def content_id=(val)
-    write_attribute(:content_id, val)
-  end
-
-  def locale
-    self[:locale]
-  end
-
-  def locale=(val)
-    write_attribute(:locale, val)
+  def push_document_fields_into_json(document_fields, json)
+    document_fields.each do |field|
+      json[field] = document.send(field)
+    end
   end
 
   def renderable_content?
