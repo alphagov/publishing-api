@@ -39,9 +39,17 @@ class PreviouslyPublishedItem
     previous_base_path != base_path
   end
 
+  def links
+    previously_published_item.links
+  end
+
   class NoPreviousPublishedItem
     def user_facing_version
       1
+    end
+
+    def links
+      []
     end
 
     def set_first_published_at?
@@ -56,6 +64,9 @@ class PreviouslyPublishedItem
     end
 
     def routes
+    end
+
+    def previously_published_item
     end
   end
 end

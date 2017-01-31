@@ -2,9 +2,9 @@ class Link < ApplicationRecord
   include SymbolizeJSON
 
   belongs_to :link_set
-  belongs_to :edition, foreign_key: "content_item_id"
+  belongs_to :edition
 
-  validates :target_content_id, presence: true
+  validates :target_content_id, presence: true, uuid: true
   validate :link_type_is_valid
   validate :association_presence
 

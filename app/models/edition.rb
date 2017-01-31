@@ -95,6 +95,14 @@ class Edition < ApplicationRecord
     base_path.present?
   end
 
+  def copy_links_from(other_links)
+    links.create(
+      other_links.map do |link|
+        link.attributes.slice("target_content_id", "link_type")
+      end
+    )
+  end
+
   def draft_cannot_be_behind_live
     return unless document
 
