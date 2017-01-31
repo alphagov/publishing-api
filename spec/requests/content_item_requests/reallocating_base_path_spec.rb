@@ -39,13 +39,13 @@ RSpec.describe "Reallocating base paths of editions" do
 
     context "when both editions are 'regular' editions" do
       before do
-        draft = FactoryGirl.create(
+        FactoryGirl.create(
           :draft_edition,
           document: draft_document,
           base_path: base_path,
         )
 
-        live = FactoryGirl.create(
+        FactoryGirl.create(
           :live_edition,
           document: live_document,
           base_path: base_path,
