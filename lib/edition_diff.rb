@@ -11,7 +11,7 @@ class EditionDiff
   end
 
   def field_diff
-    diff.map {|_,field,_| field.to_sym }
+    diff.map { |_, field, _| field.to_sym }
   end
 
 private
@@ -24,7 +24,7 @@ private
 
   def previous_edition
     @previous_edition || Document.find_by(content_id: current_edition.document.content_id)
-      .editions.find_by( user_facing_version: previous_user_version) || NullEdition.new
+      .editions.find_by(user_facing_version: previous_user_version) || NullEdition.new
   end
 
   def previous_user_version

@@ -30,7 +30,8 @@ RSpec.describe EditionDiff do
   end
 
   context "diff in title, document_type and base_path" do
-    let!(:current_edition) { FactoryGirl.create(:live_edition,
+    let!(:current_edition) {
+      FactoryGirl.create(:live_edition,
                                                      document: document,
                                                      title: "Bar", base_path:
                                                      "/bar",
