@@ -46,6 +46,12 @@ RSpec.describe Queries::DependentExpansionRules do
     specify { expect(subject.valid_link_recursion?([:parent, :parent])).to eq(true) }
     specify { expect(subject.valid_link_recursion?([:parent, :parent, :parent])).to eq(true) }
     specify { expect(subject.valid_link_recursion?([:parent, :child])).to eq(false) }
+    specify { expect(subject.valid_link_recursion?([:taxons])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:taxons, :parent_taxons])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:taxons, :parent_taxons, :parent_taxons])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:parent_taxons])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:parent_taxons, :parent_taxons])).to eq(true) }
+    specify { expect(subject.valid_link_recursion?([:parent_taxons, :taxons])).to eq(false) }
     specify { expect(subject.valid_link_recursion?([:ordered_related_items])).to eq(true) }
     specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages])).to eq(true) }
     specify { expect(subject.valid_link_recursion?([:ordered_related_items, :mainstream_browse_pages, :parent])).to eq(true) }
@@ -56,7 +62,7 @@ RSpec.describe Queries::DependentExpansionRules do
 
   describe "#next_reverse_recursive_types" do
     specify { expect(subject.next_reverse_recursive_types([:parent])).to match_array([:parent, :mainstream_browse_pages]) }
-    specify { expect(subject.next_reverse_recursive_types([:parent_taxons])).to match_array([:parent_taxons]) }
+    specify { expect(subject.next_reverse_recursive_types([:parent_taxons])).to match_array([:parent_taxons, :taxons]) }
     specify { expect(subject.next_reverse_recursive_types(["parent"])).to match_array([:parent, :mainstream_browse_pages]) }
     specify { expect(subject.next_reverse_recursive_types([:parent, :parent])).to match_array([:parent, :mainstream_browse_pages]) }
     specify { expect(subject.next_reverse_recursive_types([:parent, :parent, :parent])).to match_array([:parent, :mainstream_browse_pages]) }
