@@ -9,7 +9,7 @@ module Commands
         update_content_dependencies(edition)
 
         after_transaction_commit do
-          send_downstream(document.content_id, document.locale, update_dependencies?(edition))
+          send_downstream(document.content_id, document.locale)
         end
 
         Success.new(present_response(edition))
@@ -68,7 +68,7 @@ module Commands
 
       def create_or_update_edition
         if previously_drafted_item
-          updated_item, @previous_item, @presented_old_edition = UpdateExistingDraftEdition.new(previously_drafted_item, self, payload).call
+          updated_item, @previous_item = UpdateExistingDraftEdition.new(previously_drafted_item, self, payload).call
         else
           new_draft_edition = CreateDraftEdition.new(self, payload, previously_published_item).call
         end
@@ -114,15 +114,7 @@ module Commands
         payload.fetch(:bulk_publishing, false)
       end
 
-      def update_dependencies?(edition)
-        (dependency_fields(edition) & EditionDiff.new(edition, previous_edition: @presented_old_edition).field_diff).present?
-      end
-
-      def dependency_fields(edition)
-        Queries::DependentExpansionRules.expansion_fields(edition.document_type)
-      end
-
-      def send_downstream(content_id, locale, update_dependencies)
+      def send_downstream(content_id, locale)
         return unless downstream
 
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
@@ -132,7 +124,7 @@ module Commands
           content_id: content_id,
           locale: locale,
           payload_version: event.id,
-          update_dependencies: update_dependencies,
+          update_dependencies: true,
         )
       end
     end
