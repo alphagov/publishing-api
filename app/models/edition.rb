@@ -81,34 +81,6 @@ class Edition < ApplicationRecord
     end
   end
 
-  # Temporary code until we kill Location, State, Translation, and
-  # UserFacingVersion
-  after_save do
-    if changes[:base_path] && changes[:base_path].last
-      Location.find_or_initialize_by(content_item_id: id)
-        .update!(base_path: changes[:base_path].last)
-    end
-
-    if changes[:base_path] && !changes[:base_path].last
-      Location.find_by(content_item_id: id).try(:destroy)
-    end
-
-    if changes[:state]
-      State.find_or_initialize_by(content_item_id: id)
-        .update!(name: changes[:state].last)
-    end
-
-    if changes[:locale]
-      Translation.find_or_initialize_by(content_item_id: id)
-        .update!(locale: changes[:locale].last)
-    end
-
-    if changes[:user_facing_version]
-      UserFacingVersion.find_or_initialize_by(content_item_id: id)
-        .update!(number: changes[:user_facing_version].last)
-    end
-  end
-
   before_save { ensure_document }
 
   def document_requires_updating?

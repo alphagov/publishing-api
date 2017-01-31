@@ -51,10 +51,6 @@ module Commands
       end
 
       def delete_supporting_objects(edition)
-        Location.find_by(edition: edition).try(:destroy)
-        State.find_by(edition: edition).try(:destroy)
-        Translation.find_by(edition: edition).try(:destroy)
-        UserFacingVersion.find_by(edition: edition).try(:destroy)
         LockVersion.find_by(target: edition).try(:destroy)
         AccessLimit.find_by(edition: edition).try(:destroy)
         ChangeNote.where(edition: edition).destroy_all
