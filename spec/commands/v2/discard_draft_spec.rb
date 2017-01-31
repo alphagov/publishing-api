@@ -51,27 +51,17 @@ RSpec.describe Commands::V2::DiscardDraft do
           "content_id" => document.content_id,
           "locale" => document.locale,
           "action" => "DiscardDraft",
-          "content_item_id" => existing_draft_item.id,
+          "edition_id" => existing_draft_item.id,
         )
       end
 
       it "deletes the supporting objects for the draft item" do
         described_class.call(payload)
 
-        state = State.find_by(edition: existing_draft_item)
-        translation = Translation.find_by(edition: existing_draft_item)
-        location = Location.find_by(edition: existing_draft_item)
         access_limit = AccessLimit.find_by(edition: existing_draft_item)
-        user_facing_version = UserFacingVersion.find_by(edition: existing_draft_item)
-        lock_version = LockVersion.find_by(target: existing_draft_item)
         change_notes = ChangeNote.where(edition: existing_draft_item)
 
-        expect(state).to be_nil
-        expect(translation).to be_nil
-        expect(location).to be_nil
         expect(access_limit).to be_nil
-        expect(user_facing_version).to be_nil
-        expect(lock_version).to be_nil
         expect(change_notes).to be_empty
       end
 
@@ -91,7 +81,6 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       it "does not send any request to the live content store" do
         expect(DownstreamLiveWorker).not_to receive(:perform_async)
-
         described_class.call(payload)
       end
 
@@ -144,19 +133,8 @@ RSpec.describe Commands::V2::DiscardDraft do
         it "deletes the supporting objects for the draft item" do
           described_class.call(payload)
 
-          state = State.find_by(edition: existing_draft_item)
-          translation = Translation.find_by(edition: existing_draft_item)
-          location = Location.find_by(edition: existing_draft_item)
           access_limit = AccessLimit.find_by(edition: existing_draft_item)
-          user_facing_version = UserFacingVersion.find_by(edition: existing_draft_item)
-          lock_version = LockVersion.find_by(target: existing_draft_item)
-
-          expect(state).to be_nil
-          expect(translation).to be_nil
-          expect(location).to be_nil
           expect(access_limit).to be_nil
-          expect(user_facing_version).to be_nil
-          expect(lock_version).to be_nil
         end
 
         it "deletes the draft" do

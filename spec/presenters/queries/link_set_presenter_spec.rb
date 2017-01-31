@@ -3,10 +3,11 @@ require 'rails_helper'
 RSpec.describe Presenters::Queries::LinkSetPresenter do
   describe ".present" do
     let(:content_id) { SecureRandom.uuid }
-    let(:link_set) { FactoryGirl.create(:link_set, content_id: content_id) }
+    let(:link_set) do
+      FactoryGirl.create(:link_set, content_id: content_id, stale_lock_version: 101)
+    end
 
     subject(:result) do
-      FactoryGirl.create(:lock_version, target: link_set, number: 101)
       Presenters::Queries::LinkSetPresenter.present(link_set)
     end
 

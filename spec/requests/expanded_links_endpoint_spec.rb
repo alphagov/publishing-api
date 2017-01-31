@@ -97,9 +97,8 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
   it "returns a version if the link set has a version" do
     link_set = FactoryGirl.create(:link_set,
       content_id: edition.document.content_id,
+      stale_lock_version: 11,
     )
-
-    FactoryGirl.create(:lock_version, target: link_set, number: 11)
 
     get "/v2/expanded-links/#{link_set.content_id}"
 

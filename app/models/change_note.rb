@@ -1,5 +1,5 @@
 class ChangeNote < ActiveRecord::Base
-  belongs_to :edition, foreign_key: "content_item_id"
+  belongs_to :edition
 
   def self.create_from_edition(payload, edition)
     ChangeNoteFactory.new(payload, edition).build
@@ -7,7 +7,7 @@ class ChangeNote < ActiveRecord::Base
 
   def self.join_editions(edition_scope)
     edition_scope.joins(
-      "LEFT JOIN change_notes ON change_notes.content_item_id = content_items.id"
+      "LEFT JOIN change_notes ON change_notes.edition_id = editions.id"
     )
   end
 end

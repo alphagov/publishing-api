@@ -31,7 +31,7 @@ module Presenters
       def initialize(scope, params = {})
         self.scope = scope
         self.fields = (params[:fields] || DEFAULT_FIELDS).map(&:to_sym)
-        self.order = params[:order] || { "content_items.id" => "asc" }
+        self.order = params[:order] || { "editions.id" => "asc" }
         self.limit = params[:limit]
         self.offset = params[:offset]
         self.search_query = params[:search_query]
@@ -86,9 +86,9 @@ module Presenters
         fields_to_select = fields.map do |field|
           case field
           when :publication_state
-            "content_items.state AS publication_state"
+            "editions.state AS publication_state"
           when :user_facing_version
-            "content_items.user_facing_version AS user_facing_version"
+            "editions.user_facing_version AS user_facing_version"
           when :lock_version
             "documents.stale_lock_version AS lock_version"
           when :description
@@ -106,7 +106,7 @@ module Presenters
           when :change_note
             "change_notes.note AS change_note"
           when :base_path
-            "content_items.base_path as base_path"
+            "editions.base_path as base_path"
           when :locale
             "documents.locale as locale"
           when :content_id
@@ -123,14 +123,14 @@ module Presenters
 
       def search(scope)
         return scope unless search_query.present?
-        scope.where("title ilike ? OR content_items.base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
+        scope.where("title ilike ? OR editions.base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
       end
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
           SELECT json_agg((user_facing_version, state))
-          FROM content_items c
-          WHERE c.document_id = documents.id
+          FROM editions e
+          WHERE e.document_id = documents.id
           GROUP BY documents.content_id
         )
       SQL
@@ -141,7 +141,7 @@ module Presenters
       UNPUBLISHING_SQL = <<-SQL.freeze
         (
           SELECT
-            CASE WHEN unpublishings.content_item_id IS NULL THEN NULL
+            CASE WHEN unpublishings.edition_id IS NULL THEN NULL
                  ELSE row_to_json(unpublishing_data)
             END
           FROM (
