@@ -2,7 +2,10 @@ namespace :represent_downstream do
   desc "Represent all editions downstream"
   task all: :environment do
     Commands::V2::RepresentDownstream.new.call(
-      Edition.where("document_type != 'travel_advice'").pluck(:content_id)
+      Edition.
+        joins(:document).
+        where("document_type != 'travel_advice'").
+        pluck(:content_id)
     )
   end
 
@@ -13,7 +16,11 @@ namespace :represent_downstream do
   "
   task :document_type, [:document_type] => :environment do |_t, args|
     document_type = args[:document_type]
-    content_ids = Edition.where(document_type: document_type).pluck(:content_id)
+    content_ids = Edition.
+      joins(:document).
+      where(document_type: document_type).
+      pluck(:content_id)
+
     Commands::V2::RepresentDownstream.new.call(content_ids)
   end
 
@@ -24,7 +31,11 @@ namespace :represent_downstream do
   "
   task :rendering_app, [:rendering_app] => :environment do |_t, args|
     rendering_app = args[:rendering_app]
-    content_ids = Edition.where(rendering_app: rendering_app).pluck(:content_id)
+    content_ids = Edition.
+      joins(:document).
+      where(rendering_app: rendering_app).
+      pluck(:content_id)
+
     Commands::V2::RepresentDownstream.new.call(content_ids)
   end
 
@@ -35,7 +46,11 @@ namespace :represent_downstream do
   "
   task :publishing_app, [:publishing_app] => :environment do |_t, args|
     publishing_app = args[:publishing_app]
-    content_ids = Edition.where(publishing_app: publishing_app)
+    content_ids = Edition.
+      joins(:document).
+      where(publishing_app: publishing_app).
+      pluck(:content_id)
+
     Commands::V2::RepresentDownstream.new.call(content_ids)
   end
 
