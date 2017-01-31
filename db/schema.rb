@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123111649) do
+ActiveRecord::Schema.define(version: 20170131082645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,15 +133,6 @@ ActiveRecord::Schema.define(version: 20170123111649) do
     t.index ["target_content_id"], name: "index_links_on_target_content_id", using: :btree
   end
 
-  create_table "locations", force: :cascade do |t|
-    t.integer  "content_item_id", null: false
-    t.string   "base_path",       null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["base_path"], name: "index_locations_on_base_path", using: :btree
-    t.index ["content_item_id", "base_path"], name: "index_locations_on_content_item_id_and_base_path", using: :btree
-  end
-
   create_table "lock_versions", force: :cascade do |t|
     t.integer  "target_id",               null: false
     t.string   "target_type",             null: false
@@ -159,24 +150,6 @@ ActiveRecord::Schema.define(version: 20170123111649) do
     t.index ["base_path"], name: "index_path_reservations_on_base_path", unique: true, using: :btree
   end
 
-  create_table "states", force: :cascade do |t|
-    t.integer  "content_item_id", null: false
-    t.string   "name",            null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["content_item_id", "name"], name: "index_states_on_content_item_id_and_name", using: :btree
-    t.index ["content_item_id"], name: "index_states_on_content_item_id", using: :btree
-  end
-
-  create_table "translations", force: :cascade do |t|
-    t.integer  "content_item_id", null: false
-    t.string   "locale",          null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["content_item_id", "locale"], name: "index_translations_on_content_item_id_and_locale", using: :btree
-    t.index ["content_item_id"], name: "index_translations_on_content_item_id", using: :btree
-  end
-
   create_table "unpublishings", force: :cascade do |t|
     t.integer  "content_item_id",  null: false
     t.string   "type",             null: false
@@ -187,14 +160,6 @@ ActiveRecord::Schema.define(version: 20170123111649) do
     t.datetime "unpublished_at"
     t.index ["content_item_id", "type"], name: "index_unpublishings_on_content_item_id_and_type", using: :btree
     t.index ["content_item_id"], name: "index_unpublishings_on_content_item_id", using: :btree
-  end
-
-  create_table "user_facing_versions", force: :cascade do |t|
-    t.integer  "content_item_id",             null: false
-    t.integer  "number",          default: 0, null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.index ["content_item_id", "number"], name: "index_user_facing_versions_on_content_item_id_and_number", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
