@@ -71,67 +71,6 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "publishing draft edition" do
-      let(:existing_base_path) { base_path }
-
-      let!(:draft_item) do
-        FactoryGirl.create(:draft_edition,
-          document: document,
-          base_path: existing_base_path,
-          title: "foo",
-        )
-      end
-
-      it "updates the dependencies" do
-        expect(DownstreamLiveWorker)
-          .to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: true))
-
-        described_class.call(payload)
-      end
-    end
-
-    context "dependency fields change on new publication" do
-      let(:existing_base_path) { base_path }
-
-      let!(:live_item) do
-        FactoryGirl.create(:live_edition,
-          document: document,
-          base_path: existing_base_path,
-          title: "foo",
-          user_facing_version: user_facing_version - 1,
-        )
-      end
-
-      it "updates the dependencies" do
-        expect(DownstreamLiveWorker)
-          .to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: true))
-
-        described_class.call(payload)
-      end
-    end
-
-    context "dependency fields don't change between publications" do
-      let(:existing_base_path) { base_path }
-
-      let!(:live_item) do
-        FactoryGirl.create(:live_edition,
-          document: document,
-          base_path: existing_base_path,
-          user_facing_version: user_facing_version - 1,
-        )
-      end
-
-      it "doesn't updates the dependencies" do
-        expect(DownstreamLiveWorker)
-          .to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(update_dependencies: false))
-
-        described_class.call(payload)
-      end
-    end
-
     context "when the edition was previously published" do
       let(:existing_base_path) { base_path }
 
