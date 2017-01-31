@@ -30,14 +30,17 @@ RSpec.describe EditionDiff do
   end
 
   context "diff in title, document_type and base_path" do
-    let!(:current_edition) {
-      FactoryGirl.create(:live_edition,
-                                                     document: document,
-                                                     title: "Bar", base_path:
-                                                     "/bar",
-                                                     user_facing_version: 2,
-                                                     document_type: "new_type")
-    }
+    let!(:current_edition) do
+      FactoryGirl.create(
+        :live_edition,
+        document: document,
+        title: "Bar",
+        base_path: "/bar",
+        user_facing_version: 2,
+        document_type: "new_type"
+      )
+    end
+
     it "returns the diff between two versions" do
       expect(subject.field_diff).to include(:base_path, :title, :document_type)
     end
