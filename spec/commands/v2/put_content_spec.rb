@@ -119,13 +119,26 @@ RSpec.describe Commands::V2::PutContent do
     context "when creating a draft for a previously published edition" do
       let(:first_published_at) { 1.year.ago }
 
-      before do
+      let(:document) do
+        FactoryGirl.create(
+          :document,
+          content_id: content_id,
+          stale_lock_version: 5,
+        )
+      end
+
+      let!(:edition) do
         FactoryGirl.create(:live_edition,
-          document: FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 5),
+          document: document,
           user_facing_version: 5,
           first_published_at: first_published_at,
           base_path: base_path,
         )
+      end
+
+      let!(:link) do
+        edition.links.create(link_type: "test",
+                             target_content_id: document.content_id)
       end
 
       it "creates the draft's user-facing version using the live's user-facing version as a starting point" do
@@ -147,6 +160,16 @@ RSpec.describe Commands::V2::PutContent do
         expect(edition.document.content_id).to eq(content_id)
 
         expect(edition.first_published_at.iso8601).to eq(first_published_at.iso8601)
+      end
+
+      it "copies over the links" do
+        described_class.call(payload)
+
+        edition = Edition.last
+        expect(edition).to be_present
+        expect(edition.document.content_id).to eq(content_id)
+
+        expect(edition.links).not_to be_empty
       end
 
       context "and the base path has changed" do
@@ -554,67 +577,32 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when a link set does not exist for the content id" do
-      it "creates an empty link set" do
-        expect {
-          described_class.call(payload)
-        }.to change(LinkSet, :count).by(1)
-
-        link_set = LinkSet.last
-
-        expect(link_set.content_id).to eq(content_id)
-        expect(link_set.links).to be_empty
-      end
-
-      it "creates a lock version for the link set" do
-        expect {
-          described_class.call(payload)
-        }.to change(LinkSet, :count).by(1)
-
-        link_set = LinkSet.last
-
-        expect(link_set).to be_present
-        expect(link_set.stale_lock_version).to eq(1)
-      end
-    end
-
-    context "when a link set exists for the content id" do
-      let(:link_target) { SecureRandom.uuid }
-
-      let!(:link_set) do
-        FactoryGirl.create(:link_set,
-          content_id: content_id,
-          links: [
-            FactoryGirl.create(:link,
-              link_type: "parent",
-              target_content_id: link_target,
-            )
-          ]
-        )
-      end
-
-      it "does not affect the link set" do
-        expect {
-          described_class.call(payload)
-        }.not_to change(LinkSet, :count)
-
-        links = link_set.reload.links
-        expect(links.count).to eq(1)
-
-        expect(links.first.link_type).to eq("parent")
-        expect(links.first.target_content_id).to eq(link_target)
-      end
-    end
-
     context "when the 'links' parameter is provided" do
       before do
-        payload.merge!(links: { users: ["new-user"] })
+        payload.merge!(links: { users: [link] })
       end
 
-      it "raises an error" do
-        expect {
-          described_class.call(payload)
-        }.to raise_error(CommandError, /'links' parameter should not be provided/)
+      context "invalid UUID" do
+        let!(:link) { "not a UUID" }
+
+        it "should raise a validation error" do
+          expect {
+            described_class.call(payload)
+          }.to raise_error(CommandError, /UUID/)
+        end
+      end
+
+      context "valid UUID" do
+        let(:document) { FactoryGirl.create(:document) }
+        let!(:link) { document.content_id }
+
+        it "should create a link" do
+          expect {
+            described_class.call(payload)
+          }.to change(Link, :count).by(1)
+
+          expect(Link.find_by(target_content_id: document.content_id)).to be
+        end
       end
     end
 

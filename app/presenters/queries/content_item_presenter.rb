@@ -174,7 +174,7 @@ module Presenters
         (
           SELECT json_agg((links.link_type, target_content_id))
           FROM links
-          WHERE links.content_item_id = content_items.id
+          WHERE links.edition_id = editions.id
           GROUP BY links.link_type
         )
       SQL
@@ -211,12 +211,13 @@ module Presenters
 
       def parse_links(result)
         column = "links"
+
         return unless result.key?(column)
-        #raise result.inspect
-        result[column] = result[column].map(&:values)
+
+        result[column] = Array(result[column]).map(&:values)
           .group_by(&:first)
           .each_with_object({}) do |(key, value), a|
-            a[key] = value.flatten.reject {|v| v == key}
+            a[key] = value.flatten.reject { |v| v == key }
           end
       end
 
