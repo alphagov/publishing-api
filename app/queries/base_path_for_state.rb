@@ -25,7 +25,7 @@ module Queries
 
       if %w(published unpublished).include?(state)
         unpublished_state = editions_table[:state].eq("unpublished")
-        editions_join = editions_table[:id].eq(unpublishings_table[:content_item_id])
+        editions_join = editions_table[:id].eq(unpublishings_table[:edition_id])
         nil_unpublishing = unpublishings_table[:type].eq(nil)
         non_substitute = unpublishings_table[:type].not_eq("substitute")
 

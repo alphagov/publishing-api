@@ -1,5 +1,5 @@
 class Action < ActiveRecord::Base
-  belongs_to :edition, foreign_key: "content_item_id"
+  belongs_to :edition
   belongs_to :link_set
   belongs_to :event
 
@@ -48,7 +48,7 @@ class Action < ActiveRecord::Base
 private
 
   def one_of_edition_link_set
-    if content_item_id && link_set_id || edition && link_set
+    if edition_id && link_set_id || edition && link_set
       errors.add(:base, "can not be associated with both an edition and link set")
     end
   end

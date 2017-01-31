@@ -18,9 +18,9 @@ module Tasks
           versions = parse(r.fetch("versions")).map(&:to_i)
           states = parse(r.fetch("states"))
           base_paths = parse(r.fetch("base_paths"))
-          content_item_ids = parse(r.fetch("content_item_ids")).map(&:to_i)
+          edition_ids = parse(r.fetch("edition_ids")).map(&:to_i)
 
-          items = versions.zip(states, base_paths, content_item_ids)
+          items = versions.zip(states, base_paths, edition_ids)
           items.sort! { |a, b| workflow_sort(a, b) }
 
           valid_version_sequence = true
@@ -54,10 +54,10 @@ module Tasks
             array_agg(state) as states,
             array_agg(user_facing_version) as versions,
             array_agg(base_path) as base_paths,
-            array_agg(content_items.id) as content_item_ids
+            array_agg(editions.id) as edition_ids
 
-          FROM content_items
-          JOIN documents ON documents.id = content_items.document_id
+          FROM editions
+          JOIN documents ON documents.id = editions.document_id
           GROUP BY documents.content_id, documents.locale
         SQL
       end

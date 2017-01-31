@@ -51,7 +51,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           "content_id" => document.content_id,
           "locale" => document.locale,
           "action" => "DiscardDraft",
-          "content_item_id" => existing_draft_item.id,
+          "edition_id" => existing_draft_item.id,
         )
       end
 

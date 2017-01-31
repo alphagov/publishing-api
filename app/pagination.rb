@@ -81,6 +81,6 @@ private
   end
 
   def disambiguate_field(field)
-    field == :updated_at ? :"content_items.updated_at" : field
+    field == :updated_at ? :"editions.updated_at" : field
   end
 end

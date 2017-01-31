@@ -19,14 +19,14 @@ module Presenters
     def change_notes_for_content_item
       change_notes = ChangeNote
         .where(content_id: content_id)
-        .where("content_item_id IS NULL OR content_item_id IN (?)", content_item_ids)
+        .where("edition_id IS NULL OR edition_id IN (?)", edition_ids)
         .order(:public_timestamp)
         .pluck(:note, :public_timestamp)
         .map { |note, timestamp| { note: note, public_timestamp: timestamp } }
       SymbolizeJSON.symbolize(change_notes.as_json)
     end
 
-    def content_item_ids
+    def edition_ids
       Edition.with_document
         .where("documents.content_id": content_id)
         .where("user_facing_version <= ?", version_number)

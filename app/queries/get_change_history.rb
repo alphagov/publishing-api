@@ -6,7 +6,7 @@ module Queries
         pluck(:id, "details->>'change_history'").
         flat_map do |editions_id, item_history|
           JSON.parse(item_history).map do |item_history_element|
-            item_history_element.symbolize_keys.merge(content_item_id: editions_id)
+            item_history_element.symbolize_keys.merge(edition_id: editions_id)
           end
         end
     end

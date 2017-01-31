@@ -10,30 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131084254) do
+ActiveRecord::Schema.define(version: 20170131084734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "access_limits", force: :cascade do |t|
-    t.json     "users",           default: [], null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "content_item_id"
-    t.index ["content_item_id"], name: "index_access_limits_on_content_item_id", using: :btree
+    t.json     "users",      default: [], null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "edition_id"
+    t.index ["edition_id"], name: "index_access_limits_on_edition_id", using: :btree
   end
 
   create_table "actions", force: :cascade do |t|
-    t.uuid     "content_id",      null: false
+    t.uuid     "content_id",  null: false
     t.string   "locale"
-    t.string   "action",          null: false
+    t.string   "action",      null: false
     t.uuid     "user_uid"
-    t.integer  "content_item_id"
+    t.integer  "edition_id"
     t.integer  "link_set_id"
-    t.integer  "event_id",        null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["content_item_id"], name: "index_actions_on_content_item_id", using: :btree
+    t.integer  "event_id",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["edition_id"], name: "index_actions_on_edition_id", using: :btree
     t.index ["event_id"], name: "index_actions_on_event_id", using: :btree
     t.index ["link_set_id"], name: "index_actions_on_link_set_id", using: :btree
   end
@@ -41,15 +41,22 @@ ActiveRecord::Schema.define(version: 20170131084254) do
   create_table "change_notes", force: :cascade do |t|
     t.string   "note",             default: ""
     t.datetime "public_timestamp"
-    t.integer  "content_item_id"
+    t.integer  "edition_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "content_id"
     t.index ["content_id"], name: "index_change_notes_on_content_id", using: :btree
-    t.index ["content_item_id"], name: "index_change_notes_on_content_item_id", using: :btree
+    t.index ["edition_id"], name: "index_change_notes_on_edition_id", using: :btree
   end
 
-  create_table "content_items", force: :cascade do |t|
+  create_table "documents", force: :cascade do |t|
+    t.uuid    "content_id",                     null: false
+    t.string  "locale",                         null: false
+    t.integer "stale_lock_version", default: 0, null: false
+    t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true, using: :btree
+  end
+
+  create_table "editions", force: :cascade do |t|
     t.uuid     "content_id"
     t.string   "title"
     t.datetime "public_updated_at"
@@ -75,29 +82,22 @@ ActiveRecord::Schema.define(version: 20170131084254) do
     t.string   "base_path"
     t.string   "content_store"
     t.integer  "document_id",                                   null: false
-    t.index ["base_path", "content_store"], name: "index_content_items_on_base_path_and_content_store", unique: true, using: :btree
-    t.index ["content_id", "locale", "content_store"], name: "index_content_items_on_content_id_and_locale_and_content_store", unique: true, using: :btree
+    t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true, using: :btree
+    t.index ["content_id", "locale", "content_store"], name: "index_editions_on_content_id_and_locale_and_content_store", unique: true, using: :btree
     t.index ["content_id", "locale", "user_facing_version"], name: "index_unique_ufv_content_id_locale", unique: true, using: :btree
-    t.index ["content_id", "state", "locale"], name: "index_content_items_on_content_id_and_state_and_locale", using: :btree
-    t.index ["content_id"], name: "index_content_items_on_content_id", using: :btree
-    t.index ["document_id", "content_store"], name: "index_content_items_on_document_id_and_content_store", unique: true, using: :btree
-    t.index ["document_id", "state"], name: "index_content_items_on_document_id_and_state", using: :btree
-    t.index ["document_id", "user_facing_version"], name: "index_content_items_on_document_id_and_user_facing_version", unique: true, using: :btree
-    t.index ["document_id"], name: "index_content_items_on_document_id", using: :btree
-    t.index ["document_type"], name: "index_content_items_on_document_type", using: :btree
-    t.index ["last_edited_at"], name: "index_content_items_on_last_edited_at", using: :btree
-    t.index ["public_updated_at"], name: "index_content_items_on_public_updated_at", using: :btree
-    t.index ["publishing_app"], name: "index_content_items_on_publishing_app", using: :btree
-    t.index ["rendering_app"], name: "index_content_items_on_rendering_app", using: :btree
-    t.index ["state", "base_path"], name: "index_content_items_on_state_and_base_path", using: :btree
-    t.index ["updated_at"], name: "index_content_items_on_updated_at", using: :btree
-  end
-
-  create_table "documents", force: :cascade do |t|
-    t.uuid    "content_id",                     null: false
-    t.string  "locale",                         null: false
-    t.integer "stale_lock_version", default: 0, null: false
-    t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true, using: :btree
+    t.index ["content_id", "state", "locale"], name: "index_editions_on_content_id_and_state_and_locale", using: :btree
+    t.index ["content_id"], name: "index_editions_on_content_id", using: :btree
+    t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true, using: :btree
+    t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state", using: :btree
+    t.index ["document_id", "user_facing_version"], name: "index_editions_on_document_id_and_user_facing_version", unique: true, using: :btree
+    t.index ["document_id"], name: "index_editions_on_document_id", using: :btree
+    t.index ["document_type"], name: "index_editions_on_document_type", using: :btree
+    t.index ["last_edited_at"], name: "index_editions_on_last_edited_at", using: :btree
+    t.index ["public_updated_at"], name: "index_editions_on_public_updated_at", using: :btree
+    t.index ["publishing_app"], name: "index_editions_on_publishing_app", using: :btree
+    t.index ["rendering_app"], name: "index_editions_on_rendering_app", using: :btree
+    t.index ["state", "base_path"], name: "index_editions_on_state_and_base_path", using: :btree
+    t.index ["updated_at"], name: "index_editions_on_updated_at", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -142,15 +142,15 @@ ActiveRecord::Schema.define(version: 20170131084254) do
   end
 
   create_table "unpublishings", force: :cascade do |t|
-    t.integer  "content_item_id",  null: false
+    t.integer  "edition_id",       null: false
     t.string   "type",             null: false
     t.string   "explanation"
     t.string   "alternative_path"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "unpublished_at"
-    t.index ["content_item_id", "type"], name: "index_unpublishings_on_content_item_id_and_type", using: :btree
-    t.index ["content_item_id"], name: "index_unpublishings_on_content_item_id", using: :btree
+    t.index ["edition_id", "type"], name: "index_unpublishings_on_edition_id_and_type", using: :btree
+    t.index ["edition_id"], name: "index_unpublishings_on_edition_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 20170131084254) do
     t.datetime "updated_at"
   end
 
-  add_foreign_key "change_notes", "content_items"
-  add_foreign_key "content_items", "documents"
+  add_foreign_key "change_notes", "editions"
+  add_foreign_key "editions", "documents"
   add_foreign_key "links", "link_sets"
 end

@@ -70,7 +70,7 @@ module Queries
         )
         .join(documents).on(editions[:document_id].eq(documents[:id]))
         .outer_join(unpublishings).on(
-          editions[:id].eq(unpublishings[:content_item_id])
+          editions[:id].eq(unpublishings[:edition_id])
             .and(editions[:state].eq("unpublished"))
         )
         .order(order || editions[:id].asc)

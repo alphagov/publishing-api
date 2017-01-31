@@ -1,5 +1,5 @@
 class AccessLimit < ApplicationRecord
-  belongs_to :edition, foreign_key: "content_item_id"
+  belongs_to :edition
 
   validate :user_uids_are_strings
 

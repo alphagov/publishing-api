@@ -1,6 +1,4 @@
 class Edition < ApplicationRecord
-  self.table_name = "content_items"
-
   include SymbolizeJSON
   include DescriptionOverrides
 
@@ -38,7 +36,7 @@ class Edition < ApplicationRecord
   EMPTY_BASE_PATH_FORMATS = %w(contact government).freeze
 
   belongs_to :document
-  has_one :unpublishing, foreign_key: "content_item_id"
+  has_one :unpublishing
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
   scope :with_document, -> { joins(:document) }
