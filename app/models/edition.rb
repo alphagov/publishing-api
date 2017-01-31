@@ -66,13 +66,11 @@ class Edition < ApplicationRecord
   validates_with RoutesAndRedirectsValidator
 
   def as_json(options = {})
-    document_fields = %i[content_id locale]
-
-    push_document_fields_into_options(document_fields, options)
+    document_fields = check_document_fields_from_options(options)
 
     json = super(options)
 
-    push_document_fields_into_json(document_fields, options, json)
+    push_document_fields_into_json(document_fields, json)
 
     json
   end
@@ -187,41 +185,30 @@ class Edition < ApplicationRecord
 
 private
 
-  def push_document_fields_into_options(document_fields, options)
+  def check_document_fields_from_options(options)
     methods = Array.wrap(options[:methods])
-    document_fields.each do |field|
-      next if methods.include?(field)
-      only = Array.wrap(options[:only])
-      except = Array.wrap(options[:except])
-      if (only.empty? || only.include?(field)) && !except.include?(field)
-        options[:methods] = methods.push(field)
+    document_fields = []
+
+    %i[content_id locale].each do |field|
+      if methods.include?(field)
+        document_fields.push(field)
+        options[:methods] = methods - [field]
+      else
+        only = Array.wrap(options[:only])
+        except = Array.wrap(options[:except])
+        if (only.empty? || only.include?(field)) && !except.include?(field)
+          document_fields.push(field)
+        end
       end
     end
+
+    document_fields
   end
 
-  def push_document_fields_into_json(document_fields, options, json)
-    methods = Array.wrap(options[:methods])
+  def push_document_fields_into_json(document_fields, json)
     document_fields.each do |field|
-      json[field] = document.send(field) if methods.include?(field)
+      json[field] = document.send(field)
     end
-  end
-
-  # These are private whilst they are legacy attributes, that are currently
-  # kept for easy rollback to a previous iteration of the codebase
-  def content_id
-    self[:content_id]
-  end
-
-  def content_id=(val)
-    write_attribute(:content_id, val)
-  end
-
-  def locale
-    self[:locale]
-  end
-
-  def locale=(val)
-    write_attribute(:locale, val)
   end
 
   def renderable_content?
