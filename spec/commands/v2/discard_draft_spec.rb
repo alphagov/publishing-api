@@ -59,11 +59,9 @@ RSpec.describe Commands::V2::DiscardDraft do
         described_class.call(payload)
 
         access_limit = AccessLimit.find_by(edition: existing_draft_item)
-        lock_version = LockVersion.find_by(target: existing_draft_item)
         change_notes = ChangeNote.where(edition: existing_draft_item)
 
         expect(access_limit).to be_nil
-        expect(lock_version).to be_nil
         expect(change_notes).to be_empty
       end
 
@@ -83,7 +81,6 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       it "does not send any request to the live content store" do
         expect(DownstreamLiveWorker).not_to receive(:perform_async)
-
         described_class.call(payload)
       end
 
@@ -137,10 +134,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           described_class.call(payload)
 
           access_limit = AccessLimit.find_by(edition: existing_draft_item)
-          lock_version = LockVersion.find_by(target: existing_draft_item)
-
           expect(access_limit).to be_nil
-          expect(lock_version).to be_nil
         end
 
         it "deletes the draft" do

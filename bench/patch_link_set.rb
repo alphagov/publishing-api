@@ -69,11 +69,6 @@ begin
 ensure
   scope = Edition.where(publishing_app: 'performance-testing')
   LinkSet.includes(:links).where(content_id: scope.pluck(:content_id)).destroy_all
-  Location.where(edition: scope).delete_all
-  State.where(edition: scope).delete_all
-  Translation.where(edition: scope).delete_all
-  UserFacingVersion.where(edition: scope).delete_all
-  LockVersion.where(target: scope).delete_all
   PathReservation.where(publishing_app: 'performance-testing').delete_all
   scope.delete_all
 end

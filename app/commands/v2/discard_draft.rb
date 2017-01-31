@@ -51,7 +51,6 @@ module Commands
       end
 
       def delete_supporting_objects(edition)
-        LockVersion.find_by(target: edition).try(:destroy)
         AccessLimit.find_by(edition: edition).try(:destroy)
         ChangeNote.where(edition: edition).destroy_all
       end

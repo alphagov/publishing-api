@@ -17,11 +17,7 @@ module Helpers
 
       supporting_classes = [
         AccessLimit,
-        Location,
-        State,
-        Translation,
         Unpublishing,
-        UserFacingVersion,
         ChangeNote,
       ]
 
@@ -29,8 +25,6 @@ module Helpers
         next unless ActiveRecord::Base.connection.data_source_exists?(klass.table_name)
         klass.where(edition: editions).destroy_all
       end
-
-      LockVersion.where(target: editions).destroy_all
     end
 
     def self.destroy_links(content_ids)

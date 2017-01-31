@@ -5,11 +5,7 @@ RSpec.describe Queries::GetLinkSet do
 
   context "when the link set exists" do
     let!(:link_set) do
-      FactoryGirl.create(:link_set, content_id: content_id)
-    end
-
-    before do
-      FactoryGirl.create(:lock_version, target: link_set, number: 5)
+      FactoryGirl.create(:link_set, content_id: content_id, stale_lock_version: 5)
     end
 
     context "and it has some links" do
