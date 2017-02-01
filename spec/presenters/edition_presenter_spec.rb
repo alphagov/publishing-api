@@ -162,7 +162,7 @@ RSpec.describe Presenters::EditionPresenter do
         FactoryGirl.create(
           :link_set,
           content_id: main_edition.document.content_id,
-          links: [ link ],
+          links: [link],
         )
         link2 = FactoryGirl.create(
           :link,
@@ -172,7 +172,7 @@ RSpec.describe Presenters::EditionPresenter do
         FactoryGirl.create(
           :link_set,
           content_id: document_dependent.document.content_id,
-          links: [ link2 ],
+          links: [link2],
         )
         main_edition.links.create!(
           target_content_id: edition_dependee.document.content_id,
@@ -227,15 +227,15 @@ RSpec.describe Presenters::EditionPresenter do
 
         expect(
           result[:expanded_links][:related].map { |link| link[:content_id] }
-        ).to eq [ document_dependee.content_id, edition_dependee.content_id ]
+        ).to eq [document_dependee.content_id, edition_dependee.content_id]
 
         expect(
           result[:expanded_links][:available_translations][0][:content_id]
         ).to eq main_edition.content_id
 
         expect(
-          result[:expanded_links][:document_collections].map{ |link| link[:content_id] }
-        ).to eq [ document_dependent.content_id, edition_dependent.content_id ]
+          result[:expanded_links][:document_collections].map { |link| link[:content_id] }
+        ).to eq [document_dependent.content_id, edition_dependent.content_id]
       end
     end
 

@@ -65,8 +65,5 @@ class PreviouslyPublishedItem
 
     def routes
     end
-
-    def previously_published_item
-    end
   end
 end
