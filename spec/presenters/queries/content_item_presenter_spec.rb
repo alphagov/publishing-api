@@ -115,7 +115,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
       it "presents the item including the link" do
         expected = expected_output.merge(
-          "links" => {"test" => [content_id]}
+          "links" => { "test" => [content_id] }
         )
         expect(result).to eq expected
       end
