@@ -6,7 +6,10 @@ class LookupsController < ApplicationController
     base_paths = params.fetch(:base_paths)
 
     base_paths_and_content_ids = Edition.with_document
+      .left_outer_joins(:unpublishing)
       .where(state: states, base_path: base_paths)
+      .where("state = 'published' OR unpublishings.type = 'withdrawal'")
+      .where("document_type NOT IN ('gone', 'redirect')")
       .pluck(:base_path, 'documents.content_id')
       .uniq
 
