@@ -14,6 +14,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`POST /v2/content/:content_id/publish`](#post-v2contentcontent_idpublish)
 - [`POST /v2/content/:content_id/unpublish`](#post-v2contentcontent_idunpublish)
 - [`POST /v2/content/:content_id/discard-draft`](#post-v2contentcontent_iddiscard-draft)
+- [`POST /v2/content/:content_id/import`](#post-v2contentcontent_idimport)
 - [`GET /v2/content`](#get-v2content)
 - [`GET /v2/content/:content_id`](#get-v2contentcontent_id)
 - [`POST /v2/actions/:content_id`](#post-v2actionscontent_id)
@@ -306,6 +307,15 @@ the draft content store with the published item, if one exists. Uses
 - The draft edition will be deleted from the Publishing API.
 - The draft edition will be removed from the draft content store.
 - If a published edition exists it will be added to the draft content store.
+
+## `POST /v2/content/:content_id/import`
+**Temporary Endpoint**
+
+The import endpoint is a temporary endpoint added for the usage of importing
+Maslow. This endpoint is expected to be removed by March 2017.
+
+We are planning to introduce an import endpoint in Q4 2016, however this may
+have a different API.
 
 ## `GET /v2/content`
 
