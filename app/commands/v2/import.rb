@@ -1,5 +1,12 @@
 module Commands
   module V2
+    # This import command is included as a temporary addition to the Publishing
+    # API to support Maslow migration.
+    # It should no longer be needed by March 2017 and may be removed at this
+    # point.
+    #
+    # We are planning to have an import endpoint, at the time of writing it is
+    # not clear whether it will follow the API used here.
     class Import < BaseCommand
       def call
         unless UuidValidator.valid?(payload[:content_id])
