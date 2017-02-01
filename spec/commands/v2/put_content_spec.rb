@@ -2,12 +2,7 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::PutContent do
   describe "call" do
-    let(:validator) do
-      instance_double(SchemaValidator, valid?: true, errors: [])
-    end
-
     before do
-      allow(SchemaValidator).to receive(:new).and_return(validator)
       stub_request(:delete, %r{.*content-store.*/content/.*})
       stub_request(:put, %r{.*content-store.*/content/.*})
     end
@@ -31,6 +26,20 @@ RSpec.describe Commands::V2::PutContent do
         redirects: [],
         phase: "beta",
         change_note: { note: "Info", public_timestamp: Time.now.utc.to_s }
+      }
+    end
+
+    let(:pathless_payload) do
+      {
+        content_id: content_id,
+        title: "Some Title",
+        publishing_app: "publisher",
+        rendering_app: "frontend",
+        document_type: "contact",
+        details: { title: "Contact Title" },
+        schema_name: "contact",
+        locale: locale,
+        phase: "beta",
       }
     end
 
@@ -719,10 +728,7 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "with a pathless edition payload" do
-      before do
-        payload.delete(:base_path)
-        payload[:schema_name] = "contact"
-      end
+      let(:payload) { pathless_payload }
 
       it "saves the content as draft" do
         expect {
@@ -766,10 +772,10 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "where a base_path is optional and supplied" do
-      before do
-        payload.merge!(
-          schema_name: "contact",
-          document_type: "contact",
+      let(:payload) do
+        pathless_payload.merge(
+          base_path: base_path,
+          routes: [{ path: base_path, type: "exact" }],
         )
       end
 
@@ -823,6 +829,9 @@ RSpec.describe Commands::V2::PutContent do
       end
       let(:validator) do
         instance_double(SchemaValidator, valid?: false, errors: errors)
+      end
+      before do
+        allow(SchemaValidator).to receive(:new).and_return(validator)
       end
 
       it "raises command error and exits" do
