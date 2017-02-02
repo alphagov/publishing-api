@@ -212,7 +212,7 @@ class Edition < ApplicationRecord
   end
 
   def withdrawn?
-    unpublishing.present? && unpublishing.withdrawal?
+    unpublished? && unpublishing.withdrawal?
   end
 
   def api_path
