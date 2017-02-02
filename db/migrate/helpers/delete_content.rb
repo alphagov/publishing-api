@@ -4,7 +4,7 @@ module Helpers
       content_ids = Array(content_ids)
 
       Document.where(content_id: content_ids).each do |document|
-        destroy_supporting_objects(documents.editions)
+        destroy_edition_supporting_objects(document.editions)
         document.editions.destroy_all
         document.destroy
       end
