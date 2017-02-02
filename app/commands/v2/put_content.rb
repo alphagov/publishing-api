@@ -44,9 +44,11 @@ module Commands
       end
 
       def create_links(edition)
-        edition.copy_links_from(previously_published_item.links)
+        if payload[:links].nil?
+          edition.copy_links_from(previously_published_item.links)
+        end
 
-        payload.fetch(:links, []).each do |link_type, target_link_ids|
+        payload.fetch(:links, {}).each do |link_type, target_link_ids|
           edition.links.create!(
             target_link_ids.map.with_index do |target_link_id, i|
               { link_type: link_type, target_content_id: target_link_id, position: i }
