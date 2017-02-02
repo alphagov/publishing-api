@@ -44,7 +44,7 @@ RSpec.describe Commands::V2::Unpublish do
         }
       end
 
-      it "raises an error when expanation is blank" do
+      it "raises an error when explanation is blank" do
         msg = "Validation failed: Explanation can't be blank"
         expect { described_class.call(payload) }
           .to raise_error(CommandError, msg) do |error|
