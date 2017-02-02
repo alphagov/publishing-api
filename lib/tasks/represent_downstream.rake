@@ -54,6 +54,16 @@ namespace :represent_downstream do
     Commands::V2::RepresentDownstream.new.call(content_ids)
   end
 
+  desc "Represent downstream content tagged to a parent taxon"
+  task tagged_to_taxon: :environment do
+    Commands::V2::RepresentDownstream.new.call(
+      Link.
+        joins(:link_set).
+        where(link_type: "taxons").
+        pluck(:content_id)
+    )
+  end
+
   desc "
   Represent an individual edition downstream
   Usage
