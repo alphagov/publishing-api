@@ -48,8 +48,8 @@ module Commands
 
         payload.fetch(:links, []).each do |link_type, target_link_ids|
           edition.links.create!(
-            target_link_ids.map do |target_link_id|
-              { link_type: link_type, target_content_id: target_link_id }
+            target_link_ids.map.with_index do |target_link_id, i|
+              { link_type: link_type, target_content_id: target_link_id, position: i }
             end
           )
         end
