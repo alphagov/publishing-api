@@ -28,12 +28,12 @@ module Presenters
 
       attr_reader :locale_fallback_order, :content_id
 
-      def dependees
-        ExpandDependees.new(content_id, self).expand
+      def expanded_links
+        LinkExpansion.new(content_id,
+          with_drafts: draft,
+          locale_fallback_order: locale_fallback_order,
+        ).links_with_content
       end
-
-      def dependents
-        ExpandDependents.new(content_id, self).expand
 
       def translations
         AvailableTranslations.new(content_id, with_drafts: draft).translations
