@@ -1,12 +1,12 @@
 module Presenters
   module Queries
     class ExpandedLinkSet
-      attr_reader :state_fallback_order
+      attr_reader :draft
 
-      def initialize(content_id:, state_fallback_order:, locale_fallback_order: Edition::DEFAULT_LOCALE)
+      def initialize(content_id:, draft:, locale_fallback_order: Edition::DEFAULT_LOCALE)
         @content_id = content_id
-        @state_fallback_order = Array(state_fallback_order.freeze)
-        @locale_fallback_order = Array(locale_fallback_order.freeze)
+        @draft = draft
+        @locale_fallback_order = Array(locale_fallback_order).freeze
       end
 
       def links
@@ -34,10 +34,9 @@ module Presenters
 
       def dependents
         ExpandDependents.new(content_id, self).expand
-      end
 
       def translations
-        AvailableTranslations.new(content_id, state_fallback_order).translations
+        AvailableTranslations.new(content_id, with_drafts: draft).translations
       end
     end
   end

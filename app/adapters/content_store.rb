@@ -2,8 +2,6 @@
 # to
 module Adapters
   class ContentStore
-    DEPENDENCY_FALLBACK_ORDER = [:published].freeze
-
     def self.put_content_item(base_path, content_item)
       CommandError.with_error_handling do
         PublishingAPI.service(:live_content_store).put_content_item(

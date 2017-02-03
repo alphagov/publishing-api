@@ -4,7 +4,7 @@ module Presenters
   class DownstreamPresenter
     attr_accessor :link_set
 
-    def self.present(web_content_item, state_fallback_order:)
+    def self.present(web_content_item, draft: false)
       return {} unless web_content_item
       if web_content_item.is_a?(Edition)
         # TODO: Add deprecation notice here once we start to migrate other parts of
@@ -12,13 +12,13 @@ module Presenters
         web_content_item = ::Queries::GetWebContentItems.(web_content_item.id).first
       end
 
-      new(web_content_item, nil, state_fallback_order: state_fallback_order).present
+      new(web_content_item, nil, draft: draft).present
     end
 
-    def initialize(web_content_item, link_set = nil, state_fallback_order:)
+    def initialize(web_content_item, link_set = nil, draft: false)
       self.web_content_item = web_content_item
       self.link_set = link_set || LinkSet.find_by(content_id: web_content_item.content_id)
-      self.state_fallback_order = state_fallback_order
+      self.draft = draft
     end
 
     def present
@@ -33,7 +33,7 @@ module Presenters
 
   private
 
-    attr_accessor :web_content_item, :state_fallback_order
+    attr_accessor :web_content_item, :draft
 
     def symbolized_attributes
       SymbolizeJSON.symbolize(web_content_item.as_json.merge(description: web_content_item.description))
@@ -65,7 +65,7 @@ module Presenters
     def expanded_link_set_presenter
       @expanded_link_set_presenter ||= Presenters::Queries::ExpandedLinkSet.new(
         content_id: web_content_item.content_id,
-        state_fallback_order: state_fallback_order,
+        draft: draft,
         locale_fallback_order: locale_fallback_order
       )
     end

@@ -16,7 +16,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   subject(:expanded_links) {
     described_class.new(
       content_id: a,
-      state_fallback_order: state_fallback_order,
+      draft: present_drafts,
       locale_fallback_order: locale_fallback_order
     ).links
   }
@@ -26,7 +26,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     let!(:redirect) { create_edition(b, "/b", factory: :redirect_draft_edition) }
     let!(:gone) { create_edition(c, "/c", factory: :gone_edition) }
 
-    let(:state_fallback_order) { [:draft] }
+    let(:present_drafts) { true }
 
     context "a simple non-recursive graph" do
       it "expands the links for node a correctly" do
@@ -47,7 +47,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     let!(:draft_f) { create_edition(f, "/f", factory: :draft_edition) }
     let!(:draft_g) { create_edition(g, "/g", factory: :draft_edition) }
 
-    let(:state_fallback_order) { [:draft] }
+    let(:present_drafts) { true }
 
     context "a simple non-recursive graph" do
       it "expands the links for node a correctly" do
@@ -234,17 +234,18 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
 
       context "when requested with a draft state" do
-        let(:state_fallback_order) { [:draft] }
+        let(:present_drafts) { true }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:related]).to match([
-            a_hash_including(base_path: "/b", links: {})
+            a_hash_including(base_path: "/b", links: {}),
+            a_hash_including(base_path: "/c", links: {}),
           ])
         end
       end
 
       context "when requested with a published state" do
-        let(:state_fallback_order) { [:published] }
+        let(:present_drafts) { false }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:related]).to match([
@@ -261,16 +262,16 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         create_edition(b, "/b-draft", factory: :draft_edition)
       end
 
-      context "with a fallback to published" do
-        let(:state_fallback_order) { [:published] }
+      context "without drafts" do
+        let(:present_drafts) { false }
 
         it "does not expose the draft item in expanded links" do
           expect(expanded_links[:related]).not_to match(a_hash_including(base_path: "/b-draft"))
         end
       end
 
-      context "with a fallback to draft" do
-        let(:state_fallback_order) { [:draft, :published] }
+      context "with drafts" do
+        let(:present_drafts) { true }
 
         it "exposes the draft item in expanded links" do
           expect(expanded_links[:related]).to match([a_hash_including(base_path: "/b-draft")])
@@ -282,34 +283,30 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       before do
         create_link(a, b, "parent")
         create_link(b, c, "parent")
-        create_link(c, d, "parent")
 
-        create_edition(a, "/a-draft", factory: :draft_edition)
-        create_edition(b, "/b-draft", factory: :draft_edition, version: 2)
-        create_edition(d, "/d-draft", factory: :draft_edition)
-
+        create_edition(a, "/a-published")
         create_edition(b, "/b-published")
-        create_edition(c, "/c-published")
+        create_edition(c, "/c-draft", factory: :draft_edition, version: 2)
       end
 
-      context "when requested with a draft state" do
-        let(:state_fallback_order) { [:draft] }
-
-        it "expands the links for node a correctly" do
-          expect(expanded_links[:parent]).to match([
-            a_hash_including(base_path: "/b-draft", links: {})
-          ])
-        end
-      end
-
-      context "when requested with a published state" do
-        let(:state_fallback_order) { [:published] }
+      context "when requested with drafts" do
+        let(:present_drafts) { true }
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
             a_hash_including(base_path: "/b-published", links: {
-              parent: [a_hash_including(base_path: "/c-published", links: {})]
+              parent: [a_hash_including(base_path: "/c-draft", links: {})]
             })
+          ])
+        end
+      end
+
+      context "when requested without drafts" do
+        let(:present_drafts) { false }
+
+        it "expands the links for node a correctly" do
+          expect(expanded_links[:parent]).to match([
+            a_hash_including(base_path: "/b-published", links: {})
           ])
         end
       end
@@ -320,7 +317,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
     # to the draft content store. This means that we need to try to find a
     # draft, but fall back to the published item (if it exists).
     context "when an array of states is provided" do
-      let(:state_fallback_order) { [:draft, :published] }
+      let(:present_drafts) { true }
 
       before do
         create_link(a, b, "parent")
@@ -347,7 +344,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   end
 
   describe "multiple translations" do
-    let(:state_fallback_order) { [:published] }
+    let(:present_drafts) { false }
     let(:locale_fallback_order) { %w(ar en) }
 
     before do
@@ -366,8 +363,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
     end
 
-    context "when the item exists in the matching locale but a fallback state" do
-      let(:state_fallback_order) { [:draft, :published] }
+    context "when the item exists in the matching locale but not in a draft state" do
+      let(:present_drafts) { true }
       let!(:arabic_b) { create_edition(b, "/b.ar", locale: "ar") }
 
       it "links to the item in the matching locale" do
@@ -385,8 +382,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       end
     end
 
-    context "when the item exists in a fallback state and locale" do
-      let(:state_fallback_order) { [:draft, :published] }
+    context "when the item exists in a matching state and locale" do
+      let(:present_drafts) { true }
       it "links to the item in the fallback locale" do
         expect(expanded_links[:organisation]).to match([
           a_hash_including(base_path: "/b")
@@ -396,7 +393,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   end
 
   describe "expanding withdrawn dependents" do
-    let(:state_fallback_order) { [:published] }
+    let(:present_drafts) { false }
 
     before do
       create_edition(a, "/a", factory: :withdrawn_unpublished_edition)
@@ -419,7 +416,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   end
 
   describe "expanding dependents" do
-    let(:state_fallback_order) { [:draft, :published] }
+    let(:present_drafts) { true }
 
     context "parents" do
       before do
@@ -447,8 +444,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
         ])
       end
 
-      context "with a state fallback to published" do
-        let(:state_fallback_order) { [:published] }
+      context "without drafts" do
+        let(:present_drafts) { false }
 
         it "excludes draft dependees" do
           expect(expanded_links[:children]).to match([
@@ -500,7 +497,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   end
 
   context "with a withdrawn edition as a parent" do
-    let(:state_fallback_order) { [:published, :withdrawn] }
+    let(:present_drafts) { false }
 
     before do
       create_edition(a, "/a")

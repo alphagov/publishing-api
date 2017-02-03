@@ -65,7 +65,7 @@ benchmarks.each do |name, content_id|
       10.times do |i|
         Presenters::DownstreamPresenter.present(
           web_content_item,
-          state_fallback_order: Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER
+          draft: false,
         )
         print "."
       end
