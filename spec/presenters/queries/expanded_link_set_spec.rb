@@ -421,38 +421,80 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   describe "expanding dependents" do
     let(:state_fallback_order) { [:draft, :published] }
 
-    before do
-      create_edition(a, "/a-draft", factory: :draft_edition)
-      create_edition(b, "/b-published")
-      create_edition(c, "/c-published")
-      create_edition(d, "/d-published")
+    context "parents" do
+      before do
+        create_edition(a, "/a-draft", factory: :draft_edition)
+        create_edition(b, "/b-published")
+        create_edition(c, "/c-published")
+        create_edition(d, "/d-published")
 
-      create_link(d, c, "parent")
-      create_link(c, b, "parent")
-      create_link(b, a, "parent")
-    end
+        create_link(d, c, "parent")
+        create_link(c, b, "parent")
+        create_link(b, a, "parent")
+      end
 
-    it "automatically expands reverse dependencies to one level of depth" do
-      expect(expanded_links[:children]).to match([
-        a_hash_including(
-          base_path: "/b-published",
-          links: a_hash_including(
-            parent: [a_hash_including(
-              base_path: "/a-draft",
-              links: anything,
-            )]
-          )
-        )
-      ])
-    end
-
-    context "with a state fallback to published" do
-      let(:state_fallback_order) { [:published] }
-
-      it "excludes draft dependees" do
+      it "automatically expands reverse dependencies to one level of depth" do
         expect(expanded_links[:children]).to match([
-          a_hash_including(base_path: "/b-published", links: {})
+          a_hash_including(
+            base_path: "/b-published",
+            links: a_hash_including(
+              parent: [a_hash_including(
+                base_path: "/a-draft",
+                links: anything,
+              )]
+            )
+          )
         ])
+      end
+
+      context "with a state fallback to published" do
+        let(:state_fallback_order) { [:published] }
+
+        it "excludes draft dependees" do
+          expect(expanded_links[:children]).to match([
+            a_hash_including(base_path: "/b-published", links: {})
+          ])
+        end
+      end
+    end
+
+    context "parent_taxons" do
+      before do
+        create_edition(a, "/a")
+        create_edition(b, "/b")
+        create_edition(c, "/c")
+        create_edition(d, "/d")
+        create_edition(e, "/e")
+
+        create_link(e, d, "parent_taxons")
+        create_link(d, c, "parent_taxons")
+        create_link(c, b, "parent_taxons")
+        create_link(b, a, "parent_taxons")
+      end
+
+      let(:child_taxons) do
+        [a_hash_including(
+          base_path: "/b",
+          links: a_hash_including(
+            child_taxons: [a_hash_including(
+              base_path: "/c",
+              links: a_hash_including(
+                child_taxons: [a_hash_including(
+                  base_path: "/d",
+                  links: a_hash_including(
+                    child_taxons: [a_hash_including(
+                      base_path: "/e",
+                    )],
+                  ),
+                )],
+              ),
+            )],
+          ),
+        )]
+      end
+
+      it "includes each depth of the parent_taxons as child_taxons" do
+        expect(expanded_links[:child_taxons]).to match(child_taxons)
       end
     end
   end
