@@ -120,31 +120,14 @@ You can run the tests locally with: `bundle exec rake`.
 The publishing API includes contract tests which verify that the service
 behaves in the way expected by its clients. We use a library called
 [`pact`][pact] which follows the *consumer driven contract testing* pattern.
-What this means is:
-
-- the expected interactions are defined in the [publishing_api_test.rb in
-  gds-api-adapters][gds-api-adapters-publishing-api-tests]
-- when these tests are run they output a pactfile which is published to
-  [the pact broker][pact-broker]
-- the build of publishing api will use this pactfile to test the publishing-api
-  service
-
-The pacts are verified as part of the main test suite run. This verifies
-against the pactfiles from both the latest release version, and the master
-branch.
-
 You can run the pact verification tests on their own using:
 
 ```
 $ bundle exec rake pact:verify
 ```
 
-If you need to run the contract tests against a branch instead of [the
-pact-broker][pact-broker], you can run them against your local gds-api-adapters
-directory by setting the `USE_LOCAL_PACT` env variable. This will cause pact to
-look for the pactfile in
-`../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json`. You can
-additionally override this location by setting the `GDS_API_PACT_PATH` variable.
+See [doc/pacts.md](doc/pacts.md) for more details about the pacts and the pact
+broker.
 
 ## Example API requests
 
@@ -176,6 +159,4 @@ see the rake task for more details.
 [content-store]: https://github.com/alphagov/content-store
 [content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md
 [pact]: https://github.com/realestate-com-au/pact
-[gds-api-adapters-publishing-api-tests]: https://github.com/alphagov/gds-api-adapters/blob/master/test/publishing_api_test.rb#L19
-[pact-broker]: https://pact-broker.dev.publishing.service.gov.uk/
 [pact-broker-latest]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest

@@ -26,6 +26,9 @@ node {
 
     stage("Test") {
       sh "bundle exec rspec"
+    }
+
+    stage("Verify pact") {
       sh "bundle exec rake pact:verify"
     }
 
