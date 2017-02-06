@@ -37,7 +37,12 @@ private
   def update_edition
     old_edition = edition.dup
     assign_attributes_with_defaults
+
+    # The links are deleted here and then recreated from a payload in the
+    # PutContent controller. This allows users to delete links simply by not
+    # including them in the payload.
     edition.links.delete_all
+
     edition.save!
     [edition, old_edition]
   end
