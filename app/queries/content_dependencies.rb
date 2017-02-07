@@ -20,8 +20,8 @@ module Queries
     end
 
     def call
-      content_ids = linked_to(content_id) + automatic_reverse_links(content_id) + [content_id]
-      with_locales = Queries::LocalesForEditions.call(content_ids.uniq, content_stores)
+      content_ids = dependency_resolution.dependencies + [content_id]
+      with_locales = Queries::LocalesForEditions.call(content_ids, content_stores)
       calling_item = locale ? [content_id, locale] : nil
       with_locales - [calling_item]
     end
@@ -30,15 +30,8 @@ module Queries
 
     attr_reader :content_id, :locale, :content_stores
 
-    def linked_to(content_id)
-      Queries::LinkedTo.new(content_id, DependeeExpansionRules).call
-    end
-
-    def automatic_reverse_links(content_id)
-      link_types = DependentExpansionRules.reverse_recursive_types
-      Link.joins(:link_set)
-        .where(link_sets: { content_id: content_id }, link_type: link_types)
-        .pluck(:target_content_id)
+    def dependency_resolution
+      @dependency_resolution ||= DependencyResolution.new(content_id)
     end
   end
 end
