@@ -1,6 +1,9 @@
 module DependencyResolutionHelper
-  def create_link_set
-    link_set = FactoryGirl.create(:link_set, content_id: SecureRandom.uuid)
+  def create_link_set(content_id = nil, links_hash: {})
+    link_set = FactoryGirl.create(:link_set,
+      content_id: content_id || SecureRandom.uuid,
+      links_hash: links_hash,
+    )
     link_set.content_id
   end
 
