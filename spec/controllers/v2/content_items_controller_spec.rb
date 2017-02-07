@@ -52,27 +52,28 @@ RSpec.describe V2::ContentItemsController do
     end
 
     context "searching a field" do
-      context "when there is a valid query" do
-        let(:previous_live_version) do
-          FactoryGirl.create(:superseded_edition,
-            base_path: "/foo",
-            document_type: "topic",
-            schema_name: "topic",
-            title: "zip",
-            user_facing_version: 1,
-          )
-        end
-        let!(:edition) do
-          FactoryGirl.create(:live_edition,
-            base_path: "/foo",
-            document: previous_live_version.document,
-            document_type: "topic",
-            schema_name: "topic",
-            title: "bar",
-            user_facing_version: 2,
-          )
-        end
+      let(:previous_live_version) do
+        FactoryGirl.create(:superseded_edition,
+          base_path: "/foo",
+          document_type: "topic",
+          schema_name: "topic",
+          title: "zip",
+          user_facing_version: 1,
+        )
+      end
+      let!(:edition) do
+        FactoryGirl.create(:live_edition,
+          base_path: "/foo",
+          document: previous_live_version.document,
+          document_type: "topic",
+          schema_name: "topic",
+          title: "bar",
+          description: "stuff",
+          user_facing_version: 2,
+        )
+      end
 
+      context "when there is a valid query" do
         it "returns the item when searching for base_path" do
           get :index, params: { document_type: "topic", q: "foo", locale: "all" }
           expect(parsed_response["results"].map { |i| i["base_path"] }).to eq(["/foo"])
@@ -86,6 +87,13 @@ RSpec.describe V2::ContentItemsController do
         it "doesn't return items that are no longer the latest version" do
           get :index, params: { document_type: "topic", q: "zip", fields: %w(title) }
           expect(parsed_response["results"].map { |i| i["title"] }).to eq([])
+        end
+      end
+
+      context "specifying fields to search" do
+        it "returns the item" do
+          get :index, params: { document_type: "topic", q: "stuff", search_in: "description.value", fields: %w(title) }
+          expect(parsed_response["results"].map { |i| i["title"] }).to eq(['bar'])
         end
       end
     end
