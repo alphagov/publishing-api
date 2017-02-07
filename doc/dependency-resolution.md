@@ -64,7 +64,7 @@ Some link types are considered [recursive](link-expansion.md#recursive-links),
 for these a recursive process is used to determine which links should be
 re-presented as a result of dependency resolution.
 
-The [Queries::LinkedTo][queries-linked-to] class is used to determine the
+The [DependencyResolution][dependency-resolution] class is used to determine the
 `content_id` value of documents whose editions need to be re-presented.
 
 ### Reverse links
@@ -108,5 +108,5 @@ to determine the origin of the request:
 [downstream-live-worker]: ../app/workers/downstream_live_worker.rb
 [downstream-discard-draft-worker]: ../app/workers/downstream_discard_draft_worker.rb
 [content-dependencies]: ../app/queries/content_dependencies.rb
-[queries-linked-to]: ../app/queries/linked_to.rb
+[dependency-resolution]: ../app/lib/dependency-resolution.rb
 [content-dependencies]: ../app/queries/content_dependencies.rb
