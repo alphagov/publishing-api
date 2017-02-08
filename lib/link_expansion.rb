@@ -53,8 +53,12 @@ private
   end
 
   def should_link?(link_type, content_item)
-    # Only children and parents can be withdrawn
-    %i(children parent).include?(link_type) || content_item.state != "unpublished"
+    # Only specific link types can be withdrawn
+    # FIXME: We're leaking publishing app domain knowledge into the API here.
+    # The agreed approach will be to allow any withdrawn links to appear but
+    # this requires we assess impact on the rendering applications first.
+    %i(children parent related_statistical_data_sets).include?(link_type) ||
+      content_item.state != "unpublished"
   end
 
   def rules

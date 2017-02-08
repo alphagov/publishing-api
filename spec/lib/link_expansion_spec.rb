@@ -55,6 +55,12 @@ RSpec.describe LinkExpansion do
 
         it { is_expected.to be_empty }
       end
+
+      context "and a related_statistical_data_sets link_type" do
+        let(:link_type) { :related_statistical_data_sets }
+
+        it { is_expected.to match(related_statistical_data_sets: [a_hash_including(withdrawn: true)]) }
+      end
     end
 
     context "with recursive links" do
