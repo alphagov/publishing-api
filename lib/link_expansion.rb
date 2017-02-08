@@ -12,7 +12,7 @@ class LinkExpansion
   end
 
   def link_graph
-    @link_graph ||= LinkGraph.new(content_id, LinkReference.new)
+    @link_graph ||= LinkGraph.new(content_id, with_drafts, LinkReference.new)
   end
 
 private

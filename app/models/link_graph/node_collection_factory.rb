@@ -12,7 +12,11 @@ class LinkGraph::NodeCollectionFactory
 
 private
 
-  attr_reader :link_graph, :parent_node
+  attr_reader :link_graph, :with_drafts, :parent_node
+
+  def with_drafts?
+    link_graph.with_drafts
+  end
 
   def content_id
     parent_node ? parent_node.content_id : link_graph.root_content_id
@@ -33,6 +37,7 @@ private
   def links_by_link_type
     link_reference.links_by_link_type(
       content_id,
+      with_drafts?,
       link_types_path,
       parent_content_ids
     )

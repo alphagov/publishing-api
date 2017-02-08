@@ -40,7 +40,7 @@ RSpec.describe "Link Expansion" do
         create_link(a, b, "related")
         create_link(a, c, "related")
 
-        expect(expanded_links[:related]).to match(nil)
+        expect(expanded_links[:related]).not_to be
       end
     end
   end
