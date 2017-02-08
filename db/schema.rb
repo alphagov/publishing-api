@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207155436) do
+ActiveRecord::Schema.define(version: 20170208172603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "access_limits", force: :cascade do |t|
-    t.json     "users",      default: [], null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.json     "users",          default: [], null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "edition_id"
+    t.json     "fact_check_ids", default: [], null: false
     t.index ["edition_id"], name: "index_access_limits_on_edition_id", using: :btree
   end
 
