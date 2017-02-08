@@ -16,17 +16,18 @@ module RequestHelpers
 
     def content_item_params
       {
-        content_id: content_id,
+        analytics_identifier: "GDS01",
         base_path: base_path,
-        title: "VAT rates",
+        content_id: content_id,
         description: "VAT rates for goods and services",
         document_type: "guide",
         schema_name: "guide",
         format: "guide",
         need_ids: %w(100123 100124),
-        first_published_at: "2014-01-02T03:04:05Z",
-        public_updated_at: "2014-05-14T13:00:06Z",
+        first_published_at: DateTime.parse("2014-01-02T03:04:05.000Z"),
+        public_updated_at: DateTime.parse("2014-05-14T13:00:06.000Z"),
         publishing_app: "publisher",
+        redirects: [],
         rendering_app: "frontend",
         locale: "en",
         phase: "beta",
@@ -39,9 +40,8 @@ module RequestHelpers
             type: "exact",
           }
         ],
-        redirects: [],
         update_type: "major",
-        analytics_identifier: "GDS01",
+        title: "VAT rates",
         expanded_links: {
           available_translations: available_translations
         }
@@ -71,15 +71,15 @@ module RequestHelpers
       [
         {
           analytics_identifier: "GDS01",
-          api_path: "/api/content/vat-rates",
           base_path: "/vat-rates",
           content_id: content_id,
           description: "VAT rates for goods and services",
-          schema_name: "guide",
           document_type: "guide",
           locale: "en",
           public_updated_at: DateTime.parse("2014-05-14T13:00:06Z"),
+          schema_name: "guide",
           title: "VAT rates",
+          api_path: "/api/content/vat-rates",
           withdrawn: false,
         }
       ]

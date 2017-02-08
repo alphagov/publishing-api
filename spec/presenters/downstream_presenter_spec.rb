@@ -15,7 +15,7 @@ RSpec.describe Presenters::DownstreamPresenter do
   describe "V2" do
     let(:base_path) { "/vat-rates" }
 
-    let(:expected) {
+    let(:expected) do
       {
         content_id: edition.document.content_id,
         base_path: base_path,
@@ -27,17 +27,17 @@ RSpec.describe Presenters::DownstreamPresenter do
         locale: "en",
         need_ids: %w(100123 100124),
         phase: "beta",
-        first_published_at: "2014-01-02T03:04:05Z",
-        public_updated_at: "2014-05-14T13:00:06Z",
         publishing_app: "publisher",
         redirects: [],
         rendering_app: "frontend",
         routes: [{ path: base_path, type: "exact" }],
         schema_name: "guide",
         title: "VAT rates",
-        update_type: "minor"
+        update_type: "minor",
+        first_published_at: DateTime.parse("2014-01-02T03:04:05Z"),
+        public_updated_at: DateTime.parse("2014-05-14T13:00:06Z"),
       }
-    }
+    end
 
     context "for a live edition" do
       let(:edition) do

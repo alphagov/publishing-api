@@ -65,6 +65,8 @@ class Edition < ApplicationRecord
   validates_with StateForDocumentValidator
   validates_with RoutesAndRedirectsValidator
 
+  delegate :content_id, :locale, to: :document
+
   def as_json(options = {})
     document_fields = check_document_fields_from_options(options)
 
@@ -193,6 +195,36 @@ class Edition < ApplicationRecord
 
   def redirect?
     (unpublished? && unpublishing.redirect?) || document_type == "redirect"
+  end
+
+  def to_h
+    attributes.merge(
+      api_path: api_path,
+      api_url: api_url,
+      web_url: web_url,
+      withdrawn: withdrawn?,
+      content_id: content_id,
+      locale: locale,
+     ).deep_stringify_keys
+  end
+
+  def withdrawn?
+    unpublishing.present? && unpublishing.withdrawal?
+  end
+
+  def api_path
+    return unless base_path
+    "/api/content" + base_path
+  end
+
+  def api_url
+    return unless api_path
+    Plek.current.website_root + api_path
+  end
+
+  def web_url
+    return unless base_path
+    Plek.current.website_root + base_path
   end
 
 private

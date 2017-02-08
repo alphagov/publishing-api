@@ -22,6 +22,10 @@ fields = %i{
   unpublishing_type
   update_type
   user_facing_version
+  api_path
+  api_url
+  web_url
+  withdrawn
 }
 
 WebContentItem = Struct.new(*fields) do
@@ -30,36 +34,13 @@ WebContentItem = Struct.new(*fields) do
   end
 
   def to_h
-    super.merge(
-      api_path: api_path,
-      api_url: api_url,
-      web_url: web_url,
-      withdrawn: withdrawn?,
-      description: description
-     )
-  end
+    h = super
 
-  def withdrawn?
-    unpublishing_type == 'withdrawal'
-  end
+    h[:first_published_at] = first_published_at.iso8601 if first_published_at
+    h[:last_edited_at] = last_edited_at.iso8601 if last_edited_at
+    h[:public_updated_at] = public_updated_at.iso8601 if public_updated_at
 
-  def api_path
-    return unless base_path
-    "/api/content" + base_path
-  end
-
-  def api_url
-    return unless api_path
-    Plek.current.website_root + api_path
-  end
-
-  def web_url
-    return unless base_path
-    Plek.current.website_root + base_path
-  end
-
-  def description
-    self[:description]["value"]
+    h
   end
 
   def document
