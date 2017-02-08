@@ -57,9 +57,12 @@ module Commands
       end
 
       def access_limit(edition)
-        if payload[:access_limited] && (users = payload[:access_limited][:users])
+        if payload[:access_limited]
           AccessLimit.find_or_create_by(edition: edition).tap do |access_limit|
-            access_limit.update_attributes!(users: users)
+            access_limit.update_attributes!(
+              users: (payload[:access_limited][:users] || []),
+              fact_check_ids: (payload[:access_limited][:fact_check_ids] || []),
+            )
           end
         else
           AccessLimit.find_by(edition: edition).try(:destroy)
