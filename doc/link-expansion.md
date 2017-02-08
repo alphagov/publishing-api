@@ -6,9 +6,9 @@
 - [Example output](#example-output)
 - [When it occurs](#when-it-occurs)
 - [Link sources](#link-sources)
-  - [Links added via `patch-link-set` (dependees)](#links-added-via-patch-link-set-dependees)
+  - [Links added via `patch-link-set`](#links-added-via-patch-link-set)
   - [Links added automatically](#links-added-automatically)
-    - [Reverse links (dependents)](#reverse-links-dependents)
+    - [Reverse links](#reverse-links-dependents)
     - [Available translations](#available-translations)
   - [Recursive links](#recursive-links)
     - [Recursive link paths](#recursive-link-paths)
@@ -112,7 +112,7 @@ The links for a edition are a combination of links which are added
 via [`patch-link-set`](api.md#patch-v2linkscontent_id) and those that are
 determined automatically.
 
-### Links added via `patch-link-set` (dependees)
+### Links added via `patch-link-set`
 
 Links added via `patch-link-set` are stored for a document as a
 collection of content ids, all with a link type and ordering index. These are
@@ -120,8 +120,7 @@ always presented as part of link expansion, and some of the link types provided
 here may also include the links for the linked item if they are of a
 [recursive link type](#recursive-links).
 
-These are considered to be **depenees** of a document and are determined
-using the [`Presenters::Queries::ExpandDependees`][expand-dependees] class.
+These are considered to be **direct links** of a document.
 
 ### Links added automatically
 
@@ -138,16 +137,13 @@ links for `A` would include `B`, yet `B` would not include `A` in it's
 links. However if `reciprocal` is defined as a reverse link it will also be
 included in the links for `B`, under a link type of the defined reverse name
 for "reciprocal". These are defined in
-[`Queries::DependentExpansionRules`][dependent-expansion-rules].
+[`LinkExpansion::Rules`][link-expansion-rules].
 
 An example of a reverse link type is `parent` which is defined as having a
 reverse name of `children`. Consider item `C` which has a link to
 item `D` with type `parent`. In `C` you would have a group of `parents`
 links which includes `D`, whereas in `D` you would have a group of
 `children` links which includes `C`.
-
-Reverse links are considered to be **dependents** of a document and are determined
-using the [`Presenters::Queries::ExpandDependents`][expand-dependents] class.
 
 #### Available translations
 
@@ -219,13 +215,11 @@ However this path would not be:
 "Item A" -mainstream_browse_pages-> "Item B" -ordered_related_items-> "Item C" -parent-> "Item D"
 ```
 
-The last item in a path of link types is considered **_sticky_**. This means that
-there can be many items of this type in the path. There can only be instance of
-items before the _sticky_ type, and there is no limit to the amount of items that
-can be of the _sticky_ type.
+An item in a path of link types can be marked as _recurring_. This means that
+there can be many items of this type in the path.
 
-For the path `ordered_related_items`, `mainstream_browse_pages` and `parent`
-there can therefore be any number of `parent` items, and only 1 instance of
+For the path `ordered_related_items`, `mainstream_browse_pages` and
+`parent.recurring` there be any number of `parent` items, and only 1 instance of
 `ordered_related_items` and `mainstream_browse_pages`.
 
 This is a valid path for `ordered_related_items`, `mainstream_browse_pages` and `parent`:
@@ -241,7 +235,7 @@ Yet this is invalid:
 ```
 
 The rules for recursive link types are defined in
-[`Queries::DependentExpansionRules`][dependent-expansion-rules].
+[`LinkExpansion::Rules`][link-expansion-rules].
 
 ## Which states are linked
 
@@ -291,16 +285,12 @@ By default links contain the following fields:
 
 The fields can and are customised in some cases. This can be done on a
 `link_type` basis. These customisations can be performed in
-[`Presenters::Queries::ExpandDependees`][expand-dependees] and
-[`Presenters::Queries::ExpandDependents`][expand-dependents] - where the latter
-is for [reverse links](#reverse-links).
+[`LinkExpansion::Rules`][link-expansion-rules].
 
 [content-store]: https://github.com/alphagov/content-store
 [downstream-draft-worker]: ../app/workers/downstream_draft_worker.rb
 [downstream-live-worker]: ../app/workers/downstream_live_worker.rb
-[expand-dependees]: ../app/presenters/queries/expand_dependees.rb
-[expand-dependents]: ../app/presenters/queries/expand_dependents.rb
-[dependent-expansion-rules]: ../app/queries/dependent_expansion_rules.rb
+[link-expansion-rules]: ../app/queries/dependent_expansion_rules.rb
 [content-id]: model.md#user-content-content_id
 [locale]: model.md#user-content-locale
 [apprenticeship-standards]: https://www.gov.uk/government/collections/apprenticeship-standards

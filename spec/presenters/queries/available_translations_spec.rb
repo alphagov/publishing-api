@@ -4,7 +4,7 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
   subject(:translations) {
     described_class.new(
       link_set.content_id,
-      state_fallback_order,
+      with_drafts: with_drafts,
     ).translations[:available_translations]
   }
 
@@ -21,7 +21,7 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
   let(:link_set) { FactoryGirl.create(:link_set) }
 
   context "with items in a matching state" do
-    let(:state_fallback_order) { [:published] }
+    let(:with_drafts) { false }
 
     before do
       create_edition("/a", "published")
@@ -43,8 +43,8 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
     let!(:ar) { create_edition("/a.ar", "draft", "ar") }
     let!(:es) { create_edition("/a.es", "published", "es") }
 
-    context "with multiple states in the fallback order" do
-      let(:state_fallback_order) { [:draft, :published] }
+    context "with drafts" do
+      let(:with_drafts) { true }
 
       it "returns items in all states in the fallback order" do
         expect(translations).to match_array([
@@ -66,8 +66,8 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
       end
     end
 
-    context "with a single state in the fallback order" do
-      let(:state_fallback_order) { [:published] }
+    context "without drafts" do
+      let(:with_drafts) { false }
 
       it "does not return items with states not in the fallback order" do
         expect(translations).to match_array([

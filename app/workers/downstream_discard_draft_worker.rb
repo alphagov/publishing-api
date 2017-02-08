@@ -16,7 +16,7 @@ class DownstreamDiscardDraftWorker
     current_path = web_content_item.try(:base_path)
     if current_path
       DownstreamService.update_draft_content_store(
-        DownstreamPayload.new(web_content_item, payload_version, Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER)
+        DownstreamPayload.new(web_content_item, payload_version, draft: true)
       )
       if base_path && current_path != base_path
         DownstreamService.discard_from_draft_content_store(base_path)

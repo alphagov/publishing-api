@@ -38,7 +38,7 @@ class DownstreamDraftWorker
 
     if web_content_item.base_path
       DownstreamService.update_draft_content_store(
-        DownstreamPayload.new(web_content_item, payload_version, Adapters::DraftContentStore::DEPENDENCY_FALLBACK_ORDER)
+        DownstreamPayload.new(web_content_item, payload_version, draft: true)
       )
     end
 

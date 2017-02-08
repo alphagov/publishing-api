@@ -7,12 +7,12 @@ RSpec.describe DownstreamPayload do
   end
 
   let(:payload_version) { 1 }
-  let(:state_fallback_order) { [:published] }
+  let(:draft) { false }
   subject(:downstream_payload) {
     DownstreamPayload.new(
       web_content_item,
       payload_version,
-      state_fallback_order
+      draft: draft,
     )
   }
 

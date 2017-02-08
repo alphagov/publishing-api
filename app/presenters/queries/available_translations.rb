@@ -1,9 +1,9 @@
 module Presenters
   module Queries
     class AvailableTranslations
-      def initialize(content_id, state_fallback_order)
+      def initialize(content_id, with_drafts: false)
         @content_id = content_id
-        @state_fallback_order = state_fallback_order
+        @with_drafts = with_drafts
       end
 
       def translations
@@ -16,7 +16,7 @@ module Presenters
 
     private
 
-      attr_reader :content_id, :state_fallback_order, :expanded_translations
+      attr_reader :content_id, :with_drafts, :expanded_translations
 
       def grouped_translations
         Edition.with_document
@@ -27,13 +27,17 @@ module Presenters
       end
 
       def expand_translation(id)
-        expansion_rules = ::Queries::DependentExpansionRules
+        expansion_rules = LinkExpansion::Rules
         web_item = ::Queries::GetWebContentItems.call(id).first
         web_item.to_h.select { |f| expansion_rules.expansion_fields(:available_translations).include?(f) }
       end
 
       def expanded_translations
         @expanded_translations ||= grouped_translations.map { |_, (id)| expand_translation(id) }
+      end
+
+      def state_fallback_order
+        with_drafts ? %i[draft published] : %i[published]
       end
     end
   end

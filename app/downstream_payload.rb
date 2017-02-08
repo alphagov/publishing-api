@@ -1,10 +1,10 @@
 class DownstreamPayload
-  attr_reader :web_content_item, :payload_version, :state_fallback_order
+  attr_reader :web_content_item, :payload_version, :draft
 
-  def initialize(web_content_item, payload_version, state_fallback_order)
+  def initialize(web_content_item, payload_version, draft: false)
     @web_content_item = web_content_item
     @payload_version = payload_version
-    @state_fallback_order = state_fallback_order
+    @draft = draft
   end
 
   def state
@@ -84,7 +84,7 @@ private
     @downstream_presenter ||= Presenters::DownstreamPresenter.new(
       web_content_item,
       nil,
-      state_fallback_order: state_fallback_order,
+      draft: draft,
     )
   end
 end

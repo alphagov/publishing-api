@@ -6,7 +6,7 @@ RSpec.describe Presenters::MessageQueuePresenter do
     web_content_item = Queries::GetWebContentItems.find(edition.id)
     link_set = FactoryGirl.create(:link_set, content_id: edition.document.content_id)
     FactoryGirl.create(:link, target_content_id: "d16216ce-7487-4bde-b817-ef68317fe3ab", link_set: link_set, link_type: 'taxons')
-    Presenters::DownstreamPresenter.new(web_content_item, link_set, state_fallback_order: [:published])
+    Presenters::DownstreamPresenter.new(web_content_item, link_set, draft: false)
   }
 
   it "mixes in the specified update_type to the presentation" do

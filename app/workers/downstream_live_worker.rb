@@ -37,7 +37,7 @@ class DownstreamLiveWorker
       )
     end
 
-    payload = DownstreamPayload.new(web_content_item, payload_version, Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER)
+    payload = DownstreamPayload.new(web_content_item, payload_version, draft: false)
 
     DownstreamService.update_live_content_store(payload) if web_content_item.base_path
 

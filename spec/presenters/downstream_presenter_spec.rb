@@ -5,12 +5,12 @@ RSpec.describe Presenters::DownstreamPresenter do
     Queries::GetWebContentItems.(edition.id).first
   end
 
-  let(:state_fallback_order) { [] }
+  let(:present_drafts) { false }
   let(:web_content_item) { web_content_item_for(edition) }
   let(:change_history) { { note: "Note", public_timestamp: 1.day.ago.to_s } }
   let(:details) { { body: "<p>Text</p>\n", change_history: [change_history], } }
 
-  subject(:result) { described_class.present(web_content_item, state_fallback_order: state_fallback_order) }
+  subject(:result) { described_class.present(web_content_item, draft: present_drafts) }
 
   describe "V2" do
     let(:base_path) { "/vat-rates" }
@@ -24,7 +24,6 @@ RSpec.describe Presenters::DownstreamPresenter do
         details: details,
         document_type: "guide",
         format: "guide",
-        expanded_links: {},
         locale: "en",
         need_ids: %w(100123 100124),
         phase: "beta",
@@ -49,7 +48,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
 
       it "presents the object graph for the content store" do
-        expect(result).to eq(expected)
+        expect(result).to match(a_hash_including(expected))
       end
     end
 
@@ -62,7 +61,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
 
       it "presents the object graph for the content store" do
-        expect(result).to eq(expected)
+        expect(result).to match(a_hash_including(expected))
       end
     end
 
@@ -77,12 +76,14 @@ RSpec.describe Presenters::DownstreamPresenter do
       it "merges in a withdrawal notice" do
         unpublishing = Unpublishing.find_by(edition: edition)
 
-        expect(result).to eq(
-          expected.merge(
-            withdrawn_notice: {
-              explanation: unpublishing.explanation,
-              withdrawn_at: unpublishing.created_at.iso8601,
-            }
+        expect(result).to match(
+          a_hash_including(
+            expected.merge(
+              withdrawn_notice: {
+                explanation: unpublishing.explanation,
+                withdrawn_at: unpublishing.created_at.iso8601,
+              }
+            )
           )
         )
       end
@@ -99,12 +100,14 @@ RSpec.describe Presenters::DownstreamPresenter do
         it "merges in a withdrawal notice with the withdrawn_at set correctly" do
           unpublishing = Unpublishing.find_by(edition: edition)
 
-          expect(result).to eq(
-            expected.merge(
-              withdrawn_notice: {
-                explanation: unpublishing.explanation,
-                withdrawn_at: unpublishing.unpublished_at.iso8601,
-              }
+          expect(result).to match(
+            a_hash_including(
+              expected.merge(
+                withdrawn_notice: {
+                  explanation: unpublishing.explanation,
+                  withdrawn_at: unpublishing.unpublished_at.iso8601,
+                }
+              )
             )
           )
         end
@@ -122,7 +125,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       it "expands the links for the edition" do
-        result = described_class.present(web_content_item_for(a), state_fallback_order: [:draft])
+        result = described_class.present(web_content_item_for(a), draft: true)
 
         expect(result[:expanded_links]).to eq(
           related: [{
