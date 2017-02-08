@@ -56,6 +56,8 @@ FactoryGirl.define do
     sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
     schema_name "gone"
     document_type "gone"
+    state "superseded"
+    rendering_app nil
   end
 
   factory :access_limited_edition, aliases: [:access_limited_draft_edition], parent: :edition do
