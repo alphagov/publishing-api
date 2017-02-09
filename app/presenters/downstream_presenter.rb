@@ -56,7 +56,8 @@ module Presenters
       else
         {
           access_limited: {
-            users: access_limit.users
+            users: access_limit.users,
+            fact_check_ids: access_limit.fact_check_ids,
           }
         }
       end
