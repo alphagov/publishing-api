@@ -466,6 +466,14 @@ RSpec.describe Queries::GetContentCollection do
         it "raises a CommandError" do
           expect { subject.call }.to raise_error(CommandError)
         end
+
+        context "with SQL injection in nested fields" do
+          let(:search_in) { "details.foo' = '') OR 1=1--" }
+          let(:search_query) { 'baz' }
+          it "returns an empty result" do
+            expect(subject.call.to_a).to eq([])
+          end
+        end
       end
     end
   end

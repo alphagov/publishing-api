@@ -90,11 +90,15 @@ module Queries
           raise_error("Invalid search field: #{field}")
         end
         if elements.length == 2
-          "#{elements[0]}->>'#{elements[1]}'"
+          "#{elements[0]}->>'#{escape_nested_field(elements[1])}'"
         else
           elements[0]
         end
       end
+    end
+
+    def escape_nested_field(field)
+      ActiveRecord::Base.connection.quote_string(field)
     end
 
     def query
