@@ -83,6 +83,11 @@ module Commands
         )
 
         update_content_item_state_information(content_item, history_entry[:states])
+
+        # Force reload the association to ensure that the
+        # draft_cannot_be_behind_live validator in the Edition model
+        # gets the correct value
+        document.draft(true)
       end
 
       def update_content_item_state_information(content_item, states)
@@ -99,7 +104,10 @@ module Commands
           when "published"
             content_item.publish
           when "draft"
-            content_item.state = "draft"
+            content_item.update_attributes!(
+              state: "draft",
+              content_store: "draft"
+            )
           else
             raise CommandError.new(
               code: 422,
