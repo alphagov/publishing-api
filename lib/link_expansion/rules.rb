@@ -21,7 +21,7 @@ module LinkExpansion::Rules
 
   REVERSE_LINKS = {
     parent: :children,
-    documents: :documents_collections,
+    documents: :document_collections,
     working_groups: :policies,
     parent_taxons: :child_taxons,
   }.freeze
