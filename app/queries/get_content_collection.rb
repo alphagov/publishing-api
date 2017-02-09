@@ -8,10 +8,11 @@ module Queries
       :locale,
       :pagination,
       :search_query,
+      :search_in,
       :states,
     )
 
-    def initialize(document_types:, fields:, filters: {}, pagination: Pagination.new, search_query: "")
+    def initialize(document_types:, fields:, filters: {}, pagination: Pagination.new, search_query: "", search_in: nil)
       self.document_types = Array(document_types)
       self.fields = (fields || default_fields) + ["total"]
       self.publishing_app = filters[:publishing_app]
@@ -20,6 +21,7 @@ module Queries
       self.locale = filters[:locale] || "en"
       self.pagination = pagination
       self.search_query = search_query.strip
+      self.search_in = search_in
 
       validate_fields!
     end
@@ -42,6 +44,7 @@ module Queries
       :link_filters,
       :pagination,
       :search_query,
+      :search_in,
       :states,
     )
 
@@ -64,12 +67,7 @@ module Queries
       invalid_fields = fields - permitted_fields
       return unless invalid_fields.any?
 
-      raise CommandError.new(code: 400, error_details: {
-        error: {
-          code: 400,
-          message: "Invalid column name(s): #{invalid_fields.to_sentence}"
-        }
-      })
+      raise_error("Invalid column name(s): #{invalid_fields.to_sentence}")
     end
 
     def permitted_fields
@@ -80,6 +78,29 @@ module Queries
       presenter::DEFAULT_FIELDS.map(&:to_s)
     end
 
+    def default_search_fields
+      presenter::DEFAULT_SEARCH_FIELDS
+    end
+
+    def search_fields
+      return default_search_fields if search_in.blank?
+      search_in.split(',').map do |field|
+        elements = field.strip.split('.')
+        unless permitted_fields.include?(elements.first) && elements.length <= 2
+          raise_error("Invalid search field: #{field}")
+        end
+        if elements.length == 2
+          "#{elements[0]}->>'#{escape_nested_field(elements[1])}'"
+        else
+          elements[0]
+        end
+      end
+    end
+
+    def escape_nested_field(field)
+      ActiveRecord::Base.connection.quote_string(field)
+    end
+
     def query
       @query ||= presenter.new(
         editions,
@@ -88,12 +109,22 @@ module Queries
         offset: pagination.offset,
         locale: locale,
         limit: pagination.per_page,
-        search_query: search_query
+        search_query: search_query,
+        search_in: search_fields,
       )
     end
 
     def presenter
       Presenters::Queries::ContentItemPresenter
+    end
+
+    def raise_error(message)
+      raise CommandError.new(code: 400, error_details: {
+        error: {
+          code: 400,
+          message: message
+        }
+      })
     end
   end
 end

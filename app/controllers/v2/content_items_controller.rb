@@ -9,7 +9,8 @@ module V2
         fields: query_params[:fields],
         filters: filters,
         pagination: pagination,
-        search_query: query_params.fetch("q", "")
+        search_query: query_params.fetch("q", ""),
+        search_in: query_params["search_in"]
       )
 
       render json: Presenters::ResultsPresenter.new(results, pagination, request.original_url).present

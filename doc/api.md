@@ -347,7 +347,11 @@ and a state has been specified, the draft is returned.
 - `per_page` *(optional, default: 50)*
   - The number of results to be shown on a given page.
 - `q` *(optional)*
-  - Search term to match against `title` and `base_path` fields.
+  - Search term to match against the fields in `search_in`.
+- `search_in` *(optional)*
+  - Comma-seperated list of fields to search against. Each field can indicate a
+    single level of nesting via the dot operator. If not provided, will default
+    to `title` and `base_path`.
 - `publishing_app` *(optional)*
   - Used to restrict editions to those for a given publishing app.
 - `states` *(optional)*

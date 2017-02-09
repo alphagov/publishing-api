@@ -4,7 +4,7 @@ module Presenters
   module Queries
     class ContentItemPresenter
       attr_accessor :scope, :fields, :order, :limit, :offset, :search_query,
-                    :include_warnings
+                    :search_in, :include_warnings
 
       DEFAULT_FIELDS = ([
         *Edition::TOP_LEVEL_FIELDS,
@@ -17,6 +17,8 @@ module Presenters
         :state_history,
         :change_note,
       ] - [:state]).freeze # state appears as 'publication_state'
+
+      DEFAULT_SEARCH_FIELDS = %w(title base_path).freeze
 
       def self.present_many(scope, params = {})
         new(scope, params).present_many
@@ -35,6 +37,7 @@ module Presenters
         self.limit = params[:limit]
         self.offset = params[:offset]
         self.search_query = params[:search_query]
+        self.search_in = params[:search_in] || DEFAULT_SEARCH_FIELDS
         self.include_warnings = params[:include_warnings] || false
       end
 
@@ -123,7 +126,8 @@ module Presenters
 
       def search(scope)
         return scope unless search_query.present?
-        scope.where("title ilike ? OR editions.base_path ilike ?", "%#{search_query}%", "%#{search_query}%")
+        conditions = search_in.map { |search_field| "#{search_field} ilike :query" }
+        scope.where(conditions.join(" OR "), query: "%#{search_query}%")
       end
 
       STATE_HISTORY_SQL = <<-SQL.freeze
