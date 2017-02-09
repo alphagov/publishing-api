@@ -14,11 +14,11 @@ RSpec.describe "Message queue publishing" do
 
       put "/v2/content/#{content_id}", params: edition.to_json
 
-      expect(response).to be_ok
+      expect(response).to be_ok, "failed to put-content a randomly generated edition"
 
       post "/v2/content/#{content_id}/publish", params: { locale: edition["locale"] }.to_json
 
-      expect(response).to be_ok
+      expect(response).to be_ok, "failed to publish a randomly generated edition"
 
       ensure_message_queue_payload_validates_against_notification_schema
     end
