@@ -59,7 +59,7 @@ benchmarks.each do |name, content_id|
     Edition.where(content_id: content_id)
   ).pluck(:id)
 
-  web_content_item = Queries::GetWebContentItems.(content_item_ids).first
+  edition = Edition.where(id: content_item_ids).first
 
   queries = 0
   ActiveSupport::Notifications.subscribe("sql.active_record") { |_| queries += 1 }
@@ -69,7 +69,7 @@ benchmarks.each do |name, content_id|
     puts Benchmark.measure {
       10.times do
         payload = DownstreamPayload.new(
-          web_content_item,
+          edition,
           1,
           Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER
         )

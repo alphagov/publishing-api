@@ -49,7 +49,7 @@ private
       @web_content_item = Queries::GetWebContentItems.for_content_store(content_id, locale, true)
     else
       content_item_id = attributes[:live_content_item_id]
-      @web_content_item = content_item_id ? Queries::GetWebContentItems.find(content_item_id) : nil
+      @web_content_item = content_item_id ? Edition.find(content_item_id) : nil
       @locale = web_content_item.try(:locale)
     end
   end

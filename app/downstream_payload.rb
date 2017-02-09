@@ -1,18 +1,18 @@
 class DownstreamPayload
-  attr_reader :web_content_item, :payload_version, :draft
+  attr_reader :edition, :payload_version, :draft
 
-  def initialize(web_content_item, payload_version, draft: false)
-    @web_content_item = web_content_item
+  def initialize(edition, payload_version, draft: false)
+    @edition = edition
     @payload_version = payload_version
     @draft = draft
   end
 
   def state
-    web_content_item.state
+    edition.state
   end
 
   def base_path
-    web_content_item.base_path
+    edition.base_path
   end
 
   def unpublished?
@@ -20,7 +20,7 @@ class DownstreamPayload
   end
 
   def content_store_action
-    return :no_op unless web_content_item.base_path
+    return :no_op unless edition.base_path
     return :put unless unpublished?
 
     case unpublishing.type
@@ -43,14 +43,14 @@ class DownstreamPayload
   def message_queue_payload(update_type)
     Presenters::MessageQueuePresenter.present(
       downstream_presenter,
-      update_type: update_type || web_content_item.update_type,
+      update_type: update_type || edition.update_type,
     )
   end
 
 private
 
   def unpublishing
-    @unpublishing ||= Unpublishing.find_by!(edition_id: web_content_item.id)
+    @unpublishing ||= Unpublishing.find_by!(edition_id: edition.id)
   end
 
   def content_payload
@@ -62,8 +62,8 @@ private
 
   def redirect_payload
     payload = RedirectPresenter.present(
-      base_path: web_content_item.base_path,
-      publishing_app: web_content_item.publishing_app,
+      base_path: edition.base_path,
+      publishing_app: edition.publishing_app,
       destination: unpublishing.alternative_path,
       public_updated_at: unpublishing.created_at,
     )
@@ -72,8 +72,8 @@ private
 
   def gone_payload
     payload = GonePresenter.present(
-      base_path: web_content_item.base_path,
-      publishing_app: web_content_item.publishing_app,
+      base_path: edition.base_path,
+      publishing_app: edition.publishing_app,
       alternative_path: unpublishing.alternative_path,
       explanation: unpublishing.explanation,
     )
@@ -82,7 +82,7 @@ private
 
   def downstream_presenter
     @downstream_presenter ||= Presenters::DownstreamPresenter.new(
-      web_content_item,
+      edition,
       nil,
       draft: draft,
     )

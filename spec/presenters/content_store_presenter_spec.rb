@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Presenters::ContentStorePresenter do
   let(:downstream_presenter) {
-    web_content_item = Queries::GetWebContentItems.find(FactoryGirl.create(:live_edition).id)
-    Presenters::DownstreamPresenter.new(web_content_item, nil, draft: false)
+    edition = FactoryGirl.create(:live_edition)
+    Presenters::DownstreamPresenter.new(edition, nil, draft: false)
   }
   let(:event) { double(:event, id: 123) }
 

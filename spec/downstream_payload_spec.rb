@@ -2,8 +2,7 @@ require "rails_helper"
 
 RSpec.describe DownstreamPayload do
   def create_web_content_item(factory, factory_options = {})
-    edition = FactoryGirl.create(factory, factory_options)
-    Queries::GetWebContentItems.find(edition.id)
+    FactoryGirl.create(factory, factory_options)
   end
 
   let(:payload_version) { 1 }

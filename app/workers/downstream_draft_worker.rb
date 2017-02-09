@@ -65,7 +65,7 @@ private
 
   def assign_backwards_compatible_content_item(attributes)
     if attributes[:content_item_id]
-      web_content_item = Queries::GetWebContentItems.find(attributes[:content_item_id])
+      web_content_item = Edition.find(attributes[:content_item_id])
       unless web_content_item
         raise AbortWorkerError.new("A content item was not found for content_item_id: #{attributes[:content_item_id]}")
       end

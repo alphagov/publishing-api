@@ -1,16 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::DownstreamPresenter do
-  def web_content_item_for(edition)
-    Queries::GetWebContentItems.(edition.id).first
-  end
-
   let(:present_drafts) { false }
-  let(:web_content_item) { web_content_item_for(edition) }
   let(:change_history) { { note: "Note", public_timestamp: 1.day.ago.to_s } }
   let(:details) { { body: "<p>Text</p>\n", change_history: [change_history], } }
 
-  subject(:result) { described_class.present(web_content_item, draft: present_drafts) }
+  subject(:result) { described_class.present(edition, draft: present_drafts) }
 
   describe "V2" do
     let(:base_path) { "/vat-rates" }
@@ -125,7 +120,7 @@ RSpec.describe Presenters::DownstreamPresenter do
       end
 
       it "expands the links for the edition" do
-        result = described_class.present(web_content_item_for(a), draft: true)
+        result = described_class.present(a, draft: true)
 
         expect(result[:expanded_links]).to eq(
           related: [{

@@ -9,7 +9,7 @@ module Presenters
       if web_content_item.is_a?(Edition)
         # TODO: Add deprecation notice here once we start to migrate other parts of
         # the app to use WebContentItem. Adding a notice now would be too noisy
-        web_content_item = ::Queries::GetWebContentItems.(web_content_item.id).first
+        web_content_item = Edition.find(web_content_item.id)
       end
 
       new(web_content_item, nil, draft: draft).present

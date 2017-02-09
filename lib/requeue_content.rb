@@ -21,8 +21,7 @@ private
 
   def publish_to_queue(edition)
     downstream_presenter = Presenters::DownstreamPresenter.new(
-      Queries::GetWebContentItems.find(edition.id),
-      draft: false,
+      edition, draft: false,
     )
     queue_payload = Presenters::MessageQueuePresenter.present(
       downstream_presenter,

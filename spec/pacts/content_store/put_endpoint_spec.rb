@@ -17,10 +17,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   let(:client) { ContentStoreWriter.new("http://localhost:3093") }
   let(:body) {
     Presenters::ContentStorePresenter.present(
-      Presenters::DownstreamPresenter.new(
-        Queries::GetWebContentItems.find(edition.id),
-        draft: false,
-      ),
+      Presenters::DownstreamPresenter.new(edition, draft: false),
       event.id
     )
   }

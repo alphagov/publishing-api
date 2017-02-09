@@ -15,18 +15,17 @@ RSpec.describe LinkExpansion::ContentCache do
       ).find(content_id)
     end
 
-    context "no content item" do
+    context "no edition" do
       it { is_expected.to be_nil }
     end
 
-    context "draft content item" do
+    context "draft edition" do
       let!(:draft) { FactoryGirl.create(:draft_edition, document: document) }
 
       context "with drafts" do
         let(:with_drafts) { true }
 
-        let(:web_content_item) { Queries::GetWebContentItems.find(draft.id) }
-        it { is_expected.to eq(web_content_item) }
+        it { is_expected.to eq(draft) }
       end
       context "without drafts" do
         let(:with_drafts) { false }
@@ -34,11 +33,10 @@ RSpec.describe LinkExpansion::ContentCache do
       end
     end
 
-    context "published content item" do
+    context "published edition" do
       let!(:published) { FactoryGirl.create(:live_edition, document: document) }
 
-      let(:web_content_item) { Queries::GetWebContentItems.find(published.id) }
-      it { is_expected.to eq(web_content_item) }
+      it { is_expected.to eq(published) }
     end
 
     context "cached item" do
@@ -46,7 +44,7 @@ RSpec.describe LinkExpansion::ContentCache do
       before { find }
 
       it "doesn't run a query" do
-        expect(Queries::GetWebContentItems).not_to receive(:call)
+        expect(Edition).not_to receive(:find)
         find
       end
     end
@@ -63,7 +61,7 @@ RSpec.describe LinkExpansion::ContentCache do
       end
 
       it "doesn't run a query" do
-        expect(Queries::GetWebContentItems).not_to receive(:call)
+        expect(Edition).not_to receive(:find)
         instance.find(content_id)
       end
     end
