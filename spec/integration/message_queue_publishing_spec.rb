@@ -8,7 +8,9 @@ RSpec.describe "Message queue publishing" do
 
       stub_content_store_calls(base_path)
 
-      edition = generate_random_edition(base_path, change_note)
+      # FIXME: this without("links") should be removed once Edition links are
+      # supported: https://github.com/alphagov/publishing-api/pull/749
+      edition = generate_random_edition(base_path, change_note).without("links")
 
       put "/v2/content/#{content_id}", params: edition.to_json
 
