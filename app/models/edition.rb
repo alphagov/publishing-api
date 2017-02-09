@@ -205,7 +205,7 @@ class Edition < ApplicationRecord
       withdrawn: withdrawn?,
       content_id: content_id,
       locale: locale,
-     ).deep_stringify_keys
+     ).deep_symbolize_keys
   end
 
   def withdrawn?

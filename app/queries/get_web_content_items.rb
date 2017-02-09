@@ -2,14 +2,12 @@ module Queries
   class GetWebContentItems
     extend ArelHelpers
 
-    def self.call(edition_ids, presenter = WebContentItem)
-      Edition.where(id: edition_ids).map do |row|
-        presenter.from_hash(row.to_h)
-      end
+    def self.call(edition_ids)
+      Edition.where(id: edition_ids)
     end
 
     def self.find(edition_id)
-      WebContentItem.from_hash(Edition.find(edition_id).to_h)
+      Edition.find(edition_id)
     end
 
     def self.for_content_store(content_id, locale, include_draft = false)
@@ -24,9 +22,6 @@ module Queries
         .where(state: allowed_states)
         .where("unpublishings.type IS NULL OR unpublishings.type != 'substitute'")
         .order(user_facing_version: :desc)
-        .map do |row|
-          WebContentItem.from_hash(row.to_h)
-        end
         .first
     end
   end
