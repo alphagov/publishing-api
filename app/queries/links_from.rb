@@ -11,18 +11,18 @@ module Queries
         .where("link_sets.content_id = ? OR documents.content_id = ?",
                content_id, content_id)
 
-      # links = links.where(editions: { content_store: "live" }) unless with_drafts
-
       links = links.where(link_type: allowed_link_types) if allowed_link_types
 
       links = links
-        .where.not(target_content_id: parent_content_ids)
+        .where.not(target_content_id: parent_content_ids + [content_id])
         .order(link_type: :asc, position: :asc)
-        .pluck(:link_type, :target_content_id)
+        .pluck(:link_type, :target_content_id, :content_store)
+
+      links.select! { |item| item.last != "draft" } unless with_drafts
 
       grouped = links
         .group_by(&:first)
-        .map { |type, values| [type.to_sym, values.map(&:last)] }
+        .map { |type, values| [type.to_sym, values.map { |item| item[1] }] }
 
       Hash[grouped]
     end

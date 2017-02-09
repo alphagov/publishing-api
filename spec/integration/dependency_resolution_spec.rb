@@ -3,9 +3,12 @@ require "rails_helper"
 RSpec.describe "Dependency Resolution" do
   include DependencyResolutionHelper
 
-  subject(:dependency_resolution) { DependencyResolution.new(content_id).dependencies }
-  let(:content_id) { SecureRandom.uuid }
+  subject(:dependency_resolution) do
+    DependencyResolution.new(content_id, with_drafts).dependencies
+  end
 
+  let(:with_drafts) { true }
+  let(:content_id) { SecureRandom.uuid }
 
   context "when there are no links" do
     it "finds no dependencies" do

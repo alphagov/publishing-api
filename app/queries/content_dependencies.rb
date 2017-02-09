@@ -19,6 +19,10 @@ module Queries
       @content_stores = content_stores
     end
 
+    def with_drafts?
+      content_stores.include?("draft")
+    end
+
     def call
       content_ids = dependency_resolution.dependencies + [content_id]
       with_locales = Queries::LocalesForEditions.call(content_ids, content_stores)
@@ -31,7 +35,10 @@ module Queries
     attr_reader :content_id, :locale, :content_stores
 
     def dependency_resolution
-      @dependency_resolution ||= DependencyResolution.new(content_id)
+      @dependency_resolution ||= DependencyResolution.new(
+        content_id,
+        with_drafts: with_drafts?
+      )
     end
   end
 end

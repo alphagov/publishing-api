@@ -1,8 +1,9 @@
 class DependencyResolution
-  attr_reader :content_id
+  attr_reader :content_id, :with_drafts
 
-  def initialize(content_id)
+  def initialize(content_id, with_drafts)
     @content_id = content_id
+    @with_drafts = with_drafts
   end
 
   def dependencies
@@ -10,6 +11,6 @@ class DependencyResolution
   end
 
   def link_graph
-    @link_graph ||= LinkGraph.new(content_id, LinkReference.new)
+    @link_graph ||= LinkGraph.new(content_id, with_drafts, LinkReference.new)
   end
 end

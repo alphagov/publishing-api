@@ -2,7 +2,10 @@ require "rails_helper"
 
 RSpec.describe LinkGraph do
   let(:content_id) { SecureRandom.uuid }
-  let(:link_graph) { described_class.new(content_id, double(:link_reference)) }
+  let(:with_drafts) { false }
+  let(:link_graph) do
+    described_class.new(content_id, with_drafts, double(:link_reference))
+  end
 
   describe "#links_content_ids" do
     subject { link_graph.links_content_ids }

@@ -235,7 +235,7 @@ RSpec.describe Presenters::EditionPresenter do
 
         expect(
           result[:expanded_links][:document_collections].map { |link| link[:content_id] }
-        ).to eq [document_dependent.content_id, edition_dependent.content_id]
+        ).to match_array [document_dependent.content_id, edition_dependent.content_id]
       end
     end
 

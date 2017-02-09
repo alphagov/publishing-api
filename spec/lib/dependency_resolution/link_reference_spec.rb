@@ -5,12 +5,14 @@ RSpec.describe DependencyResolution::LinkReference do
 
   describe "#links_by_link_type" do
     let(:content_id) { SecureRandom.uuid }
+    let(:with_drafts) { false }
     let(:link_types_path) { [] }
     let(:parent_content_ids) { [] }
 
     subject do
       described_class.new.links_by_link_type(
         content_id,
+        with_drafts,
         link_types_path,
         parent_content_ids
       )
