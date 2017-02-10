@@ -97,7 +97,7 @@ module Presenters
     end
 
     def withdrawal_notice
-      unpublishing = Unpublishing.find_by(edition_id: edition.id)
+      unpublishing = edition.unpublishing
 
       if unpublishing && unpublishing.withdrawal?
         withdrawn_at = (unpublishing.unpublished_at || unpublishing.created_at).iso8601

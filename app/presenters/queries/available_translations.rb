@@ -28,7 +28,7 @@ module Presenters
 
       def expand_translation(id)
         expansion_rules = LinkExpansion::Rules
-        web_item = Edition.where(id: id).first
+        web_item = Edition.find_by(id: id)
         web_item.to_h.select { |f| expansion_rules.expansion_fields(:available_translations).include?(f) }
       end
 
