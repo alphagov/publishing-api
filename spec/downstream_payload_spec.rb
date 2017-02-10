@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe DownstreamPayload do
-  def create_web_content_item(factory, factory_options = {})
+  def create_edition(factory, factory_options = {})
     FactoryGirl.create(factory, factory_options)
   end
 
@@ -9,23 +9,23 @@ RSpec.describe DownstreamPayload do
   let(:draft) { false }
   subject(:downstream_payload) {
     DownstreamPayload.new(
-      web_content_item,
+      edition,
       payload_version,
       draft: draft,
     )
   }
 
   describe "#state" do
-    let(:web_content_item) { create_web_content_item(:live_edition) }
+    let(:edition) { create_edition(:live_edition) }
 
-    it "equals web_content_item.state" do
-      expect(downstream_payload.state).to eq web_content_item.state
+    it "equals edition.state" do
+      expect(downstream_payload.state).to eq edition.state
     end
   end
 
   describe "#unpublished?" do
     context "unpublished edition" do
-      let(:web_content_item) { create_web_content_item(:unpublished_edition) }
+      let(:edition) { create_edition(:unpublished_edition) }
 
       it "returns true" do
         expect(downstream_payload.unpublished?).to be true
@@ -33,7 +33,7 @@ RSpec.describe DownstreamPayload do
     end
 
     context "published edition" do
-      let(:web_content_item) { create_web_content_item(:live_edition) }
+      let(:edition) { create_edition(:live_edition) }
 
       it "returns false" do
         expect(downstream_payload.unpublished?).to be false
@@ -43,7 +43,7 @@ RSpec.describe DownstreamPayload do
 
   describe "#content_store_action" do
     context "no base_path" do
-      let(:web_content_item) { create_web_content_item(:pathless_live_edition) }
+      let(:edition) { create_edition(:pathless_live_edition) }
 
       it "returns :no_op" do
         expect(downstream_payload.content_store_action).to be :no_op
@@ -51,7 +51,7 @@ RSpec.describe DownstreamPayload do
     end
 
     context "published item" do
-      let(:web_content_item) { create_web_content_item(:live_edition) }
+      let(:edition) { create_edition(:live_edition) }
 
       it "returns :put" do
         expect(downstream_payload.content_store_action).to be :put
@@ -59,7 +59,7 @@ RSpec.describe DownstreamPayload do
     end
 
     context "draft item" do
-      let(:web_content_item) { create_web_content_item(:draft_edition) }
+      let(:edition) { create_edition(:draft_edition) }
 
       it "returns :put" do
         expect(downstream_payload.content_store_action).to be :put
@@ -68,7 +68,7 @@ RSpec.describe DownstreamPayload do
 
     context "unpublished item" do
       context "withdrawn type" do
-        let(:web_content_item) { create_web_content_item(:withdrawn_unpublished_edition) }
+        let(:edition) { create_edition(:withdrawn_unpublished_edition) }
 
         it "returns :put" do
           expect(downstream_payload.content_store_action).to be :put
@@ -76,7 +76,7 @@ RSpec.describe DownstreamPayload do
       end
 
       context "redirect type" do
-        let(:web_content_item) { create_web_content_item(:redirect_unpublished_edition) }
+        let(:edition) { create_edition(:redirect_unpublished_edition) }
 
         it "returns :put" do
           expect(downstream_payload.content_store_action).to be :put
@@ -84,7 +84,7 @@ RSpec.describe DownstreamPayload do
       end
 
       context "gone type" do
-        let(:web_content_item) { create_web_content_item(:gone_unpublished_edition) }
+        let(:edition) { create_edition(:gone_unpublished_edition) }
 
         it "returns :put" do
           expect(downstream_payload.content_store_action).to be :put
@@ -92,7 +92,7 @@ RSpec.describe DownstreamPayload do
       end
 
       context "vanish type" do
-        let(:web_content_item) { create_web_content_item(:vanish_unpublished_edition) }
+        let(:edition) { create_edition(:vanish_unpublished_edition) }
 
         it "returns :delete" do
           expect(downstream_payload.content_store_action).to be :delete
@@ -104,14 +104,14 @@ RSpec.describe DownstreamPayload do
   describe "#content_store_payload" do
     let(:content_store_payload_hash) {
       {
-        title: web_content_item.title,
-        base_path: web_content_item.base_path,
+        title: edition.title,
+        base_path: edition.base_path,
         payload_version: payload_version,
       }
     }
 
     context "published item" do
-      let(:web_content_item) { create_web_content_item(:live_edition) }
+      let(:edition) { create_edition(:live_edition) }
 
       it "returns a content store payload" do
         expect(downstream_payload.content_store_payload).to include(content_store_payload_hash)
@@ -119,7 +119,7 @@ RSpec.describe DownstreamPayload do
     end
 
     context "draft item" do
-      let(:web_content_item) { create_web_content_item(:draft_edition) }
+      let(:edition) { create_edition(:draft_edition) }
 
       it "returns a content store payload" do
         expect(downstream_payload.content_store_payload).to include(content_store_payload_hash)
@@ -128,7 +128,7 @@ RSpec.describe DownstreamPayload do
 
     context "unpublished item" do
       context "withdrawn type" do
-        let(:web_content_item) { create_web_content_item(:withdrawn_unpublished_edition) }
+        let(:edition) { create_edition(:withdrawn_unpublished_edition) }
 
         it "returns a content store payload" do
           expect(downstream_payload.content_store_payload).to include(content_store_payload_hash)
@@ -136,23 +136,23 @@ RSpec.describe DownstreamPayload do
       end
 
       context "redirect type" do
-        let(:web_content_item) { create_web_content_item(:redirect_unpublished_edition) }
+        let(:edition) { create_edition(:redirect_unpublished_edition) }
 
         it "returns a redirect payload" do
           expect(downstream_payload.content_store_payload).to include(
             document_type: "redirect",
-            base_path: web_content_item.base_path,
+            base_path: edition.base_path,
           )
         end
       end
 
       context "gone type" do
-        let(:web_content_item) { create_web_content_item(:gone_unpublished_edition) }
+        let(:edition) { create_edition(:gone_unpublished_edition) }
 
         it "returns a gone payload" do
           expect(downstream_payload.content_store_payload).to include(
             document_type: "gone",
-            base_path: web_content_item.base_path,
+            base_path: edition.base_path,
           )
         end
       end
@@ -160,12 +160,12 @@ RSpec.describe DownstreamPayload do
   end
 
   describe "#message_queue_payload" do
-    let(:web_content_item) { create_web_content_item(:live_edition) }
+    let(:edition) { create_edition(:live_edition) }
 
     it "returns a message queue payload" do
       expect(downstream_payload.message_queue_payload("major")).to include(
-        base_path: web_content_item.base_path,
-        title: web_content_item.title,
+        base_path: edition.base_path,
+        title: edition.title,
         update_type: "major",
         govuk_request_id: anything,
       )

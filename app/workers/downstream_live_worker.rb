@@ -27,7 +27,7 @@ class DownstreamLiveWorker
   def perform(args = {})
     assign_attributes(args.symbolize_keys)
 
-    unless web_content_item
+    unless edition
       raise AbortWorkerError.new("A downstreamable edition was not found for content_id: #{content_id} and locale: #{locale}")
     end
 
@@ -37,12 +37,12 @@ class DownstreamLiveWorker
       )
     end
 
-    payload = DownstreamPayload.new(web_content_item, payload_version, draft: false)
+    payload = DownstreamPayload.new(edition, payload_version, draft: false)
 
-    DownstreamService.update_live_content_store(payload) if web_content_item.base_path
+    DownstreamService.update_live_content_store(payload) if edition.base_path
 
-    if web_content_item.state == "published"
-      update_type = message_queue_update_type || web_content_item.update_type
+    if edition.state == "published"
+      update_type = message_queue_update_type || edition.update_type
       DownstreamService.broadcast_to_message_queue(payload, update_type)
     end
 
@@ -53,13 +53,13 @@ class DownstreamLiveWorker
 
 private
 
-  attr_reader :content_id, :locale, :web_content_item, :payload_version,
+  attr_reader :content_id, :locale, :edition, :payload_version,
     :message_queue_update_type, :update_dependencies,
     :dependency_resolution_source_content_id
 
   def assign_attributes(attributes)
     assign_backwards_compatible_content_item(attributes)
-    @web_content_item = Queries::GetEditionForContentStore.(content_id, locale, false)
+    @edition = Queries::GetEditionForContentStore.(content_id, locale, false)
     @payload_version = attributes.fetch(:payload_version)
     @message_queue_update_type = attributes.fetch(:message_queue_update_type, nil)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
@@ -71,12 +71,12 @@ private
 
   def assign_backwards_compatible_content_item(attributes)
     if attributes[:content_item_id]
-      web_content_item = Edition.find(attributes[:content_item_id])
-      unless web_content_item
+      edition = Edition.find(attributes[:content_item_id])
+      unless edition
         raise AbortWorkerError.new("A content item was not found for content_item_id: #{attributes[:content_item_id]}")
       end
-      @content_id = web_content_item.content_id
-      @locale = web_content_item.locale
+      @content_id = edition.content_id
+      @locale = edition.locale
     else
       @content_id = attributes.fetch(:content_id)
       @locale = attributes.fetch(:locale)

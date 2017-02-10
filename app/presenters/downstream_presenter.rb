@@ -2,15 +2,15 @@ module Presenters
   class DownstreamPresenter
     attr_accessor :link_set
 
-    def self.present(web_content_item, draft: false)
-      return {} unless web_content_item
+    def self.present(edition, draft: false)
+      return {} unless edition
 
-      new(web_content_item, nil, draft: draft).present
+      new(edition, nil, draft: draft).present
     end
 
-    def initialize(web_content_item, link_set = nil, draft: false)
-      self.web_content_item = web_content_item
-      self.link_set = link_set || LinkSet.find_by(content_id: web_content_item.content_id)
+    def initialize(edition, link_set = nil, draft: false)
+      self.edition = edition
+      self.link_set = link_set || LinkSet.find_by(content_id: edition.content_id)
       self.draft = draft
     end
 
@@ -26,10 +26,10 @@ module Presenters
 
   private
 
-    attr_accessor :web_content_item, :draft
+    attr_accessor :edition, :draft
 
     def symbolized_attributes
-      SymbolizeJSON.symbolize(web_content_item.as_json.merge(description: web_content_item.description))
+      SymbolizeJSON.symbolize(edition.as_json.merge(description: edition.description))
     end
 
     def links
@@ -40,10 +40,10 @@ module Presenters
 
     def access_limited
       return {} unless access_limit
-      if web_content_item.state != 'draft'
+      if edition.state != 'draft'
         Airbrake.notify(
           'Tried to send non-draft item with access_limited data',
-          content_id: web_content_item.content_id
+          content_id: edition.content_id
         )
         {}
       else
@@ -58,7 +58,7 @@ module Presenters
 
     def expanded_link_set_presenter
       @expanded_link_set_presenter ||= Presenters::Queries::ExpandedLinkSet.new(
-        content_id: web_content_item.content_id,
+        content_id: edition.content_id,
         draft: draft,
         locale_fallback_order: locale_fallback_order
       )
@@ -73,15 +73,15 @@ module Presenters
 
     def change_history_presenter
       @change_history_presenter ||=
-        Presenters::ChangeHistoryPresenter.new(web_content_item)
+        Presenters::ChangeHistoryPresenter.new(edition)
     end
 
     def access_limit
-      @access_limit ||= AccessLimit.find_by(edition_id: web_content_item.id)
+      @access_limit ||= AccessLimit.find_by(edition_id: edition.id)
     end
 
     def locale_fallback_order
-      [web_content_item.locale, Edition::DEFAULT_LOCALE].uniq
+      [edition.locale, Edition::DEFAULT_LOCALE].uniq
     end
 
     def rendered_details
@@ -90,14 +90,14 @@ module Presenters
 
     def format
       {
-        format: web_content_item.schema_name,
-        schema_name: web_content_item.schema_name,
-        document_type: web_content_item.document_type
+        format: edition.schema_name,
+        schema_name: edition.schema_name,
+        document_type: edition.document_type
       }
     end
 
     def withdrawal_notice
-      unpublishing = Unpublishing.find_by(edition_id: web_content_item.id)
+      unpublishing = Unpublishing.find_by(edition_id: edition.id)
 
       if unpublishing && unpublishing.withdrawal?
         withdrawn_at = (unpublishing.unpublished_at || unpublishing.created_at).iso8601
