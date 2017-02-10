@@ -87,7 +87,7 @@ module Commands
         # Force reload the association to ensure that the
         # draft_cannot_be_behind_live validator in the Edition model
         # gets the correct value
-        document.draft(true)
+        document.reload.draft
       end
 
       def update_content_item_state_information(content_item, states)
