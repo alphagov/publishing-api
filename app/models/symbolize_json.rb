@@ -14,7 +14,11 @@ module SymbolizeJSON
     when Array
       value.map { |element| symbolize(element) }
     when Hash
-      value.deep_symbolize_keys
+      value.each_with_object({}) do |(k, v), new_hash|
+        new_hash[k.to_sym] = symbolize(v)
+      end
+    when ActiveSupport::TimeWithZone
+      value.iso8601
     else
       value
     end
