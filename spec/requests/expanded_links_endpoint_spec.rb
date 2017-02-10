@@ -12,7 +12,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
         "locale" => "en",
         "document_type" => "placeholder",
         "schema_name" => "placeholder",
-        "public_updated_at" => "2014-05-14T13:00:06.000Z",
+        "public_updated_at" => "2014-05-14T13:00:06Z",
         "title" => "Some title",
         "withdrawn" => false,
       }
@@ -66,7 +66,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
             "document_type" => "organisation",
             "description" => "VAT rates for goods and services",
             "locale" => "en",
-            "public_updated_at" => "2014-05-14T13:00:06.000Z",
+            "public_updated_at" => "2014-05-14T13:00:06Z",
             "title" => "VAT rates",
             "withdrawn" => false,
             "links" => {},
