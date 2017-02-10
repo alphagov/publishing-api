@@ -4,7 +4,7 @@ namespace :check_content_consistency do
     errors = checker.call
 
     if errors.any?
-      puts "#{content_id} 😱"
+      puts "#{content_id} #{locale} 😱"
       puts errors
     end
 
