@@ -54,7 +54,7 @@ private
 
   def assign_attributes(attributes)
     assign_backwards_compatible_content_item(attributes)
-    @web_content_item = Queries::GetWebContentItems.for_content_store(content_id, locale, true)
+    @web_content_item = Queries::GetEditionForContentStore.(content_id, locale, true)
     @payload_version = attributes.fetch(:payload_version)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @dependency_resolution_source_content_id = attributes.fetch(

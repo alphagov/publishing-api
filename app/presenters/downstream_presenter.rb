@@ -1,5 +1,3 @@
-require 'queries/get_web_content_items'
-
 module Presenters
   class DownstreamPresenter
     attr_accessor :link_set

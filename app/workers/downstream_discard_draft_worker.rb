@@ -46,7 +46,7 @@ private
   def assign_backwards_compatible_content_item(attributes)
     if attributes[:locale]
       @locale = attributes[:locale]
-      @web_content_item = Queries::GetWebContentItems.for_content_store(content_id, locale, true)
+      @web_content_item = Queries::GetEditionForContentStore.(content_id, locale, true)
     else
       content_item_id = attributes[:live_content_item_id]
       @web_content_item = content_item_id ? Edition.find(content_item_id) : nil

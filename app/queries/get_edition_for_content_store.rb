@@ -1,8 +1,6 @@
 module Queries
-  class GetWebContentItems
-    extend ArelHelpers
-
-    def self.for_content_store(content_id, locale, include_draft = false)
+  class GetEditionForContentStore
+    def self.call(content_id, locale, include_draft = false)
       allowed_states = [:published, :unpublished]
       allowed_states << :draft if include_draft
 
