@@ -15,8 +15,8 @@ class ContentConsistencyChecker
       return errors
     end
 
-    check_edition(draft, draft_content_store) if draft
-    check_edition(live, live_content_store) if live
+    check_edition("Draft", draft, draft_content_store) if draft
+    check_edition("Live", live, live_content_store) if live
 
     errors
   end
@@ -33,13 +33,13 @@ private
     end
   end
 
-  def check_edition(edition, content_store)
+  def check_edition(prefix, edition, content_store)
     content_item = item_from_content_store(edition.base_path, content_store)
 
     if edition.gone? && content_item
-      errors << "Content exists in the content store."
+      errors << "#{prefix} content exists in the content store."
     elsif content_item.nil?
-      errors << "Content is missing from the content store."
+      errors << "#{prefix} content is missing from the content store."
       return
     end
 
@@ -49,7 +49,7 @@ private
       content_item_value = content_item[field.to_s]
 
       if edition_value != content_item_value
-        errors << "Edition #{field} (#{edition_value}) does not match content store (#{content_item_value})."
+        errors << "#{prefix} edition #{field} (#{edition_value}) does not match content store (#{content_item_value})."
       end
     end
   end

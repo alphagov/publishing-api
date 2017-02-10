@@ -54,7 +54,7 @@ RSpec.describe ContentConsistencyChecker do
         end
 
         it "should produce an error" do
-          expect(subject.first).to match(/Content exists in the content store/)
+          expect(subject.first).to match(/Draft content exists in the content store/)
         end
       end
 
