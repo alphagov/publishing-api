@@ -187,19 +187,6 @@ class Edition < ApplicationRecord
     (unpublished? && unpublishing.redirect?) || document_type == "redirect"
   end
 
-  def to_h
-    SymbolizeJSON.symbolize(
-      attributes.merge(
-        api_path: api_path,
-        api_url: api_url,
-        web_url: web_url,
-        withdrawn: withdrawn?,
-        content_id: content_id,
-        locale: locale,
-      )
-    )
-  end
-
   def withdrawn?
     unpublishing.present? && unpublishing.withdrawal?
   end

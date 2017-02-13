@@ -29,7 +29,7 @@ module Presenters
     attr_accessor :edition, :draft
 
     def symbolized_attributes
-      edition.to_h
+      ContentItem.new(edition).present
     end
 
     def links
