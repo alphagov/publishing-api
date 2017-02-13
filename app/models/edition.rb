@@ -183,20 +183,16 @@ class Edition < ApplicationRecord
     )
   end
 
+  def unpublished?
+    state == "unpublished" && unpublishing
+  end
+
   def gone?
-    if state == "unpublished"
-      unpublishing.gone?
-    else
-      document_type == "gone"
-    end
+    (unpublished? && unpublishing.gone?) || document_type == "gone"
   end
 
   def redirect?
-    if state == "unpublished"
-      unpublishing.redirect?
-    else
-      document_type == "redirect"
-    end
+    (unpublished? && unpublishing.redirect?) || document_type == "redirect"
   end
 
 private
