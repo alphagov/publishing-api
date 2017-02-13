@@ -34,6 +34,8 @@ private
   end
 
   def check_edition(prefix, edition, content_store)
+    return unless edition.base_path
+
     content_item = item_from_content_store(edition.base_path, content_store)
 
     if edition.gone? && content_item
