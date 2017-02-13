@@ -17,6 +17,10 @@ class Unpublishing < ApplicationRecord
   validates :alternative_path, presence: true, if: :redirect?
   validates_with UnpublishingRedirectValidator
 
+  def gone?
+    type == "gone"
+  end
+
   def withdrawal?
     type == "withdrawal"
   end

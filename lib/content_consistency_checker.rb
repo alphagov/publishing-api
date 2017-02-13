@@ -25,10 +25,13 @@ private
 
   attr_reader :content_id, :locale
 
-  def item_from_content_store(path, content_store)
+  def item_from_content_store(path, content_store, prefix)
     begin
       content_store.content_item(path).parsed_content
-    rescue GdsApi::ContentStore::ItemNotFound, GdsApi::HTTPGone, GdsApi::HTTPForbidden
+    rescue GdsApi::HTTPForbidden
+      nil
+    rescue GdsApi::ContentStore::ItemNotFound, GdsApi::HTTPGone
+      errors << "#{prefix} #{path} content is missing from the content store."
       nil
     end
   end
@@ -36,22 +39,28 @@ private
   def check_edition(prefix, edition, content_store)
     return unless edition.base_path
 
-    content_item = item_from_content_store(edition.base_path, content_store)
+    content_item = item_from_content_store(edition.base_path, content_store, prefix)
+    return if content_item.nil?
 
-    if edition.gone? && content_item
-      errors << "#{prefix} content exists in the content store."
-    elsif content_item.nil?
-      errors << "#{prefix} content is missing from the content store."
-      return
-    end
+    if edition.redirect?
+      if content_item["document_type"] != "redirect" ||
+          content_item["schema_name"] != "redirect"
+        errors << "#{prefix} content is not a redirect in the content store."
+      end
+    elsif edition.gone?
+      if content_item["document_type"] != "gone" ||
+          content_item["schema_name"] != "gone"
+        errors << "#{prefix} content is not gone in the content store."
+      end
+    else
+      fields = [:rendering_app, :publishing_app, :schema_name, :document_type]
+      fields.each do |field|
+        edition_value = edition.send(field)
+        content_item_value = content_item[field.to_s]
 
-    fields = [:rendering_app, :publishing_app, :schema_name, :document_type]
-    fields.each do |field|
-      edition_value = edition.send(field)
-      content_item_value = content_item[field.to_s]
-
-      if edition_value != content_item_value
-        errors << "#{prefix} edition #{field} (#{edition_value}) does not match content store (#{content_item_value})."
+        if edition_value != content_item_value
+          errors << "#{prefix} edition #{field} (#{edition_value}) does not match content store (#{content_item_value})."
+        end
       end
     end
   end
