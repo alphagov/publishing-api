@@ -221,32 +221,6 @@ class Edition < ApplicationRecord
 
 private
 
-  def check_document_fields_from_options(options)
-    methods = Array.wrap(options[:methods])
-    document_fields = []
-
-    %i[content_id locale].each do |field|
-      if methods.include?(field)
-        document_fields.push(field)
-        options[:methods] = methods - [field]
-      else
-        only = Array.wrap(options[:only])
-        except = Array.wrap(options[:except])
-        if (only.empty? || only.include?(field)) && !except.include?(field)
-          document_fields.push(field)
-        end
-      end
-    end
-
-    document_fields
-  end
-
-  def push_document_fields_into_json(document_fields, json)
-    document_fields.each do |field|
-      json[field] = document.send(field)
-    end
-  end
-
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(document_type)
   end
