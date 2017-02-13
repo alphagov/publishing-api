@@ -67,11 +67,6 @@ module LinkExpansion::Rules
     un_reverse_link_type(link_type).present?
   end
 
-  def reverse_link_types(link_types)
-    return unless link_types
-    link_types.map { |type| reverse_link_type(type) }.compact
-  end
-
   def un_reverse_link_types(link_types)
     return unless link_types
     link_types.map { |type| un_reverse_link_type(type) }.compact
