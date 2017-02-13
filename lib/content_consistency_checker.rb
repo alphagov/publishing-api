@@ -25,10 +25,13 @@ private
 
   attr_reader :content_id, :locale
 
-  def item_from_content_store(path, content_store)
+  def item_from_content_store(path, content_store, prefix)
     begin
       content_store.content_item(path).parsed_content
-    rescue GdsApi::ContentStore::ItemNotFound, GdsApi::HTTPGone, GdsApi::HTTPForbidden
+    rescue GdsApi::HTTPForbidden
+      nil
+    rescue GdsApi::ContentStore::ItemNotFound, GdsApi::HTTPGone
+      errors << "#{path} content is missing from the #{prefix} content store."
       nil
     end
   end
