@@ -14,7 +14,7 @@ params = {
   document_types: ['taxon', 'organisation', 'topic', 'mainstream_browse_page', 'policy'],
   fields: ['content_id', 'document_type', 'title', 'base_path']
 }
-params.merge(q: "school", search_in: "details.internal_name") if search
+params.merge(q: "school", search_in: ["details.internal_name"]) if search
 
 queries = 0
 ActiveSupport::Notifications.subscribe("sql.active_record") { |_| queries += 1 }
