@@ -31,7 +31,7 @@ private
     rescue GdsApi::HTTPForbidden
       nil
     rescue GdsApi::ContentStore::ItemNotFound, GdsApi::HTTPGone
-      errors << "#{path} content is missing from the #{prefix} content store."
+      errors << "#{prefix} #{path} content is missing from the content store."
       nil
     end
   end
@@ -42,14 +42,12 @@ private
     content_item = item_from_content_store(edition.base_path, content_store, prefix)
     return if content_item.nil?
 
-    unpublishing = edition.unpublishing
-
-    if unpublishing && unpublishing.redirect?
+    if edition.redirect?
       if content_item["document_type"] != "redirect" ||
           content_item["schema_name"] != "redirect"
         errors << "#{prefix} content is not a redirect in the content store."
       end
-    elsif unpublishing && unpublishing.gone?
+    elsif edition.gone?
       if content_item["document_type"] != "gone" ||
           content_item["schema_name"] != "gone"
         errors << "#{prefix} content is not gone in the content store."
