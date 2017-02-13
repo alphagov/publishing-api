@@ -67,16 +67,6 @@ class Edition < ApplicationRecord
 
   delegate :content_id, :locale, to: :document
 
-  def as_json(options = {})
-    document_fields = check_document_fields_from_options(options)
-
-    json = super(options)
-
-    push_document_fields_into_json(document_fields, json)
-
-    json
-  end
-
   def requires_base_path?
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
   end

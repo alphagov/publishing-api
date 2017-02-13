@@ -29,7 +29,7 @@ module Presenters
     attr_accessor :edition, :draft
 
     def symbolized_attributes
-      SymbolizeJSON.symbolize(edition.as_json.merge(description: edition.description))
+      edition.to_h
     end
 
     def links
