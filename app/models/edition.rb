@@ -198,20 +198,16 @@ class Edition < ApplicationRecord
   end
 
   def to_h
-    hash = attributes.merge(
-      api_path: api_path,
-      api_url: api_url,
-      web_url: web_url,
-      withdrawn: withdrawn?,
-      content_id: content_id,
-      locale: locale,
-    ).deep_symbolize_keys
-
-    hash[:public_updated_at] = public_updated_at.iso8601 if public_updated_at
-    hash[:first_published_at] = first_published_at.iso8601 if first_published_at
-    hash[:last_edited_at] = last_edited_at.iso8601 if last_edited_at
-
-    hash
+    SymbolizeJSON.symbolize(
+      attributes.merge(
+        api_path: api_path,
+        api_url: api_url,
+        web_url: web_url,
+        withdrawn: withdrawn?,
+        content_id: content_id,
+        locale: locale,
+      )
+    )
   end
 
   def withdrawn?
