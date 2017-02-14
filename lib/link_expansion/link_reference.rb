@@ -1,11 +1,12 @@
 class LinkExpansion::LinkReference
-  def links_by_link_type(content_id, with_drafts, link_types_path = [], parent_content_ids = [])
+  def links_by_link_type(content_id, with_drafts, locales, link_types_path = [], parent_content_ids = [])
     if link_types_path.empty?
-      root_links(content_id, with_drafts)
+      root_links(content_id, with_drafts, locales)
     else
       descendant_links(
         content_id,
         with_drafts,
+        locales,
         link_types_path,
         parent_content_ids
       )
@@ -19,8 +20,8 @@ class LinkExpansion::LinkReference
 
 private
 
-  def root_links(content_id, with_drafts)
-    direct = direct_links(content_id, with_drafts: with_drafts)
+  def root_links(content_id, with_drafts, locales)
+    direct = direct_links(content_id, with_drafts: with_drafts, locales: locales)
     reverse = reverse_links(content_id,
       with_drafts: with_drafts,
       allowed_reverse_link_types: rules.root_reverse_links,
@@ -28,7 +29,7 @@ private
     reverse.merge(direct)
   end
 
-  def descendant_links(content_id, with_drafts, link_types_path, parent_content_ids)
+  def descendant_links(content_id, with_drafts, locales, link_types_path, parent_content_ids)
     descendant_link_types = rules.next_link_expansion_link_types(link_types_path)
     return {} if descendant_link_types.empty?
     reverse_types, direct_types = descendant_link_types.partition do |link_type|
@@ -37,6 +38,7 @@ private
 
     direct = direct_links(content_id,
       with_drafts: with_drafts,
+      locales: locales,
       allowed_link_types: direct_types,
       parent_content_ids: parent_content_ids,
     )
@@ -51,11 +53,13 @@ private
 
   def direct_links(content_id,
     with_drafts:,
+    locales:,
     allowed_link_types: nil,
     parent_content_ids: []
   )
     Queries::LinksFrom.(content_id,
       with_drafts: with_drafts,
+      locales: locales,
       allowed_link_types: allowed_link_types,
       parent_content_ids: parent_content_ids,
     )

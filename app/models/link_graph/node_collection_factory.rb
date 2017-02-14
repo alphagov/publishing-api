@@ -18,6 +18,10 @@ private
     link_graph.with_drafts
   end
 
+  def locales
+    link_graph.locales
+  end
+
   def content_id
     parent_node ? parent_node.content_id : link_graph.root_content_id
   end
@@ -38,6 +42,7 @@ private
     link_reference.links_by_link_type(
       content_id,
       with_drafts?,
+      locales,
       link_types_path,
       parent_content_ids
     )

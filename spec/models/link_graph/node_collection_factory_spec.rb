@@ -7,6 +7,7 @@ RSpec.describe LinkGraph::NodeCollectionFactory do
       link_reference: link_reference,
       root_content_id: SecureRandom.uuid,
       with_drafts: false,
+      locales: nil,
     )
   end
   let(:valid_link_node) { true }

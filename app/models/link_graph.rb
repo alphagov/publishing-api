@@ -1,9 +1,10 @@
 class LinkGraph
-  attr_reader :root_content_id, :with_drafts, :link_reference
+  attr_reader :root_content_id, :with_drafts, :locales, :link_reference
 
-  def initialize(root_content_id, with_drafts, link_reference)
+  def initialize(root_content_id, with_drafts, locales, link_reference)
     @root_content_id = root_content_id
     @with_drafts = with_drafts
+    @locales = locales
     @link_reference = link_reference
   end
 
