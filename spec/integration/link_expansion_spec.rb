@@ -524,4 +524,41 @@ RSpec.describe "Link Expansion" do
       end
     end
   end
+
+  context "edition-level links across multiple locales" do
+    let(:with_drafts) { false }
+    let(:content_id) { a }
+    let(:en_document) { FactoryGirl.create(:document, content_id: content_id) }
+    let(:fr_document) do
+      FactoryGirl.create(:document, content_id: content_id, locale: "fr")
+    end
+    let!(:en_edition) { FactoryGirl.create(:live_edition, document: en_document) }
+    let!(:fr_edition) { FactoryGirl.create(:live_edition, document: fr_document) }
+
+    let(:target_edition) do
+      FactoryGirl.create(:live_edition, base_path: "/t")
+    end
+
+    before do
+      fr_edition.links.create(link_type: "test",
+                              target_content_id: target_edition.content_id)
+    end
+
+    context "only english links" do
+      let(:locale_fallback_order) { "en" }
+
+      it "should not expand a link to" do
+        expect(expanded_links).to be_empty
+      end
+    end
+
+    context "english and french links" do
+      let(:locale_fallback_order) { %w(fr en) }
+
+      it "should not expand a link to" do
+        expect(expanded_links).to_not be_empty
+        expect(expanded_links[:test]).to match([a_hash_including(base_path: "/t")])
+      end
+    end
+  end
 end

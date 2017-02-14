@@ -11,6 +11,6 @@ class DependencyResolution
   end
 
   def link_graph
-    @link_graph ||= LinkGraph.new(content_id, with_drafts, LinkReference.new)
+    @link_graph ||= LinkGraph.new(content_id, with_drafts, nil, LinkReference.new)
   end
 end

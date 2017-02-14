@@ -8,11 +8,13 @@ RSpec.describe DependencyResolution::LinkReference do
     let(:with_drafts) { false }
     let(:link_types_path) { [] }
     let(:parent_content_ids) { [] }
+    let(:locales) { %w(en) }
 
     subject do
       described_class.new.links_by_link_type(
         content_id,
         with_drafts,
+        locales,
         link_types_path,
         parent_content_ids
       )

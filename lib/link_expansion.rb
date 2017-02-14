@@ -4,7 +4,7 @@ class LinkExpansion
   def initialize(content_id, with_drafts:, locale_fallback_order:)
     @content_id = content_id
     @with_drafts = with_drafts
-    @locale_fallback_order = locale_fallback_order
+    @locale_fallback_order = Array.wrap(locale_fallback_order)
   end
 
   def links_with_content
@@ -12,7 +12,7 @@ class LinkExpansion
   end
 
   def link_graph
-    @link_graph ||= LinkGraph.new(content_id, with_drafts, LinkReference.new)
+    @link_graph ||= LinkGraph.new(content_id, with_drafts, locale_fallback_order, LinkReference.new)
   end
 
 private
