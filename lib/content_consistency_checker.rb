@@ -25,21 +25,25 @@ private
 
   attr_reader :content_id, :locale
 
-  def item_from_content_store(path, content_store, prefix)
-    begin
-      content_store.content_item(path).parsed_content
-    rescue GdsApi::HTTPForbidden
-      nil
-    rescue GdsApi::ContentStore::ItemNotFound, GdsApi::HTTPGone
-      errors << "#{prefix} #{path} content is missing from the content store."
-      nil
-    end
-  end
-
   def check_edition(prefix, edition, content_store)
     return unless edition.base_path
 
-    content_item = item_from_content_store(edition.base_path, content_store, prefix)
+    path = edition.base_path
+
+    begin
+      content_item = content_store.content_item(path).parsed_content
+    rescue GdsApi::HTTPForbidden
+      # nothing
+    rescue GdsApi::ContentStore::ItemNotFound
+      errors << "#{prefix} #{path} content is missing from the content store."
+    rescue GdsApi::HTTPGone
+      if edition.gone?
+        return
+      else
+        errors << "#{prefix} #{path} is gone in the content store."
+      end
+    end
+
     return if content_item.nil?
 
     if edition.redirect?
