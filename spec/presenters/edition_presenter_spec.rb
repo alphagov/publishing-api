@@ -1,13 +1,50 @@
 require 'rails_helper'
 
-RSpec.describe Presenters::DownstreamPresenter do
+RSpec.describe Presenters::EditionPresenter do
   let(:present_drafts) { false }
   let(:change_history) { { note: "Note", public_timestamp: 1.day.ago.to_s } }
   let(:details) { { body: "<p>Text</p>\n", change_history: [change_history], } }
+  let(:payload_version) { 1 }
 
-  subject(:result) { described_class.present(edition, draft: present_drafts) }
+  describe "#for_message_queue" do
+    let(:update_type) { "moussaka" }
+    let(:edition) { FactoryGirl.create(:draft_edition) }
+    let(:target_content_id) { "d16216ce-7487-4bde-b817-ef68317fe3ab" }
 
-  describe "V2" do
+    before do
+      link_set = FactoryGirl.create(
+        :link_set, content_id: edition.document.content_id
+      )
+      FactoryGirl.create(
+        :link,
+        target_content_id: target_content_id,
+        link_set: link_set,
+        link_type: "taxons"
+      )
+    end
+
+    subject(:result) do
+      described_class.new(
+        edition, draft: present_drafts
+      ).for_message_queue(update_type)
+    end
+
+    it "presents the unexpanded links" do
+      expect(subject[:links]).to eq taxons: [target_content_id]
+    end
+
+    it "mixes in the specified update_type to the presentation" do
+      expect(subject[:update_type]).to eq update_type
+    end
+  end
+
+  describe "#for_content_store" do
+    subject(:result) do
+      described_class.new(
+        edition, draft: present_drafts
+      ).for_content_store(payload_version)
+    end
+
     let(:base_path) { "/vat-rates" }
 
     let(:expected) do
@@ -28,7 +65,6 @@ RSpec.describe Presenters::DownstreamPresenter do
         routes: [{ path: base_path, type: "exact" }],
         schema_name: "guide",
         title: "VAT rates",
-        update_type: "minor",
         first_published_at: DateTime.parse("2014-01-02T03:04:05Z"),
         public_updated_at: DateTime.parse("2014-05-14T13:00:06Z"),
       }
@@ -119,10 +155,12 @@ RSpec.describe Presenters::DownstreamPresenter do
         ])
       end
 
-      it "expands the links for the edition" do
-        result = described_class.present(a, draft: true)
+      subject do
+        described_class.new(a, draft: true).for_content_store(payload_version)
+      end
 
-        expect(result[:expanded_links]).to eq(
+      it "expands the links for the edition" do
+        expect(subject[:expanded_links]).to eq(
           related: [{
             content_id: b.document.content_id,
             api_path: "/api/content/b",

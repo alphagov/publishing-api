@@ -63,9 +63,8 @@ benchmarks.each do |name, content_id|
   StackProf.run(mode: :wall, out: "tmp/downstream_presenter_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
     puts Benchmark.measure {
       10.times do |i|
-        Presenters::DownstreamPresenter.present(
-          edition,
-          draft: false,
+        Presenters::EditionPresenter.new(
+          edition, draft: false,
         )
         print "."
       end

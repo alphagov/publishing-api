@@ -41,10 +41,9 @@ class DownstreamPayload
   end
 
   def message_queue_payload(update_type)
-    Presenters::MessageQueuePresenter.present(
-      downstream_presenter,
-      update_type: update_type || edition.update_type,
-    )
+    Presenters::EditionPresenter.new(
+      edition, draft: draft
+    ).for_message_queue(update_type || edition.update_type)
   end
 
 private
@@ -54,10 +53,9 @@ private
   end
 
   def content_payload
-    Presenters::ContentStorePresenter.present(
-      downstream_presenter,
-      payload_version
-    )
+    Presenters::EditionPresenter.new(
+      edition, draft: draft
+    ).for_content_store(payload_version)
   end
 
   def redirect_payload
@@ -78,13 +76,5 @@ private
       explanation: unpublishing.explanation,
     )
     payload.merge(payload_version: payload_version)
-  end
-
-  def downstream_presenter
-    @downstream_presenter ||= Presenters::DownstreamPresenter.new(
-      edition,
-      nil,
-      draft: draft,
-    )
   end
 end

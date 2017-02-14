@@ -67,6 +67,19 @@ class Edition < ApplicationRecord
 
   delegate :content_id, :locale, to: :document
 
+  def to_h
+    SymbolizeJSON::symbolize(
+      attributes.merge(
+        api_path: api_path,
+        api_url: api_url,
+        web_url: web_url,
+        withdrawn: withdrawn?,
+        content_id: content_id,
+        locale: locale,
+      )
+    )
+  end
+
   def requires_base_path?
     EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
   end

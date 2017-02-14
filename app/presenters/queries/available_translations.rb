@@ -7,11 +7,8 @@ module Presenters
       end
 
       def translations
-        if expanded_translations.present?
-          { available_translations: expanded_translations }
-        else
-          {}
-        end
+        return {} unless expanded_translations.present?
+        { available_translations: expanded_translations }
       end
 
     private
@@ -20,8 +17,8 @@ module Presenters
 
       def grouped_translations
         Edition.with_document
-          .where('documents.content_id': content_id, state: state_fallback_order)
-          .pluck(:id, 'documents.locale', :state)
+          .where("documents.content_id": content_id, state: state_fallback_order)
+          .pluck(:id, "documents.locale", :state)
           .sort_by { |(_, _, state)| state_fallback_order.index(state.to_sym) }
           .group_by { |(_, locale)| locale }
       end
@@ -32,7 +29,7 @@ module Presenters
       end
 
       def web_item(id)
-        ContentItem.new(Edition.find_by(id: id)).present
+        Edition.find_by(id: id).to_h.deep_symbolize_keys
       end
 
       def expanded_translations

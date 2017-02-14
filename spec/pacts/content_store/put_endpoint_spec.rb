@@ -15,12 +15,11 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_id) }
 
   let(:client) { ContentStoreWriter.new("http://localhost:3093") }
-  let(:body) {
-    Presenters::ContentStorePresenter.present(
-      Presenters::DownstreamPresenter.new(edition, draft: false),
-      event.id
-    )
-  }
+  let(:body) do
+    Presenters::EditionPresenter.new(
+      edition, draft: false
+    ).for_content_store(event.id)
+  end
 
   context "when a content item exists that has an older payload_version than the request" do
     before do

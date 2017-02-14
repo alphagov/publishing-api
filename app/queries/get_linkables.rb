@@ -34,8 +34,7 @@ module Queries
         )
 
         Edition.where(id: edition_ids).map do |edition|
-          content_item = ContentItem.new(edition)
-          LinkablePresenter.from_hash(content_item.present)
+          LinkablePresenter.from_hash(edition.to_h.deep_symbolize_keys)
         end
       end
     end

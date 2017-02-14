@@ -1,17 +1,30 @@
 module Presenters
-  class DownstreamPresenter
-    attr_accessor :link_set
-
-    def self.present(edition, draft: false)
-      return {} unless edition
-
-      new(edition, nil, draft: draft).present
+  class EditionPresenter
+    def initialize(edition, draft: false)
+      @edition = edition
+      @draft = draft
     end
 
-    def initialize(edition, link_set = nil, draft: false)
-      self.edition = edition
-      self.link_set = link_set || LinkSet.find_by(content_id: edition.content_id)
-      self.draft = draft
+    def for_content_store(payload_version)
+      present.except(:update_type).merge(payload_version: payload_version)
+    end
+
+    def for_message_queue(update_type)
+      present.merge(
+        update_type: update_type,
+        govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
+        links: unexpanded_links
+      )
+    end
+
+  private
+
+    attr_reader :draft, :edition
+
+    def unexpanded_links
+      Queries::LinkSetPresenter.new(
+        LinkSet.find_by(content_id: edition.content_id)
+      ).links
     end
 
     def present
@@ -24,12 +37,8 @@ module Presenters
         .merge(withdrawal_notice)
     end
 
-  private
-
-    attr_accessor :edition, :draft
-
     def symbolized_attributes
-      ContentItem.new(edition).present
+      edition.to_h
     end
 
     def links

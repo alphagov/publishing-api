@@ -183,7 +183,6 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         it "sends a create request to the draft content store for the redirect" do
-          allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: base_path)
           expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).twice
 
           described_class.call(payload)
@@ -398,7 +397,6 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         it "sends a create request to the draft content store for the redirect" do
-          allow(Presenters::ContentStorePresenter).to receive(:present).and_return(base_path: "/vat-rates")
           expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).twice
 
           described_class.call(payload)
