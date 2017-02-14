@@ -82,19 +82,33 @@ module Queries
       presenter::DEFAULT_SEARCH_FIELDS
     end
 
+    def allowed_search_fields
+      presenter::SEARCH_FIELDS
+    end
+
+    def allowed_nested_search_fields
+      presenter::NESTED_SEARCH_FIELDS
+    end
+
     def search_fields
       return default_search_fields if search_in.blank?
-      search_in.map do |field|
-        elements = field.split('.')
-        unless permitted_fields.include?(elements.first) && elements.length <= 2
-          raise_error("Invalid search field: #{field}")
-        end
-        if elements.length == 2
-          "#{elements[0]}->>'#{escape_nested_field(elements[1])}'"
-        else
-          elements[0]
-        end
-      end
+      search_in.map { |field| search_field_for_query(field) }
+    end
+
+    def search_field_for_query(field)
+      raise_error("Invalid search field: #{field}") unless valid_search_field?(field)
+      # special case as description is a JSON object that just contains a hash
+      # of value
+      return "description->>'value'" if field == "description"
+      return field unless field.include?(".")
+      elements = field.split(".")
+      "#{elements[0]}->>'#{escape_nested_field(elements[1])}'"
+    end
+
+    def valid_search_field?(field)
+      return true if allowed_search_fields.include?(field)
+      elements = field.split(".")
+      allowed_nested_search_fields.include?(elements[0]) && elements.length == 2
     end
 
     def escape_nested_field(field)

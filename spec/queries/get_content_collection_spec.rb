@@ -395,6 +395,7 @@ RSpec.describe Queries::GetContentCollection do
         document_type: "topic",
         schema_name: "topic",
         title: "zip",
+        description: "foo",
         details: {
           body: "A page all about doors.",
           internal_name: "baz"
@@ -457,6 +458,22 @@ RSpec.describe Queries::GetContentCollection do
         let(:search_query) { 'baz' }
         it "raises a CommandError" do
           expect { subject.call }.to raise_error(CommandError)
+        end
+      end
+
+      context "with a nested field as a top-level fields" do
+        let(:search_in) { ["details"] }
+        let(:search_query) { "baz" }
+        it "raises a CommandError" do
+          expect { subject.call }.to raise_error(CommandError)
+        end
+      end
+
+      context "with description among the fields" do
+        let(:search_in) { ["description"] }
+        let(:search_query) { "foo" }
+        it "finds the edition" do
+          expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/baz" }])
         end
       end
 
