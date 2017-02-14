@@ -92,7 +92,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "specifying fields to search" do
         it "returns the item" do
-          get :index, params: { document_type: "topic", q: "stuff", search_in: ["description.value"], fields: %w(title) }
+          get :index, params: { document_type: "topic", q: "stuff", search_in: ["description"], fields: %w(title) }
           expect(parsed_response["results"].map { |i| i["title"] }).to eq(['bar'])
         end
       end

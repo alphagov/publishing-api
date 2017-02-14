@@ -20,6 +20,9 @@ module Presenters
 
       DEFAULT_SEARCH_FIELDS = %w(title base_path).freeze
 
+      SEARCH_FIELDS = %w(title base_path description).freeze
+      NESTED_SEARCH_FIELDS = %w(details).freeze
+
       def self.present_many(scope, params = {})
         new(scope, params).present_many
       end
