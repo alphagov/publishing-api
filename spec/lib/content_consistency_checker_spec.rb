@@ -29,6 +29,17 @@ RSpec.describe ContentConsistencyChecker do
       end
     end
 
+    describe "gone content" do
+      let(:item) { FactoryGirl.create(:gone_edition) }
+
+      subject { described_class.new(item.document.content_id).call }
+
+      it "should not have errors" do
+        stub_content_store("draft", {}, item.base_path, 410)
+        expect(subject).to be_empty
+      end
+    end
+
     context "has redirects" do
       subject { described_class.new(item.document.content_id).call }
 
