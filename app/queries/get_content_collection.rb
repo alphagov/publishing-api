@@ -84,8 +84,8 @@ module Queries
 
     def search_fields
       return default_search_fields if search_in.blank?
-      search_in.split(',').map do |field|
-        elements = field.strip.split('.')
+      search_in.map do |field|
+        elements = field.split('.')
         unless permitted_fields.include?(elements.first) && elements.length <= 2
           raise_error("Invalid search field: #{field}")
         end

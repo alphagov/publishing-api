@@ -429,7 +429,7 @@ RSpec.describe Queries::GetContentCollection do
 
     context "search in" do
       context "with a single nested field" do
-        let(:search_in) { "details.body" }
+        let(:search_in) { ["details.body"] }
         let(:search_query) { 'doors' }
         it "finds the edition" do
           expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/baz" }])
@@ -437,7 +437,7 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with multiple nested fields" do
-        let(:search_in) { "details.body,details.internal_name" }
+        let(:search_in) { ["details.body", "details.internal_name"] }
         let(:search_query) { 'newtopic' }
         it "finds the edition" do
           expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/bar/foo" }])
@@ -445,7 +445,7 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with a mixture of nested and non-nested fields" do
-        let(:search_in) { "title,details.internal_name" }
+        let(:search_in) { ["title", "details.internal_name"] }
         let(:search_query) { 'baz' }
         it "finds the edition" do
           expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/bar/foo" }, { "base_path" => "/baz" }])
@@ -453,7 +453,7 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with invalid top-level fields" do
-        let(:search_in) { "nonexistent_field" }
+        let(:search_in) { ["nonexistent_field"] }
         let(:search_query) { 'baz' }
         it "raises a CommandError" do
           expect { subject.call }.to raise_error(CommandError)
@@ -461,14 +461,14 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with fields nested more than one level deep" do
-        let(:search_in) { "details.foo.bar" }
+        let(:search_in) { ["details.foo.bar"] }
         let(:search_query) { 'baz' }
         it "raises a CommandError" do
           expect { subject.call }.to raise_error(CommandError)
         end
 
         context "with SQL injection in nested fields" do
-          let(:search_in) { "details.foo' = '') OR 1=1--" }
+          let(:search_in) { ["details.foo' = '') OR 1=1--"] }
           let(:search_query) { 'baz' }
           it "returns an empty result" do
             expect(subject.call.to_a).to eq([])
