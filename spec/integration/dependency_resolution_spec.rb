@@ -177,5 +177,22 @@ RSpec.describe "Dependency Resolution" do
         expect(dependency_resolution).to be_empty
       end
     end
+
+    context "and the edition is in a different locale" do
+      let(:edition_locale) { :fr }
+
+      it "does not have a dependency of the edition" do
+        expect(dependency_resolution).to be_empty
+      end
+    end
+
+    context "and both the dependency resolution target and edition are in a non-en locale" do
+      let(:edition_locale) { :fr }
+      let(:locale) { :fr }
+
+      it "has a dependency of the edition" do
+        expect(dependency_resolution).to match_array([edition_content_id])
+      end
+    end
   end
 end
