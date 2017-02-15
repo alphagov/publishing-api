@@ -3,10 +3,10 @@ module Presenters
     class ExpandedLinkSet
       attr_reader :draft
 
-      def initialize(content_id:, draft:, locale_fallback_order: Edition::DEFAULT_LOCALE)
+      def initialize(content_id:, draft: false, locale: Edition::DEFAULT_LOCALE)
         @content_id = content_id
         @draft = draft
-        @locale_fallback_order = Array(locale_fallback_order).freeze
+        @locale = locale
       end
 
       def links
@@ -15,12 +15,12 @@ module Presenters
 
     private
 
-      attr_reader :locale_fallback_order, :content_id
+      attr_reader :content_id, :draft, :locale
 
       def expanded_links
         LinkExpansion.new(content_id,
           with_drafts: draft,
-          locale_fallback_order: locale_fallback_order,
+          locale: locale,
         ).links_with_content
       end
 
