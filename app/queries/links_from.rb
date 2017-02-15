@@ -1,6 +1,6 @@
 module Queries
   class LinksFrom
-    def self.call(content_id, with_drafts:, locales:, allowed_link_types: nil, parent_content_ids: [])
+    def self.call(content_id, with_drafts:, locale:, allowed_link_types: nil, parent_content_ids: [])
       return {} if allowed_link_types && allowed_link_types.empty?
 
       links = Link
@@ -26,16 +26,18 @@ module Queries
         links = links.where(editions: { content_store: [nil, "live"] })
       end
 
+      if locale.nil?
+        links = links.where(documents: { locale: nil })
+      else
+        links = links.where(documents: { locale: [nil, locale] })
+      end
+
       links = links.where(link_type: allowed_link_types) if allowed_link_types
 
       links = links
         .where.not(target_content_id: parent_content_ids + [content_id])
         .order(link_type: :asc, position: :asc)
-        .pluck(:link_type, :target_content_id, :locale)
-
-      # these checks have to happen outside of the SQL as the queries only
-      # apply to edition-level links
-      links.select! { |item| (locales + [nil]).include?(item[2]) } if locales.present?
+        .pluck(:link_type, :target_content_id)
 
       grouped = links
         .group_by(&:first)
