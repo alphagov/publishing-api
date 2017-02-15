@@ -32,11 +32,26 @@ FactoryGirl.define do
 
     transient do
       change_note "note"
+      links_hash {}
     end
 
     after(:create) do |item, evaluator|
       unless item.update_type == "minor" || evaluator.change_note.nil?
         FactoryGirl.create(:change_note, note: evaluator.change_note, edition: item)
+      end
+
+      if evaluator.links_hash
+        evaluator.links_hash.each do |link_type, target_content_ids|
+          target_content_ids.each_with_index do |target_content_id, index|
+            create(:link,
+              edition: item,
+              link_type: link_type,
+              link_set: nil,
+              position: index,
+              target_content_id: target_content_id,
+            )
+          end
+        end
       end
     end
   end
