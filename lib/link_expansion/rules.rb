@@ -92,7 +92,7 @@ module LinkExpansion::Rules
   end
 
   def expand_fields(edition)
-    edition.to_h.deep_symbolize_keys.slice(
+    edition.to_h.slice(
       *expansion_fields(edition.document_type.to_sym)
     )
   end

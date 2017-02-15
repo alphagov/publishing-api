@@ -1,5 +1,21 @@
 module Presenters
   class EditionPresenter
+    NON_PRESENTED_PROPERTIES = [
+      :api_path,
+      :api_url,
+      :content_store,
+      :created_at,
+      :document_id,
+      :id,
+      :last_edited_at,
+      :state,
+      :unpublishing_type,
+      :updated_at,
+      :user_facing_version,
+      :web_url,
+      :withdrawn,
+    ].freeze
+
     def initialize(edition, draft: false)
       @edition = edition
       @draft = draft
@@ -28,17 +44,13 @@ module Presenters
     end
 
     def present
-      symbolized_attributes
-        .except(*%i{updated_at created_at document_id content_store last_edited_at id state user_facing_version api_url web_url withdrawn api_path unpublishing_type}) # only intended to be used by publishing applications
+      edition.to_h
+        .except(*NON_PRESENTED_PROPERTIES)
         .merge(rendered_details)
         .merge(links)
         .merge(access_limited)
         .merge(format)
         .merge(withdrawal_notice)
-    end
-
-    def symbolized_attributes
-      edition.to_h
     end
 
     def links
@@ -75,7 +87,7 @@ module Presenters
 
     def details_presenter
       @details_presenter ||= Presenters::DetailsPresenter.new(
-        symbolized_attributes[:details],
+        edition.to_h[:details],
         change_history_presenter,
       )
     end

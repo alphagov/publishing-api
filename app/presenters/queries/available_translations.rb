@@ -29,7 +29,7 @@ module Presenters
       end
 
       def web_item(id)
-        Edition.find_by(id: id).to_h.deep_symbolize_keys
+        Edition.find_by(id: id).to_h
       end
 
       def expanded_translations
