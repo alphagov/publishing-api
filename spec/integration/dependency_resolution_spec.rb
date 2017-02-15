@@ -4,11 +4,15 @@ RSpec.describe "Dependency Resolution" do
   include DependencyResolutionHelper
 
   subject(:dependency_resolution) do
-    DependencyResolution.new(content_id, with_drafts).dependencies
+    DependencyResolution.new(content_id,
+      locale: locale,
+      with_drafts: with_drafts,
+    ).dependencies
   end
 
-  let(:with_drafts) { true }
   let(:content_id) { SecureRandom.uuid }
+  let(:locale) { :en }
+  let(:with_drafts) { true }
 
   context "when there are no links" do
     it "finds no dependencies" do
