@@ -24,7 +24,6 @@ module PublishingAPI
     config.eager_load_paths << "#{config.root}/app"
     config.eager_load_paths << "#{config.root}/lib"
     config.eager_load_paths += Dir["#{config.root}/lib/**/"]
-    config.autoload_paths += Dir[Rails.root.join("app", "models", "*/")]
 
     config.i18n.available_locales = [
       :en, :ar, :az, :be, :bg, :bn, :cs, :cy, :de, :dr, :el, :es, :'es-419',
