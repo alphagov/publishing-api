@@ -141,4 +141,41 @@ RSpec.describe "Dependency Resolution" do
       expect(dependency_resolution).to match_array([a, b, c, d])
     end
   end
+
+  context "when there is an edition that has an edition link to content_id" do
+    let(:edition_content_id) { SecureRandom.uuid }
+    let(:edition_locale) { :en }
+    before do
+      create_edition(edition_content_id, "/edition-links",
+        factory: edition_factory,
+        locale: edition_locale,
+        links_hash: { organisation: [content_id] },
+      )
+    end
+
+    context "and the edition is a draft" do
+      let(:edition_factory) { :draft_edition }
+      context "and we're including drafts" do
+        let(:with_drafts) { true }
+        it "has a dependency of the edition" do
+          expect(dependency_resolution).to match_array([edition_content_id])
+        end
+      end
+
+      context "but we aren't including drafts" do
+        let(:with_drafts) { false }
+        it "does not have a dependency of the edition" do
+          expect(dependency_resolution).to be_empty
+        end
+      end
+    end
+
+    context "and the edition is superseded" do
+      let(:edition_factory) { :superseded_edition }
+
+      it "does not have a dependency of the edition" do
+        expect(dependency_resolution).to be_empty
+      end
+    end
+  end
 end
