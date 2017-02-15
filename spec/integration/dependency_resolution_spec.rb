@@ -4,11 +4,15 @@ RSpec.describe "Dependency Resolution" do
   include DependencyResolutionHelper
 
   subject(:dependency_resolution) do
-    DependencyResolution.new(content_id, with_drafts).dependencies
+    DependencyResolution.new(content_id,
+      locale: locale,
+      with_drafts: with_drafts,
+    ).dependencies
   end
 
-  let(:with_drafts) { true }
   let(:content_id) { SecureRandom.uuid }
+  let(:locale) { :en }
+  let(:with_drafts) { true }
 
   context "when there are no links" do
     it "finds no dependencies" do
@@ -135,6 +139,95 @@ RSpec.describe "Dependency Resolution" do
 
     it "has a dependency to all items" do
       expect(dependency_resolution).to match_array([a, b, c, d])
+    end
+  end
+
+  context "when there is an edition that has an edition link to content_id" do
+    let(:edition_content_id) { SecureRandom.uuid }
+    let(:edition_locale) { :en }
+    let(:link_type) { :organistion }
+    before do
+      create_edition(edition_content_id, "/edition-links",
+        factory: edition_factory,
+        locale: edition_locale,
+        links_hash: { link_type => [content_id] },
+      )
+    end
+
+    context "and the edition is a draft" do
+      let(:edition_factory) { :draft_edition }
+      context "and we're including drafts" do
+        let(:with_drafts) { true }
+        it "has a dependency of the edition" do
+          expect(dependency_resolution).to match_array([edition_content_id])
+        end
+      end
+
+      context "but we aren't including drafts" do
+        let(:with_drafts) { false }
+        it "does not have a dependency of the edition" do
+          expect(dependency_resolution).to be_empty
+        end
+      end
+    end
+
+    context "and the edition is superseded" do
+      let(:edition_factory) { :superseded_edition }
+
+      it "does not have a dependency of the edition" do
+        expect(dependency_resolution).to be_empty
+      end
+    end
+
+    context "and the edition is in a different locale" do
+      let(:edition_factory) { :live_edition }
+      let(:edition_locale) { :fr }
+
+      it "does not have a dependency of the edition" do
+        expect(dependency_resolution).to be_empty
+      end
+    end
+
+    context "and both the dependency resolution target and edition are in a non-en locale" do
+      let(:edition_factory) { :live_edition }
+      let(:edition_locale) { :fr }
+      let(:locale) { :fr }
+
+      it "has a dependency of the edition" do
+        expect(dependency_resolution).to match_array([edition_content_id])
+      end
+    end
+
+    context "and there is also a link of the same link_type in a link set" do
+      let(:links_to_content_id) { SecureRandom.uuid }
+      let(:edition_factory) { :live_edition }
+
+      before do
+        create_link_set(links_to_content_id,
+          links_hash: { link_type => [content_id] },
+        )
+      end
+
+      it "has the edition links which take precedence over link set links" do
+        expect(dependency_resolution).to match_array([edition_content_id])
+      end
+    end
+  end
+
+  context "when an edition links to an item that links to the content_id with a recursive link type" do
+    let(:link_content_id) { SecureRandom.uuid }
+    let(:edition_content_id) { SecureRandom.uuid }
+    let(:link_type) { :parent_taxons }
+
+    before do
+      create_link_set(link_content_id, links_hash: { link_type => [content_id] })
+      create_edition(edition_content_id, "/edition-links",
+        links_hash: { link_type => [edition_content_id] },
+      )
+    end
+
+    it "only has a dependency only of the link as recusive edition links aren't supported" do
+      expect(dependency_resolution).to match_array([link_content_id])
     end
   end
 end
