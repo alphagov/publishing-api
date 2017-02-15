@@ -81,7 +81,7 @@ module Presenters
       @expanded_link_set_presenter ||= Presenters::Queries::ExpandedLinkSet.new(
         content_id: edition.content_id,
         draft: draft,
-        locale_fallback_order: locale_fallback_order
+        locale: edition.locale
       )
     end
 
@@ -99,10 +99,6 @@ module Presenters
 
     def access_limit
       @access_limit ||= AccessLimit.find_by(edition_id: edition.id)
-    end
-
-    def locale_fallback_order
-      [edition.locale, Edition::DEFAULT_LOCALE].uniq
     end
 
     def rendered_details

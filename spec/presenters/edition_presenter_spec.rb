@@ -65,9 +65,8 @@ RSpec.describe Presenters::EditionPresenter do
         routes: [{ path: base_path, type: "exact" }],
         schema_name: "guide",
         title: "VAT rates",
-        first_published_at: DateTime.parse("2014-01-02T03:04:05Z"),
-        public_updated_at: DateTime.parse("2014-05-14T13:00:06Z"),
-        update_type: "minor",
+        first_published_at: "2014-01-02T03:04:05Z",
+        public_updated_at: "2014-05-14T13:00:06Z",
       }
     end
 
@@ -184,46 +183,10 @@ RSpec.describe Presenters::EditionPresenter do
         )
       end
 
-      subject do
-        described_class.new(a, draft: true).for_content_store(payload_version)
-      end
-
       it "expands the links for the edition" do
-        expect(subject[:expanded_links]).to eq(
-          related: [{
-            content_id: b.document.content_id,
-            api_path: "/api/content/b",
-            base_path: "/b",
-            title: "VAT rates",
-            description: "VAT rates for goods and services",
-            schema_name: "guide",
-            document_type: 'guide',
-            locale: "en",
-            public_updated_at: "2014-05-14T13:00:06Z",
-            analytics_identifier: "GDS01",
-            links: {},
-            withdrawn: false,
-          }],
-          available_translations: [{
-            analytics_identifier: "GDS01",
-            api_path: "/api/content/a",
-            base_path: "/a",
-            content_id: a.document.content_id,
-            description: "VAT rates for goods and services",
-            schema_name: "guide",
-            document_type: 'guide',
-            locale: "en",
-            public_updated_at: "2014-05-14T13:00:06Z",
-            title: "VAT rates",
-            withdrawn: false,
-          }],
-        )
-      end
-
-      it "expands the links for the edition" do
-        result = described_class.present(
+        result = described_class.new(
           main_edition, draft: true
-        )
+        ).for_content_store(payload_version)
 
         expect(
           result[:expanded_links][:related].map { |link| link[:content_id] }

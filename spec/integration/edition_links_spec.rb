@@ -168,15 +168,20 @@ RSpec.describe "Edition Links" do
 
       context "from A" do
         it "should have a link to A and B" do
-          expect(expanded_links[:parent_taxons]).to match([a_hash_including(base_path: "/a.en")])
+          expect(expanded_links[:child_taxons]).to match([a_hash_including(base_path: "/a.en")])
           expect(expanded_links[:parent_taxons]).to match([a_hash_including(base_path: "/b.en")])
         end
       end
 
       context "from B" do
+        let(:content_id) { content_b }
         it "should have a reverse link to A and B" do
-          expect(expanded_links[:child_taxons]).to match([a_hash_including(base_path: "/a.en")])
-          expect(expanded_links[:child_taxons]).to match([a_hash_including(base_path: "/b.en")])
+          expect(expanded_links[:child_taxons]).to match([a_hash_including(
+            base_path: "/a.en",
+            links: {
+              parent_taxons: [a_hash_including({ base_path: "/b.en" })]
+            }
+          )])
         end
       end
     end
