@@ -65,14 +65,19 @@ class Edition < ApplicationRecord
   validates_with StateForDocumentValidator
   validates_with RoutesAndRedirectsValidator
 
-  def as_json(options = {})
-    document_fields = check_document_fields_from_options(options)
+  delegate :content_id, :locale, to: :document
 
-    json = super(options)
-
-    push_document_fields_into_json(document_fields, json)
-
-    json
+  def to_h
+    SymbolizeJSON::symbolize(
+      attributes.merge(
+        api_path: api_path,
+        api_url: api_url,
+        web_url: web_url,
+        withdrawn: withdrawn?,
+        content_id: content_id,
+        locale: locale,
+      )
+    )
   end
 
   def requires_base_path?
@@ -195,33 +200,26 @@ class Edition < ApplicationRecord
     (unpublished? && unpublishing.redirect?) || document_type == "redirect"
   end
 
+  def withdrawn?
+    unpublishing.present? && unpublishing.withdrawal?
+  end
+
+  def api_path
+    return unless base_path
+    "/api/content" + base_path
+  end
+
+  def api_url
+    return unless api_path
+    Plek.current.website_root + api_path
+  end
+
+  def web_url
+    return unless base_path
+    Plek.current.website_root + base_path
+  end
+
 private
-
-  def check_document_fields_from_options(options)
-    methods = Array.wrap(options[:methods])
-    document_fields = []
-
-    %i[content_id locale].each do |field|
-      if methods.include?(field)
-        document_fields.push(field)
-        options[:methods] = methods - [field]
-      else
-        only = Array.wrap(options[:only])
-        except = Array.wrap(options[:except])
-        if (only.empty? || only.include?(field)) && !except.include?(field)
-          document_fields.push(field)
-        end
-      end
-    end
-
-    document_fields
-  end
-
-  def push_document_fields_into_json(document_fields, json)
-    document_fields.each do |field|
-      json[field] = document.send(field)
-    end
-  end
 
   def renderable_content?
     NON_RENDERABLE_FORMATS.exclude?(document_type)

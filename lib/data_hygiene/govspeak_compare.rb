@@ -16,7 +16,7 @@ module DataHygiene
       @generated_html ||= html_from_details(
         Presenters::DetailsPresenter.new(
           edition.details_for_govspeak_conversion,
-          Presenters::ChangeHistoryPresenter.new(web_content_item)
+          Presenters::ChangeHistoryPresenter.new(edition)
         ).details
       )
     end
@@ -35,10 +35,6 @@ module DataHygiene
     end
 
   private
-
-    def web_content_item
-      @web_content_item ||= Queries::GetWebContentItems.find(edition.id)
-    end
 
     def calculate_diffs
       keys = (published_html.keys + generated_html.keys).uniq.sort

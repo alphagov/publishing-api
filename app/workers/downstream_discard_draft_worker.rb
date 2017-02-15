@@ -13,10 +13,10 @@ class DownstreamDiscardDraftWorker
   def perform(args = {})
     assign_attributes(args.symbolize_keys)
 
-    current_path = web_content_item.try(:base_path)
+    current_path = edition.try(:base_path)
     if current_path
       DownstreamService.update_draft_content_store(
-        DownstreamPayload.new(web_content_item, payload_version, draft: true)
+        DownstreamPayload.new(edition, payload_version, draft: true)
       )
       if base_path && current_path != base_path
         DownstreamService.discard_from_draft_content_store(base_path)
@@ -32,7 +32,7 @@ class DownstreamDiscardDraftWorker
 
 private
 
-  attr_reader :base_path, :content_id, :locale, :web_content_item,
+  attr_reader :base_path, :content_id, :locale, :edition,
     :payload_version, :update_dependencies
 
   def assign_attributes(attributes)
@@ -46,11 +46,11 @@ private
   def assign_backwards_compatible_content_item(attributes)
     if attributes[:locale]
       @locale = attributes[:locale]
-      @web_content_item = Queries::GetWebContentItems.for_content_store(content_id, locale, true)
+      @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
     else
       content_item_id = attributes[:live_content_item_id]
-      @web_content_item = content_item_id ? Queries::GetWebContentItems.find(content_item_id) : nil
-      @locale = web_content_item.try(:locale)
+      @edition = content_item_id ? Edition.find(content_item_id) : nil
+      @locale = edition.try(:locale)
     end
   end
 

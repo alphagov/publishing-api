@@ -20,21 +20,17 @@ class RequeueContent
 private
 
   def publish_to_queue(edition)
-    downstream_presenter = Presenters::DownstreamPresenter.new(
-      Queries::GetWebContentItems.find(edition.id),
-      draft: false,
-    )
-    queue_payload = Presenters::MessageQueuePresenter.present(
-      downstream_presenter,
-      # FIXME: Rummager currently only listens to the message queue for the
-      # update type 'links'. This behaviour will eventually be updated so that
-      # it listens to other update types as well. This will happen as part of
-      # ongoing architectural work to make the message queue the sole source of
-      # search index updates. When that happens, the update_type below should
-      # be changed - perhaps to a newly introduced, more-appropriately named
-      # one. Maybe something like 'reindex'.
-      update_type: 'links'
-    )
+    queue_payload = Presenters::EditionPresenter.new(
+      edition, draft: false,
+    ).for_message_queue("links")
+
+    # FIXME: Rummager currently only listens to the message queue for the
+    # update type 'links'. This behaviour will eventually be updated so that
+    # it listens to other update types as well. This will happen as part of
+    # ongoing architectural work to make the message queue the sole source of
+    # search index updates. When that happens, the update_type below should
+    # be changed - perhaps to a newly introduced, more-appropriately named
+    # one. Maybe something like 'reindex'.
 
     PublishingAPI.service(:queue_publisher).send_message(queue_payload)
   end

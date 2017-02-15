@@ -147,7 +147,7 @@ RSpec.describe DownstreamLiveWorker do
     it "swallows the error" do
       expect(Airbrake).to receive(:notify)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
-      subject.perform(arguments.merge("content_id" => "made-up-id"))
+      subject.perform(arguments.merge("content_id" => SecureRandom.uuid))
     end
   end
 end

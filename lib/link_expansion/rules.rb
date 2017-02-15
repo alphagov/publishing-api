@@ -91,8 +91,10 @@ module LinkExpansion::Rules
     CUSTOM_FIELDS_FOR_DOCUMENT_TYPE[document_type] || DEFAULT_FIELDS
   end
 
-  def expand_fields(web_content_item)
-    web_content_item.to_h.slice(*expansion_fields(web_content_item.document_type.to_sym))
+  def expand_fields(edition)
+    edition.to_h.slice(
+      *expansion_fields(edition.document_type.to_sym)
+    )
   end
 
   def valid_link_expansion_link_types_path?(link_types_path)

@@ -57,15 +57,14 @@ benchmarks.each do |name, content_id|
     Edition.where(content_id: content_id, state: :published)
   ).pluck(:id)
 
-  web_content_item = Queries::GetWebContentItems.(content_item_ids).first
+  edition = Edition.where(id: content_item_ids).first
 
   puts "#{name}: #{content_id}"
   StackProf.run(mode: :wall, out: "tmp/downstream_presenter_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
     puts Benchmark.measure {
       10.times do |i|
-        Presenters::DownstreamPresenter.present(
-          web_content_item,
-          draft: false,
+        Presenters::EditionPresenter.new(
+          edition, draft: false,
         )
         print "."
       end

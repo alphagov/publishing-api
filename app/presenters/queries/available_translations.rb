@@ -7,11 +7,8 @@ module Presenters
       end
 
       def translations
-        if expanded_translations.present?
-          { available_translations: expanded_translations }
-        else
-          {}
-        end
+        return {} unless expanded_translations.present?
+        { available_translations: expanded_translations }
       end
 
     private
@@ -20,16 +17,19 @@ module Presenters
 
       def grouped_translations
         Edition.with_document
-          .where('documents.content_id': content_id, state: state_fallback_order)
-          .pluck(:id, 'documents.locale', :state)
+          .where("documents.content_id": content_id, state: state_fallback_order)
+          .pluck(:id, "documents.locale", :state)
           .sort_by { |(_, _, state)| state_fallback_order.index(state.to_sym) }
           .group_by { |(_, locale)| locale }
       end
 
       def expand_translation(id)
         expansion_rules = LinkExpansion::Rules
-        web_item = ::Queries::GetWebContentItems.call(id).first
-        web_item.to_h.select { |f| expansion_rules.expansion_fields(:available_translations).include?(f) }
+        web_item(id).select { |f| expansion_rules.expansion_fields(:available_translations).include?(f) }
+      end
+
+      def web_item(id)
+        Edition.find_by(id: id).to_h
       end
 
       def expanded_translations

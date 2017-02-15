@@ -43,9 +43,9 @@ RSpec.describe Presenters::DebugPresenter do
     end
   end
 
-  describe ".web_content_item" do
+  describe ".presented_edition" do
     it "matches" do
-      expect(subject.web_content_item.base_path).to match("/vat-rates-")
+      expect(subject.presented_edition.base_path).to match("/vat-rates-")
     end
   end
 

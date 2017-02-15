@@ -68,22 +68,20 @@ module Presenters
       end
     end
 
-    def web_content_item
-      @web_content_item ||= ::Queries::GetWebContentItems.find(
-        latest_editions.last.id
-      )
+    def presented_edition
+      @presented_edition ||= Edition.find(latest_editions.last.id)
     end
 
     def web_url
-      web_content_item.web_url
+      presented_edition.web_url
     end
 
     def title
-      web_content_item.title
+      presented_edition.title
     end
 
     def api_url
-      web_content_item.api_url
+      presented_edition.api_url
     end
 
     def events

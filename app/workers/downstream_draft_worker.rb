@@ -26,7 +26,7 @@ class DownstreamDraftWorker
   def perform(args = {})
     assign_attributes(args.symbolize_keys)
 
-    unless web_content_item
+    unless edition
       raise AbortWorkerError.new("A downstreamable edition was not found for content_id: #{content_id} and locale: #{locale}")
     end
 
@@ -36,9 +36,9 @@ class DownstreamDraftWorker
       )
     end
 
-    if web_content_item.base_path
+    if edition.base_path
       DownstreamService.update_draft_content_store(
-        DownstreamPayload.new(web_content_item, payload_version, draft: true)
+        DownstreamPayload.new(edition, payload_version, draft: true)
       )
     end
 
@@ -49,12 +49,12 @@ class DownstreamDraftWorker
 
 private
 
-  attr_reader :content_id, :locale, :web_content_item, :payload_version,
+  attr_reader :content_id, :locale, :edition, :payload_version,
     :update_dependencies, :dependency_resolution_source_content_id
 
   def assign_attributes(attributes)
     assign_backwards_compatible_content_item(attributes)
-    @web_content_item = Queries::GetWebContentItems.for_content_store(content_id, locale, true)
+    @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
     @payload_version = attributes.fetch(:payload_version)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @dependency_resolution_source_content_id = attributes.fetch(
@@ -65,12 +65,12 @@ private
 
   def assign_backwards_compatible_content_item(attributes)
     if attributes[:content_item_id]
-      web_content_item = Queries::GetWebContentItems.find(attributes[:content_item_id])
-      unless web_content_item
+      edition = Edition.find(attributes[:content_item_id])
+      unless edition
         raise AbortWorkerError.new("A content item was not found for content_item_id: #{attributes[:content_item_id]}")
       end
-      @content_id = web_content_item.content_id
-      @locale = web_content_item.locale
+      @content_id = edition.content_id
+      @locale = edition.locale
     else
       @content_id = attributes.fetch(:content_id)
       @locale = attributes.fetch(:locale)

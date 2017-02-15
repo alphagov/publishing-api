@@ -18,14 +18,7 @@ module Presenters
       end
 
       def links
-        # This method presents LinkSet#links as a hash.
-        # Where keys are link types and their values are arrays of target content ids.
-        # ie:
-        # {
-        #   related: [ UUID, UUID ],
-        #   organisations: [ UUID ],
-        # }
-
+        return {} unless link_set
         @links ||= link_set.links.pluck(:link_type, :target_content_id).map.with_object({}) do |link, hash|
           type = link[0].to_sym
 
