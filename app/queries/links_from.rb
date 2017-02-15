@@ -11,17 +11,31 @@ module Queries
         .where("link_sets.content_id = ? OR documents.content_id = ?",
                content_id, content_id)
 
+      if with_drafts
+        has_draft = "EXISTS (SELECT 1
+                             FROM editions AS e
+                             WHERE content_store = 'draft'
+                               AND e.document_id = documents.id)"
+        links = links.where("editions.content_store IS NULL
+                             OR CASE
+                               WHEN #{has_draft}
+                                 THEN editions.content_store = 'draft'
+                               ELSE editions.content_store = 'live'
+                             END")
+      else
+        links = links.where(editions: { content_store: [nil, "live"] })
+      end
+
       links = links.where(link_type: allowed_link_types) if allowed_link_types
 
       links = links
         .where.not(target_content_id: parent_content_ids + [content_id])
         .order(link_type: :asc, position: :asc)
-        .pluck(:link_type, :target_content_id, :content_store, :locale)
+        .pluck(:link_type, :target_content_id, :locale)
 
       # these checks have to happen outside of the SQL as the queries only
       # apply to edition-level links
-      links.select! { |item| item[2] != "draft" } unless with_drafts
-      links.select! { |item| (locales + [nil]).include?(item[3]) } if locales.present?
+      links.select! { |item| (locales + [nil]).include?(item[2]) } if locales.present?
 
       grouped = links
         .group_by(&:first)

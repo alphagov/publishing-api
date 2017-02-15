@@ -42,6 +42,11 @@ RSpec.describe "Edition Links" do
       it "should not have a link" do
         expect(expanded_links).to be_empty
       end
+
+      it "should fallback to live with links" do
+        draft_edition_a_en.delete
+        expect(expanded_links[:test]).to match([a_hash_including(base_path: "/b.en")])
+      end
     end
 
     context "with french translation of A" do

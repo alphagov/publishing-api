@@ -8,14 +8,28 @@ module Queries
         .left_outer_joins(edition: :document)
         .where(target_content_id: content_id)
 
+      if with_drafts
+        has_draft = "EXISTS (SELECT 1
+                             FROM editions AS e
+                             WHERE content_store = 'draft'
+                               AND e.document_id = documents.id)"
+        links = links.where("editions.content_store IS NULL
+                             OR CASE
+                               WHEN #{has_draft}
+                                 THEN editions.content_store = 'draft'
+                               ELSE editions.content_store = 'live'
+                             END")
+      else
+        links = links.where(editions: { content_store: [nil, "live"] })
+      end
+
       links = links.where(link_type: allowed_link_types) if allowed_link_types
 
       links = links
         .where.not(target_content_id: parent_content_ids)
         .order(link_type: :asc, position: :asc)
-        .pluck(:link_type, "COALESCE(link_sets.content_id, documents.content_id)", :content_store)
-
-      links.select! { |item| item.last != "draft" } unless with_drafts
+        .pluck(:link_type,
+               "COALESCE(link_sets.content_id, documents.content_id)")
 
       grouped = links
         .group_by(&:first)
