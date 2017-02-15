@@ -15,11 +15,11 @@ RSpec.describe "Link Expansion" do
     LinkExpansion.new(
       a,
       with_drafts: with_drafts,
-      locale_fallback_order: locale_fallback_order,
+      locale: locale,
     ).links_with_content
   end
 
-  let(:locale_fallback_order) { "en" }
+  let(:locale) { "en" }
 
   context "when there are no links" do
     let(:with_drafts) { true }
@@ -352,7 +352,7 @@ RSpec.describe "Link Expansion" do
 
   describe "multiple translations" do
     let(:with_drafts) { false }
-    let(:locale_fallback_order) { %w(ar en) }
+    let(:locale) { "ar" }
 
     before do
       create_link(a, b, "organisation")
@@ -545,7 +545,7 @@ RSpec.describe "Link Expansion" do
     end
 
     context "only english links" do
-      let(:locale_fallback_order) { "en" }
+      let(:locale) { "en" }
 
       it "should not expand a link to" do
         expect(expanded_links).to be_empty
@@ -553,7 +553,7 @@ RSpec.describe "Link Expansion" do
     end
 
     context "english and french links" do
-      let(:locale_fallback_order) { %w(fr en) }
+      let(:locale) { "fr" }
 
       it "should not expand a link to" do
         expect(expanded_links).to_not be_empty

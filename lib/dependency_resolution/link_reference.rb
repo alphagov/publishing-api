@@ -1,9 +1,15 @@
 class DependencyResolution::LinkReference
-  def links_by_link_type(content_id, with_drafts, locales, link_types_path = [], parent_content_ids = [])
+  def links_by_link_type(
+    content_id:,
+    locale:,
+    with_drafts:,
+    link_types_path: [],
+    parent_content_ids: []
+  )
     if link_types_path.empty?
-      root_links(content_id, with_drafts, locales)
+      root_links(content_id, with_drafts, locale)
     else
-      descendant_links(content_id, with_drafts, locales, link_types_path, parent_content_ids)
+      descendant_links(content_id, with_drafts, locale, link_types_path, parent_content_ids)
     end
   end
 
@@ -16,17 +22,17 @@ class DependencyResolution::LinkReference
 
 private
 
-  def root_links(content_id, with_drafts, locales)
-    direct = direct_links(content_id, with_drafts: with_drafts)
+  def root_links(content_id, with_drafts, locale)
+    direct = direct_links(content_id, locale: locale, with_drafts: with_drafts)
     reverse = reverse_links(content_id,
       with_drafts: with_drafts,
-      locales: locales,
+      locale: locale,
       allowed_reverse_link_types: rules.root_reverse_links,
     )
     reverse.merge(direct)
   end
 
-  def descendant_links(content_id, with_drafts, locales, link_types_path, parent_content_ids)
+  def descendant_links(content_id, with_drafts, locale, link_types_path, parent_content_ids)
     descendant_link_types = rules.next_dependency_resolution_link_types(link_types_path)
 
     return {} if descendant_link_types.empty?
@@ -36,6 +42,7 @@ private
     end
 
     direct = direct_links(content_id,
+      locale: locale,
       with_drafts: with_drafts,
       allowed_link_types: direct_types,
       parent_content_ids: parent_content_ids,
@@ -43,7 +50,7 @@ private
 
     reverse = reverse_links(content_id,
       with_drafts: with_drafts,
-      locales: locales,
+      locale: locale,
       allowed_reverse_link_types: reverse_types,
       parent_content_ids: parent_content_ids,
     )
@@ -52,11 +59,13 @@ private
 
   def direct_links(content_id,
     with_drafts:,
+    locale: nil,
     allowed_link_types: nil,
     parent_content_ids: []
   )
     Queries::LinksTo.(content_id,
       with_drafts: with_drafts,
+      locale: locale,
       allowed_link_types: allowed_link_types,
       parent_content_ids: parent_content_ids
     )
@@ -64,13 +73,13 @@ private
 
   def reverse_links(content_id,
     with_drafts:,
-    locales:,
+    locale:,
     allowed_reverse_link_types: nil,
     parent_content_ids: []
   )
     links = Queries::LinksFrom.(content_id,
       with_drafts: with_drafts,
-      locales: locales,
+      locale: locale,
       allowed_link_types: rules.un_reverse_link_types(allowed_reverse_link_types),
       parent_content_ids: parent_content_ids
     )

@@ -8,8 +8,8 @@ RSpec.describe LinkExpansion do
   describe "#links_with_contetn" do
     subject do
       described_class.new(content_id,
+        locale: :en,
         with_drafts: false,
-        locale_fallback_order: %i[en]
       ).links_with_content
     end
 

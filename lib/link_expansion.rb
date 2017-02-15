@@ -1,10 +1,10 @@
 class LinkExpansion
-  attr_reader :content_id, :with_drafts, :locale_fallback_order
+  attr_reader :content_id, :locale, :with_drafts
 
-  def initialize(content_id, with_drafts:, locale_fallback_order:)
+  def initialize(content_id, locale: Edition::DEFAULT_LOCALE, with_drafts: false)
     @content_id = content_id
+    @locale = locale
     @with_drafts = with_drafts
-    @locale_fallback_order = Array.wrap(locale_fallback_order)
   end
 
   def links_with_content
@@ -12,16 +12,16 @@ class LinkExpansion
   end
 
   def link_graph
-    @link_graph ||= LinkGraph.new(content_id, with_drafts, locale_fallback_order, LinkReference.new)
+    @link_graph ||= LinkGraph.new(content_id, locale, with_drafts, LinkReference.new)
   end
 
 private
 
   def content_cache
     @content_cache ||= ContentCache.new(
-      with_drafts: with_drafts,
-      locale_fallback_order: locale_fallback_order,
+      locale: locale,
       preload_content_ids: (link_graph.links_content_ids + [content_id]).uniq,
+      with_drafts: with_drafts,
     )
   end
 

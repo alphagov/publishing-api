@@ -1,8 +1,9 @@
 class DependencyResolution
-  attr_reader :content_id, :with_drafts
+  attr_reader :content_id, :locale, :with_drafts
 
-  def initialize(content_id, with_drafts)
+  def initialize(content_id, locale: Edition::DEFAULT_LOCALE, with_drafts: false)
     @content_id = content_id
+    @locale = locale
     @with_drafts = with_drafts
   end
 
@@ -11,6 +12,6 @@ class DependencyResolution
   end
 
   def link_graph
-    @link_graph ||= LinkGraph.new(content_id, with_drafts, nil, LinkReference.new)
+    @link_graph ||= LinkGraph.new(content_id, locale, with_drafts, nil, LinkReference.new)
   end
 end

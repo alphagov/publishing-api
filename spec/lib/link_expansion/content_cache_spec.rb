@@ -9,8 +9,8 @@ RSpec.describe LinkExpansion::ContentCache do
 
     subject(:find) do
       described_class.new(
+        locale: :en,
         with_drafts: with_drafts,
-        locale_fallback_order: [:en],
         preload_content_ids: preload_content_ids
       ).find(content_id)
     end
@@ -54,8 +54,8 @@ RSpec.describe LinkExpansion::ContentCache do
       let(:preload_content_ids) { [content_id] }
       let!(:instance) do
         described_class.new(
+          locale: :en,
           with_drafts: with_drafts,
-          locale_fallback_order: [:en],
           preload_content_ids: preload_content_ids
         )
       end

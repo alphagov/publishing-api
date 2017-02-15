@@ -9,14 +9,14 @@ RSpec.describe "Edition Links" do
   let!(:document_a_fr) { FactoryGirl.create(:document, content_id: content_a, locale: "fr") }
   let!(:document_b_fr) { FactoryGirl.create(:document, content_id: content_b, locale: "fr") }
 
-  let(:locale_fallback_order) { "en" }
+  let(:locale) { "en" }
   let(:with_drafts) { false }
 
   subject(:expanded_links) do
     LinkExpansion.new(
       content_id,
       with_drafts: with_drafts,
-      locale_fallback_order: locale_fallback_order,
+      locale: locale,
     ).links_with_content
   end
 
@@ -51,7 +51,7 @@ RSpec.describe "Edition Links" do
 
     context "with french translation of A" do
       let!(:live_edition_a_fr) { FactoryGirl.create(:live_edition, document: document_a_fr, base_path: "/a.fr") }
-      let(:locale_fallback_order) { "fr" }
+      let(:locale) { "fr" }
 
       it "should not have a link" do
         expect(expanded_links).to be_empty
@@ -60,7 +60,7 @@ RSpec.describe "Edition Links" do
 
     context "with french translation of B" do
       let!(:live_edition_b_fr) { FactoryGirl.create(:live_edition, document: document_b_fr, base_path: "/b.fr") }
-      let(:locale_fallback_order) { "en" }
+      let(:locale) { "en" }
 
       it "should not have a link" do
         expect(expanded_links[:test]).to match([a_hash_including(base_path: "/b.en")])
@@ -76,7 +76,7 @@ RSpec.describe "Edition Links" do
     let!(:draft_edition_a_fr) { FactoryGirl.create(:draft_edition, document: document_a_fr, base_path: "/a.fr", user_facing_version: 2) }
     let!(:edition_b_fr) { FactoryGirl.create(:live_edition, document: document_b_fr, base_path: "/b.fr") }
     let!(:draft_edition_b_fr) { FactoryGirl.create(:draft_edition, document: document_b_fr, base_path: "/b.fr", user_facing_version: 2) }
-    let(:locale_fallback_order) { %w(fr) }
+    let(:locale) { "fr" }
 
     before do
       edition_a_fr.links.create(link_type: "documents", target_content_id: content_b)
@@ -119,7 +119,7 @@ RSpec.describe "Edition Links" do
     end
 
     context "English translation" do
-      let(:locale_fallback_order) { "en" }
+      let(:locale) { "en" }
 
       context "from A" do
         it "should not have any links" do
@@ -141,7 +141,7 @@ RSpec.describe "Edition Links" do
     let(:content_id) { content_a }
     let!(:edition_a_en) { FactoryGirl.create(:live_edition, document: document_a_en, base_path: "/a.en") }
     let!(:edition_b_en) { FactoryGirl.create(:live_edition, document: document_b_en, base_path: "/b.en") }
-    let(:locale_fallback_order) { %w(en) }
+    let(:locale) { "en" }
 
     before do
       edition_a_en.links.create(link_type: "parent_taxons", target_content_id: content_b)

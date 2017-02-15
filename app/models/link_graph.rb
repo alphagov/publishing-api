@@ -1,10 +1,10 @@
 class LinkGraph
-  attr_reader :root_content_id, :with_drafts, :locales, :link_reference
+  attr_reader :root_content_id, :root_locale, :with_drafts, :link_reference
 
-  def initialize(root_content_id, with_drafts, locales, link_reference)
+  def initialize(root_content_id, root_locale, with_drafts, link_reference)
     @root_content_id = root_content_id
+    @root_locale = root_locale
     @with_drafts = with_drafts
-    @locales = locales
     @link_reference = link_reference
   end
 
@@ -17,11 +17,12 @@ class LinkGraph
   end
 
   def to_s
-    "LinkGraph(#{root_content_id})"
+    "LinkGraph(#{root_content_id}, #{root_locale})"
   end
 
   def inspect
-    "LinkGraph(content_id: #{root_content_id}, links: #{links.map(&:content_id)})"
+    "LinkGraph(content_id: #{root_content_id}, locale: #{root_locale}, "\
+    "with_drafts: #{with_drafts}, links: #{links.map(&:content_id)})"
   end
 
   def to_h
