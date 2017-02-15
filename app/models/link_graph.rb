@@ -21,8 +21,8 @@ class LinkGraph
   end
 
   def inspect
-    "LinkGraph(content_id: #{root_content_id}, locale: #{root_locale} "\
-    "links: #{links.map(&:content_id)})"
+    "LinkGraph(content_id: #{root_content_id}, locale: #{root_locale}, "\
+    "with_drafts: #{with_drafts}, links: #{links.map(&:content_id)})"
   end
 
   def to_h
