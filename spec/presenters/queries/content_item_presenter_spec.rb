@@ -19,33 +19,34 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     let(:result) { described_class.present(edition) }
 
-    let(:payload) do
+    let(:expected_output) do
       {
-        "content_id" => content_id,
-        "locale" => "en",
-        "base_path" => base_path,
-        "title" => "VAT rates",
-        "document_type" => "guide",
-        "schema_name" => "guide",
-        "public_updated_at" => "2014-05-14T13:00:06Z",
-        "last_edited_at" => "2014-05-14T13:00:06Z",
-        "first_published_at" => "2014-01-02T03:04:05Z",
-        "details" => { "body" => "<p>Something about VAT</p>\n" },
-        "routes" => [{ "path" => base_path, "type" => "exact" }],
-        "redirects" => [],
-        "publishing_app" => "publisher",
-        "rendering_app" => "frontend",
-        "need_ids" => %w(100123 100124),
-        "update_type" => "minor",
-        "phase" => "beta",
         "analytics_identifier" => "GDS01",
-        "description" => "VAT rates for goods and services",
-        "publication_state" => "draft",
-        "user_facing_version" => 1,
-        "lock_version" => 1,
-        "updated_at" => "2016-01-01 00:00:00",
-        "state_history" => { 1 => "draft" },
+        "base_path" => base_path,
+        "content_id" => content_id,
         "content_store" => "draft",
+        "description" => "VAT rates for goods and services",
+        "details" => { "body" => "<p>Something about VAT</p>\n" },
+        "document_type" => "guide",
+        "first_published_at" => "2014-01-02T03:04:05Z",
+        "last_edited_at" => "2014-05-14T13:00:06Z",
+        "links" => {},
+        "locale" => "en",
+        "lock_version" => 1,
+        "need_ids" => %w(100123 100124),
+        "phase" => "beta",
+        "public_updated_at" => "2014-05-14T13:00:06Z",
+        "publication_state" => "draft",
+        "publishing_app" => "publisher",
+        "redirects" => [],
+        "rendering_app" => "frontend",
+        "routes" => [{ "path" => base_path, "type" => "exact" }],
+        "schema_name" => "guide",
+        "state_history" => { 1 => "draft" },
+        "title" => "VAT rates",
+        "update_type" => "minor",
+        "updated_at" => "2016-01-01 00:00:00",
+        "user_facing_version" => 1,
       }
     end
 
@@ -56,7 +57,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     it "presents edition attributes as a hash" do
-      expect(result).to eq(payload)
+      expect(result).to eq(expected_output)
     end
 
     context "for a draft edition" do
@@ -99,9 +100,22 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
 
       it "presents the item including the change note" do
-        expected = payload.merge(
+        expected = expected_output.merge(
           "change_note" => "note",
           "update_type" => "major"
+        )
+        expect(result).to eq expected
+      end
+    end
+
+    context "when we have a link" do
+      before do
+        edition.links.create(link_type: "test", target_content_id: content_id)
+      end
+
+      it "presents the item including the link" do
+        expected = expected_output.merge(
+          "links" => { "test" => [content_id] }
         )
         expect(result).to eq expected
       end

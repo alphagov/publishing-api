@@ -12,12 +12,14 @@ module DependencyResolutionHelper
     base_path,
     factory: :live_edition,
     locale: "en",
+    links_hash: {},
     version: 1
   )
     FactoryGirl.create(factory,
       document: Document.find_or_create_by(content_id: content_id, locale: locale),
       base_path: base_path,
       user_facing_version: version,
+      links_hash: links_hash,
     )
   end
 

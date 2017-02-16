@@ -15,11 +15,11 @@ RSpec.describe "Link Expansion" do
     LinkExpansion.new(
       a,
       with_drafts: with_drafts,
-      locale_fallback_order: locale_fallback_order,
+      locale: locale,
     ).links_with_content
   end
 
-  let(:locale_fallback_order) { "en" }
+  let(:locale) { "en" }
 
   context "when there are no links" do
     let(:with_drafts) { true }
@@ -40,7 +40,7 @@ RSpec.describe "Link Expansion" do
         create_link(a, b, "related")
         create_link(a, c, "related")
 
-        expect(expanded_links[:related]).to match(nil)
+        expect(expanded_links[:related]).not_to be
       end
     end
   end
@@ -352,7 +352,7 @@ RSpec.describe "Link Expansion" do
 
   describe "multiple translations" do
     let(:with_drafts) { false }
-    let(:locale_fallback_order) { %w(ar en) }
+    let(:locale) { "ar" }
 
     before do
       create_link(a, b, "organisation")
@@ -521,6 +521,43 @@ RSpec.describe "Link Expansion" do
       it "expands the links for node a correctly" do
         expect(expanded_links[:parent]).to match([a_hash_including('base_path': '/b')])
         expect(expanded_links[:related]).to match(nil)
+      end
+    end
+  end
+
+  context "edition-level links across multiple locales" do
+    let(:with_drafts) { false }
+    let(:content_id) { a }
+    let(:en_document) { FactoryGirl.create(:document, content_id: content_id) }
+    let(:fr_document) do
+      FactoryGirl.create(:document, content_id: content_id, locale: "fr")
+    end
+    let!(:en_edition) { FactoryGirl.create(:live_edition, document: en_document) }
+    let!(:fr_edition) { FactoryGirl.create(:live_edition, document: fr_document) }
+
+    let(:target_edition) do
+      FactoryGirl.create(:live_edition, base_path: "/t")
+    end
+
+    before do
+      fr_edition.links.create(link_type: "test",
+                              target_content_id: target_edition.content_id)
+    end
+
+    context "only english links" do
+      let(:locale) { "en" }
+
+      it "should not expand a link to" do
+        expect(expanded_links).to be_empty
+      end
+    end
+
+    context "english and french links" do
+      let(:locale) { "fr" }
+
+      it "should not expand a link to" do
+        expect(expanded_links).to_not be_empty
+        expect(expanded_links[:test]).to match([a_hash_including(base_path: "/t")])
       end
     end
   end

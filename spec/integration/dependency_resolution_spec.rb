@@ -3,9 +3,16 @@ require "rails_helper"
 RSpec.describe "Dependency Resolution" do
   include DependencyResolutionHelper
 
-  subject(:dependency_resolution) { DependencyResolution.new(content_id).dependencies }
-  let(:content_id) { SecureRandom.uuid }
+  subject(:dependency_resolution) do
+    DependencyResolution.new(content_id,
+      locale: locale,
+      with_drafts: with_drafts,
+    ).dependencies
+  end
 
+  let(:content_id) { SecureRandom.uuid }
+  let(:locale) { :en }
+  let(:with_drafts) { true }
 
   context "when there are no links" do
     it "finds no dependencies" do
@@ -132,6 +139,60 @@ RSpec.describe "Dependency Resolution" do
 
     it "has a dependency to all items" do
       expect(dependency_resolution).to match_array([a, b, c, d])
+    end
+  end
+
+  context "when there is an edition that has an edition link to content_id" do
+    let(:edition_content_id) { SecureRandom.uuid }
+    let(:edition_locale) { :en }
+    before do
+      create_edition(edition_content_id, "/edition-links",
+        factory: edition_factory,
+        locale: edition_locale,
+        links_hash: { organisation: [content_id] },
+      )
+    end
+
+    context "and the edition is a draft" do
+      let(:edition_factory) { :draft_edition }
+      context "and we're including drafts" do
+        let(:with_drafts) { true }
+        it "has a dependency of the edition" do
+          expect(dependency_resolution).to match_array([edition_content_id])
+        end
+      end
+
+      context "but we aren't including drafts" do
+        let(:with_drafts) { false }
+        it "does not have a dependency of the edition" do
+          expect(dependency_resolution).to be_empty
+        end
+      end
+    end
+
+    context "and the edition is superseded" do
+      let(:edition_factory) { :superseded_edition }
+
+      it "does not have a dependency of the edition" do
+        expect(dependency_resolution).to be_empty
+      end
+    end
+
+    context "and the edition is in a different locale" do
+      let(:edition_locale) { :fr }
+
+      it "does not have a dependency of the edition" do
+        expect(dependency_resolution).to be_empty
+      end
+    end
+
+    context "and both the dependency resolution target and edition are in a non-en locale" do
+      let(:edition_locale) { :fr }
+      let(:locale) { :fr }
+
+      it "has a dependency of the edition" do
+        expect(dependency_resolution).to match_array([edition_content_id])
+      end
     end
   end
 end

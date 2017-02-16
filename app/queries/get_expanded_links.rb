@@ -5,7 +5,7 @@ module Queries
       expanded_link_set = Presenters::Queries::ExpandedLinkSet.new(
         content_id: content_id,
         draft: true,
-        locale_fallback_order: [locale, Edition::DEFAULT_LOCALE].compact
+        locale: locale,
       )
 
       {

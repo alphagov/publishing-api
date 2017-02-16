@@ -12,7 +12,18 @@ class LinkGraph::NodeCollectionFactory
 
 private
 
-  attr_reader :link_graph, :parent_node
+  attr_reader :link_graph, :with_drafts, :parent_node
+
+  def with_drafts?
+    link_graph.with_drafts
+  end
+
+  def locale
+    # we are only concerned with edition level links at the root node which
+    # are the only ones that have a locale concern. Hence for parent links
+    # we return nil for locale
+    parent_node ? nil : link_graph.root_locale
+  end
 
   def content_id
     parent_node ? parent_node.content_id : link_graph.root_content_id
@@ -32,9 +43,11 @@ private
 
   def links_by_link_type
     link_reference.links_by_link_type(
-      content_id,
-      link_types_path,
-      parent_content_ids
+      content_id: content_id,
+      locale: locale,
+      with_drafts: with_drafts?,
+      link_types_path: link_types_path,
+      parent_content_ids: parent_content_ids,
     )
   end
 

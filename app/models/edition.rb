@@ -37,6 +37,7 @@ class Edition < ApplicationRecord
 
   belongs_to :document
   has_one :unpublishing
+  has_many :links
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
   scope :with_document, -> { joins(:document) }
@@ -90,6 +91,14 @@ class Edition < ApplicationRecord
 
   def base_path_present?
     base_path.present?
+  end
+
+  def copy_links_from(other_links)
+    links.create(
+      other_links.map do |link|
+        link.attributes.slice("target_content_id", "link_type")
+      end
+    )
   end
 
   def draft_cannot_be_behind_live
@@ -201,7 +210,7 @@ class Edition < ApplicationRecord
   end
 
   def withdrawn?
-    unpublishing.present? && unpublishing.withdrawal?
+    unpublished? && unpublishing.withdrawal?
   end
 
   def api_path

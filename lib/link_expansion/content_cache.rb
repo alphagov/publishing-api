@@ -1,7 +1,7 @@
 class LinkExpansion::ContentCache
-  def initialize(with_drafts:, locale_fallback_order:, preload_content_ids: [])
+  def initialize(with_drafts:, locale:, preload_content_ids: [])
     @with_drafts = with_drafts
-    @locale_fallback_order = locale_fallback_order
+    @locale = locale
     @store = editions(preload_content_ids)
   end
 
@@ -15,10 +15,14 @@ class LinkExpansion::ContentCache
 
 private
 
-  attr_reader :store, :with_drafts, :locale_fallback_order
+  attr_reader :store, :with_drafts, :locale
 
   def edition(content_id)
     editions([content_id])[content_id]
+  end
+
+  def locale_fallback_order
+    [locale, Edition::DEFAULT_LOCALE].uniq
   end
 
   def editions(content_ids)
