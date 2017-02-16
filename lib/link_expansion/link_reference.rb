@@ -3,16 +3,13 @@ class LinkExpansion::LinkReference
     if link_types_path.empty?
       root_links(content_id)
     else
-      descendant_links(
-        content_id,
-        link_types_path,
-        parent_content_ids
-      )
+      descendant_links(content_id, link_types_path, parent_content_ids)
     end
   end
 
   def valid_link_node?(node)
     return true if node.link_types_path.length == 1
+
     rules.valid_link_expansion_link_types_path?(node.link_types_path)
   end
 
@@ -28,7 +25,9 @@ private
 
   def descendant_links(content_id, link_types_path, parent_content_ids)
     descendant_link_types = rules.next_link_expansion_link_types(link_types_path)
+
     return {} if descendant_link_types.empty?
+
     reverse_types, direct_types = descendant_link_types.partition do |link_type|
       rules.is_reverse_link_type?(link_type)
     end

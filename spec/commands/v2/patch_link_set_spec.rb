@@ -332,8 +332,9 @@ RSpec.describe Commands::V2::PatchLinkSet do
               "downstream_high",
               content_id: content_id,
               locale: locale,
-              payload_version: an_instance_of(Fixnum),
               message_queue_update_type: "links",
+              payload_version: an_instance_of(Fixnum),
+              orphaned_content_ids: [],
             )
         end
 
