@@ -129,5 +129,45 @@ RSpec.describe Presenters::DetailsPresenter do
         expect { subject }.to_not raise_error
       end
     end
+
+    context "when we're passed a deeply-nested hash with govspeak" do
+      let(:edition_details) do
+        {
+          parts: [
+            {
+              body: [
+                {
+                  content_type: 'text/govspeak',
+                  content: 'foo'
+                }
+              ]
+            }
+          ]
+        }
+      end
+
+      let(:expected_details) do
+        {
+          parts: [
+            {
+              body: [
+                {
+                  content_type: 'text/govspeak',
+                  content: 'foo'
+                },
+                {
+                  content_type: 'text/html',
+                  content: "<p>foo</p>\n"
+                }
+              ]
+            }
+          ]
+        }
+      end
+
+      it "converts from govspeak appropriately" do
+        expect(subject).to eq expected_details
+      end
+    end
   end
 end
