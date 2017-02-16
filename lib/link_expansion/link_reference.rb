@@ -1,21 +1,32 @@
 class LinkExpansion::LinkReference
   def links_by_link_type(
     content_id:,
-    locale:,
-    with_drafts:,
     link_types_path: [],
     parent_content_ids: []
   )
     if link_types_path.empty?
-      root_links(content_id, locale, with_drafts)
+      root_links(content_id)
     else
       descendant_links(
         content_id,
-        with_drafts,
         link_types_path,
         parent_content_ids
       )
     end
+  end
+
+  def edition_links_by_link_type(
+    content_id:,
+    locale:,
+    with_drafts:,
+    link_types_path: []
+  )
+    return {} unless link_types_path.empty?
+
+    edition_links(content_id,
+      locale: locale,
+      with_drafts: with_drafts
+    )
   end
 
   def valid_link_node?(node)
@@ -26,17 +37,15 @@ class LinkExpansion::LinkReference
 
 private
 
-  def root_links(content_id, locale, with_drafts)
-    direct = direct_links(content_id, locale: locale, with_drafts: with_drafts)
+  def root_links(content_id)
+    direct = direct_links(content_id)
     reverse = reverse_links(content_id,
-      locale: locale,
-      with_drafts: with_drafts,
       allowed_reverse_link_types: rules.root_reverse_links,
     )
     reverse.merge(direct)
   end
 
-  def descendant_links(content_id, with_drafts, link_types_path, parent_content_ids)
+  def descendant_links(content_id, link_types_path, parent_content_ids)
     descendant_link_types = rules.next_link_expansion_link_types(link_types_path)
 
     return {} if descendant_link_types.empty?
@@ -46,13 +55,11 @@ private
     end
 
     direct = direct_links(content_id,
-      with_drafts: with_drafts,
       allowed_link_types: direct_types,
       parent_content_ids: parent_content_ids,
     )
 
     reverse = reverse_links(content_id,
-      with_drafts: with_drafts,
       allowed_reverse_link_types: reverse_types,
       parent_content_ids: parent_content_ids,
     )
@@ -60,44 +67,41 @@ private
   end
 
   def direct_links(content_id,
-    locale: nil,
-    with_drafts:,
     allowed_link_types: nil,
     parent_content_ids: []
   )
-    doc_links = Queries::LinksFrom.(content_id,
+    Queries::LinksFrom.(content_id,
       allowed_link_types: allowed_link_types,
       parent_content_ids: parent_content_ids,
     )
-
-    edition_links = Queries::EditionLinksFrom.(content_id,
-      locale: locale,
-      with_drafts: with_drafts,
-      allowed_link_types: allowed_link_types,
-    )
-
-    doc_links.merge(edition_links)
   end
 
   def reverse_links(content_id,
-    locale: nil,
-    with_drafts:,
     allowed_reverse_link_types: nil,
     parent_content_ids: []
   )
-    doc_links = Queries::LinksTo.(content_id,
+    links = Queries::LinksTo.(content_id,
       allowed_link_types: rules.un_reverse_link_types(allowed_reverse_link_types),
       parent_content_ids: parent_content_ids,
     )
+    rules.reverse_link_types_hash(links)
+  end
 
-    edition_links = Queries::EditionLinksTo.(content_id,
+  def edition_links(content_id, locale: nil, with_drafts:)
+    to_links = Queries::EditionLinksTo.(content_id,
       locale: locale,
       with_drafts: with_drafts,
-      allowed_link_types: rules.un_reverse_link_types(allowed_reverse_link_types),
+      allowed_link_types: rules.un_reverse_link_types(rules.root_reverse_links),
+    )
+    to_links = rules.reverse_link_types_hash(to_links)
+
+    from_links = Queries::EditionLinksFrom.(content_id,
+      locale: locale,
+      with_drafts: with_drafts,
+      allowed_link_types: nil,
     )
 
-    links = doc_links.merge(edition_links)
-    rules.reverse_link_types_hash(links)
+    to_links.merge(from_links)
   end
 
   def rules

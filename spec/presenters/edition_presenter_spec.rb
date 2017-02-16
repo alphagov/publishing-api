@@ -147,22 +147,10 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for a edition with dependencies" do
       let(:main_edition)       { FactoryGirl.create(:edition, base_path: "/a") }
-      let(:document_dependee)  { FactoryGirl.create(:edition, base_path: "/b") }
       let(:edition_dependee)   { FactoryGirl.create(:edition, base_path: "/c") }
       let(:document_dependent) { FactoryGirl.create(:edition, base_path: "/d") }
-      let(:edition_dependent)  { FactoryGirl.create(:edition, base_path: "/e") }
 
       before do
-        link = FactoryGirl.create(
-          :link,
-          link_type: "related",
-          target_content_id: document_dependee.document.content_id,
-        )
-        FactoryGirl.create(
-          :link_set,
-          content_id: main_edition.document.content_id,
-          links: [link],
-        )
         link2 = FactoryGirl.create(
           :link,
           link_type: "documents",
@@ -177,10 +165,6 @@ RSpec.describe Presenters::EditionPresenter do
           target_content_id: edition_dependee.document.content_id,
           link_type: "related",
         )
-        edition_dependent.links.create!(
-          target_content_id: main_edition.document.content_id,
-          link_type: "documents",
-        )
       end
 
       it "expands the links for the edition" do
@@ -189,16 +173,16 @@ RSpec.describe Presenters::EditionPresenter do
         ).for_content_store(payload_version)
 
         expect(
-          result[:expanded_links][:related].map { |link| link[:content_id] }
-        ).to eq [document_dependee.content_id, edition_dependee.content_id]
+          result[:expanded_links][:related][0][:content_id]
+        ).to eq edition_dependee.content_id
 
         expect(
           result[:expanded_links][:available_translations][0][:content_id]
         ).to eq main_edition.content_id
 
         expect(
-          result[:expanded_links][:document_collections].map { |link| link[:content_id] }
-        ).to match_array [document_dependent.content_id, edition_dependent.content_id]
+          result[:expanded_links][:document_collections][0][:content_id]
+        ).to eq document_dependent.content_id
       end
     end
 

@@ -31,7 +31,7 @@ module Queries
 
       grouped = links
         .group_by(&:first)
-        .map { |type, values| [type.to_sym, values.map { |item| item[1] }] }
+        .map { |type, values| [type.to_sym, values.map { |item| item.drop(1) }] }
 
       Hash[grouped]
     end

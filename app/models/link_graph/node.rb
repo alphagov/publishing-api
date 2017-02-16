@@ -1,8 +1,17 @@
 class LinkGraph::Node
-  attr_reader :content_id, :link_type, :parent, :link_graph
+  attr_reader :content_id, :locale, :edition_id, :link_type, :parent, :link_graph
 
-  def initialize(content_id, link_type, parent, link_graph)
+  def initialize(
+    content_id:,
+    locale:,
+    edition_id:,
+    link_type:,
+    parent:,
+    link_graph:
+  )
     @content_id = content_id
+    @locale = locale
+    @edition_id = edition_id
     @link_type = link_type
     @parent = parent
     @link_graph = link_graph
@@ -29,11 +38,12 @@ class LinkGraph::Node
   end
 
   def to_s
-    "LinkGraph::Node(#{content_id})"
+    "LinkGraph::Node(#{content_id}, #{locale ? locale : 'nil'})"
   end
 
   def inspect
-    "LinkGraph::Node(content_id: #{content_id}, link_type: #{link_type}, "\
+    "LinkGraph::Node(content_id: #{content_id}, locale: #{locale}, "\
+      "edition_id: #{edition_id}, link_type: #{link_type}, "\
       "links: #{links.map(&:content_id)})"
   end
 

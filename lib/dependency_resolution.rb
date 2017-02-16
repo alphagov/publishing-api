@@ -12,6 +12,11 @@ class DependencyResolution
   end
 
   def link_graph
-    @link_graph ||= LinkGraph.new(content_id, locale, with_drafts, LinkReference.new)
+    @link_graph ||= LinkGraph.new(
+      root_content_id: content_id,
+      root_locale: locale,
+      with_drafts: with_drafts,
+      link_reference: LinkReference.new
+    )
   end
 end
