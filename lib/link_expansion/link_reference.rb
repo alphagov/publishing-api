@@ -65,12 +65,18 @@ private
     allowed_link_types: nil,
     parent_content_ids: []
   )
-    Queries::LinksFrom.(content_id,
-      locale: locale,
-      with_drafts: with_drafts,
+    doc_links = Queries::LinksFrom.(content_id,
       allowed_link_types: allowed_link_types,
       parent_content_ids: parent_content_ids,
     )
+
+    edition_links = Queries::EditionLinksFrom.(content_id,
+      locale: locale,
+      with_drafts: with_drafts,
+      allowed_link_types: allowed_link_types,
+    )
+
+    doc_links.merge(edition_links)
   end
 
   def reverse_links(content_id,
@@ -79,12 +85,18 @@ private
     allowed_reverse_link_types: nil,
     parent_content_ids: []
   )
-    links = Queries::LinksTo.(content_id,
-      locale: locale,
-      with_drafts: with_drafts,
+    doc_links = Queries::LinksTo.(content_id,
       allowed_link_types: rules.un_reverse_link_types(allowed_reverse_link_types),
       parent_content_ids: parent_content_ids,
     )
+
+    edition_links = Queries::EditionLinksTo.(content_id,
+      locale: locale,
+      with_drafts: with_drafts,
+      allowed_link_types: rules.un_reverse_link_types(allowed_reverse_link_types),
+    )
+
+    links = doc_links.merge(edition_links)
     rules.reverse_link_types_hash(links)
   end
 
