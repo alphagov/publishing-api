@@ -112,6 +112,10 @@ presented edition and [warnings](#warnings).
   - Specifies when this edition was last edited.
   - If omitted and `update_type` is "major" or "minor" `last_edited_at` will be
     set to the current time.
+- `links` *(optional, default: {})*
+  - A JSON object containing arrays of [`content_id`](model.md#content_id)s for
+    each `link_type`.
+  - Applicable `link_type`s are defined in the schema for this document_type.
 - `locale` *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - Specifies the locale of the edition.
