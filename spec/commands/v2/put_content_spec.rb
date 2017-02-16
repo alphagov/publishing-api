@@ -162,16 +162,6 @@ RSpec.describe Commands::V2::PutContent do
         expect(edition.first_published_at.iso8601).to eq(first_published_at.iso8601)
       end
 
-      it "copies over the links" do
-        described_class.call(payload)
-
-        edition = Edition.last
-        expect(edition).to be_present
-        expect(edition.document.content_id).to eq(content_id)
-
-        expect(edition.links).not_to be_empty
-      end
-
       context "and the base path has changed" do
         before do
           payload.merge!(
