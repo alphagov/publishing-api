@@ -186,7 +186,7 @@ module Presenters
             json_columns.each { |c| parse_json_column(result, c) }
             int_columns.each { |c| parse_int_column(result, c) }
             parse_state_history(result)
-            parse_links(result)
+            parse_links(result, "links")
 
             result["warnings"] = get_warnings(result) if include_warnings
 
@@ -205,9 +205,7 @@ module Presenters
         result[column] = result[column].to_i
       end
 
-      def parse_links(result)
-        column = "links"
-
+      def parse_links(result, column)
         return unless result.key?(column)
 
         result[column] = Array(result[column]).map(&:values)

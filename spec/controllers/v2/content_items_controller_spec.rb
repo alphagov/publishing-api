@@ -365,8 +365,29 @@ RSpec.describe V2::ContentItemsController do
       end
 
       it "responds with the edition as json" do
-        parsed_response_body = parsed_response
-        expect(parsed_response_body.fetch("content_id")).to eq(content_id.to_s)
+        expect(parsed_response.fetch("content_id")).to eq(content_id)
+      end
+    end
+
+    context "with edition links" do
+      before do
+        FactoryGirl.create(:draft_edition,
+          document: document_ar,
+          base_path: "/content.ar",
+          document_type: "topic",
+          schema_name: "topic",
+          user_facing_version: 2,
+        )
+
+        @draft.links.create(link_type: "organisation",
+                            target_content_id: document_ar.content_id)
+
+        get :show, params: { content_id: content_id }
+      end
+
+      it "includes the edition links in the JSON" do
+        expect(parsed_response["links"]["organisation"]).to_not be_empty
+        expect(parsed_response["links"]["organisation"]).to match_array([document_ar.content_id])
       end
     end
 
