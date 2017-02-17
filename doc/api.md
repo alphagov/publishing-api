@@ -466,9 +466,10 @@ in the request is preserved.
 
 [Request/Response detail][show-links-pact]
 
-Retrieves the link set for the given `content_id`. Returns arrays of
-`content_id`s representing documents. These are grouped by `link_type`.
-The ordering of the returned links matches the ordering when they were created.
+Retrieves only the [link set links][link-set-links] for the given `content_id`.
+Returns arrays of `content_id`s representing documents. These are grouped by
+`link_type`. The ordering of the returned links matches the ordering when they
+were created.
 
 ### Path parameters
 
@@ -491,8 +492,8 @@ details for each linked edition in groupings of `link_type`.
 
  [Request/Response detail][show-linked-pact]
 
-Retrieves all editions that link to the given `content_id` for some
-`link_type`.
+Retrieves all editions that have [link set links][link-set-links] to the given `content_id`
+for some `link_type`.
 
 ### Path parameters
 
@@ -597,6 +598,7 @@ http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-
 [to-time-docs]: http://apidock.com/rails/String/to_time
 [i18n-gem]: https://github.com/svenfuchs/rails-i18n
 [maslow-repo]: https://github.com/alphagov/maslow
+[link-set-links]: https://github.com/alphagov/publishing-api/blob/master/doc/link-expansion.md#patch-link-set---link-set-links
 [publish-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_publish_request_for_version_3_given_the_content_item_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3
 [unpublish-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#an_unpublish_request_given_a_published_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7
 [discard-draft-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_discard_draft_content_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7
@@ -604,7 +606,7 @@ http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-
 [show-content-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_return_the_content_item_given_a_content_item_exists_with_content_id:_bed722e6-db68-43e5-9079-063f623335a7
 [patch-link-set-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_update_the_linkset_at_version_3_given_the_linkset_for_bed722e6-db68-43e5-9079-063f623335a7_is_at_version_3
 [show-links-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get-links_request_given_empty_links_exist_for_content_id_bed722e6-db68-43e5-9079-063f623335a7
-[show-expaned-links-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get-expanded-links_request_given_empty_links_exist_for_content_id_bed722e6-db68-43e5-9079-063f623335a7
+[show-expanded-links-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get-expanded-links_request_given_empty_links_exist_for_content_id_bed722e6-db68-43e5-9079-063f623335a7
 [show-linked-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_return_the_items_linked_to_it_given_no_content_exists
 [index-linkables-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_linkables_request_given_there_is_content_with_format_'topic'
 [lookup-by-base-path-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_/lookup-by-base-path-request_given_there_are_live_content_items_with_base_paths_/foo_and_/bar

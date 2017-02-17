@@ -216,7 +216,10 @@ A Link represents the association to another `content_id` - known as the
 `link_type` is used to represent the relationship between the content of
 the content_id. It is common for a link to have multiple relationships to
 content of the same `link_type`, the ordering field is used to store the order
-in which the links of a certain `link_type` was specified.
+in which the links of a certain `link_type` was specified. The source of a link
+can either be a `LinkSet` (i.e. a `content_id`), known as
+[link set links][link-set-links] or an `Edition`, known as
+[edition links][edition-links].
 
 # History
 
@@ -251,3 +254,5 @@ on the workflow of content.
 [optimistic-locking]: api.md#optimistic-locking-previous_version
 [signon]: https://github.com/alphagov/signon
 [put-content-api]: api.md#put-v2contentcontent_id
+[link-set-links]: https://github.com/alphagov/publishing-api/blob/master/doc/link-expansion.md#patch-link-set---link-set-links
+[edition-links]: https://github.com/alphagov/publishing-api/blob/master/doc/link-expansion.md#put-content---edition-links
