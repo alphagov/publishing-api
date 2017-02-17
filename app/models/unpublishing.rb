@@ -1,4 +1,6 @@
 class Unpublishing < ApplicationRecord
+  include SymbolizeJSON
+
   self.inheritance_column = nil
 
   belongs_to :edition
@@ -19,7 +21,11 @@ class Unpublishing < ApplicationRecord
   validates_with UnpublishingRedirectValidator
 
   before_validation do
-    self.redirects = [{ path: alternative_path, type: "exact" }] if redirect?
+    self.redirects = [{
+      path: edition.base_path,
+      type: :exact,
+      destination: alternative_path,
+    }] if redirect?
   end
 
   def gone?

@@ -189,7 +189,7 @@ class Edition < ApplicationRecord
   end
 
   def unpublished?
-    state == "unpublished" && unpublishing
+    state == "unpublished" && unpublishing.present?
   end
 
   def gone?

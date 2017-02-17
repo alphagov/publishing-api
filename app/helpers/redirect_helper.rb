@@ -4,7 +4,6 @@ module RedirectHelper
   def create_redirect(old_base_path:, new_base_path:, publishing_app:, callbacks:, content_id: nil, routes: [])
     payload = RedirectPresenter.present(
       base_path: old_base_path,
-      destination: new_base_path,
       public_updated_at: Time.zone.now,
       redirects: redirects_for(routes, old_base_path, new_base_path),
       publishing_app: publishing_app
