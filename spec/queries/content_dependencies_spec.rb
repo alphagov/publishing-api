@@ -4,19 +4,17 @@ RSpec.describe Queries::ContentDependencies do
   include DependencyResolutionHelper
 
   let(:content_id) { SecureRandom.uuid }
-  let(:locale) { "en" }
-  let(:content_stores) { %w[live] }
-
-  let(:instance_options) do
-    {
-      content_id: content_id,
-      locale: locale,
-      content_stores: content_stores,
-    }
-  end
+  let(:locale) { :en }
+  let(:content_stores) { %w(live) }
 
   describe "#call" do
-    subject { described_class.new(instance_options).call }
+    subject do
+      described_class.new(
+        content_id: content_id,
+        locale: locale,
+        content_stores: content_stores,
+      ).call
+    end
 
     context "when there are no links or translations" do
       it { is_expected.to be_empty }
@@ -126,6 +124,45 @@ RSpec.describe Queries::ContentDependencies do
       end
 
       it { is_expected.to match_array(links) }
+    end
+
+    context "when items in different translations link to this edition" do
+      before do
+        create_edition(content_id, "/", locale: :en)
+        create_edition(link1_content_id, "/link.fr", locale: "fr",
+          links_hash: { organisation: [content_id] }
+        )
+        create_edition(link2_content_id, "/link.cy", locale: "cy",
+          links_hash: { organisation: [content_id] }
+        )
+      end
+
+      let(:link1_content_id) { SecureRandom.uuid }
+      let(:link2_content_id) { SecureRandom.uuid }
+
+      context "with a locale of cy" do
+        let(:locale) { :cy }
+        let(:links) do
+          [
+            [link2_content_id, "cy"],
+            [content_id, "en"], # available translation
+          ]
+        end
+
+        it { is_expected.to match_array(links) }
+      end
+
+      context "with a locale of fr" do
+        let(:locale) { :fr }
+        let(:links) do
+          [
+            [link1_content_id, "fr"],
+            [content_id, "en"], # available translation
+          ]
+        end
+
+        it { is_expected.to match_array(links) }
+      end
     end
 
     context "when items in different states link to this edition" do

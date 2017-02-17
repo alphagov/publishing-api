@@ -37,6 +37,7 @@ module Queries
     def dependency_resolution
       @dependency_resolution ||= DependencyResolution.new(
         content_id,
+        locale: locale,
         with_drafts: with_drafts?
       )
     end
