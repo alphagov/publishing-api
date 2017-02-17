@@ -15,7 +15,12 @@ class Unpublishing < ApplicationRecord
   validates :type, presence: true, inclusion: { in: VALID_TYPES }
   validates :explanation, presence: true, if: :withdrawal?
   validates :alternative_path, presence: true, if: :redirect?
+  validates :redirects, presence: true, if: :redirect?
   validates_with UnpublishingRedirectValidator
+
+  before_validation do
+    self.redirects = [{ path: alternative_path, type: "exact" }] if redirect?
+  end
 
   def gone?
     type == "gone"
@@ -32,5 +37,4 @@ class Unpublishing < ApplicationRecord
   def self.is_substitute?(edition)
     where(edition: edition).pluck(:type).first == "substitute"
   end
-
 end
