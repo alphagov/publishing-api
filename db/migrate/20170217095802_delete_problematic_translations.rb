@@ -1,4 +1,4 @@
-require_relative "helpers/delete_content_item"
+require_relative "helpers/delete_content"
 
 class DeleteProblematicTranslations < ActiveRecord::Migration[5.0]
   def up
@@ -17,7 +17,7 @@ class DeleteProblematicTranslations < ActiveRecord::Migration[5.0]
       /government/publications/nominated-tester-training/guidance-on-applying-for-mot-nominated-tester-training-ntt-for-new-and-returning-testers
       /government/publications/post-initial-teacher-training-subject-knowledge-enhancement-teaching-school-alliances/post-initial-teacher-training-subject-knowledge-enhancement-teaching-school-alliances
     )
-  
+
     #Bad world location news article
     base_paths_bad_wlna = %w(
       /government/world-location-news/176020.ar
@@ -661,7 +661,7 @@ class DeleteProblematicTranslations < ActiveRecord::Migration[5.0]
     )
 
     base_paths = base_paths_200_302 + base_paths_bad_wlna
-    
+
     ids = Edition.where(base_path: base_paths, publishing_app: "whitehall").joins(:document).distinct.pluck(:content_id)
     Helpers::DeleteContent.destroy_documents_with_links(ids)
   end
