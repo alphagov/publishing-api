@@ -1,6 +1,6 @@
 module Helpers
   module DeleteContent
-    def self.destroy_document_with_links(content_ids)
+    def self.destroy_documents_with_links(content_ids)
       content_ids = Array(content_ids)
 
       Document.where(content_id: content_ids).each do |document|
