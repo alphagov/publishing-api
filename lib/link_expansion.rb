@@ -1,3 +1,9 @@
+#
+# This is the core class of Link Expansion which is a complicated concept
+# in the Publishing API
+#
+# The concept is documented in /doc/link-expansion.md
+#
 class LinkExpansion
   attr_reader :content_id, :locale, :with_drafts
 
