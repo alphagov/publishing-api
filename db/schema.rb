@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217095802) do
+ActiveRecord::Schema.define(version: 20170217140101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20170217095802) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "unpublished_at"
+    t.json     "redirects"
     t.index ["edition_id", "type"], name: "index_unpublishings_on_edition_id_and_type", using: :btree
     t.index ["edition_id"], name: "index_unpublishings_on_edition_id", using: :btree
   end
@@ -165,4 +166,5 @@ ActiveRecord::Schema.define(version: 20170217095802) do
   add_foreign_key "change_notes", "editions"
   add_foreign_key "editions", "documents"
   add_foreign_key "links", "link_sets"
+  add_foreign_key "unpublishings", "editions"
 end
