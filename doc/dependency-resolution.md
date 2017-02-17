@@ -5,12 +5,9 @@
 - [Introduction](#introduction)
 - [When it occurs](#when-it-occurs)
 - [Determining editions to re-present](#determining-editions-to-re-present)
-  - [Linked to a document](#linked-to-a-document)
-    - [Recursive links](#recursive-links)
-  - [Reverse links](#reverse-links)
-  - [Translations](#translations)
 - [Updating Content Store](#updating-content-store)
   - [Content Store HTTP headers](#content-store-http-headers)
+- [Debugging](#debugging)
 
 ## Introduction
 
@@ -57,9 +54,8 @@ The class responsible for determining which `content_id`s require updates is
 [link expansion rules][link-expansion-rules] to perform the inverse process of
 link expansion.
 
-The
-[Queries::ContentDependencies][content-dependencies] class is responsible for
-determining the locales of each `content_id`.
+The [Queries::ContentDependencies][content-dependencies] class is responsible
+for determining the locales of each `content_id`.
 
 ## Updating Content Store
 
@@ -80,7 +76,30 @@ to determine the origin of the request:
   item that initiated dependency resolution, an empty value for this implies
   the request was not the result of dependency resolution.
 
+## Debugging
+
+You can explore dependency resolution in the rails console by creating a
+[`DependencyResolution`][dependency-resolution] instance.
+
+```
+> dependency_resolution = DependencyResolution.new(content_id, locale: :en, with_drafts: true)
+```
+
+You can then print the [`link_graph`][link-graph] of the link expansion to view
+the links.
+
+```
+> dependency_resolution.link_graph.to_h
+=> {:children=>[
+     {:content_id=>"4ff219a8-f2e6-4fca-9b73-ebaebc9c7b6a", :links=>{}}
+   ]}
+```
+
+You can navigate through the `link_graph` object for further debugging
+information.
+
 [content-store]: https://github.com/alphagov/content-store
+[dependency-resolution]: ../lib/dependency_resolution.rb
 [dependency-resolution-worker]: ../app/workers/dependency_resolution_worker.rb
 [downstream-draft-worker]: ../app/workers/downstream_draft_worker.rb
 [downstream-live-worker]: ../app/workers/downstream_live_worker.rb
@@ -91,3 +110,4 @@ to determine the origin of the request:
 [link-set-link]: link-expansion.md#patch-link-set---link-set-links
 [link-expansion-rules]: ../lib/link_expansion/rules.rb
 [edition-link]: link-expansion.md#put-content---edition-links
+[link-graph]: ../app/models/link_graph.rb
