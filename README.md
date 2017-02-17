@@ -62,7 +62,7 @@ require_relative "helpers/delete_content"
 class RemoveYourDocument < ActiveRecord::Migration
   # Remove /some/base-path
   def up
-    Helpers::DeleteContent.destroy_document_with_links("some-content-id")
+    Helpers::DeleteContent.destroy_documents_with_links("some-content-id")
   end
 end
 ```
