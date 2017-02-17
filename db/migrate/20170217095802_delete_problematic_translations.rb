@@ -662,7 +662,7 @@ class DeleteProblematicTranslations < ActiveRecord::Migration[5.0]
 
     base_paths = base_paths_200_302 + base_paths_bad_wlna
     
-    ids = Edition.where(base_path: base_paths).joins(:document).distinct.pluck(:content_id)
+    ids = Edition.where(base_path: base_paths, publishing_app: "whitehall").joins(:document).distinct.pluck(:content_id)
     Helpers::DeleteContent.destroy_documents_with_links(ids)
   end
 end
