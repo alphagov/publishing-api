@@ -1,3 +1,6 @@
+# This class represents a link in a link graph.
+#
+# It may be a child of a parent link node
 class LinkGraph::Node
   attr_reader :content_id, :locale, :edition_id, :link_type, :parent, :link_graph
 
@@ -17,18 +20,27 @@ class LinkGraph::Node
     @link_graph = link_graph
   end
 
+  # An array of LinkGraph::Node objects that represent the links this object
+  # has
   def links
     @links ||= LinkGraph::NodeCollectionFactory.new(link_graph, self).collection
   end
 
+  # An array of link_type to indicate the path from the root to this node.
+  # For a link that is a child of a parent_taxons this could be
+  # [parent_taxons, parent_taxons] for instance
   def link_types_path
     parent ? parent.link_types_path + [link_type] : [link_type]
   end
 
+  # Returns an array of content_ids representing the parent of this node with
+  # the parent of the node of that, etc
   def parent_content_ids
     parents.map(&:content_id)
   end
 
+  # Returns an array of LinkGraph::Nodes representing the hierachy of parents
+  # of this node
   def parents
     parent ? parent.parents + [parent] : []
   end

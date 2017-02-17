@@ -1,6 +1,12 @@
+# This class is used to represent the graph of links for an edition.
+# It is used in [link expansion](../doc/link-expansion.md) and
+# [dependency resolution](../doc/depedency-resolution.md)
 class LinkGraph
   attr_reader :root_content_id, :root_locale, :with_drafts, :link_reference
 
+  # link_reference is an object that can be queried to determine the links
+  # for given inputs. It is the source of information for representing this
+  # graph.
   def initialize(
     root_content_id:,
     root_locale:,
@@ -13,10 +19,12 @@ class LinkGraph
     @link_reference = link_reference
   end
 
+  # An array of LinkGraph::Node objects
   def links
     @links ||= NodeCollectionFactory.new(self).collection
   end
 
+  # A flat array representing every content_id in the graph
   def links_content_ids
     links.flat_map { |link| [link.content_id] + link.links_content_ids }.uniq
   end
