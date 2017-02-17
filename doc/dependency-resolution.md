@@ -16,7 +16,7 @@
 
 Dependency resolution is a concept within the Publishing API to describe the
 process of determining which editions require being re-presented to a
-[Content Store][content-store] as a result of a change to an edition.
+[Content Store][content-store] as a result of a change in another edition.
 
 The Content Stores contain static JSON representations of document editions.
 There are links between content and the details of these links are stored in
@@ -45,43 +45,21 @@ can be many requests to the Content Stores.
 ## Determining editions to re-present
 
 When an edition of document, `A` has been updated all content that include a
-link to `A` in their JSON links may need updating. The
+link to `A` in their JSON links may need updating. The process of dependency
+resolution determines the `content_id` of every item, and then re-presents
+that item in each locale that is available.
+
+For reference of the types of links see
+[doc/link-expansion.md](link-expansion.md)
+
+The class responsible for determining which `content_id`s require updates is
+[DependencyResolution][dependency-resolution]. It uses the
+[link expansion rules][link-expansion-rules] to perform the inverse process of
+link expansion.
+
+The
 [Queries::ContentDependencies][content-dependencies] class is responsible for
-determining the editions of documents that require re-presenting. The types of
-link can be broadly split into 3 categories: linked to a document, reverse
-links, and translations.
-
-### Linked to a document
-
-The most simple type of link is an explicit one where for a document `B` there
-is a link that targets a content item `C`. When
-dependency resolution occurs as the result of a change to `C` items that link
-to it, such as `B`, can be looked up simply.
-
-#### Recursive links
-
-Some link types are considered [recursive](link-expansion.md#recursive-links),
-for these a recursive process is used to determine which links should be
-re-presented as a result of dependency resolution.
-
-The [DependencyResolution][dependency-resolution] class is used to determine the
-`content_id` value of documents whose editions need to be re-presented.
-
-### Reverse links
-
-There is a concept of [reverse links](link-expansion.md#reverse-links) where
-links are automatically added as part of an edition presentation.
-
-These are determined by the [Queries::ContentDependencies][content-dependencies]
-class.
-
-### Translations
-
-If the edition that initiated dependency resolution is available in
-multiple locales each of these will be re-presented to the content store.
-
-Editions identified by links and reverse links will be updated in each
-locale they are stored in.
+determining the locales of each `content_id`.
 
 ## Updating Content Store
 
@@ -108,5 +86,8 @@ to determine the origin of the request:
 [downstream-live-worker]: ../app/workers/downstream_live_worker.rb
 [downstream-discard-draft-worker]: ../app/workers/downstream_discard_draft_worker.rb
 [content-dependencies]: ../app/queries/content_dependencies.rb
-[dependency-resolution]: ../app/lib/dependency-resolution.rb
+[dependency-resolution]: ../lib/dependency-resolution.rb
 [content-dependencies]: ../app/queries/content_dependencies.rb
+[link-set-link]: link-expansion.md#patch-link-set---link-set-links
+[link-expansion-rules]: ../lib/link_expansion/rules.rb
+[edition-link]: link-expansion.md#put-content---edition-links
