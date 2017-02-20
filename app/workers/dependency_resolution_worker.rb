@@ -11,6 +11,8 @@ class DependencyResolutionWorker
       send_downstream(content_id, locale)
     end
 
+    # FIXME: we need to do all locales not just 'en'
+    # make sure we update this when we come to edition level implementation.
     orphaned_content_ids.each { |content_id| send_downstream(content_id, "en") }
   end
 
