@@ -332,7 +332,17 @@ RSpec.describe Commands::V2::PutContent do
         expect(previously_drafted_item.content_store).to eq("draft")
       end
 
-      it "keeps the first_published_at timestamp if present" do
+      it "allows the setting of first_published_at" do
+        explicit_first_published = DateTime.new(2016, 05, 23, 1, 1, 1).rfc3339
+        payload[:first_published_at] = explicit_first_published
+
+        described_class.call(payload)
+
+        expect(previously_drafted_item.reload.first_published_at)
+          .to eq(explicit_first_published)
+      end
+
+      it "keeps the first_published_at timestamp if not set in payload" do
         first_published_at = 1.year.ago
         previously_drafted_item.update_attributes(first_published_at: first_published_at)
 
