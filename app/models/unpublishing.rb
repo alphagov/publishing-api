@@ -16,16 +16,21 @@ class Unpublishing < ApplicationRecord
   validates :edition, presence: true, uniqueness: true
   validates :type, presence: true, inclusion: { in: VALID_TYPES }
   validates :explanation, presence: true, if: :withdrawal?
-  validates :alternative_path, presence: true, if: :redirect?
   validates :redirects, presence: true, if: :redirect?
-  validates_with UnpublishingRedirectValidator
+  validates_with RoutesAndRedirectsValidator
 
-  before_validation do
-    self.redirects = [{
-      path: edition.base_path,
-      type: :exact,
-      destination: alternative_path,
-    }] if redirect?
+  delegate :base_path, to: :edition
+
+  def redirects
+    if redirect? && self[:redirects].nil?
+      [{
+        path: base_path,
+        type: "exact",
+        destination: alternative_path,
+      }]
+    else
+      SymbolizeJSON.symbolize(self[:redirects])
+    end
   end
 
   def gone?

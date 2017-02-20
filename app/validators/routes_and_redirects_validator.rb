@@ -2,9 +2,15 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
   def validate(record)
     return unless record.base_path.present?
 
-    routes = record.routes || []
-    redirects = record.redirects || []
-    document_type = record.document_type
+    is_unpublishing = record.is_a?(Unpublishing)
+    routes = record.try(:routes) || []
+    redirects = record.try(:redirects) || []
+
+    if is_unpublishing
+      document_type = record.type
+    else
+      document_type = record.document_type
+    end
 
     routes.each do |route|
       RouteValidator.new.validate(record, :routes, route)
@@ -21,7 +27,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
       redirects_must_not_have_routes(record, routes)
       redirects_must_include_base_path(record, redirects)
     else
-      routes_must_include_base_path(record, routes)
+      routes_must_include_base_path(record, routes) unless is_unpublishing
     end
   end
 
