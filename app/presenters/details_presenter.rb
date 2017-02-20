@@ -20,24 +20,29 @@ module Presenters
 
   private
 
-    def govspeak?(value)
-      value.all? { |hsh| hsh.is_a?(Hash) } &&
-        value.one? { |hsh| hsh[:content_type] == "text/govspeak" } &&
-        value.none? { |hsh| hsh[:content_type] == "text/html" }
+    def govspeak_content?(value)
+      wrapped = Array.wrap(value)
+      wrapped.all? { |hsh| hsh.is_a?(Hash) } &&
+        wrapped.one? { |hsh| hsh[:content_type] == "text/govspeak" } &&
+        wrapped.none? { |hsh| hsh[:content_type] == "text/html" }
     end
 
-    def process(value)
-      return unless value
-      wrapped_array = Array.wrap(value)
-      return render_govspeak(value) if govspeak?(wrapped_array)
-      return value if value.is_a?(String)
-      return value if value.respond_to?(:has_key?) && value.has_key?(:content)
-      value.map { |o| recursively_transform_govspeak(o) }
+    def html_content?(value)
+      wrapped = Array.wrap(value)
+      wrapped.all? { |hsh| hsh.is_a?(Hash) } &&
+        wrapped.one? { |hsh| hsh[:content_type] == "text/html" }
     end
 
     def recursively_transform_govspeak(obj)
-      Array(obj).each_with_object({}) do |(key, value), memo|
-        memo[key] = process(value)
+      return obj if !obj.respond_to?(:map) || html_content?(obj)
+      return render_govspeak(obj) if govspeak_content?(obj)
+
+      if obj.is_a?(Hash)
+        obj.each_with_object({}) do |(key, value), memo|
+          memo[key] = recursively_transform_govspeak(value)
+        end
+      else
+        obj.map { |o| recursively_transform_govspeak(o) }
       end
     end
 
