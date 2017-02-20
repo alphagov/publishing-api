@@ -11,8 +11,8 @@ RSpec.describe "Redirecting editions that are redrafted" do
       title: "Title",
       publishing_app: "publisher",
       rendering_app: "frontend",
-      schema_name: "guide",
-      document_type: "guide",
+      schema_name: "nonexistent-schema",
+      document_type: "nonexistent-schema",
       routes: [{ path: "/foo", type: "exact" }],
     }
   end
@@ -46,13 +46,13 @@ RSpec.describe "Redirecting editions that are redrafted" do
       expect(Edition.count).to eq(3)
 
       edition = Edition.first
-      expect(edition.schema_name).to eq("guide")
+      expect(edition.schema_name).to eq("nonexistent-schema")
       expect(edition.state).to eq("published")
       expect(edition.base_path).to eq("/foo")
       expect(edition.user_facing_version).to eq(1)
 
       edition = Edition.second
-      expect(edition.schema_name).to eq("guide")
+      expect(edition.schema_name).to eq("nonexistent-schema")
       expect(edition.state).to eq("draft")
       expect(edition.base_path).to eq("/bar")
       expect(edition.user_facing_version).to eq(2)
@@ -73,13 +73,13 @@ RSpec.describe "Redirecting editions that are redrafted" do
         expect(Edition.count).to eq(3)
 
         edition = Edition.first
-        expect(edition.schema_name).to eq("guide")
+        expect(edition.schema_name).to eq("nonexistent-schema")
         expect(edition.state).to eq("superseded")
         expect(edition.base_path).to eq("/foo")
         expect(edition.user_facing_version).to eq(1)
 
         edition = Edition.second
-        expect(edition.schema_name).to eq("guide")
+        expect(edition.schema_name).to eq("nonexistent-schema")
         expect(edition.state).to eq("published")
         expect(edition.base_path).to eq("/bar")
         expect(edition.user_facing_version).to eq(2)
@@ -105,13 +105,13 @@ RSpec.describe "Redirecting editions that are redrafted" do
       expect(Edition.count).to eq(3)
 
       edition = Edition.first
-      expect(edition.schema_name).to eq("guide")
+      expect(edition.schema_name).to eq("nonexistent-schema")
       expect(edition.state).to eq("published")
       expect(edition.base_path).to eq("/foo")
       expect(edition.user_facing_version).to eq(1)
 
       edition = Edition.second
-      expect(edition.schema_name).to eq("guide")
+      expect(edition.schema_name).to eq("nonexistent-schema")
       expect(edition.state).to eq("draft")
       expect(edition.base_path).to eq("/bar")
       expect(edition.user_facing_version).to eq(2)
@@ -132,13 +132,13 @@ RSpec.describe "Redirecting editions that are redrafted" do
         expect(Edition.count).to eq(3)
 
         edition = Edition.first
-        expect(edition.schema_name).to eq("guide")
+        expect(edition.schema_name).to eq("nonexistent-schema")
         expect(edition.state).to eq("superseded")
         expect(edition.base_path).to eq("/foo")
         expect(edition.user_facing_version).to eq(1)
 
         edition = Edition.second
-        expect(edition.schema_name).to eq("guide")
+        expect(edition.schema_name).to eq("nonexistent-schema")
         expect(edition.state).to eq("published")
         expect(edition.base_path).to eq("/bar")
         expect(edition.user_facing_version).to eq(2)

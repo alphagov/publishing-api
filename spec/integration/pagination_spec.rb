@@ -5,8 +5,8 @@ RSpec.describe "Paging through editions" do
     5.times do |n|
       FactoryGirl.create(:draft_edition,
         base_path: "/content-#{n}",
-        document_type: "guide",
-        schema_name: "guide",
+        document_type: "nonexistent-schema",
+        schema_name: "nonexistent-schema",
         public_updated_at: n.minutes.ago
       )
     end
@@ -14,7 +14,7 @@ RSpec.describe "Paging through editions" do
 
   context "when no pagination params are supplied" do
     before do
-      get "/v2/content", params: { content_format: "guide", fields: %w(base_path publishing_app) }
+      get "/v2/content", params: { content_format: "nonexistent-schema", fields: %w(base_path publishing_app) }
     end
 
     it "responds successfully" do
@@ -33,7 +33,7 @@ RSpec.describe "Paging through editions" do
     before do
       get "/v2/content",
         params: {
-          content_format: "guide",
+          content_format: "nonexistent-schema",
           fields: %w(base_path publishing_app),
           offset: "3",
           per_page: "2"

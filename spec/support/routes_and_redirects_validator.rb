@@ -80,7 +80,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
 
     context "for a non-redirect item" do
       before do
-        edition.document_type = "guide"
+        edition.document_type = "nonexistent-schema"
       end
 
       it "must have routes" do
@@ -225,7 +225,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
 
     context "for a non-redirect item" do
       before do
-        edition.document_type = "guide"
+        edition.document_type = "nonexistent-schema"
       end
 
       it "can have redirects" do

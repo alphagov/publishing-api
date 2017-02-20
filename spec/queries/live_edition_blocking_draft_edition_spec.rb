@@ -4,7 +4,7 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
   let(:content_id) { SecureRandom.uuid }
   let(:document) { FactoryGirl.create(:document, content_id: content_id) }
   let(:base_path) { "/vat-rates" }
-  let(:document_type) { "guide" }
+  let(:document_type) { "nonexistent-schema" }
 
   describe ".call" do
     subject { described_class.call(content_id, base_path, document_type) }
@@ -91,7 +91,7 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       before do
         FactoryGirl.create(:live_edition,
           base_path: base_path,
-          document_type: "guide",
+          document_type: "nonexistent-schema",
           user_facing_version: 1,
         )
 

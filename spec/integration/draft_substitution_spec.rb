@@ -13,8 +13,8 @@ RSpec.describe "Substituting content that is not published" do
       title: "Some Title",
       publishing_app: "publisher",
       rendering_app: "frontend",
-      document_type: "guide",
-      schema_name: "guide",
+      document_type: "nonexistent-schema",
+      schema_name: "nonexistent-schema",
       locale: "en",
       routes: [{ path: "/vat-rates", type: "exact" }],
       redirects: [],
@@ -69,7 +69,7 @@ RSpec.describe "Substituting content that is not published" do
 
         edition = Edition.first
 
-        expect(edition.document_type).to eq("guide")
+        expect(edition.document_type).to eq("nonexistent-schema")
         expect(edition.state).to eq("draft")
       end
 

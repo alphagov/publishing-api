@@ -10,11 +10,11 @@ RSpec.describe Commands::V2::RepresentDownstream do
       2.times { FactoryGirl.create(:draft_edition) }
       FactoryGirl.create(:live_edition,
         document: FactoryGirl.create(:document, locale: "en"),
-        document_type: "guidance",
+        document_type: "nonexistent-schema",
       )
       FactoryGirl.create(:live_edition,
         document: FactoryGirl.create(:document, locale: "fr"),
-        document_type: "guidance",
+        document_type: "nonexistent-schema",
       )
       FactoryGirl.create(:live_edition, document_type: "press_release")
     end
@@ -64,7 +64,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
           .with("downstream_low", a_hash_including(:content_id, :locale, :payload_version))
           .exactly(2).times
         subject.call(
-          Edition.with_document.where(document_type: "guidance").pluck('documents.content_id'),
+          Edition.with_document.where(document_type: "nonexistent-schema").pluck('documents.content_id'),
           false,
         )
       end

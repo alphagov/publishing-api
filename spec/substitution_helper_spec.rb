@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe SubstitutionHelper do
-  let(:existing_document_type) { "guide" }
-  let(:new_document_type) { "guide" }
+  let(:existing_document_type) { "nonexistent-schema" }
+  let(:new_document_type) { "nonexistent-schema" }
   let(:existing_base_path) { "/vat-rates" }
 
   let!(:existing_item) {
