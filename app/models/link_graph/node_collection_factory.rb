@@ -70,6 +70,8 @@ private
 
   def valid_link_nodes(link_type, links)
     links = links.map do |link|
+      # as we are taking links from both editions (which come as [content_id,
+      # locale, edition_id]) and link sets (which comes as a content_id)
       link_content_id, link_locale, edition_id = link.is_a?(Array) ? link : [link, nil, nil]
       LinkGraph::Node.new(
         content_id: link_content_id,

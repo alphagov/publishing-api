@@ -20,8 +20,6 @@ class LinkGraph::Node
     @link_graph = link_graph
   end
 
-  # An array of LinkGraph::Node objects that represent the links this object
-  # has
   def links
     @links ||= LinkGraph::NodeCollectionFactory.new(link_graph, self).collection
   end
@@ -33,14 +31,10 @@ class LinkGraph::Node
     parent ? parent.link_types_path + [link_type] : [link_type]
   end
 
-  # Returns an array of content_ids representing the parent of this node with
-  # the parent of the node of that, etc
   def parent_content_ids
     parents.map(&:content_id)
   end
 
-  # Returns an array of LinkGraph::Nodes representing the hierachy of parents
-  # of this node
   def parents
     parent ? parent.parents + [parent] : []
   end

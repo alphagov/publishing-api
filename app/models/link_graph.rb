@@ -19,12 +19,10 @@ class LinkGraph
     @link_reference = link_reference
   end
 
-  # An array of LinkGraph::Node objects
   def links
     @links ||= NodeCollectionFactory.new(self).collection
   end
 
-  # A flat array representing every content_id in the graph
   def links_content_ids
     links.flat_map { |link| [link.content_id] + link.links_content_ids }.uniq
   end
