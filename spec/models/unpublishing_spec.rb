@@ -59,7 +59,7 @@ RSpec.describe Unpublishing do
     end
 
     describe "redirects" do
-      context "with an old-style" do
+      context "with an alternative_path" do
         it "should populate redirects from the alternative_path" do
           subject.type = "redirect"
           subject.alternative_path = "/somewhere"
@@ -69,7 +69,7 @@ RSpec.describe Unpublishing do
         end
       end
 
-      context "with a new-style" do
+      context "with a redirects hash" do
         it "should not populate redirects from the alternative_path" do
           subject.type = "redirect"
           subject.redirects = [

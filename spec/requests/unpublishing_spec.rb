@@ -165,12 +165,12 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       end
     end
 
-    context "with a new-style payload" do
+    context "with a redirects hash payload" do
       let(:redirect_params) { redirect_params_with_redirects_hash }
       it_behaves_like "unpublishing with redirects"
     end
 
-    context "with an old-style payload" do
+    context "with an alternative_path payload" do
       let(:redirect_params) { redirect_params_with_alternative_path }
       it_behaves_like "unpublishing with redirects"
     end

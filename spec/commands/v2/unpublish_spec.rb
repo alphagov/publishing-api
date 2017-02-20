@@ -78,7 +78,7 @@ RSpec.describe Commands::V2::Unpublish do
         }
       end
 
-      context "with an old-style" do
+      context "with an alternative_path" do
         let(:redirects) { nil }
         let(:alternative_path) { "/something-great" }
 
@@ -92,7 +92,7 @@ RSpec.describe Commands::V2::Unpublish do
         end
       end
 
-      context "with a new-style" do
+      context "with a redirects hash" do
         let(:alternative_path) { nil }
         let(:redirects) do
           [
