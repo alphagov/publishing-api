@@ -251,9 +251,9 @@ RSpec.describe "Downstream requests", type: :request do
         .merge(
           base_path: base_path,
           locale: "en",
-          document_type: "guide",
-          schema_name: "guide",
-          format: "guide",
+          document_type: "nonexistent-schema",
+          schema_name: "nonexistent-schema",
+          format: "nonexistent-schema",
         )
         .except(
           :id,
@@ -282,8 +282,8 @@ RSpec.describe "Downstream requests", type: :request do
           base_path: base_path,
           content_item: a_hash_including(
             content_id: content_id,
-            locale: 'en',
-            format: 'guide',
+            locale: "en",
+            format: "nonexistent-schema",
             payload_version: anything,
           )
         )

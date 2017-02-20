@@ -477,7 +477,7 @@ RSpec.describe V2::ContentItemsController do
     it "displays items filtered by publishing_app parameter" do
       get :index,
         params: {
-          document_type: "guide",
+          document_type: "nonexistent-schema",
           fields: %w(base_path publishing_app),
           publishing_app: "whitehall"
         }
@@ -487,7 +487,7 @@ RSpec.describe V2::ContentItemsController do
     end
 
     it "filters by state" do
-      get :index, params: { document_type: "guide", states: %w(published draft) }
+      get :index, params: { document_type: "nonexistent-schema", states: %w(published draft) }
 
       items = parsed_response["results"]
       draft, published = items.partition { |item| item["publication_state"] == "draft" }
@@ -498,7 +498,7 @@ RSpec.describe V2::ContentItemsController do
     end
 
     it "displays all items by default" do
-      get :index, params: { document_type: 'guide', fields: %w(base_path publishing_app) }
+      get :index, params: { document_type: "nonexistent-schema", fields: %w(base_path publishing_app) }
       items = parsed_response["results"]
       expect(items.length).to eq(4)
     end

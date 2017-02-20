@@ -281,7 +281,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "filters editions by organisation" do
       result = Queries::GetContentCollection.new(
-        document_types: "guide",
+        document_types: "nonexistent-schema",
         filters: { links: { organisations: someorg_content_id } },
         fields: %w(base_path),
       ).call
@@ -294,7 +294,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "filters editions by organisation and other filters" do
       result = Queries::GetContentCollection.new(
-        document_types: "guide",
+        document_types: "nonexistent-schema",
         filters: {
           organisation: someorg_content_id,
           publishing_app: "specialist-publisher",
@@ -315,7 +315,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns all content if no filter is provided" do
       results = Queries::GetContentCollection.new(
-        document_types: "guide", fields: %w(base_path)
+        document_types: "nonexistent-schema", fields: %w(base_path)
       ).call
 
       expect(results).to match_array([
@@ -325,7 +325,7 @@ RSpec.describe Queries::GetContentCollection do
       ])
 
       results = Queries::GetContentCollection.new(
-        document_types: "guide", filters: { states: [] }, fields: %w(base_path)
+        document_types: "nonexistent-schema", filters: { states: [] }, fields: %w(base_path)
       ).call
 
       expect(results).to match_array([
@@ -337,7 +337,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns content filtered by the provided states" do
       results = Queries::GetContentCollection.new(
-        document_types: "guide",
+        document_types: "nonexistent-schema",
         fields: %w(base_path),
         filters: { states: %w(draft published) },
       ).call
@@ -572,7 +572,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns editions in default order" do
       editions = Queries::GetContentCollection.new(
-        document_types: "guide",
+        document_types: "nonexistent-schema",
         fields: %w(public_updated_at),
       ).call.to_a
 
@@ -583,7 +583,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns paginated editions in default order" do
       editions = Queries::GetContentCollection.new(
-        document_types: "guide",
+        document_types: "nonexistent-schema",
         fields: %w(public_updated_at),
         pagination: Pagination.new(offset: 2, per_page: 4)
       ).call.to_a

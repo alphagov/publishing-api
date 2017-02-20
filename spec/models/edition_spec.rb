@@ -4,7 +4,7 @@ RSpec.describe Edition do
   subject { FactoryGirl.build(:edition) }
 
   describe ".renderable_content" do
-    let!(:guide) { FactoryGirl.create(:edition, schema_name: "guide") }
+    let!(:guide) { FactoryGirl.create(:edition, schema_name: "nonexistent-schema") }
     let!(:redirect) { FactoryGirl.create(:redirect_edition) }
     let!(:gone) { FactoryGirl.create(:gone_edition) }
 
@@ -35,7 +35,7 @@ RSpec.describe Edition do
 
     context "when the edition is 'renderable'" do
       before do
-        subject.document_type = "guide"
+        subject.document_type = "nonexistent-schema"
       end
 
       it "requires a title" do

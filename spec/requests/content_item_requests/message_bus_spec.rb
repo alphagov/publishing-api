@@ -55,8 +55,8 @@ RSpec.describe "Message bus", type: :request do
     before do
       FactoryGirl.create(:draft_edition,
         document: FactoryGirl.create(:document, content_id: content_id),
-        document_type: "guide",
-        schema_name: "guide",
+        document_type: "nonexistent-schema",
+        schema_name: "nonexistent-schema",
         base_path: base_path,
       )
     end

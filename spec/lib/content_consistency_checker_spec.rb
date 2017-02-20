@@ -14,8 +14,8 @@ RSpec.describe ContentConsistencyChecker do
       let(:item) { FactoryGirl.create(:edition) }
       let(:body) do
         {
-          schema_name: "guide",
-          document_type: "guide",
+          schema_name: "nonexistent-schema",
+          document_type: "nonexistent-schema",
           rendering_app: "frontend",
           publishing_app: "publisher"
         }
