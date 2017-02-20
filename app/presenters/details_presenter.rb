@@ -12,9 +12,7 @@ module Presenters
     def details
       @_details ||=
         begin
-          updated = content_item_details.each_with_object({}) do |(key, val), seed|
-            seed[key] = append_transformed_govspeak(val)
-          end
+          updated = recursively_transform_govspeak(content_item_details)
           updated[:change_history] = change_history unless change_history.blank?
           updated
         end
@@ -22,13 +20,38 @@ module Presenters
 
   private
 
+    def govspeak_content?(value)
+      wrapped = Array.wrap(value)
+      wrapped.all? { |hsh| hsh.is_a?(Hash) } &&
+        wrapped.one? { |hsh| hsh[:content_type] == "text/govspeak" } &&
+        wrapped.none? { |hsh| hsh[:content_type] == "text/html" }
+    end
+
+    def html_content?(value)
+      wrapped = Array.wrap(value)
+      wrapped.all? { |hsh| hsh.is_a?(Hash) } &&
+        wrapped.one? { |hsh| hsh[:content_type] == "text/html" }
+    end
+
+    def recursively_transform_govspeak(obj)
+      return obj if !obj.respond_to?(:map) || html_content?(obj)
+      return render_govspeak(obj) if govspeak_content?(obj)
+
+      if obj.is_a?(Hash)
+        obj.each_with_object({}) do |(key, value), memo|
+          memo[key] = recursively_transform_govspeak(value)
+        end
+      else
+        obj.map { |o| recursively_transform_govspeak(o) }
+      end
+    end
+
     def change_history
       @_change_history ||= change_history_presenter.change_history
     end
 
-    def append_transformed_govspeak(value)
+    def render_govspeak(value)
       wrapped_value = Array.wrap(value)
-      return value unless requires_govspeak_html_transform?(wrapped_value)
       govspeak = {
         content_type: "text/html",
         content: rendered_govspeak(wrapped_value),
@@ -36,18 +59,12 @@ module Presenters
       wrapped_value + [govspeak]
     end
 
-    def raw_govspeak(value)
-      value.find { |format| format[:content_type] == "text/govspeak" }[:content]
-    end
-
-    def requires_govspeak_html_transform?(value)
-      value.all? { |hsh| hsh.is_a?(Hash) } &&
-        value.one? { |hsh| hsh[:content_type] == "text/govspeak" } &&
-        value.none? { |hsh| hsh[:content_type] == "text/html" }
-    end
-
     def rendered_govspeak(value)
       Govspeak::Document.new(raw_govspeak(value), govspeak_attributes).to_html
+    end
+
+    def raw_govspeak(value)
+      value.find { |format| format[:content_type] == "text/govspeak" }[:content]
     end
 
     def govspeak_attributes
