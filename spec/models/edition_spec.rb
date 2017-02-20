@@ -33,6 +33,19 @@ RSpec.describe Edition do
       expect(subject).to be_invalid
     end
 
+    context "when the edition is 'redirect' but has routes" do
+      before do
+        subject.document_type = "redirect"
+        subject.routes = [{ path: subject.base_path + "/test", type: :exact }]
+        subject.redirects = [{ path: subject.base_path, type: :exact, destination: "/dest" }]
+      end
+
+      it "should not be valid" do
+        expect(subject).to be_invalid
+        expect(subject.errors[:routes]).to_not be_empty
+      end
+    end
+
     context "when the edition is 'renderable'" do
       before do
         subject.document_type = "nonexistent-schema"

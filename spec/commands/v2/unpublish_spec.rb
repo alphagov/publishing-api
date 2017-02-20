@@ -54,7 +54,7 @@ RSpec.describe Commands::V2::Unpublish do
 
       it "raises an error when redirected without alternative_path" do
         msg = /Validation failed: Redirects destination must be present/
-        expect { described_class.call(payload.merge(type: "redirect", alternative_path: '')) }
+        expect { described_class.call(payload.merge(type: "redirect", alternative_path: "")) }
           .to raise_error(CommandError, msg) do |error|
             expect(error.code).to eq(422)
           end

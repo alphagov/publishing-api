@@ -60,6 +60,8 @@ class Edition < ApplicationRecord
   validate :user_facing_version_must_increase
   validate :draft_cannot_be_behind_live
 
+  validates :routes, absence: true, if: :redirect?
+
   validates_with VersionForDocumentValidator
   validates_with BasePathForStateValidator
   validates_with StateForDocumentValidator
