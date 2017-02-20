@@ -32,7 +32,7 @@ module Presenters
       return render_govspeak(value) if govspeak?(wrapped_array)
       return value if value.is_a?(String)
       return value if value.respond_to?(:has_key?) && value.has_key?(:content)
-      value.map {|o| recursively_transform_govspeak(o) }
+      value.map { |o| recursively_transform_govspeak(o) }
     end
 
     def recursively_transform_govspeak(obj)
