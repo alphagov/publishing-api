@@ -20,30 +20,29 @@ module Presenters
 
   private
 
+    def govspeak?(value)
+      value.all? { |hsh| hsh.is_a?(Hash) } &&
+        value.one? { |hsh| hsh[:content_type] == "text/govspeak" } &&
+        value.none? { |hsh| hsh[:content_type] == "text/html" }
+    end
+
+    def process(value)
+      return unless value
+      wrapped_array = Array.wrap(value)
+      return render_govspeak(value) if govspeak?(wrapped_array)
+      return value if value.is_a?(String)
+      return value if value.respond_to?(:has_key?) && value.has_key?(:content)
+      value.map {|o| recursively_transform_govspeak(o) }
+    end
+
     def recursively_transform_govspeak(obj)
-      if is_govspeak_renderable?(obj)
-        ensure_govspeak_rendered(obj)
-      elsif obj.is_a?(Hash)
-        obj.each_with_object({}) do |(key, val), seed|
-          seed[key] = recursively_transform_govspeak(val)
-        end
-      elsif obj.is_a?(Array)
-        obj.map { |val| recursively_transform_govspeak(val) }
-      else
-        obj
+      Array(obj).each_with_object({}) do |(key, value), memo|
+        memo[key] = process(value)
       end
     end
 
     def change_history
       @_change_history ||= change_history_presenter.change_history
-    end
-
-    def ensure_govspeak_rendered(obj)
-      if already_rendered?(obj)
-        obj
-      else
-        render_govspeak(obj)
-      end
     end
 
     def render_govspeak(value)
@@ -53,24 +52,6 @@ module Presenters
         content: rendered_govspeak(wrapped_value),
       }
       wrapped_value + [govspeak]
-    end
-
-    def already_rendered?(obj)
-      value = Array.wrap(obj)
-      value.one? { |hsh| contains_rendered_html?(hsh) }
-    end
-
-    def is_govspeak_renderable?(obj)
-      value = Array.wrap(obj)
-      value.one? { |hsh| is_govspeak_content?(hsh) }
-    end
-
-    def is_govspeak_content?(hsh)
-      hsh.is_a?(Hash) && hsh[:content_type] == "text/govspeak"
-    end
-
-    def contains_rendered_html?(hsh)
-      hsh.is_a?(Hash) && hsh[:content_type] == "text/html"
     end
 
     def rendered_govspeak(value)
