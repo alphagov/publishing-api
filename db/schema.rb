@@ -166,5 +166,5 @@ ActiveRecord::Schema.define(version: 20170217140101) do
   add_foreign_key "change_notes", "editions"
   add_foreign_key "editions", "documents"
   add_foreign_key "links", "link_sets"
-  add_foreign_key "unpublishings", "editions"
+  add_foreign_key "unpublishings", "editions", on_delete: :cascade
 end
