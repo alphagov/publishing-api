@@ -160,8 +160,8 @@ There are 5 types an unpublishing can be:
 - **`withdrawal`** - The edition will still be readable on GOV.UK but will have a
   withdrawn banner, provided with an `explanation` and an optional
   `alternative_path`.
-- **`redirect`** - Attempts to access the edition on GOV.UK will be redirected to a
-  provided `alternative_path`
+- **`redirect`** - Attempts to access the edition on GOV.UK will be redirected
+  to according to the `redirects` hash, or a provided `alternative_path`
 - **`gone`** - Attempts to access the edition on GOV.UK will receive a 410 Gone
   HTTP response.
 - **`vanish`** - Attempts to access the edition on GOV.UK will receive a 404 Not

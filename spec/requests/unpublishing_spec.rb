@@ -89,7 +89,13 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     let(:redirect_params_with_redirects_hash) {
       {
         type: "redirect",
-        redirects: [{path: base_path, type: :exact, destination: "/new-path"}],
+        redirects: [
+          {
+            path: base_path,
+            type: :exact,
+            destination: "/new-path",
+          }
+        ],
       }.to_json
     }
     let(:redirect_response) {

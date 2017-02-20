@@ -73,7 +73,7 @@ RSpec.describe Unpublishing do
         it "should not populate redirects from the alternative_path" do
           subject.type = "redirect"
           subject.redirects = [
-            {path: "/", type: :exact, destination: "/somewhere"}
+            { path: "/", type: :exact, destination: "/somewhere" }
           ]
           expect(subject.redirects).to match_array([
             a_hash_including(destination: "/somewhere")

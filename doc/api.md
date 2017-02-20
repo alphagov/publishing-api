@@ -234,8 +234,11 @@ type. Uses [optimistic-locking][optimistic-locking].
   - Boolean value, cannot be `true` if `discard_drafts` is also `true`.
   - Specifies that only a draft edition will be unpublished.
 - `alternative_path` *(conditionally required)*
-  - Required for a `type` of "redirect", Optional for a `type` of "gone".
+  - Required for a `type` of "redirect" (if `redirects` is not given), Optional for a `type` of "gone".
   - If specified, this should be a `base_path`.
+- `redirects` *(conditionally required)*
+  - Required for a `document_type` of "redirect" (if `alternative_path` is not given).
+  - An array of redirect values similar to that which can be passed to [`PUT /v2/content/:content_id`](#put-v2contentcontent_id).
 - `discard_drafts` *(optional)*
   - Boolean value, cannot be `true` if `allow_drafts` is also `true`.
   - Specifies that if a draft exists, it will be discarded.

@@ -95,7 +95,13 @@ RSpec.describe Commands::V2::Unpublish do
       context "with a new-style" do
         let(:alternative_path) { nil }
         let(:redirects) do
-          [{path: base_path, type: :exact, destination: "/something-amazing"}]
+          [
+            {
+              path: base_path,
+              type: :exact,
+              destination: "/something-amazing",
+            }
+          ]
         end
 
         it "should populate the redirects hash" do
