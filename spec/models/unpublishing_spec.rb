@@ -50,11 +50,36 @@ RSpec.describe Unpublishing do
       expect(subject).to be_valid
     end
 
-    it "requires an alternative_path for a 'redirect'" do
+    it "requires a redirects blob for a 'redirect'" do
       subject.type = "redirect"
       subject.alternative_path = nil
+      subject.redirects = nil
       expect(subject).to be_invalid
-      expect(subject.errors[:alternative_path].size).to eq(1)
+      expect(subject.errors[:redirects].size).to eq(2)
+    end
+
+    describe "redirects" do
+      context "with an alternative_path" do
+        it "should populate redirects from the alternative_path" do
+          subject.type = "redirect"
+          subject.alternative_path = "/somewhere"
+          expect(subject.redirects).to match_array([
+            a_hash_including(destination: "/somewhere")
+          ])
+        end
+      end
+
+      context "with a redirects hash" do
+        it "should not populate redirects from the alternative_path" do
+          subject.type = "redirect"
+          subject.redirects = [
+            { path: "/", type: :exact, destination: "/somewhere" }
+          ]
+          expect(subject.redirects).to match_array([
+            a_hash_including(destination: "/somewhere")
+          ])
+        end
+      end
     end
 
     context "when alternative_path is equal to base_path" do
@@ -71,8 +96,8 @@ RSpec.describe Unpublishing do
         subject.alternative_path = base_path
 
         expect(subject).to be_invalid
-        expect(subject.errors[:alternative_path]).to include(
-          "base_path matches the unpublishing alternative_path #{base_path}"
+        expect(subject.errors[:redirects]).to include(
+          "path cannot equal the destination"
         )
       end
     end
@@ -85,7 +110,7 @@ RSpec.describe Unpublishing do
     end
   end
 
-  describe ".is_subtitute?" do
+  describe ".is_substitute?" do
     subject { described_class.is_substitute?(edition) }
     context "when unpublished with type 'substitute'" do
       let(:edition) { FactoryGirl.create(:substitute_unpublished_edition) }

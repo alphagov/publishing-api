@@ -80,10 +80,22 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   end
 
   describe "redirecting" do
-    let(:redirect_params) {
+    let(:redirect_params_with_alternative_path) {
       {
         type: "redirect",
         alternative_path: "/new-path",
+      }.to_json
+    }
+    let(:redirect_params_with_redirects_hash) {
+      {
+        type: "redirect",
+        redirects: [
+          {
+            path: base_path,
+            type: :exact,
+            destination: "/new-path",
+          }
+        ],
       }.to_json
     }
     let(:redirect_response) {
@@ -107,20 +119,45 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       }
     }
 
-    it "creates an Unpublishing" do
-      post "/v2/content/#{content_id}/unpublish", params: redirect_params
+    shared_examples "unpublishing with redirects" do
+      it "creates an Unpublishing" do
+        post "/v2/content/#{content_id}/unpublish", params: redirect_params
 
-      expect(response.status).to eq(200), response.body
+        expect(response.status).to eq(200), response.body
 
-      unpublishing = Unpublishing.find_by(edition: edition)
-      expect(unpublishing.type).to eq("redirect")
-      expect(unpublishing.alternative_path).to eq("/new-path")
-    end
+        unpublishing = Unpublishing.find_by(edition: edition)
+        expect(unpublishing.type).to eq("redirect")
+        expect(unpublishing.redirects).to match_array([
+          a_hash_including(destination: "/new-path")
+        ])
+      end
 
-    it "sends a redirect to the live content store" do
-      Timecop.freeze do
-        expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-          .with(redirect_response)
+      it "sends a redirect to the live content store" do
+        Timecop.freeze do
+          expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+            .with(redirect_response)
+
+          post "/v2/content/#{content_id}/unpublish", params: redirect_params
+
+          expect(response.status).to eq(200), response.body
+        end
+      end
+
+      it "sends a redirect to the draft content store" do
+        Timecop.freeze do
+          expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+            .with(redirect_response)
+
+          post "/v2/content/#{content_id}/unpublish", params: redirect_params
+
+          expect(response.status).to eq(200), response.body
+        end
+      end
+
+      it "does not send to the message queue" do
+        allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+        allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
+        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
 
         post "/v2/content/#{content_id}/unpublish", params: redirect_params
 
@@ -128,25 +165,14 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       end
     end
 
-    it "sends a redirect to the draft content store" do
-      Timecop.freeze do
-        expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(redirect_response)
-
-        post "/v2/content/#{content_id}/unpublish", params: redirect_params
-
-        expect(response.status).to eq(200), response.body
-      end
+    context "with a redirects hash payload" do
+      let(:redirect_params) { redirect_params_with_redirects_hash }
+      it_behaves_like "unpublishing with redirects"
     end
 
-    it "does not send to the message queue" do
-      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
-
-      post "/v2/content/#{content_id}/unpublish", params: redirect_params
-
-      expect(response.status).to eq(200), response.body
+    context "with an alternative_path payload" do
+      let(:redirect_params) { redirect_params_with_alternative_path }
+      it_behaves_like "unpublishing with redirects"
     end
   end
 

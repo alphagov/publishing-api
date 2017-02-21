@@ -72,11 +72,7 @@ module Presenters
 
       def join_supporting_objects(scope)
         scope = ChangeNote.join_editions(scope)
-
-        if fields.include? :unpublishing
-          scope = Unpublishing.join_editions(scope)
-        end
-
+        scope = scope.with_unpublishing if fields.include?(:unpublishing)
         scope
       end
 

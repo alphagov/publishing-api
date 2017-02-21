@@ -16,11 +16,11 @@ class DownstreamPayload
   end
 
   def unpublished?
-    state == "unpublished"
+    edition.unpublished?
   end
 
   def content_store_action
-    return :no_op unless edition.base_path
+    return :no_op unless base_path
     return :put unless unpublished?
 
     case unpublishing.type
@@ -49,7 +49,7 @@ class DownstreamPayload
 private
 
   def unpublishing
-    @unpublishing ||= Unpublishing.find_by!(edition_id: edition.id)
+    edition.unpublishing
   end
 
   def content_payload
@@ -59,22 +59,20 @@ private
   end
 
   def redirect_payload
-    payload = RedirectPresenter.present(
-      base_path: edition.base_path,
+    RedirectPresenter.present(
+      base_path: base_path,
       publishing_app: edition.publishing_app,
-      destination: unpublishing.alternative_path,
       public_updated_at: unpublishing.created_at,
-    )
-    payload.merge(payload_version: payload_version)
+      redirects: unpublishing.redirects,
+    ).merge(payload_version: payload_version)
   end
 
   def gone_payload
-    payload = GonePresenter.present(
-      base_path: edition.base_path,
+    GonePresenter.present(
+      base_path: base_path,
       publishing_app: edition.publishing_app,
       alternative_path: unpublishing.alternative_path,
       explanation: unpublishing.explanation,
-    )
-    payload.merge(payload_version: payload_version)
+    ).merge(payload_version: payload_version)
   end
 end

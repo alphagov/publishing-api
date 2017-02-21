@@ -39,6 +39,7 @@ class Edition < ApplicationRecord
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
   scope :with_document, -> { joins(:document) }
+  scope :with_unpublishing, -> { left_outer_joins(:unpublishing) }
 
   validates :document, presence: true
 
@@ -58,6 +59,8 @@ class Edition < ApplicationRecord
 
   validate :user_facing_version_must_increase
   validate :draft_cannot_be_behind_live
+
+  validates :routes, absence: true, if: :redirect?
 
   validates_with VersionForDocumentValidator
   validates_with BasePathForStateValidator
@@ -153,11 +156,9 @@ class Edition < ApplicationRecord
     update_attributes!(state: "superseded", content_store: nil)
   end
 
-  def unpublish(type:, explanation: nil, alternative_path: nil, unpublished_at: nil)
+  def unpublish(type:, explanation: nil, alternative_path: nil, redirects: nil, unpublished_at: nil)
     content_store = type == "substitute" ? nil : "live"
     update_attributes!(state: "unpublished", content_store: content_store)
-
-    unpublishing = Unpublishing.find_by(edition: self)
 
     unpublished_at = nil unless type == "withdrawal"
 
@@ -166,6 +167,7 @@ class Edition < ApplicationRecord
         type: type,
         explanation: explanation,
         alternative_path: alternative_path,
+        redirects: redirects,
         unpublished_at: unpublished_at,
       )
       unpublishing
@@ -175,6 +177,7 @@ class Edition < ApplicationRecord
         type: type,
         explanation: explanation,
         alternative_path: alternative_path,
+        redirects: redirects,
         unpublished_at: unpublished_at,
       )
     end
@@ -188,7 +191,7 @@ class Edition < ApplicationRecord
   end
 
   def unpublished?
-    state == "unpublished" && unpublishing
+    state == "unpublished" && unpublishing.present?
   end
 
   def gone?

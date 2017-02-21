@@ -1,27 +1,27 @@
 class RoutesAndRedirectsValidator < ActiveModel::Validator
-  def validate(record)
-    return unless record.base_path.present?
+  def validate(record, base_path: nil)
+    base_path = record.base_path if base_path.nil?
 
-    routes = record.routes || []
-    redirects = record.redirects || []
-    document_type = record.document_type
+    return unless base_path.present?
+
+    routes = record.try(:routes) || []
+    redirects = record.try(:redirects) || []
 
     routes.each do |route|
-      RouteValidator.new.validate(record, :routes, route)
+      RouteValidator.new.validate(record, :routes, route, base_path)
     end
 
     redirects.each do |redirect|
-      RouteValidator.new.validate(record, :redirects, redirect)
+      RouteValidator.new.validate(record, :redirects, redirect, base_path)
       RedirectValidator.new.validate(record, redirect)
     end
 
     must_have_unique_paths(record, routes, redirects)
 
-    if document_type == "redirect"
-      redirects_must_not_have_routes(record, routes)
-      redirects_must_include_base_path(record, redirects)
+    if record.redirect?
+      redirects_must_include_base_path(record, base_path, redirects)
     else
-      routes_must_include_base_path(record, routes)
+      routes_must_include_base_path(record, base_path, routes)
     end
   end
 
@@ -39,26 +39,20 @@ private
     end
   end
 
-  def redirects_must_not_have_routes(record, routes)
-    if routes.any?
-      record.errors[:routes] << "redirect items cannot have routes"
-    end
-  end
-
-  def redirects_must_include_base_path(record, redirects)
-    if redirects.none? { |r| r[:path] == record.base_path }
+  def redirects_must_include_base_path(record, base_path, redirects)
+    if redirects.none? { |r| r[:path] == base_path }
       record.errors[:redirects] << "must include the base path"
     end
   end
 
-  def routes_must_include_base_path(record, routes)
-    if routes.none? { |r| r[:path] == record.base_path }
+  def routes_must_include_base_path(record, base_path, routes)
+    if routes.none? { |r| r[:path] == base_path }
       record.errors[:routes] << "must include the base path"
     end
   end
 
   class RouteValidator
-    def validate(record, attribute, route)
+    def validate(record, attribute, route, base_path)
       type = route[:type]
       path = route[:path]
 
@@ -82,7 +76,7 @@ private
       validator = AbsolutePathValidator.new(attributes: attribute)
       validator.validate_each(record, attribute, path)
 
-      unless path.present? && below_base_path?(path, record.base_path)
+      unless path.present? && below_base_path?(path, base_path)
         record.errors[attribute] << "path must be below the base path"
       end
     end

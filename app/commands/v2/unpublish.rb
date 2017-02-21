@@ -83,9 +83,25 @@ module Commands
       end
 
       def unpublish
-        edition.unpublish(payload.slice(:type, :explanation, :alternative_path, :unpublished_at))
+        edition.unpublish(
+          payload
+            .slice(:type, :explanation, :alternative_path, :unpublished_at)
+            .merge(redirects: redirects)
+        )
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, fields: {})
+      end
+
+      def redirects
+        if unpublishing_type == "redirect" && payload[:alternative_path]
+          [{
+            path: edition.base_path,
+            type: :exact,
+            destination: payload[:alternative_path]
+          }]
+        else
+          payload[:redirects]
+        end
       end
 
       def send_downstream

@@ -53,11 +53,65 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       it "raises an error when redirected without alternative_path" do
-        msg = "Validation failed: Alternative path can't be blank"
-        expect { described_class.call(payload.merge(type: "redirect", alternative_path: '')) }
+        msg = /Validation failed: Redirects destination must be present/
+        expect { described_class.call(payload.merge(type: "redirect", alternative_path: "")) }
           .to raise_error(CommandError, msg) do |error|
             expect(error.code).to eq(422)
           end
+      end
+    end
+
+    context "when passing redirects" do
+      let!(:live_edition) do
+        FactoryGirl.create(:live_edition,
+          document: document,
+          base_path: base_path,
+        )
+      end
+
+      let(:payload) do
+        {
+          content_id: content_id,
+          type: "redirect",
+          alternative_path: alternative_path,
+          redirects: redirects,
+        }
+      end
+
+      context "with an alternative_path" do
+        let(:redirects) { nil }
+        let(:alternative_path) { "/something-great" }
+
+        it "should populate the redirects hash" do
+          described_class.call(payload)
+
+          unpublishing = Unpublishing.first
+          expect(unpublishing.redirects).to match_array([
+            a_hash_including(destination: "/something-great")
+          ])
+        end
+      end
+
+      context "with a redirects hash" do
+        let(:alternative_path) { nil }
+        let(:redirects) do
+          [
+            {
+              path: base_path,
+              type: :exact,
+              destination: "/something-amazing",
+            }
+          ]
+        end
+
+        it "should populate the redirects hash" do
+          described_class.call(payload)
+
+          unpublishing = Unpublishing.first
+          expect(unpublishing.redirects).to match_array([
+            a_hash_including(destination: "/something-amazing")
+          ])
+        end
       end
     end
 

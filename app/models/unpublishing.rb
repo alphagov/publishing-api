@@ -1,4 +1,6 @@
 class Unpublishing < ApplicationRecord
+  include SymbolizeJSON
+
   self.inheritance_column = nil
 
   belongs_to :edition
@@ -14,8 +16,24 @@ class Unpublishing < ApplicationRecord
   validates :edition, presence: true, uniqueness: true
   validates :type, presence: true, inclusion: { in: VALID_TYPES }
   validates :explanation, presence: true, if: :withdrawal?
-  validates :alternative_path, presence: true, if: :redirect?
-  validates_with UnpublishingRedirectValidator
+  validates :redirects, presence: true, if: :redirect?
+
+  validate if: :redirect? do
+    RoutesAndRedirectsValidator.new
+      .validate(self, base_path: edition.base_path)
+  end
+
+  def redirects
+    if redirect? && self[:redirects].nil?
+      [{
+        path: edition.base_path,
+        type: "exact",
+        destination: alternative_path,
+      }]
+    else
+      SymbolizeJSON.symbolize(self[:redirects])
+    end
+  end
 
   def gone?
     type == "gone"
@@ -31,11 +49,5 @@ class Unpublishing < ApplicationRecord
 
   def self.is_substitute?(edition)
     where(edition: edition).pluck(:type).first == "substitute"
-  end
-
-  def self.join_editions(edition_scope)
-    edition_scope.joins(
-      "LEFT OUTER JOIN unpublishings ON editions.id = unpublishings.edition_id"
-    )
   end
 end
