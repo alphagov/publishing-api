@@ -1,5 +1,3 @@
-# This presenter has been carefully written to run quickly. Please be careful
-# if editing its behaviour and make sure to compare benchmarks.
 module Presenters
   module Queries
     class ContentItemPresenter
@@ -16,6 +14,7 @@ module Presenters
         :updated_at,
         :state_history,
         :change_note,
+        :links,
       ] - [:state]).freeze # state appears as 'publication_state'
 
       DEFAULT_SEARCH_FIELDS = %w(title base_path).freeze
@@ -105,6 +104,8 @@ module Presenters
             "#{STATE_HISTORY_SQL} AS state_history"
           when :unpublishing
             "#{UNPUBLISHING_SQL} AS unpublishing"
+          when :links
+            "#{LINKS_SQL} AS links"
           when :change_note
             "change_notes.note AS change_note"
           when :base_path
@@ -165,10 +166,19 @@ module Presenters
         )
       SQL
 
+      LINKS_SQL = <<-SQL.freeze
+        (
+          SELECT json_agg((links.link_type, target_content_id))
+          FROM links
+          WHERE links.edition_id = editions.id
+          GROUP BY links.link_type
+        )
+      SQL
+
       ISO8601_SQL = "YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"".freeze
 
       def parse_results(results)
-        json_columns = %w(details routes redirects need_ids state_history unpublishing)
+        json_columns = %w(details routes redirects need_ids state_history unpublishing links)
         int_columns = %w(user_facing_version lock_version)
 
         Enumerator.new do |yielder|
@@ -176,6 +186,7 @@ module Presenters
             json_columns.each { |c| parse_json_column(result, c) }
             int_columns.each { |c| parse_int_column(result, c) }
             parse_state_history(result)
+            parse_links(result, "links")
 
             result["warnings"] = get_warnings(result) if include_warnings
 
@@ -192,6 +203,16 @@ module Presenters
       def parse_int_column(result, column)
         return unless result.key?(column)
         result[column] = result[column].to_i
+      end
+
+      def parse_links(result, column)
+        return unless result.key?(column)
+
+        result[column] = Array(result[column]).map(&:values)
+          .group_by(&:first)
+          .each_with_object({}) do |(key, value), a|
+            a[key] = value.flatten.reject { |v| v == key }
+          end
       end
 
       def parse_state_history(result)

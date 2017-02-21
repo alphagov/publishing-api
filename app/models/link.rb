@@ -2,9 +2,11 @@ class Link < ApplicationRecord
   include SymbolizeJSON
 
   belongs_to :link_set
+  belongs_to :edition
 
+  validates :target_content_id, presence: true, uuid: true
   validate :link_type_is_valid
-  validate :content_id_is_valid
+  validate :association_presence
 
   def self.filter_editions(scope, filters)
     join_sql = <<-SQL.strip_heredoc
@@ -24,15 +26,20 @@ class Link < ApplicationRecord
 
 private
 
-  def link_type_is_valid
-    unless link_type.match(/\A[a-z0-9_]+\z/) && link_type != "available_translations"
-      errors.add(:link, "Invalid link type: #{link_type}")
+  VALID_LINK_TYPE_REGEX = /\A[a-z0-9_]+\z/
+  AUTOMATIC_LINK_TYPES = ["available_translations"].freeze
+
+  def association_presence
+    if link_set.blank? && edition.blank?
+      errors.add(:base, "must have a link set or an edition")
+    elsif link_set.present? && edition.present?
+      errors.add(:base, "must be associated with a link set or an edition, not both")
     end
   end
 
-  def content_id_is_valid
-    unless target_content_id.is_a?(Hash) || UuidValidator.valid?(target_content_id)
-      errors.add(:link, "target_content_id must be a valid UUID")
+  def link_type_is_valid
+    if !link_type.match(VALID_LINK_TYPE_REGEX) || AUTOMATIC_LINK_TYPES.include?(link_type)
+      errors.add(:link, "Invalid link type: #{link_type}")
     end
   end
 end

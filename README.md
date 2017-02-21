@@ -15,9 +15,9 @@ existing piece of content.
   by an edition, it represents a distinct version of a Document.
 - [**Content Item**][content-store-field-documentation]: A representation of
   content that can be sent to a [content store][content-store].
-- [**Link Set**](doc/model.md#linkset): A collection of links to other
-  documents. It is used to capture relationships between pieces of content
-  (e.g. parent/child).
+- [**Links**](doc/model.md#linking): Used to capture relationships between
+  pieces of content (e.g. parent/child). Can be of type
+  [link set link][link-set-link] or [edition link][edition-link].
 - [**Unpublishing**](doc/model.md#unpublishing): An object indicating a
   previously published edition which has been removed from the live site.
 - **User**: A user of the system, which is used to track who initiated requests
@@ -160,3 +160,5 @@ see the rake task for more details.
 [content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md
 [pact]: https://github.com/realestate-com-au/pact
 [pact-broker-latest]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
+[link-set-link]: doc/link-expansion.md#patch-link-set---link-set-links
+[edition-link]: doc/link-expansion.md#put-content---edition-links

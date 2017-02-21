@@ -121,6 +121,8 @@ ActiveRecord::Schema.define(version: 20170217140101) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "position",          default: 0, null: false
+    t.integer  "edition_id"
+    t.index ["edition_id"], name: "index_links_on_edition_id", using: :btree
     t.index ["link_set_id", "target_content_id"], name: "index_links_on_link_set_id_and_target_content_id", using: :btree
     t.index ["link_set_id"], name: "index_links_on_link_set_id", using: :btree
     t.index ["link_type"], name: "index_links_on_link_type", using: :btree
@@ -165,6 +167,7 @@ ActiveRecord::Schema.define(version: 20170217140101) do
 
   add_foreign_key "change_notes", "editions"
   add_foreign_key "editions", "documents"
+  add_foreign_key "links", "editions", on_delete: :cascade
   add_foreign_key "links", "link_sets"
   add_foreign_key "unpublishings", "editions", on_delete: :cascade
 end

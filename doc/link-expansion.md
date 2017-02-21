@@ -5,15 +5,23 @@
 - [Introduction](#introduction)
 - [Example output](#example-output)
 - [When it occurs](#when-it-occurs)
-- [Link sources](#link-sources)
-  - [Links added via `patch-link-set`](#links-added-via-patch-link-set)
-  - [Links added automatically](#links-added-automatically)
-    - [Reverse links](#reverse-links-dependents)
-    - [Available translations](#available-translations)
+- [How links are added](#how-links-are-added)
+  - [`patch-link-set` - Link set links](#patch-link-set---link-set-links)
+  - [`put-content` - Edition links](#put-content---edition-links)
+- [Types of links](#types-of-links)
+  - [Available translations](#available-translations)
+  - [Direct links](#direct-links)
+  - [Reverse links](#reverse-links)
   - [Recursive links](#recursive-links)
     - [Recursive link paths](#recursive-link-paths)
 - [Link presentation](#link-presentation)
   - [Fields](#fields)
+- [Developer gotchas](#developer-gotchas)
+  - [Why is this link appearing?](#why-is-this-link-appearing)
+  - [Why is this link *not* appearing?](#why-is-this-link-not-appearing)
+  - [Why/how does a link have extra fields?](#whyhow-does-a-link-have-extra-fields)
+  - [Why does this link have/have no child links?](#why-does-this-link-havehave-no-child-links)
+- [Debugging](#debugging)
 
 ## Introduction
 
@@ -94,9 +102,9 @@ expansion has occurred.
 }
 ```
 
-Within a `links` JSON object there are keys which indicate which a type of link,
-and at the value of those keys is an array of all links of that type. In the
-above example there are two types of link: `organisations` and
+Within a `links` JSON object there are keys which indicate the type of link
+(`link_type`), and at the value of those keys is an array of all links of that
+type. In the above example there are two types of link: `organisations` and
 `available_translations` which contain 1 and 2 links respectively.
 
 ## When it occurs
@@ -106,53 +114,46 @@ Content Store - which is normally the result of a [Sidekiq](http://sidekiq.org/)
 worker process such as [DownstreamDraftWorker][downstream-draft-worker] or
 [DownstreamLiveWorker][downstream-live-worker].
 
-## Link sources
+## How links are added
 
-The links for a edition are a combination of links which are added
-via [`patch-link-set`](api.md#patch-v2linkscontent_id) and those that are
-determined automatically.
+There are two ways that links can be added for a document: link set links and
+edition links. These are added by different endpoints.
 
-### Links added via `patch-link-set`
+### `patch-link-set` - Link set links
 
-Links added via `patch-link-set` are stored for a document as a
-collection of content ids, all with a link type and ordering index. These are
-always presented as part of link expansion, and some of the link types provided
-here may also include the links for the linked item if they are of a
-[recursive link type](#recursive-links).
+These links are added via the
+[`patch-link-set`](api.md#patch-v2linkscontent_id) endpoint. They are
+associated with a `content_id`, which therefore associates them with all
+the locales of a document.
 
-These are considered to be **direct links** of a document.
+They are typically used for taxonomy based links and aren't related to the
+specific content of an edition.
 
-### Links added automatically
+They do not follow a draft/published workflow, once added they will apply to
+editions of a document on both draft and live content stores.
 
-There are two types of links which are added automatically as part of link
-expansion, these are reverse links and available translations.
+### `put-content` - Edition links
 
-#### Reverse links (dependents)
+These links are added via the [`put-content`](api.md#put-v2contentcontent_id)
+endpoint. They are associated with a particular edition of a document and no
+other editions.
 
-Some types of links are presented when they are the target of a link.
+These are used for links that are associated with the content of an edition.
 
-Consider item `A` which links to item `B` - with type `reciprocal` - and `B`
-does not have a link to `A`. Under normal circumstances this will mean that the
-links for `A` would include `B`, yet `B` would not include `A` in it's
-links. However if `reciprocal` is defined as a reverse link it will also be
-included in the links for `B`, under a link type of the defined reverse name
-for "reciprocal". These are defined in
-[`LinkExpansion::Rules`][link-expansion-rules].
+In cases when there are edition links and link set links which have the same
+`link_type`, the edition links will take precedence during link expansion.
 
-An example of a reverse link type is `parent` which is defined as having a
-reverse name of `children`. Consider item `C` which has a link to
-item `D` with type `parent`. In `C` you would have a group of `parents`
-links which includes `D`, whereas in `D` you would have a group of
-`children` links which includes `C`.
+## Types of links
 
-#### Available translations
+### Available translations
 
 A document can be available in multiple translations. This will be
 determined by documents sharing the same [`content_id`][content-id] and
 having different [`locale`][locale] values.
 
-The links for an edition will include the available translations of editions
-of documents matching the same `content_id`, including the current locale.
+The links for an edition will automatically include the available translations
+of editions of documents matching the same `content_id`, including the current
+locale.
 
 **Example**
 
@@ -160,16 +161,47 @@ For item `E` which exists in English ("en") and Welsh ("cy") the available
 translations links include a link to the "en" and "cy" variations of the
 document.
 
+### Direct links
+
+These are the links which have been added via
+[`patch-link-set`](#patch-link-set---link-set-links) and
+[`put-content`](#put-content---edition-links) for a respective `content_id`
+or edition. They are presented with the `link_type` provided when creating the
+link.
+
+These links may be [recursive](#recursive-links) depending on their
+`link_type`.
+
+### Reverse links
+
+Certain `link_types` are considered reverse. When they are added for a
+`content_id` or edition they are also presented as part of their target.
+
+A reverse link corresponds with a direct link and has a reverse name. For
+instance `parent` has a reverse name of `children`.
+
+**Example**
+
+For item `A` which has a link to `B` which is a reverse `link_type` of parent.
+`A` will be presented with a link to `B` of type `parent`, whereas `B` will be
+presented with a link to `A` of type `children`.
+
+A quirk of reverse links is that they are presented with their corresponding
+link. For example when presenting a collection of links with a type of
+`children`, each one of those links will have a link of type `parent` which
+links to the original content.
+
+These links may be [recursive](#recursive-links) dependant on their `link_type`,
+they are defined in [`LinkExpansion::Rules`][link-expansion-rules].
+
 ### Recursive links
 
 Some link types are considered recursive which is used to present a tree
 structure of links of specific types. As with many things recursive, these
 link types are frequently a source of confusion.
 
-These are used in cases where it is beneficial to know the links of a content
-item when linking to that item.
-
-A common use case for this is breadcrumbs, where we may want to know the
+These are used in cases where multiple levels of links are needed to render
+content. A common use case for this is breadcrumbs, where we may want to know the
 hierarchy from the root `/` page to the page we are in. These are represented
 by using a recursive `parent` link type.
 
@@ -185,7 +217,7 @@ has breadcrumbs of "Home > Further education and skills > Apprenticeships"
 - "Further education and skills" could have a link to "Home" of type `parent`.
 
 As `parent` is a recursive link type each link would include a link to it's
-subsequent parent forming a tree of:
+subsequent parent forming a graph of:
 
 ```
 "Apprenticeship Standards" -parent-> "Apprenticeships" -parent-> "Further education and skills" -parent-> "Home"
@@ -219,8 +251,8 @@ An item in a path of link types can be marked as _recurring_. This means that
 there can be many items of this type in the path.
 
 For the path `ordered_related_items`, `mainstream_browse_pages` and
-`parent.recurring` there be any number of `parent` items, and only 1 instance of
-`ordered_related_items` and `mainstream_browse_pages`.
+`parent.recurring` there be any number of `parent` items, and only 1 instance
+of `ordered_related_items` and `mainstream_browse_pages`.
 
 This is a valid path for `ordered_related_items`, `mainstream_browse_pages` and `parent`:
 
@@ -239,17 +271,20 @@ The rules for recursive link types are defined in
 
 ## Which states are linked
 
-Whether an item is linked to is dependant on whether an edition of a document
+Whether an item is linked to depends on whether an edition of a document
 being linked to exists in a particular [state](model.md#state). The states that
 are applicable are determined by the state of the content item that link
 expansion is performed for.
 
 ### Edition has a state of `published` or `unpublished`
 
-Reverse links are included if a edition exists for them in a `published` state.
+Links are included when an editions exists in a `published` state. Editions
+that are in an `unpublished` state with type `withdrawn` are linked to
+depending on their `link_type`. Editions that are `unpublished` and are not of
+type `withdrawn` are not linked.
 
-All other link types are included when a edition exists in either a `published`
-state or a `unpublished` state with a type of `withdrawn`.
+The `link_types` that define whether a withdrawn edition is linked is defined
+in [LinkExpansion][link-expansion].
 
 ### Edition has a state of `draft`
 
@@ -287,10 +322,77 @@ The fields can and are customised in some cases. This can be done on a
 `link_type` basis. These customisations can be performed in
 [`LinkExpansion::Rules`][link-expansion-rules].
 
+## Developer gotchas
+
+Link expansion is complicated and thus can be challenging for developers to
+understand. This section attempts to cover some of the common questions,
+we're always welcome for suggestions to simplify link expansion.
+
+### Why is this link appearing?
+
+To understand why a link is presented the following things should be considered:
+
+- If the link is in the `available_translations` it will be a
+  [translation](#available-translations) of the document;
+- The link could be a [direct link](#direct-links) from the
+  [`Edition`](model.md#edition) or [`LinkSet`](model.md#linkset);
+- The link could be a link defined on a different Edition or LinkSet and be
+  a [reverse link](#reverse-links) and represented reciprocally;
+- If the link is defined inside a different link it will be either be a
+  [recursive link](#recursive-links) or be the automatic link added
+  back as part of a [reverse link](#reverse-links).
+
+### Why is this link *not* appearing?
+
+A link that you expect to appear might not be appearing due to the following
+reasons:
+
+- The item to be linked to might not be available in a
+  [linkable state](#which-states-are-linked);
+- There could be [`Edition`](model.md#edition) or [`LinkSet`](model.md#linkset)
+  links that are defined with the same `link_type` which means the edition
+  links will take precedence.
+- If a recursive link is expected it may not be following a valid
+  [recursive link path](#recursive-link-paths).
+
+### Why/how does a link have different fields to other links?
+
+Links for a specific `link_type` can be defined to return
+[different fields](#fields) as part of link expansion. These are defined in
+[`LinkExpansion::Rules`][link-expansion-rules].
+
+## Debugging
+
+You can explore link expansion in the rails console by creating a
+[`LinkExpansion`][link-expansion] instance.
+
+```
+> link_expansion = LinkExpansion.new(content_id, locale: :en, with_drafts: true)
+```
+
+You can then print the [`link_graph`][link-graph] of the link expansion to view
+the links.
+
+```
+> link_expansion.link_graph.to_h
+=> {:organisations=>
+  [{:content_id=>"2e7868a8-38f5-4ff6-b62f-9a15d1c22d28", :links=>{}},
+   {:content_id=>"b548a09f-8b35-4104-89f4-f1a40bf3136d", :links=>{}},
+   {:content_id=>"de4e9dc6-cca4-43af-a594-682023b84d6c", :links=>{}},
+   {:content_id=>"e8fae147-6232-4163-a3f1-1c15b755a8a4", :links=>{}}],
+ :related=>[{:content_id=>"78cedbfe-d3aa-41c3-b8c0-aeb5d9035d6a", :links=>{}}]}
+```
+
+You can navigate through the `link_graph` object for further debugging
+information.
+
+[apprenticeship-standards]: https://www.gov.uk/government/collections/apprenticeship-standards
+[content-id]: model.md#user-content-content_id
 [content-store]: https://github.com/alphagov/content-store
 [downstream-draft-worker]: ../app/workers/downstream_draft_worker.rb
 [downstream-live-worker]: ../app/workers/downstream_live_worker.rb
-[link-expansion-rules]: ../app/queries/dependent_expansion_rules.rb
-[content-id]: model.md#user-content-content_id
+[govuk-content-schema]: https://github.com/alphagov/govuk-content-schemas
+[link-expansion]: ../lib/link_expansion.rb
+[link-expansion-rules]: ../lib/link_expansion/rules.rb
+[link-graph]: ../app/models/link_graph.rb
 [locale]: model.md#user-content-locale
-[apprenticeship-standards]: https://www.gov.uk/government/collections/apprenticeship-standards

@@ -5,7 +5,16 @@ RSpec.describe LinkGraph::Node do
   let(:link_type) { :organisation }
   let(:parent) { nil }
   let(:link_graph) { double(:link_graph) }
-  let(:node) { described_class.new(content_id, link_type, parent, link_graph) }
+  let(:node) do
+    described_class.new(
+      content_id: content_id,
+      locale: nil,
+      edition_id: nil,
+      link_type: link_type,
+      parent: parent,
+      link_graph: link_graph,
+    )
+  end
 
   describe "#link_types_path" do
     subject { node.link_types_path }
@@ -15,7 +24,16 @@ RSpec.describe LinkGraph::Node do
     end
 
     context "has a parent" do
-      let(:parent) { described_class.new(SecureRandom.uuid, :parent, nil, link_graph) }
+      let(:parent) do
+        described_class.new(
+          content_id: SecureRandom.uuid,
+          locale: nil,
+          edition_id: nil,
+          link_type: :parent,
+          parent: nil,
+          link_graph: link_graph,
+        )
+      end
       it { is_expected.to match_array([:parent, link_type]) }
     end
   end

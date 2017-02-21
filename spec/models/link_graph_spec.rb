@@ -2,7 +2,16 @@ require "rails_helper"
 
 RSpec.describe LinkGraph do
   let(:content_id) { SecureRandom.uuid }
-  let(:link_graph) { described_class.new(content_id, double(:link_reference)) }
+  let(:with_drafts) { false }
+  let(:locale) { nil }
+  let(:link_graph) do
+    described_class.new(
+      root_content_id: content_id,
+      root_locale: locale,
+      with_drafts: with_drafts,
+      link_reference: double(:link_reference)
+    )
+  end
 
   describe "#links_content_ids" do
     subject { link_graph.links_content_ids }

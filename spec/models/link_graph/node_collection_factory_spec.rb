@@ -6,6 +6,8 @@ RSpec.describe LinkGraph::NodeCollectionFactory do
     double(:link_graph,
       link_reference: link_reference,
       root_content_id: SecureRandom.uuid,
+      root_locale: :en,
+      with_drafts: false,
     )
   end
   let(:valid_link_node) { true }
@@ -14,6 +16,8 @@ RSpec.describe LinkGraph::NodeCollectionFactory do
     subject { described_class.new(link_graph, nil).collection }
     before do
       allow(link_reference).to receive(:links_by_link_type)
+        .and_return(links, {})
+      allow(link_reference).to receive(:edition_links_by_link_type)
         .and_return(links, {})
     end
 
@@ -27,7 +31,14 @@ RSpec.describe LinkGraph::NodeCollectionFactory do
       let(:links) { { parent: content_ids } }
       let(:link_nodes) do
         content_ids.map do |content_id|
-          LinkGraph::Node.new(content_id, :parent, nil, link_graph)
+          LinkGraph::Node.new(
+            content_id: content_id,
+            locale: nil,
+            edition_id: nil,
+            link_type: :parent,
+            parent: nil,
+            link_graph: link_graph,
+          )
         end
       end
 

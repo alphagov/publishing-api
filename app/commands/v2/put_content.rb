@@ -40,6 +40,18 @@ module Commands
         update_last_edited_at(edition, payload[:last_edited_at])
         ChangeNote.create_from_edition(payload, edition)
         Action.create_put_content_action(edition, document.locale, event)
+        create_links(edition)
+      end
+
+      def create_links(edition)
+        return if payload[:links].nil?
+        payload[:links].each do |link_type, target_link_ids|
+          edition.links.create!(
+            target_link_ids.map.with_index do |target_link_id, i|
+              { link_type: link_type, target_content_id: target_link_id, position: i }
+            end
+          )
+        end
       end
 
       def create_redirect

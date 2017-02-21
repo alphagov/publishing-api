@@ -6,13 +6,13 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   let(:a) { create_link_set }
   let(:b) { create_link_set }
 
-  let(:locale_fallback_order) { "en" }
+  let(:locale) { "en" }
 
   subject(:expanded_links) {
     described_class.new(
       content_id: a,
       draft: present_drafts,
-      locale_fallback_order: locale_fallback_order
+      locale: locale,
     ).links
   }
 

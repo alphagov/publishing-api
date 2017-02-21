@@ -65,8 +65,8 @@ RSpec.describe Presenters::EditionPresenter do
         routes: [{ path: base_path, type: "exact" }],
         schema_name: "nonexistent-schema",
         title: "VAT rates",
-        first_published_at: DateTime.parse("2014-01-02T03:04:05Z"),
-        public_updated_at: DateTime.parse("2014-05-14T13:00:06Z"),
+        first_published_at: "2014-01-02T03:04:05Z",
+        public_updated_at: "2014-05-14T13:00:06Z",
       }
     end
 
@@ -146,49 +146,43 @@ RSpec.describe Presenters::EditionPresenter do
     end
 
     context "for a edition with dependencies" do
-      let(:a) { FactoryGirl.create(:edition, base_path: "/a") }
-      let(:b) { FactoryGirl.create(:edition, base_path: "/b") }
+      let(:main_edition)       { FactoryGirl.create(:edition, base_path: "/a") }
+      let(:edition_dependee)   { FactoryGirl.create(:edition, base_path: "/c") }
+      let(:document_dependent) { FactoryGirl.create(:edition, base_path: "/d") }
 
       before do
-        FactoryGirl.create(:link_set, content_id: a.document.content_id, links: [
-          FactoryGirl.create(:link, link_type: "related", target_content_id: b.document.content_id)
-        ])
-      end
-
-      subject do
-        described_class.new(a, draft: true).for_content_store(payload_version)
+        link2 = FactoryGirl.create(
+          :link,
+          link_type: "documents",
+          target_content_id: main_edition.document.content_id,
+        )
+        FactoryGirl.create(
+          :link_set,
+          content_id: document_dependent.document.content_id,
+          links: [link2],
+        )
+        main_edition.links.create!(
+          target_content_id: edition_dependee.document.content_id,
+          link_type: "related",
+        )
       end
 
       it "expands the links for the edition" do
-        expect(subject[:expanded_links]).to eq(
-          related: [{
-            content_id: b.document.content_id,
-            api_path: "/api/content/b",
-            base_path: "/b",
-            title: "VAT rates",
-            description: "VAT rates for goods and services",
-            schema_name: "nonexistent-schema",
-            document_type: "nonexistent-schema",
-            locale: "en",
-            public_updated_at: "2014-05-14T13:00:06Z",
-            analytics_identifier: "GDS01",
-            links: {},
-            withdrawn: false,
-          }],
-          available_translations: [{
-            analytics_identifier: "GDS01",
-            api_path: "/api/content/a",
-            base_path: "/a",
-            content_id: a.document.content_id,
-            description: "VAT rates for goods and services",
-            schema_name: "nonexistent-schema",
-            document_type: "nonexistent-schema",
-            locale: "en",
-            public_updated_at: "2014-05-14T13:00:06Z",
-            title: "VAT rates",
-            withdrawn: false,
-          }],
-        )
+        result = described_class.new(
+          main_edition, draft: true
+        ).for_content_store(payload_version)
+
+        expect(
+          result[:expanded_links][:related][0][:content_id]
+        ).to eq edition_dependee.content_id
+
+        expect(
+          result[:expanded_links][:available_translations][0][:content_id]
+        ).to eq main_edition.content_id
+
+        expect(
+          result[:expanded_links][:document_collections][0][:content_id]
+        ).to eq document_dependent.content_id
       end
     end
 

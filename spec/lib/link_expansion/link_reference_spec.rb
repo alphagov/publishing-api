@@ -10,9 +10,9 @@ RSpec.describe LinkExpansion::LinkReference do
 
     subject do
       described_class.new.links_by_link_type(
-        content_id,
-        link_types_path,
-        parent_content_ids
+        content_id: content_id,
+        link_types_path: link_types_path,
+        parent_content_ids: parent_content_ids,
       )
     end
 
