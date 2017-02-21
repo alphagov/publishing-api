@@ -50,12 +50,13 @@ class DownstreamDraftWorker
 private
 
   attr_reader :content_id, :locale, :edition, :payload_version,
-    :update_dependencies, :dependency_resolution_source_content_id
+    :update_dependencies, :dependency_resolution_source_content_id, :orphaned_content_ids
 
   def assign_attributes(attributes)
     assign_backwards_compatible_content_item(attributes)
     @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
     @payload_version = attributes.fetch(:payload_version)
+    @orphaned_content_ids = attributes.fetch(:orphaned_content_ids, [])
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @dependency_resolution_source_content_id = attributes.fetch(
       :dependency_resolution_source_content_id,
@@ -83,7 +84,8 @@ private
       fields: [:content_id],
       content_id: content_id,
       locale: locale,
-      payload_version: payload_version
+      payload_version: payload_version,
+      orphaned_content_ids: orphaned_content_ids,
     )
   end
 

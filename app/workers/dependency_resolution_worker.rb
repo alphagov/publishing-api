@@ -8,17 +8,17 @@ class DependencyResolutionWorker
     assign_attributes(args.deep_symbolize_keys)
 
     dependencies.each do |(content_id, locale)|
-      if draft?
-        downstream_draft(content_id, locale)
-      else
-        downstream_live(content_id, locale)
-      end
+      send_downstream(content_id, locale)
     end
+
+    # FIXME: we need to do all locales not just 'en'
+    # make sure we update this when we come to edition level implementation.
+    orphaned_content_ids.each { |content_id| send_downstream(content_id, "en") }
   end
 
 private
 
-  attr_reader :content_id, :locale, :fields, :content_store, :payload_version
+  attr_reader :content_id, :locale, :fields, :content_store, :payload_version, :orphaned_content_ids
 
   def assign_attributes(args)
     @content_id = args.fetch(:content_id)
@@ -27,6 +27,12 @@ private
     @locale = args[:locale]
     @content_store = args.fetch(:content_store).constantize
     @payload_version = args.fetch(:payload_version)
+    @orphaned_content_ids = args.fetch(:orphaned_content_ids, [])
+  end
+
+  def send_downstream(content_id, locale)
+    downstream_draft(content_id, locale)
+    downstream_live(content_id, locale)
   end
 
   def dependencies
@@ -42,6 +48,8 @@ private
   end
 
   def downstream_draft(dependent_content_id, locale)
+    return unless draft?
+
     DownstreamDraftWorker.perform_async_in_queue(
       DownstreamDraftWorker::LOW_QUEUE,
       content_id: dependent_content_id,
@@ -53,6 +61,8 @@ private
   end
 
   def downstream_live(dependent_content_id, locale)
+    return if draft?
+
     DownstreamLiveWorker.perform_async_in_queue(
       DownstreamLiveWorker::LOW_QUEUE,
       content_id: dependent_content_id,

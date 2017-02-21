@@ -5,10 +5,11 @@ module Commands
         raise_unless_links_hash_is_provided
         validate_schema
         link_set = LinkSet.find_or_create_locked(content_id: content_id)
-
         check_version_and_raise_if_conflicting(link_set, previous_version_number)
 
         link_set.increment!(:stale_lock_version)
+
+        links_before_patch = link_set.links.map(&:target_content_id)
 
         grouped_links.each do |group, payload_content_ids|
           # For each set of links in a LinkSet scoped by link_type, this iterator
@@ -21,8 +22,10 @@ module Commands
           end
         end
 
+        orphaned_content_ids = link_diff_between(links_before_patch, link_set.links.map(&:target_content_id))
+
         after_transaction_commit do
-          send_downstream
+          send_downstream(orphaned_content_ids)
         end
 
         Action.create_patch_link_set_action(link_set, event)
@@ -32,6 +35,10 @@ module Commands
       end
 
     private
+
+      def link_diff_between(links_before_patch, links_after_patch)
+        links_before_patch - links_after_patch
+      end
 
       def content_id
         payload.fetch(:content_id)
@@ -63,31 +70,32 @@ module Commands
         end
       end
 
-      def send_downstream
+      def send_downstream(orphaned_content_ids)
         return unless downstream
 
         draft_locales = Queries::LocalesForEditions.call([content_id], %w[draft live])
-        draft_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
+        draft_locales.each { |(content_id, locale)| downstream_draft(content_id, locale, orphaned_content_ids) }
 
         live_locales = Queries::LocalesForEditions.call([content_id], %w[live])
-        live_locales.each { |(content_id, locale)| downstream_live(content_id, locale) }
+        live_locales.each { |(content_id, locale)| downstream_live(content_id, locale, orphaned_content_ids) }
       end
 
       def bulk_publishing?
         payload.fetch(:bulk_publishing, false)
       end
 
-      def downstream_draft(content_id, locale)
+      def downstream_draft(content_id, locale, orphaned_content_ids)
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
           content_id: content_id,
           locale: locale,
           payload_version: event.id,
+          orphaned_content_ids: orphaned_content_ids,
         )
       end
 
-      def downstream_live(content_id, locale)
+      def downstream_live(content_id, locale, orphaned_content_ids)
         queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
@@ -95,6 +103,7 @@ module Commands
           locale: locale,
           message_queue_update_type: "links",
           payload_version: event.id,
+          orphaned_content_ids: orphaned_content_ids,
         )
       end
 

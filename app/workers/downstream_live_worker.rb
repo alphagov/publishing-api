@@ -55,12 +55,13 @@ private
 
   attr_reader :content_id, :locale, :edition, :payload_version,
     :message_queue_update_type, :update_dependencies,
-    :dependency_resolution_source_content_id
+    :dependency_resolution_source_content_id, :orphaned_content_ids
 
   def assign_attributes(attributes)
     assign_backwards_compatible_content_item(attributes)
     @edition = Queries::GetEditionForContentStore.(content_id, locale, false)
     @payload_version = attributes.fetch(:payload_version)
+    @orphaned_content_ids = attributes.fetch(:orphaned_content_ids, [])
     @message_queue_update_type = attributes.fetch(:message_queue_update_type, nil)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @dependency_resolution_source_content_id = attributes.fetch(
@@ -90,6 +91,7 @@ private
       content_id: content_id,
       locale: locale,
       payload_version: payload_version,
+      orphaned_content_ids: orphaned_content_ids,
     )
   end
 

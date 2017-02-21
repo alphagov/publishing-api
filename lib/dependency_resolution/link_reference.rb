@@ -26,14 +26,18 @@ private
 
   def descendant_links(content_id, link_types_path, parent_content_ids)
     descendant_link_types = rules.next_dependency_resolution_link_types(link_types_path)
+
     return {} if descendant_link_types.empty?
+
     reverse_types, direct_types = descendant_link_types.partition do |link_type|
       rules.is_reverse_link_type?(link_type)
     end
+
     direct = direct_links(content_id,
       allowed_link_types: direct_types,
       parent_content_ids: parent_content_ids,
     )
+
     reverse = reverse_links(content_id,
       allowed_reverse_link_types: reverse_types,
       parent_content_ids: parent_content_ids,
