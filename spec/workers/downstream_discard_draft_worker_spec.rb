@@ -40,10 +40,10 @@ RSpec.describe DownstreamDiscardDraftWorker do
       }.to raise_error(KeyError)
     end
 
-    it "doesn't requires locale" do
+    it "requires locale" do
       expect {
         subject.perform(arguments.except("locale"))
-      }.not_to raise_error
+      }.to raise_error(KeyError)
     end
 
     it "requires payload_version" do

@@ -22,9 +22,7 @@ private
 
   def assign_attributes(args)
     @content_id = args.fetch(:content_id)
-    # FIXME: As of December 2016 locale is a optional field to be backwards
-    # compatible. By January 2017 it will be safe to make locale required.
-    @locale = args[:locale]
+    @locale = args.fetch(:locale)
     @content_store = args.fetch(:content_store).constantize
     @payload_version = args.fetch(:payload_version)
     @orphaned_content_ids = args.fetch(:orphaned_content_ids, [])

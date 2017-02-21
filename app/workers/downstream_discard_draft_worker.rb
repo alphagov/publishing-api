@@ -5,11 +5,6 @@ class DownstreamDiscardDraftWorker
 
   sidekiq_options queue: HIGH_QUEUE
 
-  # FIXME: This worker can be initialised using a legacy interface with
-  # "live_content_item_id" and the updated interface which uses "locale".
-  # Both interfaces are supported until we are confident there are no longer
-  # items in the sidekiq queue. They should all be long gone by
-  # December 2016 and probably sooner.
   def perform(args = {})
     assign_attributes(args.symbolize_keys)
 
@@ -38,21 +33,12 @@ private
   def assign_attributes(attributes)
     @base_path = attributes.fetch(:base_path)
     @content_id = attributes.fetch(:content_id)
-    assign_backwards_compatible_content_item(attributes)
+    @locale = attributes.fetch(:locale)
+    @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
     @payload_version = attributes.fetch(:payload_version)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
   end
 
-  def assign_backwards_compatible_content_item(attributes)
-    if attributes[:locale]
-      @locale = attributes[:locale]
-      @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
-    else
-      content_item_id = attributes[:live_content_item_id]
-      @edition = content_item_id ? Edition.find(content_item_id) : nil
-      @locale = edition.try(:locale)
-    end
-  end
 
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(

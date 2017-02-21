@@ -69,6 +69,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
       described_class.new.perform(
         content_id: "123",
+        locale: "en",
         content_store: "Adapters::ContentStore",
         payload_version: "123",
       )
@@ -85,6 +86,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
       described_class.new.perform(
         content_id: "123",
+        locale: "en",
         content_store: "Adapters::DraftContentStore",
         payload_version: "123",
       )
@@ -134,6 +136,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
         described_class.new.perform(
           content_id: content_id,
           content_store: "Adapters::ContentStore",
+          locale: "en",
           payload_version: "123",
         )
       end
