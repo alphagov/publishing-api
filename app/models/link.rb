@@ -26,6 +26,9 @@ class Link < ApplicationRecord
 
 private
 
+  VALID_LINK_TYPE_REGEX = /\A[a-z0-9_]+\z/
+  AUTOMATIC_LINK_TYPES = ["available_translations"].freeze
+
   def association_presence
     if link_set.blank? && edition.blank?
       errors.add(:base, "must have a link set or an edition")
@@ -35,7 +38,7 @@ private
   end
 
   def link_type_is_valid
-    unless link_type.match(/\A[a-z0-9_]+\z/) && link_type != "available_translations"
+    if !link_type.match(VALID_LINK_TYPE_REGEX) || AUTOMATIC_LINK_TYPES.include?(link_type)
       errors.add(:link, "Invalid link type: #{link_type}")
     end
   end
