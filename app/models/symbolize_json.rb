@@ -3,8 +3,10 @@ module SymbolizeJSON
     model.columns.each do |column|
       next unless column.sql_type == "json"
 
-      define_method(column.name) do
-        SymbolizeJSON.symbolize(self[column.name])
+      model.class_eval do
+        define_method(column.name) do
+          SymbolizeJSON.symbolize(self[column.name])
+        end
       end
     end
   end
