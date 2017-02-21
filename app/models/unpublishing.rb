@@ -23,18 +23,6 @@ class Unpublishing < ApplicationRecord
       .validate(self, base_path: edition.base_path)
   end
 
-  def redirects
-    if redirect? && self[:redirects].nil?
-      [{
-        path: edition.base_path,
-        type: "exact",
-        destination: alternative_path,
-      }]
-    else
-      SymbolizeJSON.symbolize(self[:redirects])
-    end
-  end
-
   def gone?
     type == "gone"
   end
