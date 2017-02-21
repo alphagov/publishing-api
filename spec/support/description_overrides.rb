@@ -1,4 +1,4 @@
-RSpec.shared_examples DescriptionOverrides do
+RSpec.shared_examples "description overrides" do
   it "persists descriptions of different types" do
     subject.description = nil
     subject.save!
