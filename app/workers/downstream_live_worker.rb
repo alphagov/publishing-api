@@ -11,7 +11,7 @@ class DownstreamLiveWorker
 
   def self.uniq_args(args)
     [
-      args.first["content_id"] || args.first["content_item_id"],
+      args.first["content_id"],
       args.first["locale"],
       args.first["message_queue_update_type"],
       args.first.fetch("update_dependencies", true),
@@ -19,11 +19,6 @@ class DownstreamLiveWorker
     ]
   end
 
-  # FIXME: This worker can be initialised using a legacy interface with
-  # "content_item_id" and the updated interface which uses "content_id" and
-  # "locale". Both interfaces are supported until we are confident there are
-  # no longer items in the sidekiq queue. They should all be long gone by
-  # January 2017 and probably sooner.
   def perform(args = {})
     assign_attributes(args.symbolize_keys)
 
@@ -58,7 +53,8 @@ private
     :dependency_resolution_source_content_id, :orphaned_content_ids
 
   def assign_attributes(attributes)
-    assign_backwards_compatible_content_item(attributes)
+    @content_id = attributes.fetch(:content_id)
+    @locale = attributes.fetch(:locale)
     @edition = Queries::GetEditionForContentStore.(content_id, locale, false)
     @payload_version = attributes.fetch(:payload_version)
     @orphaned_content_ids = attributes.fetch(:orphaned_content_ids, [])
@@ -68,20 +64,6 @@ private
       :dependency_resolution_source_content_id,
       nil
     )
-  end
-
-  def assign_backwards_compatible_content_item(attributes)
-    if attributes[:content_item_id]
-      edition = Edition.find(attributes[:content_item_id])
-      unless edition
-        raise AbortWorkerError.new("A content item was not found for content_item_id: #{attributes[:content_item_id]}")
-      end
-      @content_id = edition.content_id
-      @locale = edition.locale
-    else
-      @content_id = attributes.fetch(:content_id)
-      @locale = attributes.fetch(:locale)
-    end
   end
 
   def enqueue_dependencies
