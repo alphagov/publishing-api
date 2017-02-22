@@ -24,6 +24,8 @@ module LinkExpansion::Rules
     documents: :document_collections,
     working_groups: :policies,
     parent_taxons: :child_taxons,
+    topics: :topic_content,
+    mainstream_browse_pages: :mainstream_browse_content,
   }.freeze
 
   DEFAULT_FIELDS = [
