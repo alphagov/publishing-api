@@ -17,6 +17,7 @@ benchmarks.each do |document_type|
   StackProf.run(mode: :wall, out: "tmp/linkable_mediator_#{document_type.gsub(/ +/, '_').downcase}_wall.dump") do
     puts Benchmark.measure {
       10.times do
+        Rails.cache.clear
         Queries::GetLinkables.new(
           document_type: document_type
         ).call

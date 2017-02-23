@@ -33,7 +33,7 @@ module Queries
           state_fallback_order: [:published, :draft]
         )
 
-        Edition.where(id: edition_ids).map do |edition|
+        Edition.with_document.includes(:document).where(id: edition_ids).map do |edition|
           LinkablePresenter.from_hash(edition.to_h.deep_symbolize_keys)
         end
       end
