@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223082047) do
+ActiveRecord::Schema.define(version: 20170223160956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20170223082047) do
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state", using: :btree
     t.index ["document_id", "user_facing_version"], name: "index_editions_on_document_id_and_user_facing_version", unique: true, using: :btree
     t.index ["document_id"], name: "index_editions_on_document_id", using: :btree
-    t.index ["document_type"], name: "index_editions_on_document_type", using: :btree
+    t.index ["document_type", "updated_at"], name: "index_editions_on_document_type_and_updated_at", using: :btree
     t.index ["last_edited_at"], name: "index_editions_on_last_edited_at", using: :btree
     t.index ["public_updated_at"], name: "index_editions_on_public_updated_at", using: :btree
     t.index ["publishing_app"], name: "index_editions_on_publishing_app", using: :btree
