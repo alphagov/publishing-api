@@ -1,16 +1,5 @@
 module Queries
-  LinkablePresenter = Struct.new(:title, :content_id, :publication_state, :base_path, :internal_name) do
-    def self.from_hash(hash)
-      fields = [
-        hash[:title],
-        hash[:content_id],
-        hash[:state],
-        hash[:base_path],
-        hash[:details].fetch(:internal_name, hash[:title]),
-      ]
-      new(*fields)
-    end
-  end
+  LinkablePresenter = Struct.new(:title, :content_id, :publication_state, :base_path, :internal_name)
 
   class GetLinkables
     def initialize(document_type:)
@@ -33,9 +22,18 @@ module Queries
           state_fallback_order: [:published, :draft]
         )
 
-        Edition.with_document.includes(:document).where(id: edition_ids).map do |edition|
-          LinkablePresenter.from_hash(edition.to_h.deep_symbolize_keys)
-        end
+        Edition.with_document
+          .where(id: edition_ids)
+          .pluck(:title, :content_id, :state, :base_path, "COALESCE(details->>'internal_name', title)")
+          .map do |(title, content_id, state, base_path, internal_name)|
+            LinkablePresenter.new(
+              title,
+              content_id,
+              state,
+              base_path,
+              internal_name,
+            )
+          end
       end
     end
 
