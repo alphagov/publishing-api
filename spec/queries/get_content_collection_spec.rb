@@ -449,7 +449,10 @@ RSpec.describe Queries::GetContentCollection do
         let(:search_in) { ["title", "details.internal_name"] }
         let(:search_query) { "baz" }
         it "finds the edition" do
-          expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/bar/foo" }, { "base_path" => "/baz" }])
+          expect(subject.call.map(&:to_hash)).to match_array([
+            { "base_path" => "/bar/foo" },
+            { "base_path" => "/baz" }
+          ])
         end
       end
 
