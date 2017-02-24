@@ -8,7 +8,7 @@ require 'stackprof'
 
 abort "Refusing to run outside of development" unless Rails.env.development?
 
-benchmarks = Edition.where(document_type: ['taxon', 'organisation', 'topic', 'mainstream_browse_page', 'policy']).pluck(:document_type).uniq
+benchmarks = Edition.where(document_type: ['taxon', 'organisation', 'topic', 'mainstream_browse_page', 'policy', 'need']).pluck(:document_type).uniq
 
 benchmarks.each do |document_type|
   queries = 0
