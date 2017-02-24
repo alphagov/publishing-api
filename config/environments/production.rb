@@ -47,7 +47,7 @@ Rails.application.configure do
   # config.log_formatter = ::Logger::Formatter.new
 
   # use memcached on production
-  config.cache_store = :dalli_store, nil, { namespace: :publishing_api }
+  config.cache_store = :dalli_store, nil, { namespace: :publishing_api, compress: true }
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
