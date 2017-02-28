@@ -12,15 +12,15 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
   end
 
   context "with content in different states" do
-    let(:published_with_new_draft) {FactoryGirl.create(:document, content_id: "aa491126-77ed-4e81-91fa-8dc7f74e9657")}
-    let(:published_with_no_drafts) {FactoryGirl.create(:document, content_id: "bbabcd3c-7c45-4403-8490-db51e4bfc4f6")}
-    let(:two_initial_drafts) {FactoryGirl.create(:document, content_id: "dd1bf833-f91c-4e45-9f97-87b165808176")}
-    let(:redirected) {FactoryGirl.create(:document, content_id: "ee491126-77ed-4e81-91fa-8dc7f74e9657")}
-    let(:gone) {FactoryGirl.create(:document, content_id: "ffabcd3c-7c45-4403-8490-db51e4bfc4f6")}
-    let(:withdrawn) {FactoryGirl.create(:document, content_id: "00abcd3c-7c45-4403-8490-db51e4bfc4f6")}
-    let(:initial_draft) {FactoryGirl.create(:document, content_id: "01abcd3c-7c45-4403-8490-db51e4bfc4f6")}
-    let(:unpublished_without_draft) {FactoryGirl.create(:document, content_id: "02abcd3c-7c45-4403-8490-db51e4bfc4f6")}
-    let(:reused_base_path) {FactoryGirl.create(:document, content_id: "03abcd3c-7c45-4403-8490-db51e4bfc4f6")}
+    let(:published_with_new_draft) { FactoryGirl.create(:document, content_id: "aa491126-77ed-4e81-91fa-8dc7f74e9657") }
+    let(:published_with_no_drafts) { FactoryGirl.create(:document, content_id: "bbabcd3c-7c45-4403-8490-db51e4bfc4f6") }
+    let(:two_initial_drafts) { FactoryGirl.create(:document, content_id: "dd1bf833-f91c-4e45-9f97-87b165808176") }
+    let(:redirected) { FactoryGirl.create(:document, content_id: "ee491126-77ed-4e81-91fa-8dc7f74e9657") }
+    let(:gone) { FactoryGirl.create(:document, content_id: "ffabcd3c-7c45-4403-8490-db51e4bfc4f6") }
+    let(:withdrawn) { FactoryGirl.create(:document, content_id: "00abcd3c-7c45-4403-8490-db51e4bfc4f6") }
+    let(:initial_draft) { FactoryGirl.create(:document, content_id: "01abcd3c-7c45-4403-8490-db51e4bfc4f6") }
+    let(:unpublished_without_draft) { FactoryGirl.create(:document, content_id: "02abcd3c-7c45-4403-8490-db51e4bfc4f6") }
+    let(:reused_base_path) { FactoryGirl.create(:document, content_id: "03abcd3c-7c45-4403-8490-db51e4bfc4f6") }
 
     before do
       FactoryGirl.create(:live_edition, state: "published", base_path: "/published-and-draft-page", document: published_with_new_draft, user_facing_version: 1)
@@ -117,7 +117,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
   end
 
   it "excludes content items with document_type redirect" do
-    FactoryGirl.create(:redirect_edition, state: "published", base_path: "/redirect-page", user_facing_version: 1)
+    FactoryGirl.create(:redirect_edition, state: "published", base_path: "/redirect-page")
 
     post "/lookup-by-base-path", params: { base_paths: %w(/redirect-page) }
 
@@ -125,11 +125,18 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
   end
 
   it "excludes content items with document_type gone" do
-    FactoryGirl.create(:gone_edition, state: "published", base_path: "/gone-page", user_facing_version: 1)
+    FactoryGirl.create(:gone_edition, state: "published", base_path: "/gone-page")
 
     post "/lookup-by-base-path", params: { base_paths: %w(/gone-page) }
 
     expect(parsed_response).to eql({})
   end
 
+  it "excludes access-limited editions" do
+    FactoryGirl.create(:access_limited_edition, base_path: "/access-limited")
+
+    post "/lookup-by-base-path", params: { base_paths: %w(/access-limited) }
+
+    expect(parsed_response).to eql({})
+  end
 end

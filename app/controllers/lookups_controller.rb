@@ -9,7 +9,9 @@ class LookupsController < ApplicationController
 
     base_paths_and_content_ids = Edition.with_document
       .left_outer_joins(:unpublishing)
+      .left_outer_joins(:access_limit)
       .where(base_path: base_paths)
+      .where("access_limits.edition_id IS NULL")
       .where("state IN ('published', 'draft') OR (state = 'unpublished' AND unpublishings.type = 'withdrawal')")
       .where("document_type NOT IN ('gone', 'redirect')")
       .order(:base_path)
