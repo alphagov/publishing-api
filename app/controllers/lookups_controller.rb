@@ -1,17 +1,20 @@
 class LookupsController < ApplicationController
   def by_base_path
-    # return content_ids for content that is visible on the live site
-    # withdrawn items are still visible
-    states = %w(published unpublished)
+    # Return content ids of the documents accessible at the provided base paths.
+    # Draft, published, or withdrawn content may be returned, but not anything
+    # that is redirected or gone.
+    # If there are multiple editions with the base path, prefer the published
+    # one.
     base_paths = params.fetch(:base_paths)
 
     base_paths_and_content_ids = Edition.with_document
       .left_outer_joins(:unpublishing)
-      .where(state: states, base_path: base_paths)
-      .where("state = 'published' OR unpublishings.type = 'withdrawal'")
+      .where(base_path: base_paths)
+      .where("state IN ('published', 'draft') OR (state = 'unpublished' AND unpublishings.type = 'withdrawal')")
       .where("document_type NOT IN ('gone', 'redirect')")
-      .pluck(:base_path, 'documents.content_id')
-      .uniq
+      .order(:base_path)
+      .order("CASE editions.state WHEN 'published' THEN 0 WHEN 'unpublished' THEN 1 ELSE 2 END")
+      .pluck("DISTINCT ON (editions.base_path) editions.base_path, documents.content_id")
 
     response = Hash[base_paths_and_content_ids]
     render json: response
