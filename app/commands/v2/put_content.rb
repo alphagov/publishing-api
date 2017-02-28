@@ -6,10 +6,16 @@ module Commands
         prepare_content_with_base_path
 
         edition = create_or_update_edition
+
         update_content_dependencies(edition)
 
+        orphaned_links = link_diff_between(
+          @links_before_update,
+          edition.links.map(&:target_content_id)
+        )
+
         after_transaction_commit do
-          send_downstream(document.content_id, document.locale)
+          send_downstream(document.content_id, document.locale, orphaned_links)
         end
 
         Success.new(present_response(edition))
@@ -23,6 +29,10 @@ module Commands
       end
 
     private
+
+      def link_diff_between(old_links, new_links)
+        old_links - new_links
+      end
 
       def content_with_base_path?
         base_path_required? || payload.has_key?(:base_path)
@@ -56,8 +66,8 @@ module Commands
 
       def create_redirect
         return unless content_with_base_path?
-        RedirectHelper::Redirect.new(previously_published_item,
-                                     @previous_item,
+        RedirectHelper::Redirect.new(previously_published_edition,
+                                     @previous_edition,
                                      payload, callbacks).create
       end
 
@@ -82,16 +92,18 @@ module Commands
       end
 
       def create_or_update_edition
-        if previously_drafted_item
-          updated_item, @previous_item = UpdateExistingDraftEdition.new(previously_drafted_item, self, payload).call
+        if previous_drafted_edition
+          @links_before_update = previous_drafted_edition.links.map(&:target_content_id)
+          updated_item, @previous_edition = UpdateExistingDraftEdition.new(previous_drafted_edition, self, payload).call
         else
-          new_draft_edition = CreateDraftEdition.new(self, payload, previously_published_item).call
+          @links_before_update = previously_published_edition.links.map(&:target_content_id)
+          new_draft_edition = CreateDraftEdition.new(self, payload, previously_published_edition).call
         end
         updated_item || new_draft_edition
       end
 
-      def previously_published_item
-        @previously_published_item ||= PreviouslyPublishedItem.new(
+      def previously_published_edition
+        @previously_published_edition ||= PreviouslyPublishedItem.new(
           document, payload[:base_path], self
         ).call
       end
@@ -100,7 +112,7 @@ module Commands
         !Edition::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
       end
 
-      def previously_drafted_item
+      def previous_drafted_edition
         document.draft
       end
 
@@ -129,7 +141,7 @@ module Commands
         payload.fetch(:bulk_publishing, false)
       end
 
-      def send_downstream(content_id, locale)
+      def send_downstream(content_id, locale, orphaned_links)
         return unless downstream
 
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
@@ -140,6 +152,7 @@ module Commands
           locale: locale,
           payload_version: event.id,
           update_dependencies: true,
+          orphaned_links: orphaned_links,
         )
       end
     end
