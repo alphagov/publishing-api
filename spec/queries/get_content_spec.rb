@@ -90,23 +90,22 @@ RSpec.describe Queries::GetContent do
 
   context "when editions exist in non-draft, non-live states" do
     before do
-      FactoryGirl.create(:edition,
+      FactoryGirl.create(:superseded_edition,
         document: document,
         user_facing_version: 1,
-        title: "Published Title",
-        state: "published",
+        title: "Older Title",
       )
 
       FactoryGirl.create(:superseded_edition,
         document: document,
         user_facing_version: 2,
-        title: "Submitted Title",
+        title: "Newer Title",
       )
     end
 
     it "includes these editions" do
       result = subject.call(content_id)
-      expect(result.fetch("title")).to eq("Submitted Title")
+      expect(result.fetch("title")).to eq("Newer Title")
     end
   end
 

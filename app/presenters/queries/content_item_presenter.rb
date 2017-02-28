@@ -1,8 +1,8 @@
 module Presenters
   module Queries
     class ContentItemPresenter
-      attr_accessor :scope, :fields, :order, :limit, :offset, :search_query,
-                    :search_in, :include_warnings
+      attr_accessor :edition_scope, :fields, :order, :limit, :offset,
+        :search_query, :search_in, :states, :include_warnings
 
       DEFAULT_FIELDS = ([
         *Edition::TOP_LEVEL_FIELDS,
@@ -22,8 +22,8 @@ module Presenters
       SEARCH_FIELDS = %w(title base_path description).freeze
       NESTED_SEARCH_FIELDS = %w(details).freeze
 
-      def self.present_many(scope, params = {})
-        new(scope, params).present_many
+      def self.present_many(edition_scope, params = {})
+        new(edition_scope, params).present_many
       end
 
       def self.present(edition, params = {})
@@ -32,14 +32,15 @@ module Presenters
         present_many(scope, params).first
       end
 
-      def initialize(scope, params = {})
-        self.scope = scope
+      def initialize(edition_scope, params = {})
+        self.edition_scope = edition_scope
         self.fields = (params[:fields] || DEFAULT_FIELDS).map(&:to_sym)
-        self.order = params[:order] || { "editions.id" => "asc" }
+        self.order = params[:order] || { id: "asc" }
         self.limit = params[:limit]
         self.offset = params[:offset]
         self.search_query = params[:search_query]
         self.search_in = params[:search_in] || DEFAULT_SEARCH_FIELDS
+        self.states = params[:states].present? ? Array(params[:states]) : %i(draft published unpublished)
         self.include_warnings = params[:include_warnings] || false
       end
 
@@ -54,37 +55,49 @@ module Presenters
     private
 
       def results
-        @results ||= execute_query(ordered_fields)
+        @results ||= execute_query(query)
       end
 
-      def ordered_fields
-        select_fields(order_and_paginate)
+      def query
+        ordering_query = Edition.select("*, COUNT(*) OVER () as total").from(fetch_items_query)
+        ordering_query = ordering_query.order(order.to_a.join(" ")) if order
+        ordering_query = ordering_query.limit(limit) if limit
+        ordering_query = ordering_query.offset(offset) if offset
+        ordering_query
       end
 
-      def full_scope
-        search(join_supporting_objects(latest))
-      end
-
-      def latest
-        ::Queries::GetLatest.call(self.scope.joins(:document))
+      def fetch_items_query
+        query = edition_scope.where(state: states)
+        query = join_supporting_objects(query)
+        query = search(query)
+        query = reorder(query)
+        select_fields(query)
       end
 
       def join_supporting_objects(scope)
-        scope = ChangeNote.join_editions(scope)
+        scope = scope.with_document
+        scope = scope.with_change_note if fields.include?(:change_note)
         scope = scope.with_unpublishing if fields.include?(:unpublishing)
         scope
       end
 
-      def order_and_paginate
-        scope = full_scope
-        scope = scope.order(order.to_a.join(" ")) if order
-        scope = scope.limit(limit) if limit
-        scope = scope.offset(offset) if offset
-        scope
+      def search(scope)
+        return scope unless search_query.present?
+        conditions = search_in.map { |search_field| "#{search_field} ilike :query" }
+        scope.where(conditions.join(" OR "), query: "%#{search_query}%")
+      end
+
+      def reorder(scope)
+        # used for distinct document_id by state and latest version
+        scope.reorder([
+          "editions.document_id",
+          "CASE state WHEN 'draft' THEN 0 WHEN 'published' THEN 1 WHEN 'unpublished' THEN 1 ELSE 2 END",
+          "user_facing_version DESC",
+        ])
       end
 
       def select_fields(scope)
-        fields_to_select = fields.map do |field|
+        fields_to_select = (fields + order.keys).map do |field|
           case field
           when :publication_state
             "editions.state AS publication_state"
@@ -115,20 +128,19 @@ module Presenters
           when :content_id
             "documents.content_id as content_id"
           when :total
-            "COUNT(*) OVER () as total"
+            nil
           else
             field
           end
         end
 
-        scope.select(*fields_to_select)
+        fields = [
+          "DISTINCT ON(editions.document_id) editions.document_id"
+        ] + fields_to_select.compact
+
+        scope.select(*fields)
       end
 
-      def search(scope)
-        return scope unless search_query.present?
-        conditions = search_in.map { |search_field| "#{search_field} ilike :query" }
-        scope.where(conditions.join(" OR "), query: "%#{search_query}%")
-      end
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
@@ -188,7 +200,10 @@ module Presenters
             parse_state_history(result)
             parse_links(result, "links")
 
+            result.slice!(*fields.map(&:to_s))
+
             result["warnings"] = get_warnings(result) if include_warnings
+
 
             yielder.yield(result.except("total").compact)
           end

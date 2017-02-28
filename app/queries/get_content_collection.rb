@@ -16,7 +16,7 @@ module Queries
       self.document_types = Array(document_types)
       self.fields = (fields || default_fields) + ["total"]
       self.publishing_app = filters[:publishing_app]
-      self.states = filters[:states]
+      self.states = filters[:states] || %i(draft published unpublished)
       self.link_filters = filters[:links]
       self.locale = filters[:locale] || "en"
       self.pagination = pagination
@@ -51,7 +51,6 @@ module Queries
     def editions
       scope = Edition.where(document_type: lookup_document_types)
       scope = scope.where(publishing_app: publishing_app) if publishing_app
-      scope = scope.where(state: states) if states.present?
       scope = scope.with_document.where("documents.locale": locale) unless locale == "all"
       scope = Link.filter_editions(scope, link_filters) unless link_filters.blank?
       scope
@@ -125,6 +124,7 @@ module Queries
         limit: pagination.per_page,
         search_query: search_query,
         search_in: search_fields,
+        states: states,
       )
     end
 
