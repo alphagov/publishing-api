@@ -109,13 +109,16 @@ module LinkExpansion::Rules
   end
 
   def potential_expansion_fields(document_type)
-    find_custom_expansion_fields(document_type) || DEFAULT_FIELDS
+    (find_custom_expansion_fields(document_type) || DEFAULT_FIELDS).map do |field|
+      Array(field).first
+    end
   end
 
   def expand_fields(edition, link_type)
-    edition.to_h.slice(
-      *expansion_fields(edition.document_type, link_type)
-    )
+    expansion_fields(edition.document_type, link_type).each_with_object({}) do |field, expanded|
+      field = Array(field)
+      expanded[field.last] = edition.to_h.dig(*field)
+    end
   end
 
   def valid_link_expansion_link_types_path?(link_types_path)

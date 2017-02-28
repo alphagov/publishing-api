@@ -46,4 +46,42 @@ RSpec.describe LinkExpansion::Rules do
     specify { expect(subject.expansion_fields(:finder, :finder)).to eq(finder_fields) }
     specify { expect(subject.expansion_fields(:parent, :finder)).to eq(default_fields) }
   end
+
+  describe "multi-level rules" do
+    let(:item) {
+      FactoryGirl.build(
+        :live_edition,
+        document_type: "nested_doc",
+        details: {
+          body: "<p>Something about VAT</p>\n",
+          email_signup_link: "https://public.govdelivery.com/accounts/UKGOVUK/subscriber/topics?qsp=TRAVEL",
+        }
+      )
+    }
+    let(:fields) {
+      [
+        :title,
+        [:details, :email_signup_link]
+      ]
+    }
+    before do
+      expect(subject).to receive(:find_custom_expansion_fields).with("nested_doc", any_args).and_return fields
+    end
+
+    it "treats arrays as paths" do
+      expect(subject.expand_fields(item, :children)).to include(email_signup_link: "https://public.govdelivery.com/accounts/UKGOVUK/subscriber/topics?qsp=TRAVEL")
+    end
+
+    it "uses the name of the last element of the path as the key" do
+      expect(subject.expand_fields(item, :children).keys).to eq([:title, :email_signup_link])
+    end
+
+    it "does not include the top-level field itself" do
+      expect(subject.expand_fields(item, :children)).not_to have_key(:details)
+    end
+
+    it "takes the first level as the potential field to use in diffs" do
+      expect(subject.potential_expansion_fields("nested_doc")).to eq([:title, :details])
+    end
+  end
 end
