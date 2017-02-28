@@ -604,6 +604,40 @@ RSpec.describe Commands::V2::PutContent do
           expect(Link.find_by(target_content_id: document.content_id)).to be
         end
       end
+
+      context "existing links" do
+        let(:document) { FactoryGirl.create(:document, content_id: content_id) }
+        let(:content_id) { SecureRandom.uuid }
+        let(:link) { SecureRandom.uuid }
+
+        before do
+          edition.links.create!(target_content_id: document.content_id, link_type: "random")
+        end
+
+        context "draft edition" do
+          let(:edition) { FactoryGirl.create(:draft_edition, document: document, base_path: base_path) }
+
+          it "passes the old link to dependency resolution" do
+            expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
+              "downstream_high",
+              a_hash_including(orphaned_links: [content_id])
+            )
+            described_class.call(payload)
+          end
+        end
+
+        context "published edition" do
+          let(:edition) { FactoryGirl.create(:live_edition, document: document, base_path: base_path) }
+
+          it "passes the old link to dependency resolution" do
+            expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
+              "downstream_high",
+              a_hash_including(orphaned_links: [content_id])
+            )
+            described_class.call(payload)
+          end
+        end
+      end
     end
 
     context "without a base_path" do
