@@ -14,7 +14,7 @@ FactoryGirl.define do
         edition: edition,
         type: evaluator.unpublishing_type,
         explanation: evaluator.explanation,
-        alternative_path: evaluator.alternative_path,
+        redirects: [{ path: edition.base_path, type: :exact, destination: evaluator.alternative_path }],
         unpublished_at: evaluator.unpublished_at,
       )
     end

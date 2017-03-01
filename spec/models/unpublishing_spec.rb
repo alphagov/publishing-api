@@ -12,7 +12,6 @@ RSpec.describe Unpublishing do
       valid_types = %w(
         gone
         vanish
-        redirect
         substitute
         withdrawal
       )
@@ -25,6 +24,11 @@ RSpec.describe Unpublishing do
       subject.type = "anything-else"
       expect(subject).to be_invalid
       expect(subject.errors[:type].size).to eq(1)
+
+      # because we haven't given any 'redirects'
+      subject.type = "redirect"
+      expect(subject).to be_invalid
+      expect(subject.errors[:redirects].size).to eq(2)
 
       subject.type = nil
       expect(subject).to be_invalid
@@ -58,30 +62,6 @@ RSpec.describe Unpublishing do
       expect(subject.errors[:redirects].size).to eq(2)
     end
 
-    describe "redirects" do
-      context "with an alternative_path" do
-        it "should populate redirects from the alternative_path" do
-          subject.type = "redirect"
-          subject.alternative_path = "/somewhere"
-          expect(subject.redirects).to match_array([
-            a_hash_including(destination: "/somewhere")
-          ])
-        end
-      end
-
-      context "with a redirects hash" do
-        it "should not populate redirects from the alternative_path" do
-          subject.type = "redirect"
-          subject.redirects = [
-            { path: "/", type: :exact, destination: "/somewhere" }
-          ]
-          expect(subject.redirects).to match_array([
-            a_hash_including(destination: "/somewhere")
-          ])
-        end
-      end
-    end
-
     context "when alternative_path is equal to base_path" do
       let(:base_path) { "/new-path" }
       let(:edition) do
@@ -93,7 +73,7 @@ RSpec.describe Unpublishing do
       it "is invalid" do
         subject.edition = edition
         subject.type = "redirect"
-        subject.alternative_path = base_path
+        subject.redirects = [{ path: base_path, type: :exact, destination: base_path }]
 
         expect(subject).to be_invalid
         expect(subject.errors[:redirects]).to include(

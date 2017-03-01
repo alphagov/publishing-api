@@ -56,7 +56,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
     FactoryGirl.create(:superseded_edition, state: "superseded", base_path: "/draft-and-superseded-page", document: doc3, user_facing_version: 1)
 
     unpublished1 = FactoryGirl.create(:live_edition, state: "published", base_path: "/redirected-from-page", document: doc4, user_facing_version: 1)
-    unpublished1.unpublish(type: "redirect", alternative_path: "/redirected-to-page")
+    unpublished1.unpublish(type: "redirect", redirects: [{ path: unpublished1.base_path, type: :exact, destination: "/redirected-to-page" }])
 
     unpublished2 = FactoryGirl.create(:live_edition, state: "published", base_path: "/gone-page", document: doc5, user_facing_version: 1)
     unpublished2.unpublish(type: "gone")
