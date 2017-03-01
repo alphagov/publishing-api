@@ -15,7 +15,12 @@ module Commands
         )
 
         after_transaction_commit do
-          send_downstream(document.content_id, document.locale, update_dependencies?(edition))
+          send_downstream(
+            document.content_id,
+            document.locale,
+            update_dependencies?(edition),
+            orphaned_links
+          )
         end
 
         Success.new(present_response(edition))
@@ -92,9 +97,9 @@ module Commands
       end
 
       def create_or_update_edition
-        if previously_drafted_item
+        if previous_drafted_edition
           @links_before_update = previous_drafted_edition.links.map(&:target_content_id)
-          updated_item, @previous_item, @presented_old_edition = UpdateExistingDraftEdition.new(previously_drafted_item, self, payload).call
+          updated_item, @previous_edition, @presented_old_edition = UpdateExistingDraftEdition.new(previous_drafted_edition, self, payload).call
         else
           @links_before_update = previously_published_edition.links.map(&:target_content_id)
           new_draft_edition = CreateDraftEdition.new(self, payload, previously_published_edition).call
@@ -146,10 +151,10 @@ module Commands
       end
 
       def dependency_fields(edition)
-        Queries::DependentExpansionRules.expansion_fields(edition.document_type)
+        LinkExpansion::Rules.expansion_fields(edition.document_type)
       end
 
-      def send_downstream(content_id, locale, update_dependencies)
+      def send_downstream(content_id, locale, update_dependencies, orphaned_links)
         return unless downstream
 
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE

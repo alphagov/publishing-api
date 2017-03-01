@@ -172,7 +172,7 @@ module Commands
       end
 
       def dependency_fields
-        Queries::DependentExpansionRules.expansion_fields(edition.document_type)
+        LinkExpansion::Rules.expansion_fields(edition.document_type)
       end
 
       def send_downstream(content_id, locale, update_type)

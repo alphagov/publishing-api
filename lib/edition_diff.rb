@@ -2,7 +2,6 @@ require 'hashdiff'
 
 class EditionDiff
   attr_reader :current_edition, :version
-  NullEdition = Struct.new(:id)
 
   def initialize(current_edition, version: nil, previous_edition: nil)
     @current_edition = current_edition
@@ -18,13 +17,14 @@ private
 
   def diff
     HashDiff.best_diff(
-      @previous_edition ? @previous_edition : presented_item(previous_edition.id),
-      presented_item(current_edition.id))
+      @previous_edition ? @previous_edition : presented_item(previous_edition),
+      presented_item(current_edition))
   end
 
   def previous_edition
-    @previous_edition || Document.find_by(content_id: current_edition.document.content_id)
-      .editions.find_by(user_facing_version: previous_user_version) || NullEdition.new
+    @previous_edition ||
+      current_edition.document.editions.find_by(user_facing_version:
+                                                previous_user_version)
   end
 
   def previous_user_version
@@ -35,10 +35,8 @@ private
     version || current_edition.user_facing_version
   end
 
-  def presented_item(id)
-    Presenters::DownstreamPresenter.present(
-      Queries::GetWebContentItems.find(id),
-      state_fallback_order: [:draft, :published]
-    ).deep_stringify_keys
+  def presented_item(edition)
+    return {} unless edition
+    Presenters::EditionPresenter.new(edition).present.deep_stringify_keys
   end
 end

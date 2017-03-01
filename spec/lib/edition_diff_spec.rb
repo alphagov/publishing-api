@@ -69,10 +69,7 @@ RSpec.describe EditionDiff do
     end
 
     let(:presented_item) do
-      Presenters::DownstreamPresenter.present(
-        Queries::GetWebContentItems.find(new_draft_edition.id),
-        state_fallback_order: [:draft, :published]
-      ).deep_stringify_keys
+      Presenters::EditionPresenter.new(new_draft_edition).present.deep_stringify_keys
     end
 
     it "compares the two given editions" do
