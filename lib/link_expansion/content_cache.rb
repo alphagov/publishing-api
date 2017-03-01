@@ -32,7 +32,7 @@ private
       locale_fallback_order: locale_fallback_order,
       state_fallback_order: state_fallback_order,
     )
-    Edition.where(id: edition_ids)
+    Edition.with_document.includes(:document).where(id: edition_ids)
       .each_with_object(results) { |item, memo| memo[item.content_id] = item }
   end
 
