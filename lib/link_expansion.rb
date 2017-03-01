@@ -46,7 +46,7 @@ private
   def link_content(node)
     edition = content_cache.find(node.content_id)
     return if !edition || !should_link?(node.link_type, edition)
-    rules.expand_fields(edition).tap do |expanded|
+    rules.expand_fields(edition, node.link_type).tap do |expanded|
       links = populate_links(node.links)
       auto_reverse = auto_reverse_link(node)
       expanded.merge!(links: (auto_reverse || {}).merge(links))
@@ -60,7 +60,7 @@ private
     edition = content_cache.find(content_id)
     return if !edition || !should_link?(node.link_type, edition)
     un_reverse_link_type = rules.un_reverse_link_type(node.link_types_path.first)
-    { un_reverse_link_type => [rules.expand_fields(edition).merge(links: {})] }
+    { un_reverse_link_type => [rules.expand_fields(edition, un_reverse_link_type).merge(links: {})] }
   end
 
   def should_link?(link_type, edition)
