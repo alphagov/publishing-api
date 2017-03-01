@@ -99,7 +99,7 @@ module Commands
       def create_or_update_edition
         if previous_drafted_edition
           @links_before_update = previous_drafted_edition.links.map(&:target_content_id)
-          updated_item, @previous_edition, @presented_old_edition = UpdateExistingDraftEdition.new(previous_drafted_edition, self, payload).call
+          updated_item, @previous_edition = UpdateExistingDraftEdition.new(previous_drafted_edition, self, payload).call
         else
           @links_before_update = previously_published_edition.links.map(&:target_content_id)
           new_draft_edition = CreateDraftEdition.new(self, payload, previously_published_edition).call
@@ -147,11 +147,7 @@ module Commands
       end
 
       def update_dependencies?(edition)
-        (dependency_fields(edition) & EditionDiff.new(edition, previous_edition: @presented_old_edition).field_diff).present?
-      end
-
-      def dependency_fields(edition)
-        LinkExpansion::Rules.expansion_fields(edition.document_type)
+        EditionDiff.new(edition, previous_edition: @previous_edition).field_diff.present?
       end
 
       def send_downstream(content_id, locale, update_dependencies, orphaned_links)

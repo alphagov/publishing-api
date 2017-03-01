@@ -35,7 +35,6 @@ private
 
   def update_edition
     old_edition = edition.dup
-    presented_old_edition = presented_old_edition(edition)
     assign_attributes_with_defaults
 
     # The links are deleted here and then recreated from a payload in the
@@ -44,11 +43,7 @@ private
     edition.links.delete_all
 
     edition.save!
-    [edition, old_edition, presented_old_edition]
-  end
-
-  def presented_old_edition(edition)
-    Presenters::EditionPresenter.new(edition).present.deep_stringify_keys
+    [edition, old_edition]
   end
 
   def assign_attributes_with_defaults

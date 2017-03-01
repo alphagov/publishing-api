@@ -69,7 +69,7 @@ RSpec.describe EditionDiff do
     end
 
     let(:presented_item) do
-      Presenters::EditionPresenter.new(new_draft_edition).present.deep_stringify_keys
+      new_draft_edition.to_h.deep_stringify_keys
     end
 
     it "compares the two given editions" do
