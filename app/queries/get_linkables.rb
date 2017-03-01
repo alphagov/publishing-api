@@ -7,14 +7,7 @@ module Queries
     end
 
     def call
-      latest_updated_at = Edition
-        .where(document_type: [document_type, "placeholder_#{document_type}"])
-        .order('updated_at DESC')
-        .limit(1)
-        .pluck(:updated_at)
-        .last
-
-      Rails.cache.fetch ["linkables", document_type, latest_updated_at] do
+      Rails.cache.fetch ["linkables", document_type, latest_updated_at(document_type)] do
         linkables_query(document_type)
           .map { |result| LinkablePresenter.new(*result) }
       end
@@ -23,6 +16,14 @@ module Queries
   private
 
     attr_reader :document_type
+
+    def latest_updated_at(document_type)
+      non_placeholder = Edition.where(document_type: document_type)
+        .maximum("updated_at")
+      placeholder = Edition.where(document_type: "placeholder_#{document_type}")
+        .maximum("updated_at")
+      [non_placeholder, placeholder].compact.max
+    end
 
     def linkables_query(document_type)
       Edition.with_document
