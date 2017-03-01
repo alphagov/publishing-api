@@ -33,16 +33,6 @@ module Presenters
       )
     end
 
-  private
-
-    attr_reader :draft, :edition
-
-    def unexpanded_links
-      Queries::LinkSetPresenter.new(
-        LinkSet.find_by(content_id: edition.content_id)
-      ).links
-    end
-
     def present
       edition.to_h
         .except(*NON_PRESENTED_PROPERTIES)
@@ -51,6 +41,16 @@ module Presenters
         .merge(access_limited)
         .merge(format)
         .merge(withdrawal_notice)
+    end
+
+  private
+
+    attr_reader :draft, :edition
+
+    def unexpanded_links
+      Queries::LinkSetPresenter.new(
+        LinkSet.find_by(content_id: edition.content_id)
+      ).links
     end
 
     def links

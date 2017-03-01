@@ -167,6 +167,10 @@ module Commands
         ) if draft_redirect
       end
 
+      def update_dependencies?
+        EditionDiff.new(edition).field_diff.present?
+      end
+
       def send_downstream(content_id, locale, update_type)
         return unless downstream
 
@@ -178,6 +182,7 @@ module Commands
           locale: locale,
           message_queue_update_type: update_type,
           payload_version: event.id,
+          update_dependencies: update_dependencies?,
         )
       end
     end

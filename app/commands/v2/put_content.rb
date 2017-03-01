@@ -15,7 +15,12 @@ module Commands
         )
 
         after_transaction_commit do
-          send_downstream(document.content_id, document.locale, orphaned_links)
+          send_downstream(
+            document.content_id,
+            document.locale,
+            update_dependencies?(edition),
+            orphaned_links
+          )
         end
 
         Success.new(present_response(edition))
@@ -141,7 +146,11 @@ module Commands
         payload.fetch(:bulk_publishing, false)
       end
 
-      def send_downstream(content_id, locale, orphaned_links)
+      def update_dependencies?(edition)
+        EditionDiff.new(edition, previous_edition: @previous_edition).field_diff.present?
+      end
+
+      def send_downstream(content_id, locale, update_dependencies, orphaned_links)
         return unless downstream
 
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
@@ -151,7 +160,7 @@ module Commands
           content_id: content_id,
           locale: locale,
           payload_version: event.id,
-          update_dependencies: true,
+          update_dependencies: update_dependencies,
           orphaned_links: orphaned_links,
         )
       end
