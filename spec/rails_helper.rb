@@ -1,8 +1,8 @@
-if ENV["RCOV"]
-  require 'simplecov'
-  require 'simplecov-rcov'
-  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-  SimpleCov.start 'rails'
+require 'simplecov'
+require 'simplecov-rcov'
+SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+SimpleCov.start 'rails' do
+  add_filter '.bundle'
 end
 
 require 'pry'

@@ -50,7 +50,7 @@ group :development, :test do
   gem "timecop"
   gem "rspec"
   gem "rspec-rails", "~> 3.5"
-  gem "simplecov", "0.10.0", require: false
+  gem "simplecov", "0.13.0", require: false
   gem "simplecov-rcov", "0.2.3", require: false
   gem "factory_girl_rails", "4.7.0"
   gem "pact_broker-client"
