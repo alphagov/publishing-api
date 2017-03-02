@@ -2,6 +2,12 @@ class NewObjectModel < ActiveRecord::Migration
   class DraftContentItem < ActiveRecord::Base; end
   class LiveContentItem < ActiveRecord::Base; end
   class ContentItem < ActiveRecord::Base; end
+  class State < ActiveRecord::Base; end
+  class Translation < ActiveRecord::Base; end
+  class Location < ActiveRecord::Base; end
+  class LockVersion < ActiveRecord::Base; end
+  class UserFacingVersion < ActiveRecord::Base; end
+  class AcceessLimit < ActiveRecord::Base; end
 
   def up
     create_table :locations do |t|
