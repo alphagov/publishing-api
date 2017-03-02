@@ -39,8 +39,11 @@ RSpec.describe LinkExpansion::Rules do
   describe ".expansion_fields" do
     let(:default_fields) { subject::DEFAULT_FIELDS }
     let(:organisation_fields) { default_fields + [:details] }
+    let(:finder_fields) { default_fields + [:details] }
     specify { expect(subject.expansion_fields(:redirect)).to eq([]) }
     specify { expect(subject.expansion_fields(:parent)).to eq(default_fields) }
     specify { expect(subject.expansion_fields(:organisation)).to eq(organisation_fields) }
+    specify { expect(subject.expansion_fields(:finder, :finder)).to eq(finder_fields) }
+    specify { expect(subject.expansion_fields(:parent, :finder)).to eq(default_fields) }
   end
 end

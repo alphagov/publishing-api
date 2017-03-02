@@ -42,16 +42,19 @@ module LinkExpansion::Rules
     :withdrawn,
   ].freeze
 
-  CUSTOM_FIELDS_FOR_DOCUMENT_TYPE = {
-    redirect: [],
-    gone: [],
-    topical_event: DEFAULT_FIELDS + [:details],
-    placeholder_topical_event: DEFAULT_FIELDS + [:details],
-    organisation: DEFAULT_FIELDS + [:details],
-    placeholder_organisation: DEFAULT_FIELDS + [:details],
-    taxon: DEFAULT_FIELDS + [:details],
-    need: DEFAULT_FIELDS + [:details],
-  }.freeze
+  DEFAULT_FIELDS_WITH_DETAILS = (DEFAULT_FIELDS + [:details]).freeze
+
+  CUSTOM_EXPANSION_FIELDS = [
+    { document_type: :redirect,                   fields: [] },
+    { document_type: :gone,                       fields: [] },
+    { document_type: :topical_event,              fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :placeholder_topical_event,  fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :organisation,               fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :placeholder_organisation,   fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :taxon,                      fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :need,                       fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :finder, link_type: :finder, fields: DEFAULT_FIELDS_WITH_DETAILS },
+  ].freeze
 
   def root_reverse_links
     REVERSE_LINKS.values
@@ -89,13 +92,21 @@ module LinkExpansion::Rules
     next_link_type(link_types_path, reverse: true)
   end
 
-  def expansion_fields(document_type)
-    CUSTOM_FIELDS_FOR_DOCUMENT_TYPE[document_type] || DEFAULT_FIELDS
+  def find_custom_expansion_fields(document_type, link_type)
+    condition = CUSTOM_EXPANSION_FIELDS.find do |cond|
+      cond[:document_type] == document_type &&
+        cond.fetch(:link_type, link_type) == link_type
+    end
+    condition[:fields] if condition
   end
 
-  def expand_fields(edition)
+  def expansion_fields(document_type, link_type = nil)
+    find_custom_expansion_fields(document_type, link_type) || DEFAULT_FIELDS
+  end
+
+  def expand_fields(edition, link_type)
     edition.to_h.slice(
-      *expansion_fields(edition.document_type.to_sym)
+      *expansion_fields(edition.document_type.to_sym, link_type)
     )
   end
 
