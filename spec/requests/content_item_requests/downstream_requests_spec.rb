@@ -218,8 +218,8 @@ RSpec.describe "Downstream requests", type: :request do
     end
 
     it "doesn't send draft dependencies to the live content store" do
-      expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-        .with(a_hash_including(base_path: '/a'))
+      allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
+      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:live_content_store)).to_not receive(:put_content_item)
         .with(a_hash_including(base_path: '/b'))
       post "/v2/content/#{a}/publish", params: { update_type: "major" }.to_json
@@ -227,6 +227,7 @@ RSpec.describe "Downstream requests", type: :request do
     end
 
     it "doesn't send draft dependencies to the message queue" do
+      allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
         .with(a_hash_including(base_path: '/a'))
