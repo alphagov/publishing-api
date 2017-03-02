@@ -53,6 +53,7 @@ module LinkExpansion::Rules
     { document_type: :placeholder_organisation,   fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :taxon,                      fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :need,                       fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :finder, link_type: :finder, fields: DEFAULT_FIELDS_WITH_DETAILS },
   ].freeze
 
   def root_reverse_links
