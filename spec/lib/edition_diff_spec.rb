@@ -46,6 +46,23 @@ RSpec.describe EditionDiff do
     end
   end
 
+  context "diff in details when a finder" do
+    let!(:current_edition) do
+      FactoryGirl.create(
+        :live_edition,
+        document: document,
+        user_facing_version: 2,
+        document_type: "finder",
+        base_path: "/foo",
+        details: { facets: [2] },
+      )
+    end
+
+    it "returns the diff between two versions" do
+      expect(subject.field_diff).to include(:details, :document_type)
+    end
+  end
+
   context "multiple versions" do
     it "compares between the previous version" do
       current_edition.supersede
