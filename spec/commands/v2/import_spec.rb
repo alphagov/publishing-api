@@ -7,7 +7,7 @@ RSpec.describe Commands::V2::Import, type: :request do
 
     let(:content_item) do
       {
-        document_type: "foo1",
+        document_type: "organisation",
         schema_name: "generic",
         publishing_app: "foo",
         title: "foo",
