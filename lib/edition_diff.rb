@@ -1,5 +1,3 @@
-require 'hashdiff'
-
 class EditionDiff
   attr_reader :current_edition, :version
 
@@ -10,16 +8,21 @@ class EditionDiff
   end
 
   def field_diff
-    LinkExpansion::Rules.expansion_fields(current_edition.document_type) &
-      diff.map { |_, field, _| field.to_sym }
+    LinkExpansion::Rules.finder_expansion_fields(current_edition.document_type) &
+      diff.map(&:first)
   end
 
 private
 
   def diff
-    HashDiff.best_diff(
+    hash_diff(
       @previous_edition ? @previous_edition.to_h.deep_symbolize_keys : previous_edition.to_h.deep_symbolize_keys,
-      current_edition.to_h.deep_symbolize_keys)
+      current_edition.to_h.deep_symbolize_keys
+    )
+  end
+
+  def hash_diff(a, b)
+    a.size > b.size ? a.to_a - b.to_a : b.to_a - a.to_a
   end
 
   def previous_edition
