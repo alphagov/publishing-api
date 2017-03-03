@@ -8,7 +8,7 @@ class EditionDiff
   end
 
   def field_diff
-    LinkExpansion::Rules.finder_expansion_fields(current_edition.document_type) &
+    LinkExpansion::Rules.potential_expansion_fields(current_edition.document_type) &
       diff.map(&:first)
   end
 
