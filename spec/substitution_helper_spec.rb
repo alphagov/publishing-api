@@ -15,7 +15,7 @@ RSpec.describe SubstitutionHelper do
   before do
     stub_request(
       :delete,
-      Plek.find('draft-content-store') + "/content#{existing_base_path}"
+      Plek.find("draft-content-store") + "/content#{existing_base_path}"
     )
   end
 
@@ -48,6 +48,13 @@ RSpec.describe SubstitutionHelper do
         it "does not unpublish the existing published item" do
           expect(existing_item.state).not_to eq("unpublished")
         end
+      end
+    end
+
+    context "when the existing edition is unpublished" do
+      let(:unpublished_edition) { FactoryGirl.create(:gone_unpublished_edition) }
+
+      it "" do
       end
     end
 
