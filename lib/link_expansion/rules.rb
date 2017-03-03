@@ -92,28 +92,29 @@ module LinkExpansion::Rules
     next_link_type(link_types_path, reverse: true)
   end
 
-  def find_custom_expansion_fields(document_type, link_type)
+  def find_custom_expansion_fields(document_type, options = {})
+    should_check_link_type = options.include?(:link_type)
+    link_type = options[:link_type].try(:to_sym)
+
     condition = CUSTOM_EXPANSION_FIELDS.find do |cond|
-      cond[:document_type] == document_type &&
-        cond.fetch(:link_type, link_type) == link_type
+      next if should_check_link_type && cond.fetch(:link_type, link_type) != link_type
+      cond[:document_type] == document_type.to_sym
     end
     condition[:fields] if condition
   end
 
   def expansion_fields(document_type, link_type = nil)
-    find_custom_expansion_fields(document_type, link_type) || DEFAULT_FIELDS
+    find_custom_expansion_fields(document_type, link_type: link_type) ||
+      DEFAULT_FIELDS
   end
 
-  # FIXME this is too much of a special case, called from EditionDiff, needs fixing
-  def finder_expansion_fields(document_type)
-    expansion_fields(document_type).dup.tap do |fields|
-      fields << :details if document_type == "finder"
-    end
+  def potential_expansion_fields(document_type)
+    find_custom_expansion_fields(document_type) || DEFAULT_FIELDS
   end
 
   def expand_fields(edition, link_type)
     edition.to_h.slice(
-      *expansion_fields(edition.document_type.to_sym, link_type)
+      *expansion_fields(edition.document_type, link_type)
     )
   end
 
