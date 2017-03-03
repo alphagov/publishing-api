@@ -1,7 +1,7 @@
 module Presenters
   module Queries
     class ContentItemPresenter
-      attr_accessor :edition_scope, :fields, :order, :limit, :offset,
+      attr_reader :edition_scope, :fields, :order, :limit, :offset,
         :search_query, :search_in, :states, :include_warnings
 
       DEFAULT_FIELDS = ([
@@ -33,15 +33,15 @@ module Presenters
       end
 
       def initialize(edition_scope, params = {})
-        self.edition_scope = edition_scope
-        self.fields = (params[:fields] || DEFAULT_FIELDS).map(&:to_sym)
-        self.order = params[:order] || { id: "asc" }
-        self.limit = params[:limit]
-        self.offset = params[:offset]
-        self.search_query = params[:search_query]
-        self.search_in = params[:search_in] || DEFAULT_SEARCH_FIELDS
-        self.states = params[:states].present? ? Array(params[:states]) : %i(draft published unpublished)
-        self.include_warnings = params[:include_warnings] || false
+        @edition_scope = edition_scope
+        @fields = (params[:fields] || DEFAULT_FIELDS).map(&:to_sym)
+        @order = params[:order] || { id: "asc" }
+        @limit = params[:limit]
+        @offset = params[:offset]
+        @search_query = params[:search_query]
+        @search_in = params[:search_in] || DEFAULT_SEARCH_FIELDS
+        @states = params[:states].present? ? Array(params[:states]) : %i(draft published unpublished)
+        @include_warnings = params[:include_warnings] || false
       end
 
       def present_many
