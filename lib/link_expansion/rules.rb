@@ -104,6 +104,13 @@ module LinkExpansion::Rules
     find_custom_expansion_fields(document_type, link_type) || DEFAULT_FIELDS
   end
 
+  # FIXME this is too much of a special case, called from EditionDiff, needs fixing
+  def finder_expansion_fields(document_type)
+    expansion_fields(document_type).dup.tap do |fields|
+      fields << :details if document_type == "finder"
+    end
+  end
+
   def expand_fields(edition, link_type)
     edition.to_h.slice(
       *expansion_fields(edition.document_type.to_sym, link_type)
