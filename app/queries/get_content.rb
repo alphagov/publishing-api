@@ -5,11 +5,13 @@ module Queries
 
       editions = Edition.with_document
         .where(documents: { content_id: content_id, locale: locale_to_use })
+
       editions = editions.where(user_facing_version: version) if version
 
       response = Presenters::Queries::ContentItemPresenter.present_many(
         editions,
-        include_warnings: include_warnings
+        include_warnings: include_warnings,
+        states: %i(draft published unpublished superseded),
       ).first
 
       if response.present?

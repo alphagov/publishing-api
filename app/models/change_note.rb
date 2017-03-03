@@ -4,12 +4,6 @@ class ChangeNote < ActiveRecord::Base
   def self.create_from_edition(payload, edition)
     ChangeNoteFactory.new(payload, edition).build
   end
-
-  def self.join_editions(edition_scope)
-    edition_scope.joins(
-      "LEFT JOIN change_notes ON change_notes.edition_id = editions.id"
-    )
-  end
 end
 
 class ChangeNoteFactory

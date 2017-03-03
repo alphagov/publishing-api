@@ -39,7 +39,6 @@ private
     end
 
     raise_unless_valid_order_field(field)
-    field = disambiguate_field(field)
 
     { field => direction }
   end
@@ -78,9 +77,5 @@ private
       :rendering_app,
       :updated_at,
     ]
-  end
-
-  def disambiguate_field(field)
-    field == :updated_at ? :"editions.updated_at" : field
   end
 end
