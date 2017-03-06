@@ -30,6 +30,11 @@ Rails.application.routes.draw do
         get "/linked/:content_id", to: "link_sets#get_linked"
       end
 
+      # post is provided for querying multiple base paths without hitting URI
+      # size limits.
+      get "/lookup-by-base-path", to: "lookups#lookup_by_base_paths"
+      post "/lookup-by-base-path", to: "lookups#lookup_by_base_paths"
+
       get "/linkables", to: "content_items#linkables"
       get "/new-linkables", to: "content_items#new_linkables"
 

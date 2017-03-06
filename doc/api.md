@@ -24,6 +24,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/linked/:content_id`](#get-v2linkedcontent_id)
 - [`GET /v2/linkables`](#get-v2linkables)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
+- [`GET /v2/lookup-by-base-path`](#get-v2lookup-by-base-path)
 - [`GET /debug/:content_id`](#get-debugcontent_id)
 - [`PUT /paths/:base_path`](#put-pathsbase_path)
 
@@ -528,6 +529,9 @@ which is `details.internal_name` and falls back to `title`.
 
  [Request/Response detail][lookup-by-base-path-pact]
 
+** Deprecated: **
+Use [GET /v2/lookup-by-base-path](#get-v2lookup-by-base-path) instead.
+
 Retrieves live editions for a given collection of base paths. Returns
 a mapping of `base_path` to `content_id`.
 
@@ -535,6 +539,26 @@ a mapping of `base_path` to `content_id`.
 
 - `base_paths[]` *(required)*
   - An array of `base_path`s to query by.
+
+## `GET /v2/lookup-by-base-path`
+
+ [Request/Response detail][lookup-by-base-path-v2-pact]
+
+Returns the current draft and/or the current live edition matching a base path
+or set of base paths.
+
+"draft" and "live" refer to the content stores, rather than edition states. The live edition contains an `unpublishing` object if the edition is unpublished.
+
+If a base path has never been used, it will be omitted from the response.
+
+There is a limit of 100 base paths per request. This endpoint also responds to `POST` requests, which can be used if the query params would otherwise make the
+URI too long.
+
+### GET parameters:
+
+- `base_paths[]` *(required)*
+  - An array of `base_path`s to query by.
+
 
 ## `PUT /paths/:base_path`
 
@@ -610,5 +634,6 @@ http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-
 [show-linked-pact]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_return_the_items_linked_to_it_given_no_content_exists
 [index-linkables-pact]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_get_linkables_request_given_there_is_content_with_format_'topic'
 [lookup-by-base-path-pact]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_/lookup-by-base-path-request_given_there_are_live_content_items_with_base_paths_/foo_and_/bar
+[lookup-by-base-path-v2-pact]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_/v2/lookup-by-base-path-request_given_there_are_live_content_items_with_base_paths_/foo_and_/bar
 [reserve-path-pact]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_put_a_path_given_no_content_exists
 [rfc-3339]: https://www.ietf.org/rfc/rfc3339.txt

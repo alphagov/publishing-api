@@ -38,6 +38,7 @@ class Edition < ApplicationRecord
   has_one :unpublishing
   has_one :change_note
   has_many :links
+  has_many :access_limit
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
   scope :with_document, -> { joins(:document) }
