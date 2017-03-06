@@ -36,6 +36,10 @@ RSpec.describe Presenters::EditionPresenter do
     it "mixes in the specified update_type to the presentation" do
       expect(subject[:update_type]).to eq update_type
     end
+
+    it "adds the supertypes" do
+      expect(subject["user_journey_document_supertype"]).to eq "thing"
+    end
   end
 
   describe "#for_content_store" do
@@ -80,6 +84,10 @@ RSpec.describe Presenters::EditionPresenter do
 
       it "presents the object graph for the content store" do
         expect(result).to match(a_hash_including(expected))
+      end
+
+      it "adds the supertypes" do
+        expect(result["user_journey_document_supertype"]).to eq "thing"
       end
     end
 
