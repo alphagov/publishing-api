@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Downstream requests", type: :request do
-  context "/v2/content" do
+  describe "PUT /v2/content" do
     let(:content_item_for_draft_content_store) {
       v2_content_item
         .except(:update_type)
@@ -12,13 +12,7 @@ RSpec.describe "Downstream requests", type: :request do
 
     it "only sends to the draft content store" do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
-
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        .with(
-          base_path: base_path,
-          content_item: content_item_for_draft_content_store
-            .merge(payload_version: anything)
-        )
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
       expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
 
@@ -47,19 +41,14 @@ RSpec.describe "Downstream requests", type: :request do
         allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
 
         put "/v2/content/#{content_id}", params: v2_content_item.to_json
-        expect(PublishingAPI.service(:draft_content_store)).to have_received(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: content_item_for_draft_content_store
-              .merge(payload_version: anything)
-          )
 
+        expect(PublishingAPI.service(:draft_content_store)).to have_received(:put_content_item).twice
         expect(response).to be_ok, response.body
       end
     end
   end
 
-  context "/v2/links" do
+  describe "PATCH /v2/links" do
     let(:content_item) { v2_content_item }
 
     let(:content_item_for_draft_content_store) {
@@ -88,13 +77,7 @@ RSpec.describe "Downstream requests", type: :request do
 
       it "only sends to the draft content store" do
         allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
-
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: content_item_for_draft_content_store
-              .merge(payload_version: anything)
-          )
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).never
         expect(WebMock).not_to have_requested(:any, /[^-]content-store.*/)
 
@@ -117,18 +100,7 @@ RSpec.describe "Downstream requests", type: :request do
         allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
 
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: content_item_for_live_content_store
-              .merge(payload_version: anything)
-          )
-
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: content_item_for_live_content_store
-              .merge(payload_version: anything)
-          )
 
         patch "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
@@ -162,18 +134,7 @@ RSpec.describe "Downstream requests", type: :request do
         allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
 
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: content_item_for_draft_content_store
-              .merge(payload_version: anything)
-          )
-
         expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
-          .with(
-            base_path: base_path,
-            content_item: content_item_for_live_content_store
-              .merge(payload_version: anything)
-          )
 
         patch "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
