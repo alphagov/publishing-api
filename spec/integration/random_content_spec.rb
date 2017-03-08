@@ -4,7 +4,7 @@ RSpec.describe "Randomised content" do
   include RandomContentHelpers
 
   50.times do |i|
-    it "it can publish randomly generated content #{i+1}/50" do
+    it "it can publish randomly generated content #{i + 1}/50" do
       base_path = "/#{SecureRandom.hex}"
       stub_content_store_calls(base_path)
       edition = generate_random_edition(base_path)
