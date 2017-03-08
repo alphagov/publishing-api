@@ -59,11 +59,27 @@ RSpec.describe Queries::GetLinkSet do
     end
   end
 
-  context "when the link set does not exist" do
+  context "when the document does not exist" do
     it "raises a command error" do
       expect {
         subject.call(content_id)
       }.to raise_error(CommandError, /could not find link set/i)
+    end
+  end
+
+  context "when a document exists without a link set" do
+    before do
+      FactoryGirl.create(:document, content_id: content_id)
+    end
+
+    it "returns an empty response" do
+      result = subject.call(content_id)
+
+      expect(result).to eq(
+        content_id: content_id,
+        version: 0,
+        links: {},
+      )
     end
   end
 end
