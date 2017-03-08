@@ -6,8 +6,11 @@ module Commands
 
         publish_edition
 
-        after_transaction_commit do
-          send_downstream(document.content_id, document.locale, update_type)
+        if downstream
+          after_transaction_commit do
+            send_downstream_live
+            send_downstream_draft if access_limit
+          end
         end
 
         Success.new(content_id: content_id)
@@ -35,8 +38,12 @@ module Commands
         Action.create_publish_action(edition, document.locale, event)
       end
 
+      def access_limit
+        @_access_limit ||= AccessLimit.find_by(edition: edition)
+      end
+
       def remove_access_limit
-        AccessLimit.find_by(edition: edition).try(:destroy)
+        access_limit.try(:destroy)
       end
 
       def validate
@@ -171,19 +178,35 @@ module Commands
         EditionDiff.new(edition).field_diff.present?
       end
 
-      def send_downstream(content_id, locale, update_type)
-        return unless downstream
-
+      def send_downstream_live
         queue = update_type == 'republish' ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
-
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
+          live_worker_params
+        )
+      end
+
+      def send_downstream_draft
+        queue = update_type == 'republish' ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        DownstreamDraftWorker.perform_async_in_queue(
+          queue,
+          worker_params
+        )
+      end
+
+      def live_worker_params
+        {
+          message_queue_update_type: update_type,
+          update_dependencies: update_dependencies?
+        }.merge(worker_params)
+      end
+
+      def worker_params
+        {
           content_id: content_id,
           locale: locale,
-          message_queue_update_type: update_type,
           payload_version: event.id,
-          update_dependencies: update_dependencies?,
-        )
+        }
       end
     end
   end
