@@ -52,19 +52,19 @@ node {
       sh "bundle exec rspec"
     }
 
-    stage("Verify pact") {
-      sh "bundle exec rake pact:verify"
-    }
+    // stage("Verify pact") {
+    //   sh "bundle exec rake pact:verify"
+    // }
 
     stage("Publish results") {
-      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'pact-broker-ci-dev',
-        usernameVariable: 'PACT_BROKER_USERNAME', passwordVariable: 'PACT_BROKER_PASSWORD']]) {
-        withEnv(["PACT_TARGET_BRANCH=branch-${env.BRANCH_NAME}"]) {
-          sshagent(['govuk-ci-ssh-key']) {
-            sh "bundle exec rake pact:publish:branch"
-          }
-        }
-      }
+      // withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'pact-broker-ci-dev',
+      //   usernameVariable: 'PACT_BROKER_USERNAME', passwordVariable: 'PACT_BROKER_PASSWORD']]) {
+      //   withEnv(["PACT_TARGET_BRANCH=branch-${env.BRANCH_NAME}"]) {
+      //     sshagent(['govuk-ci-ssh-key']) {
+      //       sh "bundle exec rake pact:publish:branch"
+      //     }
+      //   }
+      // }
 
       publishHTML(target: [
         allowMissing: false,
