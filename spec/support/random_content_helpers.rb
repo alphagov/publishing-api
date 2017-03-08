@@ -11,6 +11,7 @@ module RandomContentHelpers
       base_path: base_path,
 
       # TODOs:
+      title: "Something not empty", # TODO: make schemas validate title length
       rendering_app: "something", # TODO: make schemas validate rendering_app
       publishing_app: "something", # TODO: make schemas validate rendering_app
       redirects: [], # TODO: make schemas validate redirects
