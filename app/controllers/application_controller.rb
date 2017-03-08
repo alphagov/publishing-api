@@ -5,11 +5,6 @@ class ApplicationController < ActionController::Base
   rescue_from JSON::ParserError, with: :json_parse_error
   rescue_from CommandError, with: :respond_with_command_error
 
-  before_action do
-    # Force Rails to show text-error pages
-    request.env['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
-  end
-
   before_action :require_signin_permission!
 
   Warden::Manager.after_authentication do |user, _, _|
