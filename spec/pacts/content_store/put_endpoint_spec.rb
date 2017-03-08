@@ -63,18 +63,12 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
           },
         )
         .will_respond_with(
-          status: 409,
+          status: 200,
           body: {},
           headers: {
             "Content-Type" => "application/json; charset=utf-8"
           },
         )
-    end
-
-    it "rejects out-of-order messages to the content store" do
-      expect {
-        client.put_content_item(base_path: "/vat-rates", content_item: body)
-      }.to raise_error(GdsApi::HTTPConflict)
     end
   end
 
@@ -126,18 +120,12 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
             },
           )
           .will_respond_with(
-            status: 409,
+            status: 200,
             body: {},
             headers: {
               "Content-Type" => "application/json; charset=utf-8"
             },
           )
-      end
-
-      it "rejects out-of-order messages to the content store" do
-        expect {
-          client.put_content_item(base_path: "/vat-rates", content_item: body)
-        }.to raise_error(GdsApi::HTTPConflict)
       end
     end
   end
