@@ -12,10 +12,7 @@ module Commands
         end
 
         with_locales = Queries::LocalesForEditions.call(content_ids, %w[live])
-        with_locales.each_with_index do |(content_id, locale), index|
-          sleep 60 if (index + 1) % 10_000 == 0
-          downstream_live(content_id, locale)
-        end
+        with_locales.each { |(content_id, locale)| downstream_live(content_id, locale) }
       end
 
     private
