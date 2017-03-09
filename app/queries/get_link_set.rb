@@ -3,6 +3,12 @@ module Queries
     def self.call(content_id)
       if (link_set = LinkSet.find_by(content_id: content_id))
         Presenters::Queries::LinkSetPresenter.present(link_set)
+      elsif Document.where(content_id: content_id).exists?
+        {
+          content_id: content_id,
+          links: {},
+          version: 0,
+        }
       else
         error_details = {
           error: {
