@@ -36,5 +36,7 @@ module PublishingAPI
       bucket: ENV["EVENT_LOG_AWS_BUCKETNAME"],
       events_key_prefix: "events/",
     )
+
+    config.debug_exception_response_format = :api
   end
 end
