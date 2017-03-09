@@ -2,7 +2,7 @@ namespace :represent_downstream do
   def represent_downstream(scope)
     scope.distinct.in_batches.each do |batch|
       content_ids = batch.pluck(:content_id)
-      Commands::V2::RepresentDownstream.new.call(content_ids, true)
+      Commands::V2::RepresentDownstream.new.call(content_ids)
       sleep 5
     end
   end

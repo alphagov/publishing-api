@@ -5,8 +5,8 @@ module Commands
         self.to_s
       end
 
-      def call(content_ids, draft = false)
-        if draft
+      def call(content_ids, with_drafts: true)
+        if with_drafts
           with_locales = Queries::LocalesForEditions.call(content_ids, %w[draft live])
           with_locales.each { |(content_id, locale)| downstream_draft(content_id, locale) }
         end
