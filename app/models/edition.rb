@@ -43,6 +43,7 @@ class Edition < ApplicationRecord
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
   scope :with_document, -> { joins(:document) }
   scope :with_unpublishing, -> { left_outer_joins(:unpublishing) }
+  scope :with_access_limit, -> { left_outer_joins(:access_limit) }
   scope :with_change_note, -> { left_outer_joins(:change_note) }
 
   validates :document, presence: true

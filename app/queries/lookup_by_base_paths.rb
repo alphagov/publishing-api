@@ -1,39 +1,43 @@
 module Queries
   module LookupByBasePaths
     def self.call(base_paths)
-      base_paths_and_content_ids = Edition.with_document
-        .left_outer_joins(:unpublishing)
-        .left_outer_joins(:access_limit)
-        .where(base_path: base_paths)
-        .where("access_limits.edition_id IS NULL")
-        .where("state != 'superseded'")
-        .order(:base_path)
-        .order(:state)
-        .order(user_facing_version: :desc)
+      # Ensure we have a key for every requested base path
+      response = {}
+      base_paths.each do |base_path|
+        response[base_path] = nil
+      end
+
+      grouped_rows = Edition
+        .with_document
+        .with_unpublishing
+        .with_access_limit
+        .where(base_path: base_paths, "access_limits.edition_id": nil)
+        .where.not(content_store: nil)
+        .order(:base_path, :content_store, user_facing_version: :desc)
         .pluck(
           %{
-            DISTINCT ON (editions.base_path, editions.state)
+            DISTINCT ON (editions.base_path, editions.content_store)
             editions.base_path,
             documents.content_id,
             documents.locale,
             editions.document_type,
-            CASE editions.state WHEN 'draft' THEN 'draft' ELSE 'live' END,
+            editions.content_store,
             unpublishings.type,
-            unpublishings.alternative_path
+            unpublishings.redirects
           }
-        )
+        ).group_by(&:first)
 
-      lookups = base_paths_and_content_ids.group_by(&:first)
-
-      lookups.each_with_object({}) do |group, result|
+      grouped_rows.each do |group|
         base_path, rows = group
-        result[base_path] = build_lookup(rows)
+        response[base_path] = build_lookup(rows)
       end
+
+      response
     end
 
     def self.build_lookup(rows)
       rows.each_with_object({}) do |row, lookup|
-        _, content_id, locale, document_type, state, unpublishing_type, alternative_path = row
+        _, content_id, locale, document_type, content_store, unpublishing_type, redirects = row
 
         content_item = {
           "content_id" => content_id,
@@ -44,11 +48,11 @@ module Queries
         if unpublishing_type.present?
           content_item["unpublishing"] = {
             "type" => unpublishing_type,
-            "alternative_path" => alternative_path
+            "redirects" => redirects
           }.compact
         end
 
-        lookup[state] = content_item
+        lookup[content_store] = content_item
       end
     end
 

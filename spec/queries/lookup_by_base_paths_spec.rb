@@ -119,7 +119,13 @@ RSpec.describe Queries::LookupByBasePaths do
               "document_type" => "publication",
               "unpublishing" => {
                 "type" => "redirect",
-                "alternative_path" => "/redirected-to-page"
+                "redirects" => [
+                  {
+                    "type" => "exact",
+                    "destination" => "/redirected-to-page",
+                    "path" => "/redirected-from-page"
+                  }
+                ]
               }
             },
           },
@@ -136,7 +142,7 @@ RSpec.describe Queries::LookupByBasePaths do
         )
       end
 
-      it "ignores paths that do not match" do
+      it "return nil for missing base paths" do
         test_base_paths = [
           "/only-published-page",
           "/does-not-exist",
@@ -146,6 +152,7 @@ RSpec.describe Queries::LookupByBasePaths do
         response = Queries::LookupByBasePaths.call(test_base_paths)
 
         expect(response).to eql(
+          "/does-not-exist" => nil,
           "/only-published-page" => {
             "live" => {
               "content_id" => published_with_no_drafts.content_id,
@@ -165,9 +172,9 @@ RSpec.describe Queries::LookupByBasePaths do
     end
 
     it "returns content items with document_type redirect" do
-      edition = FactoryGirl.create(:redirect_edition, state: "published", base_path: "/redirect-page")
+      edition = FactoryGirl.create(:redirect_edition, state: "published", base_path: "/redirect-page", content_store: "live")
 
-      response = Queries::LookupByBasePaths.call(edition.base_path)
+      response = Queries::LookupByBasePaths.call([edition.base_path])
 
       expect(response).to eql(
         "/redirect-page" => {
@@ -181,9 +188,9 @@ RSpec.describe Queries::LookupByBasePaths do
     end
 
     it "returns content items with document_type gone" do
-      edition = FactoryGirl.create(:gone_edition, state: "published", base_path: "/gone-page")
+      edition = FactoryGirl.create(:gone_edition, state: "published", base_path: "/gone-page", content_store: "live")
 
-      response = Queries::LookupByBasePaths.call(edition.base_path)
+      response = Queries::LookupByBasePaths.call([edition.base_path])
 
       expect(response).to eql(
         "/gone-page" => {
@@ -201,7 +208,7 @@ RSpec.describe Queries::LookupByBasePaths do
 
       response = Queries::LookupByBasePaths.call(%w(/access-limited))
 
-      expect(response).to eql({})
+      expect(response).to eql("/access-limited" => nil)
     end
   end
 end

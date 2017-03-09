@@ -11,7 +11,11 @@ module V2
   private
 
     def base_paths
-      params.fetch(:base_paths)
+      permitted_params.require(:base_paths)
+    end
+
+    def permitted_params
+      params.permit(base_paths: [])
     end
   end
 end

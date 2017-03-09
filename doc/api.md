@@ -542,22 +542,39 @@ a mapping of `base_path` to `content_id`.
 
 ## `GET /v2/lookup-by-base-path`
 
- [Request/Response detail][lookup-by-base-path-v2-pact]
-
 Returns the current draft and/or the current live edition matching a base path
 or set of base paths.
 
 "draft" and "live" refer to the content stores, rather than edition states. The live edition contains an `unpublishing` object if the edition is unpublished.
 
-If a base path has never been used, it will be omitted from the response.
+
+The response contains both `live` and `draft` when a document has a live edition as well as a new draft:
+
+```json
+{
+  "/register-to-vote":{
+    "draft": {
+      "content_id":"834a7921-260b-4061-9de1-edda3e998c68",
+      "locale":"en",
+      "document_type":"transaction"
+    },
+    "live": {
+      "content_id":"834a7921-260b-4061-9de1-edda3e998c68",
+      "locale":"en",
+      "document_type":"transaction"
+    }
+  }
+}
+```
+If a base path has never been used, or belongs to an access-limited draft, its value will be `null` in the response.
 
 There is a limit of 100 base paths per request. This endpoint also responds to `POST` requests, which can be used if the query params would otherwise make the
 URI too long.
-
 ### GET parameters:
 
 - `base_paths[]` *(required)*
   - An array of `base_path`s to query by.
+
 
 
 ## `PUT /paths/:base_path`

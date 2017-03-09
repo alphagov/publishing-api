@@ -18,6 +18,14 @@ RSpec.describe "/v2/lookup-by-base-path", type: :request do
       expect(parsed_response).to eq(expected_error_response)
     end
 
+    it "requires a base path param to be an array" do
+      expected_error_response = { "error" => { "code" => 422, "message" => "param is missing or the value is empty: base_paths" } }
+
+      get "/v2/lookup-by-base-path", params: { base_paths: "/foo" }
+
+      expect(parsed_response).to eq(expected_error_response)
+    end
+
     it "rejects requests with more than 100 base paths" do
       base_paths = 1.upto(101).map { |i| "/foo-#{i}" }
 
