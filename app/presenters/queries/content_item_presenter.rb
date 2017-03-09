@@ -180,10 +180,9 @@ module Presenters
 
       LINKS_SQL = <<-SQL.freeze
         (
-          SELECT json_agg((links.link_type, target_content_id))
+          SELECT json_agg((links.link_type, links.target_content_id))
           FROM links
           WHERE links.edition_id = editions.id
-          GROUP BY links.link_type
         )
       SQL
 
