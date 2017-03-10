@@ -15,10 +15,11 @@ Pact.service_provider "Publishing API" do
     if ENV['USE_LOCAL_PACT']
       pact_uri ENV.fetch('GDS_API_PACT_PATH', '../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json')
     else
-      base_url = "https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/#{URI.escape(name)}/consumer/#{URI.escape(consumer_name)}"
+      base_url = ENV.fetch("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
+      url = "#{base_url}/pacts/provider/#{URI.escape(name)}/consumer/#{URI.escape(consumer_name)}"
       version_part = ENV['GDS_API_PACT_VERSION'] ? "versions/#{ENV['GDS_API_PACT_VERSION']}" : 'latest'
 
-      pact_uri "#{base_url}/#{version_part}"
+      pact_uri "#{url}/#{version_part}"
     end
   end
 end

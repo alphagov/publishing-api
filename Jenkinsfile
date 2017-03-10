@@ -39,7 +39,7 @@ node {
       govuk.setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
       govuk.setEnvar("RAILS_ENV", "test")
       govuk.setEnvar("RCOV", "1")
-      govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.dev.publishing.service.gov.uk")
+      govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
       sh('bin/rails db:environment:set')
       sh('bundle exec rake db:drop db:create db:schema:load')
     }
@@ -52,19 +52,19 @@ node {
       sh "bundle exec rspec"
     }
 
-    // stage("Verify pact") {
-    //   sh "bundle exec rake pact:verify"
-    // }
+    stage("Verify pact") {
+      sh "bundle exec rake pact:verify"
+    }
 
     stage("Publish results") {
-      // withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'pact-broker-ci-dev',
-      //   usernameVariable: 'PACT_BROKER_USERNAME', passwordVariable: 'PACT_BROKER_PASSWORD']]) {
-      //   withEnv(["PACT_TARGET_BRANCH=branch-${env.BRANCH_NAME}"]) {
-      //     sshagent(['govuk-ci-ssh-key']) {
-      //       sh "bundle exec rake pact:publish:branch"
-      //     }
-      //   }
-      // }
+      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'pact-broker-ci-dev',
+        usernameVariable: 'PACT_BROKER_USERNAME', passwordVariable: 'PACT_BROKER_PASSWORD']]) {
+        withEnv(["PACT_TARGET_BRANCH=branch-${env.BRANCH_NAME}"]) {
+          sshagent(['govuk-ci-ssh-key']) {
+            sh "bundle exec rake pact:publish:branch"
+          }
+        }
+      }
 
       publishHTML(target: [
         allowMissing: false,
