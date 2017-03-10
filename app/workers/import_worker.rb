@@ -5,7 +5,7 @@ class ImportWorker
   sidekiq_options queue: :import
 
   def perform(args = {})
-    Commands::V2::RepresentDownstream.new.call(args['content_id'], true)
+    Commands::V2::RepresentDownstream.new.call(args['content_id'])
 
     args['draft_base_paths_to_discard'].each do |base_path|
       DownstreamService.discard_from_draft_content_store(base_path)
