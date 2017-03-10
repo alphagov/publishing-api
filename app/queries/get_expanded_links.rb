@@ -1,8 +1,8 @@
 module Queries
   class GetExpandedLinks
-    def self.call(content_id, locale)
+    def self.call(content_id, locale, with_drafts: true)
       if (link_set = LinkSet.find_by(content_id: content_id))
-        expanded_link_set(link_set, locale)
+        expanded_link_set(link_set, locale, with_drafts: with_drafts)
       elsif Document.where(content_id: content_id).exists?
         empty_expanded_link_set(content_id)
       else
@@ -17,10 +17,10 @@ module Queries
       end
     end
 
-    def self.expanded_link_set(link_set, locale)
+    def self.expanded_link_set(link_set, locale, with_drafts:)
       expanded_link_set = Presenters::Queries::ExpandedLinkSet.new(
         content_id: link_set.content_id,
-        draft: true,
+        draft: with_drafts,
         locale: locale,
       )
 

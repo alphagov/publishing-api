@@ -488,6 +488,11 @@ details for each linked edition in groupings of `link_type`.
 - [`content_id`](model.md#content_id)
   - Identifies the link set links will be retrieved for.
 
+### Query string parameters:
+
+- `with_drafts` *(optional, default: true)*
+  - Whether links to draft editions should be included in the response.
+
 ## `GET /v2/linked/:content_id`
 
  [Request/Response detail][show-linked-pact]
