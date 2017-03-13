@@ -5,7 +5,7 @@ RSpec.describe LinkExpansion do
 
   let(:content_id) { SecureRandom.uuid }
 
-  describe "#links_with_contetn" do
+  describe "#links_with_content" do
     subject do
       described_class.new(content_id,
         locale: :en,
@@ -37,6 +37,39 @@ RSpec.describe LinkExpansion do
       before { create_link(content_id, link.document.content_id, "related") }
 
       it { is_expected.to match(expected) }
+    end
+
+    context "with a draft link" do
+      context "when with_drafts is false" do
+        let(:link) { FactoryGirl.create(:draft_edition) }
+
+        before { create_link(content_id, link.document.content_id, link_type) }
+
+        context "and a parent link_type" do
+          let(:link_type) { :parent }
+
+          it { is_expected.to be_empty }
+        end
+      end
+
+      context "when with_drafts is true" do
+        let(:link) { FactoryGirl.create(:draft_edition) }
+
+        subject do
+          described_class.new(content_id,
+            locale: :en,
+            with_drafts: true,
+          ).links_with_content
+        end
+
+        before { create_link(content_id, link.document.content_id, link_type) }
+
+        context "and a parent link_type" do
+          let(:link_type) { :parent }
+
+          it { is_expected.to match(parent: [a_hash_including(draft: true)]) }
+        end
+      end
     end
 
     context "with a withdrawn link" do
@@ -82,8 +115,10 @@ RSpec.describe LinkExpansion do
               parent: [a_hash_including(
                 base_path: grand_child.base_path,
                 links: {},
+                draft: false,
               )],
             },
+            draft: false,
           )],
         }
       end

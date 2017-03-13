@@ -483,6 +483,9 @@ were created.
 Retrieves the expanded link set for the given `content_id`. Returns arrays of
 details for each linked edition in groupings of `link_type`.
 
+Expanded links from both the live and draft content stores are returned.
+Links to draft editions are marked with `draft: true`.
+
 ### Path parameters
 
 - [`content_id`](model.md#content_id)

@@ -70,6 +70,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
             "title" => "VAT rates",
             "withdrawn" => false,
             "links" => {},
+            "draft" => true,
             "details" => { "body" => "<p>Something about VAT</p>\n" },
           }
         ],
