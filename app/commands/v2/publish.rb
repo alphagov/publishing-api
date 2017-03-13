@@ -32,10 +32,15 @@ module Commands
         edition.publish
         remove_access_limit
         create_publish_action
+        create_change_note if payload[:update_type].present?
       end
 
       def create_publish_action
         Action.create_publish_action(edition, document.locale, event)
+      end
+
+      def create_change_note
+        ChangeNote.create_from_edition(payload, edition)
       end
 
       def access_limit
