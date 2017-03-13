@@ -28,9 +28,9 @@ private
     ChangeNote
       .find_or_create_by!(edition: edition)
       .update!(
-        note: change_note,
         content_id: edition.document.content_id,
-        public_timestamp: Time.zone.now
+        public_timestamp: Time.zone.now,
+        note: change_note,
       )
   end
 
@@ -51,7 +51,9 @@ private
     ChangeNote
       .find_or_create_by!(edition: edition)
       .update!(
-        history_element.merge(content_id: edition.document.content_id)
+        content_id: edition.document.content_id,
+        public_timestamp: history_element.fetch(:public_timestamp),
+        note: history_element.fetch(:note),
       )
   end
 
