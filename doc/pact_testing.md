@@ -83,4 +83,4 @@ merged.
 
 [pact]: https://github.com/realestate-com-au/pact
 [gds-api-adapters-publishing-api-tests]: https://github.com/alphagov/gds-api-adapters/blob/master/test/publishing_api_v2_test.rb
-[pact-broker]: https://pact-broker.dev.publishing.service.gov.uk/
+[pact-broker]: https://pact-broker.cloudapps.digital/

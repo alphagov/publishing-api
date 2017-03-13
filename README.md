@@ -159,6 +159,6 @@ see the rake task for more details.
 [content-store]: https://github.com/alphagov/content-store
 [content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md
 [pact]: https://github.com/realestate-com-au/pact
-[pact-broker-latest]: https://pact-broker.dev.publishing.service.gov.uk/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
+[pact-broker-latest]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
 [link-set-link]: doc/link-expansion.md#patch-link-set---link-set-links
 [edition-link]: doc/link-expansion.md#put-content---edition-links
