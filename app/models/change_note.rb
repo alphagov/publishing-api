@@ -25,9 +25,9 @@ private
 
   def create_from_top_level_change_note
     return unless change_note
-    ChangeNote.
-      find_or_create_by!(edition: edition).
-      update!(
+    ChangeNote
+      .find_or_create_by!(edition: edition)
+      .update!(
         note: change_note,
         content_id: edition.document.content_id,
         public_timestamp: Time.zone.now
@@ -36,23 +36,23 @@ private
 
   def create_from_details_hash_change_note
     return unless note
-    ChangeNote.create!(
-      edition: edition,
-      content_id: edition.document.content_id,
-      public_timestamp: edition.updated_at,
-      note: note,
-    )
+    ChangeNote
+      .find_or_create_by!(edition: edition)
+      .update!(
+        content_id: edition.document.content_id,
+        public_timestamp: edition.updated_at,
+        note: note,
+      )
   end
 
   def create_from_details_hash_change_history
     return unless change_history.present?
     history_element = change_history.max_by { |h| h[:public_timestamp] }
-    ChangeNote.create!(
-      history_element.merge(
-        edition: edition,
-        content_id: edition.document.content_id
+    ChangeNote
+      .find_or_create_by!(edition: edition)
+      .update!(
+        history_element.merge(content_id: edition.document.content_id)
       )
-    )
   end
 
   def change_note
