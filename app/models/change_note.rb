@@ -13,7 +13,7 @@ class ChangeNoteFactory
   end
 
   def build
-    return unless edition.update_type == "major"
+    return unless update_type == "major"
     create_from_top_level_change_note ||
       create_from_details_hash_change_note ||
       create_from_details_hash_change_history
@@ -53,6 +53,10 @@ private
       .update!(
         history_element.merge(content_id: edition.document.content_id)
       )
+  end
+
+  def update_type
+    @update_type ||= payload[:update_type] || edition.update_type
   end
 
   def change_note
