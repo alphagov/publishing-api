@@ -14,6 +14,7 @@ class DownstreamDraftWorker
       args.first["content_id"],
       args.first["locale"],
       args.first.fetch("update_dependencies", true),
+      args.first.fetch("orphaned_content_ids", []),
       name,
     ]
   end
