@@ -13,7 +13,7 @@ class ChangeNoteFactory
   end
 
   def build
-    return unless edition.update_type == "major"
+    return unless update_type == "major"
     create_from_top_level_change_note ||
       create_from_details_hash_change_note ||
       create_from_details_hash_change_history
@@ -25,34 +25,40 @@ private
 
   def create_from_top_level_change_note
     return unless change_note
-    ChangeNote.
-      find_or_create_by!(edition: edition).
-      update!(
-        note: change_note,
+    ChangeNote
+      .find_or_create_by!(edition: edition)
+      .update!(
         content_id: edition.document.content_id,
-        public_timestamp: Time.zone.now
+        public_timestamp: Time.zone.now,
+        note: change_note,
       )
   end
 
   def create_from_details_hash_change_note
     return unless note
-    ChangeNote.create!(
-      edition: edition,
-      content_id: edition.document.content_id,
-      public_timestamp: edition.updated_at,
-      note: note,
-    )
+    ChangeNote
+      .find_or_create_by!(edition: edition)
+      .update!(
+        content_id: edition.document.content_id,
+        public_timestamp: edition.updated_at,
+        note: note,
+      )
   end
 
   def create_from_details_hash_change_history
     return unless change_history.present?
     history_element = change_history.max_by { |h| h[:public_timestamp] }
-    ChangeNote.create!(
-      history_element.merge(
-        edition: edition,
-        content_id: edition.document.content_id
+    ChangeNote
+      .find_or_create_by!(edition: edition)
+      .update!(
+        content_id: edition.document.content_id,
+        public_timestamp: history_element.fetch(:public_timestamp),
+        note: history_element.fetch(:note),
       )
-    )
+  end
+
+  def update_type
+    @update_type ||= payload[:update_type] || edition.update_type
   end
 
   def change_note

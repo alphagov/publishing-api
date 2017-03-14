@@ -11,6 +11,8 @@ RSpec.describe Commands::V2::PutContent do
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
 
+    let(:change_note) { { note: "Info", public_timestamp: Time.now.utc.to_s } }
+
     let(:payload) do
       {
         content_id: content_id,
@@ -25,7 +27,7 @@ RSpec.describe Commands::V2::PutContent do
         routes: [{ path: base_path, type: "exact" }],
         redirects: [],
         phase: "beta",
-        change_note: { note: "Info", public_timestamp: Time.now.utc.to_s }
+        change_note: change_note
       }
     end
 
@@ -312,9 +314,33 @@ RSpec.describe Commands::V2::PutContent do
         expect(edition.document.stale_lock_version).to eq(1)
       end
 
-      it "creates a change note" do
-        expect { described_class.call(payload) }.
-          to change { ChangeNote.count }.by(1)
+      shared_examples "creates a change note" do
+        it "creates a change note" do
+          expect { described_class.call(payload) }.
+            to change { ChangeNote.count }.by(1)
+        end
+      end
+
+      context "and the change node is in the payload" do
+        include_examples "creates a change note"
+      end
+
+      context "and the change history is in the details hash" do
+        before do
+          payload.delete(:change_note)
+          payload[:details] = { change_history: [change_note] }
+        end
+
+        include_examples "creates a change note"
+      end
+
+      context "and the change note is in the details hash" do
+        before do
+          payload.delete(:change_note)
+          payload[:details] = { change_note: change_note[:note] }
+        end
+
+        include_examples "creates a change note"
       end
     end
 

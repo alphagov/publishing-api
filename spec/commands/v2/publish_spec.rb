@@ -71,6 +71,21 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "with a change note in the details" do
+      before do
+        draft_item.update(
+          details: {
+            change_history: [{ note: "Info", public_timestamp: Time.now }]
+          }
+        )
+      end
+
+      it "creates associated ChangeNote records" do
+        expect { described_class.call(payload) }
+          .to change { ChangeNote.count }.by(1)
+      end
+    end
+
     context "publishing draft edition" do
       let(:existing_base_path) { base_path }
 

@@ -52,14 +52,14 @@ RSpec.describe ChangeNote do
       end
     end
 
-    context "edition has change_note entry in details hash" do
+    context "edition has an empty change_history entry in details hash" do
       let(:details) { { change_history: [] } }
       it "populates change note from details hash" do
         expect { subject }.to_not change { ChangeNote.count }
       end
     end
 
-    context "edition has change_note entry in details hash" do
+    context "edition has a nil change_history entry in details hash" do
       let(:details) { { change_history: nil } }
       it "populates change note from details hash" do
         expect { subject }.to_not change { ChangeNote.count }
@@ -68,12 +68,15 @@ RSpec.describe ChangeNote do
 
     context "edition has change_history entry in details hash" do
       let(:details) do
-        { change_history: [
-          { public_timestamp: 3.day.ago.to_s, note: "note 3" },
-          { public_timestamp: 1.day.ago.to_s, note: "note 1" },
-          { public_timestamp: 2.days.ago.to_s, note: "note 2" },
-        ] }
+        {
+          change_history: [
+            { public_timestamp: 3.day.ago.to_s, note: "note 3" },
+            { public_timestamp: 1.day.ago.to_s, note: "note 1" },
+            { public_timestamp: 2.days.ago.to_s, note: "note 2" },
+          ]
+        }
       end
+
       it "populates change note from most recent history item" do
         expect { subject }.to change { ChangeNote.count }.by(1)
         expect(ChangeNote.last.note).to eq "note 1"
