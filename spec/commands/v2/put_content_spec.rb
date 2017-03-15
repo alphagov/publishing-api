@@ -646,7 +646,7 @@ RSpec.describe Commands::V2::PutContent do
           it "passes the old link to dependency resolution" do
             expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
               "downstream_high",
-              a_hash_including(orphaned_links: [content_id])
+              a_hash_including(orphaned_content_ids: [content_id])
             )
             described_class.call(payload)
           end
@@ -658,7 +658,7 @@ RSpec.describe Commands::V2::PutContent do
           it "passes the old link to dependency resolution" do
             expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
               "downstream_high",
-              a_hash_including(orphaned_links: [content_id])
+              a_hash_including(orphaned_content_ids: [content_id])
             )
             described_class.call(payload)
           end
