@@ -15,6 +15,7 @@ class DownstreamLiveWorker
       args.first["locale"],
       args.first["message_queue_update_type"],
       args.first.fetch("update_dependencies", true),
+      args.first.fetch("orphaned_content_ids", []),
       name,
     ]
   end
