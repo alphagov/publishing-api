@@ -161,7 +161,7 @@ module Commands
           locale: locale,
           payload_version: event.id,
           update_dependencies: update_dependencies,
-          orphaned_links: orphaned_links,
+          orphaned_content_ids: orphaned_links,
         )
       end
     end
