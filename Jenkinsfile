@@ -7,6 +7,11 @@ node {
   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
 
   properties([
+    buildDiscarder(
+      logRotator(
+        numToKeepStr: '10'
+      )
+    ),
     [$class: 'ParametersDefinitionProperty',
       parameterDefinitions: [
         [$class: 'BooleanParameterDefinition',
