@@ -17,6 +17,7 @@ module LinkExpansion::Rules
     [:parent_taxons.recurring],
     [:taxons, :parent_taxons.recurring],
     [:ordered_related_items, :mainstream_browse_pages, :parent.recurring],
+    [:ordered_related_items_overrides, :taxons]
   ].freeze
 
   REVERSE_LINKS = {
