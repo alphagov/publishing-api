@@ -37,7 +37,7 @@ module Presenters
       edition.to_h
         .except(*NON_PRESENTED_PROPERTIES)
         .merge(rendered_details)
-        .merge(links)
+        .merge(expanded_links)
         .merge(access_limited)
         .merge(format)
         .merge(document_supertypes)
@@ -54,7 +54,7 @@ module Presenters
       ).links
     end
 
-    def links
+    def expanded_links
       {
         expanded_links: expanded_link_set_presenter.links,
       }
