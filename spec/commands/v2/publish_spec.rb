@@ -409,6 +409,33 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "when links differ from the previously published edition" do
+      let(:link_a) { SecureRandom.uuid }
+      let(:link_b) { SecureRandom.uuid }
+
+      let!(:live_item) do
+        FactoryGirl.create(:live_edition,
+          document: document,
+          links_hash: { topics: [link_a] },
+        )
+      end
+
+      let!(:draft_item) do
+        FactoryGirl.create(:draft_edition,
+          document: document,
+          links_hash: { topics: [link_b] },
+          user_facing_version: 2,
+        )
+      end
+
+      it "sends link_a downstream as an orphaned content_id when draft item is published" do
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+          .with("downstream_high", a_hash_including(orphaned_content_ids: [link_a]))
+
+        described_class.call(payload)
+      end
+    end
+
     context "when an access limit is set on the draft edition" do
       before do
         FactoryGirl.create(:access_limit, edition: draft_item)

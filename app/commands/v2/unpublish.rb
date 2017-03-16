@@ -121,11 +121,19 @@ module Commands
           locale: document.locale,
           payload_version: event.id,
           update_dependencies: true,
+          orphaned_content_ids: orphaned_content_ids,
         )
       end
 
       def previous_version_number
         payload[:previous_version].to_i if payload[:previous_version]
+      end
+
+      def orphaned_content_ids
+        return [] if !payload[:allow_draft] || !previous
+        previous_links = previous.links.map(&:target_content_id)
+        current_links = find_unpublishable_edition.links.map(&:target_content_id)
+        previous_links - current_links
       end
 
       def find_unpublishable_edition

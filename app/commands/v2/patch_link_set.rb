@@ -22,6 +22,9 @@ module Commands
           end
         end
 
+        # we need to reload the link_set as the links association will be stale
+        link_set.reload
+
         orphaned_content_ids = link_diff_between(links_before_patch, link_set.links.map(&:target_content_id))
 
         after_transaction_commit do

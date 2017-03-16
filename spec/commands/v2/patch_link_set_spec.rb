@@ -394,6 +394,31 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
   end
 
+  context "when 'links' are replaced in the payload" do
+    let(:link_a) { SecureRandom.uuid }
+    let(:link_b) { SecureRandom.uuid }
+    let(:edition) { FactoryGirl.create(:live_edition) }
+    let(:content_id) { edition.document.content_id }
+
+    let(:payload) do
+      { content_id: content_id, links: { topics: [link_b] } }
+    end
+
+    before do
+      FactoryGirl.create(:link_set,
+        content_id: content_id,
+        links_hash: { topics: [link_a] },
+      )
+    end
+
+    it "sends link_a downstream as an orphaned content_id when replaced by link_b" do
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        .with("downstream_high", a_hash_including(orphaned_content_ids: [link_a]))
+
+      described_class.call(payload)
+    end
+  end
+
   context "when 'links' is missing from the payload" do
     before do
       payload.delete(:links)

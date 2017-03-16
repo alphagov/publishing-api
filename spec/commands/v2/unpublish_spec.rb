@@ -370,6 +370,39 @@ RSpec.describe Commands::V2::Unpublish do
       end
     end
 
+    context "when there is a draft and published with differing links" do
+      let(:link_a) { SecureRandom.uuid }
+      let(:link_b) { SecureRandom.uuid }
+      let!(:draft_edition) do
+        FactoryGirl.create(:draft_edition,
+          document: document,
+          user_facing_version: 2,
+          links_hash: { topics: [link_b] },
+        )
+      end
+
+      let!(:live_edition) do
+        FactoryGirl.create(:live_edition,
+          document: document,
+          links_hash: { topics: [link_a] },
+        )
+      end
+
+      after do
+        described_class.call(payload.merge(allow_draft: true))
+      end
+
+      it "includes orphaned content ids downstream live" do
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+          .with("downstream_high", a_hash_including(orphaned_content_ids: [link_a]))
+      end
+
+      it "excludes orphaned content ids downstream draft as they were handled in put content" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with("downstream_high", hash_excluding(:orphaned_content_ids))
+      end
+    end
+
     context "when the document is redrafted" do
       let!(:live_edition) do
         FactoryGirl.create(:live_edition,
