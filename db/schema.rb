@@ -20,7 +20,8 @@ ActiveRecord::Schema.define(version: 20170313184559) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "edition_id"
-    t.json     "fact_check_ids", default: [], null: false
+    t.json     "fact_check_ids",  default: [], null: false
+    t.json     "auth_bypass_ids", default: [], null: false
     t.index ["edition_id"], name: "index_access_limits_on_edition_id", using: :btree
   end
 
