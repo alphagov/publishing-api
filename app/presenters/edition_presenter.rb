@@ -72,7 +72,7 @@ module Presenters
         {
           access_limited: {
             users: access_limit.users,
-            fact_check_ids: access_limit.fact_check_ids,
+            auth_bypass_ids: access_limit.auth_bypass_ids,
           }
         }
       end

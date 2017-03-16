@@ -88,7 +88,7 @@ module Commands
           AccessLimit.find_or_create_by(edition: edition).tap do |access_limit|
             access_limit.update_attributes!(
               users: (payload[:access_limited][:users] || []),
-              fact_check_ids: (payload[:access_limited][:fact_check_ids] || []),
+              auth_bypass_ids: (payload[:access_limited][:auth_bypass_ids] || []),
             )
           end
         else

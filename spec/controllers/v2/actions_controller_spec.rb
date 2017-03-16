@@ -9,7 +9,7 @@ RSpec.describe V2::ActionsController do
         stale_lock_version: 5,
       )
     end
-    let(:action) { "FactCheck" }
+    let(:action) { "AuthBypass" }
 
     let(:params) { { content_id: document.content_id, format: :json } }
     let(:payload) do

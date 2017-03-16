@@ -240,7 +240,7 @@ RSpec.describe Presenters::EditionPresenter do
 
         it "populates the access_limited hash" do
           expect(result[:access_limited][:users].length).to eq(1)
-          expect(result[:access_limited][:fact_check_ids].length).to eq(0)
+          expect(result[:access_limited][:auth_bypass_ids].length).to eq(0)
         end
       end
 
