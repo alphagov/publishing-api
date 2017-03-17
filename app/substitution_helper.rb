@@ -51,8 +51,10 @@ private
       .with_document
       .where(base_path: base_path, state: state, documents: { locale: locale })
       .where.not(documents: { content_id: new_item_content_id })
-      .select do |item|
-        can_substitute?(new_item_document_type) || can_substitute?(item.document_type)
+      .select do |edition|
+        can_substitute?(new_item_document_type) ||
+          can_substitute?(edition.document_type) ||
+          (edition.unpublished? ? edition.unpublishing.type : false)
       end
   end
 
