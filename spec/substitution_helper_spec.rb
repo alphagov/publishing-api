@@ -46,7 +46,7 @@ RSpec.describe SubstitutionHelper do
         }
 
         it "does not unpublish the existing published item" do
-          expect(existing_item.state).not_to eq("unpublished")
+          expect(existing_item.reload.substitute?).to_not be
         end
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe SubstitutionHelper do
           }
 
           it "unpublishes the existing published item" do
-            expect(existing_item.reload.state).to eq("unpublished")
+            expect(existing_item.reload.substitute?).to be
           end
         end
       end
@@ -142,7 +142,7 @@ RSpec.describe SubstitutionHelper do
           }
 
           it "unpublishes the existing published item" do
-            expect(existing_item.reload.state).to eq("unpublished")
+            expect(existing_item.reload.substitute?).to be
           end
         end
       end
@@ -161,7 +161,7 @@ RSpec.describe SubstitutionHelper do
           }
 
           it "does not unpublish the existing item" do
-            expect(existing_item.state).not_to eq("unpublished")
+            expect(existing_item.reload.substitute?).to_not be
           end
         end
       end
