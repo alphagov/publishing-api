@@ -209,6 +209,10 @@ class Edition < ApplicationRecord
     unpublished? && unpublishing.withdrawal?
   end
 
+  def substitute?
+    unpublished? && unpublishing.substitute?
+  end
+
   def api_path
     return unless base_path
     "/api/content" + base_path
