@@ -9,6 +9,8 @@ module SubstitutionHelper
     special_route
   ).freeze
 
+  SUBSTITUTABLE_UNPUBLISHING_TYPES = %w(gone redirect vanish).freeze
+
   def clear!(
     new_item_document_type:,
     new_item_content_id:,
@@ -52,14 +54,22 @@ private
       .where(base_path: base_path, state: state, documents: { locale: locale })
       .where.not(documents: { content_id: new_item_content_id })
       .select do |edition|
-        can_substitute?(new_item_document_type) ||
-          can_substitute?(edition.document_type) ||
-          (edition.unpublished? ? edition.unpublishing.type : false)
+        can_substitute_document_type?(new_item_document_type) ||
+          can_substitute?(edition)
       end
   end
 
-  def can_substitute?(document_type)
+  def can_substitute_document_type?(document_type)
     SUBSTITUTABLE_DOCUMENT_TYPES.include?(document_type)
+  end
+
+  def can_substitute_unpublishing_type?(unpublishing_type)
+    SUBSTITUTABLE_UNPUBLISHING_TYPES.include?(unpublishing_type)
+  end
+
+  def can_substitute?(edition)
+    return true if edition.unpublished? && can_substitute_unpublishing_type?(edition.unpublishing.type)
+    can_substitute_document_type?(edition.document_type)
   end
 
   class NilBasePathError < StandardError; end
