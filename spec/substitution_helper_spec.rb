@@ -52,9 +52,17 @@ RSpec.describe SubstitutionHelper do
     end
 
     context "when the existing edition is unpublished" do
-      let(:unpublished_edition) { FactoryGirl.create(:gone_unpublished_edition) }
+      let(:existing_item) do
+        FactoryGirl.create(
+          :gone_unpublished_edition,
+          base_path: existing_base_path,
+        )
+      end
 
-      it "" do
+      let(:new_content_id) { SecureRandom.uuid }
+
+      it "substitutes the draft" do
+        expect(existing_item.reload.substitute?).to be
       end
     end
 
