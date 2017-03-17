@@ -9,9 +9,9 @@ RSpec.describe Commands::V2::Import, type: :request do
       {
         document_type: "organisation",
         schema_name: "generic",
-        publishing_app: "foo",
+        publishing_app: "publisher",
         title: "foo",
-        rendering_app: "foo",
+        rendering_app: "government-frontend",
         base_path: base_path,
         routes: [{ "path": "/bar", "type": "exact" }],
         details: {},
