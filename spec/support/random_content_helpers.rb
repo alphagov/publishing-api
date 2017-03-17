@@ -12,7 +12,6 @@ module RandomContentHelpers
 
       # TODOs:
       title: "Something not empty", # TODO: make schemas validate title length
-      document_type: "guide", # TODO: remove after https://github.com/alphagov/govuk-content-schemas/pull/550 deployed
       rendering_app: "government-frontend", # TODO: remove after https://github.com/alphagov/govuk-content-schemas/pull/575
       publishing_app: "publisher", # TODO: remove after https://github.com/alphagov/govuk-content-schemas/pull/575
       redirects: [], # TODO: make schemas validate redirects
