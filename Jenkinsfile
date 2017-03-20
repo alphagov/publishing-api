@@ -45,8 +45,9 @@ node {
       govuk.setEnvar("RAILS_ENV", "test")
       govuk.setEnvar("RCOV", "1")
       govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
+      sh('bundle exec rake db:drop db:create')
       sh('bin/rails db:environment:set')
-      sh('bundle exec rake db:drop db:create db:schema:load')
+      sh('bundle exec rake db:schema:load')
     }
 
     stage("Lint") {
