@@ -45,32 +45,29 @@ node {
       govuk.setEnvar("RAILS_ENV", "test")
       govuk.setEnvar("RCOV", "1")
       govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
-      sh('bin/rails db:environment:set')
-      sh('bundle exec rake db:drop db:create db:schema:load')
     }
 
     stage("Lint") {
       govuk.rubyLinter('app config Gemfile lib spec')
     }
 
-    stage("Test") {
-      sh "bundle exec rspec"
-    }
-
-    stage("Verify pact") {
-      sh "bundle exec rake pact:verify"
-    }
-
-    stage("Publish results") {
-      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'pact-broker-ci-dev',
-        usernameVariable: 'PACT_BROKER_USERNAME', passwordVariable: 'PACT_BROKER_PASSWORD']]) {
-        withEnv(["PACT_TARGET_BRANCH=branch-${env.BRANCH_NAME}"]) {
-          sshagent(['govuk-ci-ssh-key']) {
-            sh "bundle exec rake pact:publish:branch"
-          }
-        }
+    // Prevent a project's tests from running in parallel on the same node
+    lock("publishing-api-$NODE_NAME-test") {
+      stage("Build DB") {
+        sh("bundle exec rake db:environment:set")
+        sh("bundle exec rake db:reset")
       }
 
+      stage("Test") {
+        sh "bundle exec rspec"
+      }
+
+      stage("Verify pact") {
+        sh "bundle exec rake pact:verify"
+      }
+    }
+
+    stage("Publish coverage") {
       publishHTML(target: [
         allowMissing: false,
         alwaysLinkToLastBuild: false,
@@ -79,6 +76,17 @@ node {
         reportFiles: 'index.html',
         reportName: 'RCov Report'
       ])
+    }
+
+    stage("Publish pacts") {
+      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'pact-broker-ci-dev',
+        usernameVariable: 'PACT_BROKER_USERNAME', passwordVariable: 'PACT_BROKER_PASSWORD']]) {
+        withEnv(["PACT_TARGET_BRANCH=branch-${env.BRANCH_NAME}"]) {
+          sshagent(['govuk-ci-ssh-key']) {
+            sh "bundle exec rake pact:publish:branch"
+          }
+        }
+      }
     }
 
     if (env.BRANCH_NAME == 'master') {
