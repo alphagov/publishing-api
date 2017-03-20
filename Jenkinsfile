@@ -2,6 +2,7 @@
 
 REPOSITORY = "publishing-api"
 DEFAULT_SCHEMA_BRANCH = "deployed-to-production"
+DEFAULT_CONTENT_STORE_BRANCH = "master"
 
 node {
   def govuk = load("/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy")
@@ -22,7 +23,12 @@ node {
         name: "SCHEMA_BRANCH",
         defaultValue: DEFAULT_SCHEMA_BRANCH,
         description: "The branch of govuk-content-schemas to test against"
-      )
+      ),
+      stringParam(
+        name: "CONTENT_STORE_BRANCH",
+        defaultValue: DEFAULT_CONTENT_STORE_BRANCH,
+        description: "The branch of content-store to test pacts against"
+      ),
     ])
   ])
 
@@ -30,6 +36,7 @@ node {
     govuk.initializeParameters([
       "IS_SCHEMA_TEST": "false",
       "SCHEMA_BRANCH": DEFAULT_SCHEMA_BRANCH,
+      "CONTENT_STORE_BRANCH": DEFAULT_CONTENT_STORE_BRANCH,
     ])
 
     if (!govuk.isAllowedBranchBuild(env.BRANCH_NAME)) {
@@ -52,7 +59,7 @@ node {
       govuk.rubyLinter("app config Gemfile lib spec")
     }
 
-    // Prevent a project"s tests from running in parallel on the same node
+    // Prevent a project's tests from running in parallel on the same node
     lock("publishing-api-$NODE_NAME-test") {
       stage("Build DB") {
         sh("bundle exec rake db:environment:set")
@@ -89,6 +96,34 @@ node {
         }
       }
     }
+
+    stage("Checkout content store") {
+      sh("rm -rf tmp/content-store")
+      sh("git clone https://github.com/alphagov/content-store.git tmp/content-store")
+      dir("tmp/content-store") {
+        sh("git checkout ${env.CONTENT_STORE_BRANCH}")
+        govuk.bundleApp()
+      }
+    }
+
+    lock("content-store-$NODE_NAME-test") {
+      stage("Verify pact with content-store") {
+        dir("tmp/content-store") {
+          sh("bundle exec rake db:mongoid:drop")
+          withCredentials([
+            [
+              $class: "UsernamePasswordMultiBinding",
+              credentialsId: "pact-broker-ci-dev",
+              usernameVariable: "PACT_BROKER_USERNAME",
+              passwordVariable: "PACT_BROKER_PASSWORD"
+            ]
+          ]) {
+            govuk.runRakeTask("pact:verify:branch[${env.BRANCH_NAME}]")
+          }
+        }
+      }
+    }
+
 
     if (env.BRANCH_NAME == "master") {
       stage("Push release tag") {
