@@ -15,7 +15,7 @@ RSpec.describe SubstitutionHelper do
   before do
     stub_request(
       :delete,
-      Plek.find('draft-content-store') + "/content#{existing_base_path}"
+      Plek.find("draft-content-store") + "/content#{existing_base_path}"
     )
   end
 
@@ -34,7 +34,7 @@ RSpec.describe SubstitutionHelper do
       let(:new_content_id) { existing_item.document.content_id }
 
       it "does not discard the existing draft" do
-        expect(Edition.exists?(id: existing_item.id)).to eq(true)
+        expect(Edition.exists?(id: existing_item.id)).to be true
       end
 
       context "when the existing item is published" do
@@ -46,8 +46,23 @@ RSpec.describe SubstitutionHelper do
         }
 
         it "does not unpublish the existing published item" do
-          expect(existing_item.state).not_to eq("unpublished")
+          expect(existing_item.reload.substitute?).to be false
         end
+      end
+    end
+
+    context "when the existing edition is unpublished" do
+      let(:existing_item) do
+        FactoryGirl.create(
+          :gone_unpublished_edition,
+          base_path: existing_base_path,
+        )
+      end
+
+      let(:new_content_id) { SecureRandom.uuid }
+
+      it "substitutes the draft" do
+        expect(existing_item.reload.substitute?).to be true
       end
     end
 
@@ -58,7 +73,7 @@ RSpec.describe SubstitutionHelper do
         let(:existing_document_type) { "gone" }
 
         it "discards the existing draft" do
-          expect(Edition.exists?(id: existing_item.id)).to eq(false)
+          expect(Edition.exists?(id: existing_item.id)).to be false
         end
 
         it "doesn't unpublish any other items" do
@@ -92,7 +107,7 @@ RSpec.describe SubstitutionHelper do
           }
 
           it "unpublishes the existing published item" do
-            expect(existing_item.reload.state).to eq("unpublished")
+            expect(existing_item.reload.substitute?).to be true
           end
         end
       end
@@ -101,7 +116,7 @@ RSpec.describe SubstitutionHelper do
         let(:new_document_type) { "gone" }
 
         it "discards the existing draft" do
-          expect(Edition.exists?(id: existing_item.id)).to eq(false)
+          expect(Edition.exists?(id: existing_item.id)).to be false
         end
 
         it "doesn't unpublish any other items" do
@@ -135,14 +150,14 @@ RSpec.describe SubstitutionHelper do
           }
 
           it "unpublishes the existing published item" do
-            expect(existing_item.reload.state).to eq("unpublished")
+            expect(existing_item.reload.substitute?).to be true
           end
         end
       end
 
       context "when neither item has a document_type that is substitutable" do
         it "does not discard the existing draft" do
-          expect(Edition.exists?(id: existing_item.id)).to eq(true)
+          expect(Edition.exists?(id: existing_item.id)).to be true
         end
 
         context "when the existing item is published" do
@@ -154,7 +169,7 @@ RSpec.describe SubstitutionHelper do
           }
 
           it "does not unpublish the existing item" do
-            expect(existing_item.state).not_to eq("unpublished")
+            expect(existing_item.reload.substitute?).to be false
           end
         end
       end

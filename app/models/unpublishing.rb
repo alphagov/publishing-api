@@ -35,6 +35,10 @@ class Unpublishing < ApplicationRecord
     type == "redirect"
   end
 
+  def substitute?
+    type == "substitute"
+  end
+
   def self.is_substitute?(edition)
     where(edition: edition).pluck(:type).first == "substitute"
   end
