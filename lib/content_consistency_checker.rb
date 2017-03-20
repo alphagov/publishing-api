@@ -3,9 +3,10 @@ require 'gds_api/content_store'
 class ContentConsistencyChecker
   attr_reader :errors
 
-  def initialize(content_id, locale = "en")
+  def initialize(content_id, locale = "en", ignore_recent = false)
     @content_id = content_id
     @locale = locale
+    @ignore_recent = ignore_recent
     @errors = []
   end
 
@@ -23,10 +24,12 @@ class ContentConsistencyChecker
 
 private
 
-  attr_reader :content_id, :locale
+  attr_reader :content_id, :locale, :ignore_recent
 
   def check_edition(prefix, edition, content_store)
     return unless edition.base_path
+
+    return if ignore_recent && edition.updated_at < 1.day.ago
 
     path = edition.base_path
 
