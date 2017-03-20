@@ -7,12 +7,14 @@ default: &default
 development:
   <<: *default
   database: publishing_api_development
-  url: <%= ENV["DATABASE_URL"]%>
+  url: <%= ENV["DATABASE_URL"] %>
 
 test:
   <<: *default
-  database: publishing_api_test
-  url: <%= ENV["DATABASE_URL"].try(:sub, /([-_]development)?$/, '_test')%>
+  # EXECUTOR_NUMBER is a env var added by Jenkins, this allows concurrent builds
+  # on the same box without the database colliding.
+  database: publishing_api_test<%= "_executor_#{ENV['EXECUTOR_NUMBER']}" if ENV["EXECUTOR_NUMBER"] %>
+  url: <%= ENV["DATABASE_URL"].try(:sub, /([-_]development)?$/, "_test") %>
 
 production:
   <<: *default
