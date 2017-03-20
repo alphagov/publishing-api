@@ -61,7 +61,7 @@ namespace :represent_downstream do
   "
   task :content_id, [:content_id] => :environment do |_t, args|
     represent_downstream(
-      Edition.with_document.where("editions.content_id": args[:content_id])
+      Edition.with_document.where(documents: { content_id: args[:content_id] })
     )
   end
 end
