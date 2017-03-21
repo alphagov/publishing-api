@@ -4,7 +4,7 @@ REPOSITORY = "publishing-api"
 DEFAULT_SCHEMA_BRANCH = "deployed-to-production"
 
 node {
-  def govuk = load "/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy"
+  def govuk = load("/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy")
 
   properties([
     buildDiscarder(
@@ -12,17 +12,18 @@ node {
         numToKeepStr: "10"
       )
     ),
-    [$class: "ParametersDefinitionProperty",
-      parameterDefinitions: [
-        [$class: "BooleanParameterDefinition",
-          name: "IS_SCHEMA_TEST",
-          defaultValue: false,
-          description: "Identifies whether this build is being triggered to test a change to the content schemas"],
-        [$class: "StringParameterDefinition",
-          name: "SCHEMA_BRANCH",
-          defaultValue: DEFAULT_SCHEMA_BRANCH,
-          description: "The branch of govuk-content-schemas to test against"]]
-    ],
+    parameters([
+      booleanParam(
+        name: "IS_SCHEMA_TEST",
+        defaultValue: false,
+        description: "Identifies whether this build is being triggered to test a change to the content schemas"
+      ),
+      stringParam(
+        name: "SCHEMA_BRANCH",
+        defaultValue: DEFAULT_SCHEMA_BRANCH,
+        description: "The branch of govuk-content-schemas to test against"
+      )
+    ])
   ])
 
   try {
@@ -36,7 +37,7 @@ node {
     }
 
     stage("Build") {
-      checkout scm
+      checkout(scm)
       govuk.cleanupGit()
       govuk.mergeMasterBranch()
       govuk.bundleApp()
@@ -59,11 +60,11 @@ node {
       }
 
       stage("Test") {
-        sh "bundle exec rspec"
+        sh("bundle exec rspec")
       }
 
       stage("Verify pact") {
-        sh "bundle exec rake pact:verify"
+        sh("bundle exec rake pact:verify")
       }
     }
 
