@@ -1,34 +1,34 @@
 #!/usr/bin/env groovy
 
-REPOSITORY = 'publishing-api'
-DEFAULT_SCHEMA_BRANCH = 'deployed-to-production'
+REPOSITORY = "publishing-api"
+DEFAULT_SCHEMA_BRANCH = "deployed-to-production"
 
 node {
-  def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
+  def govuk = load "/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy"
 
   properties([
     buildDiscarder(
       logRotator(
-        numToKeepStr: '10'
+        numToKeepStr: "10"
       )
     ),
-    [$class: 'ParametersDefinitionProperty',
+    [$class: "ParametersDefinitionProperty",
       parameterDefinitions: [
-        [$class: 'BooleanParameterDefinition',
-          name: 'IS_SCHEMA_TEST',
+        [$class: "BooleanParameterDefinition",
+          name: "IS_SCHEMA_TEST",
           defaultValue: false,
-          description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
-        [$class: 'StringParameterDefinition',
-          name: 'SCHEMA_BRANCH',
+          description: "Identifies whether this build is being triggered to test a change to the content schemas"],
+        [$class: "StringParameterDefinition",
+          name: "SCHEMA_BRANCH",
           defaultValue: DEFAULT_SCHEMA_BRANCH,
-          description: 'The branch of govuk-content-schemas to test against']]
+          description: "The branch of govuk-content-schemas to test against"]]
     ],
   ])
 
   try {
     govuk.initializeParameters([
-      'IS_SCHEMA_TEST': 'false',
-      'SCHEMA_BRANCH': DEFAULT_SCHEMA_BRANCH,
+      "IS_SCHEMA_TEST": "false",
+      "SCHEMA_BRANCH": DEFAULT_SCHEMA_BRANCH,
     ])
 
     if (!govuk.isAllowedBranchBuild(env.BRANCH_NAME)) {
@@ -48,10 +48,10 @@ node {
     }
 
     stage("Lint") {
-      govuk.rubyLinter('app config Gemfile lib spec')
+      govuk.rubyLinter("app config Gemfile lib spec")
     }
 
-    // Prevent a project's tests from running in parallel on the same node
+    // Prevent a project"s tests from running in parallel on the same node
     lock("publishing-api-$NODE_NAME-test") {
       stage("Build DB") {
         sh("bundle exec rake db:environment:set")
@@ -72,38 +72,38 @@ node {
         allowMissing: false,
         alwaysLinkToLastBuild: false,
         keepAll: true,
-        reportDir: 'coverage/rcov',
-        reportFiles: 'index.html',
-        reportName: 'RCov Report'
+        reportDir: "coverage/rcov",
+        reportFiles: "index.html",
+        reportName: "RCov Report"
       ])
     }
 
     stage("Publish pacts") {
-      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'pact-broker-ci-dev',
-        usernameVariable: 'PACT_BROKER_USERNAME', passwordVariable: 'PACT_BROKER_PASSWORD']]) {
+      withCredentials([[$class: "UsernamePasswordMultiBinding", credentialsId: "pact-broker-ci-dev",
+        usernameVariable: "PACT_BROKER_USERNAME", passwordVariable: "PACT_BROKER_PASSWORD"]]) {
         withEnv(["PACT_TARGET_BRANCH=branch-${env.BRANCH_NAME}"]) {
-          sshagent(['govuk-ci-ssh-key']) {
+          sshagent(["govuk-ci-ssh-key"]) {
             sh "bundle exec rake pact:publish:branch"
           }
         }
       }
     }
 
-    if (env.BRANCH_NAME == 'master') {
+    if (env.BRANCH_NAME == "master") {
       stage("Push release tag") {
-        govuk.pushTag(REPOSITORY, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
+        govuk.pushTag(REPOSITORY, env.BRANCH_NAME, "release_" + env.BUILD_NUMBER)
       }
 
       stage("Deploy on Integration") {
-        govuk.deployIntegration(REPOSITORY, env.BRANCH_NAME, 'release', 'deploy')
+        govuk.deployIntegration(REPOSITORY, env.BRANCH_NAME, "release", "deploy")
       }
     }
 
   } catch (e) {
     currentBuild.result = "FAILED"
-    step([$class: 'Mailer',
+    step([$class: "Mailer",
           notifyEveryUnstableBuild: true,
-          recipients: 'govuk-ci-notifications@digital.cabinet-office.gov.uk',
+          recipients: "govuk-ci-notifications@digital.cabinet-office.gov.uk",
           sendToIndividuals: true])
     throw e
   }
