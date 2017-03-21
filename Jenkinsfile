@@ -3,6 +3,7 @@
 REPOSITORY = "publishing-api"
 DEFAULT_SCHEMA_BRANCH = "deployed-to-production"
 DEFAULT_CONTENT_STORE_BRANCH = "deployed-to-production"
+DEFAULT_PUBLISHING_E2E_TESTS_BRANCH = "master"
 
 node {
   def govuk = load("/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy")
@@ -29,6 +30,11 @@ node {
         defaultValue: DEFAULT_CONTENT_STORE_BRANCH,
         description: "The branch of content-store to test pacts against"
       ),
+      stringParam(
+        name: "PUBLISHING_E2E_TESTS_BRANCH",
+        defaultValue: DEFAULT_PUBLISHING_E2E_TESTS_BRANCH,
+        description: "The branch of publishing-e2e-tests to test against"
+      ),
     ])
   ])
 
@@ -37,6 +43,7 @@ node {
       "IS_SCHEMA_TEST": "false",
       "SCHEMA_BRANCH": DEFAULT_SCHEMA_BRANCH,
       "CONTENT_STORE_BRANCH": DEFAULT_CONTENT_STORE_BRANCH,
+      "PUBLISHING_E2E_TESTS_BRANCH": DEFAULT_PUBLISHING_E2E_TESTS_BRANCH,
     ])
 
     if (!govuk.isAllowedBranchBuild(env.BRANCH_NAME)) {
@@ -53,6 +60,10 @@ node {
       govuk.setEnvar("RAILS_ENV", "test")
       govuk.setEnvar("RCOV", "1")
       govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
+      govuk.setEnvar("FULL_COMMIT_HASH", sh(
+        script: "git rev-parse HEAD",
+        returnStdout: true
+      ).trim())
     }
 
     stage("Lint") {
@@ -69,10 +80,6 @@ node {
       stage("Test") {
         sh("bundle exec rspec")
       }
-
-      stage("Verify pact") {
-        sh("bundle exec rake pact:verify")
-      }
     }
 
     stage("Publish coverage") {
@@ -84,6 +91,28 @@ node {
         reportFiles: "index.html",
         reportName: "RCov Report"
       ])
+    }
+
+    stage("End-to-end tests") {
+      build(
+        job: "publishing-e2e-tests/${env.PUBLISHING_E2E_TESTS_BRANCH}",
+        parameters: [
+          [$class: "StringParameterValue",
+            name: "PUBLISHING_API_COMMITISH",
+            value: env.FULL_COMMIT_HASH],
+          [$class: "StringParameterValue",
+            name: "ORIGIN_REPO",
+            value: "publishing-api"],
+          [$class: "StringParameterValue",
+            name: "ORIGIN_COMMIT",
+            value: env.FULL_COMMIT_HASH]
+        ],
+        wait: false,
+      )
+    }
+
+    stage("Verify pact") {
+      sh "bundle exec rake pact:verify"
     }
 
     stage("Publish pacts") {
@@ -123,7 +152,6 @@ node {
         }
       }
     }
-
 
     if (env.BRANCH_NAME == "master") {
       stage("Push release tag") {
