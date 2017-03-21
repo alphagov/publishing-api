@@ -4,8 +4,14 @@ namespace :check_content_consistency do
     errors = checker.call
 
     if errors.any?
-      puts "#{content_id} #{locale} 😱"
-      puts errors
+      Airbrake.notify(
+        "Found an inconsistent document: #{content_id} #{locale} 😱",
+        parameters: {
+          content_id: content_id,
+          locale: locale,
+          errors: errors,
+        }
+      )
     end
 
     errors.none?
