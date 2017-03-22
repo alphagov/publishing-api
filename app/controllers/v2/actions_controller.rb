@@ -1,6 +1,8 @@
 module V2
   class ActionsController < ApplicationController
     def index
+      TimedFeature.check!(owner: "Tijmen", expires: "2017-04-22")
+
       actions = Action
         .where(content_id: params[:content_id])
         .as_json(only: %i[action user_uid created_at])
