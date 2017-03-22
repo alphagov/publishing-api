@@ -112,6 +112,28 @@ RSpec.describe Commands::V2::Unpublish do
             a_hash_including(destination: "/something-amazing")
           ])
         end
+
+        context "including a destination with a fragment" do
+          let(:redirects) do
+            [
+              {
+                path: base_path,
+                type: :prefix,
+                destination: "/something-amazing#foo",
+              }
+            ]
+          end
+
+          it "should populate the redirects hash" do
+            described_class.call(payload)
+
+            unpublishing = Unpublishing.first
+            puts payload
+            expect(unpublishing.redirects).to match_array([
+              a_hash_including(destination: "/something-amazing#foo")
+            ])
+          end
+        end
       end
     end
 
