@@ -183,7 +183,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
         edition.redirects = [{ path: "#{subject.base_path}/foo", type: "prefix", destination: "not valid" }]
 
         expect(subject).to be_invalid
-        expect(subject.errors[:redirects]).to eq(["is not a valid absolute URL path"])
+        expect(subject.errors[:redirects]).to eq(["is not a valid redirect destination"])
       end
     end
 
