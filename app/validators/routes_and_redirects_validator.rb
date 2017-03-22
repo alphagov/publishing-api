@@ -125,13 +125,8 @@ private
         record.errors[:redirects] << "path cannot equal the destination"
       end
 
-      if type == "exact"
-        unless valid_exact_redirect_target?(destination)
-          record.errors[:redirects] << "is not a valid redirect destination"
-        end
-      else
-        validator = AbsolutePathValidator.new(attributes: :redirects)
-        validator.validate_each(record, :redirects, destination)
+      unless valid_exact_redirect_target?(destination)
+        record.errors[:redirects] << "is not a valid redirect destination"
       end
     end
 
