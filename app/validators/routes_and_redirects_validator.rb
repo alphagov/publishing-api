@@ -18,7 +18,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
 
     must_have_unique_paths(record, routes, redirects)
 
-    if record.redirect?
+    if check_redirects?(record)
       redirects_must_include_base_path(record, base_path, redirects)
     else
       routes_must_include_base_path(record, base_path, routes)
@@ -26,6 +26,11 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
   end
 
 private
+
+  def check_redirects?(record)
+    return record.schema_name == "redirect" if record.respond_to?(:schema_name)
+    record.redirect?
+  end
 
   def must_have_unique_paths(record, routes, redirects)
     paths = routes.map { |r| r[:path] }
