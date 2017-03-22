@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316160949) do
+ActiveRecord::Schema.define(version: 20170322172057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20170316160949) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "edition_id"
-    t.json     "fact_check_ids",  default: [], null: false
     t.json     "auth_bypass_ids", default: [], null: false
     t.index ["edition_id"], name: "index_access_limits_on_edition_id", using: :btree
   end
