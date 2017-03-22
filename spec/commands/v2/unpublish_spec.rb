@@ -128,7 +128,6 @@ RSpec.describe Commands::V2::Unpublish do
             described_class.call(payload)
 
             unpublishing = Unpublishing.first
-            puts payload
             expect(unpublishing.redirects).to match_array([
               a_hash_including(destination: "/something-amazing#foo")
             ])
