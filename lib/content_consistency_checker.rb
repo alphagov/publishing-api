@@ -3,14 +3,15 @@ require 'gds_api/content_store'
 class ContentConsistencyChecker
   attr_reader :errors
 
-  def initialize(content_id, locale = "en", ignore_recent = false)
-    @content_id = content_id
-    @locale = locale
+  def initialize(ignore_recent = false)
     @ignore_recent = ignore_recent
-    @errors = []
   end
 
-  def call
+  def call(content_id, locale)
+    @content_id = content_id
+    @locale = locale
+    @errors = []
+
     unless document
       errors << "Document (#{content_id}, #{locale}) could not be found."
       return errors
