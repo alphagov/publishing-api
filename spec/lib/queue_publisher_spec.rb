@@ -14,16 +14,17 @@ RSpec.describe QueuePublisher do
     end
     let(:queue_publisher) { QueuePublisher.new(options) }
 
-    let(:mock_session) { instance_double("Bunny::Session", start: nil, create_channel: mock_channel) }
+    let(:mock_session) { instance_double("Bunny::Session", create_channel: mock_channel) }
     let(:mock_channel) { instance_double("Bunny::Channel", confirm_select: nil, topic: mock_exchange, open?: false) }
     let(:mock_exchange) { instance_double("Bunny::Exchange", publish: nil, wait_for_confirms: true) }
     before :each do
       allow(Bunny).to receive(:new) { mock_session }
+      allow(mock_session).to receive(:start) { mock_session }
     end
 
     describe "setting up the connection etc" do
       it "connects to rabbitmq using the given parameters" do
-        expect(Bunny).to receive(:new).with(options.except(:exchange)).and_return(mock_session)
+        expect(Bunny).to receive(:new).with(anything, options.except(:exchange)).and_return(mock_session)
         expect(mock_session).to receive(:start)
 
         queue_publisher.connection

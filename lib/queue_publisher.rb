@@ -8,7 +8,7 @@ class QueuePublisher
   end
 
   def connection
-    @connection ||= Bunny.new(@options)
+    @connection ||= Bunny.new(ENV["RABBITMQ_URL"], @options)
     @connection.start
   end
 
