@@ -2,7 +2,7 @@
 
 REPOSITORY = "publishing-api"
 DEFAULT_SCHEMA_BRANCH = "deployed-to-production"
-DEFAULT_CONTENT_STORE_BRANCH = "master"
+DEFAULT_CONTENT_STORE_BRANCH = "deployed-to-production"
 
 node {
   def govuk = load("/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy")
