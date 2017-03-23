@@ -4,7 +4,9 @@ module V2
       TimedFeature.check!(owner: "Tijmen", expires: "2017-04-22")
 
       actions = Action
+        .order("created_at DESC")
         .where(content_id: params[:content_id])
+        .limit(100)
         .as_json(only: %i[action user_uid created_at])
 
       render json: actions
