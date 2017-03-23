@@ -1,5 +1,17 @@
 module V2
   class ActionsController < ApplicationController
+    def index
+      TimedFeature.check!(owner: "Tijmen", expires: "2017-04-22")
+
+      actions = Action
+        .order("created_at DESC")
+        .where(content_id: params[:content_id])
+        .limit(100)
+        .as_json(only: %i[action user_uid created_at])
+
+      render json: actions
+    end
+
     def create
       response = Commands::V2::PostAction.call(action_params)
       render status: response.code, json: response
