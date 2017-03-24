@@ -8,8 +8,8 @@ class QueuePublisher
   end
 
   def connection
-    establish_connection if @connection.nil?
-    @connection
+    @connection ||= Bunny.new(ENV["RABBITMQ_URL"], @options)
+    @connection.start
   end
 
   class PublishFailedError < StandardError
@@ -65,10 +65,5 @@ private
     ensure
       channel.close if channel.open?
     end
-  end
-
-  def establish_connection
-    @connection = Bunny.new(@options)
-    @connection.start
   end
 end
