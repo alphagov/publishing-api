@@ -9,7 +9,7 @@ RSpec.describe Commands::V2::PostAction do
         stale_lock_version: 6,
       )
     end
-    let(:action) { "FactCheck" }
+    let(:action) { "AuthBypass" }
     let(:draft) { nil }
 
     let(:payload) do

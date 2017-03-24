@@ -54,7 +54,7 @@ module RequestHelpers
           "bf3e4b4f-f02d-4658-95a7-df7c74cd0f50",
           "74c7d700-5b4a-0131-7a8e-005056030037",
         ],
-        fact_check_ids: [],
+        auth_bypass_ids: [],
       }
     end
 

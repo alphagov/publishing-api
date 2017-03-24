@@ -534,12 +534,12 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         context "when the params includes an access limit" do
-          let(:fact_check_id) { SecureRandom.uuid }
+          let(:auth_bypass_id) { SecureRandom.uuid }
           before do
             payload.merge!(
               access_limited: {
                 users: ["new-user"],
-                fact_check_ids: [fact_check_id],
+                auth_bypass_ids: [auth_bypass_id],
               }
             )
           end
@@ -549,7 +549,7 @@ RSpec.describe Commands::V2::PutContent do
             access_limit.reload
 
             expect(access_limit.users).to eq(["new-user"])
-            expect(access_limit.fact_check_ids).to eq([fact_check_id])
+            expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
           end
         end
 
@@ -564,12 +564,12 @@ RSpec.describe Commands::V2::PutContent do
 
       context "when the previously drafted item does not have an access limit" do
         context "when the params includes an access limit" do
-          let(:fact_check_id) { SecureRandom.uuid }
+          let(:auth_bypass_id) { SecureRandom.uuid }
           before do
             payload.merge!(
               access_limited: {
                 users: ["new-user"],
-                fact_check_ids: [fact_check_id],
+                auth_bypass_ids: [auth_bypass_id],
               }
             )
           end
@@ -581,7 +581,7 @@ RSpec.describe Commands::V2::PutContent do
 
             access_limit = AccessLimit.find_by!(edition: previously_drafted_item)
             expect(access_limit.users).to eq(["new-user"])
-            expect(access_limit.fact_check_ids).to eq([fact_check_id])
+            expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
           end
         end
       end
