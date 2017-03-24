@@ -2,6 +2,7 @@ FROM ruby:2.3.1
 RUN apt-get update -qq && apt-get upgrade -y && apt-get install -y build-essential libpq-dev libxml2-dev libxslt1-dev && apt-get clean
 
 ENV DATABASE_URL postgresql://postgres@db/publishing-api
+ENV GOVUK_APP_NAME publishing-api
 ENV GOVUK_CONTENT_SCHEMAS_PATH /govuk-content-schemas
 ENV PORT 3093
 ENV RABBITMQ_URL amqp://guest:guest@rabbitmq:5672
