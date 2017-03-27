@@ -6,7 +6,7 @@ class ContentConsistencyChecker
   def initialize(content_store, content_dump)
     @content_store = content_store
     @content_dump = content_dump
-    @remaining_content = Set.new(content_dump.keys)
+    @checked_content = Set.new
     @errors = Hash.new { |hash, key| hash[key] = [] }
   end
 
@@ -17,7 +17,7 @@ class ContentConsistencyChecker
   end
 
   def check_content
-    remaining_content.each do |path|
+    unchecked_content.each do |path|
       content_item = content_dump.fetch(path)
       next if content_item.content_id.nil?
       next if content_item.gone?
@@ -35,8 +35,12 @@ class ContentConsistencyChecker
 
 private
 
-  attr_reader :content_store, :content_dump, :remaining_content
+  attr_reader :content_store, :content_dump, :checked_content
   attr_writer :errors
+
+  def unchecked_content
+    Set.new(content_dump.keys) - checked_content
+  end
 
   def editions_to_check
     Edition
@@ -48,7 +52,7 @@ private
     begin
       path = path.to_sym
       content_item = content_dump.fetch(path)
-      remaining_content.delete?(path)
+      checked_content.add?(path)
       content_item
     rescue KeyError
       nil
