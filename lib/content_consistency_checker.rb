@@ -6,7 +6,7 @@ class ContentConsistencyChecker
   def initialize(content_store, content_dump)
     @content_store = content_store
     @content_dump = content_dump
-    @remaining_content = Set.new(@content_dump.keys)
+    @remaining_content = Set.new(content_dump.keys)
     @errors = Hash.new { |hash, key| hash[key] = [] }
   end
 
@@ -17,8 +17,8 @@ class ContentConsistencyChecker
   end
 
   def check_content
-    @remaining_content.each do |path|
-      content_item = @content_dump.fetch(path)
+    remaining_content.each do |path|
+      content_item = content_dump.fetch(path)
       next if content_item.content_id.nil?
       next if content_item.gone?
       next unless content_item.schema_name.present?
@@ -29,13 +29,14 @@ class ContentConsistencyChecker
       )
       next if edition
 
-      @errors[content_item.base_path] << "No edition available."
+      errors[content_item.base_path] << "No edition available."
     end
   end
 
 private
 
-  attr_reader :content_store
+  attr_reader :content_store, :content_dump, :remaining_content
+  attr_writer :errors
 
   def editions_to_check
     Edition
@@ -46,8 +47,8 @@ private
   def get_content_item(path)
     begin
       path = path.to_sym
-      content_item = @content_dump.fetch(path)
-      @remaining_content.delete?(path)
+      content_item = content_dump.fetch(path)
+      remaining_content.delete?(path)
       content_item
     rescue KeyError
       nil
@@ -63,7 +64,7 @@ private
 
     unless content_item
       unless edition.gone?
-        @errors[path] << "Content is missing from the content store."
+        errors[path] << "Content is missing from the content store."
       end
 
       return
@@ -73,11 +74,11 @@ private
 
     if edition.redirect?
       unless content_item.redirect?
-        @errors[path] << "Content is not a redirect in the content store."
+        errors[path] << "Content is not a redirect in the content store."
       end
     elsif edition.gone?
       unless content_item.gone?
-        @errors[path] << "Content is not gone in the content store."
+        errors[path] << "Content is not gone in the content store."
       end
     else
       fields = [:content_id, :locale, :rendering_app, :publishing_app, :schema_name, :document_type]
@@ -86,7 +87,7 @@ private
         content_item_value = content_item.send(field)
 
         if edition_value != content_item_value
-          @errors[path] << "Edition #{field} (#{edition_value}) does not match content store (#{content_item_value})."
+          errors[path] << "Edition #{field} (#{edition_value}) does not match content store (#{content_item_value})."
         end
       end
     end
