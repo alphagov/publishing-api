@@ -17,10 +17,12 @@ end
 desc "Check all the documents for consistency with the router-api and content-store"
 task :check_content_consistency, [:content_store, :content_dump] => [:environment] do |_, args|
   raise "Missing content store." unless args[:content_store]
+  raise "Invalid content store." unless %w(live draft).include?(args[:content_store])
   raise "Missing content dump." unless args[:content_dump]
-  raise "Invalid content store." unless ["live", "draft"].include?(args[:content_store])
 
-  checker = ContentConsistencyChecker.new(args[:content_store], args[:content_dump])
+  content_dump = ContentDumpLoader.load(args[:content_dump])
+
+  checker = ContentConsistencyChecker.new(args[:content_store], content_dump)
   checker.check_editions
   checker.check_content
 

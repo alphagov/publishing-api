@@ -3,26 +3,9 @@ require 'gds_api/content_store'
 class ContentConsistencyChecker
   attr_reader :errors
 
-  ContentItem = Struct.new(:base_path,
-                           :content_id,
-                           :locale,
-                           :document_type,
-                           :schema_name,
-                           :rendering_app,
-                           :publishing_app,
-                           :updated_at) do
-    def gone?
-      schema_name == "gone" && document_type == "gone"
-    end
-
-    def redirect?
-      schema_name == "redirect" && document_type == "redirect"
-    end
-  end
-
   def initialize(content_store, content_dump)
     @content_store = content_store
-    @content_dump = load_content_dump(content_dump)
+    @content_dump = content_dump
     @remaining_content = Set.new(@content_dump.keys)
     @errors = Hash.new { |hash, key| hash[key] = [] }
   end
@@ -36,17 +19,17 @@ class ContentConsistencyChecker
   def check_content
     @remaining_content.each do |path|
       content_item = @content_dump.fetch(path)
-      next if content_item["content_id"].nil?
-      next if content_item["schema_name"] == "gone"
-      next if content_item["schema_name"].nil? || content_item["schema_name"].empty?
+      next if content_item.content_id.nil?
+      next if content_item.gone?
+      next unless content_item.schema_name.present?
 
       edition = Edition.find_by(
         content_store: content_store,
-        base_path: content_item["base_path"]
+        base_path: content_item.base_path
       )
       next if edition
 
-      @errors[content_item["base_path"]] << "No edition available."
+      @errors[content_item.base_path] << "No edition available."
     end
   end
 
@@ -58,24 +41,6 @@ private
     Edition
       .with_document
       .where(content_store: content_store)
-  end
-
-  def load_content_dump(filename)
-    content_dump = {}
-
-    Zlib::GzipReader.open(filename) do |file|
-      csv = CSV.new(file)
-      keys = csv.gets
-      csv.each do |row|
-        content_item_hash = Hash[keys.zip(row)].symbolize_keys
-        content_item = ContentItem.new(*content_item_hash.values_at(*ContentItem.members))
-        content_item.updated_at = Time.parse(content_item.updated_at)
-        base_path = content_item.base_path
-        content_dump[base_path.to_sym] = content_item
-      end
-    end
-
-    content_dump
   end
 
   def get_content_item(path)
