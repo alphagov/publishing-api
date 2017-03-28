@@ -8,7 +8,9 @@ module ContentDumpLoader
                            :publishing_app,
                            :updated_at,
                            :details_hash,
-                           :expanded_links_hash) do
+                           :expanded_links_hash,
+                           :routes_hash,
+                           :redirects_hash) do
     def gone?
       schema_name == "gone" && document_type == "gone"
     end

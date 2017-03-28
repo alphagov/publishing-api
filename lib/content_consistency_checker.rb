@@ -11,7 +11,7 @@ class ContentConsistencyChecker
   end
 
   def check_editions
-    editions_to_check.limit(10000).find_each do |edition|
+    editions_to_check.find_each do |edition|
       check_edition(edition)
     end
   end
@@ -59,6 +59,16 @@ private
     end
   end
 
+  def hash_field(object)
+    Digest::SHA1.hexdigest(
+      JSON.generate(object)
+    )
+  end
+
+  def draft?
+    content_store == "draft"
+  end
+
   def check_edition(edition)
     return unless edition.base_path
 
@@ -93,6 +103,23 @@ private
         if edition_value != content_item_value
           errors[path] << "Edition #{field} (#{edition_value}) does not match content store (#{content_item_value})."
         end
+      end
+
+      edition_presenter = Presenters::EditionPresenter.new(edition, draft: draft?)
+
+      hash_fields = [:routes, :redirects]
+      hash_fields.each do |field|
+        edition_value = hash_field(edition.send(field))
+        content_item_value = content_item.send("#{field}_hash")
+
+        if edition_value != content_item_value
+          errors[path] << "Edition #{field} hash does not match content store hash."
+        end
+      end
+
+      rendered_details = edition_presenter.rendered_details
+      if hash_field(rendered_details) != content_item.details_hash
+        errors[path] << "Edition details hash does not match content store hash."
       end
     end
   end

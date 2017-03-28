@@ -44,6 +44,10 @@ module Presenters
         .merge(withdrawal_notice)
     end
 
+    def rendered_details
+      { details: details_presenter.details }
+    end
+
   private
 
     attr_reader :draft, :edition
@@ -100,10 +104,6 @@ module Presenters
 
     def access_limit
       @access_limit ||= AccessLimit.find_by(edition_id: edition.id)
-    end
-
-    def rendered_details
-      { details: details_presenter.details }
     end
 
     def format
