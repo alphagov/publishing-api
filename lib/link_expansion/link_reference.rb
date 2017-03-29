@@ -1,11 +1,16 @@
 class LinkExpansion::LinkReference
   def links_by_link_type(
     content_id:,
+    parent_is_edition: false,
+    locale: nil,
+    with_drafts: false,
     link_types_path: [],
     parent_content_ids: []
   )
+    return {} if parent_is_edition
+
     if link_types_path.empty?
-      root_links(content_id)
+      merged_root_links(content_id, locale, with_drafts)
     else
       descendant_links(
         content_id,
@@ -15,20 +20,6 @@ class LinkExpansion::LinkReference
     end
   end
 
-  def edition_links_by_link_type(
-    content_id:,
-    locale:,
-    with_drafts:,
-    link_types_path: []
-  )
-    return {} unless link_types_path.empty?
-
-    edition_links(content_id,
-      locale: locale,
-      with_drafts: with_drafts
-    )
-  end
-
   def valid_link_node?(node)
     return true if node.link_types_path.length == 1
 
@@ -36,6 +27,14 @@ class LinkExpansion::LinkReference
   end
 
 private
+
+  def merged_root_links(content_id, locale, with_drafts)
+    edition = edition_links(content_id,
+      locale: locale,
+      with_drafts: with_drafts
+    )
+    root_links(content_id).merge(edition)
+  end
 
   def root_links(content_id)
     direct = direct_links(content_id)
