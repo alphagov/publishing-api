@@ -222,7 +222,7 @@ RSpec.describe "Dependency Resolution" do
     before do
       create_link_set(link_content_id, links_hash: { link_type => [content_id] })
       create_edition(edition_content_id, "/edition-links",
-        links_hash: { link_type => [edition_content_id] },
+        links_hash: { link_type => [link_content_id] },
       )
     end
 
