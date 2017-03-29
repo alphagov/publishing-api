@@ -208,8 +208,8 @@ RSpec.describe "Dependency Resolution" do
         )
       end
 
-      it "has the edition links which take precedence over link set links" do
-        expect(dependency_resolution).to match_array([edition_content_id])
+      it "merges the links to return both" do
+        expect(dependency_resolution).to match_array([edition_content_id, links_to_content_id])
       end
     end
   end
