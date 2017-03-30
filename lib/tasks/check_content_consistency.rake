@@ -1,32 +1,31 @@
-namespace :check_content_consistency do
-  def check_content(content_id, locale, ignore_recent)
-    checker = ContentConsistencyChecker.new(content_id, locale, ignore_recent)
-    errors = checker.call
+require "data_hygiene/content_consistency_checker"
 
-    if errors.any?
-      puts "#{content_id} #{locale} 😱"
-      puts errors
-    end
+def report_errors(errors, content_store)
+  Airbrake.notify(
+    "Documents inconsistent with the #{content_store} content store",
+    parameters: {
+      errors: errors,
+    }
+  )
 
-    errors.none?
+  errors.each do |base_path, item_errors|
+    puts "#{base_path} 😱"
+    puts item_errors
   end
+end
 
-  desc "Check documents for consistency with the router-api and content-store"
-  task :one, [:content_id, :locale] => [:environment] do |_, args|
-    content_id = args[:content_id]
-    locale = args[:locale] || "en"
-    check_content(content_id, locale, false)
-  end
+desc "Check all the documents for consistency with the content-store"
+task :check_content_consistency, [:content_store, :content_dump] => [:environment] do |_, args|
+  raise "Missing content store." unless args[:content_store]
+  raise "Invalid content store." unless %w(live draft).include?(args[:content_store])
+  raise "Missing content dump." unless args[:content_dump]
 
-  desc "Check all the documents for consistency with the router-api and content-store"
-  task :all, [:ignore_recent] => [:environment] do |_, args|
-    documents = Document.pluck(:content_id, :locale)
-    failures = documents.reject do |content_id, locale|
-      check_content(
-        content_id, locale,
-        args.fetch(:ignore_recent, false) == "true"
-      )
-    end
-    puts "Results: #{failures.count} failures out of #{documents.count}."
-  end
+  content_dump = ContentDumpLoader.load(args[:content_dump])
+
+  checker = DataHygiene::ContentConsistencyChecker.new(args[:content_store], content_dump)
+  checker.check_editions
+  checker.check_content
+
+  errors = checker.errors
+  report_errors(errors, args[:content_store]) if errors.any?
 end
