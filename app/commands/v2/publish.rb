@@ -142,7 +142,7 @@ module Commands
         SubstitutionHelper.clear!(
           new_item_document_type: edition.document_type,
           new_item_content_id: document.content_id,
-          state: "published",
+          state: %w[published unpublished],
           locale: document.locale,
           base_path: edition.base_path,
           downstream: downstream,
