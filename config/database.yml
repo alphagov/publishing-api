@@ -3,6 +3,9 @@ default: &default
   encoding: unicode
   pool: 5
   template: template0
+  host: <%= ENV["DATABASE_HOST"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
 
 development:
   <<: *default
