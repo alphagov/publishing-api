@@ -13,7 +13,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
 
     redirects.each do |redirect|
       RouteValidator.new.validate(record, :redirects, redirect, base_path)
-      RedirectValidator.new.validate(record, redirect)
+      RedirectValidator.new(record, redirect).validate
     end
 
     must_have_unique_paths(record, routes, redirects)
@@ -113,24 +113,31 @@ private
   end
 
   class RedirectValidator
-    def validate(record, redirect)
+    attr_reader :redirect, :errors
+
+    def initialize(record, redirect)
+      @redirect = redirect
+      @errors = record.errors[:redirects]
+    end
+
+    def validate
       path = redirect[:path]
       destination = redirect[:destination]
 
       unless path.present?
-        record.errors[:redirects] << "path must be present"
+        errors << "path must be present"
       end
 
       unless destination.present?
-        record.errors[:redirects] << "destination must be present"
+        errors << "destination must be present"
       end
 
       if path == destination
-        record.errors[:redirects] << "path cannot equal the destination"
+        errors << "path cannot equal the destination"
       end
 
       unless valid_exact_redirect_target?(destination)
-        record.errors[:redirects] << "is not a valid redirect destination"
+        errors << "is not a valid redirect destination"
       end
     end
 
