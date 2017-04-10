@@ -130,35 +130,43 @@ private
 
       return unless errors.empty?
 
-      return if destination.starts_with?("/")
-
       begin
-        destination_uri = URI.parse(destination)
+        uri = URI.parse(destination)
       rescue URI::InvalidURIError
         errors << "destination is an invalid url"
         return
       end
 
-      unless url_constructed_as_expected?(destination, destination_uri)
-        errors << "destination url is not constructed as expected"
-        return
-      end
-
-      errors << "external redirects must use https" unless uri.scheme == "https"
-
-      unless valid_govuk_url?(destination_uri)
-        errors << "is not a valid redirect destination"
-      end
+      validate_external_redirect(destination, uri) if external?(destination)
     end
 
   private
 
-    def valid_govuk_url?(uri)
-      host = uri.host
-      if host =~ /\A.+\.gov\.uk\z/i
-        label = host.split(".").first
-        label.present? && valid_subdomain?(label)
+    def external?(destination)
+      !destination.starts_with?("/")
+    end
+
+    def validate_external_redirect(destination, uri)
+      unless url_constructed_as_expected?(destination, uri)
+        errors << "destination url is not constructed as expected"
+        return
       end
+
+      if uri.host.nil?
+        errors << "missing host for external redirect"
+        return
+      end
+
+      errors << "external redirects only accepted within the gov.uk domain" unless
+        uri.host.end_with?(".gov.uk")
+
+      errors << "internal redirect should not be specified with full url" if
+        %w(gov.uk www.gov.uk).include? uri.host
+
+      errors << "external redirects must use https" unless uri.scheme == "https"
+
+      errors << "subdomain invalid" unless
+        uri.host.split(".").all? { |subdomain| valid_subdomain?(subdomain) }
     end
 
     def valid_subdomain?(label)
