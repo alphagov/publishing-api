@@ -116,7 +116,6 @@ private
     def validate(record, redirect)
       path = redirect[:path]
       destination = redirect[:destination]
-      type = redirect[:type]
 
       unless path.present?
         record.errors[:redirects] << "path must be present"
