@@ -179,11 +179,11 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       end
 
       it "is valid if the url is a wellformed gov.uk campaign external url" do
-       %w(
-         https://new-vat-rates.campaign.gov.uk/
-         https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
-         https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates?q=123&&a=23344
-       ).each do |destination|
+        %w(
+          https://new-vat-rates.campaign.gov.uk/
+          https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
+          https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates?q=123&&a=23344
+        ).each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/new", type: "exact", destination: destination }]
 
           expect(subject).to be_valid

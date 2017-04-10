@@ -124,38 +124,39 @@ private
       path = redirect[:path]
       destination = redirect[:destination]
 
-      unless path.present?
-        errors << "path must be present"
+      errors << "path must be present" unless path.present?
+      errors << "destination must be present" unless destination.present?
+      errors << "path cannot equal the destination" if path == destination
+
+      return unless errors.empty?
+
+      return if destination.starts_with?("/")
+
+      begin
+        destination_uri = URI.parse(destination)
+      rescue URI::InvalidURIError
+        errors << "destination is an invalid url"
+        return
       end
 
-      unless destination.present?
-        errors << "destination must be present"
+      unless url_constructed_as_expected?(destination, destination_uri)
+        errors << "destination url is not constructed as expected"
+        return
       end
 
-      if path == destination
-        errors << "path cannot equal the destination"
-      end
-
-      unless valid_exact_redirect_target?(destination)
+      unless valid_govuk_campaign_url?(destination_uri)
         errors << "is not a valid redirect destination"
       end
     end
 
   private
 
-    def acceptable_destination?(target)
-      target.starts_with?("/") || valid_govuk_campaign_url?(target)
-    end
-
-    def valid_govuk_campaign_url?(target)
-      uri = URI.parse(target)
+    def valid_govuk_campaign_url?(uri)
       host = uri.host
       if host =~ /\A.+\.campaign\.gov\.uk\z/i && uri.scheme == "https"
         label = host.split(".").first
         label.present? && valid_subdomain?(label)
       end
-    rescue
-      false
     end
 
     def valid_subdomain?(label)
@@ -176,10 +177,7 @@ private
       label =~ /\A[a-z0-9\-]*\z/i
     end
 
-    def valid_exact_redirect_target?(target)
-      return false unless target.present? && acceptable_destination?(target)
-
-      uri = URI.parse(target)
+    def url_constructed_as_expected?(target, uri)
       expected = ""
       expected << "#{uri.scheme}://" if uri.scheme.present?
       expected << uri.host if uri.host.present?
@@ -187,8 +185,6 @@ private
       expected << "?#{uri.query}" if uri.query.present?
       expected << "##{uri.fragment}" if uri.fragment.present?
       expected == target
-    rescue URI::InvalidURIError
-      false
     end
   end
 end
