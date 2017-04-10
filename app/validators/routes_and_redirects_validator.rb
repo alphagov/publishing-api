@@ -165,26 +165,17 @@ private
 
       errors << "external redirects must use https" unless uri.scheme == "https"
 
-      errors << "subdomain invalid" unless
-        uri.host.split(".").all? { |subdomain| valid_subdomain?(subdomain) }
+      uri.host.split(".").each { |subdomain| validate_subdomain(subdomain) }
     end
 
-    def valid_subdomain?(label)
-      valid_dns_label_range?(label) &&
-        starts_without_hyphen?(label) &&
-        contains_alphnumeric_or_hyphen?(label)
-    end
-
-    def valid_dns_label_range?(label)
-      (1..63) === label.length
-    end
-
-    def starts_without_hyphen?(label)
-      label =~ /\A[^-].*[^-]\z/i
-    end
-
-    def contains_alphnumeric_or_hyphen?(label)
-      label =~ /\A[a-z0-9\-]*\z/i
+    def validate_subdomain(subdomain)
+      prefix = "subdomain #{subdomain}"
+      errors << "#{prefix} is longer than 63 characters" if
+        subdomain.length > 63
+      errors << "#{prefix} should not start with a hyphen" if
+        subdomain.starts_with?("-")
+      errors << "#{prefix} contains prohibited characters" unless
+        subdomain =~ /\A[a-z0-9\-]*\z/i
     end
 
     def url_constructed_as_expected?(target, uri)
