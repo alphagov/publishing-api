@@ -146,16 +146,16 @@ private
 
       errors << "external redirects must use https" unless uri.scheme == "https"
 
-      unless valid_govuk_campaign_url?(destination_uri)
+      unless valid_govuk_url?(destination_uri)
         errors << "is not a valid redirect destination"
       end
     end
 
   private
 
-    def valid_govuk_campaign_url?(uri)
+    def valid_govuk_url?(uri)
       host = uri.host
-      if host =~ /\A.+\.campaign\.gov\.uk\z/i
+      if host =~ /\A.+\.gov\.uk\z/i
         label = host.split(".").first
         label.present? && valid_subdomain?(label)
       end
