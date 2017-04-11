@@ -127,17 +127,12 @@ private
       errors << "path must be present" unless path.present?
       errors << "destination must be present" unless destination.present?
       errors << "path cannot equal the destination" if path == destination
-
       return unless errors.empty?
 
-      begin
-        uri = URI.parse(destination)
-      rescue URI::InvalidURIError
-        errors << "destination is an invalid url"
-        return
-      end
+      errors << "destination invalid" if invalid_destination?(destination)
+      return unless errors.empty?
 
-      validate_external_redirect(destination, uri) if external?(destination)
+      validate_external_redirect(destination) if external?(destination)
     end
 
   private
@@ -146,11 +141,15 @@ private
       !destination.starts_with?("/")
     end
 
-    def validate_external_redirect(destination, uri)
-      unless url_constructed_as_expected?(destination, uri)
-        errors << "destination url is not constructed as expected"
-        return
-      end
+    def invalid_destination?(destination)
+      uri = URI.parse(destination)
+      !url_constructed_as_expected?(destination, uri)
+    rescue URI::InvalidURIError
+      true
+    end
+
+    def validate_external_redirect(destination)
+      uri = URI.parse(destination)
 
       if uri.host.nil?
         errors << "missing host for external redirect"
