@@ -178,6 +178,8 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
 
       it "is valid if the url is a wellformed gov.uk external url" do
         %w(
+          https://www.pointsoflight.gov.uk/
+          https://www.cloud.service.gov.uk/
           https://new-vat-rates.campaign.gov.uk/
           https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
           https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates?q=123&&a=23344
