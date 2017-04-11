@@ -5,7 +5,7 @@ RSpec.describe LinkExpansion do
 
   let(:content_id) { SecureRandom.uuid }
 
-  describe "#links_with_contetn" do
+  describe "#links_with_content" do
     subject do
       described_class.new(content_id,
         locale: :en,
