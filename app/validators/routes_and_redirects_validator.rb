@@ -13,7 +13,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
 
     redirects.each do |redirect|
       RouteValidator.new.validate(record, :redirects, redirect, base_path)
-      RedirectValidator.new.validate(record, redirect)
+      RedirectValidator.new(record, redirect).validate
     end
 
     must_have_unique_paths(record, routes, redirects)
@@ -113,67 +113,71 @@ private
   end
 
   class RedirectValidator
-    def validate(record, redirect)
+    attr_reader :redirect, :errors
+
+    def initialize(record, redirect)
+      @redirect = redirect
+      @errors = record.errors[:redirects]
+    end
+
+    def validate
       path = redirect[:path]
       destination = redirect[:destination]
-      type = redirect[:type]
 
-      unless path.present?
-        record.errors[:redirects] << "path must be present"
-      end
+      errors << "path must be present" unless path.present?
+      errors << "destination must be present" unless destination.present?
+      errors << "path cannot equal the destination" if path == destination
+      return unless errors.empty?
 
-      unless destination.present?
-        record.errors[:redirects] << "destination must be present"
-      end
+      errors << "destination invalid" if invalid_destination?(destination)
+      return unless errors.empty?
 
-      if path == destination
-        record.errors[:redirects] << "path cannot equal the destination"
-      end
-
-      unless valid_exact_redirect_target?(destination)
-        record.errors[:redirects] << "is not a valid redirect destination"
-      end
+      validate_external_redirect(destination) if external?(destination)
     end
 
   private
 
-    def acceptable_destination?(target)
-      target.starts_with?("/") || valid_govuk_campaign_url?(target)
+    def external?(destination)
+      !destination.starts_with?("/")
     end
 
-    def valid_govuk_campaign_url?(target)
-      uri = URI.parse(target)
-      host = uri.host
-      if host =~ /\A.+\.campaign\.gov\.uk\z/i && uri.scheme == "https"
-        label = host.split(".").first
-        label.present? && valid_subdomain?(label)
+    def invalid_destination?(destination)
+      uri = URI.parse(destination)
+      !url_constructed_as_expected?(destination, uri)
+    rescue URI::InvalidURIError
+      true
+    end
+
+    def validate_external_redirect(destination)
+      uri = URI.parse(destination)
+
+      if uri.host.nil?
+        errors << "missing host for external redirect"
+        return
       end
-    rescue
-      false
+
+      errors << "external redirects only accepted within the gov.uk domain" unless
+        uri.host.end_with?(".gov.uk")
+
+      errors << "internal redirect should not be specified with full url" if
+        %w(gov.uk www.gov.uk).include? uri.host
+
+      errors << "external redirects must use https" unless uri.scheme == "https"
+
+      uri.host.split(".").each { |subdomain| validate_subdomain(subdomain) }
     end
 
-    def valid_subdomain?(label)
-      valid_dns_label_range?(label) &&
-        starts_without_hyphen?(label) &&
-        contains_alphnumeric_or_hyphen?(label)
+    def validate_subdomain(subdomain)
+      prefix = "subdomain #{subdomain}"
+      errors << "#{prefix} is longer than 63 characters" if
+        subdomain.length > 63
+      errors << "#{prefix} should not start with a hyphen" if
+        subdomain.starts_with?("-")
+      errors << "#{prefix} contains prohibited characters" unless
+        subdomain =~ /\A[a-z0-9\-]*\z/i
     end
 
-    def valid_dns_label_range?(label)
-      (1..63) === label.length
-    end
-
-    def starts_without_hyphen?(label)
-      label =~ /\A[^-].*[^-]\z/i
-    end
-
-    def contains_alphnumeric_or_hyphen?(label)
-      label =~ /\A[a-z0-9\-]*\z/i
-    end
-
-    def valid_exact_redirect_target?(target)
-      return false unless target.present? && acceptable_destination?(target)
-
-      uri = URI.parse(target)
+    def url_constructed_as_expected?(target, uri)
       expected = ""
       expected << "#{uri.scheme}://" if uri.scheme.present?
       expected << uri.host if uri.host.present?
@@ -181,8 +185,6 @@ private
       expected << "?#{uri.query}" if uri.query.present?
       expected << "##{uri.fragment}" if uri.fragment.present?
       expected == target
-    rescue URI::InvalidURIError
-      false
     end
   end
 end

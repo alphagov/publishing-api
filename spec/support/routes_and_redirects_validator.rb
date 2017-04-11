@@ -150,26 +150,40 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
     end
 
     context "when destination is external url" do
-      it "is invalid if it is not an external gov.uk campaign url" do
-        ["https://www.example.com/foo/bar", "https://www.gov.uk/foo/bar"].each do |destination|
+      it "is invalid if it is not actually an external url" do
+        ["https://gov.uk/test", "https://www.gov.uk/foo/bar"].each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
 
           expect(subject).to be_invalid
-          expect(subject.errors[:redirects]).to eq(["is not a valid redirect destination"])
         end
       end
 
-      it "is invalid if the url is a malformed gov.uk campaign external url" do
-        ["://new-vat-rates.campaign.gov.uk/", "http:new-vat-rates.campaign.gov.uk/", "httpsnew-vat-rates.campaign.gov.uk/", "https://new_vat-rates.campaign.gov.uk/", "http://.campaign.gov.uk/", "http://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates", "http://new-vat-rates.campaignjservicepgov.uk/path/to/your/new/vat-rates", "https://fakesite.net/.new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates", "ftp://new-vat-rates.campaign.gov.uk/"].each do |destination|
+      it "is invalid if the url is a malformed gov.uk external url" do
+        %w(
+          ://new-vat-rates.campaign.gov.uk/
+          http:new-vat-rates.campaign.gov.uk/
+          httpsnew-vat-rates.campaign.gov.uk/
+          https://new_vat-rates.campaign.gov.uk/
+          http://.campaign.gov.uk/
+          http://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
+          http://new-vat-rates.campaignjservicepgov.uk/path/to/your/new/vat-rates
+          https://fakesite.net/.new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
+          ftp://new-vat-rates.campaign.gov.uk/
+        ).each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
 
           expect(subject).to be_invalid
-          expect(subject.errors[:redirects]).to eq(["is not a valid redirect destination"])
         end
       end
 
-      it "is valid if the url is a wellformed gov.uk campaign external url" do
-        ["https://new-vat-rates.campaign.gov.uk/", "https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates", "https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates?q=123&&a=23344"].each do |destination|
+      it "is valid if the url is a wellformed gov.uk external url" do
+        %w(
+          https://www.pointsoflight.gov.uk/
+          https://www.cloud.service.gov.uk/
+          https://new-vat-rates.campaign.gov.uk/
+          https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
+          https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates?q=123&&a=23344
+        ).each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/new", type: "exact", destination: destination }]
 
           expect(subject).to be_valid
@@ -183,7 +197,6 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
         edition.redirects = [{ path: "#{subject.base_path}/foo", type: "prefix", destination: "not valid" }]
 
         expect(subject).to be_invalid
-        expect(subject.errors[:redirects]).to eq(["is not a valid redirect destination"])
       end
     end
 
@@ -200,7 +213,6 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
 
           expect(subject).to be_invalid
-          expect(subject.errors[:redirects]).to eq(["is not a valid redirect destination"])
         end
       end
     end
