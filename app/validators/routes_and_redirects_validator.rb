@@ -110,6 +110,7 @@ private
         supported_keys += %i(
           destination
           segments_mode
+          redirect_type
         )
       end
 
