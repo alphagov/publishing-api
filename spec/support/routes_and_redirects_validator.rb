@@ -158,7 +158,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
         end
       end
 
-      it "is invalid if the url is a malformed gov.uk campaign external url" do
+      it "is invalid if the url is a malformed gov.uk external url" do
         %w(
           ://new-vat-rates.campaign.gov.uk/
           http:new-vat-rates.campaign.gov.uk/
@@ -176,7 +176,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
         end
       end
 
-      it "is valid if the url is a wellformed gov.uk campaign external url" do
+      it "is valid if the url is a wellformed gov.uk external url" do
         %w(
           https://new-vat-rates.campaign.gov.uk/
           https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
