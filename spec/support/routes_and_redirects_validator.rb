@@ -150,8 +150,8 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
     end
 
     context "when destination is external url" do
-      it "is invalid if it is not an external gov.uk campaign url" do
-        ["https://www.example.com/foo/bar", "https://www.gov.uk/foo/bar"].each do |destination|
+      it "is invalid if it is not actually an external url" do
+        ["https://gov.uk/test", "https://www.gov.uk/foo/bar"].each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
 
           expect(subject).to be_invalid
