@@ -84,4 +84,30 @@ RSpec.describe LinkExpansion::Rules do
       expect(subject.potential_expansion_fields("nested_doc")).to eq([:title, :details])
     end
   end
+
+  describe "REVERSE_LINKS" do
+    let(:reverse_links) { described_class::REVERSE_LINKS.values.map(&:to_s) }
+
+    describe "are defined in necessary frontend schemas" do
+      schemas_of_type("frontend/schema").each do |path, schema|
+        links = schema["properties"]["links"]
+        next unless links
+        context "when the schema is #{path}" do
+          subject { links["properties"].keys }
+          it { is_expected.to include(*reverse_links) }
+        end
+      end
+    end
+
+    describe "are not defined in publisher schemas" do
+      schemas_of_type("publisher_v2/links").each do |path, schema|
+        links = schema["properties"]["links"]
+        next unless links
+        context "when the schema is #{path}" do
+          subject { links["properties"].keys }
+          it { is_expected.not_to include(*reverse_links) }
+        end
+      end
+    end
+  end
 end
