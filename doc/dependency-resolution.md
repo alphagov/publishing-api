@@ -105,7 +105,7 @@ information.
 [downstream-live-worker]: ../app/workers/downstream_live_worker.rb
 [downstream-discard-draft-worker]: ../app/workers/downstream_discard_draft_worker.rb
 [content-dependencies]: ../app/queries/content_dependencies.rb
-[dependency-resolution]: ../lib/dependency-resolution.rb
+[dependency-resolution]: ../lib/dependency_resolution.rb
 [content-dependencies]: ../app/queries/content_dependencies.rb
 [link-set-link]: link-expansion.md#patch-link-set---link-set-links
 [link-expansion-rules]: ../lib/link_expansion/rules.rb
