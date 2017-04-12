@@ -17,7 +17,7 @@ What this means is:
   service
 
 
-# How it works
+## How it works
 
 The gds-api-adapters gem, as the consumer of the pact, includes in its test
 suite a fake publishing-api endpoint provided by the pact gem. The tests then
@@ -31,7 +31,7 @@ replayed against the real Publishing API application to test that it behaves as
 expected.
 
 
-# How the tests run in CI
+## How the tests run in CI
 
 The CI environment includes an app called [Pact Broker][pact-broker]. This app
 records versions of pacts and supplies them on request, to allow verifying
@@ -50,7 +50,7 @@ In publishing-api itself, the Jenkins job runs the `pact:verify` rake task to
 verify the current branch against both master and that released version pact.
 
 
-# Running the pacts in development
+## Running the pacts in development
 
 You can use `pact:verify` locally to run the current branch against the master
 and released version pacts stored in Pact Broker. If you need to run them
@@ -64,7 +64,7 @@ This will cause pact to look for the pactfile in
 additionally override this location by setting the `GDS_API_PACT_PATH` variable.
 
 
-# Making breaking changes
+## Making breaking changes
 
 Previously, an updated pact was only published to the pact-broker when the
 gds-api-adapter version was bumped and the gem published to rubygems. This is
