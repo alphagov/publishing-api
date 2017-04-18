@@ -90,6 +90,19 @@ RSpec.describe Commands::V2::Unpublish do
             a_hash_including(destination: "/something-great")
           ])
         end
+
+        context "containing a fragment" do
+          let(:alternative_path) { "/something-great#foo" }
+
+          it "should populate the redirects hash" do
+            described_class.call(payload)
+
+            unpublishing = Unpublishing.first
+            expect(unpublishing.redirects).to match_array([
+              a_hash_including(destination: "/something-great#foo")
+            ])
+          end
+        end
       end
 
       context "with a redirects hash" do

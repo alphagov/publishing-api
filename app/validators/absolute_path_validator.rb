@@ -11,7 +11,7 @@ private
     return false unless path.present? && path.starts_with?("/")
 
     uri = URI.parse(path)
-    uri.path == path && path !~ %r{//} && path !~ %r{./\z}
+    "#{uri.path}#{uri.fragment}" == path && path !~ %r{//} && path !~ %r{./\z}
   rescue URI::InvalidURIError
     false
   end
