@@ -49,7 +49,10 @@ private
     rules.expand_fields(edition, node.link_type).tap do |expanded|
       links = populate_links(node.links)
       auto_reverse = auto_reverse_link(node)
-      expanded.merge!(links: (auto_reverse || {}).merge(links))
+      expanded.merge!(
+        links: (auto_reverse || {}).merge(links),
+        draft: draft?(edition),
+      )
     end
   end
 
@@ -70,6 +73,10 @@ private
     # this requires we assess impact on the rendering applications first.
     %i(children parent related_statistical_data_sets).include?(link_type) ||
       edition.state != "unpublished"
+  end
+
+  def draft?(edition)
+    edition.content_store == "draft"
   end
 
   def rules
