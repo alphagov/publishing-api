@@ -1,3 +1,6 @@
+require "csv"
+require "zlib"
+
 module ContentDumpLoader
   ContentItem = Struct.new(:base_path,
                            :content_id,
