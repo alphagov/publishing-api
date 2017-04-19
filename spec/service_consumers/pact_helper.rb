@@ -10,14 +10,18 @@ Pact.configure do |config|
   config.include WebMock::Matchers
 end
 
+def url_encode(str)
+  ERB::Util.url_encode(str)
+end
+
 Pact.service_provider "Publishing API" do
   honours_pact_with 'GDS API Adapters' do
     if ENV['USE_LOCAL_PACT']
       pact_uri ENV.fetch('GDS_API_PACT_PATH', '../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json')
     else
       base_url = ENV.fetch("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
-      url = "#{base_url}/pacts/provider/#{URI.escape(name)}/consumer/#{URI.escape(consumer_name)}"
-      version_part = ENV['GDS_API_PACT_VERSION'] ? "versions/#{ENV['GDS_API_PACT_VERSION']}" : 'latest'
+      url = "#{base_url}/pacts/provider/#{url_encode(name)}/consumer/#{url_encode(consumer_name)}"
+      version_part = ENV['GDS_API_PACT_VERSION'] ? "versions/#{url_encode(ENV['GDS_API_PACT_VERSION'])}" : 'latest'
 
       pact_uri "#{url}/#{version_part}"
     end
