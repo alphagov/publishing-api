@@ -58,6 +58,7 @@ node {
       govuk.contentSchemaDependency(env.SCHEMA_BRANCH)
       govuk.setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
       govuk.setEnvar("RAILS_ENV", "test")
+      govuk.setEnvar("DISABLE_DATABASE_ENVIRONMENT_CHECK", "1")
       govuk.setEnvar("RCOV", "1")
       govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
       govuk.setEnvar("FULL_COMMIT_HASH", sh(
@@ -73,7 +74,6 @@ node {
     // Prevent a project's tests from running in parallel on the same node
     lock("publishing-api-$NODE_NAME-test") {
       stage("Build DB") {
-        sh("bundle exec rake db:environment:set")
         sh("bundle exec rake db:reset")
       }
 
