@@ -8,6 +8,7 @@ module Presenters
       :document_id,
       :id,
       :last_edited_at,
+      :description_string,
       :state,
       :unpublishing_type,
       :updated_at,
