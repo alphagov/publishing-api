@@ -5,11 +5,14 @@ class QueuePublisher
 
     @exchange_name = options.fetch(:exchange)
     @options = options.except(:exchange)
+    @connection_mutex = Mutex.new
   end
 
   def connection
-    @connection ||= Bunny.new(ENV["RABBITMQ_URL"], @options)
-    @connection.start
+    @connection_mutex.synchronize do
+      @connection ||= Bunny.new(ENV["RABBITMQ_URL"], @options)
+      @connection.start
+    end
   end
 
   class PublishFailedError < StandardError
