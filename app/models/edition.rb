@@ -227,31 +227,6 @@ class Edition < ApplicationRecord
     Plek.current.website_root + base_path
   end
 
-  # FIXME These are required for the special 'description' column but should
-  # be removed when the column is fixed.
-  def description=(value)
-    super("value" => value)
-  end
-
-  def description
-    super.fetch("value")
-  end
-
-  def attributes
-    attributes = super
-    description = attributes.delete("description")
-
-    if description
-      attributes.merge("description" => description.fetch("value"))
-    else
-      attributes
-    end
-  end
-
-  def self.column_defaults
-    super.merge("description" => nil)
-  end
-
 private
 
   def renderable_content?
