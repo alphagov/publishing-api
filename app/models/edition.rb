@@ -227,30 +227,11 @@ class Edition < ApplicationRecord
     Plek.current.website_root + base_path
   end
 
-  # FIXME These are required for the special 'description' column but should
-  # be removed when the column is fixed.
+  # We're keeping this until such time as we decide to remove description_json
+  # entirely, so that we don't lose the data in case we decide to revert.
   def description=(value)
-    super("value" => value)
-    self.description_string = value
-  end
-
-  def description
-    super.fetch("value")
-  end
-
-  def attributes
-    attributes = super
-    description = attributes.delete("description")
-
-    if description
-      attributes.merge("description" => description.fetch("value"))
-    else
-      attributes
-    end
-  end
-
-  def self.column_defaults
-    super.merge("description" => nil)
+    super(value)
+    self.description_json = { "value" => value }
   end
 
 private
