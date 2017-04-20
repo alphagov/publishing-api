@@ -232,6 +232,7 @@ class Edition < ApplicationRecord
   # be removed when the column is fixed.
   def description=(value)
     super("value" => value)
+    self.description2 = value
   end
 
   def description
