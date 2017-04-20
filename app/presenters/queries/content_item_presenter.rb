@@ -105,8 +105,6 @@ module Presenters
             "editions.user_facing_version AS user_facing_version"
           when :lock_version
             "documents.stale_lock_version AS lock_version"
-          when :description
-            "description->>'value' AS description"
           when :last_edited_at
             "to_char(last_edited_at, '#{ISO8601_SQL}') as last_edited_at"
           when :public_updated_at
