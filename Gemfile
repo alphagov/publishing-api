@@ -22,7 +22,7 @@ gem "gds-sso", "13.0.0"
 gem "govuk_schemas", require: false
 gem "govuk_document_types", "~> 0.1.4"
 
-gem 'bunny', '2.5.1'
+gem 'bunny', '~> 2.6'
 gem 'whenever', '0.9.4', require: false
 gem "govuk_sidekiq", "~> 1.0.3"
 gem "json-schema", require: false
