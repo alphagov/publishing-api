@@ -51,7 +51,7 @@ GEM
     airbrake (5.5.0)
       airbrake-ruby (~> 1.5)
     airbrake-ruby (1.5.0)
-    amq-protocol (2.0.1)
+    amq-protocol (2.1.0)
     arel (7.1.4)
     ast (2.3.0)
     awesome_print (1.7.0)
@@ -64,8 +64,8 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
-    bunny (2.5.1)
-      amq-protocol (>= 2.0.1)
+    bunny (2.6.5)
+      amq-protocol (>= 2.1.0)
     byebug (9.0.6)
     chronic (0.10.2)
     coderay (1.1.1)
@@ -398,7 +398,7 @@ DEPENDENCIES
   airbrake-ruby (= 1.5)
   arel (= 7.1.4)
   aws-sdk (~> 2)
-  bunny (= 2.5.1)
+  bunny (~> 2.6)
   dalli
   database_cleaner
   diffy (~> 3.1)
