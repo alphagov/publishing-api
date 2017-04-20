@@ -57,7 +57,6 @@ class Edition < ApplicationRecord
     in: %w(alpha beta live),
     message: 'must be either alpha, beta, or live'
   }
-  validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include_one_of: %w(text/html text/govspeak) }
 
   validate :user_facing_version_must_increase
