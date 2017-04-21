@@ -389,6 +389,9 @@ GEM
     websocket-extensions (0.1.2)
     whenever (0.9.4)
       chronic (>= 0.6.3)
+    with_advisory_lock (3.1.0)
+      activerecord (>= 3.2)
+      thread_safe
 
 PLATFORMS
   ruby
@@ -437,6 +440,7 @@ DEPENDENCIES
   web-console (~> 2.0)
   webmock
   whenever (= 0.9.4)
+  with_advisory_lock (~> 3.1)
 
 BUNDLED WITH
    1.14.5
