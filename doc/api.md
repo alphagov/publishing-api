@@ -342,6 +342,14 @@ and a state has been specified, the draft is returned.
     "public_updated_at", "schema_name", "title"
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
+- `link_*` *(optional)*
+  - Accepts a content_id.
+  - Used to restrict documents to those linking to another document,
+    e.g. `link_organisations=056a9ff6-2ed1-4942-9f06-92df03da741d`
+    will restrict the documents returned to those that have a link
+    with type `organisations` to the document with specified content
+    id. Query parameters matching this form can be specified multiple
+    times.
 - `locale` *(optional, default "en")*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - Used to restrict documents to a given locale.
