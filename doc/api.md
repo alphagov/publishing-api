@@ -382,7 +382,7 @@ default the most recent edition is returned, which may be a draft.
 If the returned item is in the draft state, [warnings](#warnings) may be
 included within the response.
 
-### Path parameters
+### Path parameters
 
 - [`content_id`](model.md#content_id)
   - Identifies the document to be returned.
@@ -436,7 +436,7 @@ content. These are tied to documents solely by matching `content_id` and they
 are not associated with a locale or a particular edition. The ordering of links
 in the request is preserved.
 
-### Path parameters
+### Path parameters
 
 - [`content_id`](model.md#content_id)
   - Identifies the documents the links are for.
