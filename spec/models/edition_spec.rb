@@ -326,7 +326,6 @@ RSpec.describe Edition do
   end
 
   it_behaves_like WellFormedContentTypesValidator
-  it_behaves_like "description overrides"
 
   context "#publish" do
     it "changes the content_store to live" do

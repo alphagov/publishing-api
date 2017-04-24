@@ -57,7 +57,6 @@ class Edition < ApplicationRecord
     in: %w(alpha beta live),
     message: 'must be either alpha, beta, or live'
   }
-  validates :description, well_formed_content_types: { must_include: "text/html" }
   validates :details, well_formed_content_types: { must_include_one_of: %w(text/html text/govspeak) }
 
   validate :user_facing_version_must_increase
@@ -226,31 +225,6 @@ class Edition < ApplicationRecord
   def web_url
     return unless base_path
     Plek.current.website_root + base_path
-  end
-
-  # FIXME These are required for the special 'description' column but should
-  # be removed when the column is fixed.
-  def description=(value)
-    super("value" => value)
-  end
-
-  def description
-    super.fetch("value")
-  end
-
-  def attributes
-    attributes = super
-    description = attributes.delete("description")
-
-    if description
-      attributes.merge("description" => description.fetch("value"))
-    else
-      attributes
-    end
-  end
-
-  def self.column_defaults
-    super.merge("description" => nil)
   end
 
 private
