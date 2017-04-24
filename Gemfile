@@ -31,6 +31,7 @@ gem "sidekiq-unique-jobs", git: "https://github.com/alphagov/sidekiq-unique-jobs
 gem "govspeak", "~> 5.0.2"
 gem "diffy", "~> 3.1", require: false
 gem "aws-sdk", "~> 2"
+gem "with_advisory_lock", "~> 3.1"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
