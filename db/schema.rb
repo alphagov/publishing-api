@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419125440) do
+ActiveRecord::Schema.define(version: 20170420154120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20170419125440) do
     t.string   "base_path"
     t.string   "content_store"
     t.integer  "document_id",                                   null: false
+    t.string   "description_string"
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true, using: :btree
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true, using: :btree
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state", using: :btree
