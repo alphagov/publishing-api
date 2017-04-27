@@ -96,9 +96,6 @@ module Queries
 
     def search_field_for_query(field)
       raise_error("Invalid search field: #{field}") unless valid_search_field?(field)
-      # special case as description is a JSON object that just contains a hash
-      # of value
-      return "description->>'value'" if field == "description"
       return field unless field.include?(".")
       elements = field.split(".")
       "#{elements[0]}->>'#{escape_nested_field(elements[1])}'"
