@@ -2,6 +2,7 @@ class RepairMissingAttachmentUrls < ActiveRecord::Migration[5.0]
   def up
     ATTACHMENT_URLS.each do |item|
       edition = Edition.where(base_path: item[:edition_slug]).order(:created_at).last
+      next unless edition
 
       edition_details = edition.details
 
@@ -25,6 +26,7 @@ class RepairMissingAttachmentUrls < ActiveRecord::Migration[5.0]
   def down
     ATTACHMENT_URLS.each do |item|
       edition = Edition.where(base_path: item[:edition_slug]).order(:created_at).last
+      next unless edition
 
       edition_details = edition.details
 
