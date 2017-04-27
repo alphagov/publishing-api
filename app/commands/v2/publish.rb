@@ -104,7 +104,15 @@ module Commands
           raise_command_error(422, "An update_type of '#{update_type}' is invalid", fields: {
             update_type: ["must be one of #{valid_update_types.inspect}"],
           })
+        elsif first_publication_and_not_major_update?
+          raise_command_error(422, "An update_type of major is required the first time an edition is published", fields: {
+            update_type: ["must be major on first publication"],
+          })
         end
+      end
+
+      def first_publication_and_not_major_update?
+        !previous_item && update_type != "major"
       end
 
       def delete_change_notes

@@ -323,6 +323,12 @@ RSpec.describe Commands::V2::Publish do
           end
 
           it "uses the stored timestamp for major or minor" do
+            FactoryGirl.create(:unpublished_edition,
+              document: draft_item.document,
+              public_updated_at: public_updated_at,
+              base_path: base_path,
+            )
+
             expect(DownstreamLiveWorker)
               .to receive(:perform_async_in_queue)
               .with(
@@ -341,7 +347,13 @@ RSpec.describe Commands::V2::Publish do
           payload[:update_type] = "minor"
           ChangeNote.create(edition: draft_item)
         end
+
         it "deletes associated ChangeNote records" do
+          FactoryGirl.create(:live_edition,
+            document: draft_item.document,
+            base_path: base_path,
+          )
+
           expect { described_class.call(payload) }
             .to change { ChangeNote.count }.by(-1)
         end
@@ -371,6 +383,13 @@ RSpec.describe Commands::V2::Publish do
         described_class.call(payload)
 
         expect(draft_item.reload.first_published_at).to be_within(1.second).of(Time.zone.now)
+      end
+
+      it "throws an error if update_type is minor" do
+        payload[:update_type] = "minor"
+        expect { described_class.call(payload) }.to raise_error(CommandError) do |error|
+          expect(error.code).to eq(422)
+        end
       end
     end
 
