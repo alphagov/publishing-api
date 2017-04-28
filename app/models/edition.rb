@@ -227,13 +227,6 @@ class Edition < ApplicationRecord
     Plek.current.website_root + base_path
   end
 
-  # We're keeping this until such time as we decide to remove description_json
-  # entirely, so that we don't lose the data in case we decide to revert.
-  def description=(value)
-    super(value)
-    self.description_json = { "value" => value }
-  end
-
 private
 
   def renderable_content?
