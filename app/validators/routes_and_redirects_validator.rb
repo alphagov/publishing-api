@@ -138,7 +138,7 @@ private
       errors << "destination invalid" if invalid_destination?(destination)
       return unless errors.empty?
 
-      if !external?(destination)
+      if internal?(destination)
         validate_internal_redirect(destination)
       else
         validate_external_redirect(destination)
@@ -147,8 +147,8 @@ private
 
   private
 
-    def external?(destination)
-      !destination.starts_with?("/")
+    def internal?(destination)
+      destination.starts_with?("/")
     end
 
     def invalid_destination?(destination)
