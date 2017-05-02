@@ -12,6 +12,8 @@ gem 'airbrake-ruby', '1.5'
 gem "pg"
 gem 'dalli'
 
+gem "colorize", "~> 0.8"
+
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else

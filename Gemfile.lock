@@ -69,6 +69,7 @@ GEM
     byebug (9.0.6)
     chronic (0.10.2)
     coderay (1.1.1)
+    colorize (0.8.1)
     commander (4.4.0)
       highline (~> 1.7.2)
     concurrent-ruby (1.0.4)
@@ -402,6 +403,7 @@ DEPENDENCIES
   arel (= 7.1.4)
   aws-sdk (~> 2)
   bunny (~> 2.6)
+  colorize (~> 0.8)
   dalli
   database_cleaner
   diffy (~> 3.1)
