@@ -1,4 +1,5 @@
 require "diffy"
+require "hashdiff"
 
 module DataHygiene
   class GovspeakCompare
