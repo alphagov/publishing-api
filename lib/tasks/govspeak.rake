@@ -1,3 +1,5 @@
+require "colorize"
+
 namespace :govspeak do
   task :compare, [:publishing_app, :limit, :offset, :order] => :environment do |_, args|
     args.with_defaults(order: "editions.id ASC")
