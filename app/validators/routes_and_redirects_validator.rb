@@ -138,13 +138,17 @@ private
       errors << "destination invalid" if invalid_destination?(destination)
       return unless errors.empty?
 
-      validate_external_redirect(destination) if external?(destination)
+      if internal?(destination)
+        validate_internal_redirect(destination)
+      else
+        validate_external_redirect(destination)
+      end
     end
 
   private
 
-    def external?(destination)
-      !destination.starts_with?("/")
+    def internal?(destination)
+      destination.starts_with?("/")
     end
 
     def invalid_destination?(destination)
@@ -152,6 +156,11 @@ private
       !url_constructed_as_expected?(destination, uri)
     rescue URI::InvalidURIError
       true
+    end
+
+    def validate_internal_redirect(destination)
+      errors << "internal redirects cannot end with /" if
+        destination.end_with? "/"
     end
 
     def validate_external_redirect(destination)

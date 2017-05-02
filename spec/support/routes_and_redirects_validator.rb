@@ -149,6 +149,19 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       expect { subject.valid? }.to_not raise_error
     end
 
+    context "when destination is a internal url" do
+      it "is invalid if it ends with /" do
+        edition.redirects = [
+          {
+            path: "#{subject.base_path}/foo",
+            type: "exact",
+            destination: "#{subject.base_path}/bar/"
+          }
+        ]
+        expect(subject).to be_invalid
+      end
+    end
+
     context "when destination is external url" do
       it "is invalid if it is not actually an external url" do
         ["https://gov.uk/test", "https://www.gov.uk/foo/bar"].each do |destination|
