@@ -154,7 +154,7 @@ module Commands
       def set_public_updated_at
         return if edition.public_updated_at.present?
 
-        if update_type == "major"
+        if update_type == "major" || previous_item.blank?
           edition.update_attributes!(public_updated_at: Time.zone.now)
         elsif update_type == "minor"
           edition.update_attributes!(public_updated_at: previous_item.public_updated_at)

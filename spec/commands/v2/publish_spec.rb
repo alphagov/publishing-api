@@ -312,6 +312,12 @@ RSpec.describe Commands::V2::Publish do
 
             expect(Edition.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
           end
+
+          it "updates the public_updated_at time to now if no previous item" do
+            described_class.call(payload)
+
+            expect(draft_item.reload.public_updated_at).to be_within(1.second).of(Time.zone.now)
+          end
         end
 
         context "for a republish" do
