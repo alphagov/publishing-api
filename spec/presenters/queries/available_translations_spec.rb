@@ -38,6 +38,41 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
     end
   end
 
+  context "with withdrawn editions" do
+    let(:with_drafts) { true }
+
+    before do
+      create_edition("/a", "published").unpublish(type: "withdrawal", explanation: "Withdrawn for a test.")
+      create_edition("/a.ar", "published", "ar")
+      create_edition("/a.es", "draft", "es")
+    end
+
+    it "returns all the items" do
+      expect(translations).to match_array([
+        a_hash_including(base_path: "/a", locale: "en"),
+        a_hash_including(base_path: "/a.ar", locale: "ar"),
+        a_hash_including(base_path: "/a.es", locale: "es"),
+      ])
+    end
+  end
+
+  context "with gone editions" do
+    let(:with_drafts) { false }
+
+    before do
+      create_edition("/a", "published")
+      create_edition("/a.ar", "published", "ar")
+      create_edition("/a.es", "published", "es").unpublish(type: "gone", explanation: "Removed for a test.")
+    end
+
+    it "returns the items which are not gone" do
+      expect(translations).to match_array([
+        a_hash_including(base_path: "/a", locale: "en"),
+        a_hash_including(base_path: "/a.ar", locale: "ar"),
+      ])
+    end
+  end
+
   context "with items in more than one state" do
     let!(:en) { create_edition("/a", "published") }
     let!(:ar) { create_edition("/a.ar", "draft", "ar") }
