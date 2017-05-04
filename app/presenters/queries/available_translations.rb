@@ -38,17 +38,24 @@ module Presenters
       end
 
       def state_fallback_order
-        with_drafts ? %i[draft published] : %i[published]
+        return %i[draft published unpublished] if with_drafts
+        %i[published unpublished]
       end
 
       def edition_scope
-        Edition
+        scope = Edition
           .with_document
           .with_unpublishing
           .where(
             documents: { content_id: content_id },
             state: state_fallback_order,
           )
+
+        # filter out unpublishings which aren't withdrawals (i.e. gone, redirect, etc)
+        scope
+          .where("
+            editions.state != 'unpublished' OR unpublishings.type = 'withdrawal'
+          ")
       end
 
       def pluck_and_sort_editions(scope)
