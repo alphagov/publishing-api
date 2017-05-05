@@ -2,11 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Presenters::Queries::AvailableTranslations do
   subject(:translations) do
-    described_class.new(
-      content_id: content_id,
-      edition: edition,
-      with_drafts: with_drafts,
-    ).translations[:available_translations]
+    described_class
+      .by_content_id(content_id, with_drafts: with_drafts)
+      .translations[:available_translations]
+  end
+
+  subject(:translations_by_edition) do
+    described_class
+      .by_edition(edition)
+      .translations[:available_translations]
   end
 
   let(:content_id) { link_set.content_id }
@@ -75,10 +79,9 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
 
     context "when passing the edition" do
       let(:edition) { database_edition }
-      let(:content_id) { nil }
 
       it "returns the data within the edition rather than the database" do
-        expect(translations).to match_array([
+        expect(translations_by_edition).to match_array([
           a_hash_including(base_path: "/a", locale: "en", title: "VAT rates"),
           a_hash_including(base_path: "/a.fr", locale: "fr"),
         ])
@@ -86,7 +89,6 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
     end
 
     context "when passing the content_id" do
-      let(:edition) { nil }
       let(:content_id) { database_edition.content_id }
 
       it "returns the data as is stored in the database" do

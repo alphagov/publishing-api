@@ -1,9 +1,16 @@
 module Presenters
   module Queries
     class AvailableTranslations
-      def initialize(content_id, with_drafts: false)
-        @content_id = content_id
-        @with_drafts = with_drafts
+      def self.by_edition(edition)
+        self.new(edition: edition)
+      end
+
+      def self.by_content_id(content_id, with_drafts: false)
+        self.new(content_id: content_id, with_drafts: with_drafts)
+      end
+
+      def initialize(options)
+        @options = options
       end
 
       def translations
@@ -13,7 +20,19 @@ module Presenters
 
     private
 
-      attr_reader :content_id, :with_drafts, :expanded_translations
+      attr_reader :options
+
+      def edition
+        @edition ||= options[:edition]
+      end
+
+      def content_id
+        edition ? edition.content_id : options.fetch(:content_id)
+      end
+
+      def with_drafts
+        edition ? edition.draft? : options.fetch(:with_drafts)
+      end
 
       def grouped_translations
         pluck_and_sort_editions(edition_scope)
@@ -27,8 +46,13 @@ module Presenters
         end
       end
 
+      def edition_for_id(id)
+        return edition if edition && edition.id == id
+        Edition.find_by(id: id)
+      end
+
       def web_item(id)
-        Edition.find_by(id: id).to_h
+        edition_for_id(id).to_h
       end
 
       def expanded_translations
