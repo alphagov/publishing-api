@@ -1,12 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Presenters::Queries::AvailableTranslations do
-  subject(:translations) {
+  subject(:translations) do
     described_class.new(
-      link_set.content_id,
+      content_id: content_id,
+      edition: edition,
       with_drafts: with_drafts,
     ).translations[:available_translations]
-  }
+  end
+
+  let(:content_id) { link_set.content_id }
+  let(:edition) { nil }
 
   def create_edition(base_path, state = "published", locale = "en", version = 1)
     FactoryGirl.create(:edition,
@@ -53,6 +57,44 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
         a_hash_including(base_path: "/a.ar", locale: "ar"),
         a_hash_including(base_path: "/a.es", locale: "es"),
       ])
+    end
+  end
+
+  context "when edition we're generating translations for is different in the database" do
+    let(:with_drafts) { false }
+    let(:database_edition) { create_edition("/a", "published") }
+
+    before do
+      create_edition("/a.fr", "published", "fr")
+      Edition.where(id: database_edition.id).update_all(title: "A title")
+    end
+
+    it "has not updated the model" do
+      expect(database_edition.title).to eq("VAT rates")
+    end
+
+    context "when passing the edition" do
+      let(:edition) { database_edition }
+      let(:content_id) { nil }
+
+      it "returns the data within the edition rather than the database" do
+        expect(translations).to match_array([
+          a_hash_including(base_path: "/a", locale: "en", title: "VAT rates"),
+          a_hash_including(base_path: "/a.fr", locale: "fr"),
+        ])
+      end
+    end
+
+    context "when passing the content_id" do
+      let(:edition) { nil }
+      let(:content_id) { database_edition.content_id }
+
+      it "returns the data as is stored in the database" do
+        expect(translations).to match_array([
+          a_hash_including(base_path: "/a", locale: "en", title: "A title"),
+          a_hash_including(base_path: "/a.fr", locale: "fr"),
+        ])
+      end
     end
   end
 
