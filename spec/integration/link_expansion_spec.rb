@@ -13,7 +13,7 @@ RSpec.describe "Link Expansion" do
 
   subject(:expanded_links) do
     LinkExpansion.by_content_id(
-      content_id: content_id,
+      content_id,
       locale: locale,
       with_drafts: with_drafts,
     ).links_with_content

@@ -36,16 +36,21 @@ module Presenters
         edition ? edition.locale : options.fetch(:locale)
       end
 
+      def link_expansion
+        if edition
+          LinkExpansion.by_edition(edition, with_drafts: with_drafts)
+        else
+          LinkExpansion.by_content_id(content_id, locale: locale, with_drafts: with_drafts)
+        end
+      end
+
       def expanded_links
-        LinkExpansion.new(content_id,
-          locale: locale,
-          with_drafts: with_drafts,
-        ).links_with_content
+        link_expansion.links_with_content
       end
 
       def available_translations
         if edition
-          AvailableTranslations.by_edition(edition)
+          AvailableTranslations.by_edition(edition, with_drafts: with_drafts)
         else
           AvailableTranslations.by_content_id(content_id, with_drafts: with_drafts)
         end
