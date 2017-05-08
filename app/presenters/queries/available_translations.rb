@@ -62,6 +62,7 @@ module Presenters
         scope.pluck(:id, :locale, :state)
           .sort_by { |(_, _, state)| state_fallback_order.index(state.to_sym) }
           .group_by { |(_, locale)| locale }
+          .each_with_object({}) { |(key, value), hash| hash[key] = value.first }
       end
     end
   end
