@@ -5,12 +5,17 @@
 # The concept is documented in /doc/link-expansion.md
 #
 class LinkExpansion
-  attr_reader :content_id, :locale, :with_drafts
+  def self.by_edition(edition, with_drafts: false)
+    self.new(edition: edition, with_drafts: with_drafts)
+  end
 
-  def initialize(content_id, locale: Edition::DEFAULT_LOCALE, with_drafts: false)
-    @content_id = content_id
-    @locale = locale
-    @with_drafts = with_drafts
+  def self.by_content_id(content_id, locale: Edition::DEFAULT_LOCALE, with_drafts: false)
+    self.new(content_id: content_id, locale: locale, with_drafts: with_drafts)
+  end
+
+  def initialize(options)
+    @options = options
+    @with_drafts = options.fetch(:with_drafts)
   end
 
   def links_with_content
@@ -28,9 +33,24 @@ class LinkExpansion
 
 private
 
+  attr_reader :options, :with_drafts
+
+  def edition
+    @edition ||= options[:edition]
+  end
+
+  def content_id
+    edition ? edition.content_id : options.fetch(:content_id)
+  end
+
+  def locale
+    edition ? edition.locale : options.fetch(:locale)
+  end
+
   def content_cache
     @content_cache ||= ContentCache.new(
       locale: locale,
+      preload_editions: edition ? [edition] : [],
       preload_content_ids: (link_graph.links_content_ids + [content_id]).uniq,
       with_drafts: with_drafts,
     )

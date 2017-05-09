@@ -12,13 +12,21 @@ RSpec.describe "Link Expansion" do
   let(:g) { create_link_set }
 
   subject(:expanded_links) do
-    LinkExpansion.new(
-      a,
-      with_drafts: with_drafts,
+    LinkExpansion.by_content_id(
+      content_id,
       locale: locale,
+      with_drafts: with_drafts,
     ).links_with_content
   end
 
+  subject(:expanded_links_by_edition) do
+    LinkExpansion.by_edition(
+      edition,
+      with_drafts: with_drafts,
+    ).links_with_content
+  end
+
+  let(:content_id) { a }
   let(:locale) { "en" }
 
   context "when there are no links" do
@@ -558,6 +566,39 @@ RSpec.describe "Link Expansion" do
       it "should not expand a link to" do
         expect(expanded_links).to_not be_empty
         expect(expanded_links[:test]).to match([a_hash_including(base_path: "/t")])
+      end
+    end
+  end
+
+  context "when edition we're generating translations for is different in the database" do
+    let(:with_drafts) { false }
+
+    let!(:parent_edition) { create_edition(a, "/a") }
+    let!(:child_edition) { create_edition(b, "/b") }
+
+    before do
+      create_link(b, a, "parent", 0)
+      Edition.where(id: parent_edition.id).update_all(title: "A title")
+    end
+
+    context "when passed an edition" do
+      let(:edition) { parent_edition }
+
+      it "returns the data within the edition rather than the database" do
+        expect(expanded_links_by_edition[:children]).to match([
+          a_hash_including(base_path: "/b", links: { parent: [a_hash_including(base_path: "/a", title: "VAT rates")] }),
+        ])
+      end
+    end
+
+    context "when passed a content_id and locale" do
+      let(:content_id) { parent_edition.content_id }
+      let(:locale) { parent_edition.locale }
+
+      it "returns the data as is stored in the database" do
+        expect(expanded_links[:children]).to match([
+          a_hash_including(base_path: "/b", links: { parent: [a_hash_including(base_path: "/a", title: "A title")] }),
+        ])
       end
     end
   end

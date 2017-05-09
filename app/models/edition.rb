@@ -99,7 +99,7 @@ class Edition < ApplicationRecord
   def draft_cannot_be_behind_live
     return unless document
 
-    if state == "draft"
+    if draft?
       draft_version = user_facing_version
       published_unpublished_version = document.published_or_unpublished.try(:user_facing_version)
     end
@@ -210,6 +210,10 @@ class Edition < ApplicationRecord
 
   def substitute?
     unpublished? && unpublishing.substitute?
+  end
+
+  def draft?
+    content_store == "draft"
   end
 
   def api_path

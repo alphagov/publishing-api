@@ -83,10 +83,9 @@ module Presenters
     end
 
     def expanded_link_set_presenter
-      @expanded_link_set_presenter ||= Presenters::Queries::ExpandedLinkSet.new(
-        content_id: edition.content_id,
-        draft: draft,
-        locale: edition.locale
+      @expanded_link_set_presenter ||= Presenters::Queries::ExpandedLinkSet.by_edition(
+        edition,
+        with_drafts: draft,
       )
     end
 

@@ -9,10 +9,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   let(:locale) { "en" }
 
   subject(:expanded_links) {
-    described_class.new(
-      content_id: a,
-      draft: present_drafts,
+    described_class.by_content_id(
+      a,
       locale: locale,
+      with_drafts: present_drafts,
     ).links
   }
 

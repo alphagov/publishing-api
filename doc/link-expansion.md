@@ -367,7 +367,7 @@ You can explore link expansion in the rails console by creating a
 [`LinkExpansion`][link-expansion] instance.
 
 ```
-> link_expansion = LinkExpansion.new(content_id, locale: :en, with_drafts: true)
+> link_expansion = LinkExpansion.by_content_id(content_id, locale: :en, with_drafts: true)
 ```
 
 You can then print the [`link_graph`][link-graph] of the link expansion to view

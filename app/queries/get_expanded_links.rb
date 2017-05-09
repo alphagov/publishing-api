@@ -18,10 +18,10 @@ module Queries
     end
 
     def self.expanded_link_set(link_set, locale, with_drafts:)
-      expanded_link_set = Presenters::Queries::ExpandedLinkSet.new(
-        content_id: link_set.content_id,
-        draft: with_drafts,
+      expanded_link_set = Presenters::Queries::ExpandedLinkSet.by_content_id(
+        link_set.content_id,
         locale: locale,
+        with_drafts: with_drafts,
       )
 
       {

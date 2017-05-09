@@ -1,8 +1,8 @@
 class LinkExpansion::ContentCache
-  def initialize(with_drafts:, locale:, preload_content_ids: [])
+  def initialize(with_drafts:, locale:, preload_editions: [], preload_content_ids: [])
     @with_drafts = with_drafts
     @locale = locale
-    @store = editions(preload_content_ids)
+    @store = build_store(preload_editions, preload_content_ids)
   end
 
   def find(content_id)
@@ -17,8 +17,17 @@ private
 
   attr_reader :store, :with_drafts, :locale
 
+  def build_store(editions, content_ids)
+    store = Hash[editions.map { |edition| [edition.content_id, edition] }]
+
+    to_preload = content_ids - editions.map(&:content_id)
+    editions(to_preload).each_with_object(store) do |edition, hash|
+      hash[edition.content_id] = edition
+    end
+  end
+
   def edition(content_id)
-    editions([content_id])[content_id]
+    editions([content_id]).first
   end
 
   def locale_fallback_order
@@ -26,14 +35,12 @@ private
   end
 
   def editions(content_ids)
-    return {} unless content_ids.present?
-    results = Hash[content_ids.map { |id| [id, nil] }]
+    return [] unless content_ids.present?
     edition_ids = Queries::GetEditionIdsWithFallbacks.(content_ids,
       locale_fallback_order: locale_fallback_order,
       state_fallback_order: state_fallback_order,
     )
-    Edition.with_document.includes(:document).where(id: edition_ids)
-      .each_with_object(results) { |item, memo| memo[item.content_id] = item }
+    Edition.with_document.includes(:document).where(id: edition_ids).all
   end
 
   def state_fallback_order

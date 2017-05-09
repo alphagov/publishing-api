@@ -8,10 +8,10 @@ RSpec.describe "Edition Links" do
   let(:source_content_id) { SecureRandom.uuid }
 
   subject(:expanded_links) do
-    LinkExpansion.new(
+    LinkExpansion.by_content_id(
       source_content_id,
-      with_drafts: with_drafts,
       locale: locale,
+      with_drafts: with_drafts,
     ).links_with_content
   end
 

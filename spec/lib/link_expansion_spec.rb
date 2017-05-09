@@ -7,10 +7,7 @@ RSpec.describe LinkExpansion do
 
   describe "#links_with_content" do
     subject do
-      described_class.new(content_id,
-        locale: :en,
-        with_drafts: false,
-      ).links_with_content
+      described_class.by_content_id(content_id).links_with_content
     end
 
     context "no links" do
