@@ -28,7 +28,6 @@ module Presenters
     def for_message_queue(update_type)
       present.merge(
         update_type: update_type,
-        govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
         links: unexpanded_links
       )
     end
@@ -42,6 +41,7 @@ module Presenters
         .merge(format)
         .merge(document_supertypes)
         .merge(withdrawal_notice)
+        .merge(govuk_request_id)
     end
 
     def rendered_details
@@ -131,6 +131,12 @@ module Presenters
       else
         {}
       end
+    end
+
+    def govuk_request_id
+      {
+        govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id]
+      }
     end
   end
 end
