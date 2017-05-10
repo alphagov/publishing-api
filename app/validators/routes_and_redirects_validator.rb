@@ -143,6 +143,19 @@ private
       else
         validate_external_redirect(destination)
       end
+
+      if redirect[:segments_mode] == "preserve"
+        # When the segments mode is preserve, the query parameters from the
+        # incoming url will be appended on to the destination. If the route type
+        # is prefix, in addition to the query parameters, part of the incoming
+        # path may also be appended.
+
+        # This validation prevents the introduction of redirects where the
+        # destination contains a fragment or where the destination has query
+        # parameters, as its unlikely that these are appropriate to use when the
+        # segments mode is preserve.
+        reject_query_parameters_and_fragment(destination)
+      end
     end
 
   private
@@ -190,6 +203,17 @@ private
         subdomain.starts_with?("-")
       errors << "#{prefix} contains prohibited characters" unless
         subdomain =~ /\A[a-z0-9\-]*\z/i
+    end
+
+    def reject_query_parameters_and_fragment(destination)
+      uri = URI.parse(destination)
+
+      if uri.fragment.present?
+        errors << "destination #{destination} cannot contain a fragment if the segments_mode is 'preserve'"
+      end
+      if uri.query.present?
+        errors << "destination #{destination} cannot contain query parameters if the segments_mode is 'preserve'"
+      end
     end
 
     def url_constructed_as_expected?(target, uri)
