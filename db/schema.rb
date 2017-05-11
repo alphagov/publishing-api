@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20170519112024) do
     t.string "content_store"
     t.integer "document_id", null: false
     t.string "description"
+    t.string "publishing_request_id"
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
