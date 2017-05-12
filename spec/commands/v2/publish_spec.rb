@@ -380,6 +380,18 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "with no first_published_at and no public_updated_at set on the draft edition" do
+      before do
+        draft_item.update_attributes!(first_published_at: nil, public_updated_at: nil)
+      end
+
+      it "updates both fields with the same value" do
+        described_class.call(payload)
+
+        expect(draft_item.first_published_at).to eq(draft_item.public_updated_at)
+      end
+    end
+
     context "when the base_path differs from the previously published item" do
       let!(:live_item) do
         FactoryGirl.create(:live_edition,
