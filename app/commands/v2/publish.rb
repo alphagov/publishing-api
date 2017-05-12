@@ -155,7 +155,7 @@ module Commands
         return if edition.public_updated_at.present?
 
         if update_type == "major" || previous_item.blank?
-          edition.update_attributes!(public_updated_at: Time.zone.now)
+          edition.update_attributes!(public_updated_at: default_datetime)
         elsif update_type == "minor"
           edition.update_attributes!(public_updated_at: previous_item.public_updated_at)
         end
@@ -163,7 +163,11 @@ module Commands
 
       def set_first_published_at
         return if edition.first_published_at.present?
-        edition.update_attributes!(first_published_at: Time.zone.now)
+        edition.update_attributes!(first_published_at: default_datetime)
+      end
+
+      def default_datetime
+        @default_datetime ||= Time.zone.now
       end
 
       def publish_redirect(previous_base_path, locale)
