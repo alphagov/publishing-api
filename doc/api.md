@@ -334,7 +334,7 @@ and a state has been specified, the draft is returned.
 
 ### Query string parameters
 
-- `document_type` *(required)*
+- `document_type` *(optional)*
   - The type of editions to return.
 - `fields[]` *(optional)*
   - Accepts an array of: "analytics_identifier", "base_path",

@@ -38,7 +38,7 @@ RSpec.describe V2::ContentItemsController do
       @en_live_content = FactoryGirl.create(:live_edition,
         document: document_en,
         base_path: "/content.en",
-        document_type: "topic",
+        document_type: "guide",
         schema_name: "topic",
         user_facing_version: 1,
       )
@@ -75,32 +75,50 @@ RSpec.describe V2::ContentItemsController do
 
       context "when there is a valid query" do
         it "returns the item when searching for base_path" do
-          get :index, params: { document_type: "topic", q: "foo", locale: "all" }
+          get :index, params: { q: "foo", locale: "all" }
           expect(parsed_response["results"].map { |i| i["base_path"] }).to eq(["/foo"])
         end
 
         it "returns the item when searching for title" do
-          get :index, params: { document_type: "topic", q: "bar", locale: "all" }
+          get :index, params: { q: "bar", locale: "all" }
           expect(parsed_response["results"].map { |i| i["base_path"] }).to eq(["/foo"])
         end
 
         it "doesn't return items that are no longer the latest version" do
-          get :index, params: { document_type: "topic", q: "zip", fields: %w(title) }
+          get :index, params: { q: "zip", fields: %w(title) }
           expect(parsed_response["results"].map { |i| i["title"] }).to eq([])
         end
       end
 
       context "specifying fields to search" do
         it "returns the item" do
-          get :index, params: { document_type: "topic", q: "stuff", search_in: ["description"], fields: %w(title) }
+          get :index, params: { q: "stuff", search_in: ["description"], fields: %w(title) }
           expect(parsed_response["results"].map { |i| i["title"] }).to eq(['bar'])
         end
       end
     end
 
+    context "with a document_type param" do
+      before do
+        get :index, params: { document_type: "guide" }
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with the guide edition as json" do
+        parsed_response_body = parsed_response["results"]
+        expect(parsed_response_body.length).to eq(1)
+
+        base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
+        expect(base_paths).to eq ["/content.en"]
+      end
+    end
+
     context "without providing a locale parameter" do
       before do
-        get :index, params: { document_type: "topic", fields: %w(base_path) }
+        get :index, params: { fields: %w(base_path) }
       end
 
       it "is successful" do
@@ -118,7 +136,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a specific locale parameter" do
       before do
-        get :index, params: { document_type: "topic", fields: %w(base_path), locale: "ar" }
+        get :index, params: { fields: %w(base_path), locale: "ar" }
       end
 
       it "is successful" do
@@ -136,7 +154,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a locale parameter set to 'all'" do
       before do
-        get :index, params: { document_type: "topic", fields: %w(base_path), locale: "all" }
+        get :index, params: { fields: %w(base_path), locale: "all" }
       end
 
       let(:parsed_response_body) { parsed_response["results"] }
@@ -193,7 +211,7 @@ RSpec.describe V2::ContentItemsController do
           last_edited_at: Date.new(2016, 2, 2),
         )
 
-        get :index, params: { document_type: "topic", locale: "all", order: order, fields: fields }
+        get :index, params: { locale: "all", order: order, fields: fields }
       end
 
       context "when ordering by updated_at ascending" do
@@ -361,7 +379,6 @@ RSpec.describe V2::ContentItemsController do
         FactoryGirl.create(:draft_edition,
           document: document_ar,
           base_path: "/content.ar",
-          document_type: "topic",
           schema_name: "topic",
           user_facing_version: 2,
         )
