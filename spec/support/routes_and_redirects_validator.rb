@@ -205,6 +205,34 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       end
     end
 
+    context "when the segments_mode is 'preserve'" do
+      it "must not contain query parameters in the destination" do
+        edition.redirects = [
+          {
+            path: "#{subject.base_path}/foo",
+            type: "exact",
+            segments_mode: "preserve",
+            destination: "/bar?baz=4"
+          }
+        ]
+
+        expect(subject).to be_invalid
+      end
+
+      it "must not contain a fragment in the destination" do
+        edition.redirects = [
+          {
+            path: "#{subject.base_path}/foo",
+            type: "prefix",
+            segments_mode: "preserve",
+            destination: "/bar#baz"
+          }
+        ]
+
+        expect(subject).to be_invalid
+      end
+    end
+
     context "when the type is 'prefix'" do
       it "must contain valid absolute paths for destinations" do
         edition.redirects = [{ path: "#{subject.base_path}/foo", type: "prefix", destination: "not valid" }]
