@@ -1,6 +1,6 @@
 class Action < ActiveRecord::Base
-  belongs_to :edition
-  belongs_to :link_set
+  belongs_to :edition, optional: true
+  belongs_to :link_set, optional: true
   belongs_to :event
 
   validate :one_of_edition_link_set

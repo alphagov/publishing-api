@@ -1,5 +1,5 @@
 class ChangeNote < ActiveRecord::Base
-  belongs_to :edition
+  belongs_to :edition, optional: true
 
   def self.create_from_edition(payload, edition)
     ChangeNoteFactory.new(payload, edition).build

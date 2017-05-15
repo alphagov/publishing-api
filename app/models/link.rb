@@ -1,8 +1,8 @@
 class Link < ApplicationRecord
   include SymbolizeJSON
 
-  belongs_to :link_set
-  belongs_to :edition
+  belongs_to :link_set, optional: true
+  belongs_to :edition, optional: true
 
   validates :target_content_id, presence: true, uuid: true
   validate :link_type_is_valid
