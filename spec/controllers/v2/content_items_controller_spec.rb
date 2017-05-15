@@ -182,19 +182,6 @@ RSpec.describe V2::ContentItemsController do
       end
     end
 
-    context "with all_items param" do
-      before do
-        get :index, params: { content_format: "topic", fields: ["content_id"], all_items: "true" }
-      end
-      it "is successful" do
-        expect(response.status).to eq(200)
-      end
-      it "responds with the edition as json" do
-        parsed_response_body = parsed_response["results"]
-        expect(parsed_response_body.first.fetch("content_id")).to eq(content_id.to_s)
-      end
-    end
-
     context "with an order param" do
       before do
         @en_draft_content.update!(
