@@ -215,7 +215,6 @@ RSpec.describe "Downstream requests", type: :request do
           locale: "en",
           document_type: "nonexistent-schema",
           schema_name: "nonexistent-schema",
-          format: "nonexistent-schema",
         )
         .except(
           :id,
@@ -245,7 +244,6 @@ RSpec.describe "Downstream requests", type: :request do
           content_item: a_hash_including(
             content_id: content_id,
             locale: "en",
-            format: "nonexistent-schema",
             payload_version: anything,
           )
         )
