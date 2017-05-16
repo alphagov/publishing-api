@@ -10,11 +10,16 @@ FactoryGirl.define do
     end
 
     after(:create) do |edition, evaluator|
+      redirects = [
+        { path: edition.base_path, type: :exact, destination: evaluator.alternative_path }
+      ] if evaluator.unpublishing_type == 'redirect'
+
       FactoryGirl.create(:unpublishing,
         edition: edition,
         type: evaluator.unpublishing_type,
         explanation: evaluator.explanation,
-        redirects: [{ path: edition.base_path, type: :exact, destination: evaluator.alternative_path }],
+        alternative_path: evaluator.alternative_path,
+        redirects: redirects,
         unpublished_at: evaluator.unpublished_at,
       )
     end
