@@ -1,7 +1,6 @@
 module Queries
   class GetContentCollection
     attr_reader(
-      :document_types,
       :fields,
       :publishing_app,
       :link_filters,
@@ -12,7 +11,7 @@ module Queries
       :states,
     )
 
-    def initialize(document_types:, fields:, filters: {}, pagination: Pagination.new, search_query: "", search_in: nil)
+    def initialize(document_types: [], fields:, filters: {}, pagination: Pagination.new, search_query: "", search_in: nil)
       self.document_types = Array(document_types)
       self.fields = (fields || default_fields) + ["total"]
       self.publishing_app = filters[:publishing_app]
@@ -49,15 +48,16 @@ module Queries
     )
 
     def editions
-      scope = Edition.where(document_type: lookup_document_types)
+      scope = Edition.all
+      scope = scope.where(document_type: document_types) if document_types.any?
       scope = scope.where(publishing_app: publishing_app) if publishing_app
       scope = scope.with_document.where("documents.locale": locale) unless locale == "all"
       scope = Link.filter_editions(scope, link_filters) unless link_filters.blank?
       scope
     end
 
-    def lookup_document_types
-      document_types.flat_map { |d| [d, "placeholder_#{d}"] }
+    def document_types
+      @document_types.flat_map { |d| [d, "placeholder_#{d}"] }
     end
 
     def validate_fields!

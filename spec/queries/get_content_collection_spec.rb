@@ -25,6 +25,17 @@ RSpec.describe Queries::GetContentCollection do
       )
     end
 
+    it "returns the requested fields for all editions" do
+      expect(Queries::GetContentCollection.new(
+        fields: %w(base_path),
+      ).call).to match_array([
+        hash_including("base_path" => "/a"),
+        hash_including("base_path" => "/b"),
+        hash_including("base_path" => "/c"),
+        hash_including("base_path" => "/d"),
+      ])
+    end
+
     it "returns the editions matching the type" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
