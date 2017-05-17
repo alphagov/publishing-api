@@ -59,7 +59,6 @@ RSpec.describe Presenters::EditionPresenter do
         description: "VAT rates for goods and services",
         details: details,
         document_type: "nonexistent-schema",
-        format: "nonexistent-schema",
         locale: "en",
         need_ids: %w(100123 100124),
         phase: "beta",

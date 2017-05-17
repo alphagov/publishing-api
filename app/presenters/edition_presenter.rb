@@ -39,7 +39,7 @@ module Presenters
         .merge(rendered_details)
         .merge(expanded_links)
         .merge(access_limited)
-        .merge(format)
+        .merge(schema_name_and_document_type)
         .merge(document_supertypes)
         .merge(withdrawal_notice)
     end
@@ -105,9 +105,8 @@ module Presenters
       @access_limit ||= AccessLimit.find_by(edition_id: edition.id)
     end
 
-    def format
+    def schema_name_and_document_type
       {
-        format: edition.schema_name,
         schema_name: edition.schema_name,
         document_type: edition.document_type
       }
