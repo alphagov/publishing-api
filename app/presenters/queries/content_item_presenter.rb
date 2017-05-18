@@ -40,7 +40,8 @@ module Presenters
         @offset = params[:offset]
         @search_query = params[:search_query]
         @search_in = params[:search_in] || DEFAULT_SEARCH_FIELDS
-        @states = params[:states].present? ? Array(params[:states]) : %i(draft published unpublished)
+        @states = Array(params[:states]).map(&:to_sym) if params[:states].present?
+        @states ||= %i(draft published unpublished)
         @include_warnings = params[:include_warnings] || false
       end
 
@@ -89,11 +90,15 @@ module Presenters
 
       def reorder(scope)
         # used for distinct document_id by state and latest version
-        scope.reorder([
-          "editions.document_id",
-          "CASE state WHEN 'draft' THEN 0 WHEN 'published' THEN 1 WHEN 'unpublished' THEN 1 ELSE 2 END",
-          "user_facing_version DESC",
-        ])
+        scope.reorder(["editions.document_id", state_order_clause, "user_facing_version DESC"].compact)
+      end
+
+      # If there are multiple editions for a document, pick the draft, then the
+      # published/unpublished. This is expensive, so only add if needed.
+      def state_order_clause
+        priorities = { draft: 0, published: 1, unpublished: 1, superseded: 2 }.slice(*states)
+        return unless priorities.values.uniq.count > 1
+        "CASE state #{priorities.map { |k, v| "WHEN '#{k}' THEN #{v} " }.join} END"
       end
 
       def select_fields(scope)
