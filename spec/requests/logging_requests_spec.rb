@@ -26,7 +26,7 @@ RSpec.describe "Logging requests", type: :request do
     expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
       .with(hash_including(govuk_request_id: govuk_request_id))
 
-    post("/v2/content/#{draft_edition.document.content_id}/publish", params: { update_type: "minor" }.to_json,
+    post("/v2/content/#{draft_edition.document.content_id}/publish", params: { update_type: "major" }.to_json,
       headers: { "HTTP_GOVUK_REQUEST_ID" => "12345-67890" }
     )
   end
