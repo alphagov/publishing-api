@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517161719) do
+ActiveRecord::Schema.define(version: 20170519111706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "content_id"
+    t.integer "document_id"
     t.index ["content_id"], name: "index_change_notes_on_content_id"
     t.index ["edition_id"], name: "index_change_notes_on_edition_id"
   end
@@ -165,6 +166,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "change_notes", "documents", on_delete: :cascade
   add_foreign_key "change_notes", "editions"
   add_foreign_key "editions", "documents"
   add_foreign_key "links", "editions", on_delete: :cascade
