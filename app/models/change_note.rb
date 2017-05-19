@@ -1,5 +1,5 @@
 class ChangeNote < ActiveRecord::Base
-  belongs_to :document, optional: true
+  belongs_to :document
   belongs_to :edition, optional: true
 
   def self.create_from_edition(payload, edition)
@@ -27,9 +27,8 @@ private
   def create_from_top_level_change_note
     return unless change_note
     ChangeNote
-      .find_or_create_by!(edition: edition)
+      .find_or_create_by!(document: document, edition: edition)
       .update!(
-        document: edition.document,
         public_timestamp: Time.zone.now,
         note: change_note,
       )
@@ -38,9 +37,8 @@ private
   def create_from_details_hash_change_note
     return unless note
     ChangeNote
-      .find_or_create_by!(edition: edition)
+      .find_or_create_by!(document: document, edition: edition)
       .update!(
-        document: edition.document,
         public_timestamp: edition.updated_at,
         note: note,
       )
@@ -50,9 +48,8 @@ private
     return unless change_history.present?
     history_element = change_history.max_by { |h| h[:public_timestamp] }
     ChangeNote
-      .find_or_create_by!(edition: edition)
+      .find_or_create_by!(document: document, edition: edition)
       .update!(
-        document: edition.document,
         public_timestamp: history_element.fetch(:public_timestamp),
         note: history_element.fetch(:note),
       )
@@ -72,5 +69,9 @@ private
 
   def change_history
     edition.details[:change_history]
+  end
+
+  def document
+    edition.document
   end
 end

@@ -345,7 +345,7 @@ RSpec.describe Commands::V2::Publish do
         before do
           draft_item.update(update_type: "major")
           payload[:update_type] = "minor"
-          ChangeNote.create(edition: draft_item)
+          ChangeNote.create!(document: draft_item.document, edition: draft_item)
         end
         it "deletes associated ChangeNote records" do
           expect { described_class.call(payload) }
