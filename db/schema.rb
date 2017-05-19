@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "access_limits", force: :cascade do |t|
+  create_table "access_limits", id: :serial, force: :cascade do |t|
     t.json "users", default: [], null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.index ["edition_id"], name: "index_access_limits_on_edition_id"
   end
 
-  create_table "actions", force: :cascade do |t|
+  create_table "actions", id: :serial, force: :cascade do |t|
     t.uuid "content_id", null: false
     t.string "locale"
     t.string "action", null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.index ["link_set_id"], name: "index_actions_on_link_set_id"
   end
 
-  create_table "change_notes", force: :cascade do |t|
+  create_table "change_notes", id: :serial, force: :cascade do |t|
     t.string "note", default: ""
     t.datetime "public_timestamp"
     t.integer "edition_id"
@@ -50,14 +50,14 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.index ["edition_id"], name: "index_change_notes_on_edition_id"
   end
 
-  create_table "documents", force: :cascade do |t|
+  create_table "documents", id: :serial, force: :cascade do |t|
     t.uuid "content_id", null: false
     t.string "locale", null: false
     t.integer "stale_lock_version", default: 0, null: false
     t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true
   end
 
-  create_table "editions", force: :cascade do |t|
+  create_table "editions", id: :serial, force: :cascade do |t|
     t.string "title"
     t.datetime "public_updated_at"
     t.json "details", default: {}
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.index ["updated_at"], name: "index_editions_on_updated_at"
   end
 
-  create_table "events", force: :cascade do |t|
+  create_table "events", id: :serial, force: :cascade do |t|
     t.string "action", null: false
     t.json "payload", default: {}
     t.string "user_uid"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.index ["content_id"], name: "index_events_on_content_id"
   end
 
-  create_table "link_sets", force: :cascade do |t|
+  create_table "link_sets", id: :serial, force: :cascade do |t|
     t.uuid "content_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.index ["content_id"], name: "index_link_sets_on_content_id", unique: true
   end
 
-  create_table "links", force: :cascade do |t|
+  create_table "links", id: :serial, force: :cascade do |t|
     t.integer "link_set_id"
     t.uuid "target_content_id"
     t.string "link_type", null: false
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.index ["target_content_id"], name: "index_links_on_target_content_id"
   end
 
-  create_table "path_reservations", force: :cascade do |t|
+  create_table "path_reservations", id: :serial, force: :cascade do |t|
     t.string "base_path", null: false
     t.string "publishing_app", null: false
     t.datetime "created_at"
@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.index ["base_path"], name: "index_path_reservations_on_base_path", unique: true
   end
 
-  create_table "unpublishings", force: :cascade do |t|
+  create_table "unpublishings", id: :serial, force: :cascade do |t|
     t.integer "edition_id", null: false
     t.string "type", null: false
     t.string "explanation"
@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(version: 20170517161719) do
     t.index ["edition_id"], name: "index_unpublishings_on_edition_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "uid"
