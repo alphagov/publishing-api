@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519112024) do
+ActiveRecord::Schema.define(version: 20170519120114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,9 +45,7 @@ ActiveRecord::Schema.define(version: 20170519112024) do
     t.integer "edition_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "content_id"
     t.integer "document_id"
-    t.index ["content_id"], name: "index_change_notes_on_content_id"
     t.index ["edition_id"], name: "index_change_notes_on_edition_id"
   end
 
