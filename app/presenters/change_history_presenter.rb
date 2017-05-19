@@ -18,7 +18,7 @@ module Presenters
 
     def change_notes_for_content_item
       change_notes = ChangeNote
-        .where(content_id: content_id)
+        .where(document: document)
         .where("edition_id IS NULL OR edition_id IN (?)", edition_ids)
         .order(:public_timestamp)
         .pluck(:note, :public_timestamp)
@@ -27,8 +27,8 @@ module Presenters
     end
 
     def edition_ids
-      Edition.with_document
-        .where("documents.content_id": content_id)
+      Edition
+        .where(document: document)
         .where("user_facing_version <= ?", version_number)
         .pluck(:id)
     end
@@ -37,8 +37,8 @@ module Presenters
       edition.user_facing_version
     end
 
-    def content_id
-      edition.content_id
+    def document
+      edition.document
     end
   end
 end
