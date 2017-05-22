@@ -1,4 +1,5 @@
 class ChangeNote < ActiveRecord::Base
+  belongs_to :document, optional: true
   belongs_to :edition, optional: true
 
   def self.create_from_edition(payload, edition)
@@ -28,6 +29,7 @@ private
     ChangeNote
       .find_or_create_by!(edition: edition)
       .update!(
+        document: edition.document,
         content_id: edition.document.content_id,
         public_timestamp: Time.zone.now,
         note: change_note,
@@ -39,6 +41,7 @@ private
     ChangeNote
       .find_or_create_by!(edition: edition)
       .update!(
+        document: edition.document,
         content_id: edition.document.content_id,
         public_timestamp: edition.updated_at,
         note: note,
@@ -51,6 +54,7 @@ private
     ChangeNote
       .find_or_create_by!(edition: edition)
       .update!(
+        document: edition.document,
         content_id: edition.document.content_id,
         public_timestamp: history_element.fetch(:public_timestamp),
         note: history_element.fetch(:note),
