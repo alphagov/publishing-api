@@ -21,7 +21,7 @@ else
 end
 
 gem "gds-sso", "13.0.0"
-gem "govuk_schemas", require: false
+gem "govuk_schemas", "~> 2.1.1"
 gem "govuk_document_types", "~> 0.1.4"
 
 gem 'bunny', '~> 2.6'

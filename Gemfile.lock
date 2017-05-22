@@ -124,7 +124,7 @@ GEM
       rubocop (~> 0.39.0)
       scss_lint
     govuk_document_types (0.1.4)
-    govuk_schemas (2.0.0)
+    govuk_schemas (2.1.1)
       json-schema (~> 2.5.0)
     govuk_sidekiq (1.0.3)
       airbrake (>= 3.1.0)
@@ -412,7 +412,7 @@ DEPENDENCIES
   govspeak (~> 5.0.2)
   govuk-lint
   govuk_document_types (~> 0.1.4)
-  govuk_schemas
+  govuk_schemas (~> 2.1.1)
   govuk_sidekiq (~> 1.0.3)
   hashdiff
   json-schema
