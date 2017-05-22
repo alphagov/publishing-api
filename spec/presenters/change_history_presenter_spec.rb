@@ -1,8 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Presenters::ChangeHistoryPresenter do
-  let(:content_id) { SecureRandom.uuid }
-  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let(:document) { FactoryGirl.create(:document) }
   let(:edition) do
     FactoryGirl.create(:edition,
       document: document,
@@ -30,7 +29,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         2.times do |i|
           ChangeNote.create(
             edition: edition,
-            content_id: content_id,
+            document: document,
             note: i.to_s,
             public_timestamp: Time.now.utc
           )
@@ -45,7 +44,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       [1, 3, 2].to_a.each do |i|
         ChangeNote.create(
           edition: edition,
-          content_id: content_id,
+          document: document,
           note: i.to_s,
           public_timestamp: i.days.ago
         )
@@ -69,9 +68,9 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         )
       end
       before do
-        ChangeNote.create(edition: item1, content_id: content_id)
-        ChangeNote.create(edition: item2, content_id: content_id)
-        ChangeNote.create(content_id: content_id)
+        ChangeNote.create(edition: item1, document: document)
+        ChangeNote.create(edition: item2, document: document)
+        ChangeNote.create(document: document)
       end
 
       context "reviewing latest version of a edition" do

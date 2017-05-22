@@ -30,7 +30,6 @@ private
       .find_or_create_by!(edition: edition)
       .update!(
         document: edition.document,
-        content_id: edition.document.content_id,
         public_timestamp: Time.zone.now,
         note: change_note,
       )
@@ -42,7 +41,6 @@ private
       .find_or_create_by!(edition: edition)
       .update!(
         document: edition.document,
-        content_id: edition.document.content_id,
         public_timestamp: edition.updated_at,
         note: note,
       )
@@ -55,7 +53,6 @@ private
       .find_or_create_by!(edition: edition)
       .update!(
         document: edition.document,
-        content_id: edition.document.content_id,
         public_timestamp: history_element.fetch(:public_timestamp),
         note: history_element.fetch(:note),
       )
