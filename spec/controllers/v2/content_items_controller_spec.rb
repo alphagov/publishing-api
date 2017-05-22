@@ -463,10 +463,12 @@ RSpec.describe V2::ContentItemsController do
 
   describe "publish" do
     context "for an existing draft edition" do
+      let(:body) { { update_type: "major" } }
+      let(:govuk_request_id) { "test" }
       before do
-        request.env["CONTENT_TYPE"] = "application/json"
-        request.env["RAW_POST_DATA"] = { update_type: "major" }.to_json
-        post :publish, params: { content_id: content_id }
+        request.set_header("HTTP_GOVUK_REQUEST_ID", govuk_request_id)
+        GdsApi::GovukHeaders.set_header(:govuk_request_id, govuk_request_id)
+        put :publish, params: { content_id: content_id }, body: body.to_json
       end
 
       it "is successful" do
@@ -477,6 +479,11 @@ RSpec.describe V2::ContentItemsController do
         parsed_response_body = parsed_response
         expect(parsed_response_body.keys).to include("content_id")
         expect(parsed_response_body["content_id"]).not_to be_nil
+      end
+
+      it "updates the publishing_request_id" do
+        edition = Edition.last
+        expect(edition.publishing_request_id).to eq(govuk_request_id)
       end
     end
 

@@ -29,6 +29,7 @@ module Commands
 
         set_public_updated_at
         set_first_published_at
+        set_publishing_request_id
         edition.publish
         remove_access_limit
         create_publish_action
@@ -168,6 +169,12 @@ module Commands
 
       def default_datetime
         @default_datetime ||= Time.zone.now
+      end
+
+      def set_publishing_request_id
+        edition.update_attributes!(
+          publishing_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id]
+        )
       end
 
       def publish_redirect(previous_base_path, locale)

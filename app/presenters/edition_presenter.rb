@@ -14,6 +14,7 @@ module Presenters
       :user_facing_version,
       :web_url,
       :withdrawn,
+      :publishing_request_id,
     ].freeze
 
     def initialize(edition, draft: false)
@@ -42,6 +43,7 @@ module Presenters
         .merge(schema_name_and_document_type)
         .merge(document_supertypes)
         .merge(withdrawal_notice)
+        .merge(publishing_request_id)
     end
 
     def rendered_details
@@ -126,6 +128,16 @@ module Presenters
             explanation: unpublishing.explanation,
             withdrawn_at: withdrawn_at
           },
+        }
+      else
+        {}
+      end
+    end
+
+    def publishing_request_id
+      if edition.publishing_request_id
+        {
+          publishing_request_id: edition.publishing_request_id
         }
       else
         {}
