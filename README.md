@@ -152,6 +152,10 @@ rake 'events:import_content_id_events[a796ca43-021b-4960-9c99-f41bb8ef2266]'
 ```
 see the rake task for more details.
 
+## Contributing
+
+See [the contributing documentation][contributing] for more information.
+
 ## Licence
 
 [MIT License](LICENSE)
@@ -162,3 +166,4 @@ see the rake task for more details.
 [pact-broker-latest]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
 [link-set-link]: doc/link-expansion.md#patch-link-set---link-set-links
 [edition-link]: doc/link-expansion.md#put-content---edition-links
+[contributing]: CONTRIBUTING.md
