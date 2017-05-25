@@ -55,13 +55,14 @@ namespace :represent_downstream do
   end
 
   desc "
-  Represent an individual edition downstream
+  Represent an individual or multiple editions downstream
   Usage
   rake 'represent_downstream:content_id[57a1253c-68d3-4a93-bb47-b67b9b4f6b9a]'
   "
   task :content_id, [:content_id] => :environment do |_t, args|
+    content_ids = args[:content_id].split(" ")
     represent_downstream(
-      Edition.with_document.where(documents: { content_id: args[:content_id] })
+      Edition.with_document.where(documents: { content_id: content_ids })
     )
   end
 end
