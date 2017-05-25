@@ -921,5 +921,37 @@ RSpec.describe Commands::V2::PutContent do
         described_class.call(payload)
       end
     end
+
+    context "when the update_type is 'republish'" do
+      before { payload[:update_type] = "republish" }
+
+      context "and there is a previous edition" do
+        let(:document) do
+          FactoryGirl.create(:document, content_id: content_id)
+        end
+
+        let!(:previous_edition) do
+          FactoryGirl.create(:live_edition,
+            document: document,
+            base_path: base_path,
+            last_edited_at: Time.zone.now
+          )
+        end
+
+        it "uses the last_edited_at value from the previous edition" do
+          described_class.call(payload)
+          edition = Edition.last
+          expect(edition.last_edited_at.iso8601).to eq previous_edition.last_edited_at.iso8601
+        end
+      end
+
+      context "but there is not a previous edition" do
+        it "has a last_edited_at of nil" do
+          described_class.call(payload)
+          edition = Edition.last
+          expect(edition.last_edited_at).to be_nil
+        end
+      end
+    end
   end
 end
