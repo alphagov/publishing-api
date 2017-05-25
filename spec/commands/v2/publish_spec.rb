@@ -324,19 +324,19 @@ RSpec.describe Commands::V2::Publish do
           let(:public_updated_at) { Time.zone.now - 1.year }
 
           before do
-            draft_item.update_attributes!(public_updated_at: public_updated_at)
             payload.merge!(update_type: "republish")
           end
 
-          it "uses the stored timestamp for major or minor" do
-            expect(DownstreamLiveWorker)
-              .to receive(:perform_async_in_queue)
-              .with(
-                "downstream_low",
-                a_hash_including(:content_id, :locale, :payload_version, message_queue_update_type: "republish"),
-              )
+          it "uses the stored timestamp from the previous version" do
+            FactoryGirl.create(:live_edition,
+              document: draft_item.document,
+              public_updated_at: public_updated_at,
+              base_path: base_path,
+            )
 
             described_class.call(payload)
+
+            expect(draft_item.reload.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
           end
         end
       end
