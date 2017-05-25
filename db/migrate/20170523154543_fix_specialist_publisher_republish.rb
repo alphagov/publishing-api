@@ -29,7 +29,7 @@ private
     Edition
       .with_document
       .includes(:document)
-      .where(publishing_app: "specialist-publisher", update_type: "republish")
+      .where(publishing_app: "specialist-publisher")
       .where.not(content_store: nil)
       .where("last_edited_at IS NULL OR public_updated_at IS NULL")
       .where(
