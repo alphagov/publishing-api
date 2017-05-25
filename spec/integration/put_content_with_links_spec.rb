@@ -1,31 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::PutContent do
+  include IntegrationSpecHelper
+
   describe "call" do
-    let(:content_id) { SecureRandom.uuid }
-    let(:base_path) { "/vat-rates" }
-    let(:locale) { "en" }
-
-    let(:change_note) { { note: "Info", public_timestamp: Time.now.utc.to_s } }
-
-    let(:payload) do
-      {
-        content_id: content_id,
-        base_path: base_path,
-        update_type: "major",
-        title: "Some Title",
-        publishing_app: "publisher",
-        rendering_app: "frontend",
-        document_type: "nonexistent-schema",
-        schema_name: "nonexistent-schema",
-        locale: locale,
-        routes: [{ path: base_path, type: "exact" }],
-        redirects: [],
-        phase: "beta",
-        change_note: change_note
-      }
-    end
-
+    let(:payload) { default_payload }
 
     context "when the 'links' parameter is provided" do
       before do
