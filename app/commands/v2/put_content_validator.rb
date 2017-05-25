@@ -26,21 +26,20 @@ module Commands
       end
 
       def validate_publishing_app
-        if payload[:publishing_app].blank?
-          code = 422
-          message = "publishing_app is required"
-          raise CommandError.new(
-            code: code,
-            message: message,
-            error_details: {
-              error: {
-                code: code,
-                message: message,
-                fields: { publishing_app: ["is required"] }
-              }
+        return unless payload[:publishing_app].blank?
+        code = 422
+        message = "publishing_app is required"
+        raise CommandError.new(
+          code: code,
+          message: message,
+          error_details: {
+            error: {
+              code: code,
+              message: message,
+              fields: { publishing_app: ["is required"] }
             }
-          )
-        end
+          }
+        )
       end
 
       def schema_validator
