@@ -296,7 +296,7 @@ RSpec.describe Commands::V2::Publish do
 
             described_class.call(payload)
 
-            expect(Edition.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
+            expect(draft_item.reload.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
           end
 
           it "preserves the public_updated_at value from the last unpublished item" do
@@ -310,7 +310,7 @@ RSpec.describe Commands::V2::Publish do
 
             described_class.call(payload)
 
-            expect(Edition.last.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
+            expect(draft_item.reload.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
           end
 
           it "updates the public_updated_at time to now if no previous item" do
