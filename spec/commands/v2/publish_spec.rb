@@ -509,48 +509,4 @@ RSpec.describe Commands::V2::Publish do
 
     it_behaves_like TransactionalCommand
   end
-
-  context "for a pathless edition format" do
-    let(:pathless_edition) do
-      FactoryGirl.create(:draft_edition,
-        document_type: "contact",
-        user_facing_version: 2,
-        base_path: nil,
-      )
-    end
-
-    let(:payload) do
-      {
-        content_id: pathless_edition.document.content_id,
-        update_type: "major",
-        previous_version: 1,
-      }
-    end
-
-    context "with no Location" do
-      it "publishes the item" do
-        described_class.call(payload)
-
-        updated_item = Edition.find(pathless_edition.id)
-        expect(updated_item.state).to eq("published")
-      end
-
-      context "with a previously published item" do
-        let!(:live_edition) do
-          FactoryGirl.create(:live_edition,
-            document: pathless_edition.document,
-            document_type: "contact",
-            user_facing_version: 1,
-          )
-        end
-
-        it "publishes the draft" do
-          described_class.call(payload)
-
-          updated_item = Edition.find(pathless_edition.id)
-          expect(updated_item.state).to eq("published")
-        end
-      end
-    end
-  end
 end
