@@ -26,12 +26,14 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
     }
   end
 
-  describe Commands::V2::Unpublish do
-    let(:locale) { "en" }
-    let(:action_payload) { payload }
-    let(:action) { "UnpublishGone" }
+  context "creates an action" do
+    describe Commands::V2::Unpublish do
+      let(:locale) { "en" }
+      let(:action_payload) { payload }
+      let(:action) { "UnpublishGone" }
 
-    include_examples "creates an action"
+      include_examples "creates an action"
+    end
   end
 
   it "maintains the state of unpublished" do

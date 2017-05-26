@@ -235,15 +235,11 @@ RSpec.describe Commands::V2::Publish do
         described_class.call(payload)
       end
 
-      it "creates an action" do
-        expect(Action.count).to be 0
-        described_class.call(payload)
-        expect(Action.count).to be 1
-        expect(Action.first.attributes).to match a_hash_including(
-          "content_id" => document.content_id,
-          "locale" => locale,
-          "action" => "Publish",
-        )
+      context "creates an action" do
+        let(:content_id) { document.content_id }
+        let(:action_payload) { payload }
+        let(:action) { "Publish" }
+        include_examples "creates an action"
       end
 
       context "when the 'downstream' parameter is false" do

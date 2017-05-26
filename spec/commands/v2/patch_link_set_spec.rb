@@ -28,6 +28,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
     }
   end
 
+  let(:locale) { nil }
+  let(:action_payload) { payload }
+  let(:action) { "PatchLinkSet" }
+
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
 
@@ -36,17 +40,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       .and_return(expected_content_store_payload)
   end
 
-  shared_examples "creates an action" do
-    it "creates an action" do
-      expect(Action.count).to be 0
-      described_class.call(payload)
-      expect(Action.count).to be 1
-      expect(Action.first.attributes).to match a_hash_including(
-        "content_id" => content_id,
-        "action" => "PatchLinkSet",
-      )
-    end
-  end
+  include_examples "creates an action"
 
   context "when no link set exists" do
     include_examples "creates an action"
@@ -117,7 +111,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     let(:related) { [SecureRandom.uuid] }
 
     before do
-      link_set = FactoryGirl.create(:link_set,
+      FactoryGirl.create(:link_set,
         content_id: content_id,
         stale_lock_version: 1,
         links: [
