@@ -157,7 +157,7 @@ module Commands
 
         if update_type == "major" || previous_item.blank?
           edition.update_attributes!(public_updated_at: default_datetime)
-        elsif update_type == "minor"
+        else
           edition.update_attributes!(public_updated_at: previous_item.public_updated_at)
         end
       end
