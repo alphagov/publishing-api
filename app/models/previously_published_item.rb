@@ -19,7 +19,7 @@ class PreviouslyPublishedItem
     previously_published_item.user_facing_version + 1
   end
 
-  def set_first_published_at?
+  def has_first_published_at?
     true
   end
 
@@ -27,7 +27,7 @@ class PreviouslyPublishedItem
     previously_published_item.first_published_at
   end
 
-  def set_last_edited_at?
+  def has_last_edited_at?
     true
   end
 
@@ -60,11 +60,11 @@ class PreviouslyPublishedItem
       []
     end
 
-    def set_first_published_at?
+    def has_first_published_at?
       false
     end
 
-    def set_last_edited_at?
+    def has_last_edited_at?
       false
     end
 
