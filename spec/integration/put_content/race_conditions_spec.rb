@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::PutContent do
-  include PutContentIntegrationHelper
+  include_context "PutContent call"
 
   describe "race conditions", skip_cleaning: true do
     let(:document) do
@@ -20,8 +20,6 @@ RSpec.describe Commands::V2::PutContent do
         base_path: base_path,
       )
     end
-
-    let(:payload) { default_payload }
 
     after do
       DatabaseCleaner.clean_with :truncation

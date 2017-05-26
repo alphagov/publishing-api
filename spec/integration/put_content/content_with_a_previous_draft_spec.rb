@@ -1,9 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "PUT /v2/content when the payload is for an already drafted edition" do
-  include PutContentIntegrationHelper
-
-  let(:payload) { default_payload }
+  include_context "PutContent call"
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})

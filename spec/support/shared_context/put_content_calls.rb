@@ -1,5 +1,5 @@
-module IntegrationSpecHelper
-  def default_payload
+RSpec.shared_context "PutContent call" do
+  let(:payload) do
     {
       content_id: content_id,
       base_path: base_path,
@@ -17,19 +17,11 @@ module IntegrationSpecHelper
     }
   end
 
-  def base_path
-    "/vat-rates"
-  end
+  let(:base_path) { "/vat-rates" }
+  let(:locale) { "en" }
+  let(:content_id) { SecureRandom.uuid }
 
-  def locale
-    "en"
-  end
-
-  def content_id
-    @content_id ||= SecureRandom.uuid
-  end
-
-  def change_note
+  let(:change_note) do
     { note: "Info", public_timestamp: Time.now.utc.to_s }
   end
 end

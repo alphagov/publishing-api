@@ -1,9 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Path reservation" do
-  include PutContentIntegrationHelper
-
-  let(:payload) { default_payload }
+  include_context "PutContent call"
 
   context "when there are no previous path reservations" do
     it "creates a path reservation" do

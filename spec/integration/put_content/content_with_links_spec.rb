@@ -1,9 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
-  include PutContentIntegrationHelper
-
-  let(:payload) { default_payload }
+  include_context "PutContent call"
 
   before do
     payload.merge!(links: { users: [link] })

@@ -38,9 +38,8 @@ RSpec.describe Commands::V2::PutContent do
         .and_return(validator)
       expect(validator).to receive(:validate)
       expect(PathReservation).to receive(:reserve_base_path!)
-      expect{ described_class.call(payload) }.not_to raise_error
+      expect { described_class.call(payload) }.not_to raise_error
     end
-
 
     it "sends to the downstream draft worker" do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
