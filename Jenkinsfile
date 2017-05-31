@@ -154,7 +154,7 @@ node {
       }
     }
 
-    releaseTag = "release_${env.BRANCH_NAME}"
+    releaseTag = "release_${env.BUILD_NUMBER}"
 
     stage("Push Docker image") {
       tag = env.BRANCH_NAME == "master" ? releaseTag : null
