@@ -65,6 +65,7 @@ node {
         script: "git rev-parse HEAD",
         returnStdout: true
       ).trim())
+      govuk.buildDockerImage(REPOSITORY, env.BRANCH_NAME)
     }
 
     stage("Lint") {
@@ -153,9 +154,16 @@ node {
       }
     }
 
+    releaseTag = "release_${env.BRANCH_NAME}"
+
+    stage("Push Docker image") {
+      tag = env.BRANCH_NAME == "master" ? releaseTag : null
+      govuk.pushDockerImage(REPOSITORY, env.BRANCH_NAME, tag)
+    }
+
     if (env.BRANCH_NAME == "master") {
       stage("Push release tag") {
-        govuk.pushTag(REPOSITORY, env.BRANCH_NAME, "release_" + env.BUILD_NUMBER)
+        govuk.pushTag(REPOSITORY, env.BRANCH_NAME, releaseTag)
       }
 
       stage("Deploy on Integration") {
