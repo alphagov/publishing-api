@@ -479,7 +479,7 @@ Returns arrays of `content_id`s representing documents. These are grouped by
 `link_type`. The ordering of the returned links matches the ordering when they
 were created.
 
-### Path parameters
+### Path parameters
 
 - [`content_id`](model.md#content_id)
   - Identifies the documents links will be retrieved for.
@@ -491,7 +491,7 @@ were created.
 Retrieves the expanded link set for the given `content_id`. Returns arrays of
 details for each linked edition in groupings of `link_type`.
 
-### Path parameters
+### Path parameters
 
 - [`content_id`](model.md#content_id)
   - Identifies the link set links will be retrieved for.
@@ -508,7 +508,7 @@ details for each linked edition in groupings of `link_type`.
 Retrieves all editions that have [link set links][link-set-links] to the given `content_id`
 for some `link_type`.
 
-### Path parameters
+### Path parameters
 
 - [`content_id`](model.md#content_id)
   - Identifies the link set editions may be linked to.
@@ -555,7 +555,7 @@ a mapping of `base_path` to `content_id`.
 
 Reserves a path for a publishing application. Returns success or failure only.
 
-### Path parameters
+### Path parameters
 
 - `base_path`
   - Identifies the path that will be reserved
