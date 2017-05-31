@@ -8,11 +8,9 @@ RSpec.describe Commands::V2::DiscardDraft do
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
-    let(:content_id) { SecureRandom.uuid }
     let(:locale) { "en" }
     let(:document) do
       FactoryGirl.create(:document,
-        content_id: content_id,
         locale: "en",
         stale_lock_version: stale_lock_version,
       )
@@ -47,6 +45,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       context "creates an action" do
+        let(:content_id) { document.content_id }
         let(:action_payload) { payload }
         let(:action) { "DiscardDraft" }
         include_examples "creates an action"
