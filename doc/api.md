@@ -24,8 +24,8 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/linked/:content_id`](#get-v2linkedcontent_id)
 - [`GET /v2/linkables`](#get-v2linkables)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
-- [`GET /debug/:content_id`](#get-debugcontent_id)
 - [`PUT /paths/:base_path`](#put-pathsbase_path)
+- [`GET /debug/:content_id`](#get-debugcontent_id)
 
 ### Optimistic locking (`previous_version`)
 
