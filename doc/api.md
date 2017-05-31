@@ -590,7 +590,7 @@ Displays debug information for `content_id`.
 ### Usage:
 
 ```
-  ssh backend-1.integration -CNL 8888:127.0.0.1:3093
+  ssh publishing-api-1.integration -CNL 8888:127.0.0.1:3093
 ```
 
 And then open http://localhost:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
