@@ -52,8 +52,8 @@ decision records in the [doc/arch](doc/arch) directory.
 
 ### Deleting Documents, Editions and Links
 
-To delete content from the Publishing API you will need to create a data
-migration.
+To delete content from the Publishing API you will need to create a [data
+migration][data-migration].
 
 If you need to delete all traces of a document from the system:
 
@@ -126,8 +126,8 @@ You can run the pact verification tests on their own using:
 $ bundle exec rake pact:verify
 ```
 
-See [doc/pact_testing.md](doc/pact_testing.md) for more details about the pacts and the pact
-broker.
+See [doc/pact_testing.md](doc/pact_testing.md) for more details about the pacts
+and the pact broker.
 
 ## Example API requests
 
@@ -162,6 +162,7 @@ See [the contributing documentation][contributing] for more information.
 
 [content-store]: https://github.com/alphagov/content-store
 [content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md
+[data-migration]: https://github.com/alphagov/publishing-api/blob/master/CONTRIBUTING.md#are-you-writing-a-migration-to-change-publishing-api-data
 [pact]: https://github.com/realestate-com-au/pact
 [pact-broker-latest]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
 [link-set-link]: doc/link-expansion.md#patch-link-set---link-set-links

@@ -24,8 +24,8 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/linked/:content_id`](#get-v2linkedcontent_id)
 - [`GET /v2/linkables`](#get-v2linkables)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
-- [`GET /debug/:content_id`](#get-debugcontent_id)
 - [`PUT /paths/:base_path`](#put-pathsbase_path)
+- [`GET /debug/:content_id`](#get-debugcontent_id)
 
 ### Optimistic locking (`previous_version`)
 
@@ -479,7 +479,7 @@ Returns arrays of `content_id`s representing documents. These are grouped by
 `link_type`. The ordering of the returned links matches the ordering when they
 were created.
 
-### Path parameters
+### Path parameters
 
 - [`content_id`](model.md#content_id)
   - Identifies the documents links will be retrieved for.
@@ -491,7 +491,7 @@ were created.
 Retrieves the expanded link set for the given `content_id`. Returns arrays of
 details for each linked edition in groupings of `link_type`.
 
-### Path parameters
+### Path parameters
 
 - [`content_id`](model.md#content_id)
   - Identifies the link set links will be retrieved for.
@@ -508,7 +508,7 @@ details for each linked edition in groupings of `link_type`.
 Retrieves all editions that have [link set links][link-set-links] to the given `content_id`
 for some `link_type`.
 
-### Path parameters
+### Path parameters
 
 - [`content_id`](model.md#content_id)
   - Identifies the link set editions may be linked to.
@@ -555,7 +555,7 @@ a mapping of `base_path` to `content_id`.
 
 Reserves a path for a publishing application. Returns success or failure only.
 
-### Path parameters
+### Path parameters
 
 - `base_path`
   - Identifies the path that will be reserved
@@ -590,7 +590,7 @@ Displays debug information for `content_id`.
 ### Usage:
 
 ```
-  ssh backend-1.integration -CNL 8888:127.0.0.1:3093
+  ssh publishing-api-1.integration -CNL 8888:127.0.0.1:3093
 ```
 
 And then open http://localhost:8888/debug/f141fa95-0d79-4aed-8429-ed223a8f106a
