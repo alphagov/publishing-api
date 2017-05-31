@@ -126,8 +126,8 @@ You can run the pact verification tests on their own using:
 $ bundle exec rake pact:verify
 ```
 
-See [doc/pact_testing.md](doc/pact_testing.md) for more details about the pacts and the pact
-broker.
+See [doc/pact_testing.md](doc/pact_testing.md) for more details about the pacts
+and the pact broker.
 
 ## Example API requests
 
