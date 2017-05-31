@@ -8,9 +8,9 @@ RSpec.describe Commands::V2::DiscardDraft do
     end
 
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
+    let(:locale) { "en" }
     let(:document) do
       FactoryGirl.create(:document,
-        content_id: SecureRandom.uuid,
         locale: "en",
         stale_lock_version: stale_lock_version,
       )
@@ -44,16 +44,11 @@ RSpec.describe Commands::V2::DiscardDraft do
         expect(Edition.exists?(id: existing_draft_item.id)).to eq(false)
       end
 
-      it "creates an action" do
-        expect(Action.count).to be 0
-        described_class.call(payload)
-        expect(Action.count).to be 1
-        expect(Action.first.attributes).to match a_hash_including(
-          "content_id" => document.content_id,
-          "locale" => document.locale,
-          "action" => "DiscardDraft",
-          "edition_id" => existing_draft_item.id,
-        )
+      context "creates an action" do
+        let(:content_id) { document.content_id }
+        let(:action_payload) { payload }
+        let(:action) { "DiscardDraft" }
+        include_examples "creates an action"
       end
 
       it "deletes the supporting objects for the draft item" do
