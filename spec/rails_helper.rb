@@ -71,6 +71,7 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
+    Rails.application.load_tasks
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
