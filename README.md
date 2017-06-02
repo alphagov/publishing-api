@@ -152,6 +152,10 @@ rake 'events:import_content_id_events[a796ca43-021b-4960-9c99-f41bb8ef2266]'
 ```
 see the rake task for more details.
 
+## Admin tasks
+
+See [admin tasks](doc/admin-tasks.md) for more information
+
 ## Contributing
 
 See [the contributing documentation][contributing] for more information.
