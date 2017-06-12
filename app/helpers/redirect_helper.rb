@@ -19,7 +19,10 @@ module RedirectHelper
         publishing_app: payload[:publishing_app]
       ).merge(content_id: SecureRandom.uuid)
 
-      Commands::V2::PutContent.call(redirect_payload, callbacks: callbacks, nested: true)
+      Commands::V2::PutContent.call(redirect_payload,
+                                    callbacks: callbacks,
+                                    nested: true,
+                                    owning_document_id: owning_document.id)
     end
 
   private
@@ -53,6 +56,11 @@ module RedirectHelper
           destination: route[:path].gsub(old_base_path, new_base_path)
         }
       end
+    end
+
+    def owning_document
+      previously_published_item.try(:document) ||
+        previously_drafted_item.document
     end
   end
 end

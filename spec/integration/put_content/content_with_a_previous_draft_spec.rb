@@ -105,6 +105,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
           destination: "#{base_path}.atom"
         }
       ])
+      expect(redirect.document.owning_document).to eq(previously_drafted_item.document)
     end
 
     it "sends a create request to the draft content store for the redirect" do
