@@ -1,13 +1,20 @@
 module Commands
   class BaseCommand
-    attr_reader :callbacks
+    attr_reader :callbacks, :options
 
-    def self.call(payload, downstream: true, nested: false, callbacks: [])
+    def self.call(payload, downstream: true, nested: false, callbacks: [], **options)
       logger.debug "#{self} called with payload:\n#{payload}"
 
       response = EventLogger.log_command(self, payload) do |event|
         PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, '.')) do
-          new(payload, event: event, downstream: downstream, callbacks: callbacks, nested: nested).call
+          new(
+            payload,
+            event: event,
+            downstream: downstream,
+            callbacks: callbacks,
+            nested: nested,
+            **options
+          ).call
         end
       end
 
@@ -18,12 +25,13 @@ module Commands
       raise_validation_command_error(e)
     end
 
-    def initialize(payload, event:, downstream: true, nested: false, callbacks:)
+    def initialize(payload, event:, downstream: true, nested: false, callbacks:, **options)
       @payload = payload
       @event = event
       @downstream = downstream
       @nested = nested
       @callbacks = callbacks
+      @options = options
     end
 
   private
