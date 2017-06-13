@@ -27,9 +27,18 @@ module ContentApiPrototype
     private
 
       def present(edition)
-        Presenters::EditionPresenter
+        presented_edition = Presenters::EditionPresenter
           .new(edition, draft: edition.draft?)
           .for_content_store(0)
+
+        resolve_text_html(presented_edition)
+      end
+
+      def resolve_text_html(presented_edition)
+        resolver = ContentTypeResolver.new("text/html")
+        presented_edition[:details] = resolver.resolve(presented_edition[:details])
+        presented_edition[:description] = resolver.resolve(presented_edition[:description])
+        presented_edition
       end
     end
   end
