@@ -12,6 +12,15 @@ Rails.application.routes.draw do
 
     post '/lookup-by-base-path', to: 'lookups#by_base_path'
 
+    namespace :content_api_prototype do
+      namespace :content_items do
+        scope "/content" do
+          get "/:content_id/:locale/:user_facing_version", to: "content#by_content_id"
+          get "(/*base_path)", to: "content#by_base_path"
+        end
+      end
+    end
+
     namespace :v2 do
       get "/content", to: "content_items#index"
       scope constraints: method(:content_id_constraint) do
