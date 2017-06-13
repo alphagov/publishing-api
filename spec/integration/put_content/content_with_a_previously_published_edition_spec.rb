@@ -83,6 +83,8 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
         type: "exact",
         destination: "/moved",
       }])
+
+      expect(redirect.document.owning_document).to eq(edition.document)
     end
 
     it "sends a create request to the draft content store for the redirect" do

@@ -40,6 +40,7 @@ private
     document.increment!(:stale_lock_version)
     set_first_published_at
     set_last_edited_at
+    set_document_owner
   end
 
   def set_first_published_at
@@ -56,6 +57,11 @@ private
     edition.update_attributes(
       last_edited_at: previously_published_item.last_edited_at,
     )
+  end
+
+  def set_document_owner
+    owner_id = put_content.options[:owning_document_id]
+    edition.document.update_attributes(owning_document_id: owner_id) if owner_id
   end
 
   def edition_attributes_from_payload
