@@ -36,12 +36,14 @@ Rails.application.routes.draw do
       post "/actions/:content_id", to: "actions#create"
     end
 
-    namespace :content_api_prototype do
-      namespace :content_items do
-        scope constraints: method(:content_id_constraint) do
-          get "/content/:content_id/:locale/:user_facing_version", to: "content#by_content_id"
+    if ENV.include?("CONTENT_API_PROTOTYPE")
+      namespace :content_api_prototype do
+        namespace :content_items do
+          scope constraints: method(:content_id_constraint) do
+            get "/content/:content_id/:locale/:user_facing_version", to: "content#by_content_id"
+          end
+          get "/content(/*base_path)", to: "content#by_base_path"
         end
-        get "/content(/*base_path)", to: "content#by_base_path"
       end
     end
   end
