@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/alphagov/airbrake.git
+  revision: ad9c926a56535c48f95c33824a76e10bc8f91179
+  branch: silence-dep-warnings-for-rails-5
+  specs:
+    airbrake (4.3.8)
+      builder
+      multi_json
+      rails (>= 5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -40,9 +50,6 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    airbrake (5.5.0)
-      airbrake-ruby (~> 1.5)
-    airbrake-ruby (1.5.0)
     amq-protocol (2.1.0)
     arel (8.0.0)
     ast (2.3.0)
@@ -389,8 +396,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 5.5)
-  airbrake-ruby (= 1.5)
+  airbrake!
   arel (= 8.0)
   aws-sdk (~> 2)
   bunny (~> 2.6)
