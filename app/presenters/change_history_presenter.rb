@@ -7,7 +7,7 @@ module Presenters
     end
 
     def change_history
-      details[:change_history] || change_notes_for_content_item
+      details[:change_history] || presented_change_notes
     end
 
   private
@@ -16,14 +16,20 @@ module Presenters
       SymbolizeJSON.symbolize(edition.details)
     end
 
-    def change_notes_for_content_item
-      change_notes = ChangeNote
+    def presented_change_notes
+      SymbolizeJSON.symbolize(
+        change_notes
+          .pluck(:note, :public_timestamp)
+          .map { |note, timestamp| { note: note, public_timestamp: timestamp } }
+          .as_json
+      )
+    end
+
+    def change_notes
+      ChangeNote
         .where(document: document)
         .where("edition_id IS NULL OR edition_id IN (?)", edition_ids)
         .order(:public_timestamp)
-        .pluck(:note, :public_timestamp)
-        .map { |note, timestamp| { note: note, public_timestamp: timestamp } }
-      SymbolizeJSON.symbolize(change_notes.as_json)
     end
 
     def edition_ids
