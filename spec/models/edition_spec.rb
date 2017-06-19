@@ -256,7 +256,9 @@ RSpec.describe Edition do
 
   context "EMPTY_BASE_PATH_FORMATS" do
     it "defines formats not requiring a base_path attibute" do
-      expect(Edition::EMPTY_BASE_PATH_FORMATS).to eq(%w(contact government))
+      expect(Edition::EMPTY_BASE_PATH_FORMATS).to eq(
+        %w(contact government world_location)
+      )
     end
   end
 
@@ -268,6 +270,11 @@ RSpec.describe Edition do
 
     it "doesn't require a base path for 'government' document_type" do
       subject.document_type = "government"
+      expect(subject.requires_base_path?).to be false
+    end
+
+    it "doesn't require a base path for 'world_location' document_type" do
+      subject.document_type = "world_location"
       expect(subject.requires_base_path?).to be false
     end
 

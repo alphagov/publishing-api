@@ -32,8 +32,7 @@ class Edition < ApplicationRecord
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
-  EMPTY_BASE_PATH_FORMATS = %w(contact government).freeze
-
+  EMPTY_BASE_PATH_FORMATS = %w(contact government world_location).freeze
   belongs_to :document
   has_one :unpublishing
   has_one :change_note
