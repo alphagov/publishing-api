@@ -11,6 +11,7 @@ gem 'airbrake', '~> 5.5'
 gem 'airbrake-ruby', '1.5'
 gem "pg"
 gem 'dalli'
+gem 'parallel'
 
 gem "colorize", "~> 0.8"
 
