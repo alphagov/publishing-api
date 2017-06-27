@@ -62,7 +62,7 @@ private
 
   def raw_events
     Event
-      .where("payload IS NOT NULL")
+      .where("payload::text LIKE '%taxons%'")
       .where(action: "PatchLinkSet")
       .order("id ASC")
   end
