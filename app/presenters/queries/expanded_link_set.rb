@@ -17,12 +17,18 @@ module Presenters
       end
 
       def links
-        @links ||= expanded_links.merge(translations)
+        @links ||= Rails.cache.fetch(cache_key, expires_in: 1.hour) do
+          expanded_links.merge(translations)
+        end
       end
 
     private
 
       attr_reader :options, :with_drafts
+
+      def cache_key
+        ["expanded-link-set", content_id, locale, with_drafts]
+      end
 
       def edition
         @edition ||= options[:edition]
