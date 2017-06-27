@@ -1,9 +1,9 @@
 # /usr/bin/env ruby
 
-require ::File.expand_path('../../config/environment', __FILE__)
-require 'benchmark'
+require ::File.expand_path("../../config/environment", __FILE__)
+require "benchmark"
 
-require 'stackprof'
+require "stackprof"
 
 abort "Refusing to run outside of development" unless Rails.env.development?
 
@@ -22,6 +22,7 @@ large_forward = LinkSet.find_by_sql(<<-SQL).first[:content_id]
   WHERE id IN (
     SELECT link_set_id
     FROM links
+    WHERE link_set_id IS NOT NULL
     GROUP BY link_set_id
     ORDER BY COUNT(*) DESC
     LIMIT 1
@@ -55,13 +56,13 @@ def get_content_id_and_locale(content_id)
 end
 
 benchmarks = {
-  'Many reverse dependencies' => get_content_id_and_locale(large_reverse),
-  'Many forward dependencies' => get_content_id_and_locale(large_forward),
-  'No dependencies' => get_content_id_and_locale(no_links),
-  'Single link each way' => get_content_id_and_locale(single_link),
+  "Many reverse dependencies" => get_content_id_and_locale(large_reverse),
+  "Many forward dependencies" => get_content_id_and_locale(large_forward),
+  "No dependencies" => get_content_id_and_locale(no_links),
+  "Single link each way" => get_content_id_and_locale(single_link),
 }
 
-if ARGV[0] ==  '--show-queries'
+if ARGV[0] ==  "--show-queries"
   ActiveRecord::LogSubscriber::IGNORE_PAYLOAD_NAMES.delete("SCHEMA")
   ActiveRecord::Base.logger = Logger.new(STDOUT)
 end
@@ -76,7 +77,7 @@ benchmarks.each do |name, (content_id, locale)|
 
   result = nil
   puts "#{name}: #{content_id}"
-  StackProf.run(mode: :wall, out: "tmp/downstream_mediator_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
+  StackProf.run(mode: :wall, out: "tmp/downstream_mediator_#{name.gsub(/ +/, "_").downcase}_wall.dump") do
     tms = Benchmark.measure {
       10.times do
         result = Queries::GetExpandedLinks.call(content_id, locale)
@@ -92,5 +93,5 @@ benchmarks.each do |name, (content_id, locale)|
 
   log_file = "log/#{name.parameterize}.output"
   puts "log file written to #{log_file}"
-  File.open(log_file, 'w') { |file| file.write(JSON.pretty_generate(result)) }
+  File.open(log_file, "w") { |file| file.write(JSON.pretty_generate(result)) }
 end
