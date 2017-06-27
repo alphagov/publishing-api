@@ -1,3 +1,4 @@
+desc "Export the taxonomy event log"
 task taxonomy_event_log: [:environment] do
   events = TaxonomyEventLog.new.export
 
