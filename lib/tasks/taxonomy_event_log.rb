@@ -7,9 +7,9 @@ class TaxonomyEventLog
       previous_taxons = previous_events[event.content_id].to_a
       current_taxons = event.payload[:links][:taxons]
 
-      # Nil means that this `PatchLinkSet` doesn't change the `taxons` (which is
-      # different from sending an empty array)
+      # There's no `taxons` key, so no modifications can have been made
       next if current_taxons.nil?
+
       edition = fetch_edition(event.content_id)
 
       # It is possible for documents to not have an edition. This happens
@@ -62,7 +62,7 @@ private
 
   def raw_events
     Event
-      .where("payload IS NOT NULL")
+      .where("payload::text LIKE '%taxons%'")
       .where(action: "PatchLinkSet")
       .order("id ASC")
   end
