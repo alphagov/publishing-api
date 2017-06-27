@@ -220,6 +220,7 @@ GEM
       json
       pact
       term-ansicolor
+    parallel (1.10.0)
     parser (2.3.1.4)
       ast (~> 2.2)
     pg (0.19.0)
@@ -414,6 +415,7 @@ DEPENDENCIES
   oj_mimic_json (~> 1.0.1)
   pact
   pact_broker-client
+  parallel
   pg
   plek (~> 1.10)
   pry

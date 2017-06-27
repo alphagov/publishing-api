@@ -2,18 +2,34 @@ require 'csv'
 
 module Events
   class S3Importer
-    def import(s3_key)
-      file = Zlib::GzipReader.new(object(s3_key).get.body)
-      csv = CSV.new(file, headers: true)
-      csv.each do |row|
-        event = Event.find_or_initialize_by(id: row["id"])
-        event.update!(attributes(row))
-      end
-      csv.rewind
-      csv.count
+    def import_from_s3_by_key(s3_key)
+      import_file(object(s3_key).get.body)
+    end
+
+    def import_by_path(path)
+      import_file(File.new(path))
     end
 
   private
+
+    def import_file(zipfile)
+      file = Zlib::GzipReader.new(zipfile)
+      csv = CSV.new(file, headers: true)
+      csv.each do |row|
+        if true # replace this with a conditional, or you'll have to import all events
+          event = Event.find_or_initialize_by(id: row["id"])
+          if event.payload.present?
+            print 'o'
+            next
+          end
+
+          event.update!(attributes(row))
+          print "x"
+        else
+          print "-"
+        end
+      end
+    end
 
     def object(s3_key)
       bucket.object(s3_key).tap do |object|

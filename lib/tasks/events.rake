@@ -7,11 +7,27 @@ namespace :events do
     puts "Exported #{exported} event#{exported == 1 ? '' : 's'} successfully to #{s3_key} 🎉"
   end
 
-  # To access a particular bucket or use different credentials you can pass in enviornment variables e.g.
-  # $ EVENT_LOG_AWS_ACCESS_ID=AKIAIOSFODNN7EXAMPLE EVENT_LOG_AWS_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY EVENT_LOG_AWS_BUCKETNAME=govuk-publishing-api-event-log-integration S3_EXPORT_REGION=eu-west-1 rake 'events:import_from_s3[events/2015-12-12T00:00:00+00:00.csv.gz]'
-  desc "Import events from S3. The S3 key to the file is provided as an argument. You can provide environment variables to access a particular S3 bucket"
+  desc "Import events from S3. The S3 key to the file is provided as an argument. See docs/restoring-events.md."
   task :import_from_s3, [:s3_key] => :environment do |_, args|
-    imported = Events::S3Importer.new(args[:s3_key]).import
+    imported = Events::S3Importer.new.import_from_s3_by_key(args[:s3_key])
     puts "Imported #{imported} event#{imported == 1 ? '' : 's'} successfully 🍾"
+  end
+
+  desc "Download all archive files to `tmp/events`. Use this to do a local restore. See docs/restoring-events.md."
+  task :download_archive_files => [:environment] do
+    s3 = Aws::S3::Resource.new
+    bucket = s3.bucket(Rails.application.config.s3_export.bucket)
+    bucket.objects.each do |object|
+      File.write("tmp/#{object.key}", object.get.body.read)
+    end
+  end
+
+  desc "Import a set of local event archives. See docs/restoring-events.md."
+  task :import_local_archives => [:environment] do
+    paths = Dir.glob("tmp/events/*").reverse
+    Parallel.each(paths) do |path|
+      puts "\nImporting #{path}"
+      Events::S3Importer.new.import_by_path(path)
+    end
   end
 end
