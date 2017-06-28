@@ -21,7 +21,7 @@ RSpec.describe LinkExpansion::Rules do
 
   describe ".next_link_expansion_link_types" do
     # test error
-    specify { expect(subject.next_link_expansion_link_types([:child_taxons])).to match_array([:child_taxons]) }
+    specify { expect(subject.next_link_expansion_link_types([:child_taxons])).to match_array([:child_taxons, :associated_taxons]) }
     specify { expect(subject.next_link_expansion_link_types([:parent, :parent])).to match_array([:parent]) }
     specify { expect(subject.next_link_expansion_link_types([:children])).to be_empty }
   end
