@@ -57,8 +57,9 @@ migration][data-migration].
 
 If you need to delete all traces of a document from the system:
 
-```
+```ruby
 require_relative "helpers/delete_content"
+
 class RemoveYourDocument < ActiveRecord::Migration
   # Remove /some/base-path
   def up
@@ -69,8 +70,9 @@ end
 
 If you need to delete a single edition:
 
-```
+```ruby
 require_relative "helpers/delete_content"
+
 class RemoveYourEdition < ActiveRecord::Migration
   def up
     editions = Edition.where(id: 123)
@@ -84,8 +86,9 @@ end
 
 If you need to delete just the links for a document:
 
-```
+```ruby
 require_relative "helpers/delete_content"
+
 class RemoveLinks < ActiveRecord::Migration
   # Remove /some/base-path
   def up
@@ -122,7 +125,7 @@ behaves in the way expected by its clients. We use a library called
 [`pact`][pact] which follows the *consumer driven contract testing* pattern.
 You can run the pact verification tests on their own using:
 
-```
+```sh
 $ bundle exec rake pact:verify
 ```
 
@@ -131,7 +134,7 @@ and the pact broker.
 
 ## Example API requests
 
-``` sh
+```sh
 curl https://publishing-api.dev.gov.uk/content/<content_id> \
   -X PUT \
   -H 'Content-type: application/json' \
@@ -147,10 +150,12 @@ Events older then a month are archived to S3, you can import these events back
 into your local DB by running the rake tasks in lib/tasks/events.rake, after
 you set up the relevant ENV variables. For example if you want to find all the
 events that are relevant for a particular content id you can run:
+
 ```sh
 rake 'events:import_content_id_events[a796ca43-021b-4960-9c99-f41bb8ef2266]'
 ```
-see the rake task for more details.
+
+See the rake task for more details.
 
 ## Admin tasks
 
