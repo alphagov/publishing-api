@@ -32,7 +32,6 @@ module Commands
           ExpandedLinkSetCacheWorker.perform_async(content_id)
         end
 
-
         Action.create_patch_link_set_action(link_set, event)
 
         presented = Presenters::Queries::LinkSetPresenter.present(link_set)

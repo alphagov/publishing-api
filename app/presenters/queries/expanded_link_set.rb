@@ -24,10 +24,6 @@ module Presenters
 
       attr_reader :options, :with_drafts
 
-      def cache_key
-        ["expanded-link-set", content_id, locale, with_drafts]
-      end
-
       def edition
         @edition ||= options[:edition]
       end
