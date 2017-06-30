@@ -10,6 +10,10 @@ module Commands
           after_transaction_commit do
             send_downstream_live
             send_downstream_draft if access_limit
+
+            if orphaned_content_ids.any?
+              ExpandedLinkSetCacheWorker.perform_async(document.content_id)
+            end
           end
         end
 
