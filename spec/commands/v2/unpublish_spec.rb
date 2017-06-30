@@ -409,6 +409,11 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with("downstream_high", hash_excluding(:orphaned_content_ids))
       end
+
+      it "enqueues a job for the expanded links cache worker" do
+        expect(ExpandedLinkSetCacheWorker).to receive(:perform_async)
+          .with(document.content_id)
+      end
     end
 
     context "when the document is redrafted" do
