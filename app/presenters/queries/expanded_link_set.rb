@@ -17,9 +17,7 @@ module Presenters
       end
 
       def links
-        @links ||= Rails.cache.fetch(cache_key, expires_in: 1.hour) do
-          expanded_links.merge(translations)
-        end
+        @links ||= expanded_links.merge(translations)
       end
 
     private

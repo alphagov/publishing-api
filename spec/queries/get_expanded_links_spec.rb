@@ -81,5 +81,11 @@ RSpec.describe Queries::GetExpandedLinks do
         ]
       )
     end
+
+    it "fetches links from the cache" do
+      expect(Rails.cache).to receive(:fetch).with(["expanded-link-set", content_id, "en", false])
+
+      described_class.call(content_id, "en", with_drafts: false)
+    end
   end
 end

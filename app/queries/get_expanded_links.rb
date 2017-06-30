@@ -24,9 +24,14 @@ module Queries
         with_drafts: with_drafts,
       )
 
+      cache_key = ["expanded-link-set", link_set.content_id, locale, with_drafts]
+      expanded_links = Rails.cache.fetch(cache_key) do
+        expanded_link_set.links
+      end
+
       {
         content_id: link_set.content_id,
-        expanded_links: expanded_link_set.links,
+        expanded_links: expanded_links,
         version: link_set.stale_lock_version,
       }
     end
