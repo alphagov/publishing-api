@@ -29,6 +29,13 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
 
       expect(Link.find_by(target_content_id: document.content_id)).to be
     end
+
+    it "enqueues an expanded links cache worker job" do
+      expect(ExpandedLinkSetCacheWorker).to receive(:perform_async)
+        .with(document.content_id)
+
+      put "/v2/content/#{document.content_id}", params: payload.to_json
+    end
   end
 
   context "existing links" do
@@ -61,6 +68,13 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
           a_hash_including(orphaned_content_ids: [content_id])
         )
         put "/v2/content/#{content_id}", params: payload.to_json
+      end
+
+      it "enqueues an expanded links cache worker job" do
+        expect(ExpandedLinkSetCacheWorker).to receive(:perform_async)
+          .with(document.content_id)
+
+        put "/v2/content/#{document.content_id}", params: payload.to_json
       end
     end
   end

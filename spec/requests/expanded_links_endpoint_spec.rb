@@ -83,6 +83,8 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
       content_id: edition.document.content_id,
     )
 
+    Rails.cache.clear
+
     get "/v2/expanded-links/#{link_set.content_id}"
 
     expect(parsed_response).to eql(
@@ -99,6 +101,8 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
       content_id: edition.document.content_id,
       stale_lock_version: 11,
     )
+
+    Rails.cache.clear
 
     get "/v2/expanded-links/#{link_set.content_id}"
 

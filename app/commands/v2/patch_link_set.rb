@@ -29,6 +29,7 @@ module Commands
 
         after_transaction_commit do
           send_downstream(orphaned_content_ids)
+          ExpandedLinkSetCacheWorker.perform_async(content_id)
         end
 
         Action.create_patch_link_set_action(link_set, event)

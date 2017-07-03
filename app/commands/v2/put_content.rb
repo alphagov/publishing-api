@@ -21,6 +21,10 @@ module Commands
             update_dependencies?(edition),
             orphaned_links
           )
+
+          unless payload[:links].nil?
+            ExpandedLinkSetCacheWorker.perform_async(document.content_id)
+          end
         end
 
         Success.new(present_response(edition))

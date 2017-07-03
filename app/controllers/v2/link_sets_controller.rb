@@ -5,15 +5,11 @@ module V2
     end
 
     def expanded_links
-      json = Rails.cache.fetch ['expanded-links', content_id, params[:with_drafts], params[:locale]], expires_in: 1.hour do
-        Queries::GetExpandedLinks.call(
-          content_id,
-          params[:locale],
-          with_drafts: with_drafts?,
-        )
-      end
-
-      render json: json
+      render json: Queries::GetExpandedLinks.call(
+        content_id,
+        params[:locale],
+        with_drafts: with_drafts?,
+      )
     end
 
     def patch_links

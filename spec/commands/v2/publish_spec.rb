@@ -448,6 +448,13 @@ RSpec.describe Commands::V2::Publish do
 
         described_class.call(payload)
       end
+
+      it "enqueues a job for the expanded links cache worker" do
+        expect(ExpandedLinkSetCacheWorker).to receive(:perform_async)
+          .with(document.content_id)
+
+        described_class.call(payload)
+      end
     end
 
     context "when an access limit is set on the draft edition" do

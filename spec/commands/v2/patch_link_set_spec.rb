@@ -105,6 +105,11 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(links.map(&:link_type)).to eq(%w(parent topics topics topics))
       expect(links.map(&:target_content_id)).to eq(parent + topics_shuffled)
     end
+
+    it "populates the cache with expanded links" do
+      expect(ExpandedLinkSetCacheWorker).to receive(:perform_async).with(content_id)
+      described_class.call(payload)
+    end
   end
 
   context "when a link set exists" do
@@ -398,7 +403,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       { content_id: content_id, links: { topics: [link_b] } }
     end
 
-    before do
+    let!(:link_set) do
       FactoryGirl.create(:link_set,
         content_id: content_id,
         links_hash: { topics: [link_a] },
@@ -409,6 +414,11 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
         .with("downstream_high", a_hash_including(orphaned_content_ids: [link_a]))
 
+      described_class.call(payload)
+    end
+
+    it "populates the cache for this link set" do
+      expect(ExpandedLinkSetCacheWorker).to receive(:perform_async).with(content_id)
       described_class.call(payload)
     end
   end
