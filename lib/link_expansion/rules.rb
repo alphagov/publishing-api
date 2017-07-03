@@ -58,6 +58,7 @@ module LinkExpansion::Rules
     { document_type: :need,                       fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :finder, link_type: :finder, fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :travel_advice,              fields: DEFAULT_FIELDS + [[:details, :country], [:details, :change_description]] },
+    { document_type: :world_location,             fields: [:content_id, :title, :schema_name, :locale, :analytics_identifier] },
   ].freeze
 
   def root_reverse_links
