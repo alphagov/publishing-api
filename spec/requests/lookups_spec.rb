@@ -39,6 +39,40 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
 
       expect(parsed_response).to eql({})
     end
+
+    context 'when document type filtering is set to include all content' do
+      it "returns content ids for redirected content" do
+        redirected_content_item = FactoryGirl.create(:redirect_edition, state: "published", base_path: "/redirect-page", user_facing_version: 1)
+
+        post "/lookup-by-base-path", params: { base_paths: %w(/redirect-page), exclude_document_types: ['none'] }
+
+        expect(parsed_response).to eql(
+          "/redirect-page" => redirected_content_item.document.content_id
+        )
+      end
+
+      it "returns content ids for gone content" do
+        gone_content_item = FactoryGirl.create(:gone_edition, state: "published", base_path: "/gone-page", user_facing_version: 1)
+
+        post "/lookup-by-base-path", params: { base_paths: %w(/gone-page), exclude_document_types: ['none'] }
+
+        expect(parsed_response).to eql(
+          "/gone-page" => gone_content_item.document.content_id
+        )
+      end
+    end
+
+    context 'when unpublishing type filtering is set to include all content' do
+      it "returns content ids for gone content" do
+        gone_content_item = FactoryGirl.create(:unpublished_edition, state: "unpublished", base_path: "/unpublished-gone-page", user_facing_version: 1)
+
+        post "/lookup-by-base-path", params: { base_paths: %w(/unpublished-gone-page), exclude_unpublishing_types: ['none'] }
+
+        expect(parsed_response).to eql(
+          "/unpublished-gone-page" => gone_content_item.document.content_id
+        )
+      end
+    end
   end
 
   def create_test_content

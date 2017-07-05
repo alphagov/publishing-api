@@ -548,6 +548,10 @@ a mapping of `base_path` to `content_id`.
 
 - `base_paths[]` *(required)*
   - An array of `base_path`s to query by.
+- 'exclude_unpublishing_types[]' *(optional, default: ['vanish', 'redirect', 'gone'])*
+  - Content with these unpublishing types will be excluded from the lookup
+- 'exclude_document_types[]' *(optional, default: ['gone', 'redirect'])*
+  - Content with these documents types will be excluded from the lookup
 
 ## `PUT /paths/:base_path`
 
