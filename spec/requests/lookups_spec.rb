@@ -42,7 +42,13 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
 
     context 'when document type filtering is set to include all content' do
       it "returns content ids for redirected content" do
-        redirected_content_item = FactoryGirl.create(:redirect_edition, state: "published", base_path: "/redirect-page", user_facing_version: 1)
+        redirected_content_item = FactoryGirl.create(
+          :redirect_edition,
+          state: "published",
+          content_store: "live",
+          base_path: "/redirect-page",
+          user_facing_version: 1
+        )
 
         post "/lookup-by-base-path", params: { base_paths: %w(/redirect-page), exclude_document_types: ['none'] }
 
@@ -52,7 +58,13 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
       end
 
       it "returns content ids for gone content" do
-        gone_content_item = FactoryGirl.create(:gone_edition, state: "published", base_path: "/gone-page", user_facing_version: 1)
+        gone_content_item = FactoryGirl.create(
+          :gone_edition,
+          state: "published",
+          content_store: "live",
+          base_path: "/gone-page",
+          user_facing_version: 1
+        )
 
         post "/lookup-by-base-path", params: { base_paths: %w(/gone-page), exclude_document_types: ['none'] }
 

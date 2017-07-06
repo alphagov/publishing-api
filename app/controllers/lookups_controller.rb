@@ -13,7 +13,7 @@ class LookupsController < ApplicationController
     )
 
     scope = scope.with_document
-      .where(state: states, base_path: base_paths)
+      .where(state: states, content_store: 'live', base_path: base_paths)
       .where.not(document_type: params.fetch('exclude_document_types', %w{gone redirect}))
 
     base_paths_and_content_ids = scope.distinct.pluck(:base_path, 'documents.content_id')
