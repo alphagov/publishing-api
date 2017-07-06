@@ -168,6 +168,7 @@ module Presenters
               unpublishings.type,
               unpublishings.explanation,
               unpublishings.alternative_path,
+              unpublishings.redirects,
               unpublishings.unpublished_at
             )
           )
@@ -176,6 +177,7 @@ module Presenters
             type,
             explanation,
             alternative_path,
+            redirects,
             unpublished_at
           )
         )
