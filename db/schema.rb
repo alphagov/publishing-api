@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703153415) do
+ActiveRecord::Schema.define(version: 20170711122824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20170703153415) do
     t.index ["publishing_app"], name: "index_editions_on_publishing_app"
     t.index ["rendering_app"], name: "index_editions_on_rendering_app"
     t.index ["state", "base_path"], name: "index_editions_on_state_and_base_path"
+    t.index ["state"], name: "index_editions_on_state"
     t.index ["updated_at"], name: "index_editions_on_updated_at"
   end
 
