@@ -55,12 +55,22 @@ module Presenters
 
     private
 
+      def can_skip_finding_latest_edition?
+        states == [:published]
+      end
+
       def results
         @results ||= execute_query(query)
       end
 
+      def estimate_total(query)
+        results = query.eyeballs.to_hash_array
+        results[0][0]["Plan"]["Plan Rows"]
+      end
+
       def query
-        ordering_query = Edition.select("*, COUNT(*) OVER () as total").from(fetch_items_query)
+        total = estimate_total(fetch_items_query)
+        ordering_query = Edition.select("*, #{total} as total").from(fetch_items_query)
         ordering_query = ordering_query.order(order.to_a.join(" ")) if order
         ordering_query = ordering_query.limit(limit) if limit
         ordering_query = ordering_query.offset(offset) if offset
@@ -89,6 +99,7 @@ module Presenters
       end
 
       def reorder(scope)
+        return scope if can_skip_finding_latest_edition?
         # used for distinct document_id by state and latest version
         scope.reorder(["editions.document_id", state_order_clause, "user_facing_version DESC"].compact)
       end
@@ -99,6 +110,11 @@ module Presenters
         priorities = { draft: 0, published: 1, unpublished: 1, superseded: 2 }.slice(*states)
         return unless priorities.values.uniq.count > 1
         "CASE state #{priorities.map { |k, v| "WHEN '#{k}' THEN #{v} " }.join} END"
+      end
+
+      def distinct_document_id_field
+        return if can_skip_finding_latest_edition?
+        "DISTINCT ON(editions.document_id) editions.document_id"
       end
 
       def select_fields(scope)
@@ -137,13 +153,10 @@ module Presenters
           end
         end
 
-        fields = [
-          "DISTINCT ON(editions.document_id) editions.document_id"
-        ] + fields_to_select.compact
+        fields = ([distinct_document_id_field] + fields_to_select).compact
 
         scope.select(*fields)
       end
-
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
@@ -207,7 +220,6 @@ module Presenters
             result.slice!(*fields.map(&:to_s))
 
             result["warnings"] = get_warnings(result) if include_warnings
-
 
             yielder.yield(result.except("total").compact)
           end
