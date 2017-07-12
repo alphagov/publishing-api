@@ -223,6 +223,9 @@ GEM
     parser (2.3.1.4)
       ast (~> 2.2)
     pg (0.19.0)
+    pg-eyeballs (1.1.0)
+      activerecord (>= 4.0, < 6.0)
+      pg
     plek (1.12.0)
     powerpack (0.1.1)
     pry (0.10.4)
@@ -415,6 +418,7 @@ DEPENDENCIES
   pact
   pact_broker-client
   pg
+  pg-eyeballs
   plek (~> 1.10)
   pry
   pry-byebug

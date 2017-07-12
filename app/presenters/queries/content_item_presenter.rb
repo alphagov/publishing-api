@@ -76,8 +76,14 @@ module Presenters
         end]
       end
 
+      def estimate_total(query)
+        results = query.eyeballs.to_hash_array
+        results[0][0]["Plan"]["Actual Rows"]
+      end
+
       def query
-        ordering_query = Edition.select("*, COUNT(*) OVER () as total").from(fetch_items_query)
+        total = estimate_total(fetch_items_query)
+        ordering_query = Edition.select("*, #{total} as total").from(fetch_items_query)
         ordering_query = ordering_query.order(mapped_order.to_a.join(" ")) if order
         ordering_query = ordering_query.limit(limit) if limit
         ordering_query = ordering_query.offset(offset) if offset
