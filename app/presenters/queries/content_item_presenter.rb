@@ -22,6 +22,12 @@ module Presenters
       SEARCH_FIELDS = %w(title base_path description).freeze
       NESTED_SEARCH_FIELDS = %w(details).freeze
 
+      ORDER_FIELD_MAPPINGS = {
+        public_updated_at: :order_public_updated_at,
+        last_edited_at: :order_last_edited_at,
+        first_published_at: :order_first_published_at,
+      }.freeze
+
       def self.present_many(edition_scope, params = {})
         new(edition_scope, params).present_many
       end
@@ -55,13 +61,30 @@ module Presenters
 
     private
 
+      def can_skip_finding_latest_edition?
+        states == [:published]
+      end
+
       def results
         @results ||= execute_query(query)
       end
 
+      def mapped_order
+        Hash[order.map do |key, value|
+          next [ORDER_FIELD_MAPPINGS[key], value] if ORDER_FIELD_MAPPINGS.include?(key)
+          [key, value]
+        end]
+      end
+
+      def estimate_total(query)
+        results = query.eyeballs.to_hash_array
+        results[0][0]["Plan"]["Actual Rows"]
+      end
+
       def query
-        ordering_query = Edition.select("*, COUNT(*) OVER () as total").from(fetch_items_query)
-        ordering_query = ordering_query.order(order.to_a.join(" ")) if order
+        total = estimate_total(fetch_items_query)
+        ordering_query = Edition.select("*, #{total} as total").from(fetch_items_query)
+        ordering_query = ordering_query.order(mapped_order.to_a.join(" ")) if order
         ordering_query = ordering_query.limit(limit) if limit
         ordering_query = ordering_query.offset(offset) if offset
         ordering_query
@@ -89,6 +112,7 @@ module Presenters
       end
 
       def reorder(scope)
+        return scope if can_skip_finding_latest_edition?
         # used for distinct document_id by state and latest version
         scope.reorder(["editions.document_id", state_order_clause, "user_facing_version DESC"].compact)
       end
@@ -101,8 +125,13 @@ module Presenters
         "CASE state #{priorities.map { |k, v| "WHEN '#{k}' THEN #{v} " }.join} END"
       end
 
+      def distinct_document_id_field
+        return if can_skip_finding_latest_edition?
+        "DISTINCT ON(editions.document_id) editions.document_id"
+      end
+
       def select_fields(scope)
-        fields_to_select = (fields + order.keys).map do |field|
+        fields_to_select = (fields + order.keys).flat_map do |field|
           case field
           when :publication_state
             "editions.state AS publication_state"
@@ -111,11 +140,11 @@ module Presenters
           when :lock_version
             "documents.stale_lock_version AS lock_version"
           when :last_edited_at
-            "to_char(last_edited_at, '#{ISO8601_SQL}') as last_edited_at"
+            ["to_char(last_edited_at, '#{ISO8601_SQL}') as last_edited_at", "last_edited_at as order_last_edited_at"]
           when :public_updated_at
-            "to_char(public_updated_at, '#{ISO8601_SQL}') as public_updated_at"
+            ["to_char(public_updated_at, '#{ISO8601_SQL}') as public_updated_at", "public_updated_at as order_public_updated_at"]
           when :first_published_at
-            "to_char(first_published_at, '#{ISO8601_SQL}') as first_published_at"
+            ["to_char(first_published_at, '#{ISO8601_SQL}') as first_published_at", "first_published_at as order_first_published_at"]
           when :state_history
             "#{STATE_HISTORY_SQL} AS state_history"
           when :unpublishing
@@ -137,13 +166,10 @@ module Presenters
           end
         end
 
-        fields = [
-          "DISTINCT ON(editions.document_id) editions.document_id"
-        ] + fields_to_select.compact
+        fields = ([distinct_document_id_field] + fields_to_select).compact
 
         scope.select(*fields)
       end
-
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
@@ -207,7 +233,6 @@ module Presenters
             result.slice!(*fields.map(&:to_s))
 
             result["warnings"] = get_warnings(result) if include_warnings
-
 
             yielder.yield(result.except("total").compact)
           end

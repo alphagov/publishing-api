@@ -12,6 +12,8 @@ gem 'airbrake-ruby', '1.5'
 gem "pg"
 gem 'dalli'
 
+gem "pg-eyeballs"
+
 gem "colorize", "~> 0.8"
 
 if ENV["API_DEV"]
