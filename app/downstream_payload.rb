@@ -35,7 +35,7 @@ class DownstreamPayload
 
     case unpublishing.type
     when "redirect" then redirect_payload_for_content_store
-    when "gone" then gone_payload
+    when "gone" then gone_payload_for_content_store
     else content_payload_for_content_store
     end
   end
@@ -45,8 +45,8 @@ class DownstreamPayload
 
     case unpublishing.type
     when "redirect" then redirect_payload_for_message_queue
-    #when "gone" then gone_payload
-  else content_payload_for_message_queue
+    when "gone" then gone_payload_for_message_queue
+    else content_payload_for_message_queue
     end
   end
 
@@ -80,12 +80,15 @@ private
     redirect_presenter.for_message_queue
   end
 
-  def gone_payload
-    GonePresenter.present(
-      base_path: base_path,
-      publishing_app: edition.publishing_app,
-      alternative_path: unpublishing.alternative_path,
-      explanation: unpublishing.explanation,
-    ).merge(payload_version: payload_version)
+  def gone_presenter
+    GonePresenter.from_edition(edition)
+  end
+
+  def gone_payload_for_content_store
+    gone_presenter.for_content_store(payload_version)
+  end
+
+  def gone_payload_for_message_queue
+    gone_presenter.for_message_queue
   end
 end
