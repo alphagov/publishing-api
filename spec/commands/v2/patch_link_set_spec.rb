@@ -288,7 +288,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
             :content_id,
             :locale,
             :payload_version,
-            message_queue_update_type: "links",
+            message_queue_event_type: "links",
           ),
         )
 
@@ -303,7 +303,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
             :content_id,
             :locale,
             :payload_version,
-            message_queue_update_type: "links",
+            message_queue_event_type: "links",
           ),
         )
 
@@ -326,7 +326,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
               "downstream_high",
               content_id: content_id,
               locale: locale,
-              message_queue_update_type: "links",
+              message_queue_event_type: "links",
               payload_version: an_instance_of(Fixnum),
               orphaned_content_ids: [],
             )
@@ -380,7 +380,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
             :content_id,
             :locale,
             :payload_version,
-            message_queue_update_type: "links",
+            message_queue_event_type: "links",
           ),
         )
 

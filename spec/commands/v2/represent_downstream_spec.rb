@@ -40,9 +40,9 @@ RSpec.describe Commands::V2::RepresentDownstream do
         subject.call(Document.pluck(:content_id), with_drafts: false)
       end
 
-      it "has a message_queue_update_type of 'links'" do
+      it "has a message_queue_event_type of 'links'" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with(anything, a_hash_including(message_queue_update_type: "links"))
+          .with(anything, a_hash_including(message_queue_event_type: "links"))
           .at_least(1).times
         subject.call(Document.pluck(:content_id), with_drafts: false)
       end

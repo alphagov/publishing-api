@@ -219,7 +219,7 @@ module Commands
 
       def live_worker_params
         {
-          message_queue_update_type: update_type,
+          message_queue_event_type: update_type,
           update_dependencies: update_dependencies?,
           orphaned_content_ids: orphaned_content_ids,
         }.merge(worker_params)

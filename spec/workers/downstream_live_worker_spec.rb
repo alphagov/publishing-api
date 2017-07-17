@@ -10,7 +10,7 @@ RSpec.describe DownstreamLiveWorker do
       "content_id" => edition.document.content_id,
       "locale" => "en",
       "payload_version" => 1,
-      "message_queue_update_type" => "major",
+      "message_queue_event_type" => "major",
       "update_dependencies" => true,
     }
   end
@@ -37,9 +37,9 @@ RSpec.describe DownstreamLiveWorker do
       }.to raise_error(KeyError)
     end
 
-    it "doesn't require message_queue_update_type" do
+    it "doesn't require message_queue_event_type" do
       expect {
-        subject.perform(arguments.except("message_queue_update_type"))
+        subject.perform(arguments.except("message_queue_event_type"))
       }.not_to raise_error
     end
 
@@ -102,11 +102,11 @@ RSpec.describe DownstreamLiveWorker do
       subject.perform(arguments)
     end
 
-    it "uses the `message_queue_update_type`" do
+    it "uses the `message_queue_event_type`" do
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
         .with(hash_including(update_type: "minor"))
 
-      subject.perform(arguments.merge("message_queue_update_type" => "minor"))
+      subject.perform(arguments.merge("message_queue_event_type" => "minor"))
     end
   end
 

@@ -13,7 +13,7 @@ class DownstreamLiveWorker
     [
       args.first["content_id"],
       args.first["locale"],
-      args.first["message_queue_update_type"],
+      args.first["message_queue_event_type"],
       args.first.fetch("update_dependencies", true),
       args.first.fetch("orphaned_content_ids", []),
       name,
@@ -38,7 +38,7 @@ class DownstreamLiveWorker
     DownstreamService.update_live_content_store(payload) if edition.base_path
 
     if edition.state == "published"
-      update_type = message_queue_update_type || edition.update_type
+      update_type = message_queue_event_type || edition.update_type
       DownstreamService.broadcast_to_message_queue(payload, update_type)
     end
 
@@ -50,7 +50,7 @@ class DownstreamLiveWorker
 private
 
   attr_reader :content_id, :locale, :edition, :payload_version,
-    :message_queue_update_type, :update_dependencies,
+    :message_queue_event_type, :update_dependencies,
     :dependency_resolution_source_content_id, :orphaned_content_ids
 
   def assign_attributes(attributes)
@@ -59,7 +59,7 @@ private
     @edition = Queries::GetEditionForContentStore.(content_id, locale, false)
     @payload_version = attributes.fetch(:payload_version)
     @orphaned_content_ids = attributes.fetch(:orphaned_content_ids, [])
-    @message_queue_update_type = attributes.fetch(:message_queue_update_type, nil)
+    @message_queue_event_type = attributes.fetch(:message_queue_event_type, nil)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @dependency_resolution_source_content_id = attributes.fetch(
       :dependency_resolution_source_content_id,

@@ -63,7 +63,7 @@ private
       DownstreamLiveWorker::LOW_QUEUE,
       content_id: dependent_content_id,
       locale: locale,
-      message_queue_update_type: "links",
+      message_queue_event_type: "links",
       payload_version: payload_version,
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,

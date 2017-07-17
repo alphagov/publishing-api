@@ -48,7 +48,7 @@ module Commands
             content_id: content_id,
             locale: locale,
             payload_version: event.id,
-            message_queue_update_type: "links",
+            message_queue_event_type: "links",
             update_dependencies: false,
           )
         end
