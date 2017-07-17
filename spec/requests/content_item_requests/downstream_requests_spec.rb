@@ -191,9 +191,9 @@ RSpec.describe "Downstream requests", type: :request do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-        .with(a_hash_including(base_path: '/a'))
+        .with(a_hash_including(base_path: '/a'), event_type: "major")
       expect(PublishingAPI.service(:queue_publisher)).to_not receive(:send_message)
-        .with(a_hash_including(base_path: '/b'))
+        .with(a_hash_including(base_path: '/b'), event_type: anything)
       post "/v2/content/#{a}/publish", params: { update_type: "major" }.to_json
       expect(response.code).to eq("200")
     end

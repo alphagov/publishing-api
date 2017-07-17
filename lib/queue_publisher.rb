@@ -18,15 +18,16 @@ class QueuePublisher
   class PublishFailedError < StandardError
   end
 
-  def send_message(edition, routing_key: nil)
+  def send_message(edition, event_type: nil, routing_key: nil)
     return if @noop
-    routing_key ||= routing_key(edition)
+    routing_key ||= routing_key(edition, event_type)
     publish_message(routing_key, edition, content_type: 'application/json', persistent: true)
   end
 
-  def routing_key(edition)
+  def routing_key(edition, event_type)
     normalised = edition.symbolize_keys
-    "#{normalised[:schema_name]}.#{normalised[:update_type]}"
+    event_type ||= normalised[:update_type]
+    "#{normalised[:schema_name]}.#{event_type}"
   end
 
   def send_heartbeat

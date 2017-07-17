@@ -104,7 +104,7 @@ RSpec.describe DownstreamLiveWorker do
 
     it "uses the `message_queue_event_type`" do
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-        .with(hash_including(update_type: "minor"))
+        .with(hash_including(update_type: "minor"), event_type: "minor")
 
       subject.perform(arguments.merge("message_queue_event_type" => "minor"))
     end

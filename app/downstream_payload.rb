@@ -40,10 +40,10 @@ class DownstreamPayload
     end
   end
 
-  def message_queue_payload(update_type)
+  def message_queue_payload
     Presenters::EditionPresenter.new(
       edition, draft: draft
-    ).for_message_queue(update_type || edition.update_type)
+    ).for_message_queue
   end
 
 private

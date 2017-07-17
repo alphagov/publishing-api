@@ -30,6 +30,7 @@ module Commands
         set_public_updated_at
         set_first_published_at
         set_publishing_request_id
+        set_update_type
         edition.publish
         remove_access_limit
         create_publish_action
@@ -175,6 +176,11 @@ module Commands
         edition.update_attributes!(
           publishing_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id]
         )
+      end
+
+      def set_update_type
+        return if edition.update_type
+        edition.update_attributes!(update_type: update_type)
       end
 
       def publish_redirect(previous_base_path, locale)
