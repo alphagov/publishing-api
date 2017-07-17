@@ -46,6 +46,7 @@ class DownstreamPayload
     case unpublishing.type
     when "redirect" then redirect_payload_for_message_queue
     when "gone" then gone_payload_for_message_queue
+    when "vanish" then vanish_payload_for_message_queue
     else content_payload_for_message_queue
     end
   end
@@ -90,5 +91,13 @@ private
 
   def gone_payload_for_message_queue
     gone_presenter.for_message_queue
+  end
+
+  def vanish_presenter
+    VanishPresenter.from_edition(edition)
+  end
+
+  def vanish_payload_for_message_queue
+    vanish_presenter.for_message_queue
   end
 end

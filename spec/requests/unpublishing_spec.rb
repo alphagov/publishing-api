@@ -308,7 +308,10 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       allow(PublishingAPI.service(:live_content_store)).to receive(:delete_content_item)
       allow(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-        .with(a_hash_including(document_type: "nonexistent-schema"), event_type: "unpublish")
+        .with(
+          a_hash_including(document_type: "vanish"),
+          event_type: "unpublish"
+        )
 
       post "/v2/content/#{content_id}/unpublish", params: vanish_params
 
