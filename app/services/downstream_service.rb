@@ -33,9 +33,10 @@ module DownstreamService
   end
 
   def self.broadcast_to_message_queue(downstream_payload, event_type)
-    if downstream_payload.state != "published"
-      message = "Can only send published items to the message queue"
-      raise DownstreamInvalidStateError.new(message)
+    unless %w(unpublished published).include?(downstream_payload.state)
+      raise DownstreamInvalidStateError.new(
+        "Can only send published or unpublished items to the message queue"
+      )
     end
 
     payload = downstream_payload.message_queue_payload

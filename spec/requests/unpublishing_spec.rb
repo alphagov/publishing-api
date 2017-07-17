@@ -68,10 +68,11 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       end
     end
 
-    it "does not send to the message queue" do
+    it "does send to the message queue" do
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+      expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
+        .with(a_hash_including(document_type: "nonexistent-schema"), event_type: "unpublish")
 
       post "/v2/content/#{content_id}/unpublish", params: withdrawal_params
 
@@ -154,10 +155,11 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         end
       end
 
-      it "does not send to the message queue" do
+      it "does send to the message queue" do
         allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+        expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
+          .with(a_hash_including(document_type: "nonexistent-schema"), event_type: "unpublish")
 
         post "/v2/content/#{content_id}/unpublish", params: redirect_params
 
@@ -240,10 +242,11 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       end
     end
 
-    it "does not send to the message queue" do
+    it "does send to the message queue" do
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+      expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
+        .with(a_hash_including(document_type: "nonexistent-schema"), event_type: "unpublish")
 
       post "/v2/content/#{content_id}/unpublish", params: gone_params
 
@@ -289,10 +292,11 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       end
     end
 
-    it "does not send to the message queue" do
+    it "does send to the message queue" do
       allow(PublishingAPI.service(:live_content_store)).to receive(:delete_content_item)
       allow(PublishingAPI.service(:draft_content_store)).to receive(:delete_content_item)
-      expect(PublishingAPI.service(:queue_publisher)).not_to receive(:send_message)
+      expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
+        .with(a_hash_including(document_type: "nonexistent-schema"), event_type: "unpublish")
 
       post "/v2/content/#{content_id}/unpublish", params: vanish_params
 
