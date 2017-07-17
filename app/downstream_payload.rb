@@ -31,24 +31,11 @@ class DownstreamPayload
   end
 
   def content_store_payload
-    return content_payload_for_content_store unless unpublished?
-
-    case unpublishing.type
-    when "redirect" then redirect_payload_for_content_store
-    when "gone" then gone_payload_for_content_store
-    else content_payload_for_content_store
-    end
+    content_store_presenter.for_content_store(payload_version)
   end
 
   def message_queue_payload
-    return content_payload_for_message_queue unless unpublished?
-
-    case unpublishing.type
-    when "redirect" then redirect_payload_for_message_queue
-    when "gone" then gone_payload_for_message_queue
-    when "vanish" then vanish_payload_for_message_queue
-    else content_payload_for_message_queue
-    end
+    message_queue_presenter.for_message_queue
   end
 
 private
@@ -61,43 +48,36 @@ private
     Presenters::EditionPresenter.new(edition, draft: draft)
   end
 
-  def content_payload_for_content_store
-    content_presenter.for_content_store(payload_version)
-  end
-
-  def content_payload_for_message_queue
-    content_presenter.for_message_queue
-  end
-
   def redirect_presenter
     RedirectPresenter.from_edition(edition)
-  end
-
-  def redirect_payload_for_content_store
-    redirect_presenter.for_content_store(payload_version)
-  end
-
-  def redirect_payload_for_message_queue
-    redirect_presenter.for_message_queue
   end
 
   def gone_presenter
     GonePresenter.from_edition(edition)
   end
 
-  def gone_payload_for_content_store
-    gone_presenter.for_content_store(payload_version)
-  end
-
-  def gone_payload_for_message_queue
-    gone_presenter.for_message_queue
-  end
-
   def vanish_presenter
     VanishPresenter.from_edition(edition)
   end
 
-  def vanish_payload_for_message_queue
-    vanish_presenter.for_message_queue
+  def content_store_presenter
+    return content_presenter unless unpublished?
+
+    case unpublishing.type
+    when "redirect" then redirect_presenter
+    when "gone" then gone_presenter
+    else content_presenter
+    end
+  end
+
+  def message_queue_presenter
+    return content_presenter unless unpublished?
+
+    case unpublishing.type
+    when "redirect" then redirect_presenter
+    when "gone" then gone_presenter
+    when "vanish" then vanish_presenter
+    else content_presenter
+    end
   end
 end
