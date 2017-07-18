@@ -23,6 +23,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
 - [`GET /v2/linked/:content_id`](#get-v2linkedcontent_id)
 - [`GET /v2/linkables`](#get-v2linkables)
+- [`GET /v2/editions`](#get-v2editions)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
 - [`PUT /paths/:base_path`](#put-pathsbase_path)
 - [`GET /debug/:content_id`](#get-debugcontent_id)
@@ -538,6 +539,33 @@ which is `details.internal_name` and falls back to `title`.
 
 - `document_type` *(required)*
   - The `document_type` value that returned editions has.
+
+## `GET /v2/editions`
+
+Retrieves a paginated list of editions for the provided query string
+parameters.
+
+### Query string parameters
+
+- `fields[]` *(optional)*
+  - Accepts an array of: "analytics_identifier", "base_path",
+    "content_id", "description", "document_type", "locale",
+    "public_updated_at", "schema_name", "title"
+  - Determines which fields will be returned in the response, if omitted all
+    fields will be returned.
+- `locale` *(optional)*
+  - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
+  - Used to restrict documents to a given locale.
+- `after` *(optional)*
+  - The pagination key for finding results after.
+- `before` *(optional)*
+  - The pagination key for finding results before.
+- `count` *(optional, default: 100)*
+  - The number of results to be shown on a given page.
+- `publishing_app` *(optional)*
+  - Used to restrict editions to those for a given publishing app.
+- `states` *(optional)*
+  - Used to restrict editions to those in the specified states.
 
 ## `POST /lookup-by-base-path`
 
