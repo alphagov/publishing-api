@@ -6,7 +6,6 @@ module V2
           fields: query_params[:fields],
           filters: filters,
         ).call,
-        key: { updated_at: "editions.updated_at", id: "editions.id" },
         **pagination_params
       )
 
@@ -16,6 +15,11 @@ module V2
     end
 
   private
+
+    DEFAULT_PAGINATION_KEY = {
+      updated_at: "editions.updated_at",
+      id: "editions.id"
+    }.freeze
 
     def publishing_app
       query_params[:publishing_app]
@@ -37,21 +41,28 @@ module V2
       }
     end
 
-    def pagination_params
-      page = query_params[:page]
-      if page.present?
-        if page.first == "-"
-          page = page[1..page.length]
-          order = :desc
-        else
-          order = :asc
-        end
-      end
+    def pagination_key
+      return DEFAULT_PAGINATION_KEY unless query_params[:key]
 
+      key = query_params[:key]
+      key = key[1..key.length] if key.first == "-"
+
+      key.split(",").each_with_object({}) do |field, hash|
+        hash[field] = "editions.#{field}"
+      end
+    end
+
+    def pagination_order
+      return :asc unless query_params[:key]
+      query_params[:key].first == "-" ? :desc : :asc
+    end
+
+    def pagination_params
       {
-        page: page.try(:split, ","),
+        key: pagination_key,
+        page: query_params[:page].try(:split, ","),
         count: query_params[:count],
-        order: order,
+        order: pagination_order,
       }
     end
   end

@@ -51,6 +51,25 @@ RSpec.describe V2::EditionsController do
         ])
       end
 
+      context "with a custom order" do
+        it "returns the results in the expected order" do
+          get :index, params: { key: "-updated_at,id" }
+          expect(parsed_response["results"].first["base_path"]).to eq("/content150")
+          expect(parsed_response["links"]).to eq([
+            { "href" => "http://test.host/v2/editions?key=-updated_at%2Cid&page=2017-01-01T09%3A00%3A00Z%2C51", "rel" => "next" },
+          ])
+        end
+      end
+
+      context "with a custom key" do
+        it "returns the correct next page link" do
+          get :index, params: { key: "id", page: 10 }
+          expect(parsed_response["links"]).to eq([
+            { "href" => "http://test.host/v2/editions?key=id&page=110", "rel" => "next" },
+          ])
+        end
+      end
+
       context "with a custom pagination count" do
         it "returns the correct number of results" do
           get :index, params: { count: 25 }

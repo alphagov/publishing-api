@@ -34,7 +34,7 @@ module Queries
 
   private
 
-    DEFAULT_KEY = ["id"].freeze
+    DEFAULT_KEY = { id: "id" }.freeze
     DEFAULT_COUNT = 100
     DEFAULT_ORDER = :asc
 
