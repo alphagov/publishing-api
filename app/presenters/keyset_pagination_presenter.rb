@@ -1,29 +1,21 @@
 module Presenters
   class KeysetPaginationPresenter
-    def initialize(pagination, request_url, present_record_filter: nil)
+    def initialize(pagination, request_url)
       @results = pagination.call.as_json
       @pagination = pagination
       @request_url = request_url.to_s
-      @present_record_filter = present_record_filter
     end
 
     def present
       {
         links: links,
-        results: presented_results
+        results: results
       }
     end
 
   private
 
     attr_reader :results, :pagination, :request_url, :present_record_filter
-
-    def presented_results
-      return results unless present_record_filter
-      results.map do |record|
-        present_record_filter.call(record)
-      end
-    end
 
     def links
       [next_link]

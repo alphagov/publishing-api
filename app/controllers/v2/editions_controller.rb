@@ -10,12 +10,9 @@ module V2
         **pagination_params
       )
 
-      render json: Presenters::KeysetPaginationPresenter.new(
+      render json: Presenters::GetEditionsPresenter.present(
         query, request.original_url,
-        present_record_filter: -> (record) {
-          record.except("id", "document_id")
-        }
-      ).present
+      )
     end
 
   private
