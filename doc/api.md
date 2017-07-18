@@ -556,10 +556,8 @@ parameters.
 - `locale` *(optional)*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - Used to restrict documents to a given locale.
-- `after` *(optional)*
-  - The pagination key for finding results after.
-- `before` *(optional)*
-  - The pagination key for finding results before.
+- `page` *(optional)*
+  - The pagination key for finding results.
 - `count` *(optional, default: 100)*
   - The number of results to be shown on a given page.
 - `publishing_app` *(optional)*

@@ -13,9 +13,7 @@ module V2
       render json: Presenters::KeysetPaginationPresenter.new(
         query, request.original_url,
         present_record_filter: -> (record) {
-          record.delete("id")
-          record.delete("document_id")
-          record
+          record.except("id", "document_id")
         }
       ).present
     end
@@ -43,10 +41,20 @@ module V2
     end
 
     def pagination_params
+      page = query_params[:page]
+      if page.present?
+        if page.first == "-"
+          page = page[1..page.length]
+          order = :desc
+        else
+          order = :asc
+        end
+      end
+
       {
-        before: query_params[:before].try(:split, ","),
-        after: query_params[:after].try(:split, ","),
+        page: page.try(:split, ","),
         count: query_params[:count],
+        order: order,
       }
     end
   end
