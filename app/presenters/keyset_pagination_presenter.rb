@@ -9,7 +9,7 @@ module Presenters
     def present
       {
         links: links,
-        results: results
+        results: presented_results
       }
     end
 
@@ -17,22 +17,43 @@ module Presenters
 
     attr_reader :results, :pagination_query, :request_url, :present_record_filter
 
+    def presented_results
+      if pagination_query.presenter_should_reverse
+        results.reverse
+      else
+        results
+      end
+    end
+
     def links
-      [next_link]
+      [next_link, self_link, previous_link]
     end
 
     def next_link
       { href: next_url, rel: "next" }
     end
 
-    def next_url
-      page_href(pagination_query.key_for_record(results.last))
+    def self_link
+      { href: request_url, rel: "self" }
     end
 
-    def page_href(page)
+    def previous_link
+      { href: previous_url, rel: "previous" }
+    end
+
+    def next_url
+      page_href(after: pagination_query.key_for_record(presented_results.last))
+    end
+
+    def previous_url
+      page_href(before: pagination_query.key_for_record(presented_results.first))
+    end
+
+    def page_href(params)
       uri = URI.parse(request_url)
       uri.query = Rack::Utils.build_query(
-        Rack::Utils.parse_query(uri.query).except("page").merge(page: page)
+        Rack::Utils.parse_query(uri.query)
+          .except("before", "after").merge(params)
       )
       uri.to_s
     end

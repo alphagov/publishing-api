@@ -1,6 +1,6 @@
 module Queries
   class KeysetPagination
-    attr_reader :query, :order, :key, :count, :page
+    attr_reader :query, :order, :key, :count, :previous, :presenter_should_reverse
 
     # Initialises the keyset pagination class.
     # Params:
@@ -8,22 +8,34 @@ module Queries
     # +key+:: +Hash+ a hash containing the pagination key, mapped from presented name to internal name, i.e. { id: "editions.id" }
     # +order+:: +Symbol+ either :asc for ascending and :desc for descending
     # +count+:: +Fixnum+ the number of records to return in each page
-    # +page+:: +Array+ the current page to paginate from, an array containing a value for each field in the key
-    def initialize(query, key: nil, order: nil, count: nil, page:)
+    # +after+:: +Array+ the current page to paginate after, an array containing a value for each field in the key
+    def initialize(query, key: nil, order: nil, count: nil, before:, after:)
       @query = query
       @key = key || { id: "id" }
       @order = order || :asc
       @count = (count || 100).to_i
-      @page = page
 
-      if page.present? && page.count != key.count
+      if before.present? && after.present?
+        raise "Before and after cannot both be present."
+      end
+
+      if before
+        @previous = before
+        @order = order == :asc ? :desc : asc
+        @presenter_should_reverse = true
+      else
+        @previous = after
+        @presenter_should_reverse = false
+      end
+
+      if previous.present? && previous.count != key.count
         raise "Number of previous values does not match the number of fields."
       end
     end
 
     def call
       paginated_query = query.order(order_clause)
-      paginated_query = paginated_query.where(where_clause, *page) if page
+      paginated_query = paginated_query.where(where_clause, *previous) if previous
       paginated_query.limit(count)
     end
 
