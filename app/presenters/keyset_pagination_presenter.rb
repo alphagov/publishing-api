@@ -1,8 +1,8 @@
 module Presenters
   class KeysetPaginationPresenter
-    def initialize(pagination, request_url)
-      @results = pagination.call.as_json
-      @pagination = pagination
+    def initialize(pagination_query, request_url)
+      @results = pagination_query.call.as_json
+      @pagination_query = pagination_query
       @request_url = request_url.to_s
     end
 
@@ -15,7 +15,7 @@ module Presenters
 
   private
 
-    attr_reader :results, :pagination, :request_url, :present_record_filter
+    attr_reader :results, :pagination_query, :request_url, :present_record_filter
 
     def links
       [next_link]
@@ -26,7 +26,7 @@ module Presenters
     end
 
     def next_url
-      page_href(pagination.key_for_record(results.last))
+      page_href(pagination_query.key_for_record(results.last))
     end
 
     def page_href(page)

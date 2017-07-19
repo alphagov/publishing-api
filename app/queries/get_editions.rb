@@ -64,12 +64,10 @@ module Queries
       invalid_fields = fields - permitted_fields
       return unless invalid_fields.any?
 
-      raise CommandError.new(code: 400, error_details: {
-        error: {
-          code: 400,
-          message: "Invalid column name(s): #{invalid_fields.to_sentence}"
-        }
-      })
+      raise CommandError.new(
+        code: 400,
+        message: "Invalid column name(s): #{invalid_fields.to_sentence}"
+      )
     end
 
     def permitted_fields

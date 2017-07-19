@@ -340,9 +340,11 @@ and a state has been specified, the draft is returned.
 - `document_type` *(optional)*
   - The type of editions to return.
 - `fields[]` *(optional)*
-  - Accepts an array of: "analytics_identifier", "base_path",
-    "content_id", "description", "document_type", "locale",
-    "public_updated_at", "schema_name", "title"
+  - Accepts an array of: analytics_identifier, base_path, content_store,
+    description, details, document_type, first_published_at, last_edited_at,
+    need_ids, phase, public_updated_at, publishing_app, redirects,
+    rendering_app, routes, schema_name, state, title, user_facing_version,
+    update_type, state
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - `link_*` *(optional)*
@@ -521,9 +523,11 @@ for some `link_type`.
 - `link_type` *(required)*
   - The type of link between the documents.
 - `fields[]` *(required)*
-  - Accepts an array of: "analytics_identifier", "base_path",
-    "content_id", "description", "document_type", "locale",
-    "public_updated_at", "schema_name", "title"
+  - Accepts an array of: analytics_identifier, base_path, content_store,
+    description, details, document_type, first_published_at, last_edited_at,
+    need_ids, phase, public_updated_at, publishing_app, redirects,
+    rendering_app, routes, schema_name, state, title, user_facing_version,
+    update_type, state
   - Determines which fields will be returned in the response.
 
 ## `GET /v2/linkables`
@@ -548,9 +552,12 @@ parameters.
 ### Query string parameters
 
 - `fields[]` *(optional)*
-  - Accepts an array of: "analytics_identifier", "base_path",
-    "content_id", "description", "document_type", "locale",
-    "public_updated_at", "schema_name", "title"
+  - Accepts an array of: analytics_identifier, base_path, content_store,
+    description, details, document_type, first_published_at, last_edited_at,
+    need_ids, phase, public_updated_at, publishing_app, redirects,
+    rendering_app, routes, schema_name, state, title, user_facing_version,
+    update_type, state, content_id, locale, stale_lock_version, updated_at,
+    created_at
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - `locale` *(optional)*
@@ -566,7 +573,7 @@ parameters.
   - The number of results to be shown on a given page.
 - `publishing_app` *(optional)*
   - Used to restrict editions to those for a given publishing app.
-- `states` *(optional)*
+- `states[]` *(optional)*
   - Used to restrict editions to those in the specified states.
 
 ## `POST /lookup-by-base-path`
