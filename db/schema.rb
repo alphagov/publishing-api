@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703153415) do
+ActiveRecord::Schema.define(version: 20170719143106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,16 +85,19 @@ ActiveRecord::Schema.define(version: 20170703153415) do
     t.string "description"
     t.string "publishing_request_id"
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
+    t.index ["created_at", "id"], name: "index_editions_on_created_at_and_id"
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
     t.index ["document_id", "user_facing_version"], name: "index_editions_on_document_id_and_user_facing_version", unique: true
     t.index ["document_id"], name: "index_editions_on_document_id"
     t.index ["document_type", "updated_at"], name: "index_editions_on_document_type_and_updated_at"
     t.index ["last_edited_at"], name: "index_editions_on_last_edited_at"
+    t.index ["public_updated_at", "id"], name: "index_editions_on_public_updated_at_and_id"
     t.index ["public_updated_at"], name: "index_editions_on_public_updated_at"
     t.index ["publishing_app"], name: "index_editions_on_publishing_app"
     t.index ["rendering_app"], name: "index_editions_on_rendering_app"
     t.index ["state", "base_path"], name: "index_editions_on_state_and_base_path"
+    t.index ["updated_at", "id"], name: "index_editions_on_updated_at_and_id"
     t.index ["updated_at"], name: "index_editions_on_updated_at"
   end
 
