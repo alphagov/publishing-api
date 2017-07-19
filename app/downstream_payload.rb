@@ -31,19 +31,23 @@ class DownstreamPayload
   end
 
   def content_store_payload
-    return content_payload unless unpublished?
+    return content_payload_for_content_store unless unpublished?
 
     case unpublishing.type
-    when "redirect" then redirect_payload
+    when "redirect" then redirect_payload_for_content_store
     when "gone" then gone_payload
-    else content_payload
+    else content_payload_for_content_store
     end
   end
 
   def message_queue_payload
-    Presenters::EditionPresenter.new(
-      edition, draft: draft
-    ).for_message_queue
+    return content_payload_for_message_queue unless unpublished?
+
+    case unpublishing.type
+    when "redirect" then redirect_payload_for_message_queue
+    #when "gone" then gone_payload
+  else content_payload_for_message_queue
+    end
   end
 
 private
@@ -52,19 +56,28 @@ private
     edition.unpublishing
   end
 
-  def content_payload
-    Presenters::EditionPresenter.new(
-      edition, draft: draft
-    ).for_content_store(payload_version)
+  def content_presenter
+    Presenters::EditionPresenter.new(edition, draft: draft)
   end
 
-  def redirect_payload
-    RedirectPresenter.present(
-      base_path: base_path,
-      publishing_app: edition.publishing_app,
-      public_updated_at: unpublishing.created_at,
-      redirects: unpublishing.redirects,
-    ).merge(payload_version: payload_version)
+  def content_payload_for_content_store
+    content_presenter.for_content_store(payload_version)
+  end
+
+  def content_payload_for_message_queue
+    content_presenter.for_message_queue
+  end
+
+  def redirect_presenter
+    RedirectPresenter.from_edition(edition)
+  end
+
+  def redirect_payload_for_content_store
+    redirect_presenter.for_content_store(payload_version)
+  end
+
+  def redirect_payload_for_message_queue
+    redirect_presenter.for_message_queue
   end
 
   def gone_payload
