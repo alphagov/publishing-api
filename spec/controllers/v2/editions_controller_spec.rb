@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe V2::EditionsController do
+  def u(string)
+    CGI.escape(string)
+  end
+
   describe "index" do
     before do
       Timecop.freeze("2017-01-01 09:00:00") do
@@ -39,7 +43,7 @@ RSpec.describe V2::EditionsController do
         get :index
         expect(parsed_response["results"].count).to eq(100)
         expect(parsed_response["links"]).to eq([
-          { "href" => "http://test.host/v2/editions?page=2017-01-01T09%3A00%3A00Z%2C100", "rel" => "next" },
+          { "href" => "http://test.host/v2/editions?page=#{u('2017-01-01T09:00:00Z,100')}", "rel" => "next" },
         ])
       end
 
@@ -47,7 +51,7 @@ RSpec.describe V2::EditionsController do
         get :index, params: { page: "2017-01-01T09:00:00Z,100" }
         expect(parsed_response["results"].count).to eq(50)
         expect(parsed_response["links"]).to eq([
-          { "href" => "http://test.host/v2/editions?page=2017-01-01T09%3A00%3A00Z%2C150", "rel" => "next" },
+          { "href" => "http://test.host/v2/editions?page=#{u('2017-01-01T09:00:00Z,150')}", "rel" => "next" },
         ])
       end
 
@@ -56,7 +60,7 @@ RSpec.describe V2::EditionsController do
           get :index, params: { order: "-updated_at" }
           expect(parsed_response["results"].first["base_path"]).to eq("/content150")
           expect(parsed_response["links"]).to eq([
-            { "href" => "http://test.host/v2/editions?order=-updated_at&page=2017-01-01T09%3A00%3A00Z%2C51", "rel" => "next" },
+            { "href" => "http://test.host/v2/editions?order=-updated_at&page=#{u('2017-01-01T09:00:00Z,51')}", "rel" => "next" },
           ])
         end
       end
@@ -65,7 +69,7 @@ RSpec.describe V2::EditionsController do
         it "returns the correct next page link" do
           get :index, params: { order: "created_at", page: "2017-01-01T09:00:00Z,10" }
           expect(parsed_response["links"]).to eq([
-            { "href" => "http://test.host/v2/editions?order=created_at&page=2017-01-01T09%3A00%3A00Z%2C110", "rel" => "next" },
+            { "href" => "http://test.host/v2/editions?order=created_at&page=#{u('2017-01-01T09:00:00Z,110')}", "rel" => "next" },
           ])
         end
       end
@@ -75,7 +79,7 @@ RSpec.describe V2::EditionsController do
           get :index, params: { per_page: 25 }
           expect(parsed_response["results"].count).to eq(25)
           expect(parsed_response["links"]).to eq([
-            { "href" => "http://test.host/v2/editions?per_page=25&page=2017-01-01T09%3A00%3A00Z%2C25", "rel" => "next" },
+            { "href" => "http://test.host/v2/editions?per_page=25&page=#{u('2017-01-01T09:00:00Z,25')}", "rel" => "next" },
           ])
         end
       end
@@ -86,7 +90,7 @@ RSpec.describe V2::EditionsController do
         get :index, params: { states: "published" }
         expect(parsed_response["results"].count).to eq(50)
         expect(parsed_response["links"]).to eq([
-          { "href" => "http://test.host/v2/editions?states=published&page=2017-01-01T09%3A00%3A00Z%2C100", "rel" => "next" },
+          { "href" => "http://test.host/v2/editions?states=published&page=#{u('2017-01-01T09:00:00Z,100')}", "rel" => "next" },
         ])
       end
     end
@@ -96,7 +100,7 @@ RSpec.describe V2::EditionsController do
         get :index, params: { locale: "fr" }
         expect(parsed_response["results"].count).to eq(50)
         expect(parsed_response["links"]).to eq([
-          { "href" => "http://test.host/v2/editions?locale=fr&page=2017-01-01T09%3A00%3A00Z%2C50", "rel" => "next" },
+          { "href" => "http://test.host/v2/editions?locale=fr&page=#{u('2017-01-01T09:00:00Z,50')}", "rel" => "next" },
         ])
       end
     end
@@ -106,7 +110,7 @@ RSpec.describe V2::EditionsController do
         get :index, params: { publishing_app: "test" }
         expect(parsed_response["results"].count).to eq(50)
         expect(parsed_response["links"]).to eq([
-          { "href" => "http://test.host/v2/editions?publishing_app=test&page=2017-01-01T09%3A00%3A00Z%2C150", "rel" => "next" },
+          { "href" => "http://test.host/v2/editions?publishing_app=test&page=#{u('2017-01-01T09:00:00Z,150')}", "rel" => "next" },
         ])
       end
     end
