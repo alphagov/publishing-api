@@ -1,7 +1,7 @@
 module Presenters
   class KeysetPaginationPresenter
     def initialize(pagination_query, request_url)
-      @results = pagination_query.call.as_json
+      @results = pagination_query.call
       @pagination_query = pagination_query
       @request_url = request_url.to_s
     end
@@ -9,20 +9,22 @@ module Presenters
     def present
       {
         links: links,
-        results: presented_results
+        results: presented_results,
       }
     end
 
   private
 
-    attr_reader :results, :pagination_query, :request_url, :present_record_filter
+    attr_reader :results, :pagination_query, :request_url
 
     def presented_results
-      if pagination_query.presenter_should_reverse
-        results.reverse
-      else
-        results
+      results.map do |record|
+        record.except(*fields_to_clear)
       end
+    end
+
+    def fields_to_clear
+      pagination_query.key.keys.map(&:to_s) - pagination_query.client.fields
     end
 
     def links
@@ -42,11 +44,11 @@ module Presenters
     end
 
     def next_url
-      page_href(after: pagination_query.key_for_record(presented_results.last))
+      page_href(after: pagination_query.key_for_record(results.last))
     end
 
     def previous_url
-      page_href(before: pagination_query.key_for_record(presented_results.first))
+      page_href(before: pagination_query.key_for_record(results.first))
     end
 
     def page_href(params)

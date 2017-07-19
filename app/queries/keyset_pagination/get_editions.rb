@@ -1,5 +1,5 @@
 module Queries
-  class GetEditions
+  class KeysetPagination::GetEditions
     attr_reader :fields, :filters
 
     def initialize(fields:, filters: {})
@@ -19,43 +19,24 @@ module Queries
 
     attr_writer :fields, :filters, :pagination
 
-    REQUIRED_FIELDS = [
-      :id,
-      :document_id,
-    ].freeze
-
     DEFAULT_FIELDS = [
       *Edition::TOP_LEVEL_FIELDS,
-      :state,
       :content_id,
       :locale,
-      :stale_lock_version,
       :updated_at,
       :created_at,
     ].freeze
 
-    FIELDS_MAPPING = {
-      content_id: "documents.content_id",
-      locale: "documents.locale",
-      stale_lock_version: "documents.stale_lock_version",
-    }.freeze
-
     def editions
       query = Edition
         .with_document
+        .includes(:document)
         .where(state: filters[:states])
 
       query = query.where("documents.locale": filters[:locale]) if filters[:locale]
       query = query.where(publishing_app: filters[:publishing_app]) if filters[:publishing_app]
 
-      query.select(REQUIRED_FIELDS + mapped_fields)
-    end
-
-    def mapped_fields
-      fields.map do |field|
-        next field unless FIELDS_MAPPING.include?(field)
-        "#{FIELDS_MAPPING[field]} AS #{field}"
-      end
+      query
     end
 
     def validate_fields!

@@ -47,6 +47,8 @@ RSpec.describe V2::EditionsController do
           { "href" => "http://test.host/v2/editions", "rel" => "self" },
           { "href" => "http://test.host/v2/editions?before=#{u('2017-01-01T09:00:00Z,1')}", "rel" => "previous" },
         ])
+        expect(parsed_response["results"].first.keys)
+          .to_not include(%w(id document_id))
       end
 
       it "returns the correct list for the second page" do
@@ -147,7 +149,7 @@ RSpec.describe V2::EditionsController do
       it "returns only the fields specified" do
         get :index, params: { fields: %w(content_id publishing_app) }
         expect(parsed_response["results"].first.keys)
-          .to eq(%w(publishing_app content_id))
+          .to eq(%w(content_id publishing_app))
       end
     end
   end
