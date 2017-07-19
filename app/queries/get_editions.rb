@@ -31,6 +31,7 @@ module Queries
       :locale,
       :stale_lock_version,
       :updated_at,
+      :created_at,
     ].freeze
 
     FIELDS_MAPPING = {

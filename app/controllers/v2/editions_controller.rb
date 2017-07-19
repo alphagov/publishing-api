@@ -42,26 +42,27 @@ module V2
     end
 
     def pagination_key
-      return DEFAULT_PAGINATION_KEY unless query_params[:key]
+      return DEFAULT_PAGINATION_KEY unless query_params[:order]
 
-      key = query_params[:key]
-      key = key[1..key.length] if key.first == "-"
+      order = query_params[:order]
+      order = order[1..order.length] if order.first == "-"
 
-      key.split(",").each_with_object({}) do |field, hash|
-        hash[field] = "editions.#{field}"
-      end
+      hash = {}
+      hash[order] = "editions.#{order}"
+      hash[:id] = "editions.id"
+      hash
     end
 
     def pagination_order
-      return :asc unless query_params[:key]
-      query_params[:key].first == "-" ? :desc : :asc
+      return :asc unless query_params[:order]
+      query_params[:order].first == "-" ? :desc : :asc
     end
 
     def pagination_params
       {
         key: pagination_key,
         page: query_params[:page].try(:split, ","),
-        count: query_params[:count],
+        count: query_params[:per_page],
         order: pagination_order,
       }
     end
