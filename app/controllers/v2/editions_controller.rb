@@ -16,11 +16,6 @@ module V2
 
   private
 
-    DEFAULT_PAGINATION_KEY = {
-      updated_at: "editions.updated_at",
-      id: "editions.id"
-    }.freeze
-
     def publishing_app
       query_params[:publishing_app]
     end
@@ -59,12 +54,11 @@ module V2
     end
 
     def pagination_params
-      {
-        key: pagination_key,
-        page: query_params[:page].try(:split, ","),
-        count: query_params[:per_page],
-        order: pagination_order,
-      }
+      KeysetPaginationParameters.from_query(
+        params: query_params,
+        default_order: "updated_at",
+        table: "editions",
+      )
     end
   end
 end
