@@ -23,7 +23,6 @@ class LinkExpansion::EditionHash
       Hash[edition_fields.zip(values)]
     end
 
-
     def api_path(hash)
       "/api/content" + hash[:base_path]
     end

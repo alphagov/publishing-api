@@ -69,15 +69,15 @@ RSpec.describe LinkExpansion::Rules do
     end
 
     it "treats arrays as paths" do
-      expect(subject.expand_fields(item, :children)).to include(email_signup_link: "https://public.govdelivery.com/accounts/UKGOVUK/subscriber/topics?qsp=TRAVEL")
+      expect(subject.expand_fields(item.to_h, :children)).to include(email_signup_link: "https://public.govdelivery.com/accounts/UKGOVUK/subscriber/topics?qsp=TRAVEL")
     end
 
     it "uses the name of the last element of the path as the key" do
-      expect(subject.expand_fields(item, :children).keys).to eq([:title, :email_signup_link])
+      expect(subject.expand_fields(item.to_h, :children).keys).to eq([:title, :email_signup_link])
     end
 
     it "does not include the top-level field itself" do
-      expect(subject.expand_fields(item, :children)).not_to have_key(:details)
+      expect(subject.expand_fields(item.to_h, :children)).not_to have_key(:details)
     end
 
     it "takes the first level as the potential field to use in diffs" do

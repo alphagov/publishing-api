@@ -64,9 +64,9 @@ private
   end
 
   def link_content(node)
-    edition = content_cache.find(node.content_id)
-    return if !edition || !should_link?(node.link_type, edition)
-    rules.expand_fields(edition, node.link_type).tap do |expanded|
+    edition_hash = content_cache.find(node.content_id)
+    return if !edition_hash || !should_link?(node.link_type, edition_hash)
+    rules.expand_fields(edition_hash, node.link_type).tap do |expanded|
       links = populate_links(node.links)
       auto_reverse = auto_reverse_link(node)
       expanded.merge!(links: (auto_reverse || {}).merge(links))
@@ -77,19 +77,19 @@ private
     if node.link_types_path.length != 1 || !rules.is_reverse_link_type?(node.link_types_path.first)
       return {}
     end
-    edition = content_cache.find(content_id)
-    return if !edition || !should_link?(node.link_type, edition)
+    edition_hash = content_cache.find(content_id)
+    return if !edition_hash || !should_link?(node.link_type, edition_hash)
     un_reverse_link_type = rules.un_reverse_link_type(node.link_types_path.first)
-    { un_reverse_link_type => [rules.expand_fields(edition, un_reverse_link_type).merge(links: {})] }
+    { un_reverse_link_type => [rules.expand_fields(edition_hash, un_reverse_link_type).merge(links: {})] }
   end
 
-  def should_link?(link_type, edition)
+  def should_link?(link_type, edition_hash)
     # Only specific link types can be withdrawn
     # FIXME: We're leaking publishing app domain knowledge into the API here.
     # The agreed approach will be to allow any withdrawn links to appear but
     # this requires we assess impact on the rendering applications first.
     %i(children parent related_statistical_data_sets).include?(link_type) ||
-      edition.state != "unpublished"
+      edition_hash[:state] != "unpublished"
   end
 
   def rules

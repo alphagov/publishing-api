@@ -42,11 +42,17 @@ private
       state_fallback_order: state_fallback_order,
     )
     Edition
+      .joins(
+        <<-SQL.strip_heredoc
+          LEFT OUTER JOIN unpublishings
+          ON unpublishings.edition_id = editions.id
+          AND editions.state = 'unpublished'
+        SQL
+      )
       .with_document
-      .with_unpublishing
       .includes(:document)
       .where(id: edition_ids)
-      .pluck(*LinkExpansion::EditionHash.edition_fields)
+      .pluck(*edition_hash.edition_fields)
   end
 
   def state_fallback_order

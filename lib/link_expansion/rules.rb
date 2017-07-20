@@ -117,9 +117,8 @@ module LinkExpansion::Rules
     end
   end
 
-  def expand_fields(edition, link_type)
-    edition_hash = edition.to_h
-    expansion_fields(edition.document_type, link_type).each_with_object({}) do |field, expanded|
+  def expand_fields(edition_hash, link_type)
+    expansion_fields(edition_hash[:document_type], link_type).each_with_object({}) do |field, expanded|
       field = Array(field)
       expanded[field.last] = edition_hash.dig(*field)
     end

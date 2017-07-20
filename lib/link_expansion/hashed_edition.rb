@@ -6,12 +6,12 @@ module LinkExpansion::HashedEdition
     hash = hash.slice(*edition_fields)
     hash[:api_path] = api_path(hash) unless hash[:base_path].nil?
     hash[:withdrawn] = withdrawn?(hash)
-    hash.delete(:id)
-    hash
+    hash.except(:id)
   end
 
   def edition_fields
-    fields = LinkExpansion::Rules::DEFAULT_FIELDS_WITH_DETAILS.dup << :id << :state
+    fields = LinkExpansion::Rules::DEFAULT_FIELDS_WITH_DETAILS.dup
+    fields << :id << :state << :"unpublishings.type"
     fields -= %i[api_path withdrawn]
     fields
   end
@@ -24,14 +24,14 @@ private
   end
 
 
-  def api_path(attrs)
-    "/api/content" + attrs[:base_path]
+  def api_path(hash)
+    "/api/content" + hash[:base_path]
   end
 
-  def withdrawn?(attrs)
-    return false unless attrs[:state] == "unpublished"
-    unpublishing = Unpublishing.find_by(edition_id: attrs[:id])
-    return false if unpublishing.nil?
-    unpublishing.withdrawal?
+  def withdrawn?(hash)
+    unpublishing_type = hash.delete(:"unpublishings.type")
+    return false unless hash[:state] == "unpublished"
+    return false if unpublishing_type.nil?
+    unpublishing_type == "withdrawal"
   end
 end
