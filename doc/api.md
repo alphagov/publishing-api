@@ -184,10 +184,12 @@ will be presented in the live content store. Uses
 
 ### JSON attributes
 
-- `update_type` *(conditionally required)*
+- `update_type` *(conditionally required, deprecated)*
   - Accepts: "major", "minor", "republish"
   - Will fallback to the `update_type` set when the draft was created if not
     specified in the request.
+  - This is deprecated, clients should instead set the update type when
+    putting the content.
 - `locale` *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - Specifies the locale of the document.
