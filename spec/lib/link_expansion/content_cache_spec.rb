@@ -1,6 +1,17 @@
 require "rails_helper"
 
 RSpec.describe LinkExpansion::ContentCache do
+  def edition_attributes(edition)
+    LinkExpansion::EditionHash.from(
+      edition.attributes
+        .merge(
+          content_id: edition.content_id,
+          locale: edition.locale,
+          state: edition.state,
+        )
+    )
+  end
+
   describe ".find" do
     let(:document) { FactoryGirl.create(:document) }
     let(:content_id) { document.content_id }
@@ -21,11 +32,12 @@ RSpec.describe LinkExpansion::ContentCache do
 
     context "draft edition" do
       let!(:draft) { FactoryGirl.create(:draft_edition, document: document) }
+      let!(:draft_attributes) { edition_attributes(draft) }
 
       context "with drafts" do
         let(:with_drafts) { true }
 
-        it { is_expected.to eq(draft) }
+        it { is_expected.to eq(draft_attributes) }
       end
       context "without drafts" do
         let(:with_drafts) { false }
@@ -35,8 +47,9 @@ RSpec.describe LinkExpansion::ContentCache do
 
     context "published edition" do
       let!(:published) { FactoryGirl.create(:live_edition, document: document) }
+      let(:published_attributes) { edition_attributes(published) }
 
-      it { is_expected.to eq(published) }
+      it { is_expected.to eq(published_attributes) }
     end
 
     context "cached item" do
