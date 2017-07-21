@@ -50,7 +50,6 @@ private
         SQL
       )
       .with_document
-      .includes(:document)
       .where(id: edition_ids)
       .pluck(*edition_hash.edition_fields)
   end
