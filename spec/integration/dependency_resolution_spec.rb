@@ -226,7 +226,7 @@ RSpec.describe "Dependency Resolution" do
       )
     end
 
-    it "only has a dependency only of the link as recusive edition links aren't supported" do
+    it "only has a dependency of the link as recusive edition links aren't supported" do
       expect(dependency_resolution).to match_array([link_content_id])
     end
   end
