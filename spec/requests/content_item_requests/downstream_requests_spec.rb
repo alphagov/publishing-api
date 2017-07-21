@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Downstream requests", type: :request do
+  include GoogleAnalyticsTestHelper
+
   describe "PUT /v2/content" do
     let(:content_item_for_draft_content_store) {
       v2_content_item
@@ -93,6 +95,8 @@ RSpec.describe "Downstream requests", type: :request do
           document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
+
+        stub_generic_ga_request
       end
 
       it "sends the live item to both content stores" do
@@ -127,6 +131,8 @@ RSpec.describe "Downstream requests", type: :request do
           document: document,
           base_path: base_path,
         )
+
+        stub_generic_ga_request
       end
 
       it "sends to both content stores" do
@@ -166,6 +172,8 @@ RSpec.describe "Downstream requests", type: :request do
       create_edition(a, "/a", factory: :draft_edition, version: 2)
       create_edition(b, "/b", factory: :draft_edition)
       create_link(a, b, "parent")
+
+      stub_generic_ga_request
     end
 
     it "sends the dependencies to the draft content store" do
@@ -235,6 +243,10 @@ RSpec.describe "Downstream requests", type: :request do
           :content_store,
         )
     }
+
+    before do
+      stub_generic_ga_request
+    end
 
     it "sends to the live content store" do
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)

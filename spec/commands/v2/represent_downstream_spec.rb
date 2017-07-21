@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::RepresentDownstream do
+  include GoogleAnalyticsTestHelper
+
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
   end
@@ -71,6 +73,10 @@ RSpec.describe Commands::V2::RepresentDownstream do
     end
 
     context "drafts optional" do
+      before do
+        stub_generic_ga_request
+      end
+
       it "can send to downstream draft worker" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(

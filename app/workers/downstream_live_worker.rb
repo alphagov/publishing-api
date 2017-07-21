@@ -1,4 +1,6 @@
 require 'sidekiq-unique-jobs'
+require 'net/http'
+require 'uri'
 
 class DownstreamLiveWorker
   include DownstreamQueue
@@ -42,6 +44,8 @@ class DownstreamLiveWorker
       DownstreamService.broadcast_to_message_queue(payload, update_type)
     end
 
+    send_first_time_being_published_ga_event if first_time_being_published?
+
     enqueue_dependencies if update_dependencies
   rescue AbortWorkerError => e
     notify_airbrake(e, args)
@@ -80,5 +84,15 @@ private
 
   def notify_airbrake(error, parameters)
     Airbrake.notify(error, parameters: parameters)
+  end
+
+  def send_first_time_being_published_ga_event
+    uri = URI.parse('http://www.google-analytics.com/collect')
+    params = { 'v': '1', 'tid': 'UA-26179049-1', 'cid': '660ad712-9753-4cb9-97a7-c9e9f13c318e', 't': 'event', 'cd90': edition.first_published_at }
+    Net::HTTP.post_form(uri, params)
+  end
+
+  def first_time_being_published?
+    edition.document.editions.where(state: 'substituted').count == 0
   end
 end

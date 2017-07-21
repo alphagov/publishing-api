@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Unpublishing editions" do
+  include GoogleAnalyticsTestHelper
+
   let(:put_content_command) { Commands::V2::PutContent }
   let(:publish_command) { Commands::V2::Publish }
   let(:unpublish_command) { Commands::V2::Unpublish }
@@ -39,6 +41,7 @@ RSpec.describe "Unpublishing editions" do
 
   describe "after the first unpublishing" do
     before do
+      stub_generic_ga_request
       put_content_command.call(put_content_payload)
       publish_command.call(publish_payload)
       unpublish_command.call(unpublish_payload)

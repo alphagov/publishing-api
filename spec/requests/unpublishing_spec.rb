@@ -7,6 +7,8 @@ require "rails_helper"
 # and failure modes.
 #
 RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
+  include GoogleAnalyticsTestHelper
+
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
   let!(:document) { FactoryGirl.create(:document, content_id: content_id) }
@@ -35,6 +37,10 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         ),
       }
     }
+
+    before do
+      stub_generic_ga_request
+    end
 
     it "creates an Unpublishing" do
       post "/v2/content/#{content_id}/unpublish", params: withdrawal_params
@@ -118,6 +124,10 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         },
       }
     }
+
+    before do
+      stub_generic_ga_request
+    end
 
     shared_examples "unpublishing with redirects" do
       it "creates an Unpublishing" do
@@ -207,6 +217,10 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       }
     }
 
+    before do
+      stub_generic_ga_request
+    end
+
     it "creates an Unpublishing" do
       post "/v2/content/#{content_id}/unpublish", params: gone_params
 
@@ -257,6 +271,10 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         type: "vanish",
       }.to_json
     }
+
+    before do
+      stub_generic_ga_request
+    end
 
     it "creates an Unpublishing" do
       post "/v2/content/#{content_id}/unpublish", params: vanish_params

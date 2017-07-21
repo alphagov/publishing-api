@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe V2::ContentItemsController do
+  include GoogleAnalyticsTestHelper
+
   let(:content_id) { SecureRandom.uuid }
   let(:validator) do
     instance_double(SchemaValidator, valid?: true, errors: [])
@@ -466,6 +468,7 @@ RSpec.describe V2::ContentItemsController do
       let(:body) { { update_type: "major" } }
       let(:govuk_request_id) { "test" }
       before do
+        stub_generic_ga_request
         request.set_header("HTTP_GOVUK_REQUEST_ID", govuk_request_id)
         GdsApi::GovukHeaders.set_header(:govuk_request_id, govuk_request_id)
         put :publish, params: { content_id: content_id }, body: body.to_json

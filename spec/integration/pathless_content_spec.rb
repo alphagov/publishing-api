@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "pathless content" do
+  include GoogleAnalyticsTestHelper
+
   describe Commands::V2::PutContent do
     describe "call" do
       let(:content_id) { FactoryGirl.build(:document).content_id }
@@ -158,6 +160,10 @@ RSpec.describe "pathless content" do
     end
 
     context "with no Location" do
+      before do
+        stub_generic_ga_request
+      end
+
       it "publishes the item" do
         described_class.call(payload)
 
