@@ -37,7 +37,7 @@ module Presenters
 
       def expand_translation(id)
         web_item(id).select do |field|
-          LinkExpansion::Rules
+          ExpansionRules
             .expansion_fields(:available_translations)
             .include?(field)
         end

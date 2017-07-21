@@ -79,8 +79,8 @@ private
     end
     edition_hash = content_cache.find(content_id)
     return if !edition_hash || !should_link?(node.link_type, edition_hash)
-    un_reverse_link_type = rules.un_reverse_link_type(node.link_types_path.first)
-    { un_reverse_link_type => [rules.expand_fields(edition_hash, un_reverse_link_type).merge(links: {})] }
+    unreverse_link_type = rules.unreverse_link_type(node.link_types_path.first)
+    { unreverse_link_type => [rules.expand_fields(edition_hash, unreverse_link_type).merge(links: {})] }
   end
 
   def should_link?(link_type, edition_hash)
@@ -93,6 +93,6 @@ private
   end
 
   def rules
-    Rules
+    ExpansionRules
   end
 end
