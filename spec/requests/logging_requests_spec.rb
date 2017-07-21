@@ -2,6 +2,8 @@ require "rails_helper"
 require "sidekiq/testing"
 
 RSpec.describe "Logging requests", type: :request do
+  include GoogleAnalyticsTestHelper
+
   let(:govuk_request_id) { "12345-67890" }
 
   it "adds a request uuid to the content store worker job" do
@@ -21,6 +23,7 @@ RSpec.describe "Logging requests", type: :request do
   end
 
   it "adds a request uuid to the message bus" do
+    stub_generic_ga_request
     draft_edition = FactoryGirl.create(:draft_edition, base_path: base_path)
 
     expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)

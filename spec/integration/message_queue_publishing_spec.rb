@@ -2,6 +2,11 @@ require "rails_helper"
 
 RSpec.describe "Message queue publishing" do
   include RandomContentHelpers
+  include GoogleAnalyticsTestHelper
+
+  before do
+    stub_generic_ga_request
+  end
 
   it "puts the correct message on the queue" do
     base_path = "/#{SecureRandom.hex}"

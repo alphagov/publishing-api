@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Reinstating editions that were previously unpublished" do
+  include GoogleAnalyticsTestHelper
+
   let(:put_content_command) { Commands::V2::PutContent }
   let(:publish_command) { Commands::V2::Publish }
 
@@ -57,6 +59,7 @@ RSpec.describe "Reinstating editions that were previously unpublished" do
 
   before do
     allow(SchemaValidator).to receive(:new).and_return(validator)
+    stub_generic_ga_request
   end
 
   describe "after the edition is unpublished" do

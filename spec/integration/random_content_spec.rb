@@ -1,7 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "Randomised content" do
+  include GoogleAnalyticsTestHelper
   include RandomContentHelpers
+
+  before do
+    stub_generic_ga_request
+  end
 
   50.times do |i|
     it "it can publish randomly generated content #{i + 1}/50" do

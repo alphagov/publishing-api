@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "/v2/content/:content_id/unpublish when the document is already unpublished" do
+  include GoogleAnalyticsTestHelper
+
   let(:content_id) { SecureRandom.uuid }
   let(:document) do
     FactoryGirl.create(:document,
@@ -24,6 +26,10 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
       type: "gone",
       explanation: "This explanation is correct",
     }
+  end
+
+  before do
+    stub_generic_ga_request
   end
 
   context "creates an action" do

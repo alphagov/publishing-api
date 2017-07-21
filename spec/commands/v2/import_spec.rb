@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::Import, type: :request do
+  include GoogleAnalyticsTestHelper
+
   describe "#call" do
     let(:content_id) { SecureRandom.uuid }
     let(:base_path) { "/bar" }
@@ -34,6 +36,10 @@ RSpec.describe Commands::V2::Import, type: :request do
           ),
         ]
       }
+    end
+
+    before do
+      stub_generic_ga_request
     end
 
     subject { described_class.call(payload) }

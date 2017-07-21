@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Redirecting editions that are redrafted" do
+  include GoogleAnalyticsTestHelper
+
   let(:put_content) { Commands::V2::PutContent }
   let(:publish) { Commands::V2::Publish }
 
@@ -33,6 +35,7 @@ RSpec.describe "Redirecting editions that are redrafted" do
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
+    stub_generic_ga_request
   end
 
   context "when a published item's base path is updated" do

@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Superseding editions" do
+  include GoogleAnalyticsTestHelper
+
   let(:put_content_command) { Commands::V2::PutContent }
   let(:publish_command) { Commands::V2::Publish }
 
@@ -30,6 +32,7 @@ RSpec.describe "Superseding editions" do
   end
 
   def call_commands
+    stub_generic_ga_request
     put_content_command.call(put_content_payload)
     publish_command.call(publish_payload)
   end

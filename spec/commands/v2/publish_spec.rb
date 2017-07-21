@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::Publish do
+  include GoogleAnalyticsTestHelper
+
   describe "call" do
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
@@ -24,6 +26,8 @@ RSpec.describe Commands::V2::Publish do
 
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
+
+      stub_generic_ga_request
 
       allow(DependencyResolutionWorker).to receive(:perform_async)
     end

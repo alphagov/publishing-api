@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Message bus", type: :request do
+  include GoogleAnalyticsTestHelper
+
   context "/v2/content" do
     it "doesn't send any messages" do
       expect(DownstreamService).to_not receive(:broadcast_to_message_queue)
@@ -22,6 +24,8 @@ RSpec.describe "Message bus", type: :request do
           document: FactoryGirl.create(:document, content_id: content_id),
           base_path: base_path,
         )
+
+        stub_generic_ga_request
       end
 
       it "sends a message with a 'links' routing key" do
@@ -59,6 +63,8 @@ RSpec.describe "Message bus", type: :request do
         schema_name: "nonexistent-schema",
         base_path: base_path,
       )
+
+      stub_generic_ga_request
     end
 
     it "sends a message with the 'document_type.update_type' routing key" do

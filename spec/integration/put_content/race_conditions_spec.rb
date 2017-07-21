@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::PutContent do
   include_context "PutContent call"
+  include GoogleAnalyticsTestHelper
 
   describe "race conditions", skip_cleaning: true do
     let(:document) do
@@ -19,6 +20,10 @@ RSpec.describe Commands::V2::PutContent do
         first_published_at: 1.year.ago,
         base_path: base_path,
       )
+    end
+
+    before do
+      stub_generic_ga_request
     end
 
     after do

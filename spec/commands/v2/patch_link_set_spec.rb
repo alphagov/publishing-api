@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::PatchLinkSet do
+  include GoogleAnalyticsTestHelper
+
   let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
   let(:content_id) { SecureRandom.uuid }
   let(:topics) { 3.times.map { SecureRandom.uuid } }
@@ -356,6 +358,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
         base_path: "/some-path",
         title: "Some Title",
       )
+
+      stub_generic_ga_request
     end
 
     it "sends to downstream draft worker" do

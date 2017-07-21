@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::Unpublish do
+  include GoogleAnalyticsTestHelper
+
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
   let(:locale) { "en" }
@@ -9,6 +11,10 @@ RSpec.describe Commands::V2::Unpublish do
       content_id: content_id,
       locale: locale,
     )
+  end
+
+  before do
+    stub_generic_ga_request
   end
 
   describe "call" do
