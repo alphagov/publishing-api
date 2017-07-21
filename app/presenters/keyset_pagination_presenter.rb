@@ -28,11 +28,11 @@ module Presenters
     end
 
     def links
-      [next_link, self_link, previous_link]
+      [next_link, self_link, previous_link].compact
     end
 
     def next_link
-      { href: next_url, rel: "next" }
+      { href: next_url, rel: "next" } if pagination_query.has_next_after?
     end
 
     def self_link
@@ -40,15 +40,15 @@ module Presenters
     end
 
     def previous_link
-      { href: previous_url, rel: "previous" }
+      { href: previous_url, rel: "previous" } if pagination_query.has_next_before?
     end
 
     def next_url
-      page_href(after: pagination_query.key_for_record(results.last))
+      page_href(after: pagination_query.next_after_key.join(","))
     end
 
     def previous_url
-      page_href(before: pagination_query.key_for_record(results.first))
+      page_href(before: pagination_query.next_before_key.join(","))
     end
 
     def page_href(params)

@@ -21,11 +21,11 @@ module Queries
 
       if before
         @previous = before
-        @order = order == :asc ? :desc : asc
-        @presenter_should_reverse = true
+        @order = order == :asc ? :desc : :asc
+        @should_reverse = true
       else
         @previous = after
-        @presenter_should_reverse = false
+        @should_reverse = false
       end
 
       if previous.present? && previous.count != key.count
@@ -34,25 +34,50 @@ module Queries
     end
 
     def call
-      if presenter_should_reverse
-        results.reverse
-      else
-        results
-      end
+      results
     end
 
-    def key_for_record(record)
-      values = key.keys.map do |k|
-        value = record[k.to_s]
-        next value.iso8601 if value.respond_to?(:iso8601)
-        value.to_s
-      end
-      values.join(",")
+    def next_before_key
+      key_for_record(results.first)
+    end
+
+    def next_after_key
+      key_for_record(results.last)
+    end
+
+    def has_next_before?
+      KeysetPagination.new(
+        client, key: key, order: order, count: 1,
+        before: next_before_key, after: nil
+      ).call.count >= 1
+    end
+
+    def has_next_after?
+      KeysetPagination.new(
+        client, key: key, order: order, count: 1,
+        before: nil, after: next_after_key
+      ).call.count >= 1
     end
 
   private
 
-    attr_reader :presenter_should_reverse
+    attr_reader :should_reverse
+
+    def results
+      if should_reverse
+        plucked_results.reverse
+      else
+        plucked_results
+      end
+    end
+
+    def key_for_record(record)
+      key.keys.map do |k|
+        value = record[k.to_s]
+        next value.iso8601 if value.respond_to?(:iso8601)
+        value.to_s
+      end
+    end
 
     def pluck_to_hash(query, keys)
       query.pluck(*keys).map do |record|
@@ -60,7 +85,7 @@ module Queries
       end
     end
 
-    def results
+    def plucked_results
       pluck_to_hash(paginated_query, fields)
     end
 
