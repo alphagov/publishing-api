@@ -22,10 +22,10 @@ module Queries
       if before
         @previous = before
         @order = order == :asc ? :desc : :asc
-        @should_reverse = true
+        @direction = :backwards
       else
         @previous = after
-        @should_reverse = false
+        @direction = :forwards
       end
 
       if previous.present? && previous.count != key.count
@@ -61,14 +61,10 @@ module Queries
 
   private
 
-    attr_reader :should_reverse
+    attr_reader :direction
 
     def results
-      if should_reverse
-        plucked_results.reverse
-      else
-        plucked_results
-      end
+      ordered_results
     end
 
     def key_for_record(record)
@@ -80,17 +76,25 @@ module Queries
     end
 
     def pluck_to_hash(query, keys)
-      query.pluck(*keys).map do |record|
-        Hash[keys.zip(record)]
+
+    end
+
+    def ordered_results
+      if direction == :backwards
+        plucked_results.reverse
+      else
+        plucked_results
       end
     end
 
     def plucked_results
-      pluck_to_hash(paginated_query, fields)
+      paginated_query.pluck(*fields).map do |record|
+        Hash[fields.zip(record)]
+      end
     end
 
     def fields
-      (client.fields + key.keys).uniq.map(&:to_s)
+      @fields ||= (client.fields + key.keys).uniq.map(&:to_s)
     end
 
     def paginated_query
@@ -101,10 +105,6 @@ module Queries
 
     def ascending?
       order == :asc
-    end
-
-    def descending?
-      order == :desc
     end
 
     def order_clause
