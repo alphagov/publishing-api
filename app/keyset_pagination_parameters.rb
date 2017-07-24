@@ -3,7 +3,7 @@ class KeysetPaginationParameters
     def from_query(params:, default_order:, table:)
       {
         key: key(params, default_order, table),
-        count: params[:per_page],
+        per_page: params[:per_page],
         order: order(params, default_order),
         before: params[:before].try(:split, ","),
         after: params[:after].try(:split, ","),

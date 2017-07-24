@@ -24,10 +24,6 @@ module V2
       query_params[:states]
     end
 
-    def document_types
-      query_params[:document_type] || query_params[:content_format] || []
-    end
-
     def filters
       {
         publishing_app: publishing_app,

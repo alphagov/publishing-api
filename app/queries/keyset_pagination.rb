@@ -1,19 +1,19 @@
 module Queries
   class KeysetPagination
-    attr_reader :client, :order, :key, :count, :previous
+    attr_reader :client, :order, :key, :per_page, :previous
 
     # Initialises the keyset pagination class.
     # Params:
     # +client+:: the pagination client to query over
     # +key+:: +Hash+ a hash containing the pagination key, mapped from presented name to internal name, i.e. { id: "editions.id" }
     # +order+:: +Symbol+ either :asc for ascending and :desc for descending
-    # +count+:: +Fixnum+ the number of records to return in each page
+    # +per_page+:: +Fixnum+ the number of records to return in each page
     # +after+:: +Array+ the current page to paginate after, an array containing a value for each field in the key
-    def initialize(client, key: nil, order: nil, count: nil, before:, after:)
+    def initialize(client, key: nil, order: nil, per_page: nil, before:, after:)
       @client = client
       @key = key || { id: "id" }
       @order = order || :asc
-      @count = (count || 100).to_i
+      @per_page = (per_page || 100).to_i
 
       if before.present? && after.present?
         raise "Before and after cannot both be present."
@@ -45,18 +45,22 @@ module Queries
       key_for_record(results.last)
     end
 
-    def has_next_before?
+    def is_first_page?
       KeysetPagination.new(
-        client, key: key, order: order, count: 1,
+        client, key: key, order: order, per_page: 1,
         before: next_before_key, after: nil
-      ).call.count >= 1
+      ).call.empty?
     end
 
-    def has_next_after?
+    def is_last_page?
       KeysetPagination.new(
-        client, key: key, order: order, count: 1,
+        client, key: key, order: order, per_page: 1,
         before: nil, after: next_after_key
-      ).call.count >= 1
+      ).call.empty?
+    end
+
+    def presented_fields
+      client.fields
     end
 
   private
@@ -64,7 +68,7 @@ module Queries
     attr_reader :direction
 
     def results
-      ordered_results
+      @results ||= ordered_results
     end
 
     def key_for_record(record)
@@ -73,10 +77,6 @@ module Queries
         next value.iso8601 if value.respond_to?(:iso8601)
         value.to_s
       end
-    end
-
-    def pluck_to_hash(query, keys)
-
     end
 
     def ordered_results
@@ -94,13 +94,13 @@ module Queries
     end
 
     def fields
-      @fields ||= (client.fields + key.keys).uniq.map(&:to_s)
+      @fields ||= (presented_fields + key.keys).uniq.map(&:to_s)
     end
 
     def paginated_query
       paginated_query = client.call.order(order_clause)
       paginated_query = paginated_query.where(where_clause, *previous) if previous
-      paginated_query.limit(count)
+      paginated_query.limit(per_page)
     end
 
     def ascending?
@@ -111,20 +111,11 @@ module Queries
       key.keys.each_with_object({}) { |field, hash| hash[field] = order }
     end
 
-    def order_character
-      ascending? ? ">" : "<"
-    end
-
-    def where_clause_lhs
-      key.values.join(", ")
-    end
-
-    def where_clause_rhs
-      (["?"] * key.count).join(", ")
-    end
-
     def where_clause
-      "(#{where_clause_lhs}) #{order_character} (#{where_clause_rhs})"
+      lhs = key.values.join(", ")
+      order_character = ascending? ? ">" : "<"
+      rhs = (["?"] * key.count).join(", ")
+      "(#{lhs}) #{order_character} (#{rhs})"
     end
   end
 end

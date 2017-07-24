@@ -17,8 +17,6 @@ module Queries
 
   private
 
-    attr_writer :fields, :filters, :pagination
-
     DEFAULT_FIELDS = [
       *Edition::TOP_LEVEL_FIELDS,
       :content_id,

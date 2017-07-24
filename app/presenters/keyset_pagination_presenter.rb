@@ -24,7 +24,7 @@ module Presenters
     end
 
     def fields_to_clear
-      pagination_query.key.keys.map(&:to_s) - pagination_query.client.fields
+      pagination_query.key.keys.map(&:to_s) - pagination_query.presented_fields
     end
 
     def links
@@ -32,7 +32,7 @@ module Presenters
     end
 
     def next_link
-      { href: next_url, rel: "next" } if pagination_query.has_next_after?
+      { href: next_url, rel: "next" } unless pagination_query.is_last_page?
     end
 
     def self_link
@@ -40,7 +40,7 @@ module Presenters
     end
 
     def previous_link
-      { href: previous_url, rel: "previous" } if pagination_query.has_next_before?
+      { href: previous_url, rel: "previous" } unless pagination_query.is_first_page?
     end
 
     def next_url
