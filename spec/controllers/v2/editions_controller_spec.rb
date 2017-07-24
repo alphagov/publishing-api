@@ -6,7 +6,7 @@ RSpec.describe V2::EditionsController do
   end
 
   describe "index" do
-    before do
+    before(:context) do
       Timecop.freeze("2017-01-01 09:00:00") do
         50.times do |index|
           FactoryGirl.create(
@@ -36,6 +36,11 @@ RSpec.describe V2::EditionsController do
           )
         end
       end
+    end
+
+    after(:context) do
+      Edition.delete_all
+      Document.delete_all
     end
 
     context "all editions" do
