@@ -26,9 +26,8 @@ module Presenters
       present.except(:update_type).merge(payload_version: payload_version)
     end
 
-    def for_message_queue(update_type)
+    def for_message_queue
       present.merge(
-        update_type: update_type,
         govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
         links: unexpanded_links
       )

@@ -32,14 +32,15 @@ module DownstreamService
     end
   end
 
-  def self.broadcast_to_message_queue(downstream_payload, update_type)
-    if downstream_payload.state != "published"
-      message = "Can only send published items to the message queue"
-      raise DownstreamInvalidStateError.new(message)
+  def self.broadcast_to_message_queue(downstream_payload, event_type)
+    unless %w(unpublished published).include?(downstream_payload.state)
+      raise DownstreamInvalidStateError.new(
+        "Can only send published or unpublished items to the message queue"
+      )
     end
 
-    payload = downstream_payload.message_queue_payload(update_type)
-    PublishingAPI.service(:queue_publisher).send_message(payload)
+    payload = downstream_payload.message_queue_payload
+    PublishingAPI.service(:queue_publisher).send_message(payload, event_type: event_type)
   end
 
   def self.discard_from_draft_content_store(base_path)

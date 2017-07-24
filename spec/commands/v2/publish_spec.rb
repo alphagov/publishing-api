@@ -52,7 +52,7 @@ RSpec.describe Commands::V2::Publish do
 
         it "uses the update_type from the draft edition" do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-            .with("downstream_high", hash_including(message_queue_update_type: "major"))
+            .with("downstream_high", hash_including(message_queue_event_type: "major"))
 
           described_class.call(payload)
         end

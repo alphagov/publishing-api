@@ -8,7 +8,7 @@ RSpec.describe Presenters::EditionPresenter do
 
   describe "#for_message_queue" do
     let(:update_type) { "moussaka" }
-    let(:edition) { FactoryGirl.create(:draft_edition) }
+    let(:edition) { FactoryGirl.create(:draft_edition, update_type: update_type) }
     let(:target_content_id) { "d16216ce-7487-4bde-b817-ef68317fe3ab" }
 
     before do
@@ -26,7 +26,7 @@ RSpec.describe Presenters::EditionPresenter do
     subject(:result) do
       described_class.new(
         edition, draft: present_drafts
-      ).for_message_queue(update_type)
+      ).for_message_queue
     end
 
     it "presents the unexpanded links" do

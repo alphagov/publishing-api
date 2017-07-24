@@ -18,13 +18,20 @@ Publishing to the message queue can be disabled by setting the
 
 ## Post-publishing notifications
 
-After an edition is added or updated, a message is published to RabbitMQ.
-It will be published to the `published_documents` topic exchange with the
-routing_key `"#{edition.schema_name}.#{edition.update_type}"`.
-Interested parties can subscribe to this exchange to perform post-publishing
-actions. For example, a search indexing service would be able to add/update the
-search index based on these messages. Or an email notification service would be
-able to send email updates (see
-https://github.com/alphagov/email-alert-service).
+After an edition is changed, a message is published to RabbitMQ. It will be
+published to the `published_documents` topic exchange with the routing_key
+`"#{edition.schema_name}.#{event_type}"`. Interested parties can subscribe to
+this exchange to perform post-publishing actions. For example, a search
+indexing service would be able to add/update the search index based on these
+messages. Or an email notification service would be able to send email updates
+(see https://github.com/alphagov/email-alert-service).
+
+### `event_type`
+
+- `major`: Used when an edition is published with an `update_type` of major.
+- `minor`: Used when an edition is published with an `update_type` of minor.
+- `republish`: Used when an edition is published with an `update_type` of republish.
+- `links`: Used whenever links related to an edition have changed.
+- `unpublish`: Used when an edition is unpublished.
 
 [puppet_manifest]: https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/publishing_api/rabbitmq.pp

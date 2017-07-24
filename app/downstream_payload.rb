@@ -31,19 +31,11 @@ class DownstreamPayload
   end
 
   def content_store_payload
-    return content_payload unless unpublished?
-
-    case unpublishing.type
-    when "redirect" then redirect_payload
-    when "gone" then gone_payload
-    else content_payload
-    end
+    content_store_presenter.for_content_store(payload_version)
   end
 
-  def message_queue_payload(update_type)
-    Presenters::EditionPresenter.new(
-      edition, draft: draft
-    ).for_message_queue(update_type || edition.update_type)
+  def message_queue_payload
+    message_queue_presenter.for_message_queue
   end
 
 private
@@ -52,27 +44,40 @@ private
     edition.unpublishing
   end
 
-  def content_payload
-    Presenters::EditionPresenter.new(
-      edition, draft: draft
-    ).for_content_store(payload_version)
+  def content_presenter
+    Presenters::EditionPresenter.new(edition, draft: draft)
   end
 
-  def redirect_payload
-    RedirectPresenter.present(
-      base_path: base_path,
-      publishing_app: edition.publishing_app,
-      public_updated_at: unpublishing.created_at,
-      redirects: unpublishing.redirects,
-    ).merge(payload_version: payload_version)
+  def redirect_presenter
+    RedirectPresenter.from_edition(edition)
   end
 
-  def gone_payload
-    GonePresenter.present(
-      base_path: base_path,
-      publishing_app: edition.publishing_app,
-      alternative_path: unpublishing.alternative_path,
-      explanation: unpublishing.explanation,
-    ).merge(payload_version: payload_version)
+  def gone_presenter
+    GonePresenter.from_edition(edition)
+  end
+
+  def vanish_presenter
+    VanishPresenter.from_edition(edition)
+  end
+
+  def content_store_presenter
+    return content_presenter unless unpublished?
+
+    case unpublishing.type
+    when "redirect" then redirect_presenter
+    when "gone" then gone_presenter
+    else content_presenter
+    end
+  end
+
+  def message_queue_presenter
+    return content_presenter unless unpublished?
+
+    case unpublishing.type
+    when "redirect" then redirect_presenter
+    when "gone" then gone_presenter
+    when "vanish" then vanish_presenter
+    else content_presenter
+    end
   end
 end

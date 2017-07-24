@@ -160,13 +160,15 @@ RSpec.describe DownstreamPayload do
   end
 
   describe "#message_queue_payload" do
-    let(:edition) { create_edition(:live_edition) }
+    let(:edition) do
+      create_edition(:live_edition, update_type: "major")
+    end
 
     it "returns a message queue payload" do
-      expect(downstream_payload.message_queue_payload("major")).to include(
+      expect(downstream_payload.message_queue_payload).to include(
         base_path: edition.base_path,
         title: edition.title,
-        update_type: "major",
+        update_type: edition.update_type,
         govuk_request_id: anything,
       )
     end

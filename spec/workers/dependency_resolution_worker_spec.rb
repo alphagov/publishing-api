@@ -43,7 +43,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
         :content_id,
         :locale,
         :payload_version,
-        message_queue_update_type: "links",
+        message_queue_event_type: "links",
         update_dependencies: false,
       ),
     )

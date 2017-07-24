@@ -17,7 +17,7 @@ RSpec.describe RequeueContent do
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
         .exactly(1)
         .times
-        .with(a_hash_including(:content_id))
+        .with(a_hash_including(:content_id), event_type: "links")
       RequeueContent.new(number_of_items: 1).call
     end
   end

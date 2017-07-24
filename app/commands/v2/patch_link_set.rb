@@ -104,7 +104,7 @@ module Commands
           queue,
           content_id: content_id,
           locale: locale,
-          message_queue_update_type: "links",
+          message_queue_event_type: "links",
           payload_version: event.id,
           orphaned_content_ids: orphaned_content_ids,
         )

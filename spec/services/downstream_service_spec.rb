@@ -184,7 +184,7 @@ RSpec.describe DownstreamService do
     {
       "draft" => true,
       "published" => false,
-      "unpublished" => true,
+      "unpublished" => false,
       "superseded" => true,
     }.each do |state, should_error|
       context "#{state} item" do

@@ -30,6 +30,7 @@ module Commands
         set_public_updated_at
         set_first_published_at
         set_publishing_request_id
+        set_update_type
         edition.publish
         remove_access_limit
         create_publish_action
@@ -177,6 +178,11 @@ module Commands
         )
       end
 
+      def set_update_type
+        return if edition.update_type
+        edition.update_attributes!(update_type: update_type)
+      end
+
       def publish_redirect(previous_base_path, locale)
         draft_redirect = Edition.with_document.find_by(
           state: "draft",
@@ -219,7 +225,7 @@ module Commands
 
       def live_worker_params
         {
-          message_queue_update_type: update_type,
+          message_queue_event_type: update_type,
           update_dependencies: update_dependencies?,
           orphaned_content_ids: orphaned_content_ids,
         }.merge(worker_params)

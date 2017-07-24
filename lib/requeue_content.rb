@@ -22,16 +22,16 @@ private
   def publish_to_queue(edition)
     queue_payload = Presenters::EditionPresenter.new(
       edition, draft: false,
-    ).for_message_queue("links")
+    ).for_message_queue
 
     # FIXME: Rummager currently only listens to the message queue for the
-    # update type 'links'. This behaviour will eventually be updated so that
+    # event type 'links'. This behaviour will eventually be updated so that
     # it listens to other update types as well. This will happen as part of
     # ongoing architectural work to make the message queue the sole source of
-    # search index updates. When that happens, the update_type below should
+    # search index updates. When that happens, the event_type below should
     # be changed - perhaps to a newly introduced, more-appropriately named
     # one. Maybe something like 'reindex'.
 
-    PublishingAPI.service(:queue_publisher).send_message(queue_payload)
+    PublishingAPI.service(:queue_publisher).send_message(queue_payload, event_type: "links")
   end
 end
