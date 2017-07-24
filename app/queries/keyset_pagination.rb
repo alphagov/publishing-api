@@ -1,19 +1,28 @@
 module Queries
+  # The KeysetPagination class provides a way of implementing keyset pagination
+  # on queries.
+  #
+  # Example usage:
+  #   client = KeysetPagination::GetEditions.new
+  #   query = KeysetPagination.new(client, per_page: 100, before: [10])
+  #
+  # The `before` and `after` parameters represent the current pagination key as
+  # an array containing the last values of the previous page.
+  # For example, to get the next page of a page that returned 10 items with the
+  # last ID being 10, the after key would be [10]. It is an array because some
+  # pagination clients may use pagination keys across multiple fields, for
+  # example, `GetEditions` uses [date, id].
   class KeysetPagination
-    attr_reader :client, :order, :key, :per_page, :previous
+    attr_reader :client, :order, :pagination_key, :per_page, :previous
 
-    # Initialises the keyset pagination class.
-    # Params:
-    # +client+:: the pagination client to query over
-    # +key+:: +Hash+ a hash containing the pagination key, mapped from presented name to internal name, i.e. { id: "editions.id" }
-    # +order+:: +Symbol+ either :asc for ascending and :desc for descending
-    # +per_page+:: +Fixnum+ the number of records to return in each page
-    # +after+:: +Array+ the current page to paginate after, an array containing a value for each field in the key
-    def initialize(client, key: nil, order: nil, per_page: nil, before:, after:)
+    def initialize(client, params)
       @client = client
-      @key = key || { id: "id" }
-      @order = order || :asc
-      @per_page = (per_page || 100).to_i
+      @pagination_key = client.pagination_key
+      @order = client.pagination_order
+      @per_page = (params[:per_page] || 100).to_i
+
+      before = params[:before]
+      after = params[:after]
 
       if before.present? && after.present?
         raise "Before and after cannot both be present."
@@ -28,7 +37,7 @@ module Queries
         @direction = :forwards
       end
 
-      if previous.present? && previous.count != key.count
+      if previous.present? && previous.count != pagination_key.count
         raise "Number of previous values does not match the number of fields."
       end
     end
@@ -46,17 +55,19 @@ module Queries
     end
 
     def is_first_page?
-      KeysetPagination.new(
-        client, key: key, order: order, per_page: 1,
-        before: next_before_key, after: nil
+      @is_first_page ||= KeysetPagination.new(
+        client, per_page: 1, before: next_before_key
       ).call.empty?
     end
 
     def is_last_page?
-      KeysetPagination.new(
-        client, key: key, order: order, per_page: 1,
-        before: nil, after: next_after_key
+      @is_last_page ||= KeysetPagination.new(
+        client, per_page: 1, after: next_after_key
       ).call.empty?
+    end
+
+    def key_fields
+      pagination_key.keys.map(&:to_s)
     end
 
     def presented_fields
@@ -72,8 +83,8 @@ module Queries
     end
 
     def key_for_record(record)
-      key.keys.map do |k|
-        value = record[k.to_s]
+      key_fields.map do |k|
+        value = record[k]
         next value.iso8601 if value.respond_to?(:iso8601)
         value.to_s
       end
@@ -94,7 +105,7 @@ module Queries
     end
 
     def fields
-      @fields ||= (presented_fields + key.keys).uniq.map(&:to_s)
+      @fields ||= (presented_fields + key_fields).uniq
     end
 
     def paginated_query
@@ -108,13 +119,15 @@ module Queries
     end
 
     def order_clause
-      key.keys.each_with_object({}) { |field, hash| hash[field] = order }
+      pagination_key.keys.each_with_object({}) do |field, hash|
+        hash[field] = order
+      end
     end
 
     def where_clause
-      lhs = key.values.join(", ")
+      lhs = pagination_key.values.join(", ")
       order_character = ascending? ? ">" : "<"
-      rhs = (["?"] * key.count).join(", ")
+      rhs = (["?"] * pagination_key.count).join(", ")
       "(#{lhs}) #{order_character} (#{rhs})"
     end
   end

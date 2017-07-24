@@ -1,12 +1,15 @@
 module Queries
   class KeysetPagination::GetEditions
-    attr_reader :fields, :filters
+    attr_reader :fields
 
-    def initialize(fields:, filters: {})
-      @fields = fields || default_fields
-      @filters = filters
-
-      filters[:states] = %i(draft published unpublished) if filters[:states].blank?
+    def initialize(params)
+      @fields = params[:fields] || default_fields
+      @order = params[:order] || "updated_at"
+      @filters = {
+        states: params[:states] || %i(draft published unpublished),
+        locale: params[:locale],
+        publishing_app: params[:publishing_app],
+      }
 
       validate_fields!
     end
@@ -15,7 +18,22 @@ module Queries
       editions
     end
 
+    def pagination_order
+      @pagination_order ||= (order.first == "-" ? :desc : :asc)
+    end
+
+    def pagination_key
+      @pagination_key ||= (
+        hash = {}
+        hash[pagination_field] = "editions.#{pagination_field}"
+        hash[:id] = "editions.id"
+        hash
+      )
+    end
+
   private
+
+    attr_reader :order, :filters
 
     DEFAULT_FIELDS = [
       *Edition::TOP_LEVEL_FIELDS,
@@ -24,6 +42,14 @@ module Queries
       :updated_at,
       :created_at,
     ].freeze
+
+    def pagination_field
+      @pagination_field ||= (if order.first == "-"
+                               order[1..order.length]
+                             else
+                               order
+                             end).to_sym
+    end
 
     def editions
       query = Edition

@@ -107,10 +107,10 @@ RSpec.describe V2::EditionsController do
 
     context "filtered by state" do
       it "returns only published editions" do
-        get :index, params: { states: "published" }
+        get :index, params: { states: %w(published) }
         expect(parsed_response["results"].count).to eq(50)
         expect(parsed_response["links"]).to eq([
-          { "href" => "http://test.host/v2/editions?states=published", "rel" => "self" },
+          { "href" => "http://test.host/v2/editions?states%5B%5D=published", "rel" => "self" },
         ])
       end
     end

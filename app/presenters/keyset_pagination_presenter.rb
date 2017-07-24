@@ -24,7 +24,7 @@ module Presenters
     end
 
     def fields_to_clear
-      pagination_query.key.keys.map(&:to_s) - pagination_query.presented_fields
+      pagination_query.key_fields - pagination_query.presented_fields
     end
 
     def links

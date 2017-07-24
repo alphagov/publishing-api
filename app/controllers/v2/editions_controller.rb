@@ -2,11 +2,8 @@ module V2
   class EditionsController < ApplicationController
     def index
       query = Queries::KeysetPagination.new(
-        Queries::KeysetPagination::GetEditions.new(
-          fields: query_params[:fields],
-          filters: filters,
-        ),
-        **pagination_params
+        Queries::KeysetPagination::GetEditions.new(edition_params),
+        pagination_params
       )
 
       render json: Presenters::KeysetPaginationPresenter.new(
@@ -16,28 +13,20 @@ module V2
 
   private
 
-    def publishing_app
-      query_params[:publishing_app]
-    end
-
-    def states
-      query_params[:states]
-    end
-
-    def filters
-      {
-        publishing_app: publishing_app,
-        locale: query_params[:locale],
-        states: Array(states),
-      }
+    def edition_params
+      params
+        .permit(
+          :order, :locale, :publishing_app, :per_page, :before, :after,
+          fields: [], states: []
+        )
     end
 
     def pagination_params
-      KeysetPaginationParameters.from_query(
-        params: query_params,
-        default_order: "updated_at",
-        table: "editions",
-      )
+      {
+        per_page: edition_params[:per_page],
+        before: edition_params[:before].try(:split, ","),
+        after: edition_params[:after].try(:split, ","),
+      }
     end
   end
 end
