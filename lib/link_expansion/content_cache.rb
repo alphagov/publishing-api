@@ -25,6 +25,11 @@ private
       attrs = edition_hash.from(edition_values)
       hash[attrs[:content_id]] = attrs
     end
+
+    # fill in where the preloading didn't find a result
+    (to_preload - store.keys).each_with_object(store) do |content_id, hash|
+      hash[content_id] = nil
+    end
   end
 
   def edition(content_id)
@@ -41,6 +46,7 @@ private
       locale_fallback_order: locale_fallback_order,
       state_fallback_order: state_fallback_order,
     )
+    return [] unless edition_ids
     Edition
       .joins(
         <<-SQL.strip_heredoc
