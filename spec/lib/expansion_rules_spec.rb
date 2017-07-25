@@ -9,10 +9,10 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.reverse_link_type(:made_up)).to be_nil }
   end
 
-  describe ".unreverse_link_type" do
-    specify { expect(rules.unreverse_link_type(:children)).to be(:parent) }
-    specify { expect(rules.unreverse_link_type(:parent)).to be_nil }
-    specify { expect(rules.unreverse_link_type(:made_up)).to be_nil }
+  describe ".reverse_to_direct_link_type" do
+    specify { expect(rules.reverse_to_direct_link_type(:children)).to be(:parent) }
+    specify { expect(rules.reverse_to_direct_link_type(:parent)).to be_nil }
+    specify { expect(rules.reverse_to_direct_link_type(:made_up)).to be_nil }
   end
 
   describe ".is_reverse_link_type?" do
@@ -21,12 +21,12 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.is_reverse_link_type?(:made_up)).to be(false) }
   end
 
-  describe ".unreverse_link_types" do
+  describe ".reverse_to_direct_link_types" do
     specify do
-      expect(rules.unreverse_link_types([:children, :documents]))
+      expect(rules.reverse_to_direct_link_types([:children, :documents]))
         .to match([:parent])
     end
-    specify { expect(rules.unreverse_link_types([:made_up])).to match([]) }
+    specify { expect(rules.reverse_to_direct_link_types([:made_up])).to match([]) }
   end
 
   describe ".reverse_link_types_hash" do
@@ -92,11 +92,11 @@ RSpec.describe ExpansionRules do
   end
 
   describe ".next_allowed_reverse_link_types" do
-    let(:unreverse) { false }
+    let(:reverse_to_direct) { false }
     subject do
       described_class.next_allowed_reverse_link_types(
         next_allowed_link_types,
-        unreverse: unreverse,
+        reverse_to_direct: reverse_to_direct,
       )
     end
 
@@ -136,15 +136,15 @@ RSpec.describe ExpansionRules do
       end
     end
 
-    context "when unreverse is true" do
+    context "when reverse_to_direct is true" do
       let(:next_allowed_link_types) do
         {
           children: [:children],
         }
       end
-      let(:unreverse) { true }
+      let(:reverse_to_direct) { true }
 
-      it "unreverses the link types to be their direct counterpart" do
+      it "changes the link types to be their direct counterpart" do
         is_expected.to match(parent: [:parent])
       end
     end

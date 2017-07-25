@@ -67,17 +67,17 @@ module ExpansionRules
     REVERSE_LINKS[link_type.to_sym]
   end
 
-  def unreverse_link_type(link_type)
+  def reverse_to_direct_link_type(link_type)
     REVERSE_LINKS.key(link_type.to_sym)
   end
 
   def is_reverse_link_type?(link_type)
-    unreverse_link_type(link_type).present?
+    reverse_to_direct_link_type(link_type).present?
   end
 
-  def unreverse_link_types(link_types)
+  def reverse_to_direct_link_types(link_types)
     return unless link_types
-    link_types.map { |type| unreverse_link_type(type) }.compact
+    link_types.map { |type| reverse_to_direct_link_type(type) }.compact
   end
 
   def reverse_link_types_hash(link_types)
@@ -134,14 +134,14 @@ module ExpansionRules
     end
   end
 
-  def next_allowed_reverse_link_types(next_allowed_link_types, unreverse: false)
+  def next_allowed_reverse_link_types(next_allowed_link_types, reverse_to_direct: false)
     next_allowed_link_types.each_with_object({}) do |(link_type, allowed_links), memo|
       next if allowed_links.empty?
-      link_type = (unreverse_link_type(link_type) || link_type) if unreverse
+      link_type = (reverse_to_direct_link_type(link_type) || link_type) if reverse_to_direct
 
       links = allowed_links.select { |link| is_reverse_link_type?(link) }
 
-      links = unreverse_link_types(links) if unreverse
+      links = reverse_to_direct_link_types(links) if reverse_to_direct
 
       memo[link_type] = links unless links.empty?
     end

@@ -51,12 +51,12 @@ private
 
   def own_links(content_id, allowed_link_types = nil, link_types_path = [], parent_content_ids = [])
     next_allowed_link_types_from = rules.dependency_resolution
-      .next_allowed_reverse_link_types(allowed_link_types, link_types_path, unreverse: true)
+      .next_allowed_reverse_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
     next_allowed_link_types_to = rules.dependency_resolution
       .next_allowed_direct_link_types(allowed_link_types, link_types_path)
 
     links = Queries::Links.from(content_id,
-      allowed_link_types: rules.unreverse_link_types(allowed_link_types),
+      allowed_link_types: rules.reverse_to_direct_link_types(allowed_link_types),
       parent_content_ids: parent_content_ids,
       next_allowed_link_types_from: next_allowed_link_types_from,
       next_allowed_link_types_to: next_allowed_link_types_to,
@@ -76,7 +76,7 @@ private
 
   def linked_to(content_id, allowed_link_types = nil, link_types_path = [], parent_content_ids = [])
     next_allowed_link_types_from = rules.dependency_resolution
-      .next_allowed_reverse_link_types(allowed_link_types, link_types_path, unreverse: true)
+      .next_allowed_reverse_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
     next_allowed_link_types_to = rules.dependency_resolution
       .next_allowed_direct_link_types(allowed_link_types, link_types_path)
 
@@ -98,7 +98,7 @@ private
     from_links = Queries::EditionLinks.from(content_id,
       locale: locale,
       with_drafts: with_drafts,
-      allowed_link_types: rules.unreverse_link_types(rules.reverse_links)
+      allowed_link_types: rules.reverse_to_direct_link_types(rules.reverse_links)
     )
 
     from_links = rules.reverse_link_types_hash(from_links)
