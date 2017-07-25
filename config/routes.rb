@@ -30,6 +30,8 @@ Rails.application.routes.draw do
         get "/linked/:content_id", to: "link_sets#get_linked"
       end
 
+      get "/editions", to: "editions#index"
+
       get "/linkables", to: "content_items#linkables"
       get "/new-linkables", to: "content_items#new_linkables"
 

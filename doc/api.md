@@ -23,6 +23,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
 - [`GET /v2/linked/:content_id`](#get-v2linkedcontent_id)
 - [`GET /v2/linkables`](#get-v2linkables)
+- [`GET /v2/editions`](#get-v2editions)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
 - [`PUT /paths/:base_path`](#put-pathsbase_path)
 - [`GET /debug/:content_id`](#get-debugcontent_id)
@@ -339,9 +340,11 @@ and a state has been specified, the draft is returned.
 - `document_type` *(optional)*
   - The type of editions to return.
 - `fields[]` *(optional)*
-  - Accepts an array of: "analytics_identifier", "base_path",
-    "content_id", "description", "document_type", "locale",
-    "public_updated_at", "schema_name", "title"
+  - Accepts an array of: analytics_identifier, base_path, content_store,
+    description, details, document_type, first_published_at, last_edited_at,
+    need_ids, phase, public_updated_at, publishing_app, redirects,
+    rendering_app, routes, schema_name, state, title, user_facing_version,
+    update_type, state
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - `link_*` *(optional)*
@@ -520,9 +523,11 @@ for some `link_type`.
 - `link_type` *(required)*
   - The type of link between the documents.
 - `fields[]` *(required)*
-  - Accepts an array of: "analytics_identifier", "base_path",
-    "content_id", "description", "document_type", "locale",
-    "public_updated_at", "schema_name", "title"
+  - Accepts an array of: analytics_identifier, base_path, content_store,
+    description, details, document_type, first_published_at, last_edited_at,
+    need_ids, phase, public_updated_at, publishing_app, redirects,
+    rendering_app, routes, schema_name, state, title, user_facing_version,
+    update_type, state
   - Determines which fields will be returned in the response.
 
 ## `GET /v2/linkables`
@@ -538,6 +543,43 @@ which is `details.internal_name` and falls back to `title`.
 
 - `document_type` *(required)*
   - The `document_type` value that returned editions has.
+
+## `GET /v2/editions`
+
+Retrieves a paginated list of editions for the provided query string
+parameters.
+
+### Query string parameters
+
+- `fields[]` *(optional)*
+  - Accepts an array of: analytics_identifier, base_path, content_store,
+    description, details, document_type, first_published_at, last_edited_at,
+    need_ids, phase, public_updated_at, publishing_app, redirects,
+    rendering_app, routes, schema_name, state, title, user_facing_version,
+    update_type, state, content_id, locale, stale_lock_version, updated_at,
+    created_at
+  - Determines which fields will be returned in the response, if omitted all
+    fields will be returned.
+- `locale` *(optional)*
+  - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
+  - Used to restrict documents to a given locale.
+- `order` *(optional, default: "updated_at")*
+  - The field to sort the results by.
+  - Returned in an ascending order unless prefixed with a hyphen, e.g.
+    "-created_at".
+  - Accepts fields of: updated_at, public_updated_at, created_at
+- `before` and `after` *(optional)*
+  - The pagination key of the previous page to pagination before or after.
+  - Usually, you do not need to work this out manually, since it will be given
+    to you in the `links` hash of the response.
+  - The format is a comma separated string of the values of the pagination keys
+    for the page you want.
+- `per_page` *(optional, default: 100)*
+  - The number of results to be shown on a given page.
+- `publishing_app` *(optional)*
+  - Used to restrict editions to those for a given publishing app.
+- `states[]` *(optional)*
+  - Used to restrict editions to those in the specified states.
 
 ## `POST /lookup-by-base-path`
 
