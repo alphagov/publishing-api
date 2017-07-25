@@ -10,7 +10,9 @@ class LinkGraph::Node
     edition_id:,
     link_type:,
     parent:,
-    link_graph:
+    link_graph:,
+    has_own_links: nil,
+    is_linked_to: nil
   )
     @content_id = content_id
     @locale = locale
@@ -18,10 +20,20 @@ class LinkGraph::Node
     @link_type = link_type
     @parent = parent
     @link_graph = link_graph
+    @has_own_links = has_own_links
+    @is_linked_to = is_linked_to
   end
 
   def links
-    @links ||= LinkGraph::NodeCollectionFactory.new(link_graph, self).collection
+    @links ||= begin
+      # If we know there aren't links we can save some execution by setting
+      # this directly to an empty array
+      if might_have_links?
+        LinkGraph::NodeCollectionFactory.new(link_graph, self).collection
+      else
+        []
+      end
+    end
   end
 
   # An array of link_type to indicate the path from the root to this node.
@@ -68,4 +80,20 @@ class LinkGraph::Node
       links: children,
     }
   end
+
+  def might_have_own_links?
+    has_own_links != false
+  end
+
+  def might_be_linked_to?
+    is_linked_to != false
+  end
+
+  def might_have_links?
+    might_have_own_links? || might_be_linked_to?
+  end
+
+private
+
+  attr_reader :has_own_links, :is_linked_to
 end

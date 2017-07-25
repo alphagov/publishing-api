@@ -11,7 +11,7 @@ class LinkExpansion::EditionHash
     end
 
     def edition_fields
-      LinkExpansion::Rules::DEFAULT_FIELDS_WITH_DETAILS +
+      ExpansionRules::DEFAULT_FIELDS_WITH_DETAILS +
         %i[id state unpublishings.type] -
         %i[api_path withdrawn]
     end

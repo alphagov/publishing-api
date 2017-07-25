@@ -5,6 +5,8 @@ RSpec.describe LinkGraph::Node do
   let(:link_type) { :organisation }
   let(:parent) { nil }
   let(:link_graph) { double(:link_graph) }
+  let(:has_own_links) { nil }
+  let(:is_linked_to) { nil }
   let(:node) do
     described_class.new(
       content_id: content_id,
@@ -13,6 +15,8 @@ RSpec.describe LinkGraph::Node do
       link_type: link_type,
       parent: parent,
       link_graph: link_graph,
+      has_own_links: has_own_links,
+      is_linked_to: is_linked_to,
     )
   end
 
@@ -102,6 +106,31 @@ RSpec.describe LinkGraph::Node do
       end
 
       it { is_expected.to match(expected) }
+    end
+  end
+
+  describe "#might_have_links?" do
+    subject { node.might_have_links? }
+
+    context "when initialised with has_own_links and is_linked_to as false" do
+      let(:has_own_links) { false }
+      let(:is_linked_to) { false }
+
+      it { is_expected.to be false }
+    end
+
+    context "when it doesn't know whether it has has own links" do
+      let(:has_own_links) { nil }
+      let(:is_linked_to) { false }
+
+      it { is_expected.to be true }
+    end
+
+    context "when it knows whether it has own links" do
+      let(:has_own_links) { true }
+      let(:is_linked_to) { false }
+
+      it { is_expected.to be true }
     end
   end
 end
