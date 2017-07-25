@@ -85,7 +85,7 @@ module Queries
     def key_for_record(record)
       key_fields.map do |k|
         value = record[k]
-        next value.iso8601 if value.respond_to?(:iso8601)
+        next value.iso8601(6) if value.respond_to?(:iso8601)
         value.to_s
       end
     end
