@@ -566,9 +566,14 @@ parameters.
 - `order` *(optional, default: "updated_at")*
   - The field to sort the results by.
   - Returned in an ascending order unless prefixed with a hyphen, e.g.
-    "-base_path".
-- `page` *(optional)*
-  - The page of the pagination key to start on.
+    "-created_at".
+  - Accepts fields of: updated_at, public_updated_at, created_at
+- `before` and `after` *(optional)*
+  - The pagination key of the previous page to pagination before or after.
+  - Usually, you do not need to work this out manually, since it will be given
+    to you in the `links` hash of the response.
+  - The format is a comma separated string of the values of the pagination keys
+    for the page you want.
 - `per_page` *(optional, default: 100)*
   - The number of results to be shown on a given page.
 - `publishing_app` *(optional)*
