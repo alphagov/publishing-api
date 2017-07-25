@@ -7,7 +7,7 @@ RSpec.describe V2::EditionsController do
 
   describe "index" do
     before(:context) do
-      Timecop.freeze("2017-01-01 09:00:00") do
+      Timecop.freeze("2017-01-01 09:00:00.1") do
         50.times do |index|
           FactoryGirl.create(
             :draft_edition,
@@ -16,7 +16,9 @@ RSpec.describe V2::EditionsController do
             base_path: "/content#{index + 1}",
           )
         end
+      end
 
+      Timecop.freeze("2017-01-01 09:00:00.2") do
         50.times do |index|
           FactoryGirl.create(
             :live_edition,
@@ -25,7 +27,9 @@ RSpec.describe V2::EditionsController do
             base_path: "/content#{index + 51}",
           )
         end
+      end
 
+      Timecop.freeze("2017-01-01 09:00:00.3") do
         50.times do |index|
           FactoryGirl.create(
             :unpublished_edition,
@@ -48,7 +52,7 @@ RSpec.describe V2::EditionsController do
         get :index
         expect(parsed_response["results"].count).to eq(100)
         expect(parsed_response["links"]).to eq([
-          { "href" => "http://test.host/v2/editions?after=#{u('2017-01-01T09:00:00Z,100')}", "rel" => "next" },
+          { "href" => "http://test.host/v2/editions?after=#{u('2017-01-01T09:00:00.200000Z,100')}", "rel" => "next" },
           { "href" => "http://test.host/v2/editions", "rel" => "self" },
         ])
         expect(parsed_response["results"].first.keys)
@@ -56,23 +60,23 @@ RSpec.describe V2::EditionsController do
       end
 
       it "returns the correct list for the second page" do
-        get :index, params: { after: "2017-01-01T09:00:00Z,100" }
+        get :index, params: { after: "2017-01-01T09:00:00.200000Z,100" }
         expect(parsed_response["results"].count).to eq(50)
         expect(parsed_response["links"]).to eq([
-          { "href" => "http://test.host/v2/editions?after=#{u('2017-01-01T09:00:00Z,100')}", "rel" => "self" },
-          { "href" => "http://test.host/v2/editions?before=#{u('2017-01-01T09:00:00Z,101')}", "rel" => "previous" },
+          { "href" => "http://test.host/v2/editions?after=#{u('2017-01-01T09:00:00.200000Z,100')}", "rel" => "self" },
+          { "href" => "http://test.host/v2/editions?before=#{u('2017-01-01T09:00:00.300000Z,101')}", "rel" => "previous" },
         ])
       end
 
       it "returns the correct list when going backwards" do
-        get :index, params: { before: "2017-01-01T09:00:00Z,111" }
+        get :index, params: { before: "2017-01-01T09:00:00.300000Z,111" }
         expect(parsed_response["results"].count).to eq(100)
         expect(parsed_response["results"].first["base_path"]).to eq("/content11")
         expect(parsed_response["results"].last["base_path"]).to eq("/content110")
         expect(parsed_response["links"]).to eq([
-          { "href" => "http://test.host/v2/editions?after=#{u('2017-01-01T09:00:00Z,110')}", "rel" => "next" },
-          { "href" => "http://test.host/v2/editions?before=#{u('2017-01-01T09:00:00Z,111')}", "rel" => "self" },
-          { "href" => "http://test.host/v2/editions?before=#{u('2017-01-01T09:00:00Z,11')}", "rel" => "previous" },
+          { "href" => "http://test.host/v2/editions?after=#{u('2017-01-01T09:00:00.300000Z,110')}", "rel" => "next" },
+          { "href" => "http://test.host/v2/editions?before=#{u('2017-01-01T09:00:00.300000Z,111')}", "rel" => "self" },
+          { "href" => "http://test.host/v2/editions?before=#{u('2017-01-01T09:00:00.100000Z,11')}", "rel" => "previous" },
         ])
       end
 
@@ -81,7 +85,7 @@ RSpec.describe V2::EditionsController do
           get :index, params: { order: "-updated_at" }
           expect(parsed_response["results"].first["base_path"]).to eq("/content150")
           expect(parsed_response["links"]).to eq([
-            { "href" => "http://test.host/v2/editions?order=-updated_at&after=#{u('2017-01-01T09:00:00Z,51')}", "rel" => "next" },
+            { "href" => "http://test.host/v2/editions?order=-updated_at&after=#{u('2017-01-01T09:00:00.200000Z,51')}", "rel" => "next" },
             { "href" => "http://test.host/v2/editions?order=-updated_at", "rel" => "self" },
           ])
         end
@@ -89,11 +93,11 @@ RSpec.describe V2::EditionsController do
 
       context "with a custom key" do
         it "returns the correct next page link" do
-          get :index, params: { order: "created_at", after: "2017-01-01T09:00:00Z,10" }
+          get :index, params: { order: "created_at", after: "2017-01-01T09:00:00.100000Z,10" }
           expect(parsed_response["links"]).to eq([
-            { "href" => "http://test.host/v2/editions?order=created_at&after=#{u('2017-01-01T09:00:00Z,110')}", "rel" => "next" },
-            { "href" => "http://test.host/v2/editions?after=#{u('2017-01-01T09:00:00Z,10')}&order=created_at", "rel" => "self" },
-            { "href" => "http://test.host/v2/editions?order=created_at&before=#{u('2017-01-01T09:00:00Z,11')}", "rel" => "previous" },
+            { "href" => "http://test.host/v2/editions?order=created_at&after=#{u('2017-01-01T09:00:00.300000Z,110')}", "rel" => "next" },
+            { "href" => "http://test.host/v2/editions?after=#{u('2017-01-01T09:00:00.100000Z,10')}&order=created_at", "rel" => "self" },
+            { "href" => "http://test.host/v2/editions?order=created_at&before=#{u('2017-01-01T09:00:00.100000Z,11')}", "rel" => "previous" },
           ])
         end
       end
@@ -103,8 +107,18 @@ RSpec.describe V2::EditionsController do
           get :index, params: { per_page: 25 }
           expect(parsed_response["results"].count).to eq(25)
           expect(parsed_response["links"]).to eq([
-            { "href" => "http://test.host/v2/editions?per_page=25&after=#{u('2017-01-01T09:00:00Z,25')}", "rel" => "next" },
+            { "href" => "http://test.host/v2/editions?per_page=25&after=#{u('2017-01-01T09:00:00.100000Z,25')}", "rel" => "next" },
             { "href" => "http://test.host/v2/editions?per_page=25", "rel" => "self" },
+          ])
+        end
+
+        it "returns the correct results for the second page" do
+          get :index, params: { per_page: 25, after: "2017-01-01T09:00:00.100000Z,25" }
+          expect(parsed_response["results"].count).to eq(25)
+          expect(parsed_response["links"]).to eq([
+            { "href" => "http://test.host/v2/editions?per_page=25&after=#{u('2017-01-01T09:00:00.100000Z,50')}", "rel" => "next" },
+            { "href" => "http://test.host/v2/editions?after=#{u('2017-01-01T09:00:00.100000Z,25')}&per_page=25", "rel" => "self" },
+            { "href" => "http://test.host/v2/editions?per_page=25&before=#{u('2017-01-01T09:00:00.100000Z,26')}", "rel" => "previous" },
           ])
         end
       end
