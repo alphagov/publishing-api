@@ -41,6 +41,7 @@ private
       locale_fallback_order: locale_fallback_order,
       state_fallback_order: state_fallback_order,
     )
+    return [] unless edition_ids
     Edition
       .joins(
         <<-SQL.strip_heredoc
