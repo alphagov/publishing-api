@@ -12,6 +12,7 @@ module Queries
       }
 
       validate_fields!
+      validate_order!
     end
 
     def call
@@ -43,12 +44,17 @@ module Queries
       :created_at,
     ].freeze
 
+    ORDER_FIELDS = [
+      :updated_at,
+      :public_updated_at,
+      :created_at,
+    ].freeze
+
     def pagination_field
-      @pagination_field ||= (if order.first == "-"
-                               order[1..order.length]
-                             else
-                               order
-                             end).to_sym
+      @pagination_field ||= begin
+        field = order.first == "-" ? order[1..order.length] : order
+        field.to_sym
+      end
     end
 
     def editions
@@ -72,6 +78,15 @@ module Queries
       raise CommandError.new(
         code: 400,
         message: "Invalid column name(s): #{invalid_fields.to_sentence}"
+      )
+    end
+
+    def validate_order!
+      return if ORDER_FIELDS.include?(pagination_field)
+
+      raise CommandError.new(
+        code: 400,
+        message: "Invalid order: #{pagination_field}"
       )
     end
 
