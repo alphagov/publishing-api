@@ -6,6 +6,25 @@ RSpec.describe Presenters::EditionPresenter do
   let(:details) { { body: "<p>Text</p>\n", change_history: [change_history], } }
   let(:payload_version) { 1 }
 
+  describe "#expanded_links" do
+    let(:edition) { FactoryGirl.create(:live_edition) }
+    subject(:result) do
+      described_class.new(
+        edition, draft: present_drafts
+      ).expanded_links
+    end
+
+    context "when there aren't links" do
+      it "has a link to itself as an available translation" do
+        expect(result).to match(
+          available_translations: [
+            a_hash_including(content_id: edition.content_id)
+          ]
+        )
+      end
+    end
+  end
+
   describe "#for_message_queue" do
     let(:update_type) { "moussaka" }
     let(:edition) { FactoryGirl.create(:draft_edition, update_type: update_type) }
