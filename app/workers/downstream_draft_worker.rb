@@ -32,10 +32,12 @@ class DownstreamDraftWorker
       )
     end
 
+    downstream_payload = DownstreamPayload.new(edition, payload_version, draft: true)
+
+    update_expanded_links(downstream_payload)
+
     if edition.base_path
-      DownstreamService.update_draft_content_store(
-        DownstreamPayload.new(edition, payload_version, draft: true)
-      )
+      DownstreamService.update_draft_content_store(downstream_payload)
     end
 
     enqueue_dependencies if update_dependencies
@@ -74,5 +76,29 @@ private
 
   def notify_airbrake(error, parameters)
     Airbrake.notify(error, parameters: parameters)
+  end
+
+  def update_expanded_links(downstream_payload)
+    ExpandedLinks.locked_update(
+      content_id: content_id,
+      locale: locale,
+      with_drafts: true,
+      payload_version: payload_version,
+      expanded_links: downstream_payload.expanded_links,
+    )
+
+    # When a document is only in draft it's expanded links can still be
+    # accessed without drafts, so this is generates them as well.
+    live_links = Presenters::Queries::ExpandedLinkSet.by_content_id(content_id,
+      locale: locale,
+      with_drafts: false,
+    )
+    ExpandedLinks.locked_update(
+      content_id: content_id,
+      locale: locale,
+      with_drafts: false,
+      payload_version: payload_version,
+      expanded_links: live_links,
+    )
   end
 end

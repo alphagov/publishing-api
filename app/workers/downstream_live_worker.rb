@@ -35,6 +35,7 @@ class DownstreamLiveWorker
 
     payload = DownstreamPayload.new(edition, payload_version, draft: false)
 
+    update_expanded_links(payload)
     DownstreamService.update_live_content_store(payload) if edition.base_path
 
     if %w(published unpublished).include?(edition.state)
@@ -80,5 +81,15 @@ private
 
   def notify_airbrake(error, parameters)
     Airbrake.notify(error, parameters: parameters)
+  end
+
+  def update_expanded_links(downstream_payload)
+    ExpandedLinks.locked_update(
+      content_id: content_id,
+      locale: locale,
+      with_drafts: false,
+      payload_version: payload_version,
+      expanded_links: downstream_payload.expanded_links,
+    )
   end
 end

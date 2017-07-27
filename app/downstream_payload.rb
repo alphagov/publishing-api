@@ -38,6 +38,10 @@ class DownstreamPayload
     message_queue_presenter.for_message_queue
   end
 
+  def expanded_links
+    content_presenter.expanded_links
+  end
+
 private
 
   def unpublishing
