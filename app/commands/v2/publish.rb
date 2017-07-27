@@ -90,7 +90,7 @@ module Commands
       def no_draft_item_exists
         if already_published?
           message = "Cannot publish an already published edition"
-          raise_command_error(400, message, fields: {})
+          raise_command_error(409, message, fields: {})
         else
           message = "Item with content_id #{content_id} and locale #{locale} does not exist"
           raise_command_error(404, message, fields: {})
