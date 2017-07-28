@@ -36,7 +36,7 @@ module Presenters
     end
 
     def self_link
-      { href: request_url, rel: "self" }
+      { href: self_url, rel: "self" }
     end
 
     def previous_link
@@ -51,12 +51,21 @@ module Presenters
       page_href(before: pagination_query.next_before_key.join(","))
     end
 
-    def page_href(params)
+    def self_url
+      page_href
+    end
+
+    def page_href(before: nil, after: nil)
+      except = (before || after) ? %w(before after) : []
+
       uri = URI.parse(request_url)
-      uri.query = Rack::Utils.build_query(
-        Rack::Utils.parse_query(uri.query)
-          .except("before", "after").merge(params)
-      )
+
+      new_params = Rack::Utils.parse_query(uri.query)
+        .except(*except).merge({ before: before, after: after }.compact)
+
+      new_query = Rack::Utils.build_query(new_params) unless new_params.empty?
+
+      uri.query = new_query
       uri.to_s
     end
   end
