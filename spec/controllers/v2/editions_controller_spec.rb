@@ -159,6 +159,10 @@ RSpec.describe V2::EditionsController do
         get :index, params: { fields: %w(content_id publishing_app) }
         expect(parsed_response["results"].first.keys)
           .to eq(%w(content_id publishing_app))
+        expect(parsed_response["links"]).to eq([
+          { "href" => "http://test.host/v2/editions?fields%5B%5D=content_id&fields%5B%5D=publishing_app&after=2017-01-01T09%3A00%3A00.200000Z%2C100", "rel" => "next" },
+          { "href" => "http://test.host/v2/editions?fields%5B%5D=content_id&fields%5B%5D=publishing_app", "rel" => "self" },
+        ])
       end
     end
   end
