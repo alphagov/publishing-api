@@ -1,42 +1,69 @@
 module Queries
   class GetExpandedLinks
-    def self.call(content_id, locale, with_drafts: true)
-      if (link_set = LinkSet.find_by(content_id: content_id))
-        expanded_link_set(link_set, locale, with_drafts: with_drafts)
-      elsif Document.where(content_id: content_id).exists?
-        empty_expanded_link_set(content_id)
-      else
-        error_details = {
-          error: {
-            code: 404,
-            message: "Could not find link set with content_id: #{content_id}"
-          }
-        }
+    def self.call(content_id, locale, with_drafts: true, generate: false)
+      self.new(content_id, locale, with_drafts, generate).call
+    end
 
-        raise CommandError.new(code: 404, error_details: error_details)
+    def call
+      expanded_links = generate ? nil : links_from_storage
+
+      if expanded_links
+        stored_links_response(expanded_links)
+      else
+        generate_links_response
       end
     end
 
-    def self.expanded_link_set(link_set, locale, with_drafts:)
-      expanded_link_set = Presenters::Queries::ExpandedLinkSet.by_content_id(
-        link_set.content_id,
+  private
+
+    attr_reader :content_id, :locale, :with_drafts, :generate
+
+    def initialize(content_id, locale, with_drafts, generate)
+      @content_id = content_id
+      @locale = locale
+      @with_drafts = with_drafts
+      @generate = generate
+    end
+
+    def links_from_storage
+      ExpandedLinks.find_by(
+        content_id: content_id,
+        locale: locale,
+        with_drafts: with_drafts
+      )
+    end
+
+    def generate_links_response
+      expanded_links = Presenters::Queries::ExpandedLinkSet.by_content_id(
+        content_id,
         locale: locale,
         with_drafts: with_drafts,
-      )
+      ).links
 
+      check_content_id_is_known if expanded_links.empty?
+
+      response(expanded_links, Time.now.utc)
+    end
+
+    def stored_links_response(expanded_links)
+      response(
+        expanded_links.expanded_links,
+        expanded_links.updated_at
+      )
+    end
+
+    def response(expanded_links, generated_date)
       {
-        content_id: link_set.content_id,
-        expanded_links: expanded_link_set.links,
-        version: link_set.stale_lock_version,
+        generated: generated_date.iso8601,
+        expanded_links: expanded_links,
       }
     end
 
-    def self.empty_expanded_link_set(content_id)
-      {
-        content_id: content_id,
-        expanded_links: {},
-        version: 0
-      }
+    def check_content_id_is_known
+      return if Document.exists?(content_id: content_id) || LinkSet.exists?(content_id: content_id)
+
+      message = "Could not find links for content_id: #{content_id}"
+      raise CommandError.new(code: 404, message: message)
     end
   end
 end

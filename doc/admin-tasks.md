@@ -52,3 +52,23 @@ bundle exec represent_downstream:content_id['some-content-id']
 bundle exec represent_downstream:content_id['some-content-id some-other-content-id']
 ```
 N.B. The content ids are separated by a space.
+
+## Populating expanded links into database
+
+The [expanded-links endpoint](api.md#get-v2expanded-linkscontent_id) defaults
+to accessing denormalised data stored in the database. If there are reasons
+that this is now out of sync or data is missing you can populate it with
+a couple of rake commands.
+
+It will also be rebuilt any time a piece of content is represented downstream.
+
+* To populate every document (this will take a long time - hours)
+```
+bundle exec expanded_links:populate
+```
+
+* To populate every document of a document_type
+```
+bundle exec expanded_links:populate_by_document_type['document-type']
+```
+

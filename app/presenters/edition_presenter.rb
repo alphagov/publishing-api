@@ -37,12 +37,16 @@ module Presenters
       edition.to_h
         .except(*NON_PRESENTED_PROPERTIES)
         .merge(rendered_details)
-        .merge(expanded_links)
+        .merge(expanded_links_attributes)
         .merge(access_limited)
         .merge(schema_name_and_document_type)
         .merge(document_supertypes)
         .merge(withdrawal_notice)
         .merge(publishing_request_id)
+    end
+
+    def expanded_links
+      expanded_link_set_presenter.links
     end
 
     def rendered_details
@@ -59,9 +63,9 @@ module Presenters
       ).links
     end
 
-    def expanded_links
+    def expanded_links_attributes
       {
-        expanded_links: expanded_link_set_presenter.links,
+        expanded_links: expanded_links
       }
     end
 

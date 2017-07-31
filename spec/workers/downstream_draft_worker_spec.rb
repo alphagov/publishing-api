@@ -4,10 +4,11 @@ RSpec.describe DownstreamDraftWorker do
   let(:edition) do
     FactoryGirl.create(:draft_edition, base_path: "/foo")
   end
+  let(:content_id) { edition.content_id }
 
   let(:base_arguments) do
     {
-      "content_id" => edition.document.content_id,
+      "content_id" => content_id,
       "locale" => "en",
       "payload_version" => 1,
       "update_dependencies" => true,
@@ -69,6 +70,17 @@ RSpec.describe DownstreamDraftWorker do
         expect(Adapters::DraftContentStore).to_not receive(:put_content_item)
         subject.perform(arguments.merge("content_id" => pathless.document.content_id))
       end
+    end
+  end
+
+  describe "updates expanded links" do
+    it "creates a ExpandedLinks with_drafts: true entry" do
+      expect { subject.perform(arguments) }
+        .to change { ExpandedLinks.exists?(content_id: content_id, with_drafts: true) }
+    end
+    it "creates a ExpandedLinks with_drafts: false entry" do
+      expect { subject.perform(arguments) }
+        .to change { ExpandedLinks.exists?(content_id: content_id, with_drafts: false) }
     end
   end
 

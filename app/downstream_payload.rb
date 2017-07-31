@@ -38,6 +38,10 @@ class DownstreamPayload
     message_queue_presenter.for_message_queue
   end
 
+  def expanded_links
+    content_presenter.expanded_links
+  end
+
 private
 
   def unpublishing
@@ -45,7 +49,7 @@ private
   end
 
   def content_presenter
-    Presenters::EditionPresenter.new(edition, draft: draft)
+    @content_presenter ||= Presenters::EditionPresenter.new(edition, draft: draft)
   end
 
   def redirect_presenter

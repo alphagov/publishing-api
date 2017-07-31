@@ -1,125 +1,150 @@
 require "rails_helper"
 
 RSpec.describe "GET /v2/expanded-links/:id", type: :request do
-  let(:translations) {
-    [
+  let(:content_id) { SecureRandom.uuid }
+  let(:updated_at) { Time.new("2017-07-27 16:44:00") }
+
+  context "when requested without a locale" do
+    let(:expanded_links) do
       {
-        "analytics_identifier" => "GDS01",
-        "api_path" => "/api/content/some-path",
-        "base_path" => "/some-path",
-        "content_id" => "10529c0d-f4b3-4c7d-9589-35ba6a6d1a12",
-        "description" => "Some description",
-        "locale" => "en",
-        "document_type" => "placeholder",
-        "schema_name" => "placeholder",
-        "public_updated_at" => "2014-05-14T13:00:06Z",
-        "title" => "Some title",
-        "withdrawn" => false,
+        organisations: [{ content_id: SecureRandom.uuid }],
+        available_translations: [{ content_id: content_id }],
       }
-    ]
-  }
+    end
 
-  let(:edition) {
-    FactoryGirl.create(:edition,
-      state: "published",
-      document_type: "placeholder",
-      schema_name: "placeholder",
-      title: "Some title",
-      base_path: "/some-path",
-      description: "Some description",
-      document: FactoryGirl.create(:document, content_id: "10529c0d-f4b3-4c7d-9589-35ba6a6d1a12")
-    )
-  }
+    before do
+      FactoryGirl.create(:expanded_links,
+        content_id: content_id,
+        locale: "en",
+        with_drafts: true,
+        expanded_links: expanded_links,
+        updated_at: updated_at,
+      )
+    end
 
-  it "returns expanded links" do
-    organisation = FactoryGirl.create(:edition,
-      state: "published",
-      document_type: "organisation",
-      schema_name: "organisation",
-      base_path: "/my-super-org",
-      document: FactoryGirl.create(:document, content_id: "9b5ae6f5-f127-4843-9333-c157a404dd2d")
-    )
+    it "is assumed to be 'en'" do
+      get "/v2/expanded-links/#{content_id}"
 
-    link_set = FactoryGirl.create(:link_set,
-      content_id: edition.document.content_id,
-    )
+      expect(parsed_response).to eql(
+        "generated" => updated_at.utc.iso8601,
+        "expanded_links" => expanded_links.as_json,
+      )
+    end
+  end
 
-    FactoryGirl.create(:link,
-      link_set: link_set,
-      target_content_id: organisation.document.content_id,
-      link_type: "organisations",
-    )
+  context "when requesting a different locale" do
+    let(:expanded_links) do
+      {
+        german_organisations: [{ content_id: SecureRandom.uuid }],
+        available_translations: [{ content_id: content_id }],
+      }
+    end
 
-    get "/v2/expanded-links/#{edition.document.content_id}"
+    before do
+      FactoryGirl.create(:expanded_links,
+        content_id: content_id,
+        locale: "de",
+        with_drafts: true,
+        expanded_links: expanded_links,
+        updated_at: updated_at,
+      )
+    end
 
-    expect(parsed_response).to eql(
-      "version" => 0,
-      "content_id" => edition.document.content_id,
-      "expanded_links" => {
+    it "returns the links for that locale" do
+      get "/v2/expanded-links/#{content_id}", params: { locale: "de" }
+
+      expect(parsed_response).to eql(
+        "generated" => updated_at.utc.iso8601,
+        "expanded_links" => expanded_links.as_json,
+      )
+    end
+  end
+
+  context "when requesting a content_id that isn't known" do
+    it "returns 404" do
+      get "/v2/expanded-links/#{content_id}"
+
+      expect(parsed_response).to eql(
+        "error" => {
+          "code" => 404,
+          "message" => "Could not find links for content_id: #{content_id}",
+        }
+      )
+    end
+  end
+
+  context "when request specifies to exclude drafts" do
+    let(:expanded_links) do
+      {
+        non_draft_organisations: [{ content_id: SecureRandom.uuid }],
+        available_translations: [{ content_id: content_id }],
+      }
+    end
+
+    before do
+      FactoryGirl.create(:expanded_links,
+        content_id: content_id,
+        locale: "en",
+        with_drafts: false,
+        expanded_links: expanded_links,
+        updated_at: updated_at,
+      )
+    end
+
+    it "it returns the links " do
+      get "/v2/expanded-links/#{content_id}", params: { with_drafts: false }
+
+      expect(parsed_response).to eql(
+        "generated" => updated_at.utc.iso8601,
+        "expanded_links" => expanded_links.as_json,
+      )
+    end
+  end
+
+  context "when specifying to generate the links" do
+    let(:linked_content_id) { SecureRandom.uuid }
+
+    let!(:edition) do
+      FactoryGirl.create(:live_edition,
+        document: FactoryGirl.create(:document, content_id: content_id),
+        base_path: "/some-path",
+        links_hash: { organisations: [linked_content_id] },
+      )
+    end
+
+    let!(:linked_edition) do
+      FactoryGirl.create(:live_edition,
+        document: FactoryGirl.create(:document, content_id: linked_content_id),
+        base_path: "/another-path",
+      )
+    end
+
+    let(:expanded_links) do
+      {
         "organisations" => [
-          {
-            "analytics_identifier" => "GDS01",
-            "api_path" => "/api/content/my-super-org",
-            "base_path" => "/my-super-org",
-            "content_id" => "9b5ae6f5-f127-4843-9333-c157a404dd2d",
-            "schema_name" => "organisation",
-            "document_type" => "organisation",
-            "description" => "VAT rates for goods and services",
-            "locale" => "en",
-            "public_updated_at" => "2014-05-14T13:00:06Z",
-            "title" => "VAT rates",
-            "withdrawn" => false,
-            "links" => {},
-            "details" => { "body" => "<p>Something about VAT</p>\n" },
-          }
+          a_hash_including(
+            "content_id" => linked_content_id,
+            "base_path" => "/another-path",
+          )
         ],
-        "available_translations" => translations,
+        "available_translations" => [
+          a_hash_including(
+            "content_id" => content_id,
+            "base_path" => "/some-path",
+          )
+        ]
       }
-    )
-  end
+    end
 
-  it "returns only translations if there are no links" do
-    link_set = FactoryGirl.create(:link_set,
-      content_id: edition.document.content_id,
-    )
+    it "generates the links at runtime" do
+      Timecop.freeze do
+        get "/v2/expanded-links/#{content_id}", params: { generate: true }
 
-    get "/v2/expanded-links/#{link_set.content_id}"
-
-    expect(parsed_response).to eql(
-      "version" => 0,
-      "content_id" => edition.document.content_id,
-      "expanded_links" => {
-        "available_translations" => translations,
-      },
-    )
-  end
-
-  it "returns a version if the link set has a version" do
-    link_set = FactoryGirl.create(:link_set,
-      content_id: edition.document.content_id,
-      stale_lock_version: 11,
-    )
-
-    get "/v2/expanded-links/#{link_set.content_id}"
-
-    expect(parsed_response).to eql(
-      "version" => 11,
-      "content_id" => edition.document.content_id,
-      "expanded_links" => {
-        "available_translations" => translations,
-      },
-    )
-  end
-
-  it "returns 404 if the link set is not found" do
-    content_id = SecureRandom.uuid
-    get "/v2/expanded-links/#{content_id}"
-
-    expect(parsed_response).to eql(
-      "error" => {
-        "code" => 404,
-        "message" => "Could not find link set with content_id: #{content_id}",
-      }
-    )
+        expect(parsed_response).to match(
+          "generated" => Time.now.utc.iso8601,
+          "expanded_links" => expanded_links,
+        )
+      end
+    end
   end
 end

@@ -5,9 +5,11 @@ RSpec.describe DownstreamLiveWorker do
     FactoryGirl.create(:live_edition, base_path: "/foo")
   end
 
+  let(:content_id) { edition.document.content_id }
+
   let(:base_arguments) do
     {
-      "content_id" => edition.document.content_id,
+      "content_id" => content_id,
       "locale" => "en",
       "payload_version" => 1,
       "message_queue_event_type" => "major",
@@ -92,6 +94,13 @@ RSpec.describe DownstreamLiveWorker do
       )
       expect(Adapters::ContentStore).to_not receive(:put_content_item)
       subject.perform(arguments.merge("content_id" => pathless.document.content_id))
+    end
+  end
+
+  describe "updates expanded links" do
+    it "creates a ExpandedLinks entry" do
+      expect { subject.perform(arguments) }
+        .to change { ExpandedLinks.exists?(content_id: content_id, with_drafts: false) }
     end
   end
 

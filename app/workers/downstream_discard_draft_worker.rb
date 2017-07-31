@@ -10,15 +10,16 @@ class DownstreamDiscardDraftWorker
 
     current_path = edition.try(:base_path)
     if current_path
-      DownstreamService.update_draft_content_store(
-        DownstreamPayload.new(edition, payload_version, draft: true)
-      )
+      DownstreamService.update_draft_content_store(downstream_payload)
+
       if base_path && current_path != base_path
         DownstreamService.discard_from_draft_content_store(base_path)
       end
     elsif base_path
       DownstreamService.discard_from_draft_content_store(base_path)
     end
+
+    update_expanded_links
 
     enqueue_dependencies if update_dependencies
   rescue DiscardDraftBasePathConflictError => e
@@ -48,5 +49,27 @@ private
       locale: locale,
       payload_version: payload_version,
     )
+  end
+
+  def update_expanded_links
+    if edition
+      ExpandedLinks.locked_update(
+        content_id: content_id,
+        locale: locale,
+        with_drafts: true,
+        payload_version: payload_version,
+        expanded_links: downstream_payload.expanded_links,
+      )
+    else
+      ExpandedLinks.where(
+        content_id: content_id,
+        locale: locale,
+        with_drafts: true,
+      ).where("payload_version < ?", payload_version).delete_all
+    end
+  end
+
+  def downstream_payload
+    @downstream_payload ||= DownstreamPayload.new(edition, payload_version, draft: true)
   end
 end

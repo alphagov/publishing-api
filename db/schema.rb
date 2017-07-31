@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719143106) do
+ActiveRecord::Schema.define(version: 20170726114449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,17 @@ ActiveRecord::Schema.define(version: 20170719143106) do
     t.string "request_id"
     t.uuid "content_id"
     t.index ["content_id"], name: "index_events_on_content_id"
+  end
+
+  create_table "expanded_links", force: :cascade do |t|
+    t.uuid "content_id", null: false
+    t.string "locale", null: false
+    t.boolean "with_drafts", null: false
+    t.json "expanded_links", default: {}, null: false
+    t.bigint "payload_version", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id", "locale", "with_drafts"], name: "expanded_links_content_id_locale_with_drafts_index", unique: true
   end
 
   create_table "link_sets", id: :serial, force: :cascade do |t|

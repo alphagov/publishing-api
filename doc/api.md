@@ -496,6 +496,16 @@ were created.
 Retrieves the expanded link set for the given `content_id`. Returns arrays of
 details for each linked edition in groupings of `link_type`.
 
+To ensure fast performance the result for this is pulled from a database which
+is updated whenever the content store is updated. This may mean that if you
+update links and then request this endpoint you may get a stale response.
+
+You can request a fresh response by adding a query string of `generate=true`,
+this response can be slow though for large link sets.
+
+The response includes a field of `generated` and the timestamp of when the
+expanded link set was generated.
+
 ### Path parameters
 
 - [`content_id`](model.md#content_id)
@@ -503,8 +513,13 @@ details for each linked edition in groupings of `link_type`.
 
 ### Query string parameters:
 
+- `locale` *(optional, default: "en")*
+  - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
 - `with_drafts` *(optional, default: true)*
   - Whether links to draft editions should be included in the response.
+- `generate` *(optional, default: false)*
+  - Whether to generate the expanded links at request time, ensures a fresh
+    response but could make the request slow
 
 ## `GET /v2/linked/:content_id`
 
