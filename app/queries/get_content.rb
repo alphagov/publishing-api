@@ -17,25 +17,18 @@ module Queries
       if response.present?
         response
       else
-        message = not_found_message(content_id, locale, version)
+        message = not_found_message(content_id, locale_to_use, version)
         raise_not_found(message)
       end
     end
 
     def self.raise_not_found(message)
-      error_details = {
-        error: {
-          code: 404,
-          message: message
-        }
-      }
-
-      raise CommandError.new(code: 404, error_details: error_details)
+      raise CommandError.new(code: 404, message: message)
     end
 
     def self.not_found_message(content_id, locale, version)
-      if (locale || version) && Document.exists?(content_id: content_id)
-        locale_message = locale ? "locale: #{locale}" : nil
+      if Document.exists?(content_id: content_id)
+        locale_message = "locale: #{locale}"
         version_message = version ? "version: #{version}" : nil
         reason = [locale_message, version_message].compact.join(" and ")
 
