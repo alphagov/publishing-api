@@ -56,7 +56,11 @@ private
 
       exchange.publish(message_data.to_json, publish_options)
       success = exchange.wait_for_confirms
-      if !success
+      event_type = routing_key.split('.').last
+
+      if success
+        PublishingAPI.service(:statsd).increment("message-sent.#{event_type}")
+      else
         Airbrake.notify(
           PublishFailedError.new("Publishing message failed"),
           parameters: {
@@ -65,6 +69,7 @@ private
             options: options,
           }
         )
+        PublishingAPI.service(:statsd).increment("message-send-failure.#{event_type}")
       end
     ensure
       channel.close if channel.open?
