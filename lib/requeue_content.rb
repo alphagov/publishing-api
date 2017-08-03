@@ -20,9 +20,11 @@ class RequeueContent
 private
 
   def publish_to_queue(edition)
+    version = Event.maximum(:id)
+
     queue_payload = Presenters::EditionPresenter.new(
       edition, draft: false,
-    ).for_message_queue
+    ).for_message_queue(version)
 
     # FIXME: Rummager currently only listens to the message queue for the
     # event type 'links'. This behaviour will eventually be updated so that

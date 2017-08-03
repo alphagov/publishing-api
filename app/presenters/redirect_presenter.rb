@@ -19,9 +19,10 @@ class RedirectPresenter
     present.merge(payload_version: payload_version)
   end
 
-  def for_message_queue
+  def for_message_queue(payload_version)
     present.merge(
-      govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id]
+      govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
+      payload_version: payload_version
     )
   end
 

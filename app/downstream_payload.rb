@@ -35,7 +35,7 @@ class DownstreamPayload
   end
 
   def message_queue_payload
-    message_queue_presenter.for_message_queue
+    message_queue_presenter.for_message_queue(payload_version)
   end
 
   def expanded_links
