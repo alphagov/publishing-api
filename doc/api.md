@@ -506,6 +506,11 @@ this response can be slow though for large link sets.
 The response includes a field of `generated` and the timestamp of when the
 expanded link set was generated.
 
+If the links are generated at runtime (which happens if use `generate=true`)
+a version field will be returned which will be the `stale_lock_version` for
+the LinkSet of that content_id. This is a deprecated field and should not be
+used as it is not a reliable indicate of the version of the links.
+
 ### Path parameters
 
 - [`content_id`](model.md#content_id)

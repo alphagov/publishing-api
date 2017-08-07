@@ -52,20 +52,40 @@ RSpec.describe Queries::GetExpandedLinks do
     end
 
     context "but there are not expanded links stored" do
+      let(:link_set_lock_version) { 3 }
+
       before do
         FactoryGirl.create(:link_set,
           content_id: content_id,
           links_hash: {},
+          stale_lock_version: link_set_lock_version,
         )
       end
 
       it "generates the links" do
         Timecop.freeze do
           expect(result).to match(
-            generated: Time.now.utc.iso8601,
-            expanded_links: {},
+            a_hash_including(
+              generated: Time.now.utc.iso8601,
+              expanded_links: {},
+            )
           )
         end
+      end
+
+      it "returns the lock version" do
+        expect(result).to match(a_hash_including(version: link_set_lock_version))
+      end
+    end
+  end
+
+  context "when generate is true" do
+    let(:generate) { false }
+    context "and there is not a link set associated with the content id" do
+      before { FactoryGirl.create(:document, content_id: content_id) }
+
+      it "returns a version of 0" do
+        expect(result).to match(a_hash_including(version: 0))
       end
     end
   end
