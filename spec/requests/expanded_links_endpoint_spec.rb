@@ -143,6 +143,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
         expect(parsed_response).to match(
           "generated" => Time.now.utc.iso8601,
           "expanded_links" => expanded_links,
+          "version" => 0,
         )
       end
     end

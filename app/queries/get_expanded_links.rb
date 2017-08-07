@@ -34,6 +34,11 @@ module Queries
     end
 
     def generate_links_response
+      # When we generate the links we also return the link set version, this
+      # is a deprecated field as it doesn't adequately capture the version of
+      # the expanded links (since they are populated by edition and link set)
+      link_set_version = LinkSet.find_by(content_id: content_id)&.stale_lock_version || 0
+
       expanded_links = Presenters::Queries::ExpandedLinkSet.by_content_id(
         content_id,
         locale: locale,
@@ -42,7 +47,7 @@ module Queries
 
       check_content_id_is_known if expanded_links.empty?
 
-      response(expanded_links, Time.now.utc)
+      response(expanded_links, Time.now.utc, link_set_version)
     end
 
     def stored_links_response(expanded_links)
@@ -52,11 +57,13 @@ module Queries
       )
     end
 
-    def response(expanded_links, generated_date)
-      {
+    def response(expanded_links, generated_date, version = nil)
+      response = {
         generated: generated_date.iso8601,
         expanded_links: expanded_links,
       }
+      response[:version] = version if version
+      response
     end
 
     def check_content_id_is_known
