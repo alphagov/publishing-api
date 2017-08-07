@@ -125,7 +125,7 @@ GEM
       sidekiq (~> 4.2.8)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
-    hashdiff (0.3.0)
+    hashdiff (0.3.5)
     hashie (3.4.6)
     highline (1.7.8)
     htmlentities (4.3.4)
@@ -436,4 +436,4 @@ DEPENDENCIES
   with_advisory_lock (~> 3.1)
 
 BUNDLED WITH
-   1.14.5
+   1.15.1
