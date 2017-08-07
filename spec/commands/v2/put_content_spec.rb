@@ -8,10 +8,15 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     let(:content_id) { SecureRandom.uuid }
+    let(:new_content_id) { SecureRandom.uuid }
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
 
     let(:change_note) { { note: "Info", public_timestamp: Time.now.utc.to_s } }
+    let(:new_change_note) { { note: "Changed Info", public_timestamp: Time.now.utc.to_s } }
+
+    let(:links_1) { { organisations: [content_id] } }
+    let(:links_2) { { policy_areas: [new_content_id] } }
 
     let(:payload) do
       {
@@ -27,7 +32,27 @@ RSpec.describe Commands::V2::PutContent do
         routes: [{ path: base_path, type: "exact" }],
         redirects: [],
         phase: "beta",
-        change_note: change_note
+        change_note: change_note,
+        links: links_1
+      }
+    end
+
+    let(:updated_payload) do
+      {
+        content_id: content_id,
+        base_path: base_path,
+        update_type: "major",
+        title: "New Title",
+        publishing_app: "publisher",
+        rendering_app: "frontend",
+        document_type: "nonexistent-schema",
+        schema_name: "nonexistent-schema",
+        locale: locale,
+        routes: [{ path: base_path, type: "exact" }],
+        redirects: [],
+        phase: "beta",
+        change_note: new_change_note,
+        links: links_2
       }
     end
 
@@ -60,10 +85,18 @@ RSpec.describe Commands::V2::PutContent do
       expect(Action.count).to be 0
       described_class.call(payload)
       expect(Action.count).to be 1
-      expect(Action.first.attributes).to match a_hash_including(
+      described_class.call(updated_payload)
+      expect(Action.last.attributes).to match a_hash_including(
         "content_id" => content_id,
         "locale" => locale,
         "action" => "PutContent",
+      )
+
+      expect(Action.last.edition_diff).to include(
+        ["~", "title", "Some Title", "New Title"],
+        ["-", "links.organisations", [content_id]],
+        ["+", "links.policy_areas", [new_content_id]],
+        ["~", "change_note", change_note.to_s, new_change_note.to_s],
       )
     end
 
