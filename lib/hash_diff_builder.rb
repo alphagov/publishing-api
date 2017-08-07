@@ -22,7 +22,7 @@ private
   attr_reader :presenter, :previous_item, :current_item
 
   def create_diff(previous_item, current_item)
-    HashDiff.diff(previous_item, current_item)
+    HashDiff.diff(previous_item, current_item, array_path: true)
   end
 
   class MissingItemError < RuntimeError; end

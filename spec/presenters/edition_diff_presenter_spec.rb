@@ -29,9 +29,9 @@ RSpec.describe Presenters::EditionDiffPresenter do
     context "with links and change_note" do
       it "returns an edition hash presented for diffing" do
         expect(subject.call(edition)).to match a_hash_including(
-          edition.as_json.except(*EXCLUDED_ATTRIBUTES),
-          "links" => { "organisations" => [content_id] },
-          "change_note" => edition.change_note.note
+          edition.as_json.except(*EXCLUDED_ATTRIBUTES).symbolize_keys,
+          links: { organisations: [content_id] },
+          change_note: edition.change_note.note
         )
       end
     end
@@ -39,14 +39,14 @@ RSpec.describe Presenters::EditionDiffPresenter do
     context "without links" do
       it "returns an edition hash presented for diffing" do
         expect(subject.call(edition_without_links)).
-          to match a_hash_including("links" => {})
+          to match a_hash_including(links: {})
       end
     end
 
     context "without change_note" do
       it "returns an edition hash presented for diffing" do
         expect(subject.call(edition_without_change_note)).
-          to match a_hash_including("change_note" => {})
+          to match a_hash_including(change_note: {})
       end
     end
   end

@@ -93,10 +93,10 @@ RSpec.describe Commands::V2::PutContent do
       )
 
       expect(Action.last.edition_diff).to include(
-        ["~", "title", "Some Title", "New Title"],
-        ["-", "links.organisations", [content_id]],
-        ["+", "links.policy_areas", [new_content_id]],
-        ["~", "change_note", change_note.to_s, new_change_note.to_s],
+        ["~", [:title], "Some Title", "New Title"],
+        ["-", [:links, :organisations], [content_id]],
+        ["+", [:links, :policy_areas], [new_content_id]],
+        ["~", [:change_note], change_note.to_s, new_change_note.to_s],
       )
     end
 
