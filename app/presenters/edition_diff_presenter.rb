@@ -5,17 +5,18 @@ module Presenters
       return attributes unless edition.present?
 
       Edition::TOP_LEVEL_FIELDS.each do |field|
-        attributes[field.to_s] = edition.public_send(field)
+        attributes[field.to_sym] = edition.public_send(field)
       end
 
-      attributes["links"] = {}
+      attributes[:links] = {}
 
       edition.links.each do |link|
-        attributes["links"][link.link_type] ||= []
-        attributes["links"][link.link_type] << link.target_content_id
+        link_type = link.link_type.to_sym
+        attributes[:links][link_type] ||= []
+        attributes[:links][link_type] << link.target_content_id
       end
 
-      attributes["change_note"] = edition.change_note&.note || {}
+      attributes[:change_note] = edition.change_note&.note || {}
 
       attributes
     end
