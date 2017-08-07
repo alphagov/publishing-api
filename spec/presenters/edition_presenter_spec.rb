@@ -45,7 +45,7 @@ RSpec.describe Presenters::EditionPresenter do
     subject(:result) do
       described_class.new(
         edition, draft: present_drafts
-      ).for_message_queue
+      ).for_message_queue(payload_version)
     end
 
     it "presents the unexpanded links" do
@@ -58,6 +58,10 @@ RSpec.describe Presenters::EditionPresenter do
 
     it "adds the supertypes" do
       expect(subject["user_journey_document_supertype"]).to eq "thing"
+    end
+
+    it "includes the version" do
+      expect(subject[:payload_version]).to eq 1
     end
   end
 
