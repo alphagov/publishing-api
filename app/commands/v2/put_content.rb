@@ -61,7 +61,6 @@ module Commands
         access_limit(edition)
         update_last_edited_at(edition, payload[:last_edited_at])
         ChangeNote.create_from_edition(payload, edition)
-        edition.reload
         create_links(edition)
         edition_diff.current_item = edition
         Action.create_put_content_action(edition, document.locale, event, edition_diff.diff)
