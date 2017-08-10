@@ -3,9 +3,6 @@ module Commands
     class PutContent < BaseCommand
       def call
         PutContentValidator.new(payload, self).validate
-
-        edition_diff.previous_item = previous_drafted_edition
-
         prepare_content_with_base_path
 
         edition = create_or_update_edition
@@ -38,10 +35,6 @@ module Commands
 
     private
 
-      def edition_diff
-        @edition_diff ||= HashDiffBuilder.new(Presenters::EditionDiffPresenter)
-      end
-
       def link_diff_between(old_links, new_links)
         old_links - new_links
       end
@@ -62,8 +55,7 @@ module Commands
         update_last_edited_at(edition, payload[:last_edited_at])
         ChangeNote.create_from_edition(payload, edition)
         create_links(edition)
-        edition_diff.current_item = edition
-        Action.create_put_content_action(edition, document.locale, event, edition_diff.diff)
+        Action.create_put_content_action(edition, document.locale, event)
       end
 
       def create_links(edition)
