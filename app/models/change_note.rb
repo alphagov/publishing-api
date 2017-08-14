@@ -1,5 +1,4 @@
 class ChangeNote < ActiveRecord::Base
-  belongs_to :document
   belongs_to :edition, optional: true
 
   def self.create_from_edition(payload, edition)
@@ -54,7 +53,7 @@ private
   end
 
   def change_note_instance
-    edition.change_note || edition.create_change_note!(document: document)
+    edition.change_note || edition.create_change_note!
   end
 
   def change_note
@@ -67,9 +66,5 @@ private
 
   def change_history
     edition.details[:change_history]
-  end
-
-  def document
-    edition.document
   end
 end
