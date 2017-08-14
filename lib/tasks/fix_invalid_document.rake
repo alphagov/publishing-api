@@ -6,7 +6,7 @@ namespace :tmp do
     Helpers::DeleteContent.destroy_documents_with_links([document_created_by_whitehall_bug_content_id])
 
     #this edition has an en base_path but a cy locale
-    edition_with_incorrect_base_path = Edition.find(267679)
+    edition_with_incorrect_base_path = Edition.find(2676794)
     edition_with_incorrect_base_path.base_path = "/government/organisations/land-registry/about/recruitment.cy"
 
     route = edition_with_incorrect_base_path.routes.first
