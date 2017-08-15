@@ -72,3 +72,7 @@ bundle exec expanded_links:populate
 bundle exec expanded_links:populate_by_document_type['document-type']
 ```
 
+* To purge the expanded links cache
+```
+bundle exec expanded_links:truncate
+```
