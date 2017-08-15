@@ -2,6 +2,7 @@ class RepairMissingAttachmentContentType < ActiveRecord::Migration[5.0]
   def change
     BASE_PATHS.each do |base_path|
       edition = Edition.where(base_path: base_path).last
+      next unless edition
       edition_details = edition.details
 
       updated_attachments = edition_details[:attachments].map do |attachment|
