@@ -1,4 +1,4 @@
-class CreateLinkables < ActiveRecord::Migration
+class CreateLinkables < ActiveRecord::Migration[4.2]
   def change
     create_table :linkables do |t|
       t.references :content_item, null: false

@@ -1,4 +1,4 @@
-class ChangeDescriptionColumnTypes < ActiveRecord::Migration
+class ChangeDescriptionColumnTypes < ActiveRecord::Migration[4.2]
   class DraftContentItem < ActiveRecord::Base
   end
 

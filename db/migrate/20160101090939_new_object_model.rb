@@ -1,4 +1,4 @@
-class NewObjectModel < ActiveRecord::Migration
+class NewObjectModel < ActiveRecord::Migration[4.2]
   class DraftContentItem < ActiveRecord::Base; end
   class LiveContentItem < ActiveRecord::Base; end
   class ContentItem < ActiveRecord::Base; end

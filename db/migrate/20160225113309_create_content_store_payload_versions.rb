@@ -1,4 +1,4 @@
-class CreateContentStorePayloadVersions < ActiveRecord::Migration
+class CreateContentStorePayloadVersions < ActiveRecord::Migration[4.2]
   def change
     create_table :content_store_payload_versions do |t|
       t.integer :content_item_id

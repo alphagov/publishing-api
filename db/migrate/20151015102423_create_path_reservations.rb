@@ -1,4 +1,4 @@
-class CreatePathReservations < ActiveRecord::Migration
+class CreatePathReservations < ActiveRecord::Migration[4.2]
   def change
     create_table :path_reservations do |t|
       t.string :base_path, :null => false

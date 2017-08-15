@@ -1,4 +1,4 @@
-class RemovePathReservationForFindLocalCouncil < ActiveRecord::Migration
+class RemovePathReservationForFindLocalCouncil < ActiveRecord::Migration[4.2]
   def change
     # Actually fully delete this path reservation.
     # It was created to reserve a path for an artefact that was created in

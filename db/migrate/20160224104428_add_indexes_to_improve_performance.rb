@@ -1,4 +1,4 @@
-class AddIndexesToImprovePerformance < ActiveRecord::Migration
+class AddIndexesToImprovePerformance < ActiveRecord::Migration[4.2]
   def change
     add_index :content_items, :content_id
     add_index :content_items, :format
