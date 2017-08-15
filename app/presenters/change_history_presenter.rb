@@ -27,16 +27,10 @@ module Presenters
 
     def change_notes
       ChangeNote
-        .where(document: document)
-        .where("edition_id IS NULL OR edition_id IN (?)", edition_ids)
-        .order(:public_timestamp)
-    end
-
-    def edition_ids
-      Edition
-        .where(document: document)
+        .joins(:edition)
+        .where(editions: { document: document })
         .where("user_facing_version <= ?", version_number)
-        .pluck(:id)
+        .order(:public_timestamp)
     end
 
     def version_number

@@ -223,7 +223,7 @@ RSpec.describe Presenters::EditionPresenter do
           details: details.slice(:body))
       end
       before do
-        ChangeNote.create(change_history.merge(edition: edition, document: edition.document))
+        ChangeNote.create(change_history.merge(edition: edition))
       end
 
       it "constructs the change history" do

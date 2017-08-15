@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20170810090002) do
     t.integer "edition_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "document_id", null: false
     t.index ["edition_id"], name: "index_change_notes_on_edition_id"
   end
 
@@ -182,7 +181,6 @@ ActiveRecord::Schema.define(version: 20170810090002) do
     t.datetime "updated_at"
   end
 
-  add_foreign_key "change_notes", "documents", on_delete: :cascade
   add_foreign_key "change_notes", "editions"
   add_foreign_key "editions", "documents"
   add_foreign_key "links", "editions", on_delete: :cascade

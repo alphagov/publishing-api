@@ -29,7 +29,6 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         2.times do |i|
           ChangeNote.create(
             edition: edition,
-            document: document,
             note: i.to_s,
             public_timestamp: Time.now.utc
           )
@@ -44,7 +43,6 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       [1, 3, 2].to_a.each do |i|
         ChangeNote.create(
           edition: edition,
-          document: document,
           note: i.to_s,
           public_timestamp: i.days.ago
         )
@@ -68,20 +66,19 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         )
       end
       before do
-        ChangeNote.create(edition: item1, document: document)
-        ChangeNote.create(edition: item2, document: document)
-        ChangeNote.create(document: document)
+        ChangeNote.create(edition: item1)
+        ChangeNote.create(edition: item2)
       end
 
       context "reviewing latest version of a edition" do
         it "constructs content history from all change notes for content id" do
-          expect(described_class.new(item2).change_history.count).to eq 3
+          expect(described_class.new(item2).change_history.count).to eq 2
         end
       end
 
       context "reviewing older version of a edition" do
         it "doesn't include change notes corresponding to newer versions" do
-          expect(described_class.new(item1).change_history.count).to eq 2
+          expect(described_class.new(item1).change_history.count).to eq 1
         end
       end
     end

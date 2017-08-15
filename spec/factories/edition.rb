@@ -41,7 +41,6 @@ FactoryGirl.define do
           :change_note,
           note: evaluator.change_note,
           edition: item,
-          document: item.document,
         )
       end
 
