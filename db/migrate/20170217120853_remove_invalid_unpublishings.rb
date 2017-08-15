@@ -92,6 +92,6 @@ class RemoveInvalidUnpublishings < ActiveRecord::Migration[5.0]
       719125,
     ]
 
-    Unpublishing.delete_all(edition_id: ids)
+    Unpublishing.where(edition_id: ids).delete_all
   end
 end
