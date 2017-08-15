@@ -1,4 +1,4 @@
-class AddContentIdToEvent < ActiveRecord::Migration
+class AddContentIdToEvent < ActiveRecord::Migration[4.2]
   def up
     add_column :events, :content_id, :string
 

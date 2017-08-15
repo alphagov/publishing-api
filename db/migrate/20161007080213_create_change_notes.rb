@@ -1,4 +1,4 @@
-class CreateChangeNotes < ActiveRecord::Migration
+class CreateChangeNotes < ActiveRecord::Migration[4.2]
   def change
     create_table :change_notes do |t|
       t.string :note, default: ""

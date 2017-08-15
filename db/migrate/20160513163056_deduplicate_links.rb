@@ -1,4 +1,4 @@
-class DeduplicateLinks < ActiveRecord::Migration
+class DeduplicateLinks < ActiveRecord::Migration[4.2]
   def up
     res = Link.connection.execute(<<-SQL
       SELECT SUM(cnt), COUNT(cnt)

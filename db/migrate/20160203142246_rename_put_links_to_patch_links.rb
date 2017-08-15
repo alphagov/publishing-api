@@ -1,4 +1,4 @@
-class RenamePutLinksToPatchLinks < ActiveRecord::Migration
+class RenamePutLinksToPatchLinks < ActiveRecord::Migration[4.2]
   class Event < ActiveRecord::Base
   end
 

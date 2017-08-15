@@ -1,4 +1,4 @@
-class DropOldTables < ActiveRecord::Migration
+class DropOldTables < ActiveRecord::Migration[4.2]
   def change
     drop_table :draft_content_items
     drop_table :live_content_items

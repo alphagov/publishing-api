@@ -1,4 +1,4 @@
-class AddDerivedRepresentations < ActiveRecord::Migration
+class AddDerivedRepresentations < ActiveRecord::Migration[4.2]
   def change
     create_table :draft_content_items do |t|
       t.string :content_id

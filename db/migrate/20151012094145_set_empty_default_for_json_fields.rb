@@ -1,4 +1,4 @@
-class SetEmptyDefaultForJsonFields < ActiveRecord::Migration
+class SetEmptyDefaultForJsonFields < ActiveRecord::Migration[4.2]
   def change
     change_column_default(:events, :payload, {})
 

@@ -95,6 +95,7 @@ private
   def update_multiple_locale_documents_without_editions
     MULTIPLE_LOCALE_DOCUMENTS_WITHOUT_EDITIONS.each do |data|
       document = Document.find_by(content_id: data[:content_id], locale: data[:locale])
+      next unless document
       update_timestamps(document, data[:created_at], data[:updated_at])
     end
   end

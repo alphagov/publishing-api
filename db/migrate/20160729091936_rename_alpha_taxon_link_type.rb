@@ -1,4 +1,4 @@
-class RenameAlphaTaxonLinkType < ActiveRecord::Migration
+class RenameAlphaTaxonLinkType < ActiveRecord::Migration[4.2]
   def up
     alpha_taxon_links = Link.where(link_type: "alpha_taxons")
     link_sets = LinkSet.where(id: alpha_taxon_links.pluck(:link_set_id).uniq)

@@ -1,4 +1,4 @@
-class ChangeWithdrawnToUnpublished < ActiveRecord::Migration
+class ChangeWithdrawnToUnpublished < ActiveRecord::Migration[4.2]
   def up
     create_table :unpublishings do |t|
       t.references :content_item, null: false

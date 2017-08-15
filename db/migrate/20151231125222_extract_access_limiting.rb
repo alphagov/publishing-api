@@ -1,4 +1,4 @@
-class ExtractAccessLimiting < ActiveRecord::Migration
+class ExtractAccessLimiting < ActiveRecord::Migration[4.2]
   class DraftContentItem < ActiveRecord::Base
   end
 

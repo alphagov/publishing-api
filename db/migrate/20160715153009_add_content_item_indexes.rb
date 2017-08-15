@@ -1,4 +1,4 @@
-class AddContentItemIndexes < ActiveRecord::Migration
+class AddContentItemIndexes < ActiveRecord::Migration[4.2]
   def change
     add_index :access_limits, :content_item_id
     add_index :linkables, :content_item_id
