@@ -4,6 +4,7 @@ module Commands
       def call
         PutContentValidator.new(payload, self).validate
         prepare_content_with_base_path
+        check_update_type
 
         edition = create_or_update_edition
 
@@ -56,6 +57,15 @@ module Commands
         ChangeNote.create_from_edition(payload, edition)
         create_links(edition)
         Action.create_put_content_action(edition, document.locale, event)
+      end
+
+      def check_update_type
+        return unless payload[:update_type].blank?
+
+        Airbrake.notify(
+          "#{payload[:publishing_app]} sent put content without providing an update_type",
+          parameters: payload.slice(:publishing_app, :content_id, :locale),
+        )
       end
 
       def create_links(edition)
