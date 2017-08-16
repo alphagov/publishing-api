@@ -98,7 +98,7 @@ private
       locale: locale,
       with_drafts: false,
       payload_version: payload_version,
-      expanded_links: live_links,
+      expanded_links: live_links.links,
     )
   end
 end

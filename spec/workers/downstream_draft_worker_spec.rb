@@ -82,6 +82,22 @@ RSpec.describe DownstreamDraftWorker do
       expect { subject.perform(arguments) }
         .to change { ExpandedLinks.exists?(content_id: content_id, with_drafts: false) }
     end
+
+    context "when there aren't any links" do
+      it "has only available_translations in the draft" do
+        subject.perform(arguments)
+        links = ExpandedLinks.find_by(content_id: content_id, with_drafts: true)
+          .expanded_links
+        expect(links).to match a_hash_including("available_translations")
+      end
+
+      it "has no links without drafts" do
+        subject.perform(arguments)
+        links = ExpandedLinks.find_by(content_id: content_id, with_drafts: false)
+          .expanded_links
+        expect(links).to match({})
+      end
+    end
   end
 
   describe "update dependencies" do
