@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810090002) do
+ActiveRecord::Schema.define(version: 20170816071321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170810090002) do
   create_table "change_notes", id: :serial, force: :cascade do |t|
     t.string "note", default: ""
     t.datetime "public_timestamp"
-    t.integer "edition_id"
+    t.integer "edition_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["edition_id"], name: "index_change_notes_on_edition_id"
