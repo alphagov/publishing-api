@@ -8,6 +8,11 @@ module Presenters
       :document_id,
       :id,
       :last_edited_at,
+      :publisher_first_published_at,
+      :publisher_major_published_at,
+      :publisher_minor_published_at,
+      :publisher_last_edited_at,
+      :publishing_request_id,
       :state,
       :temporary_first_published_at,
       :temporary_major_published_at,
@@ -18,7 +23,6 @@ module Presenters
       :user_facing_version,
       :web_url,
       :withdrawn,
-      :publishing_request_id,
     ].freeze
 
     def initialize(edition, draft: false)
