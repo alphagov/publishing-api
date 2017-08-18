@@ -39,6 +39,8 @@ class Edition::Timestamps
       edition.temporary_first_published_at = now
     end
 
+    edition.published_at = now
+
     if edition.update_type == "major"
       edition.major_published_at = now
     else
@@ -48,6 +50,7 @@ class Edition::Timestamps
       # sent in put content.
       edition.major_published_at = previous_live_version&.major_published_at
     end
+
 
     edition.save!
   end

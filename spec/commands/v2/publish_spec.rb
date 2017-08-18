@@ -115,6 +115,12 @@ RSpec.describe Commands::V2::Publish do
         described_class.call(payload)
       end
 
+      it "updates the published_at time to current time" do
+        described_class.call(payload)
+
+        expect(draft_item.reload.published_at).to eq(Time.zone.now)
+      end
+
       context "and update_type is major" do
         before do
           draft_item.update_attributes!(update_type: "major")
