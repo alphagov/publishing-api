@@ -3,6 +3,14 @@ require "rails_helper"
 RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
   include_context "PutContent call"
 
+  before do
+    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+  end
+
+  after do
+    Timecop.return
+  end
+
   subject { Edition.last }
 
   it "creates an edition" do
@@ -42,6 +50,19 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
       expect {
         put "/v2/content/#{content_id}", params: payload.to_json
       }.to change { ChangeNote.count }.by(1)
+    end
+  end
+
+  context "first_published_at is present in the payload" do
+    let(:first_published_at) { Time.now }
+    before do
+      payload[:first_published_at] = first_published_at
+    end
+
+    it "sets publisher_first_published_at to first_published_at" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect(subject.publisher_first_published_at).to eq(first_published_at)
     end
   end
 

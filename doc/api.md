@@ -108,6 +108,8 @@ presented edition and [warnings](#warnings).
 - `document_type` *(required)*
   - A particular type of document, used to differentiate between documents that
     are of different types but share the same schema.
+- `first_published_at` *(optional)*
+  - Specifies the first_published_at date from the publishing app.
 - `last_edited_at` *(optional)*
   - An [RFC 3339][rfc-3339] formatted timestamp should be provided, although
     [other formats][to-time-docs] may be accepted.

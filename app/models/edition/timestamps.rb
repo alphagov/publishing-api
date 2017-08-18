@@ -8,6 +8,7 @@ class Edition::Timestamps
     # first_published_at should eventually be associated with a document model,
     # therefore avoiding the need to copy between editions as this is fragile
     edition.temporary_first_published_at = previous_live_version&.temporary_first_published_at
+    edition.publisher_first_published_at = payload[:first_published_at]
 
     edition.save!
   end
