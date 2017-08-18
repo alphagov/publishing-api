@@ -4,6 +4,18 @@ module V2
       render json: Queries::GetLinkSet.call(content_id)
     end
 
+    def bulk_links
+      if Date.today > Date.parse("2017-09-18")
+        raise "This experimental endpoint has been disabled, please ask Taxonomy team to remove it."
+      end
+
+      json = params.fetch(:content_ids).map do |content_id|
+        Queries::GetLinkSet.call(content_id)
+      end
+
+      render json: json
+    end
+
     def expanded_links
       json = Queries::GetExpandedLinks.call(
         content_id,
