@@ -7,6 +7,7 @@ module Commands
         check_update_type
 
         edition = create_or_update_edition
+        set_timestamps(edition)
 
         update_content_dependencies(edition)
 
@@ -57,6 +58,10 @@ module Commands
         ChangeNote.create_from_edition(payload, edition)
         create_links(edition)
         Action.create_put_content_action(edition, document.locale, event)
+      end
+
+      def set_timestamps(edition)
+        Edition::Timestamps.edited(edition, payload, previously_published_edition)
       end
 
       def check_update_type

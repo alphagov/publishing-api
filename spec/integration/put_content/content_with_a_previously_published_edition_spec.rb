@@ -8,6 +8,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
   end
 
   let(:first_published_at) { 1.year.ago }
+  let(:temporary_first_published_at) { 2.years.ago }
 
   let(:document) do
     FactoryGirl.create(
@@ -22,6 +23,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
       document: document,
       user_facing_version: 5,
       first_published_at: first_published_at,
+      temporary_first_published_at: temporary_first_published_at,
       base_path: base_path,
     )
   end
@@ -50,6 +52,14 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     expect(edition.document.content_id).to eq(content_id)
 
     expect(edition.first_published_at.iso8601).to eq(first_published_at.iso8601)
+  end
+
+  it "sets temporary_first_published_at to the previously published version's value" do
+    put "/v2/content/#{content_id}", params: payload.to_json
+
+    edition = Edition.last
+    expect(edition.temporary_first_published_at)
+      .to eq(temporary_first_published_at)
   end
 
   context "and the base path has changed" do

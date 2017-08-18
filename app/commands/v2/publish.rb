@@ -31,6 +31,7 @@ module Commands
         set_first_published_at
         set_publishing_request_id
         set_update_type
+        set_timestamps
         edition.publish
         remove_access_limit
         create_publish_action
@@ -161,6 +162,10 @@ module Commands
         else
           edition.update_attributes!(public_updated_at: previous_item.public_updated_at)
         end
+      end
+
+      def set_timestamps
+        Edition::Timestamps.live_transition(edition, previous_item)
       end
 
       def set_first_published_at

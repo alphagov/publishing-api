@@ -1,3 +1,4 @@
+require "rails_helper"
 
 RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
   include_context "PutContent call"
@@ -28,6 +29,12 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
     put "/v2/content/#{content_id}", params: payload.to_json
 
     expect(subject.document.stale_lock_version).to eq(1)
+  end
+
+  it "has a temporary_first_published_at of nil" do
+    put "/v2/content/#{content_id}", params: payload.to_json
+
+    expect(subject.temporary_first_published_at).to be_nil
   end
 
   shared_examples "creates a change note" do

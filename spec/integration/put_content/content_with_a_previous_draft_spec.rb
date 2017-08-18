@@ -54,6 +54,12 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
     expect(previously_drafted_item.first_published_at.iso8601).to eq(first_published_at.iso8601)
   end
 
+  it "has a temporary_first_published_at of nil" do
+    put "/v2/content/#{content_id}", params: payload.to_json
+    expect(previously_drafted_item.reload.temporary_first_published_at)
+      .to be_nil
+  end
+
   it "does not increment the user-facing version for the edition" do
     put "/v2/content/#{content_id}", params: payload.to_json
     previously_drafted_item.reload

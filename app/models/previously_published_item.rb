@@ -27,6 +27,10 @@ class PreviouslyPublishedItem
     previously_published_item.first_published_at
   end
 
+  def temporary_first_published_at
+    previously_published_item.temporary_first_published_at
+  end
+
   def has_last_edited_at?
     true
   end
@@ -77,5 +81,9 @@ class PreviouslyPublishedItem
 
     def routes
     end
+
+    def first_published_at; end
+
+    def temporary_first_published_at; end
   end
 end

@@ -2,6 +2,14 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::Publish do
   describe "call" do
+    before do
+      Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+    end
+
+    after do
+      Timecop.return
+    end
+
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
     let(:user_facing_version) { 5 }
@@ -376,9 +384,18 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "with no temporary_first_published_at set on the edition" do
+      it "updates the temporary_first_published_at time to current time" do
+        described_class.call(payload)
+        expect(draft_item.reload.temporary_first_published_at)
+          .to eq(Time.zone.now)
+      end
+    end
+
     context "with no first_published_at and no public_updated_at set on the draft edition" do
       before do
-        draft_item.update_attributes!(first_published_at: nil, public_updated_at: nil)
+        draft_item.update_attributes!(
+          first_published_at: nil, public_updated_at: nil)
       end
 
       it "updates both fields with the same value" do

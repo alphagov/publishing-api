@@ -63,9 +63,7 @@ private
   end
 
   def attributes_from_payload
-    remove_first_published_at_if_not_explicitly_set(
-      without_protected_attributes
-    )
+    remove_first_published_at_if_not_explicitly_set(without_protected_attributes)
   end
 
   def attributes
