@@ -11,6 +11,8 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
     Timecop.return
   end
 
+  let(:public_updated_at) { Time.now }
+
   subject { Edition.last }
 
   it "creates an edition" do

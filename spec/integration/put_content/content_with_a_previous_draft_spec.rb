@@ -33,6 +33,19 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
     expect(previously_drafted_item.content_store).to eq("draft")
   end
 
+  context "when public_updated_at is in the payload" do
+    it "allows the setting of publisher_major_published_at" do
+      public_updated_at = 1.year.ago
+      payload[:public_updated_at] = public_updated_at
+
+      put "/v2/content/#{content_id}", params: payload.to_json
+      previously_drafted_item.reload
+
+      expect(previously_drafted_item.publisher_major_published_at.iso8601)
+        .to eq(public_updated_at.iso8601)
+    end
+  end
+
   context "when first_published_at is in the payload" do
     it "allows the setting of first_published_at and publisher_first_published_at" do
       explicit_first_published = DateTime.new(2016, 05, 23, 1, 1, 1).rfc3339

@@ -98,6 +98,23 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     end
   end
 
+  context "and public_updated_at has changed in the payload" do
+    let(:public_updated_at) { Time.now.utc }
+    before do
+      payload.merge!(
+        public_updated_at: public_updated_at,
+        update_type: "major"
+      )
+    end
+
+    it "updates publisher_major_published_at" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      edition = Edition.last
+      expect(edition.publisher_major_published_at).to eq(public_updated_at)
+    end
+  end
+
   context "and the base path has changed" do
     before do
       payload.merge!(

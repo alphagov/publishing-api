@@ -20,6 +20,11 @@ class Edition::Timestamps
       edition.major_published_at = previous_live_version&.major_published_at
     end
 
+    # In time we'd like to rename public_updated_at to major_published_at as
+    # part of the payload, but in the meantime we are populating the field
+    # with the optionally provided public_updated_at field.
+    edition.publisher_major_published_at = payload[:public_updated_at]
+
     edition.save!
   end
 

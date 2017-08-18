@@ -2,6 +2,13 @@ require "rails_helper"
 
 RSpec.describe "PUT /v2/content when creating a draft for a previously unpublished edition" do
   include_context "PutContent call"
+  before do
+    Timecop.freeze("2017-01-02 12:23")
+  end
+
+  after do
+    Timecop.return
+  end
 
   let(:first_published_at) { "2017-01-02 12:23" }
   let(:temporary_first_published_at) { "2016-01-02 12:23" }
