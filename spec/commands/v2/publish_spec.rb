@@ -13,6 +13,7 @@ RSpec.describe Commands::V2::Publish do
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
     let(:user_facing_version) { 5 }
+    let(:major_published_at) { 1.year.ago }
 
     let!(:document) do
       FactoryGirl.create(:document,
@@ -102,6 +103,7 @@ RSpec.describe Commands::V2::Publish do
           document: document,
           base_path: existing_base_path,
           title: "foo",
+          user_facing_version: user_facing_version,
         )
       end
 
@@ -111,6 +113,38 @@ RSpec.describe Commands::V2::Publish do
           .with("downstream_high", a_hash_including(update_dependencies: true))
 
         described_class.call(payload)
+      end
+
+      context "and update_type is major" do
+        before do
+          draft_item.update_attributes!(update_type: "major")
+        end
+
+        it "sets major_published_at to current time" do
+          described_class.call(payload)
+
+          edition = Edition.last
+          expect(edition.major_published_at).to eq(Time.now)
+        end
+      end
+
+      context "and update_type is minor" do
+        before do
+          FactoryGirl.create(:live_edition,
+            document: document,
+            base_path: existing_base_path,
+            user_facing_version: user_facing_version - 1,
+            major_published_at: major_published_at,
+          )
+        end
+
+        it "sets major_published_at to previous live version's value" do
+          payload[:update_type] = "minor"
+          described_class.call(payload)
+
+          edition = Edition.last
+          expect(edition.major_published_at).to eq(major_published_at)
+        end
       end
     end
 
@@ -351,6 +385,7 @@ RSpec.describe Commands::V2::Publish do
           payload[:update_type] = "minor"
           ChangeNote.create!(edition: draft_item)
         end
+
         it "deletes associated ChangeNote records" do
           expect { described_class.call(payload) }
             .to change { ChangeNote.count }.by(-1)

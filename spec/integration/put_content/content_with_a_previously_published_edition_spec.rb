@@ -5,10 +5,16 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
+    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+  end
+
+  after do
+    Timecop.return
   end
 
   let(:first_published_at) { 1.year.ago }
   let(:temporary_first_published_at) { 2.years.ago }
+  let(:major_published_at) { 1.year.ago }
 
   let(:document) do
     FactoryGirl.create(
@@ -25,6 +31,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
       first_published_at: first_published_at,
       temporary_first_published_at: temporary_first_published_at,
       base_path: base_path,
+      major_published_at: major_published_at,
     )
   end
 
@@ -60,6 +67,20 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     edition = Edition.last
     expect(edition.temporary_first_published_at)
       .to eq(temporary_first_published_at)
+  end
+
+  context "when update_type is minor" do
+    before do
+      payload[:update_type] = "minor"
+    end
+
+    it "sets major_published_at to previous published edition's value" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      edition = Edition.last
+      expect(edition.major_published_at.iso8601)
+        .to eq(major_published_at.iso8601)
+    end
   end
 
   context "when first_published_at has changed in the payload" do
