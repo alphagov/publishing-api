@@ -24,7 +24,7 @@ class Edition::Timestamps
     # part of the payload, but in the meantime we are populating the field
     # with the optionally provided public_updated_at field.
     edition.publisher_major_published_at = payload[:public_updated_at]
-
+    
     edition.save!
   end
 

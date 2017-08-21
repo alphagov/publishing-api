@@ -52,6 +52,11 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
     expect(subject.major_published_at).to be_nil
   end
 
+  it "has a publisher_published_at of nil" do
+    put "/v2/content/#{content_id}", params: payload.to_json
+    expect(subject.publisher_published_at).to be_nil
+  end
+
   shared_examples "creates a change note" do
     it "creates a change note" do
       expect {
