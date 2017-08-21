@@ -5,6 +5,8 @@ class Edition::Timestamps
     previous_live_version = nil,
     now = Time.zone.now
   )
+    edition.temporary_last_edited_at = now
+    
     # first_published_at should eventually be associated with a document model,
     # therefore avoiding the need to copy between editions as this is fragile
     edition.temporary_first_published_at = previous_live_version&.temporary_first_published_at
@@ -24,7 +26,7 @@ class Edition::Timestamps
     # part of the payload, but in the meantime we are populating the field
     # with the optionally provided public_updated_at field.
     edition.publisher_major_published_at = payload[:public_updated_at]
-    
+
     edition.save!
   end
 

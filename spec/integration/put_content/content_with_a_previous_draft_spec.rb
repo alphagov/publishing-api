@@ -5,6 +5,11 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
+    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+  end
+
+  after do
+    Timecop.return
   end
 
   let(:document) do
@@ -31,6 +36,13 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
     previously_drafted_item.reload
 
     expect(previously_drafted_item.content_store).to eq("draft")
+  end
+
+  it "sets temporary_last_edited_at to current time" do
+    put "/v2/content/#{content_id}", params: payload.to_json
+    previously_drafted_item.reload
+
+    expect(previously_drafted_item.temporary_last_edited_at).to eq(Time.now)
   end
 
   context "when public_updated_at is in the payload" do
