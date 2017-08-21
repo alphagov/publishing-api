@@ -1,39 +1,33 @@
 class RequeueContent
-  def initialize(number_of_items: nil)
-    @number_of_items = number_of_items
+  def initialize(scope)
+    # Restrict scope to stuff that's live (published or unpublished)
+    # Unpublished content without a content store representation won't
+    # be returned, but we're not interested in this content.
+    @scope = scope.where(content_store: :live)
+    @version = Event.maximum(:id)
   end
 
-  attr_accessor :number_of_items
-
   def call
-    if number_of_items.present?
-      Edition.where(state: :published).limit(number_of_items).each do |edition|
-        publish_to_queue(edition)
-      end
-    else
-      Edition.where(state: :published).find_each do |edition|
-        publish_to_queue(edition)
-      end
+    scope.each do |edition|
+      publish_to_queue(edition)
     end
   end
 
 private
 
+  attr_reader :scope, :version
+
   def publish_to_queue(edition)
-    version = Event.maximum(:id)
+    presenter = DownstreamPayload.new(edition, version, draft: false)
+    queue_payload = presenter.message_queue_payload
+    service = PublishingAPI.service(:queue_publisher)
 
-    queue_payload = Presenters::EditionPresenter.new(
-      edition, draft: false,
-    ).for_message_queue(version)
-
-    # FIXME: Rummager currently only listens to the message queue for the
-    # event type 'links'. This behaviour will eventually be updated so that
-    # it listens to other update types as well. This will happen as part of
-    # ongoing architectural work to make the message queue the sole source of
-    # search index updates. When that happens, the event_type below should
-    # be changed - perhaps to a newly introduced, more-appropriately named
-    # one. Maybe something like 'reindex'.
-
-    PublishingAPI.service(:queue_publisher).send_message(queue_payload, event_type: "links")
+    # Requeue is considered a different event_type to major, minor etc
+    # because we don't want to send additional email alerts to users.
+    service.send_message(
+      queue_payload,
+      routing_key: "#{edition.schema_name}.bulk.reindex",
+      persistent: false
+    )
   end
 end
