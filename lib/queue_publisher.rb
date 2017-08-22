@@ -18,10 +18,10 @@ class QueuePublisher
   class PublishFailedError < StandardError
   end
 
-  def send_message(edition, event_type: nil, routing_key: nil)
+  def send_message(edition, event_type: nil, routing_key: nil, persistent: true)
     return if @noop
     routing_key ||= routing_key(edition, event_type)
-    publish_message(routing_key, edition, content_type: 'application/json', persistent: true)
+    publish_message(routing_key, edition, content_type: 'application/json', persistent: persistent)
   end
 
   def routing_key(edition, event_type)

@@ -28,8 +28,16 @@ namespace :queue do
     end
   end
 
-  desc "Add published editions to the message queue, optionally specifying a limit on the number of items"
-  task :requeue_content, [:number_of_items] => :environment do |_, args|
-    RequeueContent.new(number_of_items: args[:number_of_items]).call
+  desc "Add published editions to the message queue by document type"
+  task :requeue_document_type, [:document_type] => :environment do |_, args|
+    document_type = args[:document_type]
+    raise ValueError("expecting document_type") unless document_type.present?
+
+    scope = Edition
+      .with_document
+      .with_unpublishing
+      .where(document_type: document_type)
+
+    RequeueContent.new(scope).call
   end
 end
