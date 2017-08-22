@@ -30,6 +30,8 @@ Rails.application.routes.draw do
         get "/linked/:content_id", to: "link_sets#get_linked"
       end
 
+      get "/bulk/links", to: "link_sets#bulk_links"
+
       get "/editions", to: "editions#index"
 
       get "/linkables", to: "content_items#linkables"
