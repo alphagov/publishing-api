@@ -81,9 +81,9 @@ module Presenters
     def access_limited
       return {} unless access_limit
       if edition.state != 'draft'
-        Airbrake.notify(
+        GOVUK::Error.notify(
           'Tried to send non-draft item with access_limited data',
-          content_id: edition.content_id
+          extra: { content_id: edition.content_id }
         )
         {}
       else

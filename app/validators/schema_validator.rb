@@ -35,7 +35,7 @@ private
     if Rails.env.development?
       errors << missing_schema_message
     end
-    Airbrake.notify(error, parameters: {
+    GOVUK::Error.notify(error, parameters: {
       explanation: missing_schema_message,
       schema_path: ENV["GOVUK_CONTENT_SCHEMAS_PATH"],
     })
