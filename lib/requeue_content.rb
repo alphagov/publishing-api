@@ -8,7 +8,7 @@ class RequeueContent
   end
 
   def call
-    scope.each do |edition|
+    scope.find_each do |edition|
       publish_to_queue(edition)
     end
   end
