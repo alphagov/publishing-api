@@ -2,13 +2,12 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails", "5.1"
+gem "govuk_app_config", github: "alphagov/govuk_app_config", branch: "add-sentry"
 gem "arel", "8.0"
 
 gem "unicorn", "~> 4.9.0"
 gem "logstasher", "0.6.2"
 gem "plek", "~> 1.10"
-gem 'airbrake', '~> 5.5'
-gem 'airbrake-ruby', '1.5'
 gem "pg"
 gem 'dalli'
 
@@ -26,7 +25,7 @@ gem "govuk_document_types", "~> 0.1.4"
 
 gem 'bunny', '~> 2.6'
 gem 'whenever', '0.9.4', require: false
-gem "govuk_sidekiq", "~> 1.0.3"
+gem "govuk_sidekiq", "~> 2.0.0"
 gem "json-schema", require: false
 gem "hashdiff"
 gem "sidekiq-unique-jobs", "~> 5.0", require: false

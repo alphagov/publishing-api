@@ -61,7 +61,7 @@ private
       if success
         PublishingAPI.service(:statsd).increment("message-sent.#{event_type}")
       else
-        Airbrake.notify(
+        GOVUK::Error.notify(
           PublishFailedError.new("Publishing message failed"),
           parameters: {
             routing_key: routing_key,

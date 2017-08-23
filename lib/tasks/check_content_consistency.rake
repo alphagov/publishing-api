@@ -1,7 +1,7 @@
 require "data_hygiene/content_consistency_checker"
 
 def report_errors(errors, content_store)
-  Airbrake.notify_sync(
+  GOVUK::Error.notify(
     "Documents inconsistent with the #{content_store} content store",
     parameters: {
       errors: errors,

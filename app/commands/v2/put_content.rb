@@ -62,7 +62,7 @@ module Commands
       def check_update_type
         return unless payload[:update_type].blank?
 
-        Airbrake.notify(
+        GOVUK::Error.notify(
           "#{payload[:publishing_app]} sent put content without providing an update_type",
           parameters: payload.slice(:publishing_app, :content_id, :locale),
         )

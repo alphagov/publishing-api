@@ -75,7 +75,7 @@ private
   end
 
   def notify_airbrake(error, parameters)
-    Airbrake.notify(error, parameters: parameters)
+    GOVUK::Error.notify(error, parameters: parameters)
   end
 
   def update_expanded_links(downstream_payload)
