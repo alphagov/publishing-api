@@ -7,6 +7,7 @@ module Commands
         check_update_type
 
         edition = create_or_update_edition
+        set_timestamps(edition)
 
         update_content_dependencies(edition)
 
@@ -53,7 +54,6 @@ module Commands
       def update_content_dependencies(edition)
         create_redirect
         access_limit(edition)
-        update_last_edited_at(edition, payload[:last_edited_at])
         ChangeNote.create_from_edition(payload, edition)
         create_links(edition)
         Action.create_put_content_action(edition, document.locale, event)
@@ -123,6 +123,10 @@ module Commands
         ).call
       end
 
+      def set_timestamps(edition)
+        Edition::Timetamps.edited(edition, payload, previously_published_edition)
+      end
+
       def base_path_required?
         !Edition::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
       end
@@ -142,14 +146,6 @@ module Commands
           callbacks: callbacks,
           nested: true,
         )
-      end
-
-      def update_last_edited_at(edition, last_edited_at = nil)
-        if last_edited_at.nil? && %w(major minor).include?(payload[:update_type])
-          last_edited_at = Time.zone.now
-        end
-
-        edition.update_attributes(last_edited_at: last_edited_at) if last_edited_at
       end
 
       def bulk_publishing?

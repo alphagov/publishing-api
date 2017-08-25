@@ -38,25 +38,7 @@ private
 
   def fill_out_new_edition
     document.increment!(:stale_lock_version)
-    set_first_published_at
-    set_last_edited_at
     set_document_owner
-  end
-
-  def set_first_published_at
-    return unless previously_published_item.has_first_published_at?
-    return if edition.first_published_at
-    edition.update_attributes(
-      first_published_at: previously_published_item.first_published_at,
-    )
-  end
-
-  def set_last_edited_at
-    return unless previously_published_item.has_last_edited_at?
-    return if edition.last_edited_at
-    edition.update_attributes(
-      last_edited_at: previously_published_item.last_edited_at,
-    )
   end
 
   def set_document_owner
@@ -65,6 +47,6 @@ private
   end
 
   def edition_attributes_from_payload
-    payload.slice(*Edition::TOP_LEVEL_FIELDS)
+    payload.slice(*Edition::TOP_LEVEL_FIELDS).except(*Edition::TIMESTAMP_FIELDS)
   end
 end

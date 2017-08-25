@@ -31,6 +31,12 @@ class Edition < ApplicationRecord
     :update_type,
   ].freeze
 
+  TIMESTAMP_FIELDS = [
+    :first_published_at,
+    :last_edited_at,
+    :public_updated_at,
+  ].freeze
+
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
   EMPTY_BASE_PATH_FORMATS = %w(contact government world_location).freeze
   belongs_to :document

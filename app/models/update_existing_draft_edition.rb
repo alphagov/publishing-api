@@ -6,7 +6,6 @@ class UpdateExistingDraftEdition
     :locale,
     :created_at,
     :updated_at,
-    :last_edited_at,
   ].freeze
 
   attr_reader :payload, :put_content, :edition
@@ -50,22 +49,10 @@ private
     edition.assign_attributes(attributes_from_payload)
   end
 
-  def remove_first_published_at_if_not_explicitly_set(attributes)
-    attributes.tap do |x|
-      x.delete(:first_published_at) unless payload.include?(:first_published_at)
-    end
-  end
-
-  def without_protected_attributes
+  def attributes_from_payload
     edition.class.column_defaults.symbolize_keys
       .merge(attributes.symbolize_keys)
       .except(*ATTRIBUTES_PROTECTED_FROM_RESET)
-  end
-
-  def attributes_from_payload
-    remove_first_published_at_if_not_explicitly_set(
-      without_protected_attributes
-    )
   end
 
   def attributes
@@ -77,6 +64,6 @@ private
   end
 
   def edition_attributes_from_payload
-    payload.slice(*Edition::TOP_LEVEL_FIELDS)
+    payload.slice(*Edition::TOP_LEVEL_FIELDS).except(*Edition::TIMESTAMP_FIELDS)
   end
 end

@@ -27,8 +27,7 @@ module Commands
           clear_published_items_of_same_locale_and_base_path
         end
 
-        set_public_updated_at
-        set_first_published_at
+        set_timestamps
         set_publishing_request_id
         set_update_type
         edition.publish
@@ -153,24 +152,12 @@ module Commands
         )
       end
 
-      def set_public_updated_at
-        return if edition.public_updated_at.present?
-
-        if update_type == "major" || previous_item.blank?
-          edition.update_attributes!(public_updated_at: default_datetime)
-        else
-          edition.update_attributes!(public_updated_at: previous_item.public_updated_at)
-        end
+      def set_timestamps
+        Edition::Timestamps.live_transition(
+          edition, previous_item, payload[:update_type]
+        )
       end
 
-      def set_first_published_at
-        return if edition.first_published_at.present?
-        edition.update_attributes!(first_published_at: default_datetime)
-      end
-
-      def default_datetime
-        @default_datetime ||= Time.zone.now
-      end
 
       def set_publishing_request_id
         edition.update_attributes!(
