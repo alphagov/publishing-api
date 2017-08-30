@@ -167,6 +167,19 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "taxon links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      link_set = FactoryGirl.create(:link_set,
+        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+        stale_lock_version: 2
+      )
+
+      taxon = FactoryGirl.create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
+      FactoryGirl.create(:edition, document: taxon)
+      FactoryGirl.create(:link, link_set: link_set, link_type: "taxons", target_content_id: taxon.content_id)
+    end
+  end
+
   provider_state "no links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       # no-op
