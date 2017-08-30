@@ -5,10 +5,6 @@ module V2
     end
 
     def bulk_links
-      if Date.today > Date.parse("2017-09-18")
-        raise "This experimental endpoint has been disabled, please ask Taxonomy team to remove it."
-      end
-
       json = Queries::GetBulkLinks.call(content_ids)
       render json: json
     end
