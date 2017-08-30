@@ -36,7 +36,7 @@ class Edition < ApplicationRecord
   belongs_to :document
   has_one :unpublishing
   has_one :change_note
-  has_many :links
+  has_many :links, dependent: :delete_all
 
   scope :renderable_content, -> { where.not(document_type: NON_RENDERABLE_FORMATS) }
   scope :with_document, -> { joins(:document) }
