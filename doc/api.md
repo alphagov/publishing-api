@@ -24,6 +24,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/linked/:content_id`](#get-v2linkedcontent_id)
 - [`GET /v2/linkables`](#get-v2linkables)
 - [`GET /v2/editions`](#get-v2editions)
+- [`POST /v2/bulk-links`](#post-v2bulk-links)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
 - [`PUT /paths/:base_path`](#put-pathsbase_path)
 - [`GET /debug/:content_id`](#get-debugcontent_id)
@@ -600,6 +601,16 @@ parameters.
   - Used to restrict editions to those for a given publishing app.
 - `states[]` *(optional)*
   - Used to restrict editions to those in the specified states.
+
+## `POST /v2/bulk-links`
+
+Retrieves the set of links for a given collection of content_ids. Returns a
+mapping of `content_id` to `links` hash.
+
+### POST parameters:
+
+- `content_ids[]` *(required)*
+  - An array of `content_id`s to query by.
 
 ## `POST /lookup-by-base-path`
 
