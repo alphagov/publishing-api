@@ -13,7 +13,7 @@ RSpec.describe "Randomised content" do
 
       expect(response).to be_ok, random_content_failure_message(response, edition)
 
-      params = { locale: edition["locale"] || "en" }
+      params = edition["locale"] ? { locale: edition["locale"] } : {}
       post "/v2/content/#{content_id}/publish", params: params.to_json
 
       expect(response).to be_ok, random_content_failure_message(response, edition)
