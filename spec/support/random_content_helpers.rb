@@ -6,6 +6,7 @@ module RandomContentHelpers
 
     random.merge_and_validate(
       base_path: base_path,
+      update_type: "major",
 
       # TODOs:
       title: "Something not empty", # TODO: make schemas validate title length
