@@ -9,6 +9,29 @@ RSpec.describe V2::LinkSetsController do
     stub_request(:any, /content-store/)
   end
 
+  describe "bulk_links" do
+    context "called without providing content_ids parameter" do
+      it "is unsuccessful" do
+        post :bulk_links, params: {}
+        expect(response.status).to eql 422
+      end
+    end
+
+    context "called with empty content_ids parameter" do
+      it "is unsuccessful" do
+        post :bulk_links, params: { content_ids: [] }
+        expect(response.status).to eql 422
+      end
+    end
+
+    context "with content_ids" do
+      it "is successful" do
+        post :bulk_links, params: { content_ids: [SecureRandom.uuid] }
+        expect(response.status).to eql 200
+      end
+    end
+  end
+
   describe "get_linked" do
     context "called without providing fields parameter" do
       it "is unsuccessful" do

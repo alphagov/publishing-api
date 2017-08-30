@@ -9,10 +9,7 @@ module V2
         raise "This experimental endpoint has been disabled, please ask Taxonomy team to remove it."
       end
 
-      json = params.fetch(:content_ids).map do |content_id|
-        Queries::GetLinkSet.call(content_id)
-      end
-
+      json = Queries::GetBulkLinks.call(content_ids)
       render json: json
     end
 
@@ -50,6 +47,10 @@ module V2
 
     def generate?
       ActiveModel::Type::Boolean.new.cast(params.fetch(:generate, false))
+    end
+
+    def content_ids
+      params.fetch(:content_ids)
     end
 
     def links_params
