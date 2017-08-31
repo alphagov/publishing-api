@@ -5,6 +5,7 @@ module V2
     end
 
     def bulk_links
+      throw_payload_error if max_payload_size_exceeded?
       json = Queries::GetBulkLinks.call(content_ids)
       render json: json
     end
@@ -43,6 +44,17 @@ module V2
 
     def generate?
       ActiveModel::Type::Boolean.new.cast(params.fetch(:generate, false))
+    end
+
+    def throw_payload_error
+      raise CommandError.new(
+        code: 413,
+        message: "Payload size exceeded 1000 ids"
+      )
+    end
+
+    def max_payload_size_exceeded?
+      content_ids.size > 1000
     end
 
     def content_ids

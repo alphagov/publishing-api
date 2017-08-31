@@ -30,6 +30,15 @@ RSpec.describe V2::LinkSetsController do
         expect(response.status).to eql 200
       end
     end
+
+    context "with over 1000 content_ids" do
+      it "is unsuccessful" do
+        content_id = SecureRandom.uuid
+        content_ids = Array.new(1001) { content_id }
+        post :bulk_links, params: { content_ids: content_ids }
+        expect(response.status).to eql 413
+      end
+    end
   end
 
   describe "get_linked" do

@@ -610,7 +610,7 @@ mapping of `content_id` to `links` hash.
 ### POST parameters:
 
 - `content_ids[]` *(required)*
-  - An array of `content_id`s to query by.
+  - An array of `content_id`s to query by. This can be no longer than 1000 ids, or the API will return a 413 error.
 
 ## `POST /lookup-by-base-path`
 
