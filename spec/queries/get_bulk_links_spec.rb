@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Queries::GetBulkLinks do
+  subject { described_class }
   let(:content_id_with_links) { SecureRandom.uuid }
   let(:content_id_no_links) { SecureRandom.uuid }
 
