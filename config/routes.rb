@@ -27,10 +27,9 @@ Rails.application.routes.draw do
         patch "/links/:content_id", to: "link_sets#patch_links"
         # put is provided for backwards compatibility.
         put "/links/:content_id", to: "link_sets#patch_links"
+        post "/links/by-content-id", to: "link_sets#bulk_links"
         get "/linked/:content_id", to: "link_sets#get_linked"
       end
-
-      get "/bulk/links", to: "link_sets#bulk_links"
 
       get "/editions", to: "editions#index"
 
