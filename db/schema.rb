@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831133716) do
+ActiveRecord::Schema.define(version: 20170831141117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20170831133716) do
     t.string "publishing_request_id"
     t.datetime "temporary_first_published_at"
     t.datetime "major_published_at"
-    t.datetime "temporary_published_at"
+    t.datetime "published_at"
     t.datetime "temporary_last_edited_at"
     t.datetime "publisher_first_published_at"
     t.datetime "publisher_major_published_at"
