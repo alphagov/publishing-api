@@ -7,6 +7,7 @@ class Edition::Timestamps
   )
     edition.temporary_last_edited_at = now
     edition.publisher_last_edited_at = payload[:last_edited_at]
+    edition.last_edited_at = payload[:last_edited_at] || now
 
     # first_published_at should eventually be associated with a document model,
     # therefore avoiding the need to copy between editions as this is fragile

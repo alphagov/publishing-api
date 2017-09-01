@@ -31,10 +31,6 @@ class PreviouslyPublishedItem
     previously_published_item.temporary_first_published_at
   end
 
-  def has_last_edited_at?
-    true
-  end
-
   def last_edited_at
     previously_published_item.last_edited_at
   end
@@ -69,10 +65,6 @@ class PreviouslyPublishedItem
     end
 
     def has_first_published_at?
-      false
-    end
-
-    def has_last_edited_at?
       false
     end
 

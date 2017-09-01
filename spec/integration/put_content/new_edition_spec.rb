@@ -62,6 +62,11 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
     expect(subject.temporary_last_edited_at).to eq(Time.now)
   end
 
+  it "sets last_edited_at to current time" do
+    put "/v2/content/#{content_id}", params: payload.to_json
+    expect(subject.last_edited_at).to eq(Time.zone.now)
+  end
+
   shared_examples "creates a change note" do
     it "creates a change note" do
       expect {

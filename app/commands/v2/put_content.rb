@@ -54,7 +54,6 @@ module Commands
       def update_content_dependencies(edition)
         create_redirect
         access_limit(edition)
-        update_last_edited_at(edition, payload[:last_edited_at])
         ChangeNote.create_from_edition(payload, edition)
         create_links(edition)
         Action.create_put_content_action(edition, document.locale, event)
@@ -148,14 +147,6 @@ module Commands
           callbacks: callbacks,
           nested: true,
         )
-      end
-
-      def update_last_edited_at(edition, last_edited_at = nil)
-        if last_edited_at.nil? && %w(major minor).include?(payload[:update_type])
-          last_edited_at = Time.zone.now
-        end
-
-        edition.update_attributes(last_edited_at: last_edited_at) if last_edited_at
       end
 
       def bulk_publishing?
