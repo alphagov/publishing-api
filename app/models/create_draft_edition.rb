@@ -38,16 +38,7 @@ private
 
   def fill_out_new_edition
     document.increment!(:stale_lock_version)
-    set_first_published_at
     set_document_owner
-  end
-
-  def set_first_published_at
-    return unless previously_published_item.has_first_published_at?
-    return if edition.first_published_at
-    edition.update_attributes(
-      first_published_at: previously_published_item.first_published_at,
-    )
   end
 
   def set_document_owner

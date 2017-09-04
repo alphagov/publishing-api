@@ -197,12 +197,13 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the edition was previously published" do
       let(:existing_base_path) { base_path }
-
+      let(:first_published_at) { 1.year.ago }
       let!(:live_item) do
         FactoryGirl.create(:live_edition,
           document: document,
           base_path: existing_base_path,
           user_facing_version: user_facing_version - 1,
+          first_published_at: first_published_at,
         )
       end
 
@@ -211,6 +212,13 @@ RSpec.describe Commands::V2::Publish do
 
         new_item = Edition.find(live_item.id)
         expect(new_item.state).to eq("superseded")
+      end
+
+      it "keeps the same first_published_at" do
+        described_class.call(payload)
+
+        new_item = Edition.find(live_item.id)
+        expect(new_item.first_published_at).to eq(first_published_at)
       end
     end
 
@@ -399,32 +407,6 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "with a first_published_at set on the draft edition" do
-      let(:first_published_at) { Time.zone.now - 1.year }
-
-      before do
-        draft_item.update_attributes!(first_published_at: first_published_at)
-      end
-
-      it "uses the stored timestamp" do
-        described_class.call(payload)
-
-        expect(draft_item.reload.first_published_at).to be_within(1.second).of(first_published_at)
-      end
-    end
-
-    context "with no first_published_at set on the draft edition" do
-      before do
-        draft_item.update_attributes!(first_published_at: nil)
-      end
-
-      it "updates the first_published_at time to now" do
-        described_class.call(payload)
-
-        expect(draft_item.reload.first_published_at).to be_within(1.second).of(Time.zone.now)
-      end
-    end
-
     context "with no temporary_first_published_at set on the edition" do
       it "updates the temporary_first_published_at time to current time" do
         described_class.call(payload)
@@ -433,16 +415,15 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "with no first_published_at and no public_updated_at set on the draft edition" do
+    context "with no first_published_at set on the edition" do
       before do
-        draft_item.update_attributes!(
-          first_published_at: nil, public_updated_at: nil)
+        draft_item.update_attributes!(first_published_at: nil)
       end
 
-      it "updates both fields with the same value" do
+      it "sets first_published_at to the current time" do
         described_class.call(payload)
 
-        expect(draft_item.first_published_at).to eq(draft_item.public_updated_at)
+        expect(draft_item.reload.first_published_at).to eq(Time.zone.now)
       end
     end
 

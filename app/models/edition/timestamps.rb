@@ -13,6 +13,8 @@ class Edition::Timestamps
     # therefore avoiding the need to copy between editions as this is fragile
     edition.temporary_first_published_at = previous_live_version&.temporary_first_published_at
     edition.publisher_first_published_at = payload[:first_published_at]
+    edition.first_published_at = payload[:first_published_at] ||
+      previous_live_version&.first_published_at
 
     # We set this on non-major updates so that editions can maintain their value
     # from previous items. In future we'd like to avoid this date being copied
@@ -43,6 +45,10 @@ class Edition::Timestamps
       edition.temporary_first_published_at = now
     end
 
+    unless edition.first_published_at.present?
+      edition.first_published_at = now
+    end
+
     edition.published_at = now
 
     if edition.update_type == "major"
@@ -54,7 +60,6 @@ class Edition::Timestamps
       # sent in put content.
       edition.major_published_at = previous_live_version&.major_published_at
     end
-
 
     edition.save!
   end

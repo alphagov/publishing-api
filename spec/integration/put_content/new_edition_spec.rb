@@ -86,6 +86,12 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
 
       expect(subject.publisher_first_published_at).to eq(first_published_at)
     end
+
+    it "sets first_published_at to first_published_at" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect(subject.first_published_at).to eq(first_published_at)
+    end
   end
 
   context "and the change node is in the payload" do

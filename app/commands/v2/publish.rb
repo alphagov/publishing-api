@@ -28,7 +28,6 @@ module Commands
         end
 
         set_public_updated_at
-        set_first_published_at
         set_publishing_request_id
         set_update_type
         set_timestamps
@@ -166,11 +165,6 @@ module Commands
 
       def set_timestamps
         Edition::Timestamps.live_transition(edition, previous_item)
-      end
-
-      def set_first_published_at
-        return if edition.first_published_at.present?
-        edition.update_attributes!(first_published_at: default_datetime)
       end
 
       def default_datetime

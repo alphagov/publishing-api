@@ -51,14 +51,14 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     expect(edition.user_facing_version).to eq(6)
   end
 
-  it "copies over the first_published_at timestamp" do
+  it "sets first_published_at to the previously published version's value" do
     put "/v2/content/#{content_id}", params: payload.to_json
 
     edition = Edition.last
     expect(edition).to be_present
     expect(edition.document.content_id).to eq(content_id)
 
-    expect(edition.first_published_at.iso8601).to eq(first_published_at.iso8601)
+    expect(edition.first_published_at).to eq(first_published_at)
   end
 
   it "sets temporary_first_published_at to the previously published version's value" do

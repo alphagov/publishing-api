@@ -19,10 +19,6 @@ class PreviouslyPublishedItem
     previously_published_item.user_facing_version + 1
   end
 
-  def has_first_published_at?
-    true
-  end
-
   def first_published_at
     previously_published_item.first_published_at
   end
@@ -62,10 +58,6 @@ class PreviouslyPublishedItem
 
     def links
       []
-    end
-
-    def has_first_published_at?
-      false
     end
 
     def path_has_changed?
