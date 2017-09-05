@@ -9,7 +9,7 @@ module Commands
 
         link_set.increment!(:stale_lock_version)
 
-        links_before_patch = link_set.links.map(&:target_content_id)
+        before_links = link_set.links.to_a
 
         grouped_links.each do |group, payload_content_ids|
           # For each set of links in a LinkSet scoped by link_type, this iterator
@@ -25,13 +25,16 @@ module Commands
         # we need to reload the link_set as the links association will be stale
         link_set.reload
 
-        orphaned_content_ids = link_diff_between(links_before_patch, link_set.links.map(&:target_content_id))
+        orphaned_content_ids = link_diff_between(before_links.map(&:target_content_id), link_set.links.map(&:target_content_id))
 
         after_transaction_commit do
           send_downstream(orphaned_content_ids)
         end
 
-        Action.create_patch_link_set_action(link_set, event)
+        action = Action.create_patch_link_set_action(link_set, event)
+
+        after_links = link_set.links.to_a
+        LinkChangeService.new(action, before_links, after_links).record
 
         presented = Presenters::Queries::LinkSetPresenter.present(link_set)
         Success.new(presented)
