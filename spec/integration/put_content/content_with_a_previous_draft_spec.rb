@@ -16,6 +16,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
       base_path: base_path,
       title: "Old Title",
       publishing_app: "publisher",
+      update_type: "major",
     )
   end
 
@@ -248,6 +249,28 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
         expect(access_limit.users).to eq(["new-user"])
         expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
       end
+    end
+  end
+
+  context "when the change note has been updated" do
+    let(:change_note) { "updated note" }
+
+    it "updates the change note" do
+      expect { put "/v2/content/#{content_id}", params: payload.to_json }
+        .to change { previously_drafted_item.change_note.reload.note }
+        .from("note").to("updated note")
+    end
+  end
+
+  context "when the change note has been removed" do
+    before do
+      payload.delete(:change_note)
+      payload[:update_type] = "minor"
+    end
+
+    it "removes the change note" do
+      expect { put "/v2/content/#{content_id}", params: payload.to_json }
+        .to change(ChangeNote, :count).by(-1)
     end
   end
 end
