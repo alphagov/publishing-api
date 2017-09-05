@@ -78,5 +78,28 @@ RSpec.describe LinkExpansion::ContentCache do
         instance.find(content_id)
       end
     end
+
+    context "preload_editions" do
+      let!(:published) { FactoryGirl.create(:live_edition, document: document) }
+      let(:preload_editions) { [published] }
+      let!(:instance) do
+        described_class.new(
+          locale: :en,
+          with_drafts: with_drafts,
+          preload_editions: preload_editions
+        )
+      end
+
+      it "doesn't run a query" do
+        expect(Edition).not_to receive(:find)
+        instance.find(content_id)
+      end
+
+      it "fully populates edition attributes" do
+        edition_hash = instance.find(content_id)
+        expect(edition_hash.fetch(:content_id)).to eq(content_id)
+        expect(edition_hash.fetch(:locale)).to eq("en")
+      end
+    end
   end
 end
