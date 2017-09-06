@@ -27,7 +27,6 @@ module Commands
           clear_published_items_of_same_locale_and_base_path
         end
 
-        set_public_updated_at
         set_publishing_request_id
         set_update_type
         set_timestamps
@@ -151,16 +150,6 @@ module Commands
           callbacks: callbacks,
           nested: true,
         )
-      end
-
-      def set_public_updated_at
-        return if edition.public_updated_at.present?
-
-        if update_type == "major" || previous_item.blank?
-          edition.update_attributes!(public_updated_at: default_datetime)
-        else
-          edition.update_attributes!(public_updated_at: previous_item.public_updated_at)
-        end
       end
 
       def set_timestamps

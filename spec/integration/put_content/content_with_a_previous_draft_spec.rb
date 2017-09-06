@@ -53,15 +53,25 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
   end
 
   context "when public_updated_at is in the payload" do
-    it "allows the setting of publisher_major_published_at" do
-      public_updated_at = 1.year.ago
+    let(:public_updated_at) { Time.now }
+    before do
       payload[:public_updated_at] = public_updated_at
+    end
 
+    it "allows the setting of publisher_major_published_at" do
       put "/v2/content/#{content_id}", params: payload.to_json
       previously_drafted_item.reload
 
-      expect(previously_drafted_item.publisher_major_published_at.iso8601)
-        .to eq(public_updated_at.iso8601)
+      expect(previously_drafted_item.publisher_major_published_at)
+        .to eq(public_updated_at)
+    end
+
+    it "allows the setting of public_updated_at" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+      previously_drafted_item.reload
+
+      expect(previously_drafted_item.public_updated_at)
+        .to eq(public_updated_at)
     end
   end
 

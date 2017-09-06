@@ -35,6 +35,10 @@ class PreviouslyPublishedItem
     previously_published_item.major_published_at
   end
 
+  def public_updated_at
+    previously_published_item.public_updated_at
+  end
+
   def previous_base_path
     previously_published_item.base_path
   end
@@ -75,5 +79,7 @@ class PreviouslyPublishedItem
     def temporary_first_published_at; end
 
     def major_published_at; end
+
+    def public_updated_at; end
   end
 end

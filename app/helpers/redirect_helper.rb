@@ -14,7 +14,6 @@ module RedirectHelper
 
       redirect_payload = RedirectPresenter.new(
         base_path: previous_base_path,
-        public_updated_at: Time.zone.now,
         redirects: redirects_for(previous_routes, previous_base_path, payload[:base_path]),
         publishing_app: payload[:publishing_app],
       ).for_redirect_helper(SecureRandom.uuid)

@@ -31,6 +31,9 @@ class Edition::Timestamps
     # with the optionally provided public_updated_at field.
     edition.publisher_major_published_at = payload[:public_updated_at]
 
+    # If the payload value is nil, we rely on publish to populate public_updated_at
+    edition.public_updated_at = payload[:public_updated_at]
+
     edition.save!
   end
 
@@ -53,12 +56,19 @@ class Edition::Timestamps
 
     if edition.update_type == "major"
       edition.major_published_at = now
+      edition.public_updated_at = now unless edition.public_updated_at.present?
     else
       # We copy major_published_at here as well as in put content as it's
       # possible for someone to specify the update_type at publish time.
       # Once update_type is no longer an option for publish this need only be
       # sent in put content.
       edition.major_published_at = previous_live_version&.major_published_at
+      unless edition.public_updated_at.present?
+        # Although we expect the update_type of the first edition to be major,
+        # this isn't always the case, so we fall back to now if the previous item
+        # isn't available.
+        edition.public_updated_at = previous_live_version&.public_updated_at || now
+      end
     end
 
     edition.save!

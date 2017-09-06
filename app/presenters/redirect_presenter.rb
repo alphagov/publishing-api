@@ -1,5 +1,5 @@
 class RedirectPresenter
-  def initialize(base_path:, publishing_app:, public_updated_at:, redirects:)
+  def initialize(base_path:, publishing_app:, public_updated_at: nil, redirects:)
     @base_path = base_path
     @publishing_app = publishing_app
     @public_updated_at = public_updated_at
@@ -36,13 +36,16 @@ private
     :content_id, :locale
 
   def present
-    {
-      document_type: "redirect",
-      schema_name: "redirect",
-      base_path: base_path,
-      publishing_app: publishing_app,
-      public_updated_at: public_updated_at.iso8601,
-      redirects: redirects,
-    }
+    attributes = {
+                    document_type: "redirect",
+                    schema_name: "redirect",
+                    base_path: base_path,
+                    publishing_app: publishing_app,
+                    redirects: redirects,
+                 }
+    if public_updated_at.present?
+      attributes[:public_updated_at] = public_updated_at.iso8601
+    end
+    attributes
   end
 end
