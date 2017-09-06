@@ -2,7 +2,7 @@ class LinkExpansion::EditionHash
   class << self
     def from(values)
       return nil unless values.present?
-      hash = values.is_a?(Array) ? hash_for(values) : values
+      hash = hash_for(values)
       hash = SymbolizeJSON.symbolize(hash)
       hash = hash.slice(*edition_fields)
       hash[:api_path] = api_path(hash) unless hash[:base_path].nil?
@@ -20,7 +20,20 @@ class LinkExpansion::EditionHash
 
     def hash_for(values)
       return nil unless values.present?
-      Hash[edition_fields.zip(values)]
+      case values
+      when Array
+        Hash[edition_fields.zip(values)]
+      when Edition
+        values.attributes.merge(
+          content_id: values.content_id,
+          locale: values.locale
+        )
+      when Hash
+        values
+      else
+        raise ArgumentError.new(
+          "Values passed to EditionHash.from must be an Array, Edition or Hash.")
+      end
     end
 
     def api_path(hash)

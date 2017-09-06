@@ -18,7 +18,7 @@ private
   attr_reader :store, :with_drafts, :locale
 
   def build_store(editions, content_ids)
-    store = Hash[editions.map { |edition| [edition.content_id, edition_hash.from(edition.attributes)] }]
+    store = Hash[editions.map { |edition| [edition.content_id, edition_hash.from(edition)] }]
 
     to_preload = content_ids - editions.map(&:content_id)
     editions(to_preload).each_with_object(store) do |edition_values, hash|
