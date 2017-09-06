@@ -69,15 +69,15 @@ RSpec.describe "Keeping track of link changes", type: :request do
       expect(parsed_response["link_changes"].length).to eq(2)
       expect(parsed_response["link_changes"].first["id"]).to eq(LinkChange.first.id)
 
-      get parsed_response["next_page_path"]
+      get parsed_response["links"].first["href"]
 
       expect(parsed_response["link_changes"].length).to eq(2)
 
-      get parsed_response["next_page_path"]
+      get parsed_response["links"].first["href"]
 
       expect(parsed_response["link_changes"].length).to eq(1)
       expect(parsed_response["link_changes"].last["id"]).to eq(LinkChange.last.id)
-      expect(parsed_response["next_page_path"]).to be_nil
+      expect(parsed_response["links"]).to be_empty
     end
   end
 

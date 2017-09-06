@@ -1,10 +1,11 @@
 module Queries
   class GetLinkChanges
     PAGE_LENGTH = 1000
-    attr_reader :params
+    attr_reader :params, :request_url
 
-    def initialize(params)
+    def initialize(params, request_url)
       @params = params
+      @request_url = request_url
     end
 
     def as_json
@@ -22,9 +23,11 @@ module Queries
 
       {
         link_changes: results,
-        next_page_path: next_page_path
+        links: links,
       }
     end
+
+  private
 
     def link_changes
       @link_changes ||= begin
@@ -34,10 +37,20 @@ module Queries
       end
     end
 
-    def next_page_path
+    def links
       if link_changes.count == PAGE_LENGTH
-        "/v2/links/changes?start=#{link_changes.last.id + 1}"
+        [{ href: page_href(start: link_changes.last.id + 1), rel: "next" }]
+      else
+        []
       end
+    end
+
+    def page_href(start:)
+      uri = URI.parse(request_url)
+      new_params = Rack::Utils.parse_query(uri.query).merge(start: start)
+      new_query = Rack::Utils.build_query(new_params)
+      uri.query = new_query
+      uri.to_s
     end
   end
 end

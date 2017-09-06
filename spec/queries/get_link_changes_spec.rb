@@ -5,7 +5,7 @@ RSpec.describe Queries::GetLinkChanges do
     it 'returns the link changes with the correct data' do
       FactoryGirl.create(:link_change)
 
-      result = Queries::GetLinkChanges.new({}).as_json
+      result = Queries::GetLinkChanges.new({}, double).as_json
 
       change = result[:link_changes].first
 
