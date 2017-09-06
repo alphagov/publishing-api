@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170901095633) do
+ActiveRecord::Schema.define(version: 20170905123649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,17 @@ ActiveRecord::Schema.define(version: 20170901095633) do
     t.index ["content_id", "locale", "with_drafts"], name: "expanded_links_content_id_locale_with_drafts_index", unique: true
   end
 
+  create_table "link_changes", force: :cascade do |t|
+    t.uuid "source_content_id", null: false
+    t.uuid "target_content_id", null: false
+    t.string "link_type", null: false
+    t.integer "change", null: false
+    t.bigint "action_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["action_id"], name: "index_link_changes_on_action_id"
+  end
+
   create_table "link_sets", id: :serial, force: :cascade do |t|
     t.uuid "content_id"
     t.datetime "created_at"
@@ -191,6 +202,7 @@ ActiveRecord::Schema.define(version: 20170901095633) do
 
   add_foreign_key "change_notes", "editions"
   add_foreign_key "editions", "documents"
+  add_foreign_key "link_changes", "actions", on_delete: :cascade
   add_foreign_key "links", "editions", on_delete: :cascade
   add_foreign_key "links", "link_sets"
   add_foreign_key "unpublishings", "editions", on_delete: :cascade
