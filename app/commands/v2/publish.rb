@@ -153,7 +153,7 @@ module Commands
       end
 
       def set_timestamps
-        Edition::Timestamps.live_transition(edition, previous_item)
+        Edition::Timestamps.live_transition(edition, update_type, previous_item)
       end
 
       def default_datetime

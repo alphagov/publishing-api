@@ -83,7 +83,10 @@ module Commands
       end
 
       def unpublish
-        Edition::Timestamps.live_transition(edition, previous) if edition.draft?
+        if edition.draft?
+          Edition::Timestamps.live_transition(edition, edition.update_type, previous)
+        end
+
         edition.unpublish(
           payload
             .slice(:type, :explanation, :alternative_path, :unpublished_at)

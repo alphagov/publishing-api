@@ -39,6 +39,7 @@ class Edition::Timestamps
 
   def self.live_transition(
     edition,
+    update_type,
     previous_live_version = nil,
     now = Time.zone.now
   )
@@ -54,7 +55,7 @@ class Edition::Timestamps
 
     edition.published_at = now
 
-    if edition.update_type == "major"
+    if update_type == "major"
       edition.major_published_at = now
       edition.public_updated_at = now unless edition.public_updated_at.present?
     else
