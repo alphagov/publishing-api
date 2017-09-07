@@ -31,7 +31,6 @@ module Queries
       @_link_sets ||= begin
         LinkSet
           .includes(:links) # avoid an N+1 in the presenter class
-          .joins(:links) # combines with the `include` to make a single SQL statement
           .where("content_id IN (?)", content_ids)
           .index_by(&:content_id) # reform the Relation into a hash, keyed by content_id
       end
