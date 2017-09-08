@@ -389,8 +389,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 5.5)
-  airbrake-ruby (= 1.5)
   arel (= 8.0)
   aws-sdk (~> 2)
   bunny (~> 2.6)

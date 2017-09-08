@@ -7,8 +7,6 @@ gem "arel", "8.0"
 gem "unicorn", "~> 4.9.0"
 gem "logstasher", "0.6.2"
 gem "plek", "~> 1.10"
-gem 'airbrake', '~> 5.5'
-gem 'airbrake-ruby', '1.5'
 gem "pg"
 gem 'dalli'
 
