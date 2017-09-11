@@ -230,10 +230,10 @@ RSpec.describe Commands::V2::PutContent do
       it "should send an alert to GovukError" do
         # swallow error about missing schema
         expect(GovukError).to receive(:notify)
-          .with(anything, parameters: a_hash_including(schema_path: anything))
+          .with(anything, level: "warning", extra: a_hash_including(schema_path: anything))
 
         expect(GovukError).to receive(:notify)
-          .with(anything, parameters: a_hash_including(content_id: content_id))
+          .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 
         described_class.call(payload)
       end
@@ -243,10 +243,10 @@ RSpec.describe Commands::V2::PutContent do
       it "should not send an alert to GovukError" do
         # swallow error about missing schema
         expect(GovukError).to receive(:notify)
-          .with(anything, parameters: a_hash_including(schema_path: anything))
+          .with(anything, level: "warning", extra: a_hash_including(schema_path: anything))
 
         expect(GovukError).to_not receive(:notify)
-          .with(anything, parameters: a_hash_including(content_id: content_id))
+          .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 
         described_class.call(payload)
       end

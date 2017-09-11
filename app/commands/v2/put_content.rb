@@ -64,7 +64,8 @@ module Commands
 
         GovukError.notify(
           "#{payload[:publishing_app]} sent put content without providing an update_type",
-          parameters: payload.slice(:publishing_app, :content_id, :locale),
+          level: "warning",
+          extra: payload.slice(:publishing_app, :content_id, :locale),
         )
       end
 

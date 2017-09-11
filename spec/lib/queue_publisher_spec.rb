@@ -108,7 +108,8 @@ RSpec.describe QueuePublisher do
           it "includes the message details in the notification" do
             expect(GovukError).to receive(:notify).with(
               anything,
-              parameters: {
+              level: "error",
+              extra: {
                 message_body: content_item,
                 routing_key: "#{content_item[:schema_name]}.#{content_item[:update_type]}",
                 options: { content_type: "application/json", persistent: true },

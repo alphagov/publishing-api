@@ -63,7 +63,8 @@ private
       else
         GovukError.notify(
           PublishFailedError.new("Publishing message failed"),
-          parameters: {
+          level: "error",
+          extra: {
             routing_key: routing_key,
             message_body: message_data,
             options: options,

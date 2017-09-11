@@ -35,10 +35,14 @@ private
     if Rails.env.development?
       errors << missing_schema_message
     end
-    GovukError.notify(error, parameters: {
-      explanation: missing_schema_message,
-      schema_path: ENV["GOVUK_CONTENT_SCHEMAS_PATH"],
-    })
+    GovukError.notify(
+      error,
+      level: "warning",
+      extra: {
+        explanation: missing_schema_message,
+        schema_path: ENV["GOVUK_CONTENT_SCHEMAS_PATH"],
+      }
+    )
     {}
   end
 

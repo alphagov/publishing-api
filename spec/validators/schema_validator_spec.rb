@@ -21,7 +21,7 @@ RSpec.describe SchemaValidator do
       it "logs to airbrake with an unknown schema_name" do
         expect(GovukError)
           .to receive(:notify)
-          .with(an_instance_of(Errno::ENOENT), a_hash_including(:parameters))
+          .with(an_instance_of(Errno::ENOENT), a_hash_including(:extra))
         validator.valid?
       end
     end

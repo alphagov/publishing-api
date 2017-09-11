@@ -81,7 +81,7 @@ RSpec.describe DownstreamLiveWorker do
 
       it "absorbs an error" do
         expect(GovukError).to receive(:notify)
-          .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
+          .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
         subject.perform(superseded_arguments)
       end
     end
@@ -148,7 +148,7 @@ RSpec.describe DownstreamLiveWorker do
       draft = FactoryGirl.create(:draft_edition)
 
       expect(GovukError).to receive(:notify)
-        .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
+        .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
       subject.perform(arguments.merge("content_id" => draft.document.content_id))
     end
 
@@ -163,7 +163,7 @@ RSpec.describe DownstreamLiveWorker do
   describe "no edition" do
     it "swallows the error" do
       expect(GovukError).to receive(:notify)
-        .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
+        .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
       subject.perform(arguments.merge("content_id" => SecureRandom.uuid))
     end
   end

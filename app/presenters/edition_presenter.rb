@@ -82,8 +82,9 @@ module Presenters
       return {} unless access_limit
       if edition.state != 'draft'
         GovukError.notify(
-          'Tried to send non-draft item with access_limited data',
-          content_id: edition.content_id
+          "Tried to send non-draft item with access_limited data",
+          level: "warning",
+          extra: { content_id: edition.content_id },
         )
         {}
       else
