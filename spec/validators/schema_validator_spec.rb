@@ -19,9 +19,9 @@ RSpec.describe SchemaValidator do
       let(:payload) { { schema_name: "test" } }
 
       it "logs to airbrake with an unknown schema_name" do
-        expect(Airbrake)
+        expect(GovukError)
           .to receive(:notify)
-          .with(an_instance_of(Errno::ENOENT), a_hash_including(:parameters))
+          .with(an_instance_of(Errno::ENOENT), a_hash_including(:extra))
         validator.valid?
       end
     end

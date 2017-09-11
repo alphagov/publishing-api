@@ -75,7 +75,7 @@ private
   end
 
   def notify_airbrake(error, parameters)
-    Airbrake.notify(error, parameters: parameters)
+    GovukError.notify(error, level: "warning", extra: parameters)
   end
 
   def update_expanded_links(downstream_payload)

@@ -273,8 +273,8 @@ RSpec.describe Presenters::EditionPresenter do
           expect(result).not_to include(:access_limited)
         end
 
-        it "notifies Airbrake" do
-          expect(Airbrake).to receive(:notify)
+        it "notifies GovukError" do
+          expect(GovukError).to receive(:notify)
           result
         end
       end

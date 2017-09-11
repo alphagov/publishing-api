@@ -227,26 +227,26 @@ RSpec.describe Commands::V2::PutContent do
         payload.delete(:update_type)
       end
 
-      it "should send an alert to Airbrake" do
+      it "should send an alert to GovukError" do
         # swallow error about missing schema
-        expect(Airbrake).to receive(:notify)
-          .with(anything, parameters: a_hash_including(schema_path: anything))
+        expect(GovukError).to receive(:notify)
+          .with(anything, level: "warning", extra: a_hash_including(schema_path: anything))
 
-        expect(Airbrake).to receive(:notify)
-          .with(anything, parameters: a_hash_including(content_id: content_id))
+        expect(GovukError).to receive(:notify)
+          .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 
         described_class.call(payload)
       end
     end
 
     context "when an update type is provided" do
-      it "should not send an alert to Airbrake" do
+      it "should not send an alert to GovukError" do
         # swallow error about missing schema
-        expect(Airbrake).to receive(:notify)
-          .with(anything, parameters: a_hash_including(schema_path: anything))
+        expect(GovukError).to receive(:notify)
+          .with(anything, level: "warning", extra: a_hash_including(schema_path: anything))
 
-        expect(Airbrake).to_not receive(:notify)
-          .with(anything, parameters: a_hash_including(content_id: content_id))
+        expect(GovukError).to_not receive(:notify)
+          .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 
         described_class.call(payload)
       end

@@ -100,15 +100,16 @@ RSpec.describe QueuePublisher do
           end
 
           it "notifies errbit of the error" do
-            expect(Airbrake).to receive(:notify).with(an_instance_of(QueuePublisher::PublishFailedError), anything)
+            expect(GovukError).to receive(:notify).with(an_instance_of(QueuePublisher::PublishFailedError), anything)
 
             queue_publisher.send_message(content_item)
           end
 
           it "includes the message details in the notification" do
-            expect(Airbrake).to receive(:notify).with(
+            expect(GovukError).to receive(:notify).with(
               anything,
-              parameters: {
+              level: "error",
+              extra: {
                 message_body: content_item,
                 routing_key: "#{content_item[:schema_name]}.#{content_item[:update_type]}",
                 options: { content_type: "application/json", persistent: true },

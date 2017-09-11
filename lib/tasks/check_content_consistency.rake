@@ -1,11 +1,10 @@
 require "data_hygiene/content_consistency_checker"
 
 def report_errors(errors, content_store)
-  Airbrake.notify_sync(
+  GovukError.notify(
     "Documents inconsistent with the #{content_store} content store",
-    parameters: {
-      errors: errors,
-    }
+    level: "warning",
+    extra: { errors: errors },
   )
 
   errors.each do |base_path, item_errors|

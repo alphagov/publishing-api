@@ -61,9 +61,10 @@ private
       if success
         PublishingAPI.service(:statsd).increment("message-sent.#{event_type}")
       else
-        Airbrake.notify(
+        GovukError.notify(
           PublishFailedError.new("Publishing message failed"),
-          parameters: {
+          level: "error",
+          extra: {
             routing_key: routing_key,
             message_body: message_data,
             options: options,

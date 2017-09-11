@@ -80,8 +80,8 @@ RSpec.describe DownstreamLiveWorker do
       end
 
       it "absorbs an error" do
-        expect(Airbrake).to receive(:notify)
-          .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
+        expect(GovukError).to receive(:notify)
+          .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
         subject.perform(superseded_arguments)
       end
     end
@@ -147,23 +147,23 @@ RSpec.describe DownstreamLiveWorker do
     it "rejects draft editions" do
       draft = FactoryGirl.create(:draft_edition)
 
-      expect(Airbrake).to receive(:notify)
-        .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
+      expect(GovukError).to receive(:notify)
+        .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
       subject.perform(arguments.merge("content_id" => draft.document.content_id))
     end
 
     it "allows live editions" do
       live = FactoryGirl.create(:live_edition)
 
-      expect(Airbrake).to_not receive(:notify)
+      expect(GovukError).to_not receive(:notify)
       subject.perform(arguments.merge("content_id" => live.document.content_id))
     end
   end
 
   describe "no edition" do
     it "swallows the error" do
-      expect(Airbrake).to receive(:notify)
-        .with(an_instance_of(AbortWorkerError), a_hash_including(:parameters))
+      expect(GovukError).to receive(:notify)
+        .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
       subject.perform(arguments.merge("content_id" => SecureRandom.uuid))
     end
   end

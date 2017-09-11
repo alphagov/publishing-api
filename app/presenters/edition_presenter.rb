@@ -81,9 +81,10 @@ module Presenters
     def access_limited
       return {} unless access_limit
       if edition.state != 'draft'
-        Airbrake.notify(
-          'Tried to send non-draft item with access_limited data',
-          content_id: edition.content_id
+        GovukError.notify(
+          "Tried to send non-draft item with access_limited data",
+          level: "warning",
+          extra: { content_id: edition.content_id },
         )
         {}
       else

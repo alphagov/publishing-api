@@ -7,8 +7,6 @@ gem "arel", "8.0"
 gem "unicorn", "~> 4.9.0"
 gem "logstasher", "0.6.2"
 gem "plek", "~> 1.10"
-gem 'airbrake', '~> 5.5'
-gem 'airbrake-ruby', '1.5'
 gem "pg"
 gem 'dalli'
 
@@ -17,16 +15,17 @@ gem "colorize", "~> 0.8"
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else
-  gem 'gds-api-adapters', "~> 41.0"
+  gem 'gds-api-adapters', "~> 47.9.1"
 end
 
 gem "gds-sso", "13.0.0"
+gem "govuk_app_config", "~> 0.2"
 gem "govuk_schemas", "~> 2.1.1"
 gem "govuk_document_types", "~> 0.1"
 
 gem 'bunny', '~> 2.6'
+gem "govuk_sidekiq", "~> 2.0"
 gem 'whenever', '0.9.4', require: false
-gem "govuk_sidekiq", "~> 1.0.3"
 gem "json-schema", require: false
 gem "hashdiff"
 gem "sidekiq-unique-jobs", "~> 5.0", require: false
