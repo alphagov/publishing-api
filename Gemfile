@@ -27,7 +27,7 @@ gem 'bunny', '~> 2.6'
 gem "govuk_sidekiq", "~> 2.0"
 gem 'whenever', '0.9.4', require: false
 gem "json-schema", require: false
-gem "hashdiff"
+gem "hashdiff", "~> 0.3.6"
 gem "sidekiq-unique-jobs", "~> 5.0", require: false
 gem "govspeak", "~> 5.0.2"
 gem "diffy", "~> 3.1", require: false
