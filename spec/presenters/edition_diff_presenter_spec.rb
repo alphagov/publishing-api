@@ -21,7 +21,21 @@ RSpec.describe Presenters::EditionDiffPresenter do
                       )
   end
 
-  EXCLUDED_ATTRIBUTES = %w(updated_at created_at id publishing_request_id document_id).freeze
+  EXCLUDED_ATTRIBUTES = %w(
+    updated_at
+    created_at
+    id
+    publishing_request_id
+    document_id
+    temporary_first_published_at
+    published_at
+    major_published_at
+    temporary_last_edited_at
+    publisher_first_published_at
+    publisher_major_published_at
+    publisher_published_at
+    publisher_last_edited_at
+  ).freeze
 
   describe "#call" do
     subject { described_class }
