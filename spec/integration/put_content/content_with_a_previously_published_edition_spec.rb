@@ -5,9 +5,16 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
+    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+  end
+
+  after do
+    Timecop.return
   end
 
   let(:first_published_at) { 1.year.ago }
+  let(:temporary_first_published_at) { 2.years.ago }
+  let(:major_published_at) { 1.year.ago }
 
   let(:document) do
     FactoryGirl.create(
@@ -22,7 +29,9 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
       document: document,
       user_facing_version: 5,
       first_published_at: first_published_at,
+      temporary_first_published_at: temporary_first_published_at,
       base_path: base_path,
+      major_published_at: major_published_at,
     )
   end
 
@@ -42,14 +51,58 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     expect(edition.user_facing_version).to eq(6)
   end
 
-  it "copies over the first_published_at timestamp" do
+  it "sets first_published_at to the previously published version's value" do
     put "/v2/content/#{content_id}", params: payload.to_json
 
     edition = Edition.last
     expect(edition).to be_present
     expect(edition.document.content_id).to eq(content_id)
 
-    expect(edition.first_published_at.iso8601).to eq(first_published_at.iso8601)
+    expect(edition.first_published_at).to eq(first_published_at)
+  end
+
+  it "sets temporary_first_published_at to the previously published version's value" do
+    put "/v2/content/#{content_id}", params: payload.to_json
+
+    edition = Edition.last
+    expect(edition.temporary_first_published_at)
+      .to eq(temporary_first_published_at)
+  end
+
+  context "when update_type is minor" do
+    before do
+      payload[:update_type] = "minor"
+    end
+
+    it "sets major_published_at to previous published edition's value" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      edition = Edition.last
+      expect(edition.major_published_at.iso8601)
+        .to eq(major_published_at.iso8601)
+    end
+  end
+
+  context "when first_published_at has changed in the payload" do
+    let(:new_first_published_at) { Time.now.utc.iso8601 }
+    before do
+      payload.merge!(first_published_at: new_first_published_at)
+    end
+
+    it "updates publisher_first_published_at" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      edition = Edition.last
+      expect(edition.publisher_first_published_at.iso8601)
+        .to eq(new_first_published_at)
+    end
+
+    it "updates first_published_at" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      edition = Edition.last
+      expect(edition.first_published_at.iso8601).to eq(new_first_published_at)
+    end
   end
 
   context "and the base path has changed" do

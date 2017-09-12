@@ -2,9 +2,19 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::Publish do
   describe "call" do
+    before do
+      Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+    end
+
+    after do
+      Timecop.return
+    end
+
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
     let(:user_facing_version) { 5 }
+    let(:major_published_at) { 1.year.ago }
+    let(:public_updated_at) { 1.year.ago }
 
     let!(:document) do
       FactoryGirl.create(:document,
@@ -94,6 +104,7 @@ RSpec.describe Commands::V2::Publish do
           document: document,
           base_path: existing_base_path,
           title: "foo",
+          user_facing_version: user_facing_version,
         )
       end
 
@@ -103,6 +114,44 @@ RSpec.describe Commands::V2::Publish do
           .with("downstream_high", a_hash_including(update_dependencies: true))
 
         described_class.call(payload)
+      end
+
+      it "updates the published_at time to current time" do
+        described_class.call(payload)
+
+        expect(draft_item.reload.published_at).to eq(Time.zone.now)
+      end
+
+      context "and update_type is major" do
+        before do
+          draft_item.update_attributes!(update_type: "major")
+        end
+
+        it "sets major_published_at to current time" do
+          described_class.call(payload)
+
+          edition = Edition.last
+          expect(edition.major_published_at).to eq(Time.now)
+        end
+      end
+
+      context "and update_type is minor" do
+        before do
+          FactoryGirl.create(:live_edition,
+            document: document,
+            base_path: existing_base_path,
+            user_facing_version: user_facing_version - 1,
+            major_published_at: major_published_at,
+          )
+        end
+
+        it "sets major_published_at to previous live version's value" do
+          payload[:update_type] = "minor"
+          described_class.call(payload)
+
+          edition = Edition.last
+          expect(edition.major_published_at).to eq(major_published_at)
+        end
       end
     end
 
@@ -149,12 +198,13 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the edition was previously published" do
       let(:existing_base_path) { base_path }
-
+      let(:first_published_at) { 1.year.ago }
       let!(:live_item) do
         FactoryGirl.create(:live_edition,
           document: document,
           base_path: existing_base_path,
           user_facing_version: user_facing_version - 1,
+          first_published_at: first_published_at,
         )
       end
 
@@ -163,6 +213,13 @@ RSpec.describe Commands::V2::Publish do
 
         new_item = Edition.find(live_item.id)
         expect(new_item.state).to eq("superseded")
+      end
+
+      it "keeps the same first_published_at" do
+        described_class.call(payload)
+
+        new_item = Edition.find(live_item.id)
+        expect(new_item.first_published_at).to eq(first_published_at)
       end
     end
 
@@ -250,16 +307,14 @@ RSpec.describe Commands::V2::Publish do
       end
 
       context "with a public_updated_at set on the draft edition" do
-        let(:public_updated_at) { Time.zone.now - 1.year }
-
         before do
           draft_item.update_attributes!(public_updated_at: public_updated_at)
         end
 
-        it "uses the stored timestamp for major or minor" do
+        it "public_updated_at does not change for major or minor" do
           described_class.call(payload)
 
-          expect(draft_item.reload.public_updated_at).to be_within(1.second).of(public_updated_at)
+          expect(draft_item.reload.public_updated_at).to eq(public_updated_at)
         end
       end
 
@@ -268,71 +323,45 @@ RSpec.describe Commands::V2::Publish do
           draft_item.update_attributes!(public_updated_at: nil)
         end
 
-        context "for a major update" do
-          it "updates the public_updated_at time to now" do
+        context "and the update_type is major" do
+          it "updates public_updated_at to current time" do
             described_class.call(payload)
 
-            expect(draft_item.reload.public_updated_at).to be_within(1.second).of(Time.zone.now)
+            expect(draft_item.reload.public_updated_at).to eq(Time.now)
           end
         end
 
-        context "for a minor update" do
-          before do
-            payload.merge!(update_type: "minor")
-          end
-
-          it "preserves the public_updated_at value from the last published item" do
-            public_updated_at = Time.zone.now - 2.years
-
+        context "and the update_type is minor" do
+          let!(:live_item) do
             FactoryGirl.create(:live_edition,
-              document: draft_item.document,
-              public_updated_at: public_updated_at,
-              base_path: base_path,
+            document: document,
+            base_path: base_path,
+            user_facing_version: user_facing_version - 1,
             )
-
-            described_class.call(payload)
-
-            expect(draft_item.reload.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
           end
-
-          it "preserves the public_updated_at value from the last unpublished item" do
-            public_updated_at = Time.zone.now - 2.years
-
-            FactoryGirl.create(:unpublished_edition,
-              document: draft_item.document,
-              public_updated_at: public_updated_at,
-              base_path: base_path,
-            )
-
-            described_class.call(payload)
-
-            expect(draft_item.reload.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
-          end
-
-          it "updates the public_updated_at time to now if no previous item" do
-            described_class.call(payload)
-
-            expect(draft_item.reload.public_updated_at).to be_within(1.second).of(Time.zone.now)
-          end
-        end
-
-        context "for a republish" do
-          let(:public_updated_at) { Time.zone.now - 1.year }
-
           before do
-            payload.merge!(update_type: "republish")
+            payload[:update_type] = "minor"
           end
 
-          it "uses the stored timestamp from the previous version" do
-            FactoryGirl.create(:live_edition,
-              document: draft_item.document,
-              public_updated_at: public_updated_at,
-              base_path: base_path,
-            )
+          context "and the previous live version has public_updated_at" do
+            it "updates public_updated_at to previous item's value" do
+              described_class.call(payload)
 
-            described_class.call(payload)
+              expect(draft_item.reload.public_updated_at)
+                .to eq(live_item.public_updated_at)
+            end
+          end
 
-            expect(draft_item.reload.public_updated_at.iso8601).to eq(public_updated_at.iso8601)
+          context "and the previous live version does not have public_updated_at" do
+            before do
+              live_item.update_attributes(public_updated_at: nil)
+            end
+
+            it "updates public_updated_at to current time" do
+              described_class.call(payload)
+
+              expect(draft_item.reload.public_updated_at).to eq(Time.now)
+            end
           end
         end
       end
@@ -343,6 +372,7 @@ RSpec.describe Commands::V2::Publish do
           payload[:update_type] = "minor"
           ChangeNote.create!(edition: draft_item)
         end
+
         it "deletes associated ChangeNote records" do
           expect { described_class.call(payload) }
             .to change { ChangeNote.count }.by(-1)
@@ -350,41 +380,23 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "with a first_published_at set on the draft edition" do
-      let(:first_published_at) { Time.zone.now - 1.year }
-
-      before do
-        draft_item.update_attributes!(first_published_at: first_published_at)
-      end
-
-      it "uses the stored timestamp" do
+    context "with no temporary_first_published_at set on the edition" do
+      it "updates the temporary_first_published_at time to current time" do
         described_class.call(payload)
-
-        expect(draft_item.reload.first_published_at).to be_within(1.second).of(first_published_at)
+        expect(draft_item.reload.temporary_first_published_at)
+          .to eq(Time.zone.now)
       end
     end
 
-    context "with no first_published_at set on the draft edition" do
+    context "with no first_published_at set on the edition" do
       before do
         draft_item.update_attributes!(first_published_at: nil)
       end
 
-      it "updates the first_published_at time to now" do
+      it "sets first_published_at to the current time" do
         described_class.call(payload)
 
-        expect(draft_item.reload.first_published_at).to be_within(1.second).of(Time.zone.now)
-      end
-    end
-
-    context "with no first_published_at and no public_updated_at set on the draft edition" do
-      before do
-        draft_item.update_attributes!(first_published_at: nil, public_updated_at: nil)
-      end
-
-      it "updates both fields with the same value" do
-        described_class.call(payload)
-
-        expect(draft_item.first_published_at).to eq(draft_item.public_updated_at)
+        expect(draft_item.reload.first_published_at).to eq(Time.zone.now)
       end
     end
 

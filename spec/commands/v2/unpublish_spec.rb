@@ -1,6 +1,14 @@
 require "rails_helper"
 
 RSpec.describe Commands::V2::Unpublish do
+  before do
+    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+  end
+
+  after do
+    Timecop.return
+  end
+
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
   let(:locale) { "en" }
@@ -270,6 +278,13 @@ RSpec.describe Commands::V2::Unpublish do
           expect(unpublishing.type).to eq("gone")
           expect(unpublishing.explanation).to eq("Removed for testing porpoises")
           expect(unpublishing.alternative_path).to eq("/new-path")
+        end
+
+        it "sets temporary_first_published_at to current time" do
+          described_class.call(payload_with_allow_draft)
+
+          expect(draft_edition.reload.temporary_first_published_at)
+            .to eq(Time.zone.now)
         end
 
         context "where there is an access limit" do

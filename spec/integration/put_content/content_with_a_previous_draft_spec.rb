@@ -5,6 +5,11 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
+    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+  end
+
+  after do
+    Timecop.return
   end
 
   let(:document) do
@@ -33,25 +38,61 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
     expect(previously_drafted_item.content_store).to eq("draft")
   end
 
-  it "allows the setting of first_published_at" do
-    explicit_first_published = DateTime.new(2016, 05, 23, 1, 1, 1).rfc3339
-    payload[:first_published_at] = explicit_first_published
-
-    put "/v2/content/#{content_id}", params: payload.to_json
-
-    expect(previously_drafted_item.reload.first_published_at)
-      .to eq(explicit_first_published)
-  end
-
-  it "keeps the first_published_at timestamp if not set in payload" do
-    first_published_at = 1.year.ago
-    previously_drafted_item.update_attributes(first_published_at: first_published_at)
-
+  it "sets temporary_last_edited_at to current time" do
     put "/v2/content/#{content_id}", params: payload.to_json
     previously_drafted_item.reload
 
-    expect(previously_drafted_item.first_published_at).to be_present
-    expect(previously_drafted_item.first_published_at.iso8601).to eq(first_published_at.iso8601)
+    expect(previously_drafted_item.temporary_last_edited_at).to eq(Time.now)
+  end
+
+  it "sets last_edited_at to current time" do
+    put "/v2/content/#{content_id}", params: payload.to_json
+    previously_drafted_item.reload
+
+    expect(previously_drafted_item.last_edited_at).to eq(Time.now)
+  end
+
+  context "when public_updated_at is in the payload" do
+    let(:public_updated_at) { Time.now }
+    before do
+      payload[:public_updated_at] = public_updated_at
+    end
+
+    it "allows the setting of publisher_major_published_at" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+      previously_drafted_item.reload
+
+      expect(previously_drafted_item.publisher_major_published_at)
+        .to eq(public_updated_at)
+    end
+
+    it "allows the setting of public_updated_at" do
+      put "/v2/content/#{content_id}", params: payload.to_json
+      previously_drafted_item.reload
+
+      expect(previously_drafted_item.public_updated_at)
+        .to eq(public_updated_at)
+    end
+  end
+
+  context "when first_published_at is in the payload" do
+    it "allows the setting of first_published_at and publisher_first_published_at" do
+      explicit_first_published = DateTime.new(2016, 05, 23, 1, 1, 1).rfc3339
+      payload[:first_published_at] = explicit_first_published
+
+      put "/v2/content/#{content_id}", params: payload.to_json
+
+      expect(previously_drafted_item.reload.first_published_at)
+        .to eq(explicit_first_published)
+      expect(previously_drafted_item.publisher_first_published_at)
+        .to eq(explicit_first_published)
+    end
+  end
+
+  it "has a temporary_first_published_at of nil" do
+    put "/v2/content/#{content_id}", params: payload.to_json
+    expect(previously_drafted_item.reload.temporary_first_published_at)
+      .to be_nil
   end
 
   it "does not increment the user-facing version for the edition" do
