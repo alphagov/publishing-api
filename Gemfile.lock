@@ -124,7 +124,7 @@ GEM
       sidekiq (~> 4.2.8)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
-    hashdiff (0.3.5)
+    hashdiff (0.3.6)
     hashie (3.4.6)
     highline (1.7.8)
     htmlentities (4.3.4)
@@ -407,7 +407,7 @@ DEPENDENCIES
   govuk_document_types (~> 0.1)
   govuk_schemas (~> 2.1.1)
   govuk_sidekiq (~> 2.0)
-  hashdiff
+  hashdiff (~> 0.3.6)
   json-schema
   logstasher (= 0.6.2)
   oj (~> 2.16.1)
