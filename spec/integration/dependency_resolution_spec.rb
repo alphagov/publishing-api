@@ -142,6 +142,24 @@ RSpec.describe "Dependency Resolution" do
     end
   end
 
+  context "where there are reverse links: child_taxons and direct links: associated_taxons" do
+    let(:a) { SecureRandom.uuid }
+    let(:b) { SecureRandom.uuid }
+
+    before do
+      # creates links from
+      # a -(child_taxons)-> b -(associated_taxons)-> content_id
+      create_link_set(b, links_hash: {
+        parent_taxons: [a],
+        associated_taxons: [content_id],
+      })
+    end
+
+    it "has a dependency to all items" do
+      expect(dependency_resolution).to match_array([a, b])
+    end
+  end
+
   context "when there is an edition that has an edition link to content_id" do
     let(:edition_content_id) { SecureRandom.uuid }
     let(:edition_locale) { :en }

@@ -50,8 +50,11 @@ RSpec.describe ExpansionRules do
   end
 
   describe ".next_allowed_direct_link_types" do
+    let(:reverse_to_direct) { false }
     subject do
-      described_class.next_allowed_direct_link_types(next_allowed_link_types)
+      described_class.next_allowed_direct_link_types(
+        next_allowed_link_types, reverse_to_direct: reverse_to_direct
+      )
     end
 
     context "when passed direct links only" do
@@ -86,6 +89,31 @@ RSpec.describe ExpansionRules do
       end
 
       it "returns the direct links" do
+        is_expected.to match(parent: [:parent])
+      end
+    end
+
+    context "when passed a reverse link with direct links" do
+      let(:next_allowed_link_types) do
+        {
+          children: [:parent],
+        }
+      end
+
+      it "returns the direct links" do
+        is_expected.to match(children: [:parent])
+      end
+    end
+
+    context "when reverse_to_direct is true and passed a reverse link with direct links" do
+      let(:reverse_to_direct) { true }
+      let(:next_allowed_link_types) do
+        {
+          children: [:parent],
+        }
+      end
+
+      it "reverses the link type" do
         is_expected.to match(parent: [:parent])
       end
     end

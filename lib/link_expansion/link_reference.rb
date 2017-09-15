@@ -48,7 +48,7 @@ private
 
   def own_links(content_id, allowed_link_types = nil, link_types_path = [], parent_content_ids = [])
     next_allowed_link_types_from = rules.link_expansion
-      .next_allowed_direct_link_types(allowed_link_types, link_types_path)
+      .next_allowed_direct_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
     next_allowed_link_types_to = rules.link_expansion
       .next_allowed_reverse_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
 
@@ -71,7 +71,7 @@ private
 
   def linked_to(content_id, allowed_link_types = nil, link_types_path = [], parent_content_ids = [])
     next_allowed_link_types_from = rules.link_expansion
-      .next_allowed_direct_link_types(allowed_link_types, link_types_path)
+      .next_allowed_direct_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
     next_allowed_link_types_to = rules.link_expansion
       .next_allowed_reverse_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
 

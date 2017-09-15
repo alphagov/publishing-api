@@ -124,9 +124,11 @@ module ExpansionRules
     end
   end
 
-  def next_allowed_direct_link_types(next_allowed_link_types)
+  def next_allowed_direct_link_types(next_allowed_link_types, reverse_to_direct: false)
     next_allowed_link_types.each_with_object({}) do |(link_type, allowed_links), memo|
       next if allowed_links.empty?
+
+      link_type = (reverse_to_direct_link_type(link_type) || link_type) if reverse_to_direct
 
       links = allowed_links.select { |link| !is_reverse_link_type?(link) }
 
