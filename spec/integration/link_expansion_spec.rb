@@ -170,6 +170,20 @@ RSpec.describe "Link Expansion" do
       end
     end
 
+    context "graph with reverse links linking to direct links" do
+      it "has the direct link (associated_taxons) from the reverse link (child_taxons)" do
+        create_link(b, a, "parent_taxons")
+        create_link(b, c, "associated_taxons")
+
+        expect(expanded_links[:child_taxons]).to match([
+          a_hash_including(
+            base_path: "/b",
+            links: a_hash_including(:associated_taxons),
+          )
+        ])
+      end
+    end
+
     context "cyclic dependencies" do
       it "expands the links for node a correctly" do
         create_link(a, b, "parent")
