@@ -53,7 +53,7 @@ private
     next_allowed_link_types_from = rules.dependency_resolution
       .next_allowed_reverse_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
     next_allowed_link_types_to = rules.dependency_resolution
-      .next_allowed_direct_link_types(allowed_link_types, link_types_path)
+      .next_allowed_direct_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
 
     links = Queries::Links.from(content_id,
       allowed_link_types: rules.reverse_to_direct_link_types(allowed_link_types),
@@ -78,7 +78,7 @@ private
     next_allowed_link_types_from = rules.dependency_resolution
       .next_allowed_reverse_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
     next_allowed_link_types_to = rules.dependency_resolution
-      .next_allowed_direct_link_types(allowed_link_types, link_types_path)
+      .next_allowed_direct_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
 
     Queries::Links.to(content_id,
       allowed_link_types: allowed_link_types,
