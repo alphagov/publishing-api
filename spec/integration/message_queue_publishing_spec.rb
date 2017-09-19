@@ -11,7 +11,8 @@ RSpec.describe "Message queue publishing" do
     put "/v2/content/#{content_id}", params: edition.to_json
     expect(response).to be_ok, random_content_failure_message(response, edition)
 
-    post "/v2/content/#{content_id}/publish", params: { locale: edition["locale"], update_type: "major" }.to_json
+    params = edition["locale"] ? { locale: edition["locale"] } : {}
+    post "/v2/content/#{content_id}/publish", params: params.to_json
     expect(response).to be_ok, random_content_failure_message(response, edition)
 
     ensure_message_queue_payload_validates_against_notification_schema
