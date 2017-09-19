@@ -23,6 +23,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
 - [`GET /v2/linked/:content_id`](#get-v2linkedcontent_id)
 - [`GET /v2/linkables`](#get-v2linkables)
+- [`GET /v2/links/changes`](#get-v2linkschanges)
 - [`GET /v2/editions`](#get-v2editions)
 - [`POST /v2/links/by-content-id`](#post-v2linksby-content-id)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
@@ -566,6 +567,27 @@ which is `details.internal_name` and falls back to `title`.
 
 - `document_type` *(required)*
   - The `document_type` value that returned editions has.
+
+## `GET /v2/links/changes`
+
+Returns an array of changes to links, giving the information on what
+changed (source and target content ids, and the link type), when the
+change happened, what user was associated with the action, and if the
+link was created or deleted.
+
+The results will be in descending order by date, so newer changes come before
+older changes. A maximum of 250 changes will be returned.
+
+### Query string parameters
+
+- `link_types[]` *(required)*
+  - Filter the changes by link type.
+- `source_content_ids[]`
+  - Filter the changes by source content id.
+- `target_content_ids[]`
+  - Filter the changes by source content id.
+- `users[]`
+  - Filter the changes by user UIDs.
 
 ## `GET /v2/editions`
 

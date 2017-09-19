@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       get "/new-linkables", to: "content_items#new_linkables"
 
       post "/actions/:content_id", to: "actions#create"
+
+      get "/links/changes", to: "link_changes#index"
     end
 
     if ENV.include?("CONTENT_API_PROTOTYPE")
