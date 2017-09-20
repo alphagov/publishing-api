@@ -13,15 +13,12 @@ RSpec.shared_context "PutContent call" do
       routes: [{ path: base_path, type: "exact" }],
       redirects: [],
       phase: "beta",
-      change_note: change_note
+      change_note: change_note,
     }
   end
 
   let(:base_path) { "/vat-rates" }
   let(:locale) { "en" }
   let(:content_id) { SecureRandom.uuid }
-
-  let(:change_note) do
-    { note: "Info", public_timestamp: Time.now.utc.to_s }
-  end
+  let(:change_note) { "change note" }
 end

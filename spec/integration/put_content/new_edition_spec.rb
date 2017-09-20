@@ -99,7 +99,12 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
   context "and the change history is in the details hash" do
     before do
       payload.delete(:change_note)
-      payload[:details] = { change_history: [change_note] }
+
+      payload[:details] = {
+        change_history: [
+          { note: change_note, public_timestamp: Time.now.utc.to_s },
+        ]
+      }
     end
 
     include_examples "creates a change note"
@@ -108,7 +113,7 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
   context "and the change note is in the details hash" do
     before do
       payload.delete(:change_note)
-      payload[:details] = { change_note: change_note[:note] }
+      payload[:details] = { change_note: change_note }
     end
 
     include_examples "creates a change note"

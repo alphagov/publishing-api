@@ -42,6 +42,10 @@ private
     # including them in the payload.
     edition.links.delete_all
 
+    if edition.update_type == "minor" && edition.change_note.present?
+      edition.change_note.delete
+    end
+
     edition.save!
     [edition, old_edition]
   end
