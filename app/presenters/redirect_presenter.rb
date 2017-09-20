@@ -27,7 +27,7 @@ class RedirectPresenter
   end
 
   def for_redirect_helper(content_id)
-    present.merge(content_id: content_id)
+    present.merge(content_id: content_id, update_type: "major")
   end
 
 private

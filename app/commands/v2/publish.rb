@@ -183,7 +183,6 @@ module Commands
           {
             content_id: draft_redirect.document.content_id,
             locale: draft_redirect.document.locale,
-            update_type: "major",
           },
           downstream: downstream,
           callbacks: callbacks,
