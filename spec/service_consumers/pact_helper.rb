@@ -316,7 +316,45 @@ Pact.provider_states_for "GDS API Adapters" do
       )
     end
   end
+  provider_state "there are two link changes with a link_type of 'taxons'" do
+    set_up do
+      Timecop.freeze("2017-01-01 09:00:00.1") do
+        document_a1 = FactoryGirl.build(:document, content_id: 'aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa')
+        document_a2 = FactoryGirl.build(:document, content_id: 'aaaaaaaa-aaaa-2aaa-aaaa-aaaaaaaaaaaa')
+        document_b1 = FactoryGirl.build(:document, content_id: 'bbbbbbbb-bbbb-1bbb-bbbb-bbbbbbbbbbbb')
+        document_b2 = FactoryGirl.build(:document, content_id: 'bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb')
 
+        FactoryGirl.create(:edition,
+                           title: 'Edition Title A1',
+                           base_path: '/base/path/a1',
+                           document: document_a1)
+        FactoryGirl.create(:edition,
+                           title: 'Edition Title A2',
+                           base_path: '/base/path/a2',
+                           document: document_a2)
+        FactoryGirl.create(:edition,
+                           title: 'Edition Title B1',
+                           base_path: '/base/path/b1',
+                           document: document_b1)
+        FactoryGirl.create(:edition,
+                           title: 'Edition Title B2',
+                           base_path: '/base/path/b2',
+                           document: document_b2)
+
+        FactoryGirl.create(:link_change,
+                           source_content_id: document_a1.content_id,
+                           target_content_id: document_b1.content_id,
+                           action: FactoryGirl.create(:action, user_uid: '11111111-1111-1111-1111-111111111111'),
+                           change: 'add')
+
+        FactoryGirl.create(:link_change,
+                           source_content_id: document_a2.content_id,
+                           target_content_id: document_b2.content_id,
+                           action: FactoryGirl.create(:action, user_uid: '22222222-2222-2222-2222-222222222222'),
+                           change: 'remove')
+      end
+    end
+  end
   provider_state "there is content with document_type 'topic' for multiple publishing apps" do
     set_up do
       document_a = FactoryGirl.create(:document)
