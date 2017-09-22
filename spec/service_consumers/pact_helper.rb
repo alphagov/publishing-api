@@ -324,34 +324,42 @@ Pact.provider_states_for "GDS API Adapters" do
         document_b1 = FactoryGirl.build(:document, content_id: 'bbbbbbbb-bbbb-1bbb-bbbb-bbbbbbbbbbbb')
         document_b2 = FactoryGirl.build(:document, content_id: 'bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb')
 
+        action1 = FactoryGirl.create(:action, user_uid: '11111111-1111-1111-1111-111111111111')
+        action2 = FactoryGirl.create(:action, user_uid: '22222222-2222-2222-2222-222222222222')
+
         FactoryGirl.create(:edition,
-                           title: 'Edition Title A1',
-                           base_path: '/base/path/a1',
-                           document: document_a1)
+          title: 'Edition Title A1',
+          base_path: '/base/path/a1',
+          document: document_a1
+        )
         FactoryGirl.create(:edition,
-                           title: 'Edition Title A2',
-                           base_path: '/base/path/a2',
-                           document: document_a2)
+          title: 'Edition Title A2',
+          base_path: '/base/path/a2',
+          document: document_a2
+        )
         FactoryGirl.create(:edition,
-                           title: 'Edition Title B1',
-                           base_path: '/base/path/b1',
-                           document: document_b1)
+          title: 'Edition Title B1',
+          base_path: '/base/path/b1',
+          document: document_b1
+        )
         FactoryGirl.create(:edition,
-                           title: 'Edition Title B2',
-                           base_path: '/base/path/b2',
-                           document: document_b2)
+          title: 'Edition Title B2',
+          base_path: '/base/path/b2',
+          document: document_b2
+        )
 
         FactoryGirl.create(:link_change,
-                           source_content_id: document_a1.content_id,
-                           target_content_id: document_b1.content_id,
-                           action: FactoryGirl.create(:action, user_uid: '11111111-1111-1111-1111-111111111111'),
-                           change: 'add')
-
+          source_content_id: document_a1.content_id,
+          target_content_id: document_b1.content_id,
+          action: action1,
+          change: 'add'
+        )
         FactoryGirl.create(:link_change,
-                           source_content_id: document_a2.content_id,
-                           target_content_id: document_b2.content_id,
-                           action: FactoryGirl.create(:action, user_uid: '22222222-2222-2222-2222-222222222222'),
-                           change: 'remove')
+          source_content_id: document_a2.content_id,
+          target_content_id: document_b2.content_id,
+          action: action2,
+          change: 'remove'
+        )
       end
     end
   end
