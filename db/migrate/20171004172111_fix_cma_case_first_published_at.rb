@@ -1,4 +1,6 @@
 class FixCmaCaseFirstPublishedAt < ActiveRecord::Migration[5.1]
+  disable_ddl_transaction!
+
   def change
     # The content_ids for the items that will need representing downstream
     content_ids = Edition.joins(:document)
