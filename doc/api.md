@@ -155,6 +155,7 @@ presented edition and [warnings](#warnings).
   - Required for a `document_type` that is not "redirect" or "gone".
 - `update_type` *(optional)*
   - Accepts: "major", "minor", "republish"
+  - It is acceptable to send a "minor" update for the first ever draft
 
 ### State changes
 
