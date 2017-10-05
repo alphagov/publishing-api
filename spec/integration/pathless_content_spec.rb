@@ -11,7 +11,7 @@ RSpec.describe "pathless content" do
           publishing_app: "publisher",
           rendering_app: "frontend",
           document_type: "contact",
-          details: { title: "Contact Title" },
+          details: { title: "Contact Title", contact_groups: [] },
           schema_name: "contact",
           locale: "en",
           phase: "beta",
