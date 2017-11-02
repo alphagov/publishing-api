@@ -115,7 +115,7 @@ GEM
     govuk_app_config (0.2.0)
       sentry-raven (~> 2.6.3)
       statsd-ruby (~> 1.4.0)
-    govuk_document_types (0.1.8)
+    govuk_document_types (0.1.10)
     govuk_schemas (2.1.1)
       json-schema (~> 2.5.0)
     govuk_sidekiq (2.0.0)
