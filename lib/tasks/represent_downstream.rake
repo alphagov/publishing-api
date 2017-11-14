@@ -10,7 +10,7 @@ namespace :represent_downstream do
   desc "Represent all editions downstream"
   task all: :environment do
     represent_downstream(
-      Edition.with_document.where.not(content_store: nil)
+      Document.joins(:editions).where.not(editions: { content_store: nil })
     )
   end
 
@@ -21,7 +21,7 @@ namespace :represent_downstream do
   "
   task :document_type, [:document_type] => :environment do |_t, args|
     represent_downstream(
-      Edition.with_document.where(document_type: args[:document_type])
+      Document.joins(:editions).where(editions: { document_type: args[:document_type] })
     )
   end
 
@@ -32,7 +32,7 @@ namespace :represent_downstream do
   "
   task :rendering_app, [:rendering_app] => :environment do |_t, args|
     represent_downstream(
-      Edition.with_document.where(rendering_app: args[:rendering_app])
+      Document.joins(:editions).where(editions: { rendering_app: args[:rendering_app] })
     )
   end
 
@@ -43,7 +43,7 @@ namespace :represent_downstream do
   "
   task :publishing_app, [:publishing_app] => :environment do |_t, args|
     represent_downstream(
-      Edition.with_document.where(publishing_app: args[:publishing_app])
+      Document.joins(:editions).where(editions: { publishing_app: args[:publishing_app] })
     )
   end
 
@@ -55,14 +55,14 @@ namespace :represent_downstream do
   end
 
   desc "
-  Represent an individual or multiple editions downstream
+  Represent an individual or multiple documents downstream
   Usage
   rake 'represent_downstream:content_id[57a1253c-68d3-4a93-bb47-b67b9b4f6b9a]'
   "
   task :content_id, [:content_id] => :environment do |_t, args|
     content_ids = args[:content_id].split(" ")
     represent_downstream(
-      Edition.with_document.where(documents: { content_id: content_ids })
+      Document.where(content_id: content_ids)
     )
   end
 end
