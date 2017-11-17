@@ -4,8 +4,6 @@ source "https://rubygems.org"
 gem "rails", "5.1"
 gem "arel", "8.0"
 
-gem "unicorn", "~> 4.9.0"
-gem "logstasher", "0.6.2"
 gem "plek", "~> 1.10"
 gem "pg"
 gem 'dalli'
@@ -19,7 +17,7 @@ else
 end
 
 gem "gds-sso", "13.0.0"
-gem "govuk_app_config", "~> 0.2"
+gem "govuk_app_config", github: "alphagov/govuk_app_config", branch: "add_logstasher"
 gem "govuk_schemas", "~> 2.1.1"
 gem "govuk_document_types", "~> 0.1"
 
