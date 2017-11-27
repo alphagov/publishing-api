@@ -18,7 +18,7 @@ production:
   hosts:
     <% hosts = ENV['RABBITMQ_HOSTS'] || 'localhost' %>
     <% hosts.split(",").each do |host| %>
-    - <% host %>
+    - <%= host %>
     <% end %>
   user: publishing_api
   pass: <%= ENV['RABBITMQ_PASSWORD'] %>
