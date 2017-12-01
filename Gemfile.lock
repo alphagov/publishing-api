@@ -121,7 +121,7 @@ GEM
     govuk_app_config (0.3.0)
       sentry-raven (~> 2.6.3)
       statsd-ruby (~> 1.4.0)
-    govuk_document_types (0.1.10)
+    govuk_document_types (0.1.11)
     govuk_schemas (2.1.1)
       json-schema (~> 2.5.0)
     govuk_sidekiq (2.0.0)
@@ -454,4 +454,4 @@ DEPENDENCIES
   with_advisory_lock (~> 3.1)
 
 BUNDLED WITH
-   1.15.1
+   1.16.0
