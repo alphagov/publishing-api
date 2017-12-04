@@ -284,6 +284,18 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "there are four content items with document_type 'topic'" do
+    set_up do
+      (1..4).each do |index|
+        FactoryGirl.create(:live_edition,
+                           title: "title_#{index}",
+                           document: FactoryGirl.create(:document),
+                           base_path: "/path_#{index}",
+                           document_type: "topic")
+      end
+    end
+  end
+
   provider_state "there is content with document_type 'topic'" do
     set_up do
       document_a = FactoryGirl.create(:document,
