@@ -2,18 +2,18 @@ require "govuk_schemas"
 
 module RandomContentHelpers
   def generate_random_edition(base_path)
-    random = GovukSchemas::RandomExample.for_schema(publisher_schema: "placeholder")
+    GovukSchemas::RandomExample.for_schema(publisher_schema: "placeholder") do |content|
+      content.merge(
+        base_path: base_path,
+        update_type: "major",
 
-    random.merge_and_validate(
-      base_path: base_path,
-      update_type: "major",
-
-      title: "Something not empty", # TODO: make schemas validate title length
-      routes: [
-        { path: base_path, type: "prefix" },
-      ],
-      redirects: []
-    )
+        title: "Something not empty", # TODO: make schemas validate title length
+        routes: [
+          { path: base_path, type: "prefix" },
+        ],
+        redirects: []
+      )
+    end
   end
 
   def random_content_failure_message(response, edition)
