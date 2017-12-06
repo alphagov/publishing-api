@@ -131,7 +131,8 @@ presented edition and [warnings](#warnings).
 - `previous_version` *(optional, recommended)*
   - Used to ensure that the most recent version of the draft is being updated.
 - `public_updated_at` *(conditionally required)*
-  - Required if `document_type` is not "contact" or "government".
+  - Required if `document_type` is not "contact" or "government" and
+    `update_type` is "major".
   - An [RFC 3339][rfc-3339] formatted timestamp should be provided, although
     [other formats][to-time-docs] may be accepted.
   - The publicly shown date that this edition was last edited at.
