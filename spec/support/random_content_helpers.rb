@@ -8,10 +8,7 @@ module RandomContentHelpers
       base_path: base_path,
       update_type: "major",
 
-      # TODOs:
       title: "Something not empty", # TODO: make schemas validate title length
-      rendering_app: "government-frontend", # TODO: remove after https://github.com/alphagov/govuk-content-schemas/pull/575
-      publishing_app: "publisher", # TODO: remove after https://github.com/alphagov/govuk-content-schemas/pull/575
       routes: [
         { path: base_path, type: "prefix" },
       ],
