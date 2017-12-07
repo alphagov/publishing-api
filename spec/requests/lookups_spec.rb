@@ -24,6 +24,20 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
       )
     end
 
+    it "returns content_ids including drafts with 'with_draft' option" do
+      create_test_content
+
+      post "/lookup-by-base-path", params: { base_paths: test_base_paths, with_drafts: true }
+
+      expect(parsed_response).to eql(
+        "/published-and-draft-page" => "aa491126-77ed-4e81-91fa-8dc7f74e9657",
+        "/only-draft-page" => "a4038b29-b332-4f13-98b1-1c9709e216bc",
+        "/only-published-page" => "bbabcd3c-7c45-4403-8490-db51e4bfc4f6",
+        "/superseded-and-draft-page" => "dd1bf833-f91c-4e45-9f97-87b165808176",
+        "/withdrawn-page" => "00abcd3c-7c45-4403-8490-db51e4bfc4f6",
+      )
+    end
+
     it "excludes redirect content items" do
       FactoryGirl.create(:redirect_edition, state: "published", base_path: "/redirect-page", user_facing_version: 1)
 
@@ -94,6 +108,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
     doc4 = FactoryGirl.create(:document, content_id: "ee491126-77ed-4e81-91fa-8dc7f74e9657")
     doc5 = FactoryGirl.create(:document, content_id: "ffabcd3c-7c45-4403-8490-db51e4bfc4f6")
     doc6 = FactoryGirl.create(:document, content_id: "00abcd3c-7c45-4403-8490-db51e4bfc4f6")
+    doc7 = FactoryGirl.create(:document, content_id: "a4038b29-b332-4f13-98b1-1c9709e216bc")
 
     FactoryGirl.create(:live_edition, state: "published", base_path: "/published-and-draft-page", document: doc1, user_facing_version: 1)
     FactoryGirl.create(:edition, state: "draft", base_path: "/published-and-draft-page", document: doc1, user_facing_version: 2)
@@ -109,6 +124,8 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
 
     unpublished3 = FactoryGirl.create(:live_edition, state: "published", base_path: "/withdrawn-page", document: doc6, user_facing_version: 1)
     unpublished3.unpublish(type: "withdrawal", explanation: "Consolidated into another page")
+
+    FactoryGirl.create(:edition, state: "draft", base_path: "/only-draft-page", document: doc7, user_facing_version: 1)
   end
 
   def test_base_paths
@@ -119,7 +136,8 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
       "/does-not-exist",
       "/redirected-from-page",
       "/gone-page",
-      "/withdrawn-page"
+      "/withdrawn-page",
+      "/only-draft-page",
     ]
   end
 end
