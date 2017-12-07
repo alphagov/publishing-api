@@ -98,8 +98,8 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
     FactoryGirl.create(:live_edition, state: "published", base_path: "/published-and-draft-page", document: doc1, user_facing_version: 1)
     FactoryGirl.create(:edition, state: "draft", base_path: "/published-and-draft-page", document: doc1, user_facing_version: 2)
     FactoryGirl.create(:live_edition, state: "published", base_path: "/only-published-page", document: doc2)
-    FactoryGirl.create(:edition, state: "draft", base_path: "/draft-and-superseded-page", document: doc3, user_facing_version: 2)
-    FactoryGirl.create(:superseded_edition, state: "superseded", base_path: "/draft-and-superseded-page", document: doc3, user_facing_version: 1)
+    FactoryGirl.create(:superseded_edition, state: "superseded", base_path: "/superseded-and-draft-page", document: doc3, user_facing_version: 1)
+    FactoryGirl.create(:edition, state: "draft", base_path: "/superseded-and-draft-page", document: doc3, user_facing_version: 2)
 
     unpublished1 = FactoryGirl.create(:live_edition, state: "published", base_path: "/redirected-from-page", document: doc4, user_facing_version: 1)
     unpublished1.unpublish(type: "redirect", redirects: [{ path: unpublished1.base_path, type: :exact, destination: "/redirected-to-page" }])
@@ -115,7 +115,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
     [
       "/published-and-draft-page",
       "/only-published-page",
-      "/draft-and-superseded-page",
+      "/superseded-and-draft-page",
       "/does-not-exist",
       "/redirected-from-page",
       "/gone-page",
