@@ -23,9 +23,11 @@ node {
     afterTest: {
       publishCoverage(govuk);
 
-      runPublishingApiPactTests(govuk);
+      lock("publishing-api-$NODE_NAME-test") {
+        runPublishingApiPactTests(govuk);
 
-      runContentStorePactTests(govuk);
+        runContentStorePactTests(govuk);
+      }
     }
   )
 }
