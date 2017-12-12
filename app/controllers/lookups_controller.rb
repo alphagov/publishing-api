@@ -22,8 +22,11 @@ class LookupsController < ApplicationController
     scope = scope.with_document
       .where(state: states, content_store: content_stores, base_path: base_paths)
       .where.not(document_type: params.fetch('exclude_document_types', %w{gone redirect}))
+      .order(state: :desc)
 
-    base_paths_and_content_ids = scope.distinct.pluck(:base_path, 'documents.content_id')
+    base_paths_and_content_ids = scope.pluck(
+      "distinct on (editions.base_path, editions.state) editions.base_path, documents.content_id"
+    )
 
     response = Hash[base_paths_and_content_ids]
     render json: response
