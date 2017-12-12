@@ -522,6 +522,14 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "there is a draft content item with base_path /foo" do
+    set_up do
+      document = FactoryGirl.create(:document, content_id: "cbb460a7-60de-4a74-b5be-0b27c6d6af9b")
+
+      FactoryGirl.create(:draft_edition, base_path: '/foo', document: document)
+    end
+  end
+
   provider_state "there are 4 live content items with fixed updated timestamps" do
     set_up do
       document_1 = FactoryGirl.create(:document, content_id: 'bd50a6d9-f03d-4ccf-94aa-ad79579990a9')
