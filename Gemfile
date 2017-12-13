@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "rails", "5.1"
 gem "arel", "8.0"
 
-gem "unicorn", "~> 4.9.0"
+gem "unicorn", "~> 5.3.1"
 gem "logstasher", "1.2.2"
 gem "plek", "~> 2.0"
 gem "pg"
