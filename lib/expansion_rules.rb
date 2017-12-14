@@ -27,6 +27,7 @@ module ExpansionRules
     documents: :document_collections,
     working_groups: :policies,
     parent_taxons: :child_taxons,
+    root_taxon: :level_one_taxons
   }.freeze
 
   DEFAULT_FIELDS = [
