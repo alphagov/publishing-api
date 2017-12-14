@@ -54,7 +54,7 @@ group :development, :test do
   gem "rspec-rails", "~> 3.5"
   gem "simplecov", "0.10.0", require: false
   gem "simplecov-rcov", "0.2.3", require: false
-  gem "factory_girl_rails", "4.7.0"
+  gem "factory_girl_rails", "4.9.0"
   gem "pact_broker-client"
   gem "govuk-lint"
   gem "faker"
