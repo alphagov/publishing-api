@@ -591,10 +591,10 @@ GEM
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.0)
-    factory_girl (4.7.0)
+    factory_girl (4.9.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.7.0)
-      factory_girl (~> 4.7.0)
+    factory_girl_rails (4.9.0)
+      factory_girl (~> 4.9.0)
       railties (>= 3.0.0)
     faker (1.8.5)
       i18n (~> 0.9.1)
@@ -933,7 +933,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   diffy (~> 3.1)
-  factory_girl_rails (= 4.7.0)
+  factory_girl_rails (= 4.9.0)
   faker
   gds-api-adapters (~> 50.6.0)
   gds-sso (= 13.0.0)
