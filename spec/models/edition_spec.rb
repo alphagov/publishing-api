@@ -257,7 +257,7 @@ RSpec.describe Edition do
   context "EMPTY_BASE_PATH_FORMATS" do
     it "defines formats not requiring a base_path attibute" do
       expect(Edition::EMPTY_BASE_PATH_FORMATS).to eq(
-        %w(contact government world_location)
+        %w(contact external_content government world_location)
       )
     end
   end
