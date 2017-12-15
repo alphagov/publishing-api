@@ -32,6 +32,7 @@ class Edition < ApplicationRecord
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
+  NO_RENDERING_APP_FORMATS = %w(contact external_content).freeze
   EMPTY_BASE_PATH_FORMATS = %w(contact external_content government world_location).freeze
   belongs_to :document
   has_one :unpublishing
@@ -237,6 +238,6 @@ private
   end
 
   def requires_rendering_app?
-    renderable_content? && document_type != "contact"
+    renderable_content? && NO_RENDERING_APP_FORMATS.exclude?(document_type)
   end
 end
