@@ -33,12 +33,21 @@ namespace :queue do
     document_type = args[:document_type]
     raise ValueError("expecting document_type") unless document_type.present?
 
+    # Restrict scope to stuff that's live (published or unpublished)
+    # Unpublished content without a content store representation won't
+    # be returned, but we're not interested in this content.
     scope = Edition
       .with_document
       .with_unpublishing
       .where(document_type: document_type)
+      .where(content_store: :live)
+      .select(:id)
 
-    RequeueContent.new(scope).call
+    version = Event.maximum(:id)
+
+    scope.find_each do |edition|
+      RequeueContent.perform_async(edition.id, version)
+    end
   end
 
   desc "Preview of the message published onto rabbit MQ"
