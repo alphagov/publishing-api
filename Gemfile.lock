@@ -610,7 +610,7 @@ GEM
       plek (>= 1.9.0)
       rack-cache
       rest-client (~> 2.0)
-    gds-sso (13.4.0)
+    gds-sso (13.5.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -935,7 +935,7 @@ DEPENDENCIES
   factory_girl_rails (= 4.9.0)
   faker
   gds-api-adapters (~> 50.6.0)
-  gds-sso (= 13.4.0)
+  gds-sso (= 13.5.0)
   govspeak (~> 5.2.2)
   govuk-lint
   govuk_app_config (~> 0.2)
