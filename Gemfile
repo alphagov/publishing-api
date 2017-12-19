@@ -39,7 +39,7 @@ group :development do
   gem "web-console", "~> 3"
 end
 
-gem "oj", "~> 2.16.1"
+gem "oj", "~> 3.3.9"
 gem "oj_mimic_json", "~> 1.0.1"
 
 group :development, :test do
