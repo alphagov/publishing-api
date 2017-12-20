@@ -58,7 +58,7 @@ Publishing API v2 client adapter would be:
 ```
   require "gds_api/publishing_api_v2"
 
-  publishing_api = GdsApi::PublishingApiV2.new(Plek.new("publishing-api"))
+  publishing_api = GdsApi::PublishingApiV2.new(Plek.find("publishing-api"))
 
 ```
 
@@ -84,7 +84,7 @@ Using the Publishing API v2 client adapter with a valid content_id and payload,
 the following example would make the request.
 
 ```
-  publishing_api = GdsApi::PublishingApiV2.new(Plek.new("publishing-api"))
+  publishing_api = GdsApi::PublishingApiV2.new(Plek.find("publishing-api"))
   content_id = SecureRandom.uuid
   guide = GuideContentModel.new(
     content_id: content_id,
