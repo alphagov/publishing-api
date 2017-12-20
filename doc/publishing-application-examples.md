@@ -51,7 +51,7 @@ same endpoint and finally can be published in a discrete endpoint request.
 ## Configuring the Publishing API for use in a publishing application
 
 HTTP requests to Publishing API endpoints should be made using the
-[publishing-api v2 gds-api-adapters client library][publishing-api-gds-adapters].
+[publishing-api v2 gds-api-adapters client library][publishing-api-gds-api-adapters].
 A trivial example of how to configure a publishing application to use the
 Publishing API v2 client adapter would be:
 
