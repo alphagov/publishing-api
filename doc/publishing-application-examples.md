@@ -62,6 +62,30 @@ Publishing API v2 client adapter would be:
 
 ```
 
+### Configuring authentication
+
+Individual applications require bearer tokens to access the publishing API. To
+create and configure tokens:
+
+0. Go to the API users config in Signon for each environment (e.g.
+  https://signon.integration.publishing.service.gov.uk/api_users). You must be
+  a superadmin to see this page.
+0. Find your application in the list or create a new API user for it. The app's
+  email address should be `name-of-app@alphagov.co.uk`.
+0. Add a publishing API application token for that user.
+0. Add the tokens for each environment to [govuk-secrets][govuk-secrets]
+  ([example][govuk-secrets-token-example]).
+0. Configure [govuk-puppet][govuk-puppet] to create an environment variable for
+  the token ([example][govuk-puppet-token-example]).
+0. Use the environment variable in the app:
+
+```
+@publishing_api = GdsApi::PublishingApiV2.new(
+  Plek.find("publishing-api"),
+  bearer_token: ENV["PUBLISHING_API_BEARER_TOKEN"] || "example",
+)
+```
+
 ## Drafting content from a publishing app
 
 Publishing applications should use the `PUT /v2/content/:content_id` endpoint
@@ -233,3 +257,7 @@ Is there anything wrong with the documentation? If so:
 [publishing-api-gds-api-adapters]: https://github.com/alphagov/gds-api-adapters/blob/master/lib/gds_api/publishing_api_v2.rb
 [case-study-schema]: https://github.com/alphagov/govuk-content-schemas/blob/master/dist/formats/case_study/publisher_v2/schema.json
 [govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
+[govuk-puppet]: https://github.com/alphagov/govuk-puppet
+[govuk-puppet-token-example]: https://github.com/alphagov/govuk-puppet/pull/6978
+[govuk-secrets]: https://github.com/alphagov/govuk-secrets
+[govuk-secrets-token-example]: https://github.com/alphagov/govuk-secrets/pull/130
