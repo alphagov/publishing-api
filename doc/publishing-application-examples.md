@@ -55,7 +55,7 @@ HTTP requests to Publishing API endpoints should be made using the
 A trivial example of how to configure a publishing application to use the
 Publishing API v2 client adapter would be:
 
-```
+```ruby
   require "gds_api/publishing_api_v2"
 
   publishing_api = GdsApi::PublishingApiV2.new(Plek.find("publishing-api"))
@@ -79,7 +79,7 @@ create and configure tokens:
   the token ([example][govuk-puppet-token-example]).
 0. Use the environment variable in the app:
 
-```
+```ruby
 @publishing_api = GdsApi::PublishingApiV2.new(
   Plek.find("publishing-api"),
   bearer_token: ENV["PUBLISHING_API_BEARER_TOKEN"] || "example",
@@ -107,7 +107,7 @@ for a [case study][case-study-schema] would need to provide `body` and
 Using the Publishing API v2 client adapter with a valid content_id and payload,
 the following example would make the request.
 
-```
+```ruby
   publishing_api = GdsApi::PublishingApiV2.new(Plek.find("publishing-api"))
   content_id = SecureRandom.uuid
   guide = GuideContentModel.new(
@@ -134,7 +134,7 @@ the following example would make the request.
 The response body would contain a presentation of the saved edition
 including the item lock version eg.
 
-```
+```js
   {"content_id":"940b88db-8f15-4859-b5b2-4761ba62a067",
   "locale":"en",
   "base_path":"/vat-rates",
@@ -155,7 +155,7 @@ including the item lock version eg.
 Which could then be used to update the local model instance in the publishing
 application:
 
-```
+```ruby
   parsed_response = JSON.parse(response.body)
   guide.update_attributes(parsed_response)
 ```
@@ -167,7 +167,7 @@ request. These may be validation errors for required content fields or more
 general errors pertaining to lock version locking. A 4xx error code will be
 returned along with error messages in the `response.body.error` object. eg.
 
-```
+```js
   {
     "status": 409,
     "headers": {
