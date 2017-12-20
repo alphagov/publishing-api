@@ -637,7 +637,7 @@ GEM
     govuk_app_config (0.3.0)
       sentry-raven (~> 2.6.3)
       statsd-ruby (~> 1.4.0)
-    govuk_document_types (0.1.11)
+    govuk_document_types (0.2.0)
     govuk_schemas (3.1.0)
       json-schema (~> 2.8.0)
     govuk_sidekiq (2.0.0)
@@ -939,7 +939,7 @@ DEPENDENCIES
   govspeak (~> 5.2.2)
   govuk-lint
   govuk_app_config (~> 0.2)
-  govuk_document_types (~> 0.1)
+  govuk_document_types (~> 0.2)
   govuk_schemas (~> 3.1.0)
   govuk_sidekiq (~> 2.0)
   hashdiff (~> 0.3.6)
