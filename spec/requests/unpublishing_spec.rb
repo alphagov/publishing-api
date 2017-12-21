@@ -255,6 +255,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         .with(
           a_hash_including(
             document_type: "gone",
+            content_id: content_id,
             details: a_hash_including(alternative_path: "/new-path"),
           ),
           event_type: "unpublish"
