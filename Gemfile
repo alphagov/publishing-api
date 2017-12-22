@@ -5,7 +5,6 @@ gem "rails", "5.1"
 gem "arel", "8.0"
 
 gem "unicorn", "~> 5.3.1"
-gem "logstasher", "1.2.2"
 gem "plek", "~> 2.0"
 gem "pg"
 gem 'dalli'

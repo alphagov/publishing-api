@@ -946,7 +946,6 @@ DEPENDENCIES
   govuk_sidekiq (~> 2.0)
   hashdiff (~> 0.3.6)
   json-schema
-  logstasher (= 1.2.2)
   oj (~> 2.16.1)
   oj_mimic_json (~> 1.0.1)
   pact
