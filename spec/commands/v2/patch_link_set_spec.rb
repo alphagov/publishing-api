@@ -254,7 +254,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
               a_hash_including(
                 content_id: content_id,
                 locale: locale,
-                payload_version: an_instance_of(Fixnum),
+                payload_version: an_instance_of(Integer),
               ),
             )
         end
@@ -327,7 +327,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
               content_id: content_id,
               locale: locale,
               message_queue_event_type: "links",
-              payload_version: an_instance_of(Fixnum),
+              payload_version: an_instance_of(Integer),
               orphaned_content_ids: [],
             )
         end
