@@ -1,6 +1,7 @@
 ENV['RAILS_ENV'] = 'test'
 require 'webmock'
 require 'pact/provider/rspec'
+require 'factory_bot_rails'
 
 WebMock.disable!
 
@@ -8,6 +9,7 @@ Pact.configure do |config|
   config.reports_dir = "spec/reports/pacts"
   config.include WebMock::API
   config.include WebMock::Matchers
+  config.include FactoryBot::Syntax::Methods
 end
 
 def url_encode(str)
@@ -414,29 +416,29 @@ Pact.provider_states_for "GDS API Adapters" do
       content_id2 = "08dfd5c3-d935-4e81-88fd-cfe65b78893d"
       content_id3 = "e2961462-bc37-48e9-bb98-c981ef1a2d59"
 
-      document_1 = create(:document, content_id: content_id1)
-      document_2 = create(:document, content_id: content_id2)
-      document_3 = create(:document, content_id: content_id3)
+      document1 = create(:document, content_id: content_id1)
+      document2 = create(:document, content_id: content_id2)
+      document3 = create(:document, content_id: content_id3)
 
       create(:live_edition,
-        document: document_1,
+        document: document1,
         user_facing_version: 1,
       )
 
       create(:draft_edition,
-        document: document_1,
+        document: document1,
         user_facing_version: 2
       )
 
       create(:live_edition,
-        document: document_3,
+        document: document3,
         base_path: '/item-b',
         public_updated_at: '2015-01-02',
         user_facing_version: 1,
       )
 
       create(:live_edition,
-        document: document_2,
+        document: document2,
         base_path: '/item-a',
         public_updated_at: '2015-01-01',
         user_facing_version: 1,
@@ -512,13 +514,13 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "there are live content items with base_paths /foo and /bar" do
     set_up do
-      document_1 = create(:document, content_id: "08f86d00-e95f-492f-af1d-470c5ba4752e")
+      document1 = create(:document, content_id: "08f86d00-e95f-492f-af1d-470c5ba4752e")
 
-      create(:live_edition, base_path: '/foo', document: document_1)
+      create(:live_edition, base_path: '/foo', document: document1)
 
-      document_2 = create(:document, content_id: "ca6c58a6-fb9d-479d-b3e6-74908781cb18")
+      document2 = create(:document, content_id: "ca6c58a6-fb9d-479d-b3e6-74908781cb18")
 
-      create(:live_edition, base_path: '/bar', document: document_2)
+      create(:live_edition, base_path: '/bar', document: document2)
     end
   end
 
@@ -532,15 +534,15 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "there are 4 live content items with fixed updated timestamps" do
     set_up do
-      document_1 = create(:document, content_id: 'bd50a6d9-f03d-4ccf-94aa-ad79579990a9')
-      document_2 = create(:document, content_id: '989033fe-252a-4e69-976d-5c0059bca949')
-      document_3 = create(:document, content_id: '271d4270-9186-4d60-b2ca-1d7dae7e0f73')
-      document_4 = create(:document, content_id: '638af19c-27fc-4cc9-a914-4cca49028688')
+      document1 = create(:document, content_id: 'bd50a6d9-f03d-4ccf-94aa-ad79579990a9')
+      document2 = create(:document, content_id: '989033fe-252a-4e69-976d-5c0059bca949')
+      document3 = create(:document, content_id: '271d4270-9186-4d60-b2ca-1d7dae7e0f73')
+      document4 = create(:document, content_id: '638af19c-27fc-4cc9-a914-4cca49028688')
 
-      create(:live_edition, base_path: '/1', document: document_1, updated_at: '2017-01-01T00:00:00Z')
-      create(:live_edition, base_path: '/2', document: document_2, updated_at: '2017-02-01T00:00:00Z')
-      create(:live_edition, base_path: '/3', document: document_3, updated_at: '2017-03-01T00:00:00Z')
-      create(:live_edition, base_path: '/4', document: document_4, updated_at: '2017-04-01T00:00:00Z')
+      create(:live_edition, base_path: '/1', document: document1, updated_at: '2017-01-01T00:00:00Z')
+      create(:live_edition, base_path: '/2', document: document2, updated_at: '2017-02-01T00:00:00Z')
+      create(:live_edition, base_path: '/3', document: document3, updated_at: '2017-03-01T00:00:00Z')
+      create(:live_edition, base_path: '/4', document: document4, updated_at: '2017-04-01T00:00:00Z')
     end
   end
 end

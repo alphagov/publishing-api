@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :link_change do
     source_content_id { SecureRandom.uuid }
     target_content_id { SecureRandom.uuid }

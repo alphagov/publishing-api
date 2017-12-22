@@ -281,13 +281,13 @@ RSpec.describe Queries::GetContentCollection do
         base_path: "/baz"
       )
 
-      link_set_1 = create(:link_set, content_id: draft_1_content_id)
-      link_set_2 = create(:link_set, content_id: draft_2_content_id)
-      link_set_3 = create(:link_set, content_id: live_1_content_id)
+      link_set1 = create(:link_set, content_id: draft_1_content_id)
+      link_set2 = create(:link_set, content_id: draft_2_content_id)
+      link_set3 = create(:link_set, content_id: live_1_content_id)
 
-      create(:link, link_set: link_set_1, target_content_id: someorg_content_id)
-      create(:link, link_set: link_set_2, target_content_id: otherorg_content_id)
-      create(:link, link_set: link_set_3, target_content_id: someorg_content_id)
+      create(:link, link_set: link_set1, target_content_id: someorg_content_id)
+      create(:link, link_set: link_set2, target_content_id: otherorg_content_id)
+      create(:link, link_set: link_set3, target_content_id: someorg_content_id)
     end
 
     it "filters editions by organisation" do

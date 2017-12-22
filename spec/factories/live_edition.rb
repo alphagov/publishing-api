@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :live_edition, parent: :edition do
     user_facing_version 1
     state "published"

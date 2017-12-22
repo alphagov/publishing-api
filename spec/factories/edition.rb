@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :edition, aliases: [:draft_edition] do
     document
     title "VAT rates"
