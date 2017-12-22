@@ -10,7 +10,7 @@ RSpec.describe Queries::BasePathForState do
 
     context "when edition is a draft" do
       let!(:conflict_edition) do
-        FactoryGirl.create(:draft_edition, base_path: conflict_base_path)
+        create(:draft_edition, base_path: conflict_base_path)
       end
 
       let(:edition_id) { conflict_edition.id + 1 }
@@ -56,7 +56,7 @@ RSpec.describe Queries::BasePathForState do
     }.each do |state_name, factory|
       context "when edition is #{state_name}" do
         let!(:conflict_edition) do
-          FactoryGirl.create(factory, base_path: conflict_base_path)
+          create(factory, base_path: conflict_base_path)
         end
 
         let(:edition_id) { conflict_edition.id + 1 }
@@ -87,7 +87,7 @@ RSpec.describe Queries::BasePathForState do
 
         context "when the item we are checking against is unpublished with type substitute" do
           let(:edition_id) do
-            FactoryGirl.create(:substitute_unpublished_edition).id
+            create(:substitute_unpublished_edition).id
           end
           let(:state) { "unpublished" }
           it { is_expected.to be_nil }
@@ -97,7 +97,7 @@ RSpec.describe Queries::BasePathForState do
 
     context "when edition is unpublished with substitute" do
       let!(:conflict_edition) do
-        FactoryGirl.create(:substitute_unpublished_edition,
+        create(:substitute_unpublished_edition,
           base_path: conflict_base_path
         )
       end
@@ -110,7 +110,7 @@ RSpec.describe Queries::BasePathForState do
 
     context "when edition is superseded" do
       let!(:conflict_edition) do
-        FactoryGirl.create(:superseded_edition,
+        create(:superseded_edition,
           base_path: conflict_base_path
         )
       end

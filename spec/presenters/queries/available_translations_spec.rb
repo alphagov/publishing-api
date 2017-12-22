@@ -17,7 +17,7 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
   let(:edition) { nil }
 
   def create_edition(base_path, state = "published", locale = "en", version = 1)
-    FactoryGirl.create(:edition,
+    create(:edition,
       document: Document.find_or_create_by(content_id: link_set.content_id, locale: locale),
       base_path: base_path,
       state: state,
@@ -26,7 +26,7 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
     )
   end
 
-  let(:link_set) { FactoryGirl.create(:link_set) }
+  let(:link_set) { create(:link_set) }
 
   context "with items in a matching state" do
     let(:with_drafts) { false }

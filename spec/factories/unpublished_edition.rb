@@ -10,7 +10,7 @@ FactoryGirl.define do
     end
 
     after(:create) do |edition, evaluator|
-      FactoryGirl.create(:unpublishing,
+      create(:unpublishing,
         edition: edition,
         type: evaluator.unpublishing_type,
         explanation: evaluator.explanation,

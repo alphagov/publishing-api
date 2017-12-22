@@ -13,10 +13,10 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
   end
 
   let(:document) do
-    FactoryGirl.create(:document, content_id: content_id, stale_lock_version: 1)
+    create(:document, content_id: content_id, stale_lock_version: 1)
   end
   let!(:previously_drafted_item) do
-    FactoryGirl.create(:draft_edition,
+    create(:draft_edition,
       document: document,
       base_path: base_path,
       title: "Old Title",
@@ -174,7 +174,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
     context "when there is a draft at the new base path" do
       let!(:substitute_item) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           base_path: base_path,
           title: "Substitute Content",
           publishing_app: "publisher",
@@ -237,7 +237,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
   context "when the previous draft has an access limit" do
     let!(:access_limit) do
-      FactoryGirl.create(:access_limit, edition: previously_drafted_item, users: ["old-user"])
+      create(:access_limit, edition: previously_drafted_item, users: ["old-user"])
     end
 
     context "when the params includes an access limit" do

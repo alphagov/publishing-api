@@ -2,17 +2,17 @@ require "rails_helper"
 
 RSpec.describe Tasks::DataSanitizer do
   let!(:non_limited_draft) do
-    FactoryGirl.create(:draft_edition, base_path: "/non-limited-draft")
+    create(:draft_edition, base_path: "/non-limited-draft")
   end
 
   let!(:limited_draft) do
-    FactoryGirl.create(:access_limited_draft_edition,
+    create(:access_limited_draft_edition,
       base_path: "/limited-draft",
     )
   end
 
   let!(:live_edition) do
-    FactoryGirl.create(:live_edition, base_path: "/live-item")
+    create(:live_edition, base_path: "/live-item")
   end
 
   let(:stdout) { double(:stdout, puts: nil) }

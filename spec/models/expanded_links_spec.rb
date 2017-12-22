@@ -34,7 +34,7 @@ RSpec.describe ExpandedLinks do
 
     context "when there is an instance and the payload version of the update is greater" do
       let!(:expanded_links_instance) do
-        FactoryGirl.create(:expanded_links,
+        create(:expanded_links,
           content_id: content_id,
           locale: locale,
           with_drafts: with_drafts,
@@ -53,7 +53,7 @@ RSpec.describe ExpandedLinks do
 
     context "when there is an instance and the payload version of the update is lower" do
       let!(:expanded_links_instance) do
-        FactoryGirl.create(:expanded_links,
+        create(:expanded_links,
           content_id: content_id,
           locale: locale,
           with_drafts: with_drafts,

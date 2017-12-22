@@ -9,15 +9,15 @@ RSpec.describe "Reallocating base paths of editions" do
   end
 
   let(:regular_payload) do
-    FactoryGirl.build(:draft_edition,
-      document: FactoryGirl.create(:document, content_id: content_id),
+    build(:draft_edition,
+      document: create(:document, content_id: content_id),
     ).as_json.deep_symbolize_keys.merge(base_path: base_path)
   end
 
   describe "/v2/content" do
     context "when a base path is occupied by a 'regular' edition" do
       before do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           base_path: base_path,
         )
       end
@@ -30,8 +30,8 @@ RSpec.describe "Reallocating base paths of editions" do
   end
 
   describe "publishing a draft which has a different content_id to the published edition on the same base_path" do
-    let(:draft_document) { FactoryGirl.create(:document, stale_lock_version: 3) }
-    let(:live_document) { FactoryGirl.create(:document, stale_lock_version: 5) }
+    let(:draft_document) { create(:document, stale_lock_version: 3) }
+    let(:live_document) { create(:document, stale_lock_version: 5) }
 
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
@@ -39,13 +39,13 @@ RSpec.describe "Reallocating base paths of editions" do
 
     context "when both editions are 'regular' editions" do
       before do
-        FactoryGirl.create(
+        create(
           :draft_edition,
           document: draft_document,
           base_path: base_path,
         )
 
-        FactoryGirl.create(
+        create(
           :live_edition,
           document: live_document,
           base_path: base_path,

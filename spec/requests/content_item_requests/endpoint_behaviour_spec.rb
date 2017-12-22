@@ -97,8 +97,8 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_id) { SecureRandom.uuid }
 
     context "when the document exists" do
-      let(:document) { FactoryGirl.create(:document, content_id: content_id) }
-      let!(:edition) { FactoryGirl.create(:draft_edition, document: document) }
+      let(:document) { create(:document, content_id: content_id) }
+      let!(:edition) { create(:draft_edition, document: document) }
 
       it "responds with 200" do
         get "/v2/content/#{content_id}"

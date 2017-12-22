@@ -5,7 +5,7 @@ RSpec.describe Commands::V2::PutContent do
 
   describe "race conditions", skip_cleaning: true do
     let(:document) do
-      FactoryGirl.create(
+      create(
         :document,
         content_id: content_id,
         stale_lock_version: 5,
@@ -13,7 +13,7 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     let!(:edition) do
-      FactoryGirl.create(:live_edition,
+      create(:live_edition,
         document: document,
         user_facing_version: 5,
         first_published_at: 1.year.ago,

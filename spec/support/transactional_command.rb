@@ -15,7 +15,7 @@ RSpec.shared_examples_for TransactionalCommand do
 
     it "wraps the command in a transaction" do
       allow_any_instance_of(described_class).to receive(:call) do
-        FactoryGirl.create(:live_edition)
+        create(:live_edition)
         raise "Uh oh, command failed half-way through processing"
       end
 

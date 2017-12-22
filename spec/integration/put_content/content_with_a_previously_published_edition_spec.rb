@@ -17,7 +17,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
   let(:major_published_at) { 1.year.ago }
 
   let(:document) do
-    FactoryGirl.create(
+    create(
       :document,
       content_id: content_id,
       stale_lock_version: 5,
@@ -25,7 +25,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
   end
 
   let!(:edition) do
-    FactoryGirl.create(:live_edition,
+    create(:live_edition,
       document: document,
       user_facing_version: 5,
       first_published_at: first_published_at,

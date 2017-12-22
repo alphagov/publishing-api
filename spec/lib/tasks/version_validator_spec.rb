@@ -2,15 +2,15 @@ require "rails_helper"
 
 RSpec.describe Tasks::VersionValidator do
   let(:content_id) { SecureRandom.uuid }
-  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let(:document) { create(:document, content_id: content_id) }
 
   before do
-    FactoryGirl.create(:superseded_edition,
+    create(:superseded_edition,
       document: document,
       user_facing_version: 1,
     )
 
-    FactoryGirl.create(:live_edition,
+    create(:live_edition,
       document: document,
       user_facing_version: 2,
     )
@@ -41,7 +41,7 @@ RSpec.describe Tasks::VersionValidator do
   context "when editions have the same version but different locale" do
     before do
       item = Edition.last
-      item.document = FactoryGirl.create(:document,
+      item.document = create(:document,
         content_id: item.document.content_id,
         locale: "fr"
       )

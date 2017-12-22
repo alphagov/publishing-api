@@ -10,7 +10,7 @@ RSpec.describe Commands::V2::DiscardDraft do
     let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
     let(:locale) { "en" }
     let(:document) do
-      FactoryGirl.create(:document,
+      create(:document,
         locale: "en",
         stale_lock_version: stale_lock_version,
       )
@@ -28,7 +28,7 @@ RSpec.describe Commands::V2::DiscardDraft do
     context "when a draft edition exists for the given content_id" do
       let(:user_facing_version) { 2 }
       let!(:existing_draft_item) do
-        FactoryGirl.create(:access_limited_draft_edition,
+        create(:access_limited_draft_edition,
           document: document,
           base_path: base_path,
           user_facing_version: user_facing_version,
@@ -100,7 +100,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "a published edition exists with the same base_path" do
         let(:stale_lock_version) { 3 }
         let!(:published_item) do
-          FactoryGirl.create(:live_edition,
+          create(:live_edition,
             document: document,
             base_path: base_path,
             user_facing_version: user_facing_version - 1,
@@ -142,7 +142,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "a published edition exists with a different base_path" do
         let!(:published_item) do
-          FactoryGirl.create(:live_edition,
+          create(:live_edition,
             document: document,
             base_path: "/hat-rates",
             user_facing_version: user_facing_version - 1,
@@ -165,7 +165,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "an unpublished edition exits" do
         let(:unpublished_item) do
-          FactoryGirl.create(:unpublished_edition,
+          create(:unpublished_edition,
             document: document,
             base_path: base_path,
             user_facing_version: user_facing_version - 1,
@@ -188,10 +188,10 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "when a locale is provided in the payload" do
         let(:french_document) do
-          FactoryGirl.create(:document, content_id: document.content_id, locale: "fr")
+          create(:document, content_id: document.content_id, locale: "fr")
         end
         let!(:french_draft_item) do
-          FactoryGirl.create(:draft_edition,
+          create(:draft_edition,
             document: french_document,
             base_path: "#{base_path}.fr",
           )
@@ -227,7 +227,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "and a published edition exists" do
         before do
-          FactoryGirl.create(:live_edition, document: document)
+          create(:live_edition, document: document)
         end
 
         it "raises a command error with code 422" do

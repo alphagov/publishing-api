@@ -13,7 +13,7 @@ RSpec.describe Commands::V2::Unpublish do
   let(:base_path) { "/vat-rates" }
   let(:locale) { "en" }
   let(:document) do
-    FactoryGirl.create(:document,
+    create(:document,
       content_id: content_id,
       locale: locale,
     )
@@ -37,7 +37,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when unpublishing is invalid" do
       let!(:live_edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           base_path: base_path,
         )
@@ -71,7 +71,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when passing redirects" do
       let!(:live_edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           base_path: base_path,
         )
@@ -146,7 +146,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when the document is published" do
       let!(:live_edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           base_path: base_path,
         )
@@ -241,7 +241,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when only a draft is present" do
       let!(:draft_edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: document,
           user_facing_version: 3,
         )
@@ -331,14 +331,14 @@ RSpec.describe Commands::V2::Unpublish do
 
         context "when there is a previously unpublished edition" do
           let!(:previous_edition) do
-            FactoryGirl.create(:unpublished_edition,
+            create(:unpublished_edition,
               document: document,
               base_path: base_path,
               user_facing_version: 1,
             )
           end
           let(:french_document) do
-            FactoryGirl.create(:document,
+            create(:document,
               content_id: document.content_id,
               locale: "fr",
             )
@@ -362,14 +362,14 @@ RSpec.describe Commands::V2::Unpublish do
 
         context "when there is a previously published edition" do
           let!(:previous_edition) do
-            FactoryGirl.create(:live_edition,
+            create(:live_edition,
               document: document,
               base_path: base_path,
               user_facing_version: 1,
             )
           end
           let(:french_document) do
-            FactoryGirl.create(:document,
+            create(:document,
               content_id: document.content_id,
               locale: "fr",
             )
@@ -397,7 +397,7 @@ RSpec.describe Commands::V2::Unpublish do
       let(:link_a) { SecureRandom.uuid }
       let(:link_b) { SecureRandom.uuid }
       let!(:draft_edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: document,
           user_facing_version: 2,
           links_hash: { topics: [link_b] },
@@ -405,7 +405,7 @@ RSpec.describe Commands::V2::Unpublish do
       end
 
       let!(:live_edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           links_hash: { topics: [link_a] },
         )
@@ -428,7 +428,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when the document is redrafted" do
       let!(:live_edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           :with_draft,
           document: document,
         )
@@ -476,7 +476,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when the document is already unpublished" do
       let!(:unpublished_edition) do
-        FactoryGirl.create(:unpublished_edition,
+        create(:unpublished_edition,
           document: document,
           base_path: base_path,
           explanation: "This explnatin has a typo",
@@ -543,7 +543,7 @@ RSpec.describe Commands::V2::Unpublish do
 
       context "when the unpublishing type is substitute" do
         let!(:unpublished_edition) do
-          FactoryGirl.create(:substitute_unpublished_edition,
+          create(:substitute_unpublished_edition,
             document: document,
           )
         end
@@ -561,7 +561,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "with the `downstream` flag set to `false`" do
       before do
-        FactoryGirl.create(:live_edition, :with_draft, document: document)
+        create(:live_edition, :with_draft, document: document)
       end
 
       it "does not send to any downstream system for a 'gone'" do
@@ -611,7 +611,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "when the document has no location" do
       let!(:live_edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           base_path: nil,
         )

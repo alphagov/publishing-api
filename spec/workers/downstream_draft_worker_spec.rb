@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe DownstreamDraftWorker do
   let(:edition) do
-    FactoryGirl.create(:draft_edition, base_path: "/foo")
+    create(:draft_edition, base_path: "/foo")
   end
   let(:content_id) { edition.content_id }
 
@@ -61,7 +61,7 @@ RSpec.describe DownstreamDraftWorker do
 
     context "edition has a nil base path" do
       it "doesn't send the item to the draft content store" do
-        pathless = FactoryGirl.create(:draft_edition,
+        pathless = create(:draft_edition,
           base_path: nil,
           document_type: "contact",
           schema_name: "contact",

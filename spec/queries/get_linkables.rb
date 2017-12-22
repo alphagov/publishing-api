@@ -14,10 +14,10 @@ RSpec.describe Queries::GetLinkables do
       let(:internal_name) { "Internal Name" }
       let(:title) { "Title" }
       before do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           base_path: base_path,
           details: { internal_name: internal_name },
-          document: FactoryGirl.create(:document, content_id: content_id),
+          document: create(:document, content_id: content_id),
           document_type: document_type,
           title: title,
         )
@@ -52,7 +52,7 @@ RSpec.describe Queries::GetLinkables do
 
     context "when there are a number of editions matching a document_type" do
       let!(:editions) do
-        3.times.map { FactoryGirl.create(:live_edition, document_type: document_type) }
+        3.times.map { create(:live_edition, document_type: document_type) }
       end
       let(:edition_content_ids) { editions.map { |e| e.document.content_id } }
 
@@ -72,8 +72,8 @@ RSpec.describe Queries::GetLinkables do
     context "when there is a an edition with a placeholder of the document_type" do
       let!(:editions) do
         [
-          FactoryGirl.create(:live_edition, document_type: "contact"),
-          FactoryGirl.create(:live_edition, document_type: "placeholder_contact"),
+          create(:live_edition, document_type: "contact"),
+          create(:live_edition, document_type: "placeholder_contact"),
         ]
       end
       let(:edition_content_ids) { editions.map { |e| e.document.content_id } }
@@ -89,7 +89,7 @@ RSpec.describe Queries::GetLinkables do
 
     context "when there is a an edition with a different document_type" do
       before do
-        FactoryGirl.create(:live_edition, document_type: "different")
+        create(:live_edition, document_type: "different")
       end
 
       it { is_expected.to be_empty }
@@ -97,9 +97,9 @@ RSpec.describe Queries::GetLinkables do
 
     context "when the edition is not available in English" do
       before do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document_type: document_type,
-          document: FactoryGirl.create(:document, locale: "fr"),
+          document: create(:document, locale: "fr"),
         )
       end
 
@@ -109,15 +109,15 @@ RSpec.describe Queries::GetLinkables do
     context "when the edition is available in English and French" do
       let(:content_id) { SecureRandom.uuid }
       before do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document_type: document_type,
           title: "Hello",
-          document: FactoryGirl.create(:document, content_id: content_id)
+          document: create(:document, content_id: content_id)
         )
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document_type: document_type,
           title: "Salut",
-          document: FactoryGirl.create(:document, content_id: content_id, locale: "fr"),
+          document: create(:document, content_id: content_id, locale: "fr"),
         )
       end
 
@@ -127,9 +127,9 @@ RSpec.describe Queries::GetLinkables do
     end
 
     context "when the edition is available in draft" do
-      let(:document) { FactoryGirl.create(:document) }
+      let(:document) { create(:document) }
       let!(:draft_edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document_type: document_type,
           title: "Draft",
           document: document,
@@ -143,7 +143,7 @@ RSpec.describe Queries::GetLinkables do
 
       context "and there is a published edition" do
         let!(:published_edition) do
-          FactoryGirl.create(:live_edition,
+          create(:live_edition,
             document_type: document_type,
             title: "Published",
             document: document,
@@ -158,7 +158,7 @@ RSpec.describe Queries::GetLinkables do
 
     context "when an edition is unpublished" do
       before do
-        FactoryGirl.create(:unpublished_edition, document_type: document_type)
+        create(:unpublished_edition, document_type: document_type)
       end
 
       it { is_expected.to be_empty }
@@ -166,7 +166,7 @@ RSpec.describe Queries::GetLinkables do
 
     context "when an edition is superseded" do
       before do
-        FactoryGirl.create(:superseded_edition, document_type: document_type)
+        create(:superseded_edition, document_type: document_type)
       end
 
       it { is_expected.to be_empty }

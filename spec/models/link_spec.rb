@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Link do
   describe "validating link_type" do
-    subject(:link) { FactoryGirl.build(:link, link_type: link_type) }
+    subject(:link) { build(:link, link_type: link_type) }
     before { link.validate }
 
     shared_examples "invalid link_type" do
@@ -50,7 +50,7 @@ RSpec.describe Link do
   end
 
   describe "validating target_content_id" do
-    subject(:link) { FactoryGirl.build(:link, target_content_id: target_content_id) }
+    subject(:link) { build(:link, target_content_id: target_content_id) }
 
     context "missing target_content_id" do
       let(:target_content_id) { SecureRandom.uuid }
@@ -65,7 +65,7 @@ RSpec.describe Link do
 
   describe "validating link set XOR edition association" do
     subject(:link) do
-      FactoryGirl.build(:link, link_set: link_set, edition: edition)
+      build(:link, link_set: link_set, edition: edition)
     end
 
     let(:link_errors) { link.errors.to_hash }
@@ -79,7 +79,7 @@ RSpec.describe Link do
     end
 
     context "edition is not nil and link_set is nil" do
-      let(:edition) { FactoryGirl.build(:edition) }
+      let(:edition) { build(:edition) }
       let(:link_set) { nil }
 
       it { is_expected.to be_valid }
@@ -87,14 +87,14 @@ RSpec.describe Link do
 
     context "edition is nil and link_set is not nil" do
       let(:edition) { nil }
-      let(:link_set) { FactoryGirl.build(:link_set) }
+      let(:link_set) { build(:link_set) }
 
       it { is_expected.to be_valid }
     end
 
     context "edition and link_set are not nil" do
-      let(:edition) { FactoryGirl.build(:edition) }
-      let(:link_set) { FactoryGirl.build(:link_set) }
+      let(:edition) { build(:edition) }
+      let(:link_set) { build(:link_set) }
 
       it { is_expected.to be_invalid }
     end

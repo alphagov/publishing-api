@@ -17,7 +17,7 @@ RSpec.describe LinkExpansion do
 
     context "with a link" do
       let(:link) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           title: "Expanded Link",
           base_path: "/expanded-link",
         )
@@ -37,7 +37,7 @@ RSpec.describe LinkExpansion do
     end
 
     context "with a withdrawn link" do
-      let(:link) { FactoryGirl.create(:withdrawn_unpublished_edition) }
+      let(:link) { create(:withdrawn_unpublished_edition) }
 
       before { create_link(content_id, link.document.content_id, link_type) }
 

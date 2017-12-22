@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DataHygiene::GovspeakCompare do
-  let(:edition) { FactoryGirl.create(:edition, details: details) }
+  let(:edition) { create(:edition, details: details) }
   let(:details) do
     { body: [
         { content_type: "text/html", content: body_html },

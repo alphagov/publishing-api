@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe DownstreamLiveWorker do
   let(:edition) do
-    FactoryGirl.create(:live_edition, base_path: "/foo")
+    create(:live_edition, base_path: "/foo")
   end
 
   let(:content_id) { edition.document.content_id }
@@ -61,7 +61,7 @@ RSpec.describe DownstreamLiveWorker do
     end
 
     context "unpublished edition" do
-      let(:unpublished_edition) { FactoryGirl.create(:unpublished_edition) }
+      let(:unpublished_edition) { create(:unpublished_edition) }
       let(:unpublished_arguments) { arguments.merge(content_id: unpublished_edition.document.content_id) }
 
       it "sends content to live content store" do
@@ -71,7 +71,7 @@ RSpec.describe DownstreamLiveWorker do
     end
 
     context "superseded edition" do
-      let(:superseded_edition) { FactoryGirl.create(:superseded_edition) }
+      let(:superseded_edition) { create(:superseded_edition) }
       let(:superseded_arguments) { arguments.merge(content_id: superseded_edition.document.content_id) }
 
       it "doesn't send to live content store" do
@@ -87,7 +87,7 @@ RSpec.describe DownstreamLiveWorker do
     end
 
     it "wont send to content store without a base_path" do
-      pathless = FactoryGirl.create(:live_edition,
+      pathless = create(:live_edition,
         base_path: nil,
         document_type: "contact",
         schema_name: "contact"
@@ -145,7 +145,7 @@ RSpec.describe DownstreamLiveWorker do
 
   describe "draft-to-live protection" do
     it "rejects draft editions" do
-      draft = FactoryGirl.create(:draft_edition)
+      draft = create(:draft_edition)
 
       expect(GovukError).to receive(:notify)
         .with(an_instance_of(AbortWorkerError), a_hash_including(:extra))
@@ -153,7 +153,7 @@ RSpec.describe DownstreamLiveWorker do
     end
 
     it "allows live editions" do
-      live = FactoryGirl.create(:live_edition)
+      live = create(:live_edition)
 
       expect(GovukError).to_not receive(:notify)
       subject.perform(arguments.merge("content_id" => live.document.content_id))

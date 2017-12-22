@@ -550,15 +550,15 @@ RSpec.describe "Link Expansion" do
   context "edition-level links across multiple locales" do
     let(:with_drafts) { false }
     let(:content_id) { a }
-    let(:en_document) { FactoryGirl.create(:document, content_id: content_id) }
+    let(:en_document) { create(:document, content_id: content_id) }
     let(:fr_document) do
-      FactoryGirl.create(:document, content_id: content_id, locale: "fr")
+      create(:document, content_id: content_id, locale: "fr")
     end
-    let!(:en_edition) { FactoryGirl.create(:live_edition, document: en_document) }
-    let!(:fr_edition) { FactoryGirl.create(:live_edition, document: fr_document) }
+    let!(:en_edition) { create(:live_edition, document: en_document) }
+    let!(:fr_edition) { create(:live_edition, document: fr_document) }
 
     let(:target_edition) do
-      FactoryGirl.create(:live_edition, base_path: "/t")
+      create(:live_edition, base_path: "/t")
     end
 
     before do

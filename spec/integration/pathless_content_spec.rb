@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "pathless content" do
   describe Commands::V2::PutContent do
     describe "call" do
-      let(:content_id) { FactoryGirl.build(:document).content_id }
+      let(:content_id) { build(:document).content_id }
       let(:payload) do
         {
           content_id: content_id,
@@ -58,8 +58,8 @@ RSpec.describe "pathless content" do
 
         context "for an existing draft edition" do
           let!(:draft_edition) do
-            FactoryGirl.create(:draft_edition,
-              document: FactoryGirl.create(:document, content_id: content_id),
+            create(:draft_edition,
+              document: create(:document, content_id: content_id),
               title: "Old Title"
             )
           end
@@ -72,8 +72,8 @@ RSpec.describe "pathless content" do
 
         context "for an existing live edition" do
           let!(:live_edition) do
-            FactoryGirl.create(:live_edition,
-              document: FactoryGirl.create(:document, content_id: content_id),
+            create(:live_edition,
+              document: create(:document, content_id: content_id),
               title: "Old Title"
             )
           end
@@ -105,7 +105,7 @@ RSpec.describe "pathless content" do
         # attempting to validate for pathless formats.
         context "with other similar pathless items" do
           before do
-            FactoryGirl.create(:draft_edition,
+            create(:draft_edition,
               base_path: nil,
               schema_name: "contact",
               document_type: "contact",
@@ -122,7 +122,7 @@ RSpec.describe "pathless content" do
 
         context "when there's a conflicting edition" do
           before do
-            FactoryGirl.create(:draft_edition,
+            create(:draft_edition,
               base_path: base_path,
               schema_name: "contact",
               document_type: "contact",
@@ -142,7 +142,7 @@ RSpec.describe "pathless content" do
 
   describe Commands::V2::Publish do
     let(:pathless_edition) do
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document_type: "contact",
         user_facing_version: 2,
         base_path: nil,
@@ -167,7 +167,7 @@ RSpec.describe "pathless content" do
 
       context "with a previously published item" do
         let!(:live_edition) do
-          FactoryGirl.create(:live_edition,
+          create(:live_edition,
             document: pathless_edition.document,
             document_type: "contact",
             user_facing_version: 1,

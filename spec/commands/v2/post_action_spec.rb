@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Commands::V2::PostAction do
   describe ".call" do
     let(:document) do
-      FactoryGirl.create(:document,
+      create(:document,
         content_id: SecureRandom.uuid,
         locale: "en",
         stale_lock_version: 6,
@@ -70,7 +70,7 @@ RSpec.describe Commands::V2::PostAction do
     end
 
     context "when a draft edition exists" do
-      before { FactoryGirl.create(:draft_edition, document: document) }
+      before { create(:draft_edition, document: document) }
 
       include_examples "action behaviour"
       context "and we specify the action is not for a draft" do
@@ -80,7 +80,7 @@ RSpec.describe Commands::V2::PostAction do
     end
 
     context "when a published edition exists" do
-      before { FactoryGirl.create(:live_edition, document: document) }
+      before { create(:live_edition, document: document) }
 
       let(:draft) { false }
 

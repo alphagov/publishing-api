@@ -17,9 +17,9 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
 
     context "when a edition is in a draft state" do
       let(:content_ids) { [SecureRandom.uuid] }
-      let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
+      let(:document) { create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
-        FactoryGirl.create(:draft_edition, document: document)
+        create(:draft_edition, document: document)
       end
 
       context "and the state_fallback order is [draft]" do
@@ -40,15 +40,15 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
 
     context "when a edition is in draft and unpublished (withdrawn) states" do
       let(:content_ids) { [SecureRandom.uuid] }
-      let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
+      let(:document) { create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: document,
           user_facing_version: 2,
         )
       end
       let!(:withdrawn_edition) do
-        FactoryGirl.create(:withdrawn_unpublished_edition,
+        create(:withdrawn_unpublished_edition,
           document: document,
           user_facing_version: 1,
         )
@@ -68,28 +68,28 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
     context "when a edition is in multiple locales" do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:fr_document) do
-        FactoryGirl.create(:document,
+        create(:document,
           content_id: content_ids.first,
           locale: "fr",
         )
       end
       let(:en_document) do
-        FactoryGirl.create(:document,
+        create(:document,
           content_id: content_ids.first,
           locale: "en",
         )
       end
       let!(:fr_draft_edition) do
-        FactoryGirl.create(:draft_edition, document: fr_document)
+        create(:draft_edition, document: fr_document)
       end
       let!(:en_draft_edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: en_document,
           user_facing_version: 2,
         )
       end
       let!(:en_published_edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: en_document,
           user_facing_version: 1,
         )
@@ -140,28 +140,28 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
 
     context "when multiple editions are requested" do
       let(:content_ids) { [SecureRandom.uuid, SecureRandom.uuid] }
-      let(:vat_document) { FactoryGirl.create(:document, content_id: content_ids.first) }
-      let(:tax_rates_document) { FactoryGirl.create(:document, content_id: content_ids.last) }
+      let(:vat_document) { create(:document, content_id: content_ids.first) }
+      let(:tax_rates_document) { create(:document, content_id: content_ids.last) }
       let!(:vat_draft_edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: vat_document,
           user_facing_version: 2,
         )
       end
       let!(:vat_published_edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: vat_document,
           user_facing_version: 1,
         )
       end
       let!(:tax_rates_draft_edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: tax_rates_document,
           user_facing_version: 2,
         )
       end
       let!(:tax_rates_withdrawn_edition) do
-        FactoryGirl.create(:withdrawn_unpublished_edition,
+        create(:withdrawn_unpublished_edition,
           document: tax_rates_document,
           user_facing_version: 1,
         )
@@ -188,16 +188,16 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
 
     context "when there is a non-renderable document type" do
       let(:content_ids) { [SecureRandom.uuid] }
-      let(:document) { FactoryGirl.create(:document, content_id: content_ids.first) }
+      let(:document) { create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: document,
           document_type: "gone",
           user_facing_version: 2,
         )
       end
       let!(:published_edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           user_facing_version: 1,
         )

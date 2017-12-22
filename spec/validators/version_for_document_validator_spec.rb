@@ -2,10 +2,10 @@ require "rails_helper"
 
 RSpec.describe VersionForDocumentValidator do
   let(:version) { 5 }
-  let(:document) { FactoryGirl.create(:document) }
+  let(:document) { create(:document) }
 
   let(:edition) do
-    FactoryGirl.build(:edition,
+    build(:edition,
       document: document,
       user_facing_version: version,
     )
@@ -30,7 +30,7 @@ RSpec.describe VersionForDocumentValidator do
 
     context "when version and document are the same" do
       let!(:conflict_edition) {
-        FactoryGirl.create(:edition,
+        create(:edition,
           document: document,
           user_facing_version: version,
         )

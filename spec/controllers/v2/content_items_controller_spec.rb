@@ -6,17 +6,17 @@ RSpec.describe V2::ContentItemsController do
     instance_double(SchemaValidator, valid?: true, errors: [])
   end
   let(:document_en) do
-    FactoryGirl.create(:document, content_id: content_id, locale: "en")
+    create(:document, content_id: content_id, locale: "en")
   end
   let(:document_ar) do
-    FactoryGirl.create(:document, content_id: content_id, locale: "ar")
+    create(:document, content_id: content_id, locale: "ar")
   end
 
   before do
     allow(SchemaValidator).to receive(:new).and_return(validator)
     stub_request(:any, /content-store/)
 
-    @draft = FactoryGirl.create(:draft_edition,
+    @draft = create(:draft_edition,
       document: document_en,
       base_path: "/content.en",
       document_type: "topic",
@@ -28,21 +28,21 @@ RSpec.describe V2::ContentItemsController do
   describe "index" do
     before do
       @en_draft_content = @draft
-      @ar_draft_content = FactoryGirl.create(:draft_edition,
+      @ar_draft_content = create(:draft_edition,
         document: document_ar,
         base_path: "/content.ar",
         document_type: "topic",
         schema_name: "topic",
         user_facing_version: 2,
       )
-      @en_live_content = FactoryGirl.create(:live_edition,
+      @en_live_content = create(:live_edition,
         document: document_en,
         base_path: "/content.en",
         document_type: "guide",
         schema_name: "topic",
         user_facing_version: 1,
       )
-      @ar_live_content = FactoryGirl.create(:live_edition,
+      @ar_live_content = create(:live_edition,
         document: document_ar,
         base_path: "/content.ar",
         document_type: "topic",
@@ -53,7 +53,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "searching a field" do
       let(:previous_live_version) do
-        FactoryGirl.create(:superseded_edition,
+        create(:superseded_edition,
           base_path: "/foo",
           document_type: "topic",
           schema_name: "topic",
@@ -62,7 +62,7 @@ RSpec.describe V2::ContentItemsController do
         )
       end
       let!(:edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           base_path: "/foo",
           document: previous_live_version.document,
           document_type: "topic",
@@ -342,8 +342,8 @@ RSpec.describe V2::ContentItemsController do
     context "with link filtering params" do
       before do
         org_content_id = SecureRandom.uuid
-        link_set = FactoryGirl.create(:link_set, content_id: content_id)
-        FactoryGirl.create(:link, link_set: link_set, target_content_id: org_content_id)
+        link_set = create(:link_set, content_id: content_id)
+        create(:link, link_set: link_set, target_content_id: org_content_id)
 
         get :index, params: { content_format: "topic", fields: ["content_id"], link_organisations: org_content_id.to_s }
       end
@@ -376,7 +376,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "with edition links" do
       before do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: document_ar,
           base_path: "/content.ar",
           schema_name: "topic",
@@ -500,10 +500,10 @@ RSpec.describe V2::ContentItemsController do
 
   describe "index" do
     before do
-      FactoryGirl.create(:draft_edition, publishing_app: 'publisher', base_path: '/content')
-      FactoryGirl.create(:draft_edition, publishing_app: 'whitehall', base_path: '/item1')
-      FactoryGirl.create(:live_edition, publishing_app: 'whitehall', base_path: '/item2')
-      FactoryGirl.create(:unpublished_edition, publishing_app: 'specialist_publisher', base_path: '/item3')
+      create(:draft_edition, publishing_app: 'publisher', base_path: '/content')
+      create(:draft_edition, publishing_app: 'whitehall', base_path: '/item1')
+      create(:live_edition, publishing_app: 'whitehall', base_path: '/item2')
+      create(:unpublished_edition, publishing_app: 'specialist_publisher', base_path: '/item3')
     end
 
     it "displays items filtered by publishing_app parameter" do

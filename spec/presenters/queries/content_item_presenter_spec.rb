@@ -4,14 +4,14 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
 
-  let!(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let!(:document) { create(:document, content_id: content_id) }
   let!(:fr_document) do
-    FactoryGirl.create(:document, content_id: content_id, locale: "fr")
+    create(:document, content_id: content_id, locale: "fr")
   end
 
   describe "present" do
     let!(:edition) do
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: document,
         base_path: base_path
       )
@@ -78,7 +78,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the edition exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:draft_edition, document: fr_document)
+        create(:draft_edition, document: fr_document)
       end
 
       it "presents the item with matching locale" do
@@ -92,7 +92,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when a change note exists" do
       let!(:edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: document,
           base_path: base_path,
           update_type: "major"
@@ -144,7 +144,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "#present_many" do
     let!(:edition) do
-      FactoryGirl.create(:draft_edition, document: document)
+      create(:draft_edition, document: document)
     end
 
     context "when an array of fields is provided" do
@@ -160,7 +160,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "when the edition exists in multiple locales" do
       let!(:french_item) do
-        FactoryGirl.create(:edition, document: fr_document)
+        create(:edition, document: fr_document)
       end
 
       it "presents a edition for each locale" do
@@ -179,7 +179,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       end
 
       let!(:published_item) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           user_facing_version: 1,
         )
@@ -200,7 +200,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "#get_warnings" do
     before do
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: document,
         base_path: base_path,
         user_facing_version: 2,
@@ -232,7 +232,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
       context "with a blocking edition" do
         before do
-          @blocking_edition = FactoryGirl.create(:live_edition,
+          @blocking_edition = create(:live_edition,
             base_path: base_path,
             user_facing_version: 1,
           )

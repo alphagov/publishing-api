@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Queries::GetLinkChanges do
   describe '#as_hash' do
     it 'returns the link changes with the correct data' do
-      FactoryGirl.create(:link_change, link_type: 'topics')
+      create(:link_change, link_type: 'topics')
 
       result = Queries::GetLinkChanges.new(link_types: 'topics').as_hash
 
@@ -15,9 +15,9 @@ RSpec.describe Queries::GetLinkChanges do
     end
 
     it 'expands the source and target' do
-      document = FactoryGirl.create(:document, content_id: '1dd96f5d-c260-438b-ba58-57ba910e9291')
-      FactoryGirl.create(:edition, document: document, title: 'Content Foo')
-      FactoryGirl.create(:link_change, link_type: 'topics', source_content_id: document.content_id)
+      document = create(:document, content_id: '1dd96f5d-c260-438b-ba58-57ba910e9291')
+      create(:edition, document: document, title: 'Content Foo')
+      create(:link_change, link_type: 'topics', source_content_id: document.content_id)
 
       result = Queries::GetLinkChanges.new(link_types: 'topics').as_hash
 

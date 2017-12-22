@@ -1,15 +1,15 @@
 require "rails_helper"
 
 RSpec.describe Presenters::DebugPresenter do
-  let(:document) { FactoryGirl.create(:document) }
+  let(:document) { create(:document) }
 
   let!(:edition) do
-    FactoryGirl.create(:draft_edition,
+    create(:draft_edition,
                        document: document,
                        user_facing_version: 3)
   end
 
-  let!(:link_set) { FactoryGirl.create(:link_set, content_id: document.content_id) }
+  let!(:link_set) { create(:link_set, content_id: document.content_id) }
 
   subject do
     described_class.new(document.content_id)

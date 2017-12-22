@@ -258,7 +258,7 @@ RSpec.describe DownstreamService do
 
     context "conflict" do
       before do
-        FactoryGirl.create(:unpublished_edition, base_path: "/test")
+        create(:unpublished_edition, base_path: "/test")
       end
 
       it "returns true" do

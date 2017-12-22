@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe DownstreamPayload do
   def create_edition(factory, factory_options = {})
-    FactoryGirl.create(factory, factory_options)
+    create(factory, factory_options)
   end
 
   let(:payload_version) { 1 }

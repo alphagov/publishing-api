@@ -9,10 +9,10 @@ RSpec.describe V2::EditionsController do
     before(:context) do
       Timecop.freeze("2017-01-01 09:00:00.1") do
         50.times do |index|
-          FactoryGirl.create(
+          create(
             :draft_edition,
             id: index + 1,
-            document: FactoryGirl.create(:document, locale: "fr"),
+            document: create(:document, locale: "fr"),
             base_path: "/content#{index + 1}",
           )
         end
@@ -20,10 +20,10 @@ RSpec.describe V2::EditionsController do
 
       Timecop.freeze("2017-01-01 09:00:00.2") do
         50.times do |index|
-          FactoryGirl.create(
+          create(
             :live_edition,
             id: index + 51,
-            document: FactoryGirl.create(:document),
+            document: create(:document),
             base_path: "/content#{index + 51}",
           )
         end
@@ -31,10 +31,10 @@ RSpec.describe V2::EditionsController do
 
       Timecop.freeze("2017-01-01 09:00:00.3") do
         50.times do |index|
-          FactoryGirl.create(
+          create(
             :unpublished_edition,
             id: index + 101,
-            document: FactoryGirl.create(:document),
+            document: create(:document),
             base_path: "/content#{index + 101}",
             publishing_app: "test",
           )
