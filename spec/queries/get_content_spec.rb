@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe Queries::GetContent do
   let(:content_id) { SecureRandom.uuid }
-  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
-  let(:fr_document) { FactoryGirl.create(:document, content_id: content_id, locale: "fr") }
+  let(:document) { create(:document, content_id: content_id) }
+  let(:fr_document) { create(:document, content_id: content_id, locale: "fr") }
 
   context "when no edition exists for the content_id" do
     it "raises a command error" do
@@ -18,7 +18,7 @@ RSpec.describe Queries::GetContent do
     let(:incorrect_locale) { "fr" }
 
     before do
-      FactoryGirl.create(:edition,
+      create(:edition,
         document: document,
         base_path: "/vat-rates",
         user_facing_version: 1,
@@ -69,13 +69,13 @@ RSpec.describe Queries::GetContent do
 
   context "when a draft and a live edition exists for the content_id" do
     before do
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: document,
         title: "Draft Title",
         user_facing_version: 2,
       )
 
-      FactoryGirl.create(:live_edition,
+      create(:live_edition,
         document: document,
         title: "Live Title",
         user_facing_version: 1,
@@ -90,13 +90,13 @@ RSpec.describe Queries::GetContent do
 
   context "when editions exist in non-draft, non-live states" do
     before do
-      FactoryGirl.create(:superseded_edition,
+      create(:superseded_edition,
         document: document,
         user_facing_version: 1,
         title: "Older Title",
       )
 
-      FactoryGirl.create(:superseded_edition,
+      create(:superseded_edition,
         document: document,
         user_facing_version: 2,
         title: "Newer Title",
@@ -111,13 +111,13 @@ RSpec.describe Queries::GetContent do
 
   context "when editions exist in multiple locales" do
     before do
-      FactoryGirl.create(:edition,
+      create(:edition,
         document: fr_document,
         user_facing_version: 2,
         title: "French Title",
       )
 
-      FactoryGirl.create(:edition,
+      create(:edition,
         document: document,
         user_facing_version: 1,
         title: "English Title",
@@ -137,12 +137,12 @@ RSpec.describe Queries::GetContent do
 
   describe "requesting specific versions" do
     before do
-      FactoryGirl.create(:superseded_edition,
+      create(:superseded_edition,
         document: document,
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:live_edition,
+      create(:live_edition,
         document: document,
         user_facing_version: 2,
       )

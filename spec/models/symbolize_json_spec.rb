@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe SymbolizeJSON do
-  subject { FactoryGirl.build(:draft_edition) }
+  subject { build(:draft_edition) }
 
   it "doesn't affect non-json columns" do
     subject.public_updated_at = Date.new(2000, 1, 1)

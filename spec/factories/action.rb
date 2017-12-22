@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :action do
     content_id { SecureRandom.uuid }
     locale { "en" }

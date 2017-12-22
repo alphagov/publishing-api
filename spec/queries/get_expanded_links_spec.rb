@@ -34,7 +34,7 @@ RSpec.describe Queries::GetExpandedLinks do
       end
 
       before do
-        FactoryGirl.create(:expanded_links,
+        create(:expanded_links,
           content_id: content_id,
           locale: locale,
           with_drafts: with_drafts,
@@ -55,7 +55,7 @@ RSpec.describe Queries::GetExpandedLinks do
       let(:link_set_lock_version) { 3 }
 
       before do
-        FactoryGirl.create(:link_set,
+        create(:link_set,
           content_id: content_id,
           links_hash: {},
           stale_lock_version: link_set_lock_version,
@@ -82,7 +82,7 @@ RSpec.describe Queries::GetExpandedLinks do
   context "when generate is true" do
     let(:generate) { false }
     context "and there is not a link set associated with the content id" do
-      before { FactoryGirl.create(:document, content_id: content_id) }
+      before { create(:document, content_id: content_id) }
 
       it "returns a version of 0" do
         expect(result).to match(a_hash_including(version: 0))

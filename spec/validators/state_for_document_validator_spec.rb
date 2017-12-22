@@ -2,10 +2,10 @@ require "rails_helper"
 
 RSpec.describe StateForDocumentValidator do
   let(:state_name) { "draft" }
-  let(:document) { FactoryGirl.create(:document) }
+  let(:document) { create(:document) }
 
   let(:edition) do
-    FactoryGirl.build(:edition,
+    build(:edition,
       state: state_name,
       document: document,
     )
@@ -33,7 +33,7 @@ RSpec.describe StateForDocumentValidator do
       ].each do |hash|
         context "when #{hash[:scenario]}" do
           let!(:conflict_edition) {
-            FactoryGirl.create(hash[:factory],
+            create(hash[:factory],
               document: document,
             )
           }
@@ -55,7 +55,7 @@ RSpec.describe StateForDocumentValidator do
 
       context "when state is superseded" do
         let!(:conflict_edition) {
-          FactoryGirl.create(:superseded_edition, document: document)
+          create(:superseded_edition, document: document)
         }
         let(:state_name) { "superseded" }
 

@@ -17,7 +17,7 @@ RSpec.describe "Path reservation" do
 
   context "when the base path has been reserved by another publishing app" do
     before do
-      FactoryGirl.create(:path_reservation,
+      create(:path_reservation,
         base_path: base_path,
         publishing_app: "something-else"
       )

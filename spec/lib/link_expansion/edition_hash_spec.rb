@@ -14,7 +14,7 @@ RSpec.describe LinkExpansion::EditionHash do
         analytics_identifier: "123")
     end
     it "accepts an Edition argument" do
-      edition = FactoryGirl.build(:live_edition)
+      edition = build(:live_edition)
       edition_hash = described_class.from(edition)
       expect(edition_hash[:content_id]).to eq(edition.content_id)
     end

@@ -7,16 +7,16 @@ RSpec.describe Commands::V2::RepresentDownstream do
 
   describe "call" do
     before do
-      2.times { FactoryGirl.create(:draft_edition) }
-      FactoryGirl.create(:live_edition,
-        document: FactoryGirl.create(:document, locale: "en"),
+      2.times { create(:draft_edition) }
+      create(:live_edition,
+        document: create(:document, locale: "en"),
         document_type: "nonexistent-schema",
       )
-      FactoryGirl.create(:live_edition,
-        document: FactoryGirl.create(:document, locale: "fr"),
+      create(:live_edition,
+        document: create(:document, locale: "fr"),
         document_type: "nonexistent-schema",
       )
-      FactoryGirl.create(:live_edition, document_type: "press_release")
+      create(:live_edition, document_type: "press_release")
     end
 
     context "downstream live" do

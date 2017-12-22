@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :unpublished_edition, parent: :edition, aliases: [:gone_unpublished_edition] do
     state "unpublished"
     content_store "live"
@@ -10,7 +10,7 @@ FactoryGirl.define do
     end
 
     after(:create) do |edition, evaluator|
-      FactoryGirl.create(:unpublishing,
+      create(:unpublishing,
         edition: edition,
         type: evaluator.unpublishing_type,
         explanation: evaluator.explanation,

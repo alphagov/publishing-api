@@ -3,22 +3,22 @@ require "rails_helper"
 RSpec.describe Queries::GetContentCollection do
   context "document_type" do
     before do
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/a",
         document_type: "topic",
         schema_name: "topic",
       )
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/b",
         document_type: "topic",
         schema_name: "topic",
       )
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/c",
         document_type: "mainstream_browse_page",
         schema_name: "mainstream_browse_page",
       )
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/d",
         document_type: "another_type",
         schema_name: "another_type",
@@ -59,12 +59,12 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   it "returns the editions of the given format, and placeholder_format" do
-    FactoryGirl.create(:draft_edition,
+    create(:draft_edition,
       base_path: "/a",
       document_type: "topic",
       schema_name: "topic",
     )
-    FactoryGirl.create(:draft_edition,
+    create(:draft_edition,
       base_path: "/b",
       document_type: "placeholder_topic",
       schema_name: "placeholder_topic"
@@ -80,12 +80,12 @@ RSpec.describe Queries::GetContentCollection do
   end
 
   it "includes the publishing state of the item" do
-    FactoryGirl.create(:draft_edition,
+    create(:draft_edition,
       base_path: "/draft",
       document_type: "topic",
       schema_name: "topic",
     )
-    FactoryGirl.create(:live_edition,
+    create(:live_edition,
       base_path: "/live",
       document_type: "topic",
       schema_name: "topic",
@@ -102,7 +102,7 @@ RSpec.describe Queries::GetContentCollection do
 
   context "for unpublished content" do
     it "can include information about the unpublishing" do
-      edition = FactoryGirl.create(
+      edition = create(
         :unpublished_edition,
         document_type: "topic",
       )
@@ -150,19 +150,19 @@ RSpec.describe Queries::GetContentCollection do
 
   context "filtering by publishing_app" do
     before do
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/a",
         document_type: "topic",
         schema_name: "topic",
         publishing_app: "publisher"
       )
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/b",
         document_type: "topic",
         schema_name: "topic",
         publishing_app: "publisher"
       )
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/c",
         document_type: "topic",
         schema_name: "topic",
@@ -195,26 +195,26 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "the locale filter parameter" do
     before do
-      FactoryGirl.create(:draft_edition,
-        document: FactoryGirl.create(:document, locale: "en"),
+      create(:draft_edition,
+        document: create(:document, locale: "en"),
         base_path: "/content.en",
         document_type: "topic",
         schema_name: "topic",
       )
-      FactoryGirl.create(:draft_edition,
-        document: FactoryGirl.create(:document, locale: "ar"),
+      create(:draft_edition,
+        document: create(:document, locale: "ar"),
         base_path: "/content.ar",
         document_type: "topic",
         schema_name: "topic",
       )
-      FactoryGirl.create(:live_edition,
-        document: FactoryGirl.create(:document, locale: "en"),
+      create(:live_edition,
+        document: create(:document, locale: "en"),
         base_path: "/content.en",
         document_type: "topic",
         schema_name: "topic",
       )
-      FactoryGirl.create(:live_edition,
-        document: FactoryGirl.create(:document, locale: "ar"),
+      create(:live_edition,
+        document: create(:document, locale: "ar"),
         base_path: "/content.ar",
         document_type: "topic",
         schema_name: "topic",
@@ -265,29 +265,29 @@ RSpec.describe Queries::GetContentCollection do
       draft_2_content_id = SecureRandom.uuid
       live_1_content_id = SecureRandom.uuid
 
-      FactoryGirl.create(:draft_edition,
-        document: FactoryGirl.create(:document, content_id: draft_1_content_id),
+      create(:draft_edition,
+        document: create(:document, content_id: draft_1_content_id),
         base_path: "/foo",
         publishing_app: "specialist-publisher"
       )
 
-      FactoryGirl.create(:draft_edition,
-        document: FactoryGirl.create(:document, content_id: draft_2_content_id),
+      create(:draft_edition,
+        document: create(:document, content_id: draft_2_content_id),
         base_path: "/bar"
       )
 
-      FactoryGirl.create(:live_edition,
-        document: FactoryGirl.create(:document, content_id: live_1_content_id),
+      create(:live_edition,
+        document: create(:document, content_id: live_1_content_id),
         base_path: "/baz"
       )
 
-      link_set_1 = FactoryGirl.create(:link_set, content_id: draft_1_content_id)
-      link_set_2 = FactoryGirl.create(:link_set, content_id: draft_2_content_id)
-      link_set_3 = FactoryGirl.create(:link_set, content_id: live_1_content_id)
+      link_set1 = create(:link_set, content_id: draft_1_content_id)
+      link_set2 = create(:link_set, content_id: draft_2_content_id)
+      link_set3 = create(:link_set, content_id: live_1_content_id)
 
-      FactoryGirl.create(:link, link_set: link_set_1, target_content_id: someorg_content_id)
-      FactoryGirl.create(:link, link_set: link_set_2, target_content_id: otherorg_content_id)
-      FactoryGirl.create(:link, link_set: link_set_3, target_content_id: someorg_content_id)
+      create(:link, link_set: link_set1, target_content_id: someorg_content_id)
+      create(:link, link_set: link_set2, target_content_id: otherorg_content_id)
+      create(:link, link_set: link_set3, target_content_id: someorg_content_id)
     end
 
     it "filters editions by organisation" do
@@ -319,9 +319,9 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "filtering by state" do
     before do
-      FactoryGirl.create(:draft_edition, base_path: "/draft")
-      FactoryGirl.create(:live_edition, base_path: "/published")
-      FactoryGirl.create(:unpublished_edition, base_path: "/unpublished")
+      create(:draft_edition, base_path: "/draft")
+      create(:live_edition, base_path: "/published")
+      create(:unpublished_edition, base_path: "/unpublished")
     end
 
     it "returns all content if no filter is provided" do
@@ -362,14 +362,14 @@ RSpec.describe Queries::GetContentCollection do
 
   context "when details hash is requested" do
     before do
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/z",
         details: { foo: :bar },
         document_type: "topic",
         schema_name: "topic",
         publishing_app: "publisher"
       )
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/b",
         details: { baz: :bat },
         document_type: "placeholder_topic",
@@ -391,7 +391,7 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "search_fields" do
     before do
-      FactoryGirl.create(:live_edition,
+      create(:live_edition,
         base_path: "/bar/foo",
         document_type: "topic",
         schema_name: "topic",
@@ -401,7 +401,7 @@ RSpec.describe Queries::GetContentCollection do
           internal_name: "newtopic"
         }
       )
-      FactoryGirl.create(:live_edition,
+      create(:live_edition,
         base_path: "/baz",
         document_type: "topic",
         schema_name: "topic",
@@ -515,7 +515,7 @@ RSpec.describe Queries::GetContentCollection do
         [
           ["/a", "2010-01-06"], ["/b", "2010-01-05"], ["/c", "2010-01-04"], ["/d", "2010-01-03"]
         ].each do |(base_path, public_updated_at)|
-          FactoryGirl.create(:draft_edition,
+          create(:draft_edition,
             base_path: base_path,
             document_type: "topic",
             schema_name: "topic",
@@ -525,7 +525,7 @@ RSpec.describe Queries::GetContentCollection do
         [
           ["/live1", "2010-01-02"], ["/live2", "2010-01-01"]
         ].each do |(base_path, public_updated_at)|
-          FactoryGirl.create(:live_edition,
+          create(:live_edition,
             base_path: base_path,
             document_type: "topic",
             schema_name: "topic",
@@ -578,10 +578,10 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "result order" do
     before do
-      FactoryGirl.create(:edition, base_path: "/c4", title: "D", public_updated_at: "2014-06-14")
-      FactoryGirl.create(:edition, base_path: "/c1", title: "A", public_updated_at: "2014-06-13")
-      FactoryGirl.create(:edition, base_path: "/c3", title: "C", public_updated_at: "2014-06-17")
-      FactoryGirl.create(:edition, base_path: "/c2", title: "B", public_updated_at: "2014-06-15")
+      create(:edition, base_path: "/c4", title: "D", public_updated_at: "2014-06-14")
+      create(:edition, base_path: "/c1", title: "A", public_updated_at: "2014-06-13")
+      create(:edition, base_path: "/c3", title: "C", public_updated_at: "2014-06-17")
+      create(:edition, base_path: "/c2", title: "B", public_updated_at: "2014-06-15")
     end
 
     it "returns editions in default order" do
@@ -609,8 +609,8 @@ RSpec.describe Queries::GetContentCollection do
 
   describe "#total" do
     it "returns the number of editions" do
-      FactoryGirl.create(:edition, base_path: "/a", schema_name: "topic", document_type: "topic")
-      FactoryGirl.create(:edition, base_path: "/b", schema_name: "topic", document_type: "topic")
+      create(:edition, base_path: "/a", schema_name: "topic", document_type: "topic")
+      create(:edition, base_path: "/b", schema_name: "topic", document_type: "topic")
 
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
@@ -620,16 +620,16 @@ RSpec.describe Queries::GetContentCollection do
 
     context "when there are multiple versions of the same edition" do
       before do
-        document = FactoryGirl.create(:document)
+        document = create(:document)
 
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           document_type: "topic",
           schema_name: "topic",
           user_facing_version: 1,
         )
 
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: document,
           document_type: "topic",
           schema_name: "topic",

@@ -73,8 +73,8 @@ RSpec.describe Events::S3Importer do
     end
 
     context "when the events exist in our database" do
-      let!(:event_10) { FactoryGirl.create(:event, id: 10) }
-      let!(:event_11) { FactoryGirl.create(:event, id: 11) }
+      let!(:event_10) { create(:event, id: 10) }
+      let!(:event_11) { create(:event, id: 11) }
 
       it "updates the events" do
         expect(Event.where(id: [10, 11]).count).to eq 2

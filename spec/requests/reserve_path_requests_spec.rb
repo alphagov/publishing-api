@@ -29,7 +29,7 @@ RSpec.describe "PUT /paths", type: :request do
 
     context "with override_existing set" do
       before do
-        FactoryGirl.create(:path_reservation, base_path: base_path, publishing_app: "another")
+        create(:path_reservation, base_path: base_path, publishing_app: "another")
         payload.merge!(override_existing: true)
       end
 

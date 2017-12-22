@@ -13,7 +13,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     end
 
     before do
-      FactoryGirl.create(:expanded_links,
+      create(:expanded_links,
         content_id: content_id,
         locale: "en",
         with_drafts: true,
@@ -41,7 +41,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     end
 
     before do
-      FactoryGirl.create(:expanded_links,
+      create(:expanded_links,
         content_id: content_id,
         locale: "de",
         with_drafts: true,
@@ -82,7 +82,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     end
 
     before do
-      FactoryGirl.create(:expanded_links,
+      create(:expanded_links,
         content_id: content_id,
         locale: "en",
         with_drafts: false,
@@ -105,16 +105,16 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     let(:linked_content_id) { SecureRandom.uuid }
 
     let!(:edition) do
-      FactoryGirl.create(:live_edition,
-        document: FactoryGirl.create(:document, content_id: content_id),
+      create(:live_edition,
+        document: create(:document, content_id: content_id),
         base_path: "/some-path",
         links_hash: { organisations: [linked_content_id] },
       )
     end
 
     let!(:linked_edition) do
-      FactoryGirl.create(:live_edition,
-        document: FactoryGirl.create(:document, content_id: linked_content_id),
+      create(:live_edition,
+        document: create(:document, content_id: linked_content_id),
         base_path: "/another-path",
       )
     end

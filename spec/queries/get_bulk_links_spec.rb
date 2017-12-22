@@ -21,24 +21,24 @@ RSpec.describe Queries::GetBulkLinks do
   let(:empty_link_set) { { links: {}, version: 0 } }
 
   before do
-    link_set = FactoryGirl.create(:link_set,
+    link_set = create(:link_set,
       content_id: content_id_with_links,
       stale_lock_version: 5
     )
 
-    FactoryGirl.create(:link,
+    create(:link,
       link_set: link_set,
       link_type: "parent",
       target_content_id: parent.first
     )
 
-    FactoryGirl.create(:link,
+    create(:link,
       link_set: link_set,
       link_type: "related",
       target_content_id: related.first
     )
 
-    FactoryGirl.create(:link,
+    create(:link,
       link_set: link_set,
       link_type: "related",
       target_content_id: related.last

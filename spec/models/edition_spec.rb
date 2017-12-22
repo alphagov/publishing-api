@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Edition do
-  subject { FactoryGirl.build(:edition) }
+  subject { build(:edition) }
 
   describe ".renderable_content" do
-    let!(:guide) { FactoryGirl.create(:edition, schema_name: "nonexistent-schema") }
-    let!(:redirect) { FactoryGirl.create(:redirect_edition) }
-    let!(:gone) { FactoryGirl.create(:gone_edition) }
+    let!(:guide) { create(:edition, schema_name: "nonexistent-schema") }
+    let!(:redirect) { create(:redirect_edition) }
+    let!(:gone) { create(:gone_edition) }
 
     it "returns editions that do not have a schema_name of 'redirect' or 'gone'" do
       expect(described_class.renderable_content).to eq [guide]
@@ -81,7 +81,7 @@ RSpec.describe Edition do
     end
 
     context "when the edition is not 'renderable'" do
-      subject { FactoryGirl.build(:redirect_edition) }
+      subject { build(:redirect_edition) }
 
       it "does not require a title" do
         subject.title = ""
@@ -95,7 +95,7 @@ RSpec.describe Edition do
     end
 
     context "when the edition is optionally 'renderable'" do
-      subject { FactoryGirl.build(:edition, document_type: "contact") }
+      subject { build(:edition, document_type: "contact") }
 
       it "does not require a rendering_app" do
         subject.rendering_app = nil
@@ -112,10 +112,10 @@ RSpec.describe Edition do
     end
 
     context "when another edition has the same base path" do
-      before { FactoryGirl.create(:draft_edition, base_path: "/foo") }
+      before { create(:draft_edition, base_path: "/foo") }
 
       let(:edition) do
-        FactoryGirl.build(:edition, base_path: "/foo", state: "draft")
+        build(:edition, base_path: "/foo", state: "draft")
       end
       subject { edition }
 
@@ -155,10 +155,10 @@ RSpec.describe Edition do
     context "when the state conflicts with another instance of this edition" do
       subject { edition }
       let(:existing_edition) do
-        FactoryGirl.create(:draft_edition, user_facing_version: 2)
+        create(:draft_edition, user_facing_version: 2)
       end
       let(:edition) do
-        FactoryGirl.build(:draft_edition,
+        build(:draft_edition,
           document: existing_edition.document,
           user_facing_version: 1
         )
@@ -175,9 +175,9 @@ RSpec.describe Edition do
 
     context "when the user facing version conflicts with another instance of this edition" do
       subject { edition }
-      let(:existing_edition) { FactoryGirl.create(:draft_edition) }
+      let(:existing_edition) { create(:draft_edition) }
       let(:edition) do
-        FactoryGirl.build(:draft_edition,
+        build(:draft_edition,
           document: existing_edition.document,
           user_facing_version: 1
         )
@@ -189,10 +189,10 @@ RSpec.describe Edition do
     context "when the draft user_facing_version is ahead of the live one" do
       subject { edition }
       let(:existing_edition) do
-        FactoryGirl.create(:live_edition, user_facing_version: 1)
+        create(:live_edition, user_facing_version: 1)
       end
       let(:edition) do
-        FactoryGirl.build(:draft_edition,
+        build(:draft_edition,
           document: existing_edition.document,
           user_facing_version: 2
         )
@@ -204,10 +204,10 @@ RSpec.describe Edition do
     context "when the draft user_facing_version is behind the live one" do
       subject { edition }
       let(:existing_edition) do
-        FactoryGirl.create(:draft_edition, user_facing_version: 1)
+        create(:draft_edition, user_facing_version: 1)
       end
       let(:edition) do
-        FactoryGirl.build(:live_edition,
+        build(:live_edition,
           document: existing_edition.document,
           user_facing_version: 2
         )
@@ -219,10 +219,10 @@ RSpec.describe Edition do
     context "when the live user_facing_version is ahead of the draft one" do
       subject { edition }
       let(:existing_edition) do
-        FactoryGirl.create(:live_edition, user_facing_version: 2)
+        create(:live_edition, user_facing_version: 2)
       end
       let(:edition) do
-        FactoryGirl.build(:draft_edition,
+        build(:draft_edition,
           document: existing_edition.document,
           user_facing_version: 1
         )
@@ -233,7 +233,7 @@ RSpec.describe Edition do
 
     context "when user_facing_version is incremented" do
       subject { edition }
-      let(:edition) { FactoryGirl.create(:edition) }
+      let(:edition) { create(:edition) }
 
       before { edition.user_facing_version += 1 }
       it { is_expected.to be_valid }
@@ -241,7 +241,7 @@ RSpec.describe Edition do
 
     context "when user_facing_version is decremented" do
       subject { edition }
-      let(:edition) { FactoryGirl.create(:edition) }
+      let(:edition) { create(:edition) }
 
       before { edition.user_facing_version -= 1 }
       it { is_expected.to be_invalid }
@@ -249,7 +249,7 @@ RSpec.describe Edition do
 
     describe "routes and redirects" do
       subject { edition }
-      let(:edition) { FactoryGirl.build(:edition, base_path: "/vat-rates") }
+      let(:edition) { build(:edition, base_path: "/vat-rates") }
       it_behaves_like RoutesAndRedirectsValidator
     end
   end
@@ -286,7 +286,7 @@ RSpec.describe Edition do
 
   describe "#details_for_govspeak_conversion" do
     subject do
-      FactoryGirl.build(:edition, details: details)
+      build(:edition, details: details)
         .details_for_govspeak_conversion
     end
 
@@ -355,7 +355,7 @@ RSpec.describe Edition do
   end
 
   context "#unpublish" do
-    subject { FactoryGirl.build(:live_edition) }
+    subject { build(:live_edition) }
 
     it "changes the content_store to nil when type substitute" do
       expect { subject.unpublish(type: "substitute") }.to change { subject.content_store }.from("live").to(nil)

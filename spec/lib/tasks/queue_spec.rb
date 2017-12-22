@@ -6,8 +6,8 @@ RSpec.describe "Queue rake task" do
   end
 
   it "previews the rabbit MQ message for a document type" do
-    edition = FactoryGirl.create(:live_edition, base_path: '/ci1')
-    FactoryGirl.create(:event, id: 12)
+    edition = create(:live_edition, base_path: '/ci1')
+    create(:event, id: 12)
 
     expect_any_instance_of(Object).to receive(:pp).with(
       hash_including(title: "VAT rates", payload_version: 12)

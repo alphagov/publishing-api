@@ -5,14 +5,14 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   include RequestHelpers::Mocks
 
   let!(:edition) do
-    FactoryGirl.create(:live_edition,
-      document: FactoryGirl.create(:document, content_id: content_id),
+    create(:live_edition,
+      document: create(:document, content_id: content_id),
       base_path: "/vat-rates"
     )
   end
 
   let!(:event) { double(:event, id: 5) }
-  let!(:link_set) { FactoryGirl.create(:link_set, content_id: content_id) }
+  let!(:link_set) { create(:link_set, content_id: content_id) }
 
   let(:client) { ContentStoreWriter.new("http://localhost:3093") }
   let(:body) do

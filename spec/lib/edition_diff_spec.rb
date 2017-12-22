@@ -2,21 +2,21 @@ require 'rails_helper'
 
 RSpec.describe EditionDiff do
   let(:content_id) { SecureRandom.uuid }
-  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let(:document) { create(:document, content_id: content_id) }
 
   let!(:previous_edition) do
-    FactoryGirl.create(:superseded_edition, document: document,
+    create(:superseded_edition, document: document,
                        title: "Foo", base_path: "/foo")
   end
 
   let!(:current_edition) do
-    FactoryGirl.create(:live_edition, document: document,
+    create(:live_edition, document: document,
                        title: "Bar", base_path: "/foo",
                        user_facing_version: 2)
   end
 
   let(:new_draft_edition) do
-    FactoryGirl.create(:draft_edition, document: document,
+    create(:draft_edition, document: document,
                        title: "Bar", base_path: "/foo",
                        user_facing_version: 3)
   end
@@ -31,7 +31,7 @@ RSpec.describe EditionDiff do
 
   context "diff in title, document_type and base_path" do
     let!(:current_edition) do
-      FactoryGirl.create(
+      create(
         :live_edition,
         document: document,
         title: "Bar",
@@ -48,7 +48,7 @@ RSpec.describe EditionDiff do
 
   context "diff in details when a finder" do
     let!(:current_edition) do
-      FactoryGirl.create(
+      create(
         :live_edition,
         document: document,
         user_facing_version: 2,

@@ -3,14 +3,14 @@ require "rails_helper"
 RSpec.describe "/v2/content/:content_id/unpublish when the document is already unpublished" do
   let(:content_id) { SecureRandom.uuid }
   let(:document) do
-    FactoryGirl.create(:document,
+    create(:document,
       content_id: content_id,
       locale: "en",
     )
   end
 
   let!(:unpublished_edition) do
-    FactoryGirl.create(:unpublished_edition,
+    create(:unpublished_edition,
       document: document,
       base_path: "/vat-rates",
       explanation: "This explnatin has a typo",
@@ -85,7 +85,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
 
   context "when the unpublishing type is substitute" do
     let!(:unpublished_edition) do
-      FactoryGirl.create(:substitute_unpublished_edition,
+      create(:substitute_unpublished_edition,
         document: document,
       )
     end

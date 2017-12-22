@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Unpublishing do
   describe "validations" do
-    subject { FactoryGirl.build(:unpublishing) }
+    subject { build(:unpublishing) }
 
     it "is valid for the default factory" do
       expect(subject).to be_valid
@@ -65,7 +65,7 @@ RSpec.describe Unpublishing do
     context "when alternative_path is equal to base_path" do
       let(:base_path) { "/new-path" }
       let(:edition) do
-        FactoryGirl.create(:edition,
+        create(:edition,
           base_path: base_path,
         )
       end
@@ -93,15 +93,15 @@ RSpec.describe Unpublishing do
   describe ".is_substitute?" do
     subject { described_class.is_substitute?(edition) }
     context "when unpublished with type 'substitute'" do
-      let(:edition) { FactoryGirl.create(:substitute_unpublished_edition) }
+      let(:edition) { create(:substitute_unpublished_edition) }
       it { is_expected.to be true }
     end
     context "when unpublished with type 'gone'" do
-      let(:edition) { FactoryGirl.create(:gone_unpublished_edition) }
+      let(:edition) { create(:gone_unpublished_edition) }
       it { is_expected.to be false }
     end
     context "when edition is published" do
-      let(:edition) { FactoryGirl.create(:live_edition) }
+      let(:edition) { create(:live_edition) }
       it { is_expected.to be false }
     end
     context "when there isn't an edition" do

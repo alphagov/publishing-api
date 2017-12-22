@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Document do
-  subject { FactoryGirl.build(:document) }
+  subject { build(:document) }
 
   describe "validations" do
     it "is valid for the default factory" do

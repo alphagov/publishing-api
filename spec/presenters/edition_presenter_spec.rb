@@ -7,7 +7,7 @@ RSpec.describe Presenters::EditionPresenter do
   let(:payload_version) { 1 }
 
   describe "#expanded_links" do
-    let(:edition) { FactoryGirl.create(:live_edition) }
+    let(:edition) { create(:live_edition) }
     subject(:result) do
       described_class.new(
         edition, draft: present_drafts
@@ -27,14 +27,14 @@ RSpec.describe Presenters::EditionPresenter do
 
   describe "#for_message_queue" do
     let(:update_type) { "moussaka" }
-    let(:edition) { FactoryGirl.create(:draft_edition, update_type: update_type) }
+    let(:edition) { create(:draft_edition, update_type: update_type) }
     let(:target_content_id) { "d16216ce-7487-4bde-b817-ef68317fe3ab" }
 
     before do
-      link_set = FactoryGirl.create(
+      link_set = create(
         :link_set, content_id: edition.document.content_id
       )
-      FactoryGirl.create(
+      create(
         :link,
         target_content_id: target_content_id,
         link_set: link_set,
@@ -98,11 +98,11 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for a live edition" do
       let(:edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           base_path: base_path,
           details: details)
       end
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
+      let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to match(a_hash_including(expected))
@@ -115,11 +115,11 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for a draft edition" do
       let(:edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           base_path: base_path,
           details: details)
       end
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
+      let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
       it "presents the object graph for the content store" do
         expect(result).to match(a_hash_including(expected))
@@ -128,11 +128,11 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for a withdrawn edition" do
       let!(:edition) do
-        FactoryGirl.create(:withdrawn_unpublished_edition,
+        create(:withdrawn_unpublished_edition,
           base_path: base_path,
           details: details)
       end
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
+      let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
       it "merges in a withdrawal notice" do
         unpublishing = Unpublishing.find_by(edition: edition)
@@ -151,7 +151,7 @@ RSpec.describe Presenters::EditionPresenter do
 
       context "with an overridden unpublished_at" do
         let!(:edition) do
-          FactoryGirl.create(:withdrawn_unpublished_edition,
+          create(:withdrawn_unpublished_edition,
             base_path: base_path,
             details: details,
             unpublished_at: DateTime.new(2016, 9, 10, 4, 5, 6)
@@ -176,17 +176,17 @@ RSpec.describe Presenters::EditionPresenter do
     end
 
     context "for a edition with dependencies" do
-      let(:main_edition)       { FactoryGirl.create(:edition, base_path: "/a") }
-      let(:edition_dependee)   { FactoryGirl.create(:edition, base_path: "/c") }
-      let(:document_dependent) { FactoryGirl.create(:edition, base_path: "/d") }
+      let(:main_edition)       { create(:edition, base_path: "/a") }
+      let(:edition_dependee)   { create(:edition, base_path: "/c") }
+      let(:document_dependent) { create(:edition, base_path: "/d") }
 
       before do
-        link2 = FactoryGirl.create(
+        link2 = create(
           :link,
           link_type: "documents",
           target_content_id: main_edition.document.content_id,
         )
-        FactoryGirl.create(
+        create(
           :link_set,
           content_id: document_dependent.document.content_id,
           links: [link2],
@@ -218,7 +218,7 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for a edition with change notes" do
       let(:edition) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           base_path: base_path,
           details: details.slice(:body))
       end
@@ -232,8 +232,8 @@ RSpec.describe Presenters::EditionPresenter do
     end
 
     describe "conditional attributes" do
-      let!(:edition) { FactoryGirl.create(:live_edition) }
-      let!(:link_set) { FactoryGirl.create(:link_set, content_id: edition.document.content_id) }
+      let!(:edition) { create(:live_edition) }
+      let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
       context "when the link_set is not present" do
         before { link_set.destroy }
@@ -244,7 +244,7 @@ RSpec.describe Presenters::EditionPresenter do
       end
 
       context "when the public_updated_at is not present" do
-        let(:edition) { FactoryGirl.create(:gone_draft_edition) }
+        let(:edition) { create(:gone_draft_edition) }
 
         it "does not raise an error" do
           expect { result }.not_to raise_error
@@ -254,11 +254,11 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for an access-limited item" do
       let!(:access_limit) {
-        FactoryGirl.create(:access_limit, edition: edition)
+        create(:access_limit, edition: edition)
       }
 
       context "in draft" do
-        let(:edition) { FactoryGirl.create(:draft_edition) }
+        let(:edition) { create(:draft_edition) }
 
         it "populates the access_limited hash" do
           expect(result[:access_limited][:users].length).to eq(1)
@@ -267,7 +267,7 @@ RSpec.describe Presenters::EditionPresenter do
       end
 
       context "in live" do
-        let(:edition) { FactoryGirl.create(:live_edition) }
+        let(:edition) { create(:live_edition) }
 
         it "does not send an access_limited hash" do
           expect(result).not_to include(:access_limited)
@@ -293,7 +293,7 @@ RSpec.describe Presenters::EditionPresenter do
       end
 
       let(:edition) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           base_path: base_path,
           details: details,
         )

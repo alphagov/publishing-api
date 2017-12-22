@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Presenters::EditionDiffPresenter do
   let(:content_id) { SecureRandom.uuid }
   let(:edition) do
-    FactoryGirl.create(:edition,
+    create(:edition,
                         update_type: "major",
                         links_hash: { "organisations" => [content_id] },
                         change_note: "a note"
@@ -11,11 +11,11 @@ RSpec.describe Presenters::EditionDiffPresenter do
   end
 
   let(:edition_without_links) do
-    FactoryGirl.create(:edition)
+    create(:edition)
   end
 
   let(:edition_without_change_note) do
-    FactoryGirl.create(:edition,
+    create(:edition,
                         update_type: "minor",
                         links_hash: { "organisations" => [content_id] }
                       )

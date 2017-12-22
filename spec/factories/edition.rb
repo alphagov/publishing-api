@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :edition, aliases: [:draft_edition] do
     document
     title "VAT rates"
@@ -37,7 +37,7 @@ FactoryGirl.define do
 
     after(:create) do |item, evaluator|
       unless item.update_type == "minor" || evaluator.change_note.nil?
-        FactoryGirl.create(
+        create(
           :change_note,
           note: evaluator.change_note,
           edition: item,
@@ -83,7 +83,7 @@ FactoryGirl.define do
     sequence(:base_path) { |n| "/access-limited-#{n}" }
 
     after(:create) do |item, _|
-      FactoryGirl.create(:access_limit, edition: item)
+      create(:access_limit, edition: item)
     end
   end
 

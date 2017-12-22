@@ -19,7 +19,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
   end
 
   context "valid UUID" do
-    let(:document) { FactoryGirl.create(:document) }
+    let(:document) { create(:document) }
     let!(:link) { document.content_id }
 
     it "should create a link" do
@@ -32,7 +32,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
   end
 
   context "existing links" do
-    let(:document) { FactoryGirl.create(:document, content_id: content_id) }
+    let(:document) { create(:document, content_id: content_id) }
     let(:content_id) { SecureRandom.uuid }
     let(:link) { SecureRandom.uuid }
 
@@ -41,7 +41,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
     end
 
     context "draft edition" do
-      let(:edition) { FactoryGirl.create(:draft_edition, document: document, base_path: base_path) }
+      let(:edition) { create(:draft_edition, document: document, base_path: base_path) }
 
       it "passes the old link to dependency resolution" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
@@ -53,7 +53,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
     end
 
     context "published edition" do
-      let(:edition) { FactoryGirl.create(:live_edition, document: document, base_path: base_path) }
+      let(:edition) { create(:live_edition, document: document, base_path: base_path) }
 
       it "passes the old link to dependency resolution" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(

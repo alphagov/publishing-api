@@ -4,7 +4,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
   let(:base_path) { "/foo" }
 
   let(:edition) do
-    FactoryGirl.create(:draft_edition,
+    create(:draft_edition,
       base_path: base_path,
       title: "Draft",
     )
@@ -75,7 +75,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
   context "has a live edition with same base_path" do
     let!(:live_edition) do
-      FactoryGirl.create(:live_edition,
+      create(:live_edition,
         base_path: base_path,
         document: edition.document,
         title: "live",
@@ -99,7 +99,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
   context "has a live edition with a different base_path" do
     let(:live_edition) do
-      FactoryGirl.create(:live_edition,
+      create(:live_edition,
         base_path: "/bar",
         document: edition.document,
         title: "Live",
@@ -150,7 +150,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
 
     it "wont send to content store without a base_path" do
-      pathless = FactoryGirl.create(:draft_edition,
+      pathless = create(:draft_edition,
         base_path: nil,
         document_type: "contact",
         schema_name: "contact"
@@ -181,7 +181,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
   describe "update expanded links" do
     context "when there is not an edition" do
       before do
-        FactoryGirl.create(:expanded_links, content_id: content_id, with_drafts: true)
+        create(:expanded_links, content_id: content_id, with_drafts: true)
       end
 
       it "deletes the expanded links" do
@@ -193,7 +193,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
     context "when there is an edition" do
       let!(:live_edition) do
-        FactoryGirl.create(:live_edition, document: edition.document)
+        create(:live_edition, document: edition.document)
       end
       it "updates expanded links" do
         expect { subject.perform(arguments) }
@@ -208,7 +208,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     let(:logger) { Sidekiq::Logging.logger }
 
     before do
-      FactoryGirl.create(:live_edition, base_path: "/foo")
+      create(:live_edition, base_path: "/foo")
     end
 
     it "doesn't delete edition from content store" do

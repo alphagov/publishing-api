@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe V2::ActionsController do
   describe ".create" do
     let(:document) do
-      FactoryGirl.create(:document,
+      create(:document,
         content_id: SecureRandom.uuid,
         locale: "en",
         stale_lock_version: 5,
@@ -21,7 +21,7 @@ RSpec.describe V2::ActionsController do
     let(:json_payload) { payload.to_json }
 
     context "when an edition exists" do
-      before { FactoryGirl.create(:draft_edition, document: document) }
+      before { create(:draft_edition, document: document) }
 
       context "and the request is valid" do
         it "returns 201" do

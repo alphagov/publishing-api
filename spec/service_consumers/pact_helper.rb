@@ -1,6 +1,7 @@
 ENV['RAILS_ENV'] = 'test'
 require 'webmock'
 require 'pact/provider/rspec'
+require 'factory_bot_rails'
 
 WebMock.disable!
 
@@ -8,6 +9,7 @@ Pact.configure do |config|
   config.reports_dir = "spec/reports/pacts"
   config.include WebMock::API
   config.include WebMock::Matchers
+  config.include FactoryBot::Syntax::Methods
 end
 
 def url_encode(str)
@@ -33,7 +35,7 @@ Pact.provider_states_for "GDS API Adapters" do
     WebMock.enable!
     WebMock.reset!
     DatabaseCleaner.clean_with :truncation
-    GDS::SSO.test_user = FactoryGirl.create(:user,
+    GDS::SSO.test_user = create(:user,
       permissions: %w(signin view_all),
     )
   end
@@ -66,15 +68,15 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "/test-item has been reserved by the Publisher application" do
     set_up do
-      FactoryGirl.create(:path_reservation, base_path: "/test-item", publishing_app: "publisher")
+      create(:path_reservation, base_path: "/test-item", publishing_app: "publisher")
     end
   end
 
   provider_state "a content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         base_path: "/robots.txt",
         document: document,
         title: "Instructions for crawler robots",
@@ -96,22 +98,22 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:draft_edition, document: document)
+      create(:draft_edition, document: document)
     end
   end
 
   provider_state "a draft content item exists with content_id bed722e6-db68-43e5-9079-063f623335a7 with a blocking live item at the same path" do
     set_up do
-      FactoryGirl.create(:live_edition,
-        document: FactoryGirl.create(:document),
+      create(:live_edition,
+        document: create(:document),
         base_path: "/blocking_path",
       )
 
-      draft_document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      draft_document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: draft_document,
         base_path: "/blocking_path",
       )
@@ -120,47 +122,47 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a French content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      document = FactoryGirl.create(:document,
+      document = create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
       )
 
-      FactoryGirl.create(:draft_edition, document: document)
+      create(:draft_edition, document: document)
     end
   end
 
   provider_state "a published content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:live_edition, document: document)
+      create(:live_edition, document: document)
     end
   end
 
   provider_state "an unpublished content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:unpublished_edition, document: document)
+      create(:unpublished_edition, document: document)
     end
   end
 
   provider_state "organisation links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      link_set = FactoryGirl.create(:link_set,
+      link_set = create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 2,
       )
 
-      document = FactoryGirl.create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
-      FactoryGirl.create(:edition, document: document)
-      FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: document.content_id)
+      document = create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
+      create(:edition, document: document)
+      create(:link, link_set: link_set, link_type: "organisations", target_content_id: document.content_id)
     end
   end
 
   provider_state "empty links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      FactoryGirl.create(:link_set,
+      create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 2,
       )
@@ -169,14 +171,14 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "taxon links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      link_set = FactoryGirl.create(:link_set,
+      link_set = create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 2
       )
 
-      taxon = FactoryGirl.create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
-      FactoryGirl.create(:edition, document: taxon)
-      FactoryGirl.create(:link, link_set: link_set, link_type: "taxons", target_content_id: taxon.content_id)
+      taxon = create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
+      create(:edition, document: taxon)
+      create(:link, link_set: link_set, link_type: "taxons", target_content_id: taxon.content_id)
     end
   end
 
@@ -188,22 +190,22 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 and locale: fr" do
     set_up do
-      document = FactoryGirl.create(:document,
+      document = create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         locale: "fr",
       )
 
-      FactoryGirl.create(:draft_edition, document: document)
+      create(:draft_edition, document: document)
     end
   end
 
   provider_state "a content item exists in multiple locales with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      en_doc = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
-      fr_doc = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
-      ar_doc = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "ar")
+      en_doc = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      fr_doc = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "fr")
+      ar_doc = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "ar")
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: en_doc,
         document_type: "topic",
         schema_name: "topic",
@@ -211,7 +213,7 @@ Pact.provider_states_for "GDS API Adapters" do
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: fr_doc,
         document_type: "topic",
         schema_name: "topic",
@@ -219,7 +221,7 @@ Pact.provider_states_for "GDS API Adapters" do
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: ar_doc,
         document_type: "topic",
         schema_name: "topic",
@@ -231,9 +233,9 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a content item exists in with a superseded version with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
-      document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:superseded_edition,
+      create(:superseded_edition,
         document: document,
         document_type: "topic",
         schema_name: "topic",
@@ -241,7 +243,7 @@ Pact.provider_states_for "GDS API Adapters" do
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:live_edition,
+      create(:live_edition,
         document: document,
         document_type: "topic",
         schema_name: "topic",
@@ -253,12 +255,12 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
     set_up do
-      document = FactoryGirl.create(:document,
+      document = create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 3,
       )
 
-      FactoryGirl.create(:draft_edition, document: document)
+      create(:draft_edition, document: document)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
@@ -267,14 +269,14 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
     set_up do
-      document = FactoryGirl.create(:document,
+      document = create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 1,
       )
 
-      FactoryGirl.create(:draft_edition, document: document)
+      create(:draft_edition, document: document)
 
-      FactoryGirl.create(:link_set,
+      create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 3,
       )
@@ -287,9 +289,9 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "there are four content items with document_type 'topic'" do
     set_up do
       (1..4).each do |index|
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
                            title: "title_#{index}",
-                           document: FactoryGirl.create(:document),
+                           document: create(:document),
                            base_path: "/path_#{index}",
                            document_type: "topic")
       end
@@ -298,11 +300,11 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "there is content with document_type 'topic'" do
     set_up do
-      document_a = FactoryGirl.create(:document,
+      document_a = create(:document,
         content_id: "aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa",
       )
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         title: 'Content Item A',
         document: document_a,
         base_path: '/a-base-path',
@@ -314,11 +316,11 @@ Pact.provider_states_for "GDS API Adapters" do
         },
       )
 
-      document_b = FactoryGirl.create(:document,
+      document_b = create(:document,
         content_id: "bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb",
       )
 
-      FactoryGirl.create(:live_edition,
+      create(:live_edition,
         title: 'Content Item B',
         document: document_b,
         base_path: '/another-base-path',
@@ -331,42 +333,42 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "there are two link changes with a link_type of 'taxons'" do
     set_up do
       Timecop.freeze("2017-01-01 09:00:00.1") do
-        document_a1 = FactoryGirl.build(:document, content_id: 'aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa')
-        document_a2 = FactoryGirl.build(:document, content_id: 'aaaaaaaa-aaaa-2aaa-aaaa-aaaaaaaaaaaa')
-        document_b1 = FactoryGirl.build(:document, content_id: 'bbbbbbbb-bbbb-1bbb-bbbb-bbbbbbbbbbbb')
-        document_b2 = FactoryGirl.build(:document, content_id: 'bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb')
+        document_a1 = build(:document, content_id: 'aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa')
+        document_a2 = build(:document, content_id: 'aaaaaaaa-aaaa-2aaa-aaaa-aaaaaaaaaaaa')
+        document_b1 = build(:document, content_id: 'bbbbbbbb-bbbb-1bbb-bbbb-bbbbbbbbbbbb')
+        document_b2 = build(:document, content_id: 'bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb')
 
-        action1 = FactoryGirl.create(:action, user_uid: '11111111-1111-1111-1111-111111111111')
-        action2 = FactoryGirl.create(:action, user_uid: '22222222-2222-2222-2222-222222222222')
+        action1 = create(:action, user_uid: '11111111-1111-1111-1111-111111111111')
+        action2 = create(:action, user_uid: '22222222-2222-2222-2222-222222222222')
 
-        FactoryGirl.create(:edition,
+        create(:edition,
           title: 'Edition Title A1',
           base_path: '/base/path/a1',
           document: document_a1
         )
-        FactoryGirl.create(:edition,
+        create(:edition,
           title: 'Edition Title A2',
           base_path: '/base/path/a2',
           document: document_a2
         )
-        FactoryGirl.create(:edition,
+        create(:edition,
           title: 'Edition Title B1',
           base_path: '/base/path/b1',
           document: document_b1
         )
-        FactoryGirl.create(:edition,
+        create(:edition,
           title: 'Edition Title B2',
           base_path: '/base/path/b2',
           document: document_b2
         )
 
-        FactoryGirl.create(:link_change,
+        create(:link_change,
           source_content_id: document_a1.content_id,
           target_content_id: document_b1.content_id,
           action: action1,
           change: 'add'
         )
-        FactoryGirl.create(:link_change,
+        create(:link_change,
           source_content_id: document_a2.content_id,
           target_content_id: document_b2.content_id,
           action: action2,
@@ -377,11 +379,11 @@ Pact.provider_states_for "GDS API Adapters" do
   end
   provider_state "there is content with document_type 'topic' for multiple publishing apps" do
     set_up do
-      document_a = FactoryGirl.create(:document)
-      document_b = FactoryGirl.create(:document)
-      document_c = FactoryGirl.create(:document)
+      document_a = create(:document)
+      document_b = create(:document)
+      document_c = create(:document)
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: document_a,
         title: 'Content Item A',
         base_path: '/a-base-path',
@@ -389,7 +391,7 @@ Pact.provider_states_for "GDS API Adapters" do
         schema_name: "topic",
       )
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: document_b,
         title: 'Content Item B',
         base_path: '/another-base-path',
@@ -397,7 +399,7 @@ Pact.provider_states_for "GDS API Adapters" do
         schema_name: "topic",
       )
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: document_c,
         title: 'Content Item C',
         base_path: '/yet-another-base-path',
@@ -414,47 +416,47 @@ Pact.provider_states_for "GDS API Adapters" do
       content_id2 = "08dfd5c3-d935-4e81-88fd-cfe65b78893d"
       content_id3 = "e2961462-bc37-48e9-bb98-c981ef1a2d59"
 
-      document_1 = FactoryGirl.create(:document, content_id: content_id1)
-      document_2 = FactoryGirl.create(:document, content_id: content_id2)
-      document_3 = FactoryGirl.create(:document, content_id: content_id3)
+      document1 = create(:document, content_id: content_id1)
+      document2 = create(:document, content_id: content_id2)
+      document3 = create(:document, content_id: content_id3)
 
-      FactoryGirl.create(:live_edition,
-        document: document_1,
+      create(:live_edition,
+        document: document1,
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:draft_edition,
-        document: document_1,
+      create(:draft_edition,
+        document: document1,
         user_facing_version: 2
       )
 
-      FactoryGirl.create(:live_edition,
-        document: document_3,
+      create(:live_edition,
+        document: document3,
         base_path: '/item-b',
         public_updated_at: '2015-01-02',
         user_facing_version: 1,
       )
 
-      FactoryGirl.create(:live_edition,
-        document: document_2,
+      create(:live_edition,
+        document: document2,
         base_path: '/item-a',
         public_updated_at: '2015-01-01',
         user_facing_version: 1,
       )
 
-      link_set1 = FactoryGirl.create(:link_set, content_id: content_id3)
-      link_set2 = FactoryGirl.create(:link_set, content_id: content_id2)
+      link_set1 = create(:link_set, content_id: content_id3)
+      link_set2 = create(:link_set, content_id: content_id2)
 
-      FactoryGirl.create(:link, link_set: link_set1, link_type: "topic", target_content_id: content_id1)
-      FactoryGirl.create(:link, link_set: link_set2, link_type: "topic", target_content_id: content_id1)
+      create(:link, link_set: link_set1, link_type: "topic", target_content_id: content_id1)
+      create(:link, link_set: link_set2, link_type: "topic", target_content_id: content_id1)
     end
   end
 
   provider_state "a content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 and it has details" do
     set_up do
-      document = FactoryGirl.create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+      document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: document,
         document_type: "topic",
         schema_name: "topic",
@@ -465,12 +467,12 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
-      document = FactoryGirl.create(:document,
+      document = create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 3,
       )
 
-      FactoryGirl.create(:draft_edition, document: document)
+      create(:draft_edition, document: document)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
@@ -479,12 +481,12 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the published content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
-      document = FactoryGirl.create(:document,
+      document = create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 3
       )
 
-      FactoryGirl.create(:live_edition, document: document)
+      create(:live_edition, document: document)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
@@ -493,14 +495,14 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
-      document = FactoryGirl.create(:document,
+      document = create(:document,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 1,
       )
 
-      FactoryGirl.create(:draft_edition, document: document)
+      create(:draft_edition, document: document)
 
-      FactoryGirl.create(:link_set,
+      create(:link_set,
         content_id: "bed722e6-db68-43e5-9079-063f623335a7",
         stale_lock_version: 3,
       )
@@ -512,35 +514,35 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "there are live content items with base_paths /foo and /bar" do
     set_up do
-      document_1 = FactoryGirl.create(:document, content_id: "08f86d00-e95f-492f-af1d-470c5ba4752e")
+      document1 = create(:document, content_id: "08f86d00-e95f-492f-af1d-470c5ba4752e")
 
-      FactoryGirl.create(:live_edition, base_path: '/foo', document: document_1)
+      create(:live_edition, base_path: '/foo', document: document1)
 
-      document_2 = FactoryGirl.create(:document, content_id: "ca6c58a6-fb9d-479d-b3e6-74908781cb18")
+      document2 = create(:document, content_id: "ca6c58a6-fb9d-479d-b3e6-74908781cb18")
 
-      FactoryGirl.create(:live_edition, base_path: '/bar', document: document_2)
+      create(:live_edition, base_path: '/bar', document: document2)
     end
   end
 
   provider_state "there is a draft content item with base_path /foo" do
     set_up do
-      document = FactoryGirl.create(:document, content_id: "cbb460a7-60de-4a74-b5be-0b27c6d6af9b")
+      document = create(:document, content_id: "cbb460a7-60de-4a74-b5be-0b27c6d6af9b")
 
-      FactoryGirl.create(:draft_edition, base_path: '/foo', document: document)
+      create(:draft_edition, base_path: '/foo', document: document)
     end
   end
 
   provider_state "there are 4 live content items with fixed updated timestamps" do
     set_up do
-      document_1 = FactoryGirl.create(:document, content_id: 'bd50a6d9-f03d-4ccf-94aa-ad79579990a9')
-      document_2 = FactoryGirl.create(:document, content_id: '989033fe-252a-4e69-976d-5c0059bca949')
-      document_3 = FactoryGirl.create(:document, content_id: '271d4270-9186-4d60-b2ca-1d7dae7e0f73')
-      document_4 = FactoryGirl.create(:document, content_id: '638af19c-27fc-4cc9-a914-4cca49028688')
+      document1 = create(:document, content_id: 'bd50a6d9-f03d-4ccf-94aa-ad79579990a9')
+      document2 = create(:document, content_id: '989033fe-252a-4e69-976d-5c0059bca949')
+      document3 = create(:document, content_id: '271d4270-9186-4d60-b2ca-1d7dae7e0f73')
+      document4 = create(:document, content_id: '638af19c-27fc-4cc9-a914-4cca49028688')
 
-      FactoryGirl.create(:live_edition, base_path: '/1', document: document_1, updated_at: '2017-01-01T00:00:00Z')
-      FactoryGirl.create(:live_edition, base_path: '/2', document: document_2, updated_at: '2017-02-01T00:00:00Z')
-      FactoryGirl.create(:live_edition, base_path: '/3', document: document_3, updated_at: '2017-03-01T00:00:00Z')
-      FactoryGirl.create(:live_edition, base_path: '/4', document: document_4, updated_at: '2017-04-01T00:00:00Z')
+      create(:live_edition, base_path: '/1', document: document1, updated_at: '2017-01-01T00:00:00Z')
+      create(:live_edition, base_path: '/2', document: document2, updated_at: '2017-02-01T00:00:00Z')
+      create(:live_edition, base_path: '/3', document: document3, updated_at: '2017-03-01T00:00:00Z')
+      create(:live_edition, base_path: '/4', document: document4, updated_at: '2017-04-01T00:00:00Z')
     end
   end
 end

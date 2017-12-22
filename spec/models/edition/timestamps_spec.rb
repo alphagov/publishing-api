@@ -6,9 +6,9 @@ RSpec.describe Edition::Timestamps do
   let(:current_time) { Time.zone.now }
 
   describe "#edited" do
-    let(:edition) { FactoryGirl.build(:edition, update_type: update_type) }
+    let(:edition) { build(:edition, update_type: update_type) }
     let(:previous_live_version) do
-      FactoryGirl.build(:edition,
+      build(:edition,
         temporary_first_published_at: "2017-01-01",
         first_published_at: "2017-04-01",
         major_published_at: "2017-11-11",
@@ -124,7 +124,7 @@ RSpec.describe Edition::Timestamps do
 
   describe "#live_transition" do
     let(:edition) do
-      FactoryGirl.build(:edition,
+      build(:edition,
         temporary_first_published_at: temporary_first_published_at,
         first_published_at: first_published_at,
         public_updated_at: public_updated_at,
@@ -135,7 +135,7 @@ RSpec.describe Edition::Timestamps do
     let(:public_updated_at) { nil }
 
     let(:previous_live_version) do
-      FactoryGirl.build(:edition,
+      build(:edition,
         major_published_at: "2017-11-05",
         public_updated_at: previous_public_updated_at,
       )

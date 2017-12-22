@@ -2,10 +2,10 @@ require "rails_helper"
 
 RSpec.describe V2::LinkSetsController do
   let(:content_id) { SecureRandom.uuid }
-  let(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let(:document) { create(:document, content_id: content_id) }
 
   before do
-    FactoryGirl.create(:draft_edition, document: document)
+    create(:draft_edition, document: document)
     stub_request(:any, /content-store/)
   end
 

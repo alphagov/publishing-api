@@ -18,8 +18,8 @@ RSpec.describe "Message bus", type: :request do
 
     context "with a live edition" do
       before do
-        FactoryGirl.create(:live_edition,
-          document: FactoryGirl.create(:document, content_id: content_id),
+        create(:live_edition,
+          document: create(:document, content_id: content_id),
           base_path: base_path,
         )
       end
@@ -34,8 +34,8 @@ RSpec.describe "Message bus", type: :request do
 
     context "with a draft edition" do
       before do
-        FactoryGirl.create(:draft_edition,
-          document: FactoryGirl.create(:document, content_id: content_id),
+        create(:draft_edition,
+          document: create(:document, content_id: content_id),
           base_path: base_path,
         )
       end
@@ -53,8 +53,8 @@ RSpec.describe "Message bus", type: :request do
 
   context "/v2/publish" do
     before do
-      FactoryGirl.create(:draft_edition,
-        document: FactoryGirl.create(:document, content_id: content_id),
+      create(:draft_edition,
+        document: create(:document, content_id: content_id),
         document_type: "nonexistent-schema",
         schema_name: "nonexistent-schema",
         base_path: base_path,

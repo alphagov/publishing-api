@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe AccessLimit do
   subject do
-    FactoryGirl.build(:access_limit,
+    build(:access_limit,
       users: users,
       auth_bypass_ids: auth_bypass_ids,
     )

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PathReservation, type: :model do
   describe "validations" do
-    let(:reservation) { FactoryGirl.build(:path_reservation) }
+    let(:reservation) { build(:path_reservation) }
 
     describe "on base_path" do
       it "is required" do
@@ -18,7 +18,7 @@ RSpec.describe PathReservation, type: :model do
       end
 
       it "has a db level uniqueness constraint" do
-        FactoryGirl.create(:path_reservation, base_path: "/foo/bar")
+        create(:path_reservation, base_path: "/foo/bar")
         reservation.base_path = "/foo/bar"
         expect {
           reservation.save! validate: false
@@ -36,7 +36,7 @@ RSpec.describe PathReservation, type: :model do
   end
 
   it "supports base_paths longer than 255 chars" do
-    reservation = FactoryGirl.build(:path_reservation)
+    reservation = build(:path_reservation)
     reservation.base_path = "/" + 'x' * 300
     expect {
       reservation.save!
@@ -46,7 +46,7 @@ RSpec.describe PathReservation, type: :model do
   describe ".reserve_base_path!(base_path, publishing_app)" do
     context "when the path reservation already exists" do
       before do
-        FactoryGirl.create(:path_reservation,
+        create(:path_reservation,
           base_path: "/vat-rates",
           publishing_app: "something-else",
         )

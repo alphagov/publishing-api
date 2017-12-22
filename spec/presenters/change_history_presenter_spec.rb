@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Presenters::ChangeHistoryPresenter do
-  let(:document) { FactoryGirl.create(:document) }
+  let(:document) { create(:document) }
   let(:edition) do
-    FactoryGirl.create(:edition,
+    create(:edition,
       document: document,
       details: details.deep_stringify_keys,
     )
@@ -52,14 +52,14 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
 
     context "multiple editions for a single content id" do
       let(:item1) do
-        FactoryGirl.create(:superseded_edition,
+        create(:superseded_edition,
           document: document,
           details: details,
           user_facing_version: 1,
         )
       end
       let(:item2) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           details: details,
           user_facing_version: 2,

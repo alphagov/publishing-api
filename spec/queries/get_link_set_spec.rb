@@ -5,7 +5,7 @@ RSpec.describe Queries::GetLinkSet do
 
   context "when the link set exists" do
     let!(:link_set) do
-      FactoryGirl.create(:link_set, content_id: content_id, stale_lock_version: 5)
+      create(:link_set, content_id: content_id, stale_lock_version: 5)
     end
 
     context "and it has some links" do
@@ -13,19 +13,19 @@ RSpec.describe Queries::GetLinkSet do
       let(:related) { [SecureRandom.uuid, SecureRandom.uuid] }
 
       before do
-        FactoryGirl.create(:link,
+        create(:link,
           link_set: link_set,
           link_type: "parent",
           target_content_id: parent.first
         )
 
-        FactoryGirl.create(:link,
+        create(:link,
           link_set: link_set,
           link_type: "related",
           target_content_id: related.first
         )
 
-        FactoryGirl.create(:link,
+        create(:link,
           link_set: link_set,
           link_type: "related",
           target_content_id: related.last
@@ -69,7 +69,7 @@ RSpec.describe Queries::GetLinkSet do
 
   context "when a document exists without a link set" do
     before do
-      FactoryGirl.create(:document, content_id: content_id)
+      create(:document, content_id: content_id)
     end
 
     it "returns an empty response" do

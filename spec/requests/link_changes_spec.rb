@@ -8,7 +8,7 @@ RSpec.describe 'GET /v2/links/changes', type: :request do
   end
 
   scenario 'Get a link change' do
-    editions = FactoryGirl.create_list(:edition, 2)
+    editions = create_list(:edition, 2)
     user_uid = SecureRandom.uuid
 
     make_patch_links_request(

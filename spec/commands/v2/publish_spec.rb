@@ -17,13 +17,13 @@ RSpec.describe Commands::V2::Publish do
     let(:public_updated_at) { 1.year.ago }
 
     let!(:document) do
-      FactoryGirl.create(:document,
+      create(:document,
         locale: locale,
         stale_lock_version: 2)
     end
 
     let!(:draft_item) do
-      FactoryGirl.create(:draft_edition,
+      create(:draft_edition,
         document: document,
         base_path: base_path,
         user_facing_version: user_facing_version,
@@ -100,7 +100,7 @@ RSpec.describe Commands::V2::Publish do
       let(:existing_base_path) { base_path }
 
       let!(:draft_item) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: document,
           base_path: existing_base_path,
           title: "foo",
@@ -137,7 +137,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "and update_type is minor" do
         before do
-          FactoryGirl.create(:live_edition,
+          create(:live_edition,
             document: document,
             base_path: existing_base_path,
             user_facing_version: user_facing_version - 1,
@@ -159,7 +159,7 @@ RSpec.describe Commands::V2::Publish do
       let(:existing_base_path) { base_path }
 
       let!(:live_item) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           base_path: existing_base_path,
           title: "foo",
@@ -180,7 +180,7 @@ RSpec.describe Commands::V2::Publish do
       let(:existing_base_path) { base_path }
 
       let!(:live_item) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           base_path: existing_base_path,
           user_facing_version: user_facing_version - 1,
@@ -200,7 +200,7 @@ RSpec.describe Commands::V2::Publish do
       let(:existing_base_path) { base_path }
       let(:first_published_at) { 1.year.ago }
       let!(:live_item) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           base_path: existing_base_path,
           user_facing_version: user_facing_version - 1,
@@ -225,7 +225,7 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the edition was previously unpublished" do
       let!(:live_item) do
-        FactoryGirl.create(:unpublished_edition,
+        create(:unpublished_edition,
           document: draft_item.document,
           base_path: base_path,
           user_facing_version: user_facing_version - 1,
@@ -244,8 +244,8 @@ RSpec.describe Commands::V2::Publish do
       let(:draft_locale) { document.locale }
 
       let!(:other_edition) do
-        FactoryGirl.create(:redirect_live_edition,
-          document: FactoryGirl.create(:document, locale: draft_locale),
+        create(:redirect_live_edition,
+          document: create(:document, locale: draft_locale),
           base_path: base_path,
         )
       end
@@ -333,7 +333,7 @@ RSpec.describe Commands::V2::Publish do
 
         context "and the update_type is minor" do
           let!(:live_item) do
-            FactoryGirl.create(:live_edition,
+            create(:live_edition,
             document: document,
             base_path: base_path,
             user_facing_version: user_facing_version - 1,
@@ -402,14 +402,14 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the base_path differs from the previously published item" do
       let!(:live_item) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: draft_item.document,
           base_path: "/hat-rates",
         )
       end
 
       before do
-        FactoryGirl.create(:redirect_draft_edition,
+        create(:redirect_draft_edition,
           base_path: "/hat-rates",
         )
       end
@@ -440,14 +440,14 @@ RSpec.describe Commands::V2::Publish do
       let(:link_b) { SecureRandom.uuid }
 
       let!(:live_item) do
-        FactoryGirl.create(:live_edition,
+        create(:live_edition,
           document: document,
           links_hash: { topics: [link_a] },
         )
       end
 
       let!(:draft_item) do
-        FactoryGirl.create(:draft_edition,
+        create(:draft_edition,
           document: document,
           links_hash: { topics: [link_b] },
           user_facing_version: 2,
@@ -464,7 +464,7 @@ RSpec.describe Commands::V2::Publish do
 
     context "when an access limit is set on the draft edition" do
       before do
-        FactoryGirl.create(:access_limit, edition: draft_item)
+        create(:access_limit, edition: draft_item)
       end
 
       it "destroys the access limit" do
@@ -501,7 +501,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "but a published item does exist" do
         before do
-          FactoryGirl.create(:live_edition,
+          create(:live_edition,
             document: document,
             base_path: base_path,
           )

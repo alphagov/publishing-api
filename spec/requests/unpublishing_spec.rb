@@ -9,9 +9,9 @@ require "rails_helper"
 RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
-  let!(:document) { FactoryGirl.create(:document, content_id: content_id) }
+  let!(:document) { create(:document, content_id: content_id) }
   let!(:edition) do
-    FactoryGirl.create(:live_edition,
+    create(:live_edition,
       document: document,
       base_path: base_path,
     )

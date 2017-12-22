@@ -4,7 +4,7 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
   describe ".present" do
     let(:content_id) { SecureRandom.uuid }
     let(:link_set) do
-      FactoryGirl.create(:link_set, content_id: content_id, stale_lock_version: 101)
+      create(:link_set, content_id: content_id, stale_lock_version: 101)
     end
 
     subject(:result) do
@@ -22,7 +22,7 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
 
   context "#links" do
     describe "returns the links as a hash, grouping them by their link_type" do
-      let(:link_set) { FactoryGirl.create(:link_set) }
+      let(:link_set) { create(:link_set) }
       let(:links) { Presenters::Queries::LinkSetPresenter.new(link_set).links }
 
       it "returns and empty hash when no links are present" do
@@ -34,9 +34,9 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
         org_content_id_2 = SecureRandom.uuid
         rel_content_id_1 = SecureRandom.uuid
 
-        FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_1)
-        FactoryGirl.create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_2)
-        FactoryGirl.create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id_1)
+        create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_1)
+        create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_2)
+        create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id_1)
 
         expect(links[:organisations]).to match_array(
           [org_content_id_1, org_content_id_2]

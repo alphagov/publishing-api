@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :live_edition, parent: :edition do
     user_facing_version 1
     state "published"
@@ -10,7 +10,7 @@ FactoryGirl.define do
 
     trait :with_draft do
       after(:create) do |live_edition, evaluator|
-        draft = FactoryGirl.create(:draft_edition,
+        draft = create(:draft_edition,
           live_edition.as_json(only: %i[title document_id schema_name document_type routes redirects]).merge(
             base_path: evaluator.base_path,
             user_facing_version: evaluator.draft_version_number,

@@ -58,9 +58,9 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "doesn't reject an empty links hash, but doesn't delete links either" do
-      link_set = FactoryGirl.create(:link_set,
+      link_set = create(:link_set,
         links: [
-          FactoryGirl.create(:link)
+          create(:link)
         ]
       )
 
@@ -111,19 +111,19 @@ RSpec.describe Commands::V2::PatchLinkSet do
     let(:related) { [SecureRandom.uuid] }
 
     before do
-      FactoryGirl.create(:link_set,
+      create(:link_set,
         content_id: content_id,
         stale_lock_version: 1,
         links: [
-          FactoryGirl.create(:link,
+          create(:link,
             link_type: "topics",
             target_content_id: topics.first,
           ),
-          FactoryGirl.create(:link,
+          create(:link,
             link_type: "topics",
             target_content_id: topics.second,
           ),
-          FactoryGirl.create(:link,
+          create(:link,
             link_type: "related",
             target_content_id: related.first,
           ),
@@ -213,8 +213,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   context "when a draft edition exists for the content_id" do
     before do
-      FactoryGirl.create(:draft_edition,
-        document: FactoryGirl.create(:document, content_id: content_id),
+      create(:draft_edition,
+        document: create(:document, content_id: content_id),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -239,8 +239,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     context "when a draft edition has multiple translations" do
       before do
-        FactoryGirl.create(:draft_edition,
-          document: FactoryGirl.create(:document, content_id: content_id, locale: "fr"),
+        create(:draft_edition,
+          document: create(:document, content_id: content_id, locale: "fr"),
           base_path: "/french-path",
           title: "French Title",
         )
@@ -254,7 +254,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
               a_hash_including(
                 content_id: content_id,
                 locale: locale,
-                payload_version: an_instance_of(Fixnum),
+                payload_version: an_instance_of(Integer),
               ),
             )
         end
@@ -273,8 +273,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   context "when a live edition exists for the content_id" do
     before do
-      FactoryGirl.create(:live_edition,
-        document: FactoryGirl.create(:document, content_id: content_id),
+      create(:live_edition,
+        document: create(:document, content_id: content_id),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -312,8 +312,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     context "when a live edition has multiple translations" do
       before do
-        FactoryGirl.create(:live_edition,
-          document: FactoryGirl.create(:document, content_id: content_id, locale: "fr"),
+        create(:live_edition,
+          document: create(:document, content_id: content_id, locale: "fr"),
           base_path: "/french-path",
           title: "French Title",
         )
@@ -327,7 +327,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
               content_id: content_id,
               locale: locale,
               message_queue_event_type: "links",
-              payload_version: an_instance_of(Fixnum),
+              payload_version: an_instance_of(Integer),
               orphaned_content_ids: [],
             )
         end
@@ -351,8 +351,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   context "when an unpublished edition exists for the content_id" do
     before do
-      FactoryGirl.create(:unpublished_edition,
-        document: FactoryGirl.create(:document, content_id: content_id),
+      create(:unpublished_edition,
+        document: create(:document, content_id: content_id),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -391,7 +391,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
   context "when 'links' are replaced in the payload" do
     let(:link_a) { SecureRandom.uuid }
     let(:link_b) { SecureRandom.uuid }
-    let(:edition) { FactoryGirl.create(:live_edition) }
+    let(:edition) { create(:live_edition) }
     let(:content_id) { edition.document.content_id }
 
     let(:payload) do
@@ -399,7 +399,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     before do
-      FactoryGirl.create(:link_set,
+      create(:link_set,
         content_id: content_id,
         links_hash: { topics: [link_a] },
       )
