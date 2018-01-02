@@ -10,6 +10,7 @@ RSpec.describe Edition::Timestamps do
     let(:previous_live_version) do
       build(:edition,
         temporary_first_published_at: "2017-01-01",
+        publisher_first_published_at: "2017-04-01",
         first_published_at: "2017-04-01",
         major_published_at: "2017-11-11",
       )
@@ -70,6 +71,10 @@ RSpec.describe Edition::Timestamps do
 
       it "sets first_published_at to previous_live_version" do
         expect(edition.first_published_at).to eq previous_live_version.first_published_at
+      end
+
+      it "sets publisher_first_published_at to previous_live_version" do
+        expect(edition.publisher_first_published_at).to eq previous_live_version.publisher_first_published_at
       end
     end
 
