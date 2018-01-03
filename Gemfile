@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "rails", "5.1"
 gem "arel", "8.0"
 
-gem "unicorn", "~> 5.3.1"
+gem "unicorn", "~> 5.4.0"
 gem "plek", "~> 2.0"
 gem "pg"
 gem 'dalli'
@@ -18,7 +18,7 @@ else
 end
 
 gem "gds-sso", "~> 13.5"
-gem "govuk_app_config", "~> 1.1"
+gem "govuk_app_config", "~> 1.2"
 gem "govuk_document_types", "~> 0.2"
 gem "govuk_schemas", "~> 3.1"
 gem "govuk_sidekiq", "~> 3.0"
