@@ -634,11 +634,11 @@ GEM
       rubocop (~> 0.51.0)
       rubocop-rspec (~> 1.19.0)
       scss_lint
-    govuk_app_config (1.1.0)
+    govuk_app_config (1.2.0)
       logstasher (~> 1.2.2)
       sentry-raven (~> 2.7.1)
       statsd-ruby (~> 1.4.0)
-      unicorn (~> 5.3.1)
+      unicorn (~> 5.4.0)
     govuk_document_types (0.2.0)
     govuk_schemas (3.1.0)
       json-schema (~> 2.8.0)
@@ -664,7 +664,7 @@ GEM
     json-schema (2.8.0)
       addressable (>= 2.4)
     jwt (1.5.6)
-    kgio (2.11.0)
+    kgio (2.11.1)
     kramdown (1.15.0)
     link_header (0.0.8)
     logstash-event (1.2.02)
@@ -685,7 +685,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.10.3)
+    minitest (5.11.1)
     money (6.10.0)
       i18n (>= 0.6.4, < 1.0)
     multi_json (1.12.2)
@@ -803,7 +803,8 @@ GEM
     redis (4.0.1)
     redis-namespace (1.6.0)
       redis (>= 3.0.4)
-    request_store (1.3.2)
+    request_store (1.4.0)
+      rack (>= 1.4)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -899,7 +900,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.4)
     unicode-display_width (1.3.0)
-    unicorn (5.3.1)
+    unicorn (5.4.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     warden (1.2.7)
@@ -941,7 +942,7 @@ DEPENDENCIES
   gds-sso (~> 13.5)
   govspeak (~> 5.2.2)
   govuk-lint
-  govuk_app_config (~> 1.1)
+  govuk_app_config (~> 1.2)
   govuk_document_types (~> 0.2)
   govuk_schemas (~> 3.1)
   govuk_sidekiq (~> 3.0)
@@ -966,7 +967,7 @@ DEPENDENCIES
   spring-commands-rspec
   stackprof
   timecop
-  unicorn (~> 5.3.1)
+  unicorn (~> 5.4.0)
   web-console (~> 3)
   webmock
   whenever (= 0.10.0)
