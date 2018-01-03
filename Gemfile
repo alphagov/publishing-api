@@ -18,7 +18,7 @@ else
 end
 
 gem "gds-sso", "~> 13.5"
-gem "govuk_app_config", "~> 1.2"
+gem "govuk_app_config", git: "https://github.com/alphagov/govuk_app_config", branch: "unicorn-config"
 gem "govuk_document_types", "~> 0.2"
 gem "govuk_schemas", "~> 3.1"
 gem "govuk_sidekiq", "~> 3.0"

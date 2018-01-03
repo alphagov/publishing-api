@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/alphagov/govuk_app_config
+  revision: f607ecad172359b8f1ab3e2eef66bfa57c22fc57
+  branch: unicorn-config
+  specs:
+    govuk_app_config (1.2.0)
+      logstasher (~> 1.2.2)
+      sentry-raven (~> 2.7.1)
+      statsd-ruby (~> 1.4.0)
+      unicorn (~> 5.4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -634,11 +645,6 @@ GEM
       rubocop (~> 0.51.0)
       rubocop-rspec (~> 1.19.0)
       scss_lint
-    govuk_app_config (1.2.0)
-      logstasher (~> 1.2.2)
-      sentry-raven (~> 2.7.1)
-      statsd-ruby (~> 1.4.0)
-      unicorn (~> 5.4.0)
     govuk_document_types (0.2.0)
     govuk_schemas (3.1.0)
       json-schema (~> 2.8.0)
@@ -942,7 +948,7 @@ DEPENDENCIES
   gds-sso (~> 13.5)
   govspeak (~> 5.2.2)
   govuk-lint
-  govuk_app_config (~> 1.2)
+  govuk_app_config!
   govuk_document_types (~> 0.2)
   govuk_schemas (~> 3.1)
   govuk_sidekiq (~> 3.0)
