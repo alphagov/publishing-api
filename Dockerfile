@@ -19,4 +19,6 @@ ADD Gemfile* $APP_HOME/
 RUN bundle install
 ADD . $APP_HOME
 
+HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck || exit 1
+
 CMD bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p $PORT -b '0.0.0.0'"
