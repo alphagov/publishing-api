@@ -1,5 +1,5 @@
 defaults: &defaults
-  host: localhost
+  hosts: [localhost]
   port: 5672
   vhost: /
   user: publishing_api
