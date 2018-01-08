@@ -59,7 +59,7 @@ private
       event_type = routing_key.split('.').last
 
       if success
-        PublishingAPI.service(:statsd).increment("message-sent.#{event_type}")
+        GovukStatsd.increment("message-sent.#{event_type}")
       else
         GovukError.notify(
           PublishFailedError.new("Publishing message failed"),
@@ -70,7 +70,7 @@ private
             options: options,
           }
         )
-        PublishingAPI.service(:statsd).increment("message-send-failure.#{event_type}")
+        GovukStatsd.increment("message-send-failure.#{event_type}")
       end
     ensure
       channel.close if channel.open?

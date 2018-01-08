@@ -52,7 +52,7 @@ RSpec.describe Commands::BaseCommand do
 
   describe "timing" do
     it "sends a command's duration to statsd" do
-      expect(PublishingAPI.service(:statsd)).to receive(:timing) do |name, time, sample_rate|
+      expect(GovukStatsd).to receive(:timing) do |name, time, sample_rate|
         expect(name).to eq "Commands.SlowCommand"
         expect(time).to be_within(10).of(1000)
         expect(sample_rate).to eq 1

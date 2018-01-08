@@ -6,7 +6,7 @@ module Commands
       logger.debug "#{self} called with payload:\n#{payload}"
 
       response = EventLogger.log_command(self, payload) do |event|
-        PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, '.')) do
+        GovukStatsd.time(self.name.gsub(/:+/, '.')) do
           new(
             payload,
             event: event,
