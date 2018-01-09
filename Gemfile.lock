@@ -630,7 +630,7 @@ GEM
       money (~> 6.7)
       nokogiri (~> 1.5)
       sanitize (~> 2.1.0)
-    govuk-lint (3.4.0)
+    govuk-lint (3.5.0)
       rubocop (~> 0.51.0)
       rubocop-rspec (~> 1.19.0)
       scss_lint
@@ -747,7 +747,7 @@ GEM
       table_print (~> 1.5)
       term-ansicolor
       thor (~> 0.20)
-    parallel (1.12.0)
+    parallel (1.12.1)
     parser (2.4.0.2)
       ast (~> 2.3)
     pg (0.21.0)
@@ -843,7 +843,7 @@ GEM
     safe_yaml (1.0.4)
     sanitize (2.1.0)
       nokogiri (>= 1.4.4)
-    sass (3.5.3)
+    sass (3.5.5)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
