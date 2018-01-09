@@ -23,7 +23,7 @@ gem "govuk_document_types", "~> 0.2"
 gem "govuk_schemas", "~> 3.1"
 gem "govuk_sidekiq", "~> 3.0"
 
-gem 'bunny', '~> 2.8'
+gem 'bunny', '~> 2.9'
 gem 'whenever', '0.10.0', require: false
 gem "json-schema", require: false
 gem "hashdiff", "~> 0.3.6"
