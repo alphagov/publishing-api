@@ -47,7 +47,7 @@ RSpec.describe QueuePublisher do
           title: "VAT Rates",
           description: "VAT rates for goods and services",
           document_type: "nonexistent-schema",
-          schema_name: "nonexistent-schema",
+          schema_name: "answer",
           publishing_app: "publisher",
           locale: "en",
           details: {
