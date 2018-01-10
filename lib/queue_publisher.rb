@@ -46,12 +46,19 @@ private
   def validate_edition(edition)
     validator = SchemaValidator.new(payload: edition, schema_type: :notification)
     if !validator.valid?
-      logger.info(
-        <<-ERROR_MESSAGE
-          Message being sent to the queue does not match the notification schema.
-          Message: #{edition}
-          Errors: #{validator.errors}
-        ERROR_MESSAGE
+      Rails.logger.info(
+        {
+          "message": "Message being sent to the queue does not match the notification schema",
+          "error": validator.errors.to_s,
+          "edition": edition,
+        }.to_json
+      )
+    else
+      Rails.logger.info(
+        {
+          "message": "Message being sent to the queue matches the notification schema",
+          "edition": edition,
+        }.to_json
       )
     end
   end
