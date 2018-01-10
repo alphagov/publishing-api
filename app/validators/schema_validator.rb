@@ -4,11 +4,11 @@ require 'govuk_schemas'
 class SchemaValidator
   attr_reader :errors
 
-  def initialize(payload:, links: false, schema: nil, schema_name: nil)
+  def initialize(payload:, schema: nil, schema_name: nil, schema_type: :publisher)
     @payload = payload
-    @links = links
     @schema = schema
     @schema_name = schema_name
+    @schema_type = schema_type
     @errors = []
   end
 
@@ -24,7 +24,7 @@ class SchemaValidator
 
 private
 
-  attr_reader :payload, :links
+  attr_reader :payload, :schema_type
 
   def schema
     @schema || find_schema
@@ -52,15 +52,11 @@ private
 
   def find_type
     raise NoSchemaNameError.new("No schema name provided") unless schema_name.present?
-    if links?
-      { links_schema: schema_name }
-    else
-      { publisher_schema: schema_name }
-    end
+    { schema_type_key => schema_name }
   end
 
-  def links?
-    links
+  def schema_type_key
+    (schema_type.to_s + "_schema").to_sym
   end
 
   def schema_name

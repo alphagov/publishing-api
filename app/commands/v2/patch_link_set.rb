@@ -122,8 +122,8 @@ module Commands
       def schema_validator
         @schema_validator ||= SchemaValidator.new(
           payload: payload[:links],
-          links: true,
-          schema_name: schema_name
+          schema_name: schema_name,
+          schema_type: :links,
         )
       end
 
