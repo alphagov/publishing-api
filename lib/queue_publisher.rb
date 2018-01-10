@@ -20,6 +20,7 @@ class QueuePublisher
 
   def send_message(edition, event_type: nil, routing_key: nil, persistent: true)
     return if @noop
+    validate_edition(edition)
     routing_key ||= routing_key(edition, event_type)
     publish_message(routing_key, edition, content_type: 'application/json', persistent: persistent)
   end
@@ -41,6 +42,19 @@ class QueuePublisher
   end
 
 private
+
+  def validate_edition(edition)
+    validator = SchemaValidator.new(payload: edition, schema_type: :notification)
+    if !validator.valid?
+      logger.info(
+        <<-ERROR_MESSAGE
+          Message being sent to the queue does not match the notification schema.
+          Message: #{edition}
+          Errors: #{validator.errors}
+        ERROR_MESSAGE
+      )
+    end
+  end
 
   def publish_message(routing_key, message_data, options = {})
     # we should only have one channel per thread
