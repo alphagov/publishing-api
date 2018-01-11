@@ -603,7 +603,7 @@ GEM
     ffi (1.9.18)
     filelock (1.1.1)
     find_a_port (1.0.1)
-    gds-api-adapters (50.8.0)
+    gds-api-adapters (50.9.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -938,7 +938,7 @@ DEPENDENCIES
   diffy (~> 3.1)
   factory_bot_rails (~> 4.8)
   faker
-  gds-api-adapters (~> 50.8.0)
+  gds-api-adapters (~> 50.9.0)
   gds-sso (~> 13.5)
   govspeak (~> 5.3.0)
   govuk-lint
