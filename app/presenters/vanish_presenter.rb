@@ -1,5 +1,5 @@
 class VanishPresenter
-  def initialize(base_path:, publishing_app:)
+  def initialize(base_path:, content_id:, publishing_app:)
     @base_path = base_path
     @publishing_app = publishing_app
     @content_id = content_id
@@ -9,6 +9,7 @@ class VanishPresenter
   def self.from_edition(edition)
     new(
       base_path: edition.base_path,
+      content_id: edition.content_id,
       publishing_app: edition.publishing_app,
     )
   end
@@ -19,6 +20,7 @@ class VanishPresenter
 
   def for_message_queue(payload_version)
     present.merge(
+      content_id: content_id,
       govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
       payload_version: payload_version
     )

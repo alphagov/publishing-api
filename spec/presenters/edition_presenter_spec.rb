@@ -26,8 +26,13 @@ RSpec.describe Presenters::EditionPresenter do
   end
 
   describe "#for_message_queue" do
-    let(:update_type) { "moussaka" }
-    let(:edition) { create(:draft_edition, update_type: update_type) }
+    let(:update_type) { "minor" }
+    let(:edition) {
+      create(:draft_edition,
+        update_type: update_type,
+        schema_name: "calendar",
+        document_type: "calendar")
+    }
     let(:target_content_id) { "d16216ce-7487-4bde-b817-ef68317fe3ab" }
 
     before do
@@ -62,6 +67,10 @@ RSpec.describe Presenters::EditionPresenter do
 
     it "includes the version" do
       expect(subject[:payload_version]).to eq 1
+    end
+
+    it "matches the notification schema" do
+      expect(subject).to be_valid_against_schema("calendar")
     end
   end
 

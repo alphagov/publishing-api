@@ -14,6 +14,7 @@ module RedirectHelper
 
       redirect_payload = RedirectPresenter.new(
         base_path: previous_base_path,
+        content_id: previous_content_id,
         redirects: redirects_for(previous_routes, previous_base_path, payload[:base_path]),
         publishing_app: payload[:publishing_app],
       ).for_redirect_helper(SecureRandom.uuid)
@@ -45,6 +46,11 @@ module RedirectHelper
     def previous_base_path
       previously_published_item.previous_base_path ||
         previously_drafted_item.base_path
+    end
+
+    def previous_content_id
+      previously_published_item.content_id ||
+        previously_drafted_item.content_id
     end
 
     def redirects_for(routes, old_base_path, new_base_path)

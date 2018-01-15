@@ -15,6 +15,10 @@ class PreviouslyPublishedItem
     document.published_or_unpublished
   end
 
+  def content_id
+    previously_published_item.content_id
+  end
+
   def user_facing_version
     previously_published_item.user_facing_version + 1
   end
@@ -77,6 +81,8 @@ class PreviouslyPublishedItem
 
     def routes
     end
+
+    def content_id; end
 
     def first_published_at; end
 

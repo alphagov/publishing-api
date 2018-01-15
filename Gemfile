@@ -57,6 +57,7 @@ group :development, :test do
   gem "simplecov-rcov", "0.2.3", require: false
   gem "factory_bot_rails", "~> 4.8"
   gem "pact_broker-client"
+  gem 'govuk-content-schema-test-helpers', "~> 1.6"
   gem "govuk-lint"
   gem "faker"
   gem "stackprof", require: false
