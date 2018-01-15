@@ -28,7 +28,7 @@ gem 'whenever', '0.10.0', require: false
 gem "json-schema", require: false
 gem "hashdiff", "~> 0.3.6"
 gem "sidekiq-unique-jobs", "~> 5.0", require: false
-gem "govspeak", "~> 5.3.0"
+gem "govspeak", "~> 5.4.0"
 gem "diffy", "~> 3.1", require: false
 gem "aws-sdk", "~> 3"
 gem "with_advisory_lock", "~> 3.1"
