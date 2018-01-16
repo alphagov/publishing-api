@@ -17,7 +17,9 @@ module ExpansionRules
     [:child_taxons.recurring],
     [:parent.recurring],
     [:parent_taxons.recurring],
+    [:parent_taxons.recurring, :root_taxon],
     [:taxons, :parent_taxons.recurring],
+    [:taxons, :parent_taxons.recurring, :root_taxon],
     [:ordered_related_items, :mainstream_browse_pages, :parent.recurring],
     [:ordered_related_items_overrides, :taxons]
   ].freeze
