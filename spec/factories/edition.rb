@@ -5,9 +5,6 @@ FactoryBot.define do
     description "VAT rates for goods and services"
     schema_name "nonexistent-schema"
     document_type "nonexistent-schema"
-    public_updated_at "2014-05-14T13:00:06Z"
-    first_published_at "2014-01-02T03:04:05Z"
-    last_edited_at "2014-05-14T13:00:06Z"
     publishing_app "publisher"
     rendering_app "frontend"
     details {
@@ -33,6 +30,15 @@ FactoryBot.define do
     transient do
       change_note "note"
       links_hash {}
+      public_updated_at "2014-05-14T13:00:06Z"
+      first_published_at "2014-01-02T03:04:05Z"
+      last_edited_at "2014-05-14T13:00:06Z"
+    end
+
+    before(:created) do |item, evaluator|
+      item.major_published_at = evaluator.public_updated_at
+      item.temporary_first_published_at = evaluator.first_published_at
+      item.temporary_last_edited_at = evaluator.last_edited_at
     end
 
     after(:create) do |item, evaluator|

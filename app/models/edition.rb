@@ -231,6 +231,30 @@ class Edition < ApplicationRecord
     Plek.current.website_root + base_path
   end
 
+  def first_published_at
+    self[:temporary_first_published_at]
+  end
+
+  def last_edited_at
+    self[:temporary_last_edited_at]
+  end
+
+  def overrideable_first_published_at
+    publisher_first_published_at || first_published_at
+  end
+
+  def overrideable_major_published_at
+    publisher_major_published_at || major_published_at
+  end
+
+  def overrideable_published_at
+    publisher_published_at || published_at
+  end
+
+  def overrideable_last_edited_at
+    publisher_last_edited_at || last_edited_at
+  end
+
 private
 
   def renderable_content?

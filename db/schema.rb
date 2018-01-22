@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180102152030) do
+ActiveRecord::Schema.define(version: 20180110173924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20180102152030) do
 
   create_table "editions", id: :serial, force: :cascade do |t|
     t.string "title"
-    t.datetime "public_updated_at"
+    t.datetime "legacy_public_updated_at"
     t.json "details", default: {}
     t.json "routes", default: []
     t.json "redirects", default: []
@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(version: 20180102152030) do
     t.datetime "updated_at", null: false
     t.string "document_type"
     t.string "schema_name"
-    t.datetime "first_published_at"
-    t.datetime "last_edited_at"
+    t.datetime "legacy_first_published_at"
+    t.datetime "legacy_last_edited_at"
     t.string "state", null: false
     t.integer "user_facing_version", default: 1, null: false
     t.string "base_path"
@@ -99,9 +99,9 @@ ActiveRecord::Schema.define(version: 20180102152030) do
     t.index ["document_id", "user_facing_version"], name: "index_editions_on_document_id_and_user_facing_version", unique: true
     t.index ["document_id"], name: "index_editions_on_document_id"
     t.index ["document_type", "updated_at"], name: "index_editions_on_document_type_and_updated_at"
-    t.index ["last_edited_at"], name: "index_editions_on_last_edited_at"
-    t.index ["public_updated_at", "id"], name: "index_editions_on_public_updated_at_and_id"
-    t.index ["public_updated_at"], name: "index_editions_on_public_updated_at"
+    t.index ["legacy_last_edited_at"], name: "index_editions_on_legacy_last_edited_at"
+    t.index ["legacy_public_updated_at", "id"], name: "index_editions_on_legacy_public_updated_at_and_id"
+    t.index ["legacy_public_updated_at"], name: "index_editions_on_legacy_public_updated_at"
     t.index ["publishing_app"], name: "index_editions_on_publishing_app"
     t.index ["rendering_app"], name: "index_editions_on_rendering_app"
     t.index ["state", "base_path"], name: "index_editions_on_state_and_base_path"
