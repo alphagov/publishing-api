@@ -24,5 +24,10 @@ module AuthenticationHelper
       user = create(:user, permissions: ['signin'])
       login_as(user)
     end
+
+    def logout
+      GDS::SSO.test_user = nil
+      User.delete_all
+    end
   end
 end
