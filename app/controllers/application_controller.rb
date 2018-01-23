@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   rescue_from JSON::ParserError, with: :json_parse_error
   rescue_from CommandError, with: :respond_with_command_error
 
+  before_action :authenticate_user!
+
   Warden::Manager.after_authentication do |user, _, _|
     user.set_app_name!
   end
