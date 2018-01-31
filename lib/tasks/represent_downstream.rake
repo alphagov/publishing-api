@@ -65,4 +65,18 @@ namespace :represent_downstream do
       Document.where(content_id: content_ids)
     )
   end
+
+  desc "
+  Represent downstream documents which were last updated in the given date
+  range. The time defaults to midnight if only a date is given, so date ranges
+  include the start date but exclude the end date.
+  Usage
+  rake 'represent_downstream:published_between[2018-01-15, 2018-01-20]'
+  rake 'represent_downstream:published_between[2018-01-04T09:30:00, 2018-01-04T16:00:00]'
+  "
+  task :published_between, %i(start_date end_date) => :environment do |_t, args|
+    represent_downstream(
+      Document.joins(:editions).where(editions: { state: "published", last_edited_at: args[:start_date]..args[:end_date] })
+    )
+  end
 end
