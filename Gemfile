@@ -5,7 +5,7 @@ gem "rails", "5.1"
 gem "arel", "8.0"
 
 gem "unicorn", "~> 5.4.0"
-gem "plek", "~> 2.0"
+gem "plek", "~> 2.1"
 gem "pg"
 gem 'dalli'
 
