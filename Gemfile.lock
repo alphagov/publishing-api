@@ -617,7 +617,7 @@ GEM
     find_a_port (1.0.1)
     foreman (0.84.0)
       thor (~> 0.19.1)
-    gds-api-adapters (51.1.1)
+    gds-api-adapters (51.2.0)
       addressable
       link_header
       lrucache (~> 0.1.1)
@@ -778,7 +778,7 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.1)
-    rack (2.0.3)
+    rack (2.0.4)
     rack-cache (1.7.1)
       rack (>= 0.4)
     rack-protection (2.0.0)
@@ -955,7 +955,7 @@ DEPENDENCIES
   factory_bot_rails (~> 4.8)
   faker
   foreman (~> 0.84.0)
-  gds-api-adapters (~> 51.1.1)
+  gds-api-adapters (~> 51.2.0)
   gds-sso (~> 13.5)
   govspeak (~> 5.4.0)
   govuk-content-schema-test-helpers (~> 1.6)
