@@ -54,16 +54,6 @@ Rails.application.configure do
   # use memcached on production
   config.cache_store = :dalli_store, nil, { namespace: :publishing_api, compress: true }
 
-  # Use a different logger for distributed setups.
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
-  config.logger = ActiveSupport::TaggedLogging.new(Logger.new($stderr))
-
-  $real_stdout = $stdout.clone
-  $stdout.reopen($stderr)
-  config.logstasher.enabled = true
-  config.logstasher.logger = Logger.new($real_stdout)
-  config.logstasher.suppress_app_log = true
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
