@@ -1,4 +1,4 @@
 #!/bin/bash
 
 bundle install
-bundle exec foreman run web
+bundle exec rails server -p 3093
