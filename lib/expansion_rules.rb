@@ -55,7 +55,7 @@ module ExpansionRules
     { document_type: :placeholder_topical_event,  fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :organisation,               fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :placeholder_organisation,   fields: DEFAULT_FIELDS_WITH_DETAILS },
-    { document_type: :taxon,                      fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :taxon,                      fields: DEFAULT_FIELDS_WITH_DETAILS + [:phase] },
     { document_type: :need,                       fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :finder, link_type: :finder, fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :travel_advice,              fields: DEFAULT_FIELDS + [[:details, :country], [:details, :change_description]] },
