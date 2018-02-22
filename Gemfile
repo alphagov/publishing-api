@@ -26,7 +26,7 @@ gem "aws-sdk", "~> 3"
 gem 'bunny', '~> 2.9'
 gem "diffy", "~> 3.1", require: false
 gem "foreman", "~> 0.84.0"
-gem "govspeak", "~> 5.4.0"
+gem "govspeak", "~> 5.5.0"
 gem "hashdiff", "~> 0.3.6"
 gem "json-schema", require: false
 gem "sidekiq-unique-jobs", "~> 5.0", require: false
