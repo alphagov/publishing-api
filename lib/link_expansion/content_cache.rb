@@ -2,32 +2,32 @@ class LinkExpansion::ContentCache
   def initialize(with_drafts:, locale:, preload_editions: [], preload_content_ids: [])
     @with_drafts = with_drafts
     @locale = locale
-    @store = build_store(preload_editions, preload_content_ids)
+    @cache = build_cache(preload_editions, preload_content_ids)
   end
 
   def find(content_id)
-    if store.has_key?(content_id)
-      store[content_id]
+    if cache.has_key?(content_id)
+      cache[content_id]
     else
-      store[content_id] = edition(content_id)
+      cache[content_id] = edition(content_id)
     end
   end
 
 private
 
-  attr_reader :store, :with_drafts, :locale
+  attr_reader :cache, :with_drafts, :locale
 
-  def build_store(preload_editions, preload_content_ids)
-    store = Hash[preload_editions.map { |edition| [edition.content_id, LinkExpansion::EditionHash.from(edition)] }]
+  def build_cache(preload_editions, preload_content_ids)
+    cached_editions = Hash[preload_editions.map { |edition| [edition.content_id, LinkExpansion::EditionHash.from(edition)] }]
 
     to_preload = preload_content_ids - preload_editions.map(&:content_id)
-    editions(to_preload).each_with_object(store) do |edition_values, hash|
+    editions(to_preload).each_with_object(cached_editions) do |edition_values, hash|
       attrs = LinkExpansion::EditionHash.from(edition_values)
       hash[attrs[:content_id]] = attrs
     end
 
     # fill in where the preloading didn't find a result
-    (to_preload - store.keys).each_with_object(store) do |content_id, hash|
+    (to_preload - cached_editions.keys).each_with_object(cached_editions) do |content_id, hash|
       hash[content_id] = nil
     end
   end
