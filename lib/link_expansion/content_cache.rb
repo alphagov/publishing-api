@@ -17,10 +17,10 @@ private
 
   attr_reader :store, :with_drafts, :locale
 
-  def build_store(editions, content_ids)
-    store = Hash[editions.map { |edition| [edition.content_id, LinkExpansion::EditionHash.from(edition)] }]
+  def build_store(preload_editions, preload_content_ids)
+    store = Hash[preload_editions.map { |edition| [edition.content_id, LinkExpansion::EditionHash.from(edition)] }]
 
-    to_preload = content_ids - editions.map(&:content_id)
+    to_preload = preload_content_ids - preload_editions.map(&:content_id)
     editions(to_preload).each_with_object(store) do |edition_values, hash|
       attrs = LinkExpansion::EditionHash.from(edition_values)
       hash[attrs[:content_id]] = attrs
