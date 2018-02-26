@@ -18,11 +18,11 @@ private
   attr_reader :store, :with_drafts, :locale
 
   def build_store(editions, content_ids)
-    store = Hash[editions.map { |edition| [edition.content_id, edition_hash.from(edition)] }]
+    store = Hash[editions.map { |edition| [edition.content_id, LinkExpansion::EditionHash.from(edition)] }]
 
     to_preload = content_ids - editions.map(&:content_id)
     editions(to_preload).each_with_object(store) do |edition_values, hash|
-      attrs = edition_hash.from(edition_values)
+      attrs = LinkExpansion::EditionHash.from(edition_values)
       hash[attrs[:content_id]] = attrs
     end
 
@@ -33,7 +33,7 @@ private
   end
 
   def edition(content_id)
-    edition_hash.from(editions([content_id]).first)
+    LinkExpansion::EditionHash.from(editions([content_id]).first)
   end
 
   def locale_fallback_order
@@ -57,14 +57,10 @@ private
       )
       .with_document
       .where(id: edition_ids)
-      .pluck(*edition_hash.edition_fields)
+      .pluck(*LinkExpansion::EditionHash.edition_fields)
   end
 
   def state_fallback_order
     with_drafts ? %i[draft published withdrawn] : %i[published withdrawn]
-  end
-
-  def edition_hash
-    LinkExpansion::EditionHash
   end
 end
