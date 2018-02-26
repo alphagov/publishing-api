@@ -57,7 +57,7 @@ private
       )
       .with_document
       .where(id: edition_ids)
-      .pluck(*LinkExpansion::EditionHash.edition_fields)
+      .pluck(*ExpansionRules::POSSIBLE_FIELDS_FOR_LINK_EXPANSION)
   end
 
   def state_fallback_order
