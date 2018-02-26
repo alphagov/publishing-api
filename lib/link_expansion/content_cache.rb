@@ -2,45 +2,45 @@ class LinkExpansion::ContentCache
   def initialize(with_drafts:, locale:, preload_editions: [], preload_content_ids: [])
     @with_drafts = with_drafts
     @locale = locale
-    @store = build_store(preload_editions, preload_content_ids)
+    @cache = build_cache(preload_editions, preload_content_ids)
   end
 
   def find(content_id)
-    if store.has_key?(content_id)
-      store[content_id]
+    if cache.has_key?(content_id)
+      cache[content_id]
     else
-      store[content_id] = edition(content_id)
+      cache[content_id] = load_uncached_edition(content_id)
     end
   end
 
 private
 
-  attr_reader :store, :with_drafts, :locale
+  attr_reader :cache, :with_drafts, :locale
 
-  def build_store(editions, content_ids)
-    store = Hash[editions.map { |edition| [edition.content_id, edition_hash.from(edition)] }]
+  def build_cache(preload_editions, preload_content_ids)
+    cached_editions = Hash[preload_editions.map { |edition| [edition.content_id, LinkExpansion::EditionHash.from(edition)] }]
 
-    to_preload = content_ids - editions.map(&:content_id)
-    editions(to_preload).each_with_object(store) do |edition_values, hash|
-      attrs = edition_hash.from(edition_values)
+    to_preload = preload_content_ids - preload_editions.map(&:content_id)
+    fetch_editions_from_database(to_preload).each_with_object(cached_editions) do |edition_values, hash|
+      attrs = LinkExpansion::EditionHash.from(edition_values)
       hash[attrs[:content_id]] = attrs
     end
 
     # fill in where the preloading didn't find a result
-    (to_preload - store.keys).each_with_object(store) do |content_id, hash|
+    (to_preload - cached_editions.keys).each_with_object(cached_editions) do |content_id, hash|
       hash[content_id] = nil
     end
   end
 
-  def edition(content_id)
-    edition_hash.from(editions([content_id]).first)
+  def load_uncached_edition(content_id)
+    LinkExpansion::EditionHash.from(fetch_editions_from_database([content_id]).first)
   end
 
   def locale_fallback_order
     [locale, Edition::DEFAULT_LOCALE].uniq
   end
 
-  def editions(content_ids)
+  def fetch_editions_from_database(content_ids)
     return [] unless content_ids.present?
     edition_ids = Queries::GetEditionIdsWithFallbacks.(content_ids,
       locale_fallback_order: locale_fallback_order,
@@ -57,14 +57,10 @@ private
       )
       .with_document
       .where(id: edition_ids)
-      .pluck(*edition_hash.edition_fields)
+      .pluck(*ExpansionRules::POSSIBLE_FIELDS_FOR_LINK_EXPANSION)
   end
 
   def state_fallback_order
     with_drafts ? %i[draft published withdrawn] : %i[published withdrawn]
-  end
-
-  def edition_hash
-    LinkExpansion::EditionHash
   end
 end

@@ -4,16 +4,10 @@ class LinkExpansion::EditionHash
       return nil unless values.present?
       hash = hash_for(values)
       hash = SymbolizeJSON.symbolize(hash)
-      hash = hash.slice(*edition_fields)
+      hash = hash.slice(*ExpansionRules::POSSIBLE_FIELDS_FOR_LINK_EXPANSION)
       hash[:api_path] = api_path(hash) unless hash[:base_path].nil?
       hash[:withdrawn] = withdrawn?(hash)
       hash.except(:id, :"unpublishings.type")
-    end
-
-    def edition_fields
-      ExpansionRules::DEFAULT_FIELDS_WITH_DETAILS +
-        %i[id state unpublishings.type] -
-        %i[api_path withdrawn]
     end
 
   private
@@ -22,7 +16,7 @@ class LinkExpansion::EditionHash
       return nil unless values.present?
       case values
       when Array
-        Hash[edition_fields.zip(values)]
+        Hash[ExpansionRules::POSSIBLE_FIELDS_FOR_LINK_EXPANSION.zip(values)]
       when Edition
         values.attributes.merge(
           content_id: values.content_id,

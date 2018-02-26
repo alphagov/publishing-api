@@ -62,6 +62,10 @@ module ExpansionRules
     { document_type: :world_location,             fields: [:content_id, :title, :schema_name, :locale, :analytics_identifier] },
   ].freeze
 
+  POSSIBLE_FIELDS_FOR_LINK_EXPANSION = DEFAULT_FIELDS_WITH_DETAILS +
+    %i[id state phase unpublishings.type] -
+    %i[api_path withdrawn]
+
   def reverse_links
     REVERSE_LINKS.values
   end
