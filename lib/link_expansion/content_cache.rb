@@ -9,7 +9,7 @@ class LinkExpansion::ContentCache
     if cache.has_key?(content_id)
       cache[content_id]
     else
-      cache[content_id] = edition(content_id)
+      cache[content_id] = load_uncached_edition(content_id)
     end
   end
 
@@ -21,7 +21,7 @@ private
     cached_editions = Hash[preload_editions.map { |edition| [edition.content_id, LinkExpansion::EditionHash.from(edition)] }]
 
     to_preload = preload_content_ids - preload_editions.map(&:content_id)
-    editions(to_preload).each_with_object(cached_editions) do |edition_values, hash|
+    fetch_editions_from_database(to_preload).each_with_object(cached_editions) do |edition_values, hash|
       attrs = LinkExpansion::EditionHash.from(edition_values)
       hash[attrs[:content_id]] = attrs
     end
@@ -32,15 +32,15 @@ private
     end
   end
 
-  def edition(content_id)
-    LinkExpansion::EditionHash.from(editions([content_id]).first)
+  def load_uncached_edition(content_id)
+    LinkExpansion::EditionHash.from(fetch_editions_from_database([content_id]).first)
   end
 
   def locale_fallback_order
     [locale, Edition::DEFAULT_LOCALE].uniq
   end
 
-  def editions(content_ids)
+  def fetch_editions_from_database(content_ids)
     return [] unless content_ids.present?
     edition_ids = Queries::GetEditionIdsWithFallbacks.(content_ids,
       locale_fallback_order: locale_fallback_order,
