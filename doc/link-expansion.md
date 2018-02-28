@@ -393,6 +393,6 @@ information.
 [downstream-live-worker]: ../app/workers/downstream_live_worker.rb
 [govuk-content-schema]: https://github.com/alphagov/govuk-content-schemas
 [link-expansion]: ../lib/link_expansion.rb
-[link-expansion-rules]: ../lib/link_expansion/rules.rb
+[link-expansion-rules]: ../lib/expansion_rules/link_expansion.rb
 [link-graph]: ../app/models/link_graph.rb
 [locale]: model.md#user-content-locale
