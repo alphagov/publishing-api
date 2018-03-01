@@ -15,13 +15,14 @@ namespace :represent_downstream do
   end
 
   desc "
-  Represent downstream for a specific document_type
+  Represent downstream for individual or multiple document_types
   Usage
-  rake 'represent_downstream:document_type[:document_type]'
+  rake 'represent_downstream:document_type[:document_types]'
   "
-  task :document_type, [:document_type] => :environment do |_t, args|
+  task :document_type, [:document_types] => :environment do |_t, args|
+    document_types = args[:document_types].split(" ")
     represent_downstream(
-      Document.joins(:editions).where(editions: { document_type: args[:document_type] })
+      Document.joins(:editions).where(editions: { document_type: document_types })
     )
   end
 
