@@ -1,6 +1,6 @@
 ---
 :verbose: false
-:concurrency:  6
+:concurrency: 10
 :logfile: ./log/sidekiq.json.log
 :queues:
   - downstream_high
