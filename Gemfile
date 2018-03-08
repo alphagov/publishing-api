@@ -28,7 +28,10 @@ gem "diffy", "~> 3.1", require: false
 gem "govspeak", "~> 5.5.0"
 gem "hashdiff", "~> 0.3.6"
 gem "json-schema", require: false
-gem "sidekiq-unique-jobs", "~> 5.0", require: false
+# We can't use v5 of this because it requires redis 3 and we use 2.8
+# We use our own fork because the latest 4.x release has a bug with
+# removing jobs from the uniquejobs hash in redis
+gem "sidekiq-unique-jobs", git: "https://github.com/alphagov/sidekiq-unique-jobs", require: false
 gem 'whenever', '0.10.0', require: false
 gem "with_advisory_lock", "~> 3.1"
 
