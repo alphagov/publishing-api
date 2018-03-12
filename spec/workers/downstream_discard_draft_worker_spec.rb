@@ -17,7 +17,6 @@ RSpec.describe DownstreamDiscardDraftWorker do
       "base_path" => base_path,
       "content_id" => content_id,
       "locale" => "en",
-      "payload_version" => 1,
       "update_dependencies" => true,
       "alert_on_base_path_conflict" => false
     }
@@ -45,12 +44,6 @@ RSpec.describe DownstreamDiscardDraftWorker do
     it "requires locale" do
       expect {
         subject.perform(arguments.except("locale"))
-      }.to raise_error(KeyError)
-    end
-
-    it "requires payload_version" do
-      expect {
-        subject.perform(arguments.except("payload_version"))
       }.to raise_error(KeyError)
     end
 
@@ -182,6 +175,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     context "when there is not an edition" do
       before do
         create(:expanded_links, content_id: content_id, with_drafts: true)
+        create(:event, content_id: content_id)
       end
 
       it "deletes the expanded links" do

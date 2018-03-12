@@ -11,7 +11,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
       content_id: content_id,
       locale: locale,
       content_store: "Adapters::ContentStore",
-      payload_version: "123",
     )
   end
 
@@ -42,7 +41,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
       a_hash_including(
         :content_id,
         :locale,
-        :payload_version,
         message_queue_event_type: "links",
         update_dependencies: false,
       ),
@@ -71,7 +69,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
         content_id: "123",
         locale: "en",
         content_store: "Adapters::ContentStore",
-        payload_version: "123",
       )
     end
 
@@ -88,7 +85,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
         content_id: "123",
         locale: "en",
         content_store: "Adapters::DraftContentStore",
-        payload_version: "123",
       )
     end
   end
@@ -107,7 +103,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
           content_id: content_id,
           locale: "en",
           content_store: "Adapters::ContentStore",
-          payload_version: "123",
         )
       end
 
@@ -137,7 +132,6 @@ RSpec.describe DependencyResolutionWorker, :perform do
           content_id: content_id,
           content_store: "Adapters::ContentStore",
           locale: "en",
-          payload_version: "123",
         )
       end
 

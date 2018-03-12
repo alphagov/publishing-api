@@ -286,7 +286,7 @@ RSpec.describe Commands::V2::Publish do
           .to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(:content_id, :locale, :payload_version),
+            a_hash_including(:content_id, :locale),
           )
 
         described_class.call(payload)

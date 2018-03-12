@@ -70,7 +70,7 @@ RSpec.describe Commands::V2::PutContent do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
-          a_hash_including(:content_id, :locale, :payload_version, update_dependencies: true),
+          a_hash_including(:content_id, :locale, update_dependencies: true),
         )
 
       described_class.call(payload)

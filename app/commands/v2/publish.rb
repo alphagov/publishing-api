@@ -222,7 +222,6 @@ module Commands
         {
           content_id: content_id,
           locale: locale,
-          payload_version: event.id,
         }
       end
     end

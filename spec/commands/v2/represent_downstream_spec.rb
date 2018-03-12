@@ -61,7 +61,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
     context "scope" do
       it "can specify a scope" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with("downstream_low", a_hash_including(:content_id, :locale, :payload_version))
+          .with("downstream_low", a_hash_including(:content_id, :locale))
           .exactly(2).times
         subject.call(
           Edition.with_document.where(document_type: "nonexistent-schema").pluck('documents.content_id'),
@@ -75,7 +75,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_low",
-            a_hash_including(:content_id, :locale, :payload_version, update_dependencies: false)
+            a_hash_including(:content_id, :locale, update_dependencies: false)
           )
           .exactly(5).times
         subject.call(Document.pluck(:content_id), with_drafts: true)

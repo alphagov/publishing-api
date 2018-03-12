@@ -11,7 +11,6 @@ RSpec.describe DownstreamLiveWorker do
     {
       "content_id" => content_id,
       "locale" => "en",
-      "payload_version" => 1,
       "message_queue_event_type" => "major",
       "update_dependencies" => true,
     }
@@ -31,12 +30,6 @@ RSpec.describe DownstreamLiveWorker do
       expect {
         subject.perform(arguments.merge("content_item_id" => edition.id))
       }.not_to raise_error
-    end
-
-    it "requires payload_version" do
-      expect {
-        subject.perform(arguments.except("payload_version"))
-      }.to raise_error(KeyError)
     end
 
     it "doesn't require message_queue_event_type" do

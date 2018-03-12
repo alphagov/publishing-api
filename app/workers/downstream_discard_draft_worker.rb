@@ -35,11 +35,10 @@ private
     @base_path = attributes.fetch(:base_path)
     @content_id = attributes.fetch(:content_id)
     @locale = attributes.fetch(:locale)
+    @payload_version = Event.payload_version(content_id)
     @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
-    @payload_version = attributes.fetch(:payload_version)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
   end
-
 
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(
@@ -47,7 +46,6 @@ private
       fields: [:content_id],
       content_id: content_id,
       locale: locale,
-      payload_version: payload_version,
     )
   end
 

@@ -29,7 +29,6 @@ module Commands
             DownstreamDraftWorker::LOW_QUEUE,
             content_id: content_id,
             locale: locale,
-            payload_version: event.id,
             update_dependencies: false,
           )
         end
@@ -47,7 +46,6 @@ module Commands
             DownstreamLiveWorker::LOW_QUEUE,
             content_id: content_id,
             locale: locale,
-            payload_version: event.id,
             message_queue_event_type: "links",
             update_dependencies: false,
           )

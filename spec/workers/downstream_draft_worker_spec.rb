@@ -10,7 +10,6 @@ RSpec.describe DownstreamDraftWorker do
     {
       "content_id" => content_id,
       "locale" => "en",
-      "payload_version" => 1,
       "update_dependencies" => true,
     }
   end
@@ -29,12 +28,6 @@ RSpec.describe DownstreamDraftWorker do
       expect {
         subject.perform(arguments.merge("content_item_id" => edition.id))
       }.not_to raise_error
-    end
-
-    it "requires payload_version" do
-      expect {
-        subject.perform(arguments.except("payload_version"))
-      }.to raise_error(KeyError)
     end
 
     it "doesn't require update_dependencies" do

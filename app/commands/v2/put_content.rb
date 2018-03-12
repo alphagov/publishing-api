@@ -174,7 +174,6 @@ module Commands
           queue,
           content_id: content_id,
           locale: locale,
-          payload_version: event.id,
           update_dependencies: update_dependencies,
           orphaned_content_ids: orphaned_links,
         )

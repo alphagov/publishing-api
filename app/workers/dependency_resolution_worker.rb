@@ -16,13 +16,12 @@ class DependencyResolutionWorker
 
 private
 
-  attr_reader :content_id, :locale, :fields, :content_store, :payload_version, :orphaned_content_ids
+  attr_reader :content_id, :locale, :fields, :content_store, :orphaned_content_ids
 
   def assign_attributes(args)
     @content_id = args.fetch(:content_id)
     @locale = args.fetch(:locale)
     @content_store = args.fetch(:content_store).constantize
-    @payload_version = args.fetch(:payload_version)
     @orphaned_content_ids = args.fetch(:orphaned_content_ids, [])
   end
 
@@ -50,7 +49,6 @@ private
       DownstreamDraftWorker::LOW_QUEUE,
       content_id: dependent_content_id,
       locale: locale,
-      payload_version: payload_version,
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
     )
@@ -64,7 +62,6 @@ private
       content_id: dependent_content_id,
       locale: locale,
       message_queue_event_type: "links",
-      payload_version: payload_version,
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
     )
