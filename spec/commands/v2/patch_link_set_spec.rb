@@ -224,7 +224,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
-          a_hash_including(:content_id, :locale, :payload_version),
+          a_hash_including(:content_id, :locale),
         )
 
       described_class.call(payload)
@@ -254,7 +254,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
               a_hash_including(
                 content_id: content_id,
                 locale: locale,
-                payload_version: an_instance_of(Integer),
               ),
             )
         end
@@ -287,7 +286,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           a_hash_including(
             :content_id,
             :locale,
-            :payload_version,
             message_queue_event_type: "links",
           ),
         )
@@ -302,7 +300,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           a_hash_including(
             :content_id,
             :locale,
-            :payload_version,
             message_queue_event_type: "links",
           ),
         )
@@ -327,7 +324,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
               content_id: content_id,
               locale: locale,
               message_queue_event_type: "links",
-              payload_version: an_instance_of(Integer),
               orphaned_content_ids: [],
             )
         end
@@ -365,7 +361,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           a_hash_including(
             :content_id,
             :locale,
-            :payload_version
           ),
         )
 
@@ -379,7 +374,6 @@ RSpec.describe Commands::V2::PatchLinkSet do
           a_hash_including(
             :content_id,
             :locale,
-            :payload_version,
             message_queue_event_type: "links",
           ),
         )

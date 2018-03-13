@@ -45,7 +45,6 @@ module Commands
           base_path: path_used,
           content_id: content_id,
           locale: locale,
-          payload_version: event.id,
           update_dependencies: true,
         )
       end

@@ -115,7 +115,6 @@ module Commands
           DownstreamDraftWorker::HIGH_QUEUE,
           content_id: document.content_id,
           locale: document.locale,
-          payload_version: event.id,
           update_dependencies: true,
         )
 
@@ -123,7 +122,6 @@ module Commands
           DownstreamLiveWorker::HIGH_QUEUE,
           content_id: document.content_id,
           locale: document.locale,
-          payload_version: event.id,
           update_dependencies: true,
           orphaned_content_ids: orphaned_content_ids,
           message_queue_event_type: "unpublish",
