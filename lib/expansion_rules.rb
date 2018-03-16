@@ -32,6 +32,7 @@ module ExpansionRules
     parent_taxons: :child_taxons,
     root_taxon: :level_one_taxons,
     pages_part_of_step_nav: :part_of_step_navs,
+    pages_related_to_step_nav: :related_to_step_navs,
     legacy_taxons: :topic_taxonomy_taxons,
   }.freeze
 
