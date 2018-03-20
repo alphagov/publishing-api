@@ -888,7 +888,7 @@ GEM
       activesupport
       sidekiq (>= 2.6)
       statsd-ruby (>= 1.1.0)
-    simplecov (0.16.0)
+    simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
@@ -983,7 +983,7 @@ DEPENDENCIES
   rspec
   rspec-rails (~> 3.5)
   sidekiq-unique-jobs!
-  simplecov (= 0.16.0)
+  simplecov (= 0.16.1)
   simplecov-rcov (= 0.2.3)
   spring
   spring-commands-rspec
