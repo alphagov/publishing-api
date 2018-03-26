@@ -35,7 +35,7 @@ private
     @base_path = attributes.fetch(:base_path)
     @content_id = attributes.fetch(:content_id)
     @locale = attributes.fetch(:locale)
-    @payload_version = Event.payload_version(content_id)
+    @payload_version = Event.maximum_id
     @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
   end

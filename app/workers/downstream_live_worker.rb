@@ -57,7 +57,7 @@ private
   def assign_attributes(attributes)
     @content_id = attributes.fetch(:content_id)
     @locale = attributes.fetch(:locale)
-    @payload_version = Event.payload_version(content_id)
+    @payload_version = Event.maximum_id
     @edition = Queries::GetEditionForContentStore.(content_id, locale, false)
     @orphaned_content_ids = attributes.fetch(:orphaned_content_ids, [])
     @message_queue_event_type = attributes.fetch(:message_queue_event_type, nil)
