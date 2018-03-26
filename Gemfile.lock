@@ -624,7 +624,7 @@ GEM
     ffi (1.9.23)
     filelock (1.1.1)
     find_a_port (1.0.1)
-    gds-api-adapters (52.2.1)
+    gds-api-adapters (52.4.0)
       addressable
       link_header
       lrucache (~> 0.1.1)
@@ -772,7 +772,7 @@ GEM
       term-ansicolor
       thor (~> 0.20)
     parallel (1.12.1)
-    parser (2.5.0.4)
+    parser (2.5.0.5)
       ast (~> 2.4.0)
     pg (0.21.0)
     plek (2.1.1)
@@ -959,7 +959,7 @@ DEPENDENCIES
   diffy (~> 3.1)
   factory_bot_rails (~> 4.8)
   faker
-  gds-api-adapters (~> 52.2.1)
+  gds-api-adapters (~> 52.4.0)
   gds-sso (~> 13.6)
   govspeak (~> 5.5.0)
   govuk-content-schema-test-helpers (~> 1.6)
