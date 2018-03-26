@@ -54,7 +54,7 @@ private
     @content_id = attributes.fetch(:content_id)
     @locale = attributes.fetch(:locale)
     @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
-    @payload_version = Event.payload_version(content_id)
+    @payload_version = Event.maximum_id
     @orphaned_content_ids = attributes.fetch(:orphaned_content_ids, [])
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @dependency_resolution_source_content_id = attributes.fetch(
