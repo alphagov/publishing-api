@@ -216,7 +216,7 @@ module Presenters
 
       def parse_json_column(result, column)
         return unless result.key?(column)
-        result[column] = JSON.parse(result[column])
+        result[column] = JSON.parse(result[column]) if result[column].present?
       end
 
       def parse_int_column(result, column)
