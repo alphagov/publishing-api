@@ -40,9 +40,14 @@ RSpec.describe Pagination do
 
     context "default order option" do
       subject { described_class.new }
-
       it "uses the default order" do
-        expect(subject.order).to eq([%i[public_updated_at desc]])
+        expect(subject.order).to eq([%i[public_updated_at desc], %i[id asc]])
+      end
+      it "appends the id field to the ordering" do
+        expect(Pagination.new(order: "").order).to eq([%i[id asc]])
+      end
+      it "do not append the id field  if it already exists" do
+        expect(Pagination.new(order: "-id, public_updated_at").order).to eq([%i[id desc], %i[public_updated_at asc]])
       end
     end
 

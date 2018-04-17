@@ -31,6 +31,7 @@ private
     order_string = options.fetch(:order, '-public_updated_at')
 
     orders = order_string.split(',').map(&:strip)
+    orders << 'id' if orders.none? { |o| o.match('-?id') }
 
     orders.map do |order|
       if order.start_with?("-")
