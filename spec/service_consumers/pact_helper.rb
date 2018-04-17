@@ -290,10 +290,11 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       (1..4).each do |index|
         create(:live_edition,
-                           title: "title_#{index}",
-                           document: create(:document),
-                           base_path: "/path_#{index}",
-                           document_type: "topic")
+                 title: "title_#{index}",
+                 document: create(:document),
+                 base_path: "/path_#{index}",
+                 document_type: "topic",
+                 public_updated_at: Time.local(2018, 12 - index, 1, 12, 0, 0))
       end
     end
   end
