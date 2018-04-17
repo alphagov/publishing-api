@@ -61,7 +61,7 @@ module Presenters
 
       def query
         ordering_query = Edition.select("*, COUNT(*) OVER () as total").from(fetch_items_query)
-        ordering_query = ordering_query.order(order.to_a.join(" ")) if order
+        ordering_query = ordering_query.order(order.map { |o| o.join(' ') }.join(', ')) if order
         ordering_query = ordering_query.limit(limit) if limit
         ordering_query = ordering_query.offset(offset) if offset
         ordering_query
@@ -102,7 +102,7 @@ module Presenters
       end
 
       def select_fields(scope)
-        fields_to_select = (fields + order.keys).map do |field|
+        fields_to_select = (fields + order.map(&:first)).map do |field|
           case field
           when :publication_state
             "editions.state AS publication_state"

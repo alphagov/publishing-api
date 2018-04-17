@@ -28,19 +28,21 @@ private
   end
 
   def order_from_options(options)
-    order = options.fetch(:order, "-public_updated_at")
+    order_string = options.fetch(:order, '-public_updated_at')
 
-    if order.start_with?("-")
-      field = order[1..-1].to_sym
-      direction = :desc
-    else
-      field = order.to_sym
-      direction = :asc
+    orders = order_string.split(',').map(&:strip)
+
+    orders.map do |order|
+      if order.start_with?("-")
+        field = order[1..-1].to_sym
+        direction = :desc
+      else
+        field = order.to_sym
+        direction = :asc
+      end
+      raise_unless_valid_order_field(field)
+      [field, direction]
     end
-
-    raise_unless_valid_order_field(field)
-
-    { field => direction }
   end
 
   def raise_unless_valid_order_field(field)
@@ -66,6 +68,7 @@ private
   # will be hampered.
   def valid_order_fields
     [
+      :id,
       :base_path,
       :content_id,
       :document_type,

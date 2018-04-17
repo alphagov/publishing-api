@@ -42,7 +42,7 @@ RSpec.describe Pagination do
       subject { described_class.new }
 
       it "uses the default order" do
-        expect(subject.order).to eq(public_updated_at: :desc)
+        expect(subject.order).to eq([%i[public_updated_at desc]])
       end
     end
 
