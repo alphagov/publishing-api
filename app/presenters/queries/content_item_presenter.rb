@@ -101,9 +101,8 @@ module Presenters
         "CASE state #{priorities.map { |k, v| "WHEN '#{k}' THEN #{v} " }.join} END"
       end
 
-      def select_fields(scope)
-        fields_to_select = (fields + order.map(&:first)).map do |field|
-          case field
+      def field_selector(field)
+        case field
           when :publication_state
             "editions.state AS publication_state"
           when :user_facing_version
@@ -134,7 +133,12 @@ module Presenters
             nil
           else
             field
-          end
+        end
+      end
+
+      def select_fields(scope)
+        fields_to_select = (fields + order.map(&:first)).map do |field|
+          field_selector(field)
         end
 
         fields = [
