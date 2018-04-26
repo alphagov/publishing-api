@@ -40,10 +40,11 @@ RSpec.describe ExpansionRules do
 
   describe ".expansion_fields" do
     let(:default_fields) { rules::DEFAULT_FIELDS }
+    let(:organisation_fields) { default_fields + [:details] }
     let(:finder_fields) { default_fields + [:details] }
     specify { expect(rules.expansion_fields(:redirect)).to eq([]) }
     specify { expect(rules.expansion_fields(:parent)).to eq(default_fields) }
-    specify { expect(rules.expansion_fields(:organisation)).to eq(default_fields) }
+    specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:finder, :finder)).to eq(finder_fields) }
     specify { expect(rules.expansion_fields(:parent, :finder)).to eq(default_fields) }
   end
