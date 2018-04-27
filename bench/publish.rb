@@ -42,8 +42,7 @@ editions = 100.times.map do
     publishing_app: "performance-testing",
     rendering_app: "performance-testing",
     details: {},
-    phase: 'live',
-    need_ids: []
+    phase: 'live'
   }
 end
 
