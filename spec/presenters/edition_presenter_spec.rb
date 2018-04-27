@@ -92,7 +92,6 @@ RSpec.describe Presenters::EditionPresenter do
         details: details,
         document_type: "nonexistent-schema",
         locale: "en",
-        need_ids: %w(100123 100124),
         phase: "beta",
         publishing_app: "publisher",
         redirects: [],

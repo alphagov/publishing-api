@@ -198,7 +198,7 @@ module Presenters
       ISO8601_SQL = "YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"".freeze
 
       def parse_results(results)
-        json_columns = %w(details routes redirects need_ids state_history unpublishing links)
+        json_columns = %w(details routes redirects state_history unpublishing links)
         int_columns = %w(user_facing_version lock_version)
 
         Enumerator.new do |yielder|

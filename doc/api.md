@@ -124,7 +124,7 @@ presented edition and [warnings](#warnings).
 - `locale` *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - Specifies the locale of the edition.
-- `need_ids` *(optional)*
+- `need_ids` *(optional, deprecated)*
   - An array of user need ids from the [Maslow application][maslow-repo]
 - `phase` *(optional, default: "live")*
   - Accepts: "alpha", "beta", "live"
@@ -346,11 +346,11 @@ and a state has been specified, the draft is returned.
 - `document_type` *(optional)*
   - The type of editions to return.
 - `fields[]` *(optional)*
-  - Accepts an array of: analytics_identifier, base_path, content_store,
-    description, details, document_type, first_published_at, last_edited_at,
-    need_ids, phase, public_updated_at, publishing_app, redirects,
-    rendering_app, routes, schema_name, state, title, user_facing_version,
-    update_type, state
+  - Accepts an array of: analytics_identifier, base_path,
+    content_store, description, details, document_type,
+    first_published_at, last_edited_at, phase, public_updated_at,
+    publishing_app, redirects, rendering_app, routes, schema_name,
+    state, title, user_facing_version, update_type, state
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - `link_*` *(optional)*
@@ -549,11 +549,11 @@ for some `link_type`.
 - `link_type` *(required)*
   - The type of link between the documents.
 - `fields[]` *(required)*
-  - Accepts an array of: analytics_identifier, base_path, content_store,
-    description, details, document_type, first_published_at, last_edited_at,
-    need_ids, phase, public_updated_at, publishing_app, redirects,
-    rendering_app, routes, schema_name, state, title, user_facing_version,
-    update_type, state
+  - Accepts an array of: analytics_identifier, base_path,
+    content_store, description, details, document_type,
+    first_published_at, last_edited_at, phase, public_updated_at,
+    publishing_app, redirects, rendering_app, routes, schema_name,
+    state, title, user_facing_version, update_type, state
   - Determines which fields will be returned in the response.
 
 ## `GET /v2/linkables`
@@ -599,12 +599,12 @@ parameters.
 ### Query string parameters
 
 - `fields[]` *(optional)*
-  - Accepts an array of: analytics_identifier, base_path, content_store,
-    description, details, document_type, first_published_at, last_edited_at,
-    need_ids, phase, public_updated_at, publishing_app, redirects,
-    rendering_app, routes, schema_name, state, title, user_facing_version,
-    update_type, state, content_id, locale, stale_lock_version, updated_at,
-    created_at
+  - Accepts an array of: analytics_identifier, base_path,
+    content_store, description, details, document_type,
+    first_published_at, last_edited_at, phase, public_updated_at,
+    publishing_app, redirects, rendering_app, routes, schema_name,
+    state, title, user_facing_version, update_type, state, content_id,
+    locale, stale_lock_version, updated_at, created_at
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - `locale` *(optional)*

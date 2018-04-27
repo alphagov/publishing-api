@@ -17,7 +17,6 @@ class Edition < ApplicationRecord
     :document_type,
     :first_published_at,
     :last_edited_at,
-    :need_ids,
     :phase,
     :public_updated_at,
     :publishing_app,

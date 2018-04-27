@@ -22,7 +22,6 @@ module RequestHelpers
         description: "VAT rates for goods and services",
         document_type: "nonexistent-schema",
         schema_name: "nonexistent-schema",
-        need_ids: %w(100123 100124),
         first_published_at: DateTime.parse("2014-01-02T03:04:05.000Z"),
         public_updated_at: DateTime.parse("2014-05-14T13:00:06.000Z"),
         publishing_app: "publisher",
