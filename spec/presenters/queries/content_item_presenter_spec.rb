@@ -33,7 +33,6 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "links" => {},
         "locale" => "en",
         "lock_version" => 1,
-        "need_ids" => %w(100123 100124),
         "phase" => "beta",
         "public_updated_at" => "2014-05-14T13:00:06Z",
         "publication_state" => "draft",
