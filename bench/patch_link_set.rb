@@ -66,7 +66,7 @@ begin
   puts "#{$queries} SQL queries"
 
 ensure
-  scope = Edition.where(publishing_app: 'performance-testing')
+  scope = Edition.includes(:document).where(publishing_app: 'performance-testing')
   LinkSet.includes(:links).where(content_id: scope.pluck(:content_id)).destroy_all
   PathReservation.where(publishing_app: 'performance-testing').delete_all
   scope.delete_all
