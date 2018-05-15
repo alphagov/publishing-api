@@ -72,3 +72,31 @@ task :restore_policy_links, [:action] => [:environment] do |_, args|
     puts
   end
 end
+
+# Example usage:
+# rake assign_primary_organisation_for_app[af07d5a5-df63-4ddc-9383-6a666845ebe9,publisher]
+task :assign_primary_organisation_for_app, %i[primary_publishing_organisation publishing_app] => [:environment] do |_, args|
+  publishing_app = args[:publishing_app]
+  primary_publishing_organisation = args[:primary_publishing_organisation]
+
+  content_ids = Edition.joins(:document).where(publishing_app: publishing_app, content_store: "live").pluck(:content_id)
+
+  Tasks::LinkSetter.set_primary_publishing_organisation(
+    content_ids: content_ids,
+    primary_publishing_organisation: primary_publishing_organisation
+  )
+end
+
+# Example usage:
+# rake assign_primary_organisation_for_app[af07d5a5-df63-4ddc-9383-6a666845ebe9,answer]
+task :assign_primary_organisation_for_document_type, %i[primary_publishing_organisation document_type] => [:environment] do |_, args|
+  document_type = args[:document_type]
+  primary_publishing_organisation = args[:primary_publishing_organisation]
+
+  content_ids = Edition.joins(:document).where(document_type: document_type, content_store: "live").pluck(:content_id)
+
+  Tasks::LinkSetter.set_primary_publishing_organisation(
+    content_ids: content_ids,
+    primary_publishing_organisation: primary_publishing_organisation
+  )
+end
