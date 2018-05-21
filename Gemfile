@@ -42,7 +42,7 @@ end
 
 # Lock to 2.18.3 because later patch versions are not listed in the oj changelog
 # and cause test failures.
-gem "oj", "2.18.3"
+gem "oj", "3.6.0"
 gem "oj_mimic_json", "~> 1.0.1"
 
 group :development, :test do
