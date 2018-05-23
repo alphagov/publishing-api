@@ -14,6 +14,7 @@ module ExpansionRules
   MULTI_LEVEL_LINK_PATHS = [
     [:associated_taxons.recurring],
     [:child_taxons, :associated_taxons.recurring],
+    [:child_taxons.recurring, :legacy_taxons],
     [:child_taxons.recurring],
     [:parent.recurring],
     [:parent_taxons.recurring],
