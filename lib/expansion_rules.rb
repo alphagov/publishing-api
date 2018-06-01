@@ -56,6 +56,7 @@ module ExpansionRules
   CUSTOM_EXPANSION_FIELDS = [
     { document_type: :redirect,                   fields: [] },
     { document_type: :gone,                       fields: [] },
+    { document_type: :contact,                    fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :topical_event,              fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :placeholder_topical_event,  fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :organisation,               fields: DEFAULT_FIELDS_WITH_DETAILS },
