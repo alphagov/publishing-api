@@ -40,12 +40,26 @@ RSpec.describe ExpansionRules do
 
   describe ".expansion_fields" do
     let(:default_fields) { rules::DEFAULT_FIELDS }
-    let(:organisation_fields) { default_fields + [:details] }
-    let(:finder_fields) { default_fields + [:details] }
+    let(:default_and_details_fields) { default_fields + [:details] }
+
     specify { expect(rules.expansion_fields(:redirect)).to eq([]) }
+    specify { expect(rules.expansion_fields(:gone)).to eq([]) }
+
     specify { expect(rules.expansion_fields(:parent)).to eq(default_fields) }
-    specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
-    specify { expect(rules.expansion_fields(:finder, :finder)).to eq(finder_fields) }
+
+    specify { expect(rules.expansion_fields(:contact)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:need)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:organisation)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:topical_event)).to eq(default_and_details_fields) }
+
+    specify { expect(rules.expansion_fields(:taxon)).to eq(default_and_details_fields + [:phase]) }
+    specify { expect(rules.expansion_fields(:travel_advice)).to eq(default_fields + [%i(details country), %i(details change_description)]) }
+    specify { expect(rules.expansion_fields(:world_location)).to eq(%i(content_id title schema_name locale analytics_identifier)) }
+
+    specify { expect(rules.expansion_fields(:finder, :finder)).to eq(default_and_details_fields) }
     specify { expect(rules.expansion_fields(:parent, :finder)).to eq(default_fields) }
   end
 
