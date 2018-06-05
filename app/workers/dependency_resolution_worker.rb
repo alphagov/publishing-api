@@ -2,7 +2,19 @@ class DependencyResolutionWorker
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
-  sidekiq_options queue: :dependency_resolution
+  sidekiq_options queue: :dependency_resolution,
+                  unique: :until_executing,
+                  unique_args: :uniq_args
+
+  def self.uniq_args(args)
+    [
+      args.first["content_id"],
+      args.first["locale"],
+      args.first.fetch("update_dependencies", false),
+      args.first.fetch("orphaned_content_ids", []),
+      name,
+    ]
+  end
 
   def perform(args = {})
     assign_attributes(args.deep_symbolize_keys)
