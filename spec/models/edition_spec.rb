@@ -257,7 +257,24 @@ RSpec.describe Edition do
   context "EMPTY_BASE_PATH_FORMATS" do
     it "defines formats not requiring a base_path attibute" do
       expect(Edition::EMPTY_BASE_PATH_FORMATS).to eq(
-        %w(contact external_content government world_location)
+        %w(
+          ambassador_role
+          board_member_role
+          chief_professional_officer_role
+          chief_scientific_officer_role
+          contact
+          deputy_head_of_mission_role
+          external_content
+          government
+          governor_role
+          high_commissioner_role
+          military_role
+          role_appointment
+          special_representative_role
+          traffic_commissioner_role
+          world_location
+          worldwide_office_staff_role
+        )
       )
     end
   end
