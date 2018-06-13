@@ -1,4 +1,5 @@
 require "fileutils"
+require "ostruct"
 
 class WhitehallEuExitReport
   def self.call(*args)
@@ -11,12 +12,13 @@ class WhitehallEuExitReport
 
   def call
     organisations.find_each do |organisation|
-      puts organisation.title
+      puts organisation.title, organisation.content_id
 
       slug = organisation.base_path[26..-1] # /government/organisations/
-      org_path = File.join(path, "#{slug}")
+      org_path = File.join(path, slug)
       FileUtils::mkdir_p(org_path)
 
+      export_content_csv(organisation, File.join(org_path, "content_with_descendants.csv"), include_descendants: true)
       export_content_csv(organisation, File.join(org_path, "content.csv"))
     end
   end
@@ -104,24 +106,51 @@ private
     Edition.live.with_document.where(document_type: "organisation", documents: { locale: :en })
   end
 
-  def export_content_csv(organisation, path)
+  def export_content_csv(organisation, path, include_descendants: false)
     CSV.open(path, "w", headers: CSV_HEADERS, write_headers: true) do |csv|
-      content_for(organisation: organisation).find_each do |edition|
-        taxons = taxons_for(edition: edition)
+      export_content_possibly_recursive(organisation, csv, include_descendants)
+    end
+  end
 
-        csv << [
-          edition.title,
-          edition.base_path,
-          edition.public_updated_at,
-          edition.document_type,
-          taxons.select { |taxon| taxon[:level].zero? }.map { |taxon| taxon[:title] },
-          is_eu_exit_related?(taxons: taxons),
-        ]
+  def export_content_possibly_recursive(organisation, csv, include_descendants)
+    write_to_content_csv(csv, content_by(organisation))
+
+    if include_descendants
+      descendants_of(organisation).each do |descendant|
+        export_content_possibly_recursive(descendant, csv, true)
       end
     end
   end
 
-  def content_for(organisation:)
+  def write_to_content_csv(csv, editions)
+    editions.find_each do |edition|
+      taxons = taxons_for(edition: edition)
+
+      csv << [
+        edition.title,
+        edition.base_path,
+        edition.public_updated_at,
+        edition.document_type,
+        taxons.select { |taxon| taxon[:level].zero? }.map { |taxon| taxon[:title] },
+        is_eu_exit_related?(taxons: taxons),
+      ]
+    end
+  end
+
+  def descendants_of(organisation)
+    expanded_links = Queries::GetExpandedLinks.call(
+      organisation.content_id, organisation.locale, with_drafts: false
+    )
+
+    ordered_child_organisations = expanded_links.dig(:expanded_links, "ordered_child_organisations")
+    return [] unless ordered_child_organisations
+
+    ordered_child_organisations.map do |hash|
+      OpenStruct.new(hash)
+    end
+  end
+
+  def content_by(organisation)
     link_to_organisation = Link.where(
       link_type: "primary_publishing_organisation",
       target_content_id: organisation.content_id,
