@@ -10,12 +10,22 @@ class WhitehallEuExitReport
   end
 
   def call
-    FileUtils::mkdir_p(path)
+    organisations.find_each do |organisation|
+      puts organisation.title
+
+      slug = organisation.base_path[26..-1] # /government/organisations/
+      org_path = File.join(path, "#{slug}")
+      FileUtils::mkdir_p(org_path)
+
+      export_content_csv(organisation, File.join(org_path, "content.csv"))
+    end
   end
 
   private_class_method :new
 
 private
+
+  CSV_HEADERS = ["Title", "URL", "Last updated", "Document type", "Taxon", "EU Exit related?"].freeze
 
   EU_EXIT_TAXONS = [
     "21eee04d-e702-4e7b-9fde-2f6777f1be2c", # business / business and enterprise
@@ -89,4 +99,75 @@ private
   ].freeze
 
   attr_reader :path
+
+  def organisations
+    Edition.live.with_document.where(document_type: "organisation", documents: { locale: :en })
+  end
+
+  def export_content_csv(organisation, path)
+    CSV.open(path, "w", headers: CSV_HEADERS, write_headers: true) do |csv|
+      content_for(organisation: organisation).find_each do |edition|
+        taxons = taxons_for(edition: edition)
+
+        csv << [
+          edition.title,
+          edition.base_path,
+          edition.public_updated_at,
+          edition.document_type,
+          taxons.select { |taxon| taxon[:level].zero? }.map { |taxon| taxon[:title] },
+          is_eu_exit_related?(taxons: taxons),
+        ]
+      end
+    end
+  end
+
+  def content_for(organisation:)
+    link_to_organisation = Link.where(
+      link_type: "primary_publishing_organisation",
+      target_content_id: organisation.content_id,
+    )
+
+    document_links = link_to_organisation.joins(:link_set).select(:content_id)
+    edition_links = link_to_organisation.select(:edition_id)
+
+    Edition
+      .live
+      .with_document
+      .where(publishing_app: "whitehall")
+      .where.not(title: nil)
+      .where("documents.content_id IN (?) OR editions.id IN (?)", document_links, edition_links)
+  end
+
+  def extract_taxons(path, taxons, level = 0)
+    return path if taxons.blank?
+
+    path.concat(
+      taxons.map do |taxon|
+        {
+          content_id: taxon["content_id"],
+          title: taxon["title"],
+          level: level,
+        }
+      end
+    )
+
+    parent_taxons = taxons.each_with_object([]) do |taxon, array|
+      array.concat(taxon.dig("links", "parent_taxons") || [])
+    end
+
+    extract_taxons(path, parent_taxons, level + 1)
+  end
+
+  def taxons_for(edition:)
+    expanded_links = Queries::GetExpandedLinks.call(
+      edition.content_id, edition.locale, with_drafts: false
+    )
+
+    taxons = expanded_links.dig(:expanded_links, "taxons")
+    extract_taxons([], taxons)
+  end
+
+  def is_eu_exit_related?(taxons:)
+    taxons.select { |taxon| EU_EXIT_TAXONS.include?(taxon[:content_id]) }.any?
+  end
 end
