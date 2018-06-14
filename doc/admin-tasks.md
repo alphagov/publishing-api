@@ -84,3 +84,16 @@ bundle exec expanded_links:populate_by_document_type['document-type']
 ```
 bundle exec expanded_links:truncate
 ```
+
+## Creating a special route
+
+Special routes are used for pages or sections of GOV.UK that don't necessarily
+hold content within the Publishing API. For cases where a special route is not
+associated with a publishing application there is a rake task to create them
+for a single route:
+
+```
+bundle exec rake special_route:draft[/route, 'Content Title', rendering-app]
+```
+
+You can then use the [Publish](#publishing-a-draft) task to publish the route.
