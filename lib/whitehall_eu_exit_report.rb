@@ -14,6 +14,8 @@ class WhitehallEuExitReport
     organisations.find_each do |organisation|
       puts organisation.title, organisation.content_id
 
+      next unless content_by(organisation).exists?
+
       slug = organisation.base_path[26..-1] # /government/organisations/
       org_path = File.join(path, slug)
       FileUtils::mkdir_p(org_path)
