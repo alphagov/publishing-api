@@ -10,6 +10,14 @@ If you need to discard a draft of a document, run the `discard_draft` rake task:
 bundle exec rake discard_draft['some-content-id']
 ```
 
+## Publishing a draft
+
+If you need to publish a draft run the `publish` rake task:
+
+```
+bundle exec rake publish['some-content-id']
+```
+
 ## Representing data downstream
 
 Sometimes you need to re-send content to the Content Store to ensure consistency.
