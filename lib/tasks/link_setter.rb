@@ -10,7 +10,8 @@ module Tasks
           content_id: content_id,
           links: {
             primary_publishing_organisation: [primary_publishing_organisation]
-          }
+          },
+          bulk_publishing: true
         )
       end
     end
