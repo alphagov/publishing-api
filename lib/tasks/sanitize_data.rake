@@ -100,3 +100,27 @@ task :assign_primary_organisation_for_document_type, %i[primary_publishing_organ
     primary_publishing_organisation: primary_publishing_organisation
   )
 end
+
+desc "Assign primary organisation to a list of content items"
+task bulk_assign_primary_organisation_from_stdin: [:environment] do |_, _args|
+  puts "Please paste CSV file into STDIN with format:"
+  puts "content_id1,primary_org_content_id1"
+  puts "content_id2,primary_org_content_id2"
+  puts "..."
+
+  rows = []
+  CSV.new(STDIN).each do |row|
+    raise ValueError if row.length != 2
+    rows << row
+  end
+
+  rows.each do |row|
+    content_id, primary_org_content_id = row
+    puts "Tagging #{content_id} -> #{primary_org_content_id}"
+
+    Tasks::LinkSetter.set_primary_publishing_organisation(
+      content_ids: [content_id],
+      primary_publishing_organisation: primary_org_content_id
+    )
+  end
+end
