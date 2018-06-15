@@ -471,6 +471,8 @@ in the request is preserved.
 ```
 - `previous_version` *(optional, recommended)*
   - Used to ensure that we are updating the current version of the link set.
+- `bulk_publishing` *(optional, default: false)*
+  - Set this to true when making multiple requests. Publishing API will use a lower priority queue to avoid delays to standard publishing activity.
 
 ### State changes
 
