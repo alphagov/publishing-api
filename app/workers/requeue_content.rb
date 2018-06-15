@@ -4,7 +4,7 @@ class RequeueContent
 
   sidekiq_options queue: :import
 
-  def perform(edition_id, version)
+  def perform(edition_id, version, action = "bulk.reindex")
     edition = Edition.find(edition_id)
     presenter = DownstreamPayload.new(edition, version, draft: false)
     queue_payload = presenter.message_queue_payload
@@ -14,7 +14,7 @@ class RequeueContent
     # because we don't want to send additional email alerts to users.
     service.send_message(
       queue_payload,
-      routing_key: "#{edition.schema_name}.bulk.reindex",
+      routing_key: "#{edition.schema_name}.#{action}",
       persistent: false
     )
   end
