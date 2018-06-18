@@ -3,7 +3,7 @@ task validate_link_sets: :environment do
   ok_count = 0
   empty_count = 0
   missing_schema = []
-  error_count = Hash.new {0}
+  error_count = Hash.new { 0 }
 
   LinkSet.pluck(:content_id).each do |content_id|
     links = Queries::GetLinkSet.call(content_id)[:links]
@@ -18,7 +18,7 @@ task validate_link_sets: :environment do
     end
 
     validator = SchemaValidator.new(
-      payload: {links: links},
+      payload: { links: links },
       schema_name: schema_name,
       schema_type: :links,
     )
