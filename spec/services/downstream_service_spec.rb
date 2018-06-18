@@ -117,7 +117,7 @@ RSpec.describe DownstreamService do
         it "raises an error" do
           expect {
             DownstreamService.update_draft_content_store(downstream_payload)
-          }.to raise_error(DownstreamInvalidStateError, message_matcher)
+          }.to raise_error(DownstreamDraftExistsError, message_matcher)
         end
       end
 
@@ -127,7 +127,7 @@ RSpec.describe DownstreamService do
         it "raises an error" do
           expect {
             DownstreamService.update_draft_content_store(downstream_payload)
-          }.to raise_error(DownstreamInvalidStateError, message_matcher)
+          }.to raise_error(DownstreamDraftExistsError, message_matcher)
         end
       end
     end
