@@ -1,0 +1,2 @@
+class DownstreamDraftExistsError < DownstreamInvalidStateError
+end
