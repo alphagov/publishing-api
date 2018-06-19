@@ -109,17 +109,27 @@ module Commands
       end
 
       def validate_schema
-        # There may not be a ContentItem yet.
+        # We allow setting links before the document actually exists.
+        # This means we blindly accept anything regardless of what the schema says.
         return true unless schema_name
 
-        # Do not raise anything yet
-        # Only send errbit notification
-        schema_validator.valid?
+        unless schema_validator.valid?
+          # Do not raise anything yet, only report a warning.
+          # This should be changed to an error once we are confident nothing is sending
+          # broken links.
+          GovukError.notify(
+            "Links did not conform to the schema",
+            level: "warning",
+            extra: {
+              error_details: schema_validator.errors,
+            }
+          )
+        end
       end
 
       def schema_validator
         @schema_validator ||= SchemaValidator.new(
-          payload: payload[:links],
+          payload: { links: payload[:links] },
           schema_name: schema_name,
           schema_type: :links,
         )
