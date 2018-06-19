@@ -2,7 +2,7 @@
 
 library("govuk")
 
-node {
+node("postgresql-9.3") {
 
   govuk.buildProject(
     extraParameters: [
