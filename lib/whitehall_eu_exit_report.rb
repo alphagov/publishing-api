@@ -31,6 +31,30 @@ private
 
   CSV_HEADERS = ["Title", "URL", "Last updated", "Document type", "Organisation", "Taxon", "EU Exit related?"].freeze
 
+  DEPARTMENTS = [
+    "96ae61d6-c2a1-48cb-8e67-da9d105ae381", # cabinet office
+    "de4e9dc6-cca4-43af-a594-682023b84d6c", # department for environment, food and rural affairs
+    "6667cce2-e809-4e21-ae09-cb0bdc1ddda3", # hmrc
+    "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28", # ministry of housing communities and local government
+    "fd62c5a4-714d-47fe-a612-595d1739251c", # department for digital, culture, media & sport
+    "db674609-f9d6-4700-b5c7-31ae810a661b", # office of the secretary of state for scotland
+    "2bde479a-97f2-42b5-986a-287a623c2a1c", # department for business, energy & industrial strategy
+    "f323e83c-868b-4bcb-b6e2-a8f9bb40397e", # department for exiting the european union
+    "ebd15ade-73b2-4eaf-b1c3-43034a42eb37", # department for education
+    "db994552-7644-404d-a770-a2fe659c661f", # department for international development
+    "4c717efc-f47b-478e-a76d-ce1ae0af1946", # department for transport
+    "7cd6bf12-bbe9-4118-8523-f927b0442156", # department of health and social care
+    "082092f1-656c-470e-b024-229dc6e750e9", # department for international trade
+    "b548a09f-8b35-4104-89f4-f1a40bf3136d", # department for work and pensions
+    "9adfc4ed-9f6c-4976-a6d8-18d34356367c", # foreign and commonwealth office
+    "1994e0e4-bd19-4966-bbd7-f293d6e90a6b", # hm treasury
+    "06056197-bc69-4147-aa28-070bca132178", # home office
+    "d994e55c-48c9-4795-b872-58d8ec98af12", # ministry of defence
+    "dcc907d6-433c-42df-9ffb-d9c68be5dc4d", # ministry of justice
+    "234148b2-66d6-457c-9d06-2bf2b98533ca", # northern ireland office
+    "4f9fe232-e7a2-48e8-99b1-8f7828680493", # office of the secretary of state for wales
+  ].freeze
+
   EU_EXIT_TAXONS = [
     "21eee04d-e702-4e7b-9fde-2f6777f1be2c", # business / business and enterprise
     "ed2ca1f7-5463-4eda-9324-b597e269e242", # business / trade and investment
@@ -105,7 +129,10 @@ private
   attr_reader :path
 
   def organisations
-    Edition.live.with_document.where(document_type: "organisation", documents: { locale: :en })
+    Edition.live.with_document.where(
+      document_type: "organisation",
+      documents: { locale: :en, content_id: DEPARTMENTS },
+    )
   end
 
   def export_content_csv(organisation, path, include_descendants: false)
