@@ -29,7 +29,7 @@ class WhitehallEuExitReport
 
 private
 
-  CSV_HEADERS = ["Title", "URL", "Last updated", "Document type", "Taxon", "EU Exit related?"].freeze
+  CSV_HEADERS = ["Title", "URL", "Last updated", "Document type", "Organisation", "Taxon", "EU Exit related?"].freeze
 
   EU_EXIT_TAXONS = [
     "21eee04d-e702-4e7b-9fde-2f6777f1be2c", # business / business and enterprise
@@ -126,13 +126,19 @@ private
 
   def write_to_content_csv(csv, editions)
     editions.find_each do |edition|
-      taxons = taxons_for(edition: edition)
+      expanded_links = Queries::GetExpandedLinks.call(
+        edition.content_id, edition.locale, with_drafts: false
+      )
+
+      taxons = taxons_for(expanded_links)
+      organisation = organisation_for(expanded_links)
 
       csv << [
         edition.title,
         edition.base_path,
         edition.public_updated_at,
         edition.document_type,
+        organisation,
         taxons.select { |taxon| taxon[:level].zero? }.map { |taxon| taxon[:title] },
         is_eu_exit_related?(taxons: taxons),
       ]
@@ -189,13 +195,13 @@ private
     extract_taxons(path, parent_taxons, level + 1)
   end
 
-  def taxons_for(edition:)
-    expanded_links = Queries::GetExpandedLinks.call(
-      edition.content_id, edition.locale, with_drafts: false
-    )
-
+  def taxons_for(expanded_links)
     taxons = expanded_links.dig(:expanded_links, "taxons")
     extract_taxons([], taxons)
+  end
+
+  def organisation_for(expanded_links)
+    expanded_links.dig(:expanded_links, "primary_publishing_organisation", 0, "title")
   end
 
   def is_eu_exit_related?(taxons:)
