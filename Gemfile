@@ -47,7 +47,7 @@ gem "oj_mimic_json", "~> 1.0.1"
 
 group :development, :test do
   gem "database_cleaner"
-  gem "factory_bot_rails", "~> 4.8"
+  gem "factory_bot_rails", "~> 4.10"
   gem "faker"
   gem 'govuk-content-schema-test-helpers', "~> 1.6"
   gem "govuk-lint"
