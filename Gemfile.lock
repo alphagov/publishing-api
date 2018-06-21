@@ -612,10 +612,10 @@ GEM
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.1)
-    factory_bot (4.8.2)
+    factory_bot (4.10.0)
       activesupport (>= 3.0.0)
-    factory_bot_rails (4.8.2)
-      factory_bot (~> 4.8.2)
+    factory_bot_rails (4.10.0)
+      factory_bot (~> 4.10.0)
       railties (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
@@ -717,7 +717,7 @@ GEM
     multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (2.2.0)
-    nokogiri (1.8.2)
+    nokogiri (1.8.3)
       mini_portile2 (~> 2.3.0)
     nokogumbo (1.5.0)
       nokogiri
@@ -960,7 +960,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   diffy (~> 3.2)
-  factory_bot_rails (~> 4.8)
+  factory_bot_rails (~> 4.10)
   faker
   gds-api-adapters (~> 52.6.0)
   gds-sso (~> 13.6)
