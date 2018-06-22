@@ -115,15 +115,9 @@ module Commands
 
         unless schema_validator.valid?
           # Do not raise anything yet, only report a warning.
-          # This should be changed to an error once we are confident nothing is sending
-          # broken links.
-          GovukError.notify(
-            "Links did not conform to the schema",
-            level: "warning",
-            extra: {
-              error_details: schema_validator.errors,
-            }
-          )
+          # This should be changed to an error once this message no longer
+          # shows up in the logs.
+          Rails.logger.warn("#{content_id} links do not conform to <#{schema_name}> schema: #{schema_validator.errors}")
         end
       end
 
