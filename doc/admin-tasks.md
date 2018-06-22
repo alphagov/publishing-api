@@ -10,6 +10,14 @@ If you need to discard a draft of a document, run the `discard_draft` rake task:
 bundle exec rake discard_draft['some-content-id']
 ```
 
+## Publishing a draft
+
+If you need to publish a draft run the `publish` rake task:
+
+```
+bundle exec rake publish['some-content-id']
+```
+
 ## Representing data downstream
 
 Sometimes you need to re-send content to the Content Store to ensure consistency.
@@ -18,38 +26,38 @@ The following tasks will allow you to specify which content items/editions to ad
 
 * Represent all editions downstream
 ```
-bundle exec represent_downstream:all
+bundle exec rake represent_downstream:all
 ```
 N.B. This task will take several hours and should be used with caution.
 
 * Represent downstream for a specific document_type
 ```
-bundle exec represent_downstream:document_type['a-document-type']
+bundle exec rake represent_downstream:document_type['a-document-type']
 ```
 
 * Represent downstream for a rendering application
 ```
-bundle exec represent_downstream:rendering_app['application-name']
+bundle exec rake represent_downstream:rendering_app['application-name']
 ```
 
 * Represent downstream for a publishing application
 ```
-bundle exec represent_downstream:publishing_app['application-name']
+bundle exec rake represent_downstream:publishing_app['application-name']
 ```
 
 * Represent downstream content which has at least one link of type `taxon`
 ```
-bundle exec represent_downstream:tagged_to_taxon
+bundle exec rake represent_downstream:tagged_to_taxon
 ```
 
 * Represent an individual edition downstream
 ```
-bundle exec represent_downstream:content_id['some-content-id']
+bundle exec rake represent_downstream:content_id['some-content-id']
 ```
 
 * Represent multiple editions downstream
 ```
-bundle exec represent_downstream:content_id['some-content-id some-other-content-id']
+bundle exec rake represent_downstream:content_id['some-content-id some-other-content-id']
 ```
 N.B. The content ids are separated by a space.
 
@@ -64,15 +72,28 @@ It will also be rebuilt any time a piece of content is represented downstream.
 
 * To populate every document (this will take a long time - hours)
 ```
-bundle exec expanded_links:populate
+bundle exec rake expanded_links:populate
 ```
 
 * To populate every document of a document_type
 ```
-bundle exec expanded_links:populate_by_document_type['document-type']
+bundle exec rake expanded_links:populate_by_document_type['document-type']
 ```
 
 * To purge the expanded links cache
 ```
-bundle exec expanded_links:truncate
+bundle exec rake expanded_links:truncate
 ```
+
+## Creating a special route
+
+Special routes are used for pages or sections of GOV.UK that don't necessarily
+hold content within the Publishing API. For cases where a special route is not
+associated with a publishing application there is a rake task to create them
+for a single route:
+
+```
+bundle exec rake special_route:draft[/route, 'Content Title', rendering-app]
+```
+
+You can then use the [Publish](#publishing-a-draft) task to publish the route.
