@@ -591,7 +591,7 @@ GEM
     aws-sigv4 (1.0.2)
     bindex (0.5.0)
     builder (3.2.3)
-    bunny (2.10.0)
+    bunny (2.11.0)
       amq-protocol (~> 2.3.0)
     byebug (9.1.0)
     chronic (0.10.2)
@@ -955,7 +955,7 @@ PLATFORMS
 DEPENDENCIES
   arel (= 8.0)
   aws-sdk (~> 3)
-  bunny (~> 2.10)
+  bunny (~> 2.11)
   colorize (~> 0.8)
   dalli
   database_cleaner
