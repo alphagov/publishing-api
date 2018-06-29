@@ -54,9 +54,13 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/healthcheck', to: proc { [200, {}, ['OK']] }
   get '/debug/:content_id', to: "debug#show"
   get "/debug/experiments/:experiment", to: "debug#experiment"
+
+  get "/healthcheck", to: GovukHealthcheck.rack_response(
+    GovukHealthcheck::SidekiqRedis,
+    GovukHealthcheck::ActiveRecord,
+  )
 
   if Rails.env.development?
     require 'sidekiq/web'
