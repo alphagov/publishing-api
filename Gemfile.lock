@@ -767,9 +767,10 @@ GEM
       rspec (>= 2.14)
       term-ansicolor (~> 1.0)
       thor
-    pact_broker-client (1.15.0)
+    pact_broker-client (1.15.1)
       httparty
       json
+      rake
       table_print (~> 1.5)
       term-ansicolor
       thor (~> 0.20)
