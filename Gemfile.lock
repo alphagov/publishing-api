@@ -739,7 +739,7 @@ GEM
     omniauth-oauth2 (1.3.1)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
-    pact (1.27.0)
+    pact (1.28.0)
       json (> 1.8.5)
       pact-mock_service (~> 2.0)
       pact-support (~> 1.4)
