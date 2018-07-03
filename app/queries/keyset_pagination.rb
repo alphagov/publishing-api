@@ -55,15 +55,17 @@ module Queries
     end
 
     def is_first_page?
-      @is_first_page ||= KeysetPagination.new(
-        client, per_page: 1, before: next_before_key
-      ).call.empty?
+      @is_first_page ||= results.empty? ||
+        KeysetPagination.new(
+          client, per_page: 1, before: next_before_key
+        ).call.empty?
     end
 
     def is_last_page?
-      @is_last_page ||= KeysetPagination.new(
-        client, per_page: 1, after: next_after_key
-      ).call.empty?
+      @is_last_page ||= results.empty? ||
+        KeysetPagination.new(
+          client, per_page: 1, after: next_after_key
+        ).call.empty?
     end
 
     def key_fields
