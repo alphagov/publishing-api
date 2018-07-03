@@ -600,6 +600,8 @@ parameters.
 
 ### Query string parameters
 
+- `document_type` *(optional)*
+  - The type of editions to return.
 - `fields[]` *(optional)*
   - Accepts an array of: analytics_identifier, base_path,
     content_store, description, details, document_type,

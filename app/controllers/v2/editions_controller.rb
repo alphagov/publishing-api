@@ -16,8 +16,8 @@ module V2
     def edition_params
       params
         .permit(
-          :order, :locale, :publishing_app, :per_page, :before, :after,
-          fields: [], states: []
+          :order, :locale, :publishing_app, :per_page,
+          :before, :after, document_types: [], fields: [], states: []
         )
     end
 
