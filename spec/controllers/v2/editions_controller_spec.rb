@@ -124,6 +124,27 @@ RSpec.describe V2::EditionsController do
       end
     end
 
+    context "filtered so that the result set is empty" do
+      it "returns an empty set" do
+        get :index, params: { locale: "nowhere" }
+        expect(parsed_response["results"].count).to eq(0)
+        expect(parsed_response["links"]).to eq([
+          { "href" => "http://test.host/v2/editions?locale=nowhere", "rel" => "self" },
+        ])
+      end
+    end
+
+    context "filtered by document type" do
+      it "returns only the document type specified" do
+        create(:draft_edition, document_type: 'taxon', id: 10000)
+        get :index, params: { document_types: %w(taxon) }
+        expect(parsed_response["results"].count).to eq(1)
+        expect(parsed_response["links"]).to eq([
+          { "href" => "http://test.host/v2/editions?document_types%5B%5D=taxon", "rel" => "self" },
+        ])
+      end
+    end
+
     context "filtered by state" do
       it "returns only published editions" do
         get :index, params: { states: %w(published) }
