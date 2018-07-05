@@ -33,7 +33,7 @@ gem "json-schema", require: false
 # removing jobs from the uniquejobs hash in redis
 gem "sidekiq-unique-jobs", git: "https://github.com/alphagov/sidekiq-unique-jobs", branch: "fix-for-upstream-195-backported-to-4-x-branch", require: false
 gem 'whenever', '0.10.0', require: false
-gem "with_advisory_lock", "~> 3.1"
+gem "with_advisory_lock", "~> 4.0"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
