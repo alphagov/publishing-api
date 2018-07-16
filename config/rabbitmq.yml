@@ -3,12 +3,12 @@ defaults: &defaults
   vhost: /
   user: publishing_api
   pass: publishing_api
+  exchange: published_documents
   recover_from_connection_close: true
 
 development:
   <<: *defaults
   host: localhost
-  exchange: published_documents
 
 test:
   <<: *defaults
@@ -23,4 +23,3 @@ production:
     - <%= host %>
     <% end %>
   pass: <%= ENV['RABBITMQ_PASSWORD'] %>
-  exchange: published_documents
