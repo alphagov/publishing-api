@@ -5,6 +5,7 @@ defaults: &defaults
   pass: publishing_api
   exchange: published_documents
   recover_from_connection_close: true
+  automatically_recover: false
 
 development:
   <<: *defaults
