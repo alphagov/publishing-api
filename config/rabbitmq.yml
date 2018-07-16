@@ -22,9 +22,5 @@ production:
     <% hosts.split(",").each do |host| %>
     - <%= host %>
     <% end %>
-  user: publishing_api
   pass: <%= ENV['RABBITMQ_PASSWORD'] %>
-  port: 5672
-  vhost: /
   exchange: published_documents
-  recover_from_connection_close: true
