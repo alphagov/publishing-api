@@ -1,5 +1,4 @@
 defaults: &defaults
-  host: localhost
   port: 5672
   vhost: /
   user: publishing_api
@@ -8,13 +7,16 @@ defaults: &defaults
 
 development:
   <<: *defaults
+  host: localhost
   exchange: published_documents
 
 test:
   <<: *defaults
+  host: localhost
   exchange: published_documents_test
 
 production:
+  <<: *defaults
   hosts:
     <% hosts = ENV['RABBITMQ_HOSTS'] || 'localhost' %>
     <% hosts.split(",").each do |host| %>
