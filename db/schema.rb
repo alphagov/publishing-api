@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216150252) do
+ActiveRecord::Schema.define(version: 20180719125727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20180216150252) do
     t.json "redirects", default: []
     t.string "publishing_app"
     t.string "rendering_app"
-    t.json "need_ids", default: []
     t.string "update_type"
     t.string "phase", default: "live"
     t.string "analytics_identifier"
