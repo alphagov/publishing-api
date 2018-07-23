@@ -81,7 +81,7 @@ namespace :queue do
       # keeping up. So if the queue gets over a certain size, pause this job.
       while queue.size > MAX_IMPORT_QUEUE_SIZE
         warn "Queue size has exceeded #{MAX_IMPORT_QUEUE_SIZE}, waiting for messages to be processed before continuing."
-        sleep 60
+        sleep 5
       end
 
       RequeueContent.perform_async(edition.id, version, action)
