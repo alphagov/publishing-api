@@ -19,7 +19,7 @@ end
 gem "gds-sso", "~> 13.6"
 gem "govuk_app_config", "~> 1.7"
 gem "govuk_document_types", "~> 0.5.0"
-gem "govuk_schemas", "~> 3.1"
+gem "govuk_schemas", "~> 3.2"
 gem "govuk_sidekiq", "~> 3.0"
 
 gem "aws-sdk", "~> 3"
