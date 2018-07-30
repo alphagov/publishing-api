@@ -6,3 +6,13 @@
 #
 # Prior steps:
 # Queried `Document` for the `content_id: "5f623c6e-7631-11e4-a3cb-005056011aef"`
+
+class RemoveChangeNote < ActiveRecord::Migration[5.1]
+  def up
+    # This has now been replaced by a newer migration: 20180727140643_remove_change_note_v2
+  end
+
+  def down
+    # This migration is not reversible
+  end
+end
