@@ -11,10 +11,9 @@
 class RemoveChangeNoteV2 < ActiveRecord::Migration[5.1]
   disable_ddl_transaction!
 
-  change_note_to_delete = "VAT Notice 308 has been amended to show that a dwelling can consist of more than one building."
-
   def up
     # Find document
+    change_note_to_delete = "VAT Notice 308 has been amended to show that a dwelling can consist of more than one building."
     document = Document.where(content_id: "5f623c6e-7631-11e4-a3cb-005056011aef").first
 
     if document.present?
