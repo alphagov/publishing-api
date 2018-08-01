@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180727140643) do
+ActiveRecord::Schema.define(version: 20180801195938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20180727140643) do
     t.datetime "updated_at", null: false
     t.integer "owning_document_id"
     t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true
+    t.index ["id", "locale"], name: "index_documents_on_id_and_locale"
   end
 
   create_table "editions", id: :serial, force: :cascade do |t|
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(version: 20180727140643) do
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
     t.index ["document_id", "user_facing_version"], name: "index_editions_on_document_id_and_user_facing_version", unique: true
     t.index ["document_id"], name: "index_editions_on_document_id"
+    t.index ["document_type", "state"], name: "index_editions_on_document_type_and_state"
     t.index ["document_type", "updated_at"], name: "index_editions_on_document_type_and_updated_at"
     t.index ["publishing_app"], name: "index_editions_on_publishing_app"
     t.index ["state", "base_path"], name: "index_editions_on_state_and_base_path"
