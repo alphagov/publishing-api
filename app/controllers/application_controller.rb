@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
   include GDS::SSO::ControllerMethods
 
   rescue_from ActionController::ParameterMissing, with: :parameter_missing_error
