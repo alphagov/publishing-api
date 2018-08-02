@@ -29,7 +29,8 @@ node("postgresql-9.3") {
 
         runContentStorePactTests(govuk);
       }
-    }
+    },
+    brakeman: true,
   )
 }
 
