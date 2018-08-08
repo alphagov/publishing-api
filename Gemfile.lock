@@ -663,7 +663,7 @@ GEM
       sentry-raven (~> 2.7.1)
       statsd-ruby (~> 1.4.0)
       unicorn (~> 5.4.0)
-    govuk_document_types (0.5.0)
+    govuk_document_types (0.6.0)
     govuk_schemas (3.2.0)
       json-schema (~> 2.8.0)
     govuk_sidekiq (3.0.2)
@@ -969,7 +969,7 @@ DEPENDENCIES
   govuk-content-schema-test-helpers (~> 1.6)
   govuk-lint
   govuk_app_config (~> 1.8)
-  govuk_document_types (~> 0.5.0)
+  govuk_document_types (~> 0.6.0)
   govuk_schemas (~> 3.2)
   govuk_sidekiq (~> 3.0)
   hashdiff (~> 0.3.6)
@@ -999,4 +999,4 @@ DEPENDENCIES
   with_advisory_lock (~> 4.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
