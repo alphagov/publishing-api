@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   get "/healthcheck", to: GovukHealthcheck.rack_response(
     GovukHealthcheck::SidekiqRedis,
     GovukHealthcheck::ActiveRecord,
+    Healthcheck::QueueLatency,
   )
 
   if Rails.env.development?
