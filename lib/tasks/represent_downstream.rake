@@ -7,6 +7,10 @@ namespace :represent_downstream do
     end
   end
 
+  def current_documents
+    Document.joins(:editions).where.not(editions: { content_store: nil })
+  end
+
   desc "Represent all editions downstream"
   task all: :environment do
     represent_downstream(
@@ -22,7 +26,7 @@ namespace :represent_downstream do
   task :document_type, [:document_types] => :environment do |_t, args|
     document_types = args[:document_types].split(" ")
     represent_downstream(
-      Document.joins(:editions).where(editions: { document_type: document_types })
+      current_documents.where(editions: { document_type: document_types })
     )
   end
 
@@ -33,7 +37,7 @@ namespace :represent_downstream do
   "
   task :rendering_app, [:rendering_app] => :environment do |_t, args|
     represent_downstream(
-      Document.joins(:editions).where(editions: { rendering_app: args[:rendering_app] })
+      current_documents.where(editions: { rendering_app: args[:rendering_app] })
     )
   end
 
@@ -44,7 +48,7 @@ namespace :represent_downstream do
   "
   task :publishing_app, [:publishing_app] => :environment do |_t, args|
     represent_downstream(
-      Document.joins(:editions).where(editions: { publishing_app: args[:publishing_app] })
+      current_documents.where(editions: { publishing_app: args[:publishing_app] })
     )
   end
 
