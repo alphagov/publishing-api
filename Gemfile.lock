@@ -624,7 +624,7 @@ GEM
     ffi (1.9.23)
     filelock (1.1.1)
     find_a_port (1.0.1)
-    gds-api-adapters (52.7.0)
+    gds-api-adapters (52.8.0)
       addressable
       link_header
       lrucache (~> 0.1.1)
@@ -704,9 +704,9 @@ GEM
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
-    mime-types (3.1)
+    mime-types (3.2.2)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
+    mime-types-data (3.2018.0812)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -963,7 +963,7 @@ DEPENDENCIES
   diffy (~> 3.2)
   factory_bot_rails (~> 4.10)
   faker
-  gds-api-adapters (~> 52.7.0)
+  gds-api-adapters (~> 52.8.0)
   gds-sso (~> 13.6)
   govspeak (~> 5.6.0)
   govuk-content-schema-test-helpers (~> 1.6)
