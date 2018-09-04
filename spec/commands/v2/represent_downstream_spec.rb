@@ -86,5 +86,14 @@ RSpec.describe Commands::V2::RepresentDownstream do
         subject.call(Document.pluck(:content_id), with_drafts: false)
       end
     end
+
+    context "queue optional" do
+      it "can be set to use the high priority queue" do
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+          .with("downstream_high", a_hash_including(:content_id))
+          .at_least(1).times
+        subject.call(Document.pluck(:content_id), queue: DownstreamQueue::HIGH_QUEUE)
+      end
+    end
   end
 end

@@ -47,10 +47,21 @@ bundle exec represent_downstream:tagged_to_taxon
 bundle exec represent_downstream:content_id['some-content-id']
 ```
 
+* Represent an individual edition downstream via the high priority queue
+```
+bundle exec represent_downstream:high_priority:content_id['some-content-id']
+```
+
 * Represent multiple editions downstream
 ```
 bundle exec represent_downstream:content_id['some-content-id some-other-content-id']
 ```
+
+* Represent multiple editions downstream via the high priority queue
+```
+bundle exec represent_downstream:high_priority:content_id['some-content-id some-other-content-id']
+```
+
 N.B. The content ids are separated by a space.
 
 ## Populating expanded links into database
