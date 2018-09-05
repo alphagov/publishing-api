@@ -3,7 +3,7 @@ FactoryBot.define do
     content_id { SecureRandom.uuid }
 
     transient do
-      links_hash({})
+      links_hash { {} }
     end
 
     after(:create) do |link_set, evaluator|
