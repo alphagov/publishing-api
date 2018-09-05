@@ -1,8 +1,8 @@
 namespace :represent_downstream do
-  def represent_downstream(scope)
+  def represent_downstream(scope, queue: DownstreamQueue::LOW_QUEUE)
     scope.distinct.in_batches.each do |batch|
       content_ids = batch.pluck(:content_id)
-      Commands::V2::RepresentDownstream.new.call(content_ids)
+      Commands::V2::RepresentDownstream.new.call(content_ids, queue: queue)
       sleep 5
     end
   end
@@ -83,5 +83,21 @@ namespace :represent_downstream do
     represent_downstream(
       Document.joins(:editions).where(editions: { state: "published", last_edited_at: args[:start_date]..args[:end_date] })
     )
+  end
+
+  namespace :high_priority do
+    desc "
+    Represent an individual or multiple documents downstream on the high priority
+    sidekiq queue
+    Usage
+    rake 'represent_downstream:high_priority:content_id[57a1253c-68d3-4a93-bb47-b67b9b4f6b9a]'
+    "
+    task :content_id, [:content_id] => :environment do |_t, args|
+      content_ids = args[:content_id].split(" ")
+      represent_downstream(
+        Document.where(content_id: content_ids),
+        queue: DownstreamQueue::HIGH_QUEUE
+      )
+    end
   end
 end
