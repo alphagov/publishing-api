@@ -28,7 +28,6 @@ module Presenters
 
       def self.present(edition, params = {})
         scope = Edition.where(id: edition.id)
-
         present_many(scope, params).first
       end
 
@@ -147,7 +146,6 @@ module Presenters
 
         scope.select(*fields)
       end
-
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
