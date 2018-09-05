@@ -3,7 +3,7 @@ FactoryBot.define do
     source_content_id { SecureRandom.uuid }
     target_content_id { SecureRandom.uuid }
     action
-    link_type "taxons"
-    change "add"
+    link_type { "taxons" }
+    change { "add" }
   end
 end

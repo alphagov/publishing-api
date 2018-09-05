@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :event do
     transient do
-      title "An exciting piece of content"
+      title { "An exciting piece of content" }
     end
     action { "PutContent" }
     content_id { SecureRandom.uuid }

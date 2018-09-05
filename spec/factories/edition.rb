@@ -1,37 +1,37 @@
 FactoryBot.define do
   factory :edition, aliases: [:draft_edition] do
     document
-    title "VAT rates"
-    description "VAT rates for goods and services"
-    schema_name "nonexistent-schema"
-    document_type "nonexistent-schema"
-    public_updated_at "2014-05-14T13:00:06Z"
-    first_published_at "2014-01-02T03:04:05Z"
-    last_edited_at "2014-05-14T13:00:06Z"
-    publishing_app "publisher"
-    rendering_app "frontend"
+    title { "VAT rates" }
+    description { "VAT rates for goods and services" }
+    schema_name { "nonexistent-schema" }
+    document_type { "nonexistent-schema" }
+    public_updated_at { "2014-05-14T13:00:06Z" }
+    first_published_at { "2014-01-02T03:04:05Z" }
+    last_edited_at { "2014-05-14T13:00:06Z" }
+    publishing_app { "publisher" }
+    rendering_app { "frontend" }
     details {
       { body: "<p>Something about VAT</p>\n", }
     }
-    phase "beta"
-    update_type "minor"
-    analytics_identifier "GDS01"
-    routes {
+    phase { "beta" }
+    update_type { "minor" }
+    analytics_identifier { "GDS01" }
+    routes do
       [
         {
           path: base_path,
           type: "exact",
         }
       ]
-    }
-    state "draft"
-    content_store "draft"
+    end
+    state { "draft" }
+    content_store { "draft" }
     sequence(:base_path) { |n| "/vat-rates-#{n}" }
-    user_facing_version 1
+    user_facing_version { 1 }
 
     transient do
-      change_note "note"
-      links_hash {}
+      change_note { "note" }
+      links_hash { {} }
     end
 
     after(:create) do |item, evaluator|
@@ -61,21 +61,21 @@ FactoryBot.define do
 
   factory :redirect_edition, aliases: [:redirect_draft_edition], parent: :edition do
     transient do
-      destination "/somewhere"
+      destination { "/somewhere" }
     end
     sequence(:base_path) { |n| "/test-redirect-#{n}" }
-    schema_name "redirect"
-    document_type "redirect"
-    routes []
+    schema_name { "redirect" }
+    document_type { "redirect" }
+    routes { [] }
     redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => destination }] }
   end
 
   factory :gone_edition, aliases: [:gone_draft_edition], parent: :edition do
     sequence(:base_path) { |n| "/dodo-sanctuary-#{n}" }
-    schema_name "gone"
-    document_type "gone"
-    state "superseded"
-    rendering_app nil
+    schema_name { "gone" }
+    document_type { "gone" }
+    state { "superseded" }
+    rendering_app { nil }
   end
 
   factory :access_limited_edition, aliases: [:access_limited_draft_edition], parent: :edition do
@@ -87,8 +87,8 @@ FactoryBot.define do
   end
 
   factory :pathless_edition, aliases: [:pathless_draft_edition], parent: :edition do
-    base_path nil
-    schema_name "contact"
-    document_type "contact"
+    base_path { nil }
+    schema_name { "contact" }
+    document_type { "contact" }
   end
 end
