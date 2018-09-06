@@ -60,6 +60,7 @@ module Presenters
 
       def query
         ordering_query = Edition.select("*, COUNT(*) OVER () as total").from(fetch_items_query)
+        ordering_query = join_lateral_aggregates(ordering_query)
         ordering_query = ordering_query.order(order.map { |o| o.join(' ') }.join(', ')) if order
         ordering_query = ordering_query.limit(limit) if limit
         ordering_query = ordering_query.offset(offset) if offset
@@ -114,12 +115,8 @@ module Presenters
             "to_char(public_updated_at, '#{ISO8601_SQL}') as public_updated_at"
           when :first_published_at
             "to_char(first_published_at, '#{ISO8601_SQL}') as first_published_at"
-          when :state_history
-            "#{STATE_HISTORY_SQL} AS state_history"
           when :unpublishing
             "#{UNPUBLISHING_SQL} AS unpublishing"
-          when :links
-            "#{LINKS_SQL} AS links"
           when :change_note
             "change_notes.note AS change_note"
           when :base_path
@@ -128,6 +125,10 @@ module Presenters
             "documents.locale as locale"
           when :content_id
             "documents.content_id as content_id"
+          when :state_history
+            nil
+          when :links
+            nil
           when :total
             nil
           else
@@ -149,12 +150,33 @@ module Presenters
 
       STATE_HISTORY_SQL = <<-SQL.freeze
         (
-          SELECT json_agg((user_facing_version, state))
+          SELECT json_agg((user_facing_version, state)) AS state_history
           FROM editions e
-          WHERE e.document_id = documents.id
-          GROUP BY documents.content_id
-        )
+          WHERE e.document_id = subquery.document_id
+          GROUP BY subquery.content_id
+        ) state_history_subquery
       SQL
+
+      LINKS_SQL = <<-SQL.freeze
+        (
+          SELECT json_agg((links.link_type, links.target_content_id)) AS links
+          FROM links
+          WHERE links.edition_id = subquery.id
+        ) links_subquery
+      SQL
+
+      LATERAL_AGGREGATES = {
+        state_history: STATE_HISTORY_SQL,
+        links: LINKS_SQL,
+      }.freeze
+
+      def join_lateral_aggregates(scope)
+        LATERAL_AGGREGATES.each do |field, sql|
+          next unless fields.include?(field)
+          scope = scope.joins("LEFT JOIN LATERAL #{sql} ON TRUE")
+        end
+        scope
+      end
 
       # Creating a JSON object with specified keys in PostgreSQL 9.3
       # is a little awkward, but is possible through the use of column
@@ -182,14 +204,6 @@ module Presenters
             redirects,
             unpublished_at
           )
-        )
-      SQL
-
-      LINKS_SQL = <<-SQL.freeze
-        (
-          SELECT json_agg((links.link_type, links.target_content_id))
-          FROM links
-          WHERE links.edition_id = editions.id
         )
       SQL
 
