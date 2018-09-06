@@ -18,6 +18,7 @@ RSpec.describe "/healthcheck", type: :request do
     expect(data.fetch(:checks)).to include(
       database_connectivity: { status: "ok" },
       redis_connectivity:    { status: "ok" },
+      sidekiq_queue_latency: hash_including(status: "ok"),
     )
   end
 end
