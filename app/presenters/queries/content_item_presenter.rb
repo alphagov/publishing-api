@@ -103,36 +103,36 @@ module Presenters
 
       def field_selector(field)
         case field
-          when :publication_state
-            "editions.state AS publication_state"
-          when :user_facing_version
-            "editions.user_facing_version AS user_facing_version"
-          when :lock_version
-            "documents.stale_lock_version AS lock_version"
-          when :last_edited_at
-            "to_char(last_edited_at, '#{ISO8601_SQL}') as last_edited_at"
-          when :public_updated_at
-            "to_char(public_updated_at, '#{ISO8601_SQL}') as public_updated_at"
-          when :first_published_at
-            "to_char(first_published_at, '#{ISO8601_SQL}') as first_published_at"
-          when :unpublishing
-            "#{UNPUBLISHING_SQL} AS unpublishing"
-          when :change_note
-            "change_notes.note AS change_note"
-          when :base_path
-            "editions.base_path as base_path"
-          when :locale
-            "documents.locale as locale"
-          when :content_id
-            "documents.content_id as content_id"
-          when :state_history
-            nil
-          when :links
-            nil
-          when :total
-            nil
-          else
-            field
+        when :publication_state
+          "editions.state AS publication_state"
+        when :user_facing_version
+          "editions.user_facing_version AS user_facing_version"
+        when :lock_version
+          "documents.stale_lock_version AS lock_version"
+        when :last_edited_at
+          "to_char(last_edited_at, '#{ISO8601_SQL}') as last_edited_at"
+        when :public_updated_at
+          "to_char(public_updated_at, '#{ISO8601_SQL}') as public_updated_at"
+        when :first_published_at
+          "to_char(first_published_at, '#{ISO8601_SQL}') as first_published_at"
+        when :unpublishing
+          "#{UNPUBLISHING_SQL} AS unpublishing"
+        when :change_note
+          "change_notes.note AS change_note"
+        when :base_path
+          "editions.base_path as base_path"
+        when :locale
+          "documents.locale as locale"
+        when :content_id
+          "documents.content_id as content_id"
+        when :state_history
+          nil
+        when :links
+          nil
+        when :total
+          nil
+        else
+          field
         end
       end
 
