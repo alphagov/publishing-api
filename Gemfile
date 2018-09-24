@@ -17,7 +17,7 @@ else
 end
 
 gem "gds-sso", "~> 13.6"
-gem "govuk_app_config", "~> 1.8"
+gem "govuk_app_config", "~> 1.9"
 gem "govuk_document_types", "~> 0.8.0"
 gem "govuk_schemas", "~> 3.2"
 gem "govuk_sidekiq", "~> 3.0"
@@ -40,10 +40,7 @@ group :development do
   gem "web-console", "~> 3"
 end
 
-# Lock to 2.18.3 because later patch versions are not listed in the oj changelog
-# and cause test failures.
-gem "oj", "2.18.3"
-gem "oj_mimic_json", "~> 1.0.1"
+gem "oj", "~> 3.0"
 
 group :development, :test do
   gem "database_cleaner"

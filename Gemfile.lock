@@ -588,6 +588,8 @@ GEM
       aws-sigv4 (~> 1.0)
     aws-sigv2 (1.0.1)
     aws-sigv4 (1.0.2)
+    aws-xray-sdk (0.10.2)
+      oj (~> 3.0)
     bindex (0.5.0)
     builder (3.2.3)
     bunny (2.12.0)
@@ -656,7 +658,8 @@ GEM
       rubocop (~> 0.58)
       rubocop-rspec (~> 1.28)
       scss_lint
-    govuk_app_config (1.8.0)
+    govuk_app_config (1.9.1)
+      aws-xray-sdk (~> 0.10.0)
       logstasher (~> 1.2.2)
       sentry-raven (~> 2.7.1)
       statsd-ruby (~> 1.4.0)
@@ -725,8 +728,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oj (2.18.3)
-    oj_mimic_json (1.0.1)
+    oj (3.6.10)
     omniauth (1.8.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
@@ -966,14 +968,13 @@ DEPENDENCIES
   govspeak (~> 5.6.0)
   govuk-content-schema-test-helpers (~> 1.6)
   govuk-lint
-  govuk_app_config (~> 1.8)
+  govuk_app_config (~> 1.9)
   govuk_document_types (~> 0.8.0)
   govuk_schemas (~> 3.2)
   govuk_sidekiq (~> 3.0)
   hashdiff (~> 0.3.6)
   json-schema
-  oj (= 2.18.3)
-  oj_mimic_json (~> 1.0.1)
+  oj (~> 3.0)
   pact
   pact_broker-client
   pg (~> 0.21.0)
