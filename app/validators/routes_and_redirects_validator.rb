@@ -173,7 +173,7 @@ private
 
     def validate_internal_redirect(destination)
       errors << "internal redirects cannot end with /" if
-        destination.end_with? "/"
+        destination != "/" && (destination.end_with? "/")
     end
 
     def validate_external_redirect(destination)
