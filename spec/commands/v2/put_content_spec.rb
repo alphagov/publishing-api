@@ -218,10 +218,6 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       it "should send an alert to GovukError" do
-        # swallow error about missing schema
-        expect(GovukError).to receive(:notify)
-          .with(anything, level: "warning", extra: a_hash_including(schema_path: anything))
-
         expect(GovukError).to receive(:notify)
           .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 
@@ -231,10 +227,6 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when an update type is provided" do
       it "should not send an alert to GovukError" do
-        # swallow error about missing schema
-        expect(GovukError).to receive(:notify)
-          .with(anything, level: "warning", extra: a_hash_including(schema_path: anything))
-
         expect(GovukError).to_not receive(:notify)
           .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 
