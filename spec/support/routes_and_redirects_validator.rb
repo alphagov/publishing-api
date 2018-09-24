@@ -160,6 +160,17 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
         ]
         expect(subject).to be_invalid
       end
+
+      it "is valid when it redirects to the homepage" do
+        edition.redirects = [
+            {
+                path: "#{subject.base_path}/foo",
+                type: "exact",
+                destination: "/"
+            }
+        ]
+        expect(subject).to be_valid
+      end
     end
 
     context "when destination is external url" do
