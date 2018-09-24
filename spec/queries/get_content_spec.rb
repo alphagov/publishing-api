@@ -31,14 +31,8 @@ RSpec.describe Queries::GetContent do
       expect(result).to include(
         "content_id" => content_id,
         "base_path" => "/vat-rates",
-        "title" => "VAT rates",
-        "document_type" => "nonexistent-schema",
-        "schema_name" => "nonexistent-schema",
         "locale" => "en",
         "lock_version" => 1,
-        "publication_state" => "draft",
-        "publishing_app" => "publisher",
-        "rendering_app" => "frontend",
       )
     end
 

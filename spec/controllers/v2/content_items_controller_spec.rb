@@ -500,10 +500,10 @@ RSpec.describe V2::ContentItemsController do
 
   describe "index" do
     before do
-      create(:draft_edition, publishing_app: 'publisher', base_path: '/content')
-      create(:draft_edition, publishing_app: 'whitehall', base_path: '/item1')
-      create(:live_edition, publishing_app: 'whitehall', base_path: '/item2')
-      create(:unpublished_edition, publishing_app: 'specialist_publisher', base_path: '/item3')
+      create(:draft_edition, publishing_app: 'publisher', base_path: '/content', document_type: "nonexistent-schema")
+      create(:draft_edition, publishing_app: 'whitehall', base_path: '/item1', document_type: "nonexistent-schema")
+      create(:live_edition, publishing_app: 'whitehall', base_path: '/item2', document_type: "nonexistent-schema")
+      create(:unpublished_edition, publishing_app: 'specialist_publisher', base_path: '/item3', document_type: "nonexistent-schema")
     end
 
     it "displays items filtered by publishing_app parameter" do

@@ -20,12 +20,16 @@ RSpec.describe "pathless content" do
 
       context "schema validation" do
         context "when schema requires a base_path" do
-          before { payload[:schema_name] = "nonexistent-schema" }
+          before do
+            payload[:schema_name] = "generic"
+            payload[:document_type] = "services_and_information"
+            payload[:details] = {}
+          end
 
           it "raises an error" do
             expect {
               described_class.call(payload)
-            }.to raise_error(CommandError, /Base path is not a valid absolute URL path/)
+            }.to raise_error(CommandError, /The payload did not conform to the schema/)
           end
         end
 
@@ -49,7 +53,8 @@ RSpec.describe "pathless content" do
               described_class.call(payload.merge(base_path: nil))
             }.not_to raise_error
           end
-           it "does not try to reserve a path" do
+
+          it "does not try to reserve a path" do
             expect {
               described_class.call(payload.merge(base_path: nil))
             }.not_to change(PathReservation, :count)

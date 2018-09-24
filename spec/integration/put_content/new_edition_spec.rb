@@ -100,20 +100,19 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
     before do
       payload.delete(:change_note)
 
-      payload[:details] = {
-        change_history: [
-          { note: change_note, public_timestamp: Time.now.utc.to_s },
-        ]
-      }
-    end
-
-    include_examples "creates a change note"
-  end
-
-  context "and the change note is in the details hash" do
-    before do
-      payload.delete(:change_note)
-      payload[:details] = { change_note: change_note }
+      # This needs to be a schema that supports change_history hence news_story
+      payload.merge!(
+        document_type: "news_story",
+        schema_name: "news_article",
+        details: {
+          body: "News",
+          government: { title: "Test", slug: "test", current: true },
+          political: false,
+          change_history: [
+            { note: change_note, public_timestamp: Time.now.utc.rfc3339 },
+          ]
+        }
+      )
     end
 
     include_examples "creates a change note"

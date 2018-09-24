@@ -16,13 +16,13 @@ RSpec.describe SchemaValidator do
   describe "#validate" do
     context "unknown schema name" do
       let(:schema) { nil }
-      let(:payload) { { schema_name: "test" } }
+      let(:payload) { { schema_name: "nonexistent-schema" } }
 
-      it "logs to airbrake with an unknown schema_name" do
-        expect(GovukError)
-          .to receive(:notify)
-          .with(an_instance_of(Errno::ENOENT), a_hash_including(:extra))
-        validator.valid?
+      it "is invalid and has an error" do
+        expect(validator.valid?).to be false
+        expect(validator.errors).to match_array(
+          ["Unable to find schema for schema_name nonexistent-schema"]
+        )
       end
     end
 

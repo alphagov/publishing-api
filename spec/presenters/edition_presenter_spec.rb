@@ -90,14 +90,14 @@ RSpec.describe Presenters::EditionPresenter do
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
         details: details,
-        document_type: "nonexistent-schema",
+        document_type: "services_and_information",
         locale: "en",
         phase: "beta",
         publishing_app: "publisher",
         redirects: [],
         rendering_app: "frontend",
         routes: [{ path: base_path, type: "exact" }],
-        schema_name: "nonexistent-schema",
+        schema_name: "generic",
         title: "VAT rates",
         first_published_at: "2014-01-02T03:04:05Z",
         public_updated_at: "2014-05-14T13:00:06Z",
@@ -117,7 +117,7 @@ RSpec.describe Presenters::EditionPresenter do
       end
 
       it "adds the supertypes" do
-        expect(result["user_journey_document_supertype"]).to eq "thing"
+        expect(result["user_journey_document_supertype"]).to be_present
       end
     end
 
