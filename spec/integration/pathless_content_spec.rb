@@ -42,6 +42,19 @@ RSpec.describe "pathless content" do
             }.not_to change(PathReservation, :count)
           end
         end
+
+        context "when schema does not require a base_path and a nil base_path is provided" do
+          it "does not raise an error" do
+            expect {
+              described_class.call(payload.merge(base_path: nil))
+            }.not_to raise_error
+          end
+           it "does not try to reserve a path" do
+            expect {
+              described_class.call(payload.merge(base_path: nil))
+            }.not_to change(PathReservation, :count)
+          end
+        end
       end
 
       context "with a pathless edition payload" do

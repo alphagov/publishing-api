@@ -48,12 +48,8 @@ module Commands
         old_links - new_links
       end
 
-      def content_with_base_path?
-        base_path_required? || payload.has_key?(:base_path)
-      end
-
       def prepare_content_with_base_path
-        return unless content_with_base_path?
+        return unless payload[:base_path]
         PathReservation.reserve_base_path!(payload[:base_path], payload[:publishing_app])
         clear_draft_items_of_same_locale_and_base_path
       end
@@ -93,7 +89,7 @@ module Commands
       end
 
       def create_redirect
-        return unless content_with_base_path?
+        return unless payload[:base_path]
         RedirectHelper::Redirect.new(previously_published_edition,
                                      @previous_edition,
                                      payload, callbacks).create
@@ -134,10 +130,6 @@ module Commands
         @previously_published_edition ||= PreviouslyPublishedItem.new(
           document, payload[:base_path], self
         ).call
-      end
-
-      def base_path_required?
-        !Edition::EMPTY_BASE_PATH_FORMATS.include?(payload[:schema_name])
       end
 
       def previous_drafted_edition

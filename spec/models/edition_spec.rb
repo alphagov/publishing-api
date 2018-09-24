@@ -254,53 +254,6 @@ RSpec.describe Edition do
     end
   end
 
-  context "EMPTY_BASE_PATH_FORMATS" do
-    it "defines formats not requiring a base_path attibute" do
-      expect(Edition::EMPTY_BASE_PATH_FORMATS).to eq(
-        %w(
-          ambassador_role
-          board_member_role
-          chief_professional_officer_role
-          chief_scientific_officer_role
-          contact
-          deputy_head_of_mission_role
-          external_content
-          government
-          governor_role
-          high_commissioner_role
-          military_role
-          role_appointment
-          special_representative_role
-          traffic_commissioner_role
-          world_location
-          worldwide_office_staff_role
-        )
-      )
-    end
-  end
-
-  describe "#requires_base_path?" do
-    it "doesn't require a base path for 'contact' document_type" do
-      subject.document_type = "contact"
-      expect(subject.requires_base_path?).to be false
-    end
-
-    it "doesn't require a base path for 'government' document_type" do
-      subject.document_type = "government"
-      expect(subject.requires_base_path?).to be false
-    end
-
-    it "doesn't require a base path for 'world_location' document_type" do
-      subject.document_type = "world_location"
-      expect(subject.requires_base_path?).to be false
-    end
-
-    it "requires a base path for other document_types" do
-      subject.document_type = "different document type"
-      expect(subject.requires_base_path?).to be true
-    end
-  end
-
   describe "#details_for_govspeak_conversion" do
     subject do
       build(:edition, details: details)
