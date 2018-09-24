@@ -343,6 +343,9 @@ and a state has been specified, the draft is returned.
 
 ### Query string parameters
 
+- `bulk_publishing` *(optional, default: false)*
+  - Set this to true when making multiple requests. Publishing API will use a
+    lower priority queue to avoid delays to standard publishing activity.
 - `document_type` *(optional)*
   - The type of editions to return.
 - `fields[]` *(optional)*
