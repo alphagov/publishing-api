@@ -447,18 +447,6 @@ RSpec.describe V2::ContentItemsController do
         expect(parsed_response_body["content_id"]).to eq(content_id)
       end
     end
-
-    context "with invalid request body" do
-      before do
-        request.env["CONTENT_TYPE"] = "application/json"
-        request.env["RAW_POST_DATA"] = ""
-        put :put_content, params: { content_id: content_id }
-      end
-
-      it "responds with 400" do
-        expect(response.status).to eq(400)
-      end
-    end
   end
 
   describe "publish" do

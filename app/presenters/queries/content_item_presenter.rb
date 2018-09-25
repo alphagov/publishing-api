@@ -232,6 +232,7 @@ module Presenters
 
       def parse_json_column(result, column)
         return unless result.key?(column)
+        return if result[column].nil?
         result[column] = JSON.parse(result[column])
       end
 
