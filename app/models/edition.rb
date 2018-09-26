@@ -32,24 +32,6 @@ class Edition < ApplicationRecord
 
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
   NO_RENDERING_APP_FORMATS = %w(contact external_content role_appointment).freeze
-  EMPTY_BASE_PATH_FORMATS = %w(
-    ambassador_role
-    board_member_role
-    chief_professional_officer_role
-    chief_scientific_officer_role
-    contact
-    deputy_head_of_mission_role
-    external_content
-    government
-    governor_role
-    high_commissioner_role
-    military_role
-    role_appointment
-    special_representative_role
-    traffic_commissioner_role
-    world_location
-    worldwide_office_staff_role
-  ).freeze
 
   belongs_to :document
   has_one :unpublishing
@@ -101,12 +83,8 @@ class Edition < ApplicationRecord
     )
   end
 
-  def requires_base_path?
-    EMPTY_BASE_PATH_FORMATS.exclude?(document_type)
-  end
-
   def pathless?
-    !self.requires_base_path? && !base_path
+    !base_path
   end
 
   def base_path_present?

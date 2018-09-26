@@ -12,12 +12,8 @@ RSpec.describe Commands::V2::PutContent do
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
 
-    let(:change_note) { { note: "Info", public_timestamp: Time.now.utc.to_s } }
-    let(:new_change_note) { { note: "Changed Info", public_timestamp: Time.now.utc.to_s } }
-
-    let(:links_1) { { organisations: [content_id] } }
-    let(:links_2) { { policy_areas: [new_content_id] } }
-
+    let(:change_note) { "Info" }
+    let(:new_change_note) { "Changed Info" }
     let(:payload) do
       {
         content_id: content_id,
@@ -26,14 +22,14 @@ RSpec.describe Commands::V2::PutContent do
         title: "Some Title",
         publishing_app: "publisher",
         rendering_app: "frontend",
-        document_type: "nonexistent-schema",
-        schema_name: "nonexistent-schema",
+        document_type: "services_and_information",
+        schema_name: "generic",
         locale: locale,
         routes: [{ path: base_path, type: "exact" }],
         redirects: [],
         phase: "beta",
         change_note: change_note,
-        links: links_1
+        details: {},
       }
     end
 
@@ -45,14 +41,14 @@ RSpec.describe Commands::V2::PutContent do
         title: "New Title",
         publishing_app: "publisher",
         rendering_app: "frontend",
-        document_type: "nonexistent-schema",
-        schema_name: "nonexistent-schema",
+        document_type: "services_and_information",
+        schema_name: "generic",
         locale: locale,
         routes: [{ path: base_path, type: "exact" }],
         redirects: [],
         phase: "beta",
         change_note: new_change_note,
-        links: links_2
+        details: {},
       }
     end
 
@@ -94,8 +90,6 @@ RSpec.describe Commands::V2::PutContent do
 
       expect(Action.last.edition_diff).to include(
         ["~", [:title], "Some Title", "New Title"],
-        ["-", [:links, :organisations], [content_id]],
-        ["+", [:links, :policy_areas], [new_content_id]],
         ["~", [:change_note], change_note.to_s, new_change_note.to_s],
       )
     end
@@ -143,7 +137,7 @@ RSpec.describe Commands::V2::PutContent do
         it "stores the provided timestamp" do
           last_edited_at = 1.year.ago
 
-          described_class.call(payload.merge(last_edited_at: last_edited_at))
+          described_class.call(payload.merge(last_edited_at: last_edited_at.iso8601))
 
           edition = Edition.last
 
@@ -178,7 +172,7 @@ RSpec.describe Commands::V2::PutContent do
               described_class.call(
                 payload.merge(
                   update_type: update_type,
-                  last_edited_at: last_edited_at,
+                  last_edited_at: last_edited_at.iso8601,
                 )
               )
 
@@ -218,10 +212,6 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       it "should send an alert to GovukError" do
-        # swallow error about missing schema
-        expect(GovukError).to receive(:notify)
-          .with(anything, level: "warning", extra: a_hash_including(schema_path: anything))
-
         expect(GovukError).to receive(:notify)
           .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 
@@ -231,10 +221,6 @@ RSpec.describe Commands::V2::PutContent do
 
     context "when an update type is provided" do
       it "should not send an alert to GovukError" do
-        # swallow error about missing schema
-        expect(GovukError).to receive(:notify)
-          .with(anything, level: "warning", extra: a_hash_including(schema_path: anything))
-
         expect(GovukError).to_not receive(:notify)
           .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 

@@ -6,7 +6,9 @@ RSpec.describe "Logging requests", type: :request do
 
   it "adds a request uuid to the content store worker job" do
     Sidekiq::Testing.fake! do
-      put("/v2/content/#{SecureRandom.uuid}", params: content_item_params.except(:links).to_json,
+      put(
+        "/v2/content/#{SecureRandom.uuid}",
+        params: content_item_params.except(:expanded_links).to_json,
         headers: { "HTTP_GOVUK_REQUEST_ID" => govuk_request_id },
       )
       GdsApi::GovukHeaders.clear_headers # Simulate workers running in a separate thread

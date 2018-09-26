@@ -190,7 +190,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
       context "conflicting version" do
         before do
           previously_drafted_item.document.update!(stale_lock_version: 2)
-          payload.merge!(previous_version: 1)
+          payload.merge!(previous_version: "1")
         end
 
         it "doesn't delete the substitute item" do
@@ -207,7 +207,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
   context "with a 'previous_version' which does not match the current lock_version of the draft item" do
     before do
       previously_drafted_item.document.update!(stale_lock_version: 2)
-      payload.merge!(previous_version: 1)
+      payload.merge!(previous_version: "1")
     end
 
     it "raises an error" do

@@ -32,17 +32,7 @@ private
     errors << no_schema_name_message
     {}
   rescue Errno::ENOENT => error
-    if Rails.env.development?
-      errors << missing_schema_message
-    end
-    GovukError.notify(
-      error,
-      level: "warning",
-      extra: {
-        explanation: missing_schema_message,
-        schema_path: ENV["GOVUK_CONTENT_SCHEMAS_PATH"],
-      }
-    )
+    errors << missing_schema_message
     {}
   end
 

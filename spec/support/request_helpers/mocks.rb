@@ -20,8 +20,8 @@ module RequestHelpers
         base_path: base_path,
         content_id: content_id,
         description: "VAT rates for goods and services",
-        document_type: "nonexistent-schema",
-        schema_name: "nonexistent-schema",
+        document_type: "services_and_information",
+        schema_name: "generic",
         first_published_at: DateTime.parse("2014-01-02T03:04:05.000Z"),
         public_updated_at: DateTime.parse("2014-05-14T13:00:06.000Z"),
         publishing_app: "publisher",
@@ -29,9 +29,7 @@ module RequestHelpers
         rendering_app: "frontend",
         locale: "en",
         phase: "beta",
-        details: {
-          body: "<p>Something about VAT</p>\n",
-        },
+        details: {},
         routes: [
           {
             path: base_path,
@@ -72,10 +70,10 @@ module RequestHelpers
           base_path: "/vat-rates",
           content_id: content_id,
           description: "VAT rates for goods and services",
-          document_type: "nonexistent-schema",
+          document_type: "services_and_information",
           locale: "en",
           public_updated_at: DateTime.parse("2014-05-14T13:00:06Z"),
-          schema_name: "nonexistent-schema",
+          schema_name: "generic",
           title: "VAT rates",
           api_path: "/api/content/vat-rates",
           withdrawn: false,
@@ -85,7 +83,7 @@ module RequestHelpers
 
     def v2_content_item
       content_item_params
-        .except(:links)
+        .except(:expanded_links)
         .merge(base_path: base_path)
     end
   end

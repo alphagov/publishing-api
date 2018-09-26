@@ -4,7 +4,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
   include_context "PutContent call"
 
   before do
-    payload.merge!(links: { users: [link] })
+    payload.merge!(links: { policy_areas: [link] })
   end
 
   context "invalid UUID" do
@@ -37,7 +37,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
     let(:link) { SecureRandom.uuid }
 
     before do
-      edition.links.create!(target_content_id: document.content_id, link_type: "random")
+      edition.links.create!(target_content_id: document.content_id, link_type: "policy_areas")
     end
 
     context "draft edition" do
