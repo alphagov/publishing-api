@@ -233,7 +233,7 @@ module Presenters
       def parse_json_column(result, column)
         return unless result.key?(column)
         return if result[column].nil?
-        result[column] = JSON.parse(result[column])
+        result[column] = Oj.load(result[column])
       end
 
       def parse_int_column(result, column)

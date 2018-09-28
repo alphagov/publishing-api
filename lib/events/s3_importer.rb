@@ -36,7 +36,7 @@ module Events
     def attributes(row)
       json_fields = Event.columns.select { |e| e.type == :json }.map(&:name)
       json = row.each_with_object({}) do |(field, value), memo|
-        memo[field] = JSON.parse(value) if json_fields.include?(field)
+        memo[field] = Oj.load(value) if json_fields.include?(field)
       end
       row.to_hash.merge(json)
     end

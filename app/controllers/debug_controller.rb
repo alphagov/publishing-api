@@ -11,7 +11,7 @@ class DebugController < ApplicationController
     }
 
     @mismatched_responses = mismatched_responses.map { |json|
-      parsed = JSON.parse(json)
+      parsed = Oj.load(json)
 
       missing, other = parsed.partition {|(operator, _, _)|
         operator == "-"
