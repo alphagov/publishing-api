@@ -2,7 +2,6 @@ class ApplicationController < ActionController::API
   include GDS::SSO::ControllerMethods
 
   rescue_from ActionController::ParameterMissing, with: :parameter_missing_error
-  rescue_from JSON::ParserError, with: :json_parse_error
   rescue_from CommandError, with: :respond_with_command_error
 
   before_action :authenticate_user!
@@ -24,17 +23,6 @@ private
     respond_with_command_error(error)
   end
 
-  def json_parse_error(e)
-    error = CommandError.new(code: 400, error_details: {
-      error: {
-        code: 400,
-        message: e.message
-      }
-    })
-
-    respond_with_command_error(error)
-  end
-
   def respond_with_command_error(error)
     error = error.cause unless error.is_a?(CommandError)
     render status: error.code, json: error
@@ -45,7 +33,7 @@ private
   end
 
   def payload
-    @payload ||= JSON.parse(request.body.read).deep_symbolize_keys
+    request.request_parameters.deep_symbolize_keys
   end
 
   def query_params

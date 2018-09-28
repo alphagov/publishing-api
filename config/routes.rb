@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     UuidValidator.valid?(request.params[:content_id])
   end
 
-  scope format: false do
+  scope format: false, defaults: { format: :json } do
     put "/publish-intent(/*base_path)", to: "publish_intents#create_or_update"
     get "/publish-intent(/*base_path)", to: "publish_intents#show"
     delete "/publish-intent(/*base_path)", to: "publish_intents#destroy"
