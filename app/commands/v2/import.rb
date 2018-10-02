@@ -96,7 +96,7 @@ module Commands
           when "unpublished"
             content_item.unpublish(
               state.slice(
-                *%i(type explanation alternative_path unpublished_at)
+                :type, :explanation, :alternative_path, :unpublished_at
               )
             )
           when "superseded"
