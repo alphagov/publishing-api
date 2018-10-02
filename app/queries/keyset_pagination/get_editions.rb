@@ -25,12 +25,12 @@ module Queries
     end
 
     def pagination_key
-      @pagination_key ||= (
+      @pagination_key ||= begin
         hash = {}
         hash[pagination_field] = "editions.#{pagination_field}"
         hash[:id] = "editions.id"
         hash
-      )
+      end
     end
 
   private
