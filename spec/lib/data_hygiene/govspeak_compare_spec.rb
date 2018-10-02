@@ -10,8 +10,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
       other: [
         { content_type: "text/html", content: other_html },
         { content_type: "text/govspeak", content: other_govspeak },
-      ],
-    }
+      ],}
   end
 
   let(:body_html) { "<h1>Foo</h1>" }
@@ -35,8 +34,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
             { content_type: "text/html", content: "<h1>Hello</h1>" },
             { content_type: "text/govspeak", content: "#Hi" },
           ],
-          field_3: [{ content_type: "text/govspeak", content: "#Erm" }],
-        }
+          field_3: [{ content_type: "text/govspeak", content: "#Erm" }],}
       end
       it { is_expected.to include(:field_1, :field_2) }
     end
@@ -68,8 +66,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
             { content_type: "text/html", content: "<h1>Hello</h1>" },
             { content_type: "text/govspeak", content: "#Hi" },
           ],
-          field_3: [{ content_type: "text/govspeak", content: "Erm" }],
-        }
+          field_3: [{ content_type: "text/govspeak", content: "Erm" }],}
       end
 
       it { is_expected.to include(:field_2, :field_3) }
