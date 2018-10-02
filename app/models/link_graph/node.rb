@@ -56,7 +56,7 @@ class LinkGraph::Node
   end
 
   def to_s
-    "LinkGraph::Node(#{content_id}, #{locale ? locale : 'nil'})"
+    "LinkGraph::Node(#{content_id}, #{locale || 'nil'})"
   end
 
   def inspect
