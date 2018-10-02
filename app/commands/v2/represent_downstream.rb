@@ -24,7 +24,7 @@ module Commands
           message: "Representing downstream draft",
         }
 
-        EventLogger.log_command(self.class, event_payload) do |event|
+        EventLogger.log_command(self.class, event_payload) do |_event|
           DownstreamDraftWorker.perform_async_in_queue(
             queue,
             content_id: content_id,
@@ -41,7 +41,7 @@ module Commands
           message: "Representing downstream live",
         }
 
-        EventLogger.log_command(self.class, event_payload) do |event|
+        EventLogger.log_command(self.class, event_payload) do |_event|
           DownstreamLiveWorker.perform_async_in_queue(
             queue,
             content_id: content_id,
