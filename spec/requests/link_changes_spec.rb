@@ -17,7 +17,7 @@ RSpec.describe 'GET /v2/links/changes', type: :request do
       user_uid: user_uid
     )
 
-    get '/v2/links/changes', params: { link_types: ['taxons'] }
+    get '/v2/links/changes', params: { link_types: %w[taxons] }
 
     expect(parsed_response.deep_symbolize_keys)
       .to match(link_changes: [{
@@ -69,7 +69,7 @@ RSpec.describe 'GET /v2/links/changes', type: :request do
       taxons: [SecureRandom.uuid]
     )
 
-    get '/v2/links/changes', params: { link_types: ['taxons'], source_content_ids: source_uuids }
+    get '/v2/links/changes', params: { link_types: %w[taxons], source_content_ids: source_uuids }
 
     expect(number_of_results).to eql(2)
   end
@@ -110,7 +110,7 @@ RSpec.describe 'GET /v2/links/changes', type: :request do
     )
 
     get '/v2/links/changes', params: {
-      link_types: ['taxons'],
+      link_types: %w[taxons],
       users: user_uuids
     }
 

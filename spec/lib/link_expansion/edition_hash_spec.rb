@@ -6,7 +6,7 @@ RSpec.describe LinkExpansion::EditionHash do
       expect(described_class.from(nil)).to be_nil
     end
     it "accepts an array argument" do
-      expect(described_class.from(["123"])).to include(
+      expect(described_class.from(%w[123])).to include(
         analytics_identifier: "123"
       )
     end

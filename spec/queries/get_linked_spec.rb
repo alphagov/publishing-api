@@ -14,7 +14,7 @@ RSpec.describe Queries::GetLinked do
           Queries::GetLinked.new(
             content_id: non_existing_content_id,
             link_type: "organisations",
-            fields: ["title"],
+            fields: %w[title],
           ).call
         }.to raise_error(CommandError)
       end
@@ -49,7 +49,7 @@ RSpec.describe Queries::GetLinked do
           Queries::GetLinked.new(
             content_id: content_id,
             link_type: "organisations",
-            fields: ["title"],
+            fields: %w[title],
           ).call
         ).to eq([])
       end
@@ -64,7 +64,7 @@ RSpec.describe Queries::GetLinked do
           expect(Queries::GetLinked.new(
             content_id: target_content_id,
             link_type: "organisations",
-            fields: ["title"],
+            fields: %w[title],
           ).call).to match_array([hash_including("title" => "VAT rules 2020")])
         end
       end
@@ -84,7 +84,7 @@ RSpec.describe Queries::GetLinked do
             Queries::GetLinked.new(
               content_id: target_content_id,
               link_type: "organisations",
-              fields: ["title"],
+              fields: %w[title],
             ).call
           ).to eq([])
         end
@@ -96,7 +96,7 @@ RSpec.describe Queries::GetLinked do
             Queries::GetLinked.new(
               content_id: target_content_id,
               link_type: "organisations",
-              fields: ['not_existing'],
+              fields: %w[not_existing],
             ).call
           }.to raise_error(CommandError)
         end

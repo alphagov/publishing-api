@@ -13,7 +13,7 @@ module Queries
 
     def initialize(document_types: [], fields:, filters: {}, pagination: Pagination.new, search_query: "", search_in: nil)
       self.document_types = Array(document_types)
-      self.fields = (fields || default_fields) + ["total"]
+      self.fields = (fields || default_fields) + %w[total]
       self.publishing_app = filters[:publishing_app]
       self.states = filters[:states] || %i(draft published unpublished)
       self.link_filters = filters[:links]
@@ -70,7 +70,7 @@ module Queries
     end
 
     def permitted_fields
-      default_fields + ["total"]
+      default_fields + %w[total]
     end
 
     def default_fields

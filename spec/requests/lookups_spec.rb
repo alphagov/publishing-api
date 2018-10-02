@@ -86,7 +86,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
           user_facing_version: 1
         )
 
-        post "/lookup-by-base-path", params: { base_paths: %w(/redirect-page), exclude_document_types: ['none'] }
+        post "/lookup-by-base-path", params: { base_paths: %w(/redirect-page), exclude_document_types: %w[none] }
 
         expect(parsed_response).to eql(
           "/redirect-page" => redirected_content_item.document.content_id
@@ -102,7 +102,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
           user_facing_version: 1
         )
 
-        post "/lookup-by-base-path", params: { base_paths: %w(/gone-page), exclude_document_types: ['none'] }
+        post "/lookup-by-base-path", params: { base_paths: %w(/gone-page), exclude_document_types: %w[none] }
 
         expect(parsed_response).to eql(
           "/gone-page" => gone_content_item.document.content_id
@@ -114,7 +114,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
       it "returns content ids for gone content" do
         gone_content_item = create(:unpublished_edition, state: "unpublished", base_path: "/unpublished-gone-page", user_facing_version: 1)
 
-        post "/lookup-by-base-path", params: { base_paths: %w(/unpublished-gone-page), exclude_unpublishing_types: ['none'] }
+        post "/lookup-by-base-path", params: { base_paths: %w(/unpublished-gone-page), exclude_unpublishing_types: %w[none] }
 
         expect(parsed_response).to eql(
           "/unpublished-gone-page" => gone_content_item.document.content_id

@@ -118,7 +118,7 @@ RSpec.describe Queries::GetLinkables do
       end
 
       it "has the english title" do
-        expect(linkables.map(&:title)).to match_array(["Hello"])
+        expect(linkables.map(&:title)).to match_array(%w[Hello])
       end
     end
 
@@ -133,7 +133,7 @@ RSpec.describe Queries::GetLinkables do
       end
 
       it "has the draft edition" do
-        expect(linkables.map(&:title)).to match_array(["Draft"])
+        expect(linkables.map(&:title)).to match_array(%w[Draft])
       end
 
       context "and there is a published edition" do
@@ -145,7 +145,7 @@ RSpec.describe Queries::GetLinkables do
         end
 
         it "has the published edition" do
-          expect(linkables.map(&:title)).to match_array(["Published"])
+          expect(linkables.map(&:title)).to match_array(%w[Published])
         end
       end
     end

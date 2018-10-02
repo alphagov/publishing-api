@@ -124,7 +124,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns an empty array" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: ["base_path"],
+        fields: %w[base_path],
       ).call.to_a).to eq([])
     end
   end
@@ -134,7 +134,7 @@ RSpec.describe Queries::GetContentCollection do
       expect {
         Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["not_existing"],
+          fields: %w[not_existing],
         ).call
       }.to raise_error(CommandError)
     end
@@ -394,7 +394,7 @@ RSpec.describe Queries::GetContentCollection do
     subject do
       Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: ["base_path"],
+        fields: %w[base_path],
         search_query: search_query,
         search_in: search_in
       )
@@ -443,7 +443,7 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with invalid top-level fields" do
-        let(:search_in) { ["nonexistent_field"] }
+        let(:search_in) { %w[nonexistent_field] }
         let(:search_query) { "baz" }
         it "raises a CommandError" do
           expect { subject.call }.to raise_error(CommandError)
@@ -451,7 +451,7 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with a nested field as a top-level fields" do
-        let(:search_in) { ["details"] }
+        let(:search_in) { %w[details] }
         let(:search_query) { "baz" }
         it "raises a CommandError" do
           expect { subject.call }.to raise_error(CommandError)
@@ -459,7 +459,7 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with description among the fields" do
-        let(:search_in) { ["description"] }
+        let(:search_in) { %w[description] }
         let(:search_query) { "foo" }
         it "finds the edition" do
           expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/baz" }])
@@ -510,7 +510,7 @@ RSpec.describe Queries::GetContentCollection do
       it "limits the results returned" do
         editions = Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["publishing_app"],
+          fields: %w[publishing_app],
           pagination: Pagination.new(offset: 0, per_page: 3)
         ).call
 
@@ -520,7 +520,7 @@ RSpec.describe Queries::GetContentCollection do
       it "fetches results from a specified index" do
         editions = Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["base_path"],
+          fields: %w[base_path],
           pagination: Pagination.new(offset: 1, per_page: 2)
         ).call
 
@@ -530,7 +530,7 @@ RSpec.describe Queries::GetContentCollection do
       it "when per_page is higher than results we only receive remaining editions" do
         editions = Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["base_path"],
+          fields: %w[base_path],
           pagination: Pagination.new(offset: 3, per_page: 8)
         ).call.to_a
 
@@ -541,7 +541,7 @@ RSpec.describe Queries::GetContentCollection do
       it "returns all items when no pagination params are specified" do
         editions = Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["publishing_app"],
+          fields: %w[publishing_app],
         ).call
 
         expect(editions.count).to eq(6)

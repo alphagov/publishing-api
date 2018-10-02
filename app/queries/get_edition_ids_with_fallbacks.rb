@@ -17,7 +17,7 @@ module Queries
     end
 
     def self.where_state(state_fallback_order)
-      without_withdrawn = state_fallback_order - ["withdrawn"]
+      without_withdrawn = state_fallback_order - %w[withdrawn]
       if without_withdrawn.present?
         state_check = Edition.arel_table[:state].in(without_withdrawn)
       else

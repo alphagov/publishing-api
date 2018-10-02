@@ -86,8 +86,8 @@ RSpec.describe V2::ContentItemsController do
 
       context "specifying fields to search" do
         it "returns the item" do
-          get :index, params: { q: "stuff", search_in: ["description"], fields: %w(title) }
-          expect(parsed_response["results"].map { |i| i["title"] }).to eq(['bar'])
+          get :index, params: { q: "stuff", search_in: %w[description], fields: %w(title) }
+          expect(parsed_response["results"].map { |i| i["title"] }).to eq(%w[bar])
         end
       end
     end
@@ -169,7 +169,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "with pagination params" do
       before do
-        get :index, params: { content_format: "topic", fields: ["content_id"], start: "0", page_size: "20" }
+        get :index, params: { content_format: "topic", fields: %w[content_id], start: "0", page_size: "20" }
       end
 
       it "is successful" do
@@ -183,7 +183,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without pagination params" do
       before do
-        get :index, params: { content_format: 'topic', fields: ['content_id'] }
+        get :index, params: { content_format: 'topic', fields: %w[content_id] }
       end
       it "is successful" do
         expect(response.status).to eq(200)
@@ -210,7 +210,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "when ordering by updated_at ascending" do
         let(:order) { "updated_at" }
-        let(:fields) { ["updated_at"] }
+        let(:fields) { %w[updated_at] }
 
         it "returns the ordered results" do
           results = parsed_response["results"]
@@ -224,7 +224,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "when ordering by updated_at descending" do
         let(:order) { "-updated_at" }
-        let(:fields) { ["updated_at"] }
+        let(:fields) { %w[updated_at] }
 
         it "returns the ordered results" do
           results = parsed_response["results"]
@@ -238,7 +238,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "when ordering by last_edited_at ascending" do
         let(:order) { "last_edited_at" }
-        let(:fields) { ["last_edited_at"] }
+        let(:fields) { %w[last_edited_at] }
 
         it "returns the ordered results" do
           results = parsed_response["results"]
@@ -254,7 +254,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "when ordering by last_edited_at descending" do
         let(:order) { "-last_edited_at" }
-        let(:fields) { ["last_edited_at"] }
+        let(:fields) { %w[last_edited_at] }
 
         it "returns the ordered results" do
           results = parsed_response["results"]
@@ -270,7 +270,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "when ordering by base_path ascending" do
         let(:order) { "base_path" }
-        let(:fields) { ["base_path"] }
+        let(:fields) { %w[base_path] }
 
         it "returns the ordered results" do
           results = parsed_response["results"]
@@ -284,7 +284,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "when ordering by base_path descending" do
         let(:order) { "-base_path" }
-        let(:fields) { ["base_path"] }
+        let(:fields) { %w[base_path] }
 
         it "returns the ordered results" do
           results = parsed_response["results"]
@@ -298,7 +298,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "when ordering by a field that doesn't exist" do
         let(:order) { "doesnt_exist" }
-        let(:fields) { ["content_id"] }
+        let(:fields) { %w[content_id] }
 
         it "responds with 422 and an error message" do
           expect(response.status).to eq(422)
@@ -309,7 +309,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "when ordering by a field without an index" do
         let(:order) { "created_at" }
-        let(:fields) { ["content_id"] }
+        let(:fields) { %w[content_id] }
 
         it "responds with 422 and an error message" do
           expect(response.status).to eq(422)
@@ -320,7 +320,7 @@ RSpec.describe V2::ContentItemsController do
 
       context "ordering by a updated_at when it's not selected" do
         let(:order) { "updated_at" }
-        let(:fields) { ["base_path"] }
+        let(:fields) { %w[base_path] }
 
         it "returns the ordered results" do
           results = parsed_response["results"]
@@ -339,7 +339,7 @@ RSpec.describe V2::ContentItemsController do
         link_set = create(:link_set, content_id: content_id)
         create(:link, link_set: link_set, target_content_id: org_content_id)
 
-        get :index, params: { content_format: "topic", fields: ["content_id"], link_organisations: org_content_id.to_s }
+        get :index, params: { content_format: "topic", fields: %w[content_id], link_organisations: org_content_id.to_s }
       end
 
       it "is successful" do

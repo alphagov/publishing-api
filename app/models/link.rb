@@ -27,7 +27,7 @@ class Link < ApplicationRecord
 private
 
   VALID_LINK_TYPE_REGEX = /\A[a-z0-9_]+\z/
-  AUTOMATIC_LINK_TYPES = ["available_translations"].freeze
+  AUTOMATIC_LINK_TYPES = %w[available_translations].freeze
 
   def association_presence
     if link_set.blank? && edition.blank?

@@ -24,10 +24,10 @@ RSpec.describe "GET /v2/content", type: :request do
       hash_including(title: "Policy 2"),
     ]
 
-    get "/v2/content", params: { fields: ["title"] }
+    get "/v2/content", params: { fields: %w[title] }
     expect(JSON.parse(response.body, symbolize_names: true)[:results]).to match_array(expected_result)
 
-    get "/v2/content", params: { fields: ["title"] }
+    get "/v2/content", params: { fields: %w[title] }
     expect(JSON.parse(response.body, symbolize_names: true)[:results]).to match_array(expected_result)
   end
 
