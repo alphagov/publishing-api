@@ -65,8 +65,8 @@ class LinkGraph::Node
       "links: #{links.map(&:content_id)})"
   end
 
-  def ==(another_node)
-    self.to_h == another_node.to_h
+  def ==(other)
+    self.to_h == other.to_h
   end
 
   def to_h
