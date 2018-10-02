@@ -220,7 +220,6 @@ RSpec.describe "Downstream requests", type: :request do
           :draft_content_item_id,
           :live_content_item_id,
           :last_edited_at,
-
           # hide attributes that won't exist when calling as_json
           :state,
           :user_facing_version,
