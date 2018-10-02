@@ -104,10 +104,10 @@ module Presenters
       end
     end
 
-    def display_value(v)
-      if v.is_a?(Hash)
+    def display_value(value)
+      if value.is_a?(Hash)
         content_tag :pre do
-          JSON.pretty_generate(v)
+          JSON.pretty_generate(value)
         end
       elsif v.blank?
         "<em>empty</em>".html_safe
