@@ -161,7 +161,7 @@ module ExpansionRules
 
       link_type = (reverse_to_direct_link_type(link_type) || link_type) if reverse_to_direct
 
-      links = allowed_links.select { |link| !is_reverse_link_type?(link) }
+      links = allowed_links.reject { |link| is_reverse_link_type?(link) }
 
       memo[link_type] = links unless links.empty?
     end
