@@ -20,7 +20,7 @@ task :published_by_date, %i[from to] => :environment do |_, args|
   items = ActiveRecord::Base.connection.execute(sql)
 
   csv_out = CSV.new($stdout)
-  csv_out << %w(publish_date, publishing_app, content_id, base_path, title)
+  csv_out << %w(publish_date publishing_app content_id base_path title)
 
   items.each do |i|
     csv_out << [i["created_at"], i["publishing_app"], i["content_id"], i["base_path"], i["title"]]
