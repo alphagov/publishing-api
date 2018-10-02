@@ -5,7 +5,7 @@ Finds content published within a given date range
 Usage
 rake 'published_by_date["2017-05-01","2017-05-03"]'
 }
-task :published_by_date, [:from, :to] => :environment do |_, args|
+task :published_by_date, %i[from to] => :environment do |_, args|
   sql = <<-eos
     select distinct events.created_at, editions.publishing_app, events.content_id, editions.base_path, editions.title
       from events

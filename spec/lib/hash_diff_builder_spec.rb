@@ -64,8 +64,8 @@ RSpec.describe HashDiffBuilder do
       let(:previous_and_updated_diff) do
         [
           ["~", [:title], "A title", "A new title"],
-          ["-", [:links, :organisations], [content_id]],
-          ["+", [:links, :policy_areas], [content_id]]
+          ["-", %i[links organisations], [content_id]],
+          ["+", %i[links policy_areas], [content_id]]
         ]
       end
 

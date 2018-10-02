@@ -14,7 +14,7 @@ def report_errors(errors, content_store)
 end
 
 desc "Check all the documents for consistency with the content-store"
-task :check_content_consistency, [:content_store, :content_dump] => [:environment] do |_, args|
+task :check_content_consistency, %i[content_store content_dump] => [:environment] do |_, args|
   raise "Missing content store." unless args[:content_store]
   raise "Invalid content store." unless %w(live draft).include?(args[:content_store])
   raise "Missing content dump." unless args[:content_dump]

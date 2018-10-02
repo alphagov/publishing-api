@@ -8,26 +8,26 @@ class Edition < ApplicationRecord
 
   DEFAULT_LOCALE = "en".freeze
 
-  TOP_LEVEL_FIELDS = [
-    :analytics_identifier,
-    :base_path,
-    :content_store,
-    :description,
-    :details,
-    :document_type,
-    :first_published_at,
-    :last_edited_at,
-    :phase,
-    :public_updated_at,
-    :publishing_app,
-    :redirects,
-    :rendering_app,
-    :routes,
-    :schema_name,
-    :state,
-    :title,
-    :user_facing_version,
-    :update_type,
+  TOP_LEVEL_FIELDS = %i[
+    analytics_identifier
+    base_path
+    content_store
+    description
+    details
+    document_type
+    first_published_at
+    last_edited_at
+    phase
+    public_updated_at
+    publishing_app
+    redirects
+    rendering_app
+    routes
+    schema_name
+    state
+    title
+    user_facing_version
+    update_type
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze

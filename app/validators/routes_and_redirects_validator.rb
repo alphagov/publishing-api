@@ -105,7 +105,7 @@ private
     def additional_keys(route, attribute)
       utilised_keys = route.keys.uniq
 
-      supported_keys = [:path, :type]
+      supported_keys = %i[path type]
       if attribute == :redirects
         supported_keys += %i(
           destination

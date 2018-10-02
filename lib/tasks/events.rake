@@ -1,6 +1,6 @@
 namespace :events do
   desc "Export events to S3. Defaults to the beginning of week 2 months ago, otherwise dates can be specified in a form that Date.parse understands."
-  task :export_to_s3, [:created_before, :created_on_or_after] => :environment do |_, args|
+  task :export_to_s3, %i[created_before created_on_or_after] => :environment do |_, args|
     created_before = args[:created_before] ? Time.zone.parse(args[:created_before]) : 1.months.ago.beginning_of_week(:sunday)
     created_on_or_after = args[:created_on_or_after] ? Time.zone.parse(args[:created_on_or_after]) : nil
     exported, s3_key = Events::S3Exporter.new(created_before, created_on_or_after).export

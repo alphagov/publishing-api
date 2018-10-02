@@ -45,10 +45,10 @@ module Queries
       :created_at,
     ].freeze
 
-    ORDER_FIELDS = [
-      :updated_at,
-      :public_updated_at,
-      :created_at,
+    ORDER_FIELDS = %i[
+      updated_at
+      public_updated_at
+      created_at
     ].freeze
 
     def pagination_field

@@ -68,18 +68,18 @@ private
   # need to add an order field, ensure that it has an index or query performance
   # will be hampered.
   def valid_order_fields
-    [
-      :id,
-      :base_path,
-      :content_id,
-      :document_type,
-      :format,
-      :last_edited_at,
-      :locale,
-      :public_updated_at,
-      :publishing_app,
-      :rendering_app,
-      :updated_at,
+    %i[
+      id
+      base_path
+      content_id
+      document_type
+      format
+      last_edited_at
+      locale
+      public_updated_at
+      publishing_app
+      rendering_app
+      updated_at
     ]
   end
 end

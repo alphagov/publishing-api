@@ -10,7 +10,7 @@ RSpec.describe Queries::GetLinkChanges do
       change = result[:link_changes].first.deep_symbolize_keys
 
       expect(change.keys).to match_array(
-        [:source, :target, :link_type, :change, :user_uid, :created_at]
+        %i[source target link_type change user_uid created_at]
       )
     end
 
@@ -22,7 +22,7 @@ RSpec.describe Queries::GetLinkChanges do
       result = Queries::GetLinkChanges.new(link_types: 'topics').as_hash
 
       change = result[:link_changes].first.deep_symbolize_keys
-      expect(change[:source].keys).to match_array([:title, :base_path, :content_id])
+      expect(change[:source].keys).to match_array(%i[title base_path content_id])
     end
   end
 end
