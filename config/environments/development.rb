@@ -47,7 +47,7 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   if GovukSchemas::Schema.all.empty?
-    raise <<-message
+    raise <<-MESSAGE
       No schemas found
 
       The Publishing API service requires that the
@@ -56,6 +56,6 @@ Rails.application.configure do
       govuk-content-schemas repository at ../govuk-content-schemas and
       can be configured through the GOVUK_CONTENT_SCHEMAS_PATH
       environment variable.
-    message
+    MESSAGE
   end
 end

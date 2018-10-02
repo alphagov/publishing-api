@@ -6,7 +6,7 @@ Usage
 rake 'published_by_date["2017-05-01","2017-05-03"]'
 }
 task :published_by_date, %i[from to] => :environment do |_, args|
-  sql = <<-eos
+  sql = <<-EOS
     select distinct events.created_at, editions.publishing_app, events.content_id, editions.base_path, editions.title
       from events
         join documents on documents.content_id = events.content_id
@@ -15,7 +15,7 @@ task :published_by_date, %i[from to] => :environment do |_, args|
         and events.created_at >= '#{args[:from]}'
         and events.created_at <= '#{args[:to]}'
       order by publishing_app, created_at;
-  eos
+  EOS
 
   items = ActiveRecord::Base.connection.execute(sql)
 
