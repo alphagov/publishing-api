@@ -56,7 +56,7 @@ module Presenters
     end
 
     def page_href(before: nil, after: nil)
-      except = (before || after) ? %w(before after) : []
+      except = before || after ? %w(before after) : []
 
       uri = URI.parse(request_url)
 
