@@ -5,8 +5,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
   let(:edition) do
     create(:edition,
       document: document,
-      details: details.deep_stringify_keys,
-    )
+      details: details.deep_stringify_keys)
   end
   let(:details) { {} }
   subject { described_class.new(edition).change_history }
@@ -55,15 +54,13 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         create(:superseded_edition,
           document: document,
           details: details,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
       let(:item2) do
         create(:live_edition,
           document: document,
           details: details,
-          user_facing_version: 2,
-        )
+          user_facing_version: 2)
       end
       before do
         ChangeNote.create(edition: item1)

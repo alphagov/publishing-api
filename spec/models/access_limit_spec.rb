@@ -4,8 +4,7 @@ RSpec.describe AccessLimit do
   subject do
     build(:access_limit,
       users: users,
-      auth_bypass_ids: auth_bypass_ids,
-    )
+      auth_bypass_ids: auth_bypass_ids)
   end
 
   let(:users) { [SecureRandom.uuid] }

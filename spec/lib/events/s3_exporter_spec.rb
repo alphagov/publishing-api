@@ -12,8 +12,7 @@ RSpec.describe Events::S3Exporter do
   let(:object_double) do
     instance_double("Aws::S3::Object",
       exists?: object_exists?,
-      put: Aws::S3::Types::PutObjectOutput.new
-    )
+      put: Aws::S3::Types::PutObjectOutput.new)
   end
 
   before do
@@ -81,26 +80,22 @@ RSpec.describe Events::S3Exporter do
       let!(:theresa_may_event) do
         create(:event,
           title: "Theresa May becomes Prime Minister",
-          created_at: theresa_may_appointed,
-        )
+          created_at: theresa_may_appointed)
       end
       let!(:david_cameron_event) do
         create(:event,
           title: "David Cameron becomes Prime Minister",
-          created_at: david_cameron_appointed,
-        )
+          created_at: david_cameron_appointed)
       end
       let!(:gordon_brown_event) do
         create(:event,
           title: "Gordon Brown becomes Prime Minister",
-          created_at: gordon_brown_appointed,
-        )
+          created_at: gordon_brown_appointed)
       end
       let!(:tony_blair_event) do
         create(:event,
           title: "Tony Blair becomes Prime Minister",
-          created_at: tony_blair_appointed,
-        )
+          created_at: tony_blair_appointed)
       end
 
       context "and we're wanting events before Theresa May took office" do

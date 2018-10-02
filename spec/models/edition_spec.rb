@@ -160,8 +160,7 @@ RSpec.describe Edition do
       let(:edition) do
         build(:draft_edition,
           document: existing_edition.document,
-          user_facing_version: 1
-        )
+          user_facing_version: 1)
       end
 
       it { is_expected.to be_invalid }
@@ -179,8 +178,7 @@ RSpec.describe Edition do
       let(:edition) do
         build(:draft_edition,
           document: existing_edition.document,
-          user_facing_version: 1
-        )
+          user_facing_version: 1)
       end
 
       it { is_expected.to be_invalid }
@@ -194,8 +192,7 @@ RSpec.describe Edition do
       let(:edition) do
         build(:draft_edition,
           document: existing_edition.document,
-          user_facing_version: 2
-        )
+          user_facing_version: 2)
       end
 
       it { is_expected.to be_valid }
@@ -209,8 +206,7 @@ RSpec.describe Edition do
       let(:edition) do
         build(:live_edition,
           document: existing_edition.document,
-          user_facing_version: 2
-        )
+          user_facing_version: 2)
       end
 
       it { is_expected.to be_invalid }
@@ -224,8 +220,7 @@ RSpec.describe Edition do
       let(:edition) do
         build(:draft_edition,
           document: existing_edition.document,
-          user_facing_version: 1
-        )
+          user_facing_version: 1)
       end
 
       it { is_expected.to be_invalid }

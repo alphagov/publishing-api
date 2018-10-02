@@ -9,8 +9,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
       base_path: "/cat-rates",
       details: {
         internal_name: "Cat rates (do not use for actual cats)"
-      }
-    )
+      })
   }
 
   let!(:policy_2) {
@@ -18,8 +17,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
       state: "published",
       document_type: "policy",
       title: "Policy 2",
-      base_path: "/vat-rates",
-    )
+      base_path: "/vat-rates")
   }
 
   around do |example|

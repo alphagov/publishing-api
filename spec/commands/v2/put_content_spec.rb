@@ -159,8 +159,7 @@ RSpec.describe Commands::V2::PutContent do
     context "when the draft does exist" do
       let!(:edition) do
         create(:draft_edition,
-          document: create(:document, content_id: content_id)
-        )
+          document: create(:document, content_id: content_id))
       end
 
       context "with a provided last_edited_at" do

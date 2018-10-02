@@ -15,8 +15,7 @@ RSpec.describe Commands::V2::Unpublish do
   let(:document) do
     create(:document,
       content_id: content_id,
-      locale: locale,
-    )
+      locale: locale)
   end
 
   describe "call" do
@@ -39,8 +38,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(:live_edition,
           document: document,
-          base_path: base_path,
-        )
+          base_path: base_path)
       end
 
       let(:payload) do
@@ -73,8 +71,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(:live_edition,
           document: document,
-          base_path: base_path,
-        )
+          base_path: base_path)
       end
 
       let(:payload) do
@@ -148,8 +145,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(:live_edition,
           document: document,
-          base_path: base_path,
-        )
+          base_path: base_path)
       end
 
       include_examples "creates an action"
@@ -243,8 +239,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:draft_edition) do
         create(:draft_edition,
           document: document,
-          user_facing_version: 3,
-        )
+          user_facing_version: 3)
       end
 
       it "rejects the request with a 404" do
@@ -334,14 +329,12 @@ RSpec.describe Commands::V2::Unpublish do
             create(:unpublished_edition,
               document: document,
               base_path: base_path,
-              user_facing_version: 1,
-            )
+              user_facing_version: 1)
           end
           let(:french_document) do
             create(:document,
               content_id: document.content_id,
-              locale: "fr",
-            )
+              locale: "fr")
           end
 
           it "supersedes the unpublished item" do
@@ -365,14 +358,12 @@ RSpec.describe Commands::V2::Unpublish do
             create(:live_edition,
               document: document,
               base_path: base_path,
-              user_facing_version: 1,
-            )
+              user_facing_version: 1)
           end
           let(:french_document) do
             create(:document,
               content_id: document.content_id,
-              locale: "fr",
-            )
+              locale: "fr")
           end
 
           it "supersedes the published item" do
@@ -400,15 +391,13 @@ RSpec.describe Commands::V2::Unpublish do
         create(:draft_edition,
           document: document,
           user_facing_version: 2,
-          links_hash: { topics: [link_b] },
-        )
+          links_hash: { topics: [link_b] })
       end
 
       let!(:live_edition) do
         create(:live_edition,
           document: document,
-          links_hash: { topics: [link_a] },
-        )
+          links_hash: { topics: [link_a] })
       end
 
       after do
@@ -430,8 +419,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(:live_edition,
           :with_draft,
-          document: document,
-        )
+          document: document)
       end
 
       it "rejects the request with a 422" do
@@ -480,8 +468,7 @@ RSpec.describe Commands::V2::Unpublish do
           document: document,
           base_path: base_path,
           explanation: "This explnatin has a typo",
-          alternative_path: "/new-path",
-        )
+          alternative_path: "/new-path")
       end
 
       let(:payload) do
@@ -544,8 +531,7 @@ RSpec.describe Commands::V2::Unpublish do
       context "when the unpublishing type is substitute" do
         let!(:unpublished_edition) do
           create(:substitute_unpublished_edition,
-            document: document,
-          )
+            document: document)
         end
 
         it "rejects the request with a 404" do
@@ -613,8 +599,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(:live_edition,
           document: document,
-          base_path: nil,
-        )
+          base_path: nil)
       end
 
       include_examples "creates an action"

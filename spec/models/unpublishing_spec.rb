@@ -66,8 +66,7 @@ RSpec.describe Unpublishing do
       let(:base_path) { "/new-path" }
       let(:edition) do
         create(:edition,
-          base_path: base_path,
-        )
+          base_path: base_path)
       end
 
       it "is invalid" do

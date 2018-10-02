@@ -12,8 +12,7 @@ RSpec.describe "Discard draft requests", type: :request do
         create(:draft_edition,
           document: document,
           title: "draft",
-          base_path: base_path,
-        )
+          base_path: base_path)
       end
 
       it "does not send to the live content store" do
@@ -41,8 +40,7 @@ RSpec.describe "Discard draft requests", type: :request do
           create(:draft_edition,
             document: fr_document,
             title: "draft",
-            base_path: french_base_path,
-          )
+            base_path: french_base_path)
         end
 
         before do

@@ -90,8 +90,7 @@ private
     # accessed without drafts, so this is generates them as well.
     live_links = Presenters::Queries::ExpandedLinkSet.by_content_id(content_id,
       locale: locale,
-      with_drafts: false,
-    )
+      with_drafts: false)
     ExpandedLinks.locked_update(
       content_id: content_id,
       locale: locale,

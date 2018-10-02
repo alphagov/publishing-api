@@ -22,8 +22,7 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
       base_path: base_path,
       state: state,
       content_store: state == 'draft' ? 'draft' : 'live',
-      user_facing_version: version,
-    )
+      user_facing_version: version)
   end
 
   let(:link_set) { create(:link_set) }

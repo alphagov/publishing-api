@@ -59,8 +59,7 @@ private
       allowed_link_types: rules.reverse_to_direct_link_types(allowed_link_types),
       parent_content_ids: parent_content_ids,
       next_allowed_link_types_from: next_allowed_link_types_from,
-      next_allowed_link_types_to: next_allowed_link_types_to,
-    )
+      next_allowed_link_types_to: next_allowed_link_types_to)
 
     rules.reverse_link_types_hash(links)
   end
@@ -84,22 +83,19 @@ private
       allowed_link_types: allowed_link_types,
       parent_content_ids: parent_content_ids,
       next_allowed_link_types_from: next_allowed_link_types_from,
-      next_allowed_link_types_to: next_allowed_link_types_to,
-    )
+      next_allowed_link_types_to: next_allowed_link_types_to)
   end
 
   def edition_links(content_id, locale, with_drafts)
     to_links = Queries::EditionLinks.to(content_id,
       locale: locale,
       with_drafts: with_drafts,
-      allowed_link_types: nil,
-    )
+      allowed_link_types: nil)
 
     from_links = Queries::EditionLinks.from(content_id,
       locale: locale,
       with_drafts: with_drafts,
-      allowed_link_types: rules.reverse_to_direct_link_types(rules.reverse_links)
-    )
+      allowed_link_types: rules.reverse_to_direct_link_types(rules.reverse_links))
 
     from_links = rules.reverse_link_types_hash(from_links)
 

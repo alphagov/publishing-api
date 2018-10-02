@@ -21,8 +21,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
       base_path: base_path,
       title: "Old Title",
       publishing_app: "publisher",
-      update_type: "major",
-    )
+      update_type: "major")
   end
 
   it "updates the edition" do
@@ -178,8 +177,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
           base_path: base_path,
           title: "Substitute Content",
           publishing_app: "publisher",
-          document_type: "coming_soon",
-        )
+          document_type: "coming_soon")
       end
 
       it "deletes the substitute item" do

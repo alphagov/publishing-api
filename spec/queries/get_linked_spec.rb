@@ -37,13 +37,11 @@ RSpec.describe Queries::GetLinked do
         create(:live_edition,
           document: create(:document, content_id: content_id),
           base_path: "/vat-rules-2020",
-          title: "VAT rules 2020",
-        )
+          title: "VAT rules 2020")
 
         create(:live_edition,
           document: create(:document, content_id: target_content_id),
-          base_path: "/vat-org",
-        )
+          base_path: "/vat-org")
       end
 
       it "returns no results when no content is linked to it" do
@@ -77,8 +75,7 @@ RSpec.describe Queries::GetLinked do
         create(:live_edition,
           :with_draft,
           document: create(:document, content_id: target_content_id),
-          base_path: "/pay-now"
-        )
+          base_path: "/pay-now")
       end
 
       context "but no edition links to it" do
@@ -110,35 +107,28 @@ RSpec.describe Queries::GetLinked do
           create(:live_edition,
             document: create(:document, content_id: content_id),
             title: "VAT and VATy things",
-            base_path: "/vat-rates",
-          )
+            base_path: "/vat-rates")
           create(:link_set,
             content_id: content_id,
             links: [
               create(:link,
                 link_type: "organisations",
-                target_content_id: target_content_id
-              )
-            ]
-          )
+                target_content_id: target_content_id)
+            ])
 
           edition = create(:live_edition,
             base_path: '/vatty',
-            title: "Another VATTY thing"
-          )
+            title: "Another VATTY thing")
           create(:link_set,
             content_id: edition.document.content_id,
             links: [
               create(:link,
                 link_type: "organisations",
-                target_content_id: target_content_id
-              ),
+                target_content_id: target_content_id),
               create(:link,
                 link_type: "related_links",
-                target_content_id: target_content_id
-              )
-            ]
-          )
+                target_content_id: target_content_id)
+            ])
         end
 
         context "custom fields have been requested" do
@@ -147,8 +137,8 @@ RSpec.describe Queries::GetLinked do
               Queries::GetLinked.new(
                 content_id: target_content_id,
                 link_type: "organisations",
-                fields: %w(title base_path locale publication_state))
-              .call
+                fields: %w(title base_path locale publication_state)
+              ).call
             ).to match_array([
               {
                 "title" => "Another VATTY thing",
@@ -172,8 +162,8 @@ RSpec.describe Queries::GetLinked do
               Queries::GetLinked.new(
                 content_id: target_content_id,
                 link_type: "related_links",
-                fields: %w(base_path))
-              .call
+                fields: %w(base_path)
+              ).call
             ).to match_array([
               { "base_path" => "/vatty" }
             ])
@@ -186,42 +176,34 @@ RSpec.describe Queries::GetLinked do
           create(:live_edition,
             :with_draft,
             document: create(:document, content_id: another_target_content_id),
-            base_path: "/send-now"
-          )
+            base_path: "/send-now")
 
           create(:draft_edition,
             document: create(:document, content_id: content_id),
-            title: "HMRC documents"
-          )
+            title: "HMRC documents")
 
           create(:link_set,
             content_id: content_id,
             links: [
               create(:link,
                 link_type: "organisations",
-                target_content_id: another_target_content_id
-              ),
-            ]
-          )
+                target_content_id: another_target_content_id),
+            ])
 
           edition = create(:draft_edition,
             base_path: '/other-hmrc-document',
-            title: "Another HMRC document"
-          )
+            title: "Another HMRC document")
 
           create(:link_set,
             content_id: edition.document.content_id,
             links: [
               create(:link,
                 link_type: "organisations",
-                target_content_id: another_target_content_id
-              ),
+                target_content_id: another_target_content_id),
               create(:link,
                 link_type: "related_links",
-                target_content_id: SecureRandom.uuid
-              )
-            ]
-          )
+                target_content_id: SecureRandom.uuid)
+            ])
         end
 
         it "returns array of hashes, with requested fields" do
@@ -229,8 +211,8 @@ RSpec.describe Queries::GetLinked do
             Queries::GetLinked.new(
               content_id: another_target_content_id,
               link_type: "organisations",
-              fields: %w(title publication_state))
-            .call
+              fields: %w(title publication_state)
+            ).call
           ).to match_array([
             {
               "title" => "HMRC documents",

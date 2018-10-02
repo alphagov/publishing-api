@@ -21,8 +21,7 @@ RSpec.describe V2::ContentItemsController do
       base_path: "/content.en",
       document_type: "topic",
       schema_name: "topic",
-      user_facing_version: 2,
-    )
+      user_facing_version: 2)
   end
 
   describe "index" do
@@ -33,22 +32,19 @@ RSpec.describe V2::ContentItemsController do
         base_path: "/content.ar",
         document_type: "topic",
         schema_name: "topic",
-        user_facing_version: 2,
-      )
+        user_facing_version: 2)
       @en_live_content = create(:live_edition,
         document: document_en,
         base_path: "/content.en",
         document_type: "guide",
         schema_name: "topic",
-        user_facing_version: 1,
-      )
+        user_facing_version: 1)
       @ar_live_content = create(:live_edition,
         document: document_ar,
         base_path: "/content.ar",
         document_type: "topic",
         schema_name: "topic",
-        user_facing_version: 1,
-      )
+        user_facing_version: 1)
     end
 
     context "searching a field" do
@@ -58,8 +54,7 @@ RSpec.describe V2::ContentItemsController do
           document_type: "topic",
           schema_name: "topic",
           title: "zip",
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
       let!(:edition) do
         create(:live_edition,
@@ -69,8 +64,7 @@ RSpec.describe V2::ContentItemsController do
           schema_name: "topic",
           title: "bar",
           description: "stuff",
-          user_facing_version: 2,
-        )
+          user_facing_version: 2)
       end
 
       context "when there is a valid query" do
@@ -380,8 +374,7 @@ RSpec.describe V2::ContentItemsController do
           document: document_ar,
           base_path: "/content.ar",
           schema_name: "topic",
-          user_facing_version: 2,
-        )
+          user_facing_version: 2)
 
         @draft.links.create(link_type: "organisation",
                             target_content_id: document_ar.content_id)

@@ -98,8 +98,7 @@ RSpec.describe Queries::BasePathForState do
     context "when edition is unpublished with substitute" do
       let!(:conflict_edition) do
         create(:substitute_unpublished_edition,
-          base_path: conflict_base_path
-        )
+          base_path: conflict_base_path)
       end
 
       let(:edition_id) { conflict_edition.id + 1 }
@@ -111,8 +110,7 @@ RSpec.describe Queries::BasePathForState do
     context "when edition is superseded" do
       let!(:conflict_edition) do
         create(:superseded_edition,
-          base_path: conflict_base_path
-        )
+          base_path: conflict_base_path)
       end
 
       let(:edition_id) { conflict_edition.id + 1 }

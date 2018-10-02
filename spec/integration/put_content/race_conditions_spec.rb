@@ -17,8 +17,7 @@ RSpec.describe Commands::V2::PutContent do
         document: document,
         user_facing_version: 5,
         first_published_at: 1.year.ago,
-        base_path: base_path,
-      )
+        base_path: base_path)
     end
 
     after do

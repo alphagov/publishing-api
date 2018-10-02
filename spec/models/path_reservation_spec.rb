@@ -48,8 +48,7 @@ RSpec.describe PathReservation, type: :model do
       before do
         create(:path_reservation,
           base_path: "/vat-rates",
-          publishing_app: "something-else",
-        )
+          publishing_app: "something-else")
       end
 
       it "raises an error" do

@@ -19,8 +19,7 @@ RSpec.describe Queries::GetLinkables do
           details: { internal_name: internal_name },
           document: create(:document, content_id: content_id),
           document_type: document_type,
-          title: title,
-        )
+          title: title)
       end
 
       it "returns an array of linkable presenters" do
@@ -99,8 +98,7 @@ RSpec.describe Queries::GetLinkables do
       before do
         create(:live_edition,
           document_type: document_type,
-          document: create(:document, locale: "fr"),
-        )
+          document: create(:document, locale: "fr"))
       end
 
       it { is_expected.to be_empty }
@@ -112,13 +110,11 @@ RSpec.describe Queries::GetLinkables do
         create(:live_edition,
           document_type: document_type,
           title: "Hello",
-          document: create(:document, content_id: content_id)
-        )
+          document: create(:document, content_id: content_id))
         create(:live_edition,
           document_type: document_type,
           title: "Salut",
-          document: create(:document, content_id: content_id, locale: "fr"),
-        )
+          document: create(:document, content_id: content_id, locale: "fr"))
       end
 
       it "has the english title" do
@@ -133,8 +129,7 @@ RSpec.describe Queries::GetLinkables do
           document_type: document_type,
           title: "Draft",
           document: document,
-          user_facing_version: 2,
-        )
+          user_facing_version: 2)
       end
 
       it "has the draft edition" do
@@ -146,8 +141,7 @@ RSpec.describe Queries::GetLinkables do
           create(:live_edition,
             document_type: document_type,
             title: "Published",
-            document: document,
-          )
+            document: document)
         end
 
         it "has the published edition" do

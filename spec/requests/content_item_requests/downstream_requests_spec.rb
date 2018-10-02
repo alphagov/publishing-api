@@ -24,8 +24,7 @@ RSpec.describe "Downstream requests", type: :request do
     context "when a link set exists for the edition" do
       let(:link_set) do
         create(:link_set,
-          content_id: v2_content_item[:content_id]
-        )
+          content_id: v2_content_item[:content_id])
       end
 
       let(:target_edition) { create(:edition, base_path: "/foo", title: "foo") }
@@ -66,13 +65,11 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         draft = create(:draft_edition,
           document: create(:document, content_id: content_id, stale_lock_version: 1),
-          base_path: base_path,
-        )
+          base_path: base_path)
 
         create(:access_limit,
           users: access_limit_params.fetch(:users),
-          edition: draft,
-        )
+          edition: draft)
       end
 
       it "only sends to the draft content store" do
@@ -91,8 +88,7 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         create(:live_edition,
           document: create(:document, content_id: content_id),
-          base_path: base_path,
-        )
+          base_path: base_path)
       end
 
       it "sends the live item to both content stores" do
@@ -115,18 +111,15 @@ RSpec.describe "Downstream requests", type: :request do
         draft = create(:draft_edition,
           document: document,
           base_path: base_path,
-          user_facing_version: 2,
-        )
+          user_facing_version: 2)
 
         create(:access_limit,
           users: access_limit_params.fetch(:users),
-          edition: draft,
-        )
+          edition: draft)
 
         create(:live_edition,
           document: document,
-          base_path: base_path,
-        )
+          base_path: base_path)
       end
 
       it "sends to both content stores" do
@@ -204,8 +197,7 @@ RSpec.describe "Downstream requests", type: :request do
     let!(:draft) {
       create(:draft_edition,
         document: create(:document, content_id: content_id),
-        base_path: base_path,
-      )
+        base_path: base_path)
     }
 
     let(:content_item_for_live_content_store) {

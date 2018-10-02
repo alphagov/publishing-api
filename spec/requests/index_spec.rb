@@ -7,8 +7,7 @@ RSpec.describe "GET /v2/content", type: :request do
       document_type: "policy",
       schema_name: "policy",
       title: "Policy 1",
-      base_path: "/cat-rates",
-    )
+      base_path: "/cat-rates")
   }
 
   let!(:policy_2) {
@@ -16,8 +15,7 @@ RSpec.describe "GET /v2/content", type: :request do
       state: "published",
       document_type: "policy",
       schema_name: "policy",
-      title: "Policy 2",
-    )
+      title: "Policy 2")
   }
 
   it "responds with a list of content items" do

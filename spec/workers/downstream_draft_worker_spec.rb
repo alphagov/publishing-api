@@ -57,8 +57,7 @@ RSpec.describe DownstreamDraftWorker do
         pathless = create(:draft_edition,
           base_path: nil,
           document_type: "contact",
-          schema_name: "contact",
-        )
+          schema_name: "contact")
 
         expect(Adapters::DraftContentStore).to_not receive(:put_content_item)
         subject.perform(arguments.merge("content_id" => pathless.document.content_id))

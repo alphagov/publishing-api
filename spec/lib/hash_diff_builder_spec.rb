@@ -24,16 +24,14 @@ RSpec.describe HashDiffBuilder do
     double(:edition,
       description: "A description",
       title: "A title",
-      links: organisation_links
-    )
+      links: organisation_links)
   end
 
   let(:updated_edition) do
     double(:edition,
       description: "A description",
       title: "A new title",
-      links: policy_areas_links
-    )
+      links: policy_areas_links)
   end
 
   let(:presented_previous_edition) do
