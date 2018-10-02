@@ -11,8 +11,8 @@ class DependencyResolution::LinkReference
     reverse = own_links(content_id, rules.reverse_links)
     edition = edition_links(content_id, locale, with_drafts)
 
-    reverse.merge(direct).merge(edition) do |_key, link_1, link_2|
-      link_1 + link_2
+    reverse.merge(direct).merge(edition) do |_key, link1, link2|
+      link1 + link2
     end
   end
 

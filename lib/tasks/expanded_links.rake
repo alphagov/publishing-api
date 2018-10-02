@@ -62,7 +62,7 @@ namespace :expanded_links do
   end
 
   def progress(index, count, every: 1000)
-    if ((index + 1) % every == 0) || (index + 1) == count
+    if ((index + 1) % every).zero? || (index + 1) == count
       puts "processed: #{index + 1}/#{count}"
     end
   end
