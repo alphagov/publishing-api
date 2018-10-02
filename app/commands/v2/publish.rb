@@ -179,15 +179,17 @@ module Commands
           schema_name: "redirect",
         )
 
-        self.class.call(
-          {
-            content_id: draft_redirect.document.content_id,
-            locale: draft_redirect.document.locale,
-          },
-          downstream: downstream,
-          callbacks: callbacks,
-          nested: true,
-        ) if draft_redirect
+        if draft_redirect
+          self.class.call(
+            {
+              content_id: draft_redirect.document.content_id,
+              locale: draft_redirect.document.locale,
+            },
+            downstream: downstream,
+            callbacks: callbacks,
+            nested: true,
+          )
+        end
       end
 
       def update_dependencies?
