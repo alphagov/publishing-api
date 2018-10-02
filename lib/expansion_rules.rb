@@ -23,7 +23,10 @@ module ExpansionRules
     [:taxons, :parent_taxons.recurring],
     [:taxons, :parent_taxons.recurring, :root_taxon],
     [:ordered_related_items, :mainstream_browse_pages, :parent.recurring],
-    [:ordered_related_items_overrides, :taxons]
+    [:ordered_related_items_overrides, :taxons],
+    # This is for person -> role_appointment -> role -> organisation
+    [:ordered_current_appointments, :role],
+    [:ordered_current_appointments, :role, :ordered_parent_organisations],
   ].freeze
 
   REVERSE_LINKS = {
@@ -65,6 +68,7 @@ module ExpansionRules
     { document_type: :need,                       fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :finder, link_type: :finder, fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :step_by_step_nav,           fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :role,                       fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :travel_advice,              fields: DEFAULT_FIELDS + [[:details, :country], [:details, :change_description]] },
     { document_type: :world_location,             fields: [:content_id, :title, :schema_name, :locale, :analytics_identifier] },
   ].freeze
