@@ -52,6 +52,7 @@ module ExpansionRules
   ].freeze
 
   DEFAULT_FIELDS_WITH_DETAILS = (DEFAULT_FIELDS + [:details]).freeze
+  ORGANISATION_FIELDS = (DEFAULT_FIELDS + [[:details, :logo], [:details, :brand]]).freeze
 
   CUSTOM_EXPANSION_FIELDS = [
     { document_type: :redirect,                   fields: [] },
@@ -59,8 +60,8 @@ module ExpansionRules
     { document_type: :contact,                    fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :topical_event,              fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :placeholder_topical_event,  fields: DEFAULT_FIELDS_WITH_DETAILS },
-    { document_type: :organisation,               fields: DEFAULT_FIELDS_WITH_DETAILS },
-    { document_type: :placeholder_organisation,   fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :organisation,               fields: ORGANISATION_FIELDS },
+    { document_type: :placeholder_organisation,   fields: ORGANISATION_FIELDS },
     { document_type: :taxon,                      fields: DEFAULT_FIELDS_WITH_DETAILS + [:phase] },
     { document_type: :need,                       fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :finder, link_type: :finder, fields: DEFAULT_FIELDS_WITH_DETAILS },
