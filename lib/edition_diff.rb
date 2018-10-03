@@ -16,7 +16,7 @@ private
 
   def diff
     hash_diff(
-      @previous_edition ? @previous_edition.to_h.deep_symbolize_keys : previous_edition.to_h.deep_symbolize_keys,
+      previous_edition.to_h.deep_symbolize_keys,
       current_edition.to_h.deep_symbolize_keys
     )
   end
@@ -26,7 +26,7 @@ private
   end
 
   def previous_edition
-    @previous_edition ||
+    @previous_edition ||=
       current_edition.document.editions.find_by(
         user_facing_version: previous_user_version
     )
