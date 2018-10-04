@@ -1,4 +1,4 @@
-class EditionDiff
+class LinkExpansion::EditionDiff
   attr_reader :current_edition, :version
 
   def initialize(current_edition, version: nil, previous_edition: nil)
@@ -12,6 +12,10 @@ class EditionDiff
       diff.map(&:first)
   end
 
+  def should_update_dependencies?
+    field_diff.present?
+  end
+
 private
 
   def diff
@@ -21,8 +25,8 @@ private
     )
   end
 
-  def hash_diff(left, right)
-    left.size > right.size ? left.to_a - right.to_a : right.to_a - left.to_a
+  def hash_diff(a, b) # rubocop:disable Naming/UncommunicativeMethodParamName
+    a.size > b.size ? a.to_a - b.to_a : b.to_a - a.to_a
   end
 
   def previous_edition

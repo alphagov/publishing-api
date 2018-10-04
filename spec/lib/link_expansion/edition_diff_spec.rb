@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe EditionDiff do
+RSpec.describe LinkExpansion::EditionDiff do
   let(:content_id) { SecureRandom.uuid }
   let(:document) { create(:document, content_id: content_id) }
 
@@ -80,8 +80,10 @@ RSpec.describe EditionDiff do
   context "provide the edition to compare" do
     it "compares the two given editions" do
       expect(
-        EditionDiff.new(new_draft_edition,
-                        previous_edition: {}).field_diff
+        described_class.new(
+          new_draft_edition,
+          previous_edition: {},
+        ).field_diff
       ).to include(:document_type, :title)
     end
 
@@ -91,8 +93,10 @@ RSpec.describe EditionDiff do
 
     it "compares the two given editions" do
       expect(
-        EditionDiff.new(new_draft_edition,
-                        previous_edition: presented_item).field_diff
+        described_class.new(
+          new_draft_edition,
+          previous_edition: presented_item,
+        ).field_diff
       ).to eq([])
     end
   end
