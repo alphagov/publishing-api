@@ -111,7 +111,7 @@ module ExpansionRules
   end
 
   def find_custom_expansion_fields(document_type, options = {})
-    should_check_link_type = options.include?(:link_type)
+    should_check_link_type = options[:link_type]
     link_type = options[:link_type].try(:to_sym)
 
     condition = CUSTOM_EXPANSION_FIELDS.find do |cond|
