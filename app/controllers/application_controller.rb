@@ -52,10 +52,6 @@ private
     @query_params ||= ActionController::Parameters.new(request.query_parameters)
   end
 
-  def post_params
-    @post_params ||= ActionController::Parameters.new(request.request_parameters)
-  end
-
   def path_params
     @path_params ||= ActionController::Parameters.new(request.path_parameters)
   end
