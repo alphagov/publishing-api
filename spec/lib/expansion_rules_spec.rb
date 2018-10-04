@@ -217,4 +217,38 @@ RSpec.describe ExpansionRules do
       end
     end
   end
+
+  describe ".expand_fields" do
+    context "with a format that expands subfields of the details hash" do
+      let(:edition_hash) do
+        {
+          document_type: "travel_advice",
+          details: {
+            country: "fr",
+            other_field: "test",
+          }
+        }
+      end
+
+      it "expands into a new details hash" do
+        expect(described_class.expand_fields(edition_hash, nil)).to eq(
+          document_type: "travel_advice",
+          details: {
+            country: "fr",
+            change_description: nil,
+          },
+          analytics_identifier: nil,
+          api_path: nil,
+          base_path: nil,
+          content_id: nil,
+          description: nil,
+          locale: nil,
+          public_updated_at: nil,
+          schema_name: nil,
+          title: nil,
+          withdrawn: nil,
+        )
+      end
+    end
+  end
 end

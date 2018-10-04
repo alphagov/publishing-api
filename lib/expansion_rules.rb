@@ -131,10 +131,27 @@ module ExpansionRules
     end
   end
 
+  module HashWithDigSet
+    refine Hash do
+      def dig_set(keys, value)
+        keys.each_with_index.inject(self) do |hash, (key, index)|
+          if keys.count - 1 == index
+            hash[key] = value
+          else
+            hash[key] ||= {}
+          end
+        end
+      end
+    end
+  end
+
+  using HashWithDigSet
+
   def expand_fields(edition_hash, link_type)
     expansion_fields(edition_hash[:document_type], link_type).each_with_object({}) do |field, expanded|
       field = Array(field)
-      expanded[field.last] = edition_hash.dig(*field)
+      # equivelant to: expanded.dig(*field) = edition_hash.dig(*field)
+      expanded.dig_set(field, edition_hash.dig(*field))
     end
   end
 
