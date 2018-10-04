@@ -36,11 +36,9 @@ module Presenters
       end
 
       def expand_translation(id)
-        web_item(id).select do |field|
-          ExpansionRules
-            .expansion_fields(:available_translations)
-            .include?(field)
-        end
+        expansion_fields = ExpansionRules
+          .expansion_fields(:available_translations)
+        web_item(id).select { |field| expansion_fields.include?(field) }
       end
 
       def edition_for_id(id)
