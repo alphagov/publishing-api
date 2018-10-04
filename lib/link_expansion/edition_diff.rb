@@ -8,8 +8,7 @@ class LinkExpansion::EditionDiff
   end
 
   def field_diff
-    ExpansionRules.potential_expansion_fields(current_edition.document_type) &
-      diff.map(&:first)
+    link_expansion_fields & diff.map(&:first)
   end
 
   def should_update_dependencies?
@@ -18,15 +17,28 @@ class LinkExpansion::EditionDiff
 
 private
 
+  def link_expansion_fields
+    ExpansionRules.potential_expansion_fields(current_edition.document_type)
+  end
+
   def diff
     hash_diff(
-      previous_edition.to_h.deep_symbolize_keys,
-      current_edition.to_h.deep_symbolize_keys
+      previous_edition_expanded,
+      current_edition_expanded
     )
   end
 
   def hash_diff(a, b) # rubocop:disable Naming/UncommunicativeMethodParamName
     a.size > b.size ? a.to_a - b.to_a : b.to_a - a.to_a
+  end
+
+  def previous_edition_expanded
+    return {} if previous_edition.blank?
+    ExpansionRules.expand_fields(previous_edition.to_h.deep_symbolize_keys, nil)
+  end
+
+  def current_edition_expanded
+    ExpansionRules.expand_fields(current_edition.to_h.deep_symbolize_keys, nil)
   end
 
   def previous_edition

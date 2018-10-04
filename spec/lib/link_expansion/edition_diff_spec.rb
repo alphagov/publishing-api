@@ -63,6 +63,52 @@ RSpec.describe LinkExpansion::EditionDiff do
     end
   end
 
+  context "diff inside details hash" do
+    let!(:previous_edition) do
+      create(
+        :superseded_edition,
+        document: document,
+        document_type: "travel_advice",
+        base_path: "/foo",
+        details: { country: "en" },
+      )
+    end
+
+    context "with a field that matters" do
+      let!(:current_edition) do
+        create(
+          :live_edition,
+          document: document,
+          user_facing_version: 2,
+          document_type: "travel_advice",
+          base_path: "/foo",
+          details: { country: "fr" },
+        )
+      end
+
+      it "includes the subfield in the diff" do
+        expect(subject.field_diff).to include(:details)
+      end
+    end
+
+    context "with a field that doesn't matter" do
+      let!(:current_edition) do
+        create(
+          :live_edition,
+          document: document,
+          user_facing_version: 2,
+          document_type: "travel_advice",
+          base_path: "/foo",
+          details: { country: "en", unrelated_field: "en" },
+        )
+      end
+
+      it "includes the subfield in the diff" do
+        expect(subject.field_diff).to be_empty
+      end
+    end
+  end
+
   context "multiple versions" do
     it "compares between the previous version" do
       current_edition.supersede
