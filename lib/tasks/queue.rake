@@ -21,12 +21,12 @@ namespace :queue do
 
     puts "Listening for messages"
     q.subscribe(block: true) do |delivery_info, properties, payload|
-      puts <<-EOT.strip_heredoc
+      puts <<-MESSAGE.strip_heredoc
         ----- New Message -----
         Routing_key: #{delivery_info.routing_key}
         Properties: #{properties.inspect}
         Payload: #{payload}
-      EOT
+      MESSAGE
     end
   end
 
