@@ -1,9 +1,14 @@
-Lint/HandleExceptions:
-  Exclude:
-    - "spec/**/*"
-
 AllCops:
   TargetRubyVersion: 2.3
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+
+Lint/HandleExceptions:
+  Exclude:
+    - spec/**/*
 
 Metrics/BlockLength:
   Enabled: true
