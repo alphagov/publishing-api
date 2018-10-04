@@ -52,7 +52,7 @@ module Commands
       end
 
       def access_limit
-        @_access_limit ||= AccessLimit.find_by(edition: edition)
+        @access_limit ||= AccessLimit.find_by(edition: edition)
       end
 
       def remove_access_limit

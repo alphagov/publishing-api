@@ -57,6 +57,6 @@ private
   end
 
   def path_params
-    @post_params ||= ActionController::Parameters.new(request.path_parameters)
+    @path_params ||= ActionController::Parameters.new(request.path_parameters)
   end
 end
