@@ -1,7 +1,7 @@
 require "colorize"
 
 namespace :govspeak do
-  task :compare, [:publishing_app, :limit, :offset, :order] => :environment do |_, args|
+  task :compare, %i[publishing_app limit offset order] => :environment do |_, args|
     args.with_defaults(order: "editions.id ASC")
     scope = Edition.where(state: %w(published unpublished draft))
     scope = scope.where(publishing_app: args[:publishing_app]) if args[:publishing_app].present?

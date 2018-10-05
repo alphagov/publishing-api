@@ -44,8 +44,7 @@ private
     return [] unless content_ids.present?
     edition_ids = Queries::GetEditionIdsWithFallbacks.(content_ids,
       locale_fallback_order: locale_fallback_order,
-      state_fallback_order: state_fallback_order,
-    )
+      state_fallback_order: state_fallback_order)
     return [] unless edition_ids
     Edition
       .joins(

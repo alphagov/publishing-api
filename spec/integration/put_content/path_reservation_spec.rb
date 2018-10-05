@@ -19,8 +19,7 @@ RSpec.describe "Path reservation" do
     before do
       create(:path_reservation,
         base_path: base_path,
-        publishing_app: "something-else"
-      )
+        publishing_app: "something-else")
     end
 
     it "responds with an error" do

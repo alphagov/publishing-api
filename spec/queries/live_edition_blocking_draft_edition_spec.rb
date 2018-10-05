@@ -21,8 +21,7 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
           document: document,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       include_examples "check succeeds"
@@ -34,15 +33,13 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
           document: document,
           base_path: base_path + ".en",
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
 
         create(:draft_edition,
           document: create(:document, content_id: document.content_id, locale: "es"),
           base_path: base_path + ".es",
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       include_examples "check succeeds"
@@ -53,14 +50,12 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
         create(:substitute_unpublished_edition,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
 
         create(:draft_edition,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       include_examples "check succeeds"
@@ -71,15 +66,13 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
         create(:live_edition,
           base_path: base_path,
           document_type: "unpublishing",
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
 
         create(:draft_edition,
           document: document,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       include_examples "check succeeds"
@@ -92,15 +85,13 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
         create(:live_edition,
           base_path: base_path,
           document_type: "nonexistent-schema",
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
 
         create(:draft_edition,
           document: document,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       include_examples "check succeeds"
@@ -111,15 +102,13 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
         @blocking_edition = create(:gone_unpublished_edition,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
 
         create(:edition,
           document: document,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       it "fails, returning the id of the edition" do
@@ -132,15 +121,13 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
         @blocking_edition = create(:live_edition,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
 
         create(:draft_edition,
           document: document,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       it "fails, returning the id of the edition" do
@@ -155,16 +142,14 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
         create(:live_edition,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       let!(:blocking_edition_2) do
         create(:live_edition,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       let!(:content) do
@@ -172,8 +157,7 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
           document: document,
           base_path: base_path,
           document_type: document_type,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       it "doesn't raise any errors" do

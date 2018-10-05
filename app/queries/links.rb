@@ -40,8 +40,7 @@ module Queries
       allowed_link_types: nil,
       parent_content_ids: [],
       next_allowed_link_types_from: nil,
-      next_allowed_link_types_to: nil
-    )
+      next_allowed_link_types_to: nil)
       self.new(
         content_id: content_id,
         mode: :from,
@@ -61,8 +60,7 @@ module Queries
       allowed_link_types: nil,
       parent_content_ids: [],
       next_allowed_link_types_from: nil,
-      next_allowed_link_types_to: nil
-    )
+      next_allowed_link_types_to: nil)
       self.new(
         content_id: content_id,
         mode: :to,

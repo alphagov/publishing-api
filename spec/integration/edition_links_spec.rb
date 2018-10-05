@@ -50,13 +50,11 @@ RSpec.describe "Edition Links" do
       create_edition(source_content_id, "/source",
         factory: source_factory,
         locale: source_locale,
-        links_hash: { test: [target_content_id] },
-      )
+        links_hash: { test: [target_content_id] })
 
       create_edition(target_content_id, "/target",
         locale: target_locale,
-        factory: target_factory,
-      )
+        factory: target_factory)
     end
 
     context "when target is published" do
@@ -96,8 +94,7 @@ RSpec.describe "Edition Links" do
       before do
         create_edition(target_content_id, "/target.draft",
           factory: :draft_edition,
-          version: 2,
-        )
+          version: 2)
       end
 
       include_examples "has link"
@@ -132,8 +129,7 @@ RSpec.describe "Edition Links" do
 
     before do
       create_edition(child_content_id, "/child",
-        links_hash: { parent: [parent_content_id] },
-      )
+        links_hash: { parent: [parent_content_id] })
 
       create_edition(parent_content_id, "/parent")
     end
@@ -164,8 +160,7 @@ RSpec.describe "Edition Links" do
 
     before do
       create_edition(child_content_id, "/child",
-        links_hash: { parent: [parent_content_id] }
-      )
+        links_hash: { parent: [parent_content_id] })
 
       create_edition(parent_content_id, "/parent")
       create_edition(grandparent_content_id, "/grandparent")
@@ -187,8 +182,7 @@ RSpec.describe "Edition Links" do
 
     before do
       create_edition(source_content_id, "/source",
-        links_hash: { edition_link_type => [edition_target_content_id] }
-      )
+        links_hash: { edition_link_type => [edition_target_content_id] })
 
       create_edition(edition_target_content_id, "/target")
       create_edition(linkset_target_content_id, "/other-target")

@@ -12,7 +12,7 @@ module PublishingAPI
     @services[name] || raise(ServiceNotRegisteredException.new(name))
   end
 
-  class ServiceNotRegisteredException < Exception; end
+  class ServiceNotRegisteredException < RuntimeError; end
 end
 
 PublishingAPI.register_service(

@@ -30,19 +30,19 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
       end
 
       it "returns a hash, grouping links by their link_type" do
-        org_content_id_1 = SecureRandom.uuid
-        org_content_id_2 = SecureRandom.uuid
-        rel_content_id_1 = SecureRandom.uuid
+        org_content_id1 = SecureRandom.uuid
+        org_content_id2 = SecureRandom.uuid
+        rel_content_id1 = SecureRandom.uuid
 
-        create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_1)
-        create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id_2)
-        create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id_1)
+        create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id1)
+        create(:link, link_set: link_set, link_type: "organisations", target_content_id: org_content_id2)
+        create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id1)
 
         expect(links[:organisations]).to match_array(
-          [org_content_id_1, org_content_id_2]
+          [org_content_id1, org_content_id2]
         )
         expect(links[:related_links]).to match_array(
-          [rel_content_id_1]
+          [rel_content_id1]
         )
       end
     end

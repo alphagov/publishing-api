@@ -3,8 +3,7 @@ module Queries
     def self.from(content_id,
       locale:,
       with_drafts:,
-      allowed_link_types: nil
-    )
+      allowed_link_types: nil)
       self.new(
         content_id: content_id,
         mode: :from,
@@ -17,8 +16,7 @@ module Queries
     def self.to(content_id,
       locale:,
       with_drafts:,
-      allowed_link_types: nil
-    )
+      allowed_link_types: nil)
       self.new(
         content_id: content_id,
         mode: :to,

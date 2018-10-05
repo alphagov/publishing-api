@@ -9,8 +9,7 @@ RSpec.describe ChangeNote do
     create(:edition,
       update_type: update_type,
       details: details,
-      change_note: nil,
-    )
+      change_note: nil)
   end
 
   describe ".create_from_edition" do

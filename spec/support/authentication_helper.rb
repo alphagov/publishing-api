@@ -9,7 +9,7 @@ module AuthenticationHelper
     end
 
     def login_as_stub_user
-      user = create(:user, permissions: ['signin'])
+      user = create(:user, permissions: %w[signin])
       login_as(user)
     end
   end
@@ -21,7 +21,7 @@ module AuthenticationHelper
     end
 
     def login_as_stub_user
-      user = create(:user, permissions: ['signin'])
+      user = create(:user, permissions: %w[signin])
       login_as(user)
     end
 

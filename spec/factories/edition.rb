@@ -49,8 +49,7 @@ FactoryBot.define do
               link_type: link_type,
               link_set: nil,
               position: index,
-              target_content_id: target_content_id,
-            )
+              target_content_id: target_content_id)
           end
         end
       end

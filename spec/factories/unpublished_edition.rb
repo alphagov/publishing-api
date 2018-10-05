@@ -15,8 +15,7 @@ FactoryBot.define do
         type: evaluator.unpublishing_type,
         explanation: evaluator.explanation,
         redirects: [{ path: edition.base_path, type: :exact, destination: evaluator.alternative_path }],
-        unpublished_at: evaluator.unpublished_at,
-      )
+        unpublished_at: evaluator.unpublished_at)
     end
   end
 

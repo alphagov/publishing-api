@@ -59,7 +59,7 @@ RSpec.describe V2::LinkSetsController do
 
     context "called without providing link_type parameter" do
       before do
-        get :get_linked, params: { content_id: content_id, fields: ["content_id"] }
+        get :get_linked, params: { content_id: content_id, fields: %w[content_id] }
       end
 
       it "is unsuccessful" do
@@ -69,7 +69,7 @@ RSpec.describe V2::LinkSetsController do
 
     context "for an existing edition" do
       before do
-        get :get_linked, params: { content_id: content_id, link_type: "topic", fields: ["content_id"] }
+        get :get_linked, params: { content_id: content_id, link_type: "topic", fields: %w[content_id] }
       end
 
       it "is successful" do
@@ -79,7 +79,7 @@ RSpec.describe V2::LinkSetsController do
 
     context "for a non-existing edition" do
       before do
-        get :get_linked, params: { content_id: SecureRandom.uuid, link_type: "topic", fields: ["content_id"] }
+        get :get_linked, params: { content_id: SecureRandom.uuid, link_type: "topic", fields: %w[content_id] }
       end
 
       it "is unsuccessful" do

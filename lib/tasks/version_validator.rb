@@ -66,14 +66,14 @@ module Tasks
         array_string[1..-2].split(",")
       end
 
-      def workflow_sort(a, b)
-        return -1 if a.second == "superseded" && b.second == "published"
-        return 1 if a.second == "published" && b.second == "superseded"
-        return -1 if a.second == "superseded" && b.second == "draft"
-        return 1 if a.second == "draft" && b.second == "superseded"
-        return -1 if a.second == "published" && b.second == "draft"
-        return 1 if a.second == "draft" && b.second == "published"
-        a.first <=> b.first
+      def workflow_sort(left, right)
+        return -1 if left.second == "superseded" && right.second == "published"
+        return 1 if left.second == "published" && right.second == "superseded"
+        return -1 if left.second == "superseded" && right.second == "draft"
+        return 1 if left.second == "draft" && right.second == "superseded"
+        return -1 if left.second == "published" && right.second == "draft"
+        return 1 if left.second == "draft" && right.second == "published"
+        left.first <=> right.first
       end
     end
   end

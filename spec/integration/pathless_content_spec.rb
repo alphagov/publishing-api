@@ -78,8 +78,7 @@ RSpec.describe "pathless content" do
           let!(:draft_edition) do
             create(:draft_edition,
               document: create(:document, content_id: content_id),
-              title: "Old Title"
-            )
+              title: "Old Title")
           end
 
           it "updates the draft" do
@@ -92,8 +91,7 @@ RSpec.describe "pathless content" do
           let!(:live_edition) do
             create(:live_edition,
               document: create(:document, content_id: content_id),
-              title: "Old Title"
-            )
+              title: "Old Title")
           end
 
           it "creates a new draft" do
@@ -127,8 +125,7 @@ RSpec.describe "pathless content" do
               base_path: nil,
               schema_name: "contact",
               document_type: "contact",
-              user_facing_version: 3,
-            )
+              user_facing_version: 3)
           end
 
           it "doesn't conflict" do
@@ -144,8 +141,7 @@ RSpec.describe "pathless content" do
               base_path: base_path,
               schema_name: "contact",
               document_type: "contact",
-              user_facing_version: 3,
-            )
+              user_facing_version: 3)
           end
 
           it "conflicts" do
@@ -163,8 +159,7 @@ RSpec.describe "pathless content" do
       create(:draft_edition,
         document_type: "contact",
         user_facing_version: 2,
-        base_path: nil,
-      )
+        base_path: nil)
     end
 
     let(:payload) do
@@ -188,8 +183,7 @@ RSpec.describe "pathless content" do
           create(:live_edition,
             document: pathless_edition.document,
             document_type: "contact",
-            user_facing_version: 1,
-          )
+            user_facing_version: 1)
         end
 
         it "publishes the draft" do

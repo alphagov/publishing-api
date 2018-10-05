@@ -90,8 +90,10 @@ RSpec.describe "Link Expansion" do
                   parent: [
                     a_hash_including(base_path: "/d", links: {})
                   ]
-                })]
-            })
+                }
+              )]
+            }
+          )
         ])
       end
     end
@@ -122,7 +124,8 @@ RSpec.describe "Link Expansion" do
                   parent: [
                     a_hash_including(base_path: "/e", links: {})
                   ]
-                })]
+                }
+              )]
             }
           )
         ])

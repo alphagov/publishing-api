@@ -11,8 +11,8 @@ class ExpansionRules::LinkExpansion
   end
 
   def allowed_direct_link_types(link_types_path)
-    multi_level_links.allowed_link_types(link_types_path).select do |link_type|
-      !rules.is_reverse_link_type?(link_type)
+    multi_level_links.allowed_link_types(link_types_path).reject do |link_type|
+      rules.is_reverse_link_type?(link_type)
     end
   end
 
@@ -25,7 +25,7 @@ class ExpansionRules::LinkExpansion
   def next_allowed_link_types(link_types, link_types_path = [])
     if link_types.nil?
       link_types = rules::MULTI_LEVEL_LINK_PATHS.flat_map(&:first)
-        .select { |link_type| !rules.is_reverse_link_type?(link_type) }
+        .reject { |link_type| rules.is_reverse_link_type?(link_type) }
     end
 
     multi_level_links.next_allowed_link_types(link_types, link_types_path)

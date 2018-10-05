@@ -1,12 +1,12 @@
 class UpdateExistingDraftEdition
-  ATTRIBUTES_PROTECTED_FROM_RESET = [
-    :id,
-    :document_id,
-    :content_id,
-    :locale,
-    :created_at,
-    :updated_at,
-    :last_edited_at,
+  ATTRIBUTES_PROTECTED_FROM_RESET = %i[
+    id
+    document_id
+    content_id
+    locale
+    created_at
+    updated_at
+    last_edited_at
   ].freeze
 
   attr_reader :payload, :put_content, :edition

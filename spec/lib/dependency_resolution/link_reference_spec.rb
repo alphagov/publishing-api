@@ -12,18 +12,18 @@ RSpec.describe DependencyResolution::LinkReference do
     end
 
     context "child links are present on the node" do
-      let(:link_types_path) { [:anything, :anything] }
+      let(:link_types_path) { %i[anything anything] }
       let(:node_links) { [SecureRandom.uuid, SecureRandom.uuid] }
       it { is_expected.to be true }
     end
 
     context "a valid multi item link_types_path" do
-      let(:link_types_path) { [:child_taxons, :child_taxons] }
+      let(:link_types_path) { %i[child_taxons child_taxons] }
       it { is_expected.to be true }
     end
 
     context "an invalid multi item link_types_path" do
-      let(:link_types_path) { [:child_taxons, :parent] }
+      let(:link_types_path) { %i[child_taxons parent] }
       it { is_expected.to be false }
     end
   end

@@ -39,8 +39,7 @@ RSpec.describe ExpandedLinks do
           locale: locale,
           with_drafts: with_drafts,
           payload_version: 1,
-          expanded_links: {},
-        )
+          expanded_links: {})
       end
 
       it "updates the links" do
@@ -58,8 +57,7 @@ RSpec.describe ExpandedLinks do
           locale: locale,
           with_drafts: with_drafts,
           payload_version: 5,
-          expanded_links: {},
-        )
+          expanded_links: {})
       end
 
       it "doesn't update" do

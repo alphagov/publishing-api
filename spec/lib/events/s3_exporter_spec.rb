@@ -1,19 +1,18 @@
 require "rails_helper"
 
 RSpec.describe Events::S3Exporter do
-  let(:created_before) { DateTime.now }
+  let(:created_before) { Time.now }
   let(:created_on_or_after) { nil }
   let(:client) { Aws::S3::Client.new(region: "eu-west-1", stub_responses: true) }
   let(:resource) { Aws::S3::Resource.new(client: client) }
   let(:object_exists?) { false }
-  let(:s3_key) { "events/#{created_before}.csv.gz" }
+  let(:s3_key) { "events/#{created_before.to_s(:iso8601)}.csv.gz" }
   let(:resource_double) { instance_double("Aws::S3::Resource", bucket: bucket_double) }
   let(:bucket_double) { instance_double("Aws::S3::Bucket", object: object_double) }
   let(:object_double) do
     instance_double("Aws::S3::Object",
       exists?: object_exists?,
-      put: Aws::S3::Types::PutObjectOutput.new
-    )
+      put: Aws::S3::Types::PutObjectOutput.new)
   end
 
   before do
@@ -32,10 +31,10 @@ RSpec.describe Events::S3Exporter do
 
   describe "#export" do
     subject(:exporter) { described_class.new(created_before, created_on_or_after) }
-    let(:theresa_may_appointed) { DateTime.new(2016, 7, 13, 9) }
-    let(:david_cameron_appointed) { DateTime.new(2010, 5, 11, 9) }
-    let(:gordon_brown_appointed) { DateTime.new(2007, 6, 27, 9) }
-    let(:tony_blair_appointed) { DateTime.new(1997, 5, 2, 9) }
+    let(:theresa_may_appointed) { Time.new(2016, 7, 13, 9) }
+    let(:david_cameron_appointed) { Time.new(2010, 5, 11, 9) }
+    let(:gordon_brown_appointed) { Time.new(2007, 6, 27, 9) }
+    let(:tony_blair_appointed) { Time.new(1997, 5, 2, 9) }
 
     shared_examples "uploads to S3" do
       after { exporter.export }
@@ -81,26 +80,22 @@ RSpec.describe Events::S3Exporter do
       let!(:theresa_may_event) do
         create(:event,
           title: "Theresa May becomes Prime Minister",
-          created_at: theresa_may_appointed,
-        )
+          created_at: theresa_may_appointed)
       end
       let!(:david_cameron_event) do
         create(:event,
           title: "David Cameron becomes Prime Minister",
-          created_at: david_cameron_appointed,
-        )
+          created_at: david_cameron_appointed)
       end
       let!(:gordon_brown_event) do
         create(:event,
           title: "Gordon Brown becomes Prime Minister",
-          created_at: gordon_brown_appointed,
-        )
+          created_at: gordon_brown_appointed)
       end
       let!(:tony_blair_event) do
         create(:event,
           title: "Tony Blair becomes Prime Minister",
-          created_at: tony_blair_appointed,
-        )
+          created_at: tony_blair_appointed)
       end
 
       context "and we're wanting events before Theresa May took office" do

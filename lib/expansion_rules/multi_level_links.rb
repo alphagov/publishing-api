@@ -9,10 +9,10 @@ class ExpansionRules::MultiLevelLinks
     @next_cache[link_types_path.to_s] ||= begin
       raise "Can't operate on an empty link_types_path" if link_types_path.empty?
       # look up all the paths for the next level and the level beyond it
-      extra_item_1 = paths(length: link_types_path.length + 1)
-      extra_item_2 = paths(length: link_types_path.length + 2)
+      extra_item1 = paths(length: link_types_path.length + 1)
+      extra_item2 = paths(length: link_types_path.length + 2)
       # match the next link for ones of these fit our provided paths
-      (extra_item_1 + extra_item_2).uniq
+      (extra_item1 + extra_item2).uniq
         .map { |path| next_link_type_in_path(link_types_path, path) }
         .compact
         .uniq

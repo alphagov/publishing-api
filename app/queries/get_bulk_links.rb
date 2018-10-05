@@ -28,7 +28,7 @@ module Queries
     end
 
     def link_sets
-      @_link_sets ||= begin
+      @link_sets ||= begin
         LinkSet
           .includes(:links) # avoid an N+1 in the presenter class
           .where("content_id IN (?)", content_ids)

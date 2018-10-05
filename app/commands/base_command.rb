@@ -46,8 +46,8 @@ module Commands
       callbacks.each(&:call)
     end
 
-    def self.raise_validation_command_error(e)
-      errors = e.record.errors
+    def self.raise_validation_command_error(error)
+      errors = error.record.errors
       full_message = errors.full_messages.join(', ')
 
       raise CommandError.new(

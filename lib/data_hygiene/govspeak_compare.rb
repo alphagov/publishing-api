@@ -68,15 +68,15 @@ module DataHygiene
     # of different versions of govspeak rendering.
     # It was wrote when testing Specialist Publisher documents and may need
     # additional items when comparing editions published from different apps
-    def basically_match(s)
-      s = s.dup
+    def basically_match(elem)
+      elem = elem.dup
       # strip span surrounding an inline-attachment as this element
-      s.gsub!(/<span\s+class=\"attachment\-inline\">(.+?)<\/span>/, '\1')
+      elem.gsub!(/<span\s+class=\"attachment\-inline\">(.+?)<\/span>/, '\1')
       # a number of past inline attachments are incorrectly marked as rel="external"
       # the last p element in a blockquote is given a class of last-child
-      s.gsub!(/(rel="external"|class="last-child")/, "")
+      elem.gsub!(/(rel="external"|class="last-child")/, "")
       # it's very common for extra whitespace to be present.
-      s.gsub!(/\s+/, "") #whitespace
+      elem.gsub!(/\s+/, "") #whitespace
     end
 
     def format_published_html

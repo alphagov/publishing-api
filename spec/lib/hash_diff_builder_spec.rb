@@ -24,16 +24,14 @@ RSpec.describe HashDiffBuilder do
     double(:edition,
       description: "A description",
       title: "A title",
-      links: organisation_links
-    )
+      links: organisation_links)
   end
 
   let(:updated_edition) do
     double(:edition,
       description: "A description",
       title: "A new title",
-      links: policy_areas_links
-    )
+      links: policy_areas_links)
   end
 
   let(:presented_previous_edition) do
@@ -66,8 +64,8 @@ RSpec.describe HashDiffBuilder do
       let(:previous_and_updated_diff) do
         [
           ["~", [:title], "A title", "A new title"],
-          ["-", [:links, :organisations], [content_id]],
-          ["+", [:links, :policy_areas], [content_id]]
+          ["-", %i[links organisations], [content_id]],
+          ["+", %i[links policy_areas], [content_id]]
         ]
       end
 

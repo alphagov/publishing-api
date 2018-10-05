@@ -10,7 +10,7 @@ module Presenters
     end
 
     def details
-      @_details ||=
+      @details ||=
         begin
           updated = recursively_transform_govspeak(content_item_details)
           updated[:change_history] = change_history unless change_history.blank?
@@ -47,7 +47,7 @@ module Presenters
     end
 
     def change_history
-      @_change_history ||= change_history_presenter.change_history
+      @change_history ||= change_history_presenter.change_history
     end
 
     def render_govspeak(value)

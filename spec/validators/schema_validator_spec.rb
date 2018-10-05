@@ -4,7 +4,7 @@ RSpec.describe SchemaValidator do
   let(:schema) do
     {
       type: "object",
-      required: ["a"],
+      required: %w[a],
       properties: {
         a: { "type" => "integer" }
       }

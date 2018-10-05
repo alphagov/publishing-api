@@ -76,11 +76,9 @@ class PreviouslyPublishedItem
       false
     end
 
-    def previous_base_path
-    end
+    def previous_base_path; end
 
-    def routes
-    end
+    def routes; end
 
     def content_id; end
 

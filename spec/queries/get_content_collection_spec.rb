@@ -6,23 +6,19 @@ RSpec.describe Queries::GetContentCollection do
       create(:draft_edition,
         base_path: "/a",
         document_type: "topic",
-        schema_name: "topic",
-      )
+        schema_name: "topic")
       create(:draft_edition,
         base_path: "/b",
         document_type: "topic",
-        schema_name: "topic",
-      )
+        schema_name: "topic")
       create(:draft_edition,
         base_path: "/c",
         document_type: "mainstream_browse_page",
-        schema_name: "mainstream_browse_page",
-      )
+        schema_name: "mainstream_browse_page")
       create(:draft_edition,
         base_path: "/d",
         document_type: "another_type",
-        schema_name: "another_type",
-      )
+        schema_name: "another_type")
     end
 
     it "returns the requested fields for all editions" do
@@ -62,13 +58,11 @@ RSpec.describe Queries::GetContentCollection do
     create(:draft_edition,
       base_path: "/a",
       document_type: "topic",
-      schema_name: "topic",
-    )
+      schema_name: "topic")
     create(:draft_edition,
       base_path: "/b",
       document_type: "placeholder_topic",
-      schema_name: "placeholder_topic"
-    )
+      schema_name: "placeholder_topic")
 
     expect(Queries::GetContentCollection.new(
       document_types: "topic",
@@ -83,13 +77,11 @@ RSpec.describe Queries::GetContentCollection do
     create(:draft_edition,
       base_path: "/draft",
       document_type: "topic",
-      schema_name: "topic",
-    )
+      schema_name: "topic")
     create(:live_edition,
       base_path: "/live",
       document_type: "topic",
-      schema_name: "topic",
-    )
+      schema_name: "topic")
 
     expect(Queries::GetContentCollection.new(
       document_types: "topic",
@@ -132,7 +124,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns an empty array" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: ["base_path"],
+        fields: %w[base_path],
       ).call.to_a).to eq([])
     end
   end
@@ -142,7 +134,7 @@ RSpec.describe Queries::GetContentCollection do
       expect {
         Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["not_existing"],
+          fields: %w[not_existing],
         ).call
       }.to raise_error(CommandError)
     end
@@ -154,20 +146,17 @@ RSpec.describe Queries::GetContentCollection do
         base_path: "/a",
         document_type: "topic",
         schema_name: "topic",
-        publishing_app: "publisher"
-      )
+        publishing_app: "publisher")
       create(:draft_edition,
         base_path: "/b",
         document_type: "topic",
         schema_name: "topic",
-        publishing_app: "publisher"
-      )
+        publishing_app: "publisher")
       create(:draft_edition,
         base_path: "/c",
         document_type: "topic",
         schema_name: "topic",
-        publishing_app: "whitehall"
-      )
+        publishing_app: "whitehall")
     end
 
     it "returns items corresponding to the publishing_app parameter if present" do
@@ -199,26 +188,22 @@ RSpec.describe Queries::GetContentCollection do
         document: create(:document, locale: "en"),
         base_path: "/content.en",
         document_type: "topic",
-        schema_name: "topic",
-      )
+        schema_name: "topic")
       create(:draft_edition,
         document: create(:document, locale: "ar"),
         base_path: "/content.ar",
         document_type: "topic",
-        schema_name: "topic",
-      )
+        schema_name: "topic")
       create(:live_edition,
         document: create(:document, locale: "en"),
         base_path: "/content.en",
         document_type: "topic",
-        schema_name: "topic",
-      )
+        schema_name: "topic")
       create(:live_edition,
         document: create(:document, locale: "ar"),
         base_path: "/content.ar",
         document_type: "topic",
-        schema_name: "topic",
-      )
+        schema_name: "topic")
     end
 
     it "returns the editions filtered by 'en' locale by default" do
@@ -268,18 +253,15 @@ RSpec.describe Queries::GetContentCollection do
       create(:draft_edition,
         document: create(:document, content_id: draft_1_content_id),
         base_path: "/foo",
-        publishing_app: "specialist-publisher"
-      )
+        publishing_app: "specialist-publisher")
 
       create(:draft_edition,
         document: create(:document, content_id: draft_2_content_id),
-        base_path: "/bar"
-      )
+        base_path: "/bar")
 
       create(:live_edition,
         document: create(:document, content_id: live_1_content_id),
-        base_path: "/baz"
-      )
+        base_path: "/baz")
 
       link_set1 = create(:link_set, content_id: draft_1_content_id)
       link_set2 = create(:link_set, content_id: draft_2_content_id)
@@ -364,15 +346,13 @@ RSpec.describe Queries::GetContentCollection do
         details: { foo: :bar },
         document_type: "topic",
         schema_name: "topic",
-        publishing_app: "publisher"
-      )
+        publishing_app: "publisher")
       create(:draft_edition,
         base_path: "/b",
         details: { baz: :bat },
         document_type: "placeholder_topic",
         schema_name: "placeholder_topic",
-        publishing_app: "publisher"
-      )
+        publishing_app: "publisher")
     end
     it "returns the details hash" do
       expect(Queries::GetContentCollection.new(
@@ -396,8 +376,7 @@ RSpec.describe Queries::GetContentCollection do
         details: {
           body: "A page about windows.",
           internal_name: "newtopic"
-        }
-      )
+        })
       create(:live_edition,
         base_path: "/baz",
         document_type: "topic",
@@ -407,8 +386,7 @@ RSpec.describe Queries::GetContentCollection do
         details: {
           body: "A page all about doors.",
           internal_name: "baz"
-        }
-      )
+        })
     end
 
     let(:search_in) { nil }
@@ -416,7 +394,7 @@ RSpec.describe Queries::GetContentCollection do
     subject do
       Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: ["base_path"],
+        fields: %w[base_path],
         search_query: search_query,
         search_in: search_in
       )
@@ -465,7 +443,7 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with invalid top-level fields" do
-        let(:search_in) { ["nonexistent_field"] }
+        let(:search_in) { %w[nonexistent_field] }
         let(:search_query) { "baz" }
         it "raises a CommandError" do
           expect { subject.call }.to raise_error(CommandError)
@@ -473,7 +451,7 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with a nested field as a top-level fields" do
-        let(:search_in) { ["details"] }
+        let(:search_in) { %w[details] }
         let(:search_query) { "baz" }
         it "raises a CommandError" do
           expect { subject.call }.to raise_error(CommandError)
@@ -481,7 +459,7 @@ RSpec.describe Queries::GetContentCollection do
       end
 
       context "with description among the fields" do
-        let(:search_in) { ["description"] }
+        let(:search_in) { %w[description] }
         let(:search_query) { "foo" }
         it "finds the edition" do
           expect(subject.call.map(&:to_hash)).to eq([{ "base_path" => "/baz" }])
@@ -516,8 +494,7 @@ RSpec.describe Queries::GetContentCollection do
             base_path: base_path,
             document_type: "topic",
             schema_name: "topic",
-            public_updated_at: public_updated_at,
-          )
+            public_updated_at: public_updated_at)
         end
         [
           ["/live1", "2010-01-02"], ["/live2", "2010-01-01"]
@@ -526,15 +503,14 @@ RSpec.describe Queries::GetContentCollection do
             base_path: base_path,
             document_type: "topic",
             schema_name: "topic",
-            public_updated_at: public_updated_at,
-          )
+            public_updated_at: public_updated_at)
         end
       end
 
       it "limits the results returned" do
         editions = Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["publishing_app"],
+          fields: %w[publishing_app],
           pagination: Pagination.new(offset: 0, per_page: 3)
         ).call
 
@@ -544,7 +520,7 @@ RSpec.describe Queries::GetContentCollection do
       it "fetches results from a specified index" do
         editions = Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["base_path"],
+          fields: %w[base_path],
           pagination: Pagination.new(offset: 1, per_page: 2)
         ).call
 
@@ -554,7 +530,7 @@ RSpec.describe Queries::GetContentCollection do
       it "when per_page is higher than results we only receive remaining editions" do
         editions = Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["base_path"],
+          fields: %w[base_path],
           pagination: Pagination.new(offset: 3, per_page: 8)
         ).call.to_a
 
@@ -565,7 +541,7 @@ RSpec.describe Queries::GetContentCollection do
       it "returns all items when no pagination params are specified" do
         editions = Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: ["publishing_app"],
+          fields: %w[publishing_app],
         ).call
 
         expect(editions.count).to eq(6)
@@ -621,15 +597,13 @@ RSpec.describe Queries::GetContentCollection do
           document: document,
           document_type: "topic",
           schema_name: "topic",
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
 
         create(:draft_edition,
           document: document,
           document_type: "topic",
           schema_name: "topic",
-          user_facing_version: 2,
-        )
+          user_facing_version: 2)
       end
 
       it "returns the latest item only" do

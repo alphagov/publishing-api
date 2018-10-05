@@ -13,11 +13,11 @@ class DebugController < ApplicationController
     @mismatched_responses = mismatched_responses.map { |json|
       parsed = Oj.load(json)
 
-      missing, other = parsed.partition {|(operator, _, _)|
+      missing, other = parsed.partition { |(operator, _, _)|
         operator == "-"
       }
 
-      extra, changed = other.partition {|(operator, _, _)|
+      extra, changed = other.partition { |(operator, _, _)|
         operator == "+"
       }
 

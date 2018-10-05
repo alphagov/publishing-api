@@ -8,26 +8,26 @@ class Edition < ApplicationRecord
 
   DEFAULT_LOCALE = "en".freeze
 
-  TOP_LEVEL_FIELDS = [
-    :analytics_identifier,
-    :base_path,
-    :content_store,
-    :description,
-    :details,
-    :document_type,
-    :first_published_at,
-    :last_edited_at,
-    :phase,
-    :public_updated_at,
-    :publishing_app,
-    :redirects,
-    :rendering_app,
-    :routes,
-    :schema_name,
-    :state,
-    :title,
-    :user_facing_version,
-    :update_type,
+  TOP_LEVEL_FIELDS = %i[
+    analytics_identifier
+    base_path
+    content_store
+    description
+    details
+    document_type
+    first_published_at
+    last_edited_at
+    phase
+    public_updated_at
+    publishing_app
+    redirects
+    rendering_app
+    routes
+    schema_name
+    state
+    title
+    user_facing_version
+    update_type
   ].freeze
 
   NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
@@ -61,7 +61,7 @@ class Edition < ApplicationRecord
   validate :user_facing_version_must_increase
   validate :draft_cannot_be_behind_live
 
-  validates :routes, absence: true, if: -> (e) { e.schema_name == "redirect" }
+  validates :routes, absence: true, if: ->(edition) { edition.schema_name == "redirect" }
 
   validates_with VersionForDocumentValidator
   validates_with BasePathForStateValidator

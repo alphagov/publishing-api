@@ -24,7 +24,7 @@ require 'webmock'
 require 'govuk_schemas'
 
 if GovukSchemas::Schema.all.empty?
-  raise <<-message
+  raise <<-MESSAGE
     No schemas found
 
     The Publishing API tests require that the govuk-content-schemas
@@ -32,7 +32,7 @@ if GovukSchemas::Schema.all.empty?
     which defaults to looking for the govuk-content-schemas repository
     at ../govuk-content-schemas and can be configured through the
     GOVUK_CONTENT_SCHEMAS_PATH environment variable.
-  message
+  MESSAGE
 end
 
 RSpec.configure do |config|

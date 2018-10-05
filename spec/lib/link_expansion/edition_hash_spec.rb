@@ -6,12 +6,14 @@ RSpec.describe LinkExpansion::EditionHash do
       expect(described_class.from(nil)).to be_nil
     end
     it "accepts an array argument" do
-      expect(described_class.from(["123"])).to include(
-        analytics_identifier: "123")
+      expect(described_class.from(%w[123])).to include(
+        analytics_identifier: "123"
+      )
     end
     it "accepts a Hash argument" do
       expect(described_class.from(analytics_identifier: "123")).to include(
-        analytics_identifier: "123")
+        analytics_identifier: "123"
+      )
     end
     it "accepts an Edition argument" do
       edition = build(:live_edition)

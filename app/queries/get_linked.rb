@@ -26,7 +26,7 @@ module Queries
 
   private
 
-    attr_accessor :target_content_id, :link_type, :fields
+    attr_writer :target_content_id, :link_type, :fields
 
     def validate_presence_of_item!
       return if Edition.joins(:document).exists?(

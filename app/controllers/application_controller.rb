@@ -13,22 +13,22 @@ class ApplicationController < ActionController::API
 
 private
 
-  def parameter_missing_error(e)
+  def parameter_missing_error(error)
     error = CommandError.new(code: 422, error_details: {
       error: {
         code: 422,
-        message: e.message
+        message: error.message
       }
     })
 
     respond_with_command_error(error)
   end
 
-  def json_parse_error(e)
+  def json_parse_error(error)
     error = CommandError.new(code: 400, error_details: {
       error: {
         code: 400,
-        message: e.message
+        message: error.message
       }
     })
 
@@ -52,11 +52,7 @@ private
     @query_params ||= ActionController::Parameters.new(request.query_parameters)
   end
 
-  def post_params
-    @post_params ||= ActionController::Parameters.new(request.request_parameters)
-  end
-
   def path_params
-    @post_params ||= ActionController::Parameters.new(request.path_parameters)
+    @path_params ||= ActionController::Parameters.new(request.path_parameters)
   end
 end

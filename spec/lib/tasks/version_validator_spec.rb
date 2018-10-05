@@ -7,13 +7,11 @@ RSpec.describe Tasks::VersionValidator do
   before do
     create(:superseded_edition,
       document: document,
-      user_facing_version: 1,
-    )
+      user_facing_version: 1)
 
     create(:live_edition,
       document: document,
-      user_facing_version: 2,
-    )
+      user_facing_version: 2)
   end
 
   context "when there are no version sequence problems" do
@@ -43,8 +41,7 @@ RSpec.describe Tasks::VersionValidator do
       item = Edition.last
       item.document = create(:document,
         content_id: item.document.content_id,
-        locale: "fr"
-      )
+        locale: "fr")
       item.user_facing_version = 1
       item.save!(validate: false)
     end

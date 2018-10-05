@@ -21,8 +21,7 @@ RSpec.describe Queries::GetContent do
       create(:edition,
         document: document,
         base_path: "/vat-rates",
-        user_facing_version: 1,
-      )
+        user_facing_version: 1)
     end
 
     it "presents the edition" do
@@ -66,14 +65,12 @@ RSpec.describe Queries::GetContent do
       create(:draft_edition,
         document: document,
         title: "Draft Title",
-        user_facing_version: 2,
-      )
+        user_facing_version: 2)
 
       create(:live_edition,
         document: document,
         title: "Live Title",
-        user_facing_version: 1,
-      )
+        user_facing_version: 1)
     end
 
     it "presents the draft edition" do
@@ -87,14 +84,12 @@ RSpec.describe Queries::GetContent do
       create(:superseded_edition,
         document: document,
         user_facing_version: 1,
-        title: "Older Title",
-      )
+        title: "Older Title")
 
       create(:superseded_edition,
         document: document,
         user_facing_version: 2,
-        title: "Newer Title",
-      )
+        title: "Newer Title")
     end
 
     it "includes these editions" do
@@ -108,14 +103,12 @@ RSpec.describe Queries::GetContent do
       create(:edition,
         document: fr_document,
         user_facing_version: 2,
-        title: "French Title",
-      )
+        title: "French Title")
 
       create(:edition,
         document: document,
         user_facing_version: 1,
-        title: "English Title",
-      )
+        title: "English Title")
     end
 
     it "returns the english edition by default" do
@@ -133,13 +126,11 @@ RSpec.describe Queries::GetContent do
     before do
       create(:superseded_edition,
         document: document,
-        user_facing_version: 1,
-      )
+        user_facing_version: 1)
 
       create(:live_edition,
         document: document,
-        user_facing_version: 2,
-      )
+        user_facing_version: 2)
     end
 
     it "returns specific versions if provided" do

@@ -21,8 +21,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
       base_path: base_path,
       title: "Old Title",
       publishing_app: "publisher",
-      update_type: "major",
-    )
+      update_type: "major")
   end
 
   it "updates the edition" do
@@ -78,7 +77,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
   context "when first_published_at is in the payload" do
     it "allows the setting of first_published_at and publisher_first_published_at" do
-      explicit_first_published = DateTime.new(2016, 05, 23, 1, 1, 1).rfc3339
+      explicit_first_published = Time.new(2016, 5, 23, 1, 1, 1).rfc3339
       payload[:first_published_at] = explicit_first_published
 
       put "/v2/content/#{content_id}", params: payload.to_json
@@ -178,8 +177,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
           base_path: base_path,
           title: "Substitute Content",
           publishing_app: "publisher",
-          document_type: "coming_soon",
-        )
+          document_type: "coming_soon")
       end
 
       it "deletes the substitute item" do

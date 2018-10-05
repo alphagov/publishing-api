@@ -18,8 +18,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously unpublish
       document: create(:document, content_id: content_id, stale_lock_version: 2),
       user_facing_version: 5,
       base_path: base_path,
-      temporary_first_published_at: temporary_first_published_at,
-    )
+      temporary_first_published_at: temporary_first_published_at)
   end
 
   it "creates the draft's lock version using the unpublished lock version as a starting point" do

@@ -7,8 +7,7 @@ RSpec.describe "Paging through editions" do
         base_path: "/content-#{n}",
         document_type: "nonexistent-schema",
         schema_name: "nonexistent-schema",
-        public_updated_at: n.minutes.ago
-      )
+        public_updated_at: n.minutes.ago)
     end
   end
 

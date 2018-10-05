@@ -31,7 +31,7 @@ private
   rescue NoSchemaNameError
     errors << no_schema_name_message
     {}
-  rescue Errno::ENOENT => error
+  rescue Errno::ENOENT
     errors << missing_schema_message
     {}
   end

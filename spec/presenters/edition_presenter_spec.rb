@@ -162,8 +162,7 @@ RSpec.describe Presenters::EditionPresenter do
           create(:withdrawn_unpublished_edition,
             base_path: base_path,
             details: details,
-            unpublished_at: DateTime.new(2016, 9, 10, 4, 5, 6)
-          )
+            unpublished_at: Time.new(2016, 9, 10, 4, 5, 6))
         end
 
         it "merges in a withdrawal notice with the withdrawn_at set correctly" do
@@ -303,8 +302,7 @@ RSpec.describe Presenters::EditionPresenter do
       let(:edition) do
         create(:live_edition,
           base_path: base_path,
-          details: details,
-        )
+          details: details)
       end
 
       it "renders the govspeak as html" do

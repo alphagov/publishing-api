@@ -1,29 +1,29 @@
 module Presenters
   class EditionPresenter
-    NON_PRESENTED_PROPERTIES = [
-      :api_path,
-      :api_url,
-      :content_store,
-      :created_at,
-      :document_id,
-      :id,
-      :last_edited_at,
-      :major_published_at,
-      :need_ids,
-      :published_at,
-      :publisher_first_published_at,
-      :publisher_major_published_at,
-      :publisher_published_at,
-      :publisher_last_edited_at,
-      :publishing_request_id,
-      :state,
-      :temporary_first_published_at,
-      :temporary_last_edited_at,
-      :unpublishing_type,
-      :updated_at,
-      :user_facing_version,
-      :web_url,
-      :withdrawn,
+    NON_PRESENTED_PROPERTIES = %i[
+      api_path
+      api_url
+      content_store
+      created_at
+      document_id
+      id
+      last_edited_at
+      major_published_at
+      need_ids
+      published_at
+      publisher_first_published_at
+      publisher_major_published_at
+      publisher_published_at
+      publisher_last_edited_at
+      publishing_request_id
+      state
+      temporary_first_published_at
+      temporary_last_edited_at
+      unpublishing_type
+      updated_at
+      user_facing_version
+      web_url
+      withdrawn
     ].freeze
 
     def initialize(edition, draft: false)

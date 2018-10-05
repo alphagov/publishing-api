@@ -39,8 +39,7 @@ RSpec.describe Queries::GetExpandedLinks do
           locale: locale,
           with_drafts: with_drafts,
           expanded_links: expanded_links,
-          updated_at: updated_at,
-        )
+          updated_at: updated_at)
       end
 
       it "returns the data from expanded links" do
@@ -58,8 +57,7 @@ RSpec.describe Queries::GetExpandedLinks do
         create(:link_set,
           content_id: content_id,
           links_hash: {},
-          stale_lock_version: link_set_lock_version,
-        )
+          stale_lock_version: link_set_lock_version)
       end
 
       it "generates the links" do

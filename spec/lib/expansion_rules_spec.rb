@@ -23,7 +23,7 @@ RSpec.describe ExpansionRules do
 
   describe ".reverse_to_direct_link_types" do
     specify do
-      expect(rules.reverse_to_direct_link_types([:children, :documents]))
+      expect(rules.reverse_to_direct_link_types(%i[children documents]))
         .to match([:parent])
     end
     specify { expect(rules.reverse_to_direct_link_types([:made_up])).to match([]) }
@@ -74,7 +74,7 @@ RSpec.describe ExpansionRules do
     context "when passed direct links only" do
       let(:next_allowed_link_types) do
         {
-          parent: [:parent, :parent_taxons],
+          parent: %i[parent parent_taxons],
         }
       end
 
@@ -98,7 +98,7 @@ RSpec.describe ExpansionRules do
     context "when passed a mixture of direct and reverse links" do
       let(:next_allowed_link_types) do
         {
-          parent: [:children, :parent],
+          parent: %i[children parent],
         }
       end
 
@@ -145,7 +145,7 @@ RSpec.describe ExpansionRules do
     context "when passed direct links only" do
       let(:next_allowed_link_types) do
         {
-          children: [:parent, :parent_taxons],
+          children: %i[parent parent_taxons],
         }
       end
 
@@ -169,7 +169,7 @@ RSpec.describe ExpansionRules do
     context "when passed a mixture of direct and reverse links" do
       let(:next_allowed_link_types) do
         {
-          children: [:children, :parent],
+          children: %i[children parent],
         }
       end
 

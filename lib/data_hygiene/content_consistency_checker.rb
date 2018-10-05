@@ -95,7 +95,7 @@ module DataHygiene
           errors[path] << "Content is not gone in the content store."
         end
       else
-        fields = [:content_id, :locale, :rendering_app, :publishing_app, :schema_name, :document_type]
+        fields = %i[content_id locale rendering_app publishing_app schema_name document_type]
         fields.each do |field|
           edition_value = edition.public_send(field)
           content_item_value = content_item.public_send(field)
@@ -107,7 +107,7 @@ module DataHygiene
 
         edition_presenter = Presenters::EditionPresenter.new(edition, draft: draft?)
 
-        hash_fields = [:routes, :redirects]
+        hash_fields = %i[routes redirects]
         hash_fields.each do |field|
           edition_value = hash_field(edition.public_send(field))
           content_item_value = content_item.public_send("#{field}_hash")

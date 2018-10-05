@@ -10,12 +10,10 @@ RSpec.describe Commands::V2::RepresentDownstream do
       2.times { create(:draft_edition) }
       create(:live_edition,
         document: create(:document, locale: "en"),
-        document_type: "nonexistent-schema",
-      )
+        document_type: "nonexistent-schema")
       create(:live_edition,
         document: create(:document, locale: "fr"),
-        document_type: "nonexistent-schema",
-      )
+        document_type: "nonexistent-schema")
       create(:live_edition, document_type: "press_release")
     end
 

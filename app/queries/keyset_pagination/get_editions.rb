@@ -25,12 +25,12 @@ module Queries
     end
 
     def pagination_key
-      @pagination_key ||= (
+      @pagination_key ||= begin
         hash = {}
         hash[pagination_field] = "editions.#{pagination_field}"
         hash[:id] = "editions.id"
         hash
-      )
+      end
     end
 
   private
@@ -45,10 +45,10 @@ module Queries
       :created_at,
     ].freeze
 
-    ORDER_FIELDS = [
-      :updated_at,
-      :public_updated_at,
-      :created_at,
+    ORDER_FIELDS = %i[
+      updated_at
+      public_updated_at
+      created_at
     ].freeze
 
     def pagination_field

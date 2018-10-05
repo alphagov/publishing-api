@@ -11,6 +11,5 @@ class NullPagination
     0
   end
 
-  def per_page
-  end
+  def per_page; end
 end

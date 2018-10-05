@@ -13,8 +13,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     let!(:edition) do
       create(:draft_edition,
         document: document,
-        base_path: base_path
-      )
+        base_path: base_path)
     end
 
     let(:result) { described_class.present(edition) }
@@ -94,8 +93,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         create(:draft_edition,
           document: document,
           base_path: base_path,
-          update_type: "major"
-        )
+          update_type: "major")
       end
 
       it "presents the item including the change note" do
@@ -180,8 +178,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       let!(:published_item) do
         create(:live_edition,
           document: document,
-          user_facing_version: 1,
-        )
+          user_facing_version: 1)
       end
 
       it "returns a versioned history of states for the edition" do
@@ -202,8 +199,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       create(:draft_edition,
         document: document,
         base_path: base_path,
-        user_facing_version: 2,
-      )
+        user_facing_version: 2)
     end
 
     let(:scope) { document.editions }
@@ -233,8 +229,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         before do
           @blocking_edition = create(:live_edition,
             base_path: base_path,
-            user_facing_version: 1,
-          )
+            user_facing_version: 1)
         end
 
         it "includes the warning" do

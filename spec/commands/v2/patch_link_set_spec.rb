@@ -61,8 +61,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       link_set = create(:link_set,
         links: [
           create(:link)
-        ]
-      )
+        ])
 
       described_class.call(
         content_id: link_set.content_id,
@@ -117,18 +116,14 @@ RSpec.describe Commands::V2::PatchLinkSet do
         links: [
           create(:link,
             link_type: "topics",
-            target_content_id: topics.first,
-          ),
+            target_content_id: topics.first),
           create(:link,
             link_type: "topics",
-            target_content_id: topics.second,
-          ),
+            target_content_id: topics.second),
           create(:link,
             link_type: "related",
-            target_content_id: related.first,
-          ),
-        ]
-      )
+            target_content_id: related.first),
+        ])
     end
 
     include_examples "creates an action"
@@ -216,8 +211,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       create(:draft_edition,
         document: create(:document, content_id: content_id),
         base_path: "/some-path",
-        title: "Some Title",
-      )
+        title: "Some Title")
     end
 
     it "sends to the downstream draft worker" do
@@ -242,8 +236,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
         create(:draft_edition,
           document: create(:document, content_id: content_id, locale: "fr"),
           base_path: "/french-path",
-          title: "French Title",
-        )
+          title: "French Title")
       end
 
       it "sends the draft editions for all locales downstream" do
@@ -275,8 +268,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       create(:live_edition,
         document: create(:document, content_id: content_id),
         base_path: "/some-path",
-        title: "Some Title",
-      )
+        title: "Some Title")
     end
 
     it "sends to downstream live worker" do
@@ -312,8 +304,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
         create(:live_edition,
           document: create(:document, content_id: content_id, locale: "fr"),
           base_path: "/french-path",
-          title: "French Title",
-        )
+          title: "French Title")
       end
 
       it "sends the live edition for all locales downstream" do
@@ -350,8 +341,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       create(:unpublished_edition,
         document: create(:document, content_id: content_id),
         base_path: "/some-path",
-        title: "Some Title",
-      )
+        title: "Some Title")
     end
 
     it "sends to downstream draft worker" do
@@ -395,8 +385,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     before do
       create(:link_set,
         content_id: content_id,
-        links_hash: { topics: [link_a] },
-      )
+        links_hash: { topics: [link_a] })
     end
 
     it "sends link_a downstream as an orphaned content_id when replaced by link_b" do

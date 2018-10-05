@@ -12,8 +12,7 @@ RSpec.describe Edition::Timestamps do
         temporary_first_published_at: "2017-01-01",
         publisher_first_published_at: "2017-04-01",
         first_published_at: "2017-04-01",
-        major_published_at: "2017-11-11",
-      )
+        major_published_at: "2017-11-11")
     end
 
     let(:update_type) { "major" }
@@ -132,8 +131,7 @@ RSpec.describe Edition::Timestamps do
       build(:edition,
         temporary_first_published_at: temporary_first_published_at,
         first_published_at: first_published_at,
-        public_updated_at: public_updated_at,
-      )
+        public_updated_at: public_updated_at)
     end
     let(:temporary_first_published_at) { nil }
     let(:first_published_at) { nil }
@@ -142,8 +140,7 @@ RSpec.describe Edition::Timestamps do
     let(:previous_live_version) do
       build(:edition,
         major_published_at: "2017-11-05",
-        public_updated_at: previous_public_updated_at,
-      )
+        public_updated_at: previous_public_updated_at)
     end
     let(:previous_public_updated_at) { "2017-10-30" }
 

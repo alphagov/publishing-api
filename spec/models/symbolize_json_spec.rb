@@ -38,12 +38,12 @@ RSpec.describe SymbolizeJSON do
     end
 
     it "doesn't symbolize arrays of strings" do
-      subject.details = ["foo"]
+      subject.details = %w[foo]
 
       subject.save!
       subject.reload
 
-      expect(subject.details).to eq(["foo"])
+      expect(subject.details).to eq(%w[foo])
     end
 
     it "doesn't affect other JSON-compatible data types" do

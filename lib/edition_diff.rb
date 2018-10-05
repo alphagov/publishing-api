@@ -21,8 +21,8 @@ private
     )
   end
 
-  def hash_diff(a, b)
-    a.size > b.size ? a.to_a - b.to_a : b.to_a - a.to_a
+  def hash_diff(left, right)
+    left.size > right.size ? left.to_a - right.to_a : right.to_a - left.to_a
   end
 
   def previous_edition

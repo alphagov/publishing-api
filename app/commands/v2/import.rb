@@ -96,7 +96,7 @@ module Commands
           when "unpublished"
             content_item.unpublish(
               state.slice(
-                *%i(type explanation alternative_path unpublished_at)
+                :type, :explanation, :alternative_path, :unpublished_at
               )
             )
           when "superseded"
@@ -238,7 +238,7 @@ module Commands
 
       def attributes
         @attributes ||=
-          [:base_path, :states] + Edition.new.attributes.keys.map(&:to_sym) - [:state, :locale]
+          %i[base_path states] + Edition.new.attributes.keys.map(&:to_sym) - %i[state locale]
       end
 
       def delete_all(document)

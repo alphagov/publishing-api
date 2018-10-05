@@ -6,8 +6,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
   let(:edition) do
     create(:draft_edition,
       base_path: base_path,
-      title: "Draft",
-    )
+      title: "Draft")
   end
 
   let(:content_id) { edition.content_id }
@@ -71,8 +70,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       create(:live_edition,
         base_path: base_path,
         document: edition.document,
-        title: "live",
-      )
+        title: "live")
     end
     let(:live_content_item_arguments) do
       arguments.merge("live_content_item_id" => live_edition.id)
@@ -95,8 +93,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       create(:live_edition,
         base_path: "/bar",
         document: edition.document,
-        title: "Live",
-      )
+        title: "Live")
     end
     let(:live_content_item_arguments) do
       arguments.merge("live_content_item_id" => live_edition.id)
@@ -146,8 +143,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       pathless = create(:draft_edition,
         base_path: nil,
         document_type: "contact",
-        schema_name: "contact"
-      )
+        schema_name: "contact")
       expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
       subject.perform(
         arguments.merge("content_id" => pathless.document.content_id, "base_path" => nil)

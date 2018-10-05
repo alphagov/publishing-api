@@ -1,9 +1,20 @@
+Lint/AmbiguousBlockAssociation:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+
 Lint/HandleExceptions:
   Exclude:
-    - "spec/**/*"
+    - spec/**/*
 
-AllCops:
-  TargetRubyVersion: 2.3
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - config/**/*
+    - lib/tasks/**/*
+    - "**/spec/**/*"
+  ExcludedMethods:
+    - namespace
 
 Style/ConditionalAssignment:
   Enabled: false

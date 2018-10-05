@@ -31,8 +31,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
       first_published_at: first_published_at,
       temporary_first_published_at: temporary_first_published_at,
       base_path: base_path,
-      major_published_at: major_published_at,
-    )
+      major_published_at: major_published_at)
   end
 
   let!(:link) do
