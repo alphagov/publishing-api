@@ -77,7 +77,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
   context "when first_published_at is in the payload" do
     it "allows the setting of first_published_at and publisher_first_published_at" do
-      explicit_first_published = Time.new(2016, 0o5, 23, 1, 1, 1).rfc3339
+      explicit_first_published = Time.new(2016, 5, 23, 1, 1, 1).rfc3339
       payload[:first_published_at] = explicit_first_published
 
       put "/v2/content/#{content_id}", params: payload.to_json
