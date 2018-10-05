@@ -897,8 +897,6 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    simplecov-rcov (0.2.3)
-      simplecov (>= 0.4.1)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
@@ -987,7 +985,6 @@ DEPENDENCIES
   rspec-rails (~> 3.8)
   sidekiq-unique-jobs!
   simplecov (= 0.16.1)
-  simplecov-rcov (= 0.2.3)
   spring
   spring-commands-rspec
   stackprof

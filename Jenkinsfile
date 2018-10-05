@@ -47,9 +47,9 @@ def publishCoverage(_govuk) {
       allowMissing: false,
       alwaysLinkToLastBuild: false,
       keepAll: true,
-      reportDir: "coverage/rcov",
+      reportDir: "coverage",
       reportFiles: "index.html",
-      reportName: "RCov Report"
+      reportName: "Coverage Report"
     ])
   }
 }
