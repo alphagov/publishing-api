@@ -7,19 +7,11 @@ class LinkExpansion::EditionDiff
     @version = version
   end
 
-  def field_diff
-    link_expansion_fields & diff.map(&:first)
-  end
-
   def should_update_dependencies?
-    field_diff.present?
+    diff.present?
   end
 
 private
-
-  def link_expansion_fields
-    ExpansionRules.potential_expansion_fields(current_edition.document_type)
-  end
 
   def diff
     hash_diff(

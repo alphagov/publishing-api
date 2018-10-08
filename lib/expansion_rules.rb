@@ -126,12 +126,6 @@ module ExpansionRules
       DEFAULT_FIELDS
   end
 
-  def potential_expansion_fields(document_type)
-    (find_custom_expansion_fields(document_type) || DEFAULT_FIELDS).map do |field|
-      Array(field).first
-    end
-  end
-
   module HashWithDigSet
     refine Hash do
       def dig_set(keys, value)
