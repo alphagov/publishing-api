@@ -154,7 +154,7 @@ module Commands
       end
 
       def update_dependencies?(edition)
-        EditionDiff.new(edition, previous_edition: @previous_edition).field_diff.present?
+        LinkExpansion::EditionDiff.new(edition, previous_edition: @previous_edition).should_update_dependencies?
       end
 
       def send_downstream(content_id, locale, update_dependencies, orphaned_links)
