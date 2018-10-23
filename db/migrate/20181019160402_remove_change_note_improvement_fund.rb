@@ -7,27 +7,30 @@
 
 class RemoveChangeNoteImprovementFund < ActiveRecord::Migration[5.1]
   disable_ddl_transaction!
-  
+
+  change_note_to_delete = "Application round for 2019 to 2020 funding now open."
+
   def up
-    # Find change notes
-    d = Document.where(content_id: "6022c077-7631-11e4-a3cb-005056011aef").first
-    if d.present?
-      change_notes = d.editions.map(&:change_note).compact
-      change_notes.select!{ |change_note| change_note.note == "Application round for 2019 to 2020 funding now open."}
-  
-      # Get rid of change notes
-      change_notes.map(&:destroy)
-  
-      # Re-present editions to content store
-      content_ids = change_notes.map { |change_note| change_note.edition.content_id }
-      puts "The editions that need to be represented downstream are: #{content_ids}"
-  
-      if Rails.env.production?
-        Commands::V2::RepresentDownstream.new.call(content_ids)
+    # Find document
+    document = Document.where(content_id: "5f623c6e-7631-11e4-a3cb-005056011aef").first
+
+    if document.present?
+      edition_id = document.live.id
+      edition = Edition.find(edition_id)
+
+      if edition.present?
+        edition_details = edition.details
+        new_details = edition_details
+        new_details[:change_history] = new_details[:change_history].delete_if { |history| history[:note] == change_note_to_delete }
+        edition.update!(details: new_details)
+
+        if Rails.env.production?
+          Commands::V2::RepresentDownstream.new.call(document.content_id)
+        end
       end
     end
   end
-  
+
   def down
     # This migration is not reversible
   end
