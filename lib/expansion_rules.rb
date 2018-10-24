@@ -57,7 +57,7 @@ module ExpansionRules
   CUSTOM_EXPANSION_FIELDS = [
     { document_type: :redirect,                   fields: [] },
     { document_type: :gone,                       fields: [] },
-    { document_type: :contact,                    fields: DEFAULT_FIELDS + [%i(details description), %i(details contact_type), %i(details title), %i(details contact_form_links), %i(details post_addresses), %i(details email_addresses), %i(details phone_numbers)] },
+    { document_type: :contact,                    fields: DEFAULT_FIELDS + [%i(details description), %i(details title), %i(details contact_form_links), %i(details post_addresses), %i(details email_addresses), %i(details phone_numbers)] },
     { document_type: :topical_event,              fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :placeholder_topical_event,  fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :organisation,               fields: ORGANISATION_FIELDS },
