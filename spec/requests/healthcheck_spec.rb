@@ -9,16 +9,16 @@ RSpec.describe "/healthcheck", type: :request do
     get "/healthcheck"
 
     expect(response.status).to eq(200)
-    expect(data.fetch(:status)).to eq("ok")
+    expect(data.keys).to include(:checks, :status)
   end
 
-  it "includes useful information about each check" do
+  it "includes each check" do
     get "/healthcheck"
 
-    expect(data.fetch(:checks)).to include(
-      database_connectivity: { status: "ok" },
-      redis_connectivity:    { status: "ok" },
-      sidekiq_queue_latency: hash_including(status: "ok"),
+    expect(data.fetch(:checks).keys).to include(
+      :database_connectivity,
+      :redis_connectivity,
+      :sidekiq_queue_latency
     )
   end
 end
