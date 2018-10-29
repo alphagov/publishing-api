@@ -11,6 +11,10 @@ module ExpansionRules
 
   using RecurringLinks
 
+  def details_fields(*fields)
+    fields.map { |field| [:details, field] }
+  end
+
   MULTI_LEVEL_LINK_PATHS = [
     [:associated_taxons.recurring],
     [:child_taxons, :associated_taxons.recurring],
@@ -52,12 +56,12 @@ module ExpansionRules
   ].freeze
 
   DEFAULT_FIELDS_WITH_DETAILS = (DEFAULT_FIELDS + [:details]).freeze
-  ORGANISATION_FIELDS = (DEFAULT_FIELDS + [[:details, :logo], [:details, :brand]]).freeze
+  ORGANISATION_FIELDS = (DEFAULT_FIELDS + details_fields(:logo, :brand)).freeze
 
   CUSTOM_EXPANSION_FIELDS = [
     { document_type: :redirect,                   fields: [] },
     { document_type: :gone,                       fields: [] },
-    { document_type: :contact,                    fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :contact,                    fields: (DEFAULT_FIELDS + details_fields(:description, :title, :contact_form_links, :post_addresses, :email_addresses, :phone_numbers)) },
     { document_type: :topical_event,              fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :placeholder_topical_event,  fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :organisation,               fields: ORGANISATION_FIELDS },
@@ -66,7 +70,7 @@ module ExpansionRules
     { document_type: :need,                       fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :finder, link_type: :finder, fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :step_by_step_nav,           fields: DEFAULT_FIELDS_WITH_DETAILS },
-    { document_type: :travel_advice,              fields: DEFAULT_FIELDS + [[:details, :country], [:details, :change_description]] },
+    { document_type: :travel_advice,              fields: (DEFAULT_FIELDS + details_fields(:country, :change_description)) },
     { document_type: :world_location,             fields: [:content_id, :title, :schema_name, :locale, :analytics_identifier] },
   ].freeze
 

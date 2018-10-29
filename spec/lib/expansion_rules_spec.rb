@@ -48,7 +48,7 @@ RSpec.describe ExpansionRules do
 
     specify { expect(rules.expansion_fields(:parent)).to eq(default_fields) }
 
-    specify { expect(rules.expansion_fields(:contact)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:contact)).to eq(default_fields + [%i(details description), %i(details title), %i(details contact_form_links), %i(details post_addresses), %i(details email_addresses), %i(details phone_numbers)]) }
     specify { expect(rules.expansion_fields(:need)).to eq(default_and_details_fields) }
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
