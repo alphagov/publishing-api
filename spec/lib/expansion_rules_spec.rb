@@ -52,9 +52,9 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:need)).to eq(default_and_details_fields) }
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
-    specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_fields) }
     specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(default_and_details_fields) }
-    specify { expect(rules.expansion_fields(:topical_event)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
 
     specify { expect(rules.expansion_fields(:taxon)).to eq(default_and_details_fields + [:phase]) }
     specify { expect(rules.expansion_fields(:travel_advice)).to eq(default_fields + [%i(details country), %i(details change_description)]) }
