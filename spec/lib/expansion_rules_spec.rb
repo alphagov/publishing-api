@@ -42,6 +42,7 @@ RSpec.describe ExpansionRules do
     let(:default_fields) { rules::DEFAULT_FIELDS }
     let(:default_and_details_fields) { default_fields + [:details] }
     let(:organisation_fields) { default_fields + [%i(details logo), %i(details brand)] }
+    let(:finder_fields) { default_fields + [%i(details facets)] }
 
     specify { expect(rules.expansion_fields(:redirect)).to eq([]) }
     specify { expect(rules.expansion_fields(:gone)).to eq([]) }
@@ -60,7 +61,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:travel_advice)).to eq(default_fields + [%i(details country), %i(details change_description)]) }
     specify { expect(rules.expansion_fields(:world_location)).to eq(%i(content_id title schema_name locale analytics_identifier)) }
 
-    specify { expect(rules.expansion_fields(:finder, :finder)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:finder, :finder)).to eq(finder_fields) }
     specify { expect(rules.expansion_fields(:parent, :finder)).to eq(default_fields) }
   end
 
