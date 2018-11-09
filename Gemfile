@@ -25,7 +25,7 @@ gem "govuk_sidekiq", "~> 3.0"
 gem "aws-sdk", "~> 3"
 gem 'bunny', '~> 2.12'
 gem "diffy", "~> 3.2", require: false
-gem "govspeak", "~> 5.6.0"
+gem "govspeak", "~> 5.7.0"
 gem "hashdiff", "~> 0.3.6"
 gem "json-schema", require: false
 # We can't use v5 of this because it requires redis 3 and we use 2.8
