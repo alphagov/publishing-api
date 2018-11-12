@@ -57,6 +57,7 @@ module ExpansionRules
 
   DEFAULT_FIELDS_WITH_DETAILS = (DEFAULT_FIELDS + [:details]).freeze
   ORGANISATION_FIELDS = (DEFAULT_FIELDS + details_fields(:logo, :brand)).freeze
+  FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
 
   CUSTOM_EXPANSION_FIELDS = [
     { document_type: :redirect,                   fields: [] },
@@ -68,7 +69,7 @@ module ExpansionRules
     { document_type: :placeholder_organisation,   fields: ORGANISATION_FIELDS },
     { document_type: :taxon,                      fields: DEFAULT_FIELDS_WITH_DETAILS + [:phase] },
     { document_type: :need,                       fields: DEFAULT_FIELDS_WITH_DETAILS },
-    { document_type: :finder, link_type: :finder, fields: DEFAULT_FIELDS_WITH_DETAILS },
+    { document_type: :finder, link_type: :finder, fields: FINDER_FIELDS },
     { document_type: :step_by_step_nav,           fields: DEFAULT_FIELDS_WITH_DETAILS },
     { document_type: :travel_advice,              fields: (DEFAULT_FIELDS + details_fields(:country, :change_description)) },
     { document_type: :world_location,             fields: [:content_id, :title, :schema_name, :locale, :analytics_identifier] },
