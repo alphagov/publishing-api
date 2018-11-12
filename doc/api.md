@@ -611,7 +611,7 @@ parameters.
     first_published_at, last_edited_at, phase, public_updated_at,
     publishing_app, redirects, rendering_app, routes, schema_name,
     state, title, user_facing_version, update_type, state, content_id,
-    locale, stale_lock_version, updated_at, created_at
+    locale, stale_lock_version, updated_at, created_at, links
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - `locale` *(optional)*
@@ -621,7 +621,7 @@ parameters.
   - The field to sort the results by.
   - Returned in an ascending order unless prefixed with a hyphen, e.g.
     "-created_at".
-  - Accepts fields of: updated_at, public_updated_at, created_at
+  - Accepts fields of: updated_at, public_updated_at, created_at, id
 - `before` and `after` *(optional)*
   - The pagination key of the previous page to pagination before or after.
   - Usually, you do not need to work this out manually, since it will be given
