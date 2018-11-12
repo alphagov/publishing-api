@@ -33,13 +33,23 @@ module Queries
     end
 
     def query_link_set_links
-      Link
-        .joins(:link_set)
-        .joins("INNER JOIN documents ON documents.content_id = link_sets.content_id")
-        .joins("INNER JOIN editions ON editions.document_id = documents.id")
-        .where("editions.id": edition_ids)
-        .order("editions.id", :link_type, :position)
-        .pluck("editions.id", :link_type, :target_content_id)
+      # This may seem strange to be 3 queries but it was 10-100x more performant
+      # than a single one which seemed to struggle on joining link_sets.content_id
+      edition_id_content_id = Edition.with_document.where(id: edition_ids).pluck(:id, :content_id).to_h
+      content_ids = edition_id_content_id.map(&:last)
+      content_id_link_set_id = LinkSet.where(content_id: content_ids).pluck(:content_id, :id).to_h
+      links = Link
+                .where(link_set_id: content_id_link_set_id.map(&:last))
+                .order(:link_set_id, :link_type, :position)
+                .pluck(:link_set_id, :link_type, :target_content_id)
+                .group_by(&:first)
+
+      edition_id_content_id.flat_map do |(edition_id, content_id)|
+        link_set_id = content_id_link_set_id[content_id]
+        links.fetch(link_set_id, []).map do |(_, link_type, target_content_id)|
+          [edition_id, link_type, target_content_id]
+        end
+      end
     end
 
     def group_by_edition_id_and_link_type(links)
