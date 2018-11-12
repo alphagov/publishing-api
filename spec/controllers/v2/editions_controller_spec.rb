@@ -186,5 +186,25 @@ RSpec.describe V2::EditionsController do
         ])
       end
     end
+
+    context "when there are links" do
+      let!(:link) do
+        create(:link, edition_id: Edition.first.id, link_set: nil, link_type: "test")
+      end
+
+      it "can include links in response" do
+        get :index, params: { fields: %w(content_id links), per_page: 1, order: "id" }
+        expect(parsed_response["results"].first.keys)
+          .to eq(%w(content_id links))
+        expect(parsed_response["results"].first["links"]).to match(
+          "test" => [link.target_content_id]
+        )
+      end
+
+      it "doesn't include links by default" do
+        get :index
+        expect(parsed_response["results"].first.keys).not_to include("links")
+      end
+    end
   end
 end
