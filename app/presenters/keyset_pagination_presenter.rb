@@ -1,7 +1,7 @@
 module Presenters
   class KeysetPaginationPresenter
     def initialize(pagination_query, request_url)
-      @results = pagination_query.call
+      @results = pagination_query.results
       @pagination_query = pagination_query
       @request_url = request_url.to_s
     end
