@@ -43,6 +43,7 @@ RSpec.describe ExpansionRules do
     let(:default_and_details_fields) { default_fields + [:details] }
     let(:organisation_fields) { default_fields + [%i(details logo), %i(details brand)] }
     let(:finder_fields) { default_fields + [%i(details facets)] }
+    let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
 
     specify { expect(rules.expansion_fields(:redirect)).to eq([]) }
     specify { expect(rules.expansion_fields(:gone)).to eq([]) }
@@ -50,7 +51,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:parent)).to eq(default_fields) }
 
     specify { expect(rules.expansion_fields(:contact)).to eq(default_fields + [%i(details description), %i(details title), %i(details contact_form_links), %i(details post_addresses), %i(details email_addresses), %i(details phone_numbers)]) }
-    specify { expect(rules.expansion_fields(:need)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:need)).to eq(need_fields) }
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_fields) }
