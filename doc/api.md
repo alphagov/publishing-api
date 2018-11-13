@@ -124,8 +124,6 @@ presented edition and [warnings](#warnings).
 - `locale` *(optional, default: "en")*
   - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
   - Specifies the locale of the edition.
-- `need_ids` *(optional, deprecated)*
-  - An array of user need ids from the [Maslow application][maslow-repo]
 - `phase` *(optional, default: "live")*
   - Accepts: "alpha", "beta", "live"
 - `previous_version` *(optional, recommended)*

@@ -9,7 +9,6 @@ module Presenters
       id
       last_edited_at
       major_published_at
-      need_ids
       published_at
       publisher_first_published_at
       publisher_major_published_at
