@@ -14,6 +14,7 @@ module Queries
   # example, `GetEditions` uses [date, id].
   class KeysetPagination
     attr_reader :client, :order, :pagination_key, :per_page, :previous
+    delegate :any?, :empty?, to: :ordered_initial_results
 
     def initialize(client, params)
       @client = client
@@ -42,47 +43,43 @@ module Queries
       end
     end
 
-    def call
-      results
+    def results
+      @results ||= client.post_pagination(ordered_initial_results)
     end
 
     def next_before_key
-      key_for_record(results.first)
+      key_for_record(ordered_initial_results.first)
     end
 
     def next_after_key
-      key_for_record(results.last)
+      key_for_record(ordered_initial_results.last)
     end
 
     def is_first_page?
-      @is_first_page ||= results.empty? ||
+      @is_first_page ||= ordered_initial_results.empty? ||
         KeysetPagination.new(
           client, per_page: 1, before: next_before_key
-        ).call.empty?
+        ).empty?
     end
 
     def is_last_page?
-      @is_last_page ||= results.empty? ||
+      @is_last_page ||= ordered_initial_results.empty? ||
         KeysetPagination.new(
           client, per_page: 1, after: next_after_key
-        ).call.empty?
+        ).empty?
     end
 
     def key_fields
-      pagination_key.keys.map(&:to_s)
+      pagination_key.keys
     end
 
     def presented_fields
-      client.fields
+      client.initial_query_fields
     end
 
   private
 
     attr_reader :direction
-
-    def results
-      @results ||= ordered_results
-    end
 
     def key_for_record(record)
       key_fields.map do |k|
@@ -92,15 +89,15 @@ module Queries
       end
     end
 
-    def ordered_results
-      if direction == :backwards
-        plucked_results.reverse
-      else
-        plucked_results
-      end
+    def ordered_initial_results
+      @ordered_initial_results ||= if direction == :backwards
+                                     pluck_results.reverse
+                                   else
+                                     pluck_results
+                                   end
     end
 
-    def plucked_results
+    def pluck_results
       paginated_query.pluck(*fields).map do |record|
         Hash[fields.zip(record)]
       end
@@ -111,7 +108,7 @@ module Queries
     end
 
     def paginated_query
-      paginated_query = client.call.order(order_clause)
+      paginated_query = client.initial_query.order(order_clause)
       paginated_query = paginated_query.where(where_clause, *previous) if previous
       paginated_query.limit(per_page)
     end
