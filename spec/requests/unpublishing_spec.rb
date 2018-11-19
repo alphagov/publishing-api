@@ -198,6 +198,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           base_path: base_path,
           document_type: "gone",
           schema_name: "gone",
+          locale: "en",
           publishing_app: edition.publishing_app,
           details: {
             explanation: "Test gone",
