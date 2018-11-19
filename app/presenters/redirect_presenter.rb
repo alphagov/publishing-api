@@ -1,10 +1,11 @@
 class RedirectPresenter
-  def initialize(base_path:, content_id:, publishing_app:, public_updated_at: nil, redirects:)
+  def initialize(base_path:, content_id:, publishing_app:, public_updated_at: nil, redirects:, locale:)
     @base_path = base_path
     @content_id = content_id
     @publishing_app = publishing_app
     @public_updated_at = public_updated_at
     @redirects = redirects
+    @locale = locale
   end
 
   def self.from_edition(edition)
@@ -14,6 +15,7 @@ class RedirectPresenter
       publishing_app: edition.publishing_app,
       public_updated_at: edition.unpublishing.created_at,
       redirects: edition.unpublishing.redirects,
+      locale: edition.locale,
     )
   end
 
@@ -43,6 +45,7 @@ private
                     document_type: "redirect",
                     schema_name: "redirect",
                     base_path: base_path,
+                    locale: locale,
                     publishing_app: publishing_app,
                     redirects: redirects,
                  }
