@@ -60,7 +60,7 @@ namespace :queue do
 
     raise(StandardError, "expecting action") unless action.present?
 
-    if action =~ /major/
+    if /major/.match?(action)
       raise(StandardError, "resending major updates is a bad idea: it will spam everyone with email alerts")
     end
 

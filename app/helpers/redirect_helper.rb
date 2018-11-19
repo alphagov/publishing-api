@@ -15,6 +15,7 @@ module RedirectHelper
       redirect_payload = RedirectPresenter.new(
         base_path: previous_base_path,
         content_id: previous_content_id,
+        locale: owning_document.locale,
         redirects: redirects_for(previous_routes, previous_base_path, payload[:base_path]),
         publishing_app: payload[:publishing_app],
       ).for_redirect_helper(SecureRandom.uuid)
