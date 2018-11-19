@@ -1,5 +1,5 @@
 class VanishPresenter
-  def initialize(base_path:, content_id:, publishing_app:)
+  def initialize(base_path:, content_id:, publishing_app:, locale:)
     @base_path = base_path
     @publishing_app = publishing_app
     @content_id = content_id
@@ -10,6 +10,7 @@ class VanishPresenter
     new(
       base_path: edition.base_path,
       content_id: edition.content_id,
+      locale: edition.locale,
       publishing_app: edition.publishing_app,
     )
   end
@@ -35,6 +36,7 @@ private
       document_type: "vanish",
       schema_name: "vanish",
       base_path: base_path,
+      locale: locale,
       publishing_app: publishing_app,
     }
   end
