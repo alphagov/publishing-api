@@ -56,7 +56,7 @@ module ExpansionRules
   ].freeze
 
   DEFAULT_FIELDS_WITH_DETAILS = (DEFAULT_FIELDS + [:details]).freeze
-  ORGANISATION_FIELDS = (DEFAULT_FIELDS + details_fields(:logo, :brand)).freeze
+  ORGANISATION_FIELDS = (DEFAULT_FIELDS - [:public_updated_at] + details_fields(:logo, :brand)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
 
