@@ -41,7 +41,7 @@ RSpec.describe ExpansionRules do
   describe ".expansion_fields" do
     let(:default_fields) { rules::DEFAULT_FIELDS }
     let(:default_and_details_fields) { default_fields + [:details] }
-    let(:organisation_fields) { default_fields - [:public_updated_at] + [%i(details logo), %i(details brand)] }
+    let(:organisation_fields) { default_fields - [:public_updated_at] + [%i(details logo), %i(details brand), %i(details default_news_image)] }
     let(:finder_fields) { default_fields + [%i(details facets)] }
     let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
 
