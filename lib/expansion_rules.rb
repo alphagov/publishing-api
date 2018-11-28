@@ -56,24 +56,29 @@ module ExpansionRules
   ].freeze
 
   DEFAULT_FIELDS_WITH_DETAILS = (DEFAULT_FIELDS + [:details]).freeze
+
+  CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :title, :contact_form_links, :post_addresses, :email_addresses, :phone_numbers)).freeze
   ORGANISATION_FIELDS = (DEFAULT_FIELDS - [:public_updated_at] + details_fields(:logo, :brand, :default_news_image)).freeze
-  FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
+  TAXON_FIELDS = (DEFAULT_FIELDS_WITH_DETAILS + [:phase]).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
+  FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
+  TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
+  WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
 
   CUSTOM_EXPANSION_FIELDS = [
     { document_type: :redirect,                   fields: [] },
     { document_type: :gone,                       fields: [] },
-    { document_type: :contact,                    fields: (DEFAULT_FIELDS + details_fields(:description, :title, :contact_form_links, :post_addresses, :email_addresses, :phone_numbers)) },
+    { document_type: :contact,                    fields: CONTACT_FIELDS },
     { document_type: :topical_event,              fields: DEFAULT_FIELDS },
     { document_type: :placeholder_topical_event,  fields: DEFAULT_FIELDS },
     { document_type: :organisation,               fields: ORGANISATION_FIELDS },
     { document_type: :placeholder_organisation,   fields: ORGANISATION_FIELDS },
-    { document_type: :taxon,                      fields: DEFAULT_FIELDS_WITH_DETAILS + [:phase] },
+    { document_type: :taxon,                      fields: TAXON_FIELDS },
     { document_type: :need,                       fields: NEED_FIELDS },
     { document_type: :finder, link_type: :finder, fields: FINDER_FIELDS },
     { document_type: :step_by_step_nav,           fields: DEFAULT_FIELDS_WITH_DETAILS },
-    { document_type: :travel_advice,              fields: (DEFAULT_FIELDS + details_fields(:country, :change_description)) },
-    { document_type: :world_location,             fields: [:content_id, :title, :schema_name, :locale, :analytics_identifier] },
+    { document_type: :travel_advice,              fields: TRAVEL_ADVICE_FIELDS },
+    { document_type: :world_location,             fields: WORLD_LOCATION_FIELDS },
   ].freeze
 
   POSSIBLE_FIELDS_FOR_LINK_EXPANSION = DEFAULT_FIELDS_WITH_DETAILS +
