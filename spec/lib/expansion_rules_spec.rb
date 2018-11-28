@@ -40,12 +40,12 @@ RSpec.describe ExpansionRules do
 
   describe ".expansion_fields" do
     let(:default_fields) { rules::DEFAULT_FIELDS }
-    let(:default_and_details_fields) { default_fields + [:details] }
     let(:contact_fields) { default_fields + [%i(details description), %i(details title), %i(details contact_form_links), %i(details post_addresses), %i(details email_addresses), %i(details phone_numbers)] }
     let(:organisation_fields) { default_fields - [:public_updated_at] + [%i(details logo), %i(details brand), %i(details default_news_image)] }
-    let(:taxon_fields) { default_and_details_fields + [:phase] }
+    let(:taxon_fields) { default_fields + %i(details phase) }
     let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
     let(:finder_fields) { default_fields + [%i(details facets)] }
+    let(:step_by_step_fields) { default_fields + [:details] }
     let(:travel_advice_fields) { default_fields + [%i(details country), %i(details change_description)] }
     let(:world_location_fields) { %i(content_id title schema_name locale analytics_identifier) }
 
@@ -59,7 +59,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_fields) }
-    specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(default_and_details_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(step_by_step_fields) }
     specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
 
     specify { expect(rules.expansion_fields(:taxon)).to eq(taxon_fields) }
