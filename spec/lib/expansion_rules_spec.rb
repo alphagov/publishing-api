@@ -45,7 +45,7 @@ RSpec.describe ExpansionRules do
     let(:taxon_fields) { default_fields + %i(details phase) }
     let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
     let(:finder_fields) { default_fields + [%i(details facets)] }
-    let(:step_by_step_fields) { default_fields + [:details] }
+    let(:step_by_step_fields) { default_fields + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)] }
     let(:travel_advice_fields) { default_fields + [%i(details country), %i(details change_description)] }
     let(:world_location_fields) { %i(content_id title schema_name locale analytics_identifier) }
 
