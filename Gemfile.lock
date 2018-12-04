@@ -592,7 +592,7 @@ GEM
       oj (~> 3.0)
     bindex (0.5.0)
     builder (3.2.3)
-    bunny (2.12.0)
+    bunny (2.12.1)
       amq-protocol (~> 2.3, >= 2.3.0)
     byebug (9.1.0)
     chronic (0.10.2)
