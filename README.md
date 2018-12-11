@@ -58,7 +58,7 @@ migration][data-migration].
 If you need to delete all traces of a document from the system:
 
 ```ruby
-require_relative "helpers/delete_content"
+require_relative "db/migrate/helpers/delete_content"
 
 class RemoveYourDocument < ActiveRecord::Migration
   # Remove /some/base-path
@@ -71,7 +71,7 @@ end
 If you need to delete a single edition:
 
 ```ruby
-require_relative "helpers/delete_content"
+require_relative "db/migrate/helpers/delete_content"
 
 class RemoveYourEdition < ActiveRecord::Migration
   def up
@@ -87,7 +87,7 @@ end
 If you need to delete just the links for a document:
 
 ```ruby
-require_relative "helpers/delete_content"
+require_relative "db/migrate/helpers/delete_content"
 
 class RemoveLinks < ActiveRecord::Migration
   # Remove /some/base-path
