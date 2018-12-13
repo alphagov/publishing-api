@@ -17,12 +17,18 @@ end
 
 PublishingAPI.register_service(
   name: :draft_content_store,
-  client: ContentStoreWriter.new(Plek.find('draft-content-store'))
+  client: ContentStoreWriter.new(
+    Plek.find('draft-content-store'),
+    { bearer_token: ENV['DRAFT_CONTENT_STORE_BEARER_TOKEN'] },
+  )
 )
 
 PublishingAPI.register_service(
   name: :live_content_store,
-  client: ContentStoreWriter.new(Plek.find('content-store'))
+  client: ContentStoreWriter.new(
+    Plek.find('content-store'),
+    { bearer_token: ENV['CONTENT_STORE_BEARER_TOKEN'] },
+  )
 )
 
 if ENV['DISABLE_QUEUE_PUBLISHER'] || (Rails.env.test? && ENV['ENABLE_QUEUE_IN_TEST_MODE'].blank?)
