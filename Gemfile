@@ -13,7 +13,7 @@ gem "plek", "~> 2.1"
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else
-  gem 'gds-api-adapters', "~> 55.0.0"
+  gem 'gds-api-adapters', "~> 55.0.1"
 end
 
 gem "gds-sso", "~> 14.0"
