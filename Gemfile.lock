@@ -612,7 +612,7 @@ GEM
     docile (1.3.0)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
-    erubi (1.7.1)
+    erubi (1.8.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
     factory_bot_rails (4.11.1)
@@ -642,7 +642,7 @@ GEM
       warden-oauth2 (~> 0.0.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    govspeak (5.8.0)
+    govspeak (5.9.0)
       actionview (~> 5.0)
       addressable (>= 2.3.8, < 3)
       commander (~> 4.4)
@@ -719,7 +719,7 @@ GEM
     multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (2.3.1)
-    nokogiri (1.9.0)
+    nokogiri (1.9.1)
       mini_portile2 (~> 2.4.0)
     nokogumbo (1.5.0)
       nokogiri
@@ -966,7 +966,7 @@ DEPENDENCIES
   faker
   gds-api-adapters (~> 55.0.2)
   gds-sso (~> 14.0)
-  govspeak (~> 5.8.0)
+  govspeak (~> 5.9.0)
   govuk-content-schema-test-helpers (~> 1.6)
   govuk-lint
   govuk_app_config (~> 1.9)
