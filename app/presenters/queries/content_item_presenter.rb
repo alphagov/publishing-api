@@ -98,7 +98,7 @@ module Presenters
       def state_order_clause
         priorities = { draft: 0, published: 1, unpublished: 1, superseded: 2 }.slice(*states)
         return unless priorities.values.uniq.count > 1
-        "CASE state #{priorities.map { |k, v| "WHEN '#{k}' THEN #{v} " }.join} END"
+        Arel.sql("CASE state #{priorities.map { |k, v| "WHEN '#{k}' THEN #{v} " }.join} END")
       end
 
       def field_selector(field)

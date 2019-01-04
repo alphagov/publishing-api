@@ -182,7 +182,7 @@ module Commands
       def get_base_path_content_store_pairs(document)
         document.editions.where(
           state: %w(draft published unpublished)
-        ).group(:base_path).pluck(:base_path, "ARRAY_AGG(content_store)")
+        ).group(:base_path).pluck(:base_path, Arel.sql("ARRAY_AGG(content_store)"))
       end
 
       def draft_content_store_base_paths_to_discard(
