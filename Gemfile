@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "arel", "8.0"
-gem "rails", "5.1"
+gem "arel", "~> 9"
+gem "rails", "~> 5"
 
 gem "colorize", "~> 0.8"
 gem 'dalli'
