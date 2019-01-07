@@ -405,8 +405,7 @@ RSpec.describe V2::ContentItemsController do
           "routes" => [{ "path" => "/that-rates", "type" => "exact" }],
         )
         request.env["CONTENT_TYPE"] = "application/json"
-        request.env["RAW_POST_DATA"] = edition_hash.to_json
-        put :put_content, params: { content_id: SecureRandom.uuid }
+        put :put_content, params: { content_id: SecureRandom.uuid }, body: edition_hash.to_json
       end
 
       it "responds with 200" do
@@ -427,8 +426,7 @@ RSpec.describe V2::ContentItemsController do
         )
 
         request.env["CONTENT_TYPE"] = "application/json"
-        request.env["RAW_POST_DATA"] = edition_hash.to_json
-        put :put_content, params: { content_id: content_id }
+        put :put_content, params: { content_id: content_id }, body: edition_hash.to_json
       end
 
       it "responds with 200" do
@@ -471,8 +469,7 @@ RSpec.describe V2::ContentItemsController do
     context "for a non-existent edition" do
       it "responds with 404" do
         request.env["CONTENT_TYPE"] = "application/json"
-        request.env["RAW_POST_DATA"] = { update_type: "major" }.to_json
-        post :publish, params: { content_id: SecureRandom.uuid }
+        post :publish, params: { content_id: SecureRandom.uuid }, body: { update_type: "major" }.to_json
 
         expect(response.status).to eq(404)
       end

@@ -25,7 +25,7 @@ class LookupsController < ApplicationController
       .order(state: :desc)
 
     base_paths_and_content_ids = scope.pluck(
-      "distinct on (editions.base_path, editions.state) editions.base_path, documents.content_id"
+      Arel.sql("distinct on (editions.base_path, editions.state) editions.base_path, documents.content_id")
     )
 
     response = Hash[base_paths_and_content_ids]

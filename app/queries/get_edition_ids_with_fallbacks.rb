@@ -12,7 +12,7 @@ module Queries
         .order("documents.content_id ASC")
         .order(order_by_clause("editions", "state", state_ordering(state_fallback_order)))
         .order(order_by_clause("documents", "locale", locale_fallback_order))
-        .pluck("DISTINCT ON (documents.content_id) documents.content_id, editions.id")
+        .pluck(Arel.sql("DISTINCT ON (documents.content_id) documents.content_id, editions.id"))
         .map(&:last)
     end
 
@@ -43,6 +43,8 @@ module Queries
       sql = %{CASE "#{table}"."#{attribute}" }
       sql << values.map.with_index { |v, i| "WHEN '#{v}' THEN #{i}" }.join(" ")
       sql << " ELSE #{values.size} END"
+
+      Arel.sql(sql)
     end
     private_class_method :order_by_clause
 

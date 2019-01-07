@@ -8,8 +8,7 @@ RSpec.describe PathReservationsController, type: :controller do
       }
 
       it "responds successfully" do
-        request.env["RAW_POST_DATA"] = payload.to_json
-        post :reserve_path, params: { base_path: "foo" }
+        post :reserve_path, params: { base_path: "foo" }, body: payload.to_json
 
         expect(response.status).to eq(200)
       end
@@ -21,8 +20,7 @@ RSpec.describe PathReservationsController, type: :controller do
       }
 
       it "responds with status 422" do
-        request.env["RAW_POST_DATA"] = payload.to_json
-        post :reserve_path, params: { base_path: "///" }
+        post :reserve_path, params: { base_path: "///" }, body: payload.to_json
 
         expect(response.status).to eq(422)
       end

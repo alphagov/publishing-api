@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "arel", "8.0"
-gem "rails", "5.1"
+gem "arel", "~> 9"
+gem "rails", "~> 5"
 
 gem "colorize", "~> 0.8"
 gem 'dalli'
@@ -13,7 +13,7 @@ gem "plek", "~> 2.1"
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else
-  gem 'gds-api-adapters', "~> 55.0.2"
+  gem 'gds-api-adapters', "~> 56"
 end
 
 gem "gds-sso", "~> 14.0"

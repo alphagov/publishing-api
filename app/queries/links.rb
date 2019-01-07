@@ -196,7 +196,7 @@ module Queries
     end
 
     def children_field(where)
-      %{
+      Arel.sql(%{
         EXISTS(
           SELECT nested_links.id
           FROM links AS nested_links
@@ -205,7 +205,7 @@ module Queries
           WHERE #{where}
           LIMIT 1
         )
-      }
+      })
     end
 
     def and_not_parent(field)
