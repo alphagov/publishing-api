@@ -17,7 +17,7 @@ else
 end
 
 gem "gds-sso", "~> 14.0"
-gem "govuk_app_config", "~> 1.9"
+gem "govuk_app_config", "~> 1.11"
 gem "govuk_document_types", "~> 0.9.0"
 gem "govuk_schemas", "~> 3.2"
 gem "govuk_sidekiq", "~> 3.0"
