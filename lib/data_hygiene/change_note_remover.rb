@@ -49,6 +49,12 @@ module DataHygiene
     end
 
     def remove_change_history
+      # We need to do this for legacy reasons - some publishing apps,
+      # specifically Whitehall, sends the change history directly in
+      # the details hash and Publishing API won't regenerate it if it sees
+      # one already there. Instead of manually fixing it, we can remove it,
+      # forcing Publishing API to generate a new one when representing
+      # to the Content Store.
       edition = document.live
       edition_details = edition.details
       edition_details.delete(:change_history)

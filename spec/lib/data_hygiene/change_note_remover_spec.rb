@@ -60,7 +60,7 @@ RSpec.describe DataHygiene::ChangeNoteRemover do
       it "removes change_history from the edition" do
         live_edition.update!(details: { change_history: [1, 2, 3], something_else: true })
         call_change_note_remover
-        expect(live_edition.reload.details).to eq({ something_else: true })
+        expect(live_edition.reload.details).to eq(something_else: true)
       end
 
       it "represents to the content store" do
