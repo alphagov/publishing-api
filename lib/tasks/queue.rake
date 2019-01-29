@@ -3,7 +3,7 @@ MAX_IMPORT_QUEUE_SIZE = 1000
 namespace :queue do
   desc "Watch the queue, and print messages on the console"
   task watcher: :environment do
-    config = YAML.load_file(Rails.root.join("config", "rabbitmq.yml"))[Rails.env].symbolize_keys
+    config = Rails.application.config_for("rabbitmq").symbolize_keys
 
     conn = Bunny.new(config)
     conn.start
