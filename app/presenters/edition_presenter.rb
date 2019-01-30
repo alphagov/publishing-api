@@ -67,9 +67,8 @@ module Presenters
     attr_reader :draft, :edition
 
     def unexpanded_links
-      Queries::LinkSetPresenter.new(
-        LinkSet.find_by(content_id: edition.content_id)
-      ).links
+      links = ::Queries::LinksForEditionIds.new([edition.id]).merged_links
+      links[edition.id].symbolize_keys
     end
 
     def expanded_links_attributes
