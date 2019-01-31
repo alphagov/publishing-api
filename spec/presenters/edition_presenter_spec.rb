@@ -33,28 +33,11 @@ RSpec.describe Presenters::EditionPresenter do
         schema_name: "calendar",
         document_type: "calendar")
     }
-    let(:target_content_id) { "d16216ce-7487-4bde-b817-ef68317fe3ab" }
-
-    before do
-      link_set = create(
-        :link_set, content_id: edition.document.content_id
-      )
-      create(
-        :link,
-        target_content_id: target_content_id,
-        link_set: link_set,
-        link_type: "taxons"
-      )
-    end
 
     subject(:result) do
       described_class.new(
         edition, draft: present_drafts
       ).for_message_queue(payload_version)
-    end
-
-    it "presents the unexpanded links" do
-      expect(subject[:links]).to eq taxons: [target_content_id]
     end
 
     it "mixes in the specified update_type to the presentation" do
@@ -71,6 +54,32 @@ RSpec.describe Presenters::EditionPresenter do
 
     it "matches the notification schema" do
       expect(subject).to be_valid_against_schema("calendar")
+    end
+
+    context "when there are links" do
+      let!(:taxons_link) do
+        create(
+          :link,
+          target_content_id: SecureRandom.uuid,
+          link_set: create(:link_set, content_id: edition.content_id),
+          link_type: "taxons"
+        )
+      end
+
+      let!(:editions_link) do
+        create(
+          :link,
+          target_content_id: SecureRandom.uuid,
+          link_set: nil,
+          edition: edition,
+          link_type: "editions"
+        )
+      end
+
+      it "presents the unexpanded links" do
+        expect(subject[:links]).to match(taxons: [taxons_link.target_content_id],
+                                         editions: [editions_link.target_content_id])
+      end
     end
   end
 
