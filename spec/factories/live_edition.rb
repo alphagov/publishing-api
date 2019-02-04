@@ -23,6 +23,12 @@ FactoryBot.define do
     trait :with_draft_version do
       with_draft
     end
+
+    after(:create) do |live_edition, evaluator|
+      unless evaluator.published_at
+        live_edition.update!(published_at: live_edition.created_at)
+      end
+    end
   end
 
   factory :redirect_live_edition, parent: :live_edition do
