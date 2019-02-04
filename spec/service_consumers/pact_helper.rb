@@ -501,10 +501,10 @@ Pact.provider_states_for "GDS API Adapters" do
       document3 = create(:document, content_id: '271d4270-9186-4d60-b2ca-1d7dae7e0f73')
       document4 = create(:document, content_id: '638af19c-27fc-4cc9-a914-4cca49028688')
 
-      create(:live_edition, base_path: '/1', document: document1, updated_at: '2017-01-01T00:00:00Z')
-      create(:live_edition, base_path: '/2', document: document2, updated_at: '2017-02-01T00:00:00Z')
-      create(:live_edition, base_path: '/3', document: document3, updated_at: '2017-03-01T00:00:00Z')
-      create(:live_edition, base_path: '/4', document: document4, updated_at: '2017-04-01T00:00:00Z')
+      create(:live_edition, base_path: '/1', document: document1, updated_at: '2017-01-01T00:00:00Z', published_at: '2017-01-01T00:00:00Z')
+      create(:live_edition, base_path: '/2', document: document2, updated_at: '2017-02-01T00:00:00Z', published_at: '2017-02-01T00:00:00Z')
+      create(:live_edition, base_path: '/3', document: document3, updated_at: '2017-03-01T00:00:00Z', published_at: '2017-03-01T00:00:00Z')
+      create(:live_edition, base_path: '/4', document: document4, updated_at: '2017-04-01T00:00:00Z', published_at: '2017-04-01T00:00:00Z')
     end
   end
 end
