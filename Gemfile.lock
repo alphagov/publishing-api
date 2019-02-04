@@ -600,6 +600,7 @@ GEM
       amq-protocol (~> 2.3, >= 2.3.0)
     byebug (9.1.0)
     chronic (0.10.2)
+    climate_control (0.2.0)
     coderay (1.1.2)
     colorize (0.8.1)
     commander (4.4.7)
@@ -967,6 +968,7 @@ DEPENDENCIES
   arel (~> 9)
   aws-sdk (~> 3)
   bunny (~> 2.13)
+  climate_control (~> 0.2)
   colorize (~> 0.8)
   dalli
   database_cleaner

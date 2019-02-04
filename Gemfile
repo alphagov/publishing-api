@@ -44,6 +44,7 @@ end
 gem "oj", "~> 3.7"
 
 group :development, :test do
+  gem "climate_control", "~> 0.2"
   gem "database_cleaner"
   gem "factory_bot_rails", "~> 4.11"
   gem "faker"
