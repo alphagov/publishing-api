@@ -8,6 +8,7 @@ FactoryBot.define do
     public_updated_at { "2014-05-14T13:00:06Z" }
     first_published_at { "2014-01-02T03:04:05Z" }
     last_edited_at { "2014-05-14T13:00:06Z" }
+    published_at { nil }
     publishing_app { "publisher" }
     rendering_app { "frontend" }
     details { {} }
