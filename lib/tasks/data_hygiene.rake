@@ -26,7 +26,7 @@ namespace :data_hygiene do
 
   desc "Check the status of a document whether it's in Content Store or Router."
   task :document_status_check, %i[content_id locale] => :environment do |_, args|
-    document = Document.find_by!(args)
+    document = Document.find_by!(args.to_hash)
     status = DataHygiene::DocumentStatusChecker.new(document)
 
     content_store = status.content_store?
