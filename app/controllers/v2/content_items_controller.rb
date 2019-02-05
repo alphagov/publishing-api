@@ -47,6 +47,11 @@ module V2
       render status: response.code, json: response
     end
 
+    def republish
+      response = Commands::V2::Republish.call(edition)
+      render status: response.code, json: response
+    end
+
     def unpublish
       response = Commands::V2::Unpublish.call(edition)
       render status: response.code, json: response

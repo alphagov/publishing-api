@@ -15,6 +15,10 @@ class Action < ActiveRecord::Base
     create_publishing_action("Publish", edition, locale, event)
   end
 
+  def self.create_republish_action(edition, locale, event)
+    create_publishing_action("Republish", edition, locale, event)
+  end
+
   def self.create_unpublish_action(edition, unpublishing_type, locale, event)
     action = "Unpublish#{unpublishing_type.camelize}"
     create_publishing_action(action, edition, locale, event)
