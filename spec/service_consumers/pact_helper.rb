@@ -23,9 +23,8 @@ Pact.service_provider "Publishing API" do
     else
       base_url = ENV.fetch("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
       url = "#{base_url}/pacts/provider/#{url_encode(name)}/consumer/#{url_encode(consumer_name)}"
-      version_part = ENV['GDS_API_PACT_VERSION'] ? "versions/#{url_encode(ENV['GDS_API_PACT_VERSION'])}" : 'latest'
 
-      pact_uri "#{url}/#{version_part}"
+      pact_uri "#{url}/versions/#{url_encode(ENV.fetch('GDS_API_PACT_VERSION', 'master'))}"
     end
   end
 end
