@@ -226,7 +226,7 @@ will be presented in the live content store. Uses
   - All published editions that link to this item (directly or through a
     recursive chain of links) will be updated in the live content store.
 
-## `POST /v2/content/:content_id/publish`
+## `POST /v2/content/:content_id/republish`
 
 Used to set a live edition to a published state, used to remove unpublishing
 or to re-send published data downstream. Uses
