@@ -12,6 +12,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 
 - [`PUT /v2/content/:content_id`](#put-v2contentcontent_id)
 - [`POST /v2/content/:content_id/publish`](#post-v2contentcontent_idpublish)
+- [`POST /v2/content/:content_id/republish`](#post-v2contentcontent_idrepublish)
 - [`POST /v2/content/:content_id/unpublish`](#post-v2contentcontent_idunpublish)
 - [`POST /v2/content/:content_id/discard-draft`](#post-v2contentcontent_iddiscard-draft)
 - [`POST /v2/content/:content_id/import`](#post-v2contentcontent_idimport)
@@ -224,6 +225,36 @@ will be presented in the live content store. Uses
     associated redirects.
   - All published editions that link to this item (directly or through a
     recursive chain of links) will be updated in the live content store.
+
+## `POST /v2/content/:content_id/publish`
+
+Used to set a live edition to a published state, used to remove unpublishing
+or to re-send published data downstream. Uses
+[optimistic-locking](#optimistic-locking-previous_version).
+
+### Path parameters
+
+- [`content_id`](model.md#content_id)
+  - Identifies the document which has an edition to republish.
+
+### JSON attributes
+
+- `locale` *(optional, default: "en")*
+  - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
+  - Specifies the locale of the document.
+- `previous_version` *(optional, recommended)*
+  - Used to ensure that the version being published is the most recent draft
+    update to the document.
+
+### State changes
+
+- Any unpublished editions will have their status set back to published
+- The publishing_request_id for an edition will be updated
+- The live content store will be updated with the published edition
+- The draft content store will be updated unless the document has a draft
+  edition
+- All published editions that link to this item (directly or through a
+  recursive chain of links) will be updated in the live content store.
 
 ## `POST /v2/content/:content_id/unpublish`
 

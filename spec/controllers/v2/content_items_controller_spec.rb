@@ -476,6 +476,32 @@ RSpec.describe V2::ContentItemsController do
     end
   end
 
+  describe "republish" do
+    context "for an existing live edition" do
+      let(:live_edition) { create(:live_edition) }
+      before do
+        put :republish, params: { content_id: live_edition.content_id }, body: {}.to_json
+      end
+
+      it "is successful" do
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with the content_id of the published item" do
+        parsed_response_body = parsed_response
+        expect(parsed_response_body).to eq("content_id" => live_edition.content_id)
+      end
+    end
+
+    context "for a non-existent edition" do
+      it "responds with 404" do
+        post :publish, params: { content_id: SecureRandom.uuid }, body: {}.to_json
+
+        expect(response.status).to eq(404)
+      end
+    end
+  end
+
   describe "index" do
     before do
       create(:draft_edition, publishing_app: 'publisher', base_path: '/content', document_type: "nonexistent-schema")
