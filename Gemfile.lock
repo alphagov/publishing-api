@@ -1009,5 +1009,8 @@ DEPENDENCIES
   whenever (= 0.10.0)
   with_advisory_lock (~> 4.0)
 
+RUBY VERSION
+   ruby 2.6.1p33
+
 BUNDLED WITH
-   1.16.6
+   1.17.3
