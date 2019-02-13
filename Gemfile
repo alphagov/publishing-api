@@ -46,7 +46,7 @@ gem "oj", "~> 3.7"
 group :development, :test do
   gem "climate_control", "~> 0.2"
   gem "database_cleaner"
-  gem "factory_bot_rails", "~> 4.11"
+  gem "factory_bot_rails", "~> 5.0"
   gem "faker"
   gem 'govuk-content-schema-test-helpers', "~> 1.6"
   gem "govuk-lint"
