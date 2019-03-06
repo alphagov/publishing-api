@@ -631,7 +631,7 @@ GEM
     filelock (1.1.1)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (57.4.1)
+    gds-api-adapters (57.4.2)
       addressable
       link_header
       null_logger
@@ -800,7 +800,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.3)
     rack (2.0.6)
-    rack-cache (1.8.0)
+    rack-cache (1.9.0)
       rack (>= 0.4)
     rack-protection (2.0.3)
       rack
