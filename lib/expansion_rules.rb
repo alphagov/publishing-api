@@ -27,7 +27,8 @@ module ExpansionRules
     [:taxons, :parent_taxons.recurring],
     [:taxons, :parent_taxons.recurring, :root_taxon],
     [:ordered_related_items, :mainstream_browse_pages, :parent.recurring],
-    [:ordered_related_items_overrides, :taxons]
+    [:ordered_related_items_overrides, :taxons],
+    [:facets, :facet_values, :facet_group],
   ].freeze
 
   REVERSE_LINKS = {
@@ -63,6 +64,9 @@ module ExpansionRules
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
+  FACET_GROUP_FIELDS = (%i[content_id title schema_name] + details_fields(:name, :description)).freeze
+  FACET_FIELDS = (%i[content_id title schema_name] + details_fields(:key)).freeze
+  FACET_VALUE_FIELDS = (%i[content_id title schema_name] + details_fields(:label, :value)).freeze
 
   CUSTOM_EXPANSION_FIELDS = [
     { document_type: :redirect,                   fields: [] },
@@ -78,6 +82,9 @@ module ExpansionRules
     { document_type: :step_by_step_nav,           fields: STEP_BY_STEP_FIELDS },
     { document_type: :travel_advice,              fields: TRAVEL_ADVICE_FIELDS },
     { document_type: :world_location,             fields: WORLD_LOCATION_FIELDS },
+    { document_type: :facet_group,                fields: FACET_GROUP_FIELDS },
+    { document_type: :facet,                      fields: FACET_FIELDS },
+    { document_type: :facet_value,                fields: FACET_VALUE_FIELDS },
   ].freeze
 
   POSSIBLE_FIELDS_FOR_LINK_EXPANSION = DEFAULT_FIELDS +
