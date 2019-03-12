@@ -29,6 +29,7 @@ module ExpansionRules
     [:ordered_related_items, :mainstream_browse_pages, :parent.recurring],
     [:ordered_related_items_overrides, :taxons],
     [:facets, :facet_values, :facet_group],
+    [:facet_group, :facets, :facet_values],
   ].freeze
 
   REVERSE_LINKS = {
