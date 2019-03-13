@@ -48,6 +48,9 @@ RSpec.describe ExpansionRules do
     let(:step_by_step_fields) { default_fields + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)] }
     let(:travel_advice_fields) { default_fields + [%i(details country), %i(details change_description)] }
     let(:world_location_fields) { %i(content_id title schema_name locale analytics_identifier) }
+    let(:facet_group_fields) { %i(content_id title schema_name) + [%i(details name), %i(details description)] }
+    let(:facet_fields) { %i(content_id title schema_name) + [%i(details key)] }
+    let(:facet_value_fields) { %i(content_id title schema_name) + [%i(details label), %i(details value)] }
 
     specify { expect(rules.expansion_fields(:redirect)).to eq([]) }
     specify { expect(rules.expansion_fields(:gone)).to eq([]) }
@@ -68,6 +71,10 @@ RSpec.describe ExpansionRules do
 
     specify { expect(rules.expansion_fields(:finder, :finder)).to eq(finder_fields) }
     specify { expect(rules.expansion_fields(:parent, :finder)).to eq(default_fields) }
+
+    specify { expect(rules.expansion_fields(:facet_group)).to eq(facet_group_fields) }
+    specify { expect(rules.expansion_fields(:facet)).to eq(facet_fields) }
+    specify { expect(rules.expansion_fields(:facet_value)).to eq(facet_value_fields) }
   end
 
   describe ".next_allowed_direct_link_types" do
