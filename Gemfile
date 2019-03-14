@@ -26,7 +26,7 @@ gem "aws-sdk", "~> 3"
 gem 'bunny', '~> 2.13'
 gem "diffy", "~> 3.3", require: false
 gem "fuzzy_match", "~> 2.1"
-gem "govspeak", "~> 5.9.0"
+gem "govspeak", "~> 5.9.1"
 gem "hashdiff", "~> 0.3.8"
 gem "json-schema", require: false
 # We can't use v5 of this because it requires redis 3 and we use 2.8
