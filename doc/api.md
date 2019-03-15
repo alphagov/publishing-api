@@ -29,6 +29,7 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`POST /v2/links/by-content-id`](#post-v2linksby-content-id)
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
 - [`PUT /paths/:base_path`](#put-pathsbase_path)
+- [`DELETE /paths/:base_path`](#delete-pathsbase_path)
 - [`GET /debug/:content_id`](#get-debugcontent_id)
 
 ### Optimistic locking (`previous_version`)
@@ -717,6 +718,29 @@ Reserves a path for a publishing application. Returns success or failure only.
 - If a path reservation exists for the supplied base_path and a different a
   publishing_app, and `override_existing` is true, the existing reservation will
   be updated to the supplied publishing_app.
+
+## `DELETE /paths/:base_path`
+
+ [Request/response detail][unreserve-path-pact]
+
+Unreserves a path for a publishing application. Returns success or failure only.
+
+### Path parameters
+
+- `base_path`
+  - Identifies the path that will be unreserved
+
+### JSON parameters:
+
+- `publishing_app` *(required)*
+  - The name of the application making this request, words separated with hyphens.
+
+### State changes
+
+- If no path reservation for the supplied base_path is present, the command will
+  fail.
+- If a path reservation exists for the supplied base_path but a different
+  publishing_app, the command will fail.
 
 ## `GET /debug/:content_id`
 
