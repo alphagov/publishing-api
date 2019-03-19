@@ -4,6 +4,11 @@ class PathReservationsController < ApplicationController
     render status: response.code, json: response
   end
 
+  def unreserve_path
+    response = Commands::UnreservePath.call(path_item)
+    render status: response.code, json: response
+  end
+
 private
 
   def path_item

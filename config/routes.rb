@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     delete "/publish-intent(/*base_path)", to: "publish_intents#destroy"
 
     put "/paths(/*base_path)", to: "path_reservations#reserve_path"
+    delete "/paths(/*base_path)", to: "path_reservations#unreserve_path"
 
     post '/lookup-by-base-path', to: 'lookups#by_base_path'
 
