@@ -26,9 +26,10 @@ module Commands
         link_set.reload
 
         orphaned_content_ids = link_diff_between(before_links.map(&:target_content_id), link_set.links.map(&:target_content_id))
+        added_content_ids = link_diff_between(link_set.links.map(&:target_content_id), before_links.map(&:target_content_id))
 
         after_transaction_commit do
-          send_downstream(orphaned_content_ids)
+          send_downstream(orphaned_content_ids, added_content_ids)
         end
 
         Action.create_patch_link_set_action(link_set, before_links, event)
@@ -73,31 +74,36 @@ module Commands
         end
       end
 
-      def send_downstream(orphaned_content_ids)
+      def update_dependencies?(orphaned_content_ids, added_content_ids)
+        orphaned_content_ids.present? || added_content_ids.present?
+      end
+
+      def send_downstream(orphaned_content_ids, added_content_ids)
         return unless downstream
 
         draft_locales = Queries::LocalesForEditions.call([content_id], %w[draft live])
-        draft_locales.each { |(content_id, locale)| downstream_draft(content_id, locale, orphaned_content_ids) }
+        draft_locales.each { |(content_id, locale)| downstream_draft(content_id, locale, orphaned_content_ids, added_content_ids) }
 
         live_locales = Queries::LocalesForEditions.call([content_id], %w[live])
-        live_locales.each { |(content_id, locale)| downstream_live(content_id, locale, orphaned_content_ids) }
+        live_locales.each { |(content_id, locale)| downstream_live(content_id, locale, orphaned_content_ids, added_content_ids) }
       end
 
       def bulk_publishing?
         payload.fetch(:bulk_publishing, false)
       end
 
-      def downstream_draft(content_id, locale, orphaned_content_ids)
+      def downstream_draft(content_id, locale, orphaned_content_ids, added_content_ids)
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
           content_id: content_id,
           locale: locale,
           orphaned_content_ids: orphaned_content_ids,
+          update_dependencies: update_dependencies?(orphaned_content_ids, added_content_ids)
         )
       end
 
-      def downstream_live(content_id, locale, orphaned_content_ids)
+      def downstream_live(content_id, locale, orphaned_content_ids, added_content_ids)
         queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
@@ -105,6 +111,7 @@ module Commands
           locale: locale,
           message_queue_event_type: "links",
           orphaned_content_ids: orphaned_content_ids,
+          update_dependencies: update_dependencies?(orphaned_content_ids, added_content_ids)
         )
       end
 

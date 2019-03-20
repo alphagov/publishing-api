@@ -316,6 +316,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
               locale: locale,
               message_queue_event_type: "links",
               orphaned_content_ids: [],
+              update_dependencies: true
             )
         end
 
@@ -333,6 +334,92 @@ RSpec.describe Commands::V2::PatchLinkSet do
         expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
         described_class.call(payload, downstream: false)
       end
+    end
+  end
+
+  context "when no links have changed" do
+    let(:link) { SecureRandom.uuid }
+    let(:edition) { create(:live_edition) }
+    let(:content_id) { edition.document.content_id }
+
+    let(:payload) do
+      { content_id: content_id, links: { ordered_related_items: [link] } }
+    end
+
+    before do
+      create(:link_set,
+        content_id: content_id,
+        links_hash: { topics: [link] })
+    end
+
+    it "does not update dependencies" do
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        .with(
+          "downstream_high",
+          a_hash_including(
+            :content_id,
+            :locale,
+            message_queue_event_type: "links",
+            orphaned_content_ids: [],
+            update_dependencies: false
+          ),
+        )
+
+      described_class.call(payload)
+    end
+  end
+
+  context "when links have changed" do
+    let(:link_a) { SecureRandom.uuid }
+    let(:link_b) { SecureRandom.uuid }
+    let(:link_c) { SecureRandom.uuid }
+    let(:edition) { create(:live_edition) }
+    let(:content_id) { edition.document.content_id }
+
+    let(:payload_with_orphaned_items) do
+      { content_id: content_id, links: { topics: [link_a] } }
+    end
+
+    let(:payload_with_added_items) do
+      { content_id: content_id, links: { topics: [link_a, link_b, link_c] } }
+    end
+
+    before do
+      create(:link_set,
+       content_id: content_id,
+       links_hash: { topics: [link_a, link_b] })
+    end
+
+    it "updates dependencies when items have been orphaned" do
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        .with(
+          "downstream_high",
+          a_hash_including(
+            :content_id,
+            :locale,
+            message_queue_event_type: "links",
+            orphaned_content_ids: [link_b],
+            update_dependencies: true
+          ),
+        )
+
+      described_class.call(payload_with_orphaned_items)
+    end
+
+    it "updates dependencies when items have been added" do
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        .with(
+          "downstream_high",
+          a_hash_including(
+            :content_id,
+            :locale,
+            message_queue_event_type: "links",
+            orphaned_content_ids: [],
+            update_dependencies: true
+          ),
+        )
+
+      described_class.call(payload_with_added_items)
     end
   end
 
