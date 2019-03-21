@@ -66,7 +66,18 @@ module ExpansionRules
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
   FACET_GROUP_FIELDS = (%i[content_id title schema_name] + details_fields(:name, :description)).freeze
-  FACET_FIELDS = (%i[content_id title schema_name] + details_fields(:key)).freeze
+  FACET_FIELDS = (
+    %i[content_id title schema_name] + details_fields(
+      :combine_mode,
+      :display_as_result_metadata,
+      :filterable,
+      :filter_key,
+      :key,
+      :name,
+      :preposition,
+      :type
+    )
+  ).freeze
   FACET_VALUE_FIELDS = (%i[content_id title schema_name] + details_fields(:label, :value)).freeze
 
   CUSTOM_EXPANSION_FIELDS = [

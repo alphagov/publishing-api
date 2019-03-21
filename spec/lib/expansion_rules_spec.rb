@@ -49,8 +49,20 @@ RSpec.describe ExpansionRules do
     let(:travel_advice_fields) { default_fields + [%i(details country), %i(details change_description)] }
     let(:world_location_fields) { %i(content_id title schema_name locale analytics_identifier) }
     let(:facet_group_fields) { %i(content_id title schema_name) + [%i(details name), %i(details description)] }
-    let(:facet_fields) { %i(content_id title schema_name) + [%i(details key)] }
+    let(:facet_fields) { %i(content_id title schema_name) + facet_details_fields }
     let(:facet_value_fields) { %i(content_id title schema_name) + [%i(details label), %i(details value)] }
+    let(:facet_details_fields) do
+      %i[
+        combine_mode
+        display_as_result_metadata
+        filterable
+        filter_key
+        key
+        name
+        preposition
+        type
+      ].map { |key| [:details, key] }
+    end
 
     specify { expect(rules.expansion_fields(:redirect)).to eq([]) }
     specify { expect(rules.expansion_fields(:gone)).to eq([]) }
@@ -213,6 +225,7 @@ RSpec.describe ExpansionRules do
       schemas_of_type("frontend/schema").each do |path, schema|
         links = schema["properties"]["links"]
         next unless links
+
         context "when the schema is #{path}" do
           subject { links["properties"].keys }
           it { is_expected.to include(*reverse_links) }
@@ -224,6 +237,7 @@ RSpec.describe ExpansionRules do
       schemas_of_type("publisher_v2/links").each do |path, schema|
         links = schema["properties"]["links"]
         next unless links
+
         context "when the schema is #{path}" do
           subject { links["properties"].keys }
           it { is_expected.not_to include(*reverse_links) }
