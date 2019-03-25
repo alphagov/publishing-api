@@ -30,6 +30,8 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`POST /lookup-by-base-path`](#post-lookup-by-base-path)
 - [`PUT /paths/:base_path`](#put-pathsbase_path)
 - [`DELETE /paths/:base_path`](#delete-pathsbase_path)
+- [`PUT /publish-intent(/*base_path)`](#put-publish-intentbase_path)
+- [`DELETE /publish-intent(/*base_path)`](#delete-publish-intentbase_path)
 - [`GET /debug/:content_id`](#get-debugcontent_id)
 
 ### Optimistic locking (`previous_version`)
@@ -742,6 +744,58 @@ Unreserves a path for a publishing application. Returns success or failure only.
 - If a path reservation exists for the supplied base_path but a different
   publishing_app, the command will fail.
 
+## `PUT /publish-intent(/*base_path)`
+
+[Request/Response detail][put-intent-pact]
+
+Used to create or update a publishing intent for a particular base_path and
+reserve the base path in the publishing-api. A publishing intent sets when the
+cache should expire for a piece of content.
+
+### Path parameters
+
+- `base_path`
+  - Identifies the path to create the publishing intent for
+
+### JSON parameters:
+
+- `publishing_app` *(required)*
+  - The name of the application making this request.
+- `rendering_app` *(required)*
+  - The name of the application rendering the content the base path refers to.
+- `publish_time` *(required)*
+  - The `DateTime` the content is set to be published.
+- `routes` *(optional)*
+  - `Array` - Fields supported are path and type, the exact requirements can be
+    found [here][routes-content-schema]. This is optional as it is only
+    required if there needs to be a route created in router-api for the
+    `base_path` at the same time the publishing intent is made.
+
+### State changes
+
+- `base_path` is reserved for use of the given `publishing_app`.
+- Creates a `PublishingIntent` in content-store to record when the cache should
+  expire for a `base_path`.
+- If `routes` are given, adds a route set in router-api.
+
+## `DELETE /publish-intent(/*base_path)`
+
+Used to delete the publishing intent for a particular `base_path`. Removing a
+publishing intent means that the content will continue to be cached as
+normal.
+
+[Request/Response detail][delete-intent-pact]
+
+### Path parameters
+
+- `base_path`
+  - Identifies the path to delete the publishing intent for
+
+### State changes
+
+- The `PublishingIntent` for the passed in base_path is removed from the
+  content-store.
+
 ## `GET /debug/:content_id`
 
 Displays debug information for `content_id`.
@@ -771,6 +825,9 @@ http://publishing-api.integration.publishing.service.gov.uk:8888/debug/f141fa95-
 [govuk-content-schemas-repo]: https://github.com/alphagov/govuk-content-schemas
 [optimistic-locking]: #optimistic-locking-previous_version
 [put-content-pact]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_from_the_Whitehall_application_to_create_a_content_item_at_/test-item_given_/test-item_has_been_reserved_by_the_Publisher_application
+[routes-content-schema]: https://github.com/alphagov/govuk-content-schemas/blob/master/formats/shared/definitions/routes_redirects.jsonnet
+[put-intent-pact]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_create_a_publish_intent_given_no_content_exists
+[delete-intent-pact]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest#a_request_to_delete_a_publish_intent_given_no_content_exists
 [iso-8601]: https://en.wikipedia.org/wiki/ISO_8601
 [to-time-docs]: http://apidock.com/rails/String/to_time
 [i18n-gem]: https://github.com/svenfuchs/rails-i18n
