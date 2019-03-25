@@ -4,7 +4,7 @@ require 'whenever'
 env :PATH, '/usr/local/bin:/usr/bin:/bin'
 
 set :output, error: 'log/cron.error.log', standard: 'log/cron.log'
-job_type :rake, "cd :path && govuk_setenv content-store bundle exec rake :task :output"
+job_type :rake, "cd :path && govuk_setenv publishing-api bundle exec rake :task :output"
 
 every 1.minute do
   rake "heartbeat_messages:send"
