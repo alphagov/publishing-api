@@ -1,10 +1,11 @@
 class DownstreamPayload
-  attr_reader :edition, :payload_version, :draft
+  attr_reader :edition, :payload_version, :draft, :workflow_message
 
-  def initialize(edition, payload_version, draft: false)
+  def initialize(edition, payload_version, draft: false, workflow_message: nil)
     @edition = edition
     @payload_version = payload_version
     @draft = draft
+    @workflow_message = workflow_message
   end
 
   def state
@@ -52,6 +53,12 @@ private
     @content_presenter ||= Presenters::EditionPresenter.new(edition, draft: draft)
   end
 
+  def downstream_message_queue_presenter
+    @downstream_message_queue_presenter ||= Presenters::MessageQueuePresenter.new(
+      edition, draft: draft, workflow_message: workflow_message
+    )
+  end
+
   def redirect_presenter
     RedirectPresenter.from_edition(edition)
   end
@@ -75,13 +82,13 @@ private
   end
 
   def message_queue_presenter
-    return content_presenter unless unpublished?
+    return downstream_message_queue_presenter unless unpublished?
 
     case unpublishing.type
     when "redirect" then redirect_presenter
     when "gone" then gone_presenter
     when "vanish" then vanish_presenter
-    else content_presenter
+    else downstream_message_queue_presenter
     end
   end
 end

@@ -62,6 +62,11 @@ module V2
       render status: response.code, json: response
     end
 
+    def notify
+      response = Commands::V2::Notify.call(edition)
+      render status: response.code, json: response
+    end
+
   private
 
     def edition

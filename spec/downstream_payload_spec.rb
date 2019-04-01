@@ -172,5 +172,20 @@ RSpec.describe DownstreamPayload do
         govuk_request_id: anything,
       )
     end
+
+    context "with a workflow message" do
+      subject(:downstream_payload) {
+        DownstreamPayload.new(
+          edition,
+          payload_version,
+          draft: draft,
+          workflow_message: "Something happened",
+        )
+      }
+
+      it "includes the message" do
+        expect(downstream_payload.message_queue_payload[:workflow_message]).to eq("Something happened")
+      end
+    end
   end
 end

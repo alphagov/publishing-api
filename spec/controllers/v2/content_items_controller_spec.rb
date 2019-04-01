@@ -539,4 +539,43 @@ RSpec.describe V2::ContentItemsController do
       expect(items.length).to eq(4)
     end
   end
+
+  describe "notify" do
+    let(:body) { { workflow_message: "notifying" } }
+
+    context "for existing content" do
+      context "with no published edition" do
+        before do
+          post :notify, params: { content_id: content_id }, body: body.to_json
+        end
+
+        it "is unprocessable" do
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context "with a published edition" do
+        before do
+          create(:live_edition, document: document_en)
+          post :notify, params: { content_id: content_id }, body: body.to_json
+        end
+
+        it "responds with the content_id of the published item" do
+          parsed_response_body = parsed_response
+          expect(parsed_response_body.keys).to include("content_id")
+          expect(parsed_response_body["content_id"]).not_to be_nil
+        end
+      end
+    end
+
+    context "for non-existent content" do
+      before do
+        post :notify, params: { content_id: SecureRandom.uuid }, body: body.to_json
+      end
+
+      it "responds with 404" do
+        expect(response.status).to eq(404)
+      end
+    end
+  end
 end
