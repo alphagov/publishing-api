@@ -65,9 +65,9 @@ module ExpansionRules
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
-  FACET_GROUP_FIELDS = (%i[content_id title schema_name] + details_fields(:name, :description)).freeze
+  FACET_GROUP_FIELDS = (%i[content_id title locale schema_name] + details_fields(:name, :description)).freeze
   FACET_FIELDS = (
-    %i[content_id title schema_name] + details_fields(
+    %i[content_id title locale schema_name] + details_fields(
       :combine_mode,
       :display_as_result_metadata,
       :filterable,
@@ -78,7 +78,7 @@ module ExpansionRules
       :type
     )
   ).freeze
-  FACET_VALUE_FIELDS = (%i[content_id title schema_name] + details_fields(:label, :value)).freeze
+  FACET_VALUE_FIELDS = (%i[content_id title locale schema_name] + details_fields(:label, :value)).freeze
 
   CUSTOM_EXPANSION_FIELDS = [
     { document_type: :redirect,                   fields: [] },
