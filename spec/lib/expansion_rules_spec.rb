@@ -48,9 +48,9 @@ RSpec.describe ExpansionRules do
     let(:step_by_step_fields) { default_fields + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)] }
     let(:travel_advice_fields) { default_fields + [%i(details country), %i(details change_description)] }
     let(:world_location_fields) { %i(content_id title schema_name locale analytics_identifier) }
-    let(:facet_group_fields) { %i(content_id title schema_name) + [%i(details name), %i(details description)] }
-    let(:facet_fields) { %i(content_id title schema_name) + facet_details_fields }
-    let(:facet_value_fields) { %i(content_id title schema_name) + [%i(details label), %i(details value)] }
+    let(:facet_group_fields) { %i(content_id title locale schema_name) + [%i(details name), %i(details description)] }
+    let(:facet_fields) { %i(content_id title locale schema_name) + facet_details_fields }
+    let(:facet_value_fields) { %i(content_id title locale schema_name) + [%i(details label), %i(details value)] }
     let(:facet_details_fields) do
       %i[
         combine_mode
