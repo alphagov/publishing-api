@@ -1,11 +1,11 @@
 class DownstreamPayload
-  attr_reader :edition, :payload_version, :draft, :workflow_message
+  attr_reader :edition, :payload_version, :draft, :notification_attributes
 
-  def initialize(edition, payload_version, draft: false, workflow_message: nil)
+  def initialize(edition, payload_version, draft: false, notification_attributes: {})
     @edition = edition
     @payload_version = payload_version
     @draft = draft
-    @workflow_message = workflow_message
+    @notification_attributes = notification_attributes
   end
 
   def state
@@ -55,7 +55,7 @@ private
 
   def downstream_message_queue_presenter
     @downstream_message_queue_presenter ||= Presenters::MessageQueuePresenter.new(
-      edition, draft: draft, workflow_message: workflow_message
+      edition, draft: draft, notification_attributes: notification_attributes
     )
   end
 

@@ -27,7 +27,7 @@ module Commands
           edition,
           payload_version,
           draft: false,
-          workflow_message: payload[:workflow_message],
+          notification_attributes: payload.slice(:publishing_app, :workflow_message),
         )
         DownstreamService.broadcast_to_message_queue(downstream_payload, "workflow")
       end

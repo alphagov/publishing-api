@@ -173,17 +173,24 @@ RSpec.describe DownstreamPayload do
       )
     end
 
-    context "with a workflow message" do
+    context "with notification attributes" do
       subject(:downstream_payload) {
         DownstreamPayload.new(
           edition,
           payload_version,
           draft: draft,
-          workflow_message: "Something happened",
+          notification_attributes: {
+            publishing_app: "super-publisher",
+            workflow_message: "Something happened",
+          }
         )
       }
 
-      it "includes the message" do
+      it "includes the specified publishing app" do
+        expect(downstream_payload.message_queue_payload[:publishing_app]).to eq("super-publisher")
+      end
+
+      it "includes the workflow message" do
         expect(downstream_payload.message_queue_payload[:workflow_message]).to eq("Something happened")
       end
     end

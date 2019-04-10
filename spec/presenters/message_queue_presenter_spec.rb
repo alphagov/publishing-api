@@ -14,6 +14,7 @@ RSpec.describe Presenters::MessageQueuePresenter do
 
   describe "#for_message_queue" do
     let(:update_type) { "minor" }
+    let(:publishing_app) { "super-publisher" }
     let(:workflow_message) { "Something changed" }
     let(:edition) {
       create(:draft_edition,
@@ -24,7 +25,12 @@ RSpec.describe Presenters::MessageQueuePresenter do
 
     subject(:result) do
       described_class.new(
-        edition, draft: false, workflow_message: workflow_message,
+        edition,
+        draft: false,
+        notification_attributes: {
+          publishing_app: publishing_app,
+          workflow_message: workflow_message,
+        }
       ).for_message_queue(payload_version)
     end
 
@@ -33,17 +39,29 @@ RSpec.describe Presenters::MessageQueuePresenter do
       expect(edition_presenter).to have_received(:for_message_queue).with(payload_version)
     end
 
-    context "with a workflow message" do
+    context "with notification attributes" do
+      it "presents the publishing app" do
+        expect(result[:publishing_app]).to eq("super-publisher")
+      end
+
       it "presents the workflow message" do
-        expect(result).to eq(foo: "foo", workflow_message: "Something changed")
+        expect(result[:workflow_message]).to eq("Something changed")
       end
     end
 
     context "without a workflow message" do
       let(:workflow_message) { nil }
 
-      it "omits the workflow message key" do
-        expect(result).to eq(foo: "foo")
+      it "omits the workflow message entirely" do
+        expect(result).to eq(foo: "foo", publishing_app: "super-publisher")
+      end
+    end
+
+    context "without a publishing app" do
+      let(:publishing_app) { nil }
+
+      it "omits the publishing app entirely" do
+        expect(result).to eq(foo: "foo", workflow_message: "Something changed")
       end
     end
   end

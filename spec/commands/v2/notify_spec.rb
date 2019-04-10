@@ -39,7 +39,7 @@ RSpec.describe Commands::V2::Notify do
         edition,
         payload_version,
         draft: false,
-        workflow_message: workflow_message
+        notification_attributes: { workflow_message: workflow_message }
       ).message_queue_payload
     end
 
