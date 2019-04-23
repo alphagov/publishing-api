@@ -678,7 +678,7 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
-    hashdiff (0.3.8)
+    hashdiff (0.3.9)
     hashie (3.6.0)
     htmlentities (4.3.4)
     http-cookie (1.0.3)
@@ -981,7 +981,7 @@ DEPENDENCIES
   govuk_document_types (~> 0.9.0)
   govuk_schemas (~> 3.2)
   govuk_sidekiq (~> 3.0)
-  hashdiff (~> 0.3.8)
+  hashdiff (~> 0.3.9)
   json-schema
   oj (~> 3.7)
   pact
