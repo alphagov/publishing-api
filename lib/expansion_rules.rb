@@ -75,6 +75,7 @@ module ExpansionRules
       :key,
       :name,
       :preposition,
+      :short_name,
       :type
     )
   ).freeze
