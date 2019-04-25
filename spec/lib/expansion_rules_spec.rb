@@ -60,6 +60,7 @@ RSpec.describe ExpansionRules do
         key
         name
         preposition
+        short_name
         type
       ].map { |key| [:details, key] }
     end
