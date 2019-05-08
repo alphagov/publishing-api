@@ -629,7 +629,7 @@ GEM
     filelock (1.1.1)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (59.1.0)
+    gds-api-adapters (59.2.0)
       addressable
       link_header
       null_logger
@@ -928,7 +928,7 @@ GEM
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.5)
+    unf_ext (0.0.7.6)
     unicode-display_width (1.5.0)
     unicorn (5.4.1)
       kgio (~> 2.6)
