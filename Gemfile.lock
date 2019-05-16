@@ -662,7 +662,7 @@ GEM
       rubocop (~> 0.64)
       rubocop-rspec (~> 1.28)
       scss_lint
-    govuk_app_config (1.15.1)
+    govuk_app_config (1.16.1)
       aws-xray-sdk (~> 0.10.0)
       logstasher (~> 1.2.2)
       sentry-raven (~> 2.7.1)
@@ -721,7 +721,7 @@ GEM
       i18n (>= 0.6.4, <= 2)
     multi_json (1.13.1)
     multi_xml (0.6.0)
-    multipart-post (2.0.0)
+    multipart-post (2.1.0)
     netrc (0.11.0)
     nio4r (2.3.1)
     nokogiri (1.10.3)
@@ -975,7 +975,7 @@ DEPENDENCIES
   govspeak (~> 6.0.0)
   govuk-content-schema-test-helpers (~> 1.6)
   govuk-lint
-  govuk_app_config (~> 1.15)
+  govuk_app_config (~> 1.16)
   govuk_document_types (~> 0.9.0)
   govuk_schemas (~> 3.2)
   govuk_sidekiq (~> 3.0)
