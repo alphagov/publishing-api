@@ -76,6 +76,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_fields) }
     specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(step_by_step_fields) }
+    specify { expect(rules.expansion_fields(:pages_secondary_to_step_nav)).to eq(default_fields) }
     specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
 
     specify { expect(rules.expansion_fields(:taxon)).to eq(taxon_fields) }
