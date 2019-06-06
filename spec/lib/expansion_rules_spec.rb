@@ -45,6 +45,7 @@ RSpec.describe ExpansionRules do
     let(:taxon_fields) { default_fields + %i(details phase) }
     let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
     let(:finder_fields) { default_fields + [%i(details facets)] }
+    let(:role_appointment_fields) { default_fields + [%i(details started_on), %i(details ended_on)] }
     let(:step_by_step_fields) { default_fields + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)] }
     let(:travel_advice_fields) { default_fields + [%i(details country), %i(details change_description)] }
     let(:world_location_fields) { %i(content_id title schema_name locale analytics_identifier) }
@@ -75,6 +76,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_fields) }
+    specify { expect(rules.expansion_fields(:role_appointment)).to eq(role_appointment_fields) }
     specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(step_by_step_fields) }
     specify { expect(rules.expansion_fields(:pages_secondary_to_step_nav)).to eq(default_fields) }
     specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
