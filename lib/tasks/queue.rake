@@ -50,11 +50,15 @@ namespace :queue do
     end
   end
 
-  # Send RabbitMQ messages for all live editions. This is similar to
-  # `represent_downstream:all` except it does not affect the live and draft content stores,
-  # and the routing key can be customised to target a particular app that feeds off the message queue
-  # For example, use rake queue:requeue_all_the_things[bulk.data-warehouse] to repopulate content performance manager
   desc "Add all published editions to the message queue with a specified routing key"
+  # This is similar to `represent_downstream:all` except it does not
+  # affect the live and draft content stores, and the routing key can
+  # be customised to target a particular app that feeds off the
+  # message queue. For example, use the following command to send data
+  # to the Content Data API:
+  #
+  #   rake queue:requeue_all_the_things[bulk.data-warehouse]
+  #
   task :requeue_all_the_things, [:action] => :environment do |_, args|
     action = args.action
 
