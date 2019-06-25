@@ -41,6 +41,16 @@ RSpec.describe ChangeNote do
           }.to_not change { ChangeNote.count }
         end
       end
+
+      context "payload contains public_updated_at" do
+        it "sets the change note public_timestamp to public_updated_at time" do
+          time = Time.zone.yesterday
+          payload[:public_updated_at] = time
+          described_class.create_from_edition(payload, edition)
+
+          expect(ChangeNote.last.public_timestamp).to eq(time)
+        end
+      end
     end
 
     context "edition has change_note entry in details hash" do
