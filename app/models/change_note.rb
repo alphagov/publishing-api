@@ -34,7 +34,7 @@ private
   def create_from_details_hash_change_note
     return unless note
     change_note_instance.update!(
-      public_timestamp: edition.updated_at,
+      public_timestamp: edition.public_updated_at,
       note: note,
     )
   end

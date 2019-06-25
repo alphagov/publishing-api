@@ -9,6 +9,7 @@ RSpec.describe ChangeNote do
     create(:edition,
       update_type: update_type,
       details: details,
+      public_updated_at: Time.zone.yesterday,
       change_note: nil)
   end
 
@@ -58,6 +59,7 @@ RSpec.describe ChangeNote do
       it "populates change note from details hash" do
         expect { subject }.to change { ChangeNote.count }.by(1)
         expect(ChangeNote.last.note).to eq "Marvellous"
+        expect(ChangeNote.last.public_timestamp).to eq(edition.public_updated_at)
       end
     end
 
