@@ -183,6 +183,8 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "doesn't updates the dependencies" do
+        payload[:update_type] = "minor"
+
         expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including(update_dependencies: false))
@@ -371,10 +373,10 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
-    context "with no temporary_first_published_at set on the edition" do
-      it "updates the temporary_first_published_at time to current time" do
+    context "with no publishing_api_first_published_at set on the edition" do
+      it "updates the publishing_api_first_published_at time to current time" do
         described_class.call(payload)
-        expect(draft_item.reload.temporary_first_published_at)
+        expect(draft_item.reload.publishing_api_first_published_at)
           .to eq(Time.zone.now)
       end
     end

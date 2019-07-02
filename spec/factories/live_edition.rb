@@ -3,6 +3,8 @@ FactoryBot.define do
     user_facing_version { 1 }
     state { "published" }
     content_store { "live" }
+    public_updated_at { "2014-05-14T13:00:06Z" }
+    first_published_at { "2014-01-02T03:04:05Z" }
 
     transient do
       draft_version_number { 2 }
