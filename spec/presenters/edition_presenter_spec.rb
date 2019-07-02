@@ -28,7 +28,7 @@ RSpec.describe Presenters::EditionPresenter do
   describe "#for_message_queue" do
     let(:update_type) { "minor" }
     let(:edition) {
-      create(:draft_edition,
+      create(:live_edition,
         update_type: update_type,
         schema_name: "calendar",
         document_type: "calendar")
@@ -134,7 +134,9 @@ RSpec.describe Presenters::EditionPresenter do
       let(:edition) do
         create(:draft_edition,
           base_path: base_path,
-          details: details)
+          details: details,
+          first_published_at: "2014-01-02T03:04:05Z",
+          public_updated_at: "2014-05-14T13:00:06Z")
       end
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 

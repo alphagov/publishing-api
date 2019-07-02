@@ -6,6 +6,15 @@ class Edition < ApplicationRecord
     live: 'live'
   }
 
+  self.ignored_columns = %w[
+    publisher_first_published_at
+    publisher_last_edited_at
+    publisher_major_published_at
+    publisher_published_at
+    temporary_first_published_at
+    temporary_last_edited_at
+  ].freeze
+
   DEFAULT_LOCALE = "en".freeze
 
   TOP_LEVEL_FIELDS = %i[
