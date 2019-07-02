@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180907102237) do
+ActiveRecord::Schema.define(version: 2019_07_02_215124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,14 +81,10 @@ ActiveRecord::Schema.define(version: 20180907102237) do
     t.integer "document_id", null: false
     t.string "description"
     t.string "publishing_request_id"
-    t.datetime "temporary_first_published_at"
+    t.datetime "publishing_api_first_published_at"
     t.datetime "major_published_at"
     t.datetime "published_at"
-    t.datetime "temporary_last_edited_at"
-    t.datetime "publisher_first_published_at"
-    t.datetime "publisher_major_published_at"
-    t.datetime "publisher_published_at"
-    t.datetime "publisher_last_edited_at"
+    t.datetime "publishing_api_last_edited_at"
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
