@@ -200,11 +200,12 @@ RSpec.describe Edition::Timestamps do
       end
 
       context "and neither edition or previous live edition have a public_updated_at value" do
+        let(:first_published_at) { "2017-01-01" }
         let(:public_updated_at) { nil }
         let(:previous_public_updated_at) { nil }
 
-        it "sets public_updated_at to current time" do
-          expect(edition.public_updated_at).to eq current_time
+        it "sets public_updated_at to first published at" do
+          expect(edition.public_updated_at).to eq Time.zone.parse(first_published_at)
         end
       end
 

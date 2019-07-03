@@ -10,7 +10,7 @@ FactoryBot.define do
     last_edited_at { "2014-05-14T13:00:06Z" }
     publishing_api_first_published_at { first_published_at }
     major_published_at { public_updated_at }
-    published_at { first_published_at }
+    published_at { update_type == "major" ? public_updated_at : last_edited_at }
     publishing_api_last_edited_at { last_edited_at }
     publishing_app { "publisher" }
     rendering_app { "frontend" }

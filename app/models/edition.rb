@@ -17,9 +17,13 @@ class Edition < ApplicationRecord
     document_type
     first_published_at
     last_edited_at
+    major_published_at
     phase
     public_updated_at
+    published_at
     publishing_app
+    publishing_api_first_published_at
+    publishing_api_last_edited_at
     redirects
     rendering_app
     routes
