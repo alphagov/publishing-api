@@ -382,9 +382,10 @@ and a state has been specified, the draft is returned.
 - `fields[]` *(optional)*
   - Accepts an array of: analytics_identifier, base_path,
     content_store, description, details, document_type,
-    first_published_at, last_edited_at, phase, public_updated_at,
-    publishing_app, redirects, rendering_app, routes, schema_name,
-    state, title, user_facing_version, update_type, state
+    first_published_at, last_edited_at, major_published_at, phase,
+    public_updated_at, published_at, publishing_api_first_published_at,
+    publishing_api_last_edited_at, publishing_app, redirects, rendering_app,
+    routes, schema_name, state, title, user_facing_version, update_type
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - `link_*` *(optional)*
@@ -638,11 +639,12 @@ parameters.
   - The type of editions to return.
 - `fields[]` *(optional)*
   - Accepts an array of: analytics_identifier, base_path,
-    content_store, description, details, document_type,
-    first_published_at, last_edited_at, phase, public_updated_at,
-    publishing_app, redirects, rendering_app, routes, schema_name,
-    state, title, user_facing_version, update_type, state, content_id,
-    locale, stale_lock_version, updated_at, created_at, links
+    content_id, content_store, created_at, description, details, document_type,
+    first_published_at, last_edited_at, links, locale, major_published_at,
+    phase, public_updated_at, published_at, publishing_api_first_published_at,
+    publishing_api_last_edited_at, publishing_app, redirects,
+    rendering_app, routes, schema_name, stale_lock_version, state, title,
+    user_facing_version, update_type, updated_at
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - `locale` *(optional)*
