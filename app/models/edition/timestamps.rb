@@ -53,9 +53,10 @@ class Edition::Timestamps
       edition.major_published_at = previous_live_version&.major_published_at
       unless edition.public_updated_at
         # Although we expect the update_type of the first edition to be major,
-        # this isn't always the case, so we fall back to now if the previous item
-        # isn't available.
-        edition.public_updated_at = previous_live_version&.public_updated_at || now
+        # this isn't always the case, so we fall back to first publised if a
+        # previous item isn't available.
+        edition.public_updated_at = previous_live_version&.public_updated_at ||
+          edition.first_published_at
       end
     end
 
