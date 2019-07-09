@@ -35,6 +35,10 @@ class Edition::Timestamps
     # If the payload value is nil, we rely on publish to populate public_updated_at
     edition.public_updated_at = payload[:public_updated_at]
 
+    # populate transitory timestamps
+    edition.publishing_api_first_published_at = edition.temporary_first_published_at
+    edition.publishing_api_last_edited_at = edition.temporary_last_edited_at
+
     edition.save!
   end
 
@@ -72,6 +76,9 @@ class Edition::Timestamps
         edition.public_updated_at = previous_live_version&.public_updated_at || now
       end
     end
+
+    # populate transitory timestamps
+    edition.publishing_api_first_published_at = edition.temporary_first_published_at
 
     edition.save!
   end

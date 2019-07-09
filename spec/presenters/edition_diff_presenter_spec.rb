@@ -33,6 +33,8 @@ RSpec.describe Presenters::EditionDiffPresenter do
     publisher_major_published_at
     publisher_published_at
     publisher_last_edited_at
+    publishing_api_first_published_at
+    publishing_api_last_edited_at
   ).freeze
 
   describe "#call" do

@@ -15,6 +15,8 @@ module Presenters
       publisher_published_at
       publisher_last_edited_at
       publishing_request_id
+      publishing_api_first_published_at
+      publishing_api_last_edited_at
       state
       temporary_first_published_at
       temporary_last_edited_at
