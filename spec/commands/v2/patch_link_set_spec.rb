@@ -231,6 +231,13 @@ RSpec.describe Commands::V2::PatchLinkSet do
       described_class.call(payload.merge(bulk_publishing: true))
     end
 
+    it "sends a deferred priority request to the downstream draft worker for publishing" do
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        .with("downstream_deferred", anything)
+
+      described_class.call(payload.merge(deferred_publishing: true))
+    end
+
     context "when a draft edition has multiple translations" do
       before do
         create(:draft_edition,
@@ -297,6 +304,13 @@ RSpec.describe Commands::V2::PatchLinkSet do
         )
 
       described_class.call(payload.merge(bulk_publishing: true))
+    end
+
+    it "sends a deferred priority request to the downstream live worker for publishing" do
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+                                         .with("downstream_deferred", anything)
+
+      described_class.call(payload.merge(deferred_publishing: true))
     end
 
     context "when a live edition has multiple translations" do

@@ -6,6 +6,7 @@
   - downstream_high
   - dependency_resolution
   - downstream_low
+  - downstream_deferred
   - experiments
   - default
   - import

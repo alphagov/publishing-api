@@ -87,8 +87,12 @@ module Commands
         payload.fetch(:bulk_publishing, false)
       end
 
+      def deferred_publishing?
+        payload.fetch(:deferred_publishing, false)
+      end
+
       def downstream_draft(content_id, locale, orphaned_content_ids)
-        queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        queue = get_publishing_queue
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
           content_id: content_id,
@@ -98,7 +102,7 @@ module Commands
       end
 
       def downstream_live(content_id, locale, orphaned_content_ids)
-        queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
+        queue = get_publishing_queue
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
           content_id: content_id,
@@ -133,6 +137,14 @@ module Commands
         @schema_name ||= Queries::GetLatest.(
           Edition.with_document.where("documents.content_id": content_id)
         ).pluck(:schema_name).first
+      end
+
+      def get_publishing_queue
+        if deferred_publishing?
+          DownstreamLiveWorker::DEFERRED_QUEUE
+        else
+          bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
+        end
       end
     end
   end
