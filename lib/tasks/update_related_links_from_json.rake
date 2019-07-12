@@ -35,7 +35,7 @@ namespace :content do
       links: {
         suggested_ordered_related_items: related_content_ids
       },
-      bulk_publishing: true
+      deferred_publishing: true
     )
 
     if response.code == 200
