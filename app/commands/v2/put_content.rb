@@ -153,6 +153,10 @@ module Commands
         payload.fetch(:bulk_publishing, false)
       end
 
+      def overridden_queue
+        payload.fetch(:overridden_queue, false)
+      end
+
       def update_dependencies?(edition)
         LinkExpansion::EditionDiff.new(edition, previous_edition: @previous_edition).should_update_dependencies?
       end
@@ -160,7 +164,7 @@ module Commands
       def send_downstream(content_id, locale, update_dependencies, orphaned_links)
         return unless downstream
 
-        queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        queue = DownstreamQueue.const_get(overridden_queue) rescue bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
 
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
