@@ -108,6 +108,6 @@ information.
 [dependency-resolution]: ../lib/dependency_resolution.rb
 [content-dependencies]: ../app/queries/content_dependencies.rb
 [link-set-link]: link-expansion.md#patch-link-set---link-set-links
-[link-expansion-rules]: ../lib/link_expansion/rules.rb
+[link-expansion-rules]: ../lib/expansion_rules/link_expansion.rb
 [edition-link]: link-expansion.md#put-content---edition-links
 [link-graph]: ../app/models/link_graph.rb
