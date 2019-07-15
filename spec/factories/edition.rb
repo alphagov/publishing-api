@@ -5,10 +5,13 @@ FactoryBot.define do
     description { "VAT rates for goods and services" }
     schema_name { "generic" }
     document_type { "services_and_information" }
-    public_updated_at { "2014-05-14T13:00:06Z" }
-    first_published_at { "2014-01-02T03:04:05Z" }
+    public_updated_at { nil }
+    first_published_at { nil }
     last_edited_at { "2014-05-14T13:00:06Z" }
-    published_at { nil }
+    publishing_api_first_published_at { first_published_at }
+    major_published_at { public_updated_at }
+    published_at { update_type == "major" ? public_updated_at : last_edited_at }
+    publishing_api_last_edited_at { last_edited_at }
     publishing_app { "publisher" }
     rendering_app { "frontend" }
     details { {} }

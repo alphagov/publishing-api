@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Presenters::Queries::ContentItemPresenter do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
+  let(:first_published_at) { "2014-01-02T03:04:05Z" }
+  let(:public_updated_at) { "2014-05-14T13:00:06Z" }
 
   let!(:document) { create(:document, content_id: content_id) }
   let!(:fr_document) do
@@ -13,7 +15,9 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     let!(:edition) do
       create(:draft_edition,
         document: document,
-        base_path: base_path)
+        base_path: base_path,
+        first_published_at: first_published_at,
+        public_updated_at: public_updated_at)
     end
 
     let(:result) { described_class.present(edition) }
@@ -27,14 +31,18 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "description" => "VAT rates for goods and services",
         "details" => {},
         "document_type" => "services_and_information",
-        "first_published_at" => "2014-01-02T03:04:05Z",
+        "first_published_at" => first_published_at,
         "last_edited_at" => "2014-05-14T13:00:06Z",
         "links" => {},
         "locale" => "en",
         "lock_version" => 1,
+        "major_published_at" => public_updated_at,
         "phase" => "beta",
-        "public_updated_at" => "2014-05-14T13:00:06Z",
+        "public_updated_at" => public_updated_at,
         "publication_state" => "draft",
+        "published_at" => "2014-05-14T13:00:06Z",
+        "publishing_api_first_published_at" => first_published_at,
+        "publishing_api_last_edited_at" => "2014-05-14T13:00:06Z",
         "publishing_app" => "publisher",
         "redirects" => [],
         "rendering_app" => "frontend",
@@ -93,7 +101,9 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         create(:draft_edition,
           document: document,
           base_path: base_path,
-          update_type: "major")
+          update_type: "major",
+          first_published_at: first_published_at,
+          public_updated_at: public_updated_at)
       end
 
       it "presents the item including the change note" do

@@ -13,7 +13,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
   end
 
   let(:first_published_at) { 1.year.ago }
-  let(:temporary_first_published_at) { 2.years.ago }
+  let(:publishing_api_first_published_at) { 2.years.ago }
   let(:major_published_at) { 1.year.ago }
 
   let(:document) do
@@ -29,7 +29,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
       document: document,
       user_facing_version: 5,
       first_published_at: first_published_at,
-      temporary_first_published_at: temporary_first_published_at,
+      publishing_api_first_published_at: publishing_api_first_published_at,
       base_path: base_path,
       major_published_at: major_published_at)
   end
@@ -60,12 +60,12 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     expect(edition.first_published_at).to eq(first_published_at)
   end
 
-  it "sets temporary_first_published_at to the previously published version's value" do
+  it "sets publishing_api_first_published_at to the previously published version's value" do
     put "/v2/content/#{content_id}", params: payload.to_json
 
     edition = Edition.last
-    expect(edition.temporary_first_published_at)
-      .to eq(temporary_first_published_at)
+    expect(edition.publishing_api_first_published_at)
+      .to eq(publishing_api_first_published_at)
   end
 
   context "when update_type is minor" do
@@ -86,14 +86,6 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
     let(:new_first_published_at) { Time.now.utc.iso8601 }
     before do
       payload.merge!(first_published_at: new_first_published_at)
-    end
-
-    it "updates publisher_first_published_at" do
-      put "/v2/content/#{content_id}", params: payload.to_json
-
-      edition = Edition.last
-      expect(edition.publisher_first_published_at.iso8601)
-        .to eq(new_first_published_at)
     end
 
     it "updates first_published_at" do

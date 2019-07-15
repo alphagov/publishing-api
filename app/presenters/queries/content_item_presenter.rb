@@ -115,6 +115,14 @@ module Presenters
           "to_char(public_updated_at, '#{ISO8601_SQL}') as public_updated_at"
         when :first_published_at
           "to_char(first_published_at, '#{ISO8601_SQL}') as first_published_at"
+        when :published_at
+          "to_char(published_at, '#{ISO8601_SQL}') as published_at"
+        when :major_published_at
+          "to_char(major_published_at, '#{ISO8601_SQL}') as major_published_at"
+        when :publishing_api_last_edited_at
+          "to_char(publishing_api_last_edited_at, '#{ISO8601_SQL}') as publishing_api_last_edited_at"
+        when :publishing_api_first_published_at
+          "to_char(publishing_api_first_published_at, '#{ISO8601_SQL}') as publishing_api_first_published_at"
         when :unpublishing
           "#{UNPUBLISHING_SQL} AS unpublishing"
         when :change_note

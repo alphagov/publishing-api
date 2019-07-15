@@ -9,10 +9,9 @@ RSpec.describe Edition::Timestamps do
     let(:edition) { build(:edition, update_type: update_type) }
     let(:previous_live_version) do
       build(:edition,
-        temporary_first_published_at: "2017-01-01",
-        publisher_first_published_at: "2017-04-01",
-        first_published_at: "2017-04-01",
-        major_published_at: "2017-11-11")
+            publishing_api_first_published_at: "2017-01-01",
+            first_published_at: "2017-04-01",
+            major_published_at: "2017-11-11")
     end
 
     let(:update_type) { "major" }
@@ -33,19 +32,19 @@ RSpec.describe Edition::Timestamps do
       expect(edition.id).not_to be_nil
     end
 
-    it "sets temporary_last_edited_at to current time" do
-      expect(edition.temporary_last_edited_at).to eq current_time
+    it "sets publishing_api_last_edited_at to current time" do
+      expect(edition.publishing_api_last_edited_at).to eq current_time
     end
 
-    it "sets temporary_first_published_at to same value as previous_live_version" do
-      expect(edition.temporary_first_published_at).to eq previous_live_version.temporary_first_published_at
+    it "sets publishing_api_first_published_at to same value as previous_live_version" do
+      expect(edition.publishing_api_first_published_at).to eq previous_live_version.publishing_api_first_published_at
     end
 
     context "when previous_live_version is nil" do
       let(:previous_live_version) { nil }
 
-      it "sets temporary_first_published_at to nil" do
-        expect(edition.temporary_first_published_at).to be_nil
+      it "sets publishing_api_first_published_at to nil" do
+        expect(edition.publishing_api_first_published_at).to be_nil
       end
     end
 
@@ -71,10 +70,6 @@ RSpec.describe Edition::Timestamps do
       it "sets first_published_at to previous_live_version" do
         expect(edition.first_published_at).to eq previous_live_version.first_published_at
       end
-
-      it "sets publisher_first_published_at to previous_live_version" do
-        expect(edition.publisher_first_published_at).to eq previous_live_version.publisher_first_published_at
-      end
     end
 
     context "when last_edited_at is provided in payload" do
@@ -82,10 +77,6 @@ RSpec.describe Edition::Timestamps do
 
       it "sets last_edited_at to provided value" do
         expect(edition.last_edited_at).to eq Time.zone.parse(last_edited_at)
-      end
-
-      it "sets publisher_last_edited_at to provided value" do
-        expect(edition.publisher_last_edited_at).to eq Time.zone.parse(last_edited_at)
       end
     end
 
@@ -95,18 +86,10 @@ RSpec.describe Edition::Timestamps do
       it "sets last_edited_at to current time" do
         expect(edition.last_edited_at).to eq current_time
       end
-
-      it "sets publisher_last_edited_at to nil" do
-        expect(edition.publisher_last_edited_at).to be_nil
-      end
     end
 
     context "when public_updated_at is provided in payload" do
       let(:public_updated_at) { "2017-10-30" }
-
-      it "sets publisher_major_published_at to provided public_updated_at_value" do
-        expect(edition.publisher_major_published_at).to eq Time.zone.parse(public_updated_at)
-      end
 
       it "sets public_updated_at to provided value" do
         expect(edition.public_updated_at).to eq Time.zone.parse(public_updated_at)
@@ -115,10 +98,6 @@ RSpec.describe Edition::Timestamps do
 
     context "when public_updated_at is not provided in payload" do
       let(:public_updated_at) { nil }
-
-      it "sets publisher_major_published_at to nil" do
-        expect(edition.publisher_major_published_at).to be_nil
-      end
 
       it "sets public_updated_at to nil" do
         expect(edition.public_updated_at).to be_nil
@@ -129,18 +108,18 @@ RSpec.describe Edition::Timestamps do
   describe "#live_transition" do
     let(:edition) do
       build(:edition,
-        temporary_first_published_at: temporary_first_published_at,
-        first_published_at: first_published_at,
-        public_updated_at: public_updated_at)
+            publishing_api_first_published_at: publishing_api_first_published_at,
+            first_published_at: first_published_at,
+            public_updated_at: public_updated_at)
     end
-    let(:temporary_first_published_at) { nil }
+    let(:publishing_api_first_published_at) { nil }
     let(:first_published_at) { nil }
     let(:public_updated_at) { nil }
 
     let(:previous_live_version) do
       build(:edition,
-        major_published_at: "2017-11-05",
-        public_updated_at: previous_public_updated_at)
+            major_published_at: "2017-11-05",
+            public_updated_at: previous_public_updated_at)
     end
     let(:previous_public_updated_at) { "2017-10-30" }
 
@@ -157,11 +136,11 @@ RSpec.describe Edition::Timestamps do
     end
 
     context "when the edition is being published for the first time" do
-      let(:temporary_first_published_at) { nil }
+      let(:publishing_api_first_published_at) { nil }
       let(:first_published_at) { nil }
 
-      it "sets temporary_first_published_at to current time" do
-        expect(edition.temporary_first_published_at).to eq current_time
+      it "sets publishing_api_first_published_at to current time" do
+        expect(edition.publishing_api_first_published_at).to eq current_time
       end
 
       it "sets first_published_at to current time" do
@@ -170,11 +149,11 @@ RSpec.describe Edition::Timestamps do
     end
 
     context "when an edition has already been published" do
-      let(:temporary_first_published_at) { "2010-05-01" }
+      let(:publishing_api_first_published_at) { "2010-05-01" }
       let(:first_published_at) { "2011-05-01" }
 
-      it "doesn't change temporary first published at" do
-        expect(edition.temporary_first_published_at).to eq Time.zone.parse(temporary_first_published_at)
+      it "doesn't change publishing_api_first_published_at" do
+        expect(edition.publishing_api_first_published_at).to eq Time.zone.parse(publishing_api_first_published_at)
       end
 
       it "doesn't change first published at" do
@@ -221,11 +200,12 @@ RSpec.describe Edition::Timestamps do
       end
 
       context "and neither edition or previous live edition have a public_updated_at value" do
+        let(:first_published_at) { "2017-01-01" }
         let(:public_updated_at) { nil }
         let(:previous_public_updated_at) { nil }
 
-        it "sets public_updated_at to current time" do
-          expect(edition.public_updated_at).to eq current_time
+        it "sets public_updated_at to first_published_at" do
+          expect(edition.public_updated_at).to eq Time.zone.parse(first_published_at)
         end
       end
 

@@ -275,10 +275,10 @@ RSpec.describe Commands::V2::Unpublish do
           expect(unpublishing.alternative_path).to eq("/new-path")
         end
 
-        it "sets temporary_first_published_at to current time" do
+        it "sets publishing_api_first_published_at to current time" do
           described_class.call(payload_with_allow_draft)
 
-          expect(draft_edition.reload.temporary_first_published_at)
+          expect(draft_edition.reload.publishing_api_first_published_at)
             .to eq(Time.zone.now)
         end
 

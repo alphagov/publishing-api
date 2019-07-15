@@ -38,32 +38,24 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
     expect(previously_drafted_item.content_store).to eq("draft")
   end
 
-  it "sets temporary_last_edited_at to current time" do
+  it "sets publishing_api_last_edited_at to current time" do
     put "/v2/content/#{content_id}", params: payload.to_json
     previously_drafted_item.reload
 
-    expect(previously_drafted_item.temporary_last_edited_at).to eq(Time.now)
+    expect(previously_drafted_item.publishing_api_last_edited_at).to eq(Time.current)
   end
 
   it "sets last_edited_at to current time" do
     put "/v2/content/#{content_id}", params: payload.to_json
     previously_drafted_item.reload
 
-    expect(previously_drafted_item.last_edited_at).to eq(Time.now)
+    expect(previously_drafted_item.last_edited_at).to eq(Time.current)
   end
 
   context "when public_updated_at is in the payload" do
-    let(:public_updated_at) { Time.now }
+    let(:public_updated_at) { Time.current }
     before do
       payload[:public_updated_at] = public_updated_at
-    end
-
-    it "allows the setting of publisher_major_published_at" do
-      put "/v2/content/#{content_id}", params: payload.to_json
-      previously_drafted_item.reload
-
-      expect(previously_drafted_item.publisher_major_published_at)
-        .to eq(public_updated_at)
     end
 
     it "allows the setting of public_updated_at" do
@@ -77,21 +69,19 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
   context "when first_published_at is in the payload" do
     it "allows the setting of first_published_at and publisher_first_published_at" do
-      explicit_first_published = Time.new(2016, 5, 23, 1, 1, 1).rfc3339
+      explicit_first_published = Time.zone.parse("2016-5-23 1:00").rfc3339
       payload[:first_published_at] = explicit_first_published
 
       put "/v2/content/#{content_id}", params: payload.to_json
 
       expect(previously_drafted_item.reload.first_published_at)
         .to eq(explicit_first_published)
-      expect(previously_drafted_item.publisher_first_published_at)
-        .to eq(explicit_first_published)
     end
   end
 
-  it "has a temporary_first_published_at of nil" do
+  it "has a publishing_api_first_published_at of nil" do
     put "/v2/content/#{content_id}", params: payload.to_json
-    expect(previously_drafted_item.reload.temporary_first_published_at)
+    expect(previously_drafted_item.reload.publishing_api_first_published_at)
       .to be_nil
   end
 

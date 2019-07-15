@@ -6,6 +6,15 @@ class Edition < ApplicationRecord
     live: 'live'
   }
 
+  self.ignored_columns = %w[
+    publisher_first_published_at
+    publisher_last_edited_at
+    publisher_major_published_at
+    publisher_published_at
+    temporary_first_published_at
+    temporary_last_edited_at
+  ].freeze
+
   DEFAULT_LOCALE = "en".freeze
 
   TOP_LEVEL_FIELDS = %i[
@@ -17,9 +26,13 @@ class Edition < ApplicationRecord
     document_type
     first_published_at
     last_edited_at
+    major_published_at
     phase
     public_updated_at
+    published_at
     publishing_app
+    publishing_api_first_published_at
+    publishing_api_last_edited_at
     redirects
     rendering_app
     routes
@@ -224,38 +237,6 @@ class Edition < ApplicationRecord
   def web_url
     return unless base_path
     Plek.current.website_root + base_path
-  end
-
-  # @FIXME this is only supposed to be in for temporarily changing of date fields
-  def new_dates_valid?
-    within_1_sec = ->(date_a, date_b) do
-      diff = (date_b.to_f * 1000).to_i - (date_a.to_f * 1000).to_i
-      diff.abs < 1000
-    end
-    valid = ->(old, publisher_new, api_new) do
-      if old
-        within_1_sec.(old, (publisher_new || api_new))
-      else
-        old == publisher_new
-      end
-    end
-
-    first_published_at_valid = valid.(
-      first_published_at,
-      publisher_first_published_at,
-      temporary_first_published_at
-    )
-    public_updated_at_valid = valid.(
-      public_updated_at,
-      publisher_major_published_at,
-      major_published_at
-    )
-    last_edited_at_valid = valid.(
-      last_edited_at,
-      publisher_last_edited_at,
-      temporary_last_edited_at
-    )
-    first_published_at_valid && public_updated_at_valid && last_edited_at_valid
   end
 
 private

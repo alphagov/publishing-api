@@ -2,6 +2,8 @@ FactoryBot.define do
   factory :unpublished_edition, parent: :edition, aliases: [:gone_unpublished_edition] do
     state { "unpublished" }
     content_store { "live" }
+    public_updated_at { "2014-05-14T13:00:06Z" }
+    first_published_at { "2014-01-02T03:04:05Z" }
     transient do
       unpublishing_type { "gone" }
       explanation { "Removed for testing reasons" }
