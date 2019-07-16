@@ -158,6 +158,9 @@ presented edition and [warnings](#warnings).
 - `update_type` *(optional)*
   - Accepts: "major", "minor", "republish"
   - It is acceptable to send a "minor" update for the first ever draft
+- `bulk_publishing` *(optional, default: false)*
+  - Set this to true when making multiple requests. Publishing API will use a
+    lower priority queue to avoid delays to standard publishing activity.
 
 ### State changes
 
@@ -374,9 +377,6 @@ and a state has been specified, the draft is returned.
 
 ### Query string parameters
 
-- `bulk_publishing` *(optional, default: false)*
-  - Set this to true when making multiple requests. Publishing API will use a
-    lower priority queue to avoid delays to standard publishing activity.
 - `document_type` *(optional)*
   - The type of editions to return.
 - `fields[]` *(optional)*
