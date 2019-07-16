@@ -41,7 +41,7 @@ module Commands
     private
 
       def edition_diff
-        @edition_diff ||= HashDiffBuilder.new(Presenters::EditionDiffPresenter)
+        @edition_diff ||= HashdiffBuilder.new(Presenters::EditionDiffPresenter)
       end
 
       def link_diff_between(old_links, new_links)

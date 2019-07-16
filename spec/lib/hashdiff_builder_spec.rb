@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe HashDiffBuilder do
+RSpec.describe HashdiffBuilder do
   let(:content_id) { SecureRandom.uuid }
   let(:organisation_links) do
     [
@@ -21,17 +21,21 @@ RSpec.describe HashDiffBuilder do
   end
 
   let(:previous_edition) do
-    double(:edition,
+    double(
+      :edition,
       description: "A description",
       title: "A title",
-      links: organisation_links)
+      links: organisation_links
+    )
   end
 
   let(:updated_edition) do
-    double(:edition,
+    double(
+      :edition,
       description: "A description",
       title: "A new title",
-      links: policy_areas_links)
+      links: policy_areas_links
+    )
   end
 
   let(:presented_previous_edition) do
@@ -74,7 +78,7 @@ RSpec.describe HashDiffBuilder do
 
     context "when no previous item is provided" do
       it "raises a 'MissingItemError' error" do
-        expect { subject }.to raise_error(HashDiffBuilder::MissingItemError, "No previous item provided")
+        expect { subject }.to raise_error(HashdiffBuilder::MissingItemError, "No previous item provided")
       end
     end
 
@@ -85,7 +89,7 @@ RSpec.describe HashDiffBuilder do
       end
 
       it "raises a 'MissingItemError' error" do
-        expect { subject }.to raise_error(HashDiffBuilder::MissingItemError, "No current item provided")
+        expect { subject }.to raise_error(HashdiffBuilder::MissingItemError, "No current item provided")
       end
     end
   end

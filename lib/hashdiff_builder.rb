@@ -1,4 +1,4 @@
-class HashDiffBuilder
+class HashdiffBuilder
   def initialize(presenter)
     @presenter = presenter
   end
@@ -14,6 +14,7 @@ class HashDiffBuilder
   def diff
     raise MissingItemError, "No previous item provided" if previous_item.nil?
     raise MissingItemError, "No current item provided" if current_item.nil?
+
     create_diff(previous_item, current_item)
   end
 
