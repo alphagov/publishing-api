@@ -27,7 +27,7 @@ module DataHygiene
     end
 
     def same_html?
-      HashDiff.diff(published_html, generated_html) == []
+      Hashdiff.diff(published_html, generated_html) == []
     end
 
     def pretty_much_same_html?
