@@ -87,11 +87,6 @@ RSpec.describe Commands::V2::PutContent do
         "locale" => locale,
         "action" => "PutContent",
       )
-
-      expect(Action.last.edition_diff).to include(
-        ["~", [:title], "Some Title", "New Title"],
-        ["~", [:change_note], change_note.to_s, new_change_note.to_s],
-      )
     end
 
     context "when the 'downstream' parameter is false" do
