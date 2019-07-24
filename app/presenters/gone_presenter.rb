@@ -46,12 +46,20 @@ private
         explanation: explanation,
         alternative_path: alternative_path,
       },
-      routes: [
+      routes: routes,
+    }
+  end
+
+  def routes
+    if base_path
+      [
         {
           path: base_path,
           type: "exact",
         }
-      ],
-    }
+      ]
+    else
+      []
+    end
   end
 end
