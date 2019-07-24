@@ -42,19 +42,15 @@ file to the broker as `branch-<branch-name>` using the `pact:publish:branch`
 rake task. It then checks out the master branch of publishing-api and verifies
 the pact against that branch using the `pact:verify:branch` rake task.
 
-When a new version of gds-api-adapters is released by bumping the version, the
-job will also publish the pact as the released version, by running the
-`pact:publish:released_version` rake task.
-
 In publishing-api itself, the Jenkins job runs the `pact:verify` rake task to
-verify the current branch against both master and that released version pact.
+verify the current branch against the master branch.
 
 
 ## Running the pacts in development
 
 You can use `pact:verify` locally to run the current branch against the master
-and released version pacts stored in Pact Broker. If you need to run them
-against a local version of gds-api-adapters, run the tests in that directory
+branch of pacts stored in Pact Broker. If you need to run them against a local
+version of gds-api-adapters, run the tests in that directory
 and then set the `USE_LOCAL_PACT` env variable:
 
     USE_LOCAL_PACT=1 bundle exec rake pact:verify
@@ -66,14 +62,9 @@ additionally override this location by setting the `GDS_API_PACT_PATH` variable.
 
 ## Making breaking changes
 
-Previously, an updated pact was only published to the pact-broker when the
-gds-api-adapter version was bumped and the gem published to rubygems. This is
-no longer the case, so the released version pact will be updated as soon as the
-change is merged to master.
-
-However, it may still be possible to get into a situation where there are
-mutually dependent branches of gds-api-adapters and publishing-api, neither of
-which will pass their tests on CI until the other is merged. In this case, it is
+It is possible to get into a situation where there are mutually dependent
+branches of gds-api-adapters and publishing-api, neither of which will pass
+their tests on CI until the other is merged. In this case, it is
 possible to run the gds-api-adapters branch on Jenkins against a manually
 specified branch of publishing-api, by manually running the branch build and
 entering the relevant branch name as the `PUBLISHING_API_BRANCH` parameter.
