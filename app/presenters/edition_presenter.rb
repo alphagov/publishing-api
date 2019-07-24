@@ -88,6 +88,7 @@ module Presenters
         {
           access_limited: {
             users: access_limit.users,
+            organisations: access_limit.organisations,
             auth_bypass_ids: access_limit.auth_bypass_ids,
           }
         }

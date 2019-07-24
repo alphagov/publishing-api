@@ -109,22 +109,6 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
-    context "when the params includes an access limit" do
-      before do
-        payload.merge!(access_limited: { users: ["new-user"] })
-      end
-
-      it "creates a new access limit" do
-        expect {
-          described_class.call(payload)
-        }.to change(AccessLimit, :count).by(1)
-
-        access_limit = AccessLimit.last
-        expect(access_limit.users).to eq(["new-user"])
-        expect(access_limit.edition).to eq(Edition.last)
-      end
-    end
-
     it_behaves_like TransactionalCommand
 
     context "when the draft does not exist" do
@@ -149,12 +133,43 @@ RSpec.describe Commands::V2::PutContent do
           expect(edition.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
         end
       end
+
+      context "when the payload includes an access limit" do
+        let(:auth_bypass_id) { SecureRandom.uuid }
+        let(:organisation_id) { SecureRandom.uuid }
+        before do
+          payload.merge!(access_limited: {
+            users: %w[new-user],
+            organisations: [organisation_id],
+            auth_bypass_ids: [auth_bypass_id],
+          })
+        end
+
+        it "creates a new access limit" do
+          expect {
+            described_class.call(payload)
+          }.to change(AccessLimit, :count).by(1)
+
+          access_limit = AccessLimit.last
+          expect(access_limit.users).to eq(%w[new-user])
+          expect(access_limit.organisations).to eq([organisation_id])
+          expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
+          expect(access_limit.edition).to eq(Edition.last)
+        end
+      end
+
+      context "when the payload doesn't include an access limit" do
+        it "creates a new access limit" do
+          described_class.call(payload)
+          expect(AccessLimit.count).to eq(0)
+        end
+      end
     end
 
     context "when the draft does exist" do
-      let!(:edition) do
-        create(:draft_edition,
-          document: create(:document, content_id: content_id))
+      before do
+        document = create(:document, content_id: content_id)
+        create(:draft_edition, document: document)
       end
 
       context "with a provided last_edited_at" do
@@ -170,9 +185,7 @@ RSpec.describe Commands::V2::PutContent do
                 )
               )
 
-              edition.reload
-
-              expect(edition.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
+              expect(Edition.first.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
             end
           end
         end
@@ -182,9 +195,73 @@ RSpec.describe Commands::V2::PutContent do
         Timecop.freeze do
           described_class.call(payload)
 
-          edition.reload
+          expect(Edition.first.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+        end
+      end
 
-          expect(edition.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+      context "when the existing draft doesn't have access limit" do
+        let(:auth_bypass_id) { SecureRandom.uuid }
+        let(:organisation_id) { SecureRandom.uuid }
+        before do
+          payload.merge!(access_limited: {
+            users: %w[new-user],
+            organisations: [organisation_id],
+            auth_bypass_ids: [auth_bypass_id],
+          })
+        end
+
+        it "creates a new access limit" do
+          edition = Edition.first
+          expect {
+            described_class.call(payload)
+          }.to change(AccessLimit, :count).by(1)
+          access_limit = AccessLimit.last
+          expect(access_limit.users).to eq(%w[new-user])
+          expect(access_limit.organisations).to eq([organisation_id])
+          expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
+          expect(access_limit.edition).to eq(edition)
+        end
+      end
+
+      context "when the payload doesn't include an access limit" do
+        it "creates a new access limit" do
+          described_class.call(payload)
+          expect(AccessLimit.count).to eq(0)
+        end
+      end
+
+      context "when the existing draft has access limits" do
+        before do
+          edition = Edition.first
+          create(:access_limit, edition: edition)
+        end
+
+        context "when the payload doesn't include an access limit" do
+          it "removes the access limits" do
+            described_class.call(payload)
+            expect(AccessLimit.count).to eq(0)
+          end
+        end
+
+        context "when the payload includes an access limit" do
+          let(:auth_bypass_id) { SecureRandom.uuid }
+          let(:organisation_id) { SecureRandom.uuid }
+          before do
+            payload.merge!(access_limited: {
+              users: %w[new-user],
+              organisations: [organisation_id],
+              auth_bypass_ids: [auth_bypass_id],
+            })
+          end
+
+          it "updates the existing access limit" do
+            access_limit = AccessLimit.first
+            described_class.call(payload)
+            access_limit.reload
+            expect(access_limit.users).to eq(%w[new-user])
+            expect(access_limit.organisations).to eq([organisation_id])
+            expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
+          end
         end
       end
     end

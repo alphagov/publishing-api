@@ -3,6 +3,7 @@ class AccessLimit < ApplicationRecord
 
   validate :user_uids_are_strings
   validate :auth_bypass_ids_are_uuids
+  validate :user_organisations_are_uuids
 
 private
 
@@ -15,6 +16,12 @@ private
   def auth_bypass_ids_are_uuids
     unless auth_bypass_ids.all? { |id| UuidValidator.valid?(id) }
       errors.add(:auth_bypass_ids, ["contains invalid UUIDs"])
+    end
+  end
+
+  def user_organisations_are_uuids
+    unless organisations.all? { |id| UuidValidator.valid?(id) }
+      errors.add(:organisations, ["contains invalid UUIDs"])
     end
   end
 end

@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2019_07_19_071750) do
     t.datetime "updated_at", null: false
     t.integer "edition_id"
     t.json "auth_bypass_ids", default: [], null: false
+    t.json "organisations", default: [], null: false
     t.index ["edition_id"], name: "index_access_limits_on_edition_id"
   end
 

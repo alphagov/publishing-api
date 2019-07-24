@@ -100,6 +100,7 @@ module Commands
           AccessLimit.find_or_create_by(edition: edition).tap do |access_limit|
             access_limit.update_attributes!(
               users: (payload[:access_limited][:users] || []),
+              organisations: (payload[:access_limited][:organisations] || []),
               auth_bypass_ids: (payload[:access_limited][:auth_bypass_ids] || []),
             )
           end
