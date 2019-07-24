@@ -4,24 +4,6 @@ require 'pact/tasks'
 require 'pact_broker/client/tasks'
 require 'pact/tasks/task_helper'
 
-desc "Verifies the pact files for latest release and master"
-task "pact:verify" do
-
-  Pact::TaskHelper.handle_verification_failure do
-    Pact::TaskHelper.execute_pact_verify
-  end
-
-  unless ENV['USE_LOCAL_PACT'] # avoid running twice against the same pact file.
-    ClimateControl.modify(GDS_API_PACT_VERSION: "master") do
-      Pact::TaskHelper.handle_verification_failure do
-        Pact::TaskHelper.execute_pact_verify
-      end
-    end
-  end
-end
-
-task default: "pact:verify"
-
 task "pact:verify:branch", [:branch_name] do |t, args|
   abort "Please provide a branch name. eg rake #{t.name}[my_feature_branch]" unless args[:branch_name]
 
