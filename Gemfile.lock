@@ -670,7 +670,7 @@ GEM
       statsd-ruby (~> 1.4.0)
       unicorn (>= 5.4, < 5.6)
     govuk_document_types (0.9.2)
-    govuk_schemas (3.3.0)
+    govuk_schemas (4.0.0)
       json-schema (~> 2.8.0)
     govuk_sidekiq (3.0.3)
       gds-api-adapters (>= 19.1.0)
@@ -980,7 +980,7 @@ DEPENDENCIES
   govuk-lint
   govuk_app_config (~> 1.20)
   govuk_document_types (~> 0.9.2)
-  govuk_schemas (~> 3.3)
+  govuk_schemas (~> 4.0)
   govuk_sidekiq (~> 3.0)
   hashdiff (~> 1.0.0)
   json-schema
