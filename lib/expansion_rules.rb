@@ -49,7 +49,6 @@ module ExpansionRules
     :api_path,
     :base_path,
     :content_id,
-    :description,
     :document_type,
     :locale,
     :public_updated_at,
