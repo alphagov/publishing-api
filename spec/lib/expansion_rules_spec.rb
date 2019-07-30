@@ -273,7 +273,6 @@ RSpec.describe ExpansionRules do
           api_path: nil,
           base_path: nil,
           content_id: nil,
-          description: nil,
           locale: nil,
           public_updated_at: nil,
           schema_name: nil,
