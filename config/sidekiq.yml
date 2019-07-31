@@ -4,6 +4,7 @@
 :logfile: ./log/sidekiq.json.log
 :queues:
   - downstream_high
+  - downstream_medium
   - dependency_resolution
   - downstream_low
   - experiments
