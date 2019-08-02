@@ -46,7 +46,7 @@ private
     return unless draft?
 
     DownstreamDraftWorker.perform_async_in_queue(
-      DownstreamDraftWorker::LOW_QUEUE,
+      queue,
       content_id: dependent_content_id,
       locale: locale,
       update_dependencies: false,
@@ -58,12 +58,16 @@ private
     return if draft?
 
     DownstreamLiveWorker.perform_async_in_queue(
-      DownstreamLiveWorker::LOW_QUEUE,
+      queue,
       content_id: dependent_content_id,
       locale: locale,
       message_queue_event_type: "links",
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
     )
+  end
+
+  def queue
+    DownstreamDraftWorker::LOW_QUEUE
   end
 end
