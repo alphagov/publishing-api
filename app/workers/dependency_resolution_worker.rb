@@ -42,11 +42,11 @@ private
     content_store == Adapters::DraftContentStore
   end
 
-  def downstream_draft(dependent_content_id, locale, queue = DownstreamDraftWorker::LOW_QUEUE)
+  def downstream_draft(dependent_content_id, locale)
     return unless draft?
 
     DownstreamDraftWorker.perform_async_in_queue(
-      queue,
+      DownstreamDraftWorker::LOW_QUEUE,
       content_id: dependent_content_id,
       locale: locale,
       update_dependencies: false,
@@ -54,11 +54,11 @@ private
     )
   end
 
-  def downstream_live(dependent_content_id, locale, queue = DownstreamDraftWorker::LOW_QUEUE)
+  def downstream_live(dependent_content_id, locale)
     return if draft?
 
     DownstreamLiveWorker.perform_async_in_queue(
-      queue,
+      DownstreamLiveWorker::LOW_QUEUE,
       content_id: dependent_content_id,
       locale: locale,
       message_queue_event_type: "links",
