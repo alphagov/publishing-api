@@ -193,7 +193,7 @@ module Commands
       end
 
       def update_dependencies?
-        LinkExpansion::EditionDiff.new(edition).should_update_dependencies?
+        LinkExpansion::EditionDiff.new(edition, previous_edition: previous_edition).should_update_dependencies?
       end
 
       def send_downstream_live
