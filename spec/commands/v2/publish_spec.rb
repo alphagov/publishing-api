@@ -182,14 +182,29 @@ RSpec.describe Commands::V2::Publish do
           user_facing_version: user_facing_version - 1)
       end
 
-      it "doesn't updates the dependencies" do
+      before do
         payload[:update_type] = "minor"
+      end
 
+      it "doesn't updates the dependencies" do
         expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including(update_dependencies: false))
 
         described_class.call(payload)
+      end
+
+      context "with an access limit" do
+        before do
+          create(:access_limit, edition: draft_item)
+        end
+
+        it "sends to the draft downstream without updating dependencies" do
+          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+            .with("downstream_high", a_hash_including(update_dependencies: false))
+
+          described_class.call(payload)
+        end
       end
     end
 
@@ -462,6 +477,13 @@ RSpec.describe Commands::V2::Publish do
         }.to change(AccessLimit, :count).by(-1)
 
         expect(AccessLimit.exists?(edition: draft_item)).to eq(false)
+      end
+
+      it "sends to the draft downstream" do
+        expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+          .with("downstream_high", a_hash_including(update_dependencies: true))
+
+        described_class.call(payload)
       end
     end
 

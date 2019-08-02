@@ -193,7 +193,9 @@ module Commands
       end
 
       def update_dependencies?
-        LinkExpansion::EditionDiff.new(edition, previous_edition: previous_edition).should_update_dependencies?
+        @update_dependencies ||= LinkExpansion::EditionDiff.new(
+          edition, previous_edition: previous_edition
+        ).should_update_dependencies?
       end
 
       def send_downstream_live
@@ -213,17 +215,17 @@ module Commands
       end
 
       def live_worker_params
-        {
+        worker_params.merge(
           message_queue_event_type: update_type,
-          update_dependencies: update_dependencies?,
           orphaned_content_ids: orphaned_content_ids,
-        }.merge(worker_params)
+        )
       end
 
       def worker_params
         {
           content_id: content_id,
           locale: locale,
+          update_dependencies: update_dependencies?,
         }
       end
     end
