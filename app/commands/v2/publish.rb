@@ -20,7 +20,7 @@ module Commands
 
       def publish_edition
         delete_change_notes unless update_type == "major"
-        previous_item.supersede if previous_item
+        previous_edition.supersede if previous_edition
 
         unless edition.pathless?
           redirect_old_base_path
@@ -37,8 +37,8 @@ module Commands
       end
 
       def orphaned_content_ids
-        return [] unless previous_item
-        previous_links = previous_item.links.map(&:target_content_id)
+        return [] unless previous_edition
+        previous_links = previous_edition.links.map(&:target_content_id)
         current_links = edition.links.map(&:target_content_id)
         previous_links - current_links
       end
@@ -73,13 +73,13 @@ module Commands
         document.draft
       end
 
-      def previous_item
+      def previous_edition
         document.published_or_unpublished
       end
 
       def redirect_old_base_path
-        return unless previous_item
-        previous_base_path = previous_item.base_path
+        return unless previous_edition
+        previous_base_path = previous_edition.base_path
 
         if previous_base_path != edition.base_path
           publish_redirect(previous_base_path, document.locale)
@@ -153,7 +153,7 @@ module Commands
       end
 
       def set_timestamps
-        Edition::Timestamps.live_transition(edition, update_type, previous_item)
+        Edition::Timestamps.live_transition(edition, update_type, previous_edition)
       end
 
       def default_datetime
