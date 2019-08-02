@@ -38,6 +38,7 @@ module Commands
 
       def orphaned_content_ids
         return [] unless previous_edition
+
         previous_links = previous_edition.links.map(&:target_content_id)
         current_links = edition.links.map(&:target_content_id)
         previous_links - current_links
@@ -79,6 +80,7 @@ module Commands
 
       def redirect_old_base_path
         return unless previous_edition
+
         previous_base_path = previous_edition.base_path
 
         if previous_base_path != edition.base_path
