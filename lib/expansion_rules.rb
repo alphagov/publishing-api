@@ -63,6 +63,7 @@ module ExpansionRules
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
   ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on)).freeze
+  SERVICE_MANUAL_TOPIC_FIELDS = (DEFAULT_FIELDS + [:description]).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
@@ -94,6 +95,7 @@ module ExpansionRules
     { document_type: :need,                       fields: NEED_FIELDS },
     { document_type: :finder, link_type: :finder, fields: FINDER_FIELDS },
     { document_type: :role_appointment,           fields: ROLE_APPOINTMENT_FIELDS },
+    { document_type: :service_manual_topic,       fields: SERVICE_MANUAL_TOPIC_FIELDS },
     { document_type: :step_by_step_nav,           fields: STEP_BY_STEP_FIELDS },
     { document_type: :travel_advice,              fields: TRAVEL_ADVICE_FIELDS },
     { document_type: :world_location,             fields: WORLD_LOCATION_FIELDS },
@@ -125,6 +127,7 @@ module ExpansionRules
 
   def reverse_to_direct_link_types(link_types)
     return unless link_types
+
     link_types.map { |type| reverse_to_direct_link_type(type) }.compact
   end
 
@@ -149,8 +152,10 @@ module ExpansionRules
 
     condition = CUSTOM_EXPANSION_FIELDS.find do |cond|
       next if should_check_link_type && cond.fetch(:link_type, link_type) != link_type
+
       cond[:document_type] == document_type.to_sym
     end
+
     condition[:fields] if condition
   end
 
@@ -198,6 +203,7 @@ module ExpansionRules
   def next_allowed_reverse_link_types(next_allowed_link_types, reverse_to_direct: false)
     next_allowed_link_types.each_with_object({}) do |(link_type, allowed_links), memo|
       next if allowed_links.empty?
+
       link_type = (reverse_to_direct_link_type(link_type) || link_type) if reverse_to_direct
 
       links = allowed_links.select { |link| is_reverse_link_type?(link) }
