@@ -24,8 +24,7 @@ namespace :content do
       content_id: content_id,
       links: {
         suggested_ordered_related_items: []
-      },
-      bulk_publishing: true
+      }
     )
 
     if response.code == 200
