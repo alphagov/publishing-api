@@ -127,6 +127,7 @@ module ExpansionRules
 
   def reverse_to_direct_link_types(link_types)
     return unless link_types
+
     link_types.map { |type| reverse_to_direct_link_type(type) }.compact
   end
 
@@ -151,8 +152,10 @@ module ExpansionRules
 
     condition = CUSTOM_EXPANSION_FIELDS.find do |cond|
       next if should_check_link_type && cond.fetch(:link_type, link_type) != link_type
+
       cond[:document_type] == document_type.to_sym
     end
+
     condition[:fields] if condition
   end
 
@@ -200,6 +203,7 @@ module ExpansionRules
   def next_allowed_reverse_link_types(next_allowed_link_types, reverse_to_direct: false)
     next_allowed_link_types.each_with_object({}) do |(link_type, allowed_links), memo|
       next if allowed_links.empty?
+
       link_type = (reverse_to_direct_link_type(link_type) || link_type) if reverse_to_direct
 
       links = allowed_links.select { |link| is_reverse_link_type?(link) }
