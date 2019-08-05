@@ -73,23 +73,18 @@ private
   end
 
   def high_priority?(dependent_content_id)
-    high_priority_content_item? && high_priority_link?(dependent_content_id)
-  end
-
-  def high_priority_content_item?
-    document_type = edition[:document_type]
-    document_type == "step_by_step_nav"
-  end
-
-  def high_priority_link?(dependent_content_id)
     high_priority_links.include?(dependent_content_id)
   end
 
   def high_priority_links
-    @high_priority_links ||= edition.links.where(link_type: "pages_part_of_step_nav").pluck(:target_content_id)
+    @high_priority_links ||= edition.links.where(link_type: rules).pluck(:target_content_id)
   end
 
   def edition
     @edition ||= Edition.with_document.where("documents.content_id": @content_id).last
+  end
+
+  def rules
+    ExpansionRules::HIGH_PRIORITY_LINKS
   end
 end

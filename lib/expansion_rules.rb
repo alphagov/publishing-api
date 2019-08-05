@@ -44,6 +44,11 @@ module ExpansionRules
     pages_secondary_to_step_nav: :secondary_to_step_navs
   }.freeze
 
+  HIGH_PRIORITY_LINKS = [
+    :pages_part_of_step_nav,
+    :pages_secondary_to_step_nav
+  ].freeze
+
   DEFAULT_FIELDS = [
     :analytics_identifier,
     :api_path,
