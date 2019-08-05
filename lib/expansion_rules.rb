@@ -106,7 +106,7 @@ module ExpansionRules
 
   POSSIBLE_FIELDS_FOR_LINK_EXPANSION = DEFAULT_FIELDS +
     %i[details] +
-    %i[id state phase unpublishings.type] -
+    %i[id state phase description unpublishings.type] -
     %i[api_path withdrawn]
 
   def reverse_links
