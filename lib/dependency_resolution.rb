@@ -5,12 +5,13 @@
 # The concept is documented in /doc/dependency-resolution.md
 #
 class DependencyResolution
-  attr_reader :content_id, :locale, :with_drafts
+  attr_reader :content_id, :locale, :with_drafts, :document_type
 
-  def initialize(content_id, locale: Edition::DEFAULT_LOCALE, with_drafts: false)
+  def initialize(content_id, locale: Edition::DEFAULT_LOCALE, with_drafts: false, document_type: nil)
     @content_id = content_id
     @locale = locale
     @with_drafts = with_drafts
+    @document_type = document_type
   end
 
   def dependencies
