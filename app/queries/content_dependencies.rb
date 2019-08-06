@@ -34,12 +34,20 @@ module Queries
 
     attr_reader :content_id, :locale, :content_stores
 
+    def document_type
+      edition[:document_type]
+    end
+
     def dependency_resolution
       @dependency_resolution ||= DependencyResolution.new(
         content_id,
         locale: locale,
         with_drafts: with_drafts?
       )
+    end
+
+    def edition
+      GetEditionForContentStore.call(content_id, locale, with_drafts?)
     end
   end
 end
