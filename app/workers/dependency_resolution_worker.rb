@@ -67,9 +67,11 @@ private
     )
   end
 
-  def queue(dependent_content_id)
-    return DownstreamDraftWorker::MEDIUM_QUEUE if high_priority?(dependent_content_id)
-    DownstreamDraftWorker::LOW_QUEUE
+  def queue(dependent_content_id, worker)
+    return DownstreamDraftWorker::MEDIUM_QUEUE if high_priority?(dependent_content_id) && draft?
+    return DownstreamLiveWorker::MEDIUM_QUEUE if high_priority?(dependent_content_id)
+    return DownstreamDraftWorker::LOW_QUEUE if draft?
+    DownstreamLiveWorker::LOW_QUEUE
   end
 
   def high_priority?(dependent_content_id)
