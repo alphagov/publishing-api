@@ -1,4 +1,10 @@
 class DependencyResolution::LinkReference
+  attr_reader :document_type
+
+  def initialize(document_type = nil)
+    @document_type = document_type
+  end
+
   def valid_link_node?(node)
     return true if node.link_types_path.length == 1
     return true if node.links.present?
