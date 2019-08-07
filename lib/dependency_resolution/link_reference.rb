@@ -12,6 +12,13 @@ class DependencyResolution::LinkReference
     rules.dependency_resolution.valid_link_types_path?(node.link_types_path)
   end
 
+  def priority(node)
+    priorities = rules::HIGH_PRIORITY_DEPENDENCY_RULES[document_type]
+    return :low unless priorities
+
+    priorities.include?(node.link_types_path) ? :high : :low
+  end
+
   def root_links_by_link_type(content_id:, locale:, with_drafts: false)
     direct = linked_to(content_id)
     reverse = own_links(content_id, rules.reverse_links)

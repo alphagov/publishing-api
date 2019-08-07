@@ -27,6 +27,10 @@ class LinkGraph
     links.flat_map { |link| [link.content_id] + link.links_content_ids }.uniq
   end
 
+  def links_with_priority
+    links.flat_map { |link| [{ content_id: link.content_id, priority: link.link_reference.priority(link) } + links.links_with_priority] }
+  end
+
   def to_s
     "LinkGraph(#{root_content_id}, #{root_locale})"
   end

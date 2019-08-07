@@ -18,6 +18,10 @@ class DependencyResolution
     link_graph.links_content_ids
   end
 
+  def dependencies_with_priorities
+    link_graph.links_with_priority
+  end
+
   def link_graph
     @link_graph ||= LinkGraph.new(
       root_content_id: content_id,
