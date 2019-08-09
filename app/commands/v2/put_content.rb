@@ -165,6 +165,7 @@ module Commands
           locale: locale,
           update_dependencies: update_dependencies,
           orphaned_content_ids: orphaned_links,
+          source_command: "put_content",
         )
       end
     end

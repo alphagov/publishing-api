@@ -46,6 +46,7 @@ module Commands
           content_id: content_id,
           locale: locale,
           update_dependencies: true,
+          source_command: "discard_draft",
         )
       end
 

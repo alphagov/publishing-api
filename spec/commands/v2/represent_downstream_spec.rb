@@ -54,6 +54,13 @@ RSpec.describe Commands::V2::RepresentDownstream do
           .exactly(1).times
         subject.call(Document.pluck(:content_id), with_drafts: false)
       end
+
+      it "has a source_command of 'represent_downstream'" do
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+          .with(anything, a_hash_including(source_command: "represent_downstream"))
+          .at_least(1).times
+        subject.call(Document.pluck(:content_id), with_drafts: false)
+      end
     end
 
     context "scope" do

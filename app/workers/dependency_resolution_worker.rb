@@ -69,6 +69,7 @@ private
       locale: locale,
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
+      source_command: source_command,
     )
   end
 
@@ -82,6 +83,7 @@ private
       message_queue_event_type: "links",
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
+      source_command: source_command,
     )
   end
 end

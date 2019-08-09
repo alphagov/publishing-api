@@ -49,6 +49,13 @@ RSpec.describe Commands::V2::Publish do
       }
     end
 
+    it "sets the source_command to publish" do
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        .with("downstream_high", hash_including(source_command: "publish"))
+
+      described_class.call(payload)
+    end
+
     context "with no update_type" do
       before do
         payload.delete(:update_type)

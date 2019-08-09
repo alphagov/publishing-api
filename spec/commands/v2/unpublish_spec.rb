@@ -169,12 +169,12 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id: content_id, locale: locale)
+            a_hash_including(content_id: content_id, locale: locale, source_command: "unpublish")
           )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id: content_id, locale: locale)
+            a_hash_including(content_id: content_id, locale: locale, source_command: "unpublish")
           )
 
         described_class.call(payload)

@@ -30,6 +30,7 @@ module Commands
             content_id: content_id,
             locale: locale,
             update_dependencies: false,
+            source_command: "represent_downstream",
           )
         end
       end
@@ -48,6 +49,7 @@ module Commands
             locale: locale,
             message_queue_event_type: "links",
             update_dependencies: false,
+            source_command: "represent_downstream",
           )
         end
       end

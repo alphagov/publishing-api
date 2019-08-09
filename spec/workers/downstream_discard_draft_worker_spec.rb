@@ -11,7 +11,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
   let(:content_id) { edition.content_id }
 
-  let(:arguments) do
+  let(:base_arguments) do
     {
       "base_path" => base_path,
       "content_id" => content_id,
@@ -20,6 +20,8 @@ RSpec.describe DownstreamDiscardDraftWorker do
       "alert_on_base_path_conflict" => false
     }
   end
+
+  let(:arguments) { base_arguments }
 
   before do
     edition.destroy
@@ -153,9 +155,19 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
   describe "update dependencies" do
     context "can update dependencies" do
+      let(:arguments) do
+        base_arguments.merge("update_dependencies" => true, "source_command" => "command")
+      end
+
       it "enqueues dependencies" do
         expect(DependencyResolutionWorker).to receive(:perform_async)
-        subject.perform(arguments.merge("update_dependencies" => true))
+        subject.perform(arguments)
+      end
+
+      it "sends the source command to the worker" do
+        expect(DependencyResolutionWorker).to receive(:perform_async)
+          .with(a_hash_including(source_command: "command"))
+        subject.perform(arguments)
       end
     end
 
