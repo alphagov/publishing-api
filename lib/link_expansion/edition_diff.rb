@@ -7,7 +7,7 @@ class LinkExpansion::EditionDiff
     @version = version
   end
 
-  def should_update_dependencies?
+  def present?
     diff.present?
   end
 
