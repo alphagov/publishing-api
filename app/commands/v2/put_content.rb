@@ -21,7 +21,7 @@ module Commands
           send_downstream(
             document.content_id,
             document.locale,
-            update_dependencies?(edition),
+            edition,
             orphaned_links
           )
         end
@@ -154,7 +154,7 @@ module Commands
         LinkExpansion::EditionDiff.new(edition, previous_edition: @previous_edition).should_update_dependencies?
       end
 
-      def send_downstream(content_id, locale, update_dependencies, orphaned_links)
+      def send_downstream(content_id, locale, edition, orphaned_links)
         return unless downstream
 
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
@@ -163,7 +163,7 @@ module Commands
           queue,
           content_id: content_id,
           locale: locale,
-          update_dependencies: update_dependencies,
+          update_dependencies: update_dependencies?(edition),
           orphaned_content_ids: orphaned_links,
           source_command: "put_content",
         )

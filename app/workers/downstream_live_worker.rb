@@ -77,6 +77,7 @@ private
       locale: locale,
       orphaned_content_ids: orphaned_content_ids,
       source_command: source_command,
+      source_document_type: edition.document_type,
     )
   end
 

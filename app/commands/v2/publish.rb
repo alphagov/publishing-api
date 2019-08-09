@@ -229,7 +229,7 @@ module Commands
           content_id: content_id,
           locale: locale,
           update_dependencies: update_dependencies?,
-          source_command: "publish"
+          source_command: "publish",
         }
       end
     end

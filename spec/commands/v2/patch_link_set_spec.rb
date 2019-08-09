@@ -316,7 +316,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
               locale: locale,
               message_queue_event_type: "links",
               orphaned_content_ids: [],
-              source_command: "patch_link_set"
+              source_command: "patch_link_set",
             )
         end
 

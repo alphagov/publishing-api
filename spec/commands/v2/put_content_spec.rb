@@ -66,7 +66,11 @@ RSpec.describe Commands::V2::PutContent do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
-          a_hash_including(:content_id, :locale, update_dependencies: true, source_command: "put_content"),
+          a_hash_including(
+            :content_id, :locale,
+            update_dependencies: true,
+            source_command: "put_content",
+          ),
         )
 
       described_class.call(payload)
