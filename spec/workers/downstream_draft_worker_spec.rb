@@ -114,6 +114,12 @@ RSpec.describe DownstreamDraftWorker do
           .with(a_hash_including(source_document_type: "services_and_information"))
         subject.perform(arguments)
       end
+
+      it "sends the dependency resolution fields to the worker" do
+        expect(DependencyResolutionWorker).to receive(:perform_async)
+          .with(a_hash_including(source_fields: %i(field)))
+        subject.perform(arguments.merge("source_fields" => %i(field)))
+      end
     end
 
     context "can not update dependencies" do

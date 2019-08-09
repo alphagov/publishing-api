@@ -70,6 +70,10 @@ RSpec.describe Commands::V2::PutContent do
             :content_id, :locale,
             update_dependencies: true,
             source_command: "put_content",
+            source_fields: %i(
+              analytics_identifier api_path base_path content_id document_type
+              locale public_updated_at schema_name title withdrawn
+            ),
           ),
         )
 

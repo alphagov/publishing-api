@@ -21,7 +21,6 @@ module Commands
           send_downstream(
             document.content_id,
             document.locale,
-            edition,
             orphaned_links
           )
         end
@@ -120,7 +119,7 @@ module Commands
           @links_before_update = previously_published_edition.links.map(&:target_content_id)
           new_draft_edition = CreateDraftEdition.new(self, payload, previously_published_edition).call
         end
-        updated_item || new_draft_edition
+        @edition = updated_item || new_draft_edition
       end
 
       def previously_published_edition
@@ -150,11 +149,11 @@ module Commands
         payload.fetch(:bulk_publishing, false)
       end
 
-      def update_dependencies?(edition)
-        LinkExpansion::EditionDiff.new(edition, previous_edition: @previous_edition).present?
+      def edition_diff
+        @edition_diff ||= LinkExpansion::EditionDiff.new(@edition, previous_edition: @previous_edition)
       end
 
-      def send_downstream(content_id, locale, edition, orphaned_links)
+      def send_downstream(content_id, locale, orphaned_links)
         return unless downstream
 
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
@@ -163,9 +162,10 @@ module Commands
           queue,
           content_id: content_id,
           locale: locale,
-          update_dependencies: update_dependencies?(edition),
+          update_dependencies: edition_diff.present?,
           orphaned_content_ids: orphaned_links,
           source_command: "put_content",
+          source_fields: edition_diff.fields,
         )
       end
     end

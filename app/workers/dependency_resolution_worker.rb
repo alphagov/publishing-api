@@ -70,6 +70,7 @@ private
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
       source_command: source_command,
+      source_fields: source_fields,
     )
   end
 
@@ -84,6 +85,7 @@ private
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
       source_command: source_command,
+      source_fields: source_fields,
     )
   end
 end
