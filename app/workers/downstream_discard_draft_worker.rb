@@ -43,7 +43,6 @@ private
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(
       content_store: Adapters::DraftContentStore,
-      fields: [:content_id],
       content_id: content_id,
       locale: locale,
     )
