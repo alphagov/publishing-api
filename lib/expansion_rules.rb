@@ -57,13 +57,14 @@ module ExpansionRules
     :withdrawn,
   ].freeze
 
+  DEFAULT_FIELDS_AND_DESCRIPTION = (DEFAULT_FIELDS + [:description]).freeze
+
   CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :title, :contact_form_links, :post_addresses, :email_addresses, :phone_numbers)).freeze
   ORGANISATION_FIELDS = (DEFAULT_FIELDS - [:public_updated_at] + details_fields(:logo, :brand, :default_news_image)).freeze
   TAXON_FIELDS = (DEFAULT_FIELDS + [:details, :phase]).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
   ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on)).freeze
-  SERVICE_MANUAL_TOPIC_FIELDS = (DEFAULT_FIELDS + [:description]).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
@@ -94,8 +95,9 @@ module ExpansionRules
     { document_type: :taxon,                      fields: TAXON_FIELDS },
     { document_type: :need,                       fields: NEED_FIELDS },
     { document_type: :finder, link_type: :finder, fields: FINDER_FIELDS },
+    { document_type: :mainstream_browse_page,     fields: DEFAULT_FIELDS_AND_DESCRIPTION },
     { document_type: :role_appointment,           fields: ROLE_APPOINTMENT_FIELDS },
-    { document_type: :service_manual_topic,       fields: SERVICE_MANUAL_TOPIC_FIELDS },
+    { document_type: :service_manual_topic,       fields: DEFAULT_FIELDS_AND_DESCRIPTION },
     { document_type: :step_by_step_nav,           fields: STEP_BY_STEP_FIELDS },
     { document_type: :travel_advice,              fields: TRAVEL_ADVICE_FIELDS },
     { document_type: :world_location,             fields: WORLD_LOCATION_FIELDS },
