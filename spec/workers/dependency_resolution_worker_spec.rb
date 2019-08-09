@@ -150,4 +150,31 @@ RSpec.describe DependencyResolutionWorker, :perform do
       end
     end
   end
+
+  context "with source information" do
+    after do
+      described_class.new.perform(
+        content_id: content_id,
+        content_store: "Adapters::ContentStore",
+        locale: "en",
+        source_command: "patch_link_set",
+        source_document_type: "answer",
+        source_fields: %w(description details.body)
+      )
+    end
+
+    it "sends source stats to statsd" do
+      expect(GovukStatsd).to receive(:increment)
+        .with("dependency_resolution.source.command.patch_link_set")
+
+      expect(GovukStatsd).to receive(:increment)
+        .with("dependency_resolution.source.document_type.answer")
+
+      expect(GovukStatsd).to receive(:increment)
+        .with("dependency_resolution.source.field.description")
+
+      expect(GovukStatsd).to receive(:increment)
+        .with("dependency_resolution.source.field.details.body")
+    end
+  end
 end

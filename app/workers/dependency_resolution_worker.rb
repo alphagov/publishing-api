@@ -7,6 +7,8 @@ class DependencyResolutionWorker
   def perform(args = {})
     assign_attributes(args.deep_symbolize_keys)
 
+    send_source_stats
+
     dependencies.each do |(content_id, locale)|
       send_downstream(content_id, locale)
     end
@@ -16,13 +18,29 @@ class DependencyResolutionWorker
 
 private
 
-  attr_reader :content_id, :locale, :content_store, :orphaned_content_ids
+  attr_reader :content_id, :locale, :content_store, :orphaned_content_ids,
+              :source_command, :source_document_type, :source_fields
 
   def assign_attributes(args)
     @content_id = args.fetch(:content_id)
     @locale = args.fetch(:locale)
     @content_store = args.fetch(:content_store).constantize
     @orphaned_content_ids = args.fetch(:orphaned_content_ids, [])
+    @source_command = args[:source_command]
+    @source_document_type = args[:source_document_type]
+    @source_fields = args.fetch(:source_fields, [])
+  end
+
+  def send_source_stats
+    prefix = "dependency_resolution.source"
+
+    GovukStatsd.increment("#{prefix}.command.#{source_command}") if source_command
+
+    GovukStatsd.increment("#{prefix}.document_type.#{source_document_type}") if source_document_type
+
+    source_fields.each do |field|
+      GovukStatsd.increment("#{prefix}.field.#{field}")
+    end
   end
 
   def send_downstream(content_id, locale)
