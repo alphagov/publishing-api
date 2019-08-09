@@ -14,7 +14,7 @@ class DependencyResolution::LinkReference
 
   def priority(node)
     priorities = rules::HIGH_PRIORITY_DEPENDENCY_RESOLUTION[document_type]
-    return :low unless priorities
+    return :low unless priorities.any?
 
     priorities.include?(node.link_types_path) ? :high : :low
   end
