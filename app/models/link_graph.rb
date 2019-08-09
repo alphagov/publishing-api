@@ -28,7 +28,7 @@ class LinkGraph
   end
 
   def links_with_priority
-    links.flat_map { |link| [{ content_id: link.content_id, priority: link.link_reference.priority(link) } + links.links_with_priority] }
+    links.flat_map { |link| [{ content_id: link.content_id, priority: link_reference.priority(link) }] }
   end
 
   def to_s
