@@ -11,10 +11,14 @@ class LinkExpansion::EditionDiff
     diff.present?
   end
 
+  def fields
+    diff.map(&:first)
+  end
+
 private
 
   def diff
-    hash_diff(
+    @diff ||= hash_diff(
       previous_edition_expanded,
       current_edition_expanded
     )

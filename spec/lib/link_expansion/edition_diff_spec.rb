@@ -45,6 +45,10 @@ RSpec.describe LinkExpansion::EditionDiff do
 
   context "diff in title" do
     include_examples "should update dependencies"
+
+    it "should have the correct changed fields" do
+      expect(subject.fields).to eq(%i(title))
+    end
   end
 
   context "diff in title, document_type and base_path" do
@@ -60,6 +64,10 @@ RSpec.describe LinkExpansion::EditionDiff do
     end
 
     include_examples "should update dependencies"
+
+    it "should have the correct changed fields" do
+      expect(subject.fields).to match_array(%i(api_path base_path document_type title))
+    end
   end
 
   context "diff in details when a finder" do
@@ -75,6 +83,10 @@ RSpec.describe LinkExpansion::EditionDiff do
     end
 
     include_examples "should update dependencies"
+
+    it "should have the correct changed fields" do
+      expect(subject.fields).to match_array(%i(details document_type title))
+    end
   end
 
   context "diff inside details hash" do
@@ -101,6 +113,10 @@ RSpec.describe LinkExpansion::EditionDiff do
       end
 
       include_examples "should update dependencies"
+
+      it "should have the correct changed fields" do
+        expect(subject.fields).to eq(%i(details))
+      end
     end
 
     context "with a field that doesn't matter" do
