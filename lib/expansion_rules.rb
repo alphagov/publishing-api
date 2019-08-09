@@ -46,8 +46,8 @@ module ExpansionRules
 
   HIGH_PRIORITY_DEPENDENCY_RESOLUTION = {
     step_by_step_nav: [
-      [:part_of_step_nav],
-      [:secondary_to_step_nav],
+      [:part_of_step_navs],
+      [:secondary_to_step_navs],
     ],
   }.freeze
 
