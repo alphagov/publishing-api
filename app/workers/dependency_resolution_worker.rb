@@ -16,7 +16,7 @@ class DependencyResolutionWorker
 
 private
 
-  attr_reader :content_id, :locale, :fields, :content_store, :orphaned_content_ids
+  attr_reader :content_id, :locale, :content_store, :orphaned_content_ids
 
   def assign_attributes(args)
     @content_id = args.fetch(:content_id)
