@@ -17,11 +17,11 @@ module EventLogger
       end
 
       response
-    rescue CommandRetryableError => error
+    rescue CommandRetryableError => e
       if (tries -= 1).positive?
         retry
       else
-        raise CommandError.new(code: 400, message: "Too many retries - #{error.message}")
+        raise CommandError.new(code: 400, message: "Too many retries - #{e.message}")
       end
     end
   end

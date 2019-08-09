@@ -13,10 +13,10 @@ FactoryBot.define do
     trait :with_draft do
       after(:create) do |live_edition, evaluator|
         draft = create(:draft_edition,
-          live_edition.as_json(only: %i[title document_id schema_name document_type routes redirects]).merge(
-            base_path: evaluator.base_path,
-            user_facing_version: evaluator.draft_version_number,
-          ))
+                       live_edition.as_json(only: %i[title document_id schema_name document_type routes redirects]).merge(
+                         base_path: evaluator.base_path,
+                         user_facing_version: evaluator.draft_version_number,
+                       ))
 
         raise "Draft is not valid: #{draft.errors.full_messages}" unless draft.valid?
       end

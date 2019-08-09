@@ -1,6 +1,7 @@
 class BasePathForStateValidator < ActiveModel::Validator
   def validate(record)
     return unless record.state && record.base_path
+
     check_conflict(record)
   end
 

@@ -12,8 +12,8 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   let!(:document) { create(:document, content_id: content_id) }
   let!(:edition) do
     create(:live_edition,
-      document: document,
-      base_path: base_path)
+           document: document,
+           base_path: base_path)
   end
 
   describe "withdrawing" do

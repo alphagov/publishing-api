@@ -46,9 +46,9 @@ module RequestHelpers
 
     def access_limit_params
       {
-        users: [
-          "bf3e4b4f-f02d-4658-95a7-df7c74cd0f50",
-          "74c7d700-5b4a-0131-7a8e-005056030037",
+        users: %w[
+          bf3e4b4f-f02d-4658-95a7-df7c74cd0f50
+          74c7d700-5b4a-0131-7a8e-005056030037
         ],
         auth_bypass_ids: [],
       }
@@ -58,7 +58,7 @@ module RequestHelpers
       {
         content_id: content_id,
         links: {
-          organisations: ["30986e26-f504-4e14-a93f-a9593c34a8d9"]
+          organisations: %w[30986e26-f504-4e14-a93f-a9593c34a8d9]
         }
       }
     end

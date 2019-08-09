@@ -77,6 +77,7 @@ module Presenters
 
     def access_limited
       return {} unless access_limit
+
       if edition.state != 'draft'
         GovukError.notify(
           "Tried to send non-draft item with access_limited data",

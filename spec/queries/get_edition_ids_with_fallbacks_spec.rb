@@ -43,13 +43,13 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       let(:document) { create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
         create(:draft_edition,
-          document: document,
-          user_facing_version: 2)
+               document: document,
+               user_facing_version: 2)
       end
       let!(:withdrawn_edition) do
         create(:withdrawn_unpublished_edition,
-          document: document,
-          user_facing_version: 1)
+               document: document,
+               user_facing_version: 1)
       end
 
       context "and the state_fallback order is [draft, withdrawn]" do
@@ -67,26 +67,26 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:fr_document) do
         create(:document,
-          content_id: content_ids.first,
-          locale: "fr")
+               content_id: content_ids.first,
+               locale: "fr")
       end
       let(:en_document) do
         create(:document,
-          content_id: content_ids.first,
-          locale: "en")
+               content_id: content_ids.first,
+               locale: "en")
       end
       let!(:fr_draft_edition) do
         create(:draft_edition, document: fr_document)
       end
       let!(:en_draft_edition) do
         create(:draft_edition,
-          document: en_document,
-          user_facing_version: 2)
+               document: en_document,
+               user_facing_version: 2)
       end
       let!(:en_published_edition) do
         create(:live_edition,
-          document: en_document,
-          user_facing_version: 1)
+               document: en_document,
+               user_facing_version: 1)
       end
 
       context "and the locale_fallback_order is [fr]" do
@@ -138,23 +138,23 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       let(:tax_rates_document) { create(:document, content_id: content_ids.last) }
       let!(:vat_draft_edition) do
         create(:draft_edition,
-          document: vat_document,
-          user_facing_version: 2)
+               document: vat_document,
+               user_facing_version: 2)
       end
       let!(:vat_published_edition) do
         create(:live_edition,
-          document: vat_document,
-          user_facing_version: 1)
+               document: vat_document,
+               user_facing_version: 1)
       end
       let!(:tax_rates_draft_edition) do
         create(:draft_edition,
-          document: tax_rates_document,
-          user_facing_version: 2)
+               document: tax_rates_document,
+               user_facing_version: 2)
       end
       let!(:tax_rates_withdrawn_edition) do
         create(:withdrawn_unpublished_edition,
-          document: tax_rates_document,
-          user_facing_version: 1)
+               document: tax_rates_document,
+               user_facing_version: 1)
       end
 
       context "and the state_fallback order is [draft, published]" do
@@ -181,14 +181,14 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       let(:document) { create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
         create(:draft_edition,
-          document: document,
-          document_type: "gone",
-          user_facing_version: 2)
+               document: document,
+               document_type: "gone",
+               user_facing_version: 2)
       end
       let!(:published_edition) do
         create(:live_edition,
-          document: document,
-          user_facing_version: 1)
+               document: document,
+               user_facing_version: 1)
       end
 
       context "and the state_fallback order is [draft]" do

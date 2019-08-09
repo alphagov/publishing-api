@@ -16,6 +16,7 @@ module Presenters
 
       def translations
         return {} unless expanded_translations.present?
+
         { available_translations: expanded_translations }
       end
 
@@ -43,6 +44,7 @@ module Presenters
 
       def edition_for_id(id)
         return edition if edition && edition.id == id
+
         Edition.find_by(id: id)
       end
 
@@ -58,6 +60,7 @@ module Presenters
 
       def state_fallback_order
         return %i[draft published unpublished] if with_drafts
+
         %i[published unpublished]
       end
 

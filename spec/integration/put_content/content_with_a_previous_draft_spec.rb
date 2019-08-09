@@ -17,11 +17,11 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
   end
   let!(:previously_drafted_item) do
     create(:draft_edition,
-      document: document,
-      base_path: base_path,
-      title: "Old Title",
-      publishing_app: "publisher",
-      update_type: "major")
+           document: document,
+           base_path: base_path,
+           title: "Old Title",
+           publishing_app: "publisher",
+           update_type: "major")
   end
 
   it "updates the edition" do
@@ -164,10 +164,10 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
     context "when there is a draft at the new base path" do
       let!(:substitute_item) do
         create(:draft_edition,
-          base_path: base_path,
-          title: "Substitute Content",
-          publishing_app: "publisher",
-          document_type: "coming_soon")
+               base_path: base_path,
+               title: "Substitute Content",
+               publishing_app: "publisher",
+               document_type: "coming_soon")
       end
 
       it "deletes the substitute item" do
@@ -225,7 +225,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
   context "when the previous draft has an access limit" do
     let!(:access_limit) do
-      create(:access_limit, edition: previously_drafted_item, users: ["old-user"])
+      create(:access_limit, edition: previously_drafted_item, users: %w[old-user])
     end
 
     context "when the params includes an access limit" do
@@ -233,7 +233,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
       before do
         payload.merge!(
           access_limited: {
-            users: ["new-user"],
+            users: %w[new-user],
             auth_bypass_ids: [auth_bypass_id],
           }
         )
@@ -243,7 +243,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
         put "/v2/content/#{content_id}", params: payload.to_json
         access_limit.reload
 
-        expect(access_limit.users).to eq(["new-user"])
+        expect(access_limit.users).to eq(%w[new-user])
         expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
       end
     end
@@ -263,7 +263,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
       before do
         payload.merge!(
           access_limited: {
-            users: ["new-user"],
+            users: %w[new-user],
             auth_bypass_ids: [auth_bypass_id],
           }
         )
@@ -275,7 +275,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
         }.to change(AccessLimit, :count).by(1)
 
         access_limit = AccessLimit.find_by!(edition: previously_drafted_item)
-        expect(access_limit.users).to eq(["new-user"])
+        expect(access_limit.users).to eq(%w[new-user])
         expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
       end
     end

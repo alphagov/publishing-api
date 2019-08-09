@@ -26,6 +26,7 @@ module Events
     def bucket
       bucket_name = Rails.application.config.s3_export.bucket
       raise BucketNotConfiguredError.new("A bucket has not been configured") unless bucket_name.present?
+
       @bucket ||= s3.bucket(bucket_name)
     end
 

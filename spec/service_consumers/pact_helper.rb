@@ -35,7 +35,7 @@ Pact.provider_states_for "GDS API Adapters" do
     WebMock.reset!
     DatabaseCleaner.clean_with :truncation
     GDS::SSO.test_user = create(:user,
-      permissions: %w(signin view_all))
+                                permissions: %w(signin view_all))
   end
 
   tear_down do
@@ -75,21 +75,21 @@ Pact.provider_states_for "GDS API Adapters" do
       document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
       create(:draft_edition,
-        base_path: "/robots.txt",
-        document: document,
-        title: "Instructions for crawler robots",
-        description: "robots.txt provides rules for which parts of GOV.UK are permitted to be crawled by different bots.",
-        document_type: "special_route",
-        schema_name: "special_route",
-        public_updated_at: "2015-07-30T13:58:11+00:00",
-        publishing_app: "static",
-        rendering_app: "static",
-        routes: [
-          {
-            path: "/robots.txt",
-            type: "exact"
-          },
-        ])
+             base_path: "/robots.txt",
+             document: document,
+             title: "Instructions for crawler robots",
+             description: "robots.txt provides rules for which parts of GOV.UK are permitted to be crawled by different bots.",
+             document_type: "special_route",
+             schema_name: "special_route",
+             public_updated_at: "2015-07-30T13:58:11+00:00",
+             publishing_app: "static",
+             rendering_app: "static",
+             routes: [
+               {
+                 path: "/robots.txt",
+                 type: "exact"
+               },
+             ])
     end
   end
 
@@ -104,22 +104,22 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "a draft content item exists with content_id bed722e6-db68-43e5-9079-063f623335a7 with a blocking live item at the same path" do
     set_up do
       create(:live_edition,
-        document: create(:document),
-        base_path: "/blocking_path")
+             document: create(:document),
+             base_path: "/blocking_path")
 
       draft_document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
       create(:draft_edition,
-        document: draft_document,
-        base_path: "/blocking_path")
+             document: draft_document,
+             base_path: "/blocking_path")
     end
   end
 
   provider_state "a French content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       document = create(:document,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        locale: "fr")
+                        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+                        locale: "fr")
 
       create(:draft_edition, document: document)
     end
@@ -144,8 +144,8 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "organisation links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       link_set = create(:link_set,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 2)
+                        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+                        stale_lock_version: 2)
 
       document = create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
       create(:edition, document: document)
@@ -156,16 +156,16 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "empty links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       create(:link_set,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 2)
+             content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+             stale_lock_version: 2)
     end
   end
 
   provider_state "taxon links exist for content_id bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       link_set = create(:link_set,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 2)
+                        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+                        stale_lock_version: 2)
 
       taxon = create(:document, content_id: "20583132-1619-4c68-af24-77583172c070")
       create(:edition, document: taxon)
@@ -182,8 +182,8 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "a draft content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7 and locale: fr" do
     set_up do
       document = create(:document,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        locale: "fr")
+                        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+                        locale: "fr")
 
       create(:draft_edition, document: document)
     end
@@ -196,25 +196,25 @@ Pact.provider_states_for "GDS API Adapters" do
       ar_doc = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7", locale: "ar")
 
       create(:draft_edition,
-        document: en_doc,
-        document_type: "topic",
-        schema_name: "topic",
-        public_updated_at: "2015-01-03",
-        user_facing_version: 1)
+             document: en_doc,
+             document_type: "topic",
+             schema_name: "topic",
+             public_updated_at: "2015-01-03",
+             user_facing_version: 1)
 
       create(:draft_edition,
-        document: fr_doc,
-        document_type: "topic",
-        schema_name: "topic",
-        public_updated_at: "2015-01-02",
-        user_facing_version: 1)
+             document: fr_doc,
+             document_type: "topic",
+             schema_name: "topic",
+             public_updated_at: "2015-01-02",
+             user_facing_version: 1)
 
       create(:draft_edition,
-        document: ar_doc,
-        document_type: "topic",
-        schema_name: "topic",
-        public_updated_at: "2015-01-01",
-        user_facing_version: 1)
+             document: ar_doc,
+             document_type: "topic",
+             schema_name: "topic",
+             public_updated_at: "2015-01-01",
+             user_facing_version: 1)
     end
   end
 
@@ -223,26 +223,26 @@ Pact.provider_states_for "GDS API Adapters" do
       document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
       create(:superseded_edition,
-        document: document,
-        document_type: "topic",
-        schema_name: "topic",
-        public_updated_at: "2015-01-03",
-        user_facing_version: 1)
+             document: document,
+             document_type: "topic",
+             schema_name: "topic",
+             public_updated_at: "2015-01-03",
+             user_facing_version: 1)
 
       create(:live_edition,
-        document: document,
-        document_type: "topic",
-        schema_name: "topic",
-        public_updated_at: "2015-01-03",
-        user_facing_version: 2)
+             document: document,
+             document_type: "topic",
+             schema_name: "topic",
+             public_updated_at: "2015-01-03",
+             user_facing_version: 2)
     end
   end
 
   provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
     set_up do
       document = create(:document,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 3)
+                        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+                        stale_lock_version: 3)
 
       create(:draft_edition, document: document)
 
@@ -254,14 +254,14 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at lock version 3" do
     set_up do
       document = create(:document,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 1)
+                        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+                        stale_lock_version: 1)
 
       create(:draft_edition, document: document)
 
       create(:link_set,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 3)
+             content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+             stale_lock_version: 3)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
@@ -272,11 +272,11 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       (1..4).each do |index|
         create(:live_edition,
-                 title: "title_#{index}",
-                 document: create(:document),
-                 base_path: "/path_#{index}",
-                 document_type: "topic",
-                 public_updated_at: Time.local(2018, 12 - index, 1, 12, 0, 0))
+               title: "title_#{index}",
+               document: create(:document),
+               base_path: "/path_#{index}",
+               document_type: "topic",
+               public_updated_at: Time.local(2018, 12 - index, 1, 12, 0, 0))
       end
     end
   end
@@ -284,29 +284,29 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "there is content with document_type 'topic'" do
     set_up do
       document_a = create(:document,
-        content_id: "aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa")
+                          content_id: "aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa")
 
       create(:draft_edition,
-        title: 'Content Item A',
-        document: document_a,
-        base_path: '/a-base-path',
-        document_type: "topic",
-        schema_name: "topic",
-        public_updated_at: '2015-01-02',
-        details: {
-          internal_name: "an internal name",
-        })
+             title: 'Content Item A',
+             document: document_a,
+             base_path: '/a-base-path',
+             document_type: "topic",
+             schema_name: "topic",
+             public_updated_at: '2015-01-02',
+             details: {
+               internal_name: "an internal name",
+             })
 
       document_b = create(:document,
-        content_id: "bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb")
+                          content_id: "bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb")
 
       create(:live_edition,
-        title: 'Content Item B',
-        document: document_b,
-        base_path: '/another-base-path',
-        public_updated_at: '2015-01-01',
-        document_type: "topic",
-        schema_name: "topic")
+             title: 'Content Item B',
+             document: document_b,
+             base_path: '/another-base-path',
+             public_updated_at: '2015-01-01',
+             document_type: "topic",
+             schema_name: "topic")
     end
   end
   provider_state "there are two link changes with a link_type of 'taxons'" do
@@ -321,32 +321,32 @@ Pact.provider_states_for "GDS API Adapters" do
         action2 = create(:action, user_uid: '22222222-2222-2222-2222-222222222222')
 
         create(:edition,
-          title: 'Edition Title A1',
-          base_path: '/base/path/a1',
-          document: document_a1)
+               title: 'Edition Title A1',
+               base_path: '/base/path/a1',
+               document: document_a1)
         create(:edition,
-          title: 'Edition Title A2',
-          base_path: '/base/path/a2',
-          document: document_a2)
+               title: 'Edition Title A2',
+               base_path: '/base/path/a2',
+               document: document_a2)
         create(:edition,
-          title: 'Edition Title B1',
-          base_path: '/base/path/b1',
-          document: document_b1)
+               title: 'Edition Title B1',
+               base_path: '/base/path/b1',
+               document: document_b1)
         create(:edition,
-          title: 'Edition Title B2',
-          base_path: '/base/path/b2',
-          document: document_b2)
+               title: 'Edition Title B2',
+               base_path: '/base/path/b2',
+               document: document_b2)
 
         create(:link_change,
-          source_content_id: document_a1.content_id,
-          target_content_id: document_b1.content_id,
-          action: action1,
-          change: 'add')
+               source_content_id: document_a1.content_id,
+               target_content_id: document_b1.content_id,
+               action: action1,
+               change: 'add')
         create(:link_change,
-          source_content_id: document_a2.content_id,
-          target_content_id: document_b2.content_id,
-          action: action2,
-          change: 'remove')
+               source_content_id: document_a2.content_id,
+               target_content_id: document_b2.content_id,
+               action: action2,
+               change: 'remove')
       end
     end
   end
@@ -357,26 +357,26 @@ Pact.provider_states_for "GDS API Adapters" do
       document_c = create(:document)
 
       create(:draft_edition,
-        document: document_a,
-        title: 'Content Item A',
-        base_path: '/a-base-path',
-        document_type: "topic",
-        schema_name: "topic")
+             document: document_a,
+             title: 'Content Item A',
+             base_path: '/a-base-path',
+             document_type: "topic",
+             schema_name: "topic")
 
       create(:draft_edition,
-        document: document_b,
-        title: 'Content Item B',
-        base_path: '/another-base-path',
-        document_type: "topic",
-        schema_name: "topic")
+             document: document_b,
+             title: 'Content Item B',
+             base_path: '/another-base-path',
+             document_type: "topic",
+             schema_name: "topic")
 
       create(:draft_edition,
-        document: document_c,
-        title: 'Content Item C',
-        base_path: '/yet-another-base-path',
-        document_type: "topic",
-        schema_name: "topic",
-        publishing_app: 'whitehall')
+             document: document_c,
+             title: 'Content Item C',
+             base_path: '/yet-another-base-path',
+             document_type: "topic",
+             schema_name: "topic",
+             publishing_app: 'whitehall')
     end
   end
 
@@ -391,24 +391,24 @@ Pact.provider_states_for "GDS API Adapters" do
       document3 = create(:document, content_id: content_id3)
 
       create(:live_edition,
-        document: document1,
-        user_facing_version: 1)
+             document: document1,
+             user_facing_version: 1)
 
       create(:draft_edition,
-        document: document1,
-        user_facing_version: 2)
+             document: document1,
+             user_facing_version: 2)
 
       create(:live_edition,
-        document: document3,
-        base_path: '/item-b',
-        public_updated_at: '2015-01-02',
-        user_facing_version: 1)
+             document: document3,
+             base_path: '/item-b',
+             public_updated_at: '2015-01-02',
+             user_facing_version: 1)
 
       create(:live_edition,
-        document: document2,
-        base_path: '/item-a',
-        public_updated_at: '2015-01-01',
-        user_facing_version: 1)
+             document: document2,
+             base_path: '/item-a',
+             public_updated_at: '2015-01-01',
+             user_facing_version: 1)
 
       link_set1 = create(:link_set, content_id: content_id3)
       link_set2 = create(:link_set, content_id: content_id2)
@@ -423,18 +423,18 @@ Pact.provider_states_for "GDS API Adapters" do
       document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
 
       create(:draft_edition,
-        document: document,
-        document_type: "topic",
-        schema_name: "topic",
-        details: { foo: :bar })
+             document: document,
+             document_type: "topic",
+             schema_name: "topic",
+             details: { foo: :bar })
     end
   end
 
   provider_state "the content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
       document = create(:document,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 3)
+                        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+                        stale_lock_version: 3)
 
       create(:draft_edition, document: document)
 
@@ -446,8 +446,8 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "the published content item bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
       document = create(:document,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 3)
+                        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+                        stale_lock_version: 3)
 
       create(:live_edition, document: document)
 
@@ -459,14 +459,14 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "the linkset for bed722e6-db68-43e5-9079-063f623335a7 is at version 3" do
     set_up do
       document = create(:document,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 1)
+                        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+                        stale_lock_version: 1)
 
       create(:draft_edition, document: document)
 
       create(:link_set,
-        content_id: "bed722e6-db68-43e5-9079-063f623335a7",
-        stale_lock_version: 3)
+             content_id: "bed722e6-db68-43e5-9079-063f623335a7",
+             stale_lock_version: 3)
 
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
       stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))

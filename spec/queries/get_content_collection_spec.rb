@@ -4,21 +4,21 @@ RSpec.describe Queries::GetContentCollection do
   context "document_type" do
     before do
       create(:draft_edition,
-        base_path: "/a",
-        document_type: "topic",
-        schema_name: "topic")
+             base_path: "/a",
+             document_type: "topic",
+             schema_name: "topic")
       create(:draft_edition,
-        base_path: "/b",
-        document_type: "topic",
-        schema_name: "topic")
+             base_path: "/b",
+             document_type: "topic",
+             schema_name: "topic")
       create(:draft_edition,
-        base_path: "/c",
-        document_type: "mainstream_browse_page",
-        schema_name: "mainstream_browse_page")
+             base_path: "/c",
+             document_type: "mainstream_browse_page",
+             schema_name: "mainstream_browse_page")
       create(:draft_edition,
-        base_path: "/d",
-        document_type: "another_type",
-        schema_name: "another_type")
+             base_path: "/d",
+             document_type: "another_type",
+             schema_name: "another_type")
     end
 
     it "returns the requested fields for all editions" do
@@ -56,13 +56,13 @@ RSpec.describe Queries::GetContentCollection do
 
   it "returns the editions of the given format, and placeholder_format" do
     create(:draft_edition,
-      base_path: "/a",
-      document_type: "topic",
-      schema_name: "topic")
+           base_path: "/a",
+           document_type: "topic",
+           schema_name: "topic")
     create(:draft_edition,
-      base_path: "/b",
-      document_type: "placeholder_topic",
-      schema_name: "placeholder_topic")
+           base_path: "/b",
+           document_type: "placeholder_topic",
+           schema_name: "placeholder_topic")
 
     expect(Queries::GetContentCollection.new(
       document_types: "topic",
@@ -75,13 +75,13 @@ RSpec.describe Queries::GetContentCollection do
 
   it "includes the publishing state of the item" do
     create(:draft_edition,
-      base_path: "/draft",
-      document_type: "topic",
-      schema_name: "topic")
+           base_path: "/draft",
+           document_type: "topic",
+           schema_name: "topic")
     create(:live_edition,
-      base_path: "/live",
-      document_type: "topic",
-      schema_name: "topic")
+           base_path: "/live",
+           document_type: "topic",
+           schema_name: "topic")
 
     expect(Queries::GetContentCollection.new(
       document_types: "topic",
@@ -143,20 +143,20 @@ RSpec.describe Queries::GetContentCollection do
   context "filtering by publishing_app" do
     before do
       create(:draft_edition,
-        base_path: "/a",
-        document_type: "topic",
-        schema_name: "topic",
-        publishing_app: "publisher")
+             base_path: "/a",
+             document_type: "topic",
+             schema_name: "topic",
+             publishing_app: "publisher")
       create(:draft_edition,
-        base_path: "/b",
-        document_type: "topic",
-        schema_name: "topic",
-        publishing_app: "publisher")
+             base_path: "/b",
+             document_type: "topic",
+             schema_name: "topic",
+             publishing_app: "publisher")
       create(:draft_edition,
-        base_path: "/c",
-        document_type: "topic",
-        schema_name: "topic",
-        publishing_app: "whitehall")
+             base_path: "/c",
+             document_type: "topic",
+             schema_name: "topic",
+             publishing_app: "whitehall")
     end
 
     it "returns items corresponding to the publishing_app parameter if present" do
@@ -185,25 +185,25 @@ RSpec.describe Queries::GetContentCollection do
   describe "the locale filter parameter" do
     before do
       create(:draft_edition,
-        document: create(:document, locale: "en"),
-        base_path: "/content.en",
-        document_type: "topic",
-        schema_name: "topic")
+             document: create(:document, locale: "en"),
+             base_path: "/content.en",
+             document_type: "topic",
+             schema_name: "topic")
       create(:draft_edition,
-        document: create(:document, locale: "ar"),
-        base_path: "/content.ar",
-        document_type: "topic",
-        schema_name: "topic")
+             document: create(:document, locale: "ar"),
+             base_path: "/content.ar",
+             document_type: "topic",
+             schema_name: "topic")
       create(:live_edition,
-        document: create(:document, locale: "en"),
-        base_path: "/content.en",
-        document_type: "topic",
-        schema_name: "topic")
+             document: create(:document, locale: "en"),
+             base_path: "/content.en",
+             document_type: "topic",
+             schema_name: "topic")
       create(:live_edition,
-        document: create(:document, locale: "ar"),
-        base_path: "/content.ar",
-        document_type: "topic",
-        schema_name: "topic")
+             document: create(:document, locale: "ar"),
+             base_path: "/content.ar",
+             document_type: "topic",
+             schema_name: "topic")
     end
 
     it "returns the editions filtered by 'en' locale by default" do
@@ -251,17 +251,17 @@ RSpec.describe Queries::GetContentCollection do
       live_1_content_id = SecureRandom.uuid
 
       create(:draft_edition,
-        document: create(:document, content_id: draft_1_content_id),
-        base_path: "/foo",
-        publishing_app: "specialist-publisher")
+             document: create(:document, content_id: draft_1_content_id),
+             base_path: "/foo",
+             publishing_app: "specialist-publisher")
 
       create(:draft_edition,
-        document: create(:document, content_id: draft_2_content_id),
-        base_path: "/bar")
+             document: create(:document, content_id: draft_2_content_id),
+             base_path: "/bar")
 
       create(:live_edition,
-        document: create(:document, content_id: live_1_content_id),
-        base_path: "/baz")
+             document: create(:document, content_id: live_1_content_id),
+             base_path: "/baz")
 
       link_set1 = create(:link_set, content_id: draft_1_content_id)
       link_set2 = create(:link_set, content_id: draft_2_content_id)
@@ -342,17 +342,17 @@ RSpec.describe Queries::GetContentCollection do
   context "when details hash is requested" do
     before do
       create(:draft_edition,
-        base_path: "/z",
-        details: { foo: :bar },
-        document_type: "topic",
-        schema_name: "topic",
-        publishing_app: "publisher")
+             base_path: "/z",
+             details: { foo: :bar },
+             document_type: "topic",
+             schema_name: "topic",
+             publishing_app: "publisher")
       create(:draft_edition,
-        base_path: "/b",
-        details: { baz: :bat },
-        document_type: "placeholder_topic",
-        schema_name: "placeholder_topic",
-        publishing_app: "publisher")
+             base_path: "/b",
+             details: { baz: :bat },
+             document_type: "placeholder_topic",
+             schema_name: "placeholder_topic",
+             publishing_app: "publisher")
     end
     it "returns the details hash" do
       expect(Queries::GetContentCollection.new(
@@ -369,24 +369,24 @@ RSpec.describe Queries::GetContentCollection do
   describe "search_fields" do
     before do
       create(:live_edition,
-        base_path: "/bar/foo",
-        document_type: "topic",
-        schema_name: "topic",
-        title: "Baz",
-        details: {
-          body: "A page about windows.",
-          internal_name: "newtopic"
-        })
+             base_path: "/bar/foo",
+             document_type: "topic",
+             schema_name: "topic",
+             title: "Baz",
+             details: {
+               body: "A page about windows.",
+               internal_name: "newtopic"
+             })
       create(:live_edition,
-        base_path: "/baz",
-        document_type: "topic",
-        schema_name: "topic",
-        title: "zip",
-        description: "foo",
-        details: {
-          body: "A page all about doors.",
-          internal_name: "baz"
-        })
+             base_path: "/baz",
+             document_type: "topic",
+             schema_name: "topic",
+             title: "zip",
+             description: "foo",
+             details: {
+               body: "A page all about doors.",
+               internal_name: "baz"
+             })
     end
 
     let(:search_in) { nil }
@@ -491,19 +491,19 @@ RSpec.describe Queries::GetContentCollection do
           ["/a", "2010-01-06"], ["/b", "2010-01-05"], ["/c", "2010-01-04"], ["/d", "2010-01-03"]
         ].each do |(base_path, public_updated_at)|
           create(:draft_edition,
-            base_path: base_path,
-            document_type: "topic",
-            schema_name: "topic",
-            public_updated_at: public_updated_at)
+                 base_path: base_path,
+                 document_type: "topic",
+                 schema_name: "topic",
+                 public_updated_at: public_updated_at)
         end
         [
           ["/live1", "2010-01-02"], ["/live2", "2010-01-01"]
         ].each do |(base_path, public_updated_at)|
           create(:live_edition,
-            base_path: base_path,
-            document_type: "topic",
-            schema_name: "topic",
-            public_updated_at: public_updated_at)
+                 base_path: base_path,
+                 document_type: "topic",
+                 schema_name: "topic",
+                 public_updated_at: public_updated_at)
         end
       end
 
@@ -594,16 +594,16 @@ RSpec.describe Queries::GetContentCollection do
         document = create(:document)
 
         create(:live_edition,
-          document: document,
-          document_type: "topic",
-          schema_name: "topic",
-          user_facing_version: 1)
+               document: document,
+               document_type: "topic",
+               schema_name: "topic",
+               user_facing_version: 1)
 
         create(:draft_edition,
-          document: document,
-          document_type: "topic",
-          schema_name: "topic",
-          user_facing_version: 2)
+               document: document,
+               document_type: "topic",
+               schema_name: "topic",
+               user_facing_version: 2)
       end
 
       it "returns the latest item only" do

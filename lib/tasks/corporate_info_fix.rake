@@ -26,6 +26,7 @@ task corporate_info_fix: :environment do
       documents = Document.where(content_id: content_id)
 
       raise "didn't expect more than one doc" if documents.count > 1
+
       document = documents.first
 
       editions = document.editions

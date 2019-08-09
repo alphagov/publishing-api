@@ -8,6 +8,7 @@ RSpec::Matchers.define :a_gzipped_file do
     begin
       @file = Zlib::GzipReader.open(actual)
       return true unless @expected_contents
+
       values_match?(@expected_contents, @file.read)
     rescue Zlib::GzipFile::Error
       false

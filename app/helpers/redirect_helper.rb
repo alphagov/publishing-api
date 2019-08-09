@@ -36,6 +36,7 @@ module RedirectHelper
 
     def previously_drafted_item_base_path_changed?
       return false unless previously_drafted_item
+
       previously_drafted_item.base_path != payload[:base_path]
     end
 

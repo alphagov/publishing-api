@@ -74,6 +74,7 @@ module Queries
 
     def draft_condition
       return { editions: { content_store: "live" } } unless with_drafts
+
       <<-SQL.strip_heredoc
         CASE WHEN EXISTS (
             SELECT 1 FROM editions AS e

@@ -2,6 +2,7 @@ class LinkExpansion::EditionHash
   class << self
     def from(values)
       return nil unless values.present?
+
       hash = hash_for(values)
       hash = SymbolizeJSON.symbolize(hash)
       hash = hash.slice(*ExpansionRules::POSSIBLE_FIELDS_FOR_LINK_EXPANSION)
@@ -14,6 +15,7 @@ class LinkExpansion::EditionHash
 
     def hash_for(values)
       return nil unless values.present?
+
       case values
       when Array
         Hash[ExpansionRules::POSSIBLE_FIELDS_FOR_LINK_EXPANSION.zip(values)]
@@ -38,6 +40,7 @@ class LinkExpansion::EditionHash
     def withdrawn?(hash)
       unpublishing_type = hash[:"unpublishings.type"]
       return false if unpublishing_type.nil?
+
       unpublishing_type == "withdrawal"
     end
   end

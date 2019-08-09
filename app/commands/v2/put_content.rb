@@ -44,6 +44,7 @@ module Commands
 
       def prepare_content_with_base_path
         return unless payload[:base_path]
+
         PathReservation.reserve_base_path!(payload[:base_path], payload[:publishing_app])
         clear_draft_items_of_same_locale_and_base_path
       end
@@ -72,6 +73,7 @@ module Commands
 
       def create_links(edition)
         return if payload[:links].nil?
+
         payload[:links].each do |link_type, target_link_ids|
           edition.links.create!(
             target_link_ids.map.with_index do |target_link_id, i|
@@ -83,6 +85,7 @@ module Commands
 
       def create_redirect
         return unless payload[:base_path]
+
         RedirectHelper::Redirect.new(previously_published_edition,
                                      @previous_edition,
                                      payload, callbacks).create

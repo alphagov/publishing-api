@@ -2,7 +2,7 @@ module Presenters
   module Queries
     class ContentItemPresenter
       attr_reader :edition_scope, :fields, :order, :limit, :offset,
-        :search_query, :search_in, :states, :include_warnings
+                  :search_query, :search_in, :states, :include_warnings
 
       DEFAULT_FIELDS = ([
         *Edition::TOP_LEVEL_FIELDS,
@@ -84,6 +84,7 @@ module Presenters
 
       def search(scope)
         return scope unless search_query.present?
+
         conditions = search_in.map { |search_field| "#{search_field} ilike :query" }
         scope.where(conditions.join(" OR "), query: "%#{search_query}%")
       end
@@ -98,6 +99,7 @@ module Presenters
       def state_order_clause
         priorities = { draft: 0, published: 1, unpublished: 1, superseded: 2 }.slice(*states)
         return unless priorities.values.uniq.count > 1
+
         Arel.sql("CASE state #{priorities.map { |k, v| "WHEN '#{k}' THEN #{v} " }.join} END")
       end
 
@@ -181,6 +183,7 @@ module Presenters
       def join_lateral_aggregates(scope)
         LATERAL_AGGREGATES.each do |field, sql|
           next unless fields.include?(field)
+
           scope = scope.joins("LEFT JOIN LATERAL #{sql} ON TRUE")
         end
         scope
@@ -241,11 +244,13 @@ module Presenters
       def parse_json_column(result, column)
         return unless result.key?(column)
         return if result[column].nil?
+
         result[column] = Oj.load(result[column])
       end
 
       def parse_int_column(result, column)
         return unless result.key?(column)
+
         result[column] = result[column].to_i
       end
 
@@ -262,6 +267,7 @@ module Presenters
       def parse_state_history(result)
         column = "state_history"
         return unless result.key?(column)
+
         result[column] = result[column].map(&:values).to_h
       end
 

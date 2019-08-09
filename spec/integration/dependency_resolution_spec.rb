@@ -5,8 +5,8 @@ RSpec.describe "Dependency Resolution" do
 
   subject(:dependency_resolution) do
     DependencyResolution.new(content_id,
-      locale: locale,
-      with_drafts: with_drafts).dependencies
+                             locale: locale,
+                             with_drafts: with_drafts).dependencies
   end
 
   let(:content_id) { SecureRandom.uuid }
@@ -165,9 +165,9 @@ RSpec.describe "Dependency Resolution" do
     let(:link_type) { :organistion }
     before do
       create_edition(edition_content_id, "/edition-links",
-        factory: edition_factory,
-        locale: edition_locale,
-        links_hash: { link_type => [content_id] })
+                     factory: edition_factory,
+                     locale: edition_locale,
+                     links_hash: { link_type => [content_id] })
     end
 
     context "and the edition is a draft" do
@@ -220,7 +220,7 @@ RSpec.describe "Dependency Resolution" do
 
       before do
         create_link_set(links_to_content_id,
-          links_hash: { link_type => [content_id] })
+                        links_hash: { link_type => [content_id] })
       end
 
       it "merges the links to return both" do
@@ -237,7 +237,7 @@ RSpec.describe "Dependency Resolution" do
     before do
       create_link_set(link_content_id, links_hash: { link_type => [content_id] })
       create_edition(edition_content_id, "/edition-links",
-        links_hash: { link_type => [link_content_id] })
+                     links_hash: { link_type => [link_content_id] })
     end
 
     it "only has a dependency of the link as recusive edition links aren't supported" do

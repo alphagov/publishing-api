@@ -7,10 +7,10 @@ RSpec.describe ChangeNote do
   let(:update_type) { "major" }
   let(:edition) do
     create(:edition,
-      update_type: update_type,
-      details: details,
-      public_updated_at: Time.zone.yesterday,
-      change_note: nil)
+           update_type: update_type,
+           details: details,
+           public_updated_at: Time.zone.yesterday,
+           change_note: nil)
   end
 
   describe ".create_from_edition" do

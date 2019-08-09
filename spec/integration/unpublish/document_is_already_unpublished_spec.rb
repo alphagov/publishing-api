@@ -4,16 +4,16 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
   let(:content_id) { SecureRandom.uuid }
   let(:document) do
     create(:document,
-      content_id: content_id,
-      locale: "en")
+           content_id: content_id,
+           locale: "en")
   end
 
   let!(:unpublished_edition) do
     create(:unpublished_edition,
-      document: document,
-      base_path: "/vat-rates",
-      explanation: "This explnatin has a typo",
-      alternative_path: "/new-path")
+           document: document,
+           base_path: "/vat-rates",
+           explanation: "This explnatin has a typo",
+           alternative_path: "/new-path")
   end
 
   let(:payload) do
@@ -84,7 +84,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
   context "when the unpublishing type is substitute" do
     let!(:unpublished_edition) do
       create(:substitute_unpublished_edition,
-        document: document)
+             document: document)
     end
 
     it "rejects the request with a 404" do

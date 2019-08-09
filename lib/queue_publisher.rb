@@ -20,6 +20,7 @@ class QueuePublisher
 
   def send_message(edition, event_type: nil, routing_key: nil, persistent: true)
     return if @noop
+
     validate_edition(edition)
     routing_key ||= routing_key(edition, event_type)
     publish_message(routing_key, edition, content_type: 'application/json', persistent: persistent)
@@ -33,6 +34,7 @@ class QueuePublisher
 
   def send_heartbeat
     return if @noop
+
     body = {
       timestamp: Time.now.utc.iso8601,
       hostname: Socket.gethostname,

@@ -80,7 +80,7 @@ module Queries
   private
 
     attr_reader :content_id, :mode, :allowed_link_types, :parent_content_ids,
-      :next_allowed_link_types_from, :next_allowed_link_types_to
+                :next_allowed_link_types_from, :next_allowed_link_types_to
 
     def initialize(
       content_id:,
@@ -151,11 +151,13 @@ module Queries
 
     def has_own_links_result(row)
       return false unless could_have_from_children?
+
       check_for_from_children? ? row[2] : nil
     end
 
     def is_linked_to_result(row)
       return false unless could_have_to_children?
+
       check_for_from_children? ? row[3] : row[2]
     end
 

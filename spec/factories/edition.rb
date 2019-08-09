@@ -49,11 +49,11 @@ FactoryBot.define do
         evaluator.links_hash.each do |link_type, target_content_ids|
           target_content_ids.each_with_index do |target_content_id, index|
             create(:link,
-              edition: item,
-              link_type: link_type,
-              link_set: nil,
-              position: index,
-              target_content_id: target_content_id)
+                   edition: item,
+                   link_type: link_type,
+                   link_set: nil,
+                   position: index,
+                   target_content_id: target_content_id)
           end
         end
       end

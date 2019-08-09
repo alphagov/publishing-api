@@ -14,6 +14,7 @@ class SchemaValidator
 
   def valid?
     return true if schema_name_exception?
+
     @errors += JSON::Validator.fully_validate(
       schema,
       payload,
@@ -42,6 +43,7 @@ private
 
   def find_type
     raise NoSchemaNameError.new("No schema name provided") unless schema_name.present?
+
     { schema_type_key => schema_name }
   end
 

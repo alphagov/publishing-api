@@ -11,8 +11,8 @@ RSpec.describe Commands::V2::DiscardDraft do
     let(:locale) { "en" }
     let(:document) do
       create(:document,
-        locale: "en",
-        stale_lock_version: stale_lock_version)
+             locale: "en",
+             stale_lock_version: stale_lock_version)
     end
     let(:stale_lock_version) { 1 }
     let(:base_path) { "/vat-rates" }
@@ -28,9 +28,9 @@ RSpec.describe Commands::V2::DiscardDraft do
       let(:user_facing_version) { 2 }
       let!(:existing_draft_item) do
         create(:access_limited_draft_edition,
-          document: document,
-          base_path: base_path,
-          user_facing_version: user_facing_version)
+               document: document,
+               base_path: base_path,
+               user_facing_version: user_facing_version)
       end
       let!(:change_note) { ChangeNote.create(edition: existing_draft_item) }
 
@@ -99,9 +99,9 @@ RSpec.describe Commands::V2::DiscardDraft do
         let(:stale_lock_version) { 3 }
         let!(:published_item) do
           create(:live_edition,
-            document: document,
-            base_path: base_path,
-            user_facing_version: user_facing_version - 1)
+                 document: document,
+                 base_path: base_path,
+                 user_facing_version: user_facing_version - 1)
         end
 
         it "increments the lock version of the published item" do
@@ -140,9 +140,9 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "a published edition exists with a different base_path" do
         let!(:published_item) do
           create(:live_edition,
-            document: document,
-            base_path: "/hat-rates",
-            user_facing_version: user_facing_version - 1)
+                 document: document,
+                 base_path: "/hat-rates",
+                 user_facing_version: user_facing_version - 1)
         end
 
         it "it uses downstream discard draft worker" do
@@ -162,9 +162,9 @@ RSpec.describe Commands::V2::DiscardDraft do
       context "an unpublished edition exits" do
         let(:unpublished_item) do
           create(:unpublished_edition,
-            document: document,
-            base_path: base_path,
-            user_facing_version: user_facing_version - 1)
+                 document: document,
+                 base_path: base_path,
+                 user_facing_version: user_facing_version - 1)
         end
 
         it "it uses downstream discard draft worker" do
@@ -187,8 +187,8 @@ RSpec.describe Commands::V2::DiscardDraft do
         end
         let!(:french_draft_item) do
           create(:draft_edition,
-            document: french_document,
-            base_path: "#{base_path}.fr")
+                 document: french_document,
+                 base_path: "#{base_path}.fr")
         end
 
         before do

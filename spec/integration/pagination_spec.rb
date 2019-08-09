@@ -4,10 +4,10 @@ RSpec.describe "Paging through editions" do
   before do
     5.times do |n|
       create(:draft_edition,
-        base_path: "/content-#{n}",
-        document_type: "nonexistent-schema",
-        schema_name: "nonexistent-schema",
-        public_updated_at: n.minutes.ago)
+             base_path: "/content-#{n}",
+             document_type: "nonexistent-schema",
+             schema_name: "nonexistent-schema",
+             public_updated_at: n.minutes.ago)
     end
   end
 
@@ -31,12 +31,12 @@ RSpec.describe "Paging through editions" do
   context "when pagination params are supplied" do
     before do
       get "/v2/content",
-        params: {
-          content_format: "nonexistent-schema",
-          fields: %w(base_path publishing_app),
-          offset: "3",
-          per_page: "2"
-        }
+          params: {
+            content_format: "nonexistent-schema",
+            fields: %w(base_path publishing_app),
+            offset: "3",
+            per_page: "2"
+          }
     end
 
     it "responds successfully" do

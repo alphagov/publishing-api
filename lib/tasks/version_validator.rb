@@ -73,6 +73,7 @@ module Tasks
         return 1 if left.second == "draft" && right.second == "superseded"
         return -1 if left.second == "published" && right.second == "draft"
         return 1 if left.second == "draft" && right.second == "published"
+
         left.first <=> right.first
       end
     end

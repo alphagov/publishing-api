@@ -26,6 +26,7 @@ module Events
     def bucket
       bucket_name = Rails.application.config.s3_export.bucket
       raise BucketNotConfiguredError.new("A bucket has not been configured") unless bucket_name.present?
+
       @bucket ||= s3.bucket(bucket_name)
     end
 
@@ -53,6 +54,7 @@ module Events
     def upload(file)
       object = bucket.object(s3_key)
       raise EventsExportExistsError.new("S3 already has an export for #{object.key}") if object.exists?
+
       object.put(body: file, server_side_encryption: "AES256")
     end
 

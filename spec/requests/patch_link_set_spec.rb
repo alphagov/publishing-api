@@ -13,7 +13,7 @@ RSpec.describe "Keeping track of link changes", type: :request do
   scenario "A link is added" do
     make_patch_links_request(
       "2ee935c3-d926-4737-aa23-e8c5edb5c3ca",
-      something: ["1f0b3601-6a1d-4065-adc6-bf6040e2a806"]
+      something: %w[1f0b3601-6a1d-4065-adc6-bf6040e2a806]
     )
 
     expect(LinkChange.count).to eql(1)
@@ -31,12 +31,12 @@ RSpec.describe "Keeping track of link changes", type: :request do
   scenario "A link is changed" do
     make_patch_links_request(
       "2ee935c3-d926-4737-aa23-e8c5edb5c3ca",
-      something: ["1f0b3601-6a1d-4065-adc6-bf6040e2a806"]
+      something: %w[1f0b3601-6a1d-4065-adc6-bf6040e2a806]
     )
 
     make_patch_links_request(
       "2ee935c3-d926-4737-aa23-e8c5edb5c3ca",
-      something: ["0bbd6b21-b6f4-4327-aa40-696bda836000"]
+      something: %w[0bbd6b21-b6f4-4327-aa40-696bda836000]
     )
 
     expect(LinkChange.count).to eql(3)

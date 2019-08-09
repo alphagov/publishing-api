@@ -9,9 +9,9 @@ RSpec.describe Queries::LocalesForEditions do
     base_path_prefix = "vat"
   )
     create(type,
-      document: Document.find_or_create_by(content_id: content_id, locale: locale),
-      base_path: "/#{base_path_prefix}-#{locale}",
-      user_facing_version: user_facing_version)
+           document: Document.find_or_create_by(content_id: content_id, locale: locale),
+           base_path: "/#{base_path_prefix}-#{locale}",
+           user_facing_version: user_facing_version)
   end
 
   describe ".call" do

@@ -35,6 +35,7 @@ module Presenters
 
     def previous_link
       return unless previous_page?
+
       {
         href: page_href(-1),
         rel: "previous"
@@ -43,6 +44,7 @@ module Presenters
 
     def next_link
       return unless next_page?
+
       {
         href: page_href(1),
         rel: "next"

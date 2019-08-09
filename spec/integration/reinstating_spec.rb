@@ -84,7 +84,7 @@ RSpec.describe "Reinstating editions that were previously unpublished" do
       expect(superseded1_item.user_facing_version).to eq(1)
       expect(superseded2_item.user_facing_version).to eq(2)
       expect(published_item.user_facing_version).to eq(1),
-        "The redirect should be regarded as a new piece of content"
+                                                    "The redirect should be regarded as a new piece of content"
     end
 
     describe "after the original edition has been reinstated" do

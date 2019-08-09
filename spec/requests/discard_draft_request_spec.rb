@@ -10,9 +10,9 @@ RSpec.describe "Discard draft requests", type: :request do
     context "when a draft edition exists" do
       let!(:draft_edition) do
         create(:draft_edition,
-          document: document,
-          title: "draft",
-          base_path: base_path)
+               document: document,
+               title: "draft",
+               base_path: base_path)
       end
 
       it "does not send to the live content store" do
@@ -38,9 +38,9 @@ RSpec.describe "Discard draft requests", type: :request do
 
         let!(:french_draft_edition) do
           create(:draft_edition,
-            document: fr_document,
-            title: "draft",
-            base_path: french_base_path)
+                 document: fr_document,
+                 title: "draft",
+                 base_path: french_base_path)
         end
 
         before do

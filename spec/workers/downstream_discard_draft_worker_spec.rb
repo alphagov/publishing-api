@@ -5,8 +5,8 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
   let(:edition) do
     create(:draft_edition,
-      base_path: base_path,
-      title: "Draft")
+           base_path: base_path,
+           title: "Draft")
   end
 
   let(:content_id) { edition.content_id }
@@ -68,9 +68,9 @@ RSpec.describe DownstreamDiscardDraftWorker do
   context "has a live edition with same base_path" do
     let!(:live_edition) do
       create(:live_edition,
-        base_path: base_path,
-        document: edition.document,
-        title: "live")
+             base_path: base_path,
+             document: edition.document,
+             title: "live")
     end
     let(:live_content_item_arguments) do
       arguments.merge("live_content_item_id" => live_edition.id)
@@ -91,9 +91,9 @@ RSpec.describe DownstreamDiscardDraftWorker do
   context "has a live edition with a different base_path" do
     let(:live_edition) do
       create(:live_edition,
-        base_path: "/bar",
-        document: edition.document,
-        title: "Live")
+             base_path: "/bar",
+             document: edition.document,
+             title: "Live")
     end
     let(:live_content_item_arguments) do
       arguments.merge("live_content_item_id" => live_edition.id)
@@ -141,9 +141,9 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
     it "wont send to content store without a base_path" do
       pathless = create(:draft_edition,
-        base_path: nil,
-        document_type: "contact",
-        schema_name: "contact")
+                        base_path: nil,
+                        document_type: "contact",
+                        schema_name: "contact")
       expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
       subject.perform(
         arguments.merge("content_id" => pathless.document.content_id, "base_path" => nil)

@@ -29,9 +29,9 @@ RSpec.describe Presenters::EditionPresenter do
     let(:update_type) { "minor" }
     let(:edition) {
       create(:live_edition,
-        update_type: update_type,
-        schema_name: "calendar",
-        document_type: "calendar")
+             update_type: update_type,
+             schema_name: "calendar",
+             document_type: "calendar")
     }
 
     subject(:result) do
@@ -116,8 +116,8 @@ RSpec.describe Presenters::EditionPresenter do
     context "for a live edition" do
       let(:edition) do
         create(:live_edition,
-          base_path: base_path,
-          details: details)
+               base_path: base_path,
+               details: details)
       end
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
@@ -133,10 +133,10 @@ RSpec.describe Presenters::EditionPresenter do
     context "for a draft edition" do
       let(:edition) do
         create(:draft_edition,
-          base_path: base_path,
-          details: details,
-          first_published_at: "2014-01-02T03:04:05Z",
-          public_updated_at: "2014-05-14T13:00:06Z")
+               base_path: base_path,
+               details: details,
+               first_published_at: "2014-01-02T03:04:05Z",
+               public_updated_at: "2014-05-14T13:00:06Z")
       end
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
@@ -148,8 +148,8 @@ RSpec.describe Presenters::EditionPresenter do
     context "for a withdrawn edition" do
       let!(:edition) do
         create(:withdrawn_unpublished_edition,
-          base_path: base_path,
-          details: details)
+               base_path: base_path,
+               details: details)
       end
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
@@ -171,9 +171,9 @@ RSpec.describe Presenters::EditionPresenter do
       context "with an overridden unpublished_at" do
         let!(:edition) do
           create(:withdrawn_unpublished_edition,
-            base_path: base_path,
-            details: details,
-            unpublished_at: Time.new(2016, 9, 10, 4, 5, 6))
+                 base_path: base_path,
+                 details: details,
+                 unpublished_at: Time.new(2016, 9, 10, 4, 5, 6))
         end
 
         it "merges in a withdrawal notice with the withdrawn_at set correctly" do
@@ -237,8 +237,8 @@ RSpec.describe Presenters::EditionPresenter do
     context "for a edition with change notes" do
       let(:edition) do
         create(:draft_edition,
-          base_path: base_path,
-          details: details.slice(:body))
+               base_path: base_path,
+               details: details.slice(:body))
       end
       before do
         ChangeNote.create(change_history.merge(edition: edition))
@@ -313,8 +313,8 @@ RSpec.describe Presenters::EditionPresenter do
 
       let(:edition) do
         create(:live_edition,
-          base_path: base_path,
-          details: details)
+               base_path: base_path,
+               details: details)
       end
 
       it "renders the govspeak as html" do

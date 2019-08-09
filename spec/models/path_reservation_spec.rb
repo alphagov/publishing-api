@@ -47,8 +47,8 @@ RSpec.describe PathReservation, type: :model do
     context "when the path reservation already exists" do
       before do
         create(:path_reservation,
-          base_path: "/vat-rates",
-          publishing_app: "something-else")
+               base_path: "/vat-rates",
+               publishing_app: "something-else")
       end
 
       it "raises an error" do

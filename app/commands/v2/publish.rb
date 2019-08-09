@@ -170,6 +170,7 @@ module Commands
 
       def set_update_type
         return if edition.update_type
+
         edition.update_attributes!(update_type: update_type)
       end
 
