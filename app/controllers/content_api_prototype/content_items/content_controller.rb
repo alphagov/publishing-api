@@ -46,6 +46,7 @@ module ContentApiPrototype
       def user_facing_version_for(edition, position)
         return edition.user_facing_version + 1 if position == :next
         return edition.user_facing_version - 1 if position == :prev
+
         raise "Invalid position, must be :next or :prev"
       end
 
@@ -59,6 +60,7 @@ module ContentApiPrototype
       def link_to_sibling(edition, position)
         other_edition = sibling_edition(edition, position)
         return unless other_edition
+
         "/content/#{other_edition.document.content_id}/#{other_edition.document.locale}/#{other_edition.user_facing_version}"
       end
 

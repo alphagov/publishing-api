@@ -51,8 +51,8 @@ class DownstreamLiveWorker
 private
 
   attr_reader :content_id, :locale, :edition, :payload_version,
-    :message_queue_event_type, :update_dependencies,
-    :dependency_resolution_source_content_id, :orphaned_content_ids
+              :message_queue_event_type, :update_dependencies,
+              :dependency_resolution_source_content_id, :orphaned_content_ids
 
   def assign_attributes(attributes)
     @content_id = attributes.fetch(:content_id)

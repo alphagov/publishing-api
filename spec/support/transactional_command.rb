@@ -28,10 +28,10 @@ RSpec.shared_examples_for TransactionalCommand do
       new_count = Edition.count
 
       expect(new_count).to eq(previous_count),
-        "The transaction should have been rolled back"
+                           "The transaction should have been rolled back"
 
       expect(Event.count).to be_zero,
-        "The command should not have logged an event"
+                             "The command should not have logged an event"
     end
   end
 end

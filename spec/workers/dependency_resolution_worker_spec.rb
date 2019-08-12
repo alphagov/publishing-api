@@ -51,8 +51,8 @@ RSpec.describe DependencyResolutionWorker, :perform do
   context "with a draft version available" do
     let!(:draft_edition) do
       create(:draft_edition,
-        document: document,
-        user_facing_version: 2)
+             document: document,
+             user_facing_version: 2)
     end
 
     it "doesn't send draft content to the live content store" do

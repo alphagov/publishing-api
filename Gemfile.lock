@@ -840,7 +840,7 @@ GEM
       thor (>= 0.19.0, < 2.0)
     rainbow (3.0.0)
     raindrops (0.19.0)
-    rake (12.3.2)
+    rake (12.3.3)
     randexp (0.1.7)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
@@ -877,17 +877,17 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
-    rubocop (0.72.0)
+    rubocop (0.74.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
-    rubocop-rails (2.2.0)
+    rubocop-rails (2.2.1)
       rack (>= 1.1)
       rubocop (>= 0.72.0)
-    rubocop-rspec (1.33.0)
+    rubocop-rspec (1.35.0)
       rubocop (>= 0.60.0)
     ruby-progressbar (1.10.1)
     safe_yaml (1.0.5)
@@ -1030,4 +1030,4 @@ DEPENDENCIES
   with_advisory_lock (~> 4.0)
 
 BUNDLED WITH
-   1.16.6
+   1.17.2

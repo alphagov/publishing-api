@@ -85,6 +85,7 @@ private
 
   def validate_that_one_of_the_mandatory_content_types_is_present!(array, optional_content_types)
     return true if optional_content_types.empty?
+
     no_matches = array.none? { |h| optional_content_types.include?(h[:content_type]) }
 
     if no_matches

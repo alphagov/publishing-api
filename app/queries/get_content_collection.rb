@@ -91,18 +91,21 @@ module Queries
 
     def search_fields
       return default_search_fields if search_in.blank?
+
       search_in.map { |field| search_field_for_query(field) }
     end
 
     def search_field_for_query(field)
       raise_error("Invalid search field: #{field}") unless valid_search_field?(field)
       return field unless field.include?(".")
+
       elements = field.split(".")
       "#{elements[0]}->>'#{escape_nested_field(elements[1])}'"
     end
 
     def valid_search_field?(field)
       return true if allowed_search_fields.include?(field)
+
       elements = field.split(".")
       allowed_nested_search_fields.include?(elements[0]) && elements.length == 2
     end

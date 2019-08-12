@@ -8,6 +8,7 @@ class ExpansionRules::MultiLevelLinks
     @next_cache ||= {}
     @next_cache[link_types_path.to_s] ||= begin
       raise "Can't operate on an empty link_types_path" if link_types_path.empty?
+
       # look up all the paths for the next level and the level beyond it
       extra_item1 = paths(length: link_types_path.length + 1)
       extra_item2 = paths(length: link_types_path.length + 2)
@@ -32,6 +33,7 @@ class ExpansionRules::MultiLevelLinks
       paths = multi_level_link_paths.map do |path|
         recurring = path.count { |a| a.is_a?(Array) }
         raise "Only 1 recurring item supported" if recurring > 1
+
         non_recurring = path.count - recurring
         cycles = [1, length - non_recurring].max
         path.flat_map { |item| item.is_a?(Array) ? item.cycle(cycles).to_a : item }

@@ -48,7 +48,7 @@ class DownstreamDraftWorker
 private
 
   attr_reader :content_id, :locale, :edition, :payload_version,
-    :update_dependencies, :dependency_resolution_source_content_id, :orphaned_content_ids
+              :update_dependencies, :dependency_resolution_source_content_id, :orphaned_content_ids
 
   def assign_attributes(attributes)
     @content_id = attributes.fetch(:content_id)
@@ -88,8 +88,8 @@ private
     # When a document is only in draft it's expanded links can still be
     # accessed without drafts, so this is generates them as well.
     live_links = Presenters::Queries::ExpandedLinkSet.by_content_id(content_id,
-      locale: locale,
-      with_drafts: false)
+                                                                    locale: locale,
+                                                                    with_drafts: false)
     ExpandedLinks.locked_update(
       content_id: content_id,
       locale: locale,

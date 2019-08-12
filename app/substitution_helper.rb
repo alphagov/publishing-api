@@ -69,6 +69,7 @@ private
 
   def can_substitute?(edition)
     return true if edition.unpublished? && can_substitute_unpublishing_type?(edition.unpublishing.type)
+
     can_substitute_document_type?(edition.document_type)
   end
 

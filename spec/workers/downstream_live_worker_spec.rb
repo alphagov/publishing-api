@@ -81,9 +81,9 @@ RSpec.describe DownstreamLiveWorker do
 
     it "wont send to content store without a base_path" do
       pathless = create(:live_edition,
-        base_path: nil,
-        document_type: "contact",
-        schema_name: "contact")
+                        base_path: nil,
+                        document_type: "contact",
+                        schema_name: "contact")
       expect(Adapters::ContentStore).to_not receive(:put_content_item)
       subject.perform(arguments.merge("content_id" => pathless.document.content_id))
     end

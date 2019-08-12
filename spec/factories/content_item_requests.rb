@@ -21,7 +21,7 @@ FactoryBot.define do
     skip_create
 
     trait :access_limited do
-      access_limited { { "users" => ["3fa46076-2dfd-4169-bcb0-141e2e4bc9b0"] } }
+      access_limited { { "users" => %w[3fa46076-2dfd-4169-bcb0-141e2e4bc9b0] } }
     end
   end
 end

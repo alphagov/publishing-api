@@ -19,6 +19,7 @@ module Presenters
 
       def links
         return {} unless link_set
+
         @links ||= link_set.links.pluck(:link_type, :target_content_id).map.with_object({}) do |link, hash|
           type = link[0].to_sym
 

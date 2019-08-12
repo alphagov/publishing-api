@@ -6,8 +6,8 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
 
   let!(:edition) do
     create(:live_edition,
-      document: create(:document, content_id: content_id),
-      base_path: "/vat-rates")
+           document: create(:document, content_id: content_id),
+           base_path: "/vat-rates")
   end
 
   let!(:event) { double(:event, id: 5) }

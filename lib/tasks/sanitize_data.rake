@@ -111,6 +111,7 @@ task bulk_assign_primary_organisation_from_stdin: [:environment] do |_, _args|
   rows = []
   CSV.new(STDIN).each do |row|
     raise ValueError if row.length != 2
+
     rows << row
   end
 

@@ -26,7 +26,7 @@ class Link < ApplicationRecord
 
 private
 
-  VALID_LINK_TYPE_REGEX = /\A[a-z0-9_]+\z/
+  VALID_LINK_TYPE_REGEX = /\A[a-z0-9_]+\z/.freeze
   AUTOMATIC_LINK_TYPES = %w[available_translations].freeze
 
   def association_presence

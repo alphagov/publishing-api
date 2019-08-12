@@ -24,6 +24,7 @@ module Queries
     def has_no_conflicts?(state, edition_id)
       return true if state == "superseded"
       return true if state == "unpublished" && Unpublishing.is_substitute?(edition_id)
+
       false
     end
 
@@ -41,6 +42,7 @@ module Queries
 
     def limit_scope_to_unpublishing(scope, state)
       return scope unless %w(published unpublished).include?(state)
+
       scope
         .with_unpublishing
         .where("unpublishings.type IS NULL OR unpublishings.type != 'substitute'")

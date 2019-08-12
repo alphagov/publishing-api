@@ -19,7 +19,7 @@ PublishingAPI.register_service(
   name: :draft_content_store,
   client: ContentStoreWriter.new(
     Plek.find('draft-content-store'),
-    { bearer_token: ENV['DRAFT_CONTENT_STORE_BEARER_TOKEN'] },
+    bearer_token: ENV['DRAFT_CONTENT_STORE_BEARER_TOKEN'],
   )
 )
 
@@ -27,7 +27,7 @@ PublishingAPI.register_service(
   name: :live_content_store,
   client: ContentStoreWriter.new(
     Plek.find('content-store'),
-    { bearer_token: ENV['CONTENT_STORE_BEARER_TOKEN'] },
+    bearer_token: ENV['CONTENT_STORE_BEARER_TOKEN'],
   )
 )
 

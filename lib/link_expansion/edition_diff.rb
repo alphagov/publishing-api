@@ -26,6 +26,7 @@ private
 
   def previous_edition_expanded
     return {} if previous_edition.blank?
+
     ExpansionRules.expand_fields(previous_edition.to_h.deep_symbolize_keys, nil)
   end
 

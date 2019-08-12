@@ -18,8 +18,8 @@ RSpec.describe "Path reservation" do
   context "when the base path has been reserved by another publishing app" do
     before do
       create(:path_reservation,
-        base_path: base_path,
-        publishing_app: "something-else")
+             base_path: base_path,
+             publishing_app: "something-else")
     end
 
     it "responds with an error" do

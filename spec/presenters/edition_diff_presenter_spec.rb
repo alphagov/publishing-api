@@ -4,9 +4,9 @@ RSpec.describe Presenters::EditionDiffPresenter do
   let(:content_id) { SecureRandom.uuid }
   let(:edition) do
     create(:edition,
-                        update_type: "major",
-                        links_hash: { "organisations" => [content_id] },
-                        change_note: "a note")
+           update_type: "major",
+           links_hash: { "organisations" => [content_id] },
+           change_note: "a note")
   end
 
   let(:edition_without_links) do
@@ -15,8 +15,8 @@ RSpec.describe Presenters::EditionDiffPresenter do
 
   let(:edition_without_change_note) do
     create(:edition,
-                        update_type: "minor",
-                        links_hash: { "organisations" => [content_id] })
+           update_type: "minor",
+           links_hash: { "organisations" => [content_id] })
   end
 
   EXCLUDED_ATTRIBUTES = %w(

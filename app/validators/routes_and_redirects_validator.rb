@@ -29,6 +29,7 @@ private
 
   def check_redirects?(record)
     return record.schema_name == "redirect" if record.respond_to?(:schema_name)
+
     record.redirect?
   end
 

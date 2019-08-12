@@ -29,7 +29,7 @@ class DownstreamDiscardDraftWorker
 private
 
   attr_reader :base_path, :content_id, :locale, :edition,
-    :payload_version, :update_dependencies
+              :payload_version, :update_dependencies
 
   def assign_attributes(attributes)
     @base_path = attributes.fetch(:base_path)

@@ -217,16 +217,19 @@ class Edition < ApplicationRecord
 
   def api_path
     return unless base_path
+
     "/api/content" + base_path
   end
 
   def api_url
     return unless api_path
+
     Plek.current.website_root + api_path
   end
 
   def web_url
     return unless base_path
+
     Plek.current.website_root + base_path
   end
 

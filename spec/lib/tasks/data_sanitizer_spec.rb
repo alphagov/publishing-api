@@ -7,7 +7,7 @@ RSpec.describe Tasks::DataSanitizer do
 
   let!(:limited_draft) do
     create(:access_limited_draft_edition,
-      base_path: "/limited-draft")
+           base_path: "/limited-draft")
   end
 
   let!(:live_edition) do

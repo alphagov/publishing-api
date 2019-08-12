@@ -14,8 +14,8 @@ RSpec.describe Commands::V2::Unpublish do
   let(:locale) { "en" }
   let(:document) do
     create(:document,
-      content_id: content_id,
-      locale: locale)
+           content_id: content_id,
+           locale: locale)
   end
 
   describe "call" do
@@ -37,8 +37,8 @@ RSpec.describe Commands::V2::Unpublish do
     context "when unpublishing is invalid" do
       let!(:live_edition) do
         create(:live_edition,
-          document: document,
-          base_path: base_path)
+               document: document,
+               base_path: base_path)
       end
 
       let(:payload) do
@@ -70,8 +70,8 @@ RSpec.describe Commands::V2::Unpublish do
     context "when passing redirects" do
       let!(:live_edition) do
         create(:live_edition,
-          document: document,
-          base_path: base_path)
+               document: document,
+               base_path: base_path)
       end
 
       let(:payload) do
@@ -144,8 +144,8 @@ RSpec.describe Commands::V2::Unpublish do
     context "when the document is published" do
       let!(:live_edition) do
         create(:live_edition,
-          document: document,
-          base_path: base_path)
+               document: document,
+               base_path: base_path)
       end
 
       include_examples "creates an action"
@@ -238,8 +238,8 @@ RSpec.describe Commands::V2::Unpublish do
     context "when only a draft is present" do
       let!(:draft_edition) do
         create(:draft_edition,
-          document: document,
-          user_facing_version: 3)
+               document: document,
+               user_facing_version: 3)
       end
 
       it "rejects the request with a 404" do
@@ -327,14 +327,14 @@ RSpec.describe Commands::V2::Unpublish do
         context "when there is a previously unpublished edition" do
           let!(:previous_edition) do
             create(:unpublished_edition,
-              document: document,
-              base_path: base_path,
-              user_facing_version: 1)
+                   document: document,
+                   base_path: base_path,
+                   user_facing_version: 1)
           end
           let(:french_document) do
             create(:document,
-              content_id: document.content_id,
-              locale: "fr")
+                   content_id: document.content_id,
+                   locale: "fr")
           end
 
           it "supersedes the unpublished item" do
@@ -356,14 +356,14 @@ RSpec.describe Commands::V2::Unpublish do
         context "when there is a previously published edition" do
           let!(:previous_edition) do
             create(:live_edition,
-              document: document,
-              base_path: base_path,
-              user_facing_version: 1)
+                   document: document,
+                   base_path: base_path,
+                   user_facing_version: 1)
           end
           let(:french_document) do
             create(:document,
-              content_id: document.content_id,
-              locale: "fr")
+                   content_id: document.content_id,
+                   locale: "fr")
           end
 
           it "supersedes the published item" do
@@ -389,15 +389,15 @@ RSpec.describe Commands::V2::Unpublish do
       let(:link_b) { SecureRandom.uuid }
       let!(:draft_edition) do
         create(:draft_edition,
-          document: document,
-          user_facing_version: 2,
-          links_hash: { topics: [link_b] })
+               document: document,
+               user_facing_version: 2,
+               links_hash: { topics: [link_b] })
       end
 
       let!(:live_edition) do
         create(:live_edition,
-          document: document,
-          links_hash: { topics: [link_a] })
+               document: document,
+               links_hash: { topics: [link_a] })
       end
 
       after do
@@ -418,8 +418,8 @@ RSpec.describe Commands::V2::Unpublish do
     context "when the document is redrafted" do
       let!(:live_edition) do
         create(:live_edition,
-          :with_draft,
-          document: document)
+               :with_draft,
+               document: document)
       end
 
       it "rejects the request with a 422" do
@@ -465,10 +465,10 @@ RSpec.describe Commands::V2::Unpublish do
     context "when the document is already unpublished" do
       let!(:unpublished_edition) do
         create(:unpublished_edition,
-          document: document,
-          base_path: base_path,
-          explanation: "This explnatin has a typo",
-          alternative_path: "/new-path")
+               document: document,
+               base_path: base_path,
+               explanation: "This explnatin has a typo",
+               alternative_path: "/new-path")
       end
 
       let(:payload) do
@@ -531,7 +531,7 @@ RSpec.describe Commands::V2::Unpublish do
       context "when the unpublishing type is substitute" do
         let!(:unpublished_edition) do
           create(:substitute_unpublished_edition,
-            document: document)
+                 document: document)
         end
 
         it "rejects the request with a 404" do
@@ -598,8 +598,8 @@ RSpec.describe Commands::V2::Unpublish do
     context "when the document has no location" do
       let!(:live_edition) do
         create(:live_edition,
-          document: document,
-          base_path: nil)
+               document: document,
+               base_path: nil)
       end
 
       include_examples "creates an action"

@@ -35,13 +35,13 @@ RSpec.describe Queries::GetLinked do
     context "when a edition with no draft exists" do
       before do
         create(:live_edition,
-          document: create(:document, content_id: content_id),
-          base_path: "/vat-rules-2020",
-          title: "VAT rules 2020")
+               document: create(:document, content_id: content_id),
+               base_path: "/vat-rules-2020",
+               title: "VAT rules 2020")
 
         create(:live_edition,
-          document: create(:document, content_id: target_content_id),
-          base_path: "/vat-org")
+               document: create(:document, content_id: target_content_id),
+               base_path: "/vat-org")
       end
 
       it "returns no results when no content is linked to it" do
@@ -73,9 +73,9 @@ RSpec.describe Queries::GetLinked do
     context "when a document with draft exists "do
       before do
         create(:live_edition,
-          :with_draft,
-          document: create(:document, content_id: target_content_id),
-          base_path: "/pay-now")
+               :with_draft,
+               document: create(:document, content_id: target_content_id),
+               base_path: "/pay-now")
       end
 
       context "but no edition links to it" do
@@ -105,30 +105,30 @@ RSpec.describe Queries::GetLinked do
       context "editions link to the wanted edition" do
         before do
           create(:live_edition,
-            document: create(:document, content_id: content_id),
-            title: "VAT and VATy things",
-            base_path: "/vat-rates")
+                 document: create(:document, content_id: content_id),
+                 title: "VAT and VATy things",
+                 base_path: "/vat-rates")
           create(:link_set,
-            content_id: content_id,
-            links: [
-              create(:link,
-                link_type: "organisations",
-                target_content_id: target_content_id)
-            ])
+                 content_id: content_id,
+                 links: [
+                   create(:link,
+                          link_type: "organisations",
+                          target_content_id: target_content_id)
+                 ])
 
           edition = create(:live_edition,
-            base_path: '/vatty',
-            title: "Another VATTY thing")
+                           base_path: '/vatty',
+                           title: "Another VATTY thing")
           create(:link_set,
-            content_id: edition.document.content_id,
-            links: [
-              create(:link,
-                link_type: "organisations",
-                target_content_id: target_content_id),
-              create(:link,
-                link_type: "related_links",
-                target_content_id: target_content_id)
-            ])
+                 content_id: edition.document.content_id,
+                 links: [
+                   create(:link,
+                          link_type: "organisations",
+                          target_content_id: target_content_id),
+                   create(:link,
+                          link_type: "related_links",
+                          target_content_id: target_content_id)
+                 ])
         end
 
         context "custom fields have been requested" do
@@ -174,36 +174,36 @@ RSpec.describe Queries::GetLinked do
       context "draft items linking to the wanted draft item" do
         before do
           create(:live_edition,
-            :with_draft,
-            document: create(:document, content_id: another_target_content_id),
-            base_path: "/send-now")
+                 :with_draft,
+                 document: create(:document, content_id: another_target_content_id),
+                 base_path: "/send-now")
 
           create(:draft_edition,
-            document: create(:document, content_id: content_id),
-            title: "HMRC documents")
+                 document: create(:document, content_id: content_id),
+                 title: "HMRC documents")
 
           create(:link_set,
-            content_id: content_id,
-            links: [
-              create(:link,
-                link_type: "organisations",
-                target_content_id: another_target_content_id),
-            ])
+                 content_id: content_id,
+                 links: [
+                   create(:link,
+                          link_type: "organisations",
+                          target_content_id: another_target_content_id),
+                 ])
 
           edition = create(:draft_edition,
-            base_path: '/other-hmrc-document',
-            title: "Another HMRC document")
+                           base_path: '/other-hmrc-document',
+                           title: "Another HMRC document")
 
           create(:link_set,
-            content_id: edition.document.content_id,
-            links: [
-              create(:link,
-                link_type: "organisations",
-                target_content_id: another_target_content_id),
-              create(:link,
-                link_type: "related_links",
-                target_content_id: SecureRandom.uuid)
-            ])
+                 content_id: edition.document.content_id,
+                 links: [
+                   create(:link,
+                          link_type: "organisations",
+                          target_content_id: another_target_content_id),
+                   create(:link,
+                          link_type: "related_links",
+                          target_content_id: SecureRandom.uuid)
+                 ])
         end
 
         it "returns array of hashes, with requested fields" do

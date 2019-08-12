@@ -6,8 +6,8 @@ RSpec.describe VersionForDocumentValidator do
 
   let(:edition) do
     build(:edition,
-      document: document,
-      user_facing_version: version)
+          document: document,
+          user_facing_version: version)
   end
 
   describe "#validate" do
@@ -30,8 +30,8 @@ RSpec.describe VersionForDocumentValidator do
     context "when version and document are the same" do
       let!(:conflict_edition) {
         create(:edition,
-          document: document,
-          user_facing_version: version)
+               document: document,
+               user_facing_version: version)
       }
       let(:expected_error) do
         "user_facing_version=#{version} and document=#{document.id} " +

@@ -14,10 +14,10 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
   describe "present" do
     let!(:edition) do
       create(:draft_edition,
-        document: document,
-        base_path: base_path,
-        first_published_at: first_published_at,
-        public_updated_at: public_updated_at)
+             document: document,
+             base_path: base_path,
+             first_published_at: first_published_at,
+             public_updated_at: public_updated_at)
     end
 
     let(:result) { described_class.present(edition) }
@@ -99,11 +99,11 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     context "when a change note exists" do
       let!(:edition) do
         create(:draft_edition,
-          document: document,
-          base_path: base_path,
-          update_type: "major",
-          first_published_at: first_published_at,
-          public_updated_at: public_updated_at)
+               document: document,
+               base_path: base_path,
+               update_type: "major",
+               first_published_at: first_published_at,
+               public_updated_at: public_updated_at)
       end
 
       it "presents the item including the change note" do
@@ -187,8 +187,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
       let!(:published_item) do
         create(:live_edition,
-          document: document,
-          user_facing_version: 1)
+               document: document,
+               user_facing_version: 1)
       end
 
       it "returns a versioned history of states for the edition" do
@@ -207,9 +207,9 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
   describe "#get_warnings" do
     before do
       create(:draft_edition,
-        document: document,
-        base_path: base_path,
-        user_facing_version: 2)
+             document: document,
+             base_path: base_path,
+             user_facing_version: 2)
     end
 
     let(:scope) { document.editions }
@@ -238,8 +238,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       context "with a blocking edition" do
         before do
           @blocking_edition = create(:live_edition,
-            base_path: base_path,
-            user_facing_version: 1)
+                                     base_path: base_path,
+                                     user_facing_version: 1)
         end
 
         it "includes the warning" do

@@ -7,8 +7,8 @@ RSpec.describe SubstitutionHelper do
 
   let!(:existing_item) {
     create(:draft_edition,
-      document_type: existing_document_type,
-      base_path: existing_base_path)
+           document_type: existing_document_type,
+           base_path: existing_base_path)
   }
 
   before do
@@ -39,8 +39,8 @@ RSpec.describe SubstitutionHelper do
       context "when the existing item is published" do
         let!(:existing_item) {
           create(:live_edition,
-            document_type: existing_document_type,
-            base_path: existing_base_path)
+                 document_type: existing_document_type,
+                 base_path: existing_base_path)
         }
 
         it "does not unpublish the existing published item" do
@@ -76,17 +76,17 @@ RSpec.describe SubstitutionHelper do
 
         it "doesn't unpublish any other items" do
           live_item = create(:live_edition,
-            document_type: existing_document_type,
-            base_path: existing_base_path)
+                             document_type: existing_document_type,
+                             base_path: existing_base_path)
 
           french_item = create(:draft_edition,
-            document: create(:document, locale: "fr"),
-            document_type: existing_document_type,
-            base_path: existing_base_path)
+                               document: create(:document, locale: "fr"),
+                               document_type: existing_document_type,
+                               base_path: existing_base_path)
 
           item_elsewhere = create(:draft_edition,
-            document_type: existing_document_type,
-            base_path: "/somewhere-else")
+                                  document_type: existing_document_type,
+                                  base_path: "/somewhere-else")
 
           expect(live_item.state).not_to eq("unpublished")
           expect(french_item.state).not_to eq("unpublished")
@@ -96,8 +96,8 @@ RSpec.describe SubstitutionHelper do
         context "when the existing item is published" do
           let!(:existing_item) {
             create(:live_edition,
-              document_type: existing_document_type,
-              base_path: existing_base_path)
+                   document_type: existing_document_type,
+                   base_path: existing_base_path)
           }
 
           it "unpublishes the existing published item" do
@@ -115,17 +115,17 @@ RSpec.describe SubstitutionHelper do
 
         it "doesn't unpublish any other items" do
           live_item = create(:live_edition,
-            document_type: existing_document_type,
-            base_path: existing_base_path)
+                             document_type: existing_document_type,
+                             base_path: existing_base_path)
 
           french_item = create(:draft_edition,
-            document: create(:document, locale: "fr"),
-            document_type: existing_document_type,
-            base_path: existing_base_path)
+                               document: create(:document, locale: "fr"),
+                               document_type: existing_document_type,
+                               base_path: existing_base_path)
 
           item_elsewhere = create(:draft_edition,
-            document_type: existing_document_type,
-            base_path: "/somewhere-else")
+                                  document_type: existing_document_type,
+                                  base_path: "/somewhere-else")
 
           expect(live_item.state).not_to eq("unpublished")
           expect(french_item.state).not_to eq("unpublished")
@@ -135,8 +135,8 @@ RSpec.describe SubstitutionHelper do
         context "when the existing item is published" do
           let!(:existing_item) {
             create(:live_edition,
-              document_type: existing_document_type,
-              base_path: existing_base_path)
+                   document_type: existing_document_type,
+                   base_path: existing_base_path)
           }
 
           it "unpublishes the existing published item" do
@@ -153,8 +153,8 @@ RSpec.describe SubstitutionHelper do
         context "when the existing item is published" do
           let!(:existing_item) {
             create(:live_edition,
-              document_type: existing_document_type,
-              base_path: existing_base_path)
+                   document_type: existing_document_type,
+                   base_path: existing_base_path)
           }
 
           it "does not unpublish the existing item" do

@@ -32,6 +32,7 @@ module DataHygiene
 
     def pretty_much_same_html?
       return true if same_html?
+
       diffs.all? { |_, diff| diff == [] }
     end
 
@@ -58,6 +59,7 @@ module DataHygiene
 
     def apply_old_html_common_changes(html)
       return unless html
+
       # In specialist publisher we have a lot of new lines in inline attachments
       # which causes us trouble as we only allow inline attachments to be on a single line
       regex = %r{<a (rel="external" )?href="https:\/\/assets.digital.cabinet-office.gov.uk\/.*?">((?:.|\n)*?)<\/a>}

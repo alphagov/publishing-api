@@ -134,6 +134,7 @@ module Commands
 
       def orphaned_content_ids
         return [] if !payload[:allow_draft] || !previous
+
         previous_links = previous.links.map(&:target_content_id)
         current_links = find_unpublishable_edition.links.map(&:target_content_id)
         previous_links - current_links

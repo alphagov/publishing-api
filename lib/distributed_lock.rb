@@ -28,6 +28,7 @@ class DistributedLock
     end
 
     raise FailedToAcquireLock unless @has_run
+
     result
   end
 

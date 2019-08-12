@@ -17,6 +17,7 @@ module Commands
 
       def validate_schema
         return if schema_validator.valid?
+
         message = "The payload did not conform to the schema"
         raise CommandError.new(
           code: 422,
@@ -27,6 +28,7 @@ module Commands
 
       def validate_publishing_app
         return unless payload[:publishing_app].blank?
+
         code = 422
         message = "publishing_app is required"
         raise CommandError.new(

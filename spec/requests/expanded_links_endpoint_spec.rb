@@ -14,11 +14,11 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     before do
       create(:expanded_links,
-        content_id: content_id,
-        locale: "en",
-        with_drafts: true,
-        expanded_links: expanded_links,
-        updated_at: updated_at)
+             content_id: content_id,
+             locale: "en",
+             with_drafts: true,
+             expanded_links: expanded_links,
+             updated_at: updated_at)
     end
 
     it "is assumed to be 'en'" do
@@ -41,11 +41,11 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     before do
       create(:expanded_links,
-        content_id: content_id,
-        locale: "de",
-        with_drafts: true,
-        expanded_links: expanded_links,
-        updated_at: updated_at)
+             content_id: content_id,
+             locale: "de",
+             with_drafts: true,
+             expanded_links: expanded_links,
+             updated_at: updated_at)
     end
 
     it "returns the links for that locale" do
@@ -81,11 +81,11 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     before do
       create(:expanded_links,
-        content_id: content_id,
-        locale: "en",
-        with_drafts: false,
-        expanded_links: expanded_links,
-        updated_at: updated_at)
+             content_id: content_id,
+             locale: "en",
+             with_drafts: false,
+             expanded_links: expanded_links,
+             updated_at: updated_at)
     end
 
     it "it returns the links " do
@@ -103,15 +103,15 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
 
     let!(:edition) do
       create(:live_edition,
-        document: create(:document, content_id: content_id),
-        base_path: "/some-path",
-        links_hash: { organisations: [linked_content_id] })
+             document: create(:document, content_id: content_id),
+             base_path: "/some-path",
+             links_hash: { organisations: [linked_content_id] })
     end
 
     let!(:linked_edition) do
       create(:live_edition,
-        document: create(:document, content_id: linked_content_id),
-        base_path: "/another-path")
+             document: create(:document, content_id: linked_content_id),
+             base_path: "/another-path")
     end
 
     let(:expanded_links) do

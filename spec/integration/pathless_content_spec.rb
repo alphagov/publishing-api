@@ -77,8 +77,8 @@ RSpec.describe "pathless content" do
         context "for an existing draft edition" do
           let!(:draft_edition) do
             create(:draft_edition,
-              document: create(:document, content_id: content_id),
-              title: "Old Title")
+                   document: create(:document, content_id: content_id),
+                   title: "Old Title")
           end
 
           it "updates the draft" do
@@ -90,8 +90,8 @@ RSpec.describe "pathless content" do
         context "for an existing live edition" do
           let!(:live_edition) do
             create(:live_edition,
-              document: create(:document, content_id: content_id),
-              title: "Old Title")
+                   document: create(:document, content_id: content_id),
+                   title: "Old Title")
           end
 
           it "creates a new draft" do
@@ -122,10 +122,10 @@ RSpec.describe "pathless content" do
         context "with other similar pathless items" do
           before do
             create(:draft_edition,
-              base_path: nil,
-              schema_name: "contact",
-              document_type: "contact",
-              user_facing_version: 3)
+                   base_path: nil,
+                   schema_name: "contact",
+                   document_type: "contact",
+                   user_facing_version: 3)
           end
 
           it "doesn't conflict" do
@@ -138,10 +138,10 @@ RSpec.describe "pathless content" do
         context "when there's a conflicting edition" do
           before do
             create(:draft_edition,
-              base_path: base_path,
-              schema_name: "contact",
-              document_type: "contact",
-              user_facing_version: 3)
+                   base_path: base_path,
+                   schema_name: "contact",
+                   document_type: "contact",
+                   user_facing_version: 3)
           end
 
           it "conflicts" do
@@ -157,9 +157,9 @@ RSpec.describe "pathless content" do
   describe Commands::V2::Publish do
     let(:pathless_edition) do
       create(:draft_edition,
-        document_type: "contact",
-        user_facing_version: 2,
-        base_path: nil)
+             document_type: "contact",
+             user_facing_version: 2,
+             base_path: nil)
     end
 
     let(:payload) do
@@ -181,9 +181,9 @@ RSpec.describe "pathless content" do
       context "with a previously published item" do
         let!(:live_edition) do
           create(:live_edition,
-            document: pathless_edition.document,
-            document_type: "contact",
-            user_facing_version: 1)
+                 document: pathless_edition.document,
+                 document_type: "contact",
+                 user_facing_version: 1)
         end
 
         it "publishes the draft" do

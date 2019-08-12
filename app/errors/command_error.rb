@@ -35,6 +35,7 @@ class CommandError < StandardError
   # error_details: Hash(field_name: String => [error_messages]: Array(String))
   def initialize(code:, message: nil, error_details: nil)
     raise "Invalid code #{code}" unless valid_code?(code)
+
     @code = code
     @error_details = if error_details
                        error_details

@@ -4,9 +4,9 @@ RSpec.describe V2::ActionsController do
   describe ".create" do
     let(:document) do
       create(:document,
-        content_id: SecureRandom.uuid,
-        locale: "en",
-        stale_lock_version: 5)
+             content_id: SecureRandom.uuid,
+             locale: "en",
+             stale_lock_version: 5)
     end
     let(:action) { "AuthBypass" }
 

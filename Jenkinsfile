@@ -31,6 +31,7 @@ node("postgresql-9.3") {
       }
     },
     brakeman: true,
+    rubyLintDiff: false,
   )
 }
 
