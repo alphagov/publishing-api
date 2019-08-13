@@ -30,6 +30,11 @@ module Queries
       with_locales - [calling_item]
     end
 
+    def priorities
+      content_ids_with_priorities = dependency_resolution.dependencies_with_priorities
+      with_locales = Queries::LocalesForEditions.call(content_ids, content_stores)
+    end
+
   private
 
     attr_reader :content_id, :locale, :content_stores
@@ -49,6 +54,10 @@ module Queries
 
     def edition
       GetEditionForContentStore.call(content_id, locale, with_drafts?)
+    end
+
+    def content_ids
+      dependency_resolution.dependencies + [content_id]
     end
   end
 end
