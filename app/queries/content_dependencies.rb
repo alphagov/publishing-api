@@ -43,7 +43,7 @@ module Queries
     attr_reader :content_id, :locale, :content_stores
 
     def document_type
-      edition[:document_type]
+      edition[:document_type].to_sym
     end
 
     def dependency_resolution
