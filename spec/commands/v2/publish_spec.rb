@@ -49,6 +49,29 @@ RSpec.describe Commands::V2::Publish do
       }
     end
 
+    it "sets the source_command to publish" do
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        .with("downstream_high", hash_including(source_command: "publish"))
+
+      described_class.call(payload)
+    end
+
+    it "sets the source_fields to the correct value" do
+      expect(DownstreamLiveWorker)
+        .to receive(:perform_async_in_queue)
+        .with(
+          "downstream_high",
+          hash_including(
+            source_fields: %i(
+              analytics_identifier api_path base_path content_id document_type
+              locale public_updated_at schema_name title withdrawn
+            )
+          )
+        )
+
+      described_class.call(payload)
+    end
+
     context "with no update_type" do
       before do
         payload.delete(:update_type)
@@ -167,6 +190,13 @@ RSpec.describe Commands::V2::Publish do
         expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including(update_dependencies: true))
+
+        described_class.call(payload)
+      end
+
+      it "sets the source_fields to the correct value" do
+        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+          .with("downstream_high", hash_including(source_fields: %i(public_updated_at title)))
 
         described_class.call(payload)
       end

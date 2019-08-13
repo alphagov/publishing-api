@@ -43,6 +43,7 @@ RSpec.describe Commands::V2::Republish do
           locale: published_edition.locale,
           message_queue_event_type: "republish",
           update_dependencies: true,
+          source_command: "republish",
         )
 
       described_class.call(payload)
@@ -56,6 +57,7 @@ RSpec.describe Commands::V2::Republish do
           content_id: published_edition.content_id,
           locale: published_edition.locale,
           update_dependencies: true,
+          source_command: "republish",
         )
 
       described_class.call(payload)

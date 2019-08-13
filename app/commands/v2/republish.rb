@@ -59,6 +59,7 @@ module Commands
             content_id: content_id,
             locale: locale,
             update_dependencies: true,
+            source_command: "republish",
           )
         end
 
@@ -68,6 +69,7 @@ module Commands
           locale: locale,
           message_queue_event_type: "republish",
           update_dependencies: true,
+          source_command: "republish",
         )
       end
     end

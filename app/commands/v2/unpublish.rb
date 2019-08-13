@@ -116,6 +116,7 @@ module Commands
           content_id: document.content_id,
           locale: document.locale,
           update_dependencies: true,
+          source_command: "unpublish",
         )
 
         DownstreamLiveWorker.perform_async_in_queue(
@@ -125,6 +126,7 @@ module Commands
           update_dependencies: true,
           orphaned_content_ids: orphaned_content_ids,
           message_queue_event_type: "unpublish",
+          source_command: "unpublish",
         )
       end
 

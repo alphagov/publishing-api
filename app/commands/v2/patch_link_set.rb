@@ -94,6 +94,7 @@ module Commands
           content_id: content_id,
           locale: locale,
           orphaned_content_ids: orphaned_content_ids,
+          source_command: "patch_link_set",
         )
       end
 
@@ -105,6 +106,7 @@ module Commands
           locale: locale,
           message_queue_event_type: "links",
           orphaned_content_ids: orphaned_content_ids,
+          source_command: "patch_link_set",
         )
       end
 

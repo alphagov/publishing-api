@@ -29,7 +29,8 @@ class DownstreamDiscardDraftWorker
 private
 
   attr_reader :base_path, :content_id, :locale, :edition,
-              :payload_version, :update_dependencies
+              :payload_version, :update_dependencies,
+              :source_command, :source_document_type
 
   def assign_attributes(attributes)
     @base_path = attributes.fetch(:base_path)
@@ -38,6 +39,8 @@ private
     @payload_version = Event.maximum_id
     @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
+    @source_command = attributes[:source_command]
+    @source_document_type = attributes[:source_document_type]
   end
 
   def enqueue_dependencies
@@ -45,6 +48,8 @@ private
       content_store: Adapters::DraftContentStore,
       content_id: content_id,
       locale: locale,
+      source_command: source_command,
+      source_document_type: edition&.document_type || source_document_type,
     )
   end
 

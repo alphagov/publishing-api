@@ -195,10 +195,8 @@ module Commands
         end
       end
 
-      def update_dependencies?
-        @update_dependencies ||= LinkExpansion::EditionDiff.new(
-          edition, previous_edition: previous_edition
-        ).should_update_dependencies?
+      def edition_diff
+        @edition_diff ||= LinkExpansion::EditionDiff.new(edition, previous_edition: previous_edition)
       end
 
       def send_downstream_live
@@ -228,7 +226,9 @@ module Commands
         {
           content_id: content_id,
           locale: locale,
-          update_dependencies: update_dependencies?,
+          update_dependencies: edition_diff.present?,
+          source_command: "publish",
+          source_fields: edition_diff.fields,
         }
       end
     end

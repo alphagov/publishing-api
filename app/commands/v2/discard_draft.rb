@@ -6,6 +6,7 @@ module Commands
 
         check_version_and_raise_if_conflicting(document, payload[:previous_version])
 
+        save_document_type
         delete_supporting_objects(document.draft)
         delete_draft_from_database
         increment_lock_version
@@ -46,6 +47,8 @@ module Commands
           content_id: content_id,
           locale: locale,
           update_dependencies: true,
+          source_command: "discard_draft",
+          source_document_type: @document_type,
         )
       end
 
@@ -63,6 +66,15 @@ module Commands
           content_id: payload[:content_id],
           locale: payload.fetch(:locale, Edition::DEFAULT_LOCALE),
         )
+      end
+
+      # We pass the document type into the `DownstreamDiscardDraftWorker` which
+      # passes it down to the `DependencyResolutionWorker`. The reason we do
+      # this here and not in the discard draft worker is because the edition
+      # may have already been destroyed by the time the worker runs, and it
+      # wouldn't be able to access the destroyed edition's document type.
+      def save_document_type
+        @document_type = document.draft.document_type
       end
     end
   end

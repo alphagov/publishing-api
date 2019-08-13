@@ -52,7 +52,8 @@ private
 
   attr_reader :content_id, :locale, :edition, :payload_version,
               :message_queue_event_type, :update_dependencies,
-              :dependency_resolution_source_content_id, :orphaned_content_ids
+              :dependency_resolution_source_content_id, :orphaned_content_ids,
+              :source_command, :source_fields
 
   def assign_attributes(attributes)
     @content_id = attributes.fetch(:content_id)
@@ -66,6 +67,8 @@ private
       :dependency_resolution_source_content_id,
       nil
     )
+    @source_command = attributes[:source_command]
+    @source_fields = attributes.fetch(:source_fields, [])
   end
 
   def enqueue_dependencies
@@ -74,6 +77,9 @@ private
       content_id: content_id,
       locale: locale,
       orphaned_content_ids: orphaned_content_ids,
+      source_command: source_command,
+      source_document_type: edition.document_type,
+      source_fields: source_fields,
     )
   end
 

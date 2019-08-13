@@ -66,7 +66,15 @@ RSpec.describe Commands::V2::PutContent do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
-          a_hash_including(:content_id, :locale, update_dependencies: true),
+          a_hash_including(
+            :content_id, :locale,
+            update_dependencies: true,
+            source_command: "put_content",
+            source_fields: %i(
+              analytics_identifier api_path base_path content_id document_type
+              locale public_updated_at schema_name title withdrawn
+            ),
+          ),
         )
 
       described_class.call(payload)

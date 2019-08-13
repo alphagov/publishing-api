@@ -67,6 +67,8 @@ RSpec.describe Commands::V2::DiscardDraft do
               base_path: base_path,
               content_id: document.content_id,
               locale: document.locale,
+              source_command: "discard_draft",
+              source_document_type: "services_and_information",
             ),
           )
 
@@ -118,6 +120,8 @@ RSpec.describe Commands::V2::DiscardDraft do
                 base_path: base_path,
                 content_id: document.content_id,
                 locale: document.locale,
+                source_command: "discard_draft",
+                source_document_type: "services_and_information",
               ),
             )
           described_class.call(payload)
@@ -153,6 +157,8 @@ RSpec.describe Commands::V2::DiscardDraft do
                 base_path: base_path,
                 content_id: document.content_id,
                 locale: document.locale,
+                source_command: "discard_draft",
+                source_document_type: "services_and_information",
               ),
             )
           described_class.call(payload)
@@ -175,6 +181,8 @@ RSpec.describe Commands::V2::DiscardDraft do
                 base_path: base_path,
                 content_id: document.content_id,
                 locale: document.locale,
+                source_command: "discard_draft",
+                source_document_type: "services_and_information",
               ),
             )
           described_class.call(payload)
