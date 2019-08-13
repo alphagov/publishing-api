@@ -31,8 +31,7 @@ module Queries
     end
 
     def priorities
-      content_ids_with_priorities = dependency_resolution.dependencies_with_priorities
-      with_locales = Queries::LocalesForEditions.call(content_ids, content_stores)
+      dependency_resolution.dependencies_with_priorities
     end
 
   private

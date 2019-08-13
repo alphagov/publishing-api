@@ -7,8 +7,8 @@ class DependencyResolutionWorker
   def perform(args = {})
     assign_attributes(args.deep_symbolize_keys)
 
-    dependencies.each do |(content_id, locale)|
-      send_downstream(content_id, locale)
+    dependencies.each do |(content_id, priority)|
+      send_downstream(content_id, "en", priority)
     end
 
     orphaned_content_ids.each { |content_id| send_downstream(content_id, locale) }
@@ -25,9 +25,9 @@ private
     @orphaned_content_ids = args.fetch(:orphaned_content_ids, [])
   end
 
-  def send_downstream(content_id, locale)
-    downstream_draft(content_id, locale)
-    downstream_live(content_id, locale)
+  def send_downstream(content_id, locale, priority = nil)
+    downstream_draft(content_id, locale, priority)
+    downstream_live(content_id, locale, priority)
   end
 
   def dependencies
@@ -35,18 +35,20 @@ private
       content_id: content_id,
       locale: locale,
       content_stores: draft? ? %w[draft live] : %w[live],
-    ).call
+    ).priorities
   end
 
   def draft?
     content_store == Adapters::DraftContentStore
   end
 
-  def downstream_draft(dependent_content_id, locale)
+  def downstream_draft(dependent_content_id, locale, priority)
     return unless draft?
 
+    queue = high_priority?(priority) ? DownstreamDraftWorker::MEDIUM_QUEUE : DownstreamDraftWorker::LOW_QUEUE
+
     DownstreamDraftWorker.perform_async_in_queue(
-      DownstreamDraftWorker::LOW_QUEUE,
+      queue,
       content_id: dependent_content_id,
       locale: locale,
       update_dependencies: false,
@@ -54,16 +56,22 @@ private
     )
   end
 
-  def downstream_live(dependent_content_id, locale)
+  def downstream_live(dependent_content_id, locale, priority)
     return if draft?
 
+    queue = high_priority?(priority) ? DownstreamLiveWorker::MEDIUM_QUEUE : DownstreamLiveWorker::LOW_QUEUE
+
     DownstreamLiveWorker.perform_async_in_queue(
-      DownstreamLiveWorker::LOW_QUEUE,
+      queue,
       content_id: dependent_content_id,
       locale: locale,
       message_queue_event_type: "links",
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
     )
+  end
+
+  def high_priority?(priority)
+    priority && priority == :high
   end
 end
