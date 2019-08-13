@@ -7,8 +7,8 @@ class DependencyResolutionWorker
   def perform(args = {})
     assign_attributes(args.deep_symbolize_keys)
 
-    dependencies.each do |(content_id, priority)|
-      send_downstream(content_id, "en", priority)
+    dependencies.each do |dependency|
+      send_downstream(dependency[:content_id], dependency[:locale], dependency[:priority])
     end
 
     orphaned_content_ids.each { |content_id| send_downstream(content_id, locale) }
@@ -25,7 +25,7 @@ private
     @orphaned_content_ids = args.fetch(:orphaned_content_ids, [])
   end
 
-  def send_downstream(content_id, locale, priority = nil)
+  def send_downstream(content_id, locale, priority)
     downstream_draft(content_id, locale, priority)
     downstream_live(content_id, locale, priority)
   end

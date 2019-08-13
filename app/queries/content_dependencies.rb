@@ -31,7 +31,11 @@ module Queries
     end
 
     def priorities
-      dependency_resolution.dependencies_with_priorities
+      dependencies = dependency_resolution.dependencies_with_priorities
+      dependencies.map do |dependency|
+        _, locale = Queries::LocalesForEditions.call([dependency[:content_id]], content_stores).first
+        dependency.merge!(locale: locale)
+      end
     end
 
   private
