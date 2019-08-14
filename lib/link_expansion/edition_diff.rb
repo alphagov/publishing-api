@@ -15,6 +15,10 @@ class LinkExpansion::EditionDiff
     diff.map(&:first)
   end
 
+  def has_previous_edition?
+    previous_edition.present?
+  end
+
 private
 
   def diff
@@ -29,7 +33,7 @@ private
   end
 
   def previous_edition_expanded
-    return {} if previous_edition.blank?
+    return {} unless has_previous_edition?
 
     ExpansionRules.expand_fields(previous_edition.to_h.deep_symbolize_keys, nil)
   end

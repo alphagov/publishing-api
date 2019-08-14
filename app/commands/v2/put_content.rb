@@ -165,7 +165,7 @@ module Commands
           update_dependencies: edition_diff.present?,
           orphaned_content_ids: orphaned_links,
           source_command: "put_content",
-          source_fields: edition_diff.fields,
+          source_fields: edition_diff.has_previous_edition? ? edition_diff.fields : [],
         )
       end
     end

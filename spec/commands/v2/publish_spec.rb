@@ -62,10 +62,7 @@ RSpec.describe Commands::V2::Publish do
         .with(
           "downstream_high",
           hash_including(
-            source_fields: %i(
-              analytics_identifier api_path base_path content_id document_type
-              locale public_updated_at schema_name title withdrawn
-            )
+            source_fields: []
           )
         )
 
