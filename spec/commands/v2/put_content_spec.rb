@@ -70,17 +70,24 @@ RSpec.describe Commands::V2::PutContent do
             :content_id, :locale,
             update_dependencies: true,
             source_command: "put_content",
-            source_fields: %i(
-              analytics_identifier api_path base_path content_id document_type
-              locale public_updated_at schema_name title withdrawn
-            ),
+            source_fields: [],
           ),
         )
 
       described_class.call(payload)
     end
 
-    it "does not send to the downstream publish worker" do
+    it "sends to the downstream draft worker only the fields which have changed" do
+      described_class.call(payload)
+
+      expect(DownstreamDraftWorker)
+        .to receive(:perform_async_in_queue)
+        .with("downstream_high", a_hash_including(source_fields: %i(title)))
+
+      described_class.call(updated_payload)
+    end
+
+    it "does not send to the downstream live worker" do
       expect(DownstreamLiveWorker).not_to receive(:perform_async_in_queue)
       described_class.call(payload)
     end

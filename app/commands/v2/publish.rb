@@ -228,7 +228,7 @@ module Commands
           locale: locale,
           update_dependencies: edition_diff.present?,
           source_command: "publish",
-          source_fields: edition_diff.fields,
+          source_fields: edition_diff.has_previous_edition? ? edition_diff.fields : [],
         }
       end
     end
