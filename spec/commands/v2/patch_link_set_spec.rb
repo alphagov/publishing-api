@@ -218,7 +218,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
         .with(
           "downstream_high",
-          a_hash_including(:content_id, :locale),
+          a_hash_including(:content_id, :locale, update_dependencies: true),
         )
 
       described_class.call(payload)
@@ -229,6 +229,18 @@ RSpec.describe Commands::V2::PatchLinkSet do
         .with("downstream_low", anything)
 
       described_class.call(payload.merge(bulk_publishing: true))
+    end
+
+    it "sends to the downstream draft worker without updating dependencies if it hasn't changed" do
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        .with(anything, a_hash_including(update_dependencies: true))
+
+      described_class.call(payload)
+
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
+        .with(anything, a_hash_including(update_dependencies: false))
+
+      described_class.call(payload)
     end
 
     context "when a draft edition has multiple translations" do
@@ -279,8 +291,21 @@ RSpec.describe Commands::V2::PatchLinkSet do
             :content_id,
             :locale,
             message_queue_event_type: "links",
+            update_dependencies: true,
           ),
         )
+
+      described_class.call(payload)
+    end
+
+    it "sends to the downstream live worker without updating dependencies if it hasn't changed" do
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        .with(anything, a_hash_including(update_dependencies: true))
+
+      described_class.call(payload)
+
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
+        .with(anything, a_hash_including(update_dependencies: false))
 
       described_class.call(payload)
     end
