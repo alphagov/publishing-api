@@ -1,8 +1,8 @@
 class Healthcheck::QueueLatency < GovukHealthcheck::SidekiqQueueLatencyCheck
   QUEUES = {
     'downstream_high' => {
-      warning: 20, # seconds
-      critical: 60 # seconds
+      warning: 45, # seconds
+      critical: 90 # seconds
     }
   }.freeze
 
