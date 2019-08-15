@@ -312,11 +312,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              content_id: content_id,
-              locale: locale,
-              message_queue_event_type: "links",
-              orphaned_content_ids: [],
-              source_command: "patch_link_set",
+              a_hash_including(content_id: content_id, locale: locale),
             )
         end
 
