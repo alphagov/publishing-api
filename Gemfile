@@ -41,7 +41,7 @@ group :development do
   gem "web-console", "~> 3"
 end
 
-gem "oj", "~> 3.8"
+gem "oj", "~> 3.9"
 
 group :development, :test do
   gem "climate_control", "~> 0.2"
