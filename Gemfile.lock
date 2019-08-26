@@ -629,7 +629,7 @@ GEM
     filelock (1.1.1)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (59.6.0)
+    gds-api-adapters (60.0.0)
       addressable
       link_header
       null_logger
@@ -696,6 +696,7 @@ GEM
     hashdiff (1.0.0)
     hashie (3.6.0)
     htmlentities (4.3.4)
+    http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httparty (0.17.0)
@@ -850,7 +851,8 @@ GEM
       redis (>= 3.0.4)
     request_store (1.4.1)
       rack (>= 1.4)
-    rest-client (2.0.2)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
@@ -996,7 +998,7 @@ DEPENDENCIES
   factory_bot_rails (~> 5.0)
   faker
   fuzzy_match (~> 2.1)
-  gds-api-adapters (~> 59)
+  gds-api-adapters (~> 60)
   gds-sso (~> 14.1)
   govspeak (~> 6.4.0)
   govuk-content-schema-test-helpers (~> 1.6)
