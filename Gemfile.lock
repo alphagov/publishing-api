@@ -592,8 +592,6 @@ GEM
       aws-sigv4 (~> 1.0)
     aws-sigv2 (1.0.1)
     aws-sigv4 (1.0.2)
-    aws-xray-sdk (0.10.2)
-      oj (~> 3.0)
     bindex (0.5.0)
     builder (3.2.3)
     bunny (2.14.1)
@@ -664,8 +662,7 @@ GEM
       rubocop-rails (~> 2)
       rubocop-rspec (~> 1.28)
       scss_lint
-    govuk_app_config (1.20.2)
-      aws-xray-sdk (~> 0.10.0)
+    govuk_app_config (2.0.0)
       logstasher (>= 1.2.2, < 1.4.0)
       sentry-raven (>= 2.7.1, < 2.12.0)
       statsd-ruby (~> 1.4.0)
@@ -1003,7 +1000,7 @@ DEPENDENCIES
   govspeak (~> 6.4.0)
   govuk-content-schema-test-helpers (~> 1.6)
   govuk-lint
-  govuk_app_config (~> 1.20)
+  govuk_app_config (~> 2.0)
   govuk_document_types (~> 0.9.2)
   govuk_schemas (~> 4.0)
   govuk_sidekiq (~> 3.0)
