@@ -17,7 +17,6 @@ module Presenters
       publishing_api_last_edited_at
       state
       unpublishing_type
-      updated_at
       user_facing_version
       web_url
       withdrawn
