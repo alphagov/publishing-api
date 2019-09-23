@@ -729,7 +729,7 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.11.3)
+    minitest (5.12.0)
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -976,7 +976,7 @@ GEM
     websocket-extensions (0.1.4)
     whenever (1.0.0)
       chronic (>= 0.6.3)
-    with_advisory_lock (4.0.0)
+    with_advisory_lock (4.6.0)
       activerecord (>= 4.2)
 
 PLATFORMS
@@ -1025,7 +1025,7 @@ DEPENDENCIES
   web-console (~> 3)
   webmock
   whenever (= 1.0.0)
-  with_advisory_lock (~> 4.0)
+  with_advisory_lock (~> 4.6)
 
 BUNDLED WITH
    1.17.2
