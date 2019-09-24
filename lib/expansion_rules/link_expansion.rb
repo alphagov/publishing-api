@@ -2,7 +2,7 @@ class ExpansionRules::LinkExpansion
   def initialize(rules)
     @rules = rules
     @multi_level_links = ExpansionRules::MultiLevelLinks.new(
-      rules::MULTI_LEVEL_LINK_PATHS
+      rules::MULTI_LEVEL_LINK_PATHS,
     )
   end
 

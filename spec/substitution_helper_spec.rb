@@ -14,7 +14,7 @@ RSpec.describe SubstitutionHelper do
   before do
     stub_request(
       :delete,
-      Plek.find("draft-content-store") + "/content#{existing_base_path}"
+      Plek.find("draft-content-store") + "/content#{existing_base_path}",
     )
   end
 

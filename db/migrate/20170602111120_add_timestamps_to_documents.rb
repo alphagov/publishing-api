@@ -40,56 +40,56 @@ private
       content_id: "f091d705-8221-40c4-bc5d-2914c2d0763f",
       locale: "en",
       created_at: "Sun, 22 Jan 2017 10:46:37 UTC +00:00",
-      updated_at: "Sun, 22 Jan 2017 10:55:43 UTC +00:00"
+      updated_at: "Sun, 22 Jan 2017 10:55:43 UTC +00:00",
     },
     {
       content_id: "f091d705-8221-40c4-bc5d-2914c2d0763f",
       locale: "ar",
       created_at: "Sun, 22 Jan 2017 10:50:19 UTC +00:00",
-      updated_at: "Sun, 22 Jan 2017 10:55:43 UTC +00:00"
+      updated_at: "Sun, 22 Jan 2017 10:55:43 UTC +00:00",
     },
     {
       content_id: "0c0640e1-83e5-49a7-9da6-7ec3dfdf9936",
       locale: "es",
       created_at: "Mon, 13 Mar 2017 12:42:32 UTC +00:00",
-      updated_at: "Mon, 13 Mar 2017 14:29:05 UTC +00:00"
+      updated_at: "Mon, 13 Mar 2017 14:29:05 UTC +00:00",
     },
     {
       content_id: "ca74cbbc-7c20-4e28-a3e0-b003490a162d",
       locale: "en",
       created_at: "Wed, 12 Apr 2017 05:51:27 UTC +00:00",
-      updated_at: "Wed, 12 Apr 2017 08:12:07 UTC +00:00"
+      updated_at: "Wed, 12 Apr 2017 08:12:07 UTC +00:00",
     },
     {
       content_id: "ca74cbbc-7c20-4e28-a3e0-b003490a162d",
       locale: "ar",
       created_at: "Wed, 12 Apr 2017 07:19:55 UTC +00:00",
-      updated_at: "Wed, 12 Apr 2017 08:12:07 UTC +00:00"
+      updated_at: "Wed, 12 Apr 2017 08:12:07 UTC +00:00",
     },
     {
       content_id: "5f525430-7631-11e4-a3cb-005056011aef",
       locale: "ar",
       created_at: "Thu, 13 Apr 2017 17:13:09 UTC +00:00",
-      updated_at: "Thu, 13 Apr 2017 17:13:20 UTC +00:00"
+      updated_at: "Thu, 13 Apr 2017 17:13:20 UTC +00:00",
     },
     {
       content_id: "602c5c4a-7631-11e4-a3cb-005056011aef",
       locale: "cy",
       created_at: "Wed, 22 Feb 2017 16:07:01 UTC +00:00",
-      updated_at: "Tue, 21 Mar 2017 08:23:42 UTC +00:00"
+      updated_at: "Tue, 21 Mar 2017 08:23:42 UTC +00:00",
     },
     {
       content_id: "6d93eff6-7bac-4368-9247-a6c3107baa42",
       locale: "en",
       created_at: "Tue, 28 Mar 2017 06:08:15 UTC +00:00",
-      updated_at: "Wed, 29 Mar 2017 06:38:39 UTC +00:00"
+      updated_at: "Wed, 29 Mar 2017 06:38:39 UTC +00:00",
     },
     {
       content_id: "6d93eff6-7bac-4368-9247-a6c3107baa42",
       locale: "zh",
       created_at: "Tue, 28 Mar 2017 06:21:57 UTC +00:00",
-      updated_at: "Wed, 29 Mar 2017 06:38:39 UTC +00:00"
-    }
+      updated_at: "Wed, 29 Mar 2017 06:38:39 UTC +00:00",
+    },
   ]
 
   def update_multiple_locale_documents_without_editions

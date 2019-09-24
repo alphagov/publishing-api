@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe QueuePublisher do
   context "real mode" do
@@ -113,7 +113,7 @@ RSpec.describe QueuePublisher do
                 message_body: content_item,
                 routing_key: "#{content_item[:schema_name]}.#{content_item[:update_type]}",
                 options: { content_type: "application/json", persistent: true },
-              }
+              },
             )
 
             queue_publisher.send_message(content_item)
@@ -156,13 +156,13 @@ RSpec.describe QueuePublisher do
   context "noop mode" do
     subject { QueuePublisher.new(noop: true) }
 
-    it 'does not send messages' do
+    it "does not send messages" do
       expect_any_instance_of(Bunny::Exchange).not_to receive(:publish)
 
       subject.send_message(:something)
     end
 
-    it 'does not sent heartbeats' do
+    it "does not sent heartbeats" do
       expect_any_instance_of(Bunny::Exchange).not_to receive(:publish)
 
       subject.send_heartbeat

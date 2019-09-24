@@ -11,7 +11,7 @@ module Commands
 
     def lookup_reservation
       PathReservation.find_by!(
-        base_path: payload[:base_path]
+        base_path: payload[:base_path],
       )
     rescue ActiveRecord::RecordNotFound
       msg = "#{payload[:base_path]} is not reserved"

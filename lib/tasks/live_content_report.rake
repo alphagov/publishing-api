@@ -1,6 +1,6 @@
-require 'live_content_report_exporter'
+require "live_content_report_exporter"
 
-desc 'Generates a CSV report of all live documents for the supplied publishing app(s)'
+desc "Generates a CSV report of all live documents for the supplied publishing app(s)"
 task :live_content_report, [] => :environment do |_, args|
   publishing_apps = args.extras
   if publishing_apps.empty?

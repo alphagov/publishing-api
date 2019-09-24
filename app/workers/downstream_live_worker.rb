@@ -1,4 +1,4 @@
-require 'sidekiq-unique-jobs'
+require "sidekiq-unique-jobs"
 
 class DownstreamLiveWorker
   include DownstreamQueue
@@ -29,7 +29,7 @@ class DownstreamLiveWorker
 
     unless dependency_resolution_source_content_id.nil?
       DownstreamService.set_govuk_dependency_resolution_source_content_id_header(
-        dependency_resolution_source_content_id
+        dependency_resolution_source_content_id,
       )
     end
 
@@ -65,7 +65,7 @@ private
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @dependency_resolution_source_content_id = attributes.fetch(
       :dependency_resolution_source_content_id,
-      nil
+      nil,
     )
     @source_command = attributes[:source_command]
     @source_fields = attributes.fetch(:source_fields, [])

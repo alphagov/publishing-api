@@ -100,7 +100,7 @@ private
     end
 
     def segments(path)
-      path.split('/').reject(&:blank?)
+      path.split("/").reject(&:blank?)
     end
 
     def additional_keys(route, attribute)

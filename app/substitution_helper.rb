@@ -44,7 +44,7 @@ private
       },
       downstream: downstream,
       nested: nested,
-      callbacks: callbacks
+      callbacks: callbacks,
     )
   end
 

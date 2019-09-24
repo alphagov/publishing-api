@@ -8,7 +8,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
            title: "Policy 1",
            base_path: "/cat-rates",
            details: {
-             internal_name: "Cat rates (do not use for actual cats)"
+             internal_name: "Cat rates (do not use for actual cats)",
            })
   }
 
@@ -42,7 +42,7 @@ RSpec.describe "GET /v2/linkables", type: :request do
         title: "Policy 2",
         publication_state: "published",
         base_path: "/vat-rates",
-        internal_name: "Policy 2"
+        internal_name: "Policy 2",
       ),
     ])
   end

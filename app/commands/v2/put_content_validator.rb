@@ -38,9 +38,9 @@ module Commands
             error: {
               code: code,
               message: message,
-              fields: { publishing_app: ["is required"] }
-            }
-          }
+              fields: { publishing_app: ["is required"] },
+            },
+          },
         )
       end
 

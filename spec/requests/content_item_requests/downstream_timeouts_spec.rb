@@ -4,7 +4,7 @@ RSpec.describe "Downstream timeouts", type: :request do
   context "/v2/content" do
     context "draft content store times out" do
       before do
-        stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
+        stub_request(:put, Plek.find("draft-content-store") + "/content#{base_path}").to_timeout
       end
 
       it "returns an error" do
@@ -14,8 +14,8 @@ RSpec.describe "Downstream timeouts", type: :request do
         expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
-            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
-          }
+            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException",
+          },
         )
       end
     end
@@ -47,7 +47,7 @@ RSpec.describe "Downstream timeouts", type: :request do
 
     context "draft content store times out" do
       before do
-        stub_request(:put, Plek.find('draft-content-store') + "/content#{base_path}").to_timeout
+        stub_request(:put, Plek.find("draft-content-store") + "/content#{base_path}").to_timeout
       end
 
       it "returns an error" do
@@ -57,15 +57,15 @@ RSpec.describe "Downstream timeouts", type: :request do
         expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
-            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
-          }
+            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException",
+          },
         )
       end
     end
 
     context "content store times out" do
       before do
-        stub_request(:put, Plek.find('content-store') + "/content#{base_path}").to_timeout
+        stub_request(:put, Plek.find("content-store") + "/content#{base_path}").to_timeout
       end
 
       it "returns an error" do
@@ -75,8 +75,8 @@ RSpec.describe "Downstream timeouts", type: :request do
         expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
-            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException"
-          }
+            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException",
+          },
         )
       end
     end

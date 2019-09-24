@@ -62,8 +62,8 @@ RSpec.describe Commands::V2::Publish do
         .with(
           "downstream_high",
           hash_including(
-            source_fields: []
-          )
+            source_fields: [],
+          ),
         )
 
       described_class.call(payload)
@@ -104,8 +104,8 @@ RSpec.describe Commands::V2::Publish do
       before do
         draft_item.update(
           details: {
-            change_history: [{ note: "Info", public_timestamp: Time.now }]
-          }
+            change_history: [{ note: "Info", public_timestamp: Time.now }],
+          },
         )
       end
 

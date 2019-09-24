@@ -69,7 +69,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
           .with("downstream_low", a_hash_including(:content_id, :locale))
           .exactly(2).times
         subject.call(
-          Edition.with_document.where(document_type: "nonexistent-schema").pluck('documents.content_id'),
+          Edition.with_document.where(document_type: "nonexistent-schema").pluck("documents.content_id"),
           with_drafts: false,
         )
       end
@@ -80,7 +80,7 @@ RSpec.describe Commands::V2::RepresentDownstream do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_low",
-            a_hash_including(:content_id, :locale, update_dependencies: false)
+            a_hash_including(:content_id, :locale, update_dependencies: false),
           )
           .exactly(5).times
         subject.call(Document.pluck(:content_id), with_drafts: true)

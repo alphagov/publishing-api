@@ -38,7 +38,7 @@ RSpec.describe Queries::GetLinkSet do
           links: {
             parent: parent,
             related: related,
-          }
+          },
         )
       end
     end

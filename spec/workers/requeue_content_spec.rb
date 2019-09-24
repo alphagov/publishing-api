@@ -8,10 +8,10 @@ RSpec.describe RequeueContent do
       hash_including(
         title: "VAT rates",
         base_path: "/ci1",
-        payload_version: 10
+        payload_version: 10,
       ),
       routing_key: "generic.bulk.reindex",
-      persistent: false
+      persistent: false,
     )
 
     RequeueContent.perform_async(edition.id, 10)

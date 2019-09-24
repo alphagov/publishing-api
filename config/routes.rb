@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     put "/paths(/*base_path)", to: "path_reservations#reserve_path"
     delete "/paths(/*base_path)", to: "path_reservations#unreserve_path"
 
-    post '/lookup-by-base-path', to: 'lookups#by_base_path'
+    post "/lookup-by-base-path", to: "lookups#by_base_path"
 
     namespace :v2 do
       get "/content", to: "content_items#index"
@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/debug/:content_id', to: "debug#show"
+  get "/debug/:content_id", to: "debug#show"
   get "/debug/experiments/:experiment", to: "debug#experiment"
 
   get "/healthcheck", to: GovukHealthcheck.rack_response(
@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   )
 
   if Rails.env.development?
-    require 'sidekiq/web'
-    mount Sidekiq::Web => '/sidekiq'
+    require "sidekiq/web"
+    mount Sidekiq::Web => "/sidekiq"
   end
 end

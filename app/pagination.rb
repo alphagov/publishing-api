@@ -28,10 +28,10 @@ private
   end
 
   def order_from_options(options)
-    order_string = options.fetch(:order, '-public_updated_at')
+    order_string = options.fetch(:order, "-public_updated_at")
 
-    orders = order_string.split(',').map(&:strip)
-    orders << 'id' if orders.none? { |o| o.match('-?id') }
+    orders = order_string.split(",").map(&:strip)
+    orders << "id" if orders.none? { |o| o.match("-?id") }
 
     orders.map do |order|
       if order.start_with?("-")
@@ -59,8 +59,8 @@ private
         error: {
           code: 422,
           message: message,
-        }
-      }
+        },
+      },
     )
   end
 

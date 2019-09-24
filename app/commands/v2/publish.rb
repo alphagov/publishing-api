@@ -164,7 +164,7 @@ module Commands
 
       def set_publishing_request_id
         edition.update_attributes!(
-          publishing_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id]
+          publishing_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end
 
@@ -200,18 +200,18 @@ module Commands
       end
 
       def send_downstream_live
-        queue = update_type == 'republish' ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
+        queue = update_type == "republish" ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
-          live_worker_params
+          live_worker_params,
         )
       end
 
       def send_downstream_draft
-        queue = update_type == 'republish' ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        queue = update_type == "republish" ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
-          worker_params
+          worker_params,
         )
       end
 

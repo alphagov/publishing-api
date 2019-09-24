@@ -24,7 +24,7 @@ private
   def diff
     @diff ||= hash_diff(
       previous_edition_expanded,
-      current_edition_expanded
+      current_edition_expanded,
     )
   end
 
@@ -45,7 +45,7 @@ private
   def previous_edition
     @previous_edition ||=
       current_edition.document.editions.find_by(
-        user_facing_version: previous_user_version
+        user_facing_version: previous_user_version,
     )
   end
 

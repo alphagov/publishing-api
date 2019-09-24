@@ -3,11 +3,11 @@ module V2
     def index
       query = Queries::KeysetPagination.new(
         Queries::KeysetPagination::GetEditions.new(edition_params),
-        pagination_params
+        pagination_params,
       )
 
       render json: Presenters::KeysetPaginationPresenter.new(
-        query, request.original_url,
+        query, request.original_url
       ).present
     end
 

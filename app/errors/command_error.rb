@@ -17,7 +17,7 @@ class CommandError < StandardError
     end
 
     fields = if e.error_details.present?
-               e.error_details.fetch('errors', {})
+               e.error_details.fetch("errors", {})
              else
                {}
              end
@@ -26,7 +26,7 @@ class CommandError < StandardError
         code: e.code,
         message: e.message,
         fields: fields,
-      }
+      },
     })
   rescue GdsApi::BaseError => e
     raise CommandError.new(code: 500, message: "Unexpected error from the downstream application: #{e.message}")
@@ -44,13 +44,13 @@ class CommandError < StandardError
                          "error" => {
                            "code" => code,
                            "message" => message,
-                         }
+                         },
                        }
                      else
                        {
                          "error" => {
                            "code" => code,
-                         }
+                         },
                        }
                      end
     super(message || error_details.to_s)

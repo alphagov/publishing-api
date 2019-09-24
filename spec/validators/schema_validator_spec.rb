@@ -6,8 +6,8 @@ RSpec.describe SchemaValidator do
       type: "object",
       required: %w[a],
       properties: {
-        a: { "type" => "integer" }
-      }
+        a: { "type" => "integer" },
+      },
     }.deep_stringify_keys
   end
 
@@ -21,7 +21,7 @@ RSpec.describe SchemaValidator do
       it "is invalid and has an error" do
         expect(validator.valid?).to be false
         expect(validator.errors).to match_array(
-          ["Unable to find schema for schema_name nonexistent-schema"]
+          ["Unable to find schema for schema_name nonexistent-schema"],
         )
       end
     end

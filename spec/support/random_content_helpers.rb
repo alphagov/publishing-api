@@ -11,7 +11,7 @@ module RandomContentHelpers
         routes: [
           { path: base_path, type: "prefix" },
         ],
-        redirects: []
+        redirects: [],
       )
     end
   end

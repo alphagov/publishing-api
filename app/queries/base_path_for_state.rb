@@ -8,7 +8,7 @@ module Queries
       id, content_id, locale = find_conflict(
         limit_scope_to_unpublishing(
           edition_scope(edition_id, state, base_path), state
-        )
+        ),
       )
 
       { id: id, content_id: content_id, locale: locale } if id

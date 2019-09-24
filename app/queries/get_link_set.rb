@@ -13,8 +13,8 @@ module Queries
         error_details = {
           error: {
             code: 404,
-            message: "Could not find link set with content_id: #{content_id}"
-          }
+            message: "Could not find link set with content_id: #{content_id}",
+          },
         }
 
         raise CommandError.new(code: 404, error_details: error_details)

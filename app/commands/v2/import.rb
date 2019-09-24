@@ -13,7 +13,7 @@ module Commands
           raise_command_error(
             422,
             "Provided content_id not a valid UUID",
-            fields: {}
+            fields: {},
           )
         end
 
@@ -22,7 +22,7 @@ module Commands
         if locale.nil?
           raise CommandError.new(
             code: 422,
-            message: "A locale must be specified"
+            message: "A locale must be specified",
           )
         end
 
@@ -31,7 +31,7 @@ module Commands
 
         if previous_document
           previous_content_store_base_paths = get_base_path_content_store_pairs(
-            previous_document
+            previous_document,
           )
 
           delete_all(previous_document)
@@ -51,12 +51,12 @@ module Commands
             content_id: payload[:content_id],
             draft_base_paths_to_discard: draft_content_store_base_paths_to_discard(
               previous_content_store_base_paths,
-              new_content_store_base_paths
+              new_content_store_base_paths,
             ),
             live_base_path_to_delete: live_content_store_base_path_to_delete(
               previous_content_store_base_paths,
-              new_content_store_base_paths
-            )
+              new_content_store_base_paths,
+            ),
           )
         end
 
@@ -68,7 +68,7 @@ module Commands
       def create_document(content_id, locale)
         Document.create(
           content_id: content_id,
-          locale: locale
+          locale: locale,
         )
       end
 
@@ -79,7 +79,7 @@ module Commands
           history_entry.except(:states).merge(
             user_facing_version: index + 1,
             state: "draft",
-          )
+          ),
         )
 
         update_content_item_state_information(content_item, history_entry[:states])
@@ -97,7 +97,7 @@ module Commands
             content_item.unpublish(
               state.slice(
                 :type, :explanation, :alternative_path, :unpublished_at
-              )
+              ),
             )
           when "superseded"
             content_item.supersede
@@ -106,12 +106,12 @@ module Commands
           when "draft"
             content_item.update_attributes!(
               state: "draft",
-              content_store: "draft"
+              content_store: "draft",
             )
           else
             raise CommandError.new(
               code: 422,
-              message: "Unrecognised state: #{state[:name]}."
+              message: "Unrecognised state: #{state[:name]}.",
             )
           end
         end
@@ -123,19 +123,19 @@ module Commands
         unless unrecognised_attributes.empty?
           raise CommandError.new(
             code: 422,
-            message: "Unrecognised attributes in payload: #{unrecognised_attributes}"
+            message: "Unrecognised attributes in payload: #{unrecognised_attributes}",
           )
         end
 
         schema_validator = SchemaValidator.new(
-          payload: history_entry.except(:states).merge(locale: locale)
+          payload: history_entry.except(:states).merge(locale: locale),
         )
 
         unless schema_validator.valid?
           raise CommandError.new(
             code: 422,
             message: "Schema validation failed: #{schema_validator.errors}",
-            error_details: schema_validator.errors
+            error_details: schema_validator.errors,
           )
         end
 
@@ -173,7 +173,7 @@ module Commands
               code: 422,
               message: "Unsupported state used at index #{index}: \
                         #{history_entry[:state]}, \
-                        only #{supported_states} are supported"
+                        only #{supported_states} are supported",
             )
           end
         end
@@ -181,7 +181,7 @@ module Commands
 
       def get_base_path_content_store_pairs(document)
         document.editions.where(
-          state: %w(draft published unpublished)
+          state: %w(draft published unpublished),
         ).group(:base_path).pluck(:base_path, Arel.sql("ARRAY_AGG(content_store)"))
       end
 
@@ -207,12 +207,12 @@ module Commands
       )
         previous_live_base_path =
           live_base_path_from_base_path_content_store_pairs(
-            previous_content_store_base_path_pairs
+            previous_content_store_base_path_pairs,
           )
 
         new_live_base_path =
           live_base_path_from_base_path_content_store_pairs(
-            new_content_store_base_path_pairs
+            new_content_store_base_path_pairs,
           )
 
         if !previous_live_base_path.nil? &&

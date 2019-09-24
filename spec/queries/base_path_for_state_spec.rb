@@ -19,7 +19,7 @@ RSpec.describe Queries::BasePathForState do
         {
           id: conflict_edition.id,
           content_id: conflict_edition.document.content_id,
-          locale: "en"
+          locale: "en",
         }
       end
 
@@ -65,7 +65,7 @@ RSpec.describe Queries::BasePathForState do
           {
             id: conflict_edition.id,
             content_id: conflict_edition.document.content_id,
-            locale: "en"
+            locale: "en",
           }
         end
 

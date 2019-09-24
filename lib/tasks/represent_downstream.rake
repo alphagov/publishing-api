@@ -14,7 +14,7 @@ namespace :represent_downstream do
   desc "Represent all editions downstream"
   task all: :environment do
     represent_downstream(
-      Document.joins(:editions).where.not(editions: { content_store: nil })
+      Document.joins(:editions).where.not(editions: { content_store: nil }),
     )
   end
 
@@ -26,7 +26,7 @@ namespace :represent_downstream do
   task :document_type, [:document_types] => :environment do |_t, args|
     document_types = args[:document_types].split(" ")
     represent_downstream(
-      current_documents.where(editions: { document_type: document_types })
+      current_documents.where(editions: { document_type: document_types }),
     )
   end
 
@@ -37,7 +37,7 @@ namespace :represent_downstream do
   "
   task :rendering_app, [:rendering_app] => :environment do |_t, args|
     represent_downstream(
-      current_documents.where(editions: { rendering_app: args[:rendering_app] })
+      current_documents.where(editions: { rendering_app: args[:rendering_app] }),
     )
   end
 
@@ -48,14 +48,14 @@ namespace :represent_downstream do
   "
   task :publishing_app, [:publishing_app] => :environment do |_t, args|
     represent_downstream(
-      current_documents.where(editions: { publishing_app: args[:publishing_app] })
+      current_documents.where(editions: { publishing_app: args[:publishing_app] }),
     )
   end
 
   desc "Represent downstream content tagged to a parent taxon"
   task tagged_to_taxon: :environment do
     represent_downstream(
-      Link.joins(:link_set).where(link_type: "taxons")
+      Link.joins(:link_set).where(link_type: "taxons"),
     )
   end
 
@@ -67,7 +67,7 @@ namespace :represent_downstream do
   task :content_id, [:content_id] => :environment do |_t, args|
     content_ids = args[:content_id].split(" ")
     represent_downstream(
-      Document.where(content_id: content_ids)
+      Document.where(content_id: content_ids),
     )
   end
 
@@ -81,7 +81,7 @@ namespace :represent_downstream do
   "
   task :published_between, %i(start_date end_date) => :environment do |_t, args|
     represent_downstream(
-      Document.joins(:editions).where(editions: { state: "published", last_edited_at: args[:start_date]..args[:end_date] })
+      Document.joins(:editions).where(editions: { state: "published", last_edited_at: args[:start_date]..args[:end_date] }),
     )
   end
 
@@ -96,7 +96,7 @@ namespace :represent_downstream do
       content_ids = args[:content_id].split(" ")
       represent_downstream(
         Document.where(content_id: content_ids),
-        queue: DownstreamQueue::HIGH_QUEUE
+        queue: DownstreamQueue::HIGH_QUEUE,
       )
     end
   end

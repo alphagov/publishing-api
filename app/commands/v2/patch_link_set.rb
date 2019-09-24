@@ -67,9 +67,9 @@ module Commands
                 message: "Links are required",
                 fields: {
                   links: ["are required"],
-                }
-              }
-            }
+                },
+              },
+            },
           )
         end
       end
@@ -140,7 +140,7 @@ module Commands
 
       def schema_name
         @schema_name ||= Queries::GetLatest.(
-          Edition.with_document.where("documents.content_id": content_id)
+          Edition.with_document.where("documents.content_id": content_id),
         ).pluck(:schema_name).first
       end
     end

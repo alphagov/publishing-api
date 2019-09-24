@@ -88,12 +88,12 @@ RSpec.describe "Link Expansion" do
                 base_path: "/c",
                 links: {
                   parent: [
-                    a_hash_including(base_path: "/d", links: {})
-                  ]
-                }
-              )]
-            }
-          )
+                    a_hash_including(base_path: "/d", links: {}),
+                  ],
+                },
+              )],
+            },
+          ),
         ])
       end
     end
@@ -110,8 +110,8 @@ RSpec.describe "Link Expansion" do
         expect(expanded_links[:mainstream_browse_pages]).to match([
           a_hash_including(
             base_path: "/f",
-            links: {}
-          )
+            links: {},
+          ),
         ])
 
         expect(expanded_links[:ordered_related_items]).to match([
@@ -122,12 +122,12 @@ RSpec.describe "Link Expansion" do
                 base_path: "/c",
                 links: {
                   parent: [
-                    a_hash_including(base_path: "/e", links: {})
-                  ]
-                }
-              )]
-            }
-          )
+                    a_hash_including(base_path: "/e", links: {}),
+                  ],
+                },
+              )],
+            },
+          ),
         ])
       end
     end
@@ -141,12 +141,12 @@ RSpec.describe "Link Expansion" do
 
         expect(expanded_links[:parent_taxons][0][:base_path]).to eq("/b")
         expect(expanded_links[:parent_taxons][0][:links][:parent_taxons]).to match([
-          a_hash_including(base_path: "/d", links: {})
+          a_hash_including(base_path: "/d", links: {}),
         ])
 
         expect(expanded_links[:parent_taxons][1][:base_path]).to eq("/c")
         expect(expanded_links[:parent_taxons][1][:links][:parent_taxons]).to match([
-          a_hash_including(base_path: "/d", links: {})
+          a_hash_including(base_path: "/d", links: {}),
         ])
       end
     end
@@ -157,7 +157,7 @@ RSpec.describe "Link Expansion" do
         create_link(b, c, "related")
 
         expect(expanded_links[:parent]).to match([
-          a_hash_including(base_path: "/b", links: {})
+          a_hash_including(base_path: "/b", links: {}),
         ])
       end
     end
@@ -168,7 +168,7 @@ RSpec.describe "Link Expansion" do
         create_link(b, c, "parent")
 
         expect(expanded_links[:related]).to match([
-          a_hash_including(base_path: "/b", links: {})
+          a_hash_including(base_path: "/b", links: {}),
         ])
       end
     end
@@ -182,7 +182,7 @@ RSpec.describe "Link Expansion" do
           a_hash_including(
             base_path: "/b",
             links: a_hash_including(:associated_taxons),
-          )
+          ),
         ])
       end
     end
@@ -194,8 +194,8 @@ RSpec.describe "Link Expansion" do
 
         expect(expanded_links[:parent]).to match([
           a_hash_including(base_path: "/b", links: {
-            parent: [a_hash_including(base_path: "/a", links: {})]
-          })
+            parent: [a_hash_including(base_path: "/a", links: {})],
+          }),
         ])
       end
     end
@@ -206,11 +206,11 @@ RSpec.describe "Link Expansion" do
         create_link(a, c, "related")
 
         expect(expanded_links[:parent]).to match([
-          a_hash_including(base_path: "/b", links: {})
+          a_hash_including(base_path: "/b", links: {}),
         ])
 
         expect(expanded_links[:related]).to match([
-          a_hash_including(base_path: "/c", links: {})
+          a_hash_including(base_path: "/c", links: {}),
         ])
       end
     end
@@ -230,7 +230,7 @@ RSpec.describe "Link Expansion" do
     context "when the depended on edition has no location" do
       before do
         create_link(a, b, "parent")
-        Edition.find_by(base_path: '/b').update_attributes!(base_path: nil)
+        Edition.find_by(base_path: "/b").update_attributes!(base_path: nil)
       end
 
       it "has no web_url" do
@@ -281,7 +281,7 @@ RSpec.describe "Link Expansion" do
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:related]).to match([
-            a_hash_including(base_path: "/c", links: {})
+            a_hash_including(base_path: "/c", links: {}),
           ])
         end
       end
@@ -327,8 +327,8 @@ RSpec.describe "Link Expansion" do
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
             a_hash_including(base_path: "/b-published", links: {
-              parent: [a_hash_including(base_path: "/c-draft", links: {})]
-            })
+              parent: [a_hash_including(base_path: "/c-draft", links: {})],
+            }),
           ])
         end
       end
@@ -338,7 +338,7 @@ RSpec.describe "Link Expansion" do
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
-            a_hash_including(base_path: "/b-published", links: {})
+            a_hash_including(base_path: "/b-published", links: {}),
           ])
         end
       end
@@ -367,9 +367,9 @@ RSpec.describe "Link Expansion" do
         expect(expanded_links[:parent]).to match([
           a_hash_including(base_path: "/b-published", links: {
             parent: [a_hash_including(base_path: "/c-draft", links: {
-              parent: [a_hash_including(base_path: "/d-published", links: {})]
-            })]
-          })
+              parent: [a_hash_including(base_path: "/d-published", links: {})],
+            })],
+          }),
         ])
       end
     end
@@ -390,7 +390,7 @@ RSpec.describe "Link Expansion" do
 
       it "links to the item in the matching locale" do
         expect(expanded_links[:organisation]).to match([
-          a_hash_including(base_path: "/b.ar")
+          a_hash_including(base_path: "/b.ar"),
         ])
       end
     end
@@ -401,7 +401,7 @@ RSpec.describe "Link Expansion" do
 
       it "links to the item in the matching locale" do
         expect(expanded_links[:organisation]).to match([
-          a_hash_including(base_path: "/b.ar")
+          a_hash_including(base_path: "/b.ar"),
         ])
       end
     end
@@ -409,7 +409,7 @@ RSpec.describe "Link Expansion" do
     context "when the item exists in the matching state but a fallback locale" do
       it "links to the item in the fallback locale" do
         expect(expanded_links[:organisation]).to match([
-          a_hash_including(base_path: "/b")
+          a_hash_including(base_path: "/b"),
         ])
       end
     end
@@ -418,7 +418,7 @@ RSpec.describe "Link Expansion" do
       let(:with_drafts) { true }
       it "links to the item in the fallback locale" do
         expect(expanded_links[:organisation]).to match([
-          a_hash_including(base_path: "/b")
+          a_hash_including(base_path: "/b"),
         ])
       end
     end
@@ -443,7 +443,7 @@ RSpec.describe "Link Expansion" do
 
     it "includes withdrawn parent of the dependent" do
       parents_base_paths = expanded_links[:children].map { |c| c[:links][:parent] }.flatten.map { |e| e[:base_path] }
-      expect(parents_base_paths).to eq(['/a', '/a'])
+      expect(parents_base_paths).to eq(["/a", "/a"])
     end
   end
 
@@ -470,9 +470,9 @@ RSpec.describe "Link Expansion" do
               parent: [a_hash_including(
                 base_path: "/a-draft",
                 links: anything,
-              )]
-            )
-          )
+              )],
+            ),
+          ),
         ])
       end
 
@@ -481,7 +481,7 @@ RSpec.describe "Link Expansion" do
 
         it "excludes draft dependees" do
           expect(expanded_links[:children]).to match([
-            a_hash_including(base_path: "/b-published", links: {})
+            a_hash_including(base_path: "/b-published", links: {}),
           ])
         end
       end
@@ -544,7 +544,7 @@ RSpec.describe "Link Expansion" do
       end
 
       it "expands the links for node a correctly" do
-        expect(expanded_links[:parent]).to match([a_hash_including('base_path': '/b')])
+        expect(expanded_links[:parent]).to match([a_hash_including('base_path': "/b")])
         expect(expanded_links[:related]).to match(nil)
       end
     end

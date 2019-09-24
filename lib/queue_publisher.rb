@@ -23,7 +23,7 @@ class QueuePublisher
 
     validate_edition(edition)
     routing_key ||= routing_key(edition, event_type)
-    publish_message(routing_key, edition, content_type: 'application/json', persistent: persistent)
+    publish_message(routing_key, edition, content_type: "application/json", persistent: persistent)
   end
 
   def routing_key(edition, event_type)
@@ -53,7 +53,7 @@ private
           "message": "Message being sent to the queue does not match the notification schema",
           "error": validator.errors.to_s,
           "edition": edition,
-        }.to_json
+        }.to_json,
       )
     end
   end
@@ -72,7 +72,7 @@ private
 
       exchange.publish(message_data.to_json, publish_options)
       success = exchange.wait_for_confirms
-      event_type = routing_key.split('.').last
+      event_type = routing_key.split(".").last
 
       if success
         PublishingAPI.service(:statsd).increment("message-sent.#{event_type}")
@@ -84,7 +84,7 @@ private
             routing_key: routing_key,
             message_body: message_data,
             options: options,
-          }
+          },
         )
         PublishingAPI.service(:statsd).increment("message-send-failure.#{event_type}")
       end

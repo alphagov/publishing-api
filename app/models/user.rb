@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   def set_app_name!
     if app_name.blank? && email.present?
-      self.app_name = email.split('@')[0]
+      self.app_name = email.split("@")[0]
       save!
     end
   end

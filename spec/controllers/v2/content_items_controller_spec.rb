@@ -183,7 +183,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without pagination params" do
       before do
-        get :index, params: { content_format: 'topic', fields: %w[content_id] }
+        get :index, params: { content_format: "topic", fields: %w[content_id] }
       end
       it "is successful" do
         expect(response.status).to eq(200)
@@ -504,10 +504,10 @@ RSpec.describe V2::ContentItemsController do
 
   describe "index" do
     before do
-      create(:draft_edition, publishing_app: 'publisher', base_path: '/content', document_type: "nonexistent-schema")
-      create(:draft_edition, publishing_app: 'whitehall', base_path: '/item1', document_type: "nonexistent-schema")
-      create(:live_edition, publishing_app: 'whitehall', base_path: '/item2', document_type: "nonexistent-schema")
-      create(:unpublished_edition, publishing_app: 'specialist_publisher', base_path: '/item3', document_type: "nonexistent-schema")
+      create(:draft_edition, publishing_app: "publisher", base_path: "/content", document_type: "nonexistent-schema")
+      create(:draft_edition, publishing_app: "whitehall", base_path: "/item1", document_type: "nonexistent-schema")
+      create(:live_edition, publishing_app: "whitehall", base_path: "/item2", document_type: "nonexistent-schema")
+      create(:unpublished_edition, publishing_app: "specialist_publisher", base_path: "/item3", document_type: "nonexistent-schema")
     end
 
     it "displays items filtered by publishing_app parameter" do
@@ -515,7 +515,7 @@ RSpec.describe V2::ContentItemsController do
           params: {
             document_type: "nonexistent-schema",
             fields: %w(base_path publishing_app),
-            publishing_app: "whitehall"
+            publishing_app: "whitehall",
           }
       items = parsed_response["results"]
       expect(items.length).to eq(2)

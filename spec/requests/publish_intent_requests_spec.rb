@@ -10,7 +10,7 @@ RSpec.describe "Publish intent requests", type: :request do
         {
           path: base_path,
           type: "exact",
-        }
+        },
       ],
     }
   }
@@ -97,7 +97,7 @@ RSpec.describe "Publish intent requests", type: :request do
       put "/publish-intent#{base_path}", params: content_item.to_json
 
       expect(Event.count).to eq(1)
-      expect(Event.first.action).to eq('PutPublishIntent')
+      expect(Event.first.action).to eq("PutPublishIntent")
       expect(Event.first.user_uid).to eq(nil)
       expect(Event.first.payload).to eq(expected_event_payload)
     end
@@ -134,7 +134,7 @@ RSpec.describe "Publish intent requests", type: :request do
       delete "/publish-intent/vat-rates"
 
       expect(Event.count).to eq(1)
-      expect(Event.first.action).to eq('DeletePublishIntent')
+      expect(Event.first.action).to eq("DeletePublishIntent")
       expect(Event.first.user_uid).to eq(nil)
       expect(Event.first.payload).to eq(base_path: "/vat-rates")
     end

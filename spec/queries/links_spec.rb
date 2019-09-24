@@ -21,7 +21,7 @@ RSpec.describe Queries::Links do
 
       it "returns a hash" do
         expect(result).to match(
-          link_type => [a_hash_including(content_id: link_content_id)]
+          link_type => [a_hash_including(content_id: link_content_id)],
         )
       end
     end
@@ -90,7 +90,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_from) { nil }
         it "has a 'has_own_links' value of nil" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, has_own_links: nil)]
+            link_type => [a_hash_including(content_id: link_content_id, has_own_links: nil)],
           )
         end
       end
@@ -99,7 +99,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_from) { { link_type => [child_link_type] } }
         it "has a 'has_own_links' value of true" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, has_own_links: true)]
+            link_type => [a_hash_including(content_id: link_content_id, has_own_links: true)],
           )
         end
       end
@@ -108,7 +108,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_from) { { link_type => [:different] } }
         it "has a 'has_own_links' value of false" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, has_own_links: false)]
+            link_type => [a_hash_including(content_id: link_content_id, has_own_links: false)],
           )
         end
       end
@@ -136,7 +136,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_to) { nil }
         it "has a 'is_linked_to' value of nil" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: nil)]
+            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: nil)],
           )
         end
       end
@@ -145,7 +145,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_to) { { link_type => [child_link_type] } }
         it "has a 'is_linked_to' value of true" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: true)]
+            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: true)],
           )
         end
       end
@@ -154,7 +154,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_to) { { link_type => [:different] } }
         it "has a 'is_linked_to' value of false" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: false)]
+            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: false)],
           )
         end
       end
@@ -177,7 +177,7 @@ RSpec.describe Queries::Links do
 
       it "returns a hash" do
         expect(result).to match(
-          link_type => [a_hash_including(content_id: link_content_id)]
+          link_type => [a_hash_including(content_id: link_content_id)],
         )
       end
     end
@@ -248,7 +248,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_from) { nil }
         it "has a 'has_own_links' value of nil" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, has_own_links: nil)]
+            link_type => [a_hash_including(content_id: link_content_id, has_own_links: nil)],
           )
         end
       end
@@ -257,7 +257,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_from) { { link_type => [child_link_type] } }
         it "has a 'has_own_links' value of true" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, has_own_links: true)]
+            link_type => [a_hash_including(content_id: link_content_id, has_own_links: true)],
           )
         end
       end
@@ -266,7 +266,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_from) { { link_type => [:different] } }
         it "has a 'has_own_links' value of false" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, has_own_links: false)]
+            link_type => [a_hash_including(content_id: link_content_id, has_own_links: false)],
           )
         end
       end
@@ -294,7 +294,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_to) { nil }
         it "has a 'is_linked_to' value of nil" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: nil)]
+            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: nil)],
           )
         end
       end
@@ -303,7 +303,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_to) { { link_type => [child_link_type] } }
         it "has a 'is_linked_to' value of true" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: true)]
+            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: true)],
           )
         end
       end
@@ -312,7 +312,7 @@ RSpec.describe Queries::Links do
         let(:next_allowed_link_types_to) { { link_type => [:different] } }
         it "has a 'is_linked_to' value of false" do
           expect(result).to match(
-            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: false)]
+            link_type => [a_hash_including(content_id: link_content_id, is_linked_to: false)],
           )
         end
       end

@@ -32,7 +32,7 @@ RSpec.describe Commands::V2::Import, type: :request do
             states: [{ name: "published" }],
             update_type: "major",
           ),
-        ]
+        ],
       }
     end
 
@@ -55,7 +55,7 @@ RSpec.describe Commands::V2::Import, type: :request do
     it "sets content_store correctly" do
       subject
       expect(
-        Edition.all.pluck(:content_store)
+        Edition.all.pluck(:content_store),
       ).to match_array([nil, nil, "live"])
     end
 
@@ -73,10 +73,10 @@ RSpec.describe Commands::V2::Import, type: :request do
             content_item.merge(
               states: [{
                 name: "unpublished",
-                type: "gone"
-              }]
-            )
-          ]
+                type: "gone",
+              }],
+            ),
+          ],
         }
       end
 
@@ -97,9 +97,9 @@ RSpec.describe Commands::V2::Import, type: :request do
             locale: "en",
             history: [
               content_item.merge(
-                states: [{ name: "unpublished" }]
-              )
-            ]
+                states: [{ name: "unpublished" }],
+              ),
+            ],
           }
         end
 
@@ -108,7 +108,7 @@ RSpec.describe Commands::V2::Import, type: :request do
             subject.call
           }.to raise_error(
             CommandError,
-            /For a state of unpublished, a type must be provided/
+            /For a state of unpublished, a type must be provided/,
           )
         end
       end
@@ -122,8 +122,8 @@ RSpec.describe Commands::V2::Import, type: :request do
           history: [
             content_item.merge(
               locale: "cy",
-            )
-          ]
+            ),
+          ],
         }
       end
 
@@ -132,7 +132,7 @@ RSpec.describe Commands::V2::Import, type: :request do
           subject.call
         }.to raise_error(
           CommandError,
-          /Unrecognised attributes in payload: \[:locale\]/
+          /Unrecognised attributes in payload: \[:locale\]/,
         )
       end
     end
@@ -153,7 +153,7 @@ RSpec.describe Commands::V2::Import, type: :request do
 
         {
           content_id: content_id,
-          history: history
+          history: history,
         }
       end
 
@@ -181,7 +181,7 @@ RSpec.describe Commands::V2::Import, type: :request do
     context "with existing content" do
       let!(:first_payload) do
         payload.merge(
-          history: [content_item.merge(states: [{ name: "published" }])]
+          history: [content_item.merge(states: [{ name: "published" }])],
         )
       end
 
@@ -193,19 +193,19 @@ RSpec.describe Commands::V2::Import, type: :request do
             content_item.merge(
               states: [{ name: "published" }],
               base_path: second_base_path,
-              routes: [{ "path": second_base_path, "type": "exact" }]
-            )
-          ]
+              routes: [{ "path": second_base_path, "type": "exact" }],
+            ),
+          ],
         )
       end
 
       it "deletes removed content from the contet store" do
         def draft_path(base_path)
-          Plek.new.find('draft-content-store') + "/content" + base_path
+          Plek.new.find("draft-content-store") + "/content" + base_path
         end
 
         def live_path(base_path)
-          Plek.new.find('content-store') + "/content" + base_path
+          Plek.new.find("content-store") + "/content" + base_path
         end
 
         described_class.call(first_payload)
@@ -214,7 +214,7 @@ RSpec.describe Commands::V2::Import, type: :request do
           stub_request(:put, live_path(second_base_path)),
           stub_request(:put, draft_path(second_base_path)),
           stub_request(:delete, live_path(base_path)),
-          stub_request(:delete, draft_path(base_path))
+          stub_request(:delete, draft_path(base_path)),
         ]
 
         described_class.call(second_payload)

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe DataHygiene::GovspeakCompare do
   let(:edition) { create(:edition, details: details) }
@@ -10,7 +10,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
       other: [
         { content_type: "text/html", content: other_html },
         { content_type: "text/govspeak", content: other_govspeak },
-      ], }
+      ] }
   end
 
   let(:body_html) { "<h1>Foo</h1>" }
@@ -18,7 +18,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
   let(:other_html) { body_html }
   let(:other_govspeak) { body_govspeak }
 
-  describe '.published_html' do
+  describe ".published_html" do
     subject { described_class.new(edition).published_html }
 
     context "when details is an empty hash" do
@@ -34,7 +34,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
             { content_type: "text/html", content: "<h1>Hello</h1>" },
             { content_type: "text/govspeak", content: "#Hi" },
           ],
-          field_3: [{ content_type: "text/govspeak", content: "#Erm" }], }
+          field_3: [{ content_type: "text/govspeak", content: "#Erm" }] }
       end
       it { is_expected.to include(:field_1, :field_2) }
     end
@@ -50,7 +50,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
     end
   end
 
-  describe '.generated_html' do
+  describe ".generated_html" do
     subject { described_class.new(edition).generated_html }
 
     context "when details is an empty hash" do
@@ -66,7 +66,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
             { content_type: "text/html", content: "<h1>Hello</h1>" },
             { content_type: "text/govspeak", content: "#Hi" },
           ],
-          field_3: [{ content_type: "text/govspeak", content: "Erm" }], }
+          field_3: [{ content_type: "text/govspeak", content: "Erm" }] }
       end
 
       it { is_expected.to include(:field_2, :field_3) }
@@ -75,7 +75,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
     end
   end
 
-  describe '.diffs' do
+  describe ".diffs" do
     subject { described_class.new(edition).diffs }
 
     context "when published_html is the same as generated_html" do
@@ -137,7 +137,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
     end
   end
 
-  describe 'same_html?' do
+  describe "same_html?" do
     subject { described_class.new(edition).same_html? }
 
     context "when govspeak will render to the same HTML" do
@@ -160,7 +160,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
     end
   end
 
-  describe 'pretty_much_same_html?' do
+  describe "pretty_much_same_html?" do
     subject { described_class.new(edition).pretty_much_same_html? }
 
     context "when govspeak will render to the same HTML" do

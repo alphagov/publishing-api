@@ -32,7 +32,7 @@ private
       target_content_id: link.target_content_id,
       link_type: link.link_type,
       change: change,
-      action: action
+      action: action,
     )
   end
 end

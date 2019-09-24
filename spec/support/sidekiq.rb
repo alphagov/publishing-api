@@ -1,2 +1,2 @@
-require 'sidekiq/testing'
+require "sidekiq/testing"
 Sidekiq::Testing.inline!

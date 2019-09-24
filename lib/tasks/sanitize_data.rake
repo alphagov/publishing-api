@@ -11,13 +11,13 @@ namespace :db do
 end
 
 task :restore_policy_links, [:action] => [:environment] do |_, args|
-  dry_run = args["action"] != 'apply'
+  dry_run = args["action"] != "apply"
   puts "Dry run" if dry_run
 
   policy_query = Queries::GetContentCollection.new(
-    document_types: 'policy',
+    document_types: "policy",
     fields: %w(content_id),
-    pagination: NullPagination.new
+    pagination: NullPagination.new,
   )
   policy_content_ids = policy_query.call.map { |item| item["content_id"] }
 
@@ -45,19 +45,19 @@ task :restore_policy_links, [:action] => [:environment] do |_, args|
 
     policy_events = Event.where(
       content_id: wipe_event.content_id,
-      action: %w(PutContentWithLinks PatchLinkSet)
+      action: %w(PutContentWithLinks PatchLinkSet),
     ).order("created_at desc")
 
     policy_log = []
 
     policy_events.each do |event|
       policy_log << event
-      break if event.action == 'PutContentWithLinks'
+      break if event.action == "PutContentWithLinks"
     end
 
     raise "Event log error: no events found for #{wipe_event.content_id}" if policy_log.empty?
 
-    if policy_log.last.action != 'PutContentWithLinks'
+    if policy_log.last.action != "PutContentWithLinks"
       # Policy created since Publishing API V2
       puts "New policy #{wipe_event.content_id}"
     end
@@ -83,7 +83,7 @@ task :assign_primary_organisation_for_app, %i[primary_publishing_organisation pu
 
   Tasks::LinkSetter.set_primary_publishing_organisation(
     content_ids: content_ids,
-    primary_publishing_organisation: primary_publishing_organisation
+    primary_publishing_organisation: primary_publishing_organisation,
   )
 end
 
@@ -97,7 +97,7 @@ task :assign_primary_organisation_for_document_type, %i[primary_publishing_organ
 
   Tasks::LinkSetter.set_primary_publishing_organisation(
     content_ids: content_ids,
-    primary_publishing_organisation: primary_publishing_organisation
+    primary_publishing_organisation: primary_publishing_organisation,
   )
 end
 
@@ -121,7 +121,7 @@ task bulk_assign_primary_organisation_from_stdin: [:environment] do |_, _args|
 
     Tasks::LinkSetter.set_primary_publishing_organisation(
       content_ids: [content_id],
-      primary_publishing_organisation: primary_org_content_id
+      primary_publishing_organisation: primary_org_content_id,
     )
   end
 end

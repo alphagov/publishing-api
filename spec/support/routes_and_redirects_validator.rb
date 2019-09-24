@@ -155,8 +155,8 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           {
             path: "#{subject.base_path}/foo",
             type: "exact",
-            destination: "#{subject.base_path}/bar/"
-          }
+            destination: "#{subject.base_path}/bar/",
+          },
         ]
         expect(subject).to be_invalid
       end
@@ -166,8 +166,8 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
             {
                 path: "#{subject.base_path}/foo",
                 type: "exact",
-                destination: "/"
-            }
+                destination: "/",
+            },
         ]
         expect(subject).to be_valid
       end
@@ -223,8 +223,8 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
             path: "#{subject.base_path}/foo",
             type: "exact",
             segments_mode: "preserve",
-            destination: "/bar?baz=4"
-          }
+            destination: "/bar?baz=4",
+          },
         ]
 
         expect(subject).to be_invalid
@@ -236,8 +236,8 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
             path: "#{subject.base_path}/foo",
             type: "prefix",
             segments_mode: "preserve",
-            destination: "/bar#baz"
-          }
+            destination: "/bar#baz",
+          },
         ]
 
         expect(subject).to be_invalid

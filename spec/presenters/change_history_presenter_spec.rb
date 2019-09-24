@@ -29,7 +29,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
           ChangeNote.create(
             edition: edition,
             note: i.to_s,
-            public_timestamp: Time.now.utc
+            public_timestamp: Time.now.utc,
           )
         end
       end
@@ -43,7 +43,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         ChangeNote.create(
           edition: edition,
           note: i.to_s,
-          public_timestamp: i.days.ago
+          public_timestamp: i.days.ago,
         )
       end
       expect(subject.map { |item| item[:note] }).to eq %w(3 2 1)

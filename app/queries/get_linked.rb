@@ -37,8 +37,8 @@ module Queries
       raise CommandError.new(code: 404, error_details: {
         error: {
           code: 404,
-          message: "No item with content_id: '#{target_content_id}'"
-        }
+          message: "No item with content_id: '#{target_content_id}'",
+        },
       })
     end
 
@@ -57,8 +57,8 @@ module Queries
       raise CommandError.new(code: code, error_details: {
         error: {
           code: code,
-          message: message
-        }
+          message: message,
+        },
       })
     end
 

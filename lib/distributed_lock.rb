@@ -20,7 +20,7 @@ class DistributedLock
       ActiveRecord::Base.with_advisory_lock(
         name,
         timeout_seconds: timeout_seconds,
-        transaction: true
+        transaction: true,
       ) do
         @has_run = true
         yield

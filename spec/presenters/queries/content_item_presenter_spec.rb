@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Presenters::Queries::ContentItemPresenter do
   let(:content_id) { SecureRandom.uuid }
@@ -74,7 +74,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
     context "for a published edition" do
       before do
-        edition.update_attributes!(state: 'published')
+        edition.update_attributes!(state: "published")
       end
 
       it "has a publication state of published" do
@@ -109,7 +109,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       it "presents the item including the change note" do
         expected = expected_output.merge(
           "change_note" => "note",
-          "update_type" => "major"
+          "update_type" => "major",
         )
         expect(result).to eq expected
       end
@@ -122,7 +122,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
       it "presents the item including the link" do
         expected = expected_output.merge(
-          "links" => { "test" => [content_id] }
+          "links" => { "test" => [content_id] },
         )
         expect(result).to eq expected
       end
@@ -142,7 +142,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
           "links" => {
             "test" => [content_id, and_another_content_id],
             "ers" => [other_content_id],
-          }
+          },
         )
         expect(result).to eq expected
       end
@@ -198,7 +198,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         state_history = results.first.fetch("state_history")
         expect(state_history).to eq(
           1 => "published",
-          2 => "draft"
+          2 => "draft",
         )
       end
     end
@@ -244,7 +244,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
         it "includes the warning" do
           expect(result.first["warnings"]).to have_key(
-            "content_item_blocking_publish"
+            "content_item_blocking_publish",
           )
         end
       end

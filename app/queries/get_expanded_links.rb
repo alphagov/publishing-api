@@ -29,7 +29,7 @@ module Queries
       ExpandedLinks.find_by(
         content_id: content_id,
         locale: locale,
-        with_drafts: with_drafts
+        with_drafts: with_drafts,
       )
     end
 
@@ -53,7 +53,7 @@ module Queries
     def stored_links_response(expanded_links)
       response(
         expanded_links.expanded_links,
-        expanded_links.updated_at
+        expanded_links.updated_at,
       )
     end
 

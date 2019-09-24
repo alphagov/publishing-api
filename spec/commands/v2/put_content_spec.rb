@@ -70,7 +70,7 @@ RSpec.describe Commands::V2::PutContent do
             :content_id, :locale,
             update_dependencies: true,
             source_command: "put_content",
-            source_fields: [],
+            source_fields: []
           ),
         )
 
@@ -117,7 +117,7 @@ RSpec.describe Commands::V2::PutContent do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_low",
-            anything
+            anything,
           )
 
         described_class.call(payload.merge(bulk_publishing: true))
@@ -197,7 +197,7 @@ RSpec.describe Commands::V2::PutContent do
                 payload.merge(
                   update_type: update_type,
                   last_edited_at: last_edited_at.iso8601,
-                )
+                ),
               )
 
               expect(Edition.first.last_edited_at.iso8601).to eq(last_edited_at.iso8601)

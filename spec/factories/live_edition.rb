@@ -38,7 +38,7 @@ FactoryBot.define do
     schema_name { "redirect" }
     document_type { "redirect" }
     routes { [] }
-    redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => '/somewhere' }] }
+    redirects { [{ "path" => base_path, "type" => "exact", "destination" => "/somewhere" }] }
   end
 
   factory :gone_live_edition, parent: :live_edition do

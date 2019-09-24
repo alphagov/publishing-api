@@ -6,7 +6,7 @@ RSpec.describe "Downstream requests", type: :request do
       v2_content_item
         .except(:update_type)
         .merge(expanded_links: {
-          available_translations: available_translations
+          available_translations: available_translations,
         })
     }
 
@@ -32,7 +32,7 @@ RSpec.describe "Downstream requests", type: :request do
 
       let(:content_item_for_draft_content_store) do
         v2_content_item.except(:update_type).merge(
-          expanded_links: Presenters::Queries::ExpandedLinkSet.new(content_id: link_set.content_id, draft: true).links
+          expanded_links: Presenters::Queries::ExpandedLinkSet.new(content_id: link_set.content_id, draft: true).links,
         )
       end
 
@@ -163,11 +163,11 @@ RSpec.describe "Downstream requests", type: :request do
 
     it "sends the dependencies to the draft content store" do
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        .with(a_hash_including(base_path: '/a'))
+        .with(a_hash_including(base_path: "/a"))
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-        .with(a_hash_including(base_path: '/b'))
+        .with(a_hash_including(base_path: "/b"))
       params = v2_content_item.merge(base_path: "/a", content_id: a, title: "foo",
-                                     routes: [{ path: '/a', type: 'exact' }]).to_json
+                                     routes: [{ path: "/a", type: "exact" }]).to_json
       put "/v2/content/#{a}", params: params
     end
 
@@ -175,7 +175,7 @@ RSpec.describe "Downstream requests", type: :request do
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:live_content_store)).to_not receive(:put_content_item)
-        .with(a_hash_including(base_path: '/b'))
+        .with(a_hash_including(base_path: "/b"))
       post "/v2/content/#{a}/publish", params: { update_type: "major" }.to_json
       expect(response.code).to eq("200")
     end
@@ -184,9 +184,9 @@ RSpec.describe "Downstream requests", type: :request do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
-        .with(a_hash_including(base_path: '/a'), event_type: "major")
+        .with(a_hash_including(base_path: "/a"), event_type: "major")
       expect(PublishingAPI.service(:queue_publisher)).to_not receive(:send_message)
-        .with(a_hash_including(base_path: '/b'), event_type: anything)
+        .with(a_hash_including(base_path: "/b"), event_type: anything)
       post "/v2/content/#{a}/publish", params: { update_type: "major" }.to_json
       expect(response.code).to eq("200")
     end
@@ -236,7 +236,7 @@ RSpec.describe "Downstream requests", type: :request do
             content_id: content_id,
             locale: "en",
             payload_version: anything,
-          )
+          ),
         )
 
       post "/v2/content/#{content_id}/publish", params: { update_type: "major" }.to_json

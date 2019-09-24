@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe GonePresenter do
   describe "#for_message_queue" do

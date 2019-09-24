@@ -55,7 +55,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
     expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
       .with(
         "downstream_high",
-        a_hash_including(content_id: content_id)
+        a_hash_including(content_id: content_id),
       )
 
     post "/v2/content/#{content_id}/unpublish", params: payload.to_json
@@ -65,7 +65,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
     expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
       .with(
         "downstream_high",
-        a_hash_including(content_id: content_id)
+        a_hash_including(content_id: content_id),
       )
 
     post "/v2/content/#{content_id}/unpublish", params: payload.to_json
@@ -75,7 +75,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
     expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
       .with(
         "downstream_high",
-        a_hash_including(content_id: content_id)
+        a_hash_including(content_id: content_id),
       )
 
     post "/v2/content/#{content_id}/unpublish", params: payload.to_json

@@ -60,7 +60,7 @@ RSpec.describe ExpansionRules::MultiLevelLinks do
           [
             %i[red blue],
             [:yellow],
-            %i[yellow green]
+            %i[yellow green],
           ]
         end
         it { is_expected.to match(length_1) }
@@ -88,7 +88,7 @@ RSpec.describe ExpansionRules::MultiLevelLinks do
           [
             %i[blue red],
             %i[yellow yellow],
-            %i[green yellow]
+            %i[green yellow],
           ]
         end
         it { is_expected.to match(length_2) }

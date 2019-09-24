@@ -9,7 +9,7 @@ module V2
         filters: filters,
         pagination: pagination,
         search_query: query_params.fetch("q", ""),
-        search_in: query_params[:search_in]
+        search_in: query_params[:search_in],
       )
 
       render json: Presenters::ResultsPresenter.new(results, pagination, request.original_url).present
@@ -32,7 +32,7 @@ module V2
 
     def import
       response = Commands::V2::Import.call(
-        edition.merge(locale: query_params[:locale])
+        edition.merge(locale: query_params[:locale]),
       )
       render status: response.code, json: response
     end

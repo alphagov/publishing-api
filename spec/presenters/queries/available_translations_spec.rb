@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Presenters::Queries::AvailableTranslations do
   subject(:translations) do
@@ -21,7 +21,7 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
            document: Document.find_or_create_by(content_id: link_set.content_id, locale: locale),
            base_path: base_path,
            state: state,
-           content_store: state == 'draft' ? 'draft' : 'live',
+           content_store: state == "draft" ? "draft" : "live",
            user_facing_version: version)
   end
 

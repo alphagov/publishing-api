@@ -17,8 +17,8 @@ private
     error = CommandError.new(code: 422, error_details: {
       error: {
         code: 422,
-        message: error.message
-      }
+        message: error.message,
+      },
     })
 
     respond_with_command_error(error)
@@ -28,8 +28,8 @@ private
     error = CommandError.new(code: 400, error_details: {
       error: {
         code: 400,
-        message: error.message
-      }
+        message: error.message,
+      },
     })
 
     respond_with_command_error(error)

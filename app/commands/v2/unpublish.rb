@@ -90,7 +90,7 @@ module Commands
         edition.unpublish(
           payload
             .slice(:type, :explanation, :alternative_path, :unpublished_at)
-            .merge(redirects: redirects)
+            .merge(redirects: redirects),
         )
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, fields: {})
@@ -101,7 +101,7 @@ module Commands
           [{
             path: edition.base_path,
             type: :exact,
-            destination: payload[:alternative_path]
+            destination: payload[:alternative_path],
           }]
         else
           payload[:redirects]

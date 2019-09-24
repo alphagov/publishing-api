@@ -6,14 +6,14 @@ module Commands
       logger.debug "#{self} called with payload:\n#{payload}"
 
       response = EventLogger.log_command(self, payload) do |event|
-        PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, '.')) do
+        PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, ".")) do
           new(
             payload,
             event: event,
             downstream: downstream,
             callbacks: callbacks,
             nested: nested,
-            **options
+            **options,
           ).call
         end
       end
@@ -48,7 +48,7 @@ module Commands
 
     def self.raise_validation_command_error(error)
       errors = error.record.errors
-      full_message = errors.full_messages.join(', ')
+      full_message = errors.full_messages.join(", ")
 
       raise CommandError.new(
         code: 422,
@@ -57,9 +57,9 @@ module Commands
           error: {
             code: 422,
             message: full_message,
-            fields: errors.to_hash
-          }
-        }
+            fields: errors.to_hash,
+          },
+        },
       )
     end
     private_class_method :execute_callbacks, :raise_validation_command_error
@@ -95,8 +95,8 @@ module Commands
           error: {
             code: code,
             message: friendly_message || message,
-          }.merge(fields)
-        }
+          }.merge(fields),
+        },
       )
     end
   end

@@ -9,9 +9,9 @@ module Tasks
         Commands::V2::PatchLinkSet.call(
           content_id: content_id,
           links: {
-            primary_publishing_organisation: [primary_publishing_organisation]
+            primary_publishing_organisation: [primary_publishing_organisation],
           },
-          bulk_publishing: true
+          bulk_publishing: true,
         )
       end
     end

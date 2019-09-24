@@ -24,7 +24,7 @@ RSpec.describe Queries::GetLinkables do
 
       it "returns an array of linkable presenters" do
         expect(linkables).to match_array([
-          an_instance_of(Queries::LinkablePresenter)
+          an_instance_of(Queries::LinkablePresenter),
         ])
       end
 
@@ -43,7 +43,7 @@ RSpec.describe Queries::GetLinkables do
 
         it "returns title instead of internal_name" do
           expect(linkables.first.to_h).to match(
-            a_hash_including(internal_name: title)
+            a_hash_including(internal_name: title),
           )
         end
       end

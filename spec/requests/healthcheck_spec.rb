@@ -18,7 +18,7 @@ RSpec.describe "/healthcheck", type: :request do
     expect(data.fetch(:checks).keys).to include(
       :database_connectivity,
       :redis_connectivity,
-      :sidekiq_queue_latency
+      :sidekiq_queue_latency,
     )
   end
 end

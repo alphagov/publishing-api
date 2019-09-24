@@ -129,11 +129,11 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
         {
           path: "/old-path",
           type: "exact",
-          destination: base_path
+          destination: base_path,
         }, {
           path: "/old-path.atom",
           type: "exact",
-          destination: "#{base_path}.atom"
+          destination: "#{base_path}.atom",
         }
       ])
       expect(redirect.document.owning_document).to eq(previously_drafted_item.document)
@@ -235,7 +235,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
           access_limited: {
             users: %w[new-user],
             auth_bypass_ids: [auth_bypass_id],
-          }
+          },
         )
       end
 
@@ -265,7 +265,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
           access_limited: {
             users: %w[new-user],
             auth_bypass_ids: [auth_bypass_id],
-          }
+          },
         )
       end
 

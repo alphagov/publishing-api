@@ -28,7 +28,7 @@ RSpec.describe "Edition Links" do
 
     it "has a link to target of type #{link_type}" do
       expect(expanded_links[link_type]).to match_array([
-        a_hash_including(base_path: base_path)
+        a_hash_including(base_path: base_path),
       ])
     end
   end
@@ -141,7 +141,7 @@ RSpec.describe "Edition Links" do
       it "should include the parent in the link" do
         expect(expanded_links[:children][0][:links]).to include(:parent)
         expect(expanded_links[:children][0][:links][:parent]).to match_array([
-          a_hash_including(base_path: "/parent")
+          a_hash_including(base_path: "/parent"),
         ])
       end
     end

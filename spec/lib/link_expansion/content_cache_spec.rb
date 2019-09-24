@@ -8,7 +8,7 @@ RSpec.describe LinkExpansion::ContentCache do
           content_id: edition.content_id,
           locale: edition.locale,
           state: edition.state,
-        )
+        ),
     )
   end
 
@@ -22,7 +22,7 @@ RSpec.describe LinkExpansion::ContentCache do
       described_class.new(
         locale: :en,
         with_drafts: with_drafts,
-        preload_content_ids: preload_content_ids
+        preload_content_ids: preload_content_ids,
       ).find(content_id)
     end
 
@@ -69,7 +69,7 @@ RSpec.describe LinkExpansion::ContentCache do
         described_class.new(
           locale: :en,
           with_drafts: with_drafts,
-          preload_content_ids: preload_content_ids
+          preload_content_ids: preload_content_ids,
         )
       end
 
@@ -86,7 +86,7 @@ RSpec.describe LinkExpansion::ContentCache do
         described_class.new(
           locale: :en,
           with_drafts: with_drafts,
-          preload_editions: preload_editions
+          preload_editions: preload_editions,
         )
       end
 
