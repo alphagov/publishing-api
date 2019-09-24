@@ -9,7 +9,7 @@ RSpec.describe LinkGraph do
       root_content_id: content_id,
       root_locale: locale,
       with_drafts: with_drafts,
-      link_reference: double(:link_reference)
+      link_reference: double(:link_reference),
     )
   end
 

@@ -105,7 +105,7 @@ RSpec.describe Edition do
 
     context "base_path" do
       it "should be an absolute path" do
-        subject.base_path = 'invalid//absolute/path/'
+        subject.base_path = "invalid//absolute/path/"
         expect(subject).to be_invalid
         expect(subject.errors[:base_path].size).to eq(1)
       end

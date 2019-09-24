@@ -27,7 +27,7 @@ class RedirectPresenter
     present.merge(
       content_id: content_id,
       govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
-      payload_version: payload_version
+      payload_version: payload_version,
     )
   end
 

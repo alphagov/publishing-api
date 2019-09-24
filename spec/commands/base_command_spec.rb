@@ -58,7 +58,7 @@ RSpec.describe Commands::BaseCommand do
         expect(sample_rate).to eq 1
       end
 
-      expect(Commands::SlowCommand.call(foo: 'bar')).to eq :foo
+      expect(Commands::SlowCommand.call(foo: "bar")).to eq :foo
     end
   end
 end

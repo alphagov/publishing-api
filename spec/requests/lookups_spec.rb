@@ -20,7 +20,7 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
       expect(parsed_response).to eql(
         "/published-and-draft-page" => "aa491126-77ed-4e81-91fa-8dc7f74e9657",
         "/only-published-page" => "bbabcd3c-7c45-4403-8490-db51e4bfc4f6",
-        "/withdrawn-page" => "00abcd3c-7c45-4403-8490-db51e4bfc4f6"
+        "/withdrawn-page" => "00abcd3c-7c45-4403-8490-db51e4bfc4f6",
       )
     end
 
@@ -76,20 +76,20 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
       expect(parsed_response).to eql({})
     end
 
-    context 'when document type filtering is set to include all content' do
+    context "when document type filtering is set to include all content" do
       it "returns content ids for redirected content" do
         redirected_content_item = create(
           :redirect_edition,
           state: "published",
           content_store: "live",
           base_path: "/redirect-page",
-          user_facing_version: 1
+          user_facing_version: 1,
         )
 
         post "/lookup-by-base-path", params: { base_paths: %w(/redirect-page), exclude_document_types: %w[none] }
 
         expect(parsed_response).to eql(
-          "/redirect-page" => redirected_content_item.document.content_id
+          "/redirect-page" => redirected_content_item.document.content_id,
         )
       end
 
@@ -99,25 +99,25 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
           state: "published",
           content_store: "live",
           base_path: "/gone-page",
-          user_facing_version: 1
+          user_facing_version: 1,
         )
 
         post "/lookup-by-base-path", params: { base_paths: %w(/gone-page), exclude_document_types: %w[none] }
 
         expect(parsed_response).to eql(
-          "/gone-page" => gone_content_item.document.content_id
+          "/gone-page" => gone_content_item.document.content_id,
         )
       end
     end
 
-    context 'when unpublishing type filtering is set to include all content' do
+    context "when unpublishing type filtering is set to include all content" do
       it "returns content ids for gone content" do
         gone_content_item = create(:unpublished_edition, state: "unpublished", base_path: "/unpublished-gone-page", user_facing_version: 1)
 
         post "/lookup-by-base-path", params: { base_paths: %w(/unpublished-gone-page), exclude_unpublishing_types: %w[none] }
 
         expect(parsed_response).to eql(
-          "/unpublished-gone-page" => gone_content_item.document.content_id
+          "/unpublished-gone-page" => gone_content_item.document.content_id,
         )
       end
     end

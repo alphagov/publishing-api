@@ -1,26 +1,26 @@
 if ENV["RCOV"]
-  require 'simplecov'
-  SimpleCov.start 'rails'
+  require "simplecov"
+  SimpleCov.start "rails"
 end
 
-require 'pry'
+require "pry"
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require 'spec_helper'
-require 'database_cleaner'
-require 'rspec/rails'
+require "spec_helper"
+require "database_cleaner"
+require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'sidekiq/testing'
+require "sidekiq/testing"
 Sidekiq::Logging.logger = nil
 # Sidekiq in test mode won't run server middleware by default.
 Sidekiq::Testing.server_middleware do |chain|
   chain.add GovukSidekiq::APIHeaders::ServerMiddleware
 end
-require 'govuk-content-schema-test-helpers'
+require "govuk-content-schema-test-helpers"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -35,9 +35,9 @@ require 'govuk-content-schema-test-helpers'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-require 'sidekiq-unique-jobs'
+require "sidekiq-unique-jobs"
 Sidekiq.configure_client do |config|
   config.client_middleware do |chain|
     chain.remove SidekiqUniqueJobs::Client::Middleware

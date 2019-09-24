@@ -18,20 +18,20 @@ end
 PublishingAPI.register_service(
   name: :draft_content_store,
   client: ContentStoreWriter.new(
-    Plek.find('draft-content-store'),
-    bearer_token: ENV['DRAFT_CONTENT_STORE_BEARER_TOKEN'],
-  )
+    Plek.find("draft-content-store"),
+    bearer_token: ENV["DRAFT_CONTENT_STORE_BEARER_TOKEN"],
+  ),
 )
 
 PublishingAPI.register_service(
   name: :live_content_store,
   client: ContentStoreWriter.new(
-    Plek.find('content-store'),
-    bearer_token: ENV['CONTENT_STORE_BEARER_TOKEN'],
-  )
+    Plek.find("content-store"),
+    bearer_token: ENV["CONTENT_STORE_BEARER_TOKEN"],
+  ),
 )
 
-if ENV['DISABLE_QUEUE_PUBLISHER'] || (Rails.env.test? && ENV['ENABLE_QUEUE_IN_TEST_MODE'].blank?)
+if ENV["DISABLE_QUEUE_PUBLISHER"] || (Rails.env.test? && ENV["ENABLE_QUEUE_IN_TEST_MODE"].blank?)
   rabbitmq_config = { noop: true }
 elsif ENV["RABBITMQ_URL"] && ENV["RABBITMQ_EXCHANGE"]
   rabbitmq_config = { exchange: ENV["RABBITMQ_EXCHANGE"] }
@@ -41,7 +41,7 @@ end
 
 PublishingAPI.register_service(
   name: :queue_publisher,
-  client: QueuePublisher.new(rabbitmq_config)
+  client: QueuePublisher.new(rabbitmq_config),
 )
 
 if Rails.env.development?

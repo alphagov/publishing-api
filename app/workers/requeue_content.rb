@@ -15,7 +15,7 @@ class RequeueContent
     service.send_message(
       queue_payload,
       routing_key: "#{edition.schema_name}.#{action}",
-      persistent: false
+      persistent: false,
     )
   end
 end

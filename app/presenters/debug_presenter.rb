@@ -1,4 +1,4 @@
-require 'action_view/helpers/tag_helper'
+require "action_view/helpers/tag_helper"
 
 module Presenters
   class DebugPresenter
@@ -33,17 +33,17 @@ module Presenters
     def expanded_links
       links = ::Queries::GetExpandedLinks.call(content_id, "en")
       rows = []
-      rows << [links[:content_id], '', 'current']
+      rows << [links[:content_id], "", "current"]
       links[:expanded_links].each do |type, sub_links|
-        rows << [type, links[:content_id], 'current']
+        rows << [type, links[:content_id], "current"]
         sub_links.each do |link|
           rows << [
             {
               v: (link[:content_id].to_s + type.to_s),
-              f: "<a href='/debug/#{link[:content_id]}'>#{link[:content_id]}</a>"
+              f: "<a href='/debug/#{link[:content_id]}'>#{link[:content_id]}</a>",
             },
             type,
-            ''
+            "",
           ]
         end
       end
@@ -54,7 +54,7 @@ module Presenters
     def states
       grouped_editions = editions.group_by { |e| e.document.locale }
       grouped_editions.each_with_object([]) do |(locale, editions), states|
-        states << [locale, '']
+        states << [locale, ""]
         states << [{ v: editions.first.id.to_s, f: editions.first.state }, locale]
         editions[1..-1].each_with_index do |edition, index|
           states << [{ v: edition.id.to_s, f: edition.state }, editions[index].try(:id).to_s]
@@ -64,7 +64,7 @@ module Presenters
 
     def event_timeline
       events.map do |event|
-        [event.action, '', event.id.to_s, event.created_at, event.created_at + 1.second]
+        [event.action, "", event.id.to_s, event.created_at, event.created_at + 1.second]
       end
     end
 
@@ -92,7 +92,7 @@ module Presenters
       table_for(event_attributes)
     end
 
-    def table_for(hash, klass = '')
+    def table_for(hash, klass = "")
       content_tag :table, class: "table key-value-table #{klass}" do
         rows = hash.map do |k, v|
           content_tag :tr do

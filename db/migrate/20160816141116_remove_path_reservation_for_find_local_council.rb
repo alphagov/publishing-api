@@ -6,6 +6,6 @@ class RemovePathReservationForFindLocalCouncil < ActiveRecord::Migration[4.2]
     # even completing the creation of the associated edition in publisher).
     # We want to reuse the route without leaving something lying around
     # that could accidently be used to alter that route from panopticon.
-    PathReservation.where(base_path: '/find-local-council', publishing_app: 'publisher').destroy_all
+    PathReservation.where(base_path: "/find-local-council", publishing_app: "publisher").destroy_all
   end
 end

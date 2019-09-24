@@ -20,7 +20,7 @@ RSpec.describe Presenters::DetailsPresenter do
     context "when we're passed a body which isn't enumerable" do
       let(:edition_details) do
         {
-          body: "Something about VAT"
+          body: "Something about VAT",
         }
       end
 
@@ -34,8 +34,8 @@ RSpec.describe Presenters::DetailsPresenter do
         {
           body: [
             { content_type: "text/html", content: "<b>html</b>" },
-            { content_type: "text/govspeak", content: "<b>html</b>" }
-          ]
+            { content_type: "text/govspeak", content: "<b>html</b>" },
+          ],
         }
       end
 
@@ -48,8 +48,8 @@ RSpec.describe Presenters::DetailsPresenter do
       let(:edition_details) do
         {
           body: [
-            { content_type: "text/govspeak", content: "**hello**" }
-          ]
+            { content_type: "text/govspeak", content: "**hello**" },
+          ],
         }
       end
 
@@ -57,8 +57,8 @@ RSpec.describe Presenters::DetailsPresenter do
         {
           body: [
             { content_type: "text/govspeak", content: "**hello**" },
-            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" }
-          ]
+            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" },
+          ],
         }
       end
 
@@ -69,10 +69,10 @@ RSpec.describe Presenters::DetailsPresenter do
       let(:edition_details) do
         {
           body: [
-            { content_type: "text/govspeak", content: "**hello**" }
+            { content_type: "text/govspeak", content: "**hello**" },
           ],
           other: [
-            { content_type: "text/govspeak", content: "**goodbye**" }
+            { content_type: "text/govspeak", content: "**goodbye**" },
           ],
 
         }
@@ -82,11 +82,11 @@ RSpec.describe Presenters::DetailsPresenter do
         {
           body: [
             { content_type: "text/govspeak", content: "**hello**" },
-            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" }
+            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" },
           ],
           other: [
             { content_type: "text/govspeak", content: "**goodbye**" },
-            { content_type: "text/html", content: "<p><strong>goodbye</strong></p>\n" }
+            { content_type: "text/html", content: "<p><strong>goodbye</strong></p>\n" },
           ],
         }
       end
@@ -105,7 +105,7 @@ RSpec.describe Presenters::DetailsPresenter do
         {
           body: [
             { content_type: "text/govspeak", content: "**hello**" },
-            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" }
+            { content_type: "text/html", content: "<p><strong>hello</strong></p>\n" },
           ],
         }
       end
@@ -137,12 +137,12 @@ RSpec.describe Presenters::DetailsPresenter do
             {
               body: [
                 {
-                  content_type: 'text/govspeak',
-                  content: 'foo'
-                }
-              ]
-            }
-          ]
+                  content_type: "text/govspeak",
+                  content: "foo",
+                },
+              ],
+            },
+          ],
         }
       end
 
@@ -152,16 +152,16 @@ RSpec.describe Presenters::DetailsPresenter do
             {
               body: [
                 {
-                  content_type: 'text/govspeak',
-                  content: 'foo'
+                  content_type: "text/govspeak",
+                  content: "foo",
                 },
                 {
-                  content_type: 'text/html',
-                  content: "<p>foo</p>\n"
-                }
-              ]
-            }
-          ]
+                  content_type: "text/html",
+                  content: "<p>foo</p>\n",
+                },
+              ],
+            },
+          ],
         }
       end
 

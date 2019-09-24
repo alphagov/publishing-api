@@ -49,7 +49,7 @@ module V2
     def throw_payload_error
       raise CommandError.new(
         code: 413,
-        message: "Payload size exceeded 1000 ids"
+        message: "Payload size exceeded 1000 ids",
       )
     end
 

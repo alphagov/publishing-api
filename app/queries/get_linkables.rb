@@ -39,7 +39,7 @@ module Queries
           :title,
           :state,
           :base_path,
-          "COALESCE(details->>'internal_name', title)"
+          "COALESCE(details->>'internal_name', title)",
         )
     end
   end

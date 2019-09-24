@@ -32,7 +32,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       it "links to the available translations" do
         expect(expanded_links[:available_translations]).to match([
           a_hash_including(base_path: "/a"),
-          a_hash_including(base_path: "/a.fr")
+          a_hash_including(base_path: "/a.fr"),
         ])
       end
     end

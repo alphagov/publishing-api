@@ -16,9 +16,9 @@ module ContentApiPrototype
           .find_by!(
             documents: {
               content_id: path_params[:content_id],
-              locale: path_params[:locale]
+              locale: path_params[:locale],
             },
-            user_facing_version: path_params[:user_facing_version]
+            user_facing_version: path_params[:user_facing_version],
           )
 
         render json: present(edition)

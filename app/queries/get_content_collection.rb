@@ -136,8 +136,8 @@ module Queries
       raise CommandError.new(code: 400, error_details: {
         error: {
           code: 400,
-          message: message
-        }
+          message: message,
+        },
       })
     end
   end

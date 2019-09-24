@@ -50,7 +50,7 @@ RSpec.describe Queries::GetLinked do
             content_id: content_id,
             link_type: "organisations",
             fields: %w[title],
-          ).call
+          ).call,
         ).to eq([])
       end
 
@@ -85,7 +85,7 @@ RSpec.describe Queries::GetLinked do
               content_id: target_content_id,
               link_type: "organisations",
               fields: %w[title],
-            ).call
+            ).call,
           ).to eq([])
         end
       end
@@ -113,11 +113,11 @@ RSpec.describe Queries::GetLinked do
                  links: [
                    create(:link,
                           link_type: "organisations",
-                          target_content_id: target_content_id)
+                          target_content_id: target_content_id),
                  ])
 
           edition = create(:live_edition,
-                           base_path: '/vatty',
+                           base_path: "/vatty",
                            title: "Another VATTY thing")
           create(:link_set,
                  content_id: edition.document.content_id,
@@ -127,7 +127,7 @@ RSpec.describe Queries::GetLinked do
                           target_content_id: target_content_id),
                    create(:link,
                           link_type: "related_links",
-                          target_content_id: target_content_id)
+                          target_content_id: target_content_id),
                  ])
         end
 
@@ -137,8 +137,8 @@ RSpec.describe Queries::GetLinked do
               Queries::GetLinked.new(
                 content_id: target_content_id,
                 link_type: "organisations",
-                fields: %w(title base_path locale publication_state)
-              ).call
+                fields: %w(title base_path locale publication_state),
+              ).call,
             ).to match_array([
               {
                 "title" => "Another VATTY thing",
@@ -151,7 +151,7 @@ RSpec.describe Queries::GetLinked do
                 "publication_state" => "published",
                 "base_path" => "/vat-rates",
                 "locale" => "en",
-              }
+              },
             ])
           end
         end
@@ -162,10 +162,10 @@ RSpec.describe Queries::GetLinked do
               Queries::GetLinked.new(
                 content_id: target_content_id,
                 link_type: "related_links",
-                fields: %w(base_path)
-              ).call
+                fields: %w(base_path),
+              ).call,
             ).to match_array([
-              { "base_path" => "/vatty" }
+              { "base_path" => "/vatty" },
             ])
           end
         end
@@ -191,7 +191,7 @@ RSpec.describe Queries::GetLinked do
                  ])
 
           edition = create(:draft_edition,
-                           base_path: '/other-hmrc-document',
+                           base_path: "/other-hmrc-document",
                            title: "Another HMRC document")
 
           create(:link_set,
@@ -202,7 +202,7 @@ RSpec.describe Queries::GetLinked do
                           target_content_id: another_target_content_id),
                    create(:link,
                           link_type: "related_links",
-                          target_content_id: SecureRandom.uuid)
+                          target_content_id: SecureRandom.uuid),
                  ])
         end
 
@@ -211,8 +211,8 @@ RSpec.describe Queries::GetLinked do
             Queries::GetLinked.new(
               content_id: another_target_content_id,
               link_type: "organisations",
-              fields: %w(title publication_state)
-            ).call
+              fields: %w(title publication_state),
+            ).call,
           ).to match_array([
             {
               "title" => "HMRC documents",
@@ -221,7 +221,7 @@ RSpec.describe Queries::GetLinked do
             {
               "title" => "Another HMRC document",
               "publication_state" => "draft",
-            }
+            },
           ])
         end
       end

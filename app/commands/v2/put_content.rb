@@ -14,14 +14,14 @@ module Commands
 
         orphaned_links = link_diff_between(
           @links_before_update,
-          edition.links.map(&:target_content_id)
+          edition.links.map(&:target_content_id),
         )
 
         after_transaction_commit do
           send_downstream(
             document.content_id,
             document.locale,
-            orphaned_links
+            orphaned_links,
           )
         end
 
@@ -77,7 +77,7 @@ module Commands
           edition.links.create!(
             target_link_ids.map.with_index do |target_link_id, i|
               { link_type: link_type, target_content_id: target_link_id, position: i }
-            end
+            end,
           )
         end
       end

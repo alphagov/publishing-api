@@ -17,7 +17,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       "content_id" => content_id,
       "locale" => "en",
       "update_dependencies" => true,
-      "alert_on_base_path_conflict" => false
+      "alert_on_base_path_conflict" => false,
     }
   end
 
@@ -148,7 +148,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
                         schema_name: "contact")
       expect(Adapters::DraftContentStore).to_not receive(:delete_content_item)
       subject.perform(
-        arguments.merge("content_id" => pathless.document.content_id, "base_path" => nil)
+        arguments.merge("content_id" => pathless.document.content_id, "base_path" => nil),
       )
     end
   end

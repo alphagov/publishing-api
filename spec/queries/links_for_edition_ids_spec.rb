@@ -29,7 +29,7 @@ RSpec.describe Queries::LinksForEditionIds do
           edition.id => {
             "edition" => [edition_link.target_content_id],
             "link_set" => [link_set_link.target_content_id],
-          }
+          },
         )
       end
     end
@@ -40,7 +40,7 @@ RSpec.describe Queries::LinksForEditionIds do
 
       it "only returns the edition links" do
         expect(merged_links).to match(
-          edition.id => { "same" => [edition_link.target_content_id] }
+          edition.id => { "same" => [edition_link.target_content_id] },
         )
       end
     end
@@ -51,7 +51,7 @@ RSpec.describe Queries::LinksForEditionIds do
 
       it "returns all the links" do
         expect(merged_links).to match(
-          edition.id => { "same" => [link_1.target_content_id, link_2.target_content_id] }
+          edition.id => { "same" => [link_1.target_content_id, link_2.target_content_id] },
         )
       end
     end
@@ -86,7 +86,7 @@ RSpec.describe Queries::LinksForEditionIds do
 
       it "only returns the edition links" do
         expect(edition_links).to match(
-          edition.id => { "edition" => [edition_link.target_content_id] }
+          edition.id => { "edition" => [edition_link.target_content_id] },
         )
       end
     end
@@ -105,7 +105,7 @@ RSpec.describe Queries::LinksForEditionIds do
 
       it "only returns the link set links" do
         expect(link_set_links).to match(
-          edition.id => { "link_set" => [link_set_link.target_content_id] }
+          edition.id => { "link_set" => [link_set_link.target_content_id] },
         )
       end
     end

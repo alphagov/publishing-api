@@ -41,7 +41,7 @@ module ExpansionRules
     pages_part_of_step_nav: :part_of_step_navs,
     pages_related_to_step_nav: :related_to_step_navs,
     legacy_taxons: :topic_taxonomy_taxons,
-    pages_secondary_to_step_nav: :secondary_to_step_navs
+    pages_secondary_to_step_nav: :secondary_to_step_navs,
   }.freeze
 
   DEFAULT_FIELDS = [
@@ -79,7 +79,7 @@ module ExpansionRules
       :name,
       :preposition,
       :short_name,
-      :type
+      :type,
     )
   ).freeze
   FACET_VALUE_FIELDS = (%i[content_id title locale schema_name] + details_fields(:label, :value)).freeze

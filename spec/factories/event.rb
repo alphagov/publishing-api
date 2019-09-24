@@ -14,7 +14,7 @@ FactoryBot.define do
       {
         content_id: content_id,
         locale: "en",
-        title: title
+        title: title,
       }
     end
   end

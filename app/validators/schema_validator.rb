@@ -1,5 +1,5 @@
-require 'json-schema'
-require 'govuk_schemas'
+require "json-schema"
+require "govuk_schemas"
 
 class SchemaValidator
   attr_reader :errors

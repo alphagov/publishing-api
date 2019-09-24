@@ -60,7 +60,7 @@ module RedirectHelper
         {
           path: route[:path],
           type: route[:type],
-          destination: route[:path].gsub(old_base_path, new_base_path)
+          destination: route[:path].gsub(old_base_path, new_base_path),
         }
       end
     end

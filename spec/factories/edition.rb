@@ -23,7 +23,7 @@ FactoryBot.define do
         {
           path: base_path,
           type: "exact",
-        }
+        },
       ]
     end
     state { "draft" }
@@ -68,7 +68,7 @@ FactoryBot.define do
     schema_name { "redirect" }
     document_type { "redirect" }
     routes { [] }
-    redirects { [{ 'path' => base_path, 'type' => 'exact', 'destination' => destination }] }
+    redirects { [{ "path" => base_path, "type" => "exact", "destination" => destination }] }
   end
 
   factory :gone_edition, aliases: [:gone_draft_edition], parent: :edition do

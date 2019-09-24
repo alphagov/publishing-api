@@ -43,10 +43,10 @@ RSpec.describe "GET /v2/content", type: :request do
 
     context "when user is not signed in" do
       around do |spec|
-        previous = ENV['GDS_SSO_MOCK_INVALID']
-        ENV['GDS_SSO_MOCK_INVALID'] = 'true'
+        previous = ENV["GDS_SSO_MOCK_INVALID"]
+        ENV["GDS_SSO_MOCK_INVALID"] = "true"
         spec.run
-        ENV['GDS_SSO_MOCK_INVALID'] = previous
+        ENV["GDS_SSO_MOCK_INVALID"] = previous
       end
 
       # Note: this needs to be separate from the above around block as it has

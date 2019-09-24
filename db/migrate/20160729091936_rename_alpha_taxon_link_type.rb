@@ -10,7 +10,7 @@ class RenameAlphaTaxonLinkType < ActiveRecord::Migration[4.2]
           links: {
             alpha_taxons: [],
             taxons: target_content_ids,
-          }
+          },
         }
       )
     end

@@ -18,10 +18,10 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 ENV["RAISE_EXPERIMENT_ERRORS"] = "1"
 
-require 'rspec'
-require 'pact/consumer/rspec'
-require 'webmock'
-require 'govuk_schemas'
+require "rspec"
+require "pact/consumer/rspec"
+require "webmock"
+require "govuk_schemas"
 
 if GovukSchemas::Schema.all.empty?
   raise <<-MESSAGE

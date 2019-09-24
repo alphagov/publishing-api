@@ -30,7 +30,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           withdrawn_notice: {
             explanation: "Test withdrawal",
             withdrawn_at: Time.zone.now.iso8601,
-          }
+          },
         ),
       }
     }
@@ -94,7 +94,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
             path: base_path,
             type: :exact,
             destination: "/new-path",
-          }
+          },
         ],
       }.to_json
     }
@@ -113,7 +113,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
               path: base_path,
               type: "exact",
               destination: "/new-path",
-            }
+            },
           ],
           payload_version: anything,
         },
@@ -129,7 +129,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         unpublishing = Unpublishing.find_by(edition: edition)
         expect(unpublishing.type).to eq("redirect")
         expect(unpublishing.redirects).to match_array([
-          a_hash_including(destination: "/new-path")
+          a_hash_including(destination: "/new-path"),
         ])
       end
 
@@ -162,9 +162,9 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           .with(
             a_hash_including(
               document_type: "redirect",
-              redirects: [a_hash_including(destination: "/new-path")]
+              redirects: [a_hash_including(destination: "/new-path")],
             ),
-            event_type: "unpublish"
+            event_type: "unpublish",
           )
 
         post "/v2/content/#{content_id}/unpublish", params: redirect_params
@@ -209,7 +209,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
             {
               path: base_path,
               type: "exact",
-            }
+            },
           ],
           payload_version: anything,
         },
@@ -259,7 +259,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
             content_id: content_id,
             details: a_hash_including(alternative_path: "/new-path"),
           ),
-          event_type: "unpublish"
+          event_type: "unpublish",
         )
 
       post "/v2/content/#{content_id}/unpublish", params: gone_params
@@ -312,7 +312,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
       expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
         .with(
           a_hash_including(document_type: "vanish"),
-          event_type: "unpublish"
+          event_type: "unpublish",
         )
 
       post "/v2/content/#{content_id}/unpublish", params: vanish_params

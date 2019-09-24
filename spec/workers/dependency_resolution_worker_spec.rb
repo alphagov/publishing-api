@@ -61,7 +61,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
         a_hash_including(
           content_id: content_id,
           locale: "en",
-        )
+        ),
       )
 
       described_class.new.perform(
@@ -77,7 +77,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
         a_hash_including(
           content_id: content_id,
           locale: "en",
-        )
+        ),
       )
 
       described_class.new.perform(
@@ -108,11 +108,11 @@ RSpec.describe DependencyResolutionWorker, :perform do
       it "downstreams all but the locale specified" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id: content_id, locale: "fr")
+          a_hash_including(content_id: content_id, locale: "fr"),
         )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id: content_id, locale: "es")
+          a_hash_including(content_id: content_id, locale: "es"),
         )
       end
     end
@@ -137,15 +137,15 @@ RSpec.describe DependencyResolutionWorker, :perform do
       it "downstreams all but the locale specified" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id: content_id, locale: "en")
+          a_hash_including(content_id: content_id, locale: "en"),
         )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id: content_id, locale: "fr")
+          a_hash_including(content_id: content_id, locale: "fr"),
         )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id: content_id, locale: "es")
+          a_hash_including(content_id: content_id, locale: "es"),
         )
       end
     end
@@ -159,7 +159,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
         locale: "en",
         source_command: "patch_link_set",
         source_document_type: "answer",
-        source_fields: %w(description details.body)
+        source_fields: %w(description details.body),
       )
     end
 

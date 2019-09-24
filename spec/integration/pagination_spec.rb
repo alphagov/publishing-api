@@ -35,7 +35,7 @@ RSpec.describe "Paging through editions" do
             content_format: "nonexistent-schema",
             fields: %w(base_path publishing_app),
             offset: "3",
-            per_page: "2"
+            per_page: "2",
           }
     end
 

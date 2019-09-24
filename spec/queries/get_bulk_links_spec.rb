@@ -12,9 +12,9 @@ RSpec.describe Queries::GetBulkLinks do
     {
       links: {
         parent: parent,
-        related: related
+        related: related,
       },
-      version: 5
+      version: 5,
     }
   end
 

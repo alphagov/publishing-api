@@ -27,7 +27,7 @@ class LinkExpansion
       root_content_id: content_id,
       root_locale: locale,
       with_drafts: with_drafts,
-      link_reference: LinkReference.new
+      link_reference: LinkReference.new,
     )
   end
 

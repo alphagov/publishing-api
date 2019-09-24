@@ -36,7 +36,7 @@ module Presenters
       present.merge(
         govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
         links: unexpanded_links,
-        payload_version: payload_version
+        payload_version: payload_version,
       )
     end
 
@@ -71,14 +71,14 @@ module Presenters
 
     def expanded_links_attributes
       {
-        expanded_links: expanded_links
+        expanded_links: expanded_links,
       }
     end
 
     def access_limited
       return {} unless access_limit
 
-      if edition.state != 'draft'
+      if edition.state != "draft"
         GovukError.notify(
           "Tried to send non-draft item with access_limited data",
           level: "warning",
@@ -91,7 +91,7 @@ module Presenters
             users: access_limit.users,
             organisations: access_limit.organisations,
             auth_bypass_ids: access_limit.auth_bypass_ids,
-          }
+          },
         }
       end
     end
@@ -122,7 +122,7 @@ module Presenters
     def schema_name_and_document_type
       {
         schema_name: edition.schema_name,
-        document_type: edition.document_type
+        document_type: edition.document_type,
       }
     end
 
@@ -138,7 +138,7 @@ module Presenters
         {
           withdrawn_notice: {
             explanation: unpublishing.explanation,
-            withdrawn_at: withdrawn_at
+            withdrawn_at: withdrawn_at,
           },
         }
       else
@@ -149,7 +149,7 @@ module Presenters
     def publishing_request_id
       if edition.publishing_request_id
         {
-          publishing_request_id: edition.publishing_request_id
+          publishing_request_id: edition.publishing_request_id,
         }
       else
         {}

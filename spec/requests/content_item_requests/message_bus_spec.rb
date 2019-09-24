@@ -24,7 +24,7 @@ RSpec.describe "Message bus", type: :request do
       end
 
       it "sends a message with a 'links' routing key" do
-        expect(DownstreamService).to receive(:broadcast_to_message_queue).with(anything, 'links')
+        expect(DownstreamService).to receive(:broadcast_to_message_queue).with(anything, "links")
         patch request_path, params: request_body
 
         expect(response.status).to eq(200)

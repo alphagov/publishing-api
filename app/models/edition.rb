@@ -2,8 +2,8 @@ class Edition < ApplicationRecord
   include SymbolizeJSON
 
   enum content_store: {
-    draft: 'draft',
-    live: 'live'
+    draft: "draft",
+    live: "live",
   }
 
   DEFAULT_LOCALE = "en".freeze
@@ -58,7 +58,7 @@ class Edition < ApplicationRecord
   validates :rendering_app, presence: true, dns_hostname: true, if: :requires_rendering_app?
   validates :phase, inclusion: {
     in: %w(alpha beta live),
-    message: 'must be either alpha, beta, or live'
+    message: "must be either alpha, beta, or live",
   }
   validates :details, well_formed_content_types: { must_include_one_of: %w(text/html text/govspeak) }
 
@@ -83,7 +83,7 @@ class Edition < ApplicationRecord
         withdrawn: withdrawn?,
         content_id: content_id,
         locale: locale,
-      )
+      ),
     )
   end
 

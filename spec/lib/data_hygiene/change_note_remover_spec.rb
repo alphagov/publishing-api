@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe DataHygiene::ChangeNoteRemover do
   let(:document) { create(:document) }

@@ -11,7 +11,7 @@ RSpec.describe Queries::GetExpandedLinks do
       content_id,
       locale,
       with_drafts: with_drafts,
-      generate: generate
+      generate: generate,
     )
   end
 
@@ -19,7 +19,7 @@ RSpec.describe Queries::GetExpandedLinks do
     it "raises a command error" do
       expect { result }.to raise_error(
         CommandError,
-        /could not find links for content_id: #{content_id}/i
+        /could not find links for content_id: #{content_id}/i,
       )
     end
   end
@@ -29,7 +29,7 @@ RSpec.describe Queries::GetExpandedLinks do
       let(:updated_at) { Time.new("2017-07-27 16:01:01").utc }
       let(:expanded_links) do
         {
-          link_type: { content_id: SecureRandom.uuid }
+          link_type: { content_id: SecureRandom.uuid },
         }
       end
 
@@ -66,7 +66,7 @@ RSpec.describe Queries::GetExpandedLinks do
             a_hash_including(
               generated: Time.now.utc.iso8601,
               expanded_links: {},
-            )
+            ),
           )
         end
       end

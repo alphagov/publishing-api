@@ -1,6 +1,6 @@
 class DeduplicateLinks < ActiveRecord::Migration[4.2]
   def up
-    res = Link.connection.execute(<<-SQL
+    res = Link.connection.execute(<<-SQL,
       SELECT SUM(cnt), COUNT(cnt)
       FROM (
         SELECT
@@ -17,7 +17,7 @@ class DeduplicateLinks < ActiveRecord::Migration[4.2]
     )
     puts "#{res[0]["count"]} unique records of #{res[0]["sum"]} total duplicated"
 
-    res = Link.connection.execute(<<-SQL
+    res = Link.connection.execute(<<-SQL,
       DELETE FROM links USING links l2
         WHERE links.link_set_id = l2.link_set_id
         AND links.target_content_id = l2.target_content_id

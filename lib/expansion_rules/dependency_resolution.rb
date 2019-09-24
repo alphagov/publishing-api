@@ -3,7 +3,7 @@ class ExpansionRules::DependencyResolution
     @rules = rules
     @multi_level_links = ExpansionRules::MultiLevelLinks.new(
       rules::MULTI_LEVEL_LINK_PATHS,
-      backwards: true
+      backwards: true,
     )
   end
 

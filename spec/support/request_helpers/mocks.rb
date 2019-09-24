@@ -34,13 +34,13 @@ module RequestHelpers
           {
             path: base_path,
             type: "exact",
-          }
+          },
         ],
         update_type: "major",
         title: "VAT rates",
         expanded_links: {
-          available_translations: available_translations
-        }
+          available_translations: available_translations,
+        },
       }
     end
 
@@ -58,8 +58,8 @@ module RequestHelpers
       {
         content_id: content_id,
         links: {
-          organisations: %w[30986e26-f504-4e14-a93f-a9593c34a8d9]
-        }
+          organisations: %w[30986e26-f504-4e14-a93f-a9593c34a8d9],
+        },
       }
     end
 
@@ -77,7 +77,7 @@ module RequestHelpers
           title: "VAT rates",
           api_path: "/api/content/vat-rates",
           withdrawn: false,
-        }
+        },
       ]
     end
 

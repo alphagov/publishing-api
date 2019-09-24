@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Presenters::EditionDiffPresenter do
   let(:content_id) { SecureRandom.uuid }
@@ -45,7 +45,7 @@ RSpec.describe Presenters::EditionDiffPresenter do
         expect(subject.call(edition)).to match a_hash_including(
           edition.as_json.except(*EXCLUDED_ATTRIBUTES).symbolize_keys,
           links: { organisations: [content_id] },
-          change_note: edition.change_note.note
+          change_note: edition.change_note.note,
         )
       end
     end

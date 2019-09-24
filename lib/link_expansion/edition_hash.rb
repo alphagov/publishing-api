@@ -22,13 +22,13 @@ class LinkExpansion::EditionHash
       when Edition
         values.attributes.merge(
           content_id: values.content_id,
-          locale: values.locale
+          locale: values.locale,
         )
       when Hash
         values
       else
         raise ArgumentError.new(
-          "Values passed to EditionHash.from must be an Array, Edition or Hash."
+          "Values passed to EditionHash.from must be an Array, Edition or Hash.",
         )
       end
     end

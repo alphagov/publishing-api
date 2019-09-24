@@ -12,7 +12,7 @@ RSpec.describe ContentStoreWriter do
     {
       base_path: base_path,
       details: {
-        etc: %w(one two three)
+        etc: %w(one two three),
       },
     }
   }
@@ -26,8 +26,8 @@ RSpec.describe ContentStoreWriter do
         {
           path: base_path,
           type: "exact",
-        }
-      ]
+        },
+      ],
     }
   }
 
@@ -52,7 +52,7 @@ RSpec.describe ContentStoreWriter do
 
       content_store_writer.put_publish_intent(
         base_path: base_path,
-        publish_intent: publish_intent
+        publish_intent: publish_intent,
       )
 
       expect(put_request).to have_been_requested

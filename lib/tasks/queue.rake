@@ -11,7 +11,7 @@ namespace :queue do
     ch = conn.create_channel
     ex = ch.topic(config[:exchange], passive: true)
     q = ch.queue("", exclusive: true)
-    q.bind(ex, routing_key: '#')
+    q.bind(ex, routing_key: "#")
 
     at_exit do
       puts "Closing channel"
@@ -101,8 +101,8 @@ namespace :queue do
               .with_document
               .order(public_updated_at: :desc)
               .find_by!(
-                editions: { state: 'published' },
-                document_type: document_type
+                editions: { state: "published" },
+                document_type: document_type,
               )
     version = Event.maximum(:id)
 

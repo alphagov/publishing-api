@@ -101,7 +101,7 @@ RSpec.describe LinkGraph::Node do
               { content_id: b, links: {} },
               { content_id: c, links: {} },
             ],
-          }
+          },
         }
       end
 

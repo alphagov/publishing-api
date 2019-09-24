@@ -1,6 +1,6 @@
-require 'rails_helper'
-require 'gds_api/test_helpers/content_store'
-require 'gds_api/test_helpers/router'
+require "rails_helper"
+require "gds_api/test_helpers/content_store"
+require "gds_api/test_helpers/router"
 
 RSpec.describe DataHygiene::DocumentStatusChecker do
   include GdsApi::TestHelpers::ContentStore
@@ -23,7 +23,7 @@ RSpec.describe DataHygiene::DocumentStatusChecker do
       context "and there is an old content item" do
         let(:content_item) do
           content_item_for_base_path(base_path).merge(
-            "updated_at" => (edition.published_at - 1).iso8601
+            "updated_at" => (edition.published_at - 1).iso8601,
           )
         end
         before { stub_content_store_has_item(base_path, content_item) }
@@ -33,7 +33,7 @@ RSpec.describe DataHygiene::DocumentStatusChecker do
       context "and there is a recent content item" do
         let(:content_item) do
           content_item_for_base_path(base_path).merge(
-            "updated_at" => (edition.published_at + 1).iso8601
+            "updated_at" => (edition.published_at + 1).iso8601,
           )
         end
         before { stub_content_store_has_item(base_path, content_item) }

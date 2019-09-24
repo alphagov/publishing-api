@@ -13,7 +13,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       links: {
         topics: topics * 2, # test deduplication
         parent: parent,
-      }
+      },
     }
   end
 
@@ -24,7 +24,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       links: {
         topics: topics_shuffled * 2, # test deduplication
         parent: parent,
-      }
+      },
     }
   end
 
@@ -60,12 +60,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
     it "doesn't reject an empty links hash, but doesn't delete links either" do
       link_set = create(:link_set,
                         links: [
-                          create(:link)
+                          create(:link),
                         ])
 
       described_class.call(
         content_id: link_set.content_id,
-        links: {}
+        links: {},
       )
 
       expect(link_set.links.count).to eql(1)
@@ -177,7 +177,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
           topics: topics,
           parent: parent,
           related: related,
-        }
+        },
       )
     end
 

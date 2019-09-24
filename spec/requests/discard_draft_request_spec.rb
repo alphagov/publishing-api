@@ -44,7 +44,7 @@ RSpec.describe "Discard draft requests", type: :request do
         end
 
         before do
-          stub_request(:delete, Plek.find('draft-content-store') + "/content#{french_base_path}")
+          stub_request(:delete, Plek.find("draft-content-store") + "/content#{french_base_path}")
         end
 
         it "only deletes the French edition from the draft content store" do

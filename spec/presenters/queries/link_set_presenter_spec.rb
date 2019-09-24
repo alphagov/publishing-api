@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Presenters::Queries::LinkSetPresenter do
   describe ".present" do
@@ -39,10 +39,10 @@ RSpec.describe Presenters::Queries::LinkSetPresenter do
         create(:link, link_set: link_set, link_type: "related_links", target_content_id: rel_content_id1)
 
         expect(links[:organisations]).to match_array(
-          [org_content_id1, org_content_id2]
+          [org_content_id1, org_content_id2],
         )
         expect(links[:related_links]).to match_array(
-          [rel_content_id1]
+          [rel_content_id1],
         )
       end
     end

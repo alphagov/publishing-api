@@ -36,7 +36,7 @@ RSpec.describe Commands::V2::PutContentValidator do
         expect { subject.validate }.not_to raise_error
       end
 
-      context 'without a publishing_app' do
+      context "without a publishing_app" do
         before { payload.delete(:publishing_app) }
 
         it "raises an error" do

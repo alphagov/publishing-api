@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Presenters::EditionPresenter do
   let(:present_drafts) { false }
   let(:change_history) { { note: "Note", public_timestamp: 1.day.ago.to_s } }
-  let(:details) { { body: "<p>Text</p>\n", change_history: [change_history], } }
+  let(:details) { { body: "<p>Text</p>\n", change_history: [change_history] } }
   let(:payload_version) { 1 }
 
   describe "#expanded_links" do
@@ -18,8 +18,8 @@ RSpec.describe Presenters::EditionPresenter do
       it "has a link to itself as an available translation" do
         expect(result).to match(
           available_translations: [
-            a_hash_including(content_id: edition.content_id)
-          ]
+            a_hash_including(content_id: edition.content_id),
+          ],
         )
       end
     end
@@ -62,7 +62,7 @@ RSpec.describe Presenters::EditionPresenter do
           :link,
           target_content_id: SecureRandom.uuid,
           link_set: create(:link_set, content_id: edition.content_id),
-          link_type: "taxons"
+          link_type: "taxons",
         )
       end
 
@@ -72,7 +72,7 @@ RSpec.describe Presenters::EditionPresenter do
           target_content_id: SecureRandom.uuid,
           link_set: nil,
           edition: edition,
-          link_type: "editions"
+          link_type: "editions",
         )
       end
 
@@ -162,9 +162,9 @@ RSpec.describe Presenters::EditionPresenter do
               withdrawn_notice: {
                 explanation: unpublishing.explanation,
                 withdrawn_at: unpublishing.created_at.iso8601,
-              }
-            )
-          )
+              },
+            ),
+          ),
         )
       end
 
@@ -185,9 +185,9 @@ RSpec.describe Presenters::EditionPresenter do
                 withdrawn_notice: {
                   explanation: unpublishing.explanation,
                   withdrawn_at: unpublishing.unpublished_at.iso8601,
-                }
-              )
-            )
+                },
+              ),
+            ),
           )
         end
       end
@@ -221,15 +221,15 @@ RSpec.describe Presenters::EditionPresenter do
         ).for_content_store(payload_version)
 
         expect(
-          result[:expanded_links][:related][0][:content_id]
+          result[:expanded_links][:related][0][:content_id],
         ).to eq edition_dependee.content_id
 
         expect(
-          result[:expanded_links][:available_translations][0][:content_id]
+          result[:expanded_links][:available_translations][0][:content_id],
         ).to eq main_edition.content_id
 
         expect(
-          result[:expanded_links][:document_collections][0][:content_id]
+          result[:expanded_links][:document_collections][0][:content_id],
         ).to eq document_dependent.content_id
       end
     end
@@ -305,7 +305,7 @@ RSpec.describe Presenters::EditionPresenter do
           body: [
             {
               content_type: "text/govspeak",
-              content: "#Hello World"
+              content: "#Hello World",
             },
           ],
         }
@@ -322,7 +322,7 @@ RSpec.describe Presenters::EditionPresenter do
           a_hash_including(
             content_type: "text/html",
             content: "<h1 id=\"hello-world\">Hello World</h1>\n",
-          )
+          ),
         )
       end
 

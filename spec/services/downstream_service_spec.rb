@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe DownstreamService do
-  let(:downstream_payload) { double('downstream_payload') }
+  let(:downstream_payload) { double("downstream_payload") }
   let(:state) { "published" }
   let(:content_store_action) { :put }
 

@@ -66,7 +66,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
         "error" => {
           "code" => 404,
           "message" => "Could not find links for content_id: #{content_id}",
-        }
+        },
       )
     end
   end
@@ -120,14 +120,14 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
           a_hash_including(
             "content_id" => linked_content_id,
             "base_path" => "/another-path",
-          )
+          ),
         ],
         "available_translations" => [
           a_hash_including(
             "content_id" => content_id,
             "base_path" => "/some-path",
-          )
-        ]
+          ),
+        ],
       }
     end
 

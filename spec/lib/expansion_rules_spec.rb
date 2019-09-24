@@ -262,7 +262,7 @@ RSpec.describe ExpansionRules do
           details: {
             country: "fr",
             other_field: "test",
-          }
+          },
         }
       end
 

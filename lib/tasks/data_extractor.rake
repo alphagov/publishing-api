@@ -22,7 +22,7 @@ namespace :data_extractor do
       csv_out = CSV.new($stdout)
       csv_out << %w(format tag_type count)
       items.each do |i|
-        csv_out << [i['content_id'], i['link_type'], i['count']]
+        csv_out << [i["content_id"], i["link_type"], i["count"]]
       end
     end
   end

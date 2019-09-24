@@ -15,7 +15,7 @@ module Commands
           downstream_discard_draft(
             document.draft.base_path,
             document.content_id,
-            document.locale
+            document.locale,
           )
         end
 

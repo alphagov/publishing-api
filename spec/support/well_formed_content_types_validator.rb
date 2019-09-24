@@ -6,7 +6,7 @@ RSpec.shared_examples_for WellFormedContentTypesValidator do
           body: [
             { content_type: "text/html", content: "<p>content</p>" },
             { content_type: "text/plain", content: "content" },
-          ]
+          ],
         }
 
         expect(subject).to be_valid
@@ -17,7 +17,7 @@ RSpec.shared_examples_for WellFormedContentTypesValidator do
           body: [
             { content_type: "text/html" },
             { content_type: "text/plain", content: "content" },
-          ]
+          ],
         }
 
         expect(subject).to be_invalid
@@ -27,7 +27,7 @@ RSpec.shared_examples_for WellFormedContentTypesValidator do
         subject.details = {
           body: [
             { content_type: "text/plain", content: "content" },
-          ]
+          ],
         }
 
         expect(subject).to be_invalid

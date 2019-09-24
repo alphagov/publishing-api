@@ -13,7 +13,7 @@ module Presenters
         pages: pagination_pages,
         current_page: current_page,
         links: links,
-        results: results
+        results: results,
       }
     end
 
@@ -38,7 +38,7 @@ module Presenters
 
       {
         href: page_href(-1),
-        rel: "previous"
+        rel: "previous",
       }
     end
 
@@ -47,14 +47,14 @@ module Presenters
 
       {
         href: page_href(1),
-        rel: "next"
+        rel: "next",
       }
     end
 
     def self_link
       {
         href: page_href(0),
-        rel: "self"
+        rel: "self",
       }
     end
 

@@ -76,7 +76,7 @@ RSpec.describe Unpublishing do
 
         expect(subject).to be_invalid
         expect(subject.errors[:redirects]).to include(
-          "path cannot equal the destination"
+          "path cannot equal the destination",
         )
       end
     end

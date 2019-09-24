@@ -1,7 +1,7 @@
 namespace :content do
   desc "Resets suggested related links for the given content id(s)"
   task :reset_related_links_for_pages, [:content_ids] => :environment do |_, args|
-    content_ids = args[:content_ids].split(' ')
+    content_ids = args[:content_ids].split(" ")
 
     @failed_content_ids = []
 
@@ -23,8 +23,8 @@ namespace :content do
     response = Commands::V2::PatchLinkSet.call(
       content_id: content_id,
       links: {
-        suggested_ordered_related_items: []
-      }
+        suggested_ordered_related_items: [],
+      },
     )
 
     if response.code == 200

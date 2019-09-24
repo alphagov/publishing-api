@@ -212,7 +212,7 @@ private
           title: taxon["title"],
           level: level,
         }
-      end
+      end,
     )
 
     parent_taxons = taxons.each_with_object([]) do |taxon, array|

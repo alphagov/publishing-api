@@ -99,8 +99,8 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
           political: false,
           change_history: [
             { note: change_note, public_timestamp: Time.current.utc.rfc3339 },
-          ]
-        }
+          ],
+        },
       )
     end
 

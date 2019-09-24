@@ -1,7 +1,7 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Pagination do
-  describe 'initialize' do
+  describe "initialize" do
     context "with a offset option" do
       subject { described_class.new(offset: "5") }
 

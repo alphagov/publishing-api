@@ -18,7 +18,7 @@ module Queries
           link_type: link_change.link_type,
           change: link_change.change,
           user_uid: link_change.action.user_uid,
-          created_at: link_change.created_at
+          created_at: link_change.created_at,
         }
       end
 
@@ -56,7 +56,7 @@ module Queries
       end
 
       if params[:users]
-        query['actions.user_uid'] = params[:users]
+        query["actions.user_uid"] = params[:users]
       end
 
       query
@@ -74,7 +74,7 @@ module Queries
         Queries::GetLatest.call(
           Edition
             .eager_load(:document)
-            .where('documents.content_id IN (?)', content_ids_relevant)
+            .where("documents.content_id IN (?)", content_ids_relevant),
         ).group_by(&:content_id)
       end
     end

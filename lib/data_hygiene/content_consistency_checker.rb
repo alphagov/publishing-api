@@ -22,7 +22,7 @@ module DataHygiene
 
         edition = Edition.find_by(
           content_store: content_store,
-          base_path: content_item.base_path
+          base_path: content_item.base_path,
         )
 
         errors[content_item.base_path] << "No edition available." unless edition
@@ -61,7 +61,7 @@ module DataHygiene
 
     def hash_field(object)
       Digest::SHA1.hexdigest(
-        JSON.generate(object)
+        JSON.generate(object),
       )
     end
 

@@ -183,7 +183,7 @@ module Queries
           nested_link_sets.content_id = #{link_content_id_field}
           #{and_not_parent('nested_links.target_content_id')}
           AND (#{allowed_links_condition(next_allowed_link_types_from)})
-        }
+        },
       )
     end
 
@@ -193,7 +193,7 @@ module Queries
           nested_links.target_content_id = #{link_content_id_field}
           #{and_not_parent('nested_link_sets.content_id')}
           AND (#{allowed_links_condition(next_allowed_link_types_to)})
-        }
+        },
       )
     end
 

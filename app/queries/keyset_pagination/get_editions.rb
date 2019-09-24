@@ -95,7 +95,7 @@ module Queries
 
       raise CommandError.new(
         code: 400,
-        message: "Invalid column name(s): #{invalid_fields.to_sentence}"
+        message: "Invalid column name(s): #{invalid_fields.to_sentence}",
       )
     end
 
@@ -104,7 +104,7 @@ module Queries
 
       raise CommandError.new(
         code: 400,
-        message: "Invalid order: #{pagination_field}"
+        message: "Invalid order: #{pagination_field}",
       )
     end
 

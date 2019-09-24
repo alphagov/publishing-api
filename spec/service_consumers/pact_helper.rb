@@ -1,7 +1,7 @@
-ENV['RAILS_ENV'] = 'test'
-require 'webmock'
-require 'pact/provider/rspec'
-require 'factory_bot_rails'
+ENV["RAILS_ENV"] = "test"
+require "webmock"
+require "pact/provider/rspec"
+require "factory_bot_rails"
 
 WebMock.disable!
 
@@ -17,9 +17,9 @@ def url_encode(str)
 end
 
 Pact.service_provider "Publishing API" do
-  honours_pact_with 'GDS API Adapters' do
-    if ENV['USE_LOCAL_PACT']
-      pact_uri ENV.fetch('GDS_API_PACT_PATH', '../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json')
+  honours_pact_with "GDS API Adapters" do
+    if ENV["USE_LOCAL_PACT"]
+      pact_uri ENV.fetch("GDS_API_PACT_PATH", "../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json")
     else
       base_url = ENV.fetch("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
       url = "#{base_url}/pacts/provider/#{url_encode(name)}/consumer/#{url_encode(consumer_name)}"
@@ -44,9 +44,9 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a publish intent exists at /test-intent" do
     set_up do
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
-      stub_request(:delete, Plek.find('content-store') + "/publish-intent/test-intent")
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+      stub_request(:delete, Plek.find("content-store") + "/publish-intent/test-intent")
         .to_return(status: 200, body: "{}", headers: { "Content-Type" => "application/json" })
 
       # TBD: in theory we should create an event as well
@@ -55,11 +55,11 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "no content exists" do
     set_up do
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('draft-content-store')) + "/content"))
-      stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+      stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/publish-intent"))
         .to_return(status: 404, body: "{}", headers: { "Content-Type" => "application/json" })
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find('content-store')) + "/publish-intent"))
+      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/publish-intent"))
         .to_return(status: 200, body: "{}", headers: { "Content-Type" => "application/json" })
     end
   end
@@ -87,7 +87,7 @@ Pact.provider_states_for "GDS API Adapters" do
              routes: [
                {
                  path: "/robots.txt",
-                 type: "exact"
+                 type: "exact",
                },
              ])
     end
@@ -287,12 +287,12 @@ Pact.provider_states_for "GDS API Adapters" do
                           content_id: "aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa")
 
       create(:draft_edition,
-             title: 'Content Item A',
+             title: "Content Item A",
              document: document_a,
-             base_path: '/a-base-path',
+             base_path: "/a-base-path",
              document_type: "topic",
              schema_name: "topic",
-             public_updated_at: '2015-01-02',
+             public_updated_at: "2015-01-02",
              details: {
                internal_name: "an internal name",
              })
@@ -301,10 +301,10 @@ Pact.provider_states_for "GDS API Adapters" do
                           content_id: "bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb")
 
       create(:live_edition,
-             title: 'Content Item B',
+             title: "Content Item B",
              document: document_b,
-             base_path: '/another-base-path',
-             public_updated_at: '2015-01-01',
+             base_path: "/another-base-path",
+             public_updated_at: "2015-01-01",
              document_type: "topic",
              schema_name: "topic")
     end
@@ -312,41 +312,41 @@ Pact.provider_states_for "GDS API Adapters" do
   provider_state "there are two link changes with a link_type of 'taxons'" do
     set_up do
       Timecop.freeze("2017-01-01 09:00:00.1") do
-        document_a1 = build(:document, content_id: 'aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa')
-        document_a2 = build(:document, content_id: 'aaaaaaaa-aaaa-2aaa-aaaa-aaaaaaaaaaaa')
-        document_b1 = build(:document, content_id: 'bbbbbbbb-bbbb-1bbb-bbbb-bbbbbbbbbbbb')
-        document_b2 = build(:document, content_id: 'bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb')
+        document_a1 = build(:document, content_id: "aaaaaaaa-aaaa-1aaa-aaaa-aaaaaaaaaaaa")
+        document_a2 = build(:document, content_id: "aaaaaaaa-aaaa-2aaa-aaaa-aaaaaaaaaaaa")
+        document_b1 = build(:document, content_id: "bbbbbbbb-bbbb-1bbb-bbbb-bbbbbbbbbbbb")
+        document_b2 = build(:document, content_id: "bbbbbbbb-bbbb-2bbb-bbbb-bbbbbbbbbbbb")
 
-        action1 = create(:action, user_uid: '11111111-1111-1111-1111-111111111111')
-        action2 = create(:action, user_uid: '22222222-2222-2222-2222-222222222222')
+        action1 = create(:action, user_uid: "11111111-1111-1111-1111-111111111111")
+        action2 = create(:action, user_uid: "22222222-2222-2222-2222-222222222222")
 
         create(:edition,
-               title: 'Edition Title A1',
-               base_path: '/base/path/a1',
+               title: "Edition Title A1",
+               base_path: "/base/path/a1",
                document: document_a1)
         create(:edition,
-               title: 'Edition Title A2',
-               base_path: '/base/path/a2',
+               title: "Edition Title A2",
+               base_path: "/base/path/a2",
                document: document_a2)
         create(:edition,
-               title: 'Edition Title B1',
-               base_path: '/base/path/b1',
+               title: "Edition Title B1",
+               base_path: "/base/path/b1",
                document: document_b1)
         create(:edition,
-               title: 'Edition Title B2',
-               base_path: '/base/path/b2',
+               title: "Edition Title B2",
+               base_path: "/base/path/b2",
                document: document_b2)
 
         create(:link_change,
                source_content_id: document_a1.content_id,
                target_content_id: document_b1.content_id,
                action: action1,
-               change: 'add')
+               change: "add")
         create(:link_change,
                source_content_id: document_a2.content_id,
                target_content_id: document_b2.content_id,
                action: action2,
-               change: 'remove')
+               change: "remove")
       end
     end
   end
@@ -358,25 +358,25 @@ Pact.provider_states_for "GDS API Adapters" do
 
       create(:draft_edition,
              document: document_a,
-             title: 'Content Item A',
-             base_path: '/a-base-path',
+             title: "Content Item A",
+             base_path: "/a-base-path",
              document_type: "topic",
              schema_name: "topic")
 
       create(:draft_edition,
              document: document_b,
-             title: 'Content Item B',
-             base_path: '/another-base-path',
+             title: "Content Item B",
+             base_path: "/another-base-path",
              document_type: "topic",
              schema_name: "topic")
 
       create(:draft_edition,
              document: document_c,
-             title: 'Content Item C',
-             base_path: '/yet-another-base-path',
+             title: "Content Item C",
+             base_path: "/yet-another-base-path",
              document_type: "topic",
              schema_name: "topic",
-             publishing_app: 'whitehall')
+             publishing_app: "whitehall")
     end
   end
 
@@ -400,14 +400,14 @@ Pact.provider_states_for "GDS API Adapters" do
 
       create(:live_edition,
              document: document3,
-             base_path: '/item-b',
-             public_updated_at: '2015-01-02',
+             base_path: "/item-b",
+             public_updated_at: "2015-01-02",
              user_facing_version: 1)
 
       create(:live_edition,
              document: document2,
-             base_path: '/item-a',
-             public_updated_at: '2015-01-01',
+             base_path: "/item-a",
+             public_updated_at: "2015-01-01",
              user_facing_version: 1)
 
       link_set1 = create(:link_set, content_id: content_id3)
@@ -477,11 +477,11 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document1 = create(:document, content_id: "08f86d00-e95f-492f-af1d-470c5ba4752e")
 
-      create(:live_edition, base_path: '/foo', document: document1)
+      create(:live_edition, base_path: "/foo", document: document1)
 
       document2 = create(:document, content_id: "ca6c58a6-fb9d-479d-b3e6-74908781cb18")
 
-      create(:live_edition, base_path: '/bar', document: document2)
+      create(:live_edition, base_path: "/bar", document: document2)
     end
   end
 
@@ -489,21 +489,21 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       document = create(:document, content_id: "cbb460a7-60de-4a74-b5be-0b27c6d6af9b")
 
-      create(:draft_edition, base_path: '/foo', document: document)
+      create(:draft_edition, base_path: "/foo", document: document)
     end
   end
 
   provider_state "there are 4 live content items with fixed updated timestamps" do
     set_up do
-      document1 = create(:document, content_id: 'bd50a6d9-f03d-4ccf-94aa-ad79579990a9')
-      document2 = create(:document, content_id: '989033fe-252a-4e69-976d-5c0059bca949')
-      document3 = create(:document, content_id: '271d4270-9186-4d60-b2ca-1d7dae7e0f73')
-      document4 = create(:document, content_id: '638af19c-27fc-4cc9-a914-4cca49028688')
+      document1 = create(:document, content_id: "bd50a6d9-f03d-4ccf-94aa-ad79579990a9")
+      document2 = create(:document, content_id: "989033fe-252a-4e69-976d-5c0059bca949")
+      document3 = create(:document, content_id: "271d4270-9186-4d60-b2ca-1d7dae7e0f73")
+      document4 = create(:document, content_id: "638af19c-27fc-4cc9-a914-4cca49028688")
 
-      create(:live_edition, base_path: '/1', document: document1, updated_at: '2017-01-01T00:00:00Z', published_at: '2017-01-01T00:00:00Z')
-      create(:live_edition, base_path: '/2', document: document2, updated_at: '2017-02-01T00:00:00Z', published_at: '2017-02-01T00:00:00Z')
-      create(:live_edition, base_path: '/3', document: document3, updated_at: '2017-03-01T00:00:00Z', published_at: '2017-03-01T00:00:00Z')
-      create(:live_edition, base_path: '/4', document: document4, updated_at: '2017-04-01T00:00:00Z', published_at: '2017-04-01T00:00:00Z')
+      create(:live_edition, base_path: "/1", document: document1, updated_at: "2017-01-01T00:00:00Z", published_at: "2017-01-01T00:00:00Z")
+      create(:live_edition, base_path: "/2", document: document2, updated_at: "2017-02-01T00:00:00Z", published_at: "2017-02-01T00:00:00Z")
+      create(:live_edition, base_path: "/3", document: document3, updated_at: "2017-03-01T00:00:00Z", published_at: "2017-03-01T00:00:00Z")
+      create(:live_edition, base_path: "/4", document: document4, updated_at: "2017-04-01T00:00:00Z", published_at: "2017-04-01T00:00:00Z")
     end
   end
 end

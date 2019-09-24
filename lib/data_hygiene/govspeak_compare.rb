@@ -17,8 +17,8 @@ module DataHygiene
       @generated_html ||= html_from_details(
         Presenters::DetailsPresenter.new(
           edition.details_for_govspeak_conversion,
-          Presenters::ChangeHistoryPresenter.new(edition)
-        ).details
+          Presenters::ChangeHistoryPresenter.new(edition),
+        ).details,
       )
     end
 

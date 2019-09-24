@@ -1,9 +1,9 @@
 class Healthcheck::QueueLatency < GovukHealthcheck::SidekiqQueueLatencyCheck
   QUEUES = {
-    'downstream_high' => {
+    "downstream_high" => {
       warning: 45, # seconds
-      critical: 90 # seconds
-    }
+      critical: 90, # seconds
+    },
   }.freeze
 
   def warning_threshold(queue:)

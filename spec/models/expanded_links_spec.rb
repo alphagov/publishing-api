@@ -9,8 +9,8 @@ RSpec.describe ExpandedLinks do
     let(:expanded_links) do
       {
         organisations: [
-          { content_id: SecureRandom.uuid }
-        ]
+          { content_id: SecureRandom.uuid },
+        ],
       }
     end
 

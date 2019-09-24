@@ -50,7 +50,7 @@ private
 
     Edition
       .joins(
-        <<-SQL.strip_heredoc
+        <<-SQL.strip_heredoc,
           LEFT OUTER JOIN unpublishings
           ON unpublishings.edition_id = editions.id
           AND editions.state = 'unpublished'

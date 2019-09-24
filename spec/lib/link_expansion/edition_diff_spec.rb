@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe LinkExpansion::EditionDiff do
   let(:content_id) { SecureRandom.uuid }
@@ -59,7 +59,7 @@ RSpec.describe LinkExpansion::EditionDiff do
         title: "Bar",
         base_path: "/bar",
         user_facing_version: 2,
-        document_type: "new_type"
+        document_type: "new_type",
       )
     end
 

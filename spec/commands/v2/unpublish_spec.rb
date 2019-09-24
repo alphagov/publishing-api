@@ -92,7 +92,7 @@ RSpec.describe Commands::V2::Unpublish do
 
           unpublishing = Unpublishing.first
           expect(unpublishing.redirects).to match_array([
-            a_hash_including(destination: "/something-great")
+            a_hash_including(destination: "/something-great"),
           ])
         end
       end
@@ -105,7 +105,7 @@ RSpec.describe Commands::V2::Unpublish do
               path: base_path,
               type: :exact,
               destination: "/something-amazing",
-            }
+            },
           ]
         end
 
@@ -114,7 +114,7 @@ RSpec.describe Commands::V2::Unpublish do
 
           unpublishing = Unpublishing.first
           expect(unpublishing.redirects).to match_array([
-            a_hash_including(destination: "/something-amazing")
+            a_hash_including(destination: "/something-amazing"),
           ])
         end
 
@@ -125,7 +125,7 @@ RSpec.describe Commands::V2::Unpublish do
                 path: base_path,
                 type: :prefix,
                 destination: "/something-amazing#foo",
-              }
+              },
             ]
           end
 
@@ -134,7 +134,7 @@ RSpec.describe Commands::V2::Unpublish do
 
             unpublishing = Unpublishing.first
             expect(unpublishing.redirects).to match_array([
-              a_hash_including(destination: "/something-amazing#foo")
+              a_hash_including(destination: "/something-amazing#foo"),
             ])
           end
         end
@@ -169,12 +169,12 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id: content_id, locale: locale, source_command: "unpublish")
+            a_hash_including(content_id: content_id, locale: locale, source_command: "unpublish"),
           )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id: content_id, locale: locale, source_command: "unpublish")
+            a_hash_including(content_id: content_id, locale: locale, source_command: "unpublish"),
           )
 
         described_class.call(payload)
@@ -203,7 +203,7 @@ RSpec.describe Commands::V2::Unpublish do
             type: "gone",
             explanation: "Removed for testing porpoises",
             alternative_path: "/new-path",
-            unpublished_at: Time.new(2016, 8, 1, 1, 1, 1).rfc3339
+            unpublished_at: Time.new(2016, 8, 1, 1, 1, 1).rfc3339,
           }
         end
 
@@ -221,7 +221,7 @@ RSpec.describe Commands::V2::Unpublish do
               type: "withdrawal",
               explanation: "Removed for testing porpoises",
               alternative_path: "/new-path",
-              unpublished_at: Time.new(2016, 8, 1, 10, 10, 10).rfc3339
+              unpublished_at: Time.new(2016, 8, 1, 10, 10, 10).rfc3339,
             }
           end
 
@@ -286,7 +286,7 @@ RSpec.describe Commands::V2::Unpublish do
           before do
             AccessLimit.create!(
               edition: draft_edition,
-              users: [SecureRandom.uuid]
+              users: [SecureRandom.uuid],
             )
           end
 
@@ -301,7 +301,7 @@ RSpec.describe Commands::V2::Unpublish do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              a_hash_including(content_id: content_id, locale: locale)
+              a_hash_including(content_id: content_id, locale: locale),
             )
 
           described_class.call(payload_with_allow_draft)
@@ -502,7 +502,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id: content_id)
+            a_hash_including(content_id: content_id),
           )
 
         described_class.call(payload)
@@ -512,7 +512,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id: content_id)
+            a_hash_including(content_id: content_id),
           )
 
         described_class.call(payload)
@@ -522,7 +522,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id: content_id)
+            a_hash_including(content_id: content_id),
           )
 
         described_class.call(payload)

@@ -34,7 +34,7 @@ RSpec.describe Queries::GetLatest do
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/a3", "/b1", "/b2"])
 
-    scope = scope.where('documents.locale': 'fr')
+    scope = scope.where('documents.locale': "fr")
     result = subject.call(scope)
     expect(base_paths(result)).to match_array(["/b2"])
   end

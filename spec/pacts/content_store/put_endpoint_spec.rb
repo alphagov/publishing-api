@@ -30,14 +30,14 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
           path: "/content/vat-rates",
           body: body,
           headers: {
-            "Content-Type" => "application/json"
+            "Content-Type" => "application/json",
           },
         )
         .will_respond_with(
           status: 200,
           body: {},
           headers: {
-            "Content-Type" => "application/json; charset=utf-8"
+            "Content-Type" => "application/json; charset=utf-8",
           },
         )
     end
@@ -58,14 +58,14 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
           path: "/content/vat-rates",
           body: body,
           headers: {
-            "Content-Type" => "application/json"
+            "Content-Type" => "application/json",
           },
         )
         .will_respond_with(
           status: 409,
           body: {},
           headers: {
-            "Content-Type" => "application/json; charset=utf-8"
+            "Content-Type" => "application/json; charset=utf-8",
           },
         )
     end
@@ -93,14 +93,14 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
             path: "/content/vat-rates",
             body: body,
             headers: {
-              "Content-Type" => "application/json"
+              "Content-Type" => "application/json",
             },
           )
           .will_respond_with(
             status: 200,
             body: {},
             headers: {
-              "Content-Type" => "application/json; charset=utf-8"
+              "Content-Type" => "application/json; charset=utf-8",
             },
           )
       end
@@ -121,14 +121,14 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
             path: "/content/vat-rates",
             body: body,
             headers: {
-              "Content-Type" => "application/json"
+              "Content-Type" => "application/json",
             },
           )
           .will_respond_with(
             status: 409,
             body: {},
             headers: {
-              "Content-Type" => "application/json; charset=utf-8"
+              "Content-Type" => "application/json; charset=utf-8",
             },
           )
       end
