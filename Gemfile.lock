@@ -594,7 +594,7 @@ GEM
     aws-sigv4 (1.0.2)
     bindex (0.5.0)
     builder (3.2.3)
-    bunny (2.14.1)
+    bunny (2.14.3)
       amq-protocol (~> 2.3, >= 2.3.0)
     byebug (11.0.0)
     chronic (0.10.2)
