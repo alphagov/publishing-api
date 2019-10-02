@@ -66,6 +66,7 @@ module ExpansionRules
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
   ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on)).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)]).freeze
+  STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i(auth_bypass_id)).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
   FACET_GROUP_FIELDS = (%i[content_id title locale schema_name] + details_fields(:name, :description)).freeze
@@ -85,30 +86,56 @@ module ExpansionRules
   FACET_VALUE_FIELDS = (%i[content_id title locale schema_name] + details_fields(:label, :value)).freeze
 
   CUSTOM_EXPANSION_FIELDS = [
-    { document_type: :redirect,                   fields: [] },
-    { document_type: :gone,                       fields: [] },
-    { document_type: :contact,                    fields: CONTACT_FIELDS },
-    { document_type: :topical_event,              fields: DEFAULT_FIELDS },
-    { document_type: :placeholder_topical_event,  fields: DEFAULT_FIELDS },
-    { document_type: :organisation,               fields: ORGANISATION_FIELDS },
-    { document_type: :placeholder_organisation,   fields: ORGANISATION_FIELDS },
-    { document_type: :taxon,                      fields: TAXON_FIELDS },
-    { document_type: :need,                       fields: NEED_FIELDS },
-    { document_type: :finder, link_type: :finder, fields: FINDER_FIELDS },
-    { document_type: :mainstream_browse_page,     fields: DEFAULT_FIELDS_AND_DESCRIPTION },
-    { document_type: :role_appointment,           fields: ROLE_APPOINTMENT_FIELDS },
-    { document_type: :service_manual_topic,       fields: DEFAULT_FIELDS_AND_DESCRIPTION },
-    { document_type: :step_by_step_nav,           fields: STEP_BY_STEP_FIELDS },
-    { document_type: :travel_advice,              fields: TRAVEL_ADVICE_FIELDS },
-    { document_type: :world_location,             fields: WORLD_LOCATION_FIELDS },
-    { document_type: :facet_group,                fields: FACET_GROUP_FIELDS },
-    { document_type: :facet,                      fields: FACET_FIELDS },
-    { document_type: :facet_value,                fields: FACET_VALUE_FIELDS },
+    { document_type: :redirect,
+      fields: [] },
+    { document_type: :gone,
+      fields: [] },
+    { document_type: :contact,
+      fields: CONTACT_FIELDS },
+    { document_type: :topical_event,
+      fields: DEFAULT_FIELDS },
+    { document_type: :placeholder_topical_event,
+      fields: DEFAULT_FIELDS },
+    { document_type: :organisation,
+      fields: ORGANISATION_FIELDS },
+    { document_type: :placeholder_organisation,
+      fields: ORGANISATION_FIELDS },
+    { document_type: :taxon,
+      fields: TAXON_FIELDS },
+    { document_type: :need,
+      fields: NEED_FIELDS },
+    { document_type: :finder,
+      link_type: :finder,
+      fields: FINDER_FIELDS },
+    { document_type: :mainstream_browse_page,
+      fields: DEFAULT_FIELDS_AND_DESCRIPTION },
+    { document_type: :role_appointment,
+      fields: ROLE_APPOINTMENT_FIELDS },
+    { document_type: :service_manual_topic,
+      fields: DEFAULT_FIELDS_AND_DESCRIPTION },
+    { document_type: :step_by_step_nav,
+      link_type: :part_of_step_navs,
+      fields: STEP_BY_STEP_AUTH_BYPASS_FIELDS },
+    { document_type: :step_by_step_nav,
+      link_type: :related_to_step_navs,
+      fields: STEP_BY_STEP_AUTH_BYPASS_FIELDS },
+    { document_type: :step_by_step_nav,
+      fields: STEP_BY_STEP_FIELDS },
+    { document_type: :travel_advice,
+      fields: TRAVEL_ADVICE_FIELDS },
+    { document_type: :world_location,
+      fields: WORLD_LOCATION_FIELDS },
+    { document_type: :facet_group,
+      fields: FACET_GROUP_FIELDS },
+    { document_type: :facet,
+      fields: FACET_FIELDS },
+    { document_type: :facet_value,
+      fields: FACET_VALUE_FIELDS },
   ].freeze
 
   POSSIBLE_FIELDS_FOR_LINK_EXPANSION = DEFAULT_FIELDS +
     %i[details] +
-    %i[id state phase description unpublishings.type] -
+    %i[id state phase description unpublishings.type auth_bypass_id] -
     %i[api_path withdrawn]
 
   def reverse_links
