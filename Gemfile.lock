@@ -662,7 +662,7 @@ GEM
       rubocop-rails (~> 2)
       rubocop-rspec (~> 1.28)
       scss_lint
-    govuk_app_config (2.0.0)
+    govuk_app_config (2.0.1)
       logstasher (>= 1.2.2, < 1.4.0)
       sentry-raven (>= 2.7.1, < 2.12.0)
       statsd-ruby (~> 1.4.0)
@@ -910,7 +910,7 @@ GEM
     scss_lint (0.58.0)
       rake (>= 0.9, < 13)
       sass (~> 3.5, >= 3.5.5)
-    sentry-raven (2.11.0)
+    sentry-raven (2.11.3)
       faraday (>= 0.7.6, < 1.0)
     sidekiq (5.2.5)
       connection_pool (~> 2.2, >= 2.2.2)
