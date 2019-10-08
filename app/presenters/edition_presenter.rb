@@ -3,6 +3,7 @@ module Presenters
     NON_PRESENTED_PROPERTIES = %i[
       api_path
       api_url
+      auth_bypass_ids
       content_store
       created_at
       document_id
