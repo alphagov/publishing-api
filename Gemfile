@@ -56,7 +56,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"
   gem "rspec"
-  gem "rspec-rails", "~> 3.8"
+  gem "rspec-rails", "~> 3.9"
   gem "simplecov", "0.17.1", require: false
   gem "spring"
   gem "spring-commands-rspec"
