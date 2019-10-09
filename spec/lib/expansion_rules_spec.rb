@@ -97,6 +97,104 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:facet_value)).to eq(facet_value_fields) }
   end
 
+  describe ".expansion_fields_for_document_type" do
+    before do
+      stub_const(
+        "ExpansionRules::CUSTOM_EXPANSION_FIELDS",
+        [
+          { document_type: :news, fields: %i[news_a] },
+          { document_type: :news,
+            link_type: :breaking_news,
+            fields: %i[news_a news_b] },
+          { document_type: :news,
+            link_type: :local_news,
+            fields: %i[news_c news_d] },
+        ],
+      )
+    end
+
+    it "returns default fields when a document type doesn't have any custom entries" do
+      expect(rules.expansion_fields_for_document_type(:other_type))
+        .to match_array(ExpansionRules::DEFAULT_FIELDS)
+    end
+
+    it "can accept a string instead of a symbol" do
+      from_symbol = rules.expansion_fields_for_document_type(:news)
+      from_string = rules.expansion_fields_for_document_type("news")
+      expect(from_symbol).to eq(from_string)
+    end
+
+    it "collates all the fields used by links for the document type" do
+      expect(rules.expansion_fields_for_document_type(:news))
+        .to match_array(%i[news_a news_b news_c news_d])
+    end
+
+    context "when a custom fields entry only has examples with links" do
+      before do
+        stub_const(
+          "ExpansionRules::CUSTOM_EXPANSION_FIELDS",
+          [
+            { document_type: :editorial,
+              link_type: :current_events,
+              fields: %i[editorial_a] },
+            { document_type: :editorial,
+              link_type: :world_events,
+              fields: %i[editorial_b] },
+          ],
+        )
+      end
+
+      it "includes default fields as expansion fields" do
+        expect(rules.expansion_fields_for_document_type(:editorial))
+          .to contain_exactly(:editorial_a, :editorial_b, *ExpansionRules::DEFAULT_FIELDS)
+      end
+    end
+  end
+
+  describe ".expansion_fields_for_linked_document_type" do
+    before do
+      stub_const(
+        "ExpansionRules::CUSTOM_EXPANSION_FIELDS",
+        [
+          { document_type: :news, fields: %i[news_a] },
+          { document_type: :news,
+            link_type: :breaking_news,
+            fields: %i[news_a news_b] },
+          { document_type: :editorial,
+            link_type: :current_events,
+            fields: %i[editorial_a] },
+        ],
+      )
+    end
+
+    it "can accept strings instead of symbols" do
+      from_symbols = rules.expansion_fields_for_linked_document_type(:news, :breaking_news)
+      from_strings = rules.expansion_fields_for_linked_document_type("news", "breaking_news")
+      expect(from_symbols).to eq(from_strings)
+    end
+
+    it "returns default fields when a document type doesn't have any custom entries" do
+      expect(rules.expansion_fields_for_linked_document_type(:unknown_type, :unknown_link))
+        .to match_array(ExpansionRules::DEFAULT_FIELDS)
+    end
+
+    it "returns default fields when a document type is only listed for specific links" do
+      expect(rules.expansion_fields_for_linked_document_type(:editorial, :unknown_link))
+        .to match_array(ExpansionRules::DEFAULT_FIELDS)
+    end
+
+    it "returns specified fields when document type and link type match" do
+      expect(rules.expansion_fields_for_linked_document_type(:news, :breaking_news))
+        .to match_array(%i[news_a news_b])
+    end
+
+    it "returns specified fields when link type is not matched but "\
+      "document_type is defined without a link type" do
+      expect(rules.expansion_fields_for_linked_document_type(:news, :unknown_type))
+        .to match_array(%i[news_a])
+    end
+  end
+
   describe ".next_allowed_direct_link_types" do
     let(:reverse_to_direct) { false }
     subject do

@@ -148,22 +148,41 @@ module ExpansionRules
     @dependency_resolution ||= ExpansionRules::DependencyResolution.new(self)
   end
 
-  def find_custom_expansion_fields(document_type, options = {})
-    should_check_link_type = options[:link_type]
-    link_type = options[:link_type].try(:to_sym)
-
-    condition = CUSTOM_EXPANSION_FIELDS.find do |cond|
-      next if should_check_link_type && cond.fetch(:link_type, link_type) != link_type
-
-      cond[:document_type] == document_type.to_sym
+  def expansion_fields(document_type, link_type = nil)
+    if link_type
+      expansion_fields_for_linked_document_type(document_type, link_type)
+    else
+      expansion_fields_for_document_type(document_type)
     end
-
-    condition[:fields] if condition
   end
 
-  def expansion_fields(document_type, link_type = nil)
-    find_custom_expansion_fields(document_type, link_type: link_type) ||
-      DEFAULT_FIELDS
+  def expansion_fields_for_document_type(document_type)
+    matching_document_types = CUSTOM_EXPANSION_FIELDS.select do |item|
+      item[:document_type] == document_type.to_sym
+    end
+
+    return DEFAULT_FIELDS unless matching_document_types.any?
+
+    collated_fields = matching_document_types.flat_map { |item| item[:fields] }
+    matches_any_link_type = matching_document_types.any? { |item| item[:link_type].nil? }
+
+    collated_fields += DEFAULT_FIELDS unless matches_any_link_type
+    collated_fields.uniq
+  end
+
+  def expansion_fields_for_linked_document_type(document_type, link_type)
+    matching_link = CUSTOM_EXPANSION_FIELDS.find do |item|
+      item[:document_type] == document_type.to_sym &&
+        item[:link_type] == link_type.to_sym
+    end
+    return matching_link[:fields] if matching_link
+
+    matching_document_type = CUSTOM_EXPANSION_FIELDS.find do |item|
+      item[:document_type] == document_type.to_sym && item[:link_type].nil?
+    end
+    return matching_document_type[:fields] if matching_document_type
+
+    DEFAULT_FIELDS
   end
 
   module HashWithDigSet
