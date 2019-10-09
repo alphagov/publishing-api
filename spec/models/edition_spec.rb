@@ -33,6 +33,21 @@ RSpec.describe Edition do
       expect(subject).to be_invalid
     end
 
+    it "where auth_bypass_ids has an array with a uuids" do
+      subject.auth_bypass_ids = [SecureRandom.uuid, SecureRandom.uuid]
+      expect(subject).to be_valid
+    end
+
+    it "where auth_bypass_ids has an array with non uuids" do
+      subject.auth_bypass_ids = ["not-a-uuid"]
+      expect(subject).to be_invalid
+    end
+
+    it "where users has an array with an integer" do
+      subject.auth_bypass_ids = [123]
+      expect(subject).to be_invalid
+    end
+
     context "when the edition is 'redirect' but has routes" do
       before do
         subject.document_type = "redirect"

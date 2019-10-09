@@ -49,6 +49,8 @@ class Edition < ApplicationRecord
 
   validates :document, presence: true
 
+  validate :auth_bypass_ids_are_uuids
+
   validates :schema_name, presence: true
   validates :document_type, presence: true
 
@@ -73,6 +75,12 @@ class Edition < ApplicationRecord
   validates_with RoutesAndRedirectsValidator
 
   delegate :content_id, :locale, to: :document
+
+  def auth_bypass_ids_are_uuids
+    unless auth_bypass_ids.all? { |id| UuidValidator.valid?(id) }
+      errors.add(:auth_bypass_ids, ["contains invalid UUIDs"])
+    end
+  end
 
   def to_h
     SymbolizeJSON::symbolize(
