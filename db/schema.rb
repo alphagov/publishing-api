@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2019_10_07_162200) do
     t.datetime "published_at"
     t.datetime "publishing_api_first_published_at"
     t.datetime "publishing_api_last_edited_at"
-    t.string "auth_bypass_ids", default: [], null: false, array: true
+    t.string "auth_bypass_ids", array: true
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
