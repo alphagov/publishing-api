@@ -3,6 +3,7 @@ class CopyAuthBypassIdsToEditions < ActiveRecord::Migration[5.2]
 
   def up
     AccessLimit.includes(:edition).find_each do |access_limit|
+      next unless access_limit.edition
       access_limit.edition.update!(auth_bypass_ids: access_limit.auth_bypass_ids)
     end
   end
