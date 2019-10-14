@@ -589,4 +589,42 @@ RSpec.describe "Link Expansion" do
       end
     end
   end
+
+  describe "draft only fields" do
+    let(:auth_bypass_ids) { [SecureRandom.uuid] }
+
+    before do
+      create_link(b, a, "pages_part_of_step_nav")
+      create(:live_edition,
+             document: Document.find_or_create_by(content_id: b, locale: "en"),
+             base_path: "/step-by-step",
+             schema_name: "step_by_step_nav",
+             document_type: "step_by_step_nav",
+             auth_bypass_ids: auth_bypass_ids)
+    end
+
+    context "when requested with drafts" do
+      let(:with_drafts) { true }
+
+      it "includes the draft only fields" do
+        expect(expanded_links[:part_of_step_navs]).to match([
+          a_hash_including(base_path: "/step-by-step", auth_bypass_ids: auth_bypass_ids),
+        ])
+      end
+    end
+
+    context "when requested without drafts" do
+      let(:with_drafts) { false }
+
+      it "excludes the draft only fields" do
+        expect(expanded_links[:part_of_step_navs]).to match([
+          hash_including(base_path: "/step-by-step"),
+        ])
+
+        expect(expanded_links[:part_of_step_navs]).to match([
+          hash_not_including(auth_bypass_ids: auth_bypass_ids),
+        ])
+      end
+    end
+  end
 end
