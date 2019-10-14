@@ -70,6 +70,7 @@ module ExpansionRules
   ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body)).freeze
   ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on)).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]]).freeze
+  STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
   FACET_GROUP_FIELDS = (%i[content_id title locale schema_name] + details_fields(:name, :description)).freeze
@@ -119,6 +120,12 @@ module ExpansionRules
     { document_type: :service_manual_topic,
       fields: DEFAULT_FIELDS_AND_DESCRIPTION },
     { document_type: :step_by_step_nav,
+      link_type: :part_of_step_navs,
+      fields: STEP_BY_STEP_AUTH_BYPASS_FIELDS },
+    { document_type: :step_by_step_nav,
+      link_type: :related_to_step_navs,
+      fields: STEP_BY_STEP_AUTH_BYPASS_FIELDS },
+    { document_type: :step_by_step_nav,
       fields: STEP_BY_STEP_FIELDS },
     { document_type: :travel_advice,
       fields: TRAVEL_ADVICE_FIELDS },
@@ -134,7 +141,7 @@ module ExpansionRules
 
   POSSIBLE_FIELDS_FOR_LINK_EXPANSION = DEFAULT_FIELDS +
     %i[details] +
-    %i[id state phase description unpublishings.type] -
+    %i[id state phase description auth_bypass_ids unpublishings.type] -
     %i[api_path withdrawn]
 
   def reverse_links

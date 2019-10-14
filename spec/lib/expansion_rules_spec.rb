@@ -50,6 +50,7 @@ RSpec.describe ExpansionRules do
     let(:role_appointment_fields) { default_fields + [%i(details started_on), %i(details ended_on)] }
     let(:service_manual_topic_fields) { default_fields + %i(description) }
     let(:step_by_step_fields) { default_fields + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)] }
+    let(:step_by_step_auth_bypass_fields) { step_by_step_fields + %i(auth_bypass_ids) }
     let(:travel_advice_fields) { default_fields + [%i(details country), %i(details change_description)] }
     let(:world_location_fields) { %i(content_id title schema_name locale analytics_identifier) }
     let(:facet_group_fields) { %i(content_id title locale schema_name) + [%i(details name), %i(details description)] }
@@ -83,9 +84,12 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:role_appointment)).to eq(role_appointment_fields) }
     specify { expect(rules.expansion_fields(:service_manual_topic)).to eq(service_manual_topic_fields) }
-    specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(step_by_step_fields) }
-    specify { expect(rules.expansion_fields(:pages_secondary_to_step_nav)).to eq(default_fields) }
     specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
+
+    specify { expect(rules.expansion_fields(:step_by_step_nav, :part_of_step_navs)).to eq(step_by_step_auth_bypass_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav, :related_to_step_navs)).to eq(step_by_step_auth_bypass_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav, :unspecified_link)).to eq(step_by_step_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(step_by_step_auth_bypass_fields) }
 
     specify { expect(rules.expansion_fields(:taxon)).to eq(taxon_fields) }
     specify { expect(rules.expansion_fields(:travel_advice)).to eq(travel_advice_fields) }
