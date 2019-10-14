@@ -4,13 +4,11 @@ RSpec.describe AccessLimit do
   subject do
     build(:access_limit,
           users: users,
-          organisations: organisations,
-          auth_bypass_ids: auth_bypass_ids)
+          organisations: organisations)
   end
 
   let(:users) { [SecureRandom.uuid] }
   let(:organisations) { [] }
-  let(:auth_bypass_ids) { [] }
 
   it { is_expected.to be_valid }
 
@@ -22,23 +20,6 @@ RSpec.describe AccessLimit do
 
     context "where users has an array with an integer" do
       let(:users) { [123] }
-      it { is_expected.to be_invalid }
-    end
-  end
-
-  describe "validates auth_bypass_ids" do
-    context "where auth_bypass_ids has an array with a uuids" do
-      let(:auth_bypass_ids) { [SecureRandom.uuid, SecureRandom.uuid] }
-      it { is_expected.to be_valid }
-    end
-
-    context "where auth_bypass_ids has an array with non uuids" do
-      let(:auth_bypass_ids) { ["not-a-uuid"] }
-      it { is_expected.to be_invalid }
-    end
-
-    context "where users has an array with an integer" do
-      let(:auth_bypass_ids) { [123] }
       it { is_expected.to be_invalid }
     end
   end

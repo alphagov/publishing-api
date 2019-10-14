@@ -104,7 +104,6 @@ module Commands
             access_limit.update_attributes!(
               users: (payload[:access_limited][:users] || []),
               organisations: (payload[:access_limited][:organisations] || []),
-              auth_bypass_ids: (payload[:access_limited][:auth_bypass_ids] || []),
             )
           end
         else

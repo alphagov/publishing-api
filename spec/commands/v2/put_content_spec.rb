@@ -183,7 +183,6 @@ RSpec.describe Commands::V2::PutContent do
           payload.merge!(access_limited: {
             users: %w[new-user],
             organisations: [organisation_id],
-            auth_bypass_ids: [auth_bypass_id],
           })
         end
 
@@ -195,7 +194,6 @@ RSpec.describe Commands::V2::PutContent do
           access_limit = AccessLimit.last
           expect(access_limit.users).to eq(%w[new-user])
           expect(access_limit.organisations).to eq([organisation_id])
-          expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
           expect(access_limit.edition).to eq(Edition.last)
         end
       end
@@ -248,7 +246,6 @@ RSpec.describe Commands::V2::PutContent do
           payload.merge!(access_limited: {
             users: %w[new-user],
             organisations: [organisation_id],
-            auth_bypass_ids: [auth_bypass_id],
           })
         end
 
@@ -260,7 +257,6 @@ RSpec.describe Commands::V2::PutContent do
           access_limit = AccessLimit.last
           expect(access_limit.users).to eq(%w[new-user])
           expect(access_limit.organisations).to eq([organisation_id])
-          expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
           expect(access_limit.edition).to eq(edition)
         end
       end
@@ -292,7 +288,6 @@ RSpec.describe Commands::V2::PutContent do
             payload.merge!(access_limited: {
               users: %w[new-user],
               organisations: [organisation_id],
-              auth_bypass_ids: [auth_bypass_id],
             })
           end
 
@@ -302,7 +297,6 @@ RSpec.describe Commands::V2::PutContent do
             access_limit.reload
             expect(access_limit.users).to eq(%w[new-user])
             expect(access_limit.organisations).to eq([organisation_id])
-            expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
           end
         end
       end
