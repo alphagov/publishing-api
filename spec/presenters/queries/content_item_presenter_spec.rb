@@ -17,7 +17,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
              document: document,
              base_path: base_path,
              first_published_at: first_published_at,
-             public_updated_at: public_updated_at)
+             public_updated_at: public_updated_at,
+             auth_bypass_ids: [SecureRandom.uuid])
     end
 
     let(:result) { described_class.present(edition) }
@@ -25,6 +26,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     let(:expected_output) do
       {
         "analytics_identifier" => "GDS01",
+        "auth_bypass_ids" => edition.auth_bypass_ids,
         "base_path" => base_path,
         "content_id" => content_id,
         "content_store" => "draft",
