@@ -60,6 +60,8 @@ module ExpansionRules
     :withdrawn,
   ].freeze
 
+  DRAFT_ONLY_FIELDS = %i[auth_bypass_ids].freeze
+
   DEFAULT_FIELDS_AND_DESCRIPTION = (DEFAULT_FIELDS + [:description]).freeze
 
   CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :title, :contact_form_links, :post_addresses, :email_addresses, :phone_numbers)).freeze
@@ -181,12 +183,14 @@ module ExpansionRules
     @dependency_resolution ||= ExpansionRules::DependencyResolution.new(self)
   end
 
-  def expansion_fields(document_type, link_type = nil)
-    if link_type
-      expansion_fields_for_linked_document_type(document_type, link_type)
-    else
-      expansion_fields_for_document_type(document_type)
-    end
+  def expansion_fields(document_type, link_type: nil, draft: true)
+    fields = if link_type
+               expansion_fields_for_linked_document_type(document_type, link_type)
+             else
+               expansion_fields_for_document_type(document_type)
+             end
+
+    draft ? fields : fields - DRAFT_ONLY_FIELDS
   end
 
   def expansion_fields_for_document_type(document_type)
@@ -234,8 +238,12 @@ module ExpansionRules
 
   using HashWithDigSet
 
-  def expand_fields(edition_hash, link_type)
-    expansion_fields(edition_hash[:document_type], link_type).each_with_object({}) do |field, expanded|
+  def expand_fields(edition_hash, link_type: nil, draft: true)
+    fields = expansion_fields(edition_hash[:document_type],
+                              link_type: link_type,
+                              draft: draft)
+
+    fields.each_with_object({}) do |field, expanded|
       field = Array(field)
       # equivelant to: expanded.dig(*field) = edition_hash.dig(*field)
       expanded.dig_set(field, edition_hash.dig(*field))

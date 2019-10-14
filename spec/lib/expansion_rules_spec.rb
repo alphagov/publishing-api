@@ -86,17 +86,19 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:service_manual_topic)).to eq(service_manual_topic_fields) }
     specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
 
-    specify { expect(rules.expansion_fields(:step_by_step_nav, :part_of_step_navs)).to eq(step_by_step_auth_bypass_fields) }
-    specify { expect(rules.expansion_fields(:step_by_step_nav, :related_to_step_navs)).to eq(step_by_step_auth_bypass_fields) }
-    specify { expect(rules.expansion_fields(:step_by_step_nav, :unspecified_link)).to eq(step_by_step_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav, link_type: :part_of_step_navs)).to eq(step_by_step_auth_bypass_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav, link_type: :part_of_step_navs, draft: false)).to eq(step_by_step_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav, link_type: :related_to_step_navs)).to eq(step_by_step_auth_bypass_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav, link_type: :related_to_step_navs, draft: false)).to eq(step_by_step_fields) }
+    specify { expect(rules.expansion_fields(:step_by_step_nav, link_type: :unspecified_link)).to eq(step_by_step_fields) }
     specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(step_by_step_auth_bypass_fields) }
 
     specify { expect(rules.expansion_fields(:taxon)).to eq(taxon_fields) }
     specify { expect(rules.expansion_fields(:travel_advice)).to eq(travel_advice_fields) }
     specify { expect(rules.expansion_fields(:world_location)).to eq(world_location_fields) }
 
-    specify { expect(rules.expansion_fields(:finder, :finder)).to eq(finder_fields) }
-    specify { expect(rules.expansion_fields(:parent, :finder)).to eq(default_fields) }
+    specify { expect(rules.expansion_fields(:finder, link_type: :finder)).to eq(finder_fields) }
+    specify { expect(rules.expansion_fields(:parent, link_type: :finder)).to eq(default_fields) }
 
     specify { expect(rules.expansion_fields(:facet_group)).to eq(facet_group_fields) }
     specify { expect(rules.expansion_fields(:facet)).to eq(facet_fields) }
@@ -371,7 +373,7 @@ RSpec.describe ExpansionRules do
       end
 
       it "expands into a new details hash" do
-        expect(described_class.expand_fields(edition_hash, nil)).to eq(
+        expect(described_class.expand_fields(edition_hash)).to eq(
           document_type: "travel_advice",
           details: {
             country: "fr",
