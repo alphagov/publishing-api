@@ -343,36 +343,6 @@ RSpec.describe "Link Expansion" do
         end
       end
     end
-
-    # We need to support an array of states to cater for the DiscardDraft
-    # command which deletes the draft edition and sends the published item
-    # to the draft content store. This means that we need to try to find a
-    # draft, but fall back to the published item (if it exists).
-    context "when an array of states is provided" do
-      let(:with_drafts) { true }
-
-      before do
-        create_link(a, b, "parent")
-        create_link(b, c, "parent")
-        create_link(c, d, "parent")
-
-        create_edition(a, "/a-draft", factory: :draft_edition)
-        create_edition(b, "/b-published")
-        create_edition(c, "/c-draft", factory: :draft_edition, version: 2)
-        create_edition(c, "/c-published")
-        create_edition(d, "/d-published")
-      end
-
-      it "expands for the edition of the first state that matches" do
-        expect(expanded_links[:parent]).to match([
-          a_hash_including(base_path: "/b-published", links: {
-            parent: [a_hash_including(base_path: "/c-draft", links: {
-              parent: [a_hash_including(base_path: "/d-published", links: {})],
-            })],
-          }),
-        ])
-      end
-    end
   end
 
   describe "multiple translations" do
