@@ -10,6 +10,7 @@ class Edition < ApplicationRecord
 
   TOP_LEVEL_FIELDS = %i[
     analytics_identifier
+    auth_bypass_ids
     base_path
     content_store
     description

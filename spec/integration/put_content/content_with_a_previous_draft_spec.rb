@@ -257,6 +257,15 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
     end
   end
 
+  context "when the auth_bypass_ids has been updated" do
+    it "updates the edition with auth_bypass_ids params" do
+      payload.merge!(auth_bypass_ids: [SecureRandom.uuid])
+
+      put "/v2/content/#{content_id}", params: payload.to_json
+      expect(Edition.last.auth_bypass_ids).to eq(payload[:auth_bypass_ids])
+    end
+  end
+
   context "when the previously drafted item does not have an access limit" do
     context "when the params includes an access limit" do
       let(:auth_bypass_id) { SecureRandom.uuid }

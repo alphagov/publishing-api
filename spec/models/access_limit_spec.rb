@@ -43,14 +43,6 @@ RSpec.describe AccessLimit do
     end
   end
 
-  context "copys auth_bypass_ids to the edition" do
-    it "when auth_bypass_ids are present" do
-      auth_bypass_ids = [SecureRandom.uuid, SecureRandom.uuid]
-      access_limit = create(:access_limit, auth_bypass_ids: auth_bypass_ids)
-      expect(access_limit.edition.auth_bypass_ids).to eq(auth_bypass_ids)
-    end
-  end
-
   describe "validates organisation_ids" do
     context "where organisation_ids has an array with a uuids" do
       let(:organisations) { [SecureRandom.uuid, SecureRandom.uuid] }
