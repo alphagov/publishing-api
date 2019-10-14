@@ -29,14 +29,14 @@ RSpec.describe "Link Expansion" do
   let(:content_id) { a }
   let(:locale) { "en" }
 
-  context "when there are no links" do
+  describe "content without links" do
     let(:with_drafts) { true }
     it "performs no expansion" do
       expect(expanded_links).to be_empty
     end
   end
 
-  context "with editions that are non-renderable" do
+  describe "non-renderable editions" do
     let!(:draft_a) { create_edition(a, "/a", factory: :draft_edition) }
     let!(:redirect) { create_edition(b, "/b", factory: :redirect_draft_edition) }
     let!(:gone) { create_edition(c, "/c", factory: :gone_edition) }
@@ -53,7 +53,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "with editions in a draft state" do
+  describe "editions in a draft state" do
     let!(:draft_a) { create_edition(a, "/a", factory: :draft_edition) }
     let!(:draft_b) { create_edition(b, "/b", factory: :draft_edition) }
     let!(:draft_c) { create_edition(c, "/c", factory: :draft_edition) }
@@ -254,7 +254,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "with editions in different states" do
+  describe "editions in different states" do
     context "when a edition is in a state that does not match the provided state" do
       before do
         create_link(a, b, "related")
@@ -498,7 +498,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "with a withdrawn edition as a parent" do
+  describe "withdrawn edition as a parent" do
     let(:with_drafts) { false }
 
     before do
@@ -520,7 +520,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "edition-level links across multiple locales" do
+  describe "edition-level links across multiple locales" do
     let(:with_drafts) { false }
     let(:content_id) { a }
     let(:en_document) { create(:document, content_id: content_id) }
@@ -557,7 +557,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "when edition we're generating translations for is different in the database" do
+  describe "local edition data out of sync with database" do
     let(:with_drafts) { false }
 
     let!(:parent_edition) { create_edition(a, "/a") }
