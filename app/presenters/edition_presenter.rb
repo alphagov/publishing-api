@@ -84,7 +84,7 @@ module Presenters
     end
 
     def access_limited
-      return {} unless access_limit || edition.auth_bypass_ids.present?
+      return {} unless access_limit
 
       if edition.state != "draft"
         GovukError.notify(
@@ -96,9 +96,8 @@ module Presenters
       else
         {
           access_limited: {
-            users: access_limit&.users || [],
-            organisations: access_limit&.organisations || [],
-            auth_bypass_ids: edition.auth_bypass_ids,
+            users: access_limit.users,
+            organisations: access_limit.organisations,
           },
         }
       end
