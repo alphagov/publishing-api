@@ -31,7 +31,8 @@ RSpec.describe Presenters::EditionPresenter do
       create(:live_edition,
              update_type: update_type,
              schema_name: "calendar",
-             document_type: "calendar")
+             document_type: "calendar",
+             auth_bypass_ids: [])
     }
 
     subject(:result) do
@@ -54,6 +55,10 @@ RSpec.describe Presenters::EditionPresenter do
 
     it "matches the notification schema" do
       expect(subject).to be_valid_against_schema("calendar")
+    end
+
+    it "doesnt include auth_bypass_ids in message queue" do
+      expect(subject).to_not include(auth_bypass_ids: [])
     end
 
     context "when there are links" do
@@ -136,12 +141,20 @@ RSpec.describe Presenters::EditionPresenter do
                base_path: base_path,
                details: details,
                first_published_at: "2014-01-02T03:04:05Z",
-               public_updated_at: "2014-05-14T13:00:06Z")
+               public_updated_at: "2014-05-14T13:00:06Z",
+               auth_bypass_ids: [SecureRandom.uuid])
       end
+      let(:present_drafts) { true }
+
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
       it "presents the object graph for the content store" do
+        expected.merge!(auth_bypass_ids: edition.auth_bypass_ids)
         expect(result).to match(a_hash_including(expected))
+      end
+
+      it "presents auth_bypass_ids in access limit and root" do
+        expect(result[:auth_bypass_ids]).to eq(result[:access_limited][:auth_bypass_ids])
       end
     end
 

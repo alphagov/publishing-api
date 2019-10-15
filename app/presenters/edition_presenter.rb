@@ -44,6 +44,7 @@ module Presenters
     def present
       edition.to_h
         .except(*NON_PRESENTED_PROPERTIES)
+        .merge(auth_bypass_ids)
         .merge(rendered_details)
         .merge(expanded_links_attributes)
         .merge(access_limited)
@@ -65,6 +66,12 @@ module Presenters
 
     attr_reader :draft, :edition
 
+    def auth_bypass_ids
+      return {} unless draft
+
+      { auth_bypass_ids: edition.auth_bypass_ids || [] }
+    end
+
     def unexpanded_links
       links = ::Queries::LinksForEditionIds.new([edition.id]).merged_links
       links[edition.id].symbolize_keys
@@ -77,7 +84,7 @@ module Presenters
     end
 
     def access_limited
-      return {} unless access_limit
+      return {} unless access_limit || edition.auth_bypass_ids.present?
 
       if edition.state != "draft"
         GovukError.notify(
@@ -89,9 +96,9 @@ module Presenters
       else
         {
           access_limited: {
-            users: access_limit.users,
-            organisations: access_limit.organisations,
-            auth_bypass_ids: access_limit.auth_bypass_ids,
+            users: access_limit&.users || [],
+            organisations: access_limit&.organisations || [],
+            auth_bypass_ids: edition.auth_bypass_ids,
           },
         }
       end

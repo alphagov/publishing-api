@@ -228,6 +228,8 @@ module Presenters
           results.each do |result|
             json_columns.each { |c| parse_json_column(result, c) }
             int_columns.each { |c| parse_int_column(result, c) }
+            parse_auth_bypass_ids_column(result, "auth_bypass_ids")
+
             parse_state_history(result)
             parse_links(result, "links")
 
@@ -252,6 +254,12 @@ module Presenters
         return unless result.key?(column)
 
         result[column] = result[column].to_i
+      end
+
+      def parse_auth_bypass_ids_column(result, column)
+        return unless result.key?(column)
+
+        result[column] = result[column].delete("{}").split(",")
       end
 
       def parse_links(result, column)

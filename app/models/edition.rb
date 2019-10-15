@@ -10,6 +10,7 @@ class Edition < ApplicationRecord
 
   TOP_LEVEL_FIELDS = %i[
     analytics_identifier
+    auth_bypass_ids
     base_path
     content_store
     description
@@ -77,8 +78,6 @@ class Edition < ApplicationRecord
   delegate :content_id, :locale, to: :document
 
   def auth_bypass_ids_are_uuids
-    return if !auth_bypass_ids
-
     unless auth_bypass_ids.all? { |id| UuidValidator.valid?(id) }
       errors.add(:auth_bypass_ids, ["contains invalid UUIDs"])
     end

@@ -7,6 +7,7 @@ module Commands
         prepare_content_with_base_path
         check_update_type
 
+        update_root_payload_with_auth_bypass_ids
         edition = create_or_update_edition
         set_timestamps(edition)
 
@@ -98,16 +99,23 @@ module Commands
       end
 
       def access_limit(edition)
-        if payload[:access_limited]
+        if payload[:access_limited].present?
           AccessLimit.find_or_create_by(edition: edition).tap do |access_limit|
             access_limit.update_attributes!(
               users: (payload[:access_limited][:users] || []),
               organisations: (payload[:access_limited][:organisations] || []),
-              auth_bypass_ids: (payload[:access_limited][:auth_bypass_ids] || []),
             )
           end
         else
           AccessLimit.find_by(edition: edition).try(:destroy)
+        end
+      end
+
+      def update_root_payload_with_auth_bypass_ids
+        return if payload[:auth_bypass_ids]
+
+        if payload.dig(:access_limited, :auth_bypass_ids)
+          payload[:auth_bypass_ids] = payload[:access_limited].delete(:auth_bypass_ids)
         end
       end
 

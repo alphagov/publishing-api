@@ -30,7 +30,6 @@ FactoryBot.define do
     content_store { "draft" }
     sequence(:base_path) { |n| "/vat-rates-#{n}" }
     user_facing_version { 1 }
-    auth_bypass_ids { [SecureRandom.uuid] }
 
     transient do
       change_note { "note" }

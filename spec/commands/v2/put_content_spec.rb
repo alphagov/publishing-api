@@ -124,6 +124,33 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
+    context "when the payload includes auth_bypass_ids" do
+      it "updates edition with access_limits auth_bypass_ids" do
+        auth_bypass_id = SecureRandom.uuid
+        payload.merge!(access_limited: { auth_bypass_ids: [auth_bypass_id] })
+
+        expect { described_class.call(payload) }.to_not change(AccessLimit, :count)
+        expect(Edition.last.auth_bypass_ids).to eq([auth_bypass_id])
+      end
+
+      it "updates edition with root auth_bypass_ids" do
+        payload.merge!(auth_bypass_ids: [SecureRandom.uuid])
+
+        described_class.call(payload)
+        expect(Edition.last.auth_bypass_ids).to eq(payload[:auth_bypass_ids])
+      end
+
+      it "updates edition with root auth_bypass_ids over access_limits" do
+        payload.merge!(
+          auth_bypass_ids: [SecureRandom.uuid],
+          access_limited: { auth_bypass_ids: [SecureRandom.uuid] },
+        )
+
+        described_class.call(payload)
+        expect(Edition.last.auth_bypass_ids).to eq(payload[:auth_bypass_ids])
+      end
+    end
+
     it_behaves_like TransactionalCommand
 
     context "when the draft does not exist" do
@@ -156,7 +183,6 @@ RSpec.describe Commands::V2::PutContent do
           payload.merge!(access_limited: {
             users: %w[new-user],
             organisations: [organisation_id],
-            auth_bypass_ids: [auth_bypass_id],
           })
         end
 
@@ -168,7 +194,6 @@ RSpec.describe Commands::V2::PutContent do
           access_limit = AccessLimit.last
           expect(access_limit.users).to eq(%w[new-user])
           expect(access_limit.organisations).to eq([organisation_id])
-          expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
           expect(access_limit.edition).to eq(Edition.last)
         end
       end
@@ -221,7 +246,6 @@ RSpec.describe Commands::V2::PutContent do
           payload.merge!(access_limited: {
             users: %w[new-user],
             organisations: [organisation_id],
-            auth_bypass_ids: [auth_bypass_id],
           })
         end
 
@@ -233,7 +257,6 @@ RSpec.describe Commands::V2::PutContent do
           access_limit = AccessLimit.last
           expect(access_limit.users).to eq(%w[new-user])
           expect(access_limit.organisations).to eq([organisation_id])
-          expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
           expect(access_limit.edition).to eq(edition)
         end
       end
@@ -265,7 +288,6 @@ RSpec.describe Commands::V2::PutContent do
             payload.merge!(access_limited: {
               users: %w[new-user],
               organisations: [organisation_id],
-              auth_bypass_ids: [auth_bypass_id],
             })
           end
 
@@ -275,7 +297,6 @@ RSpec.describe Commands::V2::PutContent do
             access_limit.reload
             expect(access_limit.users).to eq(%w[new-user])
             expect(access_limit.organisations).to eq([organisation_id])
-            expect(access_limit.auth_bypass_ids).to eq([auth_bypass_id])
           end
         end
       end
