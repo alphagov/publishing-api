@@ -46,6 +46,7 @@ RSpec.describe ExpansionRules do
     let(:mainstream_browser_page_fields) { default_fields + %i(description) }
     let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
     let(:finder_fields) { default_fields + [%i(details facets)] }
+    let(:role_fields) { default_fields + [%i(details body)] }
     let(:role_appointment_fields) { default_fields + [%i(details started_on), %i(details ended_on)] }
     let(:service_manual_topic_fields) { default_fields + %i(description) }
     let(:step_by_step_fields) { default_fields + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)] }
@@ -79,6 +80,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_fields) }
+    specify { expect(rules.expansion_fields(:role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:role_appointment)).to eq(role_appointment_fields) }
     specify { expect(rules.expansion_fields(:service_manual_topic)).to eq(service_manual_topic_fields) }
     specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(step_by_step_fields) }
