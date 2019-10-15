@@ -30,6 +30,9 @@ module ExpansionRules
     [:ordered_related_items_overrides, :taxons],
     [:facets, :facet_values, :facet_group],
     [:facet_group, :facets, :facet_values],
+    [:ordered_current_appointments, :role],
+    [:ordered_current_appointments, :role, :ordered_parent_organisations],
+    [:ordered_current_appointments, :person],
   ].freeze
 
   REVERSE_LINKS = {
@@ -64,6 +67,7 @@ module ExpansionRules
   TAXON_FIELDS = (DEFAULT_FIELDS + %i(description details phase)).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
+  ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body)).freeze
   ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on)).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
@@ -96,6 +100,7 @@ module ExpansionRules
     { document_type: :need,                       fields: NEED_FIELDS },
     { document_type: :finder, link_type: :finder, fields: FINDER_FIELDS },
     { document_type: :mainstream_browse_page,     fields: DEFAULT_FIELDS_AND_DESCRIPTION },
+    { document_type: :role,                       fields: ROLE_FIELDS },
     { document_type: :role_appointment,           fields: ROLE_APPOINTMENT_FIELDS },
     { document_type: :service_manual_topic,       fields: DEFAULT_FIELDS_AND_DESCRIPTION },
     { document_type: :step_by_step_nav,           fields: STEP_BY_STEP_FIELDS },
