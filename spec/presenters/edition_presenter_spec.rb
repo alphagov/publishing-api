@@ -152,10 +152,6 @@ RSpec.describe Presenters::EditionPresenter do
         expected.merge!(auth_bypass_ids: edition.auth_bypass_ids)
         expect(result).to match(a_hash_including(expected))
       end
-
-      it "presents auth_bypass_ids in access limit and root" do
-        expect(result[:auth_bypass_ids]).to eq(result[:access_limited][:auth_bypass_ids])
-      end
     end
 
     context "for a withdrawn edition" do
@@ -294,7 +290,6 @@ RSpec.describe Presenters::EditionPresenter do
         it "populates the access_limited hash" do
           expect(result[:access_limited][:users].length).to eq(1)
           expect(result[:access_limited][:organisations].length).to eq(1)
-          expect(result[:access_limited][:auth_bypass_ids].length).to eq(0)
         end
       end
 
