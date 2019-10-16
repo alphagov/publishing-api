@@ -29,14 +29,14 @@ RSpec.describe "Link Expansion" do
   let(:content_id) { a }
   let(:locale) { "en" }
 
-  context "when there are no links" do
+  describe "content without links" do
     let(:with_drafts) { true }
     it "performs no expansion" do
       expect(expanded_links).to be_empty
     end
   end
 
-  context "with editions that are non-renderable" do
+  describe "non-renderable editions" do
     let!(:draft_a) { create_edition(a, "/a", factory: :draft_edition) }
     let!(:redirect) { create_edition(b, "/b", factory: :redirect_draft_edition) }
     let!(:gone) { create_edition(c, "/c", factory: :gone_edition) }
@@ -53,7 +53,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "with editions in a draft state" do
+  describe "editions in a draft state" do
     let!(:draft_a) { create_edition(a, "/a", factory: :draft_edition) }
     let!(:draft_b) { create_edition(b, "/b", factory: :draft_edition) }
     let!(:draft_c) { create_edition(c, "/c", factory: :draft_edition) }
@@ -254,7 +254,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "with editions in different states" do
+  describe "editions in different states" do
     context "when a edition is in a state that does not match the provided state" do
       before do
         create_link(a, b, "related")
@@ -341,36 +341,6 @@ RSpec.describe "Link Expansion" do
             a_hash_including(base_path: "/b-published", links: {}),
           ])
         end
-      end
-    end
-
-    # We need to support an array of states to cater for the DiscardDraft
-    # command which deletes the draft edition and sends the published item
-    # to the draft content store. This means that we need to try to find a
-    # draft, but fall back to the published item (if it exists).
-    context "when an array of states is provided" do
-      let(:with_drafts) { true }
-
-      before do
-        create_link(a, b, "parent")
-        create_link(b, c, "parent")
-        create_link(c, d, "parent")
-
-        create_edition(a, "/a-draft", factory: :draft_edition)
-        create_edition(b, "/b-published")
-        create_edition(c, "/c-draft", factory: :draft_edition, version: 2)
-        create_edition(c, "/c-published")
-        create_edition(d, "/d-published")
-      end
-
-      it "expands for the edition of the first state that matches" do
-        expect(expanded_links[:parent]).to match([
-          a_hash_including(base_path: "/b-published", links: {
-            parent: [a_hash_including(base_path: "/c-draft", links: {
-              parent: [a_hash_including(base_path: "/d-published", links: {})],
-            })],
-          }),
-        ])
       end
     end
   end
@@ -528,7 +498,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "with a withdrawn edition as a parent" do
+  describe "withdrawn edition as a parent" do
     let(:with_drafts) { false }
 
     before do
@@ -550,7 +520,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "edition-level links across multiple locales" do
+  describe "edition-level links across multiple locales" do
     let(:with_drafts) { false }
     let(:content_id) { a }
     let(:en_document) { create(:document, content_id: content_id) }
@@ -587,7 +557,7 @@ RSpec.describe "Link Expansion" do
     end
   end
 
-  context "when edition we're generating translations for is different in the database" do
+  describe "local edition data out of sync with database" do
     let(:with_drafts) { false }
 
     let!(:parent_edition) { create_edition(a, "/a") }
@@ -615,6 +585,44 @@ RSpec.describe "Link Expansion" do
       it "returns the data as is stored in the database" do
         expect(expanded_links[:children]).to match([
           a_hash_including(base_path: "/b", links: { parent: [a_hash_including(base_path: "/a", title: "A title")] }),
+        ])
+      end
+    end
+  end
+
+  describe "draft only fields" do
+    let(:auth_bypass_ids) { [SecureRandom.uuid] }
+
+    before do
+      create_link(b, a, "pages_part_of_step_nav")
+      create(:live_edition,
+             document: Document.find_or_create_by(content_id: b, locale: "en"),
+             base_path: "/step-by-step",
+             schema_name: "step_by_step_nav",
+             document_type: "step_by_step_nav",
+             auth_bypass_ids: auth_bypass_ids)
+    end
+
+    context "when requested with drafts" do
+      let(:with_drafts) { true }
+
+      it "includes the draft only fields" do
+        expect(expanded_links[:part_of_step_navs]).to match([
+          a_hash_including(base_path: "/step-by-step", auth_bypass_ids: auth_bypass_ids),
+        ])
+      end
+    end
+
+    context "when requested without drafts" do
+      let(:with_drafts) { false }
+
+      it "excludes the draft only fields" do
+        expect(expanded_links[:part_of_step_navs]).to match([
+          hash_including(base_path: "/step-by-step"),
+        ])
+
+        expect(expanded_links[:part_of_step_navs]).to match([
+          hash_not_including(auth_bypass_ids: auth_bypass_ids),
         ])
       end
     end
