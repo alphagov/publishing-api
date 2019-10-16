@@ -50,6 +50,7 @@ group :development, :test do
   gem "faker"
   gem 'govuk-content-schema-test-helpers', "~> 1.6"
   gem "govuk-lint"
+  gem "govuk_test", "~> 1.0"
   gem "pact"
   gem "pact_broker-client"
   gem "pry"
