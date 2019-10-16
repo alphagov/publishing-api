@@ -4,6 +4,8 @@ class AccessLimit < ApplicationRecord
   validate :user_uids_are_strings
   validate :user_organisations_are_uuids
 
+  self.ignored_columns = %w(auth_bypass_ids)
+
 private
 
   def user_uids_are_strings
