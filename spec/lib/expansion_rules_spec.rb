@@ -81,10 +81,22 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_topical_event)).to eq(default_fields) }
-    specify { expect(rules.expansion_fields(:role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:role_appointment)).to eq(role_appointment_fields) }
     specify { expect(rules.expansion_fields(:service_manual_topic)).to eq(service_manual_topic_fields) }
     specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
+
+    specify { expect(rules.expansion_fields(:ambassador_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:board_member_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:chief_professional_officer_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:chief_scientific_officer_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:deputy_head_of_mission_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:governor_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:high_commissioner_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:military_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:ministerial_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:special_representative_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:traffic_commissioner_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:worldwide_office_staff_role)).to eq(role_fields) }
 
     specify { expect(rules.expansion_fields(:step_by_step_nav, link_type: :part_of_step_navs)).to eq(step_by_step_auth_bypass_fields) }
     specify { expect(rules.expansion_fields(:step_by_step_nav, link_type: :part_of_step_navs, draft: false)).to eq(step_by_step_fields) }

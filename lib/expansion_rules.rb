@@ -91,55 +91,75 @@ module ExpansionRules
   ).freeze
   FACET_VALUE_FIELDS = (%i[content_id title locale schema_name] + details_fields(:label, :value)).freeze
 
-  CUSTOM_EXPANSION_FIELDS = [
-    { document_type: :redirect,
-      fields: [] },
-    { document_type: :gone,
-      fields: [] },
-    { document_type: :contact,
-      fields: CONTACT_FIELDS },
-    { document_type: :topical_event,
-      fields: DEFAULT_FIELDS },
-    { document_type: :placeholder_topical_event,
-      fields: DEFAULT_FIELDS },
-    { document_type: :organisation,
-      fields: ORGANISATION_FIELDS },
-    { document_type: :placeholder_organisation,
-      fields: ORGANISATION_FIELDS },
-    { document_type: :taxon,
-      fields: TAXON_FIELDS },
-    { document_type: :need,
-      fields: NEED_FIELDS },
-    { document_type: :finder,
-      link_type: :finder,
-      fields: FINDER_FIELDS },
-    { document_type: :mainstream_browse_page,
-      fields: DEFAULT_FIELDS_AND_DESCRIPTION },
-    { document_type: :role,
-      fields: ROLE_FIELDS },
-    { document_type: :role_appointment,
-      fields: ROLE_APPOINTMENT_FIELDS },
-    { document_type: :service_manual_topic,
-      fields: DEFAULT_FIELDS_AND_DESCRIPTION },
-    { document_type: :step_by_step_nav,
-      link_type: :part_of_step_navs,
-      fields: STEP_BY_STEP_AUTH_BYPASS_FIELDS },
-    { document_type: :step_by_step_nav,
-      link_type: :related_to_step_navs,
-      fields: STEP_BY_STEP_AUTH_BYPASS_FIELDS },
-    { document_type: :step_by_step_nav,
-      fields: STEP_BY_STEP_FIELDS },
-    { document_type: :travel_advice,
-      fields: TRAVEL_ADVICE_FIELDS },
-    { document_type: :world_location,
-      fields: WORLD_LOCATION_FIELDS },
-    { document_type: :facet_group,
-      fields: FACET_GROUP_FIELDS },
-    { document_type: :facet,
-      fields: FACET_FIELDS },
-    { document_type: :facet_value,
-      fields: FACET_VALUE_FIELDS },
-  ].freeze
+  CUSTOM_EXPANSION_FIELDS_FOR_ROLES = (
+    %i(
+      ambassador_role
+      board_member_role
+      chief_professional_officer_role
+      chief_scientific_officer_role
+      deputy_head_of_mission_role
+      governor_role
+      high_commissioner_role
+      military_role
+      ministerial_role
+      special_representative_role
+      traffic_commissioner_role
+      worldwide_office_staff_role
+    ).map do |document_type|
+      { document_type: document_type, fields: ROLE_FIELDS }
+    end
+  ).freeze
+
+  CUSTOM_EXPANSION_FIELDS = (
+    [
+      { document_type: :redirect,
+        fields: [] },
+      { document_type: :gone,
+        fields: [] },
+      { document_type: :contact,
+        fields: CONTACT_FIELDS },
+      { document_type: :topical_event,
+        fields: DEFAULT_FIELDS },
+      { document_type: :placeholder_topical_event,
+        fields: DEFAULT_FIELDS },
+      { document_type: :organisation,
+        fields: ORGANISATION_FIELDS },
+      { document_type: :placeholder_organisation,
+        fields: ORGANISATION_FIELDS },
+      { document_type: :taxon,
+        fields: TAXON_FIELDS },
+      { document_type: :need,
+        fields: NEED_FIELDS },
+      { document_type: :finder,
+        link_type: :finder,
+        fields: FINDER_FIELDS },
+      { document_type: :mainstream_browse_page,
+        fields: DEFAULT_FIELDS_AND_DESCRIPTION },
+      { document_type: :role_appointment,
+        fields: ROLE_APPOINTMENT_FIELDS },
+      { document_type: :service_manual_topic,
+        fields: DEFAULT_FIELDS_AND_DESCRIPTION },
+      { document_type: :step_by_step_nav,
+        link_type: :part_of_step_navs,
+        fields: STEP_BY_STEP_AUTH_BYPASS_FIELDS },
+      { document_type: :step_by_step_nav,
+        link_type: :related_to_step_navs,
+        fields: STEP_BY_STEP_AUTH_BYPASS_FIELDS },
+      { document_type: :step_by_step_nav,
+        fields: STEP_BY_STEP_FIELDS },
+      { document_type: :travel_advice,
+        fields: TRAVEL_ADVICE_FIELDS },
+      { document_type: :world_location,
+        fields: WORLD_LOCATION_FIELDS },
+      { document_type: :facet_group,
+        fields: FACET_GROUP_FIELDS },
+      { document_type: :facet,
+        fields: FACET_FIELDS },
+      { document_type: :facet_value,
+        fields: FACET_VALUE_FIELDS },
+    ] +
+    CUSTOM_EXPANSION_FIELDS_FOR_ROLES
+  ).freeze
 
   POSSIBLE_FIELDS_FOR_LINK_EXPANSION = DEFAULT_FIELDS +
     %i[details] +
