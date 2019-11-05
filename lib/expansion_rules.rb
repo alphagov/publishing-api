@@ -30,9 +30,10 @@ module ExpansionRules
     [:ordered_related_items_overrides, :taxons],
     [:facets, :facet_values, :facet_group],
     [:facet_group, :facets, :facet_values],
-    [:ordered_current_appointments, :role],
     [:ordered_current_appointments, :role, :ordered_parent_organisations],
     [:ordered_current_appointments, :person],
+    [:ordered_previous_appointments, :role, :ordered_parent_organisations],
+    [:ordered_previous_appointments, :person],
   ].freeze
 
   REVERSE_LINKS = {
