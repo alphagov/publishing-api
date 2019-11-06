@@ -16,7 +16,7 @@ else
   gem 'gds-api-adapters', "~> 60"
 end
 
-gem "gds-sso", "~> 14.1"
+gem "gds-sso", "~> 14.2"
 gem "govuk_app_config", "~> 2.0"
 gem "govuk_document_types", "~> 0.9.2"
 gem "govuk_schemas", "~> 4.0"
