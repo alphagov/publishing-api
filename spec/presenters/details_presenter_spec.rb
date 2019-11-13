@@ -5,12 +5,24 @@ RSpec.describe Presenters::DetailsPresenter do
     let(:change_history_presenter) do
       instance_double(Presenters::ChangeHistoryPresenter, change_history: [])
     end
+
     subject do
       described_class.new(edition_details, change_history_presenter).details
     end
 
     context "when we're passed details without a body" do
       let(:edition_details) { {} }
+
+      it "matches original details" do
+        is_expected.to match(edition_details)
+      end
+    end
+
+    context "without a change history presenter" do
+      let(:change_history_presenter) { nil }
+      let(:edition_details) do
+        { body: "Without change history" }
+      end
 
       it "matches original details" do
         is_expected.to match(edition_details)
