@@ -97,6 +97,7 @@ module ExpansionRules
       ambassador_role
       board_member_role
       chief_professional_officer_role
+      chief_scientific_advisor_role
       chief_scientific_officer_role
       deputy_head_of_mission_role
       governor_role

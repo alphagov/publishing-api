@@ -88,6 +88,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:ambassador_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:board_member_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:chief_professional_officer_role)).to eq(role_fields) }
+    specify { expect(rules.expansion_fields(:chief_scientific_advisor_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:chief_scientific_officer_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:deputy_head_of_mission_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:governor_role)).to eq(role_fields) }
