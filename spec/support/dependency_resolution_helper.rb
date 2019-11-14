@@ -12,13 +12,15 @@ module DependencyResolutionHelper
     factory: :live_edition,
     locale: "en",
     links_hash: {},
-    version: 1
+    version: 1,
+    **kwargs
   )
     create(factory,
            document: Document.find_or_create_by(content_id: content_id, locale: locale),
            base_path: base_path,
            user_facing_version: version,
-           links_hash: links_hash)
+           links_hash: links_hash,
+           **kwargs)
   end
 
   def create_link(from, to, link_type, link_position = 0)

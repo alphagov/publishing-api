@@ -47,7 +47,7 @@ module Presenters
     end
 
     def change_history
-      @change_history ||= change_history_presenter.change_history
+      @change_history ||= change_history_presenter&.change_history
     end
 
     def render_govspeak(value)
