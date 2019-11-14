@@ -45,13 +45,21 @@ module Presenters
       end
 
       def expanded_links
-        link_expansion.links_with_content.each_with_object({}) do |(link_type, links), memo|
-          memo[link_type] = links.map { |link_hash| present_expanded_link(link_hash) }
+        present_expanded_links(link_expansion.links_with_content)
+      end
+
+      def present_expanded_links(links)
+        links.each_with_object({}) do |(link_type, link_hashes), hash|
+          hash[link_type] = link_hashes.map { |link_hash| present_expanded_link(link_hash) }
         end
       end
 
       def present_expanded_link(link_hash)
         link_hash.tap do |hash|
+          if hash[:links]
+            hash[:links] = present_expanded_links(hash[:links])
+          end
+
           if hash[:details]
             hash[:details] = Presenters::DetailsPresenter.new(hash[:details], nil).details
           end

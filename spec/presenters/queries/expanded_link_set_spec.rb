@@ -39,12 +39,16 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   end
 
   describe "details" do
+    let(:c) { create_link_set }
+
     before do
-      create_link(a, b, "role")
+      create_link(a, b, "ordered_current_appointments")
       create_edition(a, "/a")
+      create_edition(b, "/b", document_type: "role_appointment")
+      create_link(b, c, "role")
       create_edition(
-        b,
-        "/b",
+        c,
+        "/c",
         document_type: "ministerial_role",
         details: {
           body: [
@@ -57,8 +61,10 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       )
     end
 
-    it "calls the details presenter and renders govspeak inside expanded links" do
-      expect(expanded_links[:role].first[:details][:body]).to match([
+    it "recursively calls the details presenter and renders govspeak inside expanded links" do
+      b = expanded_links[:ordered_current_appointments].first
+      c = b[:links][:role].first
+      expect(c[:details][:body]).to match([
         {
           content_type: "text/govspeak",
           content: "Body",
