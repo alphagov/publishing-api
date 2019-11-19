@@ -34,6 +34,8 @@ module ExpansionRules
     [:ordered_current_appointments, :person],
     [:ordered_previous_appointments, :role, :ordered_parent_organisations],
     [:ordered_previous_appointments, :person],
+    [:role_appointments, :person],
+    [:role_appointments, :role, :ordered_parent_organisations],
   ].freeze
 
   REVERSE_LINKS = {
@@ -46,6 +48,8 @@ module ExpansionRules
     pages_related_to_step_nav: :related_to_step_navs,
     legacy_taxons: :topic_taxonomy_taxons,
     pages_secondary_to_step_nav: :secondary_to_step_navs,
+    person: :role_appointments,
+    role: :role_appointments,
   }.freeze
 
   DEFAULT_FIELDS = [
