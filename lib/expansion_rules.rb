@@ -75,7 +75,7 @@ module ExpansionRules
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
   ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body)).freeze
-  ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on)).freeze
+  ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on, :current, :person_appointment_order)).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]]).freeze
   STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
