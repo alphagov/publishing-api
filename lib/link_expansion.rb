@@ -83,11 +83,14 @@ private
     edition_hash = content_cache.find(content_id)
     return {} if !edition_hash || !should_link?(node.link_type, edition_hash)
 
-    reverse_to_direct_link_type = rules.reverse_to_direct_link_type(node.link_types_path.first)
-    expanded = rules.expand_fields(edition_hash,
-                                   link_type: reverse_to_direct_link_type,
-                                   draft: with_drafts)
-    { reverse_to_direct_link_type => [expanded.merge(links: {})] }
+    rules
+      .reverse_to_direct_link_type(node.link_types_path.first)
+      .each_with_object({}) do |reverse_to_direct_link_type, memo|
+        expanded = rules.expand_fields(edition_hash,
+                                       link_type: reverse_to_direct_link_type,
+                                       draft: with_drafts)
+        memo[reverse_to_direct_link_type] = [expanded.merge(links: {})]
+      end
   end
 
   def should_link?(link_type, edition_hash)

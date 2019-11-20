@@ -173,7 +173,7 @@ module ExpansionRules
     %i[api_path withdrawn]
 
   def reverse_links
-    REVERSE_LINKS.values
+    REVERSE_LINKS.values.uniq
   end
 
   def reverse_link_type(link_type)
@@ -181,7 +181,9 @@ module ExpansionRules
   end
 
   def reverse_to_direct_link_type(link_type)
-    REVERSE_LINKS.key(link_type.to_sym)
+    REVERSE_LINKS
+      .filter { |_, value| value == link_type.to_sym }
+      .keys
   end
 
   def is_reverse_link_type?(link_type)
@@ -191,7 +193,7 @@ module ExpansionRules
   def reverse_to_direct_link_types(link_types)
     return unless link_types
 
-    link_types.map { |type| reverse_to_direct_link_type(type) }.compact
+    link_types.flat_map { |type| reverse_to_direct_link_type(type) }.compact
   end
 
   def reverse_link_types_hash(link_types)
@@ -280,11 +282,16 @@ module ExpansionRules
     next_allowed_link_types.each_with_object({}) do |(link_type, allowed_links), memo|
       next if allowed_links.empty?
 
-      link_type = (reverse_to_direct_link_type(link_type) || link_type) if reverse_to_direct
-
       links = allowed_links.reject { |link| is_reverse_link_type?(link) }
+      next if links.empty?
 
-      memo[link_type] = links unless links.empty?
+      if reverse_to_direct && (reverse_link_types = reverse_to_direct_link_type(link_type)).present?
+        link_types = reverse_link_types
+      else
+        link_types = [link_type]
+      end
+
+      link_types.each { |type| memo[type] = links }
     end
   end
 
@@ -292,13 +299,17 @@ module ExpansionRules
     next_allowed_link_types.each_with_object({}) do |(link_type, allowed_links), memo|
       next if allowed_links.empty?
 
-      link_type = (reverse_to_direct_link_type(link_type) || link_type) if reverse_to_direct
-
       links = allowed_links.select { |link| is_reverse_link_type?(link) }
-
       links = reverse_to_direct_link_types(links) if reverse_to_direct
+      next if links.empty?
 
-      memo[link_type] = links unless links.empty?
+      if reverse_to_direct && (reverse_link_types = reverse_to_direct_link_type(link_type)).present?
+        link_types = reverse_link_types
+      else
+        link_types = [link_type]
+      end
+
+      link_types.each { |type| memo[type] = links }
     end
   end
 end
