@@ -48,7 +48,7 @@ RSpec.describe ExpansionRules do
     let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
     let(:finder_fields) { default_fields + [%i(details facets)] }
     let(:role_fields) { default_fields + [%i(details body)] }
-    let(:role_appointment_fields) { default_fields + [%i(details started_on), %i(details ended_on)] }
+    let(:role_appointment_fields) { default_fields + [%i(details started_on), %i(details ended_on), %i(details current), %i(details person_appointment_order)] }
     let(:service_manual_topic_fields) { default_fields + %i(description) }
     let(:step_by_step_fields) { default_fields + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)] }
     let(:step_by_step_auth_bypass_fields) { step_by_step_fields + %i(auth_bypass_ids) }
