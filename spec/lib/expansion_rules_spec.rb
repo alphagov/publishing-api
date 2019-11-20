@@ -10,9 +10,10 @@ RSpec.describe ExpansionRules do
   end
 
   describe ".reverse_to_direct_link_type" do
-    specify { expect(rules.reverse_to_direct_link_type(:children)).to be(:parent) }
-    specify { expect(rules.reverse_to_direct_link_type(:parent)).to be_nil }
-    specify { expect(rules.reverse_to_direct_link_type(:made_up)).to be_nil }
+    specify { expect(rules.reverse_to_direct_link_type(:children)).to match_array(%i(parent)) }
+    specify { expect(rules.reverse_to_direct_link_type(:role_appointments)).to match_array(%i(role person)) }
+    specify { expect(rules.reverse_to_direct_link_type(:parent)).to be_empty }
+    specify { expect(rules.reverse_to_direct_link_type(:made_up)).to be_empty }
   end
 
   describe ".is_reverse_link_type?" do
@@ -284,6 +285,22 @@ RSpec.describe ExpansionRules do
         is_expected.to match(parent: [:parent])
       end
     end
+
+    context "when reverse_to_direct is true and passed a reverse link with multiple direct links" do
+      let(:reverse_to_direct) { true }
+      let(:next_allowed_link_types) do
+        {
+          role_appointments: [:other],
+        }
+      end
+
+      it "reverses the link type" do
+        is_expected.to match(
+          person: [:other],
+          role: [:other],
+        )
+      end
+    end
   end
 
   describe ".next_allowed_reverse_link_types" do
@@ -343,10 +360,23 @@ RSpec.describe ExpansionRules do
         is_expected.to match(parent: [:parent])
       end
     end
+
+    context "when reverse_to_direct is true and passed a reverse link with multiple direct links" do
+      let(:reverse_to_direct) { true }
+      let(:next_allowed_link_types) do
+        {
+          other: [:role_appointments],
+        }
+      end
+
+      it "changes the link types to be their direct counterpart" do
+        is_expected.to match(other: %i(person role))
+      end
+    end
   end
 
   describe "REVERSE_LINKS" do
-    let(:reverse_links) { described_class::REVERSE_LINKS.values.map(&:to_s) }
+    let(:reverse_links) { described_class.reverse_links.map(&:to_s) }
 
     describe "are defined in necessary frontend schemas" do
       schemas_of_type("frontend/schema").each do |path, schema|
