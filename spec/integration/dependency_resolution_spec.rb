@@ -244,4 +244,17 @@ RSpec.describe "Dependency Resolution" do
       expect(dependency_resolution).to match_array([link_content_id])
     end
   end
+
+  context "where there are role_appointments links" do
+    let(:person) { SecureRandom.uuid }
+    let(:role) { SecureRandom.uuid }
+
+    before do
+      create_link_set(content_id, links_hash: { person: [person], role: [role] })
+    end
+
+    it "has a dependency to all items" do
+      expect(dependency_resolution).to match_array([person, role])
+    end
+  end
 end
