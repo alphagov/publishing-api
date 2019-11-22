@@ -195,7 +195,10 @@ module ExpansionRules
   def reverse_link_types_hash(link_types)
     link_types.each_with_object({}) do |(link_type, content_ids), memo|
       reversed = reverse_link_type(link_type)
-      memo[reversed] = content_ids if reversed
+      if reversed
+        memo[reversed] ||= []
+        memo[reversed] += content_ids
+      end
     end
   end
 
