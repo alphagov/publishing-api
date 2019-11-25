@@ -71,6 +71,7 @@ module ExpansionRules
   TAXON_FIELDS = (DEFAULT_FIELDS + %i[description details phase]).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
+  PERSON_FIELDS = (DEFAULT_FIELDS + details_fields(:body)).freeze
   ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body)).freeze
   ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on, :current, :person_appointment_order)).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]]).freeze
@@ -138,6 +139,9 @@ module ExpansionRules
         fields: FINDER_FIELDS },
       { document_type: :mainstream_browse_page,
         fields: DEFAULT_FIELDS_AND_DESCRIPTION },
+      { document_type: :person,
+        link_type: :person,
+        fields: PERSON_FIELDS },
       { document_type: :role_appointment,
         fields: ROLE_APPOINTMENT_FIELDS },
       { document_type: :service_manual_topic,
