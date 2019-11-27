@@ -48,16 +48,21 @@ module ExpansionRules
     role: :role_appointments,
   }.freeze
 
-  DEFAULT_FIELDS = [
+  # These fields are required by the frontend_links definition in the
+  # govuk-content-schemas
+  MANDATORY_FIELDS = [
+    :content_id,
+    :title,
+    :locale,
+  ].freeze
+
+  DEFAULT_FIELDS = MANDATORY_FIELDS + [
     :analytics_identifier,
     :api_path,
     :base_path,
-    :content_id,
     :document_type,
-    :locale,
     :public_updated_at,
     :schema_name,
-    :title,
     :withdrawn,
   ].freeze
 
