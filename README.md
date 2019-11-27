@@ -172,7 +172,7 @@ See [the contributing documentation][contributing] for more information.
 [content-store]: https://github.com/alphagov/content-store
 [content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md
 [data-migration]: https://github.com/alphagov/publishing-api/blob/master/CONTRIBUTING.md#are-you-writing-a-migration-to-change-publishing-api-data
-[pact]: https://github.com/realestate-com-au/pact
+[pact]: https://github.com/pact-foundation/pact-ruby
 [pact-broker-latest]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
 [link-set-link]: doc/link-expansion.md#patch-link-set---link-set-links
 [edition-link]: doc/link-expansion.md#put-content---edition-links
