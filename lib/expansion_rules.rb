@@ -83,9 +83,9 @@ module ExpansionRules
   STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
-  FACET_GROUP_FIELDS = (%i[content_id title locale schema_name] + details_fields(:name, :description)).freeze
+  FACET_GROUP_FIELDS = (MANDATORY_FIELDS + %i[schema_name] + details_fields(:name, :description)).freeze
   FACET_FIELDS = (
-    %i[content_id title locale schema_name] + details_fields(
+    MANDATORY_FIELDS + %i[schema_name] + details_fields(
       :combine_mode,
       :display_as_result_metadata,
       :filterable,
@@ -97,7 +97,7 @@ module ExpansionRules
       :type,
     )
   ).freeze
-  FACET_VALUE_FIELDS = (%i[content_id title locale schema_name] + details_fields(:label, :value)).freeze
+  FACET_VALUE_FIELDS = (MANDATORY_FIELDS + %i[schema_name] + details_fields(:label, :value)).freeze
 
   CUSTOM_EXPANSION_FIELDS_FOR_ROLES = (
     %i(
