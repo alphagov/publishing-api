@@ -108,11 +108,11 @@ module Queries
     end
 
     def where
-      if mode == :from
-        where = { "link_sets.content_id": content_id }
-      else
-        where = { "links.target_content_id": content_id }
-      end
+      where = if mode == :from
+                { "link_sets.content_id": content_id }
+              else
+                { "links.target_content_id": content_id }
+              end
       where[:link_type] = allowed_link_types if allowed_link_types
       where
     end

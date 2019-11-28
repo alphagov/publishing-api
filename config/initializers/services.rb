@@ -31,13 +31,13 @@ PublishingAPI.register_service(
   ),
 )
 
-if ENV["DISABLE_QUEUE_PUBLISHER"] || (Rails.env.test? && ENV["ENABLE_QUEUE_IN_TEST_MODE"].blank?)
-  rabbitmq_config = { noop: true }
-elsif ENV["RABBITMQ_URL"] && ENV["RABBITMQ_EXCHANGE"]
-  rabbitmq_config = { exchange: ENV["RABBITMQ_EXCHANGE"] }
-else
-  rabbitmq_config = Rails.application.config_for(:rabbitmq).symbolize_keys
-end
+rabbitmq_config = if ENV["DISABLE_QUEUE_PUBLISHER"] || (Rails.env.test? && ENV["ENABLE_QUEUE_IN_TEST_MODE"].blank?)
+                    { noop: true }
+                  elsif ENV["RABBITMQ_URL"] && ENV["RABBITMQ_EXCHANGE"]
+                    { exchange: ENV["RABBITMQ_EXCHANGE"] }
+                  else
+                    Rails.application.config_for(:rabbitmq).symbolize_keys
+                  end
 
 PublishingAPI.register_service(
   name: :queue_publisher,

@@ -18,18 +18,14 @@ module Queries
 
     def self.where_state(state_fallback_order)
       without_withdrawn = state_fallback_order - %w[withdrawn]
-      if without_withdrawn.present?
-        state_check = Edition.arel_table[:state].in(without_withdrawn)
-      else
-        state_check = nil
-      end
+      state_check = if without_withdrawn.present?
+                      Edition.arel_table[:state].in(without_withdrawn)
+                    end
 
-      if state_fallback_order.include?("withdrawn")
-        withdrawn_check = Edition.arel_table[:state].eq("unpublished")
+      withdrawn_check = if state_fallback_order.include?("withdrawn")
+                          Edition.arel_table[:state].eq("unpublished")
                             .and(Unpublishing.arel_table[:type].eq("withdrawal"))
-      else
-        withdrawn_check = nil
-      end
+                        end
 
       if state_check && withdrawn_check
         state_check.or(withdrawn_check)

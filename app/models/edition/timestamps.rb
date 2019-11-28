@@ -18,11 +18,9 @@ class Edition::Timestamps
     # from previous items. In future we'd like to avoid this date being copied
     # and instead have a reference between an edition and it's previous
     # major publishing.
-    if edition.update_type == "major"
-      edition.major_published_at = nil
-    else
-      edition.major_published_at = previous_live_version&.major_published_at
-    end
+    edition.major_published_at = if edition.update_type != "major"
+                                   previous_live_version&.major_published_at
+                                 end
 
     # If the payload value is nil, we rely on publish to populate public_updated_at
     edition.public_updated_at = payload[:public_updated_at]

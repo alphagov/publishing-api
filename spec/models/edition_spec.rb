@@ -342,7 +342,7 @@ RSpec.describe Edition do
     end
 
     it "leaves the content_store as live with a type of anything else" do
-      expect { subject.unpublish(type: "gone") }.to_not change { subject.content_store }
+      expect { subject.unpublish(type: "gone") }.to_not(change { subject.content_store })
     end
 
     it "changes the state to unpublished" do
