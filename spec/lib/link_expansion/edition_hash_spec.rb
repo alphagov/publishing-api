@@ -7,7 +7,7 @@ RSpec.describe LinkExpansion::EditionHash do
     end
     it "accepts an array argument" do
       expect(described_class.from(%w[123])).to include(
-        analytics_identifier: "123",
+        ExpansionRules::POSSIBLE_FIELDS_FOR_LINK_EXPANSION[0] => "123",
       )
     end
     it "accepts a Hash argument" do

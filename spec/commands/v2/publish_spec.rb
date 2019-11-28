@@ -192,8 +192,15 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "sets the source_fields to the correct value" do
-        expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with("downstream_high", hash_including(source_fields: %i(public_updated_at title)))
+        expect(DownstreamLiveWorker).to(
+          receive(:perform_async_in_queue)
+            .with(
+              "downstream_high",
+              hash_including(
+                source_fields: contain_exactly(:public_updated_at, :title),
+              ),
+            ),
+        )
 
         described_class.call(payload)
       end
