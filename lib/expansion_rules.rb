@@ -48,16 +48,21 @@ module ExpansionRules
     role: :role_appointments,
   }.freeze
 
-  DEFAULT_FIELDS = [
+  # These fields are required by the frontend_links definition in the
+  # govuk-content-schemas
+  MANDATORY_FIELDS = [
+    :content_id,
+    :title,
+    :locale,
+  ].freeze
+
+  DEFAULT_FIELDS = MANDATORY_FIELDS + [
     :analytics_identifier,
     :api_path,
     :base_path,
-    :content_id,
     :document_type,
-    :locale,
     :public_updated_at,
     :schema_name,
-    :title,
     :withdrawn,
   ].freeze
 
@@ -66,7 +71,7 @@ module ExpansionRules
   DEFAULT_FIELDS_AND_DESCRIPTION = (DEFAULT_FIELDS + [:description]).freeze
 
   CONTACT_FIELDS = (DEFAULT_FIELDS + details_fields(:description, :title, :contact_form_links, :post_addresses, :email_addresses, :phone_numbers)).freeze
-  GOVERNMENT_FIELDS = (%i[content_id title api_path base_path document_type] + details_fields(:started_on, :ended_on, :current)).freeze
+  GOVERNMENT_FIELDS = (MANDATORY_FIELDS + %i[api_path base_path document_type] + details_fields(:started_on, :ended_on, :current)).freeze
   ORGANISATION_FIELDS = (DEFAULT_FIELDS - [:public_updated_at] + details_fields(:logo, :brand, :default_news_image)).freeze
   TAXON_FIELDS = (DEFAULT_FIELDS + %i[description details phase]).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
@@ -78,9 +83,9 @@ module ExpansionRules
   STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
-  FACET_GROUP_FIELDS = (%i[content_id title locale schema_name] + details_fields(:name, :description)).freeze
+  FACET_GROUP_FIELDS = (MANDATORY_FIELDS + %i[schema_name] + details_fields(:name, :description)).freeze
   FACET_FIELDS = (
-    %i[content_id title locale schema_name] + details_fields(
+    MANDATORY_FIELDS + %i[schema_name] + details_fields(
       :combine_mode,
       :display_as_result_metadata,
       :filterable,
@@ -92,7 +97,7 @@ module ExpansionRules
       :type,
     )
   ).freeze
-  FACET_VALUE_FIELDS = (%i[content_id title locale schema_name] + details_fields(:label, :value)).freeze
+  FACET_VALUE_FIELDS = (MANDATORY_FIELDS + %i[schema_name] + details_fields(:label, :value)).freeze
 
   CUSTOM_EXPANSION_FIELDS_FOR_ROLES = (
     %i(
