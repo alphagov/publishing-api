@@ -23,15 +23,15 @@ module ExpansionRules
     [:parent.recurring],
     [:parent_taxons.recurring],
     [:parent_taxons.recurring, :root_taxon],
-    [:taxons, :root_taxon],
+    %i[taxons root_taxon],
     [:taxons, :parent_taxons.recurring],
     [:taxons, :parent_taxons.recurring, :root_taxon],
     [:ordered_related_items, :mainstream_browse_pages, :parent.recurring],
-    [:ordered_related_items_overrides, :taxons],
-    [:facets, :facet_values, :facet_group],
-    [:facet_group, :facets, :facet_values],
-    [:role_appointments, :person],
-    [:role_appointments, :role, :ordered_parent_organisations],
+    %i[ordered_related_items_overrides taxons],
+    %i[facets facet_values facet_group],
+    %i[facet_group facets facet_values],
+    %i[role_appointments person],
+    %i[role_appointments role ordered_parent_organisations],
   ].freeze
 
   REVERSE_LINKS = {
@@ -50,20 +50,20 @@ module ExpansionRules
 
   # These fields are required by the frontend_links definition in the
   # govuk-content-schemas
-  MANDATORY_FIELDS = [
-    :content_id,
-    :title,
-    :locale,
+  MANDATORY_FIELDS = %i[
+    content_id
+    title
+    locale
   ].freeze
 
-  DEFAULT_FIELDS = MANDATORY_FIELDS + [
-    :analytics_identifier,
-    :api_path,
-    :base_path,
-    :document_type,
-    :public_updated_at,
-    :schema_name,
-    :withdrawn,
+  DEFAULT_FIELDS = MANDATORY_FIELDS + %i[
+    analytics_identifier
+    api_path
+    base_path
+    document_type
+    public_updated_at
+    schema_name
+    withdrawn
   ].freeze
 
   DRAFT_ONLY_FIELDS = %i[auth_bypass_ids].freeze
@@ -82,7 +82,7 @@ module ExpansionRules
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]]).freeze
   STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
-  WORLD_LOCATION_FIELDS = [:content_id, :title, :schema_name, :locale, :analytics_identifier].freeze
+  WORLD_LOCATION_FIELDS = %i[content_id title schema_name locale analytics_identifier].freeze
   FACET_GROUP_FIELDS = (MANDATORY_FIELDS + %i[schema_name] + details_fields(:name, :description)).freeze
   FACET_FIELDS = (
     MANDATORY_FIELDS + %i[schema_name] + details_fields(
@@ -296,11 +296,11 @@ module ExpansionRules
       links = allowed_links.reject { |link| is_reverse_link_type?(link) }
       next if links.empty?
 
-      if reverse_to_direct && (reverse_link_types = reverse_to_direct_link_type(link_type)).present?
-        link_types = reverse_link_types
-      else
-        link_types = [link_type]
-      end
+      link_types = if reverse_to_direct && (reverse_link_types = reverse_to_direct_link_type(link_type)).present?
+                     reverse_link_types
+                   else
+                     [link_type]
+                   end
 
       link_types.each { |type| memo[type] = links }
     end
@@ -314,11 +314,11 @@ module ExpansionRules
       links = reverse_to_direct_link_types(links) if reverse_to_direct
       next if links.empty?
 
-      if reverse_to_direct && (reverse_link_types = reverse_to_direct_link_type(link_type)).present?
-        link_types = reverse_link_types
-      else
-        link_types = [link_type]
-      end
+      link_types = if reverse_to_direct && (reverse_link_types = reverse_to_direct_link_type(link_type)).present?
+                     reverse_link_types
+                   else
+                     [link_type]
+                   end
 
       link_types.each { |type| memo[type] = links }
     end

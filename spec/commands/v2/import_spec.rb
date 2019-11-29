@@ -140,13 +140,11 @@ RSpec.describe Commands::V2::Import, type: :request do
     context "with a invalid array of states" do
       def payload_for_states(states)
         history = states.map do |state|
-          if state == "unpublished"
-            state_hash = { name: state,
-                           type: "withdrawal",
-                           explanation: "placeholder" }
-          else
-            state_hash = { name: state }
-          end
+          state_hash = if state == "unpublished"
+                         { name: state, type: "withdrawal", explanation: "placeholder" }
+                       else
+                         { name: state }
+                       end
 
           content_item.merge(states: [state_hash])
         end

@@ -10,22 +10,35 @@ namespace :db do
   end
 end
 
-task :restore_policy_links, [:action] => [:environment] do |_, args|
-  dry_run = args["action"] != "apply"
-  puts "Dry run" if dry_run
+def dry_run(args)
+  args["action"] != "apply"
+end
 
-  policy_query = Queries::GetContentCollection.new(
+def policy_wipe_events
+  # Identify the destructive events
+  @policy_wipe_events ||= Event
+    .where("created_at::date = '2016-03-14' and action = 'PatchLinkSet'")
+    .where(content_id: policy_query.call.map { |item| item["content_id"] })
+    .order("content_id, created_at asc")
+end
+
+def policy_query
+  Queries::GetContentCollection.new(
     document_types: "policy",
     fields: %w(content_id),
     pagination: NullPagination.new,
   )
-  policy_content_ids = policy_query.call.map { |item| item["content_id"] }
+end
 
-  # Identify the destructive events
-  policy_wipe_events = Event
-    .where("created_at::date = '2016-03-14' and action = 'PatchLinkSet'")
-    .where(content_id: policy_content_ids)
-    .order("content_id, created_at asc")
+def policy_events(wipe_event)
+  Event.where(
+    content_id: wipe_event.content_id,
+    action: %w(PutContentWithLinks PatchLinkSet),
+  ).order("created_at desc")
+end
+
+task :restore_policy_links, [:action] => [:environment] do |_, args|
+  puts "Dry run" if dry_run(args)
 
   wipe_events_by_content_id = Hash.new { |h, k| h[k] = [] }
 
@@ -43,29 +56,22 @@ task :restore_policy_links, [:action] => [:environment] do |_, args|
   policy_wipe_events.each do |wipe_event|
     puts "Restoring #{wipe_event.content_id}..."
 
-    policy_events = Event.where(
-      content_id: wipe_event.content_id,
-      action: %w(PutContentWithLinks PatchLinkSet),
-    ).order("created_at desc")
-
     policy_log = []
 
-    policy_events.each do |event|
+    policy_events(wipe_event).each do |event|
       policy_log << event
       break if event.action == "PutContentWithLinks"
     end
 
     raise "Event log error: no events found for #{wipe_event.content_id}" if policy_log.empty?
 
-    if policy_log.last.action != "PutContentWithLinks"
-      # Policy created since Publishing API V2
-      puts "New policy #{wipe_event.content_id}"
-    end
+    # Policy created since Publishing API V2
+    puts "New policy #{wipe_event.content_id}" if policy_log.last.action != "PutContentWithLinks"
 
     policy_log.reverse_each do |event|
       unless wipe_events_by_content_id[event.content_id].include?(event.id)
         puts "Reapplying #{event.created_at} #{event.action}: #{event.payload[:links]}"
-        Commands::V2::PatchLinkSet.call(event.payload) unless dry_run
+        Commands::V2::PatchLinkSet.call(event.payload) unless dry_run(args)
       end
     end
 

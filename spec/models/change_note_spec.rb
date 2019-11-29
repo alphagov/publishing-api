@@ -19,7 +19,7 @@ RSpec.describe ChangeNote do
     context "update_type is not major" do
       let(:update_type) { "minor" }
       it "doesn't create a change note" do
-        expect { subject }.to_not change { ChangeNote.count }
+        expect { subject }.to_not(change { ChangeNote.count })
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe ChangeNote do
           subject
           expect {
             described_class.create_from_edition(payload, edition)
-          }.to_not change { ChangeNote.count }
+          }.to_not(change { ChangeNote.count })
         end
       end
 
@@ -66,14 +66,14 @@ RSpec.describe ChangeNote do
     context "edition has an empty change_history entry in details hash" do
       let(:details) { { change_history: [] } }
       it "populates change note from details hash" do
-        expect { subject }.to_not change { ChangeNote.count }
+        expect { subject }.to_not(change { ChangeNote.count })
       end
     end
 
     context "edition has a nil change_history entry in details hash" do
       let(:details) { { change_history: nil } }
       it "populates change note from details hash" do
-        expect { subject }.to_not change { ChangeNote.count }
+        expect { subject }.to_not(change { ChangeNote.count })
       end
     end
 

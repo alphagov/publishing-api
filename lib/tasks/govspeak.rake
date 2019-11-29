@@ -1,17 +1,23 @@
 require "colorize"
 
+def find_editions
+  editions = Edition.where(state: %w(published unpublished draft))
+  editions = editions.where(publishing_app: args[:publishing_app]) if args[:publishing_app].present?
+  editions = editions.limit(args[:limit]) if args[:limit].present?
+  editions = editions.offset(args[:offset]) if args[:offset].present?
+  editions = editions.order(args[:order])
+
+  editions
+end
+
 namespace :govspeak do
   task :compare, %i[publishing_app limit offset order] => :environment do |_, args|
     args.with_defaults(order: "editions.id ASC")
-    scope = Edition.where(state: %w(published unpublished draft))
-    scope = scope.where(publishing_app: args[:publishing_app]) if args[:publishing_app].present?
-    scope = scope.limit(args[:limit]) if args[:limit].present?
-    scope = scope.offset(args[:offset]) if args[:offset].present?
-    scope = scope.order(args[:order])
-    total = scope.count
+    editions = find_editions
+    total = editions.count
     same_html = 0
     trivial_differences = 0
-    scope.each do |edition|
+    editions.each do |edition|
       comparer = DataHygiene::GovspeakCompare.new(edition)
       same_html += 1 if comparer.same_html?
       trivial_differences += 1 if !comparer.same_html? && comparer.pretty_much_same_html?

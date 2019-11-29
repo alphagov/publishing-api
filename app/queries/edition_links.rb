@@ -62,11 +62,11 @@ module Queries
     end
 
     def where(query)
-      if mode == :from
-        condition = { "documents.content_id": content_id }
-      else
-        condition = { target_content_id: content_id }
-      end
+      condition = if mode == :from
+                    { "documents.content_id": content_id }
+                  else
+                    { target_content_id: content_id }
+                  end
       condition[:"documents.locale"] = locale if locale
       condition[:link_type] = allowed_link_types if allowed_link_types
       query.where(condition).where(draft_condition)

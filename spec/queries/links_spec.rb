@@ -9,7 +9,7 @@ RSpec.describe Queries::Links do
     subject(:result) { described_class.from(content_id) }
 
     context "when there is not a link" do
-      it { is_expected.to be {} }
+      it { is_expected.to(be {}) }
     end
 
     context "when there is a link" do
@@ -165,7 +165,7 @@ RSpec.describe Queries::Links do
     subject(:result) { described_class.to(content_id) }
 
     context "when there is not a link" do
-      it { is_expected.to be {} }
+      it { is_expected.to(be {}) }
     end
 
     context "when there is a link" do
