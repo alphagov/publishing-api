@@ -30,7 +30,7 @@ module ContentDumpLoader
       csv.each_with_object({}) do |row, hash|
         content_item_hash = Hash[keys.zip(row)].symbolize_keys
         content_item = ContentItem.new(*content_item_hash.values_at(*ContentItem.members))
-        content_item.updated_at = Time.parse(content_item.updated_at)
+        content_item.updated_at = Time.zone.parse(content_item.updated_at)
         hash[content_item.base_path.to_sym] = content_item
       end
     end

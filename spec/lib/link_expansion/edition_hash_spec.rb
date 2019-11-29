@@ -22,7 +22,7 @@ RSpec.describe LinkExpansion::EditionHash do
     end
     it "raises an ArgumentError otherwise" do
       expect {
-        described_class.from(Time.now)
+        described_class.from(Time.zone.now)
       }.to raise_error ArgumentError
     end
   end

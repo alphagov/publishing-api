@@ -163,7 +163,7 @@ module Commands
       end
 
       def set_publishing_request_id
-        edition.update_attributes!(
+        edition.update!(
           publishing_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end
@@ -171,7 +171,7 @@ module Commands
       def set_update_type
         return if edition.update_type
 
-        edition.update_attributes!(update_type: update_type)
+        edition.update!(update_type: update_type)
       end
 
       def publish_redirect(previous_base_path, locale)

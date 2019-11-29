@@ -5,14 +5,14 @@ namespace :content do
 
     @failed_content_ids = []
 
-    start_time = Time.now
+    start_time = Time.zone.now
     puts "Start updating content items, at #{start_time}"
 
     content_ids.each do |content_id|
       update_content(content_id)
     end
 
-    end_time = Time.now
+    end_time = Time.zone.now
     elapsed_time = end_time - start_time
 
     puts "Total elapsed time: #{elapsed_time}s"

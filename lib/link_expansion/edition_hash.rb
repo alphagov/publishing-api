@@ -1,7 +1,7 @@
 class LinkExpansion::EditionHash
   class << self
     def from(values)
-      return nil unless values.present?
+      return nil if values.blank?
 
       hash = hash_for(values)
       hash = SymbolizeJSON.symbolize(hash)
@@ -14,7 +14,7 @@ class LinkExpansion::EditionHash
   private
 
     def hash_for(values)
-      return nil unless values.present?
+      return nil if values.blank?
 
       case values
       when Array

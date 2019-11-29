@@ -15,7 +15,7 @@ module Presenters
       end
 
       def translations
-        return {} unless expanded_translations.present?
+        return {} if expanded_translations.blank?
 
         { available_translations: expanded_translations }
       end

@@ -24,7 +24,7 @@ RSpec.describe Commands::BaseCommand do
 
   class Commands::SlowCommand < Commands::BaseCommand
     def call
-      Timecop.travel Time.now + 1
+      Timecop.travel Time.zone.now + 1
       :foo
     end
   end

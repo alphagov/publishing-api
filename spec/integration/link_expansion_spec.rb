@@ -230,7 +230,7 @@ RSpec.describe "Link Expansion" do
     context "when the depended on edition has no location" do
       before do
         create_link(a, b, "parent")
-        Edition.find_by(base_path: "/b").update_attributes!(base_path: nil)
+        Edition.find_by(base_path: "/b").update!(base_path: nil)
       end
 
       it "has no web_url" do

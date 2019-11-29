@@ -41,7 +41,7 @@ private
   end
 
   def fetch_editions_from_database(content_ids)
-    return [] unless content_ids.present?
+    return [] if content_ids.blank?
 
     edition_ids = Queries::GetEditionIdsWithFallbacks.(content_ids,
                                                        locale_fallback_order: locale_fallback_order,

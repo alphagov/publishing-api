@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Commands::V2::Publish do
   describe "call" do
     before do
-      Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+      Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0))
     end
 
     after do
@@ -76,7 +76,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "with an update_type stored on the draft edition" do
         before do
-          draft_item.update_attributes!(update_type: "major")
+          draft_item.update!(update_type: "major")
         end
 
         it "uses the update_type from the draft edition" do
@@ -89,7 +89,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "without an update_type stored on the draft edition" do
         before do
-          draft_item.update_attributes!(update_type: nil)
+          draft_item.update!(update_type: nil)
         end
 
         it "raises an error" do
@@ -104,7 +104,7 @@ RSpec.describe Commands::V2::Publish do
       before do
         draft_item.update(
           details: {
-            change_history: [{ note: "Info", public_timestamp: Time.now }],
+            change_history: [{ note: "Info", public_timestamp: Time.zone.now }],
           },
         )
       end
@@ -142,14 +142,14 @@ RSpec.describe Commands::V2::Publish do
 
       context "and update_type is major" do
         before do
-          draft_item.update_attributes!(update_type: "major")
+          draft_item.update!(update_type: "major")
         end
 
         it "sets major_published_at to current time" do
           described_class.call(payload)
 
           edition = Edition.last
-          expect(edition.major_published_at).to eq(Time.now)
+          expect(edition.major_published_at).to eq(Time.zone.now)
         end
       end
 
@@ -351,7 +351,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "with a public_updated_at set on the draft edition" do
         before do
-          draft_item.update_attributes!(public_updated_at: public_updated_at)
+          draft_item.update!(public_updated_at: public_updated_at)
         end
 
         it "public_updated_at does not change for major or minor" do
@@ -363,14 +363,14 @@ RSpec.describe Commands::V2::Publish do
 
       context "with no public_updated_at set on the draft edition" do
         before do
-          draft_item.update_attributes!(public_updated_at: nil)
+          draft_item.update!(public_updated_at: nil)
         end
 
         context "and the update_type is major" do
           it "updates public_updated_at to current time" do
             described_class.call(payload)
 
-            expect(draft_item.reload.public_updated_at).to eq(Time.now)
+            expect(draft_item.reload.public_updated_at).to eq(Time.zone.now)
           end
         end
 
@@ -396,13 +396,13 @@ RSpec.describe Commands::V2::Publish do
 
           context "and the previous live version does not have public_updated_at" do
             before do
-              live_item.update_attributes(public_updated_at: nil)
+              live_item.update(public_updated_at: nil)
             end
 
             it "updates public_updated_at to current time" do
               described_class.call(payload)
 
-              expect(draft_item.reload.public_updated_at).to eq(Time.now)
+              expect(draft_item.reload.public_updated_at).to eq(Time.zone.now)
             end
           end
         end
@@ -432,7 +432,7 @@ RSpec.describe Commands::V2::Publish do
 
     context "with no first_published_at set on the edition" do
       before do
-        draft_item.update_attributes!(first_published_at: nil)
+        draft_item.update!(first_published_at: nil)
       end
 
       it "sets first_published_at to the current time" do

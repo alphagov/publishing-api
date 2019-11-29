@@ -83,7 +83,7 @@ module Presenters
       end
 
       def search(scope)
-        return scope unless search_query.present?
+        return scope if search_query.blank?
 
         conditions = search_in.map { |search_field| "#{search_field} ilike :query" }
         scope.where(conditions.join(" OR "), query: "%#{search_query}%")

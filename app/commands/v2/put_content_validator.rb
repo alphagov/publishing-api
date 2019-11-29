@@ -27,7 +27,7 @@ module Commands
       end
 
       def validate_publishing_app
-        return unless payload[:publishing_app].blank?
+        return if payload[:publishing_app].present?
 
         code = 422
         message = "publishing_app is required"

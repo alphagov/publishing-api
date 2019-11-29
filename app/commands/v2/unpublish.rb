@@ -50,7 +50,7 @@ module Commands
       end
 
       def validate_edition_presence
-        unless edition.present?
+        if edition.blank?
           message = "Could not find an edition to unpublish"
           raise_command_error(404, message, fields: {})
         end

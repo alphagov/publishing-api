@@ -4,7 +4,7 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
   include_context "PutContent call"
 
   before do
-    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+    Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0))
   end
 
   after do

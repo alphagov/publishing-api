@@ -159,21 +159,21 @@ class Edition < ApplicationRecord
   end
 
   def publish
-    update_attributes!(state: "published", content_store: "live")
+    update!(state: "published", content_store: "live")
   end
 
   def supersede
-    update_attributes!(state: "superseded", content_store: nil)
+    update!(state: "superseded", content_store: nil)
   end
 
   def unpublish(type:, explanation: nil, alternative_path: nil, redirects: nil, unpublished_at: nil)
     content_store = type == "substitute" ? nil : "live"
-    update_attributes!(state: "unpublished", content_store: content_store)
+    update!(state: "unpublished", content_store: content_store)
 
     unpublished_at = nil unless type == "withdrawal"
 
     if unpublishing.present?
-      unpublishing.update_attributes(
+      unpublishing.update(
         type: type,
         explanation: explanation,
         alternative_path: alternative_path,

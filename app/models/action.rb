@@ -1,4 +1,4 @@
-class Action < ActiveRecord::Base
+class Action < ApplicationRecord
   belongs_to :edition, optional: true
   belongs_to :link_set, optional: true
   belongs_to :event

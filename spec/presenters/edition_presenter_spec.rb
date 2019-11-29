@@ -182,7 +182,7 @@ RSpec.describe Presenters::EditionPresenter do
           create(:withdrawn_unpublished_edition,
                  base_path: base_path,
                  details: details,
-                 unpublished_at: Time.new(2016, 9, 10, 4, 5, 6))
+                 unpublished_at: Time.zone.local(2016, 9, 10, 4, 5, 6))
         end
 
         it "merges in a withdrawal notice with the withdrawn_at set correctly" do

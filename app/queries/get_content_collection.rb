@@ -52,7 +52,7 @@ module Queries
       scope = scope.where(document_type: document_types) if document_types.any?
       scope = scope.where(publishing_app: publishing_app) if publishing_app
       scope = scope.with_document.where("documents.locale": locale) unless locale == "all"
-      scope = Link.filter_editions(scope, link_filters) unless link_filters.blank?
+      scope = Link.filter_editions(scope, link_filters) if link_filters.present?
       scope
     end
 

@@ -43,7 +43,7 @@ module Commands
       end
 
       def overwrite_publishing_request_id
-        edition.update_attributes!(
+        edition.update!(
           publishing_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )
       end

@@ -1,4 +1,4 @@
-class ChangeNote < ActiveRecord::Base
+class ChangeNote < ApplicationRecord
   belongs_to :edition, optional: true
 
   def self.create_from_edition(payload, edition)
@@ -43,7 +43,7 @@ private
   end
 
   def create_from_details_hash_change_history
-    return unless change_history.present?
+    return if change_history.blank?
 
     history_element = change_history.max_by { |h| h[:public_timestamp] }
     change_note_instance.update!(

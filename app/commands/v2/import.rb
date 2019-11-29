@@ -104,7 +104,7 @@ module Commands
           when "published"
             content_item.publish
           when "draft"
-            content_item.update_attributes!(
+            content_item.update!(
               state: "draft",
               content_store: "draft",
             )
