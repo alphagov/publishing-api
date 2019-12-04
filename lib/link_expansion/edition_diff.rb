@@ -28,7 +28,7 @@ private
     )
   end
 
-  def hash_diff(a, b) # rubocop:disable Naming/UncommunicativeMethodParamName
+  def hash_diff(a, b) # rubocop:disable Naming/MethodParameterName
     a.size > b.size ? a.to_a - b.to_a : b.to_a - a.to_a
   end
 
