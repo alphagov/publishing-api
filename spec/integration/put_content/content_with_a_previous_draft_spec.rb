@@ -5,7 +5,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
-    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+    Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0))
   end
 
   after do
@@ -100,7 +100,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
 
   context "when the base path has changed" do
     before do
-      previously_drafted_item.update_attributes!(
+      previously_drafted_item.update!(
         routes: [{ path: "/old-path", type: "exact" }, { path: "/old-path.atom", type: "exact" }],
         base_path: "/old-path",
       )

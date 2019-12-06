@@ -3,7 +3,7 @@ RSpec.shared_context "using the message queue in test mode" do
   rabbitmq_config = nil
 
   before :all do
-    rabbitmq_config = YAML.load_file(Rails.root.join("config", "rabbitmq.yml"))[Rails.env].symbolize_keys
+    rabbitmq_config = YAML.load_file(Rails.root.join("config/rabbitmq.yml"))[Rails.env].symbolize_keys
     old_publisher = PublishingAPI.service(:queue_publisher)
     PublishingAPI.register_service(name: :queue_publisher, client: QueuePublisher.new(rabbitmq_config))
   end

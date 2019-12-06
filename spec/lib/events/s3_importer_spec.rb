@@ -27,8 +27,8 @@ RSpec.describe Events::S3Importer do
       action: "Publish",
       payload: { "content_id" => "2cc503f1-5fef-4fac-8381-63f6689cd6a2" },
       user_uid: nil,
-      created_at: Time.new(2015, 11, 11, 9, 55),
-      updated_at: Time.new(2015, 11, 11, 9, 55),
+      created_at: Time.zone.local(2015, 11, 11, 9, 55),
+      updated_at: Time.zone.local(2015, 11, 11, 9, 55),
       request_id: nil,
       content_id: "2cc503f1-5fef-4fac-8381-63f6689cd6a2",
     }

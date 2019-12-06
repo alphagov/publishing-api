@@ -276,7 +276,7 @@ Pact.provider_states_for "GDS API Adapters" do
                document: create(:document),
                base_path: "/path_#{index}",
                document_type: "topic",
-               public_updated_at: Time.local(2018, 12 - index, 1, 12, 0, 0))
+               public_updated_at: Time.zone.local(2018, 12 - index, 1, 12, 0, 0))
       end
     end
   end

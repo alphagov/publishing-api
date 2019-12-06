@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Events::S3Exporter do
-  let(:created_before) { Time.now }
+  let(:created_before) { Time.zone.now }
   let(:created_on_or_after) { nil }
   let(:client) { Aws::S3::Client.new(region: "eu-west-1", stub_responses: true) }
   let(:resource) { Aws::S3::Resource.new(client: client) }
   let(:object_exists?) { false }
-  let(:s3_key) { "events/#{created_before.to_s(:iso8601)}.csv.gz" }
+  let(:s3_key) { "events/#{created_before.strftime('%FT%T%:z')}.csv.gz" }
   let(:resource_double) { instance_double("Aws::S3::Resource", bucket: bucket_double) }
   let(:bucket_double) { instance_double("Aws::S3::Bucket", object: object_double) }
   let(:object_double) do
@@ -31,10 +31,10 @@ RSpec.describe Events::S3Exporter do
 
   describe "#export" do
     subject(:exporter) { described_class.new(created_before, created_on_or_after) }
-    let(:theresa_may_appointed) { Time.new(2016, 7, 13, 9) }
-    let(:david_cameron_appointed) { Time.new(2010, 5, 11, 9) }
-    let(:gordon_brown_appointed) { Time.new(2007, 6, 27, 9) }
-    let(:tony_blair_appointed) { Time.new(1997, 5, 2, 9) }
+    let(:theresa_may_appointed) { Time.zone.local(2016, 7, 13, 9) }
+    let(:david_cameron_appointed) { Time.zone.local(2010, 5, 11, 9) }
+    let(:gordon_brown_appointed) { Time.zone.local(2007, 6, 27, 9) }
+    let(:tony_blair_appointed) { Time.zone.local(1997, 5, 2, 9) }
 
     shared_examples "uploads to S3" do
       after { exporter.export }

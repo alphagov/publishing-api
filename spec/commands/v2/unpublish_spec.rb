@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Commands::V2::Unpublish do
   before do
-    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+    Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0))
   end
 
   after do
@@ -203,7 +203,7 @@ RSpec.describe Commands::V2::Unpublish do
             type: "gone",
             explanation: "Removed for testing porpoises",
             alternative_path: "/new-path",
-            unpublished_at: Time.new(2016, 8, 1, 1, 1, 1).rfc3339,
+            unpublished_at: Time.zone.local(2016, 8, 1, 1, 1, 1).rfc3339,
           }
         end
 
@@ -221,7 +221,7 @@ RSpec.describe Commands::V2::Unpublish do
               type: "withdrawal",
               explanation: "Removed for testing porpoises",
               alternative_path: "/new-path",
-              unpublished_at: Time.new(2016, 8, 1, 10, 10, 10).rfc3339,
+              unpublished_at: Time.zone.local(2016, 8, 1, 10, 10, 10).rfc3339,
             }
           end
 
@@ -229,7 +229,7 @@ RSpec.describe Commands::V2::Unpublish do
             described_class.call(payload)
 
             unpublishing = Unpublishing.find_by(edition: live_edition)
-            expect(unpublishing.unpublished_at).to eq Time.new(2016, 8, 1, 10, 10, 10)
+            expect(unpublishing.unpublished_at).to eq Time.zone.local(2016, 8, 1, 10, 10, 10)
           end
         end
       end

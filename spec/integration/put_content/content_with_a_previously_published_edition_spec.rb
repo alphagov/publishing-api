@@ -5,7 +5,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
 
   before do
     stub_request(:put, %r{.*content-store.*/content/.*})
-    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+    Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0))
   end
 
   after do

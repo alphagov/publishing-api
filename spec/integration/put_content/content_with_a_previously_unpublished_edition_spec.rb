@@ -13,7 +13,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously unpublish
   let(:publishing_api_first_published_at) { "2016-01-02 12:23" }
 
   before do
-    Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0))
+    Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0))
     create(:unpublished_edition,
            document: create(:document, content_id: content_id, stale_lock_version: 2),
            user_facing_version: 5,

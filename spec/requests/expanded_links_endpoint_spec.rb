@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "GET /v2/expanded-links/:id", type: :request do
   let(:content_id) { SecureRandom.uuid }
-  let(:updated_at) { Time.new("2017-07-27 16:44:00") }
+  let(:updated_at) { Time.zone.local("2017-07-27 16:44:00") }
 
   context "when requested without a locale" do
     let(:expanded_links) do

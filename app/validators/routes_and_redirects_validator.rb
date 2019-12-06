@@ -2,7 +2,7 @@ class RoutesAndRedirectsValidator < ActiveModel::Validator
   def validate(record, base_path: nil)
     base_path = record.base_path if base_path.nil?
 
-    return unless base_path.present?
+    return if base_path.blank?
 
     routes = record.try(:routes) || []
     redirects = record.try(:redirects) || []
@@ -62,11 +62,11 @@ private
       type = route[:type]
       path = route[:path]
 
-      unless type.present?
+      if type.blank?
         record.errors[attribute] << "type must be present"
       end
 
-      unless path.present?
+      if path.blank?
         record.errors[attribute] << "path must be present"
       end
 
@@ -131,8 +131,8 @@ private
       path = redirect[:path]
       destination = redirect[:destination]
 
-      errors << "path must be present" unless path.present?
-      errors << "destination must be present" unless destination.present?
+      errors << "path must be present" if path.blank?
+      errors << "destination must be present" if destination.blank?
       errors << "path cannot equal the destination" if path == destination
       return unless errors.empty?
 

@@ -42,7 +42,7 @@ class Edition::Timestamps
 
     if update_type == "major"
       edition.major_published_at = now
-      edition.public_updated_at = now unless edition.public_updated_at.present?
+      edition.public_updated_at = now if edition.public_updated_at.blank?
     else
       # We copy major_published_at here as well as in put content as it's
       # possible for someone to specify the update_type at publish time.

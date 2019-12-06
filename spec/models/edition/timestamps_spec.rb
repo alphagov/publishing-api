@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Edition::Timestamps do
-  before { Timecop.freeze(Time.local(2017, 9, 1, 12, 0, 0)) }
+  before { Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0)) }
   after { Timecop.return }
   let(:current_time) { Time.zone.now }
 

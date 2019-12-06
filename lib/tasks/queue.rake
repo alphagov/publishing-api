@@ -34,7 +34,7 @@ namespace :queue do
   task :requeue_document_type, [] => :environment do |_, args|
     document_types = args.extras
 
-    raise(StandardError, "expecting document_type") unless document_types.present?
+    raise(StandardError, "expecting document_type") if document_types.blank?
 
     version = Event.maximum(:id)
 
@@ -62,7 +62,7 @@ namespace :queue do
   task :requeue_all_the_things, [:action] => :environment do |_, args|
     action = args.action
 
-    raise(StandardError, "expecting action") unless action.present?
+    raise(StandardError, "expecting action") if action.blank?
 
     if /major/.match?(action)
       raise(StandardError, "resending major updates is a bad idea: it will spam everyone with email alerts")
@@ -95,7 +95,7 @@ namespace :queue do
   desc "Preview of the message published onto rabbit MQ"
   task :preview_recent_message, [:document_type] => :environment do |_, args|
     document_type = args[:document_type]
-    raise(StandardError, "expecting document_type") unless document_type.present?
+    raise(StandardError, "expecting document_type") if document_type.blank?
 
     edition = Edition
               .with_document

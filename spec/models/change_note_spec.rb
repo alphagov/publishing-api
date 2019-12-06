@@ -81,7 +81,7 @@ RSpec.describe ChangeNote do
       let(:details) do
         {
           change_history: [
-            { public_timestamp: 3.day.ago.to_s, note: "note 3" },
+            { public_timestamp: 3.days.ago.to_s, note: "note 3" },
             { public_timestamp: 1.day.ago.to_s, note: "note 1" },
             { public_timestamp: 2.days.ago.to_s, note: "note 2" },
           ],

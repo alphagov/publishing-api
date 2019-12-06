@@ -62,7 +62,7 @@ module Commands
       end
 
       def check_update_type
-        return unless payload[:update_type].blank?
+        return if payload[:update_type].present?
 
         GovukError.notify(
           "#{payload[:publishing_app]} sent put content without providing an update_type",
@@ -101,7 +101,7 @@ module Commands
       def access_limit(edition)
         if payload[:access_limited].present?
           AccessLimit.find_or_create_by(edition: edition).tap do |access_limit|
-            access_limit.update_attributes!(
+            access_limit.update!(
               users: (payload[:access_limited][:users] || []),
               organisations: (payload[:access_limited][:organisations] || []),
             )
