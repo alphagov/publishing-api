@@ -637,7 +637,7 @@ GEM
     filelock (1.1.1)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (61.1.0)
+    gds-api-adapters (62.0.0)
       addressable
       link_header
       null_logger
@@ -1004,7 +1004,7 @@ DEPENDENCIES
   factory_bot_rails (~> 5.1)
   faker
   fuzzy_match (~> 2.1)
-  gds-api-adapters (~> 61)
+  gds-api-adapters (~> 62)
   gds-sso (~> 14.2)
   govspeak (~> 6.5.1)
   govuk-content-schema-test-helpers (~> 1.6)
