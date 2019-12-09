@@ -64,6 +64,14 @@ bundle exec rake represent_downstream:high_priority:content_id['some-content-id 
 
 N.B. The content ids are separated by a space.
 
+* Represent documents by document type(s) downstream via the high priority queue
+```
+bundle exec rake represent_downstream:high_priority:document_type['a-document-type a-document-type']
+```
+
+N.B. The document types are separated by a space. This has also been set up as a
+[Jenkins job](https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk_jenkins/manifests/jobs/publishing_api_republish_organisations.pp) which will need to be enabled.
+
 ## Populating expanded links into database
 
 The [expanded-links endpoint](api.md#get-v2expanded-linkscontent_id) defaults
