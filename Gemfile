@@ -6,7 +6,7 @@ gem "rails", "~> 5"
 
 gem "colorize", "~> 0.8"
 gem "dalli"
-gem "pg", "~> 1.1.4"
+gem "pg", "~> 1.2.0"
 gem "plek", "~> 3.0"
 
 
