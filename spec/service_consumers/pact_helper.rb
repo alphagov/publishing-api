@@ -133,6 +133,15 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
+  provider_state "a published content item exists with a draft edition for content_id: bed722e6-db68-43e5-9079-063f623335a7" do
+    set_up do
+      document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
+
+      create(:live_edition, :with_draft, document: document)
+    end
+  end
+
+
   provider_state "an unpublished content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
