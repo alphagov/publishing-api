@@ -33,13 +33,13 @@ module Queries
           "documents.locale": "en",
         )
         .order("documents.content_id ASC")
-        .order("CASE editions.state WHEN 'published' THEN 0 ELSE 1 END")
+        .order(Arel.sql("CASE editions.state WHEN 'published' THEN 0 ELSE 1 END"))
         .pluck(
-          "DISTINCT ON (documents.content_id) documents.content_id",
+          Arel.sql("DISTINCT ON (documents.content_id) documents.content_id"),
           :title,
           :state,
           :base_path,
-          "COALESCE(details->>'internal_name', title)",
+          Arel.sql("COALESCE(details->>'internal_name', title)"),
         )
     end
   end
