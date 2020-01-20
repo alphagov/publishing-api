@@ -787,7 +787,7 @@ GEM
       randexp (~> 0.1.7)
       rspec (>= 2.14)
       term-ansicolor (~> 1.0)
-    pact_broker-client (1.22.1)
+    pact_broker-client (1.22.3)
       httparty
       json
       rake
