@@ -113,38 +113,6 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
       expect(previously_drafted_item.base_path).to eq("/vat-rates")
     end
 
-    it "creates a redirect" do
-      put "/v2/content/#{content_id}", params: payload.to_json
-
-      redirect = Edition.find_by(
-        base_path: "/old-path",
-        state: "draft",
-      )
-
-      expect(redirect).to be_present
-      expect(redirect.schema_name).to eq("redirect")
-      expect(redirect.publishing_app).to eq("publisher")
-
-      expect(redirect.redirects).to eq([
-        {
-          path: "/old-path",
-          type: "exact",
-          destination: base_path,
-        }, {
-          path: "/old-path.atom",
-          type: "exact",
-          destination: "#{base_path}.atom",
-        }
-      ])
-      expect(redirect.document.owning_document).to eq(previously_drafted_item.document)
-    end
-
-    it "sends a create request to the draft content store for the redirect" do
-      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).twice
-
-      put "/v2/content/#{content_id}", params: payload.to_json
-    end
-
     context "when the locale differs from the existing draft edition" do
       before do
         payload.merge!(locale: "fr", title: "French Title")

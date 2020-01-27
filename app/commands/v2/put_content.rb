@@ -87,8 +87,8 @@ module Commands
         return unless payload[:base_path]
 
         RedirectHelper::Redirect.new(previously_published_edition,
-                                     @previous_edition,
-                                     payload, callbacks).create
+                                     payload,
+                                     callbacks).create
       end
 
       def present_response(edition)
