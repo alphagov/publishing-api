@@ -31,6 +31,7 @@ module ExpansionRules
     %i[facets facet_values facet_group],
     %i[facet_group facets facet_values],
     %i[role_appointments person],
+    %i[role_appointments role],
     %i[role_appointments role ordered_parent_organisations],
   ].freeze
 
