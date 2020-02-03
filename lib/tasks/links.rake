@@ -43,9 +43,17 @@ namespace :links do
 
     old_links = link_set.links.where(link_type: link_type)
 
+    puts "############ OLD LINKS ###############"
+    puts old_links.inspect
+    puts "###########################"
+
     new_links = old_links.reject do |link|
       link.target_content_id == target_content_id && link.link_type == link_type
     end
+
+    puts "############ NEW LINKS ###############"
+    puts new_links.inspect
+    puts "###########################"
 
     payload = {
       content_id: link_set.content_id,
@@ -53,6 +61,10 @@ namespace :links do
       previous_version: link_set.stale_lock_version,
       bulk_publishing: true,
     }
+
+    puts "############ PAYLOAD ###############"
+    puts payload.inspect
+    puts "###########################"
 
     Commands::V2::PatchLinkSet.call(payload)
   end
