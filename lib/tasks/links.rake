@@ -50,6 +50,7 @@ namespace :links do
     payload = {
       content_id: link_set.content_id,
       links: { link_type.to_sym => new_links },
+      previous_version: link_set.stale_lock_version,
       bulk_publishing: true,
     }
 
