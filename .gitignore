@@ -17,4 +17,3 @@ spec/examples.txt
 
 # Ignore the generated pact
 spec/pacts/publishing_api-content_store.json
-.DS_Store
