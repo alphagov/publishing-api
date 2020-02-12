@@ -595,7 +595,7 @@ GEM
     bindex (0.5.0)
     brakeman (4.7.1)
     builder (3.2.4)
-    bunny (2.14.3)
+    bunny (2.14.4)
       amq-protocol (~> 2.3, >= 2.3.0)
     byebug (11.1.1)
     capybara (3.29.0)
