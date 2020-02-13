@@ -58,7 +58,7 @@ group :development, :test do
   gem "rspec"
   gem "rspec-rails", "~> 3.9"
   gem "rubocop-govuk"
-  gem "simplecov", "0.18.1", require: false
+  gem "simplecov", "0.18.2", require: false
   gem "spring"
   gem "spring-commands-rspec"
   gem "stackprof", require: false
