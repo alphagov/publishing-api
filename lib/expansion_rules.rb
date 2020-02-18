@@ -28,8 +28,6 @@ module ExpansionRules
     [:taxons, :parent_taxons.recurring, :root_taxon],
     [:ordered_related_items, :mainstream_browse_pages, :parent.recurring],
     %i[ordered_related_items_overrides taxons],
-    %i[facets facet_values facet_group],
-    %i[facet_group facets facet_values],
     %i[role_appointments person],
     %i[role_appointments role ordered_parent_organisations],
   ].freeze
@@ -83,22 +81,6 @@ module ExpansionRules
   STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = %i[content_id title schema_name locale analytics_identifier].freeze
-  FACET_GROUP_FIELDS = (MANDATORY_FIELDS + %i[schema_name] + details_fields(:name, :description)).freeze
-  FACET_FIELDS = (
-    MANDATORY_FIELDS + %i[schema_name] + details_fields(
-      :combine_mode,
-      :display_as_result_metadata,
-      :filterable,
-      :filter_key,
-      :key,
-      :name,
-      :preposition,
-      :short_name,
-      :type,
-    )
-  ).freeze
-  FACET_VALUE_FIELDS = (MANDATORY_FIELDS + %i[schema_name] + details_fields(:label, :value)).freeze
-
   CUSTOM_EXPANSION_FIELDS_FOR_ROLES = (
     %i(
       ambassador_role
@@ -163,12 +145,6 @@ module ExpansionRules
         fields: TRAVEL_ADVICE_FIELDS },
       { document_type: :world_location,
         fields: WORLD_LOCATION_FIELDS },
-      { document_type: :facet_group,
-        fields: FACET_GROUP_FIELDS },
-      { document_type: :facet,
-        fields: FACET_FIELDS },
-      { document_type: :facet_value,
-        fields: FACET_VALUE_FIELDS },
       { document_type: :government,
         fields: GOVERNMENT_FIELDS },
     ] +
