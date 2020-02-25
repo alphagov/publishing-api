@@ -42,7 +42,7 @@ RSpec.describe ExpansionRules do
   describe ".expansion_fields" do
     let(:default_fields) { rules::DEFAULT_FIELDS }
     let(:contact_fields) { default_fields + [%i(details description), %i(details title), %i(details contact_form_links), %i(details post_addresses), %i(details email_addresses), %i(details phone_numbers)] }
-    let(:organisation_fields) { default_fields - [:public_updated_at] + [%i(details logo), %i(details brand), %i(details default_news_image)] }
+    let(:organisation_fields) { default_fields - [:public_updated_at] + [%i(details logo), %i(details brand), %i(details default_news_image), %i(details govuk_status)] }
     let(:taxon_fields) { default_fields + %i(description details phase) }
     let(:mainstream_browser_page_fields) { default_fields + %i(description) }
     let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
