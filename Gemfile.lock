@@ -698,7 +698,7 @@ GEM
       puma
       selenium-webdriver (>= 3.142)
       webdrivers (>= 4)
-    hashdiff (1.0.0)
+    hashdiff (1.0.1)
     hashie (3.6.0)
     htmlentities (4.3.4)
     http-accept (1.7.0)
@@ -1012,7 +1012,7 @@ DEPENDENCIES
   govuk_schemas (~> 4.0)
   govuk_sidekiq (~> 3.0)
   govuk_test (~> 1.0)
-  hashdiff (~> 1.0.0)
+  hashdiff (~> 1.0.1)
   json-schema
   oj (~> 3.10)
   pact
