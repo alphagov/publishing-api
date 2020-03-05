@@ -153,7 +153,7 @@ module Commands
                 422,
                 "Error processing history entry #{index}. "\
                 "For a state of unpublished, a type must be provided",
-                {}
+                {},
               )
             end
           end
@@ -162,7 +162,7 @@ module Commands
             raise_command_error(
               422,
               "Missing name for history entry state for history entry #{index}",
-              {}
+              {},
             )
           end
 
