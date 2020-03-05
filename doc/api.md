@@ -304,11 +304,9 @@ type. Uses [optimistic-locking][optimistic-locking].
 - `unpublished_at` *(optional)*
   - An [RFC 3339][rfc-3339] formatted timestamp should be provided, although
     [other formats][to-time-docs] may be accepted.
-  - Specifies when this edition was withdrawn. Ignored for unpublishing
-    types other than `withdrawn`.
-  - If omitted, the `withdrawn_at` time will be taken to be the time this call
-    was made.
-
+  - Specifies a publisher provided time of when this content was removed/withdrawn.
+  - Used to override the `withdrawn_at` time provided to content store, for
+    withdrawn documents content.
 
 ### State changes
 
