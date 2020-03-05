@@ -4,7 +4,7 @@ RSpec.describe "Keeping track of link changes", type: :request do
   scenario "No links are added or changed" do
     make_patch_links_request(
       "2ee935c3-d926-4737-aa23-e8c5edb5c3ca",
-      {}
+      {},
     )
 
     expect(LinkChange.count).to eql(0)
