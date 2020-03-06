@@ -170,8 +170,6 @@ class Edition < ApplicationRecord
     content_store = type == "substitute" ? nil : "live"
     update!(state: "unpublished", content_store: content_store)
 
-    unpublished_at = nil unless type == "withdrawal"
-
     if unpublishing.present?
       unpublishing.update(
         type: type,

@@ -8,7 +8,7 @@ FactoryBot.define do
       unpublishing_type { "gone" }
       explanation { "Removed for testing reasons" }
       alternative_path { "/new-path" }
-      unpublished_at { nil }
+      unpublished_at { "2014-01-02T03:04:05Z" }
     end
 
     after(:create) do |edition, evaluator|

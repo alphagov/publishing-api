@@ -163,6 +163,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(unpublishing.type).to eq("gone")
         expect(unpublishing.explanation).to eq("Removed for testing porpoises")
         expect(unpublishing.alternative_path).to eq("/new-path")
+        expect(unpublishing.unpublished_at).to be_nil
       end
 
       it "sends an unpublishing downstream" do
@@ -207,30 +208,11 @@ RSpec.describe Commands::V2::Unpublish do
           }
         end
 
-        it "ignores the provided unpublished_at" do
+        it "persists the provided unpublished_at" do
           described_class.call(payload)
 
           unpublishing = Unpublishing.find_by(edition: live_edition)
-          expect(unpublishing.unpublished_at).to be_nil
-        end
-
-        context "for a withdrawal" do
-          let(:payload) do
-            {
-              content_id: content_id,
-              type: "withdrawal",
-              explanation: "Removed for testing porpoises",
-              alternative_path: "/new-path",
-              unpublished_at: Time.zone.local(2016, 8, 1, 10, 10, 10).rfc3339,
-            }
-          end
-
-          it "persists the provided unpublished_at" do
-            described_class.call(payload)
-
-            unpublishing = Unpublishing.find_by(edition: live_edition)
-            expect(unpublishing.unpublished_at).to eq Time.zone.local(2016, 8, 1, 10, 10, 10)
-          end
+          expect(unpublishing.unpublished_at).to eq Time.zone.local(2016, 8, 1, 1, 1, 1)
         end
       end
     end

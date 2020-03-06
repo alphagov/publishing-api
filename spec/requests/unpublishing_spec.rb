@@ -212,6 +212,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
             },
           ],
           payload_version: anything,
+          public_updated_at: anything,
         },
       }
     }

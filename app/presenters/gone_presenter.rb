@@ -1,8 +1,9 @@
 class GonePresenter
-  def initialize(base_path:, content_id:, publishing_app:, alternative_path:, explanation:, locale:)
+  def initialize(base_path:, content_id:, publishing_app:, public_updated_at:, alternative_path:, explanation:, locale:)
     @base_path = base_path
     @content_id = content_id
     @publishing_app = publishing_app
+    @public_updated_at = public_updated_at
     @alternative_path = alternative_path
     @explanation = explanation
     @locale = locale
@@ -13,6 +14,7 @@ class GonePresenter
       base_path: edition.base_path,
       content_id: edition.content_id,
       publishing_app: edition.publishing_app,
+      public_updated_at: edition.unpublishing.unpublished_at || edition.unpublishing.created_at,
       alternative_path: edition.unpublishing.alternative_path,
       explanation: edition.unpublishing.explanation,
       locale: edition.locale,
@@ -33,7 +35,7 @@ class GonePresenter
 
 private
 
-  attr_reader :base_path, :content_id, :publishing_app, :alternative_path, :explanation, :locale
+  attr_reader :base_path, :content_id, :publishing_app, :public_updated_at, :alternative_path, :explanation, :locale
 
   def present
     {
@@ -42,6 +44,7 @@ private
       base_path: base_path,
       locale: locale,
       publishing_app: publishing_app,
+      public_updated_at: public_updated_at&.iso8601,
       details: {
         explanation: explanation,
         alternative_path: alternative_path,

@@ -13,7 +13,7 @@ class RedirectPresenter
       base_path: edition.base_path,
       content_id: edition.content_id,
       publishing_app: edition.publishing_app,
-      public_updated_at: edition.unpublishing.created_at,
+      public_updated_at: edition.unpublishing.unpublished_at || edition.unpublishing.created_at,
       redirects: edition.unpublishing.redirects,
       locale: edition.locale,
     )
