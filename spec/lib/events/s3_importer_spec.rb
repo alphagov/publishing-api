@@ -16,33 +16,37 @@ RSpec.describe Events::S3Importer do
   let(:file) { gzipped_file(file_contents) }
   let(:file_contents) do
     <<-CSV.strip_heredoc
-      id,action,payload,user_uid,created_at,updated_at,request_id,content_id
-      10,Publish,"{""content_id"":""2cc503f1-5fef-4fac-8381-63f6689cd6a2""}",,2015-11-11 09:55:00 UTC,2015-11-11 09:55:00 UTC,,2cc503f1-5fef-4fac-8381-63f6689cd6a2
-      11,Publish,"{""content_id"":""8bc0c1dd-4842-4283-a123-5671a34b67eb""}",e676cb22-0c0c-4534-9514-a65ebcc7a9e2,2015-11-11 14:00:00 UTC,2015-11-11 14:00:00 UTC,2027-1477408502.282-80.194.77.100-1361,8bc0c1dd-4842-4283-a123-5671a34b67eb
+      id,action,temp_payload,payload,user_uid,created_at,updated_at,request_id,content_id
+      10,Publish,"{""content_id"":""2cc503f1-5fef-4fac-8381-63f6689cd6a2""}","{""content_id"":""2cc503f1-5fef-4fac-8381-63f6689cd6a2""}",,2015-11-11 09:55:00 UTC,2015-11-11 09:55:00 UTC,,2cc503f1-5fef-4fac-8381-63f6689cd6a2
+      11,Publish,"{""content_id"":""8bc0c1dd-4842-4283-a123-5671a34b67eb""}","{""content_id"":""8bc0c1dd-4842-4283-a123-5671a34b67eb""}",e676cb22-0c0c-4534-9514-a65ebcc7a9e2,2015-11-11 14:00:00 UTC,2015-11-11 14:00:00 UTC,2027-1477408502.282-80.194.77.100-1361,8bc0c1dd-4842-4283-a123-5671a34b67eb
     CSV
   end
   let(:event_10_attributes) do
     {
       id: 10,
       action: "Publish",
+      temp_payload: { "content_id" => "2cc503f1-5fef-4fac-8381-63f6689cd6a2" },
       payload: { "content_id" => "2cc503f1-5fef-4fac-8381-63f6689cd6a2" },
       user_uid: nil,
       created_at: Time.zone.local(2015, 11, 11, 9, 55),
       updated_at: Time.zone.local(2015, 11, 11, 9, 55),
       request_id: nil,
       content_id: "2cc503f1-5fef-4fac-8381-63f6689cd6a2",
+      temp_payload: { "content_id" => "2cc503f1-5fef-4fac-8381-63f6689cd6a2" },
     }
   end
   let(:event_11_attributes) do
     {
       id: 11,
       action: "Publish",
+      temp_payload: { "content_id" => "8bc0c1dd-4842-4283-a123-5671a34b67eb" },
       payload: { "content_id" => "8bc0c1dd-4842-4283-a123-5671a34b67eb" },
       user_uid: "e676cb22-0c0c-4534-9514-a65ebcc7a9e2",
       created_at: Time.utc(2015, 11, 11, 14),
       updated_at: Time.utc(2015, 11, 11, 14),
       request_id: "2027-1477408502.282-80.194.77.100-1361",
       content_id: "8bc0c1dd-4842-4283-a123-5671a34b67eb",
+      temp_payload: { "content_id" => "8bc0c1dd-4842-4283-a123-5671a34b67eb" },
     }
   end
 

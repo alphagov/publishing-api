@@ -4,7 +4,7 @@ class Event < ApplicationRecord
   before_save :save_to_temp_columns
 
   def as_csv
-    attributes.merge("payload" => payload.to_json)
+    attributes.merge("payload" => payload.to_json).delete_if { |k, _| k == "temp_payload" }
   end
 
   def self.maximum_id
