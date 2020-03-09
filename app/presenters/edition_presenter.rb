@@ -17,6 +17,9 @@ module Presenters
       publishing_api_first_published_at
       publishing_api_last_edited_at
       state
+      temp_details
+      temp_redirects
+      temp_routes
       unpublishing_type
       updated_at
       user_facing_version
