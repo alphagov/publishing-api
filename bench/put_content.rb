@@ -1,21 +1,21 @@
 # /usr/bin/env ruby
 
-require ::File.expand_path('../../config/environment', __FILE__)
-require 'benchmark'
-require 'securerandom'
+require ::File.expand_path("../../config/environment", __FILE__)
+require "benchmark"
+require "securerandom"
 
-require 'faker'
-require 'stackprof'
+require "faker"
+require "stackprof"
 
 abort "Refusing to run outside of development" unless Rails.env.development?
 
 $queries = 0
-ActiveSupport::Notifications.subscribe "sql.active_record" do |name, started, finished, unique_id, data|
+ActiveSupport::Notifications.subscribe "sql.active_record" do |_name, _started, _finished, _unique_id, _data|
   $queries += 1
 end
 
-new_item = (ARGV.first == '--new-item')
-redraft = (ARGV.first == '--redraft')
+new_item = (ARGV.first == "--new-item")
+redraft = (ARGV.first == "--redraft")
 
 content_id = SecureRandom.uuid
 title = Faker::Company.catch_phrase
@@ -33,13 +33,13 @@ editions = 100.times.map do
     public_updated_at: Time.now.iso8601,
     locale: "en",
     routes: [
-      {path: "/performance-testing/#{title.parameterize}", type: "exact"}
+      { path: "/performance-testing/#{title.parameterize}", type: "exact" },
     ],
     redirects: [],
     publishing_app: "performance-testing",
     rendering_app: "performance-testing",
     details: {},
-    phase: 'live',
+    phase: "live",
   }
 end
 
@@ -48,7 +48,7 @@ begin
     puts "Creating published items..."
     editions.each do |item|
       Commands::V2::PutContent.call(item)
-      Commands::V2::Publish.call(content_id: item[:content_id], update_type: 'major')
+      Commands::V2::Publish.call(content_id: item[:content_id], update_type: "major")
     end
     $queries = 0
 
@@ -75,9 +75,8 @@ begin
   end
 
   puts "#{$queries} SQL queries"
-
 ensure
-  scope = Edition.includes(:document).where(publishing_app: 'performance-testing').joins(:document)
+  scope = Edition.includes(:document).where(publishing_app: "performance-testing").joins(:document)
   LinkSet.includes(:links).where(content_id: scope.pluck(:content_id)).destroy_all
   scope.delete_all
 end

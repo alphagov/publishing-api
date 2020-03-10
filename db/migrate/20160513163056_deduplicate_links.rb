@@ -13,9 +13,9 @@ class DeduplicateLinks < ActiveRecord::Migration[4.2]
         GROUP BY 1,2,3
         HAVING COUNT(id) > 1
       ) sub
-      SQL
+    SQL
     )
-    puts "#{res[0]["count"]} unique records of #{res[0]["sum"]} total duplicated"
+    puts "#{res[0]['count']} unique records of #{res[0]['sum']} total duplicated"
 
     res = Link.connection.execute(<<-SQL,
       DELETE FROM links USING links l2
@@ -23,7 +23,7 @@ class DeduplicateLinks < ActiveRecord::Migration[4.2]
         AND links.target_content_id = l2.target_content_id
         AND links.link_type = l2.link_type
         AND links.id < l2.id
-      SQL
+    SQL
     )
     puts "#{res.cmd_tuples} records deleted"
   end

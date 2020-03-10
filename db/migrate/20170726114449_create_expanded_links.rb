@@ -8,9 +8,9 @@ class CreateExpandedLinks < ActiveRecord::Migration[5.1]
       t.bigint :payload_version, null: false, default: 0
       t.timestamps
 
-      t.index [:content_id, :locale, :with_drafts],
-        unique: true,
-        name: "expanded_links_content_id_locale_with_drafts_index"
+      t.index %i[content_id locale with_drafts],
+              unique: true,
+              name: "expanded_links_content_id_locale_with_drafts_index"
     end
   end
 end

@@ -90,12 +90,13 @@ private
       created_at: "Tue, 28 Mar 2017 06:21:57 UTC +00:00",
       updated_at: "Wed, 29 Mar 2017 06:38:39 UTC +00:00",
     },
-  ]
+  ].freeze
 
   def update_multiple_locale_documents_without_editions
     MULTIPLE_LOCALE_DOCUMENTS_WITHOUT_EDITIONS.each do |data|
       document = Document.find_by(content_id: data[:content_id], locale: data[:locale])
       next unless document
+
       update_timestamps(document, data[:created_at], data[:updated_at])
     end
   end

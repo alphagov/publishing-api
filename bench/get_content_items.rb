@@ -1,18 +1,18 @@
 # /usr/bin/env ruby
 
-require ::File.expand_path('../../config/environment', __FILE__)
+require ::File.expand_path("../../config/environment", __FILE__)
 
-require 'benchmark'
+require "benchmark"
 
-require 'stackprof'
+require "stackprof"
 
 abort "Refusing to run outside of development" unless Rails.env.development?
 
-search = (ARGV.first == '--search')
+search = (ARGV.first == "--search")
 
 params = {
-  document_types: ['taxon', 'organisation', 'topic', 'mainstream_browse_page', 'policy'],
-  fields: ['content_id', 'document_type', 'title', 'base_path']
+  document_types: %w[taxon organisation topic mainstream_browse_page policy],
+  fields: %w[content_id document_type title base_path],
 }
 params.merge(q: "school", search_in: ["details.internal_name"]) if search
 
@@ -24,7 +24,7 @@ StackProf.run(mode: :wall, out: "tmp/get_editions_wall.dump") do
       Presenters::ResultsPresenter.new(
         Queries::GetContentCollection.new(params),
         Pagination.new,
-        'http://dev.gov.uk'
+        "http://dev.gov.uk",
       ).present
       print "."
     end

@@ -23,6 +23,7 @@ module Helpers
 
       supporting_classes.each do |klass|
         next unless ActiveRecord::Base.connection.data_source_exists?(klass.table_name)
+
         klass.where(edition: editions).destroy_all
       end
     end

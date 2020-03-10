@@ -1,9 +1,9 @@
 # /usr/bin/env ruby
 
-require ::File.expand_path('../../config/environment', __FILE__)
-require 'benchmark'
+require ::File.expand_path("../../config/environment", __FILE__)
+require "benchmark"
 
-require 'stackprof'
+require "stackprof"
 
 large_reverse = Link.find_by_sql(<<-SQL).first[:target_content_id]
   SELECT target_content_id
@@ -45,16 +45,16 @@ single_link = Link.find_by_sql(<<-SQL).first[:content_id]
 SQL
 
 benchmarks = {
-  'Many reverse dependencies' => large_reverse,
-  'Many forward dependencies' => large_forward,
-  'No dependencies' => no_links,
-  'Single link each way' => single_link,
-  'Import export topic' => "4bda0be5-3e65-4cc1-850c-0541e95a40ca"
+  "Many reverse dependencies" => large_reverse,
+  "Many forward dependencies" => large_forward,
+  "No dependencies" => no_links,
+  "Single link each way" => single_link,
+  "Import export topic" => "4bda0be5-3e65-4cc1-850c-0541e95a40ca",
 }
 
 benchmarks.each do |name, content_id|
   content_item_ids = Queries::GetLatest.(
-    Edition.where(content_id: content_id, state: :published)
+    Edition.where(content_id: content_id, state: :published),
   ).pluck(:id)
 
   edition = Edition.where(id: content_item_ids).first
@@ -62,9 +62,9 @@ benchmarks.each do |name, content_id|
   puts "#{name}: #{content_id}"
   StackProf.run(mode: :wall, out: "tmp/downstream_presenter_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
     puts Benchmark.measure {
-      10.times do |i|
+      10.times do |_i|
         Presenters::EditionPresenter.new(
-          edition, draft: false,
+          edition, draft: false
         )
         print "."
       end

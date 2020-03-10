@@ -1,9 +1,9 @@
 # /usr/bin/env ruby
 
-require ::File.expand_path('../../config/environment', __FILE__)
-require 'benchmark'
+require ::File.expand_path("../../config/environment", __FILE__)
+require "benchmark"
 
-require 'stackprof'
+require "stackprof"
 
 abort "Refusing to run outside of development" unless Rails.env.development?
 
@@ -48,15 +48,15 @@ single_link = Link.find_by_sql(<<-SQL).first[:content_id]
 SQL
 
 benchmarks = {
-  'Many reverse dependencies' => large_reverse,
-  'Many forward dependencies' => large_forward,
-  'No dependencies' => no_links,
-  'Single link each way' => single_link,
+  "Many reverse dependencies" => large_reverse,
+  "Many forward dependencies" => large_forward,
+  "No dependencies" => no_links,
+  "Single link each way" => single_link,
 }
 
 benchmarks.each do |name, content_id|
   content_item_ids = Queries::GetLatest.(
-    Edition.where(content_id: content_id)
+    Edition.where(content_id: content_id),
   ).pluck(:id)
 
   edition = Edition.where(id: content_item_ids).first
@@ -71,7 +71,7 @@ benchmarks.each do |name, content_id|
         payload = DownstreamPayload.new(
           edition,
           1,
-          Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER
+          Adapters::ContentStore::DEPENDENCY_FALLBACK_ORDER,
         )
         payload.content_store_payload
         payload.message_queue_payload(nil)
