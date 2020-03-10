@@ -54,23 +54,23 @@ begin
 
     puts "Publishing..."
     StackProf.run(mode: :wall, out: "tmp/put_content_wall.dump") do
-      puts Benchmark.measure {
+      puts(Benchmark.measure {
         editions.each do |item|
           Commands::V2::PutContent.call(item.merge(title: Faker::Company.catch_phrase))
           print "."
         end
         puts ""
-      }
+      })
     end
   else
     StackProf.run(mode: :wall, out: "tmp/put_content_wall.dump") do
-      puts Benchmark.measure {
+      puts(Benchmark.measure {
         editions.each do |item|
           Commands::V2::PutContent.call(item)
           print "."
         end
         puts ""
-      }
+      })
     end
   end
 

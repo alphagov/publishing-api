@@ -15,11 +15,11 @@ def present(number_of_items)
 
   puts "Presenting #{number_of_items} content items"
   StackProf.run(mode: :wall, out: "tmp/content_item_presenter_#{number_of_items}_wall.dump") do
-    puts Benchmark.measure {
+    puts(Benchmark.measure {
            Presenters::Queries::ContentItemPresenter.present_many(
              scope, limit: number_of_items
              ).to_a
-         }
+         })
   end
   puts "  Queries: #{$queries}"
 end

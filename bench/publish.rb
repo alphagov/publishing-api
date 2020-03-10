@@ -10,13 +10,13 @@ require "stackprof"
 abort "Refusing to run outside of development" unless Rails.env.development?
 
 def publish(editions)
-  puts Benchmark.measure {
+  puts(Benchmark.measure {
     editions.each do |item|
       Commands::V2::Publish.call(content_id: item[:content_id], update_type: "major")
       print "."
     end
     puts ""
-  }
+  })
 end
 
 $queries = 0

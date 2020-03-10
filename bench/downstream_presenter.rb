@@ -61,7 +61,7 @@ benchmarks.each do |name, content_id|
 
   puts "#{name}: #{content_id}"
   StackProf.run(mode: :wall, out: "tmp/downstream_presenter_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
-    puts Benchmark.measure {
+    puts(Benchmark.measure {
       10.times do |_i|
         Presenters::EditionPresenter.new(
           edition, draft: false
@@ -69,6 +69,6 @@ benchmarks.each do |name, content_id|
         print "."
       end
       puts ""
-    }
+    })
   end
 end
