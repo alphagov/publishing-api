@@ -9,7 +9,7 @@ class ChangeWithdrawnToUnpublished < ActiveRecord::Migration[4.2]
     end
 
     add_index :unpublishings, :content_item_id
-    add_index :unpublishings, [:content_item_id, :type]
+    add_index :unpublishings, %i[content_item_id type]
   end
 
   def down

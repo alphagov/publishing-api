@@ -1,5 +1,5 @@
 class ExtractAccessLimiting < ActiveRecord::Migration[4.2]
-  class DraftContentItem < ActiveRecord::Base
+  class DraftContentItem < ApplicationRecord
   end
 
   def up
@@ -10,7 +10,7 @@ class ExtractAccessLimiting < ActiveRecord::Migration[4.2]
       t.timestamps null: false
     end
 
-    add_index :access_limits, [:target_type, :target_id], name: "index_access_limits_on_target"
+    add_index :access_limits, %i[target_type target_id], name: "index_access_limits_on_target"
 
     DraftContentItem.where("access_limited::text <> '{}'::text").each do |limited_draft|
       users = limited_draft.access_limited[:users]

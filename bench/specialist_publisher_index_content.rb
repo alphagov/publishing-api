@@ -1,8 +1,8 @@
 # /usr/bin/env ruby
 
-require ::File.expand_path('../../config/environment', __FILE__)
+require ::File.expand_path("../../config/environment", __FILE__)
 
-require 'benchmark'
+require "benchmark"
 
 abort "Refusing to run outside of development" unless Rails.env.development?
 

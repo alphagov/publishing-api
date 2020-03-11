@@ -1,8 +1,8 @@
 class AddDraftContentItemIdToLiveContentItem < ActiveRecord::Migration[4.2]
-  class DraftContentItem < ActiveRecord::Base
+  class DraftContentItem < ApplicationRecord
   end
 
-  class LiveContentItem < ActiveRecord::Base
+  class LiveContentItem < ApplicationRecord
     belongs_to :draft_content_item
   end
 

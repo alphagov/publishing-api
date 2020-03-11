@@ -1,13 +1,13 @@
 class NewObjectModel < ActiveRecord::Migration[4.2]
-  class DraftContentItem < ActiveRecord::Base; end
-  class LiveContentItem < ActiveRecord::Base; end
-  class ContentItem < ActiveRecord::Base; end
-  class State < ActiveRecord::Base; end
-  class Translation < ActiveRecord::Base; end
-  class Location < ActiveRecord::Base; end
-  class LockVersion < ActiveRecord::Base; end
-  class UserFacingVersion < ActiveRecord::Base; end
-  class AcceessLimit < ActiveRecord::Base; end
+  class DraftContentItem < ApplicationRecord; end
+  class LiveContentItem < ApplicationRecord; end
+  class ContentItem < ApplicationRecord; end
+  class State < ApplicationRecord; end
+  class Translation < ApplicationRecord; end
+  class Location < ApplicationRecord; end
+  class LockVersion < ApplicationRecord; end
+  class UserFacingVersion < ApplicationRecord; end
+  class AcceessLimit < ApplicationRecord; end
 
   def up
     create_table :locations do |t|
@@ -17,7 +17,7 @@ class NewObjectModel < ActiveRecord::Migration[4.2]
       t.timestamps null: false
     end
     change_column_null :locations, :content_item_id, false
-    add_index :locations, [:content_item_id, :base_path]
+    add_index :locations, %i[content_item_id base_path]
 
     create_table :translations do |t|
       t.references :content_item
@@ -26,7 +26,7 @@ class NewObjectModel < ActiveRecord::Migration[4.2]
       t.timestamps null: false
     end
     change_column_null :translations, :content_item_id, false
-    add_index :translations, [:content_item_id, :locale]
+    add_index :translations, %i[content_item_id locale]
 
     create_table :states do |t|
       t.references :content_item
@@ -35,7 +35,7 @@ class NewObjectModel < ActiveRecord::Migration[4.2]
       t.timestamps null: false
     end
     change_column_null :states, :content_item_id, false
-    add_index :states, [:content_item_id, :name]
+    add_index :states, %i[content_item_id name]
 
     create_table :user_facing_versions do |t|
       t.references :content_item
@@ -44,12 +44,12 @@ class NewObjectModel < ActiveRecord::Migration[4.2]
       t.timestamps null: false
     end
     change_column_null :user_facing_versions, :content_item_id, false
-    add_index :user_facing_versions, [:content_item_id, :number]
+    add_index :user_facing_versions, %i[content_item_id number]
 
     create_table "lock_versions" do |t|
       t.integer  "target_id",               null: false
       t.string   "target_type",             null: false
-      t.integer  "number",      default: 0, null: false
+      t.integer  "number", default: 0, null: false
       t.datetime "created_at",              null: false
       t.datetime "updated_at",              null: false
     end
@@ -65,11 +65,11 @@ class NewObjectModel < ActiveRecord::Migration[4.2]
       t.json     "redirects",            default: []
       t.string   "publishing_app"
       t.string   "rendering_app"
-      t.json     "need_ids",             default: []
+      t.json     "need_ids", default: []
       t.string   "update_type"
-      t.string   "phase",                default: "live"
+      t.string   "phase", default: "live"
       t.string   "analytics_identifier"
-      t.json     "description",          default: {"value"=>nil}
+      t.json     "description", default: { "value" => nil }
       t.integer  "live_content_item_id"
       t.integer  "draft_content_item_id"
 

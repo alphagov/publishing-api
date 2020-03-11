@@ -8,6 +8,6 @@ class AddLinksTable < ActiveRecord::Migration[4.2]
       t.timestamps null: false
     end
 
-    add_index :links, [:link_set_id, :target_content_id]
+    add_index :links, %i[link_set_id target_content_id]
   end
 end

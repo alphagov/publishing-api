@@ -6,6 +6,6 @@ class CreateDocuments < ActiveRecord::Migration[5.0]
       t.integer :lock_version, null: false, default: 1
     end
 
-    add_index :documents, [:content_id, :locale], :unique => true
+    add_index :documents, %i[content_id locale], unique: true
   end
 end

@@ -19,7 +19,7 @@ class AddDerivedRepresentations < ActiveRecord::Migration[4.2]
       t.string :publishing_app
       t.string :rendering_app
     end
-    add_index :draft_content_items, [:content_id, :locale], unique: true
+    add_index :draft_content_items, %i[content_id locale], unique: true
 
     create_table :live_content_items do |t|
       t.string :content_id
@@ -39,7 +39,7 @@ class AddDerivedRepresentations < ActiveRecord::Migration[4.2]
       t.string :publishing_app
       t.string :rendering_app
     end
-    add_index :live_content_items, [:content_id, :locale], unique: true
+    add_index :live_content_items, %i[content_id locale], unique: true
 
     create_table :link_sets do |t|
       t.string :content_id

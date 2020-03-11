@@ -21,6 +21,5 @@ class PopulatePillarTableData < ActiveRecord::Migration[5.0]
             )'
   end
 
-  def down
-  end
+  def down; end
 end

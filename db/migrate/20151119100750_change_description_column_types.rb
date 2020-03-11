@@ -1,8 +1,8 @@
 class ChangeDescriptionColumnTypes < ActiveRecord::Migration[4.2]
-  class DraftContentItem < ActiveRecord::Base
+  class DraftContentItem < ApplicationRecord
   end
 
-  class LiveContentItem < ActiveRecord::Base
+  class LiveContentItem < ApplicationRecord
   end
 
   def change

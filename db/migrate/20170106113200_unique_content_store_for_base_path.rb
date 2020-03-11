@@ -5,8 +5,8 @@ class UniqueContentStoreForBasePath < ActiveRecord::Migration[5.0]
     # No 2 content items with the same base_path can be on the same
     # content_store at same time
     add_index :content_items,
-      [:base_path, :content_store],
-      unique: true,
-      algorithm: :concurrently
+              %i[base_path content_store],
+              unique: true,
+              algorithm: :concurrently
   end
 end

@@ -1,5 +1,5 @@
 class RenamePutLinksToPatchLinks < ActiveRecord::Migration[4.2]
-  class Event < ActiveRecord::Base
+  class Event < ApplicationRecord
   end
 
   def change
