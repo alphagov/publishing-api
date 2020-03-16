@@ -125,6 +125,8 @@ module Presenters
           "to_char(publishing_api_last_edited_at, '#{ISO8601_SQL}') as publishing_api_last_edited_at"
         when :publishing_api_first_published_at
           "to_char(publishing_api_first_published_at, '#{ISO8601_SQL}') as publishing_api_first_published_at"
+        when :updated_at
+          "to_char(editions.updated_at, '#{ISO8601_SQL}') as updated_at"
         when :unpublishing
           "#{UNPUBLISHING_SQL} AS unpublishing"
         when :change_note

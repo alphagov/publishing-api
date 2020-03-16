@@ -53,7 +53,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "state_history" => { 1 => "draft" },
         "title" => "VAT rates",
         "update_type" => "minor",
-        "updated_at" => "2016-01-01 00:00:00",
+        "updated_at" => "2016-01-01T00:00:00Z",
         "user_facing_version" => 1,
       }
     end

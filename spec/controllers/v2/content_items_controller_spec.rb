@@ -216,8 +216,8 @@ RSpec.describe V2::ContentItemsController do
           results = parsed_response["results"]
 
           expect(results).to eq([
-            { "updated_at" => "2016-01-01 00:00:00" },
-            { "updated_at" => "2016-02-02 00:00:00" },
+            { "updated_at" => "2016-01-01T00:00:00Z" },
+            { "updated_at" => "2016-02-02T00:00:00Z" },
           ])
         end
       end
@@ -230,8 +230,8 @@ RSpec.describe V2::ContentItemsController do
           results = parsed_response["results"]
 
           expect(results).to eq([
-            { "updated_at" => "2016-02-02 00:00:00" },
-            { "updated_at" => "2016-01-01 00:00:00" },
+            { "updated_at" => "2016-02-02T00:00:00Z" },
+            { "updated_at" => "2016-01-01T00:00:00Z" },
           ])
         end
       end
