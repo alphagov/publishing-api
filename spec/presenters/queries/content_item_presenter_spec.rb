@@ -75,12 +75,25 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "for a published edition" do
-      before do
-        edition.update!(state: "published")
+      let(:unpublished_edition) { create(:unpublished_edition) }
+
+      it "has a publication state of unpublished" do
+        result = described_class.present(unpublished_edition)
+        expect(result.fetch("publication_state")).to eq("unpublished")
       end
 
-      it "has a publication state of published" do
-        expect(result.fetch("publication_state")).to eq("published")
+      it "includes unpublishing details" do
+        unpublishing = unpublished_edition.unpublishing
+        result = described_class.present(unpublished_edition)
+        expect(result["unpublishing"])
+          .to match(
+            a_hash_including(
+              "type" => unpublishing.type,
+              "explanation" => unpublishing.explanation,
+              "alternative_path" => unpublishing.alternative_path,
+              "unpublished_at" => unpublishing.unpublished_at.rfc3339,
+            ),
+          )
       end
     end
 
