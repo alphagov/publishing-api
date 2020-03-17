@@ -59,5 +59,7 @@ Rails.application.configure do
       environment variable.
     MESSAGE
   end
+
+  config.hosts << "publishing-api.dev.gov.uk"
 end
 # rubocop:enable Metrics/BlockLength
