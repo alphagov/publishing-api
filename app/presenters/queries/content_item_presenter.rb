@@ -125,6 +125,8 @@ module Presenters
           "to_char(publishing_api_last_edited_at, '#{ISO8601_SQL}') as publishing_api_last_edited_at"
         when :publishing_api_first_published_at
           "to_char(publishing_api_first_published_at, '#{ISO8601_SQL}') as publishing_api_first_published_at"
+        when :updated_at
+          "to_char(editions.updated_at, '#{ISO8601_SQL}') as updated_at"
         when :unpublishing
           "#{UNPUBLISHING_SQL} AS unpublishing"
         when :change_note
@@ -189,6 +191,8 @@ module Presenters
         scope
       end
 
+      ISO8601_SQL = "YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"".freeze
+
       # Creating a JSON object with specified keys in PostgreSQL 9.3
       # is a little awkward, but is possible through the use of column
       # aliases
@@ -204,7 +208,7 @@ module Presenters
               unpublishings.explanation,
               unpublishings.alternative_path,
               unpublishings.redirects,
-              unpublishings.unpublished_at
+              to_char(unpublishings.unpublished_at, '#{ISO8601_SQL}')
             )
           )
           AS
@@ -217,8 +221,6 @@ module Presenters
           )
         )
       SQL
-
-      ISO8601_SQL = "YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"".freeze
 
       def parse_results(results)
         json_columns = %w(details routes redirects state_history unpublishing links)
