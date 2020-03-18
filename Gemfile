@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "arel", "~> 9"
 gem "rails", "~> 6"
 
 gem "colorize", "~> 0.8"

@@ -68,7 +68,6 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     amq-protocol (2.3.1)
-    arel (9.0.0)
     ast (2.4.0)
     awesome_print (1.8.0)
     aws-partitions (1.57.0)
@@ -1012,7 +1011,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  arel (~> 9)
   aws-sdk (~> 3)
   bunny (~> 2.15)
   climate_control (~> 0.2)
