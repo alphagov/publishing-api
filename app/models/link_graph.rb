@@ -38,8 +38,8 @@ class LinkGraph
 
   def to_h
     links.group_by(&:link_type)
-      .each_with_object({}) do |(link_type, links), memo|
-        memo[link_type] = links.map(&:to_h)
+      .transform_values do |links|
+        links.map(&:to_h)
       end
   end
 end

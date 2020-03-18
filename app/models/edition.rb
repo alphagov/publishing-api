@@ -153,8 +153,8 @@ class Edition < ApplicationRecord
       end
     end
 
-    details.deep_dup.each_with_object({}) do |(key, value), memo|
-      memo[key] = value_without_html.call(value)
+    details.deep_dup.transform_values do |value|
+      value_without_html.call(value)
     end
   end
 

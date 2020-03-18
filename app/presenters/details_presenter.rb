@@ -38,8 +38,8 @@ module Presenters
       return render_govspeak(obj) if govspeak_content?(obj)
 
       if obj.is_a?(Hash)
-        obj.each_with_object({}) do |(key, value), memo|
-          memo[key] = recursively_transform_govspeak(value)
+        obj.transform_values do |value|
+          recursively_transform_govspeak(value)
         end
       else
         obj.map { |o| recursively_transform_govspeak(o) }
