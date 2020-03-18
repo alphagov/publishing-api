@@ -83,9 +83,9 @@ module DataHygiene
 
     def format_published_html
       html_details = html_from_details(edition.details)
-      html_details.each_with_object({}) do |(key, value), memo|
+      html_details.transform_values do |value|
         # pushed through nokogiri to catch minor html differences (<br /> -> <br>, unicode characters)
-        memo[key] = Nokogiri::HTML.fragment(value).to_html
+        Nokogiri::HTML.fragment(value).to_html
       end
     end
 

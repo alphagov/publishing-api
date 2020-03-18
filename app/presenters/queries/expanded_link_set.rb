@@ -49,8 +49,8 @@ module Presenters
       end
 
       def present_expanded_links(links)
-        links.each_with_object({}) do |(link_type, link_hashes), hash|
-          hash[link_type] = link_hashes.map { |link_hash| present_expanded_link(link_hash) }
+        links.transform_values do |link_hashes|
+          link_hashes.map { |link_hash| present_expanded_link(link_hash) }
         end
       end
 
