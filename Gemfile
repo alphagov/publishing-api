@@ -36,6 +36,7 @@ gem "whenever", "1.0.0", require: false
 gem "with_advisory_lock", "~> 4.6"
 
 group :development do
+  gem "listen"
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem "web-console", "~> 3"
 end
