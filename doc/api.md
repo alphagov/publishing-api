@@ -101,11 +101,9 @@ presented edition and [warnings](#warnings).
   - A description of the content that can be displayed publicly.
 - `details` *(conditionally required, default: {})*
   - JSON object representing data specific to the `document_type`.
-  - **Deprecated**: If there is no top-level `change_note` attribute,
-    and this is a "major" `update_type`, then the Publishing API may
-    extract the `change_note` from the details hash. This behaviour is
-    for backwards compatibility, the top-level `change_note` attribute
-    should be used instead.
+  - If there is no top-level `change_note` attribute, and this is a "major"
+    `update_type`, then the Publishing API may extract the `change_note` from
+    the details hash.
 	- If `details` has a member named `change_note`, that is used.
 	- Otherwise, if `details` contains a member named
       `change_history`, then the `note` with the latest corresponding
