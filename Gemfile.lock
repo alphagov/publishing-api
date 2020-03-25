@@ -802,9 +802,9 @@ GEM
     pry (0.13.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.8.0)
+    pry-byebug (3.9.0)
       byebug (~> 11.0)
-      pry (~> 0.10)
+      pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.3)
@@ -1040,4 +1040,4 @@ DEPENDENCIES
   with_advisory_lock (~> 4.6)
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
