@@ -77,8 +77,6 @@ class Edition < ApplicationRecord
 
   delegate :content_id, :locale, to: :document
 
-  before_save :save_to_temp_columns
-
   def auth_bypass_ids_are_uuids
     unless auth_bypass_ids.all? { |id| UuidValidator.valid?(id) }
       errors.add(:auth_bypass_ids, ["contains invalid UUIDs"])
@@ -250,11 +248,5 @@ private
 
   def requires_rendering_app?
     renderable_content? && NO_RENDERING_APP_FORMATS.exclude?(document_type)
-  end
-
-  def save_to_temp_columns
-    self.temp_details = details
-    self.temp_routes = routes
-    self.temp_redirects = redirects
   end
 end

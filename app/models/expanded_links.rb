@@ -1,8 +1,6 @@
 class ExpandedLinks < ApplicationRecord
   include FindOrCreateLocked
 
-  before_save :save_to_temp_columns
-
   def self.locked_update(
     content_id:,
     locale:,
@@ -24,9 +22,5 @@ class ExpandedLinks < ApplicationRecord
         expanded_links: expanded_links,
       )
     end
-  end
-
-  def save_to_temp_columns
-    self.temp_expanded_links = expanded_links
   end
 end
