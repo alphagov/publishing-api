@@ -4,6 +4,8 @@ class AccessLimit < ApplicationRecord
   validate :user_uids_are_strings
   validate :user_organisations_are_uuids
 
+  before_save :save_to_temp_columns
+
 private
 
   def user_uids_are_strings
@@ -16,5 +18,10 @@ private
     unless organisations.all? { |id| UuidValidator.valid?(id) }
       errors.add(:organisations, ["contains invalid UUIDs"])
     end
+  end
+
+  def save_to_temp_columns
+    self.temp_users = users
+    self.temp_organisations = organisations
   end
 end
