@@ -3,8 +3,6 @@ class Unpublishing < ApplicationRecord
 
   self.inheritance_column = nil
 
-  before_save :save_to_temp_columns
-
   belongs_to :edition
 
   VALID_TYPES = %w[
@@ -43,9 +41,5 @@ class Unpublishing < ApplicationRecord
 
   def self.is_substitute?(edition)
     where(edition: edition).pluck(:type).first == "substitute"
-  end
-
-  def save_to_temp_columns
-    self.temp_redirects = redirects
   end
 end
