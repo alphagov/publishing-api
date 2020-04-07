@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_115319) do
+ActiveRecord::Schema.define(version: 2020_04_06_120740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2020_03_25_115319) do
     t.datetime "updated_at", null: false
     t.integer "edition_id"
     t.json "organisations", default: [], null: false
-    t.jsonb "temp_users"
-    t.jsonb "temp_organisations"
+    t.jsonb "temp_users", default: [], null: false
+    t.jsonb "temp_organisations", default: [], null: false
     t.index ["edition_id"], name: "index_access_limits_on_edition_id"
   end
 
@@ -87,9 +87,9 @@ ActiveRecord::Schema.define(version: 2020_03_25_115319) do
     t.datetime "publishing_api_first_published_at"
     t.datetime "publishing_api_last_edited_at"
     t.string "auth_bypass_ids", default: [], null: false, array: true
-    t.jsonb "temp_details"
-    t.jsonb "temp_routes"
-    t.jsonb "temp_redirects"
+    t.jsonb "temp_details", default: {}
+    t.jsonb "temp_routes", default: []
+    t.jsonb "temp_redirects", default: []
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_115319) do
     t.datetime "updated_at"
     t.string "request_id"
     t.uuid "content_id"
-    t.jsonb "temp_payload"
+    t.jsonb "temp_payload", default: {}
   end
 
   create_table "expanded_links", force: :cascade do |t|
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_115319) do
     t.bigint "payload_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "temp_expanded_links"
+    t.jsonb "temp_expanded_links", default: {}, null: false
     t.index ["content_id", "locale", "with_drafts"], name: "expanded_links_content_id_locale_with_drafts_index", unique: true
   end
 
