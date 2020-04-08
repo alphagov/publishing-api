@@ -23,6 +23,8 @@ module PublishingAPI
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.autoloader = :classic
+    # FIXME Autoloader is only set to classic while restructuring work is undertaken.
 
     config.api_only = true
 
@@ -31,8 +33,11 @@ module PublishingAPI
     # -- all .rb files in that directory are automatically loaded.
 
     config.eager_load_paths << "#{config.root}/app"
+    #FIXME the 3 lines below will be uncommented as part of the restructuring work.
+    #config.eager_load_paths += Dir["#{config.root}/app/queries"]
+    #config.eager_load_paths += Dir["#{config.root}/app/commands"]
+    #config.eager_load_paths += Dir["#{config.root}/app/presenters"]
     config.eager_load_paths << "#{config.root}/lib"
-    config.eager_load_paths += Dir["#{config.root}/lib/**/"]
 
     config.i18n.available_locales = %i[
       en ar az be bg bn cs cy da de dr el
