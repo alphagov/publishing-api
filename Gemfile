@@ -23,7 +23,7 @@ gem "govuk_schemas", "~> 4.0"
 gem "govuk_sidekiq", "~> 3.0"
 
 gem "aws-sdk", "~> 3"
-gem "bunny", "~> 2.14"
+gem "bunny", "~> 2.15"
 gem "diffy", "~> 3.3", require: false
 gem "fuzzy_match", "~> 2.1"
 gem "govspeak", "~> 6.5.3"

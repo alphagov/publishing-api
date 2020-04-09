@@ -53,7 +53,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    amq-protocol (2.3.0)
+    amq-protocol (2.3.1)
     arel (9.0.0)
     ast (2.4.0)
     awesome_print (1.8.0)
@@ -595,8 +595,8 @@ GEM
     bindex (0.5.0)
     brakeman (4.7.1)
     builder (3.2.4)
-    bunny (2.14.4)
-      amq-protocol (~> 2.3, >= 2.3.0)
+    bunny (2.15.0)
+      amq-protocol (~> 2.3, >= 2.3.1)
     byebug (11.1.1)
     capybara (3.29.0)
       addressable
@@ -997,7 +997,7 @@ PLATFORMS
 DEPENDENCIES
   arel (~> 9)
   aws-sdk (~> 3)
-  bunny (~> 2.14)
+  bunny (~> 2.15)
   climate_control (~> 0.2)
   colorize (~> 0.8)
   dalli
