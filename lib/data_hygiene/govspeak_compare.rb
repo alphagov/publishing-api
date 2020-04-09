@@ -40,9 +40,7 @@ module DataHygiene
 
     def calculate_diffs
       keys = (published_html.keys + generated_html.keys).uniq.sort
-      keys.each_with_object({}) do |key, memo|
-        memo[key] = html_diff(published_html[key], generated_html[key])
-      end
+      keys.index_with { |key| html_diff(published_html[key], generated_html[key]) }
     end
 
     def html_diff(old_html, new_html)

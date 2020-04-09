@@ -119,9 +119,7 @@ module Queries
     end
 
     def order_clause
-      pagination_key.keys.each_with_object({}) do |field, hash|
-        hash[field] = order
-      end
+      pagination_key.keys.index_with { order }
     end
 
     def where_clause
