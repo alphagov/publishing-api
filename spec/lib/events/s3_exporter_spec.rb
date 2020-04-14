@@ -23,9 +23,10 @@ RSpec.describe Events::S3Exporter do
   end
 
   def build_csv(expected_events)
-    columns = "id,action,payload,user_uid,created_at,updated_at,request_id,content_id\n"
+    columns = "id,action,user_uid,created_at,updated_at,request_id,content_id,payload\n"
     expected_events.inject(columns) do |memo, event|
-      memo << CSV.generate_line([event.id, event.action, event.payload.to_json, event.user_uid, event.created_at, event.updated_at, event.request_id, event.content_id])
+      event.reload
+      memo << CSV.generate_line([event.id, event.action, event.user_uid, event.created_at, event.updated_at, event.request_id, event.content_id, event.payload.to_json])
     end
   end
 
