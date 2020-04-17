@@ -12,10 +12,9 @@ module Queries
 
       conflicts = Edition.with_document
         .where(base_path: base_path, content_store: :live)
-        .where.not(
-          "documents.content_id": content_id,
-          document_type: SubstitutionHelper::SUBSTITUTABLE_DOCUMENT_TYPES,
-        ).pluck(:id)
+        .where.not(documents: { content_id: content_id })
+        .where.not(document_type: SubstitutionHelper::SUBSTITUTABLE_DOCUMENT_TYPES)
+        .pluck(:id)
 
       conflicts.first unless conflicts.empty?
     end

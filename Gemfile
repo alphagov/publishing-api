@@ -1,8 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "arel", "~> 9"
-gem "rails", "~> 5"
+gem "rails", "~> 6"
 
 gem "colorize", "~> 0.8"
 gem "dalli"
@@ -37,6 +36,7 @@ gem "whenever", "1.0.0", require: false
 gem "with_advisory_lock", "~> 4.6"
 
 group :development do
+  gem "listen"
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem "web-console", "~> 3"
 end

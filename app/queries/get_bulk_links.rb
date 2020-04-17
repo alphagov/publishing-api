@@ -9,9 +9,7 @@ module Queries
     end
 
     def call
-      content_ids.each_with_object({}) do |content_id, obj|
-        obj[content_id] = link_set(content_id)
-      end
+      content_ids.index_with { |content_id| link_set(content_id) }
     end
 
   private
