@@ -1,26 +1,21 @@
 namespace :data_hygiene do
-  desc "Remove a change note from a document and represent to the content store."
   namespace :remove_change_note do
-    def call_change_note_remover(content_id, locale, query, dry_run:)
+    desc "Remove a change note from a document and represent to the content store (dry run)"
+    task :dry, %i[content_id locale query] => :environment do |_, args|
       change_note = DataHygiene::ChangeNoteRemover.call(
-        content_id, locale, query, dry_run: dry_run
+        args[:content_id], args[:locale], args[:query], dry_run: true
       )
 
-      if dry_run
-        puts "Would have removed: #{change_note.inspect}"
-      else
-        puts "Removed: #{change_note.inspect}"
-      end
-    rescue DataHygiene::ChangeNoteNotFound
-      puts "Could not find a change note."
+      puts "Would have removed: #{change_note.inspect}"
     end
 
-    task :dry, %i[content_id locale query] => :environment do |_, args|
-      call_change_note_remover(args[:content_id], args[:locale], args[:query], dry_run: true)
-    end
-
+    desc "Remove a change note from a document and represent to the content store (for reals)"
     task :real, %i[content_id locale query] => :environment do |_, args|
-      call_change_note_remover(args[:content_id], args[:locale], args[:query], dry_run: false)
+      change_note = DataHygiene::ChangeNoteRemover.call(
+        args[:content_id], args[:locale], args[:query], dry_run: false
+      )
+
+      puts "Removed: #{change_note.inspect}"
     end
   end
 
