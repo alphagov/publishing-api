@@ -1,6 +1,6 @@
 namespace :data_extractor do
-  desc "Creates a CSV with with the links data of all the Whitehall items"
   namespace :list_tagged_items do
+    desc "Creates a CSV with with the links data of all the Whitehall items"
     task whitehall: :environment do
       # Expected output format:
       # format,tag_type,count
