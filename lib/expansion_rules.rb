@@ -45,6 +45,7 @@ module ExpansionRules
     pages_secondary_to_step_nav: :secondary_to_step_navs,
     person: :role_appointments,
     role: :role_appointments,
+    ministerial: :ministers,
   }.freeze
 
   # These fields are required by the frontend_links definition in the
