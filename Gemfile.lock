@@ -650,7 +650,7 @@ GEM
     filelock (1.1.1)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (63.5.1)
+    gds-api-adapters (63.6.0)
       addressable
       link_header
       null_logger
@@ -823,11 +823,11 @@ GEM
       pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    public_suffix (4.0.3)
+    public_suffix (4.0.4)
     puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.2)
-    rack-cache (1.11.0)
+    rack-cache (1.11.1)
       rack (>= 0.4)
     rack-protection (2.0.8.1)
       rack
@@ -979,7 +979,7 @@ GEM
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
+    unf_ext (0.0.7.7)
     unicode-display_width (1.6.1)
     unicorn (5.5.3)
       kgio (~> 2.6)
