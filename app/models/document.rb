@@ -11,6 +11,8 @@ class Document < ApplicationRecord
   # FIXME - we should make this go away
   has_one :published_or_unpublished, -> { where(state: %w(published unpublished)) }, class_name: "Edition"
 
+  scope :presented, -> { joins(:editions).where.not(editions: { content_store: nil }) }
+
   validates :content_id, presence: true, uuid: true
 
   validates :locale, inclusion: {

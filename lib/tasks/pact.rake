@@ -4,6 +4,7 @@ require "pact/tasks"
 require "pact_broker/client/tasks"
 require "pact/tasks/task_helper"
 
+desc "Verify the API contract for a specific branch"
 task "pact:verify:branch", [:branch_name] => :environment do |t, args|
   abort "Please provide a branch name. eg rake #{t.name}[my_feature_branch]" unless args[:branch_name]
 
