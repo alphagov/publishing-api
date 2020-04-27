@@ -10,7 +10,7 @@ RSpec.describe GonePresenter do
     end
 
     it "matches the notification schema" do
-      expect(subject).to be_valid_against_schema("gone")
+      expect(subject).to be_valid_against_publisher_schema("gone")
     end
 
     context "with a nil base_path" do
@@ -21,7 +21,7 @@ RSpec.describe GonePresenter do
       end
 
       it "matches the notification schema" do
-        expect(subject).to be_valid_against_schema("gone")
+        expect(subject).to be_valid_against_publisher_schema("gone")
       end
     end
   end

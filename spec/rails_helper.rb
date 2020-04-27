@@ -20,7 +20,7 @@ Sidekiq::Logging.logger = nil
 Sidekiq::Testing.server_middleware do |chain|
   chain.add GovukSidekiq::APIHeaders::ServerMiddleware
 end
-require "govuk-content-schema-test-helpers"
+require "govuk_schemas"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -88,9 +88,4 @@ RSpec.configure do |config|
       login_as_stub_user
     end
   end
-end
-
-GovukContentSchemaTestHelpers.configure do |config|
-  config.schema_type = "notification"
-  config.project_root = Rails.root
 end
