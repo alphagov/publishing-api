@@ -239,7 +239,6 @@ module Presenters
 
             result["warnings"] = get_warnings(result) if include_warnings
 
-
             yielder.yield(result.except("total").compact)
           end
         end

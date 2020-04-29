@@ -14,7 +14,6 @@ module AuthenticationHelper
     end
   end
 
-
   module RequestMixin
     def login_as(user)
       GDS::SSO.test_user = user
