@@ -23,7 +23,6 @@ module DownstreamService
       raise DownstreamDraftExistsError.new(message)
     end
 
-
     case downstream_payload.content_store_action
     when :put
       Adapters::DraftContentStore.put_content_item(downstream_payload.base_path, downstream_payload.content_store_payload)

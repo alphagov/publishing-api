@@ -141,7 +141,6 @@ Pact.provider_states_for "GDS API Adapters" do
     end
   end
 
-
   provider_state "an unpublished content item exists with content_id: bed722e6-db68-43e5-9079-063f623335a7" do
     set_up do
       document = create(:document, content_id: "bed722e6-db68-43e5-9079-063f623335a7")
