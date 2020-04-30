@@ -48,6 +48,7 @@ RSpec.describe ExpansionRules do
     let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
     let(:finder_fields) { default_fields + [%i(details facets)] }
     let(:person_with_body_fields) { default_fields + [%i(details body)] }
+    let(:person_with_image_fields) { default_fields + [%i(details image)] }
     let(:role_fields) { default_fields + [%i(details body)] }
     let(:role_appointment_fields) { default_fields + [%i(details started_on), %i(details ended_on), %i(details current), %i(details person_appointment_order)] }
     let(:service_manual_topic_fields) { default_fields + %i(description) }
@@ -72,6 +73,13 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:role_appointment)).to eq(role_appointment_fields) }
     specify { expect(rules.expansion_fields(:service_manual_topic)).to eq(service_manual_topic_fields) }
     specify { expect(rules.expansion_fields(:topical_event)).to eq(default_fields) }
+
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_ministers)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_board_members)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_military_personnel)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_traffic_commissioners)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_chief_professional_officers)).to eq(person_with_image_fields) }
+    specify { expect(rules.expansion_fields(:person, link_type: :ordered_special_representatives)).to eq(person_with_image_fields) }
 
     specify { expect(rules.expansion_fields(:ambassador_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:board_member_role)).to eq(role_fields) }
