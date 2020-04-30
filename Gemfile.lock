@@ -811,7 +811,7 @@ GEM
       term-ansicolor
       thor (~> 0.20)
     parallel (1.19.1)
-    parser (2.7.1.1)
+    parser (2.7.1.2)
       ast (~> 2.4.0)
     pg (1.2.3)
     plek (3.0.0)
@@ -909,7 +909,7 @@ GEM
       rexml
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-govuk (3.6.0)
+    rubocop-govuk (3.7.0)
       rubocop (= 0.82.0)
       rubocop-rails (~> 2)
       rubocop-rake (~> 0.5.1)
