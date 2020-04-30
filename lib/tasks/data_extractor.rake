@@ -20,7 +20,7 @@ namespace :data_extractor do
       items = ActiveRecord::Base.connection.execute(sql)
 
       csv_out = CSV.new($stdout)
-      csv_out << %w(format tag_type count)
+      csv_out << %w[format tag_type count]
       items.each do |i|
         csv_out << [i["content_id"], i["link_type"], i["count"]]
       end

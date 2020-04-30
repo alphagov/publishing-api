@@ -82,7 +82,7 @@ RSpec.describe Commands::V2::PutContent do
 
       expect(DownstreamDraftWorker)
         .to receive(:perform_async_in_queue)
-        .with("downstream_high", a_hash_including(source_fields: %i(title)))
+        .with("downstream_high", a_hash_including(source_fields: %i[title]))
 
       described_class.call(updated_payload)
     end
@@ -213,7 +213,7 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       context "with a provided last_edited_at" do
-        %w(minor major republish).each do |update_type|
+        %w[minor major republish].each do |update_type|
           context "with update_type of #{update_type}" do
             it "stores the provided timestamp" do
               last_edited_at = 1.year.ago

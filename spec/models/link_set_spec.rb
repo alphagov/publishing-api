@@ -38,7 +38,7 @@ RSpec.describe LinkSet do
       let(:link) do
         create(
           :link, link_set: link_set, target_content_id: target_content_id,
-          link_type: link_type, position: position
+                 link_type: link_type, position: position
         )
       end
       let(:other_link) { nil }

@@ -117,8 +117,8 @@ RSpec.describe DownstreamDraftWorker do
 
       it "sends the dependency resolution fields to the worker" do
         expect(DependencyResolutionWorker).to receive(:perform_async)
-          .with(a_hash_including(source_fields: %i(field)))
-        subject.perform(arguments.merge("source_fields" => %i(field)))
+          .with(a_hash_including(source_fields: %i[field]))
+        subject.perform(arguments.merge("source_fields" => %i[field]))
       end
     end
 

@@ -11,7 +11,7 @@ module Queries
       response = Presenters::Queries::ContentItemPresenter.present_many(
         editions,
         include_warnings: include_warnings,
-        states: %i(draft published unpublished superseded),
+        states: %i[draft published unpublished superseded],
       ).first
 
       if response.present?

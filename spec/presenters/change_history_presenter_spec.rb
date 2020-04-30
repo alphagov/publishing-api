@@ -34,7 +34,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         end
       end
       it "constructs content history from change notes" do
-        expect(subject.map { |item| item[:note] }).to eq %w(0 1)
+        expect(subject.map { |item| item[:note] }).to eq %w[0 1]
       end
     end
 
@@ -46,7 +46,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
           public_timestamp: i.days.ago,
         )
       end
-      expect(subject.map { |item| item[:note] }).to eq %w(3 2 1)
+      expect(subject.map { |item| item[:note] }).to eq %w[3 2 1]
     end
 
     context "multiple editions for a single content id" do

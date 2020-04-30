@@ -13,7 +13,7 @@ RSpec.describe "Paging through editions" do
 
   context "when no pagination params are supplied" do
     before do
-      get "/v2/content", params: { content_format: "nonexistent-schema", fields: %w(base_path publishing_app) }
+      get "/v2/content", params: { content_format: "nonexistent-schema", fields: %w[base_path publishing_app] }
     end
 
     it "responds successfully" do
@@ -33,7 +33,7 @@ RSpec.describe "Paging through editions" do
       get "/v2/content",
           params: {
             content_format: "nonexistent-schema",
-            fields: %w(base_path publishing_app),
+            fields: %w[base_path publishing_app],
             offset: "3",
             per_page: "2",
           }

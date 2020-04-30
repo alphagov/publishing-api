@@ -17,7 +17,7 @@ document_types.each do |document_type|
     10.times do
       Queries::GetContentCollection.new(
         document_types: document_type,
-        fields: %w(base_path content_id last_edited_at title publication_state state_history),
+        fields: %w[base_path content_id last_edited_at title publication_state state_history],
         filters: { publishing_app: "specialist-publisher" },
         pagination: Pagination.new(per_page: 50, page: 1, order: "-last_edited_at"),
       ).call

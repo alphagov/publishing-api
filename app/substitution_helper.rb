@@ -1,15 +1,15 @@
 module SubstitutionHelper
   extend self
 
-  SUBSTITUTABLE_DOCUMENT_TYPES = %w(
+  SUBSTITUTABLE_DOCUMENT_TYPES = %w[
     coming_soon
     gone
     redirect
     unpublishing
     special_route
-  ).freeze
+  ].freeze
 
-  SUBSTITUTABLE_UNPUBLISHING_TYPES = %w(gone redirect vanish).freeze
+  SUBSTITUTABLE_UNPUBLISHING_TYPES = %w[gone redirect vanish].freeze
 
   def clear!(
     new_item_document_type:,

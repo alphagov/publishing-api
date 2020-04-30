@@ -15,49 +15,33 @@ class PreviouslyPublishedItem
     document.published_or_unpublished
   end
 
-  def content_id
-    previously_published_item.content_id
-  end
+  delegate :content_id, to: :previously_published_item
 
   def user_facing_version
     previously_published_item.user_facing_version + 1
   end
 
-  def first_published_at
-    previously_published_item.first_published_at
-  end
+  delegate :first_published_at, to: :previously_published_item
 
-  def publishing_api_first_published_at
-    previously_published_item.publishing_api_first_published_at
-  end
+  delegate :publishing_api_first_published_at, to: :previously_published_item
 
-  def last_edited_at
-    previously_published_item.last_edited_at
-  end
+  delegate :last_edited_at, to: :previously_published_item
 
-  def major_published_at
-    previously_published_item.major_published_at
-  end
+  delegate :major_published_at, to: :previously_published_item
 
-  def public_updated_at
-    previously_published_item.public_updated_at
-  end
+  delegate :public_updated_at, to: :previously_published_item
 
   def previous_base_path
     previously_published_item.base_path
   end
 
-  def routes
-    previously_published_item.routes
-  end
+  delegate :routes, to: :previously_published_item
 
   def path_has_changed?
     previous_base_path != base_path
   end
 
-  def links
-    previously_published_item.links
-  end
+  delegate :links, to: :previously_published_item
 
   class NoPreviousPublishedItem
     def user_facing_version

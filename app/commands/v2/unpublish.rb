@@ -26,7 +26,7 @@ module Commands
       end
 
       def valid_unpublishing_type?
-        %w(withdrawal redirect gone vanish).include?(unpublishing_type)
+        %w[withdrawal redirect gone vanish].include?(unpublishing_type)
       end
 
       def unpublishing_type

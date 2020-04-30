@@ -36,7 +36,7 @@ module Queries
     private_class_method :where_state
 
     def self.order_by_clause(table, attribute, values)
-      sql = %{CASE "#{table}"."#{attribute}" }
+      sql = %(CASE "#{table}"."#{attribute}" )
       sql << values.map.with_index { |v, i| "WHEN '#{v}' THEN #{i}" }.join(" ")
       sql << " ELSE #{values.size} END"
 

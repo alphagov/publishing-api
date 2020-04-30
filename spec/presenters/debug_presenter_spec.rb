@@ -39,7 +39,7 @@ RSpec.describe Presenters::DebugPresenter do
 
   describe ".latest_state_with_locale" do
     it "matches" do
-      expect(subject.latest_state_with_locale[0]).to eq(%w(en draft))
+      expect(subject.latest_state_with_locale[0]).to eq(%w[en draft])
     end
   end
 

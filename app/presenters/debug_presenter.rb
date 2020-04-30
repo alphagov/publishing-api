@@ -72,17 +72,11 @@ module Presenters
       @presented_edition ||= Edition.find(latest_editions.last.id)
     end
 
-    def web_url
-      presented_edition.web_url
-    end
+    delegate :web_url, to: :presented_edition
 
-    def title
-      presented_edition.title
-    end
+    delegate :title, to: :presented_edition
 
-    def api_url
-      presented_edition.api_url
-    end
+    delegate :api_url, to: :presented_edition
 
     def events
       Event.where(content_id: content_id).order(:created_at)

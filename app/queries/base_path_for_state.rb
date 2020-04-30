@@ -37,11 +37,11 @@ module Queries
     end
 
     def allowed_states(state)
-      state == "draft" ? %w(draft) : %w(published unpublished)
+      state == "draft" ? %w[draft] : %w[published unpublished]
     end
 
     def limit_scope_to_unpublishing(scope, state)
-      return scope unless %w(published unpublished).include?(state)
+      return scope unless %w[published unpublished].include?(state)
 
       scope
         .with_unpublishing

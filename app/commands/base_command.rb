@@ -6,7 +6,7 @@ module Commands
       logger.debug "#{self} called with payload:\n#{payload}"
 
       response = EventLogger.log_command(self, payload) do |event|
-        PublishingAPI.service(:statsd).time(self.name.gsub(/:+/, ".")) do
+        PublishingAPI.service(:statsd).time(name.gsub(/:+/, ".")) do
           new(
             payload,
             event: event,
@@ -70,9 +70,9 @@ module Commands
       current_version = current_versioned_item.stale_lock_version
 
       if current_version != previous_version.to_i
-        friendly_message = "A lock-version conflict occurred. The " +
-          "`previous_version` you've sent (#{previous_version}) is not the " +
-          "same as the current lock version of the edition " +
+        friendly_message = "A lock-version conflict occurred. The " \
+          "`previous_version` you've sent (#{previous_version}) is not the " \
+          "same as the current lock version of the edition " \
           "(#{current_version})."
 
         fields = {

@@ -70,7 +70,7 @@ RSpec.describe Queries::GetLinked do
       end
     end
 
-    context "when a document with draft exists "do
+    context "when a document with draft exists " do
       before do
         create(:live_edition,
                :with_draft,
@@ -137,7 +137,7 @@ RSpec.describe Queries::GetLinked do
               Queries::GetLinked.new(
                 content_id: target_content_id,
                 link_type: "organisations",
-                fields: %w(title base_path locale publication_state),
+                fields: %w[title base_path locale publication_state],
               ).call,
             ).to match_array([
               {
@@ -162,7 +162,7 @@ RSpec.describe Queries::GetLinked do
               Queries::GetLinked.new(
                 content_id: target_content_id,
                 link_type: "related_links",
-                fields: %w(base_path),
+                fields: %w[base_path],
               ).call,
             ).to match_array([
               { "base_path" => "/vatty" },
@@ -211,7 +211,7 @@ RSpec.describe Queries::GetLinked do
             Queries::GetLinked.new(
               content_id: another_target_content_id,
               link_type: "organisations",
-              fields: %w(title publication_state),
+              fields: %w[title publication_state],
             ).call,
           ).to match_array([
             {

@@ -4,7 +4,7 @@ desc "Generates a CSV report of all live documents for the supplied publishing a
 task :live_content_report, [] => :environment do |_, args|
   publishing_apps = args.extras
   if publishing_apps.empty?
-    puts %{Usage: rake live_content_report[publishing_app]\n\npublishing_app can be a single publishing_app, or a comma separated list}
+    puts %(Usage: rake live_content_report[publishing_app]\n\npublishing_app can be a single publishing_app, or a comma separated list)
     abort
   end
 

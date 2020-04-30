@@ -35,7 +35,7 @@ class PathReservation < ApplicationRecord
   end
 
   def already_reserved_error
-    msg = "#{self.base_path} is already reserved by #{self.publishing_app}"
+    msg = "#{base_path} is already reserved by #{publishing_app}"
     errors.add(:base_path, msg)
     ActiveRecord::RecordInvalid.new(self)
   end

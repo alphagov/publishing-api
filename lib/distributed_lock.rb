@@ -2,7 +2,7 @@ class DistributedLock
   attr_reader :name, :timeout_seconds, :has_run
 
   def self.lock(name, timeout_seconds: 30, &block)
-    self.new(name, timeout_seconds: timeout_seconds).run(&block)
+    new(name, timeout_seconds: timeout_seconds).run(&block)
   end
 
   def initialize(name, timeout_seconds:)

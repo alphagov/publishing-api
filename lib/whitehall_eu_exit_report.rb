@@ -18,7 +18,7 @@ class WhitehallEuExitReport
 
       slug = organisation.base_path[26..-1] # /government/organisations/
       org_path = File.join(path, slug)
-      FileUtils::mkdir_p(org_path)
+      FileUtils.mkdir_p(org_path)
 
       export_content_csv(organisation, File.join(org_path, "content_with_descendants.csv"), include_descendants: true)
       export_content_csv(organisation, File.join(org_path, "content.csv"))

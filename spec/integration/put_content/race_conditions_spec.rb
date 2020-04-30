@@ -33,7 +33,7 @@ RSpec.describe Commands::V2::PutContent do
       thread1.join
       thread2.join
 
-      expect(Edition.all.pluck(:state)).to match_array(%w(superseded published draft))
+      expect(Edition.all.pluck(:state)).to match_array(%w[superseded published draft])
     end
   end
 end

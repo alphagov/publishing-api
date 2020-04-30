@@ -38,7 +38,7 @@ RSpec.describe Queries::BasePathForState do
           is_expected.to match(collision_hash)
         end
 
-        %w(published unpublished superseded).each do |state|
+        %w[published unpublished superseded].each do |state|
           context "when the edition is #{state}" do
             before do
               conflict_edition.update(state: state)

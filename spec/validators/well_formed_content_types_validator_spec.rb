@@ -86,7 +86,7 @@ RSpec.describe WellFormedContentTypesValidator do
   end
 
   context "when the 'must_include_one_of' option is set to ['text/html', 'text/govspeak']" do
-    let(:options) { { must_include_one_of: %w(text/html text/govspeak) } }
+    let(:options) { { must_include_one_of: %w[text/html text/govspeak] } }
 
     it "rejects values that do not have a content type of 'text/html' or 'text/govspeak'" do
       value = [{ content_type: "text/plain", content: "content" }]

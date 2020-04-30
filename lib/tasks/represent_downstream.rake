@@ -65,7 +65,7 @@ namespace :represent_downstream do
   rake 'represent_downstream:published_between[2018-01-15, 2018-01-20]'
   rake 'represent_downstream:published_between[2018-01-04T09:30:00, 2018-01-04T16:00:00]'
   "
-  task :published_between, %i(start_date end_date) => :environment do |_t, args|
+  task :published_between, %i[start_date end_date] => :environment do |_t, args|
     content_ids = Document
       .presented
       .where(editions: { state: "published", last_edited_at: args[:start_date]..args[:end_date] })

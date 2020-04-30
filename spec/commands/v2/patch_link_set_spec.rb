@@ -53,7 +53,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(link_set.content_id).to eq(content_id)
 
       links = link_set.links
-      expect(links.map(&:link_type)).to eq(%w(parent topics topics topics))
+      expect(links.map(&:link_type)).to eq(%w[parent topics topics topics])
       expect(links.map(&:target_content_id)).to eq(parent + topics)
     end
 
@@ -101,7 +101,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       expect(link_set.content_id).to eq(content_id)
 
       links = link_set.links
-      expect(links.map(&:link_type)).to eq(%w(parent topics topics topics))
+      expect(links.map(&:link_type)).to eq(%w[parent topics topics topics])
       expect(links.map(&:target_content_id)).to eq(parent + topics_shuffled)
     end
   end
@@ -252,7 +252,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "sends the draft editions for all locales downstream" do
-        %w(en fr).each do |locale|
+        %w[en fr].each do |locale|
           expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
@@ -333,7 +333,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       end
 
       it "sends the live edition for all locales downstream" do
-        %w(en fr).each do |locale|
+        %w[en fr].each do |locale|
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",

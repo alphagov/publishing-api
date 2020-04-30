@@ -38,7 +38,7 @@ class DownstreamLiveWorker
     update_expanded_links(payload)
     DownstreamService.update_live_content_store(payload) if edition.base_path
 
-    if %w(published unpublished).include?(edition.state)
+    if %w[published unpublished].include?(edition.state)
       event_type = message_queue_event_type || edition.update_type
       DownstreamService.broadcast_to_message_queue(payload, event_type)
     end

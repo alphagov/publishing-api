@@ -159,7 +159,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
         locale: "en",
         source_command: "patch_link_set",
         source_document_type: "answer",
-        source_fields: %w(description details.body),
+        source_fields: %w[description details.body],
       )
     end
 

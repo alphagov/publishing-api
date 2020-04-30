@@ -44,7 +44,7 @@ RSpec.describe Commands::V2::Import, type: :request do
 
     it "creates the state history" do
       subject
-      expect(Edition.all.map(&:state)).to match_array(%w(superseded superseded published))
+      expect(Edition.all.map(&:state)).to match_array(%w[superseded superseded published])
     end
 
     it "creates the full User facing version history" do
@@ -155,15 +155,15 @@ RSpec.describe Commands::V2::Import, type: :request do
         }
       end
 
-      [%w(draft published),
-       %w(draft draft),
-       %w(published published),
-       %w(superseded),
-       %w(superseded superseded),
-       %w(draft superseded),
-       %w(published superseded),
-       %w(unpublished superseded),
-       %w(unpublished unpublished)].each do |states|
+      [%w[draft published],
+       %w[draft draft],
+       %w[published published],
+       %w[superseded],
+       %w[superseded superseded],
+       %w[draft superseded],
+       %w[published superseded],
+       %w[unpublished superseded],
+       %w[unpublished unpublished]].each do |states|
         let!(:payload) do
           payload_for_states(states)
         end

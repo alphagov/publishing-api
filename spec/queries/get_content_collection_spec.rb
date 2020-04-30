@@ -23,7 +23,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns the requested fields for all editions" do
       expect(Queries::GetContentCollection.new(
-        fields: %w(base_path),
+        fields: %w[base_path],
       ).call).to match_array([
         hash_including("base_path" => "/a"),
         hash_including("base_path" => "/b"),
@@ -35,7 +35,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns the editions matching the type" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: %w(base_path locale publication_state),
+        fields: %w[base_path locale publication_state],
       ).call).to match_array([
         hash_including("base_path" => "/a", "publication_state" => "draft", "locale" => "en"),
         hash_including("base_path" => "/b", "publication_state" => "draft", "locale" => "en"),
@@ -44,8 +44,8 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns the editions matching all types when given an array" do
       expect(Queries::GetContentCollection.new(
-        document_types: %w(topic mainstream_browse_page),
-        fields: %w(base_path locale publication_state),
+        document_types: %w[topic mainstream_browse_page],
+        fields: %w[base_path locale publication_state],
       ).call).to match_array([
         hash_including("base_path" => "/a", "publication_state" => "draft", "locale" => "en"),
         hash_including("base_path" => "/b", "publication_state" => "draft", "locale" => "en"),
@@ -66,7 +66,7 @@ RSpec.describe Queries::GetContentCollection do
 
     expect(Queries::GetContentCollection.new(
       document_types: "topic",
-      fields: %w(base_path publication_state),
+      fields: %w[base_path publication_state],
     ).call).to match_array([
       hash_including("base_path" => "/a", "publication_state" => "draft"),
       hash_including("base_path" => "/b", "publication_state" => "draft"),
@@ -85,7 +85,7 @@ RSpec.describe Queries::GetContentCollection do
 
     expect(Queries::GetContentCollection.new(
       document_types: "topic",
-      fields: %w(base_path publication_state),
+      fields: %w[base_path publication_state],
     ).call).to match_array([
       hash_including("base_path" => "/draft", "publication_state" => "draft"),
       hash_including("base_path" => "/live", "publication_state" => "published"),
@@ -103,7 +103,7 @@ RSpec.describe Queries::GetContentCollection do
       expect(
         Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: %w(base_path publication_state unpublishing),
+          fields: %w[base_path publication_state unpublishing],
         ).call,
       ).to match_array(
         [
@@ -162,7 +162,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns items corresponding to the publishing_app parameter if present" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: %w(publishing_app publication_state),
+        fields: %w[publishing_app publication_state],
         filters: { publishing_app: "publisher" },
       ).call).to match_array([
         hash_including("publishing_app" => "publisher", "publication_state" => "draft"),
@@ -173,7 +173,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns items for all apps if publishing_app is not present" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: %w(publishing_app publication_state),
+        fields: %w[publishing_app publication_state],
       ).call).to match_array([
         hash_including("publishing_app" => "publisher", "publication_state" => "draft"),
         hash_including("publishing_app" => "publisher", "publication_state" => "draft"),
@@ -209,7 +209,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns the editions filtered by 'en' locale by default" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: %w(base_path publication_state),
+        fields: %w[base_path publication_state],
       ).call).to match_array([
         hash_including("base_path" => "/content.en", "publication_state" => "draft"),
         hash_including("base_path" => "/content.en", "publication_state" => "published"),
@@ -219,7 +219,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns the editions filtered by locale parameter" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: %w(base_path publication_state),
+        fields: %w[base_path publication_state],
         filters: { locale: "ar" },
       ).call).to match_array([
         hash_including("base_path" => "/content.ar", "publication_state" => "draft"),
@@ -230,7 +230,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns all editions if the locale parameter is 'all'" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: %w(base_path publication_state),
+        fields: %w[base_path publication_state],
         filters: { locale: "all" },
       ).call).to match_array([
         hash_including("base_path" => "/content.en", "publication_state" => "draft"),
@@ -275,7 +275,7 @@ RSpec.describe Queries::GetContentCollection do
     it "filters editions by organisation" do
       result = Queries::GetContentCollection.new(
         filters: { links: { organisations: someorg_content_id } },
-        fields: %w(base_path),
+        fields: %w[base_path],
       ).call
 
       expect(result).to match_array([
@@ -290,7 +290,7 @@ RSpec.describe Queries::GetContentCollection do
           organisation: someorg_content_id,
           publishing_app: "specialist-publisher",
         },
-        fields: %w(base_path),
+        fields: %w[base_path],
       ).call
 
       expect(result).to match_array([hash_including("base_path" => "/foo")])
@@ -306,7 +306,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns all content if no filter is provided" do
       results = Queries::GetContentCollection.new(
-        fields: %w(base_path),
+        fields: %w[base_path],
       ).call
 
       expect(results).to match_array([
@@ -316,7 +316,7 @@ RSpec.describe Queries::GetContentCollection do
       ])
 
       results = Queries::GetContentCollection.new(
-        filters: { states: [] }, fields: %w(base_path),
+        filters: { states: [] }, fields: %w[base_path],
       ).call
 
       expect(results).to match_array([
@@ -328,8 +328,8 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns content filtered by the provided states" do
       results = Queries::GetContentCollection.new(
-        fields: %w(base_path),
-        filters: { states: %w(draft published) },
+        fields: %w[base_path],
+        filters: { states: %w[draft published] },
       ).call
 
       expect(results).to match_array([
@@ -357,7 +357,7 @@ RSpec.describe Queries::GetContentCollection do
     it "returns the details hash" do
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: %w(details publication_state),
+        fields: %w[details publication_state],
         filters: { publishing_app: "publisher" },
       ).call).to match_array([
         hash_including("details" => { "foo" => "bar" }, "publication_state" => "draft"),
@@ -559,7 +559,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns editions in default order" do
       editions = Queries::GetContentCollection.new(
-        fields: %w(public_updated_at),
+        fields: %w[public_updated_at],
       ).call.to_a
 
       expect(editions.count).to eq(4)
@@ -569,7 +569,7 @@ RSpec.describe Queries::GetContentCollection do
 
     it "returns paginated editions in default order" do
       editions = Queries::GetContentCollection.new(
-        fields: %w(public_updated_at),
+        fields: %w[public_updated_at],
         pagination: Pagination.new(offset: 2, per_page: 4),
       ).call.to_a
 
@@ -585,7 +585,7 @@ RSpec.describe Queries::GetContentCollection do
 
       expect(Queries::GetContentCollection.new(
         document_types: "topic",
-        fields: %w(base_path locale publication_state),
+        fields: %w[base_path locale publication_state],
       ).total).to eq(2)
     end
 
@@ -609,12 +609,12 @@ RSpec.describe Queries::GetContentCollection do
       it "returns the latest item only" do
         expect(Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: %w(base_path locale publication_state),
+          fields: %w[base_path locale publication_state],
         ).total).to eq(1)
 
         expect(Queries::GetContentCollection.new(
           document_types: "topic",
-          fields: %w(base_path locale publication_state),
+          fields: %w[base_path locale publication_state],
         ).call.first["publication_state"]).to eq("draft")
       end
     end

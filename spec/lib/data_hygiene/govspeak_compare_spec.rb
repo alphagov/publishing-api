@@ -70,7 +70,7 @@ RSpec.describe DataHygiene::GovspeakCompare do
       end
 
       it { is_expected.to include(:field_2, :field_3) }
-      it { is_expected.to include(field_2: %{<h1 id="hi">Hi</h1>\n}) }
+      it { is_expected.to include(field_2: %(<h1 id="hi">Hi</h1>\n)) }
       it { is_expected.to include(field_3: "<p>Erm</p>\n") }
     end
   end
@@ -119,18 +119,18 @@ RSpec.describe DataHygiene::GovspeakCompare do
     end
 
     context "when the govspeak wraps inline attachments in spans" do
-      let(:body_html) { %{<p><a href="url">Inline Attachment</a></p>\n} }
+      let(:body_html) { %(<p><a href="url">Inline Attachment</a></p>\n) }
       let(:body_govspeak) do
-        %{<span class="attachment-inline"><a href="url">Inline Attachment</a></span>\n}
+        %(<span class="attachment-inline"><a href="url">Inline Attachment</a></span>\n)
       end
 
       it { is_expected.to include(body: []) }
     end
 
     context "when the govspeak contains rel=\"external\"" do
-      let(:body_html) { %{<p><a href="url" rel="external">My File</a></p>\n} }
+      let(:body_html) { %(<p><a href="url" rel="external">My File</a></p>\n) }
       let(:body_govspeak) do
-        %{<a href="url">My File</a>\n}
+        %(<a href="url">My File</a>\n)
       end
 
       it { is_expected.to include(body: []) }

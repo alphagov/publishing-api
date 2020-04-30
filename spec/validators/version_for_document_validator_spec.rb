@@ -34,7 +34,7 @@ RSpec.describe VersionForDocumentValidator do
                user_facing_version: version)
       }
       let(:expected_error) do
-        "user_facing_version=#{version} and document=#{document.id} " +
+        "user_facing_version=#{version} and document=#{document.id} " \
           "conflicts with edition id=#{conflict_edition.id}"
       end
 

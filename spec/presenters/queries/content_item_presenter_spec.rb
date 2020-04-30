@@ -170,13 +170,13 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     end
 
     context "when an array of fields is provided" do
-      let(:fields) { %w(title phase publication_state) }
+      let(:fields) { %w[title phase publication_state] }
 
       it "returns the requested fields" do
         editions = Edition.with_document.where("documents.content_id": content_id)
 
         results = described_class.present_many(editions, fields: fields)
-        expect(results.first.keys).to match_array(%w(title phase publication_state))
+        expect(results.first.keys).to match_array(%w[title phase publication_state])
       end
     end
 
@@ -191,7 +191,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         results = described_class.present_many(editions)
         locales = results.map { |r| r.fetch("locale") }
 
-        expect(locales).to match_array(%w(fr en))
+        expect(locales).to match_array(%w[fr en])
       end
     end
 

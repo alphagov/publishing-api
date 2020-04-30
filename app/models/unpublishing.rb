@@ -7,13 +7,13 @@ class Unpublishing < ApplicationRecord
 
   belongs_to :edition
 
-  VALID_TYPES = %w(
+  VALID_TYPES = %w[
     gone
     vanish
     redirect
     substitute
     withdrawal
-  ).freeze
+  ].freeze
 
   validates :edition, presence: true, uniqueness: true
   validates :type, presence: true, inclusion: { in: VALID_TYPES }

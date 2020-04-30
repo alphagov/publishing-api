@@ -1,10 +1,10 @@
 class StateForDocumentValidator < ActiveModel::Validator
   def validate(record)
-    return unless record.state && record.document && %w(draft published unpublished).include?(record.state)
+    return unless record.state && record.document && %w[draft published unpublished].include?(record.state)
 
     criteria = {
       document: record.document,
-      state: record.state == "draft" ? "draft" : %w(published unpublished),
+      state: record.state == "draft" ? "draft" : %w[published unpublished],
     }
 
     conflict = Edition.where(criteria).where.not(id: record.id).order(nil).first

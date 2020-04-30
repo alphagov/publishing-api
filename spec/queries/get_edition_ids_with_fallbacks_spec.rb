@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe Queries::GetEditionIdsWithFallbacks do
   describe ".call" do
-    let(:state_fallback_order) { %w(published) }
-    let(:locale_fallback_order) { %w(en) }
+    let(:state_fallback_order) { %w[published] }
+    let(:locale_fallback_order) { %w[en] }
     let(:content_ids) { [] }
     let(:options) do
       {
@@ -23,17 +23,17 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       end
 
       context "and the state_fallback order is [draft]" do
-        let(:state_fallback_order) { %w(draft) }
+        let(:state_fallback_order) { %w[draft] }
         it { is_expected.to match_array([draft_edition.id]) }
       end
 
       context "and the state_fallback order is [published]" do
-        let(:state_fallback_order) { %w(published) }
+        let(:state_fallback_order) { %w[published] }
         it { is_expected.to be_empty }
       end
 
       context "and the state_fallback order is [published, draft]" do
-        let(:state_fallback_order) { %w(published draft) }
+        let(:state_fallback_order) { %w[published draft] }
         it { is_expected.to match_array([draft_edition.id]) }
       end
     end
@@ -53,12 +53,12 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       end
 
       context "and the state_fallback order is [draft, withdrawn]" do
-        let(:state_fallback_order) { %w(draft withdrawn) }
+        let(:state_fallback_order) { %w[draft withdrawn] }
         it { is_expected.to match_array([draft_edition.id]) }
       end
 
       context "and the state_fallback order is [withdrawn, draft]" do
-        let(:state_fallback_order) { %w(withdrawn draft) }
+        let(:state_fallback_order) { %w[withdrawn draft] }
         it { is_expected.to match_array([withdrawn_edition.id]) }
       end
     end
@@ -90,43 +90,43 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       end
 
       context "and the locale_fallback_order is [fr]" do
-        let(:locale_fallback_order) { %w(fr) }
+        let(:locale_fallback_order) { %w[fr] }
 
         context "and the state_fallback_order is [draft]" do
-          let(:state_fallback_order) { %w(draft) }
+          let(:state_fallback_order) { %w[draft] }
           it { is_expected.to match_array(fr_draft_edition.id) }
         end
 
         context "and the state_fallback_order is [published]" do
-          let(:state_fallback_order) { %w(published) }
+          let(:state_fallback_order) { %w[published] }
           it { is_expected.to be_empty }
         end
       end
 
       context "and the locale_fallback_order is [fr, en]" do
-        let(:locale_fallback_order) { %w(fr en) }
+        let(:locale_fallback_order) { %w[fr en] }
 
         context "and the state_fallback_order is [draft]" do
-          let(:state_fallback_order) { %w(draft) }
+          let(:state_fallback_order) { %w[draft] }
           it { is_expected.to match_array(fr_draft_edition.id) }
         end
 
         context "and the state_fallback_order is [published]" do
-          let(:state_fallback_order) { %w(published) }
+          let(:state_fallback_order) { %w[published] }
           it { is_expected.to match_array(en_published_edition.id) }
         end
       end
 
       context "and the locale_fallback_order is [en, fr]" do
-        let(:locale_fallback_order) { %w(en fr) }
+        let(:locale_fallback_order) { %w[en fr] }
 
         context "and the state_fallback_order is [draft]" do
-          let(:state_fallback_order) { %w(draft) }
+          let(:state_fallback_order) { %w[draft] }
           it { is_expected.to match_array(en_draft_edition.id) }
         end
 
         context "and the state_fallback_order is [published]" do
-          let(:state_fallback_order) { %w(published) }
+          let(:state_fallback_order) { %w[published] }
           it { is_expected.to match_array(en_published_edition.id) }
         end
       end
@@ -158,19 +158,19 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       end
 
       context "and the state_fallback order is [draft, published]" do
-        let(:state_fallback_order) { %w(draft published) }
+        let(:state_fallback_order) { %w[draft published] }
         let(:expected) { [vat_draft_edition.id, tax_rates_draft_edition.id] }
         it { is_expected.to match_array(expected) }
       end
 
       context "and the state_fallback order is [published, draft]" do
-        let(:state_fallback_order) { %w(published draft) }
+        let(:state_fallback_order) { %w[published draft] }
         let(:expected) { [vat_published_edition.id, tax_rates_draft_edition.id] }
         it { is_expected.to match_array(expected) }
       end
 
       context "and the state_fallback order is [withdrawn, draft]" do
-        let(:state_fallback_order) { %w(withdrawn draft) }
+        let(:state_fallback_order) { %w[withdrawn draft] }
         let(:expected) { [vat_draft_edition.id, tax_rates_withdrawn_edition.id] }
         it { is_expected.to match_array(expected) }
       end
@@ -192,17 +192,17 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       end
 
       context "and the state_fallback order is [draft]" do
-        let(:state_fallback_order) { %w(draft) }
+        let(:state_fallback_order) { %w[draft] }
         it { is_expected.to be_empty }
       end
 
       context "and the state_fallback order is [published]" do
-        let(:state_fallback_order) { %w(published) }
+        let(:state_fallback_order) { %w[published] }
         it { is_expected.to match_array([published_edition.id]) }
       end
 
       context "and the state_fallback order is [draft, published]" do
-        let(:state_fallback_order) { %w(draft published) }
+        let(:state_fallback_order) { %w[draft published] }
         it { is_expected.to match_array([published_edition.id]) }
       end
     end

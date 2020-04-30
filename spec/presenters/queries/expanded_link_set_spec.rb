@@ -18,7 +18,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   }
 
   describe "multiple translations" do
-    let(:locale_fallback_order) { %w(ar en) }
+    let(:locale_fallback_order) { %w[ar en] }
 
     before do
       create_link(a, b, "organisation")

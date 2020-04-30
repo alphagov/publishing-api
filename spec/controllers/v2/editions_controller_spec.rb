@@ -56,7 +56,7 @@ RSpec.describe V2::EditionsController do
           { "href" => "http://test.host/v2/editions", "rel" => "self" },
         ])
         expect(parsed_response["results"].first.keys)
-          .to_not include(%w(id document_id))
+          .to_not include(%w[id document_id])
       end
 
       it "returns the correct list for the second page" do
@@ -137,7 +137,7 @@ RSpec.describe V2::EditionsController do
     context "filtered by document type" do
       it "returns only the document type specified" do
         create(:draft_edition, document_type: "taxon", id: 10000)
-        get :index, params: { document_types: %w(taxon) }
+        get :index, params: { document_types: %w[taxon] }
         expect(parsed_response["results"].count).to eq(1)
         expect(parsed_response["links"]).to eq([
           { "href" => "http://test.host/v2/editions?document_types%5B%5D=taxon", "rel" => "self" },
@@ -147,7 +147,7 @@ RSpec.describe V2::EditionsController do
 
     context "filtered by state" do
       it "returns only published editions" do
-        get :index, params: { states: %w(published) }
+        get :index, params: { states: %w[published] }
         expect(parsed_response["results"].count).to eq(50)
         expect(parsed_response["links"]).to eq([
           { "href" => "http://test.host/v2/editions?states%5B%5D=published", "rel" => "self" },
@@ -177,9 +177,9 @@ RSpec.describe V2::EditionsController do
 
     context "outputting custom fields" do
       it "returns only the fields specified" do
-        get :index, params: { fields: %w(content_id publishing_app) }
+        get :index, params: { fields: %w[content_id publishing_app] }
         expect(parsed_response["results"].first.keys)
-          .to eq(%w(content_id publishing_app))
+          .to eq(%w[content_id publishing_app])
         expect(parsed_response["links"]).to eq([
           { "href" => "http://test.host/v2/editions?fields%5B%5D=content_id&fields%5B%5D=publishing_app&after=2017-01-01T09%3A00%3A00.200000Z%2C100", "rel" => "next" },
           { "href" => "http://test.host/v2/editions?fields%5B%5D=content_id&fields%5B%5D=publishing_app", "rel" => "self" },
@@ -193,9 +193,9 @@ RSpec.describe V2::EditionsController do
       end
 
       it "can include links in response" do
-        get :index, params: { fields: %w(content_id links), per_page: 1, order: "id" }
+        get :index, params: { fields: %w[content_id links], per_page: 1, order: "id" }
         expect(parsed_response["results"].first.keys)
-          .to eq(%w(content_id links))
+          .to eq(%w[content_id links])
         expect(parsed_response["results"].first["links"]).to match(
           "test" => [link.target_content_id],
         )
