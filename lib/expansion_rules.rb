@@ -32,6 +32,7 @@ module ExpansionRules
     %i[role_appointments role],
     %i[role_appointments role ordered_parent_organisations],
     %i[ministers role_appointments person],
+    %i[ordered_ministers role_appointments role],
   ].freeze
 
   REVERSE_LINKS = {
