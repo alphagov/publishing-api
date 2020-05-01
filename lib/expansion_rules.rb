@@ -32,7 +32,12 @@ module ExpansionRules
     %i[role_appointments role],
     %i[role_appointments role ordered_parent_organisations],
     %i[ministers role_appointments person],
+    %i[ordered_board_members role_appointments role],
+    %i[ordered_chief_professional_officers role_appointments role],
+    %i[ordered_military_personnel role_appointments role],
     %i[ordered_ministers role_appointments role],
+    %i[ordered_special_representatives role_appointments role],
+    %i[ordered_traffic_commissioners role_appointments role],
   ].freeze
 
   REVERSE_LINKS = {
