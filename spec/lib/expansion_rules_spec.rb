@@ -49,7 +49,7 @@ RSpec.describe ExpansionRules do
     let(:finder_fields) { default_fields + [%i(details facets)] }
     let(:person_fields) { default_fields + [%i(details body), %i(details image)] }
     let(:person_with_image_fields) { default_fields + [%i(details image)] }
-    let(:role_fields) { default_fields + [%i(details body)] }
+    let(:role_fields) { default_fields + [%i(details body), %i(details role_payment_type)] }
     let(:role_appointment_fields) { default_fields + [%i(details started_on), %i(details ended_on), %i(details current), %i(details person_appointment_order)] }
     let(:service_manual_topic_fields) { default_fields + %i(description) }
     let(:step_by_step_fields) { default_fields + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)] }

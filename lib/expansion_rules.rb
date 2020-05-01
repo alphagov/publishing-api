@@ -80,7 +80,7 @@ module ExpansionRules
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
   PERSON_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :image)).freeze
   PERSON_FIELDS_WITH_IMAGE = (DEFAULT_FIELDS + details_fields(:image)).freeze
-  ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body)).freeze
+  ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type)).freeze
   ROLE_APPOINTMENT_FIELDS = (DEFAULT_FIELDS + details_fields(:started_on, :ended_on, :current, :person_appointment_order)).freeze
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]]).freeze
   STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
