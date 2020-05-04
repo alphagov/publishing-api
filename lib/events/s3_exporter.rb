@@ -15,7 +15,7 @@ module Events
         gzip.close
       end
       upload(zipped)
-      exported = event_scope.update_all(payload: nil)
+      exported = event_scope.update_all(payload: nil, temp_payload: nil)
       [exported, s3_key]
     end
 
