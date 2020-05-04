@@ -7,7 +7,7 @@ task corporate_info_fix: :environment do
 
     (puts [e.base_path, e.locale].inspect && next) if ENV["DRY_RUN"]
 
-    #this edition has an en base_path but a cy locale
+    # this edition has an en base_path but a cy locale
     edition_with_incorrect_base_path = e
     edition_with_incorrect_base_path.base_path += ".cy"
 

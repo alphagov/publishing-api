@@ -9,7 +9,7 @@ require "stackprof"
 abort "Refusing to run outside of development" unless Rails.env.development?
 
 benchmarks = Location.order("RANDOM()").limit(10).pluck(:base_path)
-states = %w(published unpublished)
+states = %w[published unpublished]
 
 benchmarks.each do |base_path|
   queries = 0

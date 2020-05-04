@@ -49,16 +49,14 @@ RSpec.describe "Publish intent requests", type: :request do
       end
 
       it "returns the normal 200 response" do
-        begin
-          put "/publish-intent#{base_path}", params: content_item.to_json
+        put "/publish-intent#{base_path}", params: content_item.to_json
 
-          parsed_response_body = parsed_response
-          expect(response.status).to eq(200)
-          expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
-          expect(parsed_response_body["title"]).to eq(content_item[:title])
-        ensure
-          PublishingAPI.swallow_connection_errors = @swallow_connection_errors
-        end
+        parsed_response_body = parsed_response
+        expect(response.status).to eq(200)
+        expect(parsed_response_body["content_id"]).to eq(content_item[:content_id])
+        expect(parsed_response_body["title"]).to eq(content_item[:title])
+      ensure
+        PublishingAPI.swallow_connection_errors = @swallow_connection_errors
       end
     end
 

@@ -76,7 +76,7 @@ module DataHygiene
       # the last p element in a blockquote is given a class of last-child
       elem.gsub!(/(rel="external"|class="last-child")/, "")
       # it's very common for extra whitespace to be present.
-      elem.gsub!(/\s+/, "") #whitespace
+      elem.gsub!(/\s+/, "") # whitespace
     end
 
     def format_published_html

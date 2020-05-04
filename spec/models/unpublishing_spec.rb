@@ -9,12 +9,12 @@ RSpec.describe Unpublishing do
     end
 
     it "requires a valid type" do
-      valid_types = %w(
+      valid_types = %w[
         gone
         vanish
         substitute
         withdrawal
-      )
+      ]
 
       valid_types.each do |type|
         subject.type = type

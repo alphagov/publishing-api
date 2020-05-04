@@ -166,7 +166,7 @@ module Commands
             )
           end
 
-          supported_states = %w(draft published unpublished superseded)
+          supported_states = %w[draft published unpublished superseded]
 
           unless supported_states.include?(state[:name])
             raise CommandError.new(
@@ -181,7 +181,7 @@ module Commands
 
       def get_base_path_content_store_pairs(document)
         document.editions.where(
-          state: %w(draft published unpublished),
+          state: %w[draft published unpublished],
         ).group(:base_path).pluck(:base_path, Arel.sql("ARRAY_AGG(content_store)"))
       end
 

@@ -136,7 +136,7 @@ RSpec.describe Presenters::DetailsPresenter do
     end
 
     context "value contains nested array" do
-      let(:edition_details) { { other: %w(an array of strings) } }
+      let(:edition_details) { { other: %w[an array of strings] } }
       it "doesn't try to convert to govspeak" do
         expect { subject }.to_not raise_error
       end

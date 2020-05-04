@@ -9,7 +9,7 @@ class Document < ApplicationRecord
   # Due to the scenario of unpublished type substitute we need a scope that
   # can access published / unpublished which isn't tied to live content store
   # FIXME - we should make this go away
-  has_one :published_or_unpublished, -> { where(state: %w(published unpublished)) }, class_name: "Edition"
+  has_one :published_or_unpublished, -> { where(state: %w[published unpublished]) }, class_name: "Edition"
 
   scope :presented, -> { joins(:editions).where.not(editions: { content_store: nil }) }
 

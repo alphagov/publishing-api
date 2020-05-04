@@ -29,7 +29,7 @@ module Queries
       Edition.with_document
         .where(
           document_type: [document_type, "placeholder_#{document_type}"],
-          state: %w(published draft),
+          state: %w[published draft],
           "documents.locale": "en",
         )
         .order("documents.content_id ASC")

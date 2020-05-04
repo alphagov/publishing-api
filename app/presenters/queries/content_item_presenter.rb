@@ -17,10 +17,10 @@ module Presenters
         :links,
       ] - [:state]).freeze # state appears as 'publication_state'
 
-      DEFAULT_SEARCH_FIELDS = %w(title base_path).freeze
+      DEFAULT_SEARCH_FIELDS = %w[title base_path].freeze
 
-      SEARCH_FIELDS = %w(title base_path description).freeze
-      NESTED_SEARCH_FIELDS = %w(details).freeze
+      SEARCH_FIELDS = %w[title base_path description].freeze
+      NESTED_SEARCH_FIELDS = %w[details].freeze
 
       def self.present_many(edition_scope, params = {})
         new(edition_scope, params).present_many
@@ -40,7 +40,7 @@ module Presenters
         @search_query = params[:search_query]
         @search_in = params[:search_in] || DEFAULT_SEARCH_FIELDS
         @states = Array(params[:states]).map(&:to_sym) if params[:states].present?
-        @states ||= %i(draft published unpublished)
+        @states ||= %i[draft published unpublished]
         @include_warnings = params[:include_warnings] || false
       end
 
@@ -223,8 +223,8 @@ module Presenters
       SQL
 
       def parse_results(results)
-        json_columns = %w(details routes redirects state_history unpublishing links)
-        int_columns = %w(user_facing_version lock_version)
+        json_columns = %w[details routes redirects state_history unpublishing links]
+        int_columns = %w[user_facing_version lock_version]
 
         Enumerator.new do |yielder|
           results.each do |result|
@@ -281,13 +281,13 @@ module Presenters
       end
 
       def get_warnings(result)
-        required_fields = %i{
+        required_fields = %i[
           content_id
           state_history
           user_facing_version
           base_path
           document_type
-        }
+        ]
 
         missing_fields = required_fields - fields
 

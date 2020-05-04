@@ -1,10 +1,10 @@
 module Queries
   class EditionLinks
     def self.from(content_id,
-      locale:,
-      with_drafts:,
-      allowed_link_types: nil)
-      self.new(
+                  locale:,
+                  with_drafts:,
+                  allowed_link_types: nil)
+      new(
         content_id: content_id,
         mode: :from,
         locale: locale,
@@ -14,10 +14,10 @@ module Queries
     end
 
     def self.to(content_id,
-      locale:,
-      with_drafts:,
-      allowed_link_types: nil)
-      self.new(
+                locale:,
+                with_drafts:,
+                allowed_link_types: nil)
+      new(
         content_id: content_id,
         mode: :to,
         locale: locale,

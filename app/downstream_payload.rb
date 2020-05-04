@@ -7,17 +7,11 @@ class DownstreamPayload
     @draft = draft
   end
 
-  def state
-    edition.state
-  end
+  delegate :state, to: :edition
 
-  def base_path
-    edition.base_path
-  end
+  delegate :base_path, to: :edition
 
-  def unpublished?
-    edition.unpublished?
-  end
+  delegate :unpublished?, to: :edition
 
   def content_store_action
     return :no_op unless base_path
@@ -38,9 +32,7 @@ class DownstreamPayload
     message_queue_presenter.for_message_queue(payload_version)
   end
 
-  def expanded_links
-    content_presenter.expanded_links
-  end
+  delegate :expanded_links, to: :content_presenter
 
 private
 

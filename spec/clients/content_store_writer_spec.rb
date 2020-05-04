@@ -12,7 +12,7 @@ RSpec.describe ContentStoreWriter do
     {
       base_path: base_path,
       details: {
-        etc: %w(one two three),
+        etc: %w[one two three],
       },
     }
   }

@@ -47,7 +47,7 @@ RSpec.describe LinkExpansion::EditionDiff do
     include_examples "should have changes"
 
     it "should have the correct changed fields" do
-      expect(subject.fields).to eq(%i(title))
+      expect(subject.fields).to eq(%i[title])
     end
   end
 
@@ -66,7 +66,7 @@ RSpec.describe LinkExpansion::EditionDiff do
     include_examples "should have changes"
 
     it "should have the correct changed fields" do
-      expect(subject.fields).to match_array(%i(api_path base_path document_type title))
+      expect(subject.fields).to match_array(%i[api_path base_path document_type title])
     end
   end
 
@@ -85,7 +85,7 @@ RSpec.describe LinkExpansion::EditionDiff do
     include_examples "should have changes"
 
     it "should have the correct changed fields" do
-      expect(subject.fields).to match_array(%i(details document_type title))
+      expect(subject.fields).to match_array(%i[details document_type title])
     end
   end
 
@@ -115,7 +115,7 @@ RSpec.describe LinkExpansion::EditionDiff do
       include_examples "should have changes"
 
       it "should have the correct changed fields" do
-        expect(subject.fields).to eq(%i(details))
+        expect(subject.fields).to eq(%i[details])
       end
     end
 

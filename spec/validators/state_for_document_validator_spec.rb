@@ -37,7 +37,7 @@ RSpec.describe StateForDocumentValidator do
           }
           let(:state_name) { hash[:state] }
           let(:expected_error) do
-            "state=#{hash[:state]} and document=#{document.id} conflicts " +
+            "state=#{hash[:state]} and document=#{document.id} conflicts " \
               "with edition id=#{conflict_edition.id}"
           end
 

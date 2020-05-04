@@ -50,7 +50,7 @@ RSpec.describe BasePathForStateValidator do
 
         context "when there is a draft at the base path" do
           let(:expected_error) do
-            "base path=#{conflict_base_path} conflicts with content_id=" +
+            "base path=#{conflict_base_path} conflicts with content_id=" \
               "#{conflict_content_id} and locale=#{conflict_locale}"
           end
           before { validate }
@@ -61,7 +61,7 @@ RSpec.describe BasePathForStateValidator do
         end
       end
 
-      %w(published unpublished).each do |name|
+      %w[published unpublished].each do |name|
         context "when state is #{name}" do
           let(:state_name) { name }
           let(:conflict_state_name) { "draft" }
@@ -73,7 +73,7 @@ RSpec.describe BasePathForStateValidator do
           context "when there is a live item at the base path" do
             let(:conflict_state_name) { "published" }
             let(:expected_error) do
-              "base path=#{conflict_base_path} conflicts with content_id=" +
+              "base path=#{conflict_base_path} conflicts with content_id=" \
                 "#{conflict_content_id} and locale=#{conflict_locale}"
             end
             before { validate }

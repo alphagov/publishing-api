@@ -37,11 +37,11 @@ module Queries
     # is_linked_to: true/false if it was determined there were/were not links
     # to the content_id, nil if it wasn't checked.
     def self.from(content_id,
-      allowed_link_types: nil,
-      parent_content_ids: [],
-      next_allowed_link_types_from: nil,
-      next_allowed_link_types_to: nil)
-      self.new(
+                  allowed_link_types: nil,
+                  parent_content_ids: [],
+                  next_allowed_link_types_from: nil,
+                  next_allowed_link_types_to: nil)
+      new(
         content_id: content_id,
         mode: :from,
         allowed_link_types: allowed_link_types,
@@ -57,11 +57,11 @@ module Queries
     #
     # See #from method for further description
     def self.to(content_id,
-      allowed_link_types: nil,
-      parent_content_ids: [],
-      next_allowed_link_types_from: nil,
-      next_allowed_link_types_to: nil)
-      self.new(
+                allowed_link_types: nil,
+                parent_content_ids: [],
+                next_allowed_link_types_from: nil,
+                next_allowed_link_types_to: nil)
+      new(
         content_id: content_id,
         mode: :to,
         allowed_link_types: allowed_link_types,

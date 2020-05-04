@@ -79,14 +79,14 @@ RSpec.describe V2::ContentItemsController do
         end
 
         it "doesn't return items that are no longer the latest version" do
-          get :index, params: { q: "zip", fields: %w(title) }
+          get :index, params: { q: "zip", fields: %w[title] }
           expect(parsed_response["results"].map { |i| i["title"] }).to eq([])
         end
       end
 
       context "specifying fields to search" do
         it "returns the item" do
-          get :index, params: { q: "stuff", search_in: %w[description], fields: %w(title) }
+          get :index, params: { q: "stuff", search_in: %w[description], fields: %w[title] }
           expect(parsed_response["results"].map { |i| i["title"] }).to eq(%w[bar])
         end
       end
@@ -112,7 +112,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "without providing a locale parameter" do
       before do
-        get :index, params: { fields: %w(base_path) }
+        get :index, params: { fields: %w[base_path] }
       end
 
       it "is successful" do
@@ -130,7 +130,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a specific locale parameter" do
       before do
-        get :index, params: { fields: %w(base_path), locale: "ar" }
+        get :index, params: { fields: %w[base_path], locale: "ar" }
       end
 
       it "is successful" do
@@ -148,7 +148,7 @@ RSpec.describe V2::ContentItemsController do
 
     context "providing a locale parameter set to 'all'" do
       before do
-        get :index, params: { fields: %w(base_path), locale: "all" }
+        get :index, params: { fields: %w[base_path], locale: "all" }
       end
 
       let(:parsed_response_body) { parsed_response["results"] }
@@ -514,7 +514,7 @@ RSpec.describe V2::ContentItemsController do
       get :index,
           params: {
             document_type: "nonexistent-schema",
-            fields: %w(base_path publishing_app),
+            fields: %w[base_path publishing_app],
             publishing_app: "whitehall",
           }
       items = parsed_response["results"]
@@ -523,7 +523,7 @@ RSpec.describe V2::ContentItemsController do
     end
 
     it "filters by state" do
-      get :index, params: { document_type: "nonexistent-schema", states: %w(published draft) }
+      get :index, params: { document_type: "nonexistent-schema", states: %w[published draft] }
 
       items = parsed_response["results"]
       draft, published = items.partition { |item| item["publication_state"] == "draft" }
@@ -534,7 +534,7 @@ RSpec.describe V2::ContentItemsController do
     end
 
     it "displays all items by default" do
-      get :index, params: { document_type: "nonexistent-schema", fields: %w(base_path publishing_app) }
+      get :index, params: { document_type: "nonexistent-schema", fields: %w[base_path publishing_app] }
       items = parsed_response["results"]
       expect(items.length).to eq(4)
     end

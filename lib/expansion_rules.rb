@@ -93,20 +93,20 @@ module ExpansionRules
   WORLD_LOCATION_FIELDS = %i[content_id title schema_name locale analytics_identifier].freeze
 
   CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE = (
-    %i(
+    %i[
       ordered_ministers
       ordered_board_members
       ordered_military_personnel
       ordered_traffic_commissioners
       ordered_chief_professional_officers
       ordered_special_representatives
-    ).map do |link_type|
+    ].map do |link_type|
       { document_type: :person, link_type: link_type, fields: PERSON_FIELDS_WITH_IMAGE }
     end
   ).freeze
 
   CUSTOM_EXPANSION_FIELDS_FOR_ROLES = (
-    %i(
+    %i[
       ambassador_role
       board_member_role
       chief_professional_officer_role
@@ -120,7 +120,7 @@ module ExpansionRules
       special_representative_role
       traffic_commissioner_role
       worldwide_office_staff_role
-    ).map do |document_type|
+    ].map do |document_type|
       { document_type: document_type, fields: ROLE_FIELDS }
     end
   ).freeze

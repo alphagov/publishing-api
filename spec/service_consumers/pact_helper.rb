@@ -35,7 +35,7 @@ Pact.provider_states_for "GDS API Adapters" do
     WebMock.reset!
     DatabaseCleaner.clean_with :truncation
     GDS::SSO.test_user = create(:user,
-                                permissions: %w(signin view_all))
+                                permissions: %w[signin view_all])
   end
 
   tear_down do

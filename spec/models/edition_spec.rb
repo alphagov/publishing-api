@@ -82,7 +82,7 @@ RSpec.describe Edition do
       end
 
       it "requires that the rendering_app is a valid DNS hostname" do
-        %w(word alpha12numeric dashed-item).each do |value|
+        %w[word alpha12numeric dashed-item].each do |value|
           subject.rendering_app = value
           expect(subject).to be_valid
         end
@@ -148,7 +148,7 @@ RSpec.describe Edition do
         expect(described_class.new.phase).to eq("live")
       end
 
-      %w(alpha beta live).each do |phase|
+      %w[alpha beta live].each do |phase|
         it "is valid with #{phase} phase" do
           subject.phase = phase
           expect(subject).to be_valid

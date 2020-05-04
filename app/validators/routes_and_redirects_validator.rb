@@ -90,7 +90,7 @@ private
   private
 
     def below_base_path?(path, base_path)
-      return true if path =~ %r(^#{base_path}\.[\w-]+\z)
+      return true if path =~ %r{^#{base_path}\.[\w-]+\z}
 
       path_segments = segments(path)
       base_segments = segments(base_path)
@@ -108,11 +108,11 @@ private
 
       supported_keys = %i[path type]
       if attribute == :redirects
-        supported_keys += %i(
+        supported_keys += %i[
           destination
           segments_mode
           redirect_type
-        )
+        ]
       end
 
       utilised_keys - supported_keys
@@ -189,7 +189,7 @@ private
         uri.host.end_with?(".gov.uk")
 
       errors << "internal redirect should not be specified with full url" if
-        %w(gov.uk www.gov.uk).include? uri.host
+        %w[gov.uk www.gov.uk].include? uri.host
 
       errors << "external redirects must use https" unless uri.scheme == "https"
 

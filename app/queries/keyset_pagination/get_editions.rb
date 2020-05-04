@@ -6,7 +6,7 @@ module Queries
       @fields = params.fetch(:fields, DEFAULT_FIELDS).map(&:to_sym)
       @order = params.fetch(:order, "updated_at").to_s
       @filters = {
-        states: params.fetch(:states, %i(draft published unpublished)),
+        states: params.fetch(:states, %i[draft published unpublished]),
         locale: params[:locale],
         publishing_app: params[:publishing_app],
         document_types: params[:document_types],

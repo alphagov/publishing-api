@@ -35,8 +35,8 @@ class Edition < ApplicationRecord
     update_type
   ].freeze
 
-  NON_RENDERABLE_FORMATS = %w(redirect gone).freeze
-  NO_RENDERING_APP_FORMATS = %w(contact external_content role_appointment).freeze
+  NON_RENDERABLE_FORMATS = %w[redirect gone].freeze
+  NO_RENDERING_APP_FORMATS = %w[contact external_content role_appointment].freeze
 
   belongs_to :document
   has_one :unpublishing
@@ -60,10 +60,10 @@ class Edition < ApplicationRecord
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :requires_rendering_app?
   validates :phase, inclusion: {
-    in: %w(alpha beta live),
+    in: %w[alpha beta live],
     message: "must be either alpha, beta, or live",
   }
-  validates :details, well_formed_content_types: { must_include_one_of: %w(text/html text/govspeak) }
+  validates :details, well_formed_content_types: { must_include_one_of: %w[text/html text/govspeak] }
 
   validate :user_facing_version_must_increase
   validate :draft_cannot_be_behind_live
@@ -86,7 +86,7 @@ class Edition < ApplicationRecord
   end
 
   def to_h
-    SymbolizeJSON::symbolize(
+    SymbolizeJSON.symbolize(
       attributes.merge(
         api_path: api_path,
         api_url: api_url,
@@ -102,9 +102,7 @@ class Edition < ApplicationRecord
     !base_path
   end
 
-  def base_path_present?
-    base_path.present?
-  end
+  delegate :present?, to: :base_path, prefix: true
 
   def draft_cannot_be_behind_live
     return unless document
@@ -114,7 +112,7 @@ class Edition < ApplicationRecord
       published_unpublished_version = document.published_or_unpublished.try(:user_facing_version)
     end
 
-    if %w(published unpublished).include?(state)
+    if %w[published unpublished].include?(state)
       draft_version = document.draft.user_facing_version if document.draft
       published_unpublished_version = user_facing_version
     end

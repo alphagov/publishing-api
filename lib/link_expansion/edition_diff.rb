@@ -7,9 +7,7 @@ class LinkExpansion::EditionDiff
     @version = version
   end
 
-  def present?
-    diff.present?
-  end
+  delegate :present?, to: :diff
 
   def fields
     diff.map(&:first)
@@ -48,7 +46,7 @@ private
     @previous_edition ||=
       current_edition.document.editions.find_by(
         user_facing_version: previous_user_version,
-    )
+      )
   end
 
   def previous_user_version

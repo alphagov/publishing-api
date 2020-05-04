@@ -183,7 +183,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       end
 
       it "is invalid if the url is a malformed gov.uk external url" do
-        %w(
+        %w[
           ://new-vat-rates.campaign.gov.uk/
           http:new-vat-rates.campaign.gov.uk/
           httpsnew-vat-rates.campaign.gov.uk/
@@ -193,7 +193,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           http://new-vat-rates.campaignjservicepgov.uk/path/to/your/new/vat-rates
           https://fakesite.net/.new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
           ftp://new-vat-rates.campaign.gov.uk/
-        ).each do |destination|
+        ].each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
 
           expect(subject).to be_invalid
@@ -201,13 +201,13 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
       end
 
       it "is valid if the url is a wellformed gov.uk external url" do
-        %w(
+        %w[
           https://www.pointsoflight.gov.uk/
           https://www.cloud.service.gov.uk/
           https://new-vat-rates.campaign.gov.uk/
           https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
           https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates?q=123&&a=23344
-        ).each do |destination|
+        ].each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/new", type: "exact", destination: destination }]
 
           expect(subject).to be_valid
@@ -254,7 +254,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
 
     context "when the type is 'exact'" do
       it "is valid with an optional query string and fragment in destination" do
-        %w(/foo/bar /foo?bar=baz /foo/bar#baz).each do |destination|
+        %w[/foo/bar /foo?bar=baz /foo/bar#baz].each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
           expect(subject).to be_valid
         end

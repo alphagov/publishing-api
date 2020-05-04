@@ -15,7 +15,7 @@ module Queries
       self.document_types = Array(document_types)
       self.fields = (fields || default_fields) + %w[total]
       self.publishing_app = filters[:publishing_app]
-      self.states = filters[:states] || %i(draft published unpublished)
+      self.states = filters[:states] || %i[draft published unpublished]
       self.link_filters = filters[:links]
       self.locale = filters[:locale] || "en"
       self.pagination = pagination
@@ -29,9 +29,7 @@ module Queries
       query.present_many
     end
 
-    def total
-      query.total
-    end
+    delegate :total, to: :query
 
   private
 

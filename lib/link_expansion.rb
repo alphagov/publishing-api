@@ -6,11 +6,11 @@
 #
 class LinkExpansion
   def self.by_edition(edition, with_drafts: false)
-    self.new(edition: edition, with_drafts: with_drafts)
+    new(edition: edition, with_drafts: with_drafts)
   end
 
   def self.by_content_id(content_id, locale: Edition::DEFAULT_LOCALE, with_drafts: false)
-    self.new(content_id: content_id, locale: locale, with_drafts: with_drafts)
+    new(content_id: content_id, locale: locale, with_drafts: with_drafts)
   end
 
   def initialize(options)
@@ -98,7 +98,7 @@ private
     # FIXME: We're leaking publishing app domain knowledge into the API here.
     # The agreed approach will be to allow any withdrawn links to appear but
     # this requires we assess impact on the rendering applications first.
-    %i(children parent related_statistical_data_sets).include?(link_type) ||
+    %i[children parent related_statistical_data_sets].include?(link_type) ||
       edition_hash[:state] != "unpublished"
   end
 

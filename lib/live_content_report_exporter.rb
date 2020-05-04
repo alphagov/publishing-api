@@ -36,9 +36,9 @@ private
   end
 
   def editions
-    @editions ||= Edition.
-      renderable_content.
-      where(phase: "live", state: "published", publishing_app: publishing_apps)
+    @editions ||= Edition
+      .renderable_content
+      .where(phase: "live", state: "published", publishing_app: publishing_apps)
   end
 
   def csv_headers

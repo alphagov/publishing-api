@@ -18,7 +18,7 @@ def present(number_of_items)
     puts(Benchmark.measure {
            Presenters::Queries::ContentItemPresenter.present_many(
              scope, limit: number_of_items
-             ).to_a
+           ).to_a
          })
   end
   puts "  Queries: #{$queries}"

@@ -31,7 +31,7 @@ module Queries
     def validate_presence_of_item!
       return if Edition.joins(:document).exists?(
         documents: { content_id: target_content_id },
-        state: %w(draft published),
+        state: %w[draft published],
       )
 
       raise CommandError.new(code: 404, error_details: {
@@ -67,7 +67,7 @@ module Queries
     end
 
     def permitted_fields
-      Edition.column_names + %w(content_id base_path locale publication_state)
+      Edition.column_names + %w[content_id base_path locale publication_state]
     end
 
     def presenter

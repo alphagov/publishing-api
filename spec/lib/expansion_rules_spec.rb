@@ -10,8 +10,8 @@ RSpec.describe ExpansionRules do
   end
 
   describe ".reverse_to_direct_link_type" do
-    specify { expect(rules.reverse_to_direct_link_type(:children)).to match_array(%i(parent)) }
-    specify { expect(rules.reverse_to_direct_link_type(:role_appointments)).to match_array(%i(role person)) }
+    specify { expect(rules.reverse_to_direct_link_type(:children)).to match_array(%i[parent]) }
+    specify { expect(rules.reverse_to_direct_link_type(:role_appointments)).to match_array(%i[role person]) }
     specify { expect(rules.reverse_to_direct_link_type(:parent)).to be_empty }
     specify { expect(rules.reverse_to_direct_link_type(:made_up)).to be_empty }
   end
@@ -31,7 +31,7 @@ RSpec.describe ExpansionRules do
   end
 
   describe ".reverse_link_types_hash" do
-    let(:content_ids) { %w(a b) }
+    let(:content_ids) { %w[a b] }
     specify do
       expect(rules.reverse_link_types_hash(parent: content_ids))
         .to match(children: content_ids)
@@ -41,21 +41,21 @@ RSpec.describe ExpansionRules do
 
   describe ".expansion_fields" do
     let(:default_fields) { rules::DEFAULT_FIELDS }
-    let(:contact_fields) { default_fields + [%i(details description), %i(details title), %i(details contact_form_links), %i(details post_addresses), %i(details email_addresses), %i(details phone_numbers)] }
-    let(:organisation_fields) { default_fields - [:public_updated_at] + [%i(details logo), %i(details brand), %i(details default_news_image)] }
-    let(:taxon_fields) { default_fields + %i(description details phase) }
-    let(:mainstream_browser_page_fields) { default_fields + %i(description) }
-    let(:need_fields) { default_fields + [%i(details role), %i(details goal), %i(details benefit), %i(details met_when), %i(details justifications)] }
-    let(:finder_fields) { default_fields + [%i(details facets)] }
-    let(:person_fields) { default_fields + [%i(details body), %i(details image)] }
-    let(:person_with_image_fields) { default_fields + [%i(details image)] }
-    let(:role_fields) { default_fields + [%i(details body), %i(details role_payment_type)] }
-    let(:role_appointment_fields) { default_fields + [%i(details started_on), %i(details ended_on), %i(details current), %i(details person_appointment_order)] }
-    let(:service_manual_topic_fields) { default_fields + %i(description) }
-    let(:step_by_step_fields) { default_fields + [%i(details step_by_step_nav title), %i(details step_by_step_nav steps)] }
-    let(:step_by_step_auth_bypass_fields) { step_by_step_fields + %i(auth_bypass_ids) }
-    let(:travel_advice_fields) { default_fields + [%i(details country), %i(details change_description)] }
-    let(:world_location_fields) { %i(content_id title schema_name locale analytics_identifier) }
+    let(:contact_fields) { default_fields + [%i[details description], %i[details title], %i[details contact_form_links], %i[details post_addresses], %i[details email_addresses], %i[details phone_numbers]] }
+    let(:organisation_fields) { default_fields - [:public_updated_at] + [%i[details logo], %i[details brand], %i[details default_news_image]] }
+    let(:taxon_fields) { default_fields + %i[description details phase] }
+    let(:mainstream_browser_page_fields) { default_fields + %i[description] }
+    let(:need_fields) { default_fields + [%i[details role], %i[details goal], %i[details benefit], %i[details met_when], %i[details justifications]] }
+    let(:finder_fields) { default_fields + [%i[details facets]] }
+    let(:person_fields) { default_fields + [%i[details body], %i[details image]] }
+    let(:person_with_image_fields) { default_fields + [%i[details image]] }
+    let(:role_fields) { default_fields + [%i[details body], %i[details role_payment_type]] }
+    let(:role_appointment_fields) { default_fields + [%i[details started_on], %i[details ended_on], %i[details current], %i[details person_appointment_order]] }
+    let(:service_manual_topic_fields) { default_fields + %i[description] }
+    let(:step_by_step_fields) { default_fields + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]] }
+    let(:step_by_step_auth_bypass_fields) { step_by_step_fields + %i[auth_bypass_ids] }
+    let(:travel_advice_fields) { default_fields + [%i[details country], %i[details change_description]] }
+    let(:world_location_fields) { %i[content_id title schema_name locale analytics_identifier] }
 
     specify { expect(rules.expansion_fields(:redirect)).to eq([]) }
     specify { expect(rules.expansion_fields(:gone)).to eq([]) }
@@ -361,7 +361,7 @@ RSpec.describe ExpansionRules do
       end
 
       it "changes the link types to be their direct counterpart" do
-        is_expected.to match(other: %i(person role))
+        is_expected.to match(other: %i[person role])
       end
     end
   end

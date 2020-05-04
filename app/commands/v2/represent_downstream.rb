@@ -2,7 +2,7 @@ module Commands
   module V2
     class RepresentDownstream
       def self.name
-        self.to_s
+        to_s
       end
 
       def call(content_ids, with_drafts: true, queue: DownstreamQueue::LOW_QUEUE)

@@ -134,7 +134,7 @@ module Commands
       end
 
       def valid_update_types
-        %w(major minor republish links)
+        %w[major minor republish links]
       end
 
       def already_published?

@@ -12,13 +12,13 @@ RSpec.describe LiveContentReportExporter do
 
   describe "#total" do
     it "is the count of live editions belonging to the supplied publishing apps" do
-      expect(described_class.new(%w(publisher smartanswers)).total).to eq 2
-      expect(described_class.new(%w(publisher)).total).to eq 1
+      expect(described_class.new(%w[publisher smartanswers]).total).to eq 2
+      expect(described_class.new(%w[publisher]).total).to eq 1
     end
   end
 
   describe "#file_path" do
-    subject { described_class.new(%w(publisher other-publisher)).file_path.to_s }
+    subject { described_class.new(%w[publisher other-publisher]).file_path.to_s }
 
     it "inculdes the names of the publishing apps" do
       expect(subject).to match(/publisher_other-publisher/)
@@ -41,7 +41,7 @@ RSpec.describe LiveContentReportExporter do
   end
 
   describe "export" do
-    subject { described_class.new(%w(publisher smartanswers)) }
+    subject { described_class.new(%w[publisher smartanswers]) }
 
     after { File.unlink(subject.file_path) if File.exist? subject.file_path }
 

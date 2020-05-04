@@ -2,11 +2,11 @@ module Presenters
   module Queries
     class AvailableTranslations
       def self.by_edition(edition, with_drafts: false)
-        self.new(edition: edition, with_drafts: with_drafts)
+        new(edition: edition, with_drafts: with_drafts)
       end
 
       def self.by_content_id(content_id, with_drafts: false)
-        self.new(content_id: content_id, with_drafts: with_drafts)
+        new(content_id: content_id, with_drafts: with_drafts)
       end
 
       def initialize(options)

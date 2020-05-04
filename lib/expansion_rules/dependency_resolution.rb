@@ -7,9 +7,7 @@ class ExpansionRules::DependencyResolution
     )
   end
 
-  def allowed_link_types(link_types_path)
-    multi_level_links.allowed_link_types(link_types_path)
-  end
+  delegate :allowed_link_types, to: :multi_level_links
 
   def allowed_direct_link_types(link_types_path)
     allowed_link_types(link_types_path).reject do |link_type|

@@ -66,7 +66,7 @@ class LinkGraph::Node
   end
 
   def ==(other)
-    self.to_h == other.to_h
+    to_h == other.to_h
   end
 
   def to_h

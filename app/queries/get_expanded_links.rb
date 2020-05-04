@@ -1,7 +1,7 @@
 module Queries
   class GetExpandedLinks
     def self.call(content_id, locale, with_drafts: true, generate: false)
-      self.new(content_id, locale, with_drafts, generate).call
+      new(content_id, locale, with_drafts, generate).call
     end
 
     def call
