@@ -16,13 +16,13 @@ ActiveRecord::Schema.define(version: 2020_04_28_134322) do
   enable_extension "plpgsql"
 
   create_table "access_limits", id: :serial, force: :cascade do |t|
-    t.json "temp_users", default: [], null: false
+    t.json "users", default: [], null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "edition_id"
-    t.json "temp_organisations", default: [], null: false
-    t.jsonb "users", default: [], null: false
-    t.jsonb "organisations", default: [], null: false
+    t.json "organisations", default: [], null: false
+    t.jsonb "temp_users", default: [], null: false
+    t.jsonb "temp_organisations", default: [], null: false
     t.index ["edition_id"], name: "index_access_limits_on_edition_id"
   end
 
@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(version: 2020_04_28_134322) do
   create_table "editions", id: :serial, force: :cascade do |t|
     t.string "title"
     t.datetime "public_updated_at"
-    t.json "temp_details", default: {}
-    t.json "temp_routes", default: []
-    t.json "temp_redirects", default: []
+    t.json "details", default: {}
+    t.json "routes", default: []
+    t.json "redirects", default: []
     t.string "publishing_app"
     t.string "rendering_app"
     t.string "update_type"
@@ -87,9 +87,9 @@ ActiveRecord::Schema.define(version: 2020_04_28_134322) do
     t.datetime "publishing_api_first_published_at"
     t.datetime "publishing_api_last_edited_at"
     t.string "auth_bypass_ids", default: [], null: false, array: true
-    t.jsonb "details", default: {}
-    t.jsonb "routes", default: []
-    t.jsonb "redirects", default: []
+    t.jsonb "temp_details", default: {}
+    t.jsonb "temp_routes", default: []
+    t.jsonb "temp_redirects", default: []
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
@@ -106,24 +106,24 @@ ActiveRecord::Schema.define(version: 2020_04_28_134322) do
 
   create_table "events", id: :serial, force: :cascade do |t|
     t.string "action", null: false
-    t.json "temp_payload", default: {}
+    t.json "payload", default: {}
     t.string "user_uid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "request_id"
     t.uuid "content_id"
-    t.jsonb "payload", default: {}
+    t.jsonb "temp_payload", default: {}
   end
 
   create_table "expanded_links", force: :cascade do |t|
     t.uuid "content_id", null: false
     t.string "locale", null: false
     t.boolean "with_drafts", null: false
-    t.json "temp_expanded_links", default: {}, null: false
+    t.json "expanded_links", default: {}, null: false
     t.bigint "payload_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "expanded_links", default: {}, null: false
+    t.jsonb "temp_expanded_links", default: {}, null: false
     t.index ["content_id", "locale", "with_drafts"], name: "expanded_links_content_id_locale_with_drafts_index", unique: true
   end
 
@@ -177,8 +177,8 @@ ActiveRecord::Schema.define(version: 2020_04_28_134322) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "unpublished_at"
-    t.json "temp_redirects"
-    t.jsonb "redirects"
+    t.json "redirects"
+    t.jsonb "temp_redirects"
     t.index ["edition_id", "type"], name: "index_unpublishings_on_edition_id_and_type"
     t.index ["edition_id"], name: "index_unpublishings_on_edition_id", unique: true
   end
