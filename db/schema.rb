@@ -10,17 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_28_134322) do
+ActiveRecord::Schema.define(version: 2020_05_06_153224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "access_limits", id: :serial, force: :cascade do |t|
-    t.json "temp_users", default: [], null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "edition_id"
-    t.json "temp_organisations", default: [], null: false
     t.jsonb "users", default: [], null: false
     t.jsonb "organisations", default: [], null: false
     t.index ["edition_id"], name: "index_access_limits_on_edition_id"
@@ -61,9 +59,6 @@ ActiveRecord::Schema.define(version: 2020_04_28_134322) do
   create_table "editions", id: :serial, force: :cascade do |t|
     t.string "title"
     t.datetime "public_updated_at"
-    t.json "temp_details", default: {}
-    t.json "temp_routes", default: []
-    t.json "temp_redirects", default: []
     t.string "publishing_app"
     t.string "rendering_app"
     t.string "update_type"
@@ -106,7 +101,6 @@ ActiveRecord::Schema.define(version: 2020_04_28_134322) do
 
   create_table "events", id: :serial, force: :cascade do |t|
     t.string "action", null: false
-    t.json "temp_payload", default: {}
     t.string "user_uid"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -119,7 +113,6 @@ ActiveRecord::Schema.define(version: 2020_04_28_134322) do
     t.uuid "content_id", null: false
     t.string "locale", null: false
     t.boolean "with_drafts", null: false
-    t.json "temp_expanded_links", default: {}, null: false
     t.bigint "payload_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -177,7 +170,6 @@ ActiveRecord::Schema.define(version: 2020_04_28_134322) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "unpublished_at"
-    t.json "temp_redirects"
     t.jsonb "redirects"
     t.index ["edition_id", "type"], name: "index_unpublishings_on_edition_id_and_type"
     t.index ["edition_id"], name: "index_unpublishings_on_edition_id", unique: true
