@@ -4,9 +4,9 @@ RSpec.describe DataHygiene::GovspeakCompare do
   let(:edition) { create(:edition, details: details) }
   let(:details) do
     { body: [
-        { content_type: "text/html", content: body_html },
-        { content_type: "text/govspeak", content: body_govspeak },
-      ],
+      { content_type: "text/html", content: body_html },
+      { content_type: "text/govspeak", content: body_govspeak },
+    ],
       other: [
         { content_type: "text/html", content: other_html },
         { content_type: "text/govspeak", content: other_govspeak },

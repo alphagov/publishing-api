@@ -49,8 +49,8 @@ SQL
 
 def get_content_id_and_locale(content_id)
   [
-      content_id,
-      Document.where(content_id: content_id).pluck(:locale).first,
+    content_id,
+    Document.where(content_id: content_id).pluck(:locale).first,
   ]
 end
 

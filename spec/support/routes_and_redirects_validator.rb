@@ -163,11 +163,11 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
 
       it "is valid when it redirects to the homepage" do
         edition.redirects = [
-            {
-                path: "#{subject.base_path}/foo",
-                type: "exact",
-                destination: "/",
-            },
+          {
+            path: "#{subject.base_path}/foo",
+            type: "exact",
+            destination: "/",
+          },
         ]
         expect(subject).to be_valid
       end
