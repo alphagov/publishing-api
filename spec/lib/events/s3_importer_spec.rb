@@ -31,7 +31,7 @@ RSpec.describe Events::S3Importer do
       updated_at: Time.zone.local(2015, 11, 11, 9, 55),
       request_id: nil,
       content_id: "2cc503f1-5fef-4fac-8381-63f6689cd6a2",
-      temp_payload: { "content_id" => "2cc503f1-5fef-4fac-8381-63f6689cd6a2" },
+      temp_payload: {},
     }
   end
   let(:event_11_attributes) do
@@ -44,7 +44,7 @@ RSpec.describe Events::S3Importer do
       updated_at: Time.utc(2015, 11, 11, 14),
       request_id: "2027-1477408502.282-80.194.77.100-1361",
       content_id: "8bc0c1dd-4842-4283-a123-5671a34b67eb",
-      temp_payload: { "content_id" => "8bc0c1dd-4842-4283-a123-5671a34b67eb" },
+      temp_payload: {},
     }
   end
 
