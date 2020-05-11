@@ -749,7 +749,7 @@ GEM
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2019.1009)
+    mime-types-data (3.2020.0425)
     mimemagic (0.3.4)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
@@ -803,7 +803,7 @@ GEM
       randexp (~> 0.1.7)
       rspec (>= 2.14)
       term-ansicolor (~> 1.0)
-    pact_broker-client (1.26.0)
+    pact_broker-client (1.27.0)
       httparty
       json
       rake
