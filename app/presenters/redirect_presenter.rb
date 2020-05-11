@@ -42,13 +42,13 @@ private
 
   def present
     attributes = {
-                    document_type: "redirect",
-                    schema_name: "redirect",
-                    base_path: base_path,
-                    locale: locale,
-                    publishing_app: publishing_app,
-                    redirects: redirects,
-                 }
+      document_type: "redirect",
+      schema_name: "redirect",
+      base_path: base_path,
+      locale: locale,
+      publishing_app: publishing_app,
+      redirects: redirects,
+    }
     if public_updated_at.present?
       attributes[:public_updated_at] = public_updated_at.iso8601
     end

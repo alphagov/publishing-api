@@ -21,17 +21,17 @@ RSpec.describe "GET /v2/links/changes", type: :request do
 
     expect(parsed_response.deep_symbolize_keys)
       .to match(link_changes: [{
-                                 source: { title: editions.first.title,
-                                           base_path: editions.first.base_path,
-                                           content_id: editions.first.content_id },
-                                 target: { title: editions.second.title,
-                                           base_path: editions.second.base_path,
-                                           content_id: editions.second.content_id },
-                                 link_type: "taxons",
-                                 change: "add",
-                                 user_uid: user_uid,
-                                 created_at: be_a(String),
-                               }])
+        source: { title: editions.first.title,
+                  base_path: editions.first.base_path,
+                  content_id: editions.first.content_id },
+        target: { title: editions.second.title,
+                  base_path: editions.second.base_path,
+                  content_id: editions.second.content_id },
+        link_type: "taxons",
+        change: "add",
+        user_uid: user_uid,
+        created_at: be_a(String),
+      }])
   end
 
   scenario "User filters by link_type" do

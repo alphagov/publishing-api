@@ -30,7 +30,7 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
       let!(:arabic_a) { create_edition(a, "/a.fr", locale: "fr") }
 
       it "links to the available translations" do
-        expect(expanded_links[:available_translations]).to match([
+        expect(expanded_links[:available_translations]).to match_array([
           a_hash_including(base_path: "/a"),
           a_hash_including(base_path: "/a.fr"),
         ])
