@@ -28,11 +28,11 @@ RSpec.describe VersionForDocumentValidator do
     end
 
     context "when version and document are the same" do
-      let!(:conflict_edition) {
+      let!(:conflict_edition) do
         create(:edition,
                document: document,
                user_facing_version: version)
-      }
+      end
       let(:expected_error) do
         "user_facing_version=#{version} and document=#{document.id} " \
           "conflicts with edition id=#{conflict_edition.id}"

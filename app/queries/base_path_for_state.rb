@@ -1,6 +1,6 @@
 module Queries
   module BasePathForState
-    extend self
+  module_function
 
     def conflict(edition_id, state, base_path)
       return if has_no_conflicts?(state, edition_id)

@@ -1,5 +1,4 @@
 # Having a long routes file is not a style violation
-# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   def content_id_constraint(request)
     UuidValidator.valid?(request.params[:content_id])
@@ -72,4 +71,3 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => "/sidekiq"
   end
 end
-# rubocop:enable Metrics/BlockLength

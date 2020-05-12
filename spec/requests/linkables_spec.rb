@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "GET /v2/linkables", type: :request do
-  let!(:policy_1) {
+  let!(:policy_1) do
     create(:edition,
            state: "draft",
            document_type: "policy",
@@ -10,15 +10,15 @@ RSpec.describe "GET /v2/linkables", type: :request do
            details: {
              internal_name: "Cat rates (do not use for actual cats)",
            })
-  }
+  end
 
-  let!(:policy_2) {
+  let!(:policy_2) do
     create(:edition,
            state: "published",
            document_type: "policy",
            title: "Policy 2",
            base_path: "/vat-rates")
-  }
+  end
 
   around do |example|
     Sidekiq::Testing.disable! do

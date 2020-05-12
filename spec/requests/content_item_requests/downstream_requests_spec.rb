@@ -2,13 +2,13 @@ require "rails_helper"
 
 RSpec.describe "Downstream requests", type: :request do
   describe "PUT /v2/content" do
-    let(:content_item_for_draft_content_store) {
+    let(:content_item_for_draft_content_store) do
       v2_content_item
         .except(:update_type)
         .merge(expanded_links: {
           available_translations: available_translations,
         })
-    }
+    end
 
     it "only sends to the draft content store" do
       allow(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item).with(anything)
@@ -50,16 +50,16 @@ RSpec.describe "Downstream requests", type: :request do
   describe "PATCH /v2/links" do
     let(:content_item) { v2_content_item }
 
-    let(:content_item_for_draft_content_store) {
+    let(:content_item_for_draft_content_store) do
       content_item
         .except(:update_type)
         .merge(access_limited: access_limit_params)
-    }
+    end
 
-    let(:content_item_for_live_content_store) {
+    let(:content_item_for_live_content_store) do
       content_item
         .except(:access_limited, :update_type)
-    }
+    end
 
     context "when only a draft edition exists for the link set" do
       before do
@@ -194,13 +194,13 @@ RSpec.describe "Downstream requests", type: :request do
 
   context "/v2/publish" do
     let(:content_id) { SecureRandom.uuid }
-    let!(:draft) {
+    let!(:draft) do
       create(:draft_edition,
              document: create(:document, content_id: content_id),
              base_path: base_path)
-    }
+    end
 
-    let(:content_item_for_live_content_store) {
+    let(:content_item_for_live_content_store) do
       draft.attributes.deep_symbolize_keys
         .merge(
           base_path: base_path,
@@ -225,7 +225,7 @@ RSpec.describe "Downstream requests", type: :request do
           :user_facing_version,
           :content_store,
         )
-    }
+    end
 
     it "sends to the live content store" do
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)

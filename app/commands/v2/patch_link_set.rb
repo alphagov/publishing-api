@@ -139,7 +139,7 @@ module Commands
       end
 
       def schema_name
-        @schema_name ||= Queries::GetLatest.(
+        @schema_name ||= Queries::GetLatest.call(
           Edition.with_document.where("documents.content_id": content_id),
         ).pluck(:schema_name).first
       end

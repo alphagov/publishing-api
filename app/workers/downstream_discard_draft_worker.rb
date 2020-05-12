@@ -37,7 +37,7 @@ private
     @content_id = attributes.fetch(:content_id)
     @locale = attributes.fetch(:locale)
     @payload_version = Event.maximum_id
-    @edition = Queries::GetEditionForContentStore.(content_id, locale, true)
+    @edition = Queries::GetEditionForContentStore.call(content_id, locale, true)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
     @source_command = attributes[:source_command]
     @source_document_type = attributes[:source_document_type]

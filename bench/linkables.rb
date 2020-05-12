@@ -15,7 +15,7 @@ benchmarks.each do |document_type|
   ActiveSupport::Notifications.subscribe("sql.active_record") { |_| queries += 1 }
   puts document_type.to_s
   StackProf.run(mode: :wall, out: "tmp/linkable_mediator_#{document_type.gsub(/ +/, '_').downcase}_wall.dump") do
-    puts(Benchmark.measure {
+    puts(Benchmark.measure do
       10.times do
         Rails.cache.clear
         Queries::GetLinkables.new(
@@ -23,7 +23,7 @@ benchmarks.each do |document_type|
         ).call
         print "."
       end
-    })
+    end)
   end
   puts "queries: #{queries}"
   puts ""

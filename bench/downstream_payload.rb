@@ -55,7 +55,7 @@ benchmarks = {
 }
 
 benchmarks.each do |name, content_id|
-  content_item_ids = Queries::GetLatest.(
+  content_item_ids = Queries::GetLatest.call(
     Edition.where(content_id: content_id),
   ).pluck(:id)
 
@@ -66,7 +66,7 @@ benchmarks.each do |name, content_id|
 
   puts "#{name}: #{content_id}"
   StackProf.run(mode: :wall, out: "tmp/downstream_mediator_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
-    puts(Benchmark.measure {
+    puts(Benchmark.measure do
       10.times do
         payload = DownstreamPayload.new(
           edition,
@@ -77,7 +77,7 @@ benchmarks.each do |name, content_id|
         payload.message_queue_payload(nil)
         print "."
       end
-    })
+    end)
   end
   puts "queries: #{queries}"
   puts ""

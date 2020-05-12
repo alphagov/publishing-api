@@ -41,7 +41,7 @@ RSpec.describe QueuePublisher do
     end
 
     describe "sending a message" do
-      let(:content_item) {
+      let(:content_item) do
         {
           base_path: "/vat-rates",
           title: "VAT Rates",
@@ -56,7 +56,7 @@ RSpec.describe QueuePublisher do
           },
           update_type: "major",
         }
-      }
+      end
 
       it "sends the json representation of the item on the message queue" do
         expect(mock_exchange).to receive(:publish).with(content_item.to_json, hash_including(content_type: "application/json"))

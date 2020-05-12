@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Publish intent requests", type: :request do
-  let(:content_item) {
+  let(:content_item) do
     {
       publish_time: (Time.zone.now + 3.hours).iso8601,
       publishing_app: "publisher",
@@ -13,7 +13,7 @@ RSpec.describe "Publish intent requests", type: :request do
         },
       ],
     }
-  }
+  end
 
   before do
     stub_request(:put, %r{^content-store.*/publish-intent/.*})
@@ -71,9 +71,9 @@ RSpec.describe "Publish intent requests", type: :request do
       end
     end
 
-    let(:expected_event_payload) {
+    let(:expected_event_payload) do
       content_item.merge(base_path: base_path)
-    }
+    end
 
     it "sends to live content store" do
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_publish_intent)

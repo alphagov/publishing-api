@@ -10,7 +10,7 @@ task :live_content_report, [] => :environment do |_, args|
 
   live_content_report = LiveContentReportExporter.new(publishing_apps)
   puts "Exporting #{live_content_report.total} live documents published by #{publishing_apps.to_sentence} to #{File.absolute_path(live_content_report.file_path)}"
-  live_content_report.export(progress: ->(index, count) {
+  live_content_report.export(progress: lambda { |index, count|
     if ((index + 1) % 1000).zero? || (index + 1) == count
       puts "processed: #{index + 1}/#{count}"
     end

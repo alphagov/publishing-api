@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe Commands::ReservePath do
   describe "call" do
-    let(:payload) {
+    let(:payload) do
       { base_path: "/foo", publishing_app: "Foo" }
-    }
+    end
 
     context "with a new base_path" do
       it "successfully reserves the path" do
@@ -23,9 +23,9 @@ RSpec.describe Commands::ReservePath do
     end
 
     context "with override_existing set" do
-      let(:payload) {
+      let(:payload) do
         { base_path: "/foo", publishing_app: "Foo", override_existing: true }
-      }
+      end
       it "passes on the flag" do
         expect(PathReservation).to receive(:reserve_base_path!)
           .with("/foo", "Foo", override_existing: true)

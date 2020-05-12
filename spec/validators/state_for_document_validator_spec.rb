@@ -31,10 +31,10 @@ RSpec.describe StateForDocumentValidator do
         { factory: :unpublished_edition, state: "published", name: "existing item is unpublished and new item is published" },
       ].each do |hash|
         context "when #{hash[:scenario]}" do
-          let!(:conflict_edition) {
+          let!(:conflict_edition) do
             create(hash[:factory],
                    document: document)
-          }
+          end
           let(:state_name) { hash[:state] }
           let(:expected_error) do
             "state=#{hash[:state]} and document=#{document.id} conflicts " \
@@ -52,9 +52,9 @@ RSpec.describe StateForDocumentValidator do
       end
 
       context "when state is superseded" do
-        let!(:conflict_edition) {
+        let!(:conflict_edition) do
           create(:superseded_edition, document: document)
-        }
+        end
         let(:state_name) { "superseded" }
 
         it { is_expected.to be_nil }

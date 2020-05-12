@@ -8,16 +8,16 @@ RSpec.describe ContentStoreWriter do
   let(:content_store_writer) { ContentStoreWriter.new(content_store_host) }
   let(:base_path) { "/test/item" }
 
-  let(:content_item) {
+  let(:content_item) do
     {
       base_path: base_path,
       details: {
         etc: %w[one two three],
       },
     }
-  }
+  end
 
-  let(:publish_intent) {
+  let(:publish_intent) do
     {
       publish_time: Time.now.iso8601,
       publishing_app: "whitehall",
@@ -29,7 +29,7 @@ RSpec.describe ContentStoreWriter do
         },
       ],
     }
-  }
+  end
 
   describe "#put_content_item" do
     it "writes the content item as JSON to the given content store" do

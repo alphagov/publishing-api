@@ -54,13 +54,13 @@ begin
   end
 
   StackProf.run(mode: :wall, out: "tmp/patch_link_set_wall.dump") do
-    puts(Benchmark.measure {
+    puts(Benchmark.measure do
       payloads.each do |payload|
         Commands::V2::PatchLinkSet.call(payload)
         print "."
       end
       puts
-    })
+    end)
   end
 
   puts "#{$queries} SQL queries"

@@ -17,13 +17,13 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   end
 
   describe "withdrawing" do
-    let(:withdrawal_params) {
+    let(:withdrawal_params) do
       {
         type: "withdrawal",
         explanation: "Test withdrawal",
       }.to_json
-    }
-    let(:withdrawal_response) {
+    end
+    let(:withdrawal_response) do
       {
         base_path: base_path,
         content_item: a_hash_including(
@@ -33,7 +33,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           },
         ),
       }
-    }
+    end
 
     it "creates an Unpublishing" do
       post "/v2/content/#{content_id}/unpublish", params: withdrawal_params
@@ -80,13 +80,13 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   end
 
   describe "redirecting" do
-    let(:redirect_params_with_alternative_path) {
+    let(:redirect_params_with_alternative_path) do
       {
         type: "redirect",
         alternative_path: "/new-path",
       }.to_json
-    }
-    let(:redirect_params_with_redirects_hash) {
+    end
+    let(:redirect_params_with_redirects_hash) do
       {
         type: "redirect",
         redirects: [
@@ -97,8 +97,8 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           },
         ],
       }.to_json
-    }
-    let(:redirect_response) {
+    end
+    let(:redirect_response) do
       {
         base_path: base_path,
         content_item: {
@@ -118,7 +118,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           payload_version: anything,
         },
       }
-    }
+    end
 
     shared_examples "unpublishing with redirects" do
       it "creates an Unpublishing" do
@@ -185,14 +185,14 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   end
 
   describe "gone (remove the content)" do
-    let(:gone_params) {
+    let(:gone_params) do
       {
         type: "gone",
         explanation: "Test gone",
         alternative_path: "/new-path",
       }.to_json
-    }
-    let(:gone_response) {
+    end
+    let(:gone_response) do
       {
         base_path: base_path,
         content_item: {
@@ -215,7 +215,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
           public_updated_at: anything,
         },
       }
-    }
+    end
 
     it "creates an Unpublishing" do
       post "/v2/content/#{content_id}/unpublish", params: gone_params
@@ -270,11 +270,11 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   end
 
   describe "vanish (gone like it never existed)" do
-    let(:vanish_params) {
+    let(:vanish_params) do
       {
         type: "vanish",
       }.to_json
-    }
+    end
 
     it "creates an Unpublishing" do
       post "/v2/content/#{content_id}/unpublish", params: vanish_params

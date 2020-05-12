@@ -1,5 +1,5 @@
 module ExpansionRules
-  extend self
+module_function
 
   module RecurringLinks
     refine Symbol do

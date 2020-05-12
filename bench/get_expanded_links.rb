@@ -77,12 +77,12 @@ benchmarks.each do |name, (content_id, locale)|
   result = nil
   puts "#{name}: #{content_id}"
   StackProf.run(mode: :wall, out: "tmp/downstream_mediator_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
-    tms = Benchmark.measure {
+    tms = Benchmark.measure do
       10.times do
         result = Queries::GetExpandedLinks.call(content_id, locale)
         print "."
       end
-    }
+    end
     puts tms
   end
   puts "queries: #{queries}"

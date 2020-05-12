@@ -7,13 +7,13 @@ RSpec.describe DownstreamPayload do
 
   let(:payload_version) { 1 }
   let(:draft) { false }
-  subject(:downstream_payload) {
+  subject(:downstream_payload) do
     DownstreamPayload.new(
       edition,
       payload_version,
       draft: draft,
     )
-  }
+  end
 
   describe "#state" do
     let(:edition) { create_edition(:live_edition) }
@@ -102,13 +102,13 @@ RSpec.describe DownstreamPayload do
   end
 
   describe "#content_store_payload" do
-    let(:content_store_payload_hash) {
+    let(:content_store_payload_hash) do
       {
         title: edition.title,
         base_path: edition.base_path,
         payload_version: payload_version,
       }
-    }
+    end
 
     context "published item" do
       let(:edition) { create_edition(:live_edition) }
