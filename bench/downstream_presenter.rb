@@ -53,7 +53,7 @@ benchmarks = {
 }
 
 benchmarks.each do |name, content_id|
-  content_item_ids = Queries::GetLatest.(
+  content_item_ids = Queries::GetLatest.call(
     Edition.where(content_id: content_id, state: :published),
   ).pluck(:id)
 
@@ -61,7 +61,7 @@ benchmarks.each do |name, content_id|
 
   puts "#{name}: #{content_id}"
   StackProf.run(mode: :wall, out: "tmp/downstream_presenter_#{name.gsub(/ +/, '_').downcase}_wall.dump") do
-    puts(Benchmark.measure {
+    puts(Benchmark.measure do
       10.times do |_i|
         Presenters::EditionPresenter.new(
           edition, draft: false
@@ -69,6 +69,6 @@ benchmarks.each do |name, content_id|
         print "."
       end
       puts ""
-    })
+    end)
   end
 end

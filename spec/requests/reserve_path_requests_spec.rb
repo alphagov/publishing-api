@@ -9,11 +9,11 @@ RSpec.describe "PUT /paths", type: :request do
 
   context "with path /vat-rates" do
     let(:request_path) { "/paths#{base_path}" }
-    let(:payload) {
+    let(:payload) do
       {
         publishing_app: "publisher",
       }
-    }
+    end
 
     it "responds successfully" do
       do_request

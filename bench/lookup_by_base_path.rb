@@ -16,7 +16,7 @@ benchmarks.each do |base_path|
   ActiveSupport::Notifications.subscribe("sql.active_record") { |_| queries += 1 }
   puts base_path
   StackProf.run(mode: :wall, out: "tmp/lookup_by_base_path_#{base_path.gsub(/\//, '_').downcase}_wall.dump") do
-    puts(Benchmark.measure {
+    puts(Benchmark.measure do
       10.times do
         Edition
           .where(state: states, base_path: [base_path])
@@ -24,7 +24,7 @@ benchmarks.each do |base_path|
           .uniq
         print "."
       end
-    })
+    end)
   end
   puts "queries: #{queries}"
   puts ""

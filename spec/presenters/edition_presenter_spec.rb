@@ -27,13 +27,13 @@ RSpec.describe Presenters::EditionPresenter do
 
   describe "#for_message_queue" do
     let(:update_type) { "minor" }
-    let(:edition) {
+    let(:edition) do
       create(:live_edition,
              update_type: update_type,
              schema_name: "calendar",
              document_type: "calendar",
              auth_bypass_ids: [])
-    }
+    end
 
     subject(:result) do
       described_class.new(
@@ -280,9 +280,9 @@ RSpec.describe Presenters::EditionPresenter do
     end
 
     context "for an access-limited item" do
-      let!(:access_limit) {
+      let!(:access_limit) do
         create(:access_limit, edition: edition)
-      }
+      end
 
       context "in draft" do
         let(:edition) { create(:draft_edition) }

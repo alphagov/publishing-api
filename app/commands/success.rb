@@ -12,12 +12,20 @@ module Commands
       data
     end
 
-    def ok?; true; end
+    def ok?
+      true
+    end
 
-    def error?; false; end
+    def error?
+      false
+    end
 
-    def client_error?; false; end
+    def client_error?
+      false
+    end
 
-    def server_error?; false; end
+    def server_error?
+      false
+    end
   end
 end

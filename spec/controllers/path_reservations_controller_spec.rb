@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe PathReservationsController, type: :controller do
   describe "reserve_path" do
     context "with a valid path reservation request" do
-      let(:payload) {
+      let(:payload) do
         { publishing_app: "Foo" }
-      }
+      end
 
       it "responds successfully" do
         post :reserve_path, params: { base_path: "foo" }, body: payload.to_json
@@ -15,9 +15,9 @@ RSpec.describe PathReservationsController, type: :controller do
     end
 
     context "with an invalid path reservation request" do
-      let(:payload) {
+      let(:payload) do
         { publishing_app: nil }
-      }
+      end
 
       it "responds with status 422" do
         post :reserve_path, params: { base_path: "///" }, body: payload.to_json

@@ -6,7 +6,7 @@ class LinkExpansion::ContentCache
   end
 
   def find(content_id)
-    if cache.has_key?(content_id)
+    if cache.key?(content_id)
       cache[content_id]
     else
       cache[content_id] = load_uncached_edition(content_id)
@@ -43,9 +43,9 @@ private
   def fetch_editions_from_database(content_ids)
     return [] if content_ids.blank?
 
-    edition_ids = Queries::GetEditionIdsWithFallbacks.(content_ids,
-                                                       locale_fallback_order: locale_fallback_order,
-                                                       state_fallback_order: state_fallback_order)
+    edition_ids = Queries::GetEditionIdsWithFallbacks.call(content_ids,
+                                                           locale_fallback_order: locale_fallback_order,
+                                                           state_fallback_order: state_fallback_order)
     return [] unless edition_ids
 
     Edition

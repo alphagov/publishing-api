@@ -1,6 +1,6 @@
 module RequestHelpers
   module Mocks
-    extend self
+  module_function
 
     def api_path
       "/api/content" + base_path

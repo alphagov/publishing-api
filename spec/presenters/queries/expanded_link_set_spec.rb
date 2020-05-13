@@ -9,13 +9,13 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   let(:locale) { "en" }
   let(:with_drafts) { false }
 
-  subject(:expanded_links) {
+  subject(:expanded_links) do
     described_class.by_content_id(
       a,
       locale: locale,
       with_drafts: with_drafts,
     ).links
-  }
+  end
 
   describe "multiple translations" do
     let(:locale_fallback_order) { %w[ar en] }

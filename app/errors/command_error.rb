@@ -64,9 +64,13 @@ class CommandError < StandardError
     @error_details
   end
 
-  def ok?; false; end
+  def ok?
+    false
+  end
 
-  def error?; true; end
+  def error?
+    true
+  end
 
   # True if this error represents a client error, ie. the problem lies with
   # request sent by the caller to the publishing API

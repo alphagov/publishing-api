@@ -5,11 +5,11 @@ RSpec.describe SubstitutionHelper do
   let(:new_document_type) { "nonexistent-schema" }
   let(:existing_base_path) { "/vat-rates" }
 
-  let!(:existing_item) {
+  let!(:existing_item) do
     create(:draft_edition,
            document_type: existing_document_type,
            base_path: existing_base_path)
-  }
+  end
 
   before do
     stub_request(
@@ -37,11 +37,11 @@ RSpec.describe SubstitutionHelper do
       end
 
       context "when the existing item is published" do
-        let!(:existing_item) {
+        let!(:existing_item) do
           create(:live_edition,
                  document_type: existing_document_type,
                  base_path: existing_base_path)
-        }
+        end
 
         it "does not unpublish the existing published item" do
           expect(existing_item.reload.substitute?).to be false
@@ -94,11 +94,11 @@ RSpec.describe SubstitutionHelper do
         end
 
         context "when the existing item is published" do
-          let!(:existing_item) {
+          let!(:existing_item) do
             create(:live_edition,
                    document_type: existing_document_type,
                    base_path: existing_base_path)
-          }
+          end
 
           it "unpublishes the existing published item" do
             expect(existing_item.reload.substitute?).to be true
@@ -133,11 +133,11 @@ RSpec.describe SubstitutionHelper do
         end
 
         context "when the existing item is published" do
-          let!(:existing_item) {
+          let!(:existing_item) do
             create(:live_edition,
                    document_type: existing_document_type,
                    base_path: existing_base_path)
-          }
+          end
 
           it "unpublishes the existing published item" do
             expect(existing_item.reload.substitute?).to be true
@@ -151,11 +151,11 @@ RSpec.describe SubstitutionHelper do
         end
 
         context "when the existing item is published" do
-          let!(:existing_item) {
+          let!(:existing_item) do
             create(:live_edition,
                    document_type: existing_document_type,
                    base_path: existing_base_path)
-          }
+          end
 
           it "does not unpublish the existing item" do
             expect(existing_item.reload.substitute?).to be false
