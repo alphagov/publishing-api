@@ -5,13 +5,17 @@ RSpec.describe Tasks::VersionValidator do
   let(:document) { create(:document, content_id: content_id) }
 
   before do
-    create(:superseded_edition,
-           document: document,
-           user_facing_version: 1)
+    create(
+      :superseded_edition,
+      document: document,
+      user_facing_version: 1,
+    )
 
-    create(:live_edition,
-           document: document,
-           user_facing_version: 2)
+    create(
+      :live_edition,
+      document: document,
+      user_facing_version: 2,
+    )
   end
 
   context "when there are no version sequence problems" do
@@ -39,9 +43,11 @@ RSpec.describe Tasks::VersionValidator do
   context "when editions have the same version but different locale" do
     before do
       item = Edition.last
-      item.document = create(:document,
-                             content_id: item.document.content_id,
-                             locale: "fr")
+      item.document = create(
+        :document,
+        content_id: item.document.content_id,
+        locale: "fr",
+      )
       item.user_facing_version = 1
       item.save!(validate: false)
     end

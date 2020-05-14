@@ -2,20 +2,24 @@ require "rails_helper"
 
 RSpec.describe "GET /v2/content", type: :request do
   let!(:policy_1) do
-    create(:edition,
-           state: "draft",
-           document_type: "policy",
-           schema_name: "policy",
-           title: "Policy 1",
-           base_path: "/cat-rates")
+    create(
+      :edition,
+      state: "draft",
+      document_type: "policy",
+      schema_name: "policy",
+      title: "Policy 1",
+      base_path: "/cat-rates",
+    )
   end
 
   let!(:policy_2) do
-    create(:edition,
-           state: "published",
-           document_type: "policy",
-           schema_name: "policy",
-           title: "Policy 2")
+    create(
+      :edition,
+      state: "published",
+      document_type: "policy",
+      schema_name: "policy",
+      title: "Policy 2",
+    )
   end
 
   it "responds with a list of content items" do

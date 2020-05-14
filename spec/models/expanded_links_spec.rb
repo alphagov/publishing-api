@@ -34,12 +34,14 @@ RSpec.describe ExpandedLinks do
 
     context "when there is an instance and the payload version of the update is greater" do
       let!(:expanded_links_instance) do
-        create(:expanded_links,
-               content_id: content_id,
-               locale: locale,
-               with_drafts: with_drafts,
-               payload_version: 1,
-               expanded_links: {})
+        create(
+          :expanded_links,
+          content_id: content_id,
+          locale: locale,
+          with_drafts: with_drafts,
+          payload_version: 1,
+          expanded_links: {},
+        )
       end
 
       it "updates the links" do
@@ -52,12 +54,14 @@ RSpec.describe ExpandedLinks do
 
     context "when there is an instance and the payload version of the update is lower" do
       let!(:expanded_links_instance) do
-        create(:expanded_links,
-               content_id: content_id,
-               locale: locale,
-               with_drafts: with_drafts,
-               payload_version: 5,
-               expanded_links: {})
+        create(
+          :expanded_links,
+          content_id: content_id,
+          locale: locale,
+          with_drafts: with_drafts,
+          payload_version: 5,
+          expanded_links: {},
+        )
       end
 
       it "doesn't update" do

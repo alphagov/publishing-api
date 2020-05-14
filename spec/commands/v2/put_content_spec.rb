@@ -67,10 +67,11 @@ RSpec.describe Commands::V2::PutContent do
         .with(
           "downstream_high",
           a_hash_including(
-            :content_id, :locale,
+            :content_id,
+            :locale,
             update_dependencies: true,
             source_command: "put_content",
-            source_fields: []
+            source_fields: [],
           ),
         )
 

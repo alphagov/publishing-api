@@ -2,7 +2,7 @@ module DownstreamService
   def self.update_live_content_store(downstream_payload)
     if %w[published unpublished].exclude?(downstream_payload.state)
       message = "Can only send published and unpublished items to live content store"
-      raise DownstreamInvalidStateError.new(message)
+      raise DownstreamInvalidStateError, message
     end
 
     case downstream_payload.content_store_action
@@ -16,11 +16,11 @@ module DownstreamService
   def self.update_draft_content_store(downstream_payload)
     if %w[draft published unpublished].exclude?(downstream_payload.state)
       message = "Can only send draft, published and unpublished items to draft content store"
-      raise DownstreamInvalidStateError.new(message)
+      raise DownstreamInvalidStateError, message
     end
     if downstream_payload.state != "draft" && draft_at_base_path?(downstream_payload.base_path)
       message = "Can't send #{downstream_payload.state} item to draft content store, as there is a draft occupying the same base path"
-      raise DownstreamDraftExistsError.new(message)
+      raise DownstreamDraftExistsError, message
     end
 
     case downstream_payload.content_store_action
@@ -33,9 +33,7 @@ module DownstreamService
 
   def self.broadcast_to_message_queue(downstream_payload, event_type)
     unless %w[unpublished published].include?(downstream_payload.state)
-      raise DownstreamInvalidStateError.new(
-        "Can only send published or unpublished items to the message queue",
-      )
+      raise DownstreamInvalidStateError, "Can only send published or unpublished items to the message queue"
     end
 
     payload = downstream_payload.message_queue_payload
@@ -47,7 +45,7 @@ module DownstreamService
 
     if discard_draft_base_path_conflict?(base_path)
       message = "Cannot discard '#{base_path}' as there is an item occupying that base path"
-      raise DiscardDraftBasePathConflictError.new(message)
+      raise DiscardDraftBasePathConflictError, message
     end
     Adapters::DraftContentStore.delete_content_item(base_path)
   end

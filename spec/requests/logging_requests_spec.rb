@@ -28,8 +28,11 @@ RSpec.describe "Logging requests", type: :request do
     expect(PublishingAPI.service(:queue_publisher)).to receive(:send_message)
       .with(hash_including(govuk_request_id: govuk_request_id), event_type: "minor")
 
-    post("/v2/content/#{draft_edition.document.content_id}/publish", params: { update_type: "minor" }.to_json,
-                                                                     headers: { "HTTP_GOVUK_REQUEST_ID" => "12345-67890" })
+    post(
+      "/v2/content/#{draft_edition.document.content_id}/publish",
+      params: { update_type: "minor" }.to_json,
+      headers: { "HTTP_GOVUK_REQUEST_ID" => "12345-67890" },
+    )
   end
 
   context "with GOVUK-Dependency-Resolution-Source-Content-Id" do

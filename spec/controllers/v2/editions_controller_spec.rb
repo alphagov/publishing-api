@@ -136,7 +136,7 @@ RSpec.describe V2::EditionsController do
 
     context "filtered by document type" do
       it "returns only the document type specified" do
-        create(:draft_edition, document_type: "taxon", id: 10000)
+        create(:draft_edition, document_type: "taxon", id: 10_000)
         get :index, params: { document_types: %w[taxon] }
         expect(parsed_response["results"].count).to eq(1)
         expect(parsed_response["links"]).to eq([

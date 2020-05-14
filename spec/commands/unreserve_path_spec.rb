@@ -15,9 +15,11 @@ RSpec.describe Commands::UnreservePath do
       it "returns an error" do
         payload = { base_path: "/bar", publishing_app: "foo" }
 
-        create(:path_reservation,
-               base_path: "/bar",
-               publishing_app: "bar")
+        create(
+          :path_reservation,
+          base_path: "/bar",
+          publishing_app: "bar",
+        )
 
         expect { described_class.call(payload) }
           .to raise_error(

@@ -12,8 +12,12 @@ module Commands
           send_downstream
         end
 
-        Action.create_unpublish_action(edition, unpublishing_type,
-                                       document.locale, event)
+        Action.create_unpublish_action(
+          edition,
+          unpublishing_type,
+          document.locale,
+          event,
+        )
 
         Success.new(content_id: document.content_id)
       end

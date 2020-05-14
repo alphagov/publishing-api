@@ -10,9 +10,11 @@ RSpec.describe Events::S3Exporter do
   let(:resource_double) { instance_double("Aws::S3::Resource", bucket: bucket_double) }
   let(:bucket_double) { instance_double("Aws::S3::Bucket", object: object_double) }
   let(:object_double) do
-    instance_double("Aws::S3::Object",
-                    exists?: object_exists?,
-                    put: Aws::S3::Types::PutObjectOutput.new)
+    instance_double(
+      "Aws::S3::Object",
+      exists?: object_exists?,
+      put: Aws::S3::Types::PutObjectOutput.new,
+    )
   end
 
   before do
@@ -79,24 +81,32 @@ RSpec.describe Events::S3Exporter do
     context "when there are items to export" do
       let(:created_before) { theresa_may_appointed }
       let!(:theresa_may_event) do
-        create(:event,
-               title: "Theresa May becomes Prime Minister",
-               created_at: theresa_may_appointed)
+        create(
+          :event,
+          title: "Theresa May becomes Prime Minister",
+          created_at: theresa_may_appointed,
+        )
       end
       let!(:david_cameron_event) do
-        create(:event,
-               title: "David Cameron becomes Prime Minister",
-               created_at: david_cameron_appointed)
+        create(
+          :event,
+          title: "David Cameron becomes Prime Minister",
+          created_at: david_cameron_appointed,
+        )
       end
       let!(:gordon_brown_event) do
-        create(:event,
-               title: "Gordon Brown becomes Prime Minister",
-               created_at: gordon_brown_appointed)
+        create(
+          :event,
+          title: "Gordon Brown becomes Prime Minister",
+          created_at: gordon_brown_appointed,
+        )
       end
       let!(:tony_blair_event) do
-        create(:event,
-               title: "Tony Blair becomes Prime Minister",
-               created_at: tony_blair_appointed)
+        create(
+          :event,
+          title: "Tony Blair becomes Prime Minister",
+          created_at: tony_blair_appointed,
+        )
       end
 
       context "and we're wanting events before Theresa May took office" do

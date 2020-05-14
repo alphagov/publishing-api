@@ -14,11 +14,13 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously unpublish
 
   before do
     Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0))
-    create(:unpublished_edition,
-           document: create(:document, content_id: content_id, stale_lock_version: 2),
-           user_facing_version: 5,
-           base_path: base_path,
-           publishing_api_first_published_at: publishing_api_first_published_at)
+    create(
+      :unpublished_edition,
+      document: create(:document, content_id: content_id, stale_lock_version: 2),
+      user_facing_version: 5,
+      base_path: base_path,
+      publishing_api_first_published_at: publishing_api_first_published_at,
+    )
   end
 
   it "creates the draft's lock version using the unpublished lock version as a starting point" do

@@ -42,7 +42,7 @@ private
   end
 
   def find_type
-    raise NoSchemaNameError.new("No schema name provided") if schema_name.blank?
+    raise NoSchemaNameError, "No schema name provided" if schema_name.blank?
 
     { schema_type_key => schema_name }
   end

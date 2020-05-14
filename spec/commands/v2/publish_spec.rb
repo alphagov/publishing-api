@@ -17,16 +17,20 @@ RSpec.describe Commands::V2::Publish do
     let(:public_updated_at) { 1.year.ago }
 
     let!(:document) do
-      create(:document,
-             locale: locale,
-             stale_lock_version: 2)
+      create(
+        :document,
+        locale: locale,
+        stale_lock_version: 2,
+      )
     end
 
     let!(:draft_item) do
-      create(:draft_edition,
-             document: document,
-             base_path: base_path,
-             user_facing_version: user_facing_version)
+      create(
+        :draft_edition,
+        document: document,
+        base_path: base_path,
+        user_facing_version: user_facing_version,
+      )
     end
 
     let(:expected_content_store_payload) { { base_path: base_path } }
@@ -119,11 +123,13 @@ RSpec.describe Commands::V2::Publish do
       let(:existing_base_path) { base_path }
 
       let!(:draft_item) do
-        create(:draft_edition,
-               document: document,
-               base_path: existing_base_path,
-               title: "foo",
-               user_facing_version: user_facing_version)
+        create(
+          :draft_edition,
+          document: document,
+          base_path: existing_base_path,
+          title: "foo",
+          user_facing_version: user_facing_version,
+        )
       end
 
       it "updates the dependencies" do
@@ -155,11 +161,13 @@ RSpec.describe Commands::V2::Publish do
 
       context "and update_type is minor" do
         before do
-          create(:live_edition,
-                 document: document,
-                 base_path: existing_base_path,
-                 user_facing_version: user_facing_version - 1,
-                 major_published_at: major_published_at)
+          create(
+            :live_edition,
+            document: document,
+            base_path: existing_base_path,
+            user_facing_version: user_facing_version - 1,
+            major_published_at: major_published_at,
+          )
         end
 
         it "sets major_published_at to previous live version's value" do
@@ -176,11 +184,13 @@ RSpec.describe Commands::V2::Publish do
       let(:existing_base_path) { base_path }
 
       let!(:live_item) do
-        create(:live_edition,
-               document: document,
-               base_path: existing_base_path,
-               title: "foo",
-               user_facing_version: user_facing_version - 1)
+        create(
+          :live_edition,
+          document: document,
+          base_path: existing_base_path,
+          title: "foo",
+          user_facing_version: user_facing_version - 1,
+        )
       end
 
       it "updates the dependencies" do
@@ -210,10 +220,12 @@ RSpec.describe Commands::V2::Publish do
       let(:existing_base_path) { base_path }
 
       let!(:live_item) do
-        create(:live_edition,
-               document: document,
-               base_path: existing_base_path,
-               user_facing_version: user_facing_version - 1)
+        create(
+          :live_edition,
+          document: document,
+          base_path: existing_base_path,
+          user_facing_version: user_facing_version - 1,
+        )
       end
 
       before do
@@ -246,11 +258,13 @@ RSpec.describe Commands::V2::Publish do
       let(:existing_base_path) { base_path }
       let(:first_published_at) { 1.year.ago }
       let!(:live_item) do
-        create(:live_edition,
-               document: document,
-               base_path: existing_base_path,
-               user_facing_version: user_facing_version - 1,
-               first_published_at: first_published_at)
+        create(
+          :live_edition,
+          document: document,
+          base_path: existing_base_path,
+          user_facing_version: user_facing_version - 1,
+          first_published_at: first_published_at,
+        )
       end
 
       it "marks the previously published item as 'superseded'" do
@@ -270,10 +284,12 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the edition was previously unpublished" do
       let!(:live_item) do
-        create(:unpublished_edition,
-               document: draft_item.document,
-               base_path: base_path,
-               user_facing_version: user_facing_version - 1)
+        create(
+          :unpublished_edition,
+          document: draft_item.document,
+          base_path: base_path,
+          user_facing_version: user_facing_version - 1,
+        )
       end
 
       it "marks the previously unpublished item as 'superseded'" do
@@ -288,9 +304,11 @@ RSpec.describe Commands::V2::Publish do
       let(:draft_locale) { document.locale }
 
       let!(:other_edition) do
-        create(:redirect_live_edition,
-               document: create(:document, locale: draft_locale),
-               base_path: base_path)
+        create(
+          :redirect_live_edition,
+          document: create(:document, locale: draft_locale),
+          base_path: base_path,
+        )
       end
 
       it "unpublishes the edition which is in the way" do
@@ -376,10 +394,12 @@ RSpec.describe Commands::V2::Publish do
 
         context "and the update_type is minor" do
           let!(:live_item) do
-            create(:live_edition,
-                   document: document,
-                   base_path: base_path,
-                   user_facing_version: user_facing_version - 1)
+            create(
+              :live_edition,
+              document: document,
+              base_path: base_path,
+              user_facing_version: user_facing_version - 1,
+            )
           end
           before do
             payload[:update_type] = "minor"
@@ -444,14 +464,18 @@ RSpec.describe Commands::V2::Publish do
 
     context "when the base_path differs from the previously published item" do
       let!(:live_item) do
-        create(:live_edition,
-               document: draft_item.document,
-               base_path: "/hat-rates")
+        create(
+          :live_edition,
+          document: draft_item.document,
+          base_path: "/hat-rates",
+        )
       end
 
       before do
-        create(:redirect_draft_edition,
-               base_path: "/hat-rates")
+        create(
+          :redirect_draft_edition,
+          base_path: "/hat-rates",
+        )
       end
 
       it "publishes the redirect already created, from the old location to the new location" do
@@ -480,16 +504,20 @@ RSpec.describe Commands::V2::Publish do
       let(:link_b) { SecureRandom.uuid }
 
       let!(:live_item) do
-        create(:live_edition,
-               document: document,
-               links_hash: { topics: [link_a] })
+        create(
+          :live_edition,
+          document: document,
+          links_hash: { topics: [link_a] },
+        )
       end
 
       let!(:draft_item) do
-        create(:draft_edition,
-               document: document,
-               links_hash: { topics: [link_b] },
-               user_facing_version: 2)
+        create(
+          :draft_edition,
+          document: document,
+          links_hash: { topics: [link_b] },
+          user_facing_version: 2,
+        )
       end
 
       it "sends link_a downstream as an orphaned content_id when draft item is published" do
@@ -546,9 +574,11 @@ RSpec.describe Commands::V2::Publish do
 
       context "but a published item does exist" do
         before do
-          create(:live_edition,
-                 document: document,
-                 base_path: base_path)
+          create(
+            :live_edition,
+            document: document,
+            base_path: base_path,
+          )
         end
 
         it "raises an error to indicate it has already been published" do

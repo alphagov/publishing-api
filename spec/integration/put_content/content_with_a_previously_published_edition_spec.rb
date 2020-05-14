@@ -25,18 +25,22 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
   end
 
   let!(:edition) do
-    create(:live_edition,
-           document: document,
-           user_facing_version: 5,
-           first_published_at: first_published_at,
-           publishing_api_first_published_at: publishing_api_first_published_at,
-           base_path: base_path,
-           major_published_at: major_published_at)
+    create(
+      :live_edition,
+      document: document,
+      user_facing_version: 5,
+      first_published_at: first_published_at,
+      publishing_api_first_published_at: publishing_api_first_published_at,
+      base_path: base_path,
+      major_published_at: major_published_at,
+    )
   end
 
   let!(:link) do
-    edition.links.create(link_type: "test",
-                         target_content_id: document.content_id)
+    edition.links.create(
+      link_type: "test",
+      target_content_id: document.content_id,
+    )
   end
 
   it "creates the draft's user-facing version using the live's user-facing version as a starting point" do

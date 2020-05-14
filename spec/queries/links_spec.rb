@@ -238,10 +238,13 @@ RSpec.describe Queries::Links do
       end
 
       before do
-        create_link_set(link_content_id, links_hash: {
-          link_type => [content_id],
-          child_link_type => [child_content_id],
-        })
+        create_link_set(
+          link_content_id,
+          links_hash: {
+            link_type => [content_id],
+            child_link_type => [child_content_id],
+          },
+        )
       end
 
       context "when next_allowed_link_types_from is nil" do

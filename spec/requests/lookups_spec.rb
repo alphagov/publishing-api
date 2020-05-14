@@ -42,10 +42,22 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
       doc1 = create(:document, content_id: "cbb460a7-60de-4a74-b5be-0b27c6d6af9b")
       doc2 = create(:document, content_id: "18020103-122d-459d-90b1-0f3284c1b5cb")
 
-      create(:edition, state: "draft", content_store: "draft",
-                       base_path: "/unique-base-path", document: doc1, user_facing_version: 1)
-      create(:edition, state: "published", content_store: "live",
-                       base_path: "/unique-base-path", document: doc2, user_facing_version: 1)
+      create(
+        :edition,
+        state: "draft",
+        content_store: "draft",
+        base_path: "/unique-base-path",
+        document: doc1,
+        user_facing_version: 1,
+      )
+      create(
+        :edition,
+        state: "published",
+        content_store: "live",
+        base_path: "/unique-base-path",
+        document: doc2,
+        user_facing_version: 1,
+      )
 
       post "/lookup-by-base-path", params: { base_paths: "/unique-base-path", with_drafts: true }
 

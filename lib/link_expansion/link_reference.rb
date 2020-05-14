@@ -52,11 +52,13 @@ private
     next_allowed_link_types_to = rules.link_expansion
       .next_allowed_reverse_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
 
-    Queries::Links.from(content_id,
-                        allowed_link_types: allowed_link_types,
-                        parent_content_ids: parent_content_ids,
-                        next_allowed_link_types_from: next_allowed_link_types_from,
-                        next_allowed_link_types_to: next_allowed_link_types_to)
+    Queries::Links.from(
+      content_id,
+      allowed_link_types: allowed_link_types,
+      parent_content_ids: parent_content_ids,
+      next_allowed_link_types_from: next_allowed_link_types_from,
+      next_allowed_link_types_to: next_allowed_link_types_to,
+    )
   end
 
   def child_linked_to(content_id, link_types_path = [], parent_content_ids = [])
@@ -74,25 +76,31 @@ private
     next_allowed_link_types_to = rules.link_expansion
       .next_allowed_reverse_link_types(allowed_link_types, link_types_path, reverse_to_direct: true)
 
-    links = Queries::Links.to(content_id,
-                              allowed_link_types: rules.reverse_to_direct_link_types(allowed_link_types),
-                              parent_content_ids: parent_content_ids,
-                              next_allowed_link_types_from: next_allowed_link_types_from,
-                              next_allowed_link_types_to: next_allowed_link_types_to)
+    links = Queries::Links.to(
+      content_id,
+      allowed_link_types: rules.reverse_to_direct_link_types(allowed_link_types),
+      parent_content_ids: parent_content_ids,
+      next_allowed_link_types_from: next_allowed_link_types_from,
+      next_allowed_link_types_to: next_allowed_link_types_to,
+    )
 
     rules.reverse_link_types_hash(links)
   end
 
   def edition_links(content_id, locale, with_drafts)
-    from_links = Queries::EditionLinks.from(content_id,
-                                            locale: locale,
-                                            with_drafts: with_drafts,
-                                            allowed_link_types: nil)
+    from_links = Queries::EditionLinks.from(
+      content_id,
+      locale: locale,
+      with_drafts: with_drafts,
+      allowed_link_types: nil,
+    )
 
-    to_links = Queries::EditionLinks.to(content_id,
-                                        locale: locale,
-                                        with_drafts: with_drafts,
-                                        allowed_link_types: rules.reverse_to_direct_link_types(rules.reverse_links))
+    to_links = Queries::EditionLinks.to(
+      content_id,
+      locale: locale,
+      with_drafts: with_drafts,
+      allowed_link_types: rules.reverse_to_direct_link_types(rules.reverse_links),
+    )
 
     to_links = rules.reverse_link_types_hash(to_links)
     to_links.merge(from_links)

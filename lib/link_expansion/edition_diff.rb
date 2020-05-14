@@ -33,13 +33,17 @@ private
   def previous_edition_expanded
     return {} unless has_previous_edition?
 
-    ExpansionRules.expand_fields(previous_edition.to_h.deep_symbolize_keys,
-                                 draft: true)
+    ExpansionRules.expand_fields(
+      previous_edition.to_h.deep_symbolize_keys,
+      draft: true,
+    )
   end
 
   def current_edition_expanded
-    ExpansionRules.expand_fields(current_edition.to_h.deep_symbolize_keys,
-                                 draft: true)
+    ExpansionRules.expand_fields(
+      current_edition.to_h.deep_symbolize_keys,
+      draft: true,
+    )
   end
 
   def previous_edition

@@ -8,10 +8,12 @@ RSpec.describe Edition::Timestamps do
   describe "#edited" do
     let(:edition) { build(:edition, update_type: update_type) }
     let(:previous_live_version) do
-      build(:edition,
-            publishing_api_first_published_at: "2017-01-01",
-            first_published_at: "2017-04-01",
-            major_published_at: "2017-11-11")
+      build(
+        :edition,
+        publishing_api_first_published_at: "2017-01-01",
+        first_published_at: "2017-04-01",
+        major_published_at: "2017-11-11",
+      )
     end
 
     let(:update_type) { "major" }
@@ -107,19 +109,23 @@ RSpec.describe Edition::Timestamps do
 
   describe "#live_transition" do
     let(:edition) do
-      build(:edition,
-            publishing_api_first_published_at: publishing_api_first_published_at,
-            first_published_at: first_published_at,
-            public_updated_at: public_updated_at)
+      build(
+        :edition,
+        publishing_api_first_published_at: publishing_api_first_published_at,
+        first_published_at: first_published_at,
+        public_updated_at: public_updated_at,
+      )
     end
     let(:publishing_api_first_published_at) { nil }
     let(:first_published_at) { nil }
     let(:public_updated_at) { nil }
 
     let(:previous_live_version) do
-      build(:edition,
-            major_published_at: "2017-11-05",
-            public_updated_at: previous_public_updated_at)
+      build(
+        :edition,
+        major_published_at: "2017-11-05",
+        public_updated_at: previous_public_updated_at,
+      )
     end
     let(:previous_public_updated_at) { "2017-10-30" }
 

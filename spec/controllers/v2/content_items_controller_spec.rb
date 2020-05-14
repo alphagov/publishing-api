@@ -16,55 +16,67 @@ RSpec.describe V2::ContentItemsController do
     allow(SchemaValidator).to receive(:new).and_return(validator)
     stub_request(:any, /content-store/)
 
-    @draft = create(:draft_edition,
-                    document: document_en,
-                    base_path: "/content.en",
-                    document_type: "topic",
-                    schema_name: "topic",
-                    user_facing_version: 2)
+    @draft = create(
+      :draft_edition,
+      document: document_en,
+      base_path: "/content.en",
+      document_type: "topic",
+      schema_name: "topic",
+      user_facing_version: 2,
+    )
   end
 
   describe "index" do
     before do
       @en_draft_content = @draft
-      @ar_draft_content = create(:draft_edition,
-                                 document: document_ar,
-                                 base_path: "/content.ar",
-                                 document_type: "topic",
-                                 schema_name: "topic",
-                                 user_facing_version: 2)
-      @en_live_content = create(:live_edition,
-                                document: document_en,
-                                base_path: "/content.en",
-                                document_type: "guide",
-                                schema_name: "topic",
-                                user_facing_version: 1)
-      @ar_live_content = create(:live_edition,
-                                document: document_ar,
-                                base_path: "/content.ar",
-                                document_type: "topic",
-                                schema_name: "topic",
-                                user_facing_version: 1)
+      @ar_draft_content = create(
+        :draft_edition,
+        document: document_ar,
+        base_path: "/content.ar",
+        document_type: "topic",
+        schema_name: "topic",
+        user_facing_version: 2,
+      )
+      @en_live_content = create(
+        :live_edition,
+        document: document_en,
+        base_path: "/content.en",
+        document_type: "guide",
+        schema_name: "topic",
+        user_facing_version: 1,
+      )
+      @ar_live_content = create(
+        :live_edition,
+        document: document_ar,
+        base_path: "/content.ar",
+        document_type: "topic",
+        schema_name: "topic",
+        user_facing_version: 1,
+      )
     end
 
     context "searching a field" do
       let(:previous_live_version) do
-        create(:superseded_edition,
-               base_path: "/foo",
-               document_type: "topic",
-               schema_name: "topic",
-               title: "zip",
-               user_facing_version: 1)
+        create(
+          :superseded_edition,
+          base_path: "/foo",
+          document_type: "topic",
+          schema_name: "topic",
+          title: "zip",
+          user_facing_version: 1,
+        )
       end
       let!(:edition) do
-        create(:live_edition,
-               base_path: "/foo",
-               document: previous_live_version.document,
-               document_type: "topic",
-               schema_name: "topic",
-               title: "bar",
-               description: "stuff",
-               user_facing_version: 2)
+        create(
+          :live_edition,
+          base_path: "/foo",
+          document: previous_live_version.document,
+          document_type: "topic",
+          schema_name: "topic",
+          title: "bar",
+          description: "stuff",
+          user_facing_version: 2,
+        )
       end
 
       context "when there is a valid query" do
@@ -370,14 +382,18 @@ RSpec.describe V2::ContentItemsController do
 
     context "with edition links" do
       before do
-        create(:draft_edition,
-               document: document_ar,
-               base_path: "/content.ar",
-               schema_name: "topic",
-               user_facing_version: 2)
+        create(
+          :draft_edition,
+          document: document_ar,
+          base_path: "/content.ar",
+          schema_name: "topic",
+          user_facing_version: 2,
+        )
 
-        @draft.links.create(link_type: "organisation",
-                            target_content_id: document_ar.content_id)
+        @draft.links.create(
+          link_type: "organisation",
+          target_content_id: document_ar.content_id,
+        )
 
         get :show, params: { content_id: content_id }
       end

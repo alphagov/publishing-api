@@ -21,13 +21,16 @@ class CommandError < StandardError
              else
                {}
              end
-    raise CommandError.new(code: e.code, error_details: {
-      error: {
-        code: e.code,
-        message: e.message,
-        fields: fields,
+    raise CommandError.new(
+      code: e.code,
+      error_details: {
+        error: {
+          code: e.code,
+          message: e.message,
+          fields: fields,
+        },
       },
-    })
+    )
   rescue GdsApi::BaseError => e
     raise CommandError.new(code: 500, message: "Unexpected error from the downstream application: #{e.message}")
   end

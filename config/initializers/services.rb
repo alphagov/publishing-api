@@ -9,7 +9,7 @@ module PublishingAPI
   end
 
   def self.service(name)
-    @services[name] || raise(ServiceNotRegisteredException.new(name))
+    @services[name] || raise(ServiceNotRegisteredException, name)
   end
 
   class ServiceNotRegisteredException < RuntimeError; end

@@ -79,8 +79,12 @@ module Queries
 
   private
 
-    attr_reader :content_id, :mode, :allowed_link_types, :parent_content_ids,
-                :next_allowed_link_types_from, :next_allowed_link_types_to
+    attr_reader :content_id,
+                :mode,
+                :allowed_link_types,
+                :parent_content_ids,
+                :next_allowed_link_types_from,
+                :next_allowed_link_types_to
 
     def initialize(
       content_id:,

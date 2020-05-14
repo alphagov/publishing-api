@@ -11,9 +11,11 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   let(:base_path) { "/vat-rates" }
   let!(:document) { create(:document, content_id: content_id) }
   let!(:edition) do
-    create(:live_edition,
-           document: document,
-           base_path: base_path)
+    create(
+      :live_edition,
+      document: document,
+      base_path: base_path,
+    )
   end
 
   describe "withdrawing" do
@@ -324,9 +326,10 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
   describe "a bad unpublishing type" do
     it "422s" do
-      post "/v2/content/#{content_id}/unpublish", params: {
-        type: "not-correct",
-      }.to_json
+      post "/v2/content/#{content_id}/unpublish",
+           params: {
+             type: "not-correct",
+           }.to_json
 
       expect(response.status).to eq(422), response.body
     end

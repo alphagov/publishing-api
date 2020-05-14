@@ -67,9 +67,11 @@ private
     edition_hash = content_cache.find(node.content_id)
     return if !edition_hash || !should_link?(node.link_type, edition_hash)
 
-    expanded = rules.expand_fields(edition_hash,
-                                   link_type: node.link_type,
-                                   draft: with_drafts)
+    expanded = rules.expand_fields(
+      edition_hash,
+      link_type: node.link_type,
+      draft: with_drafts,
+    )
 
     links = auto_reverse_link(node).merge(populate_links(node.links))
     expanded.merge(links: links)
@@ -86,9 +88,11 @@ private
     rules
       .reverse_to_direct_link_type(node.link_types_path.first)
       .each_with_object({}) do |reverse_to_direct_link_type, memo|
-        expanded = rules.expand_fields(edition_hash,
-                                       link_type: reverse_to_direct_link_type,
-                                       draft: with_drafts)
+        expanded = rules.expand_fields(
+          edition_hash,
+          link_type: reverse_to_direct_link_type,
+          draft: with_drafts,
+        )
         memo[reverse_to_direct_link_type] = [expanded.merge(links: {})]
       end
   end

@@ -2,18 +2,20 @@ require "csv"
 require "zlib"
 
 module ContentDumpLoader
-  ContentItem = Struct.new(:base_path,
-                           :content_id,
-                           :locale,
-                           :document_type,
-                           :schema_name,
-                           :rendering_app,
-                           :publishing_app,
-                           :updated_at,
-                           :details_hash,
-                           :expanded_links_hash,
-                           :routes_hash,
-                           :redirects_hash) do
+  ContentItem = Struct.new(
+    :base_path,
+    :content_id,
+    :locale,
+    :document_type,
+    :schema_name,
+    :rendering_app,
+    :publishing_app,
+    :updated_at,
+    :details_hash,
+    :expanded_links_hash,
+    :routes_hash,
+    :redirects_hash,
+  ) do
     def gone?
       schema_name == "gone" && document_type == "gone"
     end

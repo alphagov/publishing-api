@@ -34,12 +34,15 @@ module Queries
         state: %w[draft published],
       )
 
-      raise CommandError.new(code: 404, error_details: {
-        error: {
-          code: 404,
-          message: "No item with content_id: '#{target_content_id}'",
+      raise CommandError.new(
+        code: 404,
+        error_details: {
+          error: {
+            code: 404,
+            message: "No item with content_id: '#{target_content_id}'",
+          },
         },
-      })
+      )
     end
 
     def validate_fields!
@@ -54,12 +57,15 @@ module Queries
         message = "Invalid column field(s): #{invalid_fields.to_sentence}"
       end
 
-      raise CommandError.new(code: code, error_details: {
-        error: {
-          code: code,
-          message: message,
+      raise CommandError.new(
+        code: code,
+        error_details: {
+          error: {
+            code: code,
+            message: message,
+          },
         },
-      })
+      )
     end
 
     def filter_fields(hash)

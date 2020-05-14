@@ -58,10 +58,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     it "doesn't reject an empty links hash, but doesn't delete links either" do
-      link_set = create(:link_set,
-                        links: [
-                          create(:link),
-                        ])
+      link_set = create(
+        :link_set,
+        links: [
+          create(:link),
+        ],
+      )
 
       described_class.call(
         content_id: link_set.content_id,
@@ -110,20 +112,28 @@ RSpec.describe Commands::V2::PatchLinkSet do
     let(:related) { [SecureRandom.uuid] }
 
     before do
-      create(:link_set,
-             content_id: content_id,
-             stale_lock_version: 1,
-             links: [
-               create(:link,
-                      link_type: "topics",
-                      target_content_id: topics.first),
-               create(:link,
-                      link_type: "topics",
-                      target_content_id: topics.second),
-               create(:link,
-                      link_type: "related",
-                      target_content_id: related.first),
-             ])
+      create(
+        :link_set,
+        content_id: content_id,
+        stale_lock_version: 1,
+        links: [
+          create(
+            :link,
+            link_type: "topics",
+            target_content_id: topics.first,
+          ),
+          create(
+            :link,
+            link_type: "topics",
+            target_content_id: topics.second,
+          ),
+          create(
+            :link,
+            link_type: "related",
+            target_content_id: related.first,
+          ),
+        ],
+      )
     end
 
     include_examples "creates an action"
@@ -208,10 +218,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   context "when a draft edition exists for the content_id" do
     before do
-      create(:draft_edition,
-             document: create(:document, content_id: content_id),
-             base_path: "/some-path",
-             title: "Some Title")
+      create(
+        :draft_edition,
+        document: create(:document, content_id: content_id),
+        base_path: "/some-path",
+        title: "Some Title",
+      )
     end
 
     it "sends to the downstream draft worker" do
@@ -245,10 +257,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     context "when a draft edition has multiple translations" do
       before do
-        create(:draft_edition,
-               document: create(:document, content_id: content_id, locale: "fr"),
-               base_path: "/french-path",
-               title: "French Title")
+        create(
+          :draft_edition,
+          document: create(:document, content_id: content_id, locale: "fr"),
+          base_path: "/french-path",
+          title: "French Title",
+        )
       end
 
       it "sends the draft editions for all locales downstream" do
@@ -277,10 +291,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   context "when a live edition exists for the content_id" do
     before do
-      create(:live_edition,
-             document: create(:document, content_id: content_id),
-             base_path: "/some-path",
-             title: "Some Title")
+      create(
+        :live_edition,
+        document: create(:document, content_id: content_id),
+        base_path: "/some-path",
+        title: "Some Title",
+      )
     end
 
     it "sends to downstream live worker" do
@@ -326,10 +342,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
     context "when a live edition has multiple translations" do
       before do
-        create(:live_edition,
-               document: create(:document, content_id: content_id, locale: "fr"),
-               base_path: "/french-path",
-               title: "French Title")
+        create(
+          :live_edition,
+          document: create(:document, content_id: content_id, locale: "fr"),
+          base_path: "/french-path",
+          title: "French Title",
+        )
       end
 
       it "sends the live edition for all locales downstream" do
@@ -360,10 +378,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   context "when an unpublished edition exists for the content_id" do
     before do
-      create(:unpublished_edition,
-             document: create(:document, content_id: content_id),
-             base_path: "/some-path",
-             title: "Some Title")
+      create(
+        :unpublished_edition,
+        document: create(:document, content_id: content_id),
+        base_path: "/some-path",
+        title: "Some Title",
+      )
     end
 
     it "sends to downstream draft worker" do
@@ -405,9 +425,11 @@ RSpec.describe Commands::V2::PatchLinkSet do
     end
 
     before do
-      create(:link_set,
-             content_id: content_id,
-             links_hash: { topics: [link_a] })
+      create(
+        :link_set,
+        content_id: content_id,
+        links_hash: { topics: [link_a] },
+      )
     end
 
     it "sends link_a downstream as an orphaned content_id when replaced by link_b" do

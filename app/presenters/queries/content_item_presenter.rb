@@ -1,8 +1,15 @@
 module Presenters
   module Queries
     class ContentItemPresenter
-      attr_reader :edition_scope, :fields, :order, :limit, :offset,
-                  :search_query, :search_in, :states, :include_warnings
+      attr_reader :edition_scope,
+                  :fields,
+                  :order,
+                  :limit,
+                  :offset,
+                  :search_query,
+                  :search_in,
+                  :states,
+                  :include_warnings
 
       DEFAULT_FIELDS = ([
         *Edition::TOP_LEVEL_FIELDS,

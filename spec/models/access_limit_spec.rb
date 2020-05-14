@@ -2,9 +2,11 @@ require "rails_helper"
 
 RSpec.describe AccessLimit do
   subject do
-    build(:access_limit,
-          users: users,
-          organisations: organisations)
+    build(
+      :access_limit,
+      users: users,
+      organisations: organisations,
+    )
   end
 
   let(:users) { [SecureRandom.uuid] }

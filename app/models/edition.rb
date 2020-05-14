@@ -59,10 +59,11 @@ class Edition < ApplicationRecord
   validates :publishing_app, presence: true
   validates :title, presence: true, if: :renderable_content?
   validates :rendering_app, presence: true, dns_hostname: true, if: :requires_rendering_app?
-  validates :phase, inclusion: {
-    in: %w[alpha beta live],
-    message: "must be either alpha, beta, or live",
-  }
+  validates :phase,
+            inclusion: {
+              in: %w[alpha beta live],
+              message: "must be either alpha, beta, or live",
+            }
   validates :details, well_formed_content_types: { must_include_one_of: %w[text/html text/govspeak] }
 
   validate :user_facing_version_must_increase

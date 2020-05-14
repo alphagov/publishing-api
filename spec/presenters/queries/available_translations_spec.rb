@@ -17,12 +17,14 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
   let(:edition) { nil }
 
   def create_edition(base_path, state = "published", locale = "en", version = 1)
-    create(:edition,
-           document: Document.find_or_create_by(content_id: link_set.content_id, locale: locale),
-           base_path: base_path,
-           state: state,
-           content_store: state == "draft" ? "draft" : "live",
-           user_facing_version: version)
+    create(
+      :edition,
+      document: Document.find_or_create_by(content_id: link_set.content_id, locale: locale),
+      base_path: base_path,
+      state: state,
+      content_store: state == "draft" ? "draft" : "live",
+      user_facing_version: version,
+    )
   end
 
   let(:link_set) { create(:link_set) }

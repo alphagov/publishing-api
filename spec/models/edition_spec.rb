@@ -173,9 +173,11 @@ RSpec.describe Edition do
         create(:draft_edition, user_facing_version: 2)
       end
       let(:edition) do
-        build(:draft_edition,
-              document: existing_edition.document,
-              user_facing_version: 1)
+        build(
+          :draft_edition,
+          document: existing_edition.document,
+          user_facing_version: 1,
+        )
       end
 
       it { is_expected.to be_invalid }
@@ -191,9 +193,11 @@ RSpec.describe Edition do
       subject { edition }
       let(:existing_edition) { create(:draft_edition) }
       let(:edition) do
-        build(:draft_edition,
-              document: existing_edition.document,
-              user_facing_version: 1)
+        build(
+          :draft_edition,
+          document: existing_edition.document,
+          user_facing_version: 1,
+        )
       end
 
       it { is_expected.to be_invalid }
@@ -205,9 +209,11 @@ RSpec.describe Edition do
         create(:live_edition, user_facing_version: 1)
       end
       let(:edition) do
-        build(:draft_edition,
-              document: existing_edition.document,
-              user_facing_version: 2)
+        build(
+          :draft_edition,
+          document: existing_edition.document,
+          user_facing_version: 2,
+        )
       end
 
       it { is_expected.to be_valid }
@@ -219,9 +225,11 @@ RSpec.describe Edition do
         create(:draft_edition, user_facing_version: 1)
       end
       let(:edition) do
-        build(:live_edition,
-              document: existing_edition.document,
-              user_facing_version: 2)
+        build(
+          :live_edition,
+          document: existing_edition.document,
+          user_facing_version: 2,
+        )
       end
 
       it { is_expected.to be_invalid }
@@ -233,9 +241,11 @@ RSpec.describe Edition do
         create(:live_edition, user_facing_version: 2)
       end
       let(:edition) do
-        build(:draft_edition,
-              document: existing_edition.document,
-              user_facing_version: 1)
+        build(
+          :draft_edition,
+          document: existing_edition.document,
+          user_facing_version: 1,
+        )
       end
 
       it { is_expected.to be_invalid }

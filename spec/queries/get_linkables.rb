@@ -14,12 +14,14 @@ RSpec.describe Queries::GetLinkables do
       let(:internal_name) { "Internal Name" }
       let(:title) { "Title" }
       before do
-        create(:live_edition,
-               base_path: base_path,
-               details: { internal_name: internal_name },
-               document: create(:document, content_id: content_id),
-               document_type: document_type,
-               title: title)
+        create(
+          :live_edition,
+          base_path: base_path,
+          details: { internal_name: internal_name },
+          document: create(:document, content_id: content_id),
+          document_type: document_type,
+          title: title,
+        )
       end
 
       it "returns an array of linkable presenters" do
@@ -96,9 +98,11 @@ RSpec.describe Queries::GetLinkables do
 
     context "when the edition is not available in English" do
       before do
-        create(:live_edition,
-               document_type: document_type,
-               document: create(:document, locale: "fr"))
+        create(
+          :live_edition,
+          document_type: document_type,
+          document: create(:document, locale: "fr"),
+        )
       end
 
       it { is_expected.to be_empty }
@@ -107,14 +111,18 @@ RSpec.describe Queries::GetLinkables do
     context "when the edition is available in English and French" do
       let(:content_id) { SecureRandom.uuid }
       before do
-        create(:live_edition,
-               document_type: document_type,
-               title: "Hello",
-               document: create(:document, content_id: content_id))
-        create(:live_edition,
-               document_type: document_type,
-               title: "Salut",
-               document: create(:document, content_id: content_id, locale: "fr"))
+        create(
+          :live_edition,
+          document_type: document_type,
+          title: "Hello",
+          document: create(:document, content_id: content_id),
+        )
+        create(
+          :live_edition,
+          document_type: document_type,
+          title: "Salut",
+          document: create(:document, content_id: content_id, locale: "fr"),
+        )
       end
 
       it "has the english title" do
@@ -125,11 +133,13 @@ RSpec.describe Queries::GetLinkables do
     context "when the edition is available in draft" do
       let(:document) { create(:document) }
       let!(:draft_edition) do
-        create(:draft_edition,
-               document_type: document_type,
-               title: "Draft",
-               document: document,
-               user_facing_version: 2)
+        create(
+          :draft_edition,
+          document_type: document_type,
+          title: "Draft",
+          document: document,
+          user_facing_version: 2,
+        )
       end
 
       it "has the draft edition" do
@@ -138,10 +148,12 @@ RSpec.describe Queries::GetLinkables do
 
       context "and there is a published edition" do
         let!(:published_edition) do
-          create(:live_edition,
-                 document_type: document_type,
-                 title: "Published",
-                 document: document)
+          create(
+            :live_edition,
+            document_type: document_type,
+            title: "Published",
+            document: document,
+          )
         end
 
         it "has the published edition" do
