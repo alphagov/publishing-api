@@ -28,9 +28,14 @@ class DownstreamDiscardDraftWorker
 
 private
 
-  attr_reader :base_path, :content_id, :locale, :edition,
-              :payload_version, :update_dependencies,
-              :source_command, :source_document_type
+  attr_reader :base_path,
+              :content_id,
+              :locale,
+              :edition,
+              :payload_version,
+              :update_dependencies,
+              :source_command,
+              :source_document_type
 
   def assign_attributes(attributes)
     @base_path = attributes.fetch(:base_path)

@@ -12,9 +12,11 @@ RSpec.describe "DELETE /paths", type: :request do
     let(:payload) { { publishing_app: "publisher" } }
 
     before do
-      create(:path_reservation,
-             base_path: base_path,
-             publishing_app: "publisher")
+      create(
+        :path_reservation,
+        base_path: base_path,
+        publishing_app: "publisher",
+      )
     end
 
     it "responds successfully" do

@@ -37,8 +37,12 @@ class RedirectPresenter
 
 private
 
-  attr_reader :base_path, :publishing_app, :public_updated_at, :redirects,
-              :content_id, :locale
+  attr_reader :base_path,
+              :publishing_app,
+              :public_updated_at,
+              :redirects,
+              :content_id,
+              :locale
 
   def present
     attributes = {

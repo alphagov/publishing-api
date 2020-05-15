@@ -109,10 +109,11 @@ RSpec.describe "GET /v2/links/changes", type: :request do
       user_uid: SecureRandom.uuid,
     )
 
-    get "/v2/links/changes", params: {
-      link_types: %w[taxons],
-      users: user_uuids,
-    }
+    get "/v2/links/changes",
+        params: {
+          link_types: %w[taxons],
+          users: user_uuids,
+        }
 
     expect(number_of_results).to eql(2)
   end

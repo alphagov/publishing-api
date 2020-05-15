@@ -13,20 +13,26 @@ RSpec.describe Queries::GetLinkSet do
       let(:related) { [SecureRandom.uuid, SecureRandom.uuid] }
 
       before do
-        create(:link,
-               link_set: link_set,
-               link_type: "parent",
-               target_content_id: parent.first)
+        create(
+          :link,
+          link_set: link_set,
+          link_type: "parent",
+          target_content_id: parent.first,
+        )
 
-        create(:link,
-               link_set: link_set,
-               link_type: "related",
-               target_content_id: related.first)
+        create(
+          :link,
+          link_set: link_set,
+          link_type: "related",
+          target_content_id: related.first,
+        )
 
-        create(:link,
-               link_set: link_set,
-               link_type: "related",
-               target_content_id: related.last)
+        create(
+          :link,
+          link_set: link_set,
+          link_type: "related",
+          target_content_id: related.last,
+        )
       end
 
       it "returns the content_id, lock_version and links grouped by link_type" do

@@ -17,11 +17,13 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
 
     context "with a single edition" do
       before do
-        create(:draft_edition,
-               document: document,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :draft_edition,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       include_examples "check succeeds"
@@ -29,17 +31,21 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
 
     context "with two editions of different locales" do
       before do
-        create(:draft_edition,
-               document: document,
-               base_path: base_path + ".en",
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :draft_edition,
+          document: document,
+          base_path: base_path + ".en",
+          document_type: document_type,
+          user_facing_version: 1,
+        )
 
-        create(:draft_edition,
-               document: create(:document, content_id: document.content_id, locale: "es"),
-               base_path: base_path + ".es",
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :draft_edition,
+          document: create(:document, content_id: document.content_id, locale: "es"),
+          base_path: base_path + ".es",
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       include_examples "check succeeds"
@@ -47,15 +53,19 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
 
     context "with a unpublished item, of type \"substitute\", and a draft at the same base path" do
       before do
-        create(:substitute_unpublished_edition,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :substitute_unpublished_edition,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
 
-        create(:draft_edition,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :draft_edition,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       include_examples "check succeeds"
@@ -63,16 +73,20 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
 
     context "with a published item, with a substitutable document_type, and a draft at the same base path" do
       before do
-        create(:live_edition,
-               base_path: base_path,
-               document_type: "unpublishing",
-               user_facing_version: 1)
+        create(
+          :live_edition,
+          base_path: base_path,
+          document_type: "unpublishing",
+          user_facing_version: 1,
+        )
 
-        create(:draft_edition,
-               document: document,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :draft_edition,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       include_examples "check succeeds"
@@ -82,16 +96,20 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       let(:document_type) { "unpublishing" }
 
       before do
-        create(:live_edition,
-               base_path: base_path,
-               document_type: "nonexistent-schema",
-               user_facing_version: 1)
+        create(
+          :live_edition,
+          base_path: base_path,
+          document_type: "nonexistent-schema",
+          user_facing_version: 1,
+        )
 
-        create(:draft_edition,
-               document: document,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :draft_edition,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       include_examples "check succeeds"
@@ -99,16 +117,20 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
 
     context "with a unpublished item, and a draft at the same base path" do
       before do
-        @blocking_edition = create(:gone_unpublished_edition,
-                                   base_path: base_path,
-                                   document_type: document_type,
-                                   user_facing_version: 1)
+        @blocking_edition = create(
+          :gone_unpublished_edition,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
 
-        create(:edition,
-               document: document,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :edition,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       it "fails, returning the id of the edition" do
@@ -118,16 +140,20 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
 
     context "with a published item, and a draft at the same base path" do
       before do
-        @blocking_edition = create(:live_edition,
-                                   base_path: base_path,
-                                   document_type: document_type,
-                                   user_facing_version: 1)
+        @blocking_edition = create(
+          :live_edition,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
 
-        create(:draft_edition,
-               document: document,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :draft_edition,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       it "fails, returning the id of the edition" do
@@ -139,25 +165,31 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       let(:base_path) { nil }
 
       let!(:blocking_edition) do
-        create(:live_edition,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :live_edition,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       let!(:blocking_edition_2) do
-        create(:live_edition,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :live_edition,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       let!(:content) do
-        create(:draft_edition,
-               document: document,
-               base_path: base_path,
-               document_type: document_type,
-               user_facing_version: 1)
+        create(
+          :draft_edition,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
+          user_facing_version: 1,
+        )
       end
 
       it "doesn't raise any errors" do

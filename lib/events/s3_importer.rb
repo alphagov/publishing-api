@@ -18,14 +18,14 @@ module Events
     def object(s3_key)
       bucket.object(s3_key).tap do |object|
         unless object.exists?
-          raise EventsImportExistsError.new("S3 does not have an import for #{s3_key}")
+          raise EventsImportExistsError, "S3 does not have an import for #{s3_key}"
         end
       end
     end
 
     def bucket
       bucket_name = Rails.application.config.s3_export.bucket
-      raise BucketNotConfiguredError.new("A bucket has not been configured") if bucket_name.blank?
+      raise BucketNotConfiguredError, "A bucket has not been configured" if bucket_name.blank?
 
       @bucket ||= s3.bucket(bucket_name)
     end

@@ -5,9 +5,11 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   include RequestHelpers::Mocks
 
   let!(:edition) do
-    create(:live_edition,
-           document: create(:document, content_id: content_id),
-           base_path: "/vat-rates")
+    create(
+      :live_edition,
+      document: create(:document, content_id: content_id),
+      base_path: "/vat-rates",
+    )
   end
 
   let!(:event) { double(:event, id: 5) }

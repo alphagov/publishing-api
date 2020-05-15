@@ -5,9 +5,11 @@ RSpec.describe StateForDocumentValidator do
   let(:document) { create(:document) }
 
   let(:edition) do
-    build(:edition,
-          state: state_name,
-          document: document)
+    build(
+      :edition,
+      state: state_name,
+      document: document,
+    )
   end
 
   describe "#validate" do
@@ -32,8 +34,10 @@ RSpec.describe StateForDocumentValidator do
       ].each do |hash|
         context "when #{hash[:scenario]}" do
           let!(:conflict_edition) do
-            create(hash[:factory],
-                   document: document)
+            create(
+              hash[:factory],
+              document: document,
+            )
           end
           let(:state_name) { hash[:state] }
           let(:expected_error) do

@@ -34,12 +34,14 @@ RSpec.describe Queries::GetExpandedLinks do
       end
 
       before do
-        create(:expanded_links,
-               content_id: content_id,
-               locale: locale,
-               with_drafts: with_drafts,
-               expanded_links: expanded_links,
-               updated_at: updated_at)
+        create(
+          :expanded_links,
+          content_id: content_id,
+          locale: locale,
+          with_drafts: with_drafts,
+          expanded_links: expanded_links,
+          updated_at: updated_at,
+        )
       end
 
       it "returns the data from expanded links" do
@@ -54,10 +56,12 @@ RSpec.describe Queries::GetExpandedLinks do
       let(:link_set_lock_version) { 3 }
 
       before do
-        create(:link_set,
-               content_id: content_id,
-               links_hash: {},
-               stale_lock_version: link_set_lock_version)
+        create(
+          :link_set,
+          content_id: content_id,
+          links_hash: {},
+          stale_lock_version: link_set_lock_version,
+        )
       end
 
       it "generates the links" do

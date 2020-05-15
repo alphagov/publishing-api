@@ -3,10 +3,12 @@ require "rails_helper"
 RSpec.describe Commands::V2::PostAction do
   describe ".call" do
     let(:document) do
-      create(:document,
-             content_id: SecureRandom.uuid,
-             locale: "en",
-             stale_lock_version: 6)
+      create(
+        :document,
+        content_id: SecureRandom.uuid,
+        locale: "en",
+        stale_lock_version: 6,
+      )
     end
     let(:action) { "AuthBypass" }
     let(:draft) { nil }

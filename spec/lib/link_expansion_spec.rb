@@ -17,9 +17,11 @@ RSpec.describe LinkExpansion do
 
     context "with a link" do
       let(:link) do
-        create(:live_edition,
-               title: "Expanded Link",
-               base_path: "/expanded-link")
+        create(
+          :live_edition,
+          title: "Expanded Link",
+          base_path: "/expanded-link",
+        )
       end
 
       let(:expected) do

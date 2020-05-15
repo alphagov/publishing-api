@@ -5,28 +5,34 @@ RSpec.describe LinkExpansion::EditionDiff do
   let(:document) { create(:document, content_id: content_id) }
 
   let!(:previous_edition) do
-    create(:superseded_edition,
-           document: document,
-           title: "Foo",
-           base_path: "/foo")
+    create(
+      :superseded_edition,
+      document: document,
+      title: "Foo",
+      base_path: "/foo",
+    )
   end
 
   let!(:current_edition) do
-    create(:live_edition,
-           document: document,
-           title: "Bar",
-           base_path: "/foo",
-           user_facing_version: 2)
+    create(
+      :live_edition,
+      document: document,
+      title: "Bar",
+      base_path: "/foo",
+      user_facing_version: 2,
+    )
   end
 
   let(:new_draft_edition) do
-    create(:draft_edition,
-           document: document,
-           title: "Bar",
-           base_path: "/foo",
-           user_facing_version: 3,
-           public_updated_at: current_edition.public_updated_at,
-           first_published_at: current_edition.first_published_at)
+    create(
+      :draft_edition,
+      document: document,
+      title: "Bar",
+      base_path: "/foo",
+      user_facing_version: 3,
+      public_updated_at: current_edition.public_updated_at,
+      first_published_at: current_edition.first_published_at,
+    )
   end
 
   subject { described_class.new(current_edition) }

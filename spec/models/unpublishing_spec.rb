@@ -65,8 +65,10 @@ RSpec.describe Unpublishing do
     context "when alternative_path is equal to base_path" do
       let(:base_path) { "/new-path" }
       let(:edition) do
-        create(:edition,
-               base_path: base_path)
+        create(
+          :edition,
+          base_path: base_path,
+        )
       end
 
       it "is invalid" do

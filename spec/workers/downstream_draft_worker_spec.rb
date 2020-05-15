@@ -54,10 +54,12 @@ RSpec.describe DownstreamDraftWorker do
 
     context "edition has a nil base path" do
       it "doesn't send the item to the draft content store" do
-        pathless = create(:draft_edition,
-                          base_path: nil,
-                          document_type: "contact",
-                          schema_name: "contact")
+        pathless = create(
+          :draft_edition,
+          base_path: nil,
+          document_type: "contact",
+          schema_name: "contact",
+        )
 
         expect(Adapters::DraftContentStore).to_not receive(:put_content_item)
         subject.perform(arguments.merge("content_id" => pathless.document.content_id))

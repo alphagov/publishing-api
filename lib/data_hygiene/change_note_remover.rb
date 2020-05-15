@@ -10,7 +10,7 @@ module DataHygiene
     end
 
     def call
-      raise ChangeNoteNotFound.new unless change_note
+      raise ChangeNoteNotFound unless change_note
       return change_note if dry_run
 
       destroy_change_note

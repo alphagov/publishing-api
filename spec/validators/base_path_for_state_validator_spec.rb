@@ -5,9 +5,11 @@ RSpec.describe BasePathForStateValidator do
   let(:base_path) { "/vat-rates" }
 
   let(:edition) do
-    build(:edition,
-          state: state_name,
-          base_path: base_path)
+    build(
+      :edition,
+      state: state_name,
+      base_path: base_path,
+    )
   end
 
   describe ".validate" do
@@ -30,17 +32,21 @@ RSpec.describe BasePathForStateValidator do
       let(:conflict_locale) { "en" }
 
       let(:conflict_document) do
-        create(:document,
-               content_id: conflict_content_id,
-               locale: conflict_locale)
+        create(
+          :document,
+          content_id: conflict_content_id,
+          locale: conflict_locale,
+        )
       end
 
       let!(:conflict_edition) do
-        create(:edition,
-               document: conflict_document,
-               state: conflict_state_name,
-               base_path: conflict_base_path,
-               user_facing_version: 2)
+        create(
+          :edition,
+          document: conflict_document,
+          state: conflict_state_name,
+          base_path: conflict_base_path,
+          user_facing_version: 2,
+        )
       end
 
       before { edition.base_path = conflict_base_path }

@@ -23,8 +23,10 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when a link set exists for the edition" do
       let(:link_set) do
-        create(:link_set,
-               content_id: v2_content_item[:content_id])
+        create(
+          :link_set,
+          content_id: v2_content_item[:content_id],
+        )
       end
 
       let(:target_edition) { create(:edition, base_path: "/foo", title: "foo") }
@@ -63,13 +65,17 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when only a draft edition exists for the link set" do
       before do
-        draft = create(:draft_edition,
-                       document: create(:document, content_id: content_id, stale_lock_version: 1),
-                       base_path: base_path)
+        draft = create(
+          :draft_edition,
+          document: create(:document, content_id: content_id, stale_lock_version: 1),
+          base_path: base_path,
+        )
 
-        create(:access_limit,
-               users: access_limit_params.fetch(:users),
-               edition: draft)
+        create(
+          :access_limit,
+          users: access_limit_params.fetch(:users),
+          edition: draft,
+        )
       end
 
       it "only sends to the draft content store" do
@@ -86,9 +92,11 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when only a live edition exists for the link set" do
       before do
-        create(:live_edition,
-               document: create(:document, content_id: content_id),
-               base_path: base_path)
+        create(
+          :live_edition,
+          document: create(:document, content_id: content_id),
+          base_path: base_path,
+        )
       end
 
       it "sends the live item to both content stores" do
@@ -108,18 +116,24 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         document = create(:document, content_id: content_id)
 
-        draft = create(:draft_edition,
-                       document: document,
-                       base_path: base_path,
-                       user_facing_version: 2)
+        draft = create(
+          :draft_edition,
+          document: document,
+          base_path: base_path,
+          user_facing_version: 2,
+        )
 
-        create(:access_limit,
-               users: access_limit_params.fetch(:users),
-               edition: draft)
+        create(
+          :access_limit,
+          users: access_limit_params.fetch(:users),
+          edition: draft,
+        )
 
-        create(:live_edition,
-               document: document,
-               base_path: base_path)
+        create(
+          :live_edition,
+          document: document,
+          base_path: base_path,
+        )
       end
 
       it "sends to both content stores" do
@@ -166,8 +180,12 @@ RSpec.describe "Downstream requests", type: :request do
         .with(a_hash_including(base_path: "/a"))
       expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
         .with(a_hash_including(base_path: "/b"))
-      params = v2_content_item.merge(base_path: "/a", content_id: a, title: "foo",
-                                     routes: [{ path: "/a", type: "exact" }]).to_json
+      params = v2_content_item.merge(
+        base_path: "/a",
+        content_id: a,
+        title: "foo",
+        routes: [{ path: "/a", type: "exact" }],
+      ).to_json
       put "/v2/content/#{a}", params: params
     end
 
@@ -195,9 +213,11 @@ RSpec.describe "Downstream requests", type: :request do
   context "/v2/publish" do
     let(:content_id) { SecureRandom.uuid }
     let!(:draft) do
-      create(:draft_edition,
-             document: create(:document, content_id: content_id),
-             base_path: base_path)
+      create(
+        :draft_edition,
+        document: create(:document, content_id: content_id),
+        base_path: base_path,
+      )
     end
 
     let(:content_item_for_live_content_store) do

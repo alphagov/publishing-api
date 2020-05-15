@@ -9,10 +9,12 @@ RSpec.describe "Discard draft requests", type: :request do
   describe "POST /v2/content/:content_id/discard-draft" do
     context "when a draft edition exists" do
       let!(:draft_edition) do
-        create(:draft_edition,
-               document: document,
-               title: "draft",
-               base_path: base_path)
+        create(
+          :draft_edition,
+          document: document,
+          title: "draft",
+          base_path: base_path,
+        )
       end
 
       it "does not send to the live content store" do
@@ -37,10 +39,12 @@ RSpec.describe "Discard draft requests", type: :request do
         let(:french_base_path) { "/tva-tarifs" }
 
         let!(:french_draft_edition) do
-          create(:draft_edition,
-                 document: fr_document,
-                 title: "draft",
-                 base_path: french_base_path)
+          create(
+            :draft_edition,
+            document: fr_document,
+            title: "draft",
+            base_path: french_base_path,
+          )
         end
 
         before do

@@ -30,19 +30,25 @@ RSpec.describe "Downstream timeouts", type: :request do
     before do
       document = create(:document, content_id: content_id)
 
-      create(:live_edition,
-             v2_content_item
-               .slice(*Edition::TOP_LEVEL_FIELDS)
-               .merge(base_path: base_path, user_facing_version: 1, document: document))
+      create(
+        :live_edition,
+        v2_content_item
+          .slice(*Edition::TOP_LEVEL_FIELDS)
+          .merge(base_path: base_path, user_facing_version: 1, document: document),
+      )
 
-      draft = create(:draft_edition,
-                     v2_content_item
-                       .slice(*Edition::TOP_LEVEL_FIELDS)
-                       .merge(base_path: base_path, user_facing_version: 2, document: document))
+      draft = create(
+        :draft_edition,
+        v2_content_item
+          .slice(*Edition::TOP_LEVEL_FIELDS)
+          .merge(base_path: base_path, user_facing_version: 2, document: document),
+      )
 
-      create(:access_limit,
-             edition: draft,
-             users: access_limit_params.fetch(:users))
+      create(
+        :access_limit,
+        edition: draft,
+        users: access_limit_params.fetch(:users),
+      )
     end
 
     context "draft content store times out" do

@@ -131,12 +131,15 @@ module Queries
     end
 
     def raise_error(message)
-      raise CommandError.new(code: 400, error_details: {
-        error: {
-          code: 400,
-          message: message,
+      raise CommandError.new(
+        code: 400,
+        error_details: {
+          error: {
+            code: 400,
+            message: message,
+          },
         },
-      })
+      )
     end
   end
 end

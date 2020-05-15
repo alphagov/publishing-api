@@ -3,11 +3,13 @@ require "rails_helper"
 RSpec.describe "Paging through editions" do
   before do
     5.times do |n|
-      create(:draft_edition,
-             base_path: "/content-#{n}",
-             document_type: "nonexistent-schema",
-             schema_name: "nonexistent-schema",
-             public_updated_at: n.minutes.ago)
+      create(
+        :draft_edition,
+        base_path: "/content-#{n}",
+        document_type: "nonexistent-schema",
+        schema_name: "nonexistent-schema",
+        public_updated_at: n.minutes.ago,
+      )
     end
   end
 

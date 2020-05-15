@@ -4,9 +4,11 @@ RSpec.describe Presenters::DebugPresenter do
   let(:document) { create(:document) }
 
   let!(:edition) do
-    create(:draft_edition,
-           document: document,
-           user_facing_version: 3)
+    create(
+      :draft_edition,
+      document: document,
+      user_facing_version: 3,
+    )
   end
 
   let!(:link_set) { create(:link_set, content_id: document.content_id) }

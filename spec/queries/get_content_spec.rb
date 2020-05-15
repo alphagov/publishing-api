@@ -18,10 +18,12 @@ RSpec.describe Queries::GetContent do
     let(:incorrect_locale) { "fr" }
 
     before do
-      create(:edition,
-             document: document,
-             base_path: "/vat-rates",
-             user_facing_version: 1)
+      create(
+        :edition,
+        document: document,
+        base_path: "/vat-rates",
+        user_facing_version: 1,
+      )
     end
 
     it "presents the edition" do
@@ -62,15 +64,19 @@ RSpec.describe Queries::GetContent do
 
   context "when a draft and a live edition exists for the content_id" do
     before do
-      create(:draft_edition,
-             document: document,
-             title: "Draft Title",
-             user_facing_version: 2)
+      create(
+        :draft_edition,
+        document: document,
+        title: "Draft Title",
+        user_facing_version: 2,
+      )
 
-      create(:live_edition,
-             document: document,
-             title: "Live Title",
-             user_facing_version: 1)
+      create(
+        :live_edition,
+        document: document,
+        title: "Live Title",
+        user_facing_version: 1,
+      )
     end
 
     it "presents the draft edition" do
@@ -81,15 +87,19 @@ RSpec.describe Queries::GetContent do
 
   context "when editions exist in non-draft, non-live states" do
     before do
-      create(:superseded_edition,
-             document: document,
-             user_facing_version: 1,
-             title: "Older Title")
+      create(
+        :superseded_edition,
+        document: document,
+        user_facing_version: 1,
+        title: "Older Title",
+      )
 
-      create(:superseded_edition,
-             document: document,
-             user_facing_version: 2,
-             title: "Newer Title")
+      create(
+        :superseded_edition,
+        document: document,
+        user_facing_version: 2,
+        title: "Newer Title",
+      )
     end
 
     it "includes these editions" do
@@ -100,15 +110,19 @@ RSpec.describe Queries::GetContent do
 
   context "when editions exist in multiple locales" do
     before do
-      create(:edition,
-             document: fr_document,
-             user_facing_version: 2,
-             title: "French Title")
+      create(
+        :edition,
+        document: fr_document,
+        user_facing_version: 2,
+        title: "French Title",
+      )
 
-      create(:edition,
-             document: document,
-             user_facing_version: 1,
-             title: "English Title")
+      create(
+        :edition,
+        document: document,
+        user_facing_version: 1,
+        title: "English Title",
+      )
     end
 
     it "returns the english edition by default" do
@@ -124,13 +138,17 @@ RSpec.describe Queries::GetContent do
 
   describe "requesting specific versions" do
     before do
-      create(:superseded_edition,
-             document: document,
-             user_facing_version: 1)
+      create(
+        :superseded_edition,
+        document: document,
+        user_facing_version: 1,
+      )
 
-      create(:live_edition,
-             document: document,
-             user_facing_version: 2)
+      create(
+        :live_edition,
+        document: document,
+        user_facing_version: 2,
+      )
     end
 
     it "returns specific versions if provided" do

@@ -129,10 +129,18 @@ RSpec.describe Queries::ContentDependencies do
     context "when items in different translations link to this edition" do
       before do
         create_edition(content_id, "/", locale: :en)
-        create_edition(link1_content_id, "/link.fr", locale: "fr",
-                                                     links_hash: { organisation: [content_id] })
-        create_edition(link2_content_id, "/link.cy", locale: "cy",
-                                                     links_hash: { organisation: [content_id] })
+        create_edition(
+          link1_content_id,
+          "/link.fr",
+          locale: "fr",
+          links_hash: { organisation: [content_id] },
+        )
+        create_edition(
+          link2_content_id,
+          "/link.cy",
+          locale: "cy",
+          links_hash: { organisation: [content_id] },
+        )
       end
 
       let(:link1_content_id) { SecureRandom.uuid }

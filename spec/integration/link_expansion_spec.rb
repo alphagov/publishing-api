@@ -193,9 +193,12 @@ RSpec.describe "Link Expansion" do
         create_link(b, a, "parent")
 
         expect(expanded_links[:parent]).to match([
-          a_hash_including(base_path: "/b", links: {
-            parent: [a_hash_including(base_path: "/a", links: {})],
-          }),
+          a_hash_including(
+            base_path: "/b",
+            links: {
+              parent: [a_hash_including(base_path: "/a", links: {})],
+            },
+          ),
         ])
       end
     end
@@ -326,9 +329,12 @@ RSpec.describe "Link Expansion" do
 
         it "expands the links for node a correctly" do
           expect(expanded_links[:parent]).to match([
-            a_hash_including(base_path: "/b-published", links: {
-              parent: [a_hash_including(base_path: "/c-draft", links: {})],
-            }),
+            a_hash_including(
+              base_path: "/b-published",
+              links: {
+                parent: [a_hash_including(base_path: "/c-draft", links: {})],
+              },
+            ),
           ])
         end
       end
@@ -535,8 +541,10 @@ RSpec.describe "Link Expansion" do
     end
 
     before do
-      fr_edition.links.create(link_type: "test",
-                              target_content_id: target_edition.content_id)
+      fr_edition.links.create(
+        link_type: "test",
+        target_content_id: target_edition.content_id,
+      )
     end
 
     context "only english links" do
@@ -595,12 +603,14 @@ RSpec.describe "Link Expansion" do
 
     before do
       create_link(b, a, "pages_part_of_step_nav")
-      create(:live_edition,
-             document: Document.find_or_create_by(content_id: b, locale: "en"),
-             base_path: "/step-by-step",
-             schema_name: "step_by_step_nav",
-             document_type: "step_by_step_nav",
-             auth_bypass_ids: auth_bypass_ids)
+      create(
+        :live_edition,
+        document: Document.find_or_create_by(content_id: b, locale: "en"),
+        base_path: "/step-by-step",
+        schema_name: "step_by_step_nav",
+        document_type: "step_by_step_nav",
+        auth_bypass_ids: auth_bypass_ids,
+      )
     end
 
     context "when requested with drafts" do

@@ -9,15 +9,19 @@ RSpec.describe "Reallocating base paths of editions" do
   end
 
   let(:regular_payload) do
-    build(:draft_edition,
-          document: create(:document, content_id: content_id)).as_json.deep_symbolize_keys.merge(base_path: base_path)
+    build(
+      :draft_edition,
+      document: create(:document, content_id: content_id),
+    ).as_json.deep_symbolize_keys.merge(base_path: base_path)
   end
 
   describe "/v2/content" do
     context "when a base path is occupied by a 'regular' edition" do
       before do
-        create(:draft_edition,
-               base_path: base_path)
+        create(
+          :draft_edition,
+          base_path: base_path,
+        )
       end
 
       it "cannot be replaced by another 'regular' edition" do

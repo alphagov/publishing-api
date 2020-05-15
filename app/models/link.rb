@@ -17,8 +17,10 @@ class Link < ApplicationRecord
     scope = scope.joins(join_sql)
 
     filters.each do |link_type, target_content_id|
-      scope = scope.where("links.link_type": link_type,
-                          "links.target_content_id": target_content_id)
+      scope = scope.where(
+        "links.link_type": link_type,
+        "links.target_content_id": target_content_id,
+      )
     end
 
     scope

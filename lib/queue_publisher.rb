@@ -47,7 +47,7 @@ private
 
   def validate_edition(edition)
     validator = SchemaValidator.new(payload: edition, schema_type: :notification)
-    if !validator.valid?
+    unless validator.valid?
       Rails.logger.debug(
         {
           "message": "Message being sent to the queue does not match the notification schema",

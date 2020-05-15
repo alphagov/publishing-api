@@ -100,13 +100,21 @@ module Commands
 
       def validate_update_type
         if update_type.blank?
-          raise_command_error(422, "update_type is required", fields: {
-            update_type: ["is invalid"],
-          })
+          raise_command_error(
+            422,
+            "update_type is required",
+            fields: {
+              update_type: ["is invalid"],
+            },
+          )
         elsif !valid_update_types.include?(update_type)
-          raise_command_error(422, "An update_type of '#{update_type}' is invalid", fields: {
-            update_type: ["must be one of #{valid_update_types.inspect}"],
-          })
+          raise_command_error(
+            422,
+            "An update_type of '#{update_type}' is invalid",
+            fields: {
+              update_type: ["must be one of #{valid_update_types.inspect}"],
+            },
+          )
         end
       end
 

@@ -27,9 +27,7 @@ class LinkExpansion::EditionHash
       when Hash
         values
       else
-        raise ArgumentError.new(
-          "Values passed to EditionHash.from must be an Array, Edition or Hash.",
-        )
+        raise ArgumentError, "Values passed to EditionHash.from must be an Array, Edition or Hash."
       end
     end
 

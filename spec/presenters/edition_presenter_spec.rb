@@ -28,11 +28,13 @@ RSpec.describe Presenters::EditionPresenter do
   describe "#for_message_queue" do
     let(:update_type) { "minor" }
     let(:edition) do
-      create(:live_edition,
-             update_type: update_type,
-             schema_name: "calendar",
-             document_type: "calendar",
-             auth_bypass_ids: [])
+      create(
+        :live_edition,
+        update_type: update_type,
+        schema_name: "calendar",
+        document_type: "calendar",
+        auth_bypass_ids: [],
+      )
     end
 
     subject(:result) do
@@ -82,8 +84,10 @@ RSpec.describe Presenters::EditionPresenter do
       end
 
       it "presents the unexpanded links" do
-        expect(subject[:links]).to match(taxons: [taxons_link.target_content_id],
-                                         editions: [editions_link.target_content_id])
+        expect(subject[:links]).to match(
+          taxons: [taxons_link.target_content_id],
+          editions: [editions_link.target_content_id],
+        )
       end
     end
   end
@@ -120,9 +124,11 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for a live edition" do
       let(:edition) do
-        create(:live_edition,
-               base_path: base_path,
-               details: details)
+        create(
+          :live_edition,
+          base_path: base_path,
+          details: details,
+        )
       end
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
@@ -137,12 +143,14 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for a draft edition" do
       let(:edition) do
-        create(:draft_edition,
-               base_path: base_path,
-               details: details,
-               first_published_at: "2014-01-02T03:04:05Z",
-               public_updated_at: "2014-05-14T13:00:06Z",
-               auth_bypass_ids: [SecureRandom.uuid])
+        create(
+          :draft_edition,
+          base_path: base_path,
+          details: details,
+          first_published_at: "2014-01-02T03:04:05Z",
+          public_updated_at: "2014-05-14T13:00:06Z",
+          auth_bypass_ids: [SecureRandom.uuid],
+        )
       end
       let(:present_drafts) { true }
 
@@ -156,9 +164,11 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for a withdrawn edition" do
       let!(:edition) do
-        create(:withdrawn_unpublished_edition,
-               base_path: base_path,
-               details: details)
+        create(
+          :withdrawn_unpublished_edition,
+          base_path: base_path,
+          details: details,
+        )
       end
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
@@ -179,10 +189,12 @@ RSpec.describe Presenters::EditionPresenter do
 
       context "with an overridden unpublished_at" do
         let!(:edition) do
-          create(:withdrawn_unpublished_edition,
-                 base_path: base_path,
-                 details: details,
-                 unpublished_at: Time.zone.local(2016, 9, 10, 4, 5, 6))
+          create(
+            :withdrawn_unpublished_edition,
+            base_path: base_path,
+            details: details,
+            unpublished_at: Time.zone.local(2016, 9, 10, 4, 5, 6),
+          )
         end
 
         it "merges in a withdrawal notice with the withdrawn_at set correctly" do
@@ -245,9 +257,11 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for a edition with change notes" do
       let(:edition) do
-        create(:draft_edition,
-               base_path: base_path,
-               details: details.slice(:body))
+        create(
+          :draft_edition,
+          base_path: base_path,
+          details: details.slice(:body),
+        )
       end
       before do
         ChangeNote.create(change_history.merge(edition: edition))
@@ -320,9 +334,11 @@ RSpec.describe Presenters::EditionPresenter do
       end
 
       let(:edition) do
-        create(:live_edition,
-               base_path: base_path,
-               details: details)
+        create(
+          :live_edition,
+          base_path: base_path,
+          details: details,
+        )
       end
 
       it "renders the govspeak as html" do

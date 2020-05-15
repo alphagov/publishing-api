@@ -279,9 +279,11 @@ module_function
   using HashWithDigSet
 
   def expand_fields(edition_hash, link_type: nil, draft: true)
-    fields = expansion_fields(edition_hash[:document_type],
-                              link_type: link_type,
-                              draft: draft)
+    fields = expansion_fields(
+      edition_hash[:document_type],
+      link_type: link_type,
+      draft: draft,
+    )
 
     fields.each_with_object({}) do |field, expanded|
       field = Array(field)
