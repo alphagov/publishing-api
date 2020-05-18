@@ -171,6 +171,8 @@ module_function
         fields: WORLD_LOCATION_FIELDS },
       { document_type: :government,
         fields: GOVERNMENT_FIELDS },
+      { document_type: :coronavirus_landing_page,
+        fields: DEFAULT_FIELDS_AND_DESCRIPTION },
     ] +
     CUSTOM_EXPANSION_FIELDS_FOR_ROLES +
     CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE
