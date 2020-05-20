@@ -135,9 +135,9 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
       end
 
       it "takes the item in the first matching state" do
-        es.update_attribute("title", "no habla español")
+        es.update(title: "no habla español")
         draft_es = create_edition("/a.es", "draft", "es", 2)
-        draft_es.update_attribute("title", "mais on parle français")
+        draft_es.update(title: "mais on parle français")
         expect(translations).to match_array([
           a_hash_including(base_path: "/a", locale: "en"),
           a_hash_including(base_path: "/a.ar", locale: "ar"),
