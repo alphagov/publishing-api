@@ -34,11 +34,11 @@ module Tasks
             end
           end
 
-          unless valid_version_sequence
-            puts "Invalid version sequence for #{content_id}, #{locale}:"
-            items.each { |i| puts i.inspect }
-            puts
-          end
+          next if valid_version_sequence
+
+          puts "Invalid version sequence for #{content_id}, #{locale}:"
+          items.each { |i| puts i.inspect }
+          puts
         end
 
         invalid_items

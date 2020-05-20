@@ -168,14 +168,14 @@ module Commands
 
           supported_states = %w[draft published unpublished superseded]
 
-          unless supported_states.include?(state[:name])
-            raise CommandError.new(
-              code: 422,
-              message: "Unsupported state used at index #{index}: \
-                        #{history_entry[:state]}, \
-                        only #{supported_states} are supported",
-            )
-          end
+          next if supported_states.include?(state[:name])
+
+          raise CommandError.new(
+            code: 422,
+            message: "Unsupported state used at index #{index}: \
+                      #{history_entry[:state]}, \
+                      only #{supported_states} are supported",
+          )
         end
       end
 
