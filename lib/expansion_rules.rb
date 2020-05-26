@@ -53,6 +53,7 @@ module_function
     person: :role_appointments,
     role: :role_appointments,
     ministerial: :ministers,
+    curated_on_taxons: :ordered_taxon_curated_items,
   }.freeze
 
   # These fields are required by the frontend_links definition in the
