@@ -1,32 +1,24 @@
 source "https://rubygems.org"
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails", "~> 6"
 
+gem "aws-sdk", "~> 3"
+gem "bunny", "~> 2.15"
 gem "colorize", "~> 0.8"
 gem "dalli"
-gem "pg", "~> 1.2.3"
-gem "plek", "~> 3.0"
-
-if ENV["API_DEV"]
-  gem "gds-api-adapters", path: "../gds-api-adapters"
-else
-  gem "gds-api-adapters", "~> 63"
-end
-
+gem "diffy", "~> 3.3", require: false
+gem "fuzzy_match", "~> 2.1"
+gem "gds-api-adapters", "~> 63"
 gem "gds-sso", "~> 14.3"
+gem "govspeak", "~> 6.5.3"
 gem "govuk_app_config", "~> 2.2"
 gem "govuk_document_types", "~> 0.9.2"
 gem "govuk_schemas", "~> 4.0"
 gem "govuk_sidekiq", "~> 3.0"
-
-gem "aws-sdk", "~> 3"
-gem "bunny", "~> 2.15"
-gem "diffy", "~> 3.3", require: false
-gem "fuzzy_match", "~> 2.1"
-gem "govspeak", "~> 6.5.3"
 gem "hashdiff", "~> 1.0.1"
 gem "json-schema", require: false
+gem "pg", "~> 1.2.3"
+gem "plek", "~> 3.0"
 # We can't use v5 of this because it requires redis 3 and we use 2.8
 # We use our own fork because the latest 4.x release has a bug with
 # removing jobs from the uniquejobs hash in redis
