@@ -8,7 +8,7 @@ gem "colorize", "~> 0.8"
 gem "dalli"
 gem "diffy", "~> 3.3", require: false
 gem "fuzzy_match", "~> 2.1"
-gem "gds-api-adapters", "~> 63"
+gem "gds-api-adapters", "~> 67"
 gem "gds-sso", "~> 14.3"
 gem "govspeak", "~> 6.5.3"
 gem "govuk_app_config", "~> 2.2"
