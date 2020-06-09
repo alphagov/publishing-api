@@ -1,6 +1,6 @@
 # This class is used to represent the graph of links for an edition.
-# It is used in [link expansion](../doc/link-expansion.md) and
-# [dependency resolution](../doc/depedency-resolution.md)
+# It is used in [link expansion](../docs/link-expansion.md) and
+# [dependency resolution](../docs/depedency-resolution.md)
 class LinkGraph
   attr_reader :root_content_id, :root_locale, :with_drafts, :link_reference
 

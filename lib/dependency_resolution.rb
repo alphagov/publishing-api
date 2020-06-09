@@ -2,7 +2,7 @@
 # This is the core class of Dependency Resolution which is a complicated concept
 # in the Publishing API
 #
-# The concept is documented in /doc/dependency-resolution.md
+# The concept is documented in /docs/dependency-resolution.md
 #
 class DependencyResolution
   attr_reader :content_id, :locale, :with_drafts

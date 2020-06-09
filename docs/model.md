@@ -254,5 +254,5 @@ on the workflow of content.
 [optimistic-locking]: api.md#optimistic-locking-previous_version
 [signon]: https://github.com/alphagov/signon
 [put-content-api]: api.md#put-v2contentcontent_id
-[link-set-links]: https://github.com/alphagov/publishing-api/blob/master/doc/link-expansion.md#patch-link-set---link-set-links
-[edition-links]: https://github.com/alphagov/publishing-api/blob/master/doc/link-expansion.md#put-content---edition-links
+[link-set-links]: https://github.com/alphagov/publishing-api/blob/master/docs/link-expansion.md#patch-link-set---link-set-links
+[edition-links]: https://github.com/alphagov/publishing-api/blob/master/docs/link-expansion.md#put-content---edition-links
