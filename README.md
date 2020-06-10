@@ -8,30 +8,30 @@ existing piece of content.
 
 ## Nomenclature
 
-- [**Document**](doc/model.md#document): A document is a piece of content in a
+- [**Document**](docs/model.md#document): A document is a piece of content in a
   particular locale. It is associated with editions that represent the versions
   of the document.
-- [**Edition**](doc/model.md#edition): The content of a document is represented
+- [**Edition**](docs/model.md#edition): The content of a document is represented
   by an edition, it represents a distinct version of a Document.
 - [**Content Item**][content-store-field-documentation]: A representation of
   content that can be sent to a [content store][content-store].
-- [**Links**](doc/model.md#linking): Used to capture relationships between
+- [**Links**](docs/model.md#linking): Used to capture relationships between
   pieces of content (e.g. parent/child). Can be of type
   [link set link][link-set-link] or [edition link][edition-link].
-- [**Unpublishing**](doc/model.md#unpublishing): An object indicating a
+- [**Unpublishing**](docs/model.md#unpublishing): An object indicating a
   previously published edition which has been removed from the live site.
 - **User**: A user of the system, which is used to track who initiated requests
   and to restrict access to draft content.
-- [**Path Reservation**](doc/model.md#pathreservation): An object that
+- [**Path Reservation**](docs/model.md#pathreservation): An object that
   attributes a path on GOV.UK to a piece of content. It is used when paths
   need to be reserved before that content enters the system.
-- [**Event Log**](doc/model.md#event): A log of all requests to the Publishing
+- [**Event Log**](docs/model.md#event): A log of all requests to the Publishing
   API that have the potential to mutate its internal state.
-- [**Action**](doc/model.md#action): A record of activity on a particular
+- [**Action**](docs/model.md#action): A record of activity on a particular
   edition, used to assist custom workflows of publishing applications.
-- [**Link Expansion**](doc/link-expansion.md): A process that converts the
+- [**Link Expansion**](docs/link-expansion.md): A process that converts the
   stored and automatic links for an edition into a JSON representation.
-- [**Dependency Resolution**](doc/dependency-resolution.md): A process that
+- [**Dependency Resolution**](docs/dependency-resolution.md): A process that
   determines other editions that require updating downstream as a result of a
   change to an edition.
 
@@ -45,10 +45,10 @@ to the draft and live [Content Stores][content-store] as well as on a
 requests is handled asynchronously through [Sidekiq](http://sidekiq.org/)
 which stores jobs in [Redis](http://redis.io/).
 
-The endpoints of the Publishing API are documented in [doc/api.md](doc/api.md).
+The endpoints of the Publishing API are documented in [docs/api.md](docs/api.md).
 
 Decisions about the design of the Publishing API are recorded as architecture
-decision records in the [doc/arch](doc/arch) directory.
+decision records in the [docs/arch](docs/arch) directory.
 
 ### Deleting Documents, Editions and Links
 
@@ -106,7 +106,7 @@ end
 
 These dependencies are set up on the dev vm and if you use bowl to run the app,
 it will start both the draft and live content store for you. For more
-information about RabbitMQ, see [doc/rabbitmq.md](doc/rabbitmq.md).
+information about RabbitMQ, see [docs/rabbitmq.md](docs/rabbitmq.md).
 
 ## Running the application
 
@@ -129,7 +129,7 @@ You can run the pact verification tests on their own using:
 $ bundle exec rake pact:verify
 ```
 
-See [doc/pact_testing.md](doc/pact_testing.md) for more details about the pacts
+See [docs/pact_testing.md](docs/pact_testing.md) for more details about the pacts
 and the pact broker.
 
 ## Example API requests
@@ -141,7 +141,7 @@ curl https://publishing-api.dev.gov.uk/content/<content_id> \
   -d '<content_json>'
 ```
 
-See [doc/api.md](doc/api.md) and [the pact broker][pact-broker-latest] for more
+See [docs/api.md](docs/api.md) and [the pact broker][pact-broker-latest] for more
 information.
 
 ## Events
@@ -159,7 +159,7 @@ See the rake task for more details.
 
 ## Admin tasks
 
-See [admin tasks](doc/admin-tasks.md) for more information
+See [admin tasks](docs/admin-tasks.md) for more information
 
 ## Contributing
 
@@ -170,10 +170,10 @@ See [the contributing documentation][contributing] for more information.
 [MIT License](LICENSE)
 
 [content-store]: https://github.com/alphagov/content-store
-[content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md
+[content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/docs/content_item_fields.md
 [data-migration]: https://github.com/alphagov/publishing-api/blob/master/CONTRIBUTING.md#are-you-writing-a-migration-to-change-publishing-api-data
 [pact]: https://github.com/pact-foundation/pact-ruby
 [pact-broker-latest]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
-[link-set-link]: doc/link-expansion.md#patch-link-set---link-set-links
-[edition-link]: doc/link-expansion.md#put-content---edition-links
+[link-set-link]: docs/link-expansion.md#patch-link-set---link-set-links
+[edition-link]: docs/link-expansion.md#put-content---edition-links
 [contributing]: CONTRIBUTING.md

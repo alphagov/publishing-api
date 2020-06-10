@@ -47,7 +47,7 @@ resolution determines the `content_id` of every item, and then re-presents
 that item in each locale that is available.
 
 For reference of the types of links see
-[doc/link-expansion.md](link-expansion.md)
+[docs/link-expansion.md](link-expansion.md)
 
 The class responsible for determining which `content_id`s require updates is
 [DependencyResolution][dependency-resolution]. It uses the
