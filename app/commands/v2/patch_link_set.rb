@@ -141,7 +141,7 @@ module Commands
       def schema_name
         @schema_name ||= Queries::GetLatest.call(
           Edition.with_document.where("documents.content_id": content_id),
-        ).pluck(:schema_name).first
+        ).pick(:schema_name)
       end
     end
   end

@@ -40,6 +40,6 @@ class Unpublishing < ApplicationRecord
   end
 
   def self.is_substitute?(edition)
-    where(edition: edition).pluck(:type).first == "substitute"
+    where(edition: edition).pick(:type) == "substitute"
   end
 end

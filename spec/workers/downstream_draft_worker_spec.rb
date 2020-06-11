@@ -45,7 +45,7 @@ RSpec.describe DownstreamDraftWorker do
       end
 
       it "receives the base path" do
-        base_path = Edition.where(id: edition.id).pluck(:base_path).first
+        base_path = Edition.where(id: edition.id).pick(:base_path)
         expect(Adapters::DraftContentStore).to receive(:put_content_item)
           .with(base_path, anything)
         subject.perform(arguments)

@@ -87,10 +87,10 @@ module Presenters
     end
 
     def table_for(hash, klass = "")
-      content_tag :table, class: "table key-value-table #{klass}" do
+      tag.table class: "table key-value-table #{klass}" do
         rows = hash.map do |k, v|
-          content_tag :tr do
-            content_tag(:td, k) + content_tag(:td, display_value(v))
+          tag.tr do
+            tag.td(k) + tag.td(display_value(v))
           end
         end
 
@@ -100,7 +100,7 @@ module Presenters
 
     def display_value(value)
       if value.is_a?(Hash)
-        content_tag :pre do
+        tag.pre do
           JSON.pretty_generate(value)
         end
       elsif v.blank?
