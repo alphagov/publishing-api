@@ -17,8 +17,7 @@ module Queries
     def find_conflict(scope)
       scope
         .order(created_at: :desc)
-        .pluck("editions.id", :content_id, :locale)
-        .first
+        .pick("editions.id", :content_id, :locale)
     end
 
     def has_no_conflicts?(state, edition_id)
