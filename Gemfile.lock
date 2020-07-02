@@ -646,7 +646,7 @@ GEM
       i18n (>= 0.8)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
-    ffi (1.12.2)
+    ffi (1.13.1)
     filelock (1.1.1)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
@@ -667,17 +667,17 @@ GEM
       warden-oauth2 (~> 0.0.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    govspeak (6.5.3)
+    govspeak (6.5.4)
       actionview (>= 5.0, < 7)
       addressable (>= 2.3.8, < 3)
-      govuk_publishing_components (>= 16.16)
+      govuk_publishing_components (~> 21.4)
       htmlentities (~> 4)
       i18n (~> 0.7)
       kramdown (~> 1.15.0)
       nokogiri (~> 1.5)
       nokogumbo (~> 2)
       rinku (~> 2.0)
-      sanitize (~> 5)
+      sanitize (>= 5.2.1, < 6)
     govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
     govuk_app_config (2.2.0)
@@ -686,7 +686,7 @@ GEM
       statsd-ruby (~> 1.4.0)
       unicorn (>= 5.4, < 5.6)
     govuk_document_types (0.9.2)
-    govuk_publishing_components (21.22.1)
+    govuk_publishing_components (21.57.1)
       gds-api-adapters
       govuk_app_config
       kramdown
@@ -694,7 +694,6 @@ GEM
       rails (>= 5.0.0.1)
       rake
       rouge
-      sassc-rails (>= 2.0.1)
       sprockets (< 4)
     govuk_schemas (4.0.0)
       json-schema (~> 2.8.0)
@@ -826,7 +825,7 @@ GEM
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
-    rack-cache (1.11.1)
+    rack-cache (1.12.0)
       rack (>= 0.4)
     rack-protection (2.0.8.1)
       rack
@@ -878,7 +877,7 @@ GEM
       netrc (~> 0.8)
     rexml (3.2.4)
     rinku (2.0.6)
-    rouge (3.16.0)
+    rouge (3.20.0)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -931,14 +930,6 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.8.0)
       nokogumbo (~> 2.0)
-    sassc (2.2.1)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     selenium-webdriver (3.142.6)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -976,7 +967,6 @@ GEM
       tins (~> 1.0)
     thor (0.20.3)
     thread_safe (0.3.6)
-    tilt (2.0.10)
     timecop (0.9.1)
     tins (1.25.0)
       sync
@@ -1016,7 +1006,7 @@ GEM
       activerecord (>= 4.2)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.3.0)
+    zeitwerk (2.3.1)
 
 PLATFORMS
   ruby
@@ -1034,7 +1024,7 @@ DEPENDENCIES
   fuzzy_match (~> 2.1)
   gds-api-adapters (~> 67)
   gds-sso (~> 15.0)
-  govspeak (~> 6.5.3)
+  govspeak (~> 6.5.4)
   govuk-content-schema-test-helpers (~> 1.6)
   govuk_app_config (~> 2.2)
   govuk_document_types (~> 0.9.2)
