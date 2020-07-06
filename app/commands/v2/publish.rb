@@ -45,13 +45,9 @@ module Commands
         ChangeNote.create_from_edition(payload, edition)
       end
 
-      def access_limit
-        @access_limit ||= AccessLimit.find_by(edition: edition)
-      end
-
       def remove_draft_access
         edition.update!(auth_bypass_ids: []) if edition.auth_bypass_ids.any?
-        access_limit.try(:destroy)
+        AccessLimit.where(edition: edition).delete_all
       end
 
       def validate

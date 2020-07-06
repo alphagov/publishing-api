@@ -31,7 +31,7 @@ module Commands
 
       def reset_draft_access
         edition.update!(auth_bypass_ids: []) if edition.auth_bypass_ids.any?
-        AccessLimit.find_by(edition: edition).try(:destroy)
+        AccessLimit.where(edition: edition).delete_all
       end
 
       def valid_unpublishing_type?
