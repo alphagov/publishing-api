@@ -128,7 +128,6 @@ RSpec.describe Presenters::EditionPresenter do
           :live_edition,
           base_path: base_path,
           details: details,
-          auth_bypass_ids: [SecureRandom.uuid],
         )
       end
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
@@ -139,13 +138,6 @@ RSpec.describe Presenters::EditionPresenter do
 
       it "adds the supertypes" do
         expect(result["user_journey_document_supertype"]).to be_present
-      end
-
-      it "doesn't include auth_bypass_ids when presenting to draft content store" do
-        presented = described_class.new(edition, draft: true)
-                                   .for_content_store(payload_version)
-
-        expect(presented).not_to include(:auth_bypass_ids)
       end
     end
 
