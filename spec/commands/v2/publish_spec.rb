@@ -133,6 +133,9 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "updates the dependencies" do
+        expect(DownstreamDraftWorker)
+          .to receive(:perform_async_in_queue)
+          .with("downstream_high", a_hash_including(update_dependencies: true))
         expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including(update_dependencies: true))
@@ -194,6 +197,10 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "updates the dependencies" do
+        expect(DownstreamDraftWorker)
+          .to receive(:perform_async_in_queue)
+          .with("downstream_high", a_hash_including(update_dependencies: true))
+
         expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including(update_dependencies: true))
@@ -233,24 +240,15 @@ RSpec.describe Commands::V2::Publish do
       end
 
       it "doesn't updates the dependencies" do
+        expect(DownstreamDraftWorker)
+          .to receive(:perform_async_in_queue)
+          .with("downstream_high", a_hash_including(update_dependencies: false))
+
         expect(DownstreamLiveWorker)
           .to receive(:perform_async_in_queue)
           .with("downstream_high", a_hash_including(update_dependencies: false))
 
         described_class.call(payload)
-      end
-
-      context "with an access limit" do
-        before do
-          create(:access_limit, edition: draft_item)
-        end
-
-        it "sends to the draft downstream without updating dependencies" do
-          expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
-            .with("downstream_high", a_hash_including(update_dependencies: false))
-
-          described_class.call(payload)
-        end
       end
     end
 

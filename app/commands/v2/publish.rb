@@ -3,15 +3,8 @@ module Commands
     class Publish < BaseCommand
       def call
         validate
-
         publish_edition
-
-        if downstream
-          after_transaction_commit do
-            send_downstream_live
-            send_downstream_draft if access_limit
-          end
-        end
+        after_transaction_commit { send_downstream }
 
         Success.new(content_id: content_id)
       end
@@ -208,19 +201,19 @@ module Commands
         @edition_diff ||= LinkExpansion::EditionDiff.new(edition, previous_edition: previous_edition)
       end
 
-      def send_downstream_live
-        queue = update_type == "republish" ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
-        DownstreamLiveWorker.perform_async_in_queue(
-          queue,
-          live_worker_params,
-        )
-      end
+      def send_downstream
+        return unless downstream
 
-      def send_downstream_draft
-        queue = update_type == "republish" ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        queue = update_type == "republish" ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
+
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
           worker_params,
+        )
+
+        DownstreamLiveWorker.perform_async_in_queue(
+          queue,
+          live_worker_params,
         )
       end
 
