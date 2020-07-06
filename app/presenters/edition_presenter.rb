@@ -67,7 +67,7 @@ module Presenters
     attr_reader :draft, :edition
 
     def auth_bypass_ids
-      return {} if edition.state != "draft"
+      return {} unless draft
 
       { auth_bypass_ids: edition.auth_bypass_ids || [] }
     end

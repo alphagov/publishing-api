@@ -3,15 +3,8 @@ module Commands
     class Publish < BaseCommand
       def call
         validate
-
         publish_edition
-
-        if downstream
-          after_transaction_commit do
-            send_downstream_live
-            send_downstream_draft if access_limit
-          end
-        end
+        after_transaction_commit { send_downstream }
 
         Success.new(content_id: content_id)
       end
@@ -31,7 +24,7 @@ module Commands
         set_update_type
         set_timestamps
         edition.publish
-        remove_access_limit
+        remove_draft_access
         create_publish_action
         create_change_note if payload[:update_type].present?
       end
@@ -52,12 +45,9 @@ module Commands
         ChangeNote.create_from_edition(payload, edition)
       end
 
-      def access_limit
-        @access_limit ||= AccessLimit.find_by(edition: edition)
-      end
-
-      def remove_access_limit
-        access_limit.try(:destroy)
+      def remove_draft_access
+        edition.update!(auth_bypass_ids: []) if edition.auth_bypass_ids.any?
+        AccessLimit.where(edition: edition).delete_all
       end
 
       def validate
@@ -207,19 +197,19 @@ module Commands
         @edition_diff ||= LinkExpansion::EditionDiff.new(edition, previous_edition: previous_edition)
       end
 
-      def send_downstream_live
-        queue = update_type == "republish" ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
-        DownstreamLiveWorker.perform_async_in_queue(
-          queue,
-          live_worker_params,
-        )
-      end
+      def send_downstream
+        return unless downstream
 
-      def send_downstream_draft
-        queue = update_type == "republish" ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
+        queue = update_type == "republish" ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
+
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
           worker_params,
+        )
+
+        DownstreamLiveWorker.perform_async_in_queue(
+          queue,
+          live_worker_params,
         )
       end
 

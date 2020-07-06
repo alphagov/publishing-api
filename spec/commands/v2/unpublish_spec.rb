@@ -289,6 +289,18 @@ RSpec.describe Commands::V2::Unpublish do
           end
         end
 
+        context "where there is auth_bypass_ids on the draft edition" do
+          before do
+            draft_edition.update!(auth_bypass_ids: [SecureRandom.uuid])
+          end
+
+          it "removes the auth_bypass_ids" do
+            expect { described_class.call(payload_with_allow_draft) }
+              .to change { draft_edition.reload.auth_bypass_ids }
+              .to([])
+          end
+        end
+
         it "sends an unpublishing to the live content store" do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(

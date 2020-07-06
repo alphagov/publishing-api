@@ -6,7 +6,7 @@ module Commands
 
         previous.supersede if previous_edition_should_be_superseded?
         transition_state
-        AccessLimit.find_by(edition: edition).try(:destroy)
+        reset_draft_access
 
         after_transaction_commit do
           send_downstream
@@ -27,6 +27,11 @@ module Commands
       def transition_state
         raise_invalid_unpublishing_type unless valid_unpublishing_type?
         unpublish
+      end
+
+      def reset_draft_access
+        edition.update!(auth_bypass_ids: []) if edition.auth_bypass_ids.any?
+        AccessLimit.where(edition: edition).delete_all
       end
 
       def valid_unpublishing_type?
