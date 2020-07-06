@@ -31,7 +31,7 @@ module Commands
         set_update_type
         set_timestamps
         edition.publish
-        remove_access_limit
+        remove_draft_access
         create_publish_action
         create_change_note if payload[:update_type].present?
       end
@@ -56,7 +56,8 @@ module Commands
         @access_limit ||= AccessLimit.find_by(edition: edition)
       end
 
-      def remove_access_limit
+      def remove_draft_access
+        edition.update!(auth_bypass_ids: []) if edition.auth_bypass_ids.any?
         access_limit.try(:destroy)
       end
 

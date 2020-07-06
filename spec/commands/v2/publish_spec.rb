@@ -549,6 +549,18 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "when the draft edition has auth_bypass_ids" do
+      before do
+        draft_item.update!(auth_bypass_ids: [SecureRandom.uuid])
+      end
+
+      it "resets the auth_bypass_ids" do
+        expect { described_class.call(payload) }
+          .to change { draft_item.reload.auth_bypass_ids }
+          .to([])
+      end
+    end
+
     context "when given an invalid update_type" do
       before do
         payload[:update_type] = "invalid"
