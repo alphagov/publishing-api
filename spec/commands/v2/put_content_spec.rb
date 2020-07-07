@@ -208,10 +208,8 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "when the draft does exist" do
-      before do
-        document = create(:document, content_id: content_id)
-        create(:draft_edition, document: document)
-      end
+      let(:document) { create(:document, content_id: content_id) }
+      let!(:edition) { create(:draft_edition, document: document) }
 
       context "with a provided last_edited_at" do
         %w[minor major republish].each do |update_type|
@@ -226,7 +224,7 @@ RSpec.describe Commands::V2::PutContent do
                 ),
               )
 
-              expect(Edition.first.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
+              expect(edition.reload.last_edited_at.iso8601).to eq(last_edited_at.iso8601)
             end
           end
         end
@@ -236,7 +234,7 @@ RSpec.describe Commands::V2::PutContent do
         Timecop.freeze do
           described_class.call(payload)
 
-          expect(Edition.first.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
+          expect(edition.reload.last_edited_at.iso8601).to eq(Time.zone.now.iso8601)
         end
       end
 
@@ -251,7 +249,6 @@ RSpec.describe Commands::V2::PutContent do
         end
 
         it "creates a new access limit" do
-          edition = Edition.first
           expect {
             described_class.call(payload)
           }.to change(AccessLimit, :count).by(1)
@@ -270,10 +267,8 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       context "when the existing draft has access limits" do
-        before do
-          edition = Edition.first
-          create(:access_limit, edition: edition)
-        end
+        let!(:access_limit) { create(:access_limit, edition: edition) }
+
 
         context "when the payload doesn't include an access limit" do
           it "removes the access limits" do
@@ -293,7 +288,6 @@ RSpec.describe Commands::V2::PutContent do
           end
 
           it "updates the existing access limit" do
-            access_limit = AccessLimit.first
             described_class.call(payload)
             access_limit.reload
             expect(access_limit.users).to eq(%w[new-user])
