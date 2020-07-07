@@ -164,6 +164,8 @@ presented edition and [warnings](#warnings).
 
 - If a `base_path` is provided it is reserved for use of the given
   `publishing_app`.
+- If this is changing the `base_path` of a draft edition the previous
+  `base_path` reserved will be discarded.
 - Any draft editions for different documents that have a matching `base_path`
   and have a document_type of "coming soon", "gone", "redirect" or
   "unpublishing" will be deleted.

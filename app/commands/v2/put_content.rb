@@ -4,7 +4,9 @@ module Commands
       def call
         PutContentValidator.new(payload, self).validate
 
-        prepare_content_with_base_path
+        remove_previous_path_reservations
+        reserve_current_path
+        clear_draft_items_of_same_locale_and_base_path
         check_update_type
 
         update_root_payload_with_auth_bypass_ids
@@ -42,11 +44,21 @@ module Commands
         old_links - new_links
       end
 
-      def prepare_content_with_base_path
+      def remove_previous_path_reservations
+        to_discard = previous_drafted_edition&.base_path
+        return if to_discard.blank? || to_discard == payload[:base_path]
+        return if Edition.exists?(base_path: to_discard,
+                                  content_store: :live,
+                                  publishing_app: payload[:publishing_app])
+
+        PathReservation.where(base_path: to_discard, publishing_app: payload[:publishing_app])
+                       .delete_all
+      end
+
+      def reserve_current_path
         return unless payload[:base_path]
 
         PathReservation.reserve_base_path!(payload[:base_path], payload[:publishing_app])
-        clear_draft_items_of_same_locale_and_base_path
       end
 
       def update_content_dependencies(edition)
@@ -143,6 +155,8 @@ module Commands
       end
 
       def clear_draft_items_of_same_locale_and_base_path
+        return unless payload[:base_path]
+
         SubstitutionHelper.clear!(
           new_item_document_type: payload[:document_type],
           new_item_content_id: document.content_id,

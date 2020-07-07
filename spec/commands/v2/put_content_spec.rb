@@ -11,6 +11,7 @@ RSpec.describe Commands::V2::PutContent do
     let(:new_content_id) { SecureRandom.uuid }
     let(:base_path) { "/vat-rates" }
     let(:locale) { "en" }
+    let(:publishing_app) { "publisher" }
 
     let(:change_note) { "Info" }
     let(:new_change_note) { "Changed Info" }
@@ -20,7 +21,7 @@ RSpec.describe Commands::V2::PutContent do
         base_path: base_path,
         update_type: "major",
         title: "Some Title",
-        publishing_app: "publisher",
+        publishing_app: publishing_app,
         rendering_app: "frontend",
         document_type: "services_and_information",
         schema_name: "generic",
@@ -39,7 +40,7 @@ RSpec.describe Commands::V2::PutContent do
         base_path: base_path,
         update_type: "major",
         title: "New Title",
-        publishing_app: "publisher",
+        publishing_app: publishing_app,
         rendering_app: "frontend",
         document_type: "services_and_information",
         schema_name: "generic",
@@ -238,6 +239,49 @@ RSpec.describe Commands::V2::PutContent do
         end
       end
 
+      it "deletes a previous path reservation if the paths differ" do
+        edition.update!(base_path: "/different", routes: [{ path: "/different", type: "exact" }])
+        create(:path_reservation, base_path: "/different", publishing_app: publishing_app)
+        expect { described_class.call(payload) }
+          .to change { PathReservation.where(base_path: "/different").count }
+          .by(-1)
+      end
+
+      it "doesn't delete a previous path reservation if the paths are the same" do
+        edition.update!(base_path: base_path, routes: [{ path: base_path, type: "exact" }])
+        create(:path_reservation, base_path: base_path, publishing_app: publishing_app)
+        expect { described_class.call(payload) }
+          .not_to(change { PathReservation.where(base_path: base_path).count })
+      end
+
+      it "doesn't delete a previous path reservation if it is registered to a different publishing application" do
+        edition.update!(base_path: "/different", routes: [{ path: "/different", type: "exact" }])
+        create(:path_reservation, base_path: "/different", publishing_app: "different")
+        expect { described_class.call(payload) }
+          .not_to(change { PathReservation.where(base_path: "/different").count })
+      end
+
+      it "doesn't delete a previous path reservation if it's used by a live "\
+        "edition published by the same app" do
+        edition.update!(base_path: "/different",
+                        routes: [{ path: "/different", type: "exact" }])
+        create(:live_edition, base_path: "/different", publishing_app: publishing_app)
+        create(:path_reservation, base_path: "/different", publishing_app: publishing_app)
+        expect { described_class.call(payload) }
+          .not_to(change { PathReservation.where(base_path: "/different").count })
+      end
+
+      it "deletes a previous path reservation if it's used by a live "\
+        "edition published by a different app" do
+        edition.update!(base_path: "/different",
+                        routes: [{ path: "/different", type: "exact" }])
+        create(:live_edition, base_path: "/different", publishing_app: "different-app")
+        create(:path_reservation, base_path: "/different", publishing_app: publishing_app)
+        expect { described_class.call(payload) }
+          .to change { PathReservation.where(base_path: "/different").count }
+          .by(-1)
+      end
+
       context "when the existing draft doesn't have access limit" do
         let(:auth_bypass_id) { SecureRandom.uuid }
         let(:organisation_id) { SecureRandom.uuid }
@@ -268,7 +312,6 @@ RSpec.describe Commands::V2::PutContent do
 
       context "when the existing draft has access limits" do
         let!(:access_limit) { create(:access_limit, edition: edition) }
-
 
         context "when the payload doesn't include an access limit" do
           it "removes the access limits" do
