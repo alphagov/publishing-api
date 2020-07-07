@@ -37,6 +37,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         )
       end
       let!(:change_note) { ChangeNote.create(edition: existing_draft_item) }
+      let(:publishing_app) { existing_draft_item.publishing_app }
 
       it "deletes the draft item" do
         expect {
@@ -77,6 +78,40 @@ RSpec.describe Commands::V2::DiscardDraft do
           )
 
         described_class.call(payload)
+      end
+
+      it "deletes any path reservations for the base_path and publishing app" do
+        create(:path_reservation, base_path: base_path, publishing_app: publishing_app)
+
+        expect { described_class.call(payload) }
+          .to change { PathReservation.where(base_path: base_path).count }
+          .by(-1)
+      end
+
+      it "doesn't delete a path reservation reserved by a different application" do
+        create(:path_reservation, base_path: base_path, publishing_app: "different")
+
+        expect { described_class.call(payload) }
+          .not_to(change { PathReservation.where(base_path: base_path).count })
+      end
+
+      it "doesn't delete a previous path reservation if it's used by a live "\
+        "edition published by the same app" do
+        create(:live_edition, base_path: base_path, publishing_app: publishing_app)
+        create(:path_reservation, base_path: base_path, publishing_app: publishing_app)
+
+        expect { described_class.call(payload) }
+          .not_to(change { PathReservation.where(base_path: base_path).count })
+      end
+
+      it "deletes a previous path reservation if it's used by a live "\
+        "edition published by a different app" do
+        create(:live_edition, base_path: base_path, publishing_app: "different-app")
+        create(:path_reservation, base_path: base_path, publishing_app: publishing_app)
+
+        expect { described_class.call(payload) }
+          .to change { PathReservation.where(base_path: base_path).count }
+          .by(-1)
       end
 
       it "does not send any request to the live content store" do

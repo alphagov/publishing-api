@@ -353,6 +353,7 @@ the draft content store with the published item, if one exists. Uses
 ### State changes
 
 - The draft edition will be deleted from the Publishing API.
+- Any reserved paths unique to the draft edition will also be discarded.
 - The draft edition will be removed from the draft content store.
 - If a published edition exists it will be added to the draft content store.
 

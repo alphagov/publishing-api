@@ -51,6 +51,18 @@ module Commands
       def delete_supporting_objects
         AccessLimit.where(edition: draft).delete_all
         ChangeNote.where(edition: draft).delete_all
+        delete_path_reservation
+      end
+
+      def delete_path_reservation
+        return unless draft.base_path
+        return if Edition.exists?(base_path: draft.base_path,
+                                  content_store: :live,
+                                  publishing_app: draft.publishing_app)
+
+        PathReservation
+          .where(base_path: draft.base_path, publishing_app: draft.publishing_app)
+          .delete_all
       end
 
       def increment_lock_version
