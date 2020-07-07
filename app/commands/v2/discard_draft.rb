@@ -49,8 +49,8 @@ module Commands
       end
 
       def delete_supporting_objects
-        AccessLimit.find_by(edition: draft).try(:destroy)
-        ChangeNote.where(edition: draft).destroy_all
+        AccessLimit.where(edition: draft).delete_all
+        ChangeNote.where(edition: draft).delete_all
       end
 
       def increment_lock_version
