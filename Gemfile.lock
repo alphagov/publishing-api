@@ -1040,7 +1040,7 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-rails
-  rails (~> 6)
+  rails (= 6.0.3.2)
   rspec
   rspec-rails
   rubocop-govuk
