@@ -164,6 +164,8 @@ presented edition and [warnings](#warnings).
 
 - If a `base_path` is provided it is reserved for use of the given
   `publishing_app`.
+- If this is changing the `base_path` of a draft edition the previous
+  `base_path` reserved will be discarded.
 - Any draft editions for different documents that have a matching `base_path`
   and have a document_type of "coming soon", "gone", "redirect" or
   "unpublishing" will be deleted.
@@ -351,6 +353,7 @@ the draft content store with the published item, if one exists. Uses
 ### State changes
 
 - The draft edition will be deleted from the Publishing API.
+- Any reserved paths unique to the draft edition will also be discarded.
 - The draft edition will be removed from the draft content store.
 - If a published edition exists it will be added to the draft content store.
 

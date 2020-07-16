@@ -7,26 +7,22 @@ module Commands
         check_version_and_raise_if_conflicting(document, payload[:previous_version])
 
         save_document_type
-        delete_supporting_objects(document.draft)
+        delete_supporting_objects
         delete_draft_from_database
         increment_lock_version
 
-        after_transaction_commit do
-          downstream_discard_draft(
-            document.draft.base_path,
-            document.content_id,
-            document.locale,
-          )
-        end
+        after_transaction_commit { downstream_discard_draft }
 
-        Action.create_discard_draft_action(document.draft, document.locale, event)
-        Success.new(content_id: document.content_id)
+        Action.create_discard_draft_action(draft, locale, event)
+        Success.new(content_id: content_id)
       end
 
     private
 
+      delegate :draft, :content_id, :locale, to: :document
+
       def raise_error_if_missing_draft!
-        return if document.draft.present?
+        return if draft.present?
 
         code = document.published_or_unpublished.present? ? 422 : 404
         message = "There is not a draft edition of this document to discard"
@@ -35,15 +31,15 @@ module Commands
       end
 
       def delete_draft_from_database
-        document.draft.destroy
+        draft.destroy
       end
 
-      def downstream_discard_draft(path_used, content_id, locale)
+      def downstream_discard_draft
         return unless downstream
 
         DownstreamDiscardDraftWorker.perform_async_in_queue(
           DownstreamDiscardDraftWorker::HIGH_QUEUE,
-          base_path: path_used,
+          base_path: draft.base_path,
           content_id: content_id,
           locale: locale,
           update_dependencies: true,
@@ -52,9 +48,21 @@ module Commands
         )
       end
 
-      def delete_supporting_objects(edition)
-        AccessLimit.find_by(edition: edition).try(:destroy)
-        ChangeNote.where(edition: edition).destroy_all
+      def delete_supporting_objects
+        AccessLimit.where(edition: draft).delete_all
+        ChangeNote.where(edition: draft).delete_all
+        delete_path_reservation
+      end
+
+      def delete_path_reservation
+        return unless draft.base_path
+        return if Edition.exists?(base_path: draft.base_path,
+                                  content_store: :live,
+                                  publishing_app: draft.publishing_app)
+
+        PathReservation
+          .where(base_path: draft.base_path, publishing_app: draft.publishing_app)
+          .delete_all
       end
 
       def increment_lock_version
@@ -74,7 +82,7 @@ module Commands
       # may have already been destroyed by the time the worker runs, and it
       # wouldn't be able to access the destroyed edition's document type.
       def save_document_type
-        @document_type = document.draft.document_type
+        @document_type = draft.document_type
       end
     end
   end
