@@ -1010,50 +1010,50 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk (~> 3)
-  bunny (~> 2.15)
-  climate_control (~> 0.2)
-  colorize (~> 0.8)
+  aws-sdk
+  bunny
+  climate_control
+  colorize
   dalli
   database_cleaner
-  diffy (~> 3.3)
-  factory_bot_rails (~> 6.1)
+  diffy
+  factory_bot_rails
   faker
-  fuzzy_match (~> 2.1)
-  gds-api-adapters (~> 67)
-  gds-sso (~> 15.0)
-  govspeak (~> 6.5.5)
-  govuk-content-schema-test-helpers (~> 1.6)
-  govuk_app_config (~> 2.2)
-  govuk_document_types (~> 0.9.2)
-  govuk_schemas (~> 4.1)
-  govuk_sidekiq (~> 4.0)
-  govuk_test (~> 1.0)
-  hashdiff (~> 1.0.1)
+  fuzzy_match
+  gds-api-adapters
+  gds-sso
+  govspeak
+  govuk-content-schema-test-helpers
+  govuk_app_config
+  govuk_document_types
+  govuk_schemas
+  govuk_sidekiq
+  govuk_test
+  hashdiff
   json-schema
   listen
-  oj (~> 3.10)
+  oj
   pact
   pact_broker-client
-  pg (~> 1.2.3)
-  plek (~> 4.0)
+  pg
+  plek
   pry
   pry-byebug
   pry-rails
   rails (~> 6)
   rspec
-  rspec-rails (~> 4.0)
+  rspec-rails
   rubocop-govuk
   sidekiq-unique-jobs!
-  simplecov (= 0.18.5)
+  simplecov
   spring
   spring-commands-rspec
   stackprof
   timecop
-  web-console (~> 4)
+  web-console
   webmock
-  whenever (= 1.0.0)
-  with_advisory_lock (~> 4.6)
+  whenever
+  with_advisory_lock
 
 BUNDLED WITH
    1.17.3
