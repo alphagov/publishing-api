@@ -390,7 +390,7 @@ RSpec.describe V2::ContentItemsController do
           user_facing_version: 2,
         )
 
-        @draft.links.create(
+        @draft.links.create!(
           link_type: "organisation",
           target_content_id: document_ar.content_id,
         )

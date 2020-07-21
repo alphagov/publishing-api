@@ -37,7 +37,7 @@ module Commands
 
       def republish_edition
         overwrite_publishing_request_id
-        edition.unpublishing.destroy if edition.unpublishing
+        edition.unpublishing.destroy! if edition.unpublishing
         edition.publish
         create_republish_action
       end

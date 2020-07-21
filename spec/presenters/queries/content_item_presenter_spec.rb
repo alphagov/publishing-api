@@ -151,9 +151,9 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       let(:other_content_id) { SecureRandom.uuid }
       let(:and_another_content_id) { SecureRandom.uuid }
       before do
-        edition.links.create(link_type: "test", target_content_id: content_id)
-        edition.links.create(link_type: "test", target_content_id: and_another_content_id)
-        edition.links.create(link_type: "ers", target_content_id: other_content_id)
+        edition.links.create!(link_type: "test", target_content_id: content_id)
+        edition.links.create!(link_type: "test", target_content_id: and_another_content_id)
+        edition.links.create!(link_type: "ers", target_content_id: other_content_id)
       end
 
       it "presents the item including the links" do

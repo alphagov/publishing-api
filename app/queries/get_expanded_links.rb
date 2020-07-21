@@ -47,7 +47,7 @@ module Queries
 
       check_content_id_is_known if expanded_links.empty?
 
-      response(expanded_links, Time.now.utc, link_set_version)
+      response(expanded_links, Time.zone.now.utc, link_set_version)
     end
 
     def stored_links_response(expanded_links)

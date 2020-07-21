@@ -102,7 +102,7 @@ module Commands
           previously_published_edition,
           payload,
           callbacks,
-        ).create
+        ).create!
       end
 
       def present_response(edition)
@@ -114,7 +114,7 @@ module Commands
 
       def access_limit(edition)
         if payload[:access_limited].present?
-          AccessLimit.find_or_create_by(edition: edition).tap do |access_limit|
+          AccessLimit.find_or_create_by!(edition: edition).tap do |access_limit|
             access_limit.update!(
               users: (payload[:access_limited][:users] || []),
               organisations: (payload[:access_limited][:organisations] || []),

@@ -243,7 +243,7 @@ module Commands
 
       def delete_all(document)
         document.editions.destroy_all
-        document.destroy
+        document.destroy!
       end
     end
   end

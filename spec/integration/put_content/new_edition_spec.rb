@@ -52,12 +52,12 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
 
   it "sets publishing_api_last_edited_at to current time" do
     put "/v2/content/#{content_id}", params: payload.to_json
-    expect(subject.publishing_api_last_edited_at).to eq(Time.current)
+    expect(subject.publishing_api_last_edited_at).to eq(Time.zone.now)
   end
 
   it "sets last_edited_at to current time" do
     put "/v2/content/#{content_id}", params: payload.to_json
-    expect(subject.last_edited_at).to eq(Time.current)
+    expect(subject.last_edited_at).to eq(Time.zone.now)
   end
 
   shared_examples "creates a change note" do
@@ -69,7 +69,7 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
   end
 
   context "first_published_at is present in the payload" do
-    let(:first_published_at) { Time.current }
+    let(:first_published_at) { Time.zone.now }
     before do
       payload[:first_published_at] = first_published_at
     end
@@ -98,7 +98,7 @@ RSpec.describe "PUT /v2/content when the payload is for a brand new edition" do
           government: { title: "Test", slug: "test", current: true },
           political: false,
           change_history: [
-            { note: change_note, public_timestamp: Time.current.utc.rfc3339 },
+            { note: change_note, public_timestamp: Time.zone.now.utc.rfc3339 },
           ],
         },
       )

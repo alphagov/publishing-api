@@ -428,7 +428,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "update_type changes from major to minor" do
         before do
-          draft_item.update(update_type: "major")
+          draft_item.update!(update_type: "major")
           payload[:update_type] = "minor"
           ChangeNote.create!(edition: draft_item)
         end

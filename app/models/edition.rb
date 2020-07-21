@@ -170,7 +170,7 @@ class Edition < ApplicationRecord
     update!(state: "unpublished", content_store: content_store)
 
     if unpublishing.present?
-      unpublishing.update(
+      unpublishing.update!(
         type: type,
         explanation: explanation,
         alternative_path: alternative_path,

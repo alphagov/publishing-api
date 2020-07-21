@@ -7,7 +7,7 @@ FactoryBot.define do
     content_id { SecureRandom.uuid }
     user_uid { SecureRandom.uuid }
     request_id do
-      "#{rand(1000..9999)}-#{Time.now.to_f.round(3)}-127.0.0.1-#{rand(1000..9999)}"
+      "#{rand(1000..9999)}-#{Time.zone.now.to_f.round(3)}-127.0.0.1-#{rand(1000..9999)}"
     end
     updated_at { created_at }
     payload do

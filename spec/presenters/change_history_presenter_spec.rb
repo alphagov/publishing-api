@@ -31,7 +31,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
           ChangeNote.create(
             edition: edition,
             note: i.to_s,
-            public_timestamp: Time.now.utc,
+            public_timestamp: Time.zone.now.utc,
           )
         end
       end
@@ -69,8 +69,8 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
         )
       end
       before do
-        ChangeNote.create(edition: item1)
-        ChangeNote.create(edition: item2)
+        ChangeNote.create!(edition: item1)
+        ChangeNote.create!(edition: item2)
       end
 
       context "reviewing latest version of a edition" do

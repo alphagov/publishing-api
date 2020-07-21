@@ -36,7 +36,7 @@ class QueuePublisher
     return if @noop
 
     body = {
-      timestamp: Time.now.utc.iso8601,
+      timestamp: Time.zone.now.utc.iso8601,
       hostname: Socket.gethostname,
     }
 

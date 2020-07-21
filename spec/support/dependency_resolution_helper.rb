@@ -28,7 +28,7 @@ module DependencyResolutionHelper
   end
 
   def create_link(from, to, link_type, link_position = 0)
-    link_set = LinkSet.find_or_create_by(content_id: from)
+    link_set = LinkSet.find_or_create_by!(content_id: from)
 
     create(
       :link,

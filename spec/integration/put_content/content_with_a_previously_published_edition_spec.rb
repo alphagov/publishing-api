@@ -87,7 +87,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
   end
 
   context "when first_published_at has changed in the payload" do
-    let(:new_first_published_at) { Time.now.utc.iso8601 }
+    let(:new_first_published_at) { Time.zone.now.utc.iso8601 }
     before do
       payload.merge!(first_published_at: new_first_published_at)
     end
