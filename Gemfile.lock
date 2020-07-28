@@ -695,7 +695,7 @@ GEM
       rake
       rouge
       sprockets (< 4)
-    govuk_schemas (4.0.0)
+    govuk_schemas (4.1.0)
       json-schema (~> 2.8.0)
     govuk_sidekiq (3.0.5)
       gds-api-adapters (>= 19.1.0)
@@ -1027,7 +1027,7 @@ DEPENDENCIES
   govuk-content-schema-test-helpers (~> 1.6)
   govuk_app_config (~> 2.2)
   govuk_document_types (~> 0.9.2)
-  govuk_schemas (~> 4.0)
+  govuk_schemas (~> 4.1)
   govuk_sidekiq (~> 3.0)
   govuk_test (~> 1.0)
   hashdiff (~> 1.0.1)
