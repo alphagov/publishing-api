@@ -14,7 +14,7 @@ gem "govspeak", "~> 6.5.4"
 gem "govuk_app_config", "~> 2.2"
 gem "govuk_document_types", "~> 0.9.2"
 gem "govuk_schemas", "~> 4.1"
-gem "govuk_sidekiq", "~> 3.0"
+gem "govuk_sidekiq", "~> 4.0"
 gem "hashdiff", "~> 1.0.1"
 gem "json-schema", require: false
 gem "pg", "~> 1.2.3"
