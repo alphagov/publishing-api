@@ -6,7 +6,7 @@ class DataHygiene::DocumentStatusChecker
   def content_store?
     routes.each do |route|
       content_item = GdsApi.content_store.content_item(route[:path])
-      updated_at = DateTime.parse(content_item["updated_at"])
+      updated_at = Time.parse(content_item["updated_at"])
       return false unless updated_at >= edition.published_at # content-store must be later due to latency
     end
 
