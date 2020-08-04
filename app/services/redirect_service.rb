@@ -7,7 +7,7 @@ class RedirectService
     @callbacks = callbacks
   end
 
-  def create
+  def call
     return unless previously_published_item.path_has_changed?
 
     redirect_payload = RedirectPresenter.new(

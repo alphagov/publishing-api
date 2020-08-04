@@ -102,7 +102,7 @@ module Commands
           previously_published_edition,
           payload,
           callbacks,
-        ).create!
+        ).call
       end
 
       def present_response(edition)
