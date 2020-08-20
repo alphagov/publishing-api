@@ -6,7 +6,7 @@ module Helpers
       Document.where(content_id: content_ids).each do |document|
         destroy_edition_supporting_objects(document.editions)
         document.editions.destroy_all
-        document.destroy
+        document.destroy!
       end
 
       destroy_links(content_ids)

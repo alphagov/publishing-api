@@ -3,7 +3,7 @@ module Commands
     def call
       reservation = lookup_reservation
       check_is_owned_by_app(reservation)
-      reservation.destroy
+      reservation.destroy!
       Success.new(payload)
     end
 

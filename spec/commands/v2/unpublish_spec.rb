@@ -353,7 +353,7 @@ RSpec.describe Commands::V2::Unpublish do
 
           it "does not supersede unpublished items in a different locale" do
             Edition.find_by!(id: previous_edition.id)
-              .update(document: french_document)
+              .update!(document: french_document)
 
             described_class.call(payload.merge(allow_draft: true))
 
@@ -386,7 +386,7 @@ RSpec.describe Commands::V2::Unpublish do
 
           it "does not supersede published items in a different locale" do
             Edition.find_by!(id: previous_edition.id)
-              .update(document: french_document)
+              .update!(document: french_document)
 
             described_class.call(payload.merge(allow_draft: true))
 

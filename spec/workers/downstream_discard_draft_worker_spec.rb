@@ -26,7 +26,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
   let(:arguments) { base_arguments }
 
   before do
-    edition.destroy
+    edition.destroy!
     stub_request(:put, %r{.*content-store.*/content/.*})
     stub_request(:delete, %r{.*content-store.*/content/.*})
   end

@@ -44,18 +44,18 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
     put "/v2/content/#{content_id}", params: payload.to_json
     previously_drafted_item.reload
 
-    expect(previously_drafted_item.publishing_api_last_edited_at).to eq(Time.current)
+    expect(previously_drafted_item.publishing_api_last_edited_at).to eq(Time.zone.now)
   end
 
   it "sets last_edited_at to current time" do
     put "/v2/content/#{content_id}", params: payload.to_json
     previously_drafted_item.reload
 
-    expect(previously_drafted_item.last_edited_at).to eq(Time.current)
+    expect(previously_drafted_item.last_edited_at).to eq(Time.zone.now)
   end
 
   context "when public_updated_at is in the payload" do
-    let(:public_updated_at) { Time.current }
+    let(:public_updated_at) { Time.zone.now }
     before do
       payload[:public_updated_at] = public_updated_at
     end

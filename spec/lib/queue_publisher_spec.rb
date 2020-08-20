@@ -130,7 +130,7 @@ RSpec.describe QueuePublisher do
       it "sends a heartbeat message" do
         Timecop.freeze do
           expected_data = {
-            timestamp: Time.now.utc.iso8601,
+            timestamp: Time.zone.now.utc.iso8601,
             hostname: "example-hostname",
           }
           expect(mock_exchange).to receive(:publish).with(expected_data.to_json, hash_including(content_type: "application/x-heartbeat"))
