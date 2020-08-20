@@ -47,6 +47,7 @@ RSpec.describe ExpansionRules do
     let(:mainstream_browser_page_fields) { default_fields + %i[description] }
     let(:need_fields) { default_fields + [%i[details role], %i[details goal], %i[details benefit], %i[details met_when], %i[details justifications]] }
     let(:finder_fields) { default_fields + [%i[details facets]] }
+    let(:ministerial_role_fields) { role_fields + [%i[details seniority]] }
     let(:person_fields) { default_fields + [%i[details body], %i[details image]] }
     let(:person_with_image_fields) { default_fields + [%i[details image]] }
     let(:role_fields) { default_fields + [%i[details body], %i[details role_payment_type]] }
@@ -81,6 +82,8 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_chief_professional_officers)).to eq(person_with_image_fields) }
     specify { expect(rules.expansion_fields(:person, link_type: :ordered_special_representatives)).to eq(person_with_image_fields) }
 
+    specify { expect(rules.expansion_fields(:ministerial_role)).to eq(ministerial_role_fields) }
+
     specify { expect(rules.expansion_fields(:ambassador_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:board_member_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:chief_professional_officer_role)).to eq(role_fields) }
@@ -90,7 +93,6 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:governor_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:high_commissioner_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:military_role)).to eq(role_fields) }
-    specify { expect(rules.expansion_fields(:ministerial_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:special_representative_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:traffic_commissioner_role)).to eq(role_fields) }
     specify { expect(rules.expansion_fields(:worldwide_office_staff_role)).to eq(role_fields) }
