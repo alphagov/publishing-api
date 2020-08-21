@@ -10,7 +10,7 @@ gem "diffy", "~> 3.3", require: false
 gem "fuzzy_match", "~> 2.1"
 gem "gds-api-adapters", "~> 67"
 gem "gds-sso", "~> 15.0"
-gem "govspeak", "~> 6.5.4"
+gem "govspeak", "~> 6.5.5"
 gem "govuk_app_config", "~> 2.2"
 gem "govuk_document_types", "~> 0.9.2"
 gem "govuk_schemas", "~> 4.1"
