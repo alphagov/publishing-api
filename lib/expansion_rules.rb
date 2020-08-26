@@ -83,6 +83,7 @@ module_function
   TAXON_FIELDS = (DEFAULT_FIELDS + %i[description details phase]).freeze
   NEED_FIELDS = (DEFAULT_FIELDS + details_fields(:role, :goal, :benefit, :met_when, :justifications)).freeze
   FINDER_FIELDS = (DEFAULT_FIELDS + details_fields(:facets)).freeze
+  MINISTERIAL_ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type, :seniority)).freeze
   PERSON_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :image)).freeze
   PERSON_FIELDS_WITH_IMAGE = (DEFAULT_FIELDS + details_fields(:image)).freeze
   ROLE_FIELDS = (DEFAULT_FIELDS + details_fields(:body, :role_payment_type)).freeze
@@ -116,7 +117,6 @@ module_function
       governor_role
       high_commissioner_role
       military_role
-      ministerial_role
       special_representative_role
       traffic_commissioner_role
       worldwide_office_staff_role
@@ -173,6 +173,8 @@ module_function
         fields: GOVERNMENT_FIELDS },
       { document_type: :coronavirus_landing_page,
         fields: DEFAULT_FIELDS_AND_DESCRIPTION },
+      { document_type: :ministerial_role,
+        fields: MINISTERIAL_ROLE_FIELDS },
     ] +
     CUSTOM_EXPANSION_FIELDS_FOR_ROLES +
     CUSTOM_EXPANSION_FIELDS_FOR_PEOPLE
