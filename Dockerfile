@@ -1,6 +1,7 @@
 FROM ruby:2.7.2
-RUN apt-get update -qq && apt-get upgrade -y && apt-get install -y build-essential libpq-dev libxml2-dev libxslt1-dev && apt-get clean
+RUN apt-get update -qq && apt-get upgrade -y && apt-get install -y build-essential libpq-dev libxml2-dev libxslt1-dev dumb-init && apt-get clean
 RUN gem install foreman
+RUN gem install unicorn
 
 # This image is only intended to be able to run this app in a production RAILS_ENV
 ENV RAILS_ENV production
@@ -17,9 +18,15 @@ RUN mkdir $APP_HOME
 
 WORKDIR $APP_HOME
 ADD Gemfile* $APP_HOME/
+ADD .ruby-version $APP_HOME/
+
 RUN bundle config set deployment 'true'
 RUN bundle config set without 'development test'
 RUN bundle install --jobs 4
 ADD . $APP_HOME
 
-CMD foreman run web
+STOPSIGNAL SIGINT
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
+CMD ["foreman", "run", "web"]
