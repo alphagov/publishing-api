@@ -1,20 +1,6 @@
 # RabbitMQ
 
-Publishing API relies on RabbitMQ as its messaging bus. If you are using the
-development VM, it will be installed for you and the required users and topic
-exchanges will be set up. If not, you need to install RabbitMQ and add them
-yourself. Once RabbitMQ is installed, visit `http://localhost:15672` and:
-
-1. add a `publishing_api` user (under "Admin") with the password `publishing_api`
-2. add a `published_documents` and a `published_documents_test` topic exchange
-   (under "Exchanges")
-3. give the `publishing_api` user permissions for the new exchanges.
-
-A more detailed specification of how to configure RabbitMQ can be found in the
-[puppet manifest][puppet_manifest] for the Publishing API.
-
-Publishing to the message queue can be disabled by setting the
-`DISABLE_QUEUE_PUBLISHER` environment variable.
+For information about how we use RabbitMQ, see [here][rabbitmq_doc].
 
 ## Post-publishing notifications
 
@@ -34,4 +20,19 @@ messages. Or an email notification service would be able to send email updates
 - `links`: Used whenever links related to an edition have changed.
 - `unpublish`: Used when an edition is unpublished.
 
-[puppet_manifest]: https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/publishing_api/rabbitmq.pp
+## Previewing a message for a document_type
+
+After content is updated, a message is generated and published to the RabbitMQ
+exchange. Each message has a shared format, however the contents of the message
+is affected by the publishing app and what data it sends over.
+
+As messages for different formats can vary, we have created a rake task to
+allow us to easily generate example messages. The example message is generated
+from the most recently published message (based off of last public_updated_at)
+for the entered document type:
+
+```bash
+$ bundle exec rake queue:preview_recent_message[<document_type>]
+```
+
+[rabbitmq_doc]: https://docs.publishing.service.gov.uk/manual/rabbitmq.html
