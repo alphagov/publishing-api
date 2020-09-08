@@ -1,7 +1,5 @@
-if ENV["RCOV"]
-  require "simplecov"
-  SimpleCov.start "rails"
-end
+require "simplecov"
+SimpleCov.start "rails"
 
 require "pry"
 
