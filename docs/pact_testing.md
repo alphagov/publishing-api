@@ -9,7 +9,7 @@ API, all requests from other apps are made via the gds-api-adapters gem, so
 the pact is defined as being between gds-api-adapters and publishing-api.
 What this means is:
 
-- the expected interactions are defined in the [publishing_api_v2_test.rb in
+- the expected interactions are defined in the [publishing_api_test.rb in
   gds-api-adapters][gds-api-adapters-publishing-api-tests]
 - when these tests are run they output a JSON pactfile which is published to
   [the pact broker][pact-broker]
@@ -73,5 +73,5 @@ merged.
 
 
 [pact]: https://github.com/realestate-com-au/pact
-[gds-api-adapters-publishing-api-tests]: https://github.com/alphagov/gds-api-adapters/blob/master/test/publishing_api_v2_test.rb
+[gds-api-adapters-publishing-api-tests]: https://github.com/alphagov/gds-api-adapters/blob/master/test/publishing_api_test.rb
 [pact-broker]: https://pact-broker.cloudapps.digital/
