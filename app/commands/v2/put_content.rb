@@ -7,6 +7,7 @@ module Commands
         remove_previous_path_reservations
         reserve_current_path
         clear_draft_items_of_same_locale_and_base_path
+        clear_draft_item_of_different_locale_but_matching_base_path
         check_update_type
 
         update_root_payload_with_auth_bypass_ids
@@ -163,6 +164,36 @@ module Commands
           state: "draft",
           locale: document.locale,
           base_path: payload[:base_path],
+          downstream: downstream,
+          callbacks: callbacks,
+          nested: true,
+        )
+      end
+
+      def clear_draft_item_of_different_locale_but_matching_base_path
+        return unless payload[:base_path]
+
+        draft_edition_for_different_locale = Edition.with_document.where(
+          documents: {
+            content_id: document.content_id,
+          },
+          state: :draft,
+          base_path: payload[:base_path],
+        ).where.not(
+          documents: {
+            locale: document.locale,
+          }
+        ).first
+
+        return unless draft_edition_for_different_locale
+
+        # This enables changing the locale of some content where a
+        # draft for the previous locale still exists.
+        Commands::V2::DiscardDraft.call(
+          {
+            content_id: draft_edition_for_different_locale.document.content_id,
+            locale: draft_edition_for_different_locale.document.locale,
+          },
           downstream: downstream,
           callbacks: callbacks,
           nested: true,

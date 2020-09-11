@@ -340,6 +340,23 @@ RSpec.describe Commands::V2::PutContent do
       end
     end
 
+    context "when a draft does exist with a different locale" do
+      let(:en_document) { create(:document, content_id: content_id) }
+      let!(:en_edition) do
+        create(:draft_edition, base_path: base_path, document: en_document)
+      end
+
+      it "replaces the old draft with the new one" do
+        expect {
+          described_class.call(payload.merge(locale: "cy"))
+        }.not_to raise_error
+
+        expect {
+          Edition.find(en_edition.id)
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
     context "field doesn't change between drafts" do
       it "doesn't update the dependencies" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
