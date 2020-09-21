@@ -18,6 +18,7 @@ module Commands
         unless edition.pathless?
           redirect_old_base_path
           clear_published_items_of_same_locale_and_base_path
+          clear_published_item_of_different_locale_but_matching_base_path
         end
 
         set_publishing_request_id
@@ -150,6 +151,28 @@ module Commands
           callbacks: callbacks,
           nested: true,
         )
+      end
+
+      def clear_published_item_of_different_locale_but_matching_base_path
+        return unless edition.base_path
+
+        published_edition_for_different_locale = Edition.with_document.where(
+          documents: {
+            content_id: document.content_id,
+          },
+          state: :published,
+          base_path: edition.base_path,
+        ).where.not(
+          documents: {
+            locale: document.locale,
+          },
+        ).first
+
+        return unless published_edition_for_different_locale
+
+        # This enables changing the locale of some content where a
+        # published edition for the previous locale still exists.
+        published_edition_for_different_locale.substitute
       end
 
       def set_timestamps

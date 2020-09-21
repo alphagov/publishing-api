@@ -320,6 +320,32 @@ RSpec.describe Commands::V2::Publish do
       end
     end
 
+    context "that has a different locale" do
+      let!(:live_edition) do
+        create(
+          :live_edition,
+          document: document,
+          base_path: draft_item.base_path,
+        )
+      end
+
+      let!(:cy_document) do
+        create(:document, content_id: draft_item.document.content_id, locale: "cy")
+      end
+
+      it "replaces the old draft with the new one" do
+        draft_item.update!(document: cy_document)
+
+        expect {
+          described_class.call(
+            { content_id: cy_document.content_id, locale: "cy" },
+          )
+        }.not_to raise_error
+
+        expect(Edition.find(live_edition.id).state).to eq("unpublished")
+      end
+    end
+
     context "with a 'previous_version' which does not match the current lock version of the draft item" do
       before do
         payload.merge!(previous_version: 1)
