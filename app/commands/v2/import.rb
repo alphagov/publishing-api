@@ -60,7 +60,7 @@ module Commands
           )
         end
 
-        Success.new(content_id: payload[:content_id])
+        Success.new({ content_id: payload[:content_id] })
       end
 
     private
@@ -95,7 +95,7 @@ module Commands
           case state[:name]
           when "unpublished"
             content_item.unpublish(
-              state.slice(
+              **state.slice(
                 :type, :explanation, :alternative_path, :unpublished_at
               ),
             )

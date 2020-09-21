@@ -9,7 +9,7 @@ class PublishIntentsController < ApplicationController
   end
 
   def destroy
-    response = Commands::DeletePublishIntent.call(base_path: base_path)
+    response = Commands::DeletePublishIntent.call({ base_path: base_path })
     render status: response.code, json: response
   end
 

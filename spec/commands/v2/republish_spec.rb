@@ -67,14 +67,14 @@ RSpec.describe Commands::V2::Republish do
       let(:edition) { create(:unpublished_edition) }
 
       it "sets the edition state to published" do
-        expect { described_class.call(content_id: edition.content_id) }
+        expect { described_class.call({ content_id: edition.content_id }) }
           .to change { edition.reload.state }
           .from("unpublished")
           .to("published")
       end
 
       it "deletes the unpublishing" do
-        expect { described_class.call(content_id: edition.content_id) }
+        expect { described_class.call({ content_id: edition.content_id }) }
           .to change { edition.reload.unpublishing }
           .to(nil)
       end
@@ -96,7 +96,7 @@ RSpec.describe Commands::V2::Republish do
       let(:edition) { create(:draft_edition) }
 
       it "raises an error" do
-        expect { described_class.call(content_id: edition.content_id) }
+        expect { described_class.call({ content_id: edition.content_id }) }
           .to raise_error(CommandError, /does not exist/)
       end
     end
@@ -111,7 +111,7 @@ RSpec.describe Commands::V2::Republish do
 
       it "doesn't call the DownstreamDraftWorker" do
         expect(DownstreamDraftWorker).not_to receive(:perform_async_in_queue)
-        described_class.call(content_id: document.content_id)
+        described_class.call({ content_id: document.content_id })
       end
     end
 

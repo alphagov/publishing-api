@@ -37,7 +37,7 @@ module Commands
 
         unless edition
           message = "Could not find an edition to associate this action with"
-          raise_command_error(404, message, fields: {})
+          raise_command_error(404, message, { fields: {} })
         end
 
         edition

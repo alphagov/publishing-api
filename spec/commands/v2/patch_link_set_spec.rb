@@ -66,8 +66,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
       )
 
       described_class.call(
-        content_id: link_set.content_id,
-        links: {},
+        {
+          content_id: link_set.content_id,
+          links: {},
+        },
       )
 
       expect(link_set.links.count).to eql(1)

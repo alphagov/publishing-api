@@ -11,7 +11,7 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
         locale_fallback_order: locale_fallback_order,
       }
     end
-    subject { described_class.call(content_ids, options) }
+    subject { described_class.call(content_ids, **options) }
 
     it { is_expected.to be_a(Array) }
 
