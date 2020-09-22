@@ -6,7 +6,7 @@ module Commands
         publish_edition
         after_transaction_commit { send_downstream }
 
-        Success.new(content_id: content_id)
+        Success.new({ content_id: content_id })
       end
 
     private
@@ -82,10 +82,10 @@ module Commands
       def no_draft_item_exists
         if already_published?
           message = "Cannot publish an already published edition"
-          raise_command_error(409, message, fields: {})
+          raise_command_error(409, message, { fields: {}})
         else
           message = "Item with content_id #{content_id} and locale #{locale} does not exist"
-          raise_command_error(404, message, fields: {})
+          raise_command_error(404, message, { fields: {}})
         end
       end
 
@@ -94,16 +94,20 @@ module Commands
           raise_command_error(
             422,
             "update_type is required",
-            fields: {
-              update_type: ["is invalid"],
+            {
+              fields: {
+                update_type: ["is invalid"],
+              },
             },
           )
         elsif !valid_update_types.include?(update_type)
           raise_command_error(
             422,
             "An update_type of '#{update_type}' is invalid",
-            fields: {
-              update_type: ["must be one of #{valid_update_types.inspect}"],
+            {
+              fields: {
+                update_type: ["must be one of #{valid_update_types.inspect}"],
+              },
             },
           )
         end

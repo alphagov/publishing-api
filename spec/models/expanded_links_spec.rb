@@ -24,7 +24,7 @@ RSpec.describe ExpandedLinks do
       }
     end
 
-    subject(:run_method) { described_class.locked_update(attributes) }
+    subject(:run_method) { described_class.locked_update(**attributes) }
 
     context "when there isn't an instance" do
       it "creates one" do

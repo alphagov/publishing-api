@@ -28,7 +28,7 @@ RSpec.describe Commands::V2::PutContent do
 
     it "copes with race conditions" do
       described_class.call(payload)
-      Commands::V2::Publish.call(content_id: content_id, update_type: "minor")
+      Commands::V2::Publish.call({ content_id: content_id, update_type: "minor" })
 
       thread1 = Thread.new { described_class.call(payload) }
       thread2 = Thread.new { described_class.call(payload) }

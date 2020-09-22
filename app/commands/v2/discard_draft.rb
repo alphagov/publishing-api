@@ -14,7 +14,7 @@ module Commands
         after_transaction_commit { downstream_discard_draft }
 
         Action.create_discard_draft_action(draft, locale, event)
-        Success.new(content_id: content_id)
+        Success.new({ content_id: content_id })
       end
 
     private
