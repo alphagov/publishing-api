@@ -20,12 +20,13 @@ node("postgresql-9.6") {
     beforeTest: {
       setExtraEnvVars(govuk);
     },
+
     publishingE2ETests: true,
     afterTest: {
       publishCoverage(govuk);
 
       lock("publishing-api-$NODE_NAME-test") {
-        runPublishingApiPactTests(govuk);
+        publishPublishingApiPactTests(govuk);
 
         runContentStorePactTests(govuk);
       }
@@ -55,11 +56,7 @@ def publishCoverage(_govuk) {
   }
 }
 
-def runPublishingApiPactTests(_govuk) {
-  stage("Verify pact") {
-    sh "bundle exec rake pact:verify"
-  }
-
+def publishPublishingApiPactTests(_govuk) {
   stage("Publish pacts") {
     withCredentials([[$class: "UsernamePasswordMultiBinding", credentialsId: "pact-broker-ci-dev",
       usernameVariable: "PACT_BROKER_USERNAME", passwordVariable: "PACT_BROKER_PASSWORD"]]) {
