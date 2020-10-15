@@ -18,13 +18,10 @@ node("postgresql-9.6") {
       )
     ],
     beforeTest: {
-      setExtraEnvVars(govuk);
+      govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
     },
-
     publishingE2ETests: true,
     afterTest: {
-      publishCoverage(govuk);
-
       lock("publishing-api-$NODE_NAME-test") {
         publishPublishingApiPactTests(govuk);
 
@@ -34,26 +31,6 @@ node("postgresql-9.6") {
     brakeman: true,
     rubyLintDiff: false,
   )
-}
-
-def setExtraEnvVars(govuk) {
-  // enable coverage reporting in tests
-  govuk.setEnvar("RCOV", "1")
-  // setup pact broker url for pact tests
-  govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
-}
-
-def publishCoverage(_govuk) {
-  stage("Publish coverage") {
-    publishHTML(target: [
-      allowMissing: false,
-      alwaysLinkToLastBuild: false,
-      keepAll: true,
-      reportDir: "coverage",
-      reportFiles: "index.html",
-      reportName: "Coverage Report"
-    ])
-  }
 }
 
 def publishPublishingApiPactTests(_govuk) {
