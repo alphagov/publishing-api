@@ -23,17 +23,15 @@ node("postgresql-9.6") {
     publishingE2ETests: true,
     afterTest: {
       lock("publishing-api-$NODE_NAME-test") {
-        publishPublishingApiPactTests(govuk);
-
+        publishPublishingApiPactTests();
         runContentStorePactTests(govuk);
       }
     },
     brakeman: true,
-    rubyLintDiff: false,
   )
 }
 
-def publishPublishingApiPactTests(_govuk) {
+def publishPublishingApiPactTests() {
   stage("Publish pacts") {
     withCredentials([[$class: "UsernamePasswordMultiBinding", credentialsId: "pact-broker-ci-dev",
       usernameVariable: "PACT_BROKER_USERNAME", passwordVariable: "PACT_BROKER_PASSWORD"]]) {
