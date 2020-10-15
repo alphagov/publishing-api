@@ -32,7 +32,7 @@ module Commands
 
       def no_republishable_item_exists
         message = "A live item with content_id #{content_id} and locale #{locale} does not exist"
-        raise_command_error(404, message, { fields: {}})
+        raise_command_error(404, message, { fields: {} })
       end
 
       def republish_edition

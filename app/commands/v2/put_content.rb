@@ -182,7 +182,7 @@ module Commands
         ).where.not(
           documents: {
             locale: document.locale,
-          }
+          },
         ).first
 
         return unless draft_edition_for_different_locale
