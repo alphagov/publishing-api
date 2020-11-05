@@ -59,6 +59,7 @@ module PublishingAPI
       fi
       fr
       gd
+      gu
       he
       hi
       hr
@@ -77,6 +78,7 @@ module PublishingAPI
       mt
       nl
       no
+      pa
       pl
       ps
       pt
