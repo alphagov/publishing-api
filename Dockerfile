@@ -13,6 +13,9 @@ ENV PORT 3093
 ENV RABBITMQ_URL amqp://guest:guest@rabbitmq:5672
 ENV RABBITMQ_EXCHANGE published_documents
 
+# Hack in content-schemas
+RUN git clone https://github.com/alphagov/govuk-content-schemas $GOVUK_CONTENT_SCHEMAS_PATH
+
 ENV APP_HOME /app
 RUN mkdir $APP_HOME
 
