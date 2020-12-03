@@ -6,6 +6,7 @@ class ApplicationController < ActionController::API
   rescue_from CommandError, with: :respond_with_command_error
 
   before_action :authenticate_user!
+  skip_before_action :authenticate_user! if ENV.key?("SIGNON_DISABLED")
 
   Warden::Manager.after_authentication do |user, _, _|
     user.set_app_name!
