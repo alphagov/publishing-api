@@ -1073,7 +1073,7 @@ GEM
       sanitize (>= 5.2.1, < 6)
     govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
-    govuk_app_config (2.7.0)
+    govuk_app_config (2.7.1)
       logstasher (>= 1.2.2, < 1.4.0)
       sentry-raven (~> 3.1.1)
       statsd-ruby (~> 1.4.0)
@@ -1399,7 +1399,7 @@ GEM
       activerecord (>= 4.2)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.4.1)
+    zeitwerk (2.4.2)
 
 PLATFORMS
   ruby
