@@ -79,6 +79,7 @@ module PublishingAPI
       nl
       no
       pa
+      pa-ur
       pl
       ps
       pt
