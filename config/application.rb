@@ -40,7 +40,6 @@ module PublishingAPI
     config.eager_load_paths << "#{config.root}/lib"
 
     config.i18n.available_locales = %i[
-      en
       ar
       az
       be
@@ -52,6 +51,7 @@ module PublishingAPI
       de
       dr
       el
+      en
       es
       es-419
       et
@@ -79,6 +79,7 @@ module PublishingAPI
       nl
       no
       pa
+      pa-ur
       pl
       ps
       pt
