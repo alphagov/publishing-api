@@ -95,3 +95,21 @@ bundle exec rake expanded_links:populate_by_document_type['document-type']
 ```
 bundle exec rake expanded_links:truncate
 ```
+
+## Generating CSV reports of publishings and unpublishing by date range
+
+There are two tasks provided which create CSV reports of publishings and
+unpublishings within a given time range. Both task require a `from` timestamp
+argument and a `until` timestamp argument.
+
+To see all the editions that were published between two times run:
+
+```
+bundle exec rake "csv_report:publishings_by_date_range['2020-10-01 10:00', '2020-12-31 10:00']"
+```
+
+To see all the editions that were unpublished between two times run:
+
+```
+bundle exec rake "csv_report:unpublishings_by_date_range['2020-10-01 10:00', '2020-12-31 10:00']"
+```
