@@ -48,6 +48,42 @@ RSpec.describe DependencyResolutionWorker, :perform do
     worker_perform
   end
 
+  context "when orphaned content_ids are present" do
+    let(:orphaned_link_content_id) { create(:live_edition).content_id }
+
+    it "sends the content_ids downstream" do
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+        anything,
+        a_hash_including(content_id: content_id),
+      )
+      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+        anything,
+        a_hash_including(content_id: orphaned_link_content_id),
+      )
+
+      described_class.new.perform(
+        content_id: content_id,
+        locale: locale,
+        content_store: "Adapters::ContentStore",
+        orphaned_content_ids: [orphaned_link_content_id],
+      )
+    end
+
+    it "doesn't send the content_ids downstream if they don't support the locale" do
+      expect(DownstreamLiveWorker).to_not receive(:perform_async_in_queue).with(
+        anything,
+        a_hash_including(content_id: orphaned_link_content_id),
+      )
+
+      described_class.new.perform(
+        content_id: content_id,
+        locale: "fr",
+        content_store: "Adapters::ContentStore",
+        orphaned_content_ids: [orphaned_link_content_id],
+      )
+    end
+  end
+
   context "with a draft version available" do
     let!(:draft_edition) do
       create(

@@ -13,7 +13,12 @@ class DependencyResolutionWorker
       send_downstream(content_id, locale)
     end
 
-    orphaned_content_ids.each { |content_id| send_downstream(content_id, locale) }
+    orphaned_content_ids_for_locale = Document.where(
+      content_id: orphaned_content_ids,
+      locale: locale,
+    ).pluck(:content_id)
+
+    orphaned_content_ids_for_locale.each { |content_id| send_downstream(content_id, locale) }
   end
 
 private
