@@ -13,11 +13,6 @@ class DependencyResolutionWorker
       send_downstream(content_id, locale)
     end
 
-    orphaned_content_ids_for_locale = Document.where(
-      content_id: orphaned_content_ids,
-      locale: locale,
-    ).pluck(:content_id)
-
     orphaned_content_ids_for_locale.each { |content_id| send_downstream(content_id, locale) }
   end
 
@@ -41,6 +36,20 @@ private
     @source_fields = args.fetch(:source_fields, [])
   end
 
+  def orphaned_content_ids_for_locale
+    Document
+      .distinct
+      .joins(:editions)
+      .where(editions: { content_store: content_stores },
+             content_id: orphaned_content_ids,
+             locale: locale)
+      .pluck(:content_id)
+  end
+
+  def content_stores
+    draft? ? %w[draft live] : %w[live]
+  end
+
   def send_source_stats
     prefix = "dependency_resolution.source"
 
@@ -62,7 +71,7 @@ private
     Queries::ContentDependencies.new(
       content_id: content_id,
       locale: locale,
-      content_stores: draft? ? %w[draft live] : %w[live],
+      content_stores: content_stores,
     ).call
   end
 

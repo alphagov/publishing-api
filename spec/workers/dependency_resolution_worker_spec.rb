@@ -5,12 +5,15 @@ RSpec.describe DependencyResolutionWorker, :perform do
   let(:locale) { "en" }
   let(:document) { create(:document, content_id: content_id, locale: locale) }
   let(:live_edition) { create(:live_edition, document: document) }
+  let(:content_store) { "Adapters::ContentStore" }
+  let(:orphaned_link_content_ids) { [] }
 
   subject(:worker_perform) do
     described_class.new.perform(
       content_id: content_id,
       locale: locale,
-      content_store: "Adapters::ContentStore",
+      content_store: content_store,
+      orphaned_content_ids: orphaned_link_content_ids,
     )
   end
 
@@ -48,39 +51,56 @@ RSpec.describe DependencyResolutionWorker, :perform do
     worker_perform
   end
 
-  context "when orphaned content_ids are present" do
-    let(:orphaned_link_content_id) { create(:live_edition).content_id }
+  context "when orphaned content ids are present" do
+    let(:orphaned_link_content_ids) { [create(:edition).content_id] }
+    let(:content_store) { "Adapters::DraftContentStore" }
 
-    it "sends the content_ids downstream" do
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+    after do
+      worker_perform
+    end
+
+    it "sends content ids downstream" do
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(content_id: content_id),
       )
-      expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
+      expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
-        a_hash_including(content_id: orphaned_link_content_id),
-      )
-
-      described_class.new.perform(
-        content_id: content_id,
-        locale: locale,
-        content_store: "Adapters::ContentStore",
-        orphaned_content_ids: [orphaned_link_content_id],
+        a_hash_including(content_id: orphaned_link_content_ids.first),
       )
     end
 
-    it "doesn't send the content_ids downstream if they don't support the locale" do
-      expect(DownstreamLiveWorker).to_not receive(:perform_async_in_queue).with(
-        anything,
-        a_hash_including(content_id: orphaned_link_content_id),
-      )
+    context "and the orphaned links have different locales" do
+      let(:locale) { "fr" }
 
-      described_class.new.perform(
-        content_id: content_id,
-        locale: "fr",
-        content_store: "Adapters::ContentStore",
-        orphaned_content_ids: [orphaned_link_content_id],
-      )
+      it "doesn't send content ids downstream" do
+        expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue).with(
+          anything,
+          a_hash_including(content_id: orphaned_link_content_ids.first),
+        )
+      end
+    end
+
+    context "and the orphaned links belong to different content stores" do
+      let(:content_store) { "Adapters::ContentStore" }
+
+      it "doesn't send content ids downstream" do
+        expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue).with(
+          anything,
+          a_hash_including(content_id: orphaned_link_content_ids.first),
+        )
+      end
+    end
+
+    context "and the orphaned links are missing an edition" do
+      let(:orphaned_link_content_ids) { [create(:document).content_id] }
+
+      it "doesn't send content ids downstream" do
+        expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue).with(
+          anything,
+          a_hash_including(content_id: orphaned_link_content_ids.first),
+        )
+      end
     end
   end
 
