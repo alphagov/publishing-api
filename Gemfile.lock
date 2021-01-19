@@ -1039,7 +1039,7 @@ GEM
       faraday-net_http (~> 1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
-    faraday-net_http (1.0.0)
+    faraday-net_http (1.0.1)
     ffi (1.13.1)
     filelock (1.1.1)
     find_a_port (1.0.1)
@@ -1075,7 +1075,7 @@ GEM
       sanitize (>= 5.2.1, < 6)
     govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
-    govuk_app_config (2.8.2)
+    govuk_app_config (2.8.4)
       logstasher (>= 1.2.2, < 2.2.0)
       sentry-raven (~> 3.1.1)
       statsd-ruby (~> 1.5.0)
