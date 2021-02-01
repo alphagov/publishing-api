@@ -207,6 +207,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           https://new-vat-rates.campaign.gov.uk/
           https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
           https://new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates?q=123&&a=23344
+          https://www.judiciary.uk/
         ].each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/new", type: "exact", destination: destination }]
 

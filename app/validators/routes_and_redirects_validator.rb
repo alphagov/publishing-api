@@ -165,6 +165,10 @@ private
       destination.starts_with?("/")
     end
 
+    def government_domain?(host)
+      host.end_with?(".gov.uk") || host.end_with?(".judiciary.uk")
+    end
+
     def invalid_destination?(destination)
       uri = URI.parse(destination)
       !url_constructed_as_expected?(destination, uri)
@@ -185,8 +189,8 @@ private
         return
       end
 
-      errors << "external redirects only accepted within the gov.uk domain" unless
-        uri.host.end_with?(".gov.uk")
+      errors << "external redirects only accepted within the gov.uk or judiciary.uk domain" unless
+        government_domain?(uri.host)
 
       errors << "internal redirect should not be specified with full url" if
         %w[gov.uk www.gov.uk].include? uri.host
