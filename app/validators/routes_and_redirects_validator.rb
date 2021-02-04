@@ -166,7 +166,7 @@ private
     end
 
     def government_domain?(host)
-      host.end_with?(".gov.uk") || host.end_with?(".judiciary.uk")
+      host.end_with?(".gov.uk", ".judiciary.uk", "etl.beis.gov.uk")
     end
 
     def invalid_destination?(destination)
@@ -189,7 +189,7 @@ private
         return
       end
 
-      errors << "external redirects only accepted within the gov.uk or judiciary.uk domain" unless
+      errors << "external redirects only accepted within the gov.uk, judiciary.uk or etl.beis.gov.uk domains" unless
         government_domain?(uri.host)
 
       errors << "internal redirect should not be specified with full url" if
