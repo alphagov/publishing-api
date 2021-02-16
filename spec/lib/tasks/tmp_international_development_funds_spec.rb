@@ -19,6 +19,21 @@ RSpec.describe "rake international_development_funds:update_value_of_funding", r
     expect(edition.reload.details[:metadata][:value_of_funding]).to eq(%w[10001-to-100000])
   end
 
+  it "preserves any other value_of_funding choices" do
+    edition = create(
+      :edition,
+      document_type: "international_development_fund",
+      details: { metadata: { value_of_funding: %w[up-to-100000 100001-500000] } },
+    )
+
+    task.invoke
+
+    expect(edition.reload.details[:metadata][:value_of_funding]).to eq(%w[
+      10001-to-100000
+      100001-500000
+    ])
+  end
+
   it "does not change the value_of_funding for the values that are unchanged" do
     unchanged_values = %w[
       up-to-10000
@@ -76,5 +91,15 @@ RSpec.describe "rake international_development_funds:update_value_of_funding", r
       },
       bar: "baz",
     })
+  end
+
+  it "doesn't crash if `value_of_funding` is not defined" do
+    create(
+      :edition,
+      document_type: "international_development_fund",
+      details: { metadata: { foo: "bar" } },
+    )
+
+    expect { task.invoke }.to_not raise_error
   end
 end
