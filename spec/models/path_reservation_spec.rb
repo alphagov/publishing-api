@@ -37,7 +37,7 @@ RSpec.describe PathReservation, type: :model do
 
   it "supports base_paths longer than 255 chars" do
     reservation = build(:path_reservation)
-    reservation.base_path = "/" + "x" * 300
+    reservation.base_path = "/#{'x' * 300}"
     expect {
       reservation.save!
     }.not_to raise_error

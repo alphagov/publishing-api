@@ -13,9 +13,10 @@ class WellFormedContentTypesValidator < ActiveModel::EachValidator
 private
 
   def validate!(object)
-    if object.is_a?(Hash)
+    case object
+    when Hash
       validate_hash!(object)
-    elsif object.is_a?(Array)
+    when Array
       validate_array!(object)
     end
   end

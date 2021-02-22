@@ -92,7 +92,7 @@ module V2
     def link_filters
       {}.tap do |hash|
         query_params.each do |k, v|
-          hash[k[5..-1]] = v if k.start_with?("link_")
+          hash[k[5..]] = v if k.start_with?("link_")
         end
       end
     end

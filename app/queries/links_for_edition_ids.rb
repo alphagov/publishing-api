@@ -8,11 +8,11 @@ module Queries
 
     def merged_links
       @merged_links ||= begin
-                          keys = (edition_links.keys + link_set_links.keys).uniq
-                          keys.each_with_object(Hash.new({})) do |id, memo|
-                            memo[id] = link_set_links[id].merge(edition_links[id])
-                          end
-                        end
+        keys = (edition_links.keys + link_set_links.keys).uniq
+        keys.each_with_object(Hash.new({})) do |id, memo|
+          memo[id] = link_set_links[id].merge(edition_links[id])
+        end
+      end
     end
 
     def edition_links

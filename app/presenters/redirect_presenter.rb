@@ -1,5 +1,5 @@
 class RedirectPresenter
-  def initialize(base_path:, content_id:, publishing_app:, public_updated_at: nil, redirects:, locale:)
+  def initialize(base_path:, content_id:, publishing_app:, redirects:, locale:, public_updated_at: nil)
     @base_path = base_path
     @content_id = content_id
     @publishing_app = publishing_app

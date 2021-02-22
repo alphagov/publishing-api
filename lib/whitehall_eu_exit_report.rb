@@ -16,7 +16,7 @@ class WhitehallEuExitReport
 
       next unless content_by(organisation).exists?
 
-      slug = organisation.base_path[26..-1] # /government/organisations/
+      slug = organisation.base_path[26..] # /government/organisations/
       org_path = File.join(path, slug)
       FileUtils.mkdir_p(org_path)
 

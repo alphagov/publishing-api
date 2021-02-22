@@ -46,9 +46,9 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "a publish intent exists at /test-intent" do
     set_up do
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
-      stub_request(:delete, Plek.find("content-store") + "/publish-intent/test-intent")
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('draft-content-store'))}/content"))
+      stub_request(:delete, "#{Plek.find('content-store')}/publish-intent/test-intent")
         .to_return(status: 200, body: "{}", headers: { "Content-Type" => "application/json" })
 
       # TBD: in theory we should create an event as well
@@ -57,11 +57,11 @@ Pact.provider_states_for "GDS API Adapters" do
 
   provider_state "no content exists" do
     set_up do
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
-      stub_request(:delete, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/publish-intent"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('draft-content-store'))}/content"))
+      stub_request(:delete, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/publish-intent"))
         .to_return(status: 404, body: "{}", headers: { "Content-Type" => "application/json" })
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/publish-intent"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/publish-intent"))
         .to_return(status: 200, body: "{}", headers: { "Content-Type" => "application/json" })
     end
   end
@@ -284,8 +284,8 @@ Pact.provider_states_for "GDS API Adapters" do
 
       create(:draft_edition, document: document)
 
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('draft-content-store'))}/content"))
     end
   end
 
@@ -305,8 +305,8 @@ Pact.provider_states_for "GDS API Adapters" do
         stale_lock_version: 3,
       )
 
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('draft-content-store'))}/content"))
     end
   end
 
@@ -520,8 +520,8 @@ Pact.provider_states_for "GDS API Adapters" do
 
       create(:draft_edition, document: document)
 
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('draft-content-store'))}/content"))
     end
   end
 
@@ -535,8 +535,8 @@ Pact.provider_states_for "GDS API Adapters" do
 
       create(:live_edition, document: document)
 
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('draft-content-store'))}/content"))
     end
   end
 
@@ -556,8 +556,8 @@ Pact.provider_states_for "GDS API Adapters" do
         stale_lock_version: 3,
       )
 
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("content-store")) + "/content"))
-      stub_request(:put, Regexp.new('\A' + Regexp.escape(Plek.find("draft-content-store")) + "/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('content-store'))}/content"))
+      stub_request(:put, Regexp.new("\\A#{Regexp.escape(Plek.find('draft-content-store'))}/content"))
     end
   end
 

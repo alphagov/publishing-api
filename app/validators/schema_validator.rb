@@ -48,7 +48,7 @@ private
   end
 
   def schema_type_key
-    (schema_type.to_s + "_schema").to_sym
+    "#{schema_type}_schema".to_sym
   end
 
   def schema_name

@@ -35,7 +35,7 @@ private
 
     orders.map do |order|
       if order.start_with?("-")
-        field = order[1..-1].to_sym
+        field = order[1..].to_sym
         direction = :desc
       else
         field = order.to_sym

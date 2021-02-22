@@ -65,6 +65,7 @@ module Events
     end
 
     class EventsExportExistsError < RuntimeError; end
+
     class BucketNotConfiguredError < RuntimeError; end
   end
 end

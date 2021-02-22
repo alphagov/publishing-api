@@ -10,8 +10,8 @@ class LinkGraph
   def initialize(
     root_content_id:,
     root_locale:,
-    with_drafts: false,
-    link_reference:
+    link_reference:,
+    with_drafts: false
   )
     @root_content_id = root_content_id
     @root_locale = root_locale

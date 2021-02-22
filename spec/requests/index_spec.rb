@@ -53,7 +53,7 @@ RSpec.describe "GET /v2/content", type: :request do
         ENV["GDS_SSO_MOCK_INVALID"] = previous
       end
 
-      # Note: this needs to be separate from the above around block as it has
+      # NOTE: this needs to be separate from the above around block as it has
       # to run after an earlier before block that logs the user in
       before { logout }
 

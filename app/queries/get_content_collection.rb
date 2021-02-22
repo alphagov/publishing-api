@@ -11,7 +11,7 @@ module Queries
       :states,
     )
 
-    def initialize(document_types: [], fields:, filters: {}, pagination: Pagination.new, search_query: "", search_in: nil)
+    def initialize(fields:, document_types: [], filters: {}, pagination: Pagination.new, search_query: "", search_in: nil)
       self.document_types = Array(document_types)
       self.fields = (fields || default_fields) + %w[total]
       self.publishing_app = filters[:publishing_app]

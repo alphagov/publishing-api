@@ -25,7 +25,7 @@ module Commands
       raise_validation_command_error(e)
     end
 
-    def initialize(payload, event:, downstream: true, nested: false, callbacks:, **options)
+    def initialize(payload, event:, callbacks:, downstream: true, nested: false, **options)
       @payload = payload
       @event = event
       @downstream = downstream
