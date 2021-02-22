@@ -1,6 +1,6 @@
 module Queries
   class GetEditionForContentStore
-    def self.call(content_id, locale, include_draft = false)
+    def self.call(content_id, locale, include_draft: false)
       allowed_content_stores = [:live]
       allowed_content_stores << :draft if include_draft
 

@@ -60,7 +60,7 @@ private
   def assign_attributes(attributes)
     @content_id = attributes.fetch(:content_id)
     @locale = attributes.fetch(:locale)
-    @edition = Queries::GetEditionForContentStore.call(content_id, locale, true)
+    @edition = Queries::GetEditionForContentStore.call(content_id, locale, include_draft: true)
     @payload_version = Event.maximum_id
     @orphaned_content_ids = attributes.fetch(:orphaned_content_ids, [])
     @update_dependencies = attributes.fetch(:update_dependencies, true)
