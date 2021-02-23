@@ -1,10 +1,10 @@
 #!/usr/bin/env groovy
 
-library("govuk@default-branch")
+library("govuk")
 
 node("postgresql-9.6") {
+
   govuk.buildProject(
-    defaultBranch: "main",
     extraParameters: [
       stringParam(
         name: "CONTENT_STORE_BRANCH",
