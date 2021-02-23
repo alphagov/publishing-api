@@ -7,9 +7,10 @@ module ContentApiPrototype
       end
 
       def resolve(object)
-        if object.is_a?(Hash)
+        case object
+        when Hash
           resolve_hash(object)
-        elsif object.is_a?(Array)
+        when Array
           resolve_array(object)
         else
           object

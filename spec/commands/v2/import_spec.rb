@@ -199,11 +199,11 @@ RSpec.describe Commands::V2::Import, type: :request do
 
       it "deletes removed content from the contet store" do
         def draft_path(base_path)
-          Plek.new.find("draft-content-store") + "/content" + base_path
+          "#{Plek.new.find('draft-content-store')}/content#{base_path}"
         end
 
         def live_path(base_path)
-          Plek.new.find("content-store") + "/content" + base_path
+          "#{Plek.new.find('content-store')}/content#{base_path}"
         end
 
         described_class.call(first_payload)

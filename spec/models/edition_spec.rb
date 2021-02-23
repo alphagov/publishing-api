@@ -51,7 +51,7 @@ RSpec.describe Edition do
     context "when the edition is 'redirect' but has routes" do
       before do
         subject.document_type = "redirect"
-        subject.routes = [{ path: subject.base_path + "/test", type: :exact }]
+        subject.routes = [{ path: "#{subject.base_path}/test", type: :exact }]
         subject.redirects = [{ path: subject.base_path, type: :exact, destination: "/dest" }]
       end
 

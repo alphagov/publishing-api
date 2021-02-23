@@ -39,10 +39,10 @@ private
     "#{endpoint}/publish-intent#{base_path}"
   end
 
-  def with_lock(*args)
+  def with_lock(*args, &block)
     # use endpoint to lock to a specific hostname
     lock_name = ([endpoint] + args).map(&:to_s).join("_")
 
-    DistributedLock.lock(lock_name) { yield }
+    DistributedLock.lock(lock_name, &block)
   end
 end

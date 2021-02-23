@@ -14,6 +14,7 @@ module Queries
   # example, `GetEditions` uses [date, id].
   class KeysetPagination
     attr_reader :client, :order, :pagination_key, :per_page, :previous
+
     delegate :any?, :empty?, to: :ordered_initial_results
 
     def initialize(client, params)

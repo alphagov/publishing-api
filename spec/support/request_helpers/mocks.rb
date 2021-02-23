@@ -3,7 +3,7 @@ module RequestHelpers
   module_function
 
     def api_path
-      "/api/content" + base_path
+      "/api/content#{base_path}"
     end
 
     def base_path

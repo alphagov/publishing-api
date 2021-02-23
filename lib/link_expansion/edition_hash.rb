@@ -32,7 +32,7 @@ class LinkExpansion::EditionHash
     end
 
     def api_path(hash)
-      "/api/content" + hash[:base_path]
+      "/api/content#{hash[:base_path]}"
     end
 
     def withdrawn?(hash)

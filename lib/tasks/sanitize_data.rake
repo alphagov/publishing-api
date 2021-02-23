@@ -1,6 +1,6 @@
 desc "Sanitize access limited data"
 task sanitize_data: :environment do
-  Tasks::DataSanitizer.delete_access_limited(STDOUT)
+  Tasks::DataSanitizer.delete_access_limited($stdout)
 end
 
 namespace :db do

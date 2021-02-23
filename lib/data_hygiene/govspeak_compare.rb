@@ -50,7 +50,7 @@ module DataHygiene
       diff = diff.reject { |s| s.match(/^ /) || s.match(/^(\+|-)$/) }
 
       diff.reject do |s|
-        check = (s[0] == "+" ? "-" : "+") + s[1..-1]
+        check = (s[0] == "+" ? "-" : "+") + s[1..]
         diff.any? { |elem| basically_match(elem) == basically_match(check) }
       end
     end
@@ -60,7 +60,7 @@ module DataHygiene
 
       # In specialist publisher we have a lot of new lines in inline attachments
       # which causes us trouble as we only allow inline attachments to be on a single line
-      regex = %r{<a (rel="external" )?href="https:\/\/assets.digital.cabinet-office.gov.uk\/.*?">((?:.|\n)*?)<\/a>}
+      regex = %r{<a (rel="external" )?href="https://assets.digital.cabinet-office.gov.uk/.*?">((?:.|\n)*?)</a>}
       html.gsub(regex) { |inner_content| inner_content.tr("\n", " ") }
     end
 
@@ -71,7 +71,7 @@ module DataHygiene
     def basically_match(elem)
       elem = elem.dup
       # strip span surrounding an inline-attachment as this element
-      elem.gsub!(/<span\s+class=\"attachment\-inline\">(.+?)<\/span>/, '\1')
+      elem.gsub!(/<span\s+class="attachment-inline">(.+?)<\/span>/, '\1')
       # a number of past inline attachments are incorrectly marked as rel="external"
       # the last p element in a blockquote is given a class of last-child
       elem.gsub!(/(rel="external"|class="last-child")/, "")

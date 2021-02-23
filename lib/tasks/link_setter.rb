@@ -1,6 +1,6 @@
 module Tasks
   class LinkSetter
-    def self.set_primary_publishing_organisation(content_ids:, primary_publishing_organisation:, stdout: STDOUT)
+    def self.set_primary_publishing_organisation(content_ids:, primary_publishing_organisation:, stdout: $stdout)
       stdout.puts "Updating #{content_ids.count} documents"
 
       content_ids.each_with_index do |content_id, i|

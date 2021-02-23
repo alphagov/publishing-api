@@ -34,7 +34,7 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
         create(
           :draft_edition,
           document: document,
-          base_path: base_path + ".en",
+          base_path: "#{base_path}.en",
           document_type: document_type,
           user_facing_version: 1,
         )
@@ -42,7 +42,7 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
         create(
           :draft_edition,
           document: create(:document, content_id: document.content_id, locale: "es"),
-          base_path: base_path + ".es",
+          base_path: "#{base_path}.es",
           document_type: document_type,
           user_facing_version: 1,
         )

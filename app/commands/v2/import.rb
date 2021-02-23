@@ -147,15 +147,13 @@ module Commands
         end
 
         history_entry[:states].each do |state|
-          if state[:name] == "unpublished"
-            unless state.key?(:type)
-              raise_command_error(
-                422,
-                "Error processing history entry #{index}. "\
-                "For a state of unpublished, a type must be provided",
-                {},
-              )
-            end
+          if state[:name] == "unpublished" && !state.key?(:type)
+            raise_command_error(
+              422,
+              "Error processing history entry #{index}. "\
+              "For a state of unpublished, a type must be provided",
+              {},
+            )
           end
 
           unless state.key?(:name)

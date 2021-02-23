@@ -43,6 +43,7 @@ module Events
     end
 
     class BucketNotConfiguredError < RuntimeError; end
+
     class EventsImportExistsError < RuntimeError; end
   end
 end

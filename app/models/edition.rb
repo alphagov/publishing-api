@@ -224,7 +224,7 @@ class Edition < ApplicationRecord
   def api_path
     return unless base_path
 
-    "/api/content" + base_path
+    "/api/content#{base_path}"
   end
 
   def api_url

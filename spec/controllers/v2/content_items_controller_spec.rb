@@ -154,7 +154,7 @@ RSpec.describe V2::ContentItemsController do
         expect(parsed_response_body.length).to eq(1)
 
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
-        expect(base_paths). to eq ["/content.ar"]
+        expect(base_paths).to eq ["/content.ar"]
       end
     end
 
@@ -175,7 +175,7 @@ RSpec.describe V2::ContentItemsController do
 
       it "responds with all the localised editions as json" do
         base_paths = parsed_response_body.map { |item| item.fetch("base_path") }
-        expect(base_paths.sort). to eq ["/content.en", "/content.ar"].sort
+        expect(base_paths.sort).to eq ["/content.en", "/content.ar"].sort
       end
     end
 

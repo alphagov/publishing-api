@@ -2,7 +2,9 @@ require "rails_helper"
 
 RSpec.describe PerformAsyncInQueue do
   describe ".perform_async_in_queue" do
-    let!(:worker_class) { ExampleWorker = Class.new { include PerformAsyncInQueue } }
+    before do
+      stub_const("ExampleWorker", Class.new { include PerformAsyncInQueue })
+    end
 
     it "calls client_push with the correct queue name" do
       expect(Sidekiq::Client)

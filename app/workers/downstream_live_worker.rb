@@ -65,7 +65,7 @@ private
     @content_id = attributes.fetch(:content_id)
     @locale = attributes.fetch(:locale)
     @payload_version = Event.maximum_id
-    @edition = Queries::GetEditionForContentStore.call(content_id, locale, false)
+    @edition = Queries::GetEditionForContentStore.call(content_id, locale, include_draft: false)
     @orphaned_content_ids = attributes.fetch(:orphaned_content_ids, [])
     @message_queue_event_type = attributes.fetch(:message_queue_event_type, nil)
     @update_dependencies = attributes.fetch(:update_dependencies, true)
