@@ -10,7 +10,7 @@ task "pact:verify:branch", [:branch_name] => :environment do |t, args|
 
   pact_version = args[:branch_name] == "master" ? args[:branch_name] : "branch-#{args[:branch_name]}"
 
-  ClimateControl.modify(GDS_API_PACT_VERSION: pact_version) do
+  ClimateControl.modify(GDS_API_ADAPTERS_PACT_VERSION: pact_version) do
     Pact::TaskHelper.handle_verification_failure do
       Pact::TaskHelper.execute_pact_verify
     end
