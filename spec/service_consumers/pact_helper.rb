@@ -24,7 +24,7 @@ Pact.service_provider "Publishing API" do
       base_url = ENV.fetch("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
       url = "#{base_url}/pacts/provider/#{url_encode(name)}/consumer/#{url_encode(consumer_name)}"
 
-      pact_uri "#{url}/versions/#{url_encode(ENV.fetch('GDS_API_PACT_VERSION', 'master'))}"
+      pact_uri "#{url}/versions/#{url_encode(ENV.fetch('GDS_API_ADAPTERS_PACT_VERSION', 'master'))}"
     end
   end
 end
