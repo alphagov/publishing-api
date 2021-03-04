@@ -56,10 +56,4 @@ namespace :data_hygiene do
       )
     end
   end
-
-  desc "Temporary task to update incorrect locale"
-  task update_pa_ur_to_pa_pk_locale: :environment do
-    docs = Document.where(locale: "pa-ur")
-    docs.update_all(locale: "pa-pk")
-  end
 end
