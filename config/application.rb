@@ -80,7 +80,6 @@ module PublishingAPI
       no
       pa
       pa-pk
-      pa-ur
       pl
       ps
       pt
