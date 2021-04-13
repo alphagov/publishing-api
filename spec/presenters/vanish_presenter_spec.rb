@@ -10,7 +10,7 @@ RSpec.describe VanishPresenter do
     end
 
     it "matches the notification schema" do
-      expect(subject).to be_valid_against_schema("vanish")
+      expect(subject).to be_valid_against_notification_schema("vanish")
     end
   end
 end

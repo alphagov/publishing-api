@@ -10,7 +10,7 @@ RSpec.describe RedirectPresenter do
     end
 
     it "matches the notification schema" do
-      expect(subject).to be_valid_against_schema("redirect")
+      expect(subject).to be_valid_against_notification_schema("redirect")
     end
   end
 end
