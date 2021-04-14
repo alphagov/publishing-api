@@ -56,7 +56,7 @@ RSpec.describe Presenters::EditionPresenter do
     end
 
     it "matches the notification schema" do
-      expect(subject).to be_valid_against_schema("calendar")
+      expect(subject).to be_valid_against_notification_schema("calendar")
     end
 
     it "doesnt include auth_bypass_ids in message queue" do

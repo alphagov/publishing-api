@@ -39,7 +39,6 @@ group :development, :test do
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "faker"
-  gem "govuk-content-schema-test-helpers"
   gem "govuk_test"
   gem "pact"
   gem "pact_broker-client"
