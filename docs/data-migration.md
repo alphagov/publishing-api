@@ -1,4 +1,4 @@
-# Contributing
+# Writing data migrations
 
 ## Are you writing a migration to change Publishing API data?
 

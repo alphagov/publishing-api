@@ -239,6 +239,15 @@ Events are used as a debugging and reference tool by developers of the
 Publishing API. As they generate large amounts of data the full details of
 them are not stored permanently.
 
+Events older then a month are archived to S3, you can import these events back
+into your local DB by running the rake tasks in lib/tasks/events.rake, after
+you set up the relevant ENV variables. For example if you want to find all the
+events that are relevant for a particular content id you can run:
+
+```sh
+rake 'events:import_content_id_events[a796ca43-021b-4960-9c99-f41bb8ef2266]'
+```
+
 ## Action
 
 An Action is used to store the change history of a piece of content in the
