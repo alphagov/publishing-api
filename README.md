@@ -45,17 +45,11 @@ You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-do
 
 You can run the tests locally with: `bundle exec rake`.
 
-The publishing API includes contract tests which verify that the service
-behaves in the way expected by its clients. We use a library called
-[`pact`][pact] which follows the *consumer driven contract testing* pattern.
-You can run the pact verification tests on their own using:
+The publishing API includes [Pact contract tests](docs/pact_testing.md), which verify that the service behaves in the way expected by its clients. The tests the *consumer driven contract testing* pattern. You can run these on their own using:
 
 ```sh
 $ bundle exec rake pact:verify
 ```
-
-See [docs/pact_testing.md](docs/pact_testing.md) for more details about the pacts
-and the pact broker.
 
 ### Further documentation
 
@@ -74,8 +68,6 @@ See [the contributing documentation][contributing] for more information.
 
 [content-store]: https://github.com/alphagov/content-store
 [content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/docs/content_item_fields.md
-[pact]: https://github.com/pact-foundation/pact-ruby
-[pact-broker-latest]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
 [link-set-link]: docs/link-expansion.md#patch-link-set---link-set-links
 [edition-link]: docs/link-expansion.md#put-content---edition-links
 [contributing]: CONTRIBUTING.md
