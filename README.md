@@ -41,53 +41,6 @@ You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-do
 
 **Use GOV.UK Docker to run any commands that follow.**
 
-### Deleting Documents, Editions and Links
-
-To delete content from the Publishing API you will need to create a [data
-migration][data-migration].
-
-If you need to delete all traces of a document from the system:
-
-```ruby
-require_relative "helpers/delete_content"
-
-class RemoveYourDocument < ActiveRecord::Migration
-  # Remove /some/base-path
-  def up
-    Helpers::DeleteContent.destroy_documents_with_links("some-content-id")
-  end
-end
-```
-
-If you need to delete a single edition:
-
-```ruby
-require_relative "helpers/delete_content"
-
-class RemoveYourEdition < ActiveRecord::Migration
-  def up
-    editions = Edition.where(id: 123)
-
-    Helpers::DeleteContent.destroy_supporting_objects(editions)
-
-    editions.destroy_all
-  end
-end
-```
-
-If you need to delete just the links for a document:
-
-```ruby
-require_relative "helpers/delete_content"
-
-class RemoveLinks < ActiveRecord::Migration
-  # Remove /some/base-path
-  def up
-    Helpers::DeleteContent.destroy_links("some-content-id")
-  end
-end
-```
-
 ## Dependencies
 
 - [postgres](http://www.postgresql.org/) - the app uses a postgres database
@@ -111,34 +64,12 @@ $ bundle exec rake pact:verify
 See [docs/pact_testing.md](docs/pact_testing.md) for more details about the pacts
 and the pact broker.
 
-## Example API requests
+### Further documentation
 
-```sh
-curl https://publishing-api.dev.gov.uk/content/<content_id> \
-  -X PUT \
-  -H 'Content-type: application/json' \
-  -d '<content_json>'
-```
-
-See [docs/api.md](docs/api.md) and [the pact broker][pact-broker-latest] for more
-information.
-
-## Events
-
-Events older then a month are archived to S3, you can import these events back
-into your local DB by running the rake tasks in lib/tasks/events.rake, after
-you set up the relevant ENV variables. For example if you want to find all the
-events that are relevant for a particular content id you can run:
-
-```sh
-rake 'events:import_content_id_events[a796ca43-021b-4960-9c99-f41bb8ef2266]'
-```
-
-See the rake task for more details.
-
-## Admin tasks
-
-See [admin tasks](docs/admin-tasks.md) for more information
+- [Publishing API's API](docs/api.md)
+- [Architecture decision records](docs/arch)
+- [Admin tasks](docs/admin-tasks.md)
+- [Deleting Documents, Editions and Links](docs/deleting-content.md)
 
 ## Contributing
 
@@ -150,7 +81,6 @@ See [the contributing documentation][contributing] for more information.
 
 [content-store]: https://github.com/alphagov/content-store
 [content-store-field-documentation]: https://github.com/alphagov/content-store/blob/master/docs/content_item_fields.md
-[data-migration]: https://github.com/alphagov/publishing-api/blob/master/CONTRIBUTING.md#are-you-writing-a-migration-to-change-publishing-api-data
 [pact]: https://github.com/pact-foundation/pact-ruby
 [pact-broker-latest]: https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest
 [link-set-link]: docs/link-expansion.md#patch-link-set---link-set-links
