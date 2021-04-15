@@ -42,10 +42,7 @@ $ bundle exec rake pact:verify
 - [Architecture decision records](docs/arch)
 - [Admin tasks](docs/admin-tasks.md)
 - [Deleting Documents, Editions and Links](docs/deleting-content.md)
-
-## Contributing
-
-See [the contributing documentation][contributing] for more information.
+- [Writing data migrations](docs/data-migration.md)
 
 ## Licence
 
