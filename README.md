@@ -41,7 +41,7 @@ The Publishing API is a [Ruby on Rails](http://rubyonrails.org/) application
 that exposes an internal API to publishing applications. It stores its data in a
 [Postgresql](http://www.postgresql.org/) database and sends content downstream
 to the draft and live [Content Stores][content-store] as well as on a
-[Rabbit](https://www.rabbitmq.com/) message queue. Some of the processing of
+[Rabbit message queue](docs/rabbitmq.md). Some of the processing of
 requests is handled asynchronously through [Sidekiq](http://sidekiq.org/)
 which stores jobs in [Redis](http://redis.io/).
 
@@ -103,18 +103,6 @@ end
 - [redis](http://redis.io/) - the Sidekiq worker stores its jobs in Redis
 - [alphagov/content-store][content-store] - content is sent to multiple
   content-stores (draft and live)
-
-These dependencies are set up on the dev vm and if you use bowl to run the app,
-it will start both the draft and live content store for you. For more
-information about RabbitMQ, see [docs/rabbitmq.md](docs/rabbitmq.md).
-
-## Running the application
-
-`./startup.sh`
-
-It downloads and installs dependencies and starts the app on port 3093.
-When using GOV.UK virtual machine the app is available at
-`publishing-api.dev.gov.uk`.
 
 ## Running the test suite
 
