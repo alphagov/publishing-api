@@ -23,6 +23,7 @@ node("postgresql-9.6") {
     publishingE2ETests: true,
     afterTest: {
       lock("publishing-api-$NODE_NAME-test") {
+        govuk.setEnvar("PACT_CONSUMER_VERSION", "branch-${env.BRANCH_NAME}");
         publishPublishingApiPactTests();
         runContentStorePactTests(govuk);
       }
@@ -66,7 +67,7 @@ def runContentStorePactTests(govuk) {
             passwordVariable: "PACT_BROKER_PASSWORD"
           ]
         ]) {
-          govuk.runRakeTask("pact:verify:branch[${env.BRANCH_NAME}]")
+          govuk.runRakeTask("pact:verify")
         }
       }
     }
