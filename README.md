@@ -1,10 +1,8 @@
 # Publishing API
 
-The Publishing API aims to provide _workflow as a service_ so that common
-publishing features can be written once and used by all publishing applications
-across Government. Content can be stored and retrieved using the API and
-workflow actions can be performed, such as creating a new draft or publishing an
-existing piece of content.
+The Publishing API aims to provide _workflow as a service_ so that common publishing features can be written once and used by all publishing applications across Government. Content can be stored and retrieved using the API and workflow actions can be performed, such as creating a new draft or publishing an existing piece of content.
+
+Publishing API sends content downstream to the draft and live [Content Stores][content-store], as well as on a [Rabbit message queue](docs/rabbitmq.md), which enables things like sending emails to users subscribed to that content. Read "[Downstream Sidekiq background processing triggered by publishing](https://docs.publishing.service.gov.uk/manual/architecture-deep-dive.html#downstream-sidekiq-background-processing-triggered-by-publishing)".
 
 ## Nomenclature
 
@@ -37,18 +35,11 @@ existing piece of content.
 
 ## Technical documentation
 
-The Publishing API is a [Ruby on Rails](http://rubyonrails.org/) application
-that exposes an internal API to publishing applications. It stores its data in a
-[Postgresql](http://www.postgresql.org/) database and sends content downstream
-to the draft and live [Content Stores][content-store] as well as on a
-[Rabbit message queue](docs/rabbitmq.md). Some of the processing of
-requests is handled asynchronously through [Sidekiq](http://sidekiq.org/)
-which stores jobs in [Redis](http://redis.io/).
+This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
 
-The endpoints of the Publishing API are documented in [docs/api.md](docs/api.md).
+You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
 
-Decisions about the design of the Publishing API are recorded as architecture
-decision records in the [docs/arch](docs/arch) directory.
+**Use GOV.UK Docker to run any commands that follow.**
 
 ### Deleting Documents, Editions and Links
 
