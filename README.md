@@ -41,13 +41,6 @@ You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-do
 
 **Use GOV.UK Docker to run any commands that follow.**
 
-## Dependencies
-
-- [postgres](http://www.postgresql.org/) - the app uses a postgres database
-- [redis](http://redis.io/) - the Sidekiq worker stores its jobs in Redis
-- [alphagov/content-store][content-store] - content is sent to multiple
-  content-stores (draft and live)
-
 ## Running the test suite
 
 You can run the tests locally with: `bundle exec rake`.
