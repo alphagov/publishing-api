@@ -6,32 +6,17 @@ Publishing API sends content downstream to the draft and live [Content Stores][c
 
 ## Nomenclature
 
-- [**Document**](docs/model.md#document): A document is a piece of content in a
-  particular locale. It is associated with editions that represent the versions
-  of the document.
-- [**Edition**](docs/model.md#edition): The content of a document is represented
-  by an edition, it represents a distinct version of a Document.
-- [**Content Item**][content-store-field-documentation]: A representation of
-  content that can be sent to a [content store][content-store].
-- [**Links**](docs/model.md#linking): Used to capture relationships between
-  pieces of content (e.g. parent/child). Can be of type
-  [link set link][link-set-link] or [edition link][edition-link].
-- [**Unpublishing**](docs/model.md#unpublishing): An object indicating a
-  previously published edition which has been removed from the live site.
-- **User**: A user of the system, which is used to track who initiated requests
-  and to restrict access to draft content.
-- [**Path Reservation**](docs/model.md#pathreservation): An object that
-  attributes a path on GOV.UK to a piece of content. It is used when paths
-  need to be reserved before that content enters the system.
-- [**Event Log**](docs/model.md#event): A log of all requests to the Publishing
-  API that have the potential to mutate its internal state.
-- [**Action**](docs/model.md#action): A record of activity on a particular
-  edition, used to assist custom workflows of publishing applications.
-- [**Link Expansion**](docs/link-expansion.md): A process that converts the
-  stored and automatic links for an edition into a JSON representation.
-- [**Dependency Resolution**](docs/dependency-resolution.md): A process that
-  determines other editions that require updating downstream as a result of a
-  change to an edition.
+- [**Document**](docs/model.md#document): A document is a piece of content in a particular locale. It is associated with editions that represent the versions of the document.
+- [**Edition**](docs/model.md#edition): The content of a document is represented by an edition, it represents a distinct version of a Document.
+- [**Content Item**][content-store-field-documentation]: A representation of content that can be sent to a [content store][content-store].
+- [**Links**](docs/model.md#linking): Used to capture relationships between pieces of content (e.g. parent/child). Can be of type [link set link][link-set-link] or [edition link][edition-link].
+- [**Unpublishing**](docs/model.md#unpublishing): An object indicating a previously published edition which has been removed from the live site.
+- **User**: A user of the system, which is used to track who initiated requests and to restrict access to draft content.
+- [**Path Reservation**](docs/model.md#pathreservation): An object that attributes a path on GOV.UK to a piece of content. It is used when paths need to be reserved before that content enters the system.
+- [**Event Log**](docs/model.md#event): A log of all requests to the Publishing API that have the potential to mutate its internal state.
+- [**Action**](docs/model.md#action): A record of activity on a particular edition, used to assist custom workflows of publishing applications.
+- [**Link Expansion**](docs/link-expansion.md): A process that converts the stored and automatic links for an edition into a JSON representation.
+- [**Dependency Resolution**](docs/dependency-resolution.md): A process that determines other editions that require updating downstream as a result of a change to an edition.
 
 ## Technical documentation
 
