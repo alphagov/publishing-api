@@ -67,6 +67,12 @@ Rails.application.routes.draw do
         Healthcheck::QueueLatency,
       )
 
+  get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
+  get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
+    GovukHealthcheck::ActiveRecord,
+    GovukHealthcheck::SidekiqRedis,
+  )
+
   if Rails.env.development?
     require "sidekiq/web"
     mount Sidekiq::Web => "/sidekiq"
