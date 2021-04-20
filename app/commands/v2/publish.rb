@@ -234,10 +234,13 @@ module Commands
           worker_params,
         )
 
+        Rails.logger.debug("draft worker params: #{worker_params.inspect}")
+
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
           live_worker_params,
         )
+        Rails.logger.debug("live worker params: #{live_worker_params.inspect}")
       end
 
       def live_worker_params
