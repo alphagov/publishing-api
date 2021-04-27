@@ -60,13 +60,6 @@ Rails.application.routes.draw do
   get "/debug/:content_id", to: "debug#show"
   get "/debug/experiments/:experiment", to: "debug#experiment"
 
-  get "/healthcheck",
-      to: GovukHealthcheck.rack_response(
-        GovukHealthcheck::SidekiqRedis,
-        GovukHealthcheck::ActiveRecord,
-        Healthcheck::QueueLatency,
-      )
-
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
     GovukHealthcheck::ActiveRecord,
