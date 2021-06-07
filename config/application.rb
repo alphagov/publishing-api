@@ -76,6 +76,7 @@ module PublishingAPI
       lv
       ms
       mt
+      ne
       nl
       no
       pa
