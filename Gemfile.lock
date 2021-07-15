@@ -1444,7 +1444,7 @@ DEPENDENCIES
   rails (= 6.0.3.7)
   rspec
   rspec-rails
-  rubocop-govuk (= 4.0.0)
+  rubocop-govuk
   sidekiq-unique-jobs!
   simplecov
   spring
