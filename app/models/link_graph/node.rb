@@ -25,15 +25,13 @@ class LinkGraph::Node
   end
 
   def links
-    @links ||= begin
-      # If we know there aren't links we can save some execution by setting
-      # this directly to an empty array
-      if might_have_links?
-        LinkGraph::NodeCollectionFactory.new(link_graph, self).collection
-      else
-        []
-      end
-    end
+    # If we know there aren't links we can save some execution by setting
+    # this directly to an empty array
+    @links ||= if might_have_links?
+                 LinkGraph::NodeCollectionFactory.new(link_graph, self).collection
+               else
+                 []
+               end
   end
 
   # An array of link_type to indicate the path from the root to this node.
