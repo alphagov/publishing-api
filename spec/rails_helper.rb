@@ -37,7 +37,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 require "sidekiq-unique-jobs"
 Sidekiq.configure_client do |config|
   config.client_middleware do |chain|
-    chain.remove SidekiqUniqueJobs::Client::Middleware
+    chain.remove SidekiqUniqueJobs::Middleware::Client
   end
 end
 
