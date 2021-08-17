@@ -6,7 +6,7 @@ class DownstreamLiveWorker
   include PerformAsyncInQueue
 
   sidekiq_options queue: HIGH_QUEUE,
-                  unique: :until_executing,
+                  lock: :until_executing,
                   unique_args: :uniq_args
 
   def self.uniq_args(args)
