@@ -102,6 +102,7 @@ module PublishingAPI
       ur
       uz
       vi
+      yi
       zh
       zh-hk
       zh-tw
