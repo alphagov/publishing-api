@@ -14,7 +14,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
-            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException",
+            "message" => "Unexpected error from the downstream application: Timed out connecting to server",
           },
         )
       end
@@ -63,7 +63,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
-            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException",
+            "message" => "Unexpected error from the downstream application: Timed out connecting to server",
           },
         )
       end
@@ -81,7 +81,7 @@ RSpec.describe "Downstream timeouts", type: :request do
         expect(parsed_response).to eq(
           "error" => {
             "code" => 500,
-            "message" => "Unexpected error from the downstream application: GdsApi::TimedOutException",
+            "message" => "Unexpected error from the downstream application: Timed out connecting to server",
           },
         )
       end
