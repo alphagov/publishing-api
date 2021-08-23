@@ -11,6 +11,8 @@ updates:
       # Internal gems
       - dependency-name: "govuk*"
         dependency-type: direct
+      - dependency-name: gds-api-adapters
+        dependency-type: direct
       - dependency-name: gds-sso
         dependency-type: direct
       - dependency-name: govspeak

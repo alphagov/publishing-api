@@ -1053,12 +1053,11 @@ GEM
     filelock (1.1.1)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (67.0.0)
+    gds-api-adapters (72.1.0)
       addressable
       link_header
       null_logger
       plek (>= 1.9.0)
-      rack-cache
       rest-client (~> 2.0)
     gds-sso (16.0.1)
       multi_json (~> 1.0)
@@ -1115,7 +1114,7 @@ GEM
     hashie (4.1.0)
     htmlentities (4.3.4)
     http-accept (1.7.0)
-    http-cookie (1.0.3)
+    http-cookie (1.0.4)
       domain_name (~> 0.5)
     httparty (0.18.1)
       mime-types (~> 3.0)
@@ -1225,8 +1224,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-cache (1.12.1)
-      rack (>= 0.4)
     rack-protection (2.1.0)
       rack
     rack-test (1.1.0)
