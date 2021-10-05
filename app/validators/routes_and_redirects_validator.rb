@@ -36,24 +36,24 @@ private
   def must_have_unique_paths(record, routes, redirects)
     paths = routes.map { |r| r[:path] }
     unless paths == paths.uniq
-      record.errors[:routes] << "must have unique paths"
+      record.errors.add(:routes, "must have unique paths")
     end
 
     paths += redirects.map { |r| r[:path] }
     unless paths == paths.uniq
-      record.errors[:redirects] << "must have unique paths"
+      record.errors.add(:redirects, "must have unique paths")
     end
   end
 
   def redirects_must_include_base_path(record, base_path, redirects)
     if redirects.none? { |r| r[:path] == base_path }
-      record.errors[:redirects] << "must include the base path"
+      record.errors.add(:redirects, "must include the base path")
     end
   end
 
   def routes_must_include_base_path(record, base_path, routes)
     if routes.none? { |r| r[:path] == base_path }
-      record.errors[:routes] << "must include the base path"
+      record.errors.add(:routes, "must include the base path")
     end
   end
 
@@ -63,27 +63,27 @@ private
       path = route[:path]
 
       if type.blank?
-        record.errors[attribute] << "type must be present"
+        record.errors.add(attribute, "type must be present")
       end
 
       if path.blank?
-        record.errors[attribute] << "path must be present"
+        record.errors.add(attribute, "path must be present")
       end
 
       unless type.present? && %(exact prefix).include?(type)
-        record.errors[attribute] << "type must be either 'exact' or 'prefix'"
+        record.errors.add(attribute, "type must be either 'exact' or 'prefix'")
       end
 
       unsupported_keys = additional_keys(route, attribute)
       if unsupported_keys.any?
-        record.errors[attribute] << "unsupported keys: #{unsupported_keys.join(', ')}"
+        record.errors.add(attribute, "unsupported keys: #{unsupported_keys.join(', ')}")
       end
 
       validator = AbsolutePathValidator.new(attributes: attribute)
       validator.validate_each(record, attribute, path)
 
       unless path.present? && below_base_path?(path, base_path)
-        record.errors[attribute] << "path must be below the base path"
+        record.errors.add(attribute, "path must be below the base path")
       end
     end
 
@@ -124,19 +124,20 @@ private
 
     def initialize(record, redirect)
       @redirect = redirect
-      @errors = record.errors[:redirects]
+      # @errors = record.errors[:redirects]
+      @errors = record.errors
     end
 
     def validate
       path = redirect[:path]
       destination = redirect[:destination]
 
-      errors << "path must be present" if path.blank?
-      errors << "destination must be present" if destination.blank?
-      errors << "path cannot equal the destination" if path == destination
+      errors.add(:redirects, "path must be present") if path.blank?
+      errors.add(:redirects, "destination must be present") if destination.blank?
+      errors.add(:redirects, "path cannot equal the destination") if path == destination
       return unless errors.empty?
 
-      errors << "destination invalid" if invalid_destination?(destination)
+      errors.add(:redirects, "destination invalid") if invalid_destination?(destination)
       return unless errors.empty?
 
       if internal?(destination)
@@ -177,7 +178,7 @@ private
     end
 
     def validate_internal_redirect(destination)
-      errors << "internal redirects cannot end with /" if
+      errors.add(:redirects, "internal redirects cannot end with /") if
         destination != "/" && (destination.end_with? "/")
     end
 
@@ -185,28 +186,28 @@ private
       uri = URI.parse(destination)
 
       if uri.host.nil?
-        errors << "missing host for external redirect"
+        errors.add(:redirects, "missing host for external redirect")
         return
       end
 
-      errors << "external redirects only accepted within the gov.uk, judiciary.uk, nhs.uk or ukri.org domains" unless
+      errors.add(:redirects, "external redirects only accepted within the gov.uk, judiciary.uk, nhs.uk or ukri.org domains") unless
         government_domain?(uri.host)
 
-      errors << "internal redirect should not be specified with full url" if
+      errors.add(:redirects, "internal redirect should not be specified with full url") if
         %w[gov.uk www.gov.uk].include? uri.host
 
-      errors << "external redirects must use https" unless uri.scheme == "https"
+      errors.add(:redirects, "external redirects must use https") unless uri.scheme == "https"
 
       uri.host.split(".").each { |subdomain| validate_subdomain(subdomain) }
     end
 
     def validate_subdomain(subdomain)
       prefix = "subdomain #{subdomain}"
-      errors << "#{prefix} is longer than 63 characters" if
+      errors.add(:redirects, "#{prefix} is longer than 63 characters") if
         subdomain.length > 63
-      errors << "#{prefix} should not start with a hyphen" if
+      errors.add(:redirects, "#{prefix} should not start with a hyphen") if
         subdomain.starts_with?("-")
-      errors << "#{prefix} contains prohibited characters" unless
+      errors.add(:redirects, "#{prefix} contains prohibited characters") unless
         subdomain =~ /\A[a-z0-9\-]*\z/i
     end
 
@@ -214,10 +215,10 @@ private
       uri = URI.parse(destination)
 
       if uri.fragment.present?
-        errors << "destination #{destination} cannot contain a fragment if the segments_mode is 'preserve'"
+        errors.add(:redirects, "destination #{destination} cannot contain a fragment if the segments_mode is 'preserve'")
       end
       if uri.query.present?
-        errors << "destination #{destination} cannot contain query parameters if the segments_mode is 'preserve'"
+        errors.add(:redirects, "destination #{destination} cannot contain query parameters if the segments_mode is 'preserve'")
       end
     end
 

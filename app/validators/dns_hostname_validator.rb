@@ -3,7 +3,7 @@ class DnsHostnameValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless value && value.match(DNS_HOSTNAME_PATTERN)
-      record.errors[attribute] << "is not a valid dns hostname"
+      record.errors.add(attribute, "is not a valid dns hostname")
     end
   end
 end
