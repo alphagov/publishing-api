@@ -11,14 +11,18 @@ task migrate_publisher_mhclg_docs_to_dluhc: :environment do
     .joins("INNER JOIN links ON link_sets.id = links.link_set_id")
     .where(links: { target_content_id: mhclg_content_id, link_type: "organisations" })
     .pluck("documents.content_id")
-    .uniq
 
   puts "#{mhclg_content_ids.count} MHCLG documents to be migrated to DLUHC\n"
 
   mhclg_content_ids.each do |content_id|
+    organisations = Queries::GetLinkSet.call(content_id)[:links][:organisations]
+    updated_orgs = organisations.map do |org|
+      org == mhclg_content_id ? dluhc_content_id : org
+    end
+
     Commands::V2::PatchLinkSet.call(
       content_id: content_id,
-      links: { organisations: [dluhc_content_id] },
+      links: { organisations: updated_orgs },
     )
 
     puts "Migrated document with content_id: #{content_id}"
