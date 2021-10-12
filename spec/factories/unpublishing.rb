@@ -11,7 +11,7 @@ FactoryBot.define do
           {
             path: unpublishing.edition.base_path,
             type: :exact,
-            destination: "/new-path",
+            destination: unpublishing.alternative_path,
           },
         ]
       end
