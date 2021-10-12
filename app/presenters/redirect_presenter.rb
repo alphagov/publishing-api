@@ -20,7 +20,7 @@ class RedirectPresenter
   end
 
   def for_content_store(payload_version)
-    present.merge(payload_version: payload_version)
+    present.merge(payload_version: payload_version, redirects: latest_redirect_paths)
   end
 
   def for_message_queue(payload_version)
@@ -57,5 +57,16 @@ private
       attributes[:public_updated_at] = public_updated_at.iso8601
     end
     attributes
+  end
+
+  def latest_redirect_paths
+    present[:redirects].map do |redirect|
+      while (corresponding_edition = Edition.where(base_path: redirect[:destination]).order(:updated_at).last)
+        break unless corresponding_edition && corresponding_edition.unpublishing.present?
+
+        redirect[:destination] = corresponding_edition.unpublishing.redirects.first[:destination]
+      end
+      redirect
+    end
   end
 end
