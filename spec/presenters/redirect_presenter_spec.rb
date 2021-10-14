@@ -23,5 +23,14 @@ RSpec.describe RedirectPresenter do
 
       expect(subject[:redirects].first[:destination]).to eq("/redirected-path")
     end
+
+    it "raises an exception if caught in a redirect loop" do
+      create(:unpublished_edition, base_path: "/original-base-path", alternative_path: "/redirected-path")
+      second_edition = create(:unpublished_edition, base_path: "/redirected-path", alternative_path: "/original-base-path")
+
+      expect {
+        described_class.from_edition(second_edition).for_content_store(payload_version)
+      }.to raise_error(RedirectLoopError)
+    end
   end
 end

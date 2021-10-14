@@ -61,10 +61,13 @@ private
 
   def latest_redirect_paths
     present[:redirects].map do |redirect|
+      original_redirect = redirect[:destination]
       while (corresponding_edition = Edition.where(base_path: redirect[:destination]).order(:updated_at).last)
         break unless corresponding_edition && corresponding_edition.unpublishing.present?
 
         redirect[:destination] = corresponding_edition.unpublishing.redirects.first[:destination]
+
+        raise RedirectLoopError if redirect[:destination] == original_redirect
       end
       redirect
     end

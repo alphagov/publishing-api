@@ -1,0 +1,2 @@
+class RedirectLoopError < RuntimeError
+end
