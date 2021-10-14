@@ -1053,7 +1053,7 @@ GEM
     filelock (1.1.1)
     find_a_port (1.0.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (75.0.0)
+    gds-api-adapters (75.1.0)
       addressable
       link_header
       null_logger
