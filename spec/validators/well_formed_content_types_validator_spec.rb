@@ -1,7 +1,15 @@
 require "rails_helper"
 
+class Record
+  attr_reader :errors
+
+  def initialize
+    @errors = ActiveModel::Errors.new(self)
+  end
+end
+
 RSpec.describe WellFormedContentTypesValidator do
-  let(:record) { double(:record, errors: {}) }
+  let(:record) { Record.new }
   let(:attribute) { :some_attribute }
 
   let(:options) { {} }
@@ -47,21 +55,21 @@ RSpec.describe WellFormedContentTypesValidator do
     value = [{ content_type: "text/html" }]
     subject.validate_each(record, attribute, value)
     expect(record.errors).to be_present
-    expect(record.errors).to eq(some_attribute: ["the 'text/html' content type does not contain content"])
+    expect(record.errors.messages_for(:some_attribute)).to eq(["the 'text/html' content type does not contain content"])
 
     record.errors.clear
 
     value = { foo: [{ content_type: "text/html" }] }
     subject.validate_each(record, attribute, value)
     expect(record.errors).to be_present
-    expect(record.errors).to eq(some_attribute: ["the 'text/html' content type does not contain content"])
+    expect(record.errors.messages_for(:some_attribute)).to eq(["the 'text/html' content type does not contain content"])
 
     record.errors.clear
 
     value = [{ content_type: "text/plain" }, { content_type: "text/html", content: "<p>content</p>" }]
     subject.validate_each(record, attribute, value)
     expect(record.errors).to be_present
-    expect(record.errors).to eq(some_attribute: ["the 'text/plain' content type does not contain content"])
+    expect(record.errors.messages_for(:some_attribute)).to eq(["the 'text/plain' content type does not contain content"])
   end
 
   context "when the 'must_include' option is set to 'text/html'" do
@@ -71,7 +79,7 @@ RSpec.describe WellFormedContentTypesValidator do
       value = [{ content_type: "text/plain", content: "content" }]
       subject.validate_each(record, attribute, value)
       expect(record.errors).to be_present
-      expect(record.errors).to eq(some_attribute: ["the 'text/html' content type is mandatory and it is missing"])
+      expect(record.errors.messages_for(:some_attribute)).to eq(["the 'text/html' content type is mandatory and it is missing"])
     end
   end
 
@@ -92,7 +100,7 @@ RSpec.describe WellFormedContentTypesValidator do
       value = [{ content_type: "text/plain", content: "content" }]
       subject.validate_each(record, attribute, value)
       expect(record.errors).to be_present
-      expect(record.errors).to eq(some_attribute: ["there must be at least one content type of (text/html, text/govspeak)"])
+      expect(record.errors.messages_for(:some_attribute)).to eq(["there must be at least one content type of (text/html, text/govspeak)"])
     end
 
     it "accepts values that do have a content type of 'text/govspeak'" do
@@ -118,7 +126,7 @@ RSpec.describe WellFormedContentTypesValidator do
     ]
     subject.validate_each(record, attribute, value)
     expect(record.errors).to be_present
-    expect(record.errors).to eq(some_attribute: ["there are 2 instances of the 'text/html' content type - there should be 1"])
+    expect(record.errors.messages_for(:some_attribute)).to eq(["there are 2 instances of the 'text/html' content type - there should be 1"])
 
     record.errors.clear
 
@@ -129,7 +137,7 @@ RSpec.describe WellFormedContentTypesValidator do
     ]
     subject.validate_each(record, attribute, value)
     expect(record.errors).to be_present
-    expect(record.errors).to eq(some_attribute: ["there are 2 instances of the 'text/plain' content type - there should be 1"])
+    expect(record.errors.messages_for(:some_attribute)).to eq(["there are 2 instances of the 'text/plain' content type - there should be 1"])
   end
 
   context "when the value is invalid for more than one reason" do
@@ -140,14 +148,14 @@ RSpec.describe WellFormedContentTypesValidator do
       subject.validate_each(record, attribute, value)
       expect(record.errors).to be_present
 
-      error_messages = record.errors.fetch(attribute)
+      error_messages = record.errors.messages_for(attribute)
       expect(error_messages).to include("the 'text/plain' content type does not contain content")
       expect(error_messages).to include("the 'text/html' content type is mandatory and it is missing")
     end
   end
 
   it "does not clobber existing errors for the attribute" do
-    record.errors[attribute] = ["some existing error"]
+    record.errors.add(attribute, "some existing error")
 
     value = "some_value"
     subject.validate_each(record, attribute, value)

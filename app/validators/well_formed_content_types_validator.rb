@@ -5,8 +5,9 @@ class WellFormedContentTypesValidator < ActiveModel::EachValidator
     validate!(value)
 
     if @error_messages.present?
-      record.errors[attribute] ||= []
-      record.errors[attribute].concat(@error_messages)
+      @error_messages.each do |message|
+        record.errors.add(attribute, message)
+      end
     end
   end
 
