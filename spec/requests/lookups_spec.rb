@@ -7,8 +7,6 @@ RSpec.describe "POST /lookup-by-base-path", type: :request do
 
       post "/lookup-by-base-path"
 
-      print parsed_response
-
       expect(parsed_response).to eql(expected_error_response)
     end
   end
