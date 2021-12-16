@@ -95,7 +95,7 @@ namespace :represent_downstream do
     Represent documents by document type(s) downstream on the high_priority sidekiq
     queue
     Usage
-    rake 'represent_downstream:high_priority:document_type[organisation]'
+    rake 'represent_downstream:high_priority:document_type[NewsArticle]'
     "
     task :document_type, [:document_types] => :environment do |_t, args|
       document_types = args[:document_types].split(" ")
