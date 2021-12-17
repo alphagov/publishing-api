@@ -45,4 +45,4 @@ class RemoveLinks < ActiveRecord::Migration
 end
 ```
 
-[data-migration]: https://github.com/alphagov/publishing-api/blob/master/CONTRIBUTING.md#are-you-writing-a-migration-to-change-publishing-api-data
+[data-migration]: https://github.com/alphagov/publishing-api/blob/main/docs/data-migration.md#are-you-writing-a-migration-to-change-publishing-api-data
