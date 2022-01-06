@@ -1,4 +1,6 @@
 class RoutesAndRedirectsValidator < ActiveModel::Validator
+  EXTERNAL_HOST_ALLOW_LIST = %w[.gov.uk .judiciary.uk .nhs.uk .ukri.org .nationalhighways.co.uk].freeze
+
   def validate(record, base_path: nil)
     base_path = record.base_path if base_path.nil?
 
@@ -166,7 +168,7 @@ private
     end
 
     def government_domain?(host)
-      host.end_with?(".gov.uk", ".judiciary.uk", ".nhs.uk", ".ukri.org")
+      host.end_with?(*EXTERNAL_HOST_ALLOW_LIST)
     end
 
     def invalid_destination?(destination)

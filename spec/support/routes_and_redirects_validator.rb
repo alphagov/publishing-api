@@ -211,6 +211,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           https://etl.beis.gov.uk/
           https://www.nhs.uk/
           https://www.ukri.org/
+          https://www.nationalhighways.co.uk/
         ].each do |destination|
           edition.redirects = [{ path: "#{subject.base_path}/new", type: "exact", destination: destination }]
 
