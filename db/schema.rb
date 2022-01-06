@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_153224) do
+ActiveRecord::Schema.define(version: 2022_01_05_222552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_153224) do
   end
 
   create_table "change_notes", id: :serial, force: :cascade do |t|
-    t.string "note", default: ""
+    t.text "note", default: ""
     t.datetime "public_timestamp"
     t.integer "edition_id", null: false
     t.datetime "created_at"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_153224) do
   end
 
   create_table "editions", id: :serial, force: :cascade do |t|
-    t.string "title"
+    t.text "title"
     t.datetime "public_updated_at"
     t.string "publishing_app"
     t.string "rendering_app"
@@ -72,10 +72,10 @@ ActiveRecord::Schema.define(version: 2020_05_06_153224) do
     t.datetime "last_edited_at"
     t.string "state", null: false
     t.integer "user_facing_version", default: 1, null: false
-    t.string "base_path"
+    t.text "base_path"
     t.string "content_store"
     t.integer "document_id", null: false
-    t.string "description"
+    t.text "description"
     t.string "publishing_request_id"
     t.datetime "major_published_at"
     t.datetime "published_at"
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_153224) do
   end
 
   create_table "path_reservations", id: :serial, force: :cascade do |t|
-    t.string "base_path", null: false
+    t.text "base_path", null: false
     t.string "publishing_app", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -165,8 +165,8 @@ ActiveRecord::Schema.define(version: 2020_05_06_153224) do
   create_table "unpublishings", id: :serial, force: :cascade do |t|
     t.integer "edition_id", null: false
     t.string "type", null: false
-    t.string "explanation"
-    t.string "alternative_path"
+    t.text "explanation"
+    t.text "alternative_path"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "unpublished_at"
