@@ -8,13 +8,6 @@ class QueuePublisher
     # @connection_mutex = Mutex.new
   end
 
-  def connection
-    # @connection_mutex.synchronize do
-    @connection ||= Bunny.new(ENV["RABBITMQ_URL"], @options)
-    @connection.start
-    # end
-  end
-
   class PublishFailedError < StandardError
   end
 
@@ -44,6 +37,13 @@ class QueuePublisher
   end
 
 private
+
+  def connection
+    # @connection_mutex.synchronize do
+    Bunny.new(ENV["RABBITMQ_URL"], @options).start
+    # end
+  end
+
 
   def validate_edition(edition)
     validator = SchemaValidator.new(payload: edition, schema_type: :notification)
