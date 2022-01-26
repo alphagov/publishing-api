@@ -61,13 +61,13 @@ private
   def publish_message(routing_key, message_data, options = {})
     # we should only have one channel per thread
     channel = connection.create_channel
-
-    # Enable publisher confirms, so we get acks back after publishes
-    channel.confirm_select
-
-    # passive parameter ensures we don't create the exchange
-    exchange = channel.topic(@exchange_name, passive: true)
     begin
+      # Enable publisher confirms, so we get acks back after publishes
+      channel.confirm_select
+
+      # passive parameter ensures we don't create the exchange
+      exchange = channel.topic(@exchange_name, passive: true)
+
       publish_options = options.merge(routing_key: routing_key)
 
       exchange.publish(message_data.to_json, publish_options)
