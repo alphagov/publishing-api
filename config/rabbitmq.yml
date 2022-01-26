@@ -6,7 +6,7 @@ defaults: &defaults
   exchange: published_documents
   recover_from_connection_close: true
   automatically_recover: true
-  # threaded: true
+  threaded: false
 
 development:
   <<: *defaults
