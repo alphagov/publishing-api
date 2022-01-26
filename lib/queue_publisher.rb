@@ -66,7 +66,7 @@ private
       channel.confirm_select
 
       # passive parameter ensures we don't create the exchange
-      exchange = channel.topic(@exchange_name, passive: true)
+      exchange = channel.topic(@exchange_name, passive: false)
 
       publish_options = options.merge(routing_key: routing_key)
 
