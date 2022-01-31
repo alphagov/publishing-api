@@ -36,14 +36,11 @@ FactoryBot.define do
   end
 
   factory :redirect_live_edition, parent: :live_edition do
-    transient do
-      destination { "/somewhere" }
-    end
     sequence(:base_path) { |n| "/test-redirect-#{n}" }
     schema_name { "redirect" }
     document_type { "redirect" }
     routes { [] }
-    redirects { [{ "path" => base_path, "type" => "exact", "destination" => destination }] }
+    redirects { [{ "path" => base_path, "type" => "exact", "destination" => "/somewhere" }] }
   end
 
   factory :gone_live_edition, parent: :live_edition do
