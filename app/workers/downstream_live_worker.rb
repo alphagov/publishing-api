@@ -1,24 +1,24 @@
-require "sidekiq-unique-jobs"
+# require "sidekiq-unique-jobs"
 
 class DownstreamLiveWorker
   include DownstreamQueue
   include Sidekiq::Worker
   include PerformAsyncInQueue
 
-  sidekiq_options queue: HIGH_QUEUE,
-                  lock: :until_executing,
-                  unique_args: :uniq_args
+  sidekiq_options queue: HIGH_QUEUE #,
+                  # lock: :until_executing,
+                  # unique_args: :uniq_args
 
-  def self.uniq_args(args)
-    [
-      args.first["content_id"],
-      args.first["locale"],
-      args.first["message_queue_event_type"],
-      args.first.fetch("update_dependencies", true),
-      args.first.fetch("orphaned_content_ids", []),
-      name,
-    ]
-  end
+  # def self.uniq_args(args)
+  #   [
+  #     args.first["content_id"],
+  #     args.first["locale"],
+  #     args.first["message_queue_event_type"],
+  #     args.first.fetch("update_dependencies", true),
+  #     args.first.fetch("orphaned_content_ids", []),
+  #     name,
+  #   ]
+  # end
 
   def perform(args = {})
     assign_attributes(args.symbolize_keys)
