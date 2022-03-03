@@ -20,6 +20,8 @@ RSpec.describe DownstreamDraftWorker do
     stub_request(:put, %r{.*content-store.*/content/.*})
   end
 
+  specify { expect(described_class).to have_valid_sidekiq_options }
+
   describe "arguments" do
     it "requires content_item_id or content_id" do
       expect {

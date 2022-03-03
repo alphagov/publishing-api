@@ -13,6 +13,7 @@ require "database_cleaner"
 require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
 require "sidekiq/testing"
+require "sidekiq_unique_jobs/testing"
 Sidekiq::Logging.logger = nil
 # Sidekiq in test mode won't run server middleware by default.
 Sidekiq::Testing.server_middleware do |chain|
