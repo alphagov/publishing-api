@@ -23,8 +23,6 @@ module PublishingAPI
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    config.autoloader = :classic
-    # FIXME: Autoloader is only set to classic while restructuring work is undertaken.
 
     # Configuration for the application, engines, and railties goes here.
     #
