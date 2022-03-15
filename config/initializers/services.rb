@@ -1,3 +1,7 @@
+require "clients/content_store_writer"
+require "queue_publisher"
+require "sidekiq_logger_middleware"
+
 module PublishingAPI
   # To be set in dev mode so that this can run when the draft content store isn't running.
   cattr_accessor :swallow_connection_errors
