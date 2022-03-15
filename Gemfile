@@ -20,6 +20,7 @@ gem "json-schema", require: false
 gem "pg"
 gem "plek"
 gem "sidekiq-unique-jobs"
+gem "sprockets-rails"
 gem "whenever", require: false
 gem "with_advisory_lock"
 
