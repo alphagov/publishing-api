@@ -1,4 +1,4 @@
-class GonePresenter
+class Presenters::GonePresenter
   def initialize(base_path:, content_id:, publishing_app:, public_updated_at:, alternative_path:, explanation:, locale:)
     @base_path = base_path
     @content_id = content_id

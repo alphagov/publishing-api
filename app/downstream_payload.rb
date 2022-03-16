@@ -45,15 +45,15 @@ private
   end
 
   def redirect_presenter
-    RedirectPresenter.from_edition(edition)
+    Presenters::RedirectPresenter.from_edition(edition)
   end
 
   def gone_presenter
-    GonePresenter.from_edition(edition)
+    Presenters::GonePresenter.from_edition(edition)
   end
 
   def vanish_presenter
-    VanishPresenter.from_edition(edition)
+    Presenters::VanishPresenter.from_edition(edition)
   end
 
   def content_store_presenter

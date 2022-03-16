@@ -1,4 +1,4 @@
-class RedirectPresenter
+class Presenters::RedirectPresenter
   def initialize(base_path:, content_id:, publishing_app:, redirects:, locale:, public_updated_at: nil)
     @base_path = base_path
     @content_id = content_id

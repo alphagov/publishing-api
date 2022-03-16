@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe RedirectPresenter do
+RSpec.describe Presenters::RedirectPresenter do
   describe "#for_message_queue" do
     let(:payload_version) { 1 }
     let(:edition) { create(:unpublishing, type: "redirect").edition }

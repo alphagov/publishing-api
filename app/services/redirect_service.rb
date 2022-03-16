@@ -10,7 +10,7 @@ class RedirectService
   def call
     return unless previously_published_item.path_has_changed?
 
-    redirect_payload = RedirectPresenter.new(
+    redirect_payload = Presenters::RedirectPresenter.new(
       base_path: previously_published_item.previous_base_path,
       content_id: previously_published_item.content_id,
       locale: previously_published_item.document.locale,
