@@ -38,10 +38,6 @@ module PublishingAPI
     config.api_only = true
 
     config.eager_load_paths << "#{config.root}/app"
-    # FIXME: the 3 lines below will be uncommented as part of the restructuring work.
-    # config.eager_load_paths += Dir["#{config.root}/app/queries"]
-    # config.eager_load_paths += Dir["#{config.root}/app/commands"]
-    # config.eager_load_paths += Dir["#{config.root}/app/presenters"]
     config.eager_load_paths << "#{config.root}/lib"
 
     config.i18n.available_locales = %i[
