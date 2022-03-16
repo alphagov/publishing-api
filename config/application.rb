@@ -22,9 +22,7 @@ Bundler.require(*Rails.groups)
 module PublishingAPI
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
-    config.autoloader = :classic
-    # FIXME: Autoloader is only set to classic while restructuring work is undertaken.
+    config.load_defaults 7.0
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -40,10 +38,6 @@ module PublishingAPI
     config.api_only = true
 
     config.eager_load_paths << "#{config.root}/app"
-    # FIXME: the 3 lines below will be uncommented as part of the restructuring work.
-    # config.eager_load_paths += Dir["#{config.root}/app/queries"]
-    # config.eager_load_paths += Dir["#{config.root}/app/commands"]
-    # config.eager_load_paths += Dir["#{config.root}/app/presenters"]
     config.eager_load_paths << "#{config.root}/lib"
 
     config.i18n.available_locales = %i[

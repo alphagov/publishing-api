@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "6.1.5"
+gem "rails", "7.0.2.3"
 
 gem "aws-sdk"
 gem "bunny"
@@ -20,6 +20,7 @@ gem "json-schema", require: false
 gem "pg"
 gem "plek"
 gem "sidekiq-unique-jobs"
+gem "sprockets-rails"
 gem "whenever", require: false
 gem "with_advisory_lock"
 

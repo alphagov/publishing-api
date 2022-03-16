@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe VanishPresenter do
+RSpec.describe Presenters::VanishPresenter do
   describe "#for_message_queue" do
     let(:payload_version) { 1 }
     let(:edition) { create(:unpublishing, type: "vanish").edition }

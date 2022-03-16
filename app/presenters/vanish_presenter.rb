@@ -1,4 +1,4 @@
-class VanishPresenter
+class Presenters::VanishPresenter
   def initialize(base_path:, content_id:, publishing_app:, locale:)
     @base_path = base_path
     @publishing_app = publishing_app
