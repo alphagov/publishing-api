@@ -17,7 +17,7 @@ COPY . /app
 
 FROM $base_image
 RUN apt-get update -qy && apt-get upgrade -y && \
-    apt-get install -y libpq-dev
+    apt-get install -y libpq-dev curl
 # TODO: DATABASE_URL shouldn't be set here but seems to be required by E2E tests, figure out why.
 ENV DATABASE_URL=postgresql://postgres@postgres/publishing-api PORT=3093
 ENV GOVUK_CONTENT_SCHEMAS_PATH=/govuk-content-schemas
