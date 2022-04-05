@@ -1402,11 +1402,11 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (>= 2.1)
-    govuk_test (3.0.0)
+    govuk_test (3.0.1)
       brakeman (>= 5.0.2)
-      capybara
+      capybara (>= 3.36)
       puma
-      selenium-webdriver (>= 3.142)
+      selenium-webdriver (>= 4.0)
     hashdiff (1.0.1)
     hashie (5.0.0)
     htmlentities (4.3.4)
