@@ -33,8 +33,8 @@ group :development, :test do
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "govuk_test"
-  gem "pact"
-  gem "pact_broker-client"
+  gem "pact", require: false
+  gem "pact_broker-client", require: false
   gem "rspec-rails"
   gem "rubocop-govuk", require: false
   gem "simplecov", require: false
