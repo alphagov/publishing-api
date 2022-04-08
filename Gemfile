@@ -28,15 +28,13 @@ group :development do
 end
 
 group :development, :test do
+  gem "byebug"
   gem "climate_control"
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "govuk_test"
   gem "pact"
   gem "pact_broker-client"
-  gem "pry"
-  gem "pry-byebug"
-  gem "pry-rails"
   gem "rspec"
   gem "rspec-rails"
   gem "rubocop-govuk", require: false
