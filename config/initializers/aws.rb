@@ -1,4 +1,4 @@
-require "aws-sdk"
+require "aws-sdk-core"
 
 # rubocop:disable Rails/SaveBang
 Aws.config.update(

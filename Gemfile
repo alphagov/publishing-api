@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "7.0.2.3"
 
-gem "aws-sdk"
+gem "aws-sdk-s3"
 gem "bunny"
 gem "colorize"
 gem "dalli"
