@@ -14,6 +14,7 @@ gem "govuk_document_types"
 gem "govuk_schemas"
 gem "govuk_sidekiq"
 gem "json-schema", require: false
+gem "oj"
 gem "pg"
 gem "plek"
 gem "sidekiq-unique-jobs"
@@ -25,8 +26,6 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem "web-console"
 end
-
-gem "oj"
 
 group :development, :test do
   gem "climate_control"
