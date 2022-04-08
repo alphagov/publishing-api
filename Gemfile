@@ -4,7 +4,6 @@ gem "rails", "7.0.2.3"
 
 gem "aws-sdk-s3"
 gem "bunny"
-gem "colorize"
 gem "dalli"
 gem "diffy", require: false
 gem "fuzzy_match"
@@ -35,7 +34,6 @@ group :development, :test do
   gem "climate_control"
   gem "database_cleaner"
   gem "factory_bot_rails"
-  gem "faker"
   gem "govuk_test"
   gem "pact"
   gem "pact_broker-client"
@@ -48,7 +46,6 @@ group :development, :test do
   gem "simplecov", require: false
   gem "spring"
   gem "spring-commands-rspec"
-  gem "stackprof", require: false
   gem "timecop"
   gem "webmock", require: false
 end
