@@ -39,8 +39,6 @@ group :development, :test do
   gem "rspec-rails"
   gem "rubocop-govuk", require: false
   gem "simplecov", require: false
-  gem "spring"
-  gem "spring-commands-rspec"
   gem "timecop"
   gem "webmock", require: false
 end
