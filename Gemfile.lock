@@ -123,7 +123,6 @@ GEM
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
     diff-lcs (1.5.0)
-    diffy (3.4.0)
     dig_rb (1.0.1)
     digest (3.1.0)
     docile (1.4.0)
@@ -540,7 +539,6 @@ DEPENDENCIES
   climate_control
   dalli
   database_cleaner
-  diffy
   factory_bot_rails
   fuzzy_match
   gds-api-adapters
@@ -551,7 +549,6 @@ DEPENDENCIES
   govuk_schemas
   govuk_sidekiq
   govuk_test
-  hashdiff
   json-schema
   listen
   oj
