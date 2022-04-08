@@ -35,7 +35,6 @@ group :development, :test do
   gem "govuk_test"
   gem "pact"
   gem "pact_broker-client"
-  gem "rspec"
   gem "rspec-rails"
   gem "rubocop-govuk", require: false
   gem "simplecov", require: false

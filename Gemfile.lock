@@ -546,7 +546,6 @@ DEPENDENCIES
   pg
   plek
   rails (= 7.0.2.3)
-  rspec
   rspec-rails
   rubocop-govuk
   sidekiq-unique-jobs
