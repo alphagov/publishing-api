@@ -16,7 +16,7 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-ENV["RAISE_EXPERIMENT_ERRORS"] = "1"
+ENV["PACT_DO_NOT_TRACK"] = "true"
 
 require "rspec"
 require "pact/consumer/rspec"
