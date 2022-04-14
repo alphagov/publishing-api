@@ -20,7 +20,7 @@ class UuidValidator < ActiveModel::EachValidator
     -
     [a-f\d]{12}
     \z
-  }x.freeze
+  }x
 
   def validate_each(record, attribute, value)
     unless self.class.valid?(value)
