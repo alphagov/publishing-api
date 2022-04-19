@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_01_05_222552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "access_limits", id: :serial, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "edition_id"
     t.jsonb "users", default: [], null: false
     t.jsonb "organisations", default: [], null: false
@@ -32,16 +31,16 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
     t.integer "edition_id"
     t.integer "link_set_id"
     t.integer "event_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "change_notes", id: :serial, force: :cascade do |t|
     t.text "note", default: ""
-    t.datetime "public_timestamp"
+    t.datetime "public_timestamp", precision: nil
     t.integer "edition_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["edition_id"], name: "index_change_notes_on_edition_id"
   end
 
@@ -49,8 +48,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
     t.uuid "content_id", null: false
     t.string "locale", null: false
     t.integer "stale_lock_version", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "owning_document_id"
     t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true
     t.index ["id", "locale"], name: "index_documents_on_id_and_locale"
@@ -58,18 +57,18 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
 
   create_table "editions", id: :serial, force: :cascade do |t|
     t.text "title"
-    t.datetime "public_updated_at"
+    t.datetime "public_updated_at", precision: nil
     t.string "publishing_app"
     t.string "rendering_app"
     t.string "update_type"
     t.string "phase", default: "live"
     t.string "analytics_identifier"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "document_type"
     t.string "schema_name"
-    t.datetime "first_published_at"
-    t.datetime "last_edited_at"
+    t.datetime "first_published_at", precision: nil
+    t.datetime "last_edited_at", precision: nil
     t.string "state", null: false
     t.integer "user_facing_version", default: 1, null: false
     t.text "base_path"
@@ -77,10 +76,10 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
     t.integer "document_id", null: false
     t.text "description"
     t.string "publishing_request_id"
-    t.datetime "major_published_at"
-    t.datetime "published_at"
-    t.datetime "publishing_api_first_published_at"
-    t.datetime "publishing_api_last_edited_at"
+    t.datetime "major_published_at", precision: nil
+    t.datetime "published_at", precision: nil
+    t.datetime "publishing_api_first_published_at", precision: nil
+    t.datetime "publishing_api_last_edited_at", precision: nil
     t.string "auth_bypass_ids", default: [], null: false, array: true
     t.jsonb "details", default: {}
     t.jsonb "routes", default: []
@@ -102,8 +101,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
   create_table "events", id: :serial, force: :cascade do |t|
     t.string "action", null: false
     t.string "user_uid"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "request_id"
     t.uuid "content_id"
     t.jsonb "payload", default: {}
@@ -114,8 +113,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
     t.string "locale", null: false
     t.boolean "with_drafts", null: false
     t.bigint "payload_version", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.jsonb "expanded_links", default: {}, null: false
     t.index ["content_id", "locale", "with_drafts"], name: "expanded_links_content_id_locale_with_drafts_index", unique: true
   end
@@ -126,14 +125,14 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
     t.string "link_type", null: false
     t.integer "change", null: false
     t.bigint "action_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "link_sets", id: :serial, force: :cascade do |t|
     t.uuid "content_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "stale_lock_version", default: 0
     t.index ["content_id"], name: "index_link_sets_on_content_id", unique: true
   end
@@ -142,8 +141,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
     t.integer "link_set_id"
     t.uuid "target_content_id"
     t.string "link_type", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "position", default: 0, null: false
     t.integer "edition_id"
     t.index ["edition_id"], name: "index_links_on_edition_id"
@@ -157,8 +156,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
   create_table "path_reservations", id: :serial, force: :cascade do |t|
     t.text "base_path", null: false
     t.string "publishing_app", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["base_path"], name: "index_path_reservations_on_base_path", unique: true
   end
 
@@ -167,9 +166,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
     t.string "type", null: false
     t.text "explanation"
     t.text "alternative_path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "unpublished_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "unpublished_at", precision: nil
     t.jsonb "redirects"
     t.index ["edition_id", "type"], name: "index_unpublishings_on_edition_id_and_type"
     t.index ["edition_id"], name: "index_unpublishings_on_edition_id", unique: true
@@ -185,8 +184,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_01_05_222552) do
     t.text "permissions"
     t.boolean "remotely_signed_out", default: false
     t.boolean "disabled", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   add_foreign_key "change_notes", "editions"
