@@ -91,6 +91,7 @@ module_function
   STEP_BY_STEP_FIELDS = (DEFAULT_FIELDS + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]]).freeze
   STEP_BY_STEP_AUTH_BYPASS_FIELDS = (STEP_BY_STEP_FIELDS + %i[auth_bypass_ids]).freeze
   TAKE_PART_PAGE_FIELDS = (DEFAULT_FIELDS + %i[description details]).freeze
+  TOPIC_FIELDS = (DEFAULT_FIELDS + details_fields(:mainstream_browse_origin)).freeze
   TRAVEL_ADVICE_FIELDS = (DEFAULT_FIELDS + details_fields(:country, :change_description)).freeze
   WORLD_LOCATION_FIELDS = %i[content_id title schema_name locale analytics_identifier].freeze
 
@@ -168,6 +169,8 @@ module_function
         fields: STEP_BY_STEP_FIELDS },
       { document_type: :take_part,
         fields: TAKE_PART_PAGE_FIELDS },
+      { document_type: :topic,
+        fields: TOPIC_FIELDS },
       { document_type: :travel_advice,
         fields: TRAVEL_ADVICE_FIELDS },
       { document_type: :world_location,
