@@ -170,12 +170,12 @@ GEM
       nokogiri (~> 1.12)
       rinku (~> 2.0)
       sanitize (~> 6)
-    govuk_app_config (4.5.0)
+    govuk_app_config (4.6.0)
       logstasher (~> 2.1)
       prometheus_exporter (~> 2.0)
       puma (~> 5.6)
-      sentry-rails (~> 5.2)
-      sentry-ruby (~> 5.2)
+      sentry-rails (~> 5.3)
+      sentry-ruby (~> 5.3)
       statsd-ruby (~> 1.5)
       unicorn (~> 6.1)
     govuk_document_types (1.0.1)
@@ -230,7 +230,7 @@ GEM
     logstasher (2.1.5)
       activesupport (>= 5.2)
       request_store
-    loofah (2.16.0)
+    loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -262,7 +262,7 @@ GEM
       timeout
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.4)
+    nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     null_logger (0.0.1)
@@ -433,14 +433,17 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    sentry-rails (5.2.1)
+    sentry-rails (5.3.0)
       railties (>= 5.0)
-      sentry-ruby-core (~> 5.2.1)
-    sentry-ruby (5.2.1)
+      sentry-ruby-core (~> 5.3.0)
+    sentry-ruby (5.3.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      sentry-ruby-core (= 5.2.1)
-    sentry-ruby-core (5.2.1)
+      sentry-ruby-core (= 5.3.0)
+    sentry-ruby-core (5.3.0)
       concurrent-ruby
+    sentry-sidekiq (5.3.0)
+      sentry-ruby-core (~> 5.3.0)
+      sidekiq (>= 3.0)
     set (1.0.2)
     sidekiq (5.2.10)
       connection_pool (~> 2.2, >= 2.2.2)
@@ -544,6 +547,7 @@ DEPENDENCIES
   rails (= 7.0.2.3)
   rspec-rails
   rubocop-govuk
+  sentry-sidekiq
   sidekiq-unique-jobs
   simplecov
   timecop

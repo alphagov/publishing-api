@@ -17,6 +17,7 @@ gem "json-schema", require: false
 gem "oj"
 gem "pg"
 gem "plek"
+gem "sentry-sidekiq"
 gem "sidekiq-unique-jobs"
 gem "whenever", require: false
 gem "with_advisory_lock"
