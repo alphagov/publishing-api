@@ -30,11 +30,7 @@ You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-do
 
 You can run the tests locally with: `bundle exec rake`.
 
-The publishing API includes [Pact contract tests](docs/pact_testing.md), which verify that the service behaves in the way expected by its clients. The tests the *consumer driven contract testing* pattern. You can run these on their own using:
-
-```sh
-$ bundle exec rake pact:verify
-```
+The Publishing API also has [contract tests with GDS API Adapters](https://docs.publishing.service.gov.uk/manual/pact-testing.html) (where it acts as the "provider") and [with Content Store](https://docs.publishing.service.gov.uk/manual/pact-testing.html#special-cases-and-tech-debt) ( where it acts as the contract "consumer"). [Read the guidance for how to run the tests locally](https://docs.publishing.service.gov.uk/manual/pact-testing.html#running-pact-tests-locally).
 
 ### Further documentation
 
