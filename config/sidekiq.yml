@@ -1,7 +1,9 @@
 ---
 :verbose: false
 :concurrency: 12
-:logfile: ./log/sidekiq.json.log
+<% if ENV.key?('SIDEKIQ_LOGFILE') %>
+:logfile: <%= ENV['SIDEKIQ_LOGFILE'] %>
+<% end %>
 :queues:
   - downstream_high
   - dependency_resolution
