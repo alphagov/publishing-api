@@ -21,7 +21,7 @@ RUN apt-get update -qy && apt-get upgrade -y && \
 # TODO: DATABASE_URL shouldn't be set here but seems to be required by E2E tests, figure out why.
 ENV DATABASE_URL=postgresql://postgres@postgres/publishing-api PORT=3093
 ENV GOVUK_CONTENT_SCHEMAS_PATH=/govuk-content-schemas
-ENV RAILS_ENV=production GOVUK_APP_NAME=publishing-api
+ENV GOVUK_PROMETHEUS_EXPORTER=true RAILS_ENV=production GOVUK_APP_NAME=publishing-api
 ENV RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672 RABBITMQ_EXCHANGE=published_documents
 
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
