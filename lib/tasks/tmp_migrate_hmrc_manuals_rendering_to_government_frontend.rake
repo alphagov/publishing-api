@@ -12,6 +12,7 @@ task tmp_migrate_hmrc_manuals_rendering_to_government_frontend: :environment do
     edition = document.live
 
     next if edition.blank?
+    next if edition.document_type == "redirect"
 
     edition.update!(rendering_app: "government-frontend")
     Commands::V2::RepresentDownstream.new.call(document.content_id)
