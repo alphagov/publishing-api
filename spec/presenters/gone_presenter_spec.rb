@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Presenters::GonePresenter do
   describe "#for_message_queue" do
     let(:payload_version) { 1 }

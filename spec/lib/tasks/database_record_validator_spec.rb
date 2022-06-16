@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Tasks::DatabaseRecordValidator do
   let!(:valid_record) { create(:path_reservation) }
 

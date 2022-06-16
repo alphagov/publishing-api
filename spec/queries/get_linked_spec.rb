@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetLinked do
   let(:content_id) { SecureRandom.uuid }
   let(:target_content_id) { SecureRandom.uuid }

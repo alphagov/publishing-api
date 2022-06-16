@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Events::S3Importer do
   def gzipped_file(contents)
     string_io = StringIO.new

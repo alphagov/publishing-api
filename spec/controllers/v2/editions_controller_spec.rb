@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe V2::EditionsController do
   def u(string)
     CGI.escape(string)

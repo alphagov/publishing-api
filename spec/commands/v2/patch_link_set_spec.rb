@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::V2::PatchLinkSet do
   let(:expected_content_store_payload) { { base_path: "/vat-rates" } }
   let(:content_id) { SecureRandom.uuid }

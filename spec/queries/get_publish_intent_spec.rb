@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetPublishIntent do
   let(:timeout) { false }
 

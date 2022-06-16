@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "POST /lookup-by-base-path", type: :request do
   context "validating" do
     it "requires a base_paths param" do

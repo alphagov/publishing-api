@@ -1,4 +1,3 @@
-require "rails_helper"
 require "gds-sso/lint/user_spec"
 
 RSpec.describe User, type: :model do

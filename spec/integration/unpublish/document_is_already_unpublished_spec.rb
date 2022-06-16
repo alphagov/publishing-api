@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "/v2/content/:content_id/unpublish when the document is already unpublished" do
   let(:content_id) { SecureRandom.uuid }
   let(:document) do

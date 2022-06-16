@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe ChangeNote do
   let(:payload) { { change_note: payload_change_note } }
   let(:details) { {} }

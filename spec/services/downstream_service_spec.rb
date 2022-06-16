@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe DownstreamService do
   let(:downstream_payload) { double("downstream_payload") }
   let(:state) { "published" }

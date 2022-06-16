@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Presenters::Queries::ContentItemPresenter do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }

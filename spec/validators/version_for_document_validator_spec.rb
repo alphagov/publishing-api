@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe VersionForDocumentValidator do
   let(:version) { 5 }
   let(:document) { create(:document) }

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Discard draft rake task" do
   before do
     Rake::Task["discard_draft"].reenable

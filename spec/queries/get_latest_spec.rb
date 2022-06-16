@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetLatest do
   let(:document_a) { create(:document) }
   let(:document_b) { create(:document) }

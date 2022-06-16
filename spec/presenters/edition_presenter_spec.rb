@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Presenters::EditionPresenter do
   let(:present_drafts) { false }
   let(:change_history) { { note: "Note", public_timestamp: 1.day.ago.to_s } }

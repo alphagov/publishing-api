@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe LinkGraph::Node do
   let(:content_id) { SecureRandom.uuid }
   let(:link_type) { :organisation }

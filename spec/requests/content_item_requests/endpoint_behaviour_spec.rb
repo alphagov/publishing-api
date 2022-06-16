@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Endpoint behaviour", type: :request do
   context "GET /v2/content" do
     let(:request_path) { "/v2/content?document_type=topic&fields[]=title&fields[]=description" }

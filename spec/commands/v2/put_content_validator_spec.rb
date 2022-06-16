@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::V2::PutContentValidator do
   let(:payload) { { publishing_app: "foo" } }
   let(:command) { instance_double(Commands::V2::PutContent) }

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Redirecting editions that are redrafted" do
   let(:put_content) { Commands::V2::PutContent }
   let(:publish) { Commands::V2::Publish }

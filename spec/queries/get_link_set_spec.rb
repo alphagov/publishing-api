@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetLinkSet do
   let(:content_id) { SecureRandom.uuid }
 

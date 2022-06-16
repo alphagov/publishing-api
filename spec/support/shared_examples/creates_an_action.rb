@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.shared_examples "creates an action" do
   it "creates an action" do
     expect(Action.count).to be 0

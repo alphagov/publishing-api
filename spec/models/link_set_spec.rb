@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe LinkSet do
   subject(:link_set) { create(:link_set) }
 

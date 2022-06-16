@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Pagination do
   describe "initialize" do
     context "with a offset option" do

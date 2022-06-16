@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe V2::ActionsController do
   describe ".create" do
     let(:document) do

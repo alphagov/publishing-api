@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Events::S3Exporter do
   let(:created_before) { Time.zone.now }
   let(:created_on_or_after) { nil }

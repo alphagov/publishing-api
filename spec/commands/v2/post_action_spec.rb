@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::V2::PostAction do
   describe ".call" do
     let(:document) do

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe SchemaValidator do
   let(:schema) do
     {

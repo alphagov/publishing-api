@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "PUT /v2/content when creating a draft for a previously published edition" do
   include_context "PutContent call"
 

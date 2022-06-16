@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "pathless content" do
   describe Commands::V2::PutContent do
     describe "call" do

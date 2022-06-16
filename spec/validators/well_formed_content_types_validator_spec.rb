@@ -1,5 +1,3 @@
-require "rails_helper"
-
 class Record
   attr_reader :errors
 

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "GET /v2/linkables", type: :request do
   let!(:policy_1) do
     create(

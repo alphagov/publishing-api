@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetContent do
   let(:content_id) { SecureRandom.uuid }
   let(:document) { create(:document, content_id: content_id) }

@@ -1,6 +1,3 @@
-require "rails_helper"
-require "sidekiq/testing"
-
 RSpec.describe "Logging requests", type: :request do
   let(:govuk_request_id) { "12345-67890" }
 

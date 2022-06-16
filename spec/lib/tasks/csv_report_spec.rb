@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "CSV report rake tasks" do
   describe "csv_report:publishings_by_date_range" do
     let(:task) { Rake::Task["csv_report:publishings_by_date_range"] }

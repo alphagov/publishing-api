@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe DependencyResolution::LinkReference do
   describe "#valid_link_node?" do
     let(:node) { double(:node, link_types_path: link_types_path, links: node_links) }

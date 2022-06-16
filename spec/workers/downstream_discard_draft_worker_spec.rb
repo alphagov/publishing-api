@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe DownstreamDiscardDraftWorker do
   let(:base_path) { "/foo" }
 

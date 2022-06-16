@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
   include_context "PutContent call"
 

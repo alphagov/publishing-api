@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::LinksForEditionIds do
   def create_edition_link(edition, link_type)
     create(:link, edition_id: edition.id, link_set: nil, link_type: link_type)

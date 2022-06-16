@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Dependency Resolution" do
   include DependencyResolutionHelper
 

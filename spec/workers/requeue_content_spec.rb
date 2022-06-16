@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe RequeueContent do
   let(:edition) { create(:live_edition, base_path: "/ci1", schema_name: "generic") }
 

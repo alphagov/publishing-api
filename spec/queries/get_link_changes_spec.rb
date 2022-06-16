@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetLinkChanges do
   describe "#as_hash" do
     it "returns the link changes with the correct data" do

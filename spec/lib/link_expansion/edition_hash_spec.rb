@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe LinkExpansion::EditionHash do
   describe "from" do
     it "accepts a nil argument" do

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe ExpandedLinks do
   describe ".locked_update" do
     let(:content_id) { SecureRandom.uuid }

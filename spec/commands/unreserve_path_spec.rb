@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::UnreservePath do
   describe "#call" do
     context "when the path is owned by the app" do
