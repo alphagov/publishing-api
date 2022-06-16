@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Queue rake task" do
   before do
     Rake::Task["queue:preview_recent_message"].reenable

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Tasks::DataSanitizer do
   let!(:non_limited_draft) do
     create(:draft_edition, base_path: "/non-limited-draft")

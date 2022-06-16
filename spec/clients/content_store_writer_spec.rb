@@ -1,4 +1,3 @@
-require "spec_helper"
 require "support/webmock"
 require "json"
 require_relative "../../app/clients/content_store_writer"

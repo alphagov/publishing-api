@@ -1,7 +1,3 @@
-# frozen_string_literal: true
-
-require "rails_helper"
-
 RSpec.describe "GET /v2/links/changes", type: :request do
   before :each do
     stub_request(:put, /^#{Plek.find('draft-content-store')}.*$/)

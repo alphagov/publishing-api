@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Presenters::ResultsPresenter do
   let(:results) { double("results", total: 10, call: []) }
   let(:page) { 2 }

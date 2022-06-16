@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe SymbolizeJSON do
   subject { build(:draft_edition) }
 

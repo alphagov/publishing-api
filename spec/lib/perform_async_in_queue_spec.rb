@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe PerformAsyncInQueue do
   describe ".perform_async_in_queue" do
     before do

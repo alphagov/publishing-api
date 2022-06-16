@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe ExpansionRules::MultiLevelLinks do
   let(:multi_level_link_paths) do
     [

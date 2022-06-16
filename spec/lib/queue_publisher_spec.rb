@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe QueuePublisher do
   context "real mode" do
     let(:options) do

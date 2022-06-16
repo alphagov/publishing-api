@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::BaseCommand do
   let(:top_level_worker) { double(:top_level_worker, some_method: nil) }
   let(:nested_worker) { double(:nested_worker, some_method: nil) }

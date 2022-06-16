@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetExpandedLinks do
   let(:content_id) { SecureRandom.uuid }
   let(:locale) { "en" }

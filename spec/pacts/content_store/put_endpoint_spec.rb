@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   include Pact::Consumer::RSpec
   include RequestHelpers::Mocks

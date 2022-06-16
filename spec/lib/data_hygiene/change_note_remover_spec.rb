@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe DataHygiene::ChangeNoteRemover do
   let(:document) { create(:document) }
   let!(:superseded_edition) { create(:superseded_edition, document: document, change_note: "First change note.", update_type: "major") }

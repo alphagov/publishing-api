@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe LinkGraph do
   let(:content_id) { SecureRandom.uuid }
   let(:with_drafts) { false }

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Downstream requests", type: :request do
   describe "PUT /v2/content" do
     let(:content_item_for_draft_content_store) do

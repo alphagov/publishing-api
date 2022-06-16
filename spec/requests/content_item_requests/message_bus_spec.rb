@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Message bus", type: :request do
   context "/v2/content" do
     it "doesn't send any messages" do

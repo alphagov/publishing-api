@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Downstream timeouts", type: :request do
   context "/v2/content" do
     context "draft content store times out" do

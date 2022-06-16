@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::ReservePath do
   describe "call" do
     let(:payload) do

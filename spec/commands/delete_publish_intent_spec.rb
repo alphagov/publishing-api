@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::DeletePublishIntent do
   before do
     stub_request(:delete, %r{.*content-store.*/publish-intent/.*})

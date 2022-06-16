@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Discard draft requests", type: :request do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }

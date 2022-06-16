@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::V2::PutContent do
   include_context "PutContent call"
 

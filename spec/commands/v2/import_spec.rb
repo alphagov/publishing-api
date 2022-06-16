@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::V2::Import, type: :request do
   describe "#call" do
     let(:content_id) { SecureRandom.uuid }

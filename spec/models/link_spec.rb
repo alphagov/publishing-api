@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Link do
   describe "validating link_type" do
     subject(:link) { build(:link, link_type: link_type) }

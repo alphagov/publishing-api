@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe PathReservation, type: :model do
   describe "validations" do
     let(:reservation) { build(:path_reservation) }

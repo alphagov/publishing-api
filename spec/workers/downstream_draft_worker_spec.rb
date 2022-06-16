@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe DownstreamDraftWorker do
   let(:edition) do
     create(:draft_edition, base_path: "/foo")

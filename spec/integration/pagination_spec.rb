@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Paging through editions" do
   before do
     5.times do |n|

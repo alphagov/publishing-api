@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Presenters::DebugPresenter do
   let(:document) { create(:document) }
 

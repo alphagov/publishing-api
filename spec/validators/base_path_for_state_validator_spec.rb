@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe BasePathForStateValidator do
   let(:state_name) { "draft" }
   let(:base_path) { "/vat-rates" }

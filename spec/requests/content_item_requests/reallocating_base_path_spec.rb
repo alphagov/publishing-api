@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Reallocating base paths of editions" do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }

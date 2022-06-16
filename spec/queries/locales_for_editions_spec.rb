@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::LocalesForEditions do
   def create_edition(
     content_id,

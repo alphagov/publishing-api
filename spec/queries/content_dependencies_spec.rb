@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::ContentDependencies do
   include DependencyResolutionHelper
 

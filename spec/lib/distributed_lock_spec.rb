@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe DistributedLock do
   describe ".lock" do
     context "when it runs successfully" do

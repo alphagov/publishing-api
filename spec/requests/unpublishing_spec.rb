@@ -1,5 +1,3 @@
-require "rails_helper"
-
 # This spec covers the common success case for each
 # type of unpublishing.
 #

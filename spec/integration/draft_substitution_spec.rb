@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Substituting content that is not published" do
   let(:put_content_command) { Commands::V2::PutContent }
 

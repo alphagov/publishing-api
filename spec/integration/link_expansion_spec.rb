@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Link Expansion" do
   include DependencyResolutionHelper
 

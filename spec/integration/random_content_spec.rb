@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Randomised content" do
   include RandomContentHelpers
 

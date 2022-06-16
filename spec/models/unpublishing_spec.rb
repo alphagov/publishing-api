@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Unpublishing do
   describe "validations" do
     subject { build(:unpublishing) }

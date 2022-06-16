@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Action do
   describe "edition and link set presence" do
     let(:edition) { nil }

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetContentCollection do
   context "document_type" do
     before do

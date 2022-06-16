@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Superseding editions" do
   let(:put_content_command) { Commands::V2::PutContent }
   let(:publish_command) { Commands::V2::Publish }

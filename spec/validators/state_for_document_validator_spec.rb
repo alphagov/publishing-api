@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe StateForDocumentValidator do
   let(:state_name) { "draft" }
   let(:document) { create(:document) }

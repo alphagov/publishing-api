@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe EventLogger do
   let(:command_class) { Commands::PutPublishIntent }
   let(:payload) { { stuff: "1234" } }

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Document do
   subject { build(:document) }
 

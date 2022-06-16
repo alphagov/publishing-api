@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetLinkables do
   let(:document_type) { "contact" }
 

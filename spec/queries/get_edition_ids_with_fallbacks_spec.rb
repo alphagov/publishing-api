@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Queries::GetEditionIdsWithFallbacks do
   describe ".call" do
     let(:state_fallback_order) { %w[published] }

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Commands::V2::Publish do
   describe "call" do
     before do

@@ -1,4 +1,3 @@
-require "rails_helper"
 require "gds_api/test_helpers/content_store"
 require "gds_api/test_helpers/router"
 

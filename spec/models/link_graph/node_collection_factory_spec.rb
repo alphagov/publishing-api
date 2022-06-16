@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe LinkGraph::NodeCollectionFactory do
   let(:link_reference) { double(:link_reference, valid_link_node?: valid_link_node) }
   let(:link_graph) do

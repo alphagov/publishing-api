@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Message queue publishing" do
   include RandomContentHelpers
 

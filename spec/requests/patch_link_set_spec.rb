@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Keeping track of link changes", type: :request do
   scenario "No links are added or changed" do
     make_patch_links_request(

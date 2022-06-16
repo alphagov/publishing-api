@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Path reservation" do
   include_context "PutContent call"
 

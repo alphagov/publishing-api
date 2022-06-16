@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe LinkExpansion::ContentCache do
   def edition_attributes(edition)
     LinkExpansion::EditionHash.from(

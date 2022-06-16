@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Presenters::Queries::ExpandedLinkSet do
   include DependencyResolutionHelper
 

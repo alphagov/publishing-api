@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe DownstreamLiveWorker do
   let(:edition) do
     create(:live_edition, base_path: "/foo")

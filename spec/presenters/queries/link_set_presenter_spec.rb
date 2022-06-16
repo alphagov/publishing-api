@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Presenters::Queries::LinkSetPresenter do
   describe ".present" do
     let(:content_id) { SecureRandom.uuid }

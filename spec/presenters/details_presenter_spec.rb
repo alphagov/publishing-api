@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Presenters::DetailsPresenter do
   describe ".details" do
     let(:change_history_presenter) do

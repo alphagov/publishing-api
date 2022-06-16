@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Presenters::Queries::AvailableTranslations do
   subject(:translations) do
     described_class
