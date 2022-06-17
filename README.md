@@ -24,6 +24,7 @@ This is a Ruby on Rails app, and should follow [our Rails app conventions](https
 
 You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
 
+
 **Use GOV.UK Docker to run any commands that follow.**
 
 ## Running the test suite
