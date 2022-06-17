@@ -38,7 +38,6 @@ Rails.application.routes.draw do
       get "/editions", to: "editions#index"
 
       get "/linkables", to: "content_items#linkables"
-      get "/new-linkables", to: "content_items#new_linkables"
 
       post "/actions/:content_id", to: "actions#create"
 
