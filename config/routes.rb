@@ -35,7 +35,6 @@ Rails.application.routes.draw do
       get "/editions", to: "editions#index"
 
       get "/linkables", to: "content_items#linkables"
-      get "/new-linkables", to: "content_items#new_linkables"
 
       get "/links/changes", to: "link_changes#index"
     end
