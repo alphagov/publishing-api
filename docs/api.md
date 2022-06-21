@@ -17,7 +17,6 @@ message queue for other apps (e.g. `email-alert-service`) to consume.
 - [`POST /v2/content/:content_id/discard-draft`](#post-v2contentcontent_iddiscard-draft)
 - [`GET /v2/content`](#get-v2content)
 - [`GET /v2/content/:content_id`](#get-v2contentcontent_id)
-- [`POST /v2/actions/:content_id`](#post-v2actionscontent_id)
 - [`PATCH /v2/links/:content_id`](#patch-v2linkscontent_id)
 - [`GET /v2/links/:content_id`](#get-v2linkscontent_id)
 - [`GET /v2/expanded-links/:content_id`](#get-v2expanded-linkscontent_id)
@@ -430,36 +429,6 @@ included within the response.
 - `version` *(optional)*
   - Specify a particular edition of this document
   - If omitted the most recent edition.
-
-## `POST /v2/actions/:content_id`
-
-TODO: Request/Response pact for actions
-
-**Note - The usage opportunities for this endpoint is currently in discovery,
-this feature may change significantly in time.**
-
-Creates an action for the document that is specified, defaults to
-targeting a draft edition but can be specified to target
-live version. Uses [optimistic-locking][optimistic-locking].
-
-### Path parameters
-
-- [`content_id`](model.md#content_id)
-  - Identifies the document of which edition will be targeted.
-
-### JSON attributes
-
-- `action` *(required)*
-  - Currently an arbitrary name describing the workflow a edition has gone
-    through
-  - Provided in CamelCase
-- `draft` *(optional, default: "true")*
-  - Whether to target the live or draft edition of a document.
-- `locale` *(optional, default: "en")*
-  - Accepts: An available locale from the [Rails I18n gem][i18n-gem]
-  - Specifies which locale of a document to delete.
-- `previous_version` *(optional, recommended)*
-  - Used to ensure the document hasn't been updated before sending this request
 
 ## `PATCH /v2/links/:content_id`
 
