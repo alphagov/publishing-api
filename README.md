@@ -6,6 +6,7 @@ Publishing API sends content downstream to the draft and live [Content Stores][c
 
 ## Nomenclature
 
+
 - [**Document**](docs/model.md#document): A document is a piece of content in a particular locale. It is associated with editions that represent the versions of the document.
 - [**Edition**](docs/model.md#edition): The content of a document is represented by an edition, it represents a distinct version of a Document.
 - [**Content Item**][content-store-field-documentation]: A representation of content that can be sent to a [content store][content-store].
