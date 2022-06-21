@@ -27,8 +27,6 @@ Rails.application.routes.draw do
         get "/links/:content_id", to: "link_sets#get_links"
         get "/expanded-links/:content_id", to: "link_sets#expanded_links"
         patch "/links/:content_id", to: "link_sets#patch_links"
-        # put is provided for backwards compatibility.
-        put "/links/:content_id", to: "link_sets#patch_links"
         get "/linked/:content_id", to: "link_sets#get_linked"
       end
 

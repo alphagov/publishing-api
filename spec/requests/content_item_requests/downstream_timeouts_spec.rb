@@ -55,7 +55,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/v2/links/#{content_id}", params: patch_links_attributes.to_json
+        patch "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(
@@ -73,7 +73,7 @@ RSpec.describe "Downstream timeouts", type: :request do
       end
 
       it "returns an error" do
-        put "/v2/links/#{content_id}", params: patch_links_attributes.to_json
+        patch "/v2/links/#{content_id}", params: patch_links_attributes.to_json
 
         expect(response.status).to eq(500)
         expect(parsed_response).to eq(
