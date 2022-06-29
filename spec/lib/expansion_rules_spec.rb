@@ -53,6 +53,7 @@ RSpec.describe ExpansionRules do
     let(:service_manual_topic_fields) { default_fields + %i[description] }
     let(:step_by_step_fields) { default_fields + [%i[details step_by_step_nav title], %i[details step_by_step_nav steps]] }
     let(:step_by_step_auth_bypass_fields) { step_by_step_fields + %i[auth_bypass_ids] }
+    let(:document_collection_auth_bypass_fields) { default_fields + %i[auth_bypass_ids] }
     let(:travel_advice_fields) { default_fields + [%i[details country], %i[details change_description]] }
     let(:world_location_fields) { %i[content_id title schema_name locale analytics_identifier] }
 
@@ -101,6 +102,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:step_by_step_nav, link_type: :related_to_step_navs, draft: false)).to eq(step_by_step_fields) }
     specify { expect(rules.expansion_fields(:step_by_step_nav, link_type: :unspecified_link)).to eq(step_by_step_fields) }
     specify { expect(rules.expansion_fields(:step_by_step_nav)).to eq(step_by_step_auth_bypass_fields) }
+    specify { expect(rules.expansion_fields(:document_collection)).to eq(document_collection_auth_bypass_fields) }
 
     specify { expect(rules.expansion_fields(:taxon)).to eq(taxon_fields) }
     specify { expect(rules.expansion_fields(:travel_advice)).to eq(travel_advice_fields) }
