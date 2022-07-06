@@ -26,26 +26,49 @@
 ## Introduction
 
 Link expansion is a concept in the Publishing API which describes the process
-of converting the stored links of an edition into a JSON representation
-containing the details of these links. It is used in the Publishing API
+of converting the stored links of an edition (which contain only the content ids) into 
+a JSON representation containing the details of these links. It is used in the Publishing API
 during the process of sending an edition downstream to the
 [Content Store][content-store].
 
+This is useful because it means that the content item can render details about the 
+other pieces of content that it links to, without performing additional lookups of the linked
+content. After a link has been expanded, its json representation contains useful metadata
+such as the title, base path and document types, which can be rendered on the page.
+It replaces a process in the Content Store which was used to determine and expand 
+links at the point of request.
+
 The process involves determining which editions should and can be linked
-to, the versions of them that are linked, and the fields that will be included
-in the representation. It replaces a process in the Content Store which was
-used to determine and expand links at the point of request.
+to (via building up and traversing a graph of the document's links), 
+the versions of them that are linked, and the fields that will be included
+in the representation. 
 
 A closely related process to this is
-[dependency-resolution](dependency-resolution.md). This is something of a
-reversal in link expansion and has the role of determining which editions
-will need re-presenting to the content store as a result of an update to a
-document.
+[dependency-resolution](dependency-resolution.md). This performs the role of determining 
+which editions will need re-presenting to the content store as a result of an update to a
+document, and is something of a reversal in link expansion in the way that it traverses the 
+edition's links.
 
 ## Example Output
 
-Below is an abridged example of an edition represented as JSON after link
+Below is an abridged example of an edition represented as JSON before and after link
 expansion has occurred.
+
+Before: 
+
+```json
+{
+  "base_path": "/government/organisations/department-for-transport/about/welsh-language-scheme",
+  "content_id": "5f54d009-7631-11e4-a3cb-005056011aef",
+  ...
+  "links": {
+    "organisations": ["4c717efc-f47b-478e-a76d-ce1ae0af1946"]
+    }
+  },
+}
+```
+
+After link expansion, this becomes: 
 
 ```json
 {
@@ -54,10 +77,10 @@ expansion has occurred.
   ...
   "links": {
     "organisations": [{
+      "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
       "analytics_identifier": "D9",
       "api_path": "/api/content/government/organisations/department-for-transport",
       "base_path": "/government/organisations/department-for-transport",
-      "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
       "description": null,
       "document_type": "organisation",
       "locale": "en",
@@ -74,10 +97,10 @@ expansion has occurred.
       "links": {}
     }],
     "available_translations": [{
+      "content_id": "5f54d009-7631-11e4-a3cb-005056011aef",
       "analytics_identifier": null,
       "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport/about/welsh-language-scheme",
       "base_path": "/government/organisations/department-for-transport/about/welsh-language-scheme",
-      "content_id": "5f54d009-7631-11e4-a3cb-005056011aef",
       "description": "When conducting public business in Wales, English and Welsh languages are treated equally.",
       "document_type": "welsh_language_scheme",
       "locale": "en",
@@ -86,10 +109,10 @@ expansion has occurred.
       "title": "Welsh language scheme",
       "links": {}
     }, {
+      "content_id": "5f54d009-7631-11e4-a3cb-005056011aef",
       "analytics_identifier": null,
       "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport/about/welsh-language-scheme.cy",
       "base_path": "/government/organisations/department-for-transport/about/welsh-language-scheme.cy",
-      "content_id": "5f54d009-7631-11e4-a3cb-005056011aef",
       "description": "Wrth gynnal busnes cyhoeddus yng Nghymru, ieithoedd Cymraeg a Saesneg yn cael eu trin yn gyfartal.",
       "document_type": "welsh_language_scheme",
       "locale": "cy",
@@ -106,6 +129,9 @@ Within a `links` JSON object there are keys which indicate the type of link
 (`link_type`), and at the value of those keys is an array of all links of that
 type. In the above example there are two types of link: `organisations` and
 `available_translations` which contain 1 and 2 links respectively.
+
+Note that translations were not in the original content item, but are instead added as 
+part of this link expansion process.
 
 ## When it occurs
 
