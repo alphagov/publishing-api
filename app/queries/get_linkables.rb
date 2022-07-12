@@ -18,7 +18,7 @@ module Queries
     attr_reader :document_type
 
     def latest_updated_at(document_type)
-      non_placeholder = Edition.where(document_type: document_type)
+      non_placeholder = Edition.where(document_type:)
         .maximum("updated_at")
       placeholder = Edition.where(document_type: "placeholder_#{document_type}")
         .maximum("updated_at")

@@ -34,7 +34,7 @@ RSpec.describe Queries::GetLinked do
       before do
         create(
           :live_edition,
-          document: create(:document, content_id: content_id),
+          document: create(:document, content_id:),
           base_path: "/vat-rules-2020",
           title: "VAT rules 2020",
         )
@@ -49,7 +49,7 @@ RSpec.describe Queries::GetLinked do
       it "returns no results when no content is linked to it" do
         expect(
           Queries::GetLinked.new(
-            content_id: content_id,
+            content_id:,
             link_type: "organisations",
             fields: %w[title],
           ).call,
@@ -58,8 +58,8 @@ RSpec.describe Queries::GetLinked do
 
       context "where another edition is linked to it" do
         before do
-          link_set = create(:link_set, content_id: content_id)
-          create(:link, link_set: link_set, target_content_id: target_content_id)
+          link_set = create(:link_set, content_id:)
+          create(:link, link_set:, target_content_id:)
         end
 
         it "should return the linked item" do
@@ -110,18 +110,18 @@ RSpec.describe Queries::GetLinked do
         before do
           create(
             :live_edition,
-            document: create(:document, content_id: content_id),
+            document: create(:document, content_id:),
             title: "VAT and VATy things",
             base_path: "/vat-rates",
           )
           create(
             :link_set,
-            content_id: content_id,
+            content_id:,
             links: [
               create(
                 :link,
                 link_type: "organisations",
-                target_content_id: target_content_id,
+                target_content_id:,
               ),
             ],
           )
@@ -138,12 +138,12 @@ RSpec.describe Queries::GetLinked do
               create(
                 :link,
                 link_type: "organisations",
-                target_content_id: target_content_id,
+                target_content_id:,
               ),
               create(
                 :link,
                 link_type: "related_links",
-                target_content_id: target_content_id,
+                target_content_id:,
               ),
             ],
           )
@@ -200,13 +200,13 @@ RSpec.describe Queries::GetLinked do
 
           create(
             :draft_edition,
-            document: create(:document, content_id: content_id),
+            document: create(:document, content_id:),
             title: "HMRC documents",
           )
 
           create(
             :link_set,
-            content_id: content_id,
+            content_id:,
             links: [
               create(
                 :link,

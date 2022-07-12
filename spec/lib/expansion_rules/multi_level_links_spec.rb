@@ -10,7 +10,7 @@ RSpec.describe ExpansionRules::MultiLevelLinks do
 
   describe "#allowed_link_types" do
     subject(:instance) do
-      described_class.new(multi_level_link_paths, backwards: backwards)
+      described_class.new(multi_level_link_paths, backwards:)
     end
 
     context "when in forwards mode" do
@@ -47,8 +47,8 @@ RSpec.describe ExpansionRules::MultiLevelLinks do
 
   describe "#paths" do
     subject do
-      described_class.new(multi_level_link_paths, backwards: backwards)
-        .paths(length: length)
+      described_class.new(multi_level_link_paths, backwards:)
+        .paths(length:)
     end
 
     context "when in forwards mode" do
@@ -108,7 +108,7 @@ RSpec.describe ExpansionRules::MultiLevelLinks do
 
   describe ".next_allowed_link_types" do
     subject do
-      described_class.new(multi_level_link_paths, backwards: backwards)
+      described_class.new(multi_level_link_paths, backwards:)
         .next_allowed_link_types(link_types, link_types_path)
     end
 

@@ -1,17 +1,17 @@
 RSpec.describe "Discard draft requests", type: :request do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
-  let(:document) { create(:document, content_id: content_id) }
-  let(:fr_document) { create(:document, content_id: content_id, locale: "fr") }
+  let(:document) { create(:document, content_id:) }
+  let(:fr_document) { create(:document, content_id:, locale: "fr") }
 
   describe "POST /v2/content/:content_id/discard-draft" do
     context "when a draft edition exists" do
       let!(:draft_edition) do
         create(
           :draft_edition,
-          document: document,
+          document:,
           title: "draft",
-          base_path: base_path,
+          base_path:,
         )
       end
 
@@ -78,7 +78,7 @@ RSpec.describe "Discard draft requests", type: :request do
 
       context "and a live edition exists" do
         before do
-          create(:live_edition, document: document)
+          create(:live_edition, document:)
         end
 
         it "returns a 422" do

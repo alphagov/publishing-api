@@ -7,7 +7,7 @@ module Queries
       Edition
         .with_document
         .with_unpublishing
-        .where(documents: { content_id: content_id, locale: locale })
+        .where(documents: { content_id:, locale: })
         .where(content_store: allowed_content_stores)
         .where("unpublishings.type IS NULL OR unpublishings.type != 'substitute'")
         .order(user_facing_version: :desc)

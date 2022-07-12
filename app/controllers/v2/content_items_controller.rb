@@ -4,10 +4,10 @@ module V2
       pagination = Pagination.new(query_params)
 
       results = Queries::GetContentCollection.new(
-        document_types: document_types,
+        document_types:,
         fields: query_params[:fields],
-        filters: filters,
-        pagination: pagination,
+        filters:,
+        pagination:,
         search_query: query_params.fetch("q", ""),
         search_in: query_params[:search_in],
       )
@@ -75,7 +75,7 @@ module V2
 
     def filters
       {
-        publishing_app: publishing_app,
+        publishing_app:,
         locale: query_params[:locale],
         links: link_filters,
         states: Array(states),

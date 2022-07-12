@@ -10,20 +10,20 @@ RSpec.describe LinkSet do
     end
 
     context "with only saved links" do
-      before { create(:link, link_set: link_set) }
+      before { create(:link, link_set:) }
 
       it { is_expected.to be true }
     end
 
     context "with only other links" do
-      let(:other_links) { [build(:link, link_set: link_set)] }
+      let(:other_links) { [build(:link, link_set:)] }
 
       it { is_expected.to be true }
     end
 
     context "with the same other links" do
-      let(:link) { create(:link, link_set: link_set) }
-      let(:other_links) { [build(:link, link_set: link_set, target_content_id: link.target_content_id)] }
+      let(:link) { create(:link, link_set:) }
+      let(:other_links) { [build(:link, link_set:, target_content_id: link.target_content_id)] }
 
       it { is_expected.to be false }
     end
@@ -36,10 +36,10 @@ RSpec.describe LinkSet do
       let(:link) do
         create(
           :link,
-          link_set: link_set,
-          target_content_id: target_content_id,
-          link_type: link_type,
-          position: position,
+          link_set:,
+          target_content_id:,
+          link_type:,
+          position:,
         )
       end
       let(:other_link) { nil }
@@ -47,7 +47,7 @@ RSpec.describe LinkSet do
 
       context "different target_content_id" do
         let(:other_link) do
-          build(:link, target_content_id: SecureRandom.uuid, link_type: link_type, position: position)
+          build(:link, target_content_id: SecureRandom.uuid, link_type:, position:)
         end
 
         it { is_expected.to be true }
@@ -55,7 +55,7 @@ RSpec.describe LinkSet do
 
       context "different link_type" do
         let(:other_link) do
-          build(:link, target_content_id: target_content_id, link_type: "link_type2", position: position)
+          build(:link, target_content_id:, link_type: "link_type2", position:)
         end
 
         it { is_expected.to be true }
@@ -63,7 +63,7 @@ RSpec.describe LinkSet do
 
       context "different position" do
         let(:other_link) do
-          build(:link, target_content_id: target_content_id, link_type: link_type, position: 1)
+          build(:link, target_content_id:, link_type:, position: 1)
         end
 
         it { is_expected.to be true }

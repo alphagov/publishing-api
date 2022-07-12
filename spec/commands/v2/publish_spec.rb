@@ -17,7 +17,7 @@ RSpec.describe Commands::V2::Publish do
     let!(:document) do
       create(
         :document,
-        locale: locale,
+        locale:,
         stale_lock_version: 2,
       )
     end
@@ -25,13 +25,13 @@ RSpec.describe Commands::V2::Publish do
     let!(:draft_item) do
       create(
         :draft_edition,
-        document: document,
-        base_path: base_path,
-        user_facing_version: user_facing_version,
+        document:,
+        base_path:,
+        user_facing_version:,
       )
     end
 
-    let(:expected_content_store_payload) { { base_path: base_path } }
+    let(:expected_content_store_payload) { { base_path: } }
 
     before do
       stub_request(:put, %r{.*content-store.*/content/.*})
@@ -123,10 +123,10 @@ RSpec.describe Commands::V2::Publish do
       let!(:draft_item) do
         create(
           :draft_edition,
-          document: document,
+          document:,
           base_path: existing_base_path,
           title: "foo",
-          user_facing_version: user_facing_version,
+          user_facing_version:,
         )
       end
 
@@ -164,10 +164,10 @@ RSpec.describe Commands::V2::Publish do
         before do
           create(
             :live_edition,
-            document: document,
+            document:,
             base_path: existing_base_path,
             user_facing_version: user_facing_version - 1,
-            major_published_at: major_published_at,
+            major_published_at:,
           )
         end
 
@@ -187,7 +187,7 @@ RSpec.describe Commands::V2::Publish do
       let!(:live_item) do
         create(
           :live_edition,
-          document: document,
+          document:,
           base_path: existing_base_path,
           title: "foo",
           user_facing_version: user_facing_version - 1,
@@ -227,7 +227,7 @@ RSpec.describe Commands::V2::Publish do
       let!(:live_item) do
         create(
           :live_edition,
-          document: document,
+          document:,
           base_path: existing_base_path,
           user_facing_version: user_facing_version - 1,
         )
@@ -256,10 +256,10 @@ RSpec.describe Commands::V2::Publish do
       let!(:live_item) do
         create(
           :live_edition,
-          document: document,
+          document:,
           base_path: existing_base_path,
           user_facing_version: user_facing_version - 1,
-          first_published_at: first_published_at,
+          first_published_at:,
         )
       end
 
@@ -283,7 +283,7 @@ RSpec.describe Commands::V2::Publish do
         create(
           :unpublished_edition,
           document: draft_item.document,
-          base_path: base_path,
+          base_path:,
           user_facing_version: user_facing_version - 1,
         )
       end
@@ -303,7 +303,7 @@ RSpec.describe Commands::V2::Publish do
         create(
           :redirect_live_edition,
           document: create(:document, locale: draft_locale),
-          base_path: base_path,
+          base_path:,
         )
       end
 
@@ -322,7 +322,7 @@ RSpec.describe Commands::V2::Publish do
       let!(:live_edition) do
         create(
           :live_edition,
-          document: document,
+          document:,
           base_path: draft_item.base_path,
         )
       end
@@ -391,7 +391,7 @@ RSpec.describe Commands::V2::Publish do
 
       context "with a public_updated_at set on the draft edition" do
         before do
-          draft_item.update!(public_updated_at: public_updated_at)
+          draft_item.update!(public_updated_at:)
         end
 
         it "public_updated_at does not change for major or minor" do
@@ -418,8 +418,8 @@ RSpec.describe Commands::V2::Publish do
           let!(:live_item) do
             create(
               :live_edition,
-              document: document,
-              base_path: base_path,
+              document:,
+              base_path:,
               user_facing_version: user_facing_version - 1,
             )
           end
@@ -528,7 +528,7 @@ RSpec.describe Commands::V2::Publish do
       let!(:live_item) do
         create(
           :live_edition,
-          document: document,
+          document:,
           links_hash: { topics: [link_a] },
         )
       end
@@ -536,7 +536,7 @@ RSpec.describe Commands::V2::Publish do
       let!(:draft_item) do
         create(
           :draft_edition,
-          document: document,
+          document:,
           links_hash: { topics: [link_b] },
           user_facing_version: 2,
         )
@@ -610,8 +610,8 @@ RSpec.describe Commands::V2::Publish do
         before do
           create(
             :live_edition,
-            document: document,
-            base_path: base_path,
+            document:,
+            base_path:,
           )
         end
 

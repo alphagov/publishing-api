@@ -37,7 +37,7 @@ module DownstreamService
     end
 
     payload = downstream_payload.message_queue_payload
-    PublishingAPI.service(:queue_publisher).send_message(payload, event_type: event_type)
+    PublishingAPI.service(:queue_publisher).send_message(payload, event_type:)
   end
 
   def self.discard_from_draft_content_store(base_path)
@@ -53,14 +53,14 @@ module DownstreamService
   def self.draft_at_base_path?(base_path)
     return false unless base_path
 
-    Edition.exists?(base_path: base_path, state: "draft")
+    Edition.exists?(base_path:, state: "draft")
   end
 
   def self.discard_draft_base_path_conflict?(base_path)
     return false unless base_path
 
     Edition.exists?(
-      base_path: base_path,
+      base_path:,
       state: %w[draft published unpublished],
     )
   end

@@ -6,18 +6,18 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     let(:expanded_links) do
       {
         organisations: [{ content_id: SecureRandom.uuid }],
-        available_translations: [{ content_id: content_id }],
+        available_translations: [{ content_id: }],
       }
     end
 
     before do
       create(
         :expanded_links,
-        content_id: content_id,
+        content_id:,
         locale: "en",
         with_drafts: true,
-        expanded_links: expanded_links,
-        updated_at: updated_at,
+        expanded_links:,
+        updated_at:,
       )
     end
 
@@ -35,18 +35,18 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     let(:expanded_links) do
       {
         german_organisations: [{ content_id: SecureRandom.uuid }],
-        available_translations: [{ content_id: content_id }],
+        available_translations: [{ content_id: }],
       }
     end
 
     before do
       create(
         :expanded_links,
-        content_id: content_id,
+        content_id:,
         locale: "de",
         with_drafts: true,
-        expanded_links: expanded_links,
-        updated_at: updated_at,
+        expanded_links:,
+        updated_at:,
       )
     end
 
@@ -77,18 +77,18 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     let(:expanded_links) do
       {
         non_draft_organisations: [{ content_id: SecureRandom.uuid }],
-        available_translations: [{ content_id: content_id }],
+        available_translations: [{ content_id: }],
       }
     end
 
     before do
       create(
         :expanded_links,
-        content_id: content_id,
+        content_id:,
         locale: "en",
         with_drafts: false,
-        expanded_links: expanded_links,
-        updated_at: updated_at,
+        expanded_links:,
+        updated_at:,
       )
     end
 
@@ -108,7 +108,7 @@ RSpec.describe "GET /v2/expanded-links/:id", type: :request do
     let!(:edition) do
       create(
         :live_edition,
-        document: create(:document, content_id: content_id),
+        document: create(:document, content_id:),
         base_path: "/some-path",
         links_hash: { organisations: [linked_content_id] },
       )

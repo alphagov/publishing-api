@@ -112,7 +112,7 @@ RSpec.describe Queries::GetContentCollection do
         :unpublished_edition,
         document_type: "topic",
       )
-      unpublishing = Unpublishing.find_by(edition: edition)
+      unpublishing = Unpublishing.find_by(edition:)
 
       expect(
         Queries::GetContentCollection.new(
@@ -437,8 +437,8 @@ RSpec.describe Queries::GetContentCollection do
       Queries::GetContentCollection.new(
         document_types: "topic",
         fields: %w[base_path],
-        search_query: search_query,
-        search_in: search_in,
+        search_query:,
+        search_in:,
       )
     end
 
@@ -534,10 +534,10 @@ RSpec.describe Queries::GetContentCollection do
         ].each do |(base_path, public_updated_at)|
           create(
             :draft_edition,
-            base_path: base_path,
+            base_path:,
             document_type: "topic",
             schema_name: "topic",
-            public_updated_at: public_updated_at,
+            public_updated_at:,
           )
         end
         [
@@ -545,10 +545,10 @@ RSpec.describe Queries::GetContentCollection do
         ].each do |(base_path, public_updated_at)|
           create(
             :live_edition,
-            base_path: base_path,
+            base_path:,
             document_type: "topic",
             schema_name: "topic",
-            public_updated_at: public_updated_at,
+            public_updated_at:,
           )
         end
       end
@@ -641,7 +641,7 @@ RSpec.describe Queries::GetContentCollection do
 
         create(
           :live_edition,
-          document: document,
+          document:,
           document_type: "topic",
           schema_name: "topic",
           user_facing_version: 1,
@@ -649,7 +649,7 @@ RSpec.describe Queries::GetContentCollection do
 
         create(
           :draft_edition,
-          document: document,
+          document:,
           document_type: "topic",
           schema_name: "topic",
           user_facing_version: 2,

@@ -3,7 +3,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
   let(:edition) do
     create(
       :edition,
-      document: document,
+      document:,
       details: details.deep_stringify_keys,
     )
   end
@@ -27,7 +27,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       before do
         2.times do |i|
           ChangeNote.create(
-            edition: edition,
+            edition:,
             note: i.to_s,
             public_timestamp: Time.zone.now.utc,
           )
@@ -41,7 +41,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
     it "orders change notes by public_timestamp (ascending)" do
       [1, 3, 2].to_a.each do |i|
         ChangeNote.create(
-          edition: edition,
+          edition:,
           note: i.to_s,
           public_timestamp: i.days.ago,
         )
@@ -53,16 +53,16 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       let(:item1) do
         create(
           :superseded_edition,
-          document: document,
-          details: details,
+          document:,
+          details:,
           user_facing_version: 1,
         )
       end
       let(:item2) do
         create(
           :live_edition,
-          document: document,
-          details: details,
+          document:,
+          details:,
           user_facing_version: 2,
         )
       end

@@ -87,12 +87,12 @@ class Edition < ApplicationRecord
   def to_h
     SymbolizeJSON.symbolize(
       attributes.merge(
-        api_path: api_path,
-        api_url: api_url,
-        web_url: web_url,
+        api_path:,
+        api_url:,
+        web_url:,
         withdrawn: withdrawn?,
-        content_id: content_id,
-        locale: locale,
+        content_id:,
+        locale:,
       ),
     )
   end
@@ -167,25 +167,25 @@ class Edition < ApplicationRecord
 
   def unpublish(type:, explanation: nil, alternative_path: nil, redirects: nil, unpublished_at: nil)
     content_store = type == "substitute" ? nil : "live"
-    update!(state: "unpublished", content_store: content_store)
+    update!(state: "unpublished", content_store:)
 
     if unpublishing.present?
       unpublishing.update!(
-        type: type,
-        explanation: explanation,
-        alternative_path: alternative_path,
-        redirects: redirects,
-        unpublished_at: unpublished_at,
+        type:,
+        explanation:,
+        alternative_path:,
+        redirects:,
+        unpublished_at:,
       )
       unpublishing
     else
       Unpublishing.create!(
         edition: self,
-        type: type,
-        explanation: explanation,
-        alternative_path: alternative_path,
-        redirects: redirects,
-        unpublished_at: unpublished_at,
+        type:,
+        explanation:,
+        alternative_path:,
+        redirects:,
+        unpublished_at:,
       )
     end
   end

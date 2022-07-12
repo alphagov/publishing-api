@@ -64,7 +64,7 @@ RSpec.describe "Endpoint behaviour", type: :request do
 
       it "passes through the locale extension" do
         expect(PublishingAPI.service(:draft_content_store)).to receive(:put_content_item)
-          .with(hash_including(base_path: base_path))
+          .with(hash_including(base_path:))
           .at_least(:once)
 
         put "/v2/content/#{content_id}", params: content_item.to_json
@@ -95,8 +95,8 @@ RSpec.describe "Endpoint behaviour", type: :request do
     let(:content_id) { SecureRandom.uuid }
 
     context "when the document exists" do
-      let(:document) { create(:document, content_id: content_id) }
-      let!(:edition) { create(:draft_edition, document: document) }
+      let(:document) { create(:document, content_id:) }
+      let!(:edition) { create(:draft_edition, document:) }
 
       it "responds with 200" do
         get "/v2/content/#{content_id}"

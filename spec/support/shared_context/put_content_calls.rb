@@ -1,8 +1,8 @@
 RSpec.shared_context "PutContent call" do
   let(:payload) do
     {
-      content_id: content_id,
-      base_path: base_path,
+      content_id:,
+      base_path:,
       update_type: "major",
       title: "Some Title",
       publishing_app: "publisher",
@@ -10,11 +10,11 @@ RSpec.shared_context "PutContent call" do
       document_type: "services_and_information",
       schema_name: "generic",
       details: {},
-      locale: locale,
+      locale:,
       routes: [{ path: base_path, type: "exact" }],
       redirects: [],
       phase: "beta",
-      change_note: change_note,
+      change_note:,
     }
   end
 

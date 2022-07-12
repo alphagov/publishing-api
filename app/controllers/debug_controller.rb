@@ -24,9 +24,9 @@ class DebugController < ApplicationController
       missing, extra = fix_ordering_issues(missing, extra)
 
       {
-        missing: missing,
-        extra: extra,
-        changed: changed,
+        missing:,
+        extra:,
+        changed:,
       }
     end
   end

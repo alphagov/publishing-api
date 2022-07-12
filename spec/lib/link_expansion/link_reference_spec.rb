@@ -1,6 +1,6 @@
 RSpec.describe LinkExpansion::LinkReference do
   describe "#valid_link_node?" do
-    let(:node) { double(:node, link_types_path: link_types_path) }
+    let(:node) { double(:node, link_types_path:) }
     subject { described_class.new.valid_link_node?(node) }
 
     context "a single item in link_types_path" do

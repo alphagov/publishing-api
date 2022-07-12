@@ -18,8 +18,8 @@ RSpec.describe "Message bus", type: :request do
       before do
         create(
           :live_edition,
-          document: create(:document, content_id: content_id),
-          base_path: base_path,
+          document: create(:document, content_id:),
+          base_path:,
         )
       end
 
@@ -35,8 +35,8 @@ RSpec.describe "Message bus", type: :request do
       before do
         create(
           :draft_edition,
-          document: create(:document, content_id: content_id),
-          base_path: base_path,
+          document: create(:document, content_id:),
+          base_path:,
         )
       end
 
@@ -55,10 +55,10 @@ RSpec.describe "Message bus", type: :request do
     before do
       create(
         :draft_edition,
-        document: create(:document, content_id: content_id),
+        document: create(:document, content_id:),
         document_type: "nonexistent-schema",
         schema_name: "nonexistent-schema",
-        base_path: base_path,
+        base_path:,
       )
     end
 
