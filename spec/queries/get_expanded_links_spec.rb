@@ -24,7 +24,7 @@ RSpec.describe Queries::GetExpandedLinks do
 
   context "when generate is false" do
     context "and there are expanded links stored" do
-      let(:updated_at) { Time.zone.local("2017-07-27 16:01:01").utc }
+      let(:updated_at) { Time.zone.parse("2017-07-27 16:01:01").utc }
       let(:expanded_links) do
         {
           link_type: { content_id: SecureRandom.uuid },
