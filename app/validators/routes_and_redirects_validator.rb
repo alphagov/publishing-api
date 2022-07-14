@@ -1,5 +1,12 @@
 class RoutesAndRedirectsValidator < ActiveModel::Validator
-  EXTERNAL_HOST_ALLOW_LIST = %w[.gov.uk .judiciary.uk .nhs.uk .ukri.org .nationalhighways.co.uk .police.uk].freeze
+  EXTERNAL_HOST_ALLOW_LIST = %w[
+    .gov.uk
+    .judiciary.uk
+    .nationalhighways.co.uk
+    .nhs.uk
+    .police.uk
+    .ukri.org
+  ].freeze
 
   def validate(record, base_path: nil)
     base_path = record.base_path if base_path.nil?
