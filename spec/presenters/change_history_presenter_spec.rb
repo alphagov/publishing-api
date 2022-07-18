@@ -49,6 +49,12 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       expect(subject.map { |item| item[:note] }).to eq %w[3 2 1]
     end
 
+    it "omits change notes that don't have a public timestamp" do
+      create(:change_note, edition: edition, note: "with-timestamp", public_timestamp: 1.day.ago)
+      create(:change_note, edition: edition, note: "without-timestamp", public_timestamp: nil)
+      expect(subject.map { |item| item[:note] }).to eq %w[with-timestamp]
+    end
+
     context "multiple editions for a single content id" do
       let(:item1) do
         create(
