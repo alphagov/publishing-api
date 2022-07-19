@@ -173,5 +173,19 @@ RSpec.describe Edition::Timestamps do
         expect(edition.public_updated_at).to eq(current_time)
       end
     end
+
+    it "sets the public_timestamp of a change note without one" do
+      edition = create(:edition, public_updated_at: "2022-07-18")
+      change_note = create(:change_note, edition: edition, public_timestamp: nil)
+      expect { described_class.live_transition(edition, "minor") }
+        .to change { change_note.reload.public_timestamp }.to(edition.public_updated_at)
+    end
+
+    it "doesn't change the public_timestamp of a change note with one already set" do
+      edition = create(:edition)
+      change_note = create(:change_note, edition: edition, public_timestamp: "2022-07-18")
+      expect { described_class.live_transition(edition, "minor") }
+        .not_to(change { change_note.reload.public_timestamp })
+    end
   end
 end

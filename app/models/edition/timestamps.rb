@@ -58,6 +58,10 @@ class Edition::Timestamps
       end
     end
 
+    edition.change_note&.then do |change_note|
+      change_note.update!(public_timestamp: edition.public_updated_at) unless change_note.public_timestamp
+    end
+
     edition.save!
   end
 end
