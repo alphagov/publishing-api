@@ -1,6 +1,6 @@
 desc "Create RabbitMQ exchanges"
 task setup_exchange: :environment do
-  config = YAML.load_file(Rails.root.join("config/rabbitmq.yml"))[Rails.env].symbolize_keys
+  config = Rails.application.config_for(:rabbitmq)
 
   bunny = Bunny.new(ENV["RABBITMQ_URL"])
   channel = bunny.start.create_channel
