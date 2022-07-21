@@ -12,12 +12,11 @@ def update_hmrc_manual_section_titles(dry_run: false)
 
     next if edition.blank?
 
-    details = edition.details
-    manual_edition = Edition.live.where(base_path: details[:manual][:base_path]).first
-
     if manual_edition
-      details[:manual][:title] = manual_edition.title
-      puts("Updating HMRC Manual Section #{document.content_id} to set manual title to #{details[:manual][:title]}")
+      details = edition.details
+      details[:manual].delete(:title)
+
+      puts("Removing HMRC Manual title from HMRC Section #{document.content_id}")
       unless dry_run
         edition.update!(details: details)
         Commands::V2::RepresentDownstream.new.call(document.content_id)
