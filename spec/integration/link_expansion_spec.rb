@@ -12,15 +12,15 @@ RSpec.describe "Link Expansion" do
   subject(:expanded_links) do
     LinkExpansion.by_content_id(
       content_id,
-      locale:,
-      with_drafts:,
+      locale: locale,
+      with_drafts: with_drafts,
     ).links_with_content
   end
 
   subject(:expanded_links_by_edition) do
     LinkExpansion.by_edition(
       edition,
-      with_drafts:,
+      with_drafts: with_drafts,
     ).links_with_content
   end
 
@@ -527,9 +527,9 @@ RSpec.describe "Link Expansion" do
   describe "edition-level links across multiple locales" do
     let(:with_drafts) { false }
     let(:content_id) { a }
-    let(:en_document) { create(:document, content_id:) }
+    let(:en_document) { create(:document, content_id: content_id) }
     let(:fr_document) do
-      create(:document, content_id:, locale: "fr")
+      create(:document, content_id: content_id, locale: "fr")
     end
     let!(:en_edition) { create(:live_edition, document: en_document) }
     let!(:fr_edition) { create(:live_edition, document: fr_document) }
@@ -607,7 +607,7 @@ RSpec.describe "Link Expansion" do
         base_path: "/step-by-step",
         schema_name: "step_by_step_nav",
         document_type: "step_by_step_nav",
-        auth_bypass_ids:,
+        auth_bypass_ids: auth_bypass_ids,
       )
     end
 
@@ -616,7 +616,7 @@ RSpec.describe "Link Expansion" do
 
       it "includes the draft only fields" do
         expect(expanded_links[:part_of_step_navs]).to match([
-          a_hash_including(base_path: "/step-by-step", auth_bypass_ids:),
+          a_hash_including(base_path: "/step-by-step", auth_bypass_ids: auth_bypass_ids),
         ])
       end
     end
@@ -630,7 +630,7 @@ RSpec.describe "Link Expansion" do
         ])
 
         expect(expanded_links[:part_of_step_navs]).to match([
-          hash_not_including(auth_bypass_ids:),
+          hash_not_including(auth_bypass_ids: auth_bypass_ids),
         ])
       end
     end

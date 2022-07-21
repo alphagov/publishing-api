@@ -30,7 +30,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
   end
 
   context "existing links" do
-    let(:document) { create(:document, content_id:) }
+    let(:document) { create(:document, content_id: content_id) }
     let(:content_id) { SecureRandom.uuid }
     let(:link) { SecureRandom.uuid }
 
@@ -39,7 +39,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
     end
 
     context "draft edition" do
-      let(:edition) { create(:draft_edition, document:, base_path:) }
+      let(:edition) { create(:draft_edition, document: document, base_path: base_path) }
 
       it "passes the old link to dependency resolution" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
@@ -51,7 +51,7 @@ RSpec.describe "PUT /v2/content when the 'links' parameter is provided" do
     end
 
     context "published edition" do
-      let(:edition) { create(:live_edition, document:, base_path:) }
+      let(:edition) { create(:live_edition, document: document, base_path: base_path) }
 
       it "passes the old link to dependency resolution" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(

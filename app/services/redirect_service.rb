@@ -24,7 +24,7 @@ class RedirectService
 
     Commands::V2::PutContent.call(
       redirect_payload,
-      callbacks:,
+      callbacks: callbacks,
       nested: true,
       owning_document_id: previously_published_item.document.id,
     )

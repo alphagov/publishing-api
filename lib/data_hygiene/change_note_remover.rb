@@ -31,7 +31,7 @@ module DataHygiene
     attr_reader :content_id, :locale, :change_note_search, :dry_run
 
     def document
-      @document ||= Document.find_by(content_id:, locale:)
+      @document ||= Document.find_by(content_id: content_id, locale: locale)
     end
 
     def find_change_note

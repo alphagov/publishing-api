@@ -2,7 +2,7 @@ class DistributedLock
   attr_reader :name, :timeout_seconds, :has_run
 
   def self.lock(name, timeout_seconds: 30, &block)
-    new(name, timeout_seconds:).run(&block)
+    new(name, timeout_seconds: timeout_seconds).run(&block)
   end
 
   def initialize(name, timeout_seconds:)
@@ -19,7 +19,7 @@ class DistributedLock
     result = ActiveRecord::Base.transaction do
       ActiveRecord::Base.with_advisory_lock(
         name,
-        timeout_seconds:,
+        timeout_seconds: timeout_seconds,
         transaction: true,
       ) do
         @has_run = true

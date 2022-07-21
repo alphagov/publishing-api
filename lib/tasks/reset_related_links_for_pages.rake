@@ -10,7 +10,7 @@ namespace :content do
 
     content_ids.each do |content_id|
       response = Commands::V2::PatchLinkSet.call(
-        content_id:,
+        content_id: content_id,
         links: {
           suggested_ordered_related_items: [],
         },

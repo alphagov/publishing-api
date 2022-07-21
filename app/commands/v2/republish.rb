@@ -8,7 +8,7 @@ module Commands
         republish_edition
         after_transaction_commit { send_downstream } if downstream
 
-        Success.new({ content_id: })
+        Success.new({ content_id: content_id })
       end
 
     private
@@ -56,8 +56,8 @@ module Commands
         unless document.draft
           DownstreamDraftWorker.perform_async_in_queue(
             DownstreamDraftWorker::HIGH_QUEUE,
-            content_id:,
-            locale:,
+            content_id: content_id,
+            locale: locale,
             update_dependencies: true,
             source_command: "republish",
           )
@@ -65,8 +65,8 @@ module Commands
 
         DownstreamLiveWorker.perform_async_in_queue(
           DownstreamLiveWorker::HIGH_QUEUE,
-          content_id:,
-          locale:,
+          content_id: content_id,
+          locale: locale,
           message_queue_event_type: "republish",
           update_dependencies: true,
           source_command: "republish",

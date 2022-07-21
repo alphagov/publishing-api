@@ -13,13 +13,13 @@ class LinkChangeService
 
     after_links.each do |link|
       unless before_set.include?([link.target_content_id, link.link_type])
-        create_link_change(link:, change: :add)
+        create_link_change(link: link, change: :add)
       end
     end
 
     before_links.each do |link|
       unless after_set.include?([link.target_content_id, link.link_type])
-        create_link_change(link:, change: :remove)
+        create_link_change(link: link, change: :remove)
       end
     end
   end
@@ -31,8 +31,8 @@ private
       source_content_id: action.content_id,
       target_content_id: link.target_content_id,
       link_type: link.link_type,
-      change:,
-      action:,
+      change: change,
+      action: action,
     )
   end
 end

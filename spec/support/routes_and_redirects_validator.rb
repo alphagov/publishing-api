@@ -176,7 +176,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
     context "when destination is external url" do
       it "is invalid if it is not actually an external url" do
         ["https://gov.uk/test", "https://www.gov.uk/foo/bar"].each do |destination|
-          edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: }]
+          edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
 
           expect(subject).to be_invalid
         end
@@ -194,7 +194,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           https://fakesite.net/.new-vat-rates.campaign.gov.uk/path/to/your/new/vat-rates
           ftp://new-vat-rates.campaign.gov.uk/
         ].each do |destination|
-          edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: }]
+          edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
 
           expect(subject).to be_invalid
         end
@@ -214,7 +214,7 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
           https://www.nationalhighways.co.uk/
           https://www.police.uk/
         ].each do |destination|
-          edition.redirects = [{ path: "#{subject.base_path}/new", type: "exact", destination: }]
+          edition.redirects = [{ path: "#{subject.base_path}/new", type: "exact", destination: destination }]
 
           expect(subject).to be_valid
           expect(subject.errors[:redirects]).to eq([])
@@ -261,14 +261,14 @@ RSpec.shared_examples_for RoutesAndRedirectsValidator do
     context "when the type is 'exact'" do
       it "is valid with an optional query string and fragment in destination" do
         %w[/foo/bar /foo?bar=baz /foo/bar#baz].each do |destination|
-          edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: }]
+          edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
           expect(subject).to be_valid
         end
       end
 
       it "is invalid with an non-absolute url" do
         ["foo/bar", "/url with spaces", "fdjkdfjkljsdaf"].each do |destination|
-          edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: }]
+          edition.redirects = [{ path: "#{subject.base_path}/foo", type: "exact", destination: destination }]
 
           expect(subject).to be_invalid
         end

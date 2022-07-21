@@ -1,11 +1,11 @@
 RSpec.describe LinkExpansion::EditionDiff do
   let(:content_id) { SecureRandom.uuid }
-  let(:document) { create(:document, content_id:) }
+  let(:document) { create(:document, content_id: content_id) }
 
   let!(:previous_edition) do
     create(
       :superseded_edition,
-      document:,
+      document: document,
       title: "Foo",
       base_path: "/foo",
     )
@@ -14,7 +14,7 @@ RSpec.describe LinkExpansion::EditionDiff do
   let!(:current_edition) do
     create(
       :live_edition,
-      document:,
+      document: document,
       title: "Bar",
       base_path: "/foo",
       user_facing_version: 2,
@@ -24,7 +24,7 @@ RSpec.describe LinkExpansion::EditionDiff do
   let(:new_draft_edition) do
     create(
       :draft_edition,
-      document:,
+      document: document,
       title: "Bar",
       base_path: "/foo",
       user_facing_version: 3,
@@ -59,7 +59,7 @@ RSpec.describe LinkExpansion::EditionDiff do
     let!(:current_edition) do
       create(
         :live_edition,
-        document:,
+        document: document,
         title: "Bar",
         base_path: "/bar",
         user_facing_version: 2,
@@ -78,7 +78,7 @@ RSpec.describe LinkExpansion::EditionDiff do
     let!(:current_edition) do
       create(
         :live_edition,
-        document:,
+        document: document,
         user_facing_version: 2,
         document_type: "finder",
         base_path: "/foo",
@@ -97,7 +97,7 @@ RSpec.describe LinkExpansion::EditionDiff do
     let!(:previous_edition) do
       create(
         :superseded_edition,
-        document:,
+        document: document,
         document_type: "travel_advice",
         base_path: "/foo",
         details: { country: "en" },
@@ -108,7 +108,7 @@ RSpec.describe LinkExpansion::EditionDiff do
       let!(:current_edition) do
         create(
           :live_edition,
-          document:,
+          document: document,
           user_facing_version: 2,
           document_type: "travel_advice",
           base_path: "/foo",
@@ -127,7 +127,7 @@ RSpec.describe LinkExpansion::EditionDiff do
       let!(:current_edition) do
         create(
           :live_edition,
-          document:,
+          document: document,
           user_facing_version: 2,
           document_type: "travel_advice",
           base_path: "/foo",

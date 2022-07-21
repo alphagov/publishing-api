@@ -4,7 +4,7 @@ module Commands
       def call
         raise_unless_links_hash_is_provided
         validate_schema
-        link_set = LinkSet.find_or_create_locked(content_id:)
+        link_set = LinkSet.find_or_create_locked(content_id: content_id)
         check_version_and_raise_if_conflicting(link_set, previous_version_number)
 
         link_set.increment!(:stale_lock_version)
@@ -96,10 +96,10 @@ module Commands
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
-          content_id:,
-          locale:,
-          orphaned_content_ids:,
-          update_dependencies:,
+          content_id: content_id,
+          locale: locale,
+          orphaned_content_ids: orphaned_content_ids,
+          update_dependencies: update_dependencies,
           source_command: "patch_link_set",
         )
       end
@@ -108,11 +108,11 @@ module Commands
         queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
-          content_id:,
-          locale:,
+          content_id: content_id,
+          locale: locale,
           message_queue_event_type: "links",
-          orphaned_content_ids:,
-          update_dependencies:,
+          orphaned_content_ids: orphaned_content_ids,
+          update_dependencies: update_dependencies,
           source_command: "patch_link_set",
         )
       end
@@ -133,7 +133,7 @@ module Commands
       def schema_validator
         @schema_validator ||= SchemaValidator.new(
           payload: { links: payload[:links] },
-          schema_name:,
+          schema_name: schema_name,
           schema_type: :links,
         )
       end

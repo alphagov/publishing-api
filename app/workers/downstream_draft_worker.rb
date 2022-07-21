@@ -76,12 +76,12 @@ private
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(
       content_store: Adapters::DraftContentStore,
-      content_id:,
-      locale:,
-      orphaned_content_ids:,
-      source_command:,
+      content_id: content_id,
+      locale: locale,
+      orphaned_content_ids: orphaned_content_ids,
+      source_command: source_command,
       source_document_type: edition.document_type,
-      source_fields:,
+      source_fields: source_fields,
     )
   end
 
@@ -91,10 +91,10 @@ private
 
   def update_expanded_links(downstream_payload)
     ExpandedLinks.locked_update(
-      content_id:,
-      locale:,
+      content_id: content_id,
+      locale: locale,
       with_drafts: true,
-      payload_version:,
+      payload_version: payload_version,
       expanded_links: downstream_payload.expanded_links,
     )
 
@@ -102,14 +102,14 @@ private
     # accessed without drafts, so this is generates them as well.
     live_links = Presenters::Queries::ExpandedLinkSet.by_content_id(
       content_id,
-      locale:,
+      locale: locale,
       with_drafts: false,
     )
     ExpandedLinks.locked_update(
-      content_id:,
-      locale:,
+      content_id: content_id,
+      locale: locale,
       with_drafts: false,
-      payload_version:,
+      payload_version: payload_version,
       expanded_links: live_links.links,
     )
   end

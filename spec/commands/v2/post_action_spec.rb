@@ -15,8 +15,8 @@ RSpec.describe Commands::V2::PostAction do
       {
         content_id: document.content_id,
         locale: document.locale,
-        action:,
-        draft:,
+        action: action,
+        draft: draft,
       }
     end
 
@@ -69,7 +69,7 @@ RSpec.describe Commands::V2::PostAction do
     end
 
     context "when a draft edition exists" do
-      before { create(:draft_edition, document:) }
+      before { create(:draft_edition, document: document) }
 
       include_examples "action behaviour"
       context "and we specify the action is not for a draft" do
@@ -79,7 +79,7 @@ RSpec.describe Commands::V2::PostAction do
     end
 
     context "when a published edition exists" do
-      before { create(:live_edition, document:) }
+      before { create(:live_edition, document: document) }
 
       let(:draft) { false }
 

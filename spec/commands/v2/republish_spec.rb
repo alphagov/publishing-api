@@ -103,8 +103,8 @@ RSpec.describe Commands::V2::Republish do
       let(:document) { create(:document) }
 
       before do
-        create(:live_edition, document:)
-        create(:draft_edition, document:, user_facing_version: 2)
+        create(:live_edition, document: document)
+        create(:draft_edition, document: document, user_facing_version: 2)
       end
 
       it "doesn't call the DownstreamDraftWorker" do

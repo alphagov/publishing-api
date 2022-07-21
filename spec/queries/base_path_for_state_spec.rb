@@ -39,7 +39,7 @@ RSpec.describe Queries::BasePathForState do
         %w[published unpublished superseded].each do |state|
           context "when the edition is #{state}" do
             before do
-              conflict_edition.update(state:)
+              conflict_edition.update(state: state)
             end
 
             it { is_expected.to be_nil }

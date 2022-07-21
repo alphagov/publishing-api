@@ -2,7 +2,7 @@ RSpec.describe "DELETE /paths", type: :request do
   let(:request_body) { payload.to_json }
 
   def do_request(body: request_body, headers: {})
-    delete request_path, params: body, headers:
+    delete request_path, params: body, headers: headers
   end
 
   context "with path /vat-rates" do
@@ -12,7 +12,7 @@ RSpec.describe "DELETE /paths", type: :request do
     before do
       create(
         :path_reservation,
-        base_path:,
+        base_path: base_path,
         publishing_app: "publisher",
       )
     end

@@ -53,9 +53,9 @@ private
         content_id: link[:content_id],
         locale: link[:locale],
         edition_id: link[:edition_id],
-        link_type:,
+        link_type: link_type,
         parent: parent_node,
-        link_graph:,
+        link_graph: link_graph,
         has_own_links: link[:has_own_links],
         is_linked_to: link[:is_linked_to],
       )

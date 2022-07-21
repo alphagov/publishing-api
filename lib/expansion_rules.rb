@@ -103,7 +103,7 @@ module_function
       ordered_chief_professional_officers
       ordered_special_representatives
     ].map do |link_type|
-      { document_type: :person, link_type:, fields: PERSON_FIELDS_WITH_IMAGE }
+      { document_type: :person, link_type: link_type, fields: PERSON_FIELDS_WITH_IMAGE }
     end
   ).freeze
 
@@ -122,7 +122,7 @@ module_function
       traffic_commissioner_role
       worldwide_office_staff_role
     ].map do |document_type|
-      { document_type:, fields: ROLE_FIELDS }
+      { document_type: document_type, fields: ROLE_FIELDS }
     end
   ).freeze
 
@@ -288,8 +288,8 @@ module_function
   def expand_fields(edition_hash, link_type: nil, draft: true)
     fields = expansion_fields(
       edition_hash[:document_type],
-      link_type:,
-      draft:,
+      link_type: link_type,
+      draft: draft,
     )
 
     fields.each_with_object({}) do |field, expanded|

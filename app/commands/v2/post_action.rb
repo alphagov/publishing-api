@@ -8,9 +8,9 @@ module Commands
           content_id: document.content_id,
           locale: document.locale,
           action: action_type,
-          edition:,
+          edition: edition,
           user_uid: event.user_uid,
-          event:,
+          event: event,
         )
 
         Success.new(

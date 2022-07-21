@@ -20,19 +20,19 @@ class Presenters::RedirectPresenter
   end
 
   def for_content_store(payload_version)
-    present.merge(payload_version:)
+    present.merge(payload_version: payload_version)
   end
 
   def for_message_queue(payload_version)
     present.merge(
-      content_id:,
+      content_id: content_id,
       govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
-      payload_version:,
+      payload_version: payload_version,
     )
   end
 
   def for_redirect_helper(content_id)
-    present.merge(content_id:, update_type: "major")
+    present.merge(content_id: content_id, update_type: "major")
   end
 
 private
@@ -48,10 +48,10 @@ private
     attributes = {
       document_type: "redirect",
       schema_name: "redirect",
-      base_path:,
-      locale:,
-      publishing_app:,
-      redirects:,
+      base_path: base_path,
+      locale: locale,
+      publishing_app: publishing_app,
+      redirects: redirects,
     }
     if public_updated_at.present?
       attributes[:public_updated_at] = public_updated_at.iso8601

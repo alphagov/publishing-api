@@ -6,7 +6,7 @@ RSpec.describe LinkGraph do
     described_class.new(
       root_content_id: content_id,
       root_locale: locale,
-      with_drafts:,
+      with_drafts: with_drafts,
       link_reference: double(:link_reference),
     )
   end

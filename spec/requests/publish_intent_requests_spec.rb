@@ -70,7 +70,7 @@ RSpec.describe "Publish intent requests", type: :request do
     end
 
     let(:expected_event_payload) do
-      content_item.merge(base_path:)
+      content_item.merge(base_path: base_path)
     end
 
     it "sends to live content store" do

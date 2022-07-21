@@ -65,7 +65,7 @@ RSpec.describe Unpublishing do
       let(:edition) do
         create(
           :edition,
-          base_path:,
+          base_path: base_path,
         )
       end
 

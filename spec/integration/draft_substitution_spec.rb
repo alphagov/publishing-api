@@ -6,7 +6,7 @@ RSpec.describe "Substituting content that is not published" do
 
   let(:guide_payload) do
     {
-      content_id:,
+      content_id: content_id,
       base_path: "/vat-rates",
       title: "Some Title",
       publishing_app: "publisher",

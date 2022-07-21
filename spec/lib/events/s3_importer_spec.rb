@@ -8,7 +8,7 @@ RSpec.describe Events::S3Importer do
     string_io
   end
 
-  let(:resource) { Aws::S3::Resource.new(client:) }
+  let(:resource) { Aws::S3::Resource.new(client: client) }
   let(:client) { Aws::S3::Client.new(region: "eu-west-1", stub_responses: true) }
   let(:s3_key) { "events/2015-11-12T00:00:00+00:00.csv.gz" }
   let(:file) { gzipped_file(file_contents) }

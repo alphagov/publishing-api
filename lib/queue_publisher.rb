@@ -23,7 +23,7 @@ class QueuePublisher
 
     validate_edition(edition)
     routing_key ||= routing_key(edition, event_type)
-    publish_message(routing_key, edition, content_type: "application/json", persistent:)
+    publish_message(routing_key, edition, content_type: "application/json", persistent: persistent)
   end
 
   def routing_key(edition, event_type)
@@ -68,7 +68,7 @@ private
     # passive parameter ensures we don't create the exchange
     exchange = channel.topic(@exchange_name, passive: true)
     begin
-      publish_options = options.merge(routing_key:)
+      publish_options = options.merge(routing_key: routing_key)
 
       exchange.publish(message_data.to_json, publish_options)
       success = exchange.wait_for_confirms
@@ -81,9 +81,9 @@ private
           PublishFailedError.new("Publishing message failed"),
           level: "error",
           extra: {
-            routing_key:,
+            routing_key: routing_key,
             message_body: message_data,
-            options:,
+            options: options,
           },
         )
         PublishingAPI.service(:statsd).increment("message-send-failure.#{event_type}")

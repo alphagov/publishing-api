@@ -4,7 +4,7 @@ RSpec.describe "pathless content" do
       let(:content_id) { build(:document).content_id }
       let(:payload) do
         {
-          content_id:,
+          content_id: content_id,
           title: "Some Title",
           publishing_app: "publisher",
           rendering_app: "frontend",
@@ -76,7 +76,7 @@ RSpec.describe "pathless content" do
           let!(:draft_edition) do
             create(
               :draft_edition,
-              document: create(:document, content_id:),
+              document: create(:document, content_id: content_id),
               title: "Old Title",
             )
           end
@@ -91,7 +91,7 @@ RSpec.describe "pathless content" do
           let!(:live_edition) do
             create(
               :live_edition,
-              document: create(:document, content_id:),
+              document: create(:document, content_id: content_id),
               title: "Old Title",
             )
           end
@@ -107,7 +107,7 @@ RSpec.describe "pathless content" do
       context "where a base_path is optional and supplied" do
         before do
           payload.merge!(
-            base_path:,
+            base_path: base_path,
             routes: [{ path: base_path, type: "exact" }],
           )
         end
@@ -143,7 +143,7 @@ RSpec.describe "pathless content" do
           before do
             create(
               :draft_edition,
-              base_path:,
+              base_path: base_path,
               schema_name: "contact",
               document_type: "contact",
               user_facing_version: 3,

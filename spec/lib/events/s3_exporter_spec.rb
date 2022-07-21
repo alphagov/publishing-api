@@ -2,7 +2,7 @@ RSpec.describe Events::S3Exporter do
   let(:created_before) { Time.zone.now }
   let(:created_on_or_after) { nil }
   let(:client) { Aws::S3::Client.new(region: "eu-west-1", stub_responses: true) }
-  let(:resource) { Aws::S3::Resource.new(client:) }
+  let(:resource) { Aws::S3::Resource.new(client: client) }
   let(:object_exists?) { false }
   let(:s3_key) { "events/#{created_before.strftime('%FT%T%:z')}.csv.gz" }
   let(:resource_double) { instance_double("Aws::S3::Resource", bucket: bucket_double) }

@@ -9,11 +9,11 @@ module Presenters
 
     def present
       {
-        total:,
+        total: total,
         pages: pagination_pages,
-        current_page:,
-        links:,
-        results:,
+        current_page: current_page,
+        links: links,
+        results: results,
       }
     end
 

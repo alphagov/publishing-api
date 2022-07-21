@@ -9,7 +9,7 @@ RSpec.describe DownstreamPayload do
     DownstreamPayload.new(
       edition,
       payload_version,
-      draft:,
+      draft: draft,
     )
   end
 
@@ -104,7 +104,7 @@ RSpec.describe DownstreamPayload do
       {
         title: edition.title,
         base_path: edition.base_path,
-        payload_version:,
+        payload_version: payload_version,
       }
     end
 

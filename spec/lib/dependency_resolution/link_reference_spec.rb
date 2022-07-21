@@ -1,6 +1,6 @@
 RSpec.describe DependencyResolution::LinkReference do
   describe "#valid_link_node?" do
-    let(:node) { double(:node, link_types_path:, links: node_links) }
+    let(:node) { double(:node, link_types_path: link_types_path, links: node_links) }
     let(:node_links) { [] }
     subject { described_class.new.valid_link_node?(node) }
 

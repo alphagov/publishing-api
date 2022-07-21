@@ -19,8 +19,8 @@ RSpec.describe LinkExpansion::ContentCache do
     subject(:find) do
       described_class.new(
         locale: :en,
-        with_drafts:,
-        preload_content_ids:,
+        with_drafts: with_drafts,
+        preload_content_ids: preload_content_ids,
       ).find(content_id)
     end
 
@@ -29,7 +29,7 @@ RSpec.describe LinkExpansion::ContentCache do
     end
 
     context "draft edition" do
-      let!(:draft) { create(:draft_edition, document:) }
+      let!(:draft) { create(:draft_edition, document: document) }
       let!(:draft_attributes) { edition_attributes(draft) }
 
       context "with drafts" do
@@ -44,14 +44,14 @@ RSpec.describe LinkExpansion::ContentCache do
     end
 
     context "published edition" do
-      let!(:published) { create(:live_edition, document:) }
+      let!(:published) { create(:live_edition, document: document) }
       let(:published_attributes) { edition_attributes(published) }
 
       it { is_expected.to eq(published_attributes) }
     end
 
     context "cached item" do
-      let!(:published) { create(:live_edition, document:) }
+      let!(:published) { create(:live_edition, document: document) }
       before { find }
 
       it "doesn't run a query" do
@@ -61,13 +61,13 @@ RSpec.describe LinkExpansion::ContentCache do
     end
 
     context "preload_content_ids" do
-      let!(:published) { create(:live_edition, document:) }
+      let!(:published) { create(:live_edition, document: document) }
       let(:preload_content_ids) { [content_id] }
       let!(:instance) do
         described_class.new(
           locale: :en,
-          with_drafts:,
-          preload_content_ids:,
+          with_drafts: with_drafts,
+          preload_content_ids: preload_content_ids,
         )
       end
 
@@ -78,13 +78,13 @@ RSpec.describe LinkExpansion::ContentCache do
     end
 
     context "preload_editions" do
-      let!(:published) { create(:live_edition, document:) }
+      let!(:published) { create(:live_edition, document: document) }
       let(:preload_editions) { [published] }
       let!(:instance) do
         described_class.new(
           locale: :en,
-          with_drafts:,
-          preload_editions:,
+          with_drafts: with_drafts,
+          preload_editions: preload_editions,
         )
       end
 

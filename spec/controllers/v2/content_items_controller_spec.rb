@@ -4,10 +4,10 @@ RSpec.describe V2::ContentItemsController do
     instance_double(SchemaValidator, valid?: true, errors: [])
   end
   let(:document_en) do
-    create(:document, content_id:, locale: "en")
+    create(:document, content_id: content_id, locale: "en")
   end
   let(:document_ar) do
-    create(:document, content_id:, locale: "ar")
+    create(:document, content_id: content_id, locale: "ar")
   end
 
   before do
@@ -215,7 +215,7 @@ RSpec.describe V2::ContentItemsController do
           last_edited_at: Date.new(2016, 2, 2),
         )
 
-        get :index, params: { locale: "all", order:, fields: }
+        get :index, params: { locale: "all", order: order, fields: fields }
       end
 
       context "when ordering by updated_at ascending" do
@@ -346,8 +346,8 @@ RSpec.describe V2::ContentItemsController do
     context "with link filtering params" do
       before do
         org_content_id = SecureRandom.uuid
-        link_set = create(:link_set, content_id:)
-        create(:link, link_set:, target_content_id: org_content_id)
+        link_set = create(:link_set, content_id: content_id)
+        create(:link, link_set: link_set, target_content_id: org_content_id)
 
         get :index, params: { content_format: "topic", fields: %w[content_id], link_organisations: org_content_id.to_s }
       end
@@ -366,7 +366,7 @@ RSpec.describe V2::ContentItemsController do
   describe "show" do
     context "for an existing edition" do
       before do
-        get :show, params: { content_id: }
+        get :show, params: { content_id: content_id }
       end
 
       it "is successful" do
@@ -393,7 +393,7 @@ RSpec.describe V2::ContentItemsController do
           target_content_id: document_ar.content_id,
         )
 
-        get :show, params: { content_id: }
+        get :show, params: { content_id: content_id }
       end
 
       it "includes the edition links in the JSON" do
@@ -440,7 +440,7 @@ RSpec.describe V2::ContentItemsController do
         )
 
         request.env["CONTENT_TYPE"] = "application/json"
-        put :put_content, params: { content_id: }, body: edition_hash.to_json
+        put :put_content, params: { content_id: content_id }, body: edition_hash.to_json
       end
 
       it "responds with 200" do
@@ -461,7 +461,7 @@ RSpec.describe V2::ContentItemsController do
       before do
         request.set_header("HTTP_GOVUK_REQUEST_ID", govuk_request_id)
         GdsApi::GovukHeaders.set_header(:govuk_request_id, govuk_request_id)
-        put :publish, params: { content_id: }, body: body.to_json
+        put :publish, params: { content_id: content_id }, body: body.to_json
       end
 
       it "is successful" do

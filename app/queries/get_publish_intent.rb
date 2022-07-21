@@ -18,11 +18,11 @@ module Queries
 
       def raise_error(code, message)
         raise CommandError.new(
-          code:,
+          code: code,
           error_details: {
             error: {
-              code:,
-              message:,
+              code: code,
+              message: message,
             },
           },
         )

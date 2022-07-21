@@ -58,7 +58,7 @@ private
       error_details: {
         error: {
           code: 422,
-          message:,
+          message: message,
         },
       },
     )

@@ -13,14 +13,14 @@ module Queries
       validate_fields!
 
       content_ids = Link
-        .where(target_content_id:)
-        .where(link_type:)
+        .where(target_content_id: target_content_id)
+        .where(link_type: link_type)
         .joins(:link_set)
         .pluck(:content_id)
 
       editions = Edition.with_document.where("documents.content_id": content_ids)
 
-      presented = presenter.present_many(editions, fields:)
+      presented = presenter.present_many(editions, fields: fields)
       presented.map { |p| filter_fields(p).as_json }
     end
 
@@ -58,11 +58,11 @@ module Queries
       end
 
       raise CommandError.new(
-        code:,
+        code: code,
         error_details: {
           error: {
-            code:,
-            message:,
+            code: code,
+            message: message,
           },
         },
       )

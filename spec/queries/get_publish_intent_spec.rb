@@ -7,7 +7,7 @@ RSpec.describe Queries::GetPublishIntent do
     if timeout
       request_stub.to_timeout
     else
-      request_stub.to_return(status:, body: body.to_json)
+      request_stub.to_return(status: status, body: body.to_json)
     end
   end
 

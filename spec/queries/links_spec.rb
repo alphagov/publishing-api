@@ -29,7 +29,7 @@ RSpec.describe Queries::Links do
       let(:link_type) { :organisations }
       let(:allowed_link_types) { [link_type] }
       subject(:result) do
-        described_class.from(content_id, allowed_link_types:)
+        described_class.from(content_id, allowed_link_types: allowed_link_types)
       end
       before do
         create_link_set(content_id, links_hash: { link_type => [link_content_id] })
@@ -50,7 +50,7 @@ RSpec.describe Queries::Links do
       let(:parent_content_id) { SecureRandom.uuid }
       let(:parent_content_ids) { [parent_content_id] }
       subject(:result) do
-        described_class.from(content_id, parent_content_ids:)
+        described_class.from(content_id, parent_content_ids: parent_content_ids)
       end
       before do
         create_link_set(content_id, links_hash: { type: [link_content_id] })
@@ -75,7 +75,7 @@ RSpec.describe Queries::Links do
       subject(:result) do
         described_class.from(
           content_id,
-          next_allowed_link_types_from:,
+          next_allowed_link_types_from: next_allowed_link_types_from,
         )
       end
 
@@ -121,7 +121,7 @@ RSpec.describe Queries::Links do
       subject(:result) do
         described_class.from(
           content_id,
-          next_allowed_link_types_to:,
+          next_allowed_link_types_to: next_allowed_link_types_to,
         )
       end
 
@@ -185,7 +185,7 @@ RSpec.describe Queries::Links do
       let(:link_type) { :organisations }
       let(:allowed_link_types) { [link_type] }
       subject(:result) do
-        described_class.to(content_id, allowed_link_types:)
+        described_class.to(content_id, allowed_link_types: allowed_link_types)
       end
       before do
         create_link_set(link_content_id, links_hash: { link_type => [content_id] })
@@ -206,7 +206,7 @@ RSpec.describe Queries::Links do
       let(:parent_content_id) { SecureRandom.uuid }
       let(:parent_content_ids) { [parent_content_id] }
       subject(:result) do
-        described_class.to(content_id, parent_content_ids:)
+        described_class.to(content_id, parent_content_ids: parent_content_ids)
       end
       before do
         create_link_set(link_content_id, links_hash: { type: [content_id] })
@@ -231,7 +231,7 @@ RSpec.describe Queries::Links do
       subject(:result) do
         described_class.to(
           content_id,
-          next_allowed_link_types_from:,
+          next_allowed_link_types_from: next_allowed_link_types_from,
         )
       end
 
@@ -282,7 +282,7 @@ RSpec.describe Queries::Links do
       subject(:result) do
         described_class.to(
           content_id,
-          next_allowed_link_types_to:,
+          next_allowed_link_types_to: next_allowed_link_types_to,
         )
       end
 

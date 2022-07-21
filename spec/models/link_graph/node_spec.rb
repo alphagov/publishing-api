@@ -7,14 +7,14 @@ RSpec.describe LinkGraph::Node do
   let(:is_linked_to) { nil }
   let(:node) do
     described_class.new(
-      content_id:,
+      content_id: content_id,
       locale: nil,
       edition_id: nil,
-      link_type:,
-      parent:,
-      link_graph:,
-      has_own_links:,
-      is_linked_to:,
+      link_type: link_type,
+      parent: parent,
+      link_graph: link_graph,
+      has_own_links: has_own_links,
+      is_linked_to: is_linked_to,
     )
   end
 
@@ -33,7 +33,7 @@ RSpec.describe LinkGraph::Node do
           edition_id: nil,
           link_type: :parent,
           parent: nil,
-          link_graph:,
+          link_graph: link_graph,
         )
       end
       it { is_expected.to match_array([:parent, link_type]) }
@@ -74,7 +74,7 @@ RSpec.describe LinkGraph::Node do
     context "no links" do
       let(:links) { [] }
 
-      it { is_expected.to match(content_id:, links: {}) }
+      it { is_expected.to match(content_id: content_id, links: {}) }
     end
 
     context "with links" do
@@ -92,7 +92,7 @@ RSpec.describe LinkGraph::Node do
 
       let(:expected) do
         {
-          content_id:,
+          content_id: content_id,
           links: {
             parent: [{ content_id: a, links: {} }],
             organisation: [
