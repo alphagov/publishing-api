@@ -17,7 +17,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
   let(:document) do
     create(
       :document,
-      content_id:,
+      content_id: content_id,
       stale_lock_version: 5,
     )
   end
@@ -25,12 +25,12 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
   let!(:edition) do
     create(
       :live_edition,
-      document:,
+      document: document,
       user_facing_version: 5,
-      first_published_at:,
-      publishing_api_first_published_at:,
-      base_path:,
-      major_published_at:,
+      first_published_at: first_published_at,
+      publishing_api_first_published_at: publishing_api_first_published_at,
+      base_path: base_path,
+      major_published_at: major_published_at,
     )
   end
 
@@ -116,7 +116,7 @@ RSpec.describe "PUT /v2/content when creating a draft for a previously published
       put "/v2/content/#{content_id}", params: payload.to_json
 
       redirect = Edition.find_by(
-        base_path:,
+        base_path: base_path,
         state: "draft",
       )
 

@@ -42,7 +42,7 @@ private
       .joins(:editions)
       .where(editions: { content_store: content_stores },
              content_id: orphaned_content_ids,
-             locale:)
+             locale: locale)
       .pluck(:content_id)
   end
 
@@ -69,9 +69,9 @@ private
 
   def dependencies
     Queries::ContentDependencies.new(
-      content_id:,
-      locale:,
-      content_stores:,
+      content_id: content_id,
+      locale: locale,
+      content_stores: content_stores,
     ).call
   end
 
@@ -85,11 +85,11 @@ private
     DownstreamDraftWorker.perform_async_in_queue(
       DownstreamDraftWorker::LOW_QUEUE,
       content_id: dependent_content_id,
-      locale:,
+      locale: locale,
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
-      source_command:,
-      source_fields:,
+      source_command: source_command,
+      source_fields: source_fields,
     )
   end
 
@@ -99,12 +99,12 @@ private
     DownstreamLiveWorker.perform_async_in_queue(
       DownstreamLiveWorker::LOW_QUEUE,
       content_id: dependent_content_id,
-      locale:,
+      locale: locale,
       message_queue_event_type: "links",
       update_dependencies: false,
       dependency_resolution_source_content_id: content_id,
-      source_command:,
-      source_fields:,
+      source_command: source_command,
+      source_fields: source_fields,
     )
   end
 end

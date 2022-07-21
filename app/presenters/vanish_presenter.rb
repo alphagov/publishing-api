@@ -16,14 +16,14 @@ class Presenters::VanishPresenter
   end
 
   def for_content_store(payload_version)
-    present.merge(payload_version:)
+    present.merge(payload_version: payload_version)
   end
 
   def for_message_queue(payload_version)
     present.merge(
-      content_id:,
+      content_id: content_id,
       govuk_request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
-      payload_version:,
+      payload_version: payload_version,
     )
   end
 
@@ -35,9 +35,9 @@ private
     {
       document_type: "vanish",
       schema_name: "vanish",
-      base_path:,
-      locale:,
-      publishing_app:,
+      base_path: base_path,
+      locale: locale,
+      publishing_app: publishing_app,
     }
   end
 end

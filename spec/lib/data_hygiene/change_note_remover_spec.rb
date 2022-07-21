@@ -1,12 +1,12 @@
 RSpec.describe DataHygiene::ChangeNoteRemover do
   let(:document) { create(:document) }
-  let!(:superseded_edition) { create(:superseded_edition, document:, change_note: "First change note.", update_type: "major") }
-  let!(:live_edition) { create(:live_edition, document:, change_note: "Second change note.", update_type: "major", user_facing_version: 2) }
+  let!(:superseded_edition) { create(:superseded_edition, document: document, change_note: "First change note.", update_type: "major") }
+  let!(:live_edition) { create(:live_edition, document: document, change_note: "Second change note.", update_type: "major", user_facing_version: 2) }
 
   let(:query) { nil }
 
   def call_change_note_remover
-    described_class.call(document.content_id, document.locale, query, dry_run:)
+    described_class.call(document.content_id, document.locale, query, dry_run: dry_run)
   end
 
   subject(:deleted_change_note) { call_change_note_remover }

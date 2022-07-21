@@ -12,9 +12,9 @@ FactoryBot.define do
     updated_at { created_at }
     payload do
       {
-        content_id:,
+        content_id: content_id,
         locale: "en",
-        title:,
+        title: title,
       }
     end
   end

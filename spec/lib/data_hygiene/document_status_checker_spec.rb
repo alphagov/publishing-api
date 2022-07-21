@@ -11,7 +11,7 @@ RSpec.describe DataHygiene::DocumentStatusChecker do
     subject { described_class.new(document).content_store? }
 
     context "with a published live edition" do
-      let(:edition) { create(:live_edition, base_path:) }
+      let(:edition) { create(:live_edition, base_path: base_path) }
       let(:document) { edition.document }
 
       context "and there is no content item" do
@@ -51,7 +51,7 @@ RSpec.describe DataHygiene::DocumentStatusChecker do
     end
 
     context "with a published live edition" do
-      let(:edition) { create(:live_edition, base_path:) }
+      let(:edition) { create(:live_edition, base_path: base_path) }
       let(:document) { edition.document }
 
       context "and there is no content item" do
@@ -60,7 +60,7 @@ RSpec.describe DataHygiene::DocumentStatusChecker do
       end
 
       context "and there is a content item" do
-        before { stub_router_has_backend_route(base_path, backend_id:) }
+        before { stub_router_has_backend_route(base_path, backend_id: backend_id) }
 
         context "with the same backend_id" do
           let(:backend_id) { edition.rendering_app }

@@ -19,16 +19,16 @@ module Commands
 
       def downstream_draft(content_id, locale, queue)
         event_payload = {
-          content_id:,
-          locale:,
+          content_id: content_id,
+          locale: locale,
           message: "Representing downstream draft",
         }
 
         EventLogger.log_command(self.class, event_payload) do |_event|
           DownstreamDraftWorker.perform_async_in_queue(
             queue,
-            content_id:,
-            locale:,
+            content_id: content_id,
+            locale: locale,
             update_dependencies: false,
             source_command: "represent_downstream",
           )
@@ -37,16 +37,16 @@ module Commands
 
       def downstream_live(content_id, locale, queue)
         event_payload = {
-          content_id:,
-          locale:,
+          content_id: content_id,
+          locale: locale,
           message: "Representing downstream live",
         }
 
         EventLogger.log_command(self.class, event_payload) do |_event|
           DownstreamLiveWorker.perform_async_in_queue(
             queue,
-            content_id:,
-            locale:,
+            content_id: content_id,
+            locale: locale,
             message_queue_event_type: "links",
             update_dependencies: false,
             source_command: "represent_downstream",

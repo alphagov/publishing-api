@@ -13,15 +13,15 @@ RSpec.describe Commands::V2::Unpublish do
   let(:document) do
     create(
       :document,
-      content_id:,
-      locale:,
+      content_id: content_id,
+      locale: locale,
     )
   end
 
   describe "call" do
     let(:payload) do
       {
-        content_id:,
+        content_id: content_id,
         type: "gone",
         explanation: "Removed for testing porpoises",
         alternative_path: "/new-path",
@@ -38,14 +38,14 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(
           :live_edition,
-          document:,
-          base_path:,
+          document: document,
+          base_path: base_path,
         )
       end
 
       let(:payload) do
         {
-          content_id:,
+          content_id: content_id,
           type: "withdrawal",
           explanation: nil,
           alternative_path: "/new-path",
@@ -73,17 +73,17 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(
           :live_edition,
-          document:,
-          base_path:,
+          document: document,
+          base_path: base_path,
         )
       end
 
       let(:payload) do
         {
-          content_id:,
+          content_id: content_id,
           type: "redirect",
-          alternative_path:,
-          redirects:,
+          alternative_path: alternative_path,
+          redirects: redirects,
         }
       end
 
@@ -149,8 +149,8 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(
           :live_edition,
-          document:,
-          base_path:,
+          document: document,
+          base_path: base_path,
         )
       end
 
@@ -176,12 +176,12 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:, locale:, source_command: "unpublish"),
+            a_hash_including(content_id: content_id, locale: locale, source_command: "unpublish"),
           )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:, locale:, source_command: "unpublish"),
+            a_hash_including(content_id: content_id, locale: locale, source_command: "unpublish"),
           )
 
         described_class.call(payload)
@@ -206,7 +206,7 @@ RSpec.describe Commands::V2::Unpublish do
       context "and the unpublished_at parameter is set" do
         let(:payload) do
           {
-            content_id:,
+            content_id: content_id,
             type: "gone",
             explanation: "Removed for testing porpoises",
             alternative_path: "/new-path",
@@ -227,7 +227,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:draft_edition) do
         create(
           :draft_edition,
-          document:,
+          document: document,
           user_facing_version: 3,
         )
       end
@@ -303,7 +303,7 @@ RSpec.describe Commands::V2::Unpublish do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              a_hash_including(content_id:, locale:),
+              a_hash_including(content_id: content_id, locale: locale),
             )
 
           described_class.call(payload_with_allow_draft)
@@ -330,8 +330,8 @@ RSpec.describe Commands::V2::Unpublish do
           let!(:previous_edition) do
             create(
               :unpublished_edition,
-              document:,
-              base_path:,
+              document: document,
+              base_path: base_path,
               user_facing_version: 1,
             )
           end
@@ -363,8 +363,8 @@ RSpec.describe Commands::V2::Unpublish do
           let!(:previous_edition) do
             create(
               :live_edition,
-              document:,
-              base_path:,
+              document: document,
+              base_path: base_path,
               user_facing_version: 1,
             )
           end
@@ -400,7 +400,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:draft_edition) do
         create(
           :draft_edition,
-          document:,
+          document: document,
           user_facing_version: 2,
           links_hash: { topics: [link_b] },
         )
@@ -409,7 +409,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(
           :live_edition,
-          document:,
+          document: document,
           links_hash: { topics: [link_a] },
         )
       end
@@ -434,7 +434,7 @@ RSpec.describe Commands::V2::Unpublish do
         create(
           :live_edition,
           :with_draft,
-          document:,
+          document: document,
         )
       end
 
@@ -449,7 +449,7 @@ RSpec.describe Commands::V2::Unpublish do
       context "with `discard_drafts` set to true" do
         let(:payload) do
           {
-            content_id:,
+            content_id: content_id,
             type: "gone",
             discard_drafts: true,
           }
@@ -482,8 +482,8 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:unpublished_edition) do
         create(
           :unpublished_edition,
-          document:,
-          base_path:,
+          document: document,
+          base_path: base_path,
           explanation: "This explnatin has a typo",
           alternative_path: "/new-path",
         )
@@ -491,7 +491,7 @@ RSpec.describe Commands::V2::Unpublish do
 
       let(:payload) do
         {
-          content_id:,
+          content_id: content_id,
           type: "gone",
           explanation: "This explanation is correct",
         }
@@ -520,7 +520,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:),
+            a_hash_including(content_id: content_id),
           )
 
         described_class.call(payload)
@@ -530,7 +530,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:),
+            a_hash_including(content_id: content_id),
           )
 
         described_class.call(payload)
@@ -540,7 +540,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:),
+            a_hash_including(content_id: content_id),
           )
 
         described_class.call(payload)
@@ -550,7 +550,7 @@ RSpec.describe Commands::V2::Unpublish do
         let!(:unpublished_edition) do
           create(
             :substitute_unpublished_edition,
-            document:,
+            document: document,
           )
         end
 
@@ -567,7 +567,7 @@ RSpec.describe Commands::V2::Unpublish do
 
     context "with the `downstream` flag set to `false`" do
       before do
-        create(:live_edition, :with_draft, document:)
+        create(:live_edition, :with_draft, document: document)
       end
 
       it "does not send to any downstream system for a 'gone'" do
@@ -619,7 +619,7 @@ RSpec.describe Commands::V2::Unpublish do
       let!(:live_edition) do
         create(
           :live_edition,
-          document:,
+          document: document,
           base_path: nil,
         )
       end

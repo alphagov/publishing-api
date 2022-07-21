@@ -4,7 +4,7 @@ RSpec.describe Presenters::DebugPresenter do
   let!(:edition) do
     create(
       :draft_edition,
-      document:,
+      document: document,
       user_facing_version: 3,
     )
   end

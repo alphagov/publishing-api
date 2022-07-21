@@ -90,7 +90,7 @@ module Commands
         payload[:links].each do |link_type, target_link_ids|
           edition.links.create!(
             target_link_ids.map.with_index do |target_link_id, i|
-              { link_type:, target_content_id: target_link_id, position: i }
+              { link_type: link_type, target_content_id: target_link_id, position: i }
             end,
           )
         end
@@ -115,14 +115,14 @@ module Commands
 
       def access_limit(edition)
         if payload[:access_limited].present?
-          AccessLimit.find_or_create_by!(edition:).tap do |access_limit|
+          AccessLimit.find_or_create_by!(edition: edition).tap do |access_limit|
             access_limit.update!(
               users: (payload[:access_limited][:users] || []),
               organisations: (payload[:access_limited][:organisations] || []),
             )
           end
         else
-          AccessLimit.find_by(edition:).try(:destroy)
+          AccessLimit.find_by(edition: edition).try(:destroy)
         end
       end
 
@@ -164,8 +164,8 @@ module Commands
           state: "draft",
           locale: document.locale,
           base_path: payload[:base_path],
-          downstream:,
-          callbacks:,
+          downstream: downstream,
+          callbacks: callbacks,
           nested: true,
         )
       end
@@ -194,8 +194,8 @@ module Commands
             content_id: draft_edition_for_different_locale.document.content_id,
             locale: draft_edition_for_different_locale.document.locale,
           },
-          downstream:,
-          callbacks:,
+          downstream: downstream,
+          callbacks: callbacks,
           nested: true,
         )
       end
@@ -215,8 +215,8 @@ module Commands
 
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
-          content_id:,
-          locale:,
+          content_id: content_id,
+          locale: locale,
           update_dependencies: edition_diff.present?,
           orphaned_content_ids: orphaned_links,
           source_command: "put_content",

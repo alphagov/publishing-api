@@ -94,13 +94,13 @@ RSpec.describe DownstreamLiveWorker do
   describe "updates expanded links" do
     it "creates a ExpandedLinks entry" do
       expect { subject.perform(arguments) }
-        .to(change { ExpandedLinks.exists?(content_id:, with_drafts: false) })
+        .to(change { ExpandedLinks.exists?(content_id: content_id, with_drafts: false) })
     end
 
     context "when there aren't any links" do
       it "has only available_translations in the cache" do
         subject.perform(arguments)
-        links = ExpandedLinks.find_by(content_id:).expanded_links
+        links = ExpandedLinks.find_by(content_id: content_id).expanded_links
         expect(links).to match a_hash_including("available_translations")
       end
     end

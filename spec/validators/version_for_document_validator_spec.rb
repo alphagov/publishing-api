@@ -5,7 +5,7 @@ RSpec.describe VersionForDocumentValidator do
   let(:edition) do
     build(
       :edition,
-      document:,
+      document: document,
       user_facing_version: version,
     )
   end
@@ -31,7 +31,7 @@ RSpec.describe VersionForDocumentValidator do
       let!(:conflict_edition) do
         create(
           :edition,
-          document:,
+          document: document,
           user_facing_version: version,
         )
       end

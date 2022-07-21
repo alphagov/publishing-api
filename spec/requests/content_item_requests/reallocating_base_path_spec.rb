@@ -9,8 +9,8 @@ RSpec.describe "Reallocating base paths of editions" do
   let(:regular_payload) do
     build(
       :draft_edition,
-      document: create(:document, content_id:),
-    ).as_json.deep_symbolize_keys.merge(base_path:)
+      document: create(:document, content_id: content_id),
+    ).as_json.deep_symbolize_keys.merge(base_path: base_path)
   end
 
   describe "/v2/content" do
@@ -18,7 +18,7 @@ RSpec.describe "Reallocating base paths of editions" do
       before do
         create(
           :draft_edition,
-          base_path:,
+          base_path: base_path,
         )
       end
 
@@ -42,13 +42,13 @@ RSpec.describe "Reallocating base paths of editions" do
         create(
           :draft_edition,
           document: draft_document,
-          base_path:,
+          base_path: base_path,
         )
 
         create(
           :live_edition,
           document: live_document,
-          base_path:,
+          base_path: base_path,
         )
       end
 

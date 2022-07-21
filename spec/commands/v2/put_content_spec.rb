@@ -15,34 +15,34 @@ RSpec.describe Commands::V2::PutContent do
     let(:new_change_note) { "Changed Info" }
     let(:payload) do
       {
-        content_id:,
-        base_path:,
+        content_id: content_id,
+        base_path: base_path,
         update_type: "major",
         title: "Some Title",
-        publishing_app:,
+        publishing_app: publishing_app,
         rendering_app: "frontend",
         document_type: "services_and_information",
         schema_name: "generic",
-        locale:,
+        locale: locale,
         routes: [{ path: base_path, type: "exact" }],
         redirects: [],
         phase: "beta",
-        change_note:,
+        change_note: change_note,
         details: {},
       }
     end
 
     let(:updated_payload) do
       {
-        content_id:,
-        base_path:,
+        content_id: content_id,
+        base_path: base_path,
         update_type: "major",
         title: "New Title",
-        publishing_app:,
+        publishing_app: publishing_app,
         rendering_app: "frontend",
         document_type: "services_and_information",
         schema_name: "generic",
-        locale:,
+        locale: locale,
         routes: [{ path: base_path, type: "exact" }],
         redirects: [],
         phase: "beta",
@@ -207,8 +207,8 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "when the draft does exist" do
-      let(:document) { create(:document, content_id:) }
-      let!(:edition) { create(:draft_edition, document:) }
+      let(:document) { create(:document, content_id: content_id) }
+      let!(:edition) { create(:draft_edition, document: document) }
 
       context "with a provided last_edited_at" do
         %w[minor major republish].each do |update_type|
@@ -218,7 +218,7 @@ RSpec.describe Commands::V2::PutContent do
 
               described_class.call(
                 payload.merge(
-                  update_type:,
+                  update_type: update_type,
                   last_edited_at: last_edited_at.iso8601,
                 ),
               )
@@ -239,17 +239,17 @@ RSpec.describe Commands::V2::PutContent do
 
       it "deletes a previous path reservation if the paths differ" do
         edition.update!(base_path: "/different", routes: [{ path: "/different", type: "exact" }])
-        create(:path_reservation, base_path: "/different", publishing_app:)
+        create(:path_reservation, base_path: "/different", publishing_app: publishing_app)
         expect { described_class.call(payload) }
           .to change { PathReservation.where(base_path: "/different").count }
           .by(-1)
       end
 
       it "doesn't delete a previous path reservation if the paths are the same" do
-        edition.update!(base_path:, routes: [{ path: base_path, type: "exact" }])
-        create(:path_reservation, base_path:, publishing_app:)
+        edition.update!(base_path: base_path, routes: [{ path: base_path, type: "exact" }])
+        create(:path_reservation, base_path: base_path, publishing_app: publishing_app)
         expect { described_class.call(payload) }
-          .not_to(change { PathReservation.where(base_path:).count })
+          .not_to(change { PathReservation.where(base_path: base_path).count })
       end
 
       it "doesn't delete a previous path reservation if it is registered to a different publishing application" do
@@ -263,8 +263,8 @@ RSpec.describe Commands::V2::PutContent do
         "edition published by the same app" do
         edition.update!(base_path: "/different",
                         routes: [{ path: "/different", type: "exact" }])
-        create(:live_edition, base_path: "/different", publishing_app:)
-        create(:path_reservation, base_path: "/different", publishing_app:)
+        create(:live_edition, base_path: "/different", publishing_app: publishing_app)
+        create(:path_reservation, base_path: "/different", publishing_app: publishing_app)
         expect { described_class.call(payload) }
           .not_to(change { PathReservation.where(base_path: "/different").count })
       end
@@ -274,7 +274,7 @@ RSpec.describe Commands::V2::PutContent do
         edition.update!(base_path: "/different",
                         routes: [{ path: "/different", type: "exact" }])
         create(:live_edition, base_path: "/different", publishing_app: "different-app")
-        create(:path_reservation, base_path: "/different", publishing_app:)
+        create(:path_reservation, base_path: "/different", publishing_app: publishing_app)
         expect { described_class.call(payload) }
           .to change { PathReservation.where(base_path: "/different").count }
           .by(-1)
@@ -309,7 +309,7 @@ RSpec.describe Commands::V2::PutContent do
       end
 
       context "when the existing draft has access limits" do
-        let!(:access_limit) { create(:access_limit, edition:) }
+        let!(:access_limit) { create(:access_limit, edition: edition) }
 
         context "when the payload doesn't include an access limit" do
           it "removes the access limits" do
@@ -339,9 +339,9 @@ RSpec.describe Commands::V2::PutContent do
     end
 
     context "when a draft does exist with a different locale" do
-      let(:en_document) { create(:document, content_id:) }
+      let(:en_document) { create(:document, content_id: content_id) }
       let!(:en_edition) do
-        create(:draft_edition, base_path:, document: en_document)
+        create(:draft_edition, base_path: base_path, document: en_document)
       end
 
       it "replaces the old draft with the new one" do
@@ -373,7 +373,7 @@ RSpec.describe Commands::V2::PutContent do
 
       it "should send an alert to GovukError" do
         expect(GovukError).to receive(:notify)
-          .with(anything, level: "warning", extra: a_hash_including(content_id:))
+          .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 
         described_class.call(payload)
       end
@@ -382,7 +382,7 @@ RSpec.describe Commands::V2::PutContent do
     context "when an update type is provided" do
       it "should not send an alert to GovukError" do
         expect(GovukError).to_not receive(:notify)
-          .with(anything, level: "warning", extra: a_hash_including(content_id:))
+          .with(anything, level: "warning", extra: a_hash_including(content_id: content_id))
 
         described_class.call(payload)
       end

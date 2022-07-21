@@ -1,11 +1,11 @@
 RSpec.describe Queries::LinksForEditionIds do
   def create_edition_link(edition, link_type)
-    create(:link, edition_id: edition.id, link_set: nil, link_type:)
+    create(:link, edition_id: edition.id, link_set: nil, link_type: link_type)
   end
 
   def create_link_set_link(edition, link_type)
     link_set = LinkSet.find_or_create_by!(content_id: edition.document.content_id)
-    create(:link, edition_id: nil, link_set:, link_type:)
+    create(:link, edition_id: nil, link_set: link_set, link_type: link_type)
   end
 
   let(:edition) { create(:edition) }

@@ -6,7 +6,7 @@ RSpec.describe "Superseding editions" do
 
   let(:put_content_payload) do
     {
-      content_id:,
+      content_id: content_id,
       base_path: "/vat-rates",
       title: "Some Title",
       publishing_app: "publisher",
@@ -23,7 +23,7 @@ RSpec.describe "Superseding editions" do
 
   let(:publish_payload) do
     {
-      content_id:,
+      content_id: content_id,
       update_type: "major",
     }
   end

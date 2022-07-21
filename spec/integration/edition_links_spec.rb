@@ -8,8 +8,8 @@ RSpec.describe "Edition Links" do
   subject(:expanded_links) do
     LinkExpansion.by_content_id(
       source_content_id,
-      locale:,
-      with_drafts:,
+      locale: locale,
+      with_drafts: with_drafts,
     ).links_with_content
   end
 
@@ -26,7 +26,7 @@ RSpec.describe "Edition Links" do
 
     it "has a link to target of type #{link_type}" do
       expect(expanded_links[link_type]).to match_array([
-        a_hash_including(base_path:),
+        a_hash_including(base_path: base_path),
       ])
     end
   end

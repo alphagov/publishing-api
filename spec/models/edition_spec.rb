@@ -274,7 +274,7 @@ RSpec.describe Edition do
 
   describe "#details_for_govspeak_conversion" do
     subject do
-      build(:edition, details:)
+      build(:edition, details: details)
         .details_for_govspeak_conversion
     end
 

@@ -10,16 +10,16 @@ class ExpandedLinks < ApplicationRecord
   )
     transaction do
       entry = find_or_create_locked(
-        content_id:,
-        locale:,
-        with_drafts:,
+        content_id: content_id,
+        locale: locale,
+        with_drafts: with_drafts,
       )
 
       next unless entry.payload_version <= payload_version
 
       entry.update!(
-        payload_version:,
-        expanded_links:,
+        payload_version: payload_version,
+        expanded_links: expanded_links,
       )
     end
   end

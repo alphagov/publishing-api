@@ -37,14 +37,14 @@ RSpec.describe EventLogger do
     call_counter = 0
     EventLogger.log_command(command_class, payload) do
       if call_counter == 0
-        create(:live_edition, document:)
+        create(:live_edition, document: document)
         call_counter += 1
         raise CommandRetryableError
       else
         # The original transaction should have been rolled back, so there should be no
         # corresponding ContentItem in the database
-        expect(Edition.where(document:).count).to eq(0)
-        create(:live_edition, document:)
+        expect(Edition.where(document: document).count).to eq(0)
+        create(:live_edition, document: document)
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe EventLogger do
   it "adds the content ID if present" do
     content_id = SecureRandom.uuid
 
-    EventLogger.log_command(Commands::V2::Publish, content_id:)
+    EventLogger.log_command(Commands::V2::Publish, content_id: content_id)
     expect(Event.count).to eq(1)
     expect(Event.last.content_id).to eq(content_id)
 

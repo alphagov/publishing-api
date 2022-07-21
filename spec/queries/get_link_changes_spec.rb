@@ -14,7 +14,7 @@ RSpec.describe Queries::GetLinkChanges do
 
     it "expands the source and target" do
       document = create(:document, content_id: "1dd96f5d-c260-438b-ba58-57ba910e9291")
-      create(:edition, document:, title: "Content Foo")
+      create(:edition, document: document, title: "Content Foo")
       create(:link_change, link_type: "topics", source_content_id: document.content_id)
 
       result = Queries::GetLinkChanges.new(link_types: "topics").as_hash

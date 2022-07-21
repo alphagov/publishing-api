@@ -14,7 +14,7 @@ module Commands
         after_transaction_commit { downstream_discard_draft }
 
         Action.create_discard_draft_action(draft, locale, event)
-        Success.new({ content_id: })
+        Success.new({ content_id: content_id })
       end
 
     private
@@ -27,7 +27,7 @@ module Commands
         code = document.published_or_unpublished.present? ? 422 : 404
         message = "There is not a draft edition of this document to discard"
 
-        raise CommandError.new(code:, message:)
+        raise CommandError.new(code: code, message: message)
       end
 
       def delete_draft_from_database
@@ -40,8 +40,8 @@ module Commands
         DownstreamDiscardDraftWorker.perform_async_in_queue(
           DownstreamDiscardDraftWorker::HIGH_QUEUE,
           base_path: draft.base_path,
-          content_id:,
-          locale:,
+          content_id: content_id,
+          locale: locale,
           update_dependencies: true,
           source_command: "discard_draft",
           source_document_type: @document_type,

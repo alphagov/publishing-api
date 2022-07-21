@@ -2,8 +2,8 @@ RSpec.describe AccessLimit do
   subject do
     build(
       :access_limit,
-      users:,
-      organisations:,
+      users: users,
+      organisations: organisations,
     )
   end
 

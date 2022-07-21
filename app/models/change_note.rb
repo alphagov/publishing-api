@@ -38,7 +38,7 @@ private
 
     change_note_instance.update!(
       public_timestamp: edition.public_updated_at,
-      note:,
+      note: note,
     )
   end
 

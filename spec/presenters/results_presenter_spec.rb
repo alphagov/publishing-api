@@ -1,7 +1,7 @@
 RSpec.describe Presenters::ResultsPresenter do
   let(:results) { double("results", total: 10, call: []) }
   let(:page) { 2 }
-  let(:pagination) { double("pagination", pages: 10, page:) }
+  let(:pagination) { double("pagination", pages: 10, page: page) }
   let(:url) { "www.example.com/v2/api/content&page=2&per_page=10" }
   subject(:presenter) { described_class.new(results, pagination, url).present }
 

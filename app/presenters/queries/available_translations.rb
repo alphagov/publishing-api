@@ -2,11 +2,11 @@ module Presenters
   module Queries
     class AvailableTranslations
       def self.by_edition(edition, with_drafts: false)
-        new(edition:, with_drafts:)
+        new(edition: edition, with_drafts: with_drafts)
       end
 
       def self.by_content_id(content_id, with_drafts: false)
-        new(content_id:, with_drafts:)
+        new(content_id: content_id, with_drafts: with_drafts)
       end
 
       def initialize(options)
@@ -45,7 +45,7 @@ module Presenters
       def edition_for_id(id)
         return edition if edition && edition.id == id
 
-        Edition.find_by(id:)
+        Edition.find_by(id: id)
       end
 
       def web_item(id)
@@ -69,7 +69,7 @@ module Presenters
           .with_document
           .with_unpublishing
           .where(
-            documents: { content_id: },
+            documents: { content_id: content_id },
             state: state_fallback_order,
           )
 

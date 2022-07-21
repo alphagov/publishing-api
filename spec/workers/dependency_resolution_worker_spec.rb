@@ -1,16 +1,16 @@
 RSpec.describe DependencyResolutionWorker, :perform do
   let(:content_id) { SecureRandom.uuid }
   let(:locale) { "en" }
-  let(:document) { create(:document, content_id:, locale:) }
-  let(:live_edition) { create(:live_edition, document:) }
+  let(:document) { create(:document, content_id: content_id, locale: locale) }
+  let(:live_edition) { create(:live_edition, document: document) }
   let(:content_store) { "Adapters::ContentStore" }
   let(:orphaned_link_content_ids) { [] }
 
   subject(:worker_perform) do
     described_class.new.perform(
-      content_id:,
-      locale:,
-      content_store:,
+      content_id: content_id,
+      locale: locale,
+      content_store: content_store,
       orphaned_content_ids: orphaned_link_content_ids,
     )
   end
@@ -29,8 +29,8 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
   it "finds the edition dependees" do
     expect(Queries::ContentDependencies).to receive(:new).with(
-      content_id:,
-      locale:,
+      content_id: content_id,
+      locale: locale,
       content_stores: %w[live],
     ).and_return(edition_dependee)
     worker_perform
@@ -60,7 +60,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
     it "sends content ids downstream" do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
-        a_hash_including(content_id:),
+        a_hash_including(content_id: content_id),
       )
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
@@ -106,7 +106,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
     let!(:draft_edition) do
       create(
         :draft_edition,
-        document:,
+        document: document,
         user_facing_version: 2,
       )
     end
@@ -115,7 +115,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id:,
+          content_id: content_id,
           locale: "en",
         ),
       )
@@ -131,7 +131,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id:,
+          content_id: content_id,
           locale: "en",
         ),
       )
@@ -155,7 +155,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
       after do
         described_class.new.perform(
-          content_id:,
+          content_id: content_id,
           locale: "en",
           content_store: "Adapters::ContentStore",
         )
@@ -164,11 +164,11 @@ RSpec.describe DependencyResolutionWorker, :perform do
       it "downstreams all but the locale specified" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "fr"),
+          a_hash_including(content_id: content_id, locale: "fr"),
         )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "es"),
+          a_hash_including(content_id: content_id, locale: "es"),
         )
       end
     end
@@ -184,7 +184,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
       after do
         described_class.new.perform(
-          content_id:,
+          content_id: content_id,
           content_store: "Adapters::ContentStore",
           locale: "en",
         )
@@ -193,15 +193,15 @@ RSpec.describe DependencyResolutionWorker, :perform do
       it "downstreams all but the locale specified" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "en"),
+          a_hash_including(content_id: content_id, locale: "en"),
         )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "fr"),
+          a_hash_including(content_id: content_id, locale: "fr"),
         )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "es"),
+          a_hash_including(content_id: content_id, locale: "es"),
         )
       end
     end
@@ -210,7 +210,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
   context "with source information" do
     after do
       described_class.new.perform(
-        content_id:,
+        content_id: content_id,
         content_store: "Adapters::ContentStore",
         locale: "en",
         source_command: "patch_link_set",

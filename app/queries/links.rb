@@ -42,12 +42,12 @@ module Queries
                   next_allowed_link_types_from: nil,
                   next_allowed_link_types_to: nil)
       new(
-        content_id:,
+        content_id: content_id,
         mode: :from,
-        allowed_link_types:,
-        parent_content_ids:,
-        next_allowed_link_types_from:,
-        next_allowed_link_types_to:,
+        allowed_link_types: allowed_link_types,
+        parent_content_ids: parent_content_ids,
+        next_allowed_link_types_from: next_allowed_link_types_from,
+        next_allowed_link_types_to: next_allowed_link_types_to,
       ).call
     end
 
@@ -62,12 +62,12 @@ module Queries
                 next_allowed_link_types_from: nil,
                 next_allowed_link_types_to: nil)
       new(
-        content_id:,
+        content_id: content_id,
         mode: :to,
-        allowed_link_types:,
-        parent_content_ids:,
-        next_allowed_link_types_from:,
-        next_allowed_link_types_to:,
+        allowed_link_types: allowed_link_types,
+        parent_content_ids: parent_content_ids,
+        next_allowed_link_types_from: next_allowed_link_types_from,
+        next_allowed_link_types_to: next_allowed_link_types_to,
       ).call
     end
 

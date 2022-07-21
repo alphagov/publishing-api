@@ -9,7 +9,7 @@ RSpec.describe Commands::V2::PutContentValidator do
         [{ schema: "a", fragment: "b", message: "c", failed_attribute: "d" }]
       end
       let(:validator) do
-        instance_double(SchemaValidator, valid?: false, errors:)
+        instance_double(SchemaValidator, valid?: false, errors: errors)
       end
       before do
         allow(SchemaValidator).to receive(:new).and_return(validator)

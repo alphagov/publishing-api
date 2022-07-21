@@ -5,11 +5,11 @@ module Queries
                   with_drafts:,
                   allowed_link_types: nil)
       new(
-        content_id:,
+        content_id: content_id,
         mode: :from,
-        locale:,
-        with_drafts:,
-        allowed_link_types:,
+        locale: locale,
+        with_drafts: with_drafts,
+        allowed_link_types: allowed_link_types,
       ).call
     end
 
@@ -18,11 +18,11 @@ module Queries
                 with_drafts:,
                 allowed_link_types: nil)
       new(
-        content_id:,
+        content_id: content_id,
         mode: :to,
-        locale:,
-        with_drafts:,
-        allowed_link_types:,
+        locale: locale,
+        with_drafts: with_drafts,
+        allowed_link_types: allowed_link_types,
       ).call
     end
 

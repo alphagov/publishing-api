@@ -8,9 +8,9 @@ RSpec.describe Queries::ContentDependencies do
   describe "#call" do
     subject do
       described_class.new(
-        content_id:,
-        locale:,
-        content_stores:,
+        content_id: content_id,
+        locale: locale,
+        content_stores: content_stores,
       ).call
     end
 

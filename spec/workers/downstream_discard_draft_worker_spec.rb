@@ -4,7 +4,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
   let(:edition) do
     create(
       :draft_edition,
-      base_path:,
+      base_path: base_path,
       title: "Draft",
     )
   end
@@ -71,7 +71,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     let!(:live_edition) do
       create(
         :live_edition,
-        base_path:,
+        base_path: base_path,
         document: edition.document,
         title: "live",
       )
@@ -194,13 +194,13 @@ RSpec.describe DownstreamDiscardDraftWorker do
   describe "update expanded links" do
     context "when there is not an edition" do
       before do
-        create(:expanded_links, content_id:, with_drafts: true)
-        create(:event, content_id:)
+        create(:expanded_links, content_id: content_id, with_drafts: true)
+        create(:event, content_id: content_id)
       end
 
       it "deletes the expanded links" do
         expect { subject.perform(arguments) }
-          .to change { ExpandedLinks.exists?(content_id:, with_drafts: true) }
+          .to change { ExpandedLinks.exists?(content_id: content_id, with_drafts: true) }
           .from(true).to(false)
       end
     end
@@ -211,7 +211,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
       end
       it "updates expanded links" do
         expect { subject.perform(arguments) }
-          .to change { ExpandedLinks.exists?(content_id:, with_drafts: true) }
+          .to change { ExpandedLinks.exists?(content_id: content_id, with_drafts: true) }
           .from(false).to(true)
       end
     end

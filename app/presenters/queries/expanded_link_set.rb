@@ -4,11 +4,11 @@ module Presenters
       attr_reader :draft
 
       def self.by_edition(edition, with_drafts: false)
-        new(edition:, with_drafts:)
+        new(edition: edition, with_drafts: with_drafts)
       end
 
       def self.by_content_id(content_id, locale: Edition::DEFAULT_LOCALE, with_drafts: false)
-        new(content_id:, locale:, with_drafts:)
+        new(content_id: content_id, locale: locale, with_drafts: with_drafts)
       end
 
       def initialize(options)
@@ -38,9 +38,9 @@ module Presenters
 
       def link_expansion
         if edition
-          LinkExpansion.by_edition(edition, with_drafts:)
+          LinkExpansion.by_edition(edition, with_drafts: with_drafts)
         else
-          LinkExpansion.by_content_id(content_id, locale:, with_drafts:)
+          LinkExpansion.by_content_id(content_id, locale: locale, with_drafts: with_drafts)
         end
       end
 
@@ -68,9 +68,9 @@ module Presenters
 
       def available_translations
         if edition
-          AvailableTranslations.by_edition(edition, with_drafts:)
+          AvailableTranslations.by_edition(edition, with_drafts: with_drafts)
         else
-          AvailableTranslations.by_content_id(content_id, with_drafts:)
+          AvailableTranslations.by_content_id(content_id, with_drafts: with_drafts)
         end
       end
 

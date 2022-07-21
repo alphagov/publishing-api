@@ -19,7 +19,7 @@ def update_hmrc_manual_section_titles(dry_run: false)
       details[:manual][:title] = manual_edition.title
       puts("Updating HMRC Manual Section #{document.content_id} to set manual title to #{details[:manual][:title]}")
       unless dry_run
-        edition.update!(details:)
+        edition.update!(details: details)
         Commands::V2::RepresentDownstream.new.call(document.content_id)
       end
     else

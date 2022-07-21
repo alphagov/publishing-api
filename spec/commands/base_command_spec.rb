@@ -13,7 +13,7 @@ RSpec.describe Commands::BaseCommand do
           payload[:top_level_worker].some_method
         end
 
-        Commands::NestedCommand.call(payload, callbacks:, nested: true)
+        Commands::NestedCommand.call(payload, callbacks: callbacks, nested: true)
       end
     end
   end
@@ -60,8 +60,8 @@ RSpec.describe Commands::BaseCommand do
       expect(nested_worker).to receive(:some_method)
 
       payload = {
-        top_level_worker:,
-        nested_worker:,
+        top_level_worker: top_level_worker,
+        nested_worker: nested_worker,
       }
 
       top_level_command.call(payload)

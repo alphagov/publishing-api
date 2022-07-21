@@ -1,6 +1,6 @@
 RSpec.describe Queries::LiveEditionBlockingDraftEdition do
   let(:content_id) { SecureRandom.uuid }
-  let(:document) { create(:document, content_id:) }
+  let(:document) { create(:document, content_id: content_id) }
   let(:base_path) { "/vat-rates" }
   let(:document_type) { "nonexistent-schema" }
 
@@ -17,9 +17,9 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       before do
         create(
           :draft_edition,
-          document:,
-          base_path:,
-          document_type:,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end
@@ -31,9 +31,9 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       before do
         create(
           :draft_edition,
-          document:,
+          document: document,
           base_path: "#{base_path}.en",
-          document_type:,
+          document_type: document_type,
           user_facing_version: 1,
         )
 
@@ -41,7 +41,7 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
           :draft_edition,
           document: create(:document, content_id: document.content_id, locale: "es"),
           base_path: "#{base_path}.es",
-          document_type:,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end
@@ -53,15 +53,15 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       before do
         create(
           :substitute_unpublished_edition,
-          base_path:,
-          document_type:,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
 
         create(
           :draft_edition,
-          base_path:,
-          document_type:,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end
@@ -73,16 +73,16 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       before do
         create(
           :live_edition,
-          base_path:,
+          base_path: base_path,
           document_type: "unpublishing",
           user_facing_version: 1,
         )
 
         create(
           :draft_edition,
-          document:,
-          base_path:,
-          document_type:,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end
@@ -96,16 +96,16 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       before do
         create(
           :live_edition,
-          base_path:,
+          base_path: base_path,
           document_type: "nonexistent-schema",
           user_facing_version: 1,
         )
 
         create(
           :draft_edition,
-          document:,
-          base_path:,
-          document_type:,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end
@@ -117,16 +117,16 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       before do
         @blocking_edition = create(
           :gone_unpublished_edition,
-          base_path:,
-          document_type:,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
 
         create(
           :edition,
-          document:,
-          base_path:,
-          document_type:,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end
@@ -140,16 +140,16 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       before do
         @blocking_edition = create(
           :live_edition,
-          base_path:,
-          document_type:,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
 
         create(
           :draft_edition,
-          document:,
-          base_path:,
-          document_type:,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end
@@ -165,8 +165,8 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       let!(:blocking_edition) do
         create(
           :live_edition,
-          base_path:,
-          document_type:,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end
@@ -174,8 +174,8 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       let!(:blocking_edition_2) do
         create(
           :live_edition,
-          base_path:,
-          document_type:,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end
@@ -183,9 +183,9 @@ RSpec.describe Queries::LiveEditionBlockingDraftEdition do
       let!(:content) do
         create(
           :draft_edition,
-          document:,
-          base_path:,
-          document_type:,
+          document: document,
+          base_path: base_path,
+          document_type: document_type,
           user_facing_version: 1,
         )
       end

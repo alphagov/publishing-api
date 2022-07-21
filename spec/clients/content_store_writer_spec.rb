@@ -9,7 +9,7 @@ RSpec.describe ContentStoreWriter do
 
   let(:content_item) do
     {
-      base_path:,
+      base_path: base_path,
       details: {
         etc: %w[one two three],
       },
@@ -36,8 +36,8 @@ RSpec.describe ContentStoreWriter do
         .with(body: content_item.to_json)
 
       content_store_writer.put_content_item(
-        base_path:,
-        content_item:,
+        base_path: base_path,
+        content_item: content_item,
       )
 
       expect(put_request).to have_been_requested
@@ -50,8 +50,8 @@ RSpec.describe ContentStoreWriter do
         .with(body: publish_intent.to_json)
 
       content_store_writer.put_publish_intent(
-        base_path:,
-        publish_intent:,
+        base_path: base_path,
+        publish_intent: publish_intent,
       )
 
       expect(put_request).to have_been_requested

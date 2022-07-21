@@ -42,7 +42,7 @@ RSpec.describe "Keeping track of link changes", type: :request do
 
   def make_patch_links_request(content_id, links)
     patch "/v2/links/#{content_id}",
-          params: { links: }.to_json,
+          params: { links: links }.to_json,
           headers: { "X-GOVUK-AUTHENTICATED-USER" => SecureRandom.uuid }
   end
 end

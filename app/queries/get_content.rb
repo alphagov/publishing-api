@@ -4,13 +4,13 @@ module Queries
       locale_to_use = locale || Edition::DEFAULT_LOCALE
 
       editions = Edition.with_document
-        .where(documents: { content_id:, locale: locale_to_use })
+        .where(documents: { content_id: content_id, locale: locale_to_use })
 
       editions = editions.where(user_facing_version: version) if version
 
       response = Presenters::Queries::ContentItemPresenter.present_many(
         editions,
-        include_warnings:,
+        include_warnings: include_warnings,
         states: %i[draft published unpublished superseded],
       ).first
 
@@ -23,11 +23,11 @@ module Queries
     end
 
     def self.raise_not_found(message)
-      raise CommandError.new(code: 404, message:)
+      raise CommandError.new(code: 404, message: message)
     end
 
     def self.not_found_message(content_id, locale, version)
-      if Document.exists?(content_id:)
+      if Document.exists?(content_id: content_id)
         locale_message = "locale: #{locale}"
         version_message = version ? "version: #{version}" : nil
         reason = [locale_message, version_message].compact.join(" and ")

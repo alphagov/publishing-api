@@ -28,7 +28,7 @@ RSpec.describe Presenters::EditionPresenter do
     let(:edition) do
       create(
         :live_edition,
-        update_type:,
+        update_type: update_type,
         schema_name: "calendar",
         document_type: "calendar",
         auth_bypass_ids: [],
@@ -76,7 +76,7 @@ RSpec.describe Presenters::EditionPresenter do
           :link,
           target_content_id: SecureRandom.uuid,
           link_set: nil,
-          edition:,
+          edition: edition,
           link_type: "editions",
         )
       end
@@ -102,10 +102,10 @@ RSpec.describe Presenters::EditionPresenter do
     let(:expected) do
       {
         content_id: edition.document.content_id,
-        base_path:,
+        base_path: base_path,
         analytics_identifier: "GDS01",
         description: "VAT rates for goods and services",
-        details:,
+        details: details,
         document_type: "services_and_information",
         locale: "en",
         phase: "beta",
@@ -124,8 +124,8 @@ RSpec.describe Presenters::EditionPresenter do
       let(:edition) do
         create(
           :live_edition,
-          base_path:,
-          details:,
+          base_path: base_path,
+          details: details,
         )
       end
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
@@ -143,8 +143,8 @@ RSpec.describe Presenters::EditionPresenter do
       let(:edition) do
         create(
           :draft_edition,
-          base_path:,
-          details:,
+          base_path: base_path,
+          details: details,
           first_published_at: "2014-01-02T03:04:05Z",
           public_updated_at: "2014-05-14T13:00:06Z",
           auth_bypass_ids: [SecureRandom.uuid],
@@ -164,14 +164,14 @@ RSpec.describe Presenters::EditionPresenter do
       let!(:edition) do
         create(
           :withdrawn_unpublished_edition,
-          base_path:,
-          details:,
+          base_path: base_path,
+          details: details,
         )
       end
       let!(:link_set) { create(:link_set, content_id: edition.document.content_id) }
 
       it "merges in a withdrawal notice" do
-        unpublishing = Unpublishing.find_by(edition:)
+        unpublishing = Unpublishing.find_by(edition: edition)
 
         expect(result).to match(
           a_hash_including(
@@ -189,14 +189,14 @@ RSpec.describe Presenters::EditionPresenter do
         let!(:edition) do
           create(
             :withdrawn_unpublished_edition,
-            base_path:,
-            details:,
+            base_path: base_path,
+            details: details,
             unpublished_at: Time.zone.local(2016, 9, 10, 4, 5, 6),
           )
         end
 
         it "merges in a withdrawal notice with the withdrawn_at set correctly" do
-          unpublishing = Unpublishing.find_by(edition:)
+          unpublishing = Unpublishing.find_by(edition: edition)
 
           expect(result).to match(
             a_hash_including(
@@ -257,12 +257,12 @@ RSpec.describe Presenters::EditionPresenter do
       let(:edition) do
         create(
           :draft_edition,
-          base_path:,
+          base_path: base_path,
           details: details.slice(:body),
         )
       end
       before do
-        ChangeNote.create(change_history.merge(edition:))
+        ChangeNote.create(change_history.merge(edition: edition))
       end
 
       it "constructs the change history" do
@@ -293,7 +293,7 @@ RSpec.describe Presenters::EditionPresenter do
 
     context "for an access-limited item" do
       let!(:access_limit) do
-        create(:access_limit, edition:)
+        create(:access_limit, edition: edition)
       end
 
       context "in draft" do
@@ -334,8 +334,8 @@ RSpec.describe Presenters::EditionPresenter do
       let(:edition) do
         create(
           :live_edition,
-          base_path:,
-          details:,
+          base_path: base_path,
+          details: details,
         )
       end
 

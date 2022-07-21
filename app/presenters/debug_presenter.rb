@@ -27,7 +27,7 @@ module Presenters
     end
 
     def link_set
-      @link_set ||= LinkSet.find_by(content_id:)
+      @link_set ||= LinkSet.find_by(content_id: content_id)
     end
 
     def expanded_links
@@ -79,7 +79,7 @@ module Presenters
     delegate :api_url, to: :presented_edition
 
     def events
-      Event.where(content_id:).order(:created_at)
+      Event.where(content_id: content_id).order(:created_at)
     end
 
     def event_presenter(event_attributes)

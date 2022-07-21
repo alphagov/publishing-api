@@ -1,7 +1,7 @@
 RSpec.describe Queries::GetContent do
   let(:content_id) { SecureRandom.uuid }
-  let(:document) { create(:document, content_id:) }
-  let(:fr_document) { create(:document, content_id:, locale: "fr") }
+  let(:document) { create(:document, content_id: content_id) }
+  let(:fr_document) { create(:document, content_id: content_id, locale: "fr") }
 
   context "when no edition exists for the content_id" do
     it "raises a command error" do
@@ -18,7 +18,7 @@ RSpec.describe Queries::GetContent do
     before do
       create(
         :edition,
-        document:,
+        document: document,
         base_path: "/vat-rates",
         user_facing_version: 1,
       )
@@ -64,14 +64,14 @@ RSpec.describe Queries::GetContent do
     before do
       create(
         :draft_edition,
-        document:,
+        document: document,
         title: "Draft Title",
         user_facing_version: 2,
       )
 
       create(
         :live_edition,
-        document:,
+        document: document,
         title: "Live Title",
         user_facing_version: 1,
       )
@@ -87,14 +87,14 @@ RSpec.describe Queries::GetContent do
     before do
       create(
         :superseded_edition,
-        document:,
+        document: document,
         user_facing_version: 1,
         title: "Older Title",
       )
 
       create(
         :superseded_edition,
-        document:,
+        document: document,
         user_facing_version: 2,
         title: "Newer Title",
       )
@@ -117,7 +117,7 @@ RSpec.describe Queries::GetContent do
 
       create(
         :edition,
-        document:,
+        document: document,
         user_facing_version: 1,
         title: "English Title",
       )
@@ -138,13 +138,13 @@ RSpec.describe Queries::GetContent do
     before do
       create(
         :superseded_edition,
-        document:,
+        document: document,
         user_facing_version: 1,
       )
 
       create(
         :live_edition,
-        document:,
+        document: document,
         user_facing_version: 2,
       )
     end

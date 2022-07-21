@@ -6,7 +6,7 @@ module Commands
         publish_edition
         after_transaction_commit { send_downstream }
 
-        Success.new({ content_id: })
+        Success.new({ content_id: content_id })
       end
 
     private
@@ -48,7 +48,7 @@ module Commands
 
       def remove_draft_access
         edition.update!(auth_bypass_ids: []) if edition.auth_bypass_ids.any?
-        AccessLimit.where(edition:).delete_all
+        AccessLimit.where(edition: edition).delete_all
       end
 
       def validate
@@ -114,7 +114,7 @@ module Commands
       end
 
       def delete_change_notes
-        ChangeNote.where(edition:).delete_all
+        ChangeNote.where(edition: edition).delete_all
       end
 
       def document
@@ -151,8 +151,8 @@ module Commands
           state: %w[published unpublished],
           locale: document.locale,
           base_path: edition.base_path,
-          downstream:,
-          callbacks:,
+          downstream: downstream,
+          callbacks: callbacks,
           nested: true,
         )
       end
@@ -196,7 +196,7 @@ module Commands
       def set_update_type
         return if edition.update_type
 
-        edition.update!(update_type:)
+        edition.update!(update_type: update_type)
       end
 
       def publish_redirect(previous_base_path, locale)
@@ -213,15 +213,15 @@ module Commands
               content_id: draft_redirect.document.content_id,
               locale: draft_redirect.document.locale,
             },
-            downstream:,
-            callbacks:,
+            downstream: downstream,
+            callbacks: callbacks,
             nested: true,
           )
         end
       end
 
       def edition_diff
-        @edition_diff ||= LinkExpansion::EditionDiff.new(edition, previous_edition:)
+        @edition_diff ||= LinkExpansion::EditionDiff.new(edition, previous_edition: previous_edition)
       end
 
       def send_downstream
@@ -243,14 +243,14 @@ module Commands
       def live_worker_params
         worker_params.merge(
           message_queue_event_type: update_type,
-          orphaned_content_ids:,
+          orphaned_content_ids: orphaned_content_ids,
         )
       end
 
       def worker_params
         {
-          content_id:,
-          locale:,
+          content_id: content_id,
+          locale: locale,
           update_dependencies: edition_diff.present?,
           source_command: "publish",
           source_fields: edition_diff.has_previous_edition? ? edition_diff.fields : [],

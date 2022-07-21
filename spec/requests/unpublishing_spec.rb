@@ -7,12 +7,12 @@
 RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
   let(:content_id) { SecureRandom.uuid }
   let(:base_path) { "/vat-rates" }
-  let!(:document) { create(:document, content_id:) }
+  let!(:document) { create(:document, content_id: content_id) }
   let!(:edition) do
     create(
       :live_edition,
-      document:,
-      base_path:,
+      document: document,
+      base_path: base_path,
     )
   end
 
@@ -25,7 +25,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     end
     let(:withdrawal_response) do
       {
-        base_path:,
+        base_path: base_path,
         content_item: a_hash_including(
           withdrawn_notice: {
             explanation: "Test withdrawal",
@@ -40,7 +40,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
       expect(response.status).to eq(200), response.body
 
-      unpublishing = Unpublishing.find_by(edition:)
+      unpublishing = Unpublishing.find_by(edition: edition)
       expect(unpublishing.type).to eq("withdrawal")
       expect(unpublishing.explanation).to eq("Test withdrawal")
     end
@@ -100,11 +100,11 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     end
     let(:redirect_response) do
       {
-        base_path:,
+        base_path: base_path,
         content_item: {
           document_type: "redirect",
           schema_name: "redirect",
-          base_path:,
+          base_path: base_path,
           locale: edition.locale,
           publishing_app: edition.publishing_app,
           public_updated_at: Time.zone.now.iso8601,
@@ -126,7 +126,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
         expect(response.status).to eq(200), response.body
 
-        unpublishing = Unpublishing.find_by(edition:)
+        unpublishing = Unpublishing.find_by(edition: edition)
         expect(unpublishing.type).to eq("redirect")
         expect(unpublishing.redirects).to match_array([
           a_hash_including(destination: "/new-path"),
@@ -194,9 +194,9 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
     end
     let(:gone_response) do
       {
-        base_path:,
+        base_path: base_path,
         content_item: {
-          base_path:,
+          base_path: base_path,
           document_type: "gone",
           schema_name: "gone",
           locale: "en",
@@ -222,7 +222,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
       expect(response.status).to eq(200), response.body
 
-      unpublishing = Unpublishing.find_by(edition:)
+      unpublishing = Unpublishing.find_by(edition: edition)
       expect(unpublishing.type).to eq("gone")
       expect(unpublishing.explanation).to eq("Test gone")
       expect(unpublishing.alternative_path).to eq("/new-path")
@@ -257,7 +257,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
         .with(
           a_hash_including(
             document_type: "gone",
-            content_id:,
+            content_id: content_id,
             details: a_hash_including(alternative_path: "/new-path"),
           ),
           event_type: "unpublish",
@@ -281,7 +281,7 @@ RSpec.describe "POST /v2/content/:content_id/unpublish", type: :request do
 
       expect(response.status).to eq(200), response.body
 
-      unpublishing = Unpublishing.find_by(edition:)
+      unpublishing = Unpublishing.find_by(edition: edition)
       expect(unpublishing.type).to eq("vanish")
     end
 

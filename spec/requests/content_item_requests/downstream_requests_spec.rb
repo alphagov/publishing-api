@@ -4,7 +4,7 @@ RSpec.describe "Downstream requests", type: :request do
       v2_content_item
         .except(:update_type)
         .merge(expanded_links: {
-          available_translations:,
+          available_translations: available_translations,
         })
     end
 
@@ -28,7 +28,7 @@ RSpec.describe "Downstream requests", type: :request do
       end
 
       let(:target_edition) { create(:edition, base_path: "/foo", title: "foo") }
-      let!(:links) { create(:link, link_set:, link_type: "parent", target_content_id: target_edition.document.content_id) }
+      let!(:links) { create(:link, link_set: link_set, link_type: "parent", target_content_id: target_edition.document.content_id) }
 
       let(:content_item_for_draft_content_store) do
         v2_content_item.except(:update_type).merge(
@@ -65,8 +65,8 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         draft = create(
           :draft_edition,
-          document: create(:document, content_id:, stale_lock_version: 1),
-          base_path:,
+          document: create(:document, content_id: content_id, stale_lock_version: 1),
+          base_path: base_path,
         )
 
         create(
@@ -92,8 +92,8 @@ RSpec.describe "Downstream requests", type: :request do
       before do
         create(
           :live_edition,
-          document: create(:document, content_id:),
-          base_path:,
+          document: create(:document, content_id: content_id),
+          base_path: base_path,
         )
       end
 
@@ -112,12 +112,12 @@ RSpec.describe "Downstream requests", type: :request do
 
     context "when draft and live editions exists for the link set" do
       before do
-        document = create(:document, content_id:)
+        document = create(:document, content_id: content_id)
 
         draft = create(
           :draft_edition,
-          document:,
-          base_path:,
+          document: document,
+          base_path: base_path,
           user_facing_version: 2,
         )
 
@@ -129,8 +129,8 @@ RSpec.describe "Downstream requests", type: :request do
 
         create(
           :live_edition,
-          document:,
-          base_path:,
+          document: document,
+          base_path: base_path,
         )
       end
 
@@ -184,7 +184,7 @@ RSpec.describe "Downstream requests", type: :request do
         title: "foo",
         routes: [{ path: "/a", type: "exact" }],
       ).to_json
-      put "/v2/content/#{a}", params:
+      put "/v2/content/#{a}", params: params
     end
 
     it "doesn't send draft dependencies to the live content store" do
@@ -213,15 +213,15 @@ RSpec.describe "Downstream requests", type: :request do
     let!(:draft) do
       create(
         :draft_edition,
-        document: create(:document, content_id:),
-        base_path:,
+        document: create(:document, content_id: content_id),
+        base_path: base_path,
       )
     end
 
     let(:content_item_for_live_content_store) do
       draft.attributes.deep_symbolize_keys
         .merge(
-          base_path:,
+          base_path: base_path,
           locale: "en",
           document_type: "nonexistent-schema",
           schema_name: "nonexistent-schema",
@@ -249,9 +249,9 @@ RSpec.describe "Downstream requests", type: :request do
       allow(PublishingAPI.service(:live_content_store)).to receive(:put_content_item).with(anything)
       expect(PublishingAPI.service(:live_content_store)).to receive(:put_content_item)
         .with(
-          base_path:,
+          base_path: base_path,
           content_item: a_hash_including(
-            content_id:,
+            content_id: content_id,
             locale: "en",
             payload_version: anything,
           ),

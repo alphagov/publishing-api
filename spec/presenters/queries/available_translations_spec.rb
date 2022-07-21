@@ -1,7 +1,7 @@
 RSpec.describe Presenters::Queries::AvailableTranslations do
   subject(:translations) do
     described_class
-      .by_content_id(content_id, with_drafts:)
+      .by_content_id(content_id, with_drafts: with_drafts)
       .translations[:available_translations]
   end
 
@@ -17,9 +17,9 @@ RSpec.describe Presenters::Queries::AvailableTranslations do
   def create_edition(base_path, state = "published", locale = "en", version = 1)
     create(
       :edition,
-      document: Document.find_or_create_by(content_id: link_set.content_id, locale:),
-      base_path:,
-      state:,
+      document: Document.find_or_create_by(content_id: link_set.content_id, locale: locale),
+      base_path: base_path,
+      state: state,
       content_store: state == "draft" ? "draft" : "live",
       user_facing_version: version,
     )
