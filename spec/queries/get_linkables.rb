@@ -4,7 +4,7 @@ RSpec.describe Queries::GetLinkables do
   describe "#call" do
     before { Rails.cache.clear }
 
-    subject(:linkables) { described_class.new(document_type: document_type).call }
+    subject(:linkables) { described_class.new(document_type:).call }
 
     context "when there is a single edition" do
       let(:base_path) { "/path" }
@@ -14,11 +14,11 @@ RSpec.describe Queries::GetLinkables do
       before do
         create(
           :live_edition,
-          base_path: base_path,
-          details: { internal_name: internal_name },
-          document: create(:document, content_id: content_id),
-          document_type: document_type,
-          title: title,
+          base_path:,
+          details: { internal_name: },
+          document: create(:document, content_id:),
+          document_type:,
+          title:,
         )
       end
 
@@ -30,11 +30,11 @@ RSpec.describe Queries::GetLinkables do
 
       it "returns the expected linkable" do
         expect(linkables.first.to_h).to eq(
-          base_path: base_path,
-          content_id: content_id,
-          internal_name: internal_name,
+          base_path:,
+          content_id:,
+          internal_name:,
           publication_state: "published",
-          title: title,
+          title:,
         )
       end
 
@@ -51,7 +51,7 @@ RSpec.describe Queries::GetLinkables do
 
     context "when there are a number of editions matching a document_type" do
       let!(:editions) do
-        3.times.map { create(:live_edition, document_type: document_type) }
+        3.times.map { create(:live_edition, document_type:) }
       end
       let(:edition_content_ids) { editions.map { |e| e.document.content_id } }
 
@@ -98,7 +98,7 @@ RSpec.describe Queries::GetLinkables do
       before do
         create(
           :live_edition,
-          document_type: document_type,
+          document_type:,
           document: create(:document, locale: "fr"),
         )
       end
@@ -111,15 +111,15 @@ RSpec.describe Queries::GetLinkables do
       before do
         create(
           :live_edition,
-          document_type: document_type,
+          document_type:,
           title: "Hello",
-          document: create(:document, content_id: content_id),
+          document: create(:document, content_id:),
         )
         create(
           :live_edition,
-          document_type: document_type,
+          document_type:,
           title: "Salut",
-          document: create(:document, content_id: content_id, locale: "fr"),
+          document: create(:document, content_id:, locale: "fr"),
         )
       end
 
@@ -133,9 +133,9 @@ RSpec.describe Queries::GetLinkables do
       let!(:draft_edition) do
         create(
           :draft_edition,
-          document_type: document_type,
+          document_type:,
           title: "Draft",
-          document: document,
+          document:,
           user_facing_version: 2,
         )
       end
@@ -148,9 +148,9 @@ RSpec.describe Queries::GetLinkables do
         let!(:published_edition) do
           create(
             :live_edition,
-            document_type: document_type,
+            document_type:,
             title: "Published",
-            document: document,
+            document:,
           )
         end
 
@@ -162,7 +162,7 @@ RSpec.describe Queries::GetLinkables do
 
     context "when an edition is unpublished" do
       before do
-        create(:unpublished_edition, document_type: document_type)
+        create(:unpublished_edition, document_type:)
       end
 
       it { is_expected.to be_empty }
@@ -170,7 +170,7 @@ RSpec.describe Queries::GetLinkables do
 
     context "when an edition is superseded" do
       before do
-        create(:superseded_edition, document_type: document_type)
+        create(:superseded_edition, document_type:)
       end
 
       it { is_expected.to be_empty }

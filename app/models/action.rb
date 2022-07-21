@@ -30,11 +30,11 @@ class Action < ApplicationRecord
   def self.create_publishing_action(action, edition, locale, event)
     create!(
       content_id: edition.document.content_id,
-      locale: locale,
-      action: action,
+      locale:,
+      action:,
       user_uid: event.user_uid,
-      edition: edition,
-      event: event,
+      edition:,
+      event:,
     )
   end
 
@@ -44,8 +44,8 @@ class Action < ApplicationRecord
       locale: nil,
       action: "PatchLinkSet",
       user_uid: event.user_uid,
-      link_set: link_set,
-      event: event,
+      link_set:,
+      event:,
     )
 
     after_links = link_set.links.to_a

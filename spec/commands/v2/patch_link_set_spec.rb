@@ -7,10 +7,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
   let(:payload) do
     {
-      content_id: content_id,
+      content_id:,
       links: {
         topics: topics * 2, # test deduplication
-        parent: parent,
+        parent:,
       },
     }
   end
@@ -18,10 +18,10 @@ RSpec.describe Commands::V2::PatchLinkSet do
   # Shuffle the order of the links to test preservation of ordering
   let(:payload_shuffled) do
     {
-      content_id: content_id,
+      content_id:,
       links: {
         topics: topics_shuffled * 2, # test deduplication
-        parent: parent,
+        parent:,
       },
     }
   end
@@ -86,11 +86,11 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       expect(result).to be_a(Commands::Success)
       expect(result.data).to eq(
-        content_id: content_id,
+        content_id:,
         version: 1,
         links: {
-          topics: topics,
-          parent: parent,
+          topics:,
+          parent:,
         },
       )
     end
@@ -114,7 +114,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     before do
       create(
         :link_set,
-        content_id: content_id,
+        content_id:,
         stale_lock_version: 1,
         links: [
           create(
@@ -181,12 +181,12 @@ RSpec.describe Commands::V2::PatchLinkSet do
 
       expect(result).to be_a(Commands::Success)
       expect(result.data).to eq(
-        content_id: content_id,
+        content_id:,
         version: 2,
         links: {
-          topics: topics,
-          parent: parent,
-          related: related,
+          topics:,
+          parent:,
+          related:,
         },
       )
     end
@@ -220,7 +220,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     before do
       create(
         :draft_edition,
-        document: create(:document, content_id: content_id),
+        document: create(:document, content_id:),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -259,7 +259,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       before do
         create(
           :draft_edition,
-          document: create(:document, content_id: content_id, locale: "fr"),
+          document: create(:document, content_id:, locale: "fr"),
           base_path: "/french-path",
           title: "French Title",
         )
@@ -271,8 +271,8 @@ RSpec.describe Commands::V2::PatchLinkSet do
             .with(
               "downstream_high",
               a_hash_including(
-                content_id: content_id,
-                locale: locale,
+                content_id:,
+                locale:,
               ),
             )
         end
@@ -293,7 +293,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     before do
       create(
         :live_edition,
-        document: create(:document, content_id: content_id),
+        document: create(:document, content_id:),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -344,7 +344,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
       before do
         create(
           :live_edition,
-          document: create(:document, content_id: content_id, locale: "fr"),
+          document: create(:document, content_id:, locale: "fr"),
           base_path: "/french-path",
           title: "French Title",
         )
@@ -355,7 +355,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              a_hash_including(content_id: content_id, locale: locale),
+              a_hash_including(content_id:, locale:),
             )
         end
 
@@ -380,7 +380,7 @@ RSpec.describe Commands::V2::PatchLinkSet do
     before do
       create(
         :unpublished_edition,
-        document: create(:document, content_id: content_id),
+        document: create(:document, content_id:),
         base_path: "/some-path",
         title: "Some Title",
       )
@@ -421,13 +421,13 @@ RSpec.describe Commands::V2::PatchLinkSet do
     let(:content_id) { edition.document.content_id }
 
     let(:payload) do
-      { content_id: content_id, links: { topics: [link_b] } }
+      { content_id:, links: { topics: [link_b] } }
     end
 
     before do
       create(
         :link_set,
-        content_id: content_id,
+        content_id:,
         links_hash: { topics: [link_a] },
       )
     end

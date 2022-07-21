@@ -5,7 +5,7 @@ RSpec.describe Commands::V2::PutContent do
     let(:document) do
       create(
         :document,
-        content_id: content_id,
+        content_id:,
         stale_lock_version: 5,
       )
     end
@@ -13,10 +13,10 @@ RSpec.describe Commands::V2::PutContent do
     let!(:edition) do
       create(
         :live_edition,
-        document: document,
+        document:,
         user_facing_version: 5,
         first_published_at: 1.year.ago,
-        base_path: base_path,
+        base_path:,
       )
     end
 
@@ -26,7 +26,7 @@ RSpec.describe Commands::V2::PutContent do
 
     it "copes with race conditions" do
       described_class.call(payload)
-      Commands::V2::Publish.call({ content_id: content_id, update_type: "minor" })
+      Commands::V2::Publish.call({ content_id:, update_type: "minor" })
 
       thread1 = Thread.new { described_class.call(payload) }
       thread2 = Thread.new { described_class.call(payload) }

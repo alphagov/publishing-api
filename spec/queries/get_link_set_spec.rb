@@ -3,7 +3,7 @@ RSpec.describe Queries::GetLinkSet do
 
   context "when the link set exists" do
     let!(:link_set) do
-      create(:link_set, content_id: content_id, stale_lock_version: 5)
+      create(:link_set, content_id:, stale_lock_version: 5)
     end
 
     context "and it has some links" do
@@ -13,21 +13,21 @@ RSpec.describe Queries::GetLinkSet do
       before do
         create(
           :link,
-          link_set: link_set,
+          link_set:,
           link_type: "parent",
           target_content_id: parent.first,
         )
 
         create(
           :link,
-          link_set: link_set,
+          link_set:,
           link_type: "related",
           target_content_id: related.first,
         )
 
         create(
           :link,
-          link_set: link_set,
+          link_set:,
           link_type: "related",
           target_content_id: related.last,
         )
@@ -37,11 +37,11 @@ RSpec.describe Queries::GetLinkSet do
         result = subject.call(content_id)
 
         expect(result).to eq(
-          content_id: content_id,
+          content_id:,
           version: 5,
           links: {
-            parent: parent,
-            related: related,
+            parent:,
+            related:,
           },
         )
       end
@@ -52,7 +52,7 @@ RSpec.describe Queries::GetLinkSet do
         result = subject.call(content_id)
 
         expect(result).to eq(
-          content_id: content_id,
+          content_id:,
           version: 5,
           links: {},
         )
@@ -70,14 +70,14 @@ RSpec.describe Queries::GetLinkSet do
 
   context "when a document exists without a link set" do
     before do
-      create(:document, content_id: content_id)
+      create(:document, content_id:)
     end
 
     it "returns an empty response" do
       result = subject.call(content_id)
 
       expect(result).to eq(
-        content_id: content_id,
+        content_id:,
         version: 0,
         links: {},
       )

@@ -9,8 +9,8 @@ RSpec.describe Queries::GetBulkLinks do
   let(:link_set) do
     {
       links: {
-        parent: parent,
-        related: related,
+        parent:,
+        related:,
       },
       version: 5,
     }
@@ -27,21 +27,21 @@ RSpec.describe Queries::GetBulkLinks do
 
     create(
       :link,
-      link_set: link_set,
+      link_set:,
       link_type: "parent",
       target_content_id: parent.first,
     )
 
     create(
       :link,
-      link_set: link_set,
+      link_set:,
       link_type: "related",
       target_content_id: related.first,
     )
 
     create(
       :link,
-      link_set: link_set,
+      link_set:,
       link_type: "related",
       target_content_id: related.last,
     )

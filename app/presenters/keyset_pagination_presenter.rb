@@ -8,7 +8,7 @@ module Presenters
 
     def present
       {
-        links: links,
+        links:,
         results: presented_results,
       }
     end
@@ -61,7 +61,7 @@ module Presenters
       uri = URI.parse(request_url)
 
       new_params = Rack::Utils.parse_query(uri.query)
-        .except(*except).merge({ before: before, after: after }.compact)
+        .except(*except).merge({ before:, after: }.compact)
 
       new_query = Rack::Utils.build_query(new_params) unless new_params.empty?
 

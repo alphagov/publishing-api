@@ -5,13 +5,13 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
   let!(:edition) do
     create(
       :live_edition,
-      document: create(:document, content_id: content_id),
+      document: create(:document, content_id:),
       base_path: "/vat-rates",
     )
   end
 
   let!(:event) { double(:event, id: 5) }
-  let!(:link_set) { create(:link_set, content_id: content_id) }
+  let!(:link_set) { create(:link_set, content_id:) }
 
   let(:client) { ContentStoreWriter.new("http://localhost:3093") }
   let(:body) do
@@ -28,7 +28,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
         .with(
           method: :put,
           path: "/content/vat-rates",
-          body: body,
+          body:,
           headers: {
             "Content-Type" => "application/json",
           },
@@ -56,7 +56,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
         .with(
           method: :put,
           path: "/content/vat-rates",
-          body: body,
+          body:,
           headers: {
             "Content-Type" => "application/json",
           },
@@ -91,7 +91,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
           .with(
             method: :put,
             path: "/content/vat-rates",
-            body: body,
+            body:,
             headers: {
               "Content-Type" => "application/json",
             },
@@ -119,7 +119,7 @@ RSpec.describe "PUT endpoint pact with the Content Store", pact: true do
           .with(
             method: :put,
             path: "/content/vat-rates",
-            body: body,
+            body:,
             headers: {
               "Content-Type" => "application/json",
             },

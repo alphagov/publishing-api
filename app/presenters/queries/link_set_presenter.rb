@@ -12,7 +12,7 @@ module Presenters
       def present
         {
           content_id: link_set.content_id,
-          links: links,
+          links:,
           version: link_set.stale_lock_version,
         }
       end

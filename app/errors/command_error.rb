@@ -27,7 +27,7 @@ class CommandError < StandardError
         error: {
           code: e.code,
           message: e.message,
-          fields: fields,
+          fields:,
         },
       },
     )

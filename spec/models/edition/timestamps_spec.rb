@@ -4,7 +4,7 @@ RSpec.describe Edition::Timestamps do
   let(:current_time) { Time.zone.now }
 
   describe "#edited" do
-    let(:edition) { build(:edition, update_type: update_type) }
+    let(:edition) { build(:edition, update_type:) }
     let(:previous_live_version) do
       build(
         :edition,
@@ -17,9 +17,9 @@ RSpec.describe Edition::Timestamps do
     let(:update_type) { "major" }
     let(:payload) do
       {
-        first_published_at: first_published_at,
-        last_edited_at: last_edited_at,
-        public_updated_at: public_updated_at,
+        first_published_at:,
+        last_edited_at:,
+        public_updated_at:,
       }
     end
     let(:first_published_at) { nil }
@@ -109,9 +109,9 @@ RSpec.describe Edition::Timestamps do
     let(:edition) do
       build(
         :edition,
-        publishing_api_first_published_at: publishing_api_first_published_at,
-        first_published_at: first_published_at,
-        public_updated_at: public_updated_at,
+        publishing_api_first_published_at:,
+        first_published_at:,
+        public_updated_at:,
       )
     end
     let(:publishing_api_first_published_at) { nil }

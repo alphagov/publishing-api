@@ -3,7 +3,7 @@ module DependencyResolutionHelper
     link_set = create(
       :link_set,
       content_id: content_id || SecureRandom.uuid,
-      links_hash: links_hash,
+      links_hash:,
     )
     link_set.content_id
   end
@@ -19,10 +19,10 @@ module DependencyResolutionHelper
   )
     create(
       factory,
-      document: Document.find_or_create_by(content_id: content_id, locale: locale),
-      base_path: base_path,
+      document: Document.find_or_create_by(content_id:, locale:),
+      base_path:,
       user_facing_version: version,
-      links_hash: links_hash,
+      links_hash:,
       **kwargs,
     )
   end
@@ -32,9 +32,9 @@ module DependencyResolutionHelper
 
     create(
       :link,
-      link_set: link_set,
+      link_set:,
       target_content_id: to,
-      link_type: link_type,
+      link_type:,
       position: link_position,
     )
   end

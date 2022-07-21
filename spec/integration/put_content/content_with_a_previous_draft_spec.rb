@@ -11,13 +11,13 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
   end
 
   let(:document) do
-    create(:document, content_id: content_id, stale_lock_version: 1)
+    create(:document, content_id:, stale_lock_version: 1)
   end
   let!(:previously_drafted_item) do
     create(
       :draft_edition,
-      document: document,
-      base_path: base_path,
+      document:,
+      base_path:,
       title: "Old Title",
       publishing_app: "publisher",
       update_type: "major",
@@ -133,7 +133,7 @@ RSpec.describe "PUT /v2/content when the payload is for an already drafted editi
       let!(:substitute_item) do
         create(
           :draft_edition,
-          base_path: base_path,
+          base_path:,
           title: "Substitute Content",
           publishing_app: "publisher",
           document_type: "coming_soon",
