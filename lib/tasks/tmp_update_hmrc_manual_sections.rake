@@ -12,17 +12,13 @@ def update_hmrc_manual_section_titles(dry_run: false)
 
     next if edition.blank?
 
-    if manual_edition
-      details = edition.details
-      details[:manual].delete(:title)
+    details = edition.details
+    details[:manual].delete(:title)
 
-      puts("Removing HMRC Manual title from HMRC Section #{document.content_id}")
-      unless dry_run
-        edition.update!(details: details)
-        Commands::V2::RepresentDownstream.new.call(document.content_id)
-      end
-    else
-      puts("Error: no parent manual found for HMRC Manual Section #{document.content_id}")
+    puts("Removing HMRC Manual title from HMRC Section #{document.content_id}")
+    unless dry_run
+      edition.update!(details: details)
+      Commands::V2::RepresentDownstream.new.call(document.content_id)
     end
   end
 end
