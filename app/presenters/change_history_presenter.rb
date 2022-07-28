@@ -30,6 +30,7 @@ module Presenters
         .joins(:edition)
         .where(editions: { document: document })
         .where("user_facing_version <= ?", version_number)
+        .where.not(public_timestamp: nil)
         .order(:public_timestamp)
     end
 
