@@ -7,7 +7,7 @@ module V2
     def bulk_links
       throw_payload_error if max_payload_size_exceeded?
       json = Queries::GetBulkLinks.call(content_ids)
-      render json: json
+      render json:
     end
 
     def expanded_links
@@ -18,7 +18,7 @@ module V2
         generate: generate?,
       )
 
-      render json: json
+      render json:
     end
 
     def patch_links
@@ -28,7 +28,7 @@ module V2
 
     def get_linked
       render json: Queries::GetLinked.new(
-        content_id: content_id,
+        content_id:,
         link_type: params.fetch(:link_type),
         fields: params.fetch(:fields),
       ).call
@@ -62,7 +62,7 @@ module V2
     end
 
     def links_params
-      payload.merge(content_id: content_id)
+      payload.merge(content_id:)
     end
 
     def content_id

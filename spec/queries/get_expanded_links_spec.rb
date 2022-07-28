@@ -8,8 +8,8 @@ RSpec.describe Queries::GetExpandedLinks do
     described_class.call(
       content_id,
       locale,
-      with_drafts: with_drafts,
-      generate: generate,
+      with_drafts:,
+      generate:,
     )
   end
 
@@ -24,7 +24,7 @@ RSpec.describe Queries::GetExpandedLinks do
 
   context "when generate is false" do
     context "and there are expanded links stored" do
-      let(:updated_at) { Time.zone.local("2017-07-27 16:01:01").utc }
+      let(:updated_at) { Time.zone.parse("2017-07-27 16:01:01").utc }
       let(:expanded_links) do
         {
           link_type: { content_id: SecureRandom.uuid },
@@ -34,11 +34,11 @@ RSpec.describe Queries::GetExpandedLinks do
       before do
         create(
           :expanded_links,
-          content_id: content_id,
-          locale: locale,
-          with_drafts: with_drafts,
-          expanded_links: expanded_links,
-          updated_at: updated_at,
+          content_id:,
+          locale:,
+          with_drafts:,
+          expanded_links:,
+          updated_at:,
         )
       end
 
@@ -56,7 +56,7 @@ RSpec.describe Queries::GetExpandedLinks do
       before do
         create(
           :link_set,
-          content_id: content_id,
+          content_id:,
           links_hash: {},
           stale_lock_version: link_set_lock_version,
         )
@@ -82,7 +82,7 @@ RSpec.describe Queries::GetExpandedLinks do
   context "when generate is true" do
     let(:generate) { false }
     context "and there is not a link set associated with the content id" do
-      before { create(:document, content_id: content_id) }
+      before { create(:document, content_id:) }
 
       it "returns a version of 0" do
         expect(result).to match(a_hash_including(version: 0))

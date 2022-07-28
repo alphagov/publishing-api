@@ -14,7 +14,7 @@ FactoryBot.define do
     after(:create) do |edition, evaluator|
       create(
         :unpublishing,
-        edition: edition,
+        edition:,
         type: evaluator.unpublishing_type,
         explanation: evaluator.explanation,
         redirects: [{ path: edition.base_path, type: :exact, destination: evaluator.alternative_path }],

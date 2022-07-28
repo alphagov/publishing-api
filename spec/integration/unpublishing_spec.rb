@@ -7,7 +7,7 @@ RSpec.describe "Unpublishing editions" do
 
   let(:put_content_payload) do
     {
-      content_id: content_id,
+      content_id:,
       base_path: "/vat-rates",
       title: "Some Title",
       publishing_app: "publisher",
@@ -24,14 +24,14 @@ RSpec.describe "Unpublishing editions" do
 
   let(:publish_payload) do
     {
-      content_id: content_id,
+      content_id:,
       update_type: "major",
     }
   end
 
   let(:unpublish_payload) do
     {
-      content_id: content_id,
+      content_id:,
       type: "gone",
     }
   end

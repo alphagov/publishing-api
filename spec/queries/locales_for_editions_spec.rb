@@ -8,9 +8,9 @@ RSpec.describe Queries::LocalesForEditions do
   )
     create(
       type,
-      document: Document.find_or_create_by(content_id: content_id, locale: locale),
+      document: Document.find_or_create_by(content_id:, locale:),
       base_path: "/#{base_path_prefix}-#{locale}",
-      user_facing_version: user_facing_version,
+      user_facing_version:,
     )
   end
 

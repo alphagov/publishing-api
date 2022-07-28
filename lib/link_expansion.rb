@@ -6,11 +6,11 @@
 #
 class LinkExpansion
   def self.by_edition(edition, with_drafts: false)
-    new(edition: edition, with_drafts: with_drafts)
+    new(edition:, with_drafts:)
   end
 
   def self.by_content_id(content_id, locale: Edition::DEFAULT_LOCALE, with_drafts: false)
-    new(content_id: content_id, locale: locale, with_drafts: with_drafts)
+    new(content_id:, locale:, with_drafts:)
   end
 
   def initialize(options)
@@ -26,7 +26,7 @@ class LinkExpansion
     @link_graph ||= LinkGraph.new(
       root_content_id: content_id,
       root_locale: locale,
-      with_drafts: with_drafts,
+      with_drafts:,
       link_reference: LinkReference.new,
     )
   end
@@ -49,10 +49,10 @@ private
 
   def content_cache
     @content_cache ||= ContentCache.new(
-      locale: locale,
+      locale:,
       preload_editions: edition ? [edition] : [],
       preload_content_ids: (link_graph.links_content_ids + [content_id]).uniq,
-      with_drafts: with_drafts,
+      with_drafts:,
     )
   end
 
@@ -74,7 +74,7 @@ private
     )
 
     links = auto_reverse_link(node).merge(populate_links(node.links))
-    expanded.merge(links: links)
+    expanded.merge(links:)
   end
 
   def auto_reverse_link(node)

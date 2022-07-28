@@ -11,7 +11,7 @@ module Queries
         ),
       )
 
-      { id: id, content_id: content_id, locale: locale } if id
+      { id:, content_id:, locale: } if id
     end
 
     def find_conflict(scope)
@@ -32,7 +32,7 @@ module Queries
         .with_document
         .where.not(id: edition_id)
         .where(state: allowed_states(state))
-        .where(base_path: base_path)
+        .where(base_path:)
     end
 
     def allowed_states(state)

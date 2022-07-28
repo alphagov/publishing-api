@@ -8,7 +8,7 @@ module EventLogger
         event = Event.create!(
           content_id: payload[:content_id],
           action: action(command_class),
-          payload: payload,
+          payload:,
           user_uid: GdsApi::GovukHeaders.headers[:x_govuk_authenticated_user],
           request_id: GdsApi::GovukHeaders.headers[:govuk_request_id],
         )

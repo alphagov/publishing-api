@@ -48,7 +48,7 @@ module Queries
     def editions
       scope = Edition.all
       scope = scope.where(document_type: document_types) if document_types.any?
-      scope = scope.where(publishing_app: publishing_app) if publishing_app
+      scope = scope.where(publishing_app:) if publishing_app
       scope = scope.with_document.where("documents.locale": locale) unless locale == "all"
       scope = Link.filter_editions(scope, link_filters) if link_filters.present?
       scope
@@ -115,14 +115,14 @@ module Queries
     def query
       @query ||= presenter.new(
         editions,
-        fields: fields,
+        fields:,
         order: pagination.order,
         offset: pagination.offset,
-        locale: locale,
+        locale:,
         limit: pagination.per_page,
-        search_query: search_query,
+        search_query:,
         search_in: search_fields,
-        states: states,
+        states:,
       )
     end
 
@@ -136,7 +136,7 @@ module Queries
         error_details: {
           error: {
             code: 400,
-            message: message,
+            message:,
           },
         },
       )

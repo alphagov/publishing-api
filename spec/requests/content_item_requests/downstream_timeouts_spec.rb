@@ -26,20 +26,20 @@ RSpec.describe "Downstream timeouts", type: :request do
     let(:base_path) { "/vat-rates" }
 
     before do
-      document = create(:document, content_id: content_id)
+      document = create(:document, content_id:)
 
       create(
         :live_edition,
         v2_content_item
           .slice(*Edition::TOP_LEVEL_FIELDS)
-          .merge(base_path: base_path, user_facing_version: 1, document: document),
+          .merge(base_path:, user_facing_version: 1, document:),
       )
 
       draft = create(
         :draft_edition,
         v2_content_item
           .slice(*Edition::TOP_LEVEL_FIELDS)
-          .merge(base_path: base_path, user_facing_version: 2, document: document),
+          .merge(base_path:, user_facing_version: 2, document:),
       )
 
       create(

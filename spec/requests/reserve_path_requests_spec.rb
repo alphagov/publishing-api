@@ -2,7 +2,7 @@ RSpec.describe "PUT /paths", type: :request do
   let(:request_body) { payload.to_json }
 
   def do_request(body: request_body, headers: {})
-    put request_path, params: body, headers: headers
+    put request_path, params: body, headers:
   end
 
   context "with path /vat-rates" do
@@ -27,7 +27,7 @@ RSpec.describe "PUT /paths", type: :request do
 
     context "with override_existing set" do
       before do
-        create(:path_reservation, base_path: base_path, publishing_app: "another")
+        create(:path_reservation, base_path:, publishing_app: "another")
         payload.merge!(override_existing: true)
       end
 

@@ -1,17 +1,17 @@
 RSpec.describe Tasks::VersionValidator do
   let(:content_id) { SecureRandom.uuid }
-  let(:document) { create(:document, content_id: content_id) }
+  let(:document) { create(:document, content_id:) }
 
   before do
     create(
       :superseded_edition,
-      document: document,
+      document:,
       user_facing_version: 1,
     )
 
     create(
       :live_edition,
-      document: document,
+      document:,
       user_facing_version: 2,
     )
   end

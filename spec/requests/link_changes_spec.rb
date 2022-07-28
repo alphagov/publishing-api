@@ -10,7 +10,7 @@ RSpec.describe "GET /v2/links/changes", type: :request do
     make_patch_links_request(
       editions.first.content_id,
       { taxons: [editions.second.content_id] },
-      user_uid: user_uid,
+      user_uid:,
     )
 
     get "/v2/links/changes", params: { link_types: %w[taxons] }
@@ -25,7 +25,7 @@ RSpec.describe "GET /v2/links/changes", type: :request do
                   content_id: editions.second.content_id },
         link_type: "taxons",
         change: "add",
-        user_uid: user_uid,
+        user_uid:,
         created_at: be_a(String),
       }])
   end
@@ -116,7 +116,7 @@ RSpec.describe "GET /v2/links/changes", type: :request do
 
   def make_patch_links_request(content_id, links, params = {})
     patch "/v2/links/#{content_id}",
-          params: { links: links }.to_json,
+          params: { links: }.to_json,
           headers: { "X-GOVUK-AUTHENTICATED-USER" => params[:user_uid] }
   end
 

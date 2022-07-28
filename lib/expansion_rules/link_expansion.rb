@@ -31,12 +31,12 @@ class ExpansionRules::LinkExpansion
 
   def next_allowed_direct_link_types(link_types, link_types_path = [], reverse_to_direct: false)
     next_allowed = next_allowed_link_types(link_types, link_types_path)
-    rules.next_allowed_direct_link_types(next_allowed, reverse_to_direct: reverse_to_direct)
+    rules.next_allowed_direct_link_types(next_allowed, reverse_to_direct:)
   end
 
   def next_allowed_reverse_link_types(link_types, link_types_path = [], reverse_to_direct: false)
     next_allowed = next_allowed_link_types(link_types, link_types_path)
-    rules.next_allowed_reverse_link_types(next_allowed, reverse_to_direct: reverse_to_direct)
+    rules.next_allowed_reverse_link_types(next_allowed, reverse_to_direct:)
   end
 
   def valid_link_types_path?(link_types_path)

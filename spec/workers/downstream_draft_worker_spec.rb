@@ -70,24 +70,24 @@ RSpec.describe DownstreamDraftWorker do
   describe "updates expanded links" do
     it "creates a ExpandedLinks with_drafts: true entry" do
       expect { subject.perform(arguments) }
-        .to(change { ExpandedLinks.exists?(content_id: content_id, with_drafts: true) })
+        .to(change { ExpandedLinks.exists?(content_id:, with_drafts: true) })
     end
     it "creates a ExpandedLinks with_drafts: false entry" do
       expect { subject.perform(arguments) }
-        .to(change { ExpandedLinks.exists?(content_id: content_id, with_drafts: false) })
+        .to(change { ExpandedLinks.exists?(content_id:, with_drafts: false) })
     end
 
     context "when there aren't any links" do
       it "has only available_translations in the draft" do
         subject.perform(arguments)
-        links = ExpandedLinks.find_by(content_id: content_id, with_drafts: true)
+        links = ExpandedLinks.find_by(content_id:, with_drafts: true)
           .expanded_links
         expect(links).to match a_hash_including("available_translations")
       end
 
       it "has no links without drafts" do
         subject.perform(arguments)
-        links = ExpandedLinks.find_by(content_id: content_id, with_drafts: false)
+        links = ExpandedLinks.find_by(content_id:, with_drafts: false)
           .expanded_links
         expect(links).to match({})
       end

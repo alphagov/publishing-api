@@ -5,8 +5,8 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
     let(:content_ids) { [] }
     let(:options) do
       {
-        state_fallback_order: state_fallback_order,
-        locale_fallback_order: locale_fallback_order,
+        state_fallback_order:,
+        locale_fallback_order:,
       }
     end
     subject { described_class.call(content_ids, **options) }
@@ -17,7 +17,7 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       let(:content_ids) { [SecureRandom.uuid] }
       let(:document) { create(:document, content_id: content_ids.first) }
       let!(:draft_edition) do
-        create(:draft_edition, document: document)
+        create(:draft_edition, document:)
       end
 
       context "and the state_fallback order is [draft]" do
@@ -42,14 +42,14 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       let!(:draft_edition) do
         create(
           :draft_edition,
-          document: document,
+          document:,
           user_facing_version: 2,
         )
       end
       let!(:withdrawn_edition) do
         create(
           :withdrawn_unpublished_edition,
-          document: document,
+          document:,
           user_facing_version: 1,
         )
       end
@@ -200,7 +200,7 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       let!(:draft_edition) do
         create(
           :draft_edition,
-          document: document,
+          document:,
           document_type: "gone",
           user_facing_version: 2,
         )
@@ -208,7 +208,7 @@ RSpec.describe Queries::GetEditionIdsWithFallbacks do
       let!(:published_edition) do
         create(
           :live_edition,
-          document: document,
+          document:,
           user_facing_version: 1,
         )
       end

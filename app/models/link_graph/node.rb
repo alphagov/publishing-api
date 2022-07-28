@@ -74,7 +74,7 @@ class LinkGraph::Node
       end
 
     {
-      content_id: content_id,
+      content_id:,
       links: children,
     }
   end

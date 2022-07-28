@@ -9,10 +9,10 @@ module Commands
         PublishingAPI.service(:statsd).time(name.gsub(/:+/, ".")) do
           new(
             payload,
-            event: event,
-            downstream: downstream,
-            callbacks: callbacks,
-            nested: nested,
+            event:,
+            downstream:,
+            callbacks:,
+            nested:,
             **options,
           ).call
         end
@@ -81,7 +81,7 @@ module Commands
           },
         }
 
-        raise_command_error(409, "Conflict", fields, friendly_message: friendly_message)
+        raise_command_error(409, "Conflict", fields, friendly_message:)
       end
 
       current_version
@@ -89,11 +89,11 @@ module Commands
 
     def raise_command_error(code, message, fields, friendly_message: nil)
       raise CommandError.new(
-        code: code,
-        message: message,
+        code:,
+        message:,
         error_details: {
           error: {
-            code: code,
+            code:,
             message: friendly_message || message,
           }.merge(fields),
         },
