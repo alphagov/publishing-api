@@ -11,7 +11,7 @@ RSpec.describe Commands::V2::DiscardDraft do
       create(
         :document,
         locale: "en",
-        stale_lock_version: stale_lock_version,
+        stale_lock_version:,
       )
     end
     let(:stale_lock_version) { 1 }
@@ -29,9 +29,9 @@ RSpec.describe Commands::V2::DiscardDraft do
       let!(:existing_draft_item) do
         create(
           :access_limited_draft_edition,
-          document: document,
-          base_path: base_path,
-          user_facing_version: user_facing_version,
+          document:,
+          base_path:,
+          user_facing_version:,
         )
       end
       let!(:change_note) { ChangeNote.create(edition: existing_draft_item) }
@@ -67,7 +67,7 @@ RSpec.describe Commands::V2::DiscardDraft do
           .with(
             "downstream_high",
             a_hash_including(
-              base_path: base_path,
+              base_path:,
               content_id: document.content_id,
               locale: document.locale,
               source_command: "discard_draft",
@@ -79,36 +79,36 @@ RSpec.describe Commands::V2::DiscardDraft do
       end
 
       it "deletes any path reservations for the base_path and publishing app" do
-        create(:path_reservation, base_path: base_path, publishing_app: publishing_app)
+        create(:path_reservation, base_path:, publishing_app:)
 
         expect { described_class.call(payload) }
-          .to change { PathReservation.where(base_path: base_path).count }
+          .to change { PathReservation.where(base_path:).count }
           .by(-1)
       end
 
       it "doesn't delete a path reservation reserved by a different application" do
-        create(:path_reservation, base_path: base_path, publishing_app: "different")
+        create(:path_reservation, base_path:, publishing_app: "different")
 
         expect { described_class.call(payload) }
-          .not_to(change { PathReservation.where(base_path: base_path).count })
+          .not_to(change { PathReservation.where(base_path:).count })
       end
 
       it "doesn't delete a previous path reservation if it's used by a live "\
         "edition published by the same app" do
-        create(:live_edition, base_path: base_path, publishing_app: publishing_app)
-        create(:path_reservation, base_path: base_path, publishing_app: publishing_app)
+        create(:live_edition, base_path:, publishing_app:)
+        create(:path_reservation, base_path:, publishing_app:)
 
         expect { described_class.call(payload) }
-          .not_to(change { PathReservation.where(base_path: base_path).count })
+          .not_to(change { PathReservation.where(base_path:).count })
       end
 
       it "deletes a previous path reservation if it's used by a live "\
         "edition published by a different app" do
-        create(:live_edition, base_path: base_path, publishing_app: "different-app")
-        create(:path_reservation, base_path: base_path, publishing_app: publishing_app)
+        create(:live_edition, base_path:, publishing_app: "different-app")
+        create(:path_reservation, base_path:, publishing_app:)
 
         expect { described_class.call(payload) }
-          .to change { PathReservation.where(base_path: base_path).count }
+          .to change { PathReservation.where(base_path:).count }
           .by(-1)
       end
 
@@ -139,8 +139,8 @@ RSpec.describe Commands::V2::DiscardDraft do
         let!(:published_item) do
           create(
             :live_edition,
-            document: document,
-            base_path: base_path,
+            document:,
+            base_path:,
             user_facing_version: user_facing_version - 1,
           )
         end
@@ -156,7 +156,7 @@ RSpec.describe Commands::V2::DiscardDraft do
             .with(
               DownstreamDiscardDraftWorker::HIGH_QUEUE,
               a_hash_including(
-                base_path: base_path,
+                base_path:,
                 content_id: document.content_id,
                 locale: document.locale,
                 source_command: "discard_draft",
@@ -184,7 +184,7 @@ RSpec.describe Commands::V2::DiscardDraft do
         let!(:published_item) do
           create(
             :live_edition,
-            document: document,
+            document:,
             base_path: "/hat-rates",
             user_facing_version: user_facing_version - 1,
           )
@@ -195,7 +195,7 @@ RSpec.describe Commands::V2::DiscardDraft do
             .with(
               DownstreamDiscardDraftWorker::HIGH_QUEUE,
               a_hash_including(
-                base_path: base_path,
+                base_path:,
                 content_id: document.content_id,
                 locale: document.locale,
                 source_command: "discard_draft",
@@ -210,8 +210,8 @@ RSpec.describe Commands::V2::DiscardDraft do
         let(:unpublished_item) do
           create(
             :unpublished_edition,
-            document: document,
-            base_path: base_path,
+            document:,
+            base_path:,
             user_facing_version: user_facing_version - 1,
           )
         end
@@ -221,7 +221,7 @@ RSpec.describe Commands::V2::DiscardDraft do
             .with(
               DownstreamDiscardDraftWorker::HIGH_QUEUE,
               a_hash_including(
-                base_path: base_path,
+                base_path:,
                 content_id: document.content_id,
                 locale: document.locale,
                 source_command: "discard_draft",
@@ -274,7 +274,7 @@ RSpec.describe Commands::V2::DiscardDraft do
 
       context "and a published edition exists" do
         before do
-          create(:live_edition, document: document)
+          create(:live_edition, document:)
         end
 
         it "raises a command error with code 422" do

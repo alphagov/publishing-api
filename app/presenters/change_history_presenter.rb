@@ -20,7 +20,7 @@ module Presenters
       SymbolizeJSON.symbolize(
         change_notes
           .pluck(:note, :public_timestamp)
-          .map { |note, timestamp| { note: note, public_timestamp: timestamp } }
+          .map { |note, timestamp| { note:, public_timestamp: timestamp } }
           .as_json,
       )
     end
@@ -28,7 +28,7 @@ module Presenters
     def change_notes
       ChangeNote
         .joins(:edition)
-        .where(editions: { document: document })
+        .where(editions: { document: })
         .where("user_facing_version <= ?", version_number)
         .where.not(public_timestamp: nil)
         .order(:public_timestamp)

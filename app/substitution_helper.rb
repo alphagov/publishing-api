@@ -42,16 +42,16 @@ private
         content_id: blocking_edition.document.content_id,
         locale: blocking_edition.document.locale,
       },
-      downstream: downstream,
-      nested: nested,
-      callbacks: callbacks,
+      downstream:,
+      nested:,
+      callbacks:,
     )
   end
 
   def blocking_editions(base_path, state, locale, new_item_content_id, new_item_document_type)
     Edition
       .with_document
-      .where(base_path: base_path, state: state, documents: { locale: locale })
+      .where(base_path:, state:, documents: { locale: })
       .where.not(documents: { content_id: new_item_content_id })
       .select do |edition|
         can_substitute_document_type?(new_item_document_type) ||

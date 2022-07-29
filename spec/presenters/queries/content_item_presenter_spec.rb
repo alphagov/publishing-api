@@ -4,19 +4,19 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
   let(:first_published_at) { "2014-01-02T03:04:05Z" }
   let(:public_updated_at) { "2014-05-14T13:00:06Z" }
 
-  let!(:document) { create(:document, content_id: content_id) }
+  let!(:document) { create(:document, content_id:) }
   let!(:fr_document) do
-    create(:document, content_id: content_id, locale: "fr")
+    create(:document, content_id:, locale: "fr")
   end
 
   describe "present" do
     let!(:edition) do
       create(
         :draft_edition,
-        document: document,
-        base_path: base_path,
-        first_published_at: first_published_at,
-        public_updated_at: public_updated_at,
+        document:,
+        base_path:,
+        first_published_at:,
+        public_updated_at:,
         auth_bypass_ids: [SecureRandom.uuid],
       )
     end
@@ -115,11 +115,11 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       let!(:edition) do
         create(
           :draft_edition,
-          document: document,
-          base_path: base_path,
+          document:,
+          base_path:,
           update_type: "major",
-          first_published_at: first_published_at,
-          public_updated_at: public_updated_at,
+          first_published_at:,
+          public_updated_at:,
         )
       end
 
@@ -168,7 +168,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
   describe "#present_many" do
     let!(:edition) do
-      create(:draft_edition, document: document)
+      create(:draft_edition, document:)
     end
 
     context "when an array of fields is provided" do
@@ -177,7 +177,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       it "returns the requested fields" do
         editions = Edition.with_document.where("documents.content_id": content_id)
 
-        results = described_class.present_many(editions, fields: fields)
+        results = described_class.present_many(editions, fields:)
         expect(results.first.keys).to match_array(%w[title phase publication_state])
       end
     end
@@ -205,7 +205,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
       let!(:published_item) do
         create(
           :live_edition,
-          document: document,
+          document:,
           user_facing_version: 1,
         )
       end
@@ -227,8 +227,8 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
     before do
       create(
         :draft_edition,
-        document: document,
-        base_path: base_path,
+        document:,
+        base_path:,
         user_facing_version: 2,
       )
     end
@@ -260,7 +260,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         before do
           @blocking_edition = create(
             :live_edition,
-            base_path: base_path,
+            base_path:,
             user_facing_version: 1,
           )
         end

@@ -51,9 +51,9 @@ private
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(
       content_store: Adapters::DraftContentStore,
-      content_id: content_id,
-      locale: locale,
-      source_command: source_command,
+      content_id:,
+      locale:,
+      source_command:,
       source_document_type: edition&.document_type || source_document_type,
     )
   end
@@ -61,16 +61,16 @@ private
   def update_expanded_links
     if edition
       ExpandedLinks.locked_update(
-        content_id: content_id,
-        locale: locale,
+        content_id:,
+        locale:,
         with_drafts: true,
-        payload_version: payload_version,
+        payload_version:,
         expanded_links: downstream_payload.expanded_links,
       )
     else
       ExpandedLinks.where(
-        content_id: content_id,
-        locale: locale,
+        content_id:,
+        locale:,
         with_drafts: true,
       ).where("payload_version < ?", payload_version).delete_all
     end

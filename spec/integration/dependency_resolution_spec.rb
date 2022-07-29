@@ -4,8 +4,8 @@ RSpec.describe "Dependency Resolution" do
   subject(:dependency_resolution) do
     DependencyResolution.new(
       content_id,
-      locale: locale,
-      with_drafts: with_drafts,
+      locale:,
+      with_drafts:,
     ).dependencies
   end
 

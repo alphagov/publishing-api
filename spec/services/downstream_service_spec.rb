@@ -7,9 +7,9 @@ RSpec.describe DownstreamService do
     stub_request(:put, %r{.*content-store.*/content/.*})
     stub_request(:delete, %r{.*content-store.*/content/.*})
     allow(downstream_payload).to receive_messages(
-      state: state,
+      state:,
       base_path: "/base-path",
-      content_store_action: content_store_action,
+      content_store_action:,
       content_store_payload: {},
       message_queue_payload: {},
     )

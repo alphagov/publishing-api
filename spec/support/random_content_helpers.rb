@@ -4,7 +4,7 @@ module RandomContentHelpers
   def generate_random_edition(base_path)
     GovukSchemas::RandomExample.for_schema(publisher_schema: "placeholder") do |content|
       content.merge(
-        base_path: base_path,
+        base_path:,
         update_type: "major",
 
         title: "Something not empty", # TODO: make schemas validate title length

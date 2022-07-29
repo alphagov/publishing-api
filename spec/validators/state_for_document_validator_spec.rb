@@ -6,7 +6,7 @@ RSpec.describe StateForDocumentValidator do
     build(
       :edition,
       state: state_name,
-      document: document,
+      document:,
     )
   end
 
@@ -34,7 +34,7 @@ RSpec.describe StateForDocumentValidator do
           let!(:conflict_edition) do
             create(
               hash[:factory],
-              document: document,
+              document:,
             )
           end
           let(:state_name) { hash[:state] }
@@ -55,7 +55,7 @@ RSpec.describe StateForDocumentValidator do
 
       context "when state is superseded" do
         let!(:conflict_edition) do
-          create(:superseded_edition, document: document)
+          create(:superseded_edition, document:)
         end
         let(:state_name) { "superseded" }
 

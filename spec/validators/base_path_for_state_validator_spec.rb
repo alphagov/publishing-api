@@ -6,7 +6,7 @@ RSpec.describe BasePathForStateValidator do
     build(
       :edition,
       state: state_name,
-      base_path: base_path,
+      base_path:,
     )
   end
 

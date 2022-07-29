@@ -6,8 +6,8 @@ RSpec.describe ChangeNote do
   let(:edition) do
     create(
       :edition,
-      update_type: update_type,
-      details: details,
+      update_type:,
+      details:,
       public_updated_at: Time.zone.yesterday,
       change_note: nil,
     )

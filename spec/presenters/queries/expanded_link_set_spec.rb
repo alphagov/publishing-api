@@ -10,8 +10,8 @@ RSpec.describe Presenters::Queries::ExpandedLinkSet do
   subject(:expanded_links) do
     described_class.by_content_id(
       a,
-      locale: locale,
-      with_drafts: with_drafts,
+      locale:,
+      with_drafts:,
     ).links
   end
 

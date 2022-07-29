@@ -17,7 +17,7 @@ def update_hmrc_manual_section_titles(dry_run: false)
 
     puts("Removing HMRC Manual title from HMRC Section #{document.content_id}")
     unless dry_run
-      edition.update!(details: details)
+      edition.update!(details:)
       Commands::V2::RepresentDownstream.new.call(document.content_id)
     end
   end

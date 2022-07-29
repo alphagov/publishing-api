@@ -17,8 +17,8 @@ module RequestHelpers
     def content_item_params
       {
         analytics_identifier: "GDS01",
-        base_path: base_path,
-        content_id: content_id,
+        base_path:,
+        content_id:,
         description: "VAT rates for goods and services",
         document_type: "services_and_information",
         schema_name: "generic",
@@ -39,7 +39,7 @@ module RequestHelpers
         update_type: "major",
         title: "VAT rates",
         expanded_links: {
-          available_translations: available_translations,
+          available_translations:,
         },
       }
     end
@@ -56,7 +56,7 @@ module RequestHelpers
 
     def patch_links_attributes
       {
-        content_id: content_id,
+        content_id:,
         links: {
           organisations: %w[30986e26-f504-4e14-a93f-a9593c34a8d9],
         },
@@ -68,7 +68,7 @@ module RequestHelpers
         {
           analytics_identifier: "GDS01",
           base_path: "/vat-rates",
-          content_id: content_id,
+          content_id:,
           description: "VAT rates for goods and services",
           document_type: "services_and_information",
           locale: "en",
@@ -84,7 +84,7 @@ module RequestHelpers
     def v2_content_item
       content_item_params
         .except(:expanded_links)
-        .merge(base_path: base_path)
+        .merge(base_path:)
     end
   end
 end

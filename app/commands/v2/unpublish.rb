@@ -31,7 +31,7 @@ module Commands
 
       def reset_draft_access
         edition.update!(auth_bypass_ids: []) if edition.auth_bypass_ids.any?
-        AccessLimit.where(edition: edition).delete_all
+        AccessLimit.where(edition:).delete_all
       end
 
       def valid_unpublishing_type?
@@ -73,8 +73,8 @@ module Commands
                 content_id: document.content_id,
                 locale: document.locale,
               },
-              downstream: downstream,
-              callbacks: callbacks,
+              downstream:,
+              callbacks:,
               nested: true,
             )
           else
@@ -99,7 +99,7 @@ module Commands
         edition.unpublish(
           **payload
             .slice(:type, :explanation, :alternative_path, :unpublished_at)
-            .merge(redirects: redirects),
+            .merge(redirects:),
         )
       rescue ActiveRecord::RecordInvalid => e
         raise_command_error(422, e.message, { fields: {} })
@@ -133,7 +133,7 @@ module Commands
           content_id: document.content_id,
           locale: document.locale,
           update_dependencies: true,
-          orphaned_content_ids: orphaned_content_ids,
+          orphaned_content_ids:,
           message_queue_event_type: "unpublish",
           source_command: "unpublish",
         )

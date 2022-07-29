@@ -212,7 +212,7 @@ RSpec.describe ExpansionRules do
     let(:reverse_to_direct) { false }
     subject do
       described_class.next_allowed_direct_link_types(
-        next_allowed_link_types, reverse_to_direct: reverse_to_direct
+        next_allowed_link_types, reverse_to_direct:
       )
     end
 
@@ -299,7 +299,7 @@ RSpec.describe ExpansionRules do
     subject do
       described_class.next_allowed_reverse_link_types(
         next_allowed_link_types,
-        reverse_to_direct: reverse_to_direct,
+        reverse_to_direct:,
       )
     end
 

@@ -3,7 +3,7 @@ RSpec.describe LinkGraph::NodeCollectionFactory do
   let(:link_graph) do
     double(
       :link_graph,
-      link_reference: link_reference,
+      link_reference:,
       root_content_id: SecureRandom.uuid,
       root_locale: :en,
       with_drafts: false,
@@ -41,7 +41,7 @@ RSpec.describe LinkGraph::NodeCollectionFactory do
             edition_id: nil,
             link_type: :parent,
             parent: nil,
-            link_graph: link_graph,
+            link_graph:,
           )
         end
       end

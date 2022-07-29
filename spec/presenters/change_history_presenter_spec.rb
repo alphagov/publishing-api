@@ -3,7 +3,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
   let(:edition) do
     create(
       :edition,
-      document: document,
+      document:,
       details: details.deep_stringify_keys,
     )
   end
@@ -26,7 +26,7 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
     context "details hash doesn't include content_history" do
       before do
         2.times do |i|
-          create(:change_note, edition: edition, note: i.to_s, public_timestamp: Time.zone.now.utc)
+          create(:change_note, edition:, note: i.to_s, public_timestamp: Time.zone.now.utc)
         end
       end
       it "constructs content history from change notes" do
@@ -36,14 +36,14 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
 
     it "orders change notes by public_timestamp (ascending)" do
       [1, 3, 2].to_a.each do |i|
-        create(:change_note, edition: edition, note: i.to_s, public_timestamp: i.days.ago)
+        create(:change_note, edition:, note: i.to_s, public_timestamp: i.days.ago)
       end
       expect(subject.map { |item| item[:note] }).to eq %w[3 2 1]
     end
 
     it "omits change notes that don't have a public timestamp" do
-      create(:change_note, edition: edition, note: "with-timestamp", public_timestamp: 1.day.ago)
-      create(:change_note, edition: edition, note: "without-timestamp", public_timestamp: nil)
+      create(:change_note, edition:, note: "with-timestamp", public_timestamp: 1.day.ago)
+      create(:change_note, edition:, note: "without-timestamp", public_timestamp: nil)
       expect(subject.map { |item| item[:note] }).to eq %w[with-timestamp]
     end
 
@@ -51,16 +51,16 @@ RSpec.describe Presenters::ChangeHistoryPresenter do
       let(:item1) do
         create(
           :superseded_edition,
-          document: document,
-          details: details,
+          document:,
+          details:,
           user_facing_version: 1,
         )
       end
       let(:item2) do
         create(
           :live_edition,
-          document: document,
-          details: details,
+          document:,
+          details:,
           user_facing_version: 2,
         )
       end

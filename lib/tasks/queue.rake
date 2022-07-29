@@ -102,7 +102,7 @@ namespace :queue do
               .order(public_updated_at: :desc)
               .find_by!(
                 editions: { state: "published" },
-                document_type: document_type,
+                document_type:,
               )
     version = Event.maximum(:id)
 

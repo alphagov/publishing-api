@@ -3,7 +3,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
   let(:document) do
     create(
       :document,
-      content_id: content_id,
+      content_id:,
       locale: "en",
     )
   end
@@ -11,7 +11,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
   let!(:unpublished_edition) do
     create(
       :unpublished_edition,
-      document: document,
+      document:,
       base_path: "/vat-rates",
       explanation: "This explnatin has a typo",
       alternative_path: "/new-path",
@@ -57,7 +57,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
     expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
       .with(
         "downstream_high",
-        a_hash_including(content_id: content_id),
+        a_hash_including(content_id:),
       )
 
     post "/v2/content/#{content_id}/unpublish", params: payload.to_json
@@ -67,7 +67,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
     expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
       .with(
         "downstream_high",
-        a_hash_including(content_id: content_id),
+        a_hash_including(content_id:),
       )
 
     post "/v2/content/#{content_id}/unpublish", params: payload.to_json
@@ -77,7 +77,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
     expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
       .with(
         "downstream_high",
-        a_hash_including(content_id: content_id),
+        a_hash_including(content_id:),
       )
 
     post "/v2/content/#{content_id}/unpublish", params: payload.to_json
@@ -87,7 +87,7 @@ RSpec.describe "/v2/content/:content_id/unpublish when the document is already u
     let!(:unpublished_edition) do
       create(
         :substitute_unpublished_edition,
-        document: document,
+        document:,
       )
     end
 

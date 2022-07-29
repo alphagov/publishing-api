@@ -52,7 +52,7 @@ namespace :represent_downstream do
     queue = DownstreamQueue::HIGH_QUEUE
 
     content_ids.uniq.each_slice(1000).each do |batch|
-      Commands::V2::RepresentDownstream.new.call(batch, queue: queue)
+      Commands::V2::RepresentDownstream.new.call(batch, queue:)
       sleep 5
     end
   end
@@ -86,7 +86,7 @@ namespace :represent_downstream do
       queue = DownstreamQueue::HIGH_QUEUE
 
       content_ids.uniq.each_slice(1000).each do |batch|
-        Commands::V2::RepresentDownstream.new.call(batch, queue: queue)
+        Commands::V2::RepresentDownstream.new.call(batch, queue:)
         sleep 5
       end
     end
