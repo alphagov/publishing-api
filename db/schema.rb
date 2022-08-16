@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_01_05_222552) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_16_162333) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_01_05_222552) do
     t.jsonb "details", default: {}
     t.jsonb "routes", default: []
     t.jsonb "redirects", default: []
+    t.text "cms_entity_ids", default: [], null: false, array: true
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
