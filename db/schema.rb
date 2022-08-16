@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_22_145109) do
     t.jsonb "details", default: {}
     t.jsonb "routes", default: []
     t.jsonb "redirects", default: []
+    t.text "cms_entity_ids", default: [], null: false, array: true
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
