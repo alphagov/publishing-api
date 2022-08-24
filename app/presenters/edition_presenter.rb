@@ -5,6 +5,7 @@ module Presenters
       api_url
       auth_bypass_ids
       content_store
+      cms_entity_ids
       created_at
       document_id
       id

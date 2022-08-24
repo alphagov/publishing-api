@@ -23,6 +23,7 @@ module V2
           :before,
           :after,
           document_types: [],
+          cms_entity_ids: [],
           fields: [],
           states: [],
         )

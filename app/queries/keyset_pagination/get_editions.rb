@@ -10,6 +10,7 @@ module Queries
         locale: params[:locale],
         publishing_app: params[:publishing_app],
         document_types: params[:document_types],
+        cms_entity_ids: params.fetch(:cms_entity_ids, []),
       }
 
       validate_fields!
@@ -84,6 +85,7 @@ module Queries
       query = query.where("documents.locale": filters[:locale]) if filters[:locale]
       query = query.where(publishing_app: filters[:publishing_app]) if filters[:publishing_app]
       query = query.where(document_type: filters[:document_types]) if filters[:document_types]
+      query = query.where("cms_entity_ids && ARRAY[?]::text[]", filters[:cms_entity_ids]) if filters[:cms_entity_ids].any?
       query
     end
 
