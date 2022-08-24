@@ -13,6 +13,7 @@ class Edition < ApplicationRecord
     auth_bypass_ids
     base_path
     content_store
+    cms_entity_ids
     description
     details
     document_type

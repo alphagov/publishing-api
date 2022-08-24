@@ -95,6 +95,10 @@ presented edition and [warnings](#warnings).
 - `change_note` *(optional)*
   - Specifies the [change note](model.md#changenote).
   - Ignored if the `update_type` is not major.
+- `cms_entity_ids` *(optional)*
+  - An array of identifiers that can be used to associate ids that are used in
+    a CMS with a piece of content. Intended to be used to identify where
+    entities in a CMS compose help compose a piece of content.
 - `description` *(optional)*
   - A description of the content that can be displayed publicly.
 - `details` *(conditionally required, default: {})*
@@ -597,12 +601,13 @@ parameters.
   - The type of editions to return.
 - `fields[]` *(optional)*
   - Accepts an array of: analytics_identifier, base_path,
-    content_id, content_store, created_at, description, details, document_type,
-    first_published_at, last_edited_at, links, locale, major_published_at,
-    phase, public_updated_at, published_at, publishing_api_first_published_at,
-    publishing_api_last_edited_at, publishing_app, redirects,
-    rendering_app, routes, schema_name, stale_lock_version, state, title,
-    user_facing_version, update_type, updated_at
+    cms_entity_ids, content_id, content_store, created_at, description, details,
+    document_type, first_published_at, last_edited_at, links, locale,
+    major_published_at, phase, public_updated_at, published_at,
+    publishing_api_first_published_at, publishing_api_last_edited_at,
+    publishing_app, redirects, rendering_app, routes, schema_name,
+    stale_lock_version, state, title, user_facing_version, update_type,
+    updated_at
   - Determines which fields will be returned in the response, if omitted all
     fields will be returned.
 - `locale` *(optional)*
@@ -625,6 +630,9 @@ parameters.
   - Used to restrict editions to those for a given publishing app.
 - `states[]` *(optional)*
   - Used to restrict editions to those in the specified states.
+- `cms_entity_ids[]` *(optional)*
+  - Used to restrict editions to those that match a specified collection of
+    cms_entity_ids.
 
 ## `POST /v2/links/by-content-id`
 

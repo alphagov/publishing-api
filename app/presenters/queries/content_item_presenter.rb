@@ -232,12 +232,13 @@ module Presenters
       def parse_results(results)
         json_columns = %w[details routes redirects state_history unpublishing links]
         int_columns = %w[user_facing_version lock_version]
+        array_of_strings_columns = %w[cms_entity_ids auth_bypass_ids]
 
         Enumerator.new do |yielder|
           results.each do |result|
             json_columns.each { |c| parse_json_column(result, c) }
             int_columns.each { |c| parse_int_column(result, c) }
-            parse_auth_bypass_ids_column(result, "auth_bypass_ids")
+            array_of_strings_columns.each { |c| parse_array_of_strings_column(result, c) }
 
             parse_state_history(result)
             parse_links(result, "links")
@@ -264,7 +265,7 @@ module Presenters
         result[column] = result[column].to_i
       end
 
-      def parse_auth_bypass_ids_column(result, column)
+      def parse_array_of_strings_column(result, column)
         return unless result.key?(column)
 
         result[column] = result[column].delete("{}").split(",")

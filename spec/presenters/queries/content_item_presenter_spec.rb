@@ -28,6 +28,7 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
         "analytics_identifier" => "GDS01",
         "auth_bypass_ids" => edition.auth_bypass_ids,
         "base_path" => base_path,
+        "cms_entity_ids" => [],
         "content_id" => content_id,
         "content_store" => "draft",
         "description" => "VAT rates for goods and services",
@@ -108,6 +109,24 @@ RSpec.describe Presenters::Queries::ContentItemPresenter do
 
         result = described_class.present(edition)
         expect(result.fetch("locale")).to eq("en")
+      end
+    end
+
+    context "when an array of strings is included" do
+      let!(:edition) do
+        create(
+          :draft_edition,
+          document:,
+          base_path:,
+          first_published_at:,
+          public_updated_at:,
+          cms_entity_ids: %w[id:1 id:2],
+        )
+      end
+
+      it "presents the array item as an array" do
+        expected = expected_output.merge("cms_entity_ids" => %w[id:1 id:2])
+        expect(result).to eq expected
       end
     end
 

@@ -173,6 +173,18 @@ RSpec.describe V2::EditionsController do
       end
     end
 
+    context "filtered by CMS entity ids" do
+      it "returns only editions that match" do
+        Edition.where(cms_entity_ids: []).limit(20).update_all(cms_entity_ids: %w[id:1])
+
+        get :index, params: { cms_entity_ids: %w[id:1] }
+        expect(parsed_response["results"].count).to eq(20)
+        expect(parsed_response["links"]).to eq([
+          { "href" => "http://test.host/v2/editions?cms_entity_ids%5B%5D=id%3A1", "rel" => "self" },
+        ])
+      end
+    end
+
     context "outputting custom fields" do
       it "returns only the fields specified" do
         get :index, params: { fields: %w[content_id publishing_app] }
