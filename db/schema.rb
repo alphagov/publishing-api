@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_12_22_145109) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "btree_gin"
   enable_extension "plpgsql"
 
   create_table "access_limits", id: :serial, force: :cascade do |t|
@@ -86,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_22_145109) do
     t.jsonb "redirects", default: []
     t.text "cms_entity_ids", default: [], null: false, array: true
     t.index ["base_path", "content_store"], name: "index_editions_on_base_path_and_content_store", unique: true
+    t.index ["cms_entity_ids", "updated_at", "id"], name: "cms_entity_ids_for_editions_idx", where: "((state)::text = ANY ((ARRAY['draft'::character varying, 'published'::character varying, 'unpublished'::character varying])::text[]))", using: :gin
     t.index ["document_id", "content_store"], name: "index_editions_on_document_id_and_content_store", unique: true
     t.index ["document_id", "state"], name: "index_editions_on_document_id_and_state"
     t.index ["document_id", "user_facing_version"], name: "index_editions_on_document_id_and_user_facing_version", unique: true
