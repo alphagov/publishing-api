@@ -57,17 +57,29 @@ module Queries
     end
 
     def is_first_page?
-      @is_first_page ||= ordered_initial_results.empty? ||
-        KeysetPagination.new(
-          client, per_page: 1, before: next_before_key
-        ).empty?
+      # @is_first_page ||= ordered_initial_results.empty? ||
+      #   KeysetPagination.new(
+      #     client, per_page: 1, before: next_before_key
+      #   ).empty?
+      if @is_first_page.nil?
+        where = where_clause(ascending: order != :asc)
+        @is_first_page = client.initial_query.where(where, *next_before_key).exists?
+      end
+
+      @is_first_page
     end
 
     def is_last_page?
-      @is_last_page ||= ordered_initial_results.empty? ||
-        KeysetPagination.new(
-          client, per_page: 1, after: next_after_key
-        ).empty?
+      # @is_last_page ||= ordered_initial_results.empty? ||
+      #   KeysetPagination.new(
+      #     client, per_page: 1, after: next_after_key
+      #   ).empty?
+      if @is_last_page.nil?
+        where = where_clause(ascending: order == :asc)
+        @is_last_page = client.initial_query.where(where, *next_after_key).exists?
+      end
+
+      @is_last_page
     end
 
     def key_fields
@@ -111,23 +123,25 @@ module Queries
 
     def paginated_query
       paginated_query = client.initial_query.order(order_clause)
-      paginated_query = paginated_query.where(where_clause, *previous) if previous
+      ascending = order == :asc
+      paginated_query = paginated_query.where(where_clause(ascending: ascending), *previous) if previous
       paginated_query.limit(per_page)
-    end
-
-    def ascending?
-      order == :asc
     end
 
     def order_clause
       pagination_key.keys.index_with { order }
     end
 
-    def where_clause
+    def where_clause(ascending: true)
       lhs = pagination_key.values.join(", ")
-      order_character = ascending? ? ">" : "<"
+      order_character = ascending ? ">" : "<"
       rhs = (["?"] * pagination_key.count).join(", ")
       "(#{lhs}) #{order_character} (#{rhs})"
+    end
+
+    def any_previous?
+      where = where_clause(ascending: order != :asc)
+      client.initial_query.where(where, next_before_key).exists?
     end
   end
 end
