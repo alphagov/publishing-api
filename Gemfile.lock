@@ -108,7 +108,7 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     chronic (0.10.2)
-    climate_control (1.1.1)
+    climate_control (1.2.0)
     concurrent-ruby (1.1.10)
     connection_pool (2.2.5)
     crack (0.4.5)
