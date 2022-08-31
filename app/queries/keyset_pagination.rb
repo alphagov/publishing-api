@@ -32,7 +32,6 @@ module Queries
 
       if before
         @previous = before
-        @order = order == :asc ? :desc : :asc
         @direction = :backwards
       else
         @previous = after
@@ -57,17 +56,31 @@ module Queries
     end
 
     def is_first_page?
-      @is_first_page ||= ordered_initial_results.empty? ||
-        KeysetPagination.new(
-          client, per_page: 1, before: next_before_key
-        ).empty?
+      if @is_first_page.nil?
+        # We can assume that a lack of pagination data means we're on the first page
+        if previous.nil? || ordered_initial_results.empty?
+          @is_first_page = true
+        else
+          where = where_clause(greater_than: order != :asc)
+          @is_first_page = !client.initial_query.where(where, *next_before_key).exists?
+        end
+      end
+
+      @is_first_page
     end
 
     def is_last_page?
-      @is_last_page ||= ordered_initial_results.empty? ||
-        KeysetPagination.new(
-          client, per_page: 1, after: next_after_key
-        ).empty?
+      if @is_last_page.nil?
+        if ordered_initial_results.empty? || ordered_initial_results.count < per_page
+          # If we've got less results than a page we can assume this is the last page
+          @is_last_page = true
+        else
+          where = where_clause(greater_than: order == :asc)
+          @is_last_page = !client.initial_query.where(where, *next_after_key).exists?
+        end
+      end
+
+      @is_last_page
     end
 
     def key_fields
@@ -111,21 +124,25 @@ module Queries
 
     def paginated_query
       paginated_query = client.initial_query.order(order_clause)
-      paginated_query = paginated_query.where(where_clause, *previous) if previous
+      where = where_clause(greater_than: result_ordering == :asc)
+      paginated_query = paginated_query.where(where, *previous) if previous
       paginated_query.limit(per_page)
     end
 
-    def ascending?
-      order == :asc
+    def result_ordering
+      return order if direction == :forwards
+
+      # reverse ordering if we're traversing back through results
+      order == :asc ? :desc : :asc
     end
 
     def order_clause
-      pagination_key.keys.index_with { order }
+      pagination_key.keys.index_with { result_ordering }
     end
 
-    def where_clause
+    def where_clause(greater_than: true)
       lhs = pagination_key.values.join(", ")
-      order_character = ascending? ? ">" : "<"
+      order_character = greater_than ? ">" : "<"
       rhs = (["?"] * pagination_key.count).join(", ")
       "(#{lhs}) #{order_character} (#{rhs})"
     end
