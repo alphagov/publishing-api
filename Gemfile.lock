@@ -273,7 +273,7 @@ GEM
       rack (>= 1.2, < 3)
       rash_alt (>= 0.4, < 1)
       version_gem (~> 1.1)
-    oj (3.13.16)
+    oj (3.13.21)
     omniauth (2.1.0)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
