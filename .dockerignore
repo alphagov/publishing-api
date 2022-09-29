@@ -1,4 +1,11 @@
+.dockerignore
 .git
 .gitignore
+Dockerfile
+Jenkinsfile
+Procfile
 README.md
-log/*
+docs
+spec
+log
+tmp
