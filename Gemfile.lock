@@ -191,8 +191,9 @@ GEM
       rails (>= 6)
       rouge
       sprockets (>= 3)
-    govuk_schemas (4.4.1)
-      json-schema (~> 2.8.0)
+    govuk_schemas (0.1.0)
+      activesupport
+      json-schema
     govuk_sidekiq (5.0.0)
       gds-api-adapters (>= 19.1.0)
       govuk_app_config (>= 1.1)
@@ -218,8 +219,8 @@ GEM
       concurrent-ruby (~> 1.0)
     jmespath (1.6.1)
     json (2.6.2)
-    json-schema (2.8.1)
-      addressable (>= 2.4)
+    json-schema (3.0.0)
+      addressable (>= 2.8)
     jwt (2.5.0)
     kgio (2.11.4)
     kramdown (2.4.0)
