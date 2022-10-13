@@ -71,7 +71,7 @@ create and configure tokens:
   https://signon.integration.publishing.service.gov.uk/api_users). You must be
   a superadmin to see this page.
 0. Find your application in the list or create a new API user for it. The app's
-  email address should be `name-of-app@alphagov.co.uk`.
+  email address should be `name-of-app@digital.cabinet-office.gov.uk`.
 0. Add a publishing API application token for that user.
 0. Add the tokens for each environment to [govuk-secrets][govuk-secrets]
   ([example][govuk-secrets-token-example]).
