@@ -257,7 +257,7 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.8)
+    nokogiri (1.13.9)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     null_logger (0.0.1)
@@ -387,7 +387,7 @@ GEM
     rspec-mocks (3.11.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.11.0)
-    rspec-rails (6.0.0)
+    rspec-rails (6.0.1)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       railties (>= 6.1)
