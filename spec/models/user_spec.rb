@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   it_behaves_like "a gds-sso user class"
 
   context "setting the app_name" do
-    let(:user) { User.new(email: "foobar@alphagov.co.uk") }
+    let(:user) { User.new(email: "foobar@digital.cabinet-office.gov.uk") }
     it "sets the app_name from the email" do
       user.set_app_name!
       expect(user.app_name).to eq("foobar")
