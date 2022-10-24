@@ -17,7 +17,6 @@ require "sidekiq/testing"
 require "sidekiq-unique-jobs"
 require "sidekiq_unique_jobs/testing"
 
-Sidekiq::Logging.logger = nil
 # Sidekiq in test mode won't run server middleware by default.
 Sidekiq::Testing.server_middleware do |chain|
   chain.add GovukSidekiq::APIHeaders::ServerMiddleware
