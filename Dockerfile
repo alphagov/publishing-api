@@ -12,12 +12,10 @@ COPY . /app
 
 FROM $base_image
 
-# TODO: don't set DATABASE_URL, PORT or RABBITMQ_URL here. Set them in publishing-e2e-tests.
-ENV DATABASE_URL=postgresql://postgres@postgres/publishing-api PORT=3093
-ENV RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672 RABBITMQ_EXCHANGE=published_documents
-
 ENV GOVUK_CONTENT_SCHEMAS_PATH=/govuk-content-schemas
 ENV GOVUK_APP_NAME=publishing-api
+# TODO: move this default for RABBITMQ_EXCHANGE to config/initializers/services.rb.
+ENV RABBITMQ_EXCHANGE=published_documents
 
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=builder /app /app/
