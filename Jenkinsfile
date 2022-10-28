@@ -13,11 +13,6 @@ node {
         defaultValue: "deployed-to-production",
         description: "The branch of content-store to test pacts against"
       ),
-      stringParam(
-        name: "PUBLISHING_E2E_TESTS_BRANCH",
-        defaultValue: "test-against",
-        description: "The branch of publishing-e2e-tests to test against"
-      )
     ],
     beforeTest: {
       govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
