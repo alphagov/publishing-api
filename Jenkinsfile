@@ -17,7 +17,6 @@ node {
     beforeTest: {
       govuk.setEnvar("PACT_BROKER_BASE_URL", "https://pact-broker.cloudapps.digital")
     },
-    publishingE2ETests: true,
     afterTest: {
       lock("publishing-api-$NODE_NAME-test") {
         govuk.setEnvar("PACT_CONSUMER_VERSION", "branch-${env.BRANCH_NAME}");
