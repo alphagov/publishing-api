@@ -1,6 +1,7 @@
 .dockerignore
 .git
 .gitignore
+**/DO-NOT-EDIT-FILES-IN-HERE.md
 Dockerfile
 Jenkinsfile
 Procfile
