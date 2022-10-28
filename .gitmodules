@@ -1,0 +1,3 @@
+[submodule "govuk-content-schemas"]
+	path = govuk-content-schemas
+	url = https://github.com/alphagov/govuk-content-schemas
