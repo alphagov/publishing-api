@@ -1,0 +1,56 @@
+# Pact verify workflow
+#
+# This workflow asserts that Pact contract tests are valid against this
+# codebase. It is trigged when changes are made to this project and it
+# is explicitly called by GDS API Adapters when changes are made there.
+on:
+  pull_request:
+  push:
+  workflow_call:
+    inputs:
+      # what branch or Git SHA to clone this app with, only applies when
+      # called as a workflow, so current commit applies to push/pull requests
+      commitish:
+        required: false
+        type: string
+        default: main
+      pact_consumer_version:
+        required: true
+        type: string
+
+jobs:
+  pact_verify:
+    name: Verify pact tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      redis:
+        image: redis
+        ports: ["6379:6379"]
+        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      PACT_CONSUMER_VERSION: ${{ inputs.pact_consumer_version || 'branch-main' }}
+      TEST_DATABASE_URL: postgresql://postgres@localhost/test-db
+      GOVUK_CONTENT_SCHEMAS_PATH: vendor/govuk-content-schemas
+      RAILS_ENV: test
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: alphagov/publishing-api
+          ref: ${{ inputs.commitish || github.sha }}
+      - uses: actions/checkout@v3
+        name: Clone content schemas
+        with:
+          repository: alphagov/govuk-content-schemas
+          ref: deployed-to-production
+          path: vendor/govuk-content-schemas
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: bundle exec rails db:setup
+      - run: bundle exec rake pact:verify
