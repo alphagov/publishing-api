@@ -14,8 +14,6 @@ FROM $base_image
 
 ENV GOVUK_CONTENT_SCHEMAS_PATH=/govuk-content-schemas
 ENV GOVUK_APP_NAME=publishing-api
-# TODO: move this default for RABBITMQ_EXCHANGE to config/initializers/services.rb.
-ENV RABBITMQ_EXCHANGE=published_documents
 
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=builder /app /app/
