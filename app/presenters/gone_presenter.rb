@@ -1,5 +1,5 @@
 class Presenters::GonePresenter
-  def initialize(base_path:, content_id:, publishing_app:, public_updated_at:, alternative_path:, explanation:, locale:)
+  def initialize(base_path:, content_id:, publishing_app:, public_updated_at:, alternative_path:, explanation:, locale:, routes:)
     @base_path = base_path
     @content_id = content_id
     @publishing_app = publishing_app
@@ -7,6 +7,7 @@ class Presenters::GonePresenter
     @alternative_path = alternative_path
     @explanation = explanation
     @locale = locale
+    @routes = routes
   end
 
   def self.from_edition(edition)
@@ -18,6 +19,7 @@ class Presenters::GonePresenter
       alternative_path: edition.unpublishing.alternative_path,
       explanation: edition.unpublishing.explanation,
       locale: edition.locale,
+      routes: edition.routes,
     )
   end
 
@@ -35,7 +37,7 @@ class Presenters::GonePresenter
 
 private
 
-  attr_reader :base_path, :content_id, :publishing_app, :public_updated_at, :alternative_path, :explanation, :locale
+  attr_reader :base_path, :content_id, :publishing_app, :public_updated_at, :alternative_path, :explanation, :locale, :routes
 
   def present
     {
@@ -51,18 +53,5 @@ private
       },
       routes:,
     }
-  end
-
-  def routes
-    if base_path
-      [
-        {
-          path: base_path,
-          type: "exact",
-        },
-      ]
-    else
-      []
-    end
   end
 end
