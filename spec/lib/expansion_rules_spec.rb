@@ -42,7 +42,7 @@ RSpec.describe ExpansionRules do
     let(:contact_fields) { default_fields + [%i[details description], %i[details title], %i[details contact_form_links], %i[details post_addresses], %i[details email_addresses], %i[details phone_numbers]] }
     let(:organisation_fields) { default_fields - [:public_updated_at] + [%i[details logo], %i[details brand], %i[details default_news_image], %i[details organisation_govuk_status]] }
     let(:taxon_fields) { default_fields + %i[description details phase] }
-    let(:mainstream_browser_page_fields) { default_fields + %i[description] }
+    let(:default_fields_and_description) { default_fields + %i[description] }
     let(:need_fields) { default_fields + [%i[details role], %i[details goal], %i[details benefit], %i[details met_when], %i[details justifications]] }
     let(:finder_fields) { default_fields + [%i[details facets]] }
     let(:ministerial_role_fields) { role_fields + [%i[details seniority]] }
@@ -62,7 +62,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:parent)).to eq(default_fields) }
 
     specify { expect(rules.expansion_fields(:contact)).to eq(contact_fields) }
-    specify { expect(rules.expansion_fields(:mainstream_browse_page)).to eq(mainstream_browser_page_fields) }
+    specify { expect(rules.expansion_fields(:mainstream_browse_page)).to eq(default_fields_and_description) }
     specify { expect(rules.expansion_fields(:need)).to eq(need_fields) }
     specify { expect(rules.expansion_fields(:organisation)).to eq(organisation_fields) }
     specify { expect(rules.expansion_fields(:placeholder_organisation)).to eq(organisation_fields) }
@@ -105,6 +105,7 @@ RSpec.describe ExpansionRules do
     specify { expect(rules.expansion_fields(:taxon)).to eq(taxon_fields) }
     specify { expect(rules.expansion_fields(:travel_advice)).to eq(travel_advice_fields) }
     specify { expect(rules.expansion_fields(:world_location)).to eq(world_location_fields) }
+    specify { expect(rules.expansion_fields(:worldwide_organisation)).to eq(default_fields_and_description) }
 
     specify { expect(rules.expansion_fields(:finder, link_type: :finder)).to eq(finder_fields) }
     specify { expect(rules.expansion_fields(:parent, link_type: :finder)).to eq(default_fields) }
