@@ -172,6 +172,8 @@ module_function
         fields: TRAVEL_ADVICE_FIELDS },
       { document_type: :world_location,
         fields: WORLD_LOCATION_FIELDS },
+      { document_type: :worldwide_organisation,
+        fields: DEFAULT_FIELDS_AND_DESCRIPTION },
       { document_type: :government,
         fields: GOVERNMENT_FIELDS },
       { document_type: :coronavirus_landing_page,
