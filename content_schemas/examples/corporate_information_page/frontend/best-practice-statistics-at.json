@@ -1,0 +1,82 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/ofsted/about/statistics",
+  "content_id": "6024fda8-7631-11e4-a3cb-005056011aef",
+  "document_type": "statistics",
+  "first_published_at": "2014-11-03T14:50:02.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-03-03T13:00:55.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Statistics at Ofsted",
+  "updated_at": "2017-12-07T12:29:23.645Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "1241-1502374308.923-10.3.3.1-410",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D106",
+        "api_path": "/api/content/government/organisations/ofsted",
+        "base_path": "/government/organisations/ofsted",
+        "content_id": "ad5f6169-ac7b-4382-9eb6-e58af71a2f00",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-07-04T14:35:36Z",
+        "schema_name": "placeholder",
+        "title": "Ofsted",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-education",
+          "logo": {
+            "formatted_title": "Ofsted",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/106/Ofsted-logo-gov.uk.png",
+              "alt_text": "Ofsted"
+            }
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ofsted",
+        "web_url": "https://www.gov.uk/government/organisations/ofsted"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Statistics at Ofsted",
+        "public_updated_at": "2015-03-03T13:00:55Z",
+        "document_type": "statistics",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/ofsted/about/statistics",
+        "description": "We publish statistics on early years and childcare, schools, initial teacher training, children and families' services and further education and skills inspections and outcomes. ",
+        "api_path": "/api/content/government/organisations/ofsted/about/statistics",
+        "withdrawn": false,
+        "content_id": "6024fda8-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ofsted/about/statistics",
+        "web_url": "https://www.gov.uk/government/organisations/ofsted/about/statistics",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "We publish statistics on early years and childcare, schools, initial teacher training, children and families' services and further education and skills inspections and outcomes. ",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>We also publish statistics about providers and places in early years and children’s social care.</p>\n\n<p>We’ve grouped many of our statistics into collections, including:</p>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/collections/childrens-centres-statistics\">children’s centres</a></li>\n  <li><a href=\"https://www.gov.uk/government/collections/childrens-social-care-statistics\">children’s social care</a></li>\n  <li><a href=\"https://www.gov.uk/government/collections/early-years-and-childcare-statistics\">early years</a></li>\n  <li><a href=\"https://www.gov.uk/government/collections/further-education-and-skills-inspection-outcomes\">further education and skills inspections and outcomes</a></li>\n  <li><a href=\"https://www.gov.uk/government/collections/independent-schools-inspections-and-outcomes\">independent school inspections and outcomes, including regulation compliance</a></li>\n  <li><a href=\"https://www.gov.uk/government/collections/initial-teacher-education-inspections-and-outcomes\">initial teacher education inspections and outcomes</a></li>\n  <li><a href=\"https://www.gov.uk/government/collections/maintained-schools-and-academies-inspections-and-outcomes-official-statistics\">maintained schools inspections and outcomes</a></li>\n</ul>\n\n<h2 id=\"search-our-statistics\">Search our statistics</h2>\n\n<p>Our statistics can be searched by keyword and date of publication on the main <a href=\"https://www.gov.uk/government/statistics?keywords=&amp;topics%5B%5D=all&amp;departments%5B%5D=ofsted&amp;from_date=&amp;to_date=\">GOV.UK statistics page</a>.</p>\n\n<h2 id=\"planned-publications\">Planned publications</h2>\n\n<p>The release calendar gives the <a href=\"https://www.gov.uk/government/statistics/announcements?utf8=%E2%9C%93&amp;keywords=&amp;topics%5B%5D=&amp;organisations%5B%5D=ofsted&amp;from_date=&amp;to_date=&amp;commit=Refresh+results\">planned publication dates of Ofsted’s statistical releases for the coming year</a>. Publication is usually at 9:30am.</p>\n\n<p>We release management information on schools and further education and skills inspections and outcomes on a monthly basis. Management information on parent view are released 3 times a year, during the months of February, May and October. We will continue to release this information during purdah in 2017.</p>\n\n<h2 id=\"data-view\">Data View</h2>\n\n<p><a rel=\"external\" href=\"https://public.tableau.com/views/Dataview/Viewregionalperformanceovertime\">Data View</a>  shows Ofsted inspection data in simple graphs that make the data quickly and easily accessible. You can compare and contrast performance in inspections over time between regions, local authority areas and parliamentary constituencies for:</p>\n\n<ul>\n  <li>early years providers</li>\n  <li>schools</li>\n  <li>further education and skills providers</li>\n  <li>children’s centres</li>\n  <li>initial teacher education providers</li>\n</ul>\n\n<p>Users can also identify individual providers by their overall effectiveness and view their inspection reports.</p>\n\n<p>Read <a href=\"https://www.gov.uk/government/publications/exploring-ofsted-inspection-data-with-data-view\">guidance on using Data View</a>.</p>\n\n<h2 id=\"standards-for-official-statistics\">Standards for official statistics</h2>\n\n<p>Ofsted’s official statistics follow the standards defined in the UK Statistics Authority Code of Practice for Official Statistics. The documents below set out how Ofsted follows the code of practice:</p>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/publications/ofsted-standards-for-official-statistics\">Standards for Official Statistics</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/ofsted-statistical-work-plans\">The Statistical Work Programe</a></li>\n</ul>\n</div>",
+    "organisation": "ad5f6169-ac7b-4382-9eb6-e58af71a2f00",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

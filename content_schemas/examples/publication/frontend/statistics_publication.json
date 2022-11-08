@@ -1,0 +1,114 @@
+{
+  "base_path": "/government/statistics/affordable-housing-supply-in-england-2011-to-2012",
+  "content_id": "5c83187f-7631-11e4-a3cb-005056011aef",
+  "title": "Affordable housing supply in England: 2011 to 2012",
+  "description": "This release presents data on affordable housing supply in England.",
+  "locale": "en",
+  "updated_at": "2015-12-02T10:47:58.310Z",
+  "public_updated_at": "2012-11-01T00:00:00.000+00:00",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The latest statistics on gross affordable housing supply in England were released on Thursday 1 November 2012.</p>\n\n<p>The key points were:</p>\n\n<ul>\n  <li>A total of 57,950 gross additional affordable homes were supplied in England in 2011-12. This is a decrease of 4% on the 60,430 (revised) affordable homes supplied in 2010-11.</li>\n  <li>37,540 new affordable homes were provided for social rent in 2011-12, a decrease of 3% on 2010-11. A further 930 new affordable homes were provided for affordable rent in 2011-12, the first year for which this scheme has run.</li>\n  <li>19,490 homes were provided through intermediate housing schemes, including shared ownership and shared equity, down by 10% on 2010-11.</li>\n  <li>There were 52,880 new build affordable homes provided in 2011-12, representing 91% of all affordable homes provided in 2011-12 compared to 88% of total supply in 2010-11. This was the highest percentage reported since before 1991-92.</li>\n  <li>In 2011-12, 88% of affordable homes were in receipt of funding through the Homes and Communities Agency (excluding homes delivered under Section 106 without grant), a reduction from 92% in 2010-11. Around 92% of these were new build homes.</li>\n</ul>\n\n<p>Please note: These statistics were assessed by the United Kingdom Statistics Authority in June 2011 (Report 117). We have addressed the requirements relating to these statistics to the satisfaction of the UK Statistics Authority and they are now accredited as National Statistics.</p>\n</div>",
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_23432\">\n<div class=\"attachment-thumb\">\n<a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/14664/2247515.pdf\"><img alt=\"\" src=\"https://assets.digital.cabinet-office.gov.uk/government/uploads/system/uploads/attachment_data/file/14664/thumbnail_2247515.pdf.png\"></a>\n</div>\n<div class=\"attachment-details\">\n<h2 class=\"title\"><a aria-describedby=\"attachment-23432-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/14664/2247515.pdf\">Affordable Housing Supply, England, 2011-2012</a></h2>\n<p class=\"metadata\">\n<span class=\"references\">\nRef: ISBN <span class=\"isbn\">9781409836872</span>\n</span>\n<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">340KB</span>, <span class=\"page-length\">17 pages</span>\n</p>\n\n\n<div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-23432-accessibility-help\">\n<h2>This file may not be suitable for users of assistive technology.\n<a class=\"toggler\" href=\"#attachment-23432-accessibility-request\" data-controls=\"attachment-23432-accessibility-request\" data-expanded=\"false\" role=\"button\" aria-controls=\"attachment-23432-accessibility-request\" aria-expanded=\"false\">Request a different format.</a>\n</h2>\n<p id=\"attachment-23432-accessibility-request\" class=\"js-hidden\" aria-live=\"polite\" role=\"region\">\nIf you use assistive technology and need a version of this document\nin a more accessible format, please email\n<a href=\"mailto:alternativeformats@communities.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Affordable%20Housing%20Supply%2C%20England%2C%202011-2012%0A%20%20Original%20format%3A%20pdf%0A%20%20ISBN%3A%209781409836872%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Affordable%20Housing%20Supply%2C%20England%2C%202011-2012%27%20in%20an%20alternative%20format\">alternativeformats@communities.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n</p>\n</div>\n</div>\n</section>"
+    ],
+    "first_public_at": "2012-11-01T00:00:00.000+00:00",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "political": false,
+    "emphasised_organisations": [
+      "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28"
+    ],
+    "national_applicability": {
+      "england": {
+        "label": "England",
+        "applicable": true
+      },
+      "northern_ireland": {
+        "label": "Northern Ireland",
+        "applicable": false,
+        "alternative_url": "http://www.dsdni.gov.uk/index/stats_and_research/stats-publications/stats-housing-publications/housing_stats.htm"
+      },
+      "scotland": {
+        "label": "Scotland",
+        "applicable": false,
+        "alternative_url": "http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS"
+      },
+      "wales": {
+        "label": "Wales",
+        "applicable": false,
+        "alternative_url": "http://wales.gov.uk/topics/statistics/headlines/housing2012/121025/?lang=en"
+      }
+    }
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",
+        "title": "Department for Communities and Local Government",
+        "api_path": "/api/content/government/organisations/department-for-communities-and-local-government",
+        "base_path": "/government/organisations/department-for-communities-and-local-government",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-communities-and-local-government",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-communities-and-local-government",
+        "locale": "en",
+        "analytics_identifier": "D4"
+      }
+    ],
+    "document_collections": [
+      {
+        "content_id": "5eb622a8-7631-11e4-a3cb-005056011aef",
+        "title": "Affordable housing supply",
+        "api_path": "/api/content/government/collections/affordable-housing-supply",
+        "base_path": "/government/collections/affordable-housing-supply",
+        "api_url": "https://www.gov.uk/api/content/government/collections/affordable-housing-supply",
+        "web_url": "https://www.gov.uk/government/collections/affordable-housing-supply",
+        "locale": "en"
+      }
+    ],
+    "related_statistical_data_sets": [
+      {
+        "content_id": "5c81d7b6-7631-11e4-a3cb-005056011aef",
+        "title": "Live tables on affordable housing supply",
+        "api_path": "/api/content/government/statistical-data-sets/live-tables-on-affordable-housing-supply",
+        "base_path": "/government/statistical-data-sets/live-tables-on-affordable-housing-supply",
+        "api_url": "https://www.gov.uk/api/content/government/statistical-data-sets/live-tables-on-affordable-housing-supply",
+        "web_url": "https://www.gov.uk/government/statistical-data-sets/live-tables-on-affordable-housing-supply",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "publication",
+  "document_type": "national_statistics"
+}

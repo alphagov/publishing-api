@@ -1,0 +1,310 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/guidance/england-2014-to-2020-european-structural-and-investment-funds",
+  "content_id": "b99b2e66-9f5b-4325-b1ac-e46b13e8cdac",
+  "document_type": "detailed_guide",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-09-05T14:45:53.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "detailed_guide",
+  "title": "England 2014 to 2020 European Structural and Investment Funds",
+  "updated_at": "2016-10-05T09:49:51.626Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D7",
+        "content_id": "de4e9dc6-cca4-43af-a594-682023b84d6c",
+        "description": null,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Department<br/>for Environment<br/>Food &amp; Rural Affairs",
+            "crest": "single-identity"
+          }
+        },
+        "document_type": "organisation",
+        "public_updated_at": "2016-07-18T17:26:51Z",
+        "schema_name": "placeholder",
+        "title": "Department for Environment, Food & Rural Affairs",
+        "base_path": "/government/organisations/department-for-environment-food-rural-affairs",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs",
+        "links": {
+        },
+        "api_path": "/api/content/government/organisations/department-for-environment-food-rural-affairs"
+      },
+      {
+        "analytics_identifier": "D4",
+        "content_id": "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",
+        "description": null,
+        "details": {
+          "brand": "department-for-communities-and-local-government",
+          "logo": {
+            "formatted_title": "Department for <br/>Communities and<br/>Local Government",
+            "crest": "single-identity"
+          }
+        },
+        "document_type": "organisation",
+        "public_updated_at": "2016-07-18T17:26:50Z",
+        "schema_name": "placeholder",
+        "title": "Department for Communities and Local Government",
+        "base_path": "/government/organisations/department-for-communities-and-local-government",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-communities-and-local-government",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-communities-and-local-government",
+        "links": {
+        },
+        "api_path": "/api/content/government/organisations/department-for-communities-and-local-government"
+      },
+      {
+        "analytics_identifier": "D1198",
+        "content_id": "2bde479a-97f2-42b5-986a-287a623c2a1c",
+        "description": null,
+        "details": {
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "formatted_title": "Department for<br/>Business, Energy<br/>&amp; Industrial Strategy",
+            "crest": "single-identity"
+          }
+        },
+        "document_type": "organisation",
+        "public_updated_at": "2016-09-20T15:10:54Z",
+        "schema_name": "placeholder",
+        "title": "Department for Business, Energy & Industrial Strategy",
+        "base_path": "/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-business-energy-and-industrial-strategy",
+        "links": {
+        },
+        "api_path": "/api/content/government/organisations/department-for-business-energy-and-industrial-strategy"
+      },
+      {
+        "analytics_identifier": "D10",
+        "content_id": "b548a09f-8b35-4104-89f4-f1a40bf3136d",
+        "description": null,
+        "details": {
+          "brand": "department-for-work-pensions",
+          "logo": {
+            "formatted_title": "Department<br/>for Work &amp; <br/>Pensions",
+            "crest": "single-identity"
+          }
+        },
+        "document_type": "organisation",
+        "public_updated_at": "2016-07-18T17:26:50Z",
+        "schema_name": "placeholder",
+        "title": "Department for Work and Pensions",
+        "base_path": "/government/organisations/department-for-work-pensions",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-work-pensions",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-work-pensions",
+        "links": {
+        },
+        "api_path": "/api/content/government/organisations/department-for-work-pensions"
+      }
+    ],
+    "policy_areas": [
+      {
+        "analytics_identifier": null,
+        "content_id": "f10df7ae-e3a6-4f9c-b764-541f62c8e6cf",
+        "description": null,
+        "document_type": "placeholder_policy_area",
+        "public_updated_at": "2016-02-04T11:25:06Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "UK economy",
+        "base_path": "/government/topics/uk-economy",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/topics/uk-economy",
+        "web_url": "https://www.gov.uk/government/topics/uk-economy",
+        "links": {
+        },
+        "api_path": "/api/content/government/topics/uk-economy"
+      },
+      {
+        "analytics_identifier": null,
+        "content_id": "541bc95f-f3a5-4c34-973a-f5f3f01bc4d2",
+        "description": null,
+        "document_type": "policy_area",
+        "public_updated_at": "2016-07-05T09:05:43Z",
+        "schema_name": "placeholder",
+        "title": "Europe",
+        "base_path": "/government/topics/europe",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/topics/europe",
+        "web_url": "https://www.gov.uk/government/topics/europe",
+        "links": {
+        },
+        "api_path": "/api/content/government/topics/europe"
+      },
+      {
+        "analytics_identifier": null,
+        "content_id": "eaffa04f-549d-4ece-90dd-c23a44703a53",
+        "description": null,
+        "document_type": "placeholder_policy_area",
+        "public_updated_at": "2016-02-04T11:25:07Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Business and enterprise",
+        "base_path": "/government/topics/business-and-enterprise",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/topics/business-and-enterprise",
+        "web_url": "https://www.gov.uk/government/topics/business-and-enterprise",
+        "links": {
+        },
+        "api_path": "/api/content/government/topics/business-and-enterprise"
+      }
+    ],
+    "related_policies": [
+      {
+        "analytics_identifier": null,
+        "content_id": "5d37d041-7631-11e4-a3cb-005056011aef",
+        "description": "",
+        "document_type": "policy",
+        "public_updated_at": "2015-05-26T15:15:27Z",
+        "schema_name": "policy",
+        "title": "European funds",
+        "base_path": "/government/policies/european-funds",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/policies/european-funds",
+        "web_url": "https://www.gov.uk/government/policies/european-funds",
+        "links": {
+        },
+        "api_path": "/api/content/government/policies/european-funds"
+      }
+    ],
+    "document_collections": [
+      {
+        "analytics_identifier": null,
+        "content_id": "5f52eae2-7631-11e4-a3cb-005056011aef",
+        "description": "Information about the European Social Fund (ESF) programme for 2007 to 2013 in England and Gibraltar.",
+        "document_type": "document_collection",
+        "public_updated_at": "2016-09-02T11:34:32Z",
+        "schema_name": "placeholder_document_collection",
+        "title": "European Social Fund (ESF): 2007 to 2013",
+        "base_path": "/government/collections/european-social-fund-2007-to-2013",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/collections/european-social-fund-2007-to-2013",
+        "web_url": "https://www.gov.uk/government/collections/european-social-fund-2007-to-2013",
+        "links": {
+          "documents": [
+            {
+              "analytics_identifier": null,
+              "content_id": "b99b2e66-9f5b-4325-b1ac-e46b13e8cdac",
+              "description": "Information about the European Structural and Investment Funds programme for 2014 to 2020 in England.",
+              "document_type": "detailed_guide",
+              "public_updated_at": "2016-09-05T14:45:53Z",
+              "schema_name": "detailed_guide",
+              "title": "England 2014 to 2020 European Structural and Investment Funds",
+              "base_path": "/guidance/england-2014-to-2020-european-structural-and-investment-funds",
+              "locale": "en",
+              "api_url": "https://www.gov.uk/api/content/guidance/england-2014-to-2020-european-structural-and-investment-funds",
+              "web_url": "https://www.gov.uk/guidance/england-2014-to-2020-european-structural-and-investment-funds",
+              "links": {
+              },
+              "api_path": "/api/content/guidance/england-2014-to-2020-european-structural-and-investment-funds"
+            }
+          ]
+        },
+        "api_path": "/api/content/government/collections/european-social-fund-2007-to-2013"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "content_id": "b99b2e66-9f5b-4325-b1ac-e46b13e8cdac",
+        "description": "Information about the European Structural and Investment Funds programme for 2014 to 2020 in England.",
+        "document_type": "detailed_guide",
+        "public_updated_at": "2016-09-05T14:45:53Z",
+        "schema_name": "detailed_guide",
+        "title": "England 2014 to 2020 European Structural and Investment Funds",
+        "base_path": "/guidance/england-2014-to-2020-european-structural-and-investment-funds",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/guidance/england-2014-to-2020-european-structural-and-investment-funds",
+        "web_url": "https://www.gov.uk/guidance/england-2014-to-2020-european-structural-and-investment-funds",
+        "api_path": "/api/content/guidance/england-2014-to-2020-european-structural-and-investment-funds",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Information about the European Structural and Investment Funds programme for 2014 to 2020 in England.",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"about-the-european-structural-and-investment-funds-growth-programme\">About the European Structural and Investment Funds Growth programme</h2>\n\n<p>The <a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds/european-funds-european-structural-and-investment-funds\">European Structural and Investment Funds programme</a> provides funds to help local areas grow. The funds support investment in innovation, businesses, skills and employment and create jobs.</p>\n\n<p>Running from 2014 to 2020, there are three types of funds involved in the programme.</p>\n\n<ul>\n  <li>\n    <p>European Social Fund (ESF) focuses on improving the employment opportunities, promoting social inclusion and investing in skills by providing help people need to fulfil their potential.</p>\n  </li>\n  <li>\n    <p>European Regional Development Fund (ERDF) supports research and innovation, small to medium sized enterprises and creation of a low carbon economy.</p>\n  </li>\n  <li>\n    <p>European Agricultural Fund for Rural Development (EAFRD) supports rural businesses to grow and expand, improve knowledge and skills and get started. Read information and access documents on this fund <a href=\"https://www.gov.uk/government/collections/growth-programme-grants-for-the-rural-economy\">here</a>.</p>\n  </li>\n</ul>\n\n<p>Read <a href=\"https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/487898/ESIF-online-publication-december-2015.pdf\">more on the programme and the funds</a> and view projects that have received funding from the European Regional Development Fund and European Social Fund <a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-useful-resources\">here</a>.</p>\n\n<h2 id=\"who-can-apply-for-funding\">Who can apply for funding</h2>\n\n<p>A variety of requirements and criteria must be met in order to apply for funding through the programme. Read the <a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-programme-guidance\">programme guidance</a> to see who is eligible to apply for funding from the European Regional Development Fund and the European Social Fund.</p>\n\n<p>Read detailed information about the funds including the priorities, objectives and target groups and how the funds are being implemented:</p>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/publications/european-social-fund-operational-programme-2014-to-2020\">ESF Operational Programme for England 2014 to 2020</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/draft-european-regional-development-fund-operational-programme-2014-to-2020\">ERDF Operational Programme for England 2014 to 2020</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/rdpe-programme-document-2014-to-2020\">EAFRD Operational Programme for England 2014 to 2020</a></li>\n</ul>\n\n<h2 id=\"applying-for-european-structural-and-investment-growth-programme-funds\">Applying for European Structural and Investment Growth programme funds</h2>\n\n<p>There are two routes to apply for funding.</p>\n\n<h3 id=\"route-one--the-funding-finder\">Route one – The Funding Finder</h3>\n\n<p>Through this route funding opportunities for all of the European Regional Development Fund, part of the European Agricultural Fund for Rural Development and part of the European Social Fund are available.</p>\n\n<div class=\"call-to-action\">\n<p>Apply through the <a href=\"https://www.gov.uk/european-structural-investment-funds\">Funding Finder</a></p>\n</div>\n\n<h3 id=\"route-two---co-financing-european-social-fund-only\">Route two - co-financing (European Social Fund only)</h3>\n\n<p>Also known as opt-in organisations, a large proportion of European Social Fund money is available through this alternative route. Co-financing means that European Social Fund can cover up to 100% of an approved project’s eligible costs.</p>\n\n<div class=\"call-to-action\">\n<p>Read details on this approach, the opt-in organisations and how to apply through this route on our <a href=\"https://www.gov.uk/england-2014-to-2020-european-social-fund-partner-information\">partner page</a>.</p>\n</div>\n\n<p>Find out more about the <span id=\"attachment_1704248\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/448495/ERDF_and_ESF_Lifecycle_of_a_Project_270715_v2_final.pdf\">different stages of a typical European Regional Development Fund or European Social Fund project </a>\n  (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">1.43MB</span>, <span class=\"page-length\">31 pages</span>)\n</span>\n.</p>\n\n<h2 id=\"programme-guidance-forms-publicity-and-performance-information\">Programme guidance, forms, publicity and performance information</h2>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-programme-guidance\">Programme guidance</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-outline-application\">Outline application</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-full-application\">Full application</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-outputs-and-results\">Output and results</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-funding-agreements\">Funding agreements</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-technical-assistance\">Technical Assistance</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-community-led-local-development\">Community Led Local Development</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/esf-equal-opportunities-and-sustainable-development-mainstreaming-leader-awards-2016\">ESF Equal Opportunities and Sustainable Development Mainstreaming Leader Awards</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/evaluation-of-the-european-social-fund-2014-to-2020\">Evaluation of ESF</a></li>\n  <li><a href=\"https://www.gov.uk/government/publications/european-structural-and-investment-funds-useful-resources\">Useful resources</a></li>\n</ul>\n\n<h2 id=\"managing-the-european-structural-and-investment-growth-programme-funds\">Managing the European Structural and Investment Growth programme funds</h2>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/groups/growth-programme-board\">Growth Programme Board</a></li>\n  <li><a href=\"https://www.gov.uk/government/groups/programme-monitoring-committee-national-sub-committees\">Growth Programme Board National sub-committees</a></li>\n  <li><a href=\"https://www.gov.uk/government/groups/local-enterprise-partnership-area-esif-sub-committees\">Local Enterprise Partnership area ESIF sub-committees</a></li>\n</ul>\n\n<h2 id=\"contact-us\">Contact us</h2>\n\n<p>For all general enquiries about the European Structural and Investment Funds Growth programme or the European Regional Development Fund, email <a href=\"mailto:esif@communities.gsi.gov.uk\">esif@communities.gsi.gov.uk</a>.</p>\n\n<p>For enquiries about the European Social Fund, email <a href=\"mailto:ESF.2014-2020@dwp.gsi.gov.uk\">ESF.2014-2020@dwp.gsi.gov.uk</a>.</p>\n\n<p>For enquiries about the European Agricultural Fund for Rural Development, email <a href=\"mailto:rdpenetwork@defra.gsi.gov.uk\">rdpenetwork@defra.gsi.gov.uk</a>.</p>\n\n<p>For local information and enquiries, contact the <a rel=\"external\" href=\"http://www.lepnetwork.net/\">Local Enterprise Partnership Network</a>.</p>\n\n<p>View the <a href=\"https://www.gov.uk/government/organisations/department-for-communities-and-local-government/about/complaints-procedure\">DCLG complaints procedure</a>.</p>\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2016-09-05T15:45:53.000+01:00",
+        "note": "Added a link to new information about the evaluation of the European Social Fund 2014 to 2020."
+      },
+      {
+        "public_timestamp": "2016-05-12T10:44:10.000+01:00",
+        "note": "Contact Us - email address amended for ESF enquiries."
+      },
+      {
+        "public_timestamp": "2015-12-21T15:12:00.000+00:00",
+        "note": "Added a link to the new guide to European Regional Development Fund and European Social Fund 2014-2020 programmes in England."
+      },
+      {
+        "public_timestamp": "2015-09-17T16:15:40.000+01:00",
+        "note": "The European Social Fund Operational Programme was adopted by the European Commission on 10 September 2015 and now published."
+      },
+      {
+        "public_timestamp": "2015-07-16T09:30:00.000+01:00",
+        "note": "First published."
+      }
+    ],
+    "emphasised_organisations": [
+      "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",
+      "b548a09f-8b35-4104-89f4-f1a40bf3136d",
+      "de4e9dc6-cca4-43af-a594-682023b84d6c",
+      "2bde479a-97f2-42b5-986a-287a623c2a1c"
+    ],
+    "first_public_at": "2015-07-16T09:30:00.000+01:00",
+    "image": {
+      "url": "https://assets.publishing.service.gov.uk/media/5540ab8aed915d15d8000030/european-structural-investment-funds.png"
+    },
+    "related_mainstream_content": [
+
+    ],
+    "political": false,
+    "government": {
+      "title": "2015 Conservative government",
+      "slug": "2015-conservative-government",
+      "current": true
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+        "european-funds"
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

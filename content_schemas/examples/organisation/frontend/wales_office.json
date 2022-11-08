@@ -1,0 +1,1259 @@
+{
+  "analytics_identifier": "D24",
+  "base_path": "/government/organisations/office-of-the-secretary-of-state-for-wales",
+  "content_id": "4f9fe232-e7a2-48e8-99b1-8f7828680493",
+  "document_type": "organisation",
+  "first_published_at": "2011-10-11T16:11:44.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2020-05-01T07:52:56.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "collections",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "organisation",
+  "title": "Office of the Secretary of State for Wales",
+  "updated_at": "2020-05-01T10:53:53.666Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "1485-1588319576.882-10.13.4.55-540",
+  "links": {
+    "ordered_board_members": [
+      {
+        "content_id": "8533166e-c0f1-11e4-8223-005056011aef",
+        "title": "Glynne Jones",
+        "locale": "en",
+        "api_path": "/api/content/government/people/glynne-jones",
+        "base_path": "/government/people/glynne-jones",
+        "document_type": "person",
+        "public_updated_at": "2020-02-03T15:40:01Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/717/s465_Glynne_960-640.jpg",
+            "alt_text": "Glynne Jones"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "596a99da-2888-40f5-a99f-5ea9170725bc",
+              "title": "Glynne Jones - Director, Office of the Secretary of State for Wales",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:14:53Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2013-01-02T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 800
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8464f004-c0f1-11e4-8223-005056011aef",
+                    "title": "Director, Office of the Secretary of State for Wales",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-02-06T12:11:20Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Director of the Office of the Secretary of State for Wales is accountable for the overall performance of the department.</p>\n\n<h2 id=\"cyfarwyddwr-swyddfa-ysgrifennydd-gwladol-cyrmu\">Cyfarwyddwr Swyddfa Ysgrifennydd Gwladol Cyrmu</h2>\n<p>Cyfarwyddwr Swyddfa Ysgrifennydd Gwladol Cyrmuu sy’n atebol am berfformiad yr adran drwyddi draw.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/glynne-jones",
+        "web_url": "https://www.gov.uk/government/people/glynne-jones"
+      },
+      {
+        "content_id": "271fd3ab-72cd-4fe5-9d3d-6d26fd4b9ddb",
+        "title": "Lottie Cantle",
+        "locale": "en",
+        "api_path": "/api/content/government/people/lottie-cantle",
+        "base_path": "/government/people/lottie-cantle",
+        "document_type": "person",
+        "public_updated_at": "2020-02-24T10:53:21Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/4204/s465_Lottie960-640.jpg",
+            "alt_text": "Lottie Cantle"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "4c11229c-7075-4681-adae-8eea15135df4",
+              "title": "Lottie Cantle - Principal Private Secretary to the Secretary of State",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2020-02-04T13:57:53Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-10-15T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 6009
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8467cba8-c0f1-11e4-8223-005056011aef",
+                    "title": "Principal Private Secretary to the Secretary of State",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-07-05T12:55:02Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Principal Private Secretary leads the Secretary of State’s Private Office and is a member of the Wales Office Management Board.</p>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/lottie-cantle",
+        "web_url": "https://www.gov.uk/government/people/lottie-cantle"
+      },
+      {
+        "content_id": "8534c66a-c0f1-11e4-8223-005056011aef",
+        "title": "Geth Williams",
+        "locale": "en",
+        "api_path": "/api/content/government/people/geth-williams",
+        "base_path": "/government/people/geth-williams",
+        "document_type": "person",
+        "public_updated_at": "2020-02-03T15:40:43Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/823/s465_Geth_960-640.jpg",
+            "alt_text": "Geth Williams"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "030ff652-805b-4d64-9406-afab35f9ed3d",
+              "title": "Geth Williams - Deputy Director, Constitution and Policy",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-07-05T13:54:38Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2007-06-01T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 907
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8467cb56-c0f1-11e4-8223-005056011aef",
+                    "title": "Deputy Director, Constitution and Policy",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-07-05T13:54:38Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Deputy Director, Constitution and Policy (also Deputy Head of Office) heads up the Strategy and Constitution Division.</p>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/geth-williams",
+        "web_url": "https://www.gov.uk/government/people/geth-williams"
+      },
+      {
+        "content_id": "1a665208-6a05-4d31-9ea8-c1489291243e",
+        "title": "Kate Starkey",
+        "locale": "en",
+        "api_path": "/api/content/government/people/kate-starkey",
+        "base_path": "/government/people/kate-starkey",
+        "document_type": "person",
+        "public_updated_at": "2020-02-05T16:25:30Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3979/s465_kate_starkey.jpg",
+            "alt_text": "Kate Starkey"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "fa4cf79c-51b3-482d-a322-d26e97f4d124",
+              "title": "Kate Starkey - Deputy Director, Policy",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-07-05T10:49:19Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-06-10T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5535
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8467cb03-c0f1-11e4-8223-005056011aef",
+                    "title": "Deputy Director, Policy",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-07-05T10:49:19Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Deputy Director, Policy, is responsible for:</p>\n\n<ul>\n  <li>advising ministers on policy matters that are relevant to Wales</li>\n  <li>communicating and promoting a wider understanding of UK Government policies in Wales</li>\n  <li>running the Office of the Secretary of State for Wales effectively and efficiently</li>\n</ul>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n\n<h2 id=\"dirprwy-gyfarwyddwr-polisi\">Dirprwy Gyfarwyddwr Polisi</h2>\n<p>Mae’r Dirprwy Gyfarwyddwr Polisi yn gyfrifol am y canlynol:</p>\n\n<ul>\n  <li>cynghori gweinidogion ynghylch materion polisi sy’n berthnasol i Gymru</li>\n  <li>cyfleu a hybu dealltwriaeth ehangach o bolisïau Llywodraeth y DU yng Nghymru</li>\n  <li>rhedeg Swyddfa Ysgrifennydd Gwladol Cymru yn effeithiol ac yn effeithlon</li>\n</ul>\n\n<p>Rôl Bwrdd Rheoli Swyddfa Ysgrifennydd Gwladol Cymru yw:</p>\n\n<ul>\n  <li>darparu arweiniad effeithiol ac ar y cyd i Swyddfa Ysgrifennydd Gwladol Cymru a phennu ei chyfeiriad corfforaethol a’i safonau galluogrwydd, yn seiliedig ar nodau, amcanion a blaenoriaethau Gweinidogion Swyddfa Ysgrifennydd Gwladol Cymru</li>\n  <li>goruchwylio’r modd y caiff amcanion a blaenoriaethau’r gweinidogion eu cyflawni, fel y maent wedi’u pennu yn y cynllun busnes, a rheoli’r risgiau allweddol cysylltiedig</li>\n  <li>sicrhau bod asedau ac adnoddau ariannol Swyddfa Ysgrifennydd Gwladol Cymru yn cael eu rheoli’n ddoeth ac yn effeithiol</li>\n  <li>cytuno a chynnal system dryloyw a chadarn o ran rheolau mewnol</li>\n  <li>arwain a goruchwylio’r broses o newid ac arbedion effeithlonrwydd</li>\n  <li>arwain y broses o reoli a datblygu gweision sifil Swyddfa Ysgrifennydd Gwladol Cymru ar y cyd</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/kate-starkey",
+        "web_url": "https://www.gov.uk/government/people/kate-starkey"
+      },
+      {
+        "content_id": "927de400-c0ad-4ce8-9cde-f3da1ff9b5f7",
+        "title": "Louise Parry",
+        "locale": "en",
+        "api_path": "/api/content/government/people/louise-parry",
+        "base_path": "/government/people/louise-parry",
+        "document_type": "person",
+        "public_updated_at": "2020-02-18T12:10:04Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3980/s465_Louise_960-640.jpg",
+            "alt_text": "Louise Parry"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "218f23e9-1f06-4c38-a13a-c50f7fabe5d9",
+              "title": "Louise Parry - Deputy Director, Policy",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-07-05T10:50:38Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-06-10T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5536
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "cff7ee4c-bebd-48ac-aba6-a16ba8fd6f69",
+                    "title": "Deputy Director, Policy",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-07-05T10:49:54Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Deputy Director, Policy, is responsible for:</p>\n\n<ul>\n  <li>advising ministers on policy matters that are relevant to Wales</li>\n  <li>communicating and promoting a wider understanding of UK Government policies in Wales</li>\n  <li>running the Office of the Secretary of State for Wales effectively and efficiently</li>\n</ul>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n\n<h2 id=\"dirprwy-gyfarwyddwr-polisi\">Dirprwy Gyfarwyddwr Polisi</h2>\n<p>Mae’r Dirprwy Gyfarwyddwr Polisi yn gyfrifol am y canlynol:</p>\n\n<ul>\n  <li>cynghori gweinidogion ynghylch materion polisi sy’n berthnasol i Gymru</li>\n  <li>cyfleu a hybu dealltwriaeth ehangach o bolisïau Llywodraeth y DU yng Nghymru</li>\n  <li>rhedeg Swyddfa Ysgrifennydd Gwladol Cymru yn effeithiol ac yn effeithlon</li>\n</ul>\n\n<p>Rôl Bwrdd Rheoli Swyddfa Ysgrifennydd Gwladol Cymru yw:</p>\n\n<ul>\n  <li>darparu arweiniad effeithiol ac ar y cyd i Swyddfa Ysgrifennydd Gwladol Cymru a phennu ei chyfeiriad corfforaethol a’i safonau galluogrwydd, yn seiliedig ar nodau, amcanion a blaenoriaethau Gweinidogion Swyddfa Ysgrifennydd Gwladol Cymru</li>\n  <li>goruchwylio’r modd y caiff amcanion a blaenoriaethau’r gweinidogion eu cyflawni, fel y maent wedi’u pennu yn y cynllun busnes, a rheoli’r risgiau allweddol cysylltiedig</li>\n  <li>sicrhau bod asedau ac adnoddau ariannol Swyddfa Ysgrifennydd Gwladol Cymru yn cael eu rheoli’n ddoeth ac yn effeithiol</li>\n  <li>cytuno a chynnal system dryloyw a chadarn o ran rheolau mewnol</li>\n  <li>arwain a goruchwylio’r broses o newid ac arbedion effeithlonrwydd</li>\n  <li>arwain y broses o reoli a datblygu gweision sifil Swyddfa Ysgrifennydd Gwladol Cymru ar y cyd</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/louise-parry",
+        "web_url": "https://www.gov.uk/government/people/louise-parry"
+      },
+      {
+        "content_id": "959c6405-35d7-46e9-8928-72568832b790",
+        "title": "Ashok Ahir",
+        "locale": "en",
+        "api_path": "/api/content/government/people/ashok-ahir",
+        "base_path": "/government/people/ashok-ahir",
+        "document_type": "person",
+        "public_updated_at": "2020-02-05T14:05:40Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3726/s465_Ashok_960-640-2.jpg",
+            "alt_text": "Ashok Ahir"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "5b8d257f-6637-4fdf-a13d-f5fa2f347979",
+              "title": "Ashok Ahir - Deputy Director, Communications",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-07-05T13:43:21Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-07-05T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5541
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "a44fd856-d5df-4888-8254-5dad7d5eccf8",
+                    "title": "Deputy Director, Communications",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-07-05T13:43:21Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Deputy Director, Communications leads the Office of the Secretary of State for Wales’ communications team and supports the Secretary of State and ministers.</p>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/ashok-ahir",
+        "web_url": "https://www.gov.uk/government/people/ashok-ahir"
+      },
+      {
+        "content_id": "107214a2-2486-4b57-a2dd-5891e9bc9c24",
+        "title": "Alison White",
+        "locale": "en",
+        "api_path": "/api/content/government/people/alison-white--2",
+        "base_path": "/government/people/alison-white--2",
+        "document_type": "person",
+        "public_updated_at": "2019-07-11T10:04:03Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3983/s465_Alison_White.jpg",
+            "alt_text": "Alison White"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "9dbd5fd7-d4ef-4ee6-82c5-fe8372c8e6cd",
+              "title": "Alison White - Lead Non-Executive Director",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-07-11T10:08:16Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-07-05T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5539
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "6d03b86a-9f3e-4a3f-995e-4954cde377bc",
+                    "title": "Lead Non-Executive Director",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-07-11T10:01:28Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/alison-white--2",
+        "web_url": "https://www.gov.uk/government/people/alison-white--2"
+      },
+      {
+        "content_id": "9850cdd5-de4a-4ea9-b2fe-f773d78bc9ed",
+        "title": "Peter Umbleja",
+        "locale": "en",
+        "api_path": "/api/content/government/people/peter-umbleya",
+        "base_path": "/government/people/peter-umbleya",
+        "document_type": "person",
+        "public_updated_at": "2019-09-12T10:20:48Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3982/s465_Peter_Umbleja_Web.jpg",
+            "alt_text": "Peter Umbleja"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "90bf684f-42dd-4815-a30b-d5a63c43cf4b",
+              "title": "Peter Umbleja - Non-Executive Director",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-09-12T10:20:48Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-07-05T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5538
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "4b88fa54-939b-481e-89a8-bef465d4b380",
+                    "title": "Non-Executive Director",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-07-11T09:59:21Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/peter-umbleya",
+        "web_url": "https://www.gov.uk/government/people/peter-umbleya"
+      }
+    ],
+    "ordered_contacts": [
+      {
+        "content_id": "41e1761b-9f21-46f6-98bc-ab52c083bc3c",
+        "title": "Office of the Secretary of State for Wales, Cardiff",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2018-11-30T16:10:59Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "Office of the Secretary of State for Wales, Cardiff",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Office of the Secretary of State for Wales",
+              "street_address": "1 Caspian Point\r\nCaspian Way\r\nCardiff\r\nWales\r\nCF10 4DQ",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": [
+            {
+              "title": "Office of the Secretary of State for Wales",
+              "email": "correspondence@ukgovwales.gov.uk"
+            }
+          ],
+          "phone_numbers": [
+            {
+              "title": "Office of the Secretary of State for Wales (Cardiff)",
+              "number": "02920 924216"
+            },
+            {
+              "title": "For enquiries from members of the media only:",
+              "number": "029 2092 4212; Out of hours: 07973 303984"
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "21cc2f4c-f6a5-4613-89d7-f1bc70147cc9",
+        "title": "Office of the Secretary of State for Wales, London",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2018-11-30T16:11:53Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "Office of the Secretary of State for Wales, London",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Office of the Secretary of State for Wales",
+              "street_address": "Gwydyr House \r\nWhitehall",
+              "region": "London",
+              "postal_code": "SW1A 2NP",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": [
+            {
+              "title": "Office of the Secretary of State for Wales",
+              "email": "correspondence@ukgovwales.gov.uk"
+            }
+          ],
+          "phone_numbers": [
+            {
+              "title": "Office of the Secretary of State for Wales",
+              "number": "020 7270 0534"
+            }
+          ]
+        },
+        "links": {
+        }
+      }
+    ],
+    "ordered_foi_contacts": [
+      {
+        "content_id": "c9253289-a38e-422b-b16d-90e4b3b373d2",
+        "title": "FOI requests",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2018-11-30T16:12:40Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Make sure you include your name, address and a detailed explanation of information that you wish to receive from us. We will endeavour to respond to your request within 20 days and if this is not possible we will write to you and tell you why we need more time, and when you will receive the information.\r\n\r\nThis information is free, but we may turn down the request if it is likely to cost us over £600, or ask you to be more specific in the information you are looking for. Information released by the Office of the Secretary of State for Wales in response to an FOI will be published on this website.",
+          "title": "FOI requests",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "Office of the Secretary of State for Wales",
+              "street_address": "Gwydyr House\r\nWhitehall",
+              "region": "London",
+              "postal_code": "SW1A 2NP",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": [
+            {
+              "title": "Office of the Secretary of State for Wales",
+              "email": "walesofficefoi@ukgovwales.gov.uk"
+            }
+          ],
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      }
+    ],
+    "ordered_ministers": [
+      {
+        "content_id": "44f73b9f-58d3-493a-9d78-3f177e177cac",
+        "title": "The Rt Hon Simon Hart MP",
+        "locale": "en",
+        "api_path": "/api/content/government/people/simon-hart",
+        "base_path": "/government/people/simon-hart",
+        "document_type": "person",
+        "public_updated_at": "2020-01-20T10:24:44Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3188/s465_Simon_Hart_960-640.jpg",
+            "alt_text": "The Rt Hon Simon Hart MP"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "7fdc5051-b0b3-468e-86aa-99095f79a870",
+              "title": "Simon Hart - Parliamentary Secretary (Minister for Implementation)",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-12-16T18:05:57Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-07-27T00:00:00+01:00",
+                "ended_on": "2019-12-16T00:00:00+00:00",
+                "current": false,
+                "person_appointment_order": 5729
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "7a07c083-4faf-43d9-8eac-676855289d39",
+                    "title": "Parliamentary Secretary (Minister for Implementation)",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--86",
+                    "base_path": "/government/ministers/parliamentary-under-secretary-of-state--86",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2019-08-27T13:17:40Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<ul>\n  <li>Supporting MCO on cross-government delivery and implementation</li>\n  <li>Controls (commercial, digital, property)</li>\n  <li>Commercial models</li>\n  <li>Cyber and resilience</li>\n  <li>Civil Service HR and Shared Services</li>\n  <li>Fraud, Error, Debt and Grants</li>\n  <li>Geospatial Commission</li>\n  <li>Government Digital Service</li>\n  <li>Government Security Group</li>\n  <li>Infrastructure and Projects Authority</li>\n  <li>Government Property</li>\n  <li>Government Commercial Function</li>\n  <li>Public bodies and appointments policy</li>\n</ul>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--86",
+                    "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--86"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "1aeb27cf-1be2-493d-ad32-214360295c6d",
+              "title": "Simon Hart - Secretary of State for Wales",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-12-16T18:03:33Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-12-16T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5926
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "845e661b-c0f1-11e4-8223-005056011aef",
+                    "title": "Secretary of State for Wales",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/secretary-of-state-for-wales",
+                    "base_path": "/government/ministers/secretary-of-state-for-wales",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2020-01-16T11:55:50Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Secretary of State is responsible for the overall strategic direction of the UK Government in Wales.</p>\n\n<p>Responsibilities include:</p>\n\n<ul>\n  <li>Welsh Government and Assembly Liaison</li>\n  <li>Constitutional and Electoral issues</li>\n  <li>Economy, Business &amp; Inward Investment</li>\n  <li>Infrastructure</li>\n  <li>Exiting the EU</li>\n  <li>Foreign Affairs</li>\n  <li>Energy and Climate Change</li>\n  <li>Steel</li>\n  <li>Defence</li>\n  <li>Agriculture</li>\n  <li>Tourism</li>\n  <li>Public Appointments</li>\n  <li>Welsh Budget</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/secretary-of-state-for-wales",
+                    "web_url": "https://www.gov.uk/government/ministers/secretary-of-state-for-wales"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "8a982e70-4b8f-408b-9d8b-127e65059c6e",
+              "title": "Simon Hart - Member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-06T16:37:00Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-08-08T00:00:00+01:00",
+                "ended_on": "2019-07-28T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 4264
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "f92922a3-1364-40eb-a0df-95d1c4b477da",
+                    "title": "Member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2020-02-14T14:07:39Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>See <a href=\"https://www.gov.uk/government/publications/cspl-july-2018-register-of-interests\">CSPL’s register of interests for Committee members</a>.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/simon-hart",
+        "web_url": "https://www.gov.uk/government/people/simon-hart"
+      },
+      {
+        "content_id": "f268e9a9-de91-408a-b663-9404096e7c34",
+        "title": "David TC Davies MP",
+        "locale": "en",
+        "api_path": "/api/content/government/people/david-tc-davies",
+        "base_path": "/government/people/david-tc-davies",
+        "document_type": "person",
+        "public_updated_at": "2020-01-24T15:10:34Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/4169/s465_David_TC_Davies_960-640.jpg",
+            "alt_text": "David TC Davies MP"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "16a5026b-51ed-490a-842b-e81238eac8e8",
+              "title": "David TC Davies MP - Assistant Government Whip",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-12-16T21:14:09Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-12-16T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5930
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "e106bc22-c449-4651-b53f-032116a6fca8",
+                    "title": "Assistant Government Whip",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/assistant-government-whip--18",
+                    "base_path": "/government/ministers/assistant-government-whip--18",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2019-12-16T21:12:54Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/assistant-government-whip--18",
+                    "web_url": "https://www.gov.uk/government/ministers/assistant-government-whip--18"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "70de8a22-5ef0-4061-8c7c-30b3753a8d35",
+              "title": "David TC Davies MP - Parliamentary Under Secretary of State",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-12-16T21:13:54Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-12-16T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5929
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "036e5ed9-1704-49ca-853a-7dfb796e0e8b",
+                    "title": "Parliamentary Under Secretary of State",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--116",
+                    "base_path": "/government/ministers/parliamentary-under-secretary-of-state--116",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2019-12-16T21:13:41Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": "Unpaid"
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--116",
+                    "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--116"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/david-tc-davies",
+        "web_url": "https://www.gov.uk/government/people/david-tc-davies"
+      }
+    ],
+    "ordered_roles": [
+      {
+        "content_id": "845e661b-c0f1-11e4-8223-005056011aef",
+        "title": "Secretary of State for Wales",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/secretary-of-state-for-wales",
+        "base_path": "/government/ministers/secretary-of-state-for-wales",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2020-01-16T11:55:50Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Secretary of State is responsible for the overall strategic direction of the UK Government in Wales.</p>\n\n<p>Responsibilities include:</p>\n\n<ul>\n  <li>Welsh Government and Assembly Liaison</li>\n  <li>Constitutional and Electoral issues</li>\n  <li>Economy, Business &amp; Inward Investment</li>\n  <li>Infrastructure</li>\n  <li>Exiting the EU</li>\n  <li>Foreign Affairs</li>\n  <li>Energy and Climate Change</li>\n  <li>Steel</li>\n  <li>Defence</li>\n  <li>Agriculture</li>\n  <li>Tourism</li>\n  <li>Public Appointments</li>\n  <li>Welsh Budget</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/secretary-of-state-for-wales",
+        "web_url": "https://www.gov.uk/government/ministers/secretary-of-state-for-wales"
+      },
+      {
+        "content_id": "8461235e-c0f1-11e4-8223-005056011aef",
+        "title": "UK Government Minister for Wales",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--32",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state--32",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2017-10-11T14:38:54Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The minister assists the Secretary of State for Wales in ensuring that the interests of Wales are recognised.</p>\n\n<p>Responsibilities include:</p>\n\n<ul>\n  <li>Welfare</li>\n  <li>Welsh Language</li>\n  <li>Heritage, Culture and Sport</li>\n  <li>Tourism</li>\n  <li>Rural Affairs</li>\n  <li>Health</li>\n  <li>Transport</li>\n  <li>Telecommunications</li>\n  <li>Energy</li>\n  <li>Environment</li>\n</ul>\n",
+          "role_payment_type": "Unpaid"
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--32",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--32"
+      },
+      {
+        "content_id": "846163be-c0f1-11e4-8223-005056011aef",
+        "title": "Parliamentary Under Secretary of State for Wales",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--33",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state--33",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2018-10-18T11:18:50Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Parliamentary Under Secretary of State (Lords) assists the Secretary of State for Wales in ensuring that the interests of Wales are recognised in Westminster, and that Westminster’s voice is heard in Wales.</p>\n\n<p>Responsibilities include:</p>\n\n<ul>\n  <li>Wales Office Business in the Lords</li>\n  <li>Mid-Wales Growth Deal</li>\n  <li>Education</li>\n  <li>Health</li>\n  <li>Law and Order, Immigration &amp; Justice</li>\n  <li>Local Government</li>\n  <li>Tourism, Heritage and Culture</li>\n  <li>Welfare</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--33",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--33"
+      },
+      {
+        "content_id": "8464f004-c0f1-11e4-8223-005056011aef",
+        "title": "Director, Office of the Secretary of State for Wales",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-02-06T12:11:20Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Director of the Office of the Secretary of State for Wales is accountable for the overall performance of the department.</p>\n\n<h2 id=\"cyfarwyddwr-swyddfa-ysgrifennydd-gwladol-cyrmu\">Cyfarwyddwr Swyddfa Ysgrifennydd Gwladol Cyrmu</h2>\n<p>Cyfarwyddwr Swyddfa Ysgrifennydd Gwladol Cyrmuu sy’n atebol am berfformiad yr adran drwyddi draw.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "8467cb03-c0f1-11e4-8223-005056011aef",
+        "title": "Deputy Director, Policy",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-07-05T10:49:19Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Deputy Director, Policy, is responsible for:</p>\n\n<ul>\n  <li>advising ministers on policy matters that are relevant to Wales</li>\n  <li>communicating and promoting a wider understanding of UK Government policies in Wales</li>\n  <li>running the Office of the Secretary of State for Wales effectively and efficiently</li>\n</ul>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n\n<h2 id=\"dirprwy-gyfarwyddwr-polisi\">Dirprwy Gyfarwyddwr Polisi</h2>\n<p>Mae’r Dirprwy Gyfarwyddwr Polisi yn gyfrifol am y canlynol:</p>\n\n<ul>\n  <li>cynghori gweinidogion ynghylch materion polisi sy’n berthnasol i Gymru</li>\n  <li>cyfleu a hybu dealltwriaeth ehangach o bolisïau Llywodraeth y DU yng Nghymru</li>\n  <li>rhedeg Swyddfa Ysgrifennydd Gwladol Cymru yn effeithiol ac yn effeithlon</li>\n</ul>\n\n<p>Rôl Bwrdd Rheoli Swyddfa Ysgrifennydd Gwladol Cymru yw:</p>\n\n<ul>\n  <li>darparu arweiniad effeithiol ac ar y cyd i Swyddfa Ysgrifennydd Gwladol Cymru a phennu ei chyfeiriad corfforaethol a’i safonau galluogrwydd, yn seiliedig ar nodau, amcanion a blaenoriaethau Gweinidogion Swyddfa Ysgrifennydd Gwladol Cymru</li>\n  <li>goruchwylio’r modd y caiff amcanion a blaenoriaethau’r gweinidogion eu cyflawni, fel y maent wedi’u pennu yn y cynllun busnes, a rheoli’r risgiau allweddol cysylltiedig</li>\n  <li>sicrhau bod asedau ac adnoddau ariannol Swyddfa Ysgrifennydd Gwladol Cymru yn cael eu rheoli’n ddoeth ac yn effeithiol</li>\n  <li>cytuno a chynnal system dryloyw a chadarn o ran rheolau mewnol</li>\n  <li>arwain a goruchwylio’r broses o newid ac arbedion effeithlonrwydd</li>\n  <li>arwain y broses o reoli a datblygu gweision sifil Swyddfa Ysgrifennydd Gwladol Cymru ar y cyd</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "8467cb56-c0f1-11e4-8223-005056011aef",
+        "title": "Deputy Director, Constitution and Policy",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-07-05T13:54:38Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Deputy Director, Constitution and Policy (also Deputy Head of Office) heads up the Strategy and Constitution Division.</p>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "8467cba8-c0f1-11e4-8223-005056011aef",
+        "title": "Principal Private Secretary to the Secretary of State",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-07-05T12:55:02Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Principal Private Secretary leads the Secretary of State’s Private Office and is a member of the Wales Office Management Board.</p>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "eab2d45b-0fa2-416f-858a-fa548587a3bb",
+        "title": "Parliamentary Under Secretary of State",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--94",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state--94",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2018-10-23T11:33:54Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Parliamentary Under Secretary of State assists the Secretary of State for Wales in ensuring that the interests of Wales are recognised in Westminster, and that Westminster’s voice is heard in Wales.</p>\n\n<p>Responsibilities include:</p>\n\n<ul>\n  <li>North Wales Growth Deal</li>\n  <li>Defence</li>\n  <li>Energy</li>\n  <li>Broadcasting</li>\n  <li>Telecommunications</li>\n  <li>Connectivity</li>\n</ul>\n",
+          "role_payment_type": "Unpaid"
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--94",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--94"
+      },
+      {
+        "content_id": "cff7ee4c-bebd-48ac-aba6-a16ba8fd6f69",
+        "title": "Deputy Director, Policy",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-07-05T10:49:54Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Deputy Director, Policy, is responsible for:</p>\n\n<ul>\n  <li>advising ministers on policy matters that are relevant to Wales</li>\n  <li>communicating and promoting a wider understanding of UK Government policies in Wales</li>\n  <li>running the Office of the Secretary of State for Wales effectively and efficiently</li>\n</ul>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n\n<h2 id=\"dirprwy-gyfarwyddwr-polisi\">Dirprwy Gyfarwyddwr Polisi</h2>\n<p>Mae’r Dirprwy Gyfarwyddwr Polisi yn gyfrifol am y canlynol:</p>\n\n<ul>\n  <li>cynghori gweinidogion ynghylch materion polisi sy’n berthnasol i Gymru</li>\n  <li>cyfleu a hybu dealltwriaeth ehangach o bolisïau Llywodraeth y DU yng Nghymru</li>\n  <li>rhedeg Swyddfa Ysgrifennydd Gwladol Cymru yn effeithiol ac yn effeithlon</li>\n</ul>\n\n<p>Rôl Bwrdd Rheoli Swyddfa Ysgrifennydd Gwladol Cymru yw:</p>\n\n<ul>\n  <li>darparu arweiniad effeithiol ac ar y cyd i Swyddfa Ysgrifennydd Gwladol Cymru a phennu ei chyfeiriad corfforaethol a’i safonau galluogrwydd, yn seiliedig ar nodau, amcanion a blaenoriaethau Gweinidogion Swyddfa Ysgrifennydd Gwladol Cymru</li>\n  <li>goruchwylio’r modd y caiff amcanion a blaenoriaethau’r gweinidogion eu cyflawni, fel y maent wedi’u pennu yn y cynllun busnes, a rheoli’r risgiau allweddol cysylltiedig</li>\n  <li>sicrhau bod asedau ac adnoddau ariannol Swyddfa Ysgrifennydd Gwladol Cymru yn cael eu rheoli’n ddoeth ac yn effeithiol</li>\n  <li>cytuno a chynnal system dryloyw a chadarn o ran rheolau mewnol</li>\n  <li>arwain a goruchwylio’r broses o newid ac arbedion effeithlonrwydd</li>\n  <li>arwain y broses o reoli a datblygu gweision sifil Swyddfa Ysgrifennydd Gwladol Cymru ar y cyd</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "6d03b86a-9f3e-4a3f-995e-4954cde377bc",
+        "title": "Lead Non-Executive Director",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-07-11T10:01:28Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "4b88fa54-939b-481e-89a8-bef465d4b380",
+        "title": "Non-Executive Director",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-07-11T09:59:21Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "a44fd856-d5df-4888-8254-5dad7d5eccf8",
+        "title": "Deputy Director, Communications",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-07-05T13:43:21Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Deputy Director, Communications leads the Office of the Secretary of State for Wales’ communications team and supports the Secretary of State and ministers.</p>\n\n<p>The role of the Office of the Secretary of State for Wales’ Management Board is to:</p>\n\n<ul>\n  <li>give collective and effective leadership to the Office of the Secretary of State for Wales and set its corporate direction and capability standards, informed by ministers’ aims, objectives and priorities</li>\n  <li>oversee the delivery of ministers’ objectives and priorities, as set out in the business plan, and the management of the key associated risks</li>\n  <li>ensure prudent and effective management of the Office of the Secretary of State for Wales’ financial resources and assets</li>\n  <li>agree and maintain a transparent and robust system of internal controls</li>\n  <li>lead and oversee the process of change and efficiency savings</li>\n  <li>lead collectively the management and development of Office of the Secretary of State for Wales civil servants</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "036e5ed9-1704-49ca-853a-7dfb796e0e8b",
+        "title": "Parliamentary Under Secretary of State",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--116",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state--116",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2019-12-16T21:13:41Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": "Unpaid"
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--116",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--116"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "content_id": "4f9fe232-e7a2-48e8-99b1-8f7828680493",
+        "title": "Office of the Secretary of State for Wales",
+        "locale": "en",
+        "analytics_identifier": "D24",
+        "api_path": "/api/content/government/organisations/office-of-the-secretary-of-state-for-wales",
+        "base_path": "/government/organisations/office-of-the-secretary-of-state-for-wales",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Office of the Secretary of State for Wales<br/>Swyddfa Ysgrifennydd Gwladol Cymru",
+            "crest": "single-identity"
+          },
+          "brand": "wales-office",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/203/s300_UKG_Logo__2_.png",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/203/s960_UKG_Logo__2_.png"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/office-of-the-secretary-of-state-for-wales",
+        "web_url": "https://www.gov.uk/government/organisations/office-of-the-secretary-of-state-for-wales"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Swyddfa Ysgrifennydd Gwladol Cymru",
+        "public_updated_at": "2020-05-01T07:52:56Z",
+        "analytics_identifier": "D24",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "base_path": "/government/organisations/office-of-the-secretary-of-state-for-wales.cy",
+        "api_path": "/api/content/government/organisations/office-of-the-secretary-of-state-for-wales.cy",
+        "withdrawn": false,
+        "content_id": "4f9fe232-e7a2-48e8-99b1-8f7828680493",
+        "locale": "cy",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/office-of-the-secretary-of-state-for-wales.cy",
+        "web_url": "https://www.gov.uk/government/organisations/office-of-the-secretary-of-state-for-wales.cy",
+        "links": {
+        }
+      },
+      {
+        "title": "Office of the Secretary of State for Wales",
+        "public_updated_at": "2020-05-01T07:52:56Z",
+        "analytics_identifier": "D24",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "base_path": "/government/organisations/office-of-the-secretary-of-state-for-wales",
+        "api_path": "/api/content/government/organisations/office-of-the-secretary-of-state-for-wales",
+        "withdrawn": false,
+        "content_id": "4f9fe232-e7a2-48e8-99b1-8f7828680493",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/office-of-the-secretary-of-state-for-wales",
+        "web_url": "https://www.gov.uk/government/organisations/office-of-the-secretary-of-state-for-wales",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The Office of the Secretary of State for Wales supports the Welsh Secretary and the Parliamentary Under Secretary of State in promoting the best interests of Wales within a stronger United Kingdom. It ensures Welsh interests are represented at the heart of the UK Government and the UK Government’s responsibilities are represented in Wales.",
+  "details": {
+    "acronym": "UK Government in Wales",
+    "alternative_format_contact_email": "correspondence@ukgovwales.gov.uk",
+    "body": "<div class=\"govspeak\"><p>The Office of the Secretary of State for Wales supports the Welsh Secretary and the Parliamentary Under Secretary of State in promoting the best interests of Wales within a stronger United Kingdom. It ensures Welsh interests are represented at the heart of the UK Government and the UK Government’s responsibilities are represented in Wales.</p>\n</div>",
+    "brand": "wales-office",
+    "logo": {
+      "formatted_title": "Office of the Secretary of State for Wales<br/>Swyddfa Ysgrifennydd Gwladol Cymru",
+      "crest": "single-identity"
+    },
+    "foi_exempt": false,
+    "ordered_corporate_information_pages": [
+      {
+        "title": "Complaints procedure",
+        "href": "/government/organisations/office-of-the-secretary-of-state-for-wales/about/complaints-procedure"
+      },
+      {
+        "title": "Our governance",
+        "href": "/government/organisations/office-of-the-secretary-of-state-for-wales/about/our-governance"
+      },
+      {
+        "title": "Jobs",
+        "href": "https://www.civilservicejobs.service.gov.uk/csr"
+      }
+    ],
+    "secondary_corporate_information_pages": "Read about the types of information we routinely publish in our <a class=\"brand__color\" href=\"/government/organisations/office-of-the-secretary-of-state-for-wales/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"brand__color\" href=\"/government/organisations/office-of-the-secretary-of-state-for-wales/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"brand__color\" href=\"/government/organisations/office-of-the-secretary-of-state-for-wales/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
+    "ordered_featured_links": [
+
+    ],
+    "ordered_featured_documents": [
+      {
+        "title": "Coronavirus (COVID-19): Information for individuals and businesses in Wales",
+        "href": "/guidance/coronavirus-covid-19-information-for-individuals-and-businesses-in-wales",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/76191/Coronavirus_Billingual960.jpg",
+          "alt_text": "Coronavirus"
+        },
+        "summary": "<div class=\"govspeak\"><p>Use this page to navigate the latest guidance on the virus for people in Wales</p>\n</div>",
+        "public_updated_at": "2020-04-29T15:10:35.000+01:00",
+        "document_type": "Detailed guide"
+      },
+      {
+        "title": "UK Government and Welsh Government ministers host virtual Q&A with Welsh business leaders",
+        "href": "/government/news/uk-government-and-welsh-government-ministers-host-virtual-qa-with-welsh-business-leaders",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/77240/BUSINESS_QA1_1_.jpg",
+          "alt_text": "Top left: Heather Myers. Top right: Lee Waters AM. Bottom left: UK Government Minister Nadhim Zahawi. Bottom right: UK Government Minister for Wales David TC Davies.  "
+        },
+        "summary": "<div class=\"govspeak\"><p>Ministers from the UK Government and Welsh Government underline joint commitment to support businesses through the ongoing COVID-19 pandemic</p>\n</div>",
+        "public_updated_at": "2020-04-27T15:21:00.000+01:00",
+        "document_type": "News story"
+      },
+      {
+        "title": "From Parliament to Pembrokeshire: Welsh Secretary to answer Welsh Questions from Wales for first time in history",
+        "href": "/government/news/from-parliament-to-pembrokeshire-welsh-secretary-to-answer-welsh-questions-from-wales-for-first-time-in-history",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/77066/Parliament_web.jpg",
+          "alt_text": "Image of the UK Parliament"
+        },
+        "summary": "<div class=\"govspeak\"><p>Simon Hart MP will be the first minister to take to the virtual despatch box from home</p>\n</div>",
+        "public_updated_at": "2020-04-22T09:15:29.000+01:00",
+        "document_type": "Press release"
+      },
+      {
+        "title": "UK Government provides extra £95m to tackle coronavirus in Wales",
+        "href": "/government/news/uk-government-provides-extra-95m-to-tackle-coronavirus-in-wales",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/77018/New_pound_coins_-_economy.jpg",
+          "alt_text": "Pound coins"
+        },
+        "summary": "<div class=\"govspeak\"><p>UK Government confirms further £95m to support the devolved administration in Wales tackle coronavirus</p>\n</div>",
+        "public_updated_at": "2020-04-21T14:58:00.000+01:00",
+        "document_type": "News story"
+      },
+      {
+        "title": "Chancellor expands loan scheme for large businesses",
+        "href": "/government/news/chancellor-expands-loan-scheme-for-large-businesses--2",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/77015/s960_HMT_buiding_plaque.jpg",
+          "alt_text": "HM Treasury building"
+        },
+        "summary": "<div class=\"govspeak\"><p>Rishi Sunak unveils the final details of Coronavirus Large Business Interruption Loan Scheme</p>\n</div>",
+        "public_updated_at": "2020-04-21T11:57:00.000+01:00",
+        "document_type": "News story"
+      },
+      {
+        "title": "Chancellor to provide extra £350m to tackle Coronavirus in Wales",
+        "href": "/government/news/chancellor-to-provide-extra-350m-to-tackle-coronavirus-in-wales",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/76898/New_pound_coins_-_economy.jpg",
+          "alt_text": "Pound coins"
+        },
+        "summary": "<div class=\"govspeak\"><p>Chancellor confirms further £350m to support the devolved administration in Wales tackle coronavirus</p>\n</div>",
+        "public_updated_at": "2020-04-14T13:57:00.000+01:00",
+        "document_type": "News story"
+      }
+    ],
+    "ordered_promotional_features": [
+
+    ],
+    "important_board_members": 4,
+    "organisation_featuring_priority": "news",
+    "organisation_govuk_status": {
+      "status": "live",
+      "url": null,
+      "updated_at": null
+    },
+    "organisation_type": "ministerial_department",
+    "organisation_political": true,
+    "social_media_links": [
+      {
+        "service_type": "twitter",
+        "title": "Twitter",
+        "href": "https://twitter.com/UKGovWales"
+      },
+      {
+        "service_type": "twitter",
+        "title": "Trydar",
+        "href": "https://twitter.com/LlywDUCymru"
+      },
+      {
+        "service_type": "facebook",
+        "title": "Facebook",
+        "href": "https://www.facebook.com/ukgovwales"
+      },
+      {
+        "service_type": "linkedin",
+        "title": "LinkedIn",
+        "href": "https://www.linkedin.com/company/uk-government-wales-llywodraeth-du-cymru?trk=top_nav_home"
+      },
+      {
+        "service_type": "other",
+        "title": "Newsletter",
+        "href": "http://eepurl.com/3hkrb"
+      },
+      {
+        "service_type": "other",
+        "title": "Cylchlythr",
+        "href": "http://eepurl.com/ckrRwz"
+      },
+      {
+        "service_type": "youtube",
+        "title": "YouTube",
+        "href": "https://www.youtube.com/channel/UCFj70_9F31CLQY76H5yg7AQ"
+      }
+    ],
+    "default_news_image": {
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/203/s300_UKG_Logo__2_.png",
+      "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/203/s960_UKG_Logo__2_.png"
+    }
+  }
+}

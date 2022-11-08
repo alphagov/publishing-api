@@ -1,0 +1,79 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/independent-reconfiguration-panel/about/membership",
+  "content_id": "5fe4c0c0-7631-11e4-a3cb-005056011aef",
+  "document_type": "membership",
+  "first_published_at": "2014-11-11T10:39:13.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-11-23T15:03:21.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Membership",
+  "updated_at": "2017-11-23T15:03:22.344Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "18260-1511449401.602-212.250.23.88-1849",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "PB527",
+        "api_path": "/api/content/government/organisations/independent-reconfiguration-panel",
+        "base_path": "/government/organisations/independent-reconfiguration-panel",
+        "content_id": "171abbf3-beca-46b9-a0c3-4b4ff1e8c8ed",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2014-11-11T11:26:34Z",
+        "schema_name": "placeholder",
+        "title": "Independent Reconfiguration Panel",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-of-health",
+          "logo": {
+            "formatted_title": "Independent <br/>Reconfiguration <br/>Panel",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/independent-reconfiguration-panel",
+        "web_url": "https://www.gov.uk/government/organisations/independent-reconfiguration-panel"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Membership",
+        "public_updated_at": "2017-11-23T15:03:21Z",
+        "document_type": "membership",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/independent-reconfiguration-panel/about/membership",
+        "description": "Information about the Independent Reconfiguration Panel's members, meeting minutes and business reviews.",
+        "api_path": "/api/content/government/organisations/independent-reconfiguration-panel/about/membership",
+        "withdrawn": false,
+        "content_id": "5fe4c0c0-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/independent-reconfiguration-panel/about/membership",
+        "web_url": "https://www.gov.uk/government/organisations/independent-reconfiguration-panel/about/membership",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Information about the Independent Reconfiguration Panel's members, meeting minutes and business reviews.",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"members\">Members</h2>\n\n<p>The Independent Reconfiguration Panel is chaired by Lord Bernard Ribeiro.</p>\n\n<p>The lay members are:</p>\n\n<ul>\n  <li>Diane Davies, a volunteer patient and carer representative and “expert by experience” supporting Care Quality Commission inspections</li>\n  <li>Mary Elford, vice chair of a mental health and community services trust and non-executive director of Health Education England</li>\n  <li>Linn Phipps, an independent consultant with a specialist interest in patient and public engagement, effective health scrutiny by local government and addressing health inequalities</li>\n  <li>James Partridge, founder of Changing Faces, the UK charity supporting and representing people with disfigurements</li>\n  <li>Suzanne Shale, an independent consultant in healthcare ethics, patient safety and healthcare leadership</li>\n</ul>\n\n<p>The clinical members are:</p>\n\n<ul>\n  <li>Shera Chok, a GP in east London and Associate Medical Director at Derbyshire Community Health Services NHS Foundation Trust</li>\n  <li>Nick Coleman, a consultant in intensive care medicine and Associate Medical Director at the University Hospital of North Staffordshire in Stoke on Trent</li>\n  <li>Shane Duffy, a consultant obstetrician and gynaecologist at Chelsea and Westminster Hospital in London</li>\n  <li>Stephen D’Souza, a consultant in vascular and non-vascular interventional radiology at Lancashire Teaching Hospitals NHS Trust</li>\n  <li>Helen Thomson, a former chief nurse and deputy chief executive at Calderdale and Huddersfield NHS Foundation Trust</li>\n</ul>\n\n<p>The managerial members are:</p>\n\n<ul>\n  <li>Rosemary Granger, a leadership coach and independent consultant since 2010, working with the NHS and local authorities</li>\n  <li>Simon Morritt, Chief Executive of Chesterfield Royal NHS Foundation Trust</li>\n  <li>Mark Taylor, former Chief Officer of North Norfolk CCG, now working for a GP Federation</li>\n  <li>John Wilderspin, a former NHS chief executive in provider and commissioning organisations</li>\n  <li>vacancy</li>\n</ul>\n\n<p>Further information about members can be found in <span id=\"attachment_2409675\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/662147/000_IRP_Membership_23.11.17.doc\">Panel Membership </a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">7.63MB</span>)\n</span>\n.</p>\n\n<h2 id=\"declarations-of-interest\">Declarations of interest</h2>\n\n<p>IRP members are asked to declare publicly any private interests - both financial and non-financial - which may, or may be perceived to, conflict with public duties.</p>\n\n<p>When deciding what to declare, members should consider whether a member of the public, acting reasonably, would consider that the interest in question might influence their words, actions or decisions.</p>\n\n<p>The members’ declarations form a <a href=\"https://www.gov.uk/government/publications/irp-register-of-members-interests\">register of members’ interests</a>, which is maintained by the IRP secretariat.</p>\n\n<h2 id=\"minutes-of-irp-meetings\">Minutes of IRP meetings</h2>\n\n<p><span id=\"attachment_2409702\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/662170/Minutes_21_Sept_2017.doc\">21 September 2017</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">72.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409656\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/649574/Minutes_20_July_2017.doc\">20 July 2017</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">67KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409655\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/634356/Minutes_18_May_2017.doc\">18 May 2017</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">72KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409654\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/625282/Minutes_19_Jan_2017.doc\">19 January 2017</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">72.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409651\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/590157/Minutes_10_Nov_2016.doc\">10 November 2016</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">73.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409649\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/572350/Minutes_8_Sept_2016.doc\">8 September 2016</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">69KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409647\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/556845/Minutes_14_Jul_2016.doc\">14 July 2016</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">73.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409646\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/556835/Minutes_10_Mar_2016.doc\">10 March 2016</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">73.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409644\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/507822/Minutes_14_Jan_2016.doc\">14 January 2016</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">68KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409643\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/497473/Minutes_10_Sept_2015.doc\">10 September 2015</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">67.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409641\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/461573/Minutes_09_July_2015.doc\">9 July 2015</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">67KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409640\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/455672/Minutes_14_May_2015.doc\">14 May 2015</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">66.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409638\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/433866/Minutes_08_Jan_2015.doc\">8 January 2015</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">63.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409634\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/395294/Minutes_13_Nov_2014.doc\">13 November 2014</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">62KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409633\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/395293/Minutes_10_July_2014.doc\">10 July 2014</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">54.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409632\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/395289/Minutes_08_May_2014.doc\">8 May 2014</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">69KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409630\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/341734/minutes_14_nov_2013.doc\">14 November 2013</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">59.5KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409629\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/341733/minutes_12_sept_2013.doc\">12 September 2013</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">55KB</span>)\n</span></p>\n\n<p><span id=\"attachment_2409628\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/341732/minutes_11_july_2013.docx\">11 July 2013</a>\n  (<span class=\"type\">MS Word Document</span>, <span class=\"file-size\">30.5KB</span>)\n</span></p>\n\n<p>Previous minutes can be found on <a rel=\"external\" href=\"http://webarchive.nationalarchives.gov.uk/20140609150332/http://www.irpanel.org.uk/view.asp?id=91\">the IRP pages on the National Archive</a>.</p>\n\n<h2 id=\"business-reviews\">Business reviews</h2>\n\n<p><span id=\"attachment_2409653\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/625277/BusinessReview2016-17.pdf\">2016-17</a>\n  (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">637KB</span>, <span class=\"page-length\">20 pages</span>)\n</span></p>\n\n<p><span id=\"attachment_2409645\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/524829/BusinessReview2015-16.pdf\">2015-16</a>\n  (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">656KB</span>, <span class=\"page-length\">19 pages</span>)\n</span></p>\n\n<p><span id=\"attachment_2409639\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/433869/BusinessReview2014-15.pdf\">2014-15</a>\n  (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">434KB</span>, <span class=\"page-length\">20 pages</span>)\n</span></p>\n\n<p><span id=\"attachment_2409637\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/395312/BusinessReview2013-14.pdf\">2013-14</a>\n  (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">462KB</span>, <span class=\"page-length\">24 pages</span>)\n</span></p>\n\n<p><span id=\"attachment_2409636\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/395310/BusinessReview2012-13.pdf\">2012-13</a>\n  (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">462KB</span>, <span class=\"page-length\">23 pages</span>)\n</span></p>\n\n<p><span id=\"attachment_2409635\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/395302/BusinessReview2011-12.pdf\">2011-12</a>\n  (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">501KB</span>, <span class=\"page-length\">24 pages</span>)\n</span></p>\n\n</div>",
+    "organisation": "171abbf3-beca-46b9-a0c3-4b4ff1e8c8ed",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

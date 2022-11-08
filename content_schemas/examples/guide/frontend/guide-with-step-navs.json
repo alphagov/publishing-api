@@ -1,0 +1,930 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/national-curriculum",
+  "content_id": "be9f6021-f60a-47d2-a184-d1c31bc6eba0",
+  "document_type": "guide",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-12-02T10:28:58.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "guide",
+  "title": "The national curriculum",
+  "updated_at": "2017-02-20T16:54:09.397Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "part_of_step_navs": [
+      {
+        "api_path": "/api/content/learn-to-drive-a-car",
+        "base_path": "/learn-to-drive-a-car",
+        "content_id": "e01e924b-9c7c-4c71-8241-66a575c2f61f",
+        "description": "Learn to drive a car in the UK - get a provisional licence, take driving lessons, prepare for your theory test, book your practical test.",
+        "document_type": "step_by_step_nav",
+        "locale": "en",
+        "public_updated_at": "2018-03-02T11:53:13Z",
+        "schema_name": "step_by_step_nav",
+        "title": "Learn to drive a car: step by step",
+        "withdrawn": false,
+        "details": {
+          "step_by_step_nav": {
+            "title": "Learn to drive a car: step by step",
+            "introduction": [
+              {
+                "content_type": "text/govspeak",
+                "content": "Check what you need to do to learn to drive."
+              }
+            ],
+            "steps": [
+              {
+                "title": "Check you're allowed to drive",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "Most people can start learning to drive when they’re 17."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/vehicles-can-drive",
+                        "text": "Check what age you can drive"
+                      },
+                      {
+                        "href": "/legal-obligations-drivers-riders",
+                        "text": "Requirements for driving legally"
+                      },
+                      {
+                        "href": "/driving-eyesight-rules",
+                        "text": "Driving eyesight rules"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Get a provisional driving licence",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/apply-first-provisional-driving-licence",
+                        "text": "Apply for your first provisional driving licence",
+                        "context": "£34 - £43"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Driving lessons and practice",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to take lessons or practice."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/guidance/the-highway-code",
+                        "text": "The Highway Code"
+                      },
+                      {
+                        "href": "/driving-lessons-learning-to-drive",
+                        "text": "Taking driving lessons"
+                      },
+                      {
+                        "href": "/find-driving-schools-and-lessons",
+                        "text": "Find driving schools, lessons and instructors"
+                      },
+                      {
+                        "href": "/government/publications/car-show-me-tell-me-vehicle-safety-questions",
+                        "text": "Practise vehicle safety questions"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Prepare for your theory test",
+                "logic": "and",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/theory-test/revision-and-practice",
+                        "text": "Theory test revision and practice"
+                      },
+                      {
+                        "href": "/take-practice-theory-test",
+                        "text": "Take a practice theory test"
+                      },
+                      {
+                        "href": "https://www.safedrivingforlife.info/shop/product/official-dvsa-theory-test-kit-app-app",
+                        "text": "Theory and hazard perception test app"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your theory test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to book your theory test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-theory-test",
+                        "text": "Book your theory test",
+                        "context": "£23"
+                      },
+                      {
+                        "href": "/theory-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-theory-test",
+                        "text": "Change your theory test appointment"
+                      },
+                      {
+                        "href": "/check-theory-test",
+                        "text": "Check your theory test appointment details"
+                      },
+                      {
+                        "href": "/cancel-theory-test",
+                        "text": "Cancel your theory test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your driving test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You must pass your theory test before you can book your driving test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-driving-test",
+                        "text": "Book your driving test",
+                        "context": "£62"
+                      },
+                      {
+                        "href": "/driving-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-driving-test",
+                        "text": "Change your driving test appointment"
+                      },
+                      {
+                        "href": "/check-driving-test",
+                        "text": "Check your driving test appointment details"
+                      },
+                      {
+                        "href": "/cancel-driving-test",
+                        "text": "Cancel your driving test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "When you pass",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You can start driving as soon as you pass your driving test."
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "You must have an insurance policy that allows you to drive without supervision."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/pass-plus",
+                        "text": "Find out about Pass Plus training courses"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "links": {
+          "pages_part_of_step_nav": [
+            {
+              "api_path": "/api/content/theory-test",
+              "base_path": "/theory-test",
+              "content_id": "b5d8c773-3a31-45f2-838d-255afef5511a",
+              "description": "When to book your car theory test, what to take with you, how the multiple-choice questions and hazard perception test work, and the pass mark",
+              "document_type": "guide",
+              "locale": "en",
+              "public_updated_at": "2016-12-20T13:49:20Z",
+              "schema_name": "guide",
+              "title": "Theory test: cars",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/theory-test",
+              "web_url": "https://www.gov.uk/theory-test"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/learn-to-drive-a-car",
+        "web_url": "https://www.gov.uk/learn-to-drive-a-car"
+      }
+    ],
+    "mainstream_browse_pages": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/childcare-parenting/schools-education",
+        "base_path": "/browse/childcare-parenting/schools-education",
+        "content_id": "6e3014fa-5bd1-48b9-9aab-f7b1241afdb6",
+        "description": "Sending a child to school, financial support, dealing with the school",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-08-11T14:45:03Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Schools and education",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting/schools-education",
+        "web_url": "http://www.dev.gov.uk/browse/childcare-parenting/schools-education"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/education/school-life",
+        "base_path": "/browse/education/school-life",
+        "content_id": "99e2b248-baa4-4bf2-8a96-646fedd4d308",
+        "description": "Help with school costs, the curriculum and school attendance",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:50Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Schools and curriculum",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/education/school-life",
+        "web_url": "http://www.dev.gov.uk/browse/education/school-life"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/apply-for-primary-school-place",
+        "base_path": "/apply-for-primary-school-place",
+        "content_id": "5867f01b-97c5-4513-84d4-aa892aab9a0f",
+        "description": "Apply for a state primary school place through your local council ",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2012-05-02T16:27:18Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Apply for a primary school place",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/education/school-admissions-transport",
+              "base_path": "/browse/education/school-admissions-transport",
+              "content_id": "61778a6b-d0e8-4b75-85a9-8ec2e333581a",
+              "description": "Applying for a school place, home schooling and travel costs",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:41Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "School admissions and transport to school",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/education",
+                    "base_path": "/browse/education",
+                    "content_id": "4ba04d39-1f8c-4117-89f5-73ec4f1b48e8",
+                    "description": "Get help if you’re at school, planning to go on to further or higher education, looking for training or interested in a student or career development loan.",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Education and learning",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/education",
+                    "web_url": "http://www.dev.gov.uk/browse/education"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/education/school-admissions-transport",
+              "web_url": "http://www.dev.gov.uk/browse/education/school-admissions-transport"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/childcare-parenting/schools-education",
+              "base_path": "/browse/childcare-parenting/schools-education",
+              "content_id": "6e3014fa-5bd1-48b9-9aab-f7b1241afdb6",
+              "description": "Sending a child to school, financial support, dealing with the school",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-11T14:45:03Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Schools and education",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting",
+                    "web_url": "http://www.dev.gov.uk/browse/childcare-parenting"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting/schools-education",
+              "web_url": "http://www.dev.gov.uk/browse/childcare-parenting/schools-education"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/apply-for-primary-school-place",
+        "web_url": "http://www.dev.gov.uk/apply-for-primary-school-place"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/apply-for-secondary-school-place",
+        "base_path": "/apply-for-secondary-school-place",
+        "content_id": "2245ac28-2464-489f-ae20-195696fabd0c",
+        "description": "Apply for a state secondary school place through your local council",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2012-05-02T16:27:18Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Apply for a secondary school place",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/education/school-admissions-transport",
+              "base_path": "/browse/education/school-admissions-transport",
+              "content_id": "61778a6b-d0e8-4b75-85a9-8ec2e333581a",
+              "description": "Applying for a school place, home schooling and travel costs",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:41Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "School admissions and transport to school",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/education",
+                    "base_path": "/browse/education",
+                    "content_id": "4ba04d39-1f8c-4117-89f5-73ec4f1b48e8",
+                    "description": "Get help if you’re at school, planning to go on to further or higher education, looking for training or interested in a student or career development loan.",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Education and learning",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/education",
+                    "web_url": "http://www.dev.gov.uk/browse/education"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/education/school-admissions-transport",
+              "web_url": "http://www.dev.gov.uk/browse/education/school-admissions-transport"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/childcare-parenting/schools-education",
+              "base_path": "/browse/childcare-parenting/schools-education",
+              "content_id": "6e3014fa-5bd1-48b9-9aab-f7b1241afdb6",
+              "description": "Sending a child to school, financial support, dealing with the school",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-11T14:45:03Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Schools and education",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting",
+                    "web_url": "http://www.dev.gov.uk/browse/childcare-parenting"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting/schools-education",
+              "web_url": "http://www.dev.gov.uk/browse/childcare-parenting/schools-education"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/apply-for-secondary-school-place",
+        "web_url": "http://www.dev.gov.uk/apply-for-secondary-school-place"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/home-schooling-information-council",
+        "base_path": "/home-schooling-information-council",
+        "content_id": "3ab90258-f0c5-4ea7-b3c9-09cab7619f37",
+        "description": "Your responsibilities with your local council if you want to educate your child at home - sometimes called home schooling",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2012-05-18T14:08:42Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Home education: get information from your council",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/childcare-parenting/schools-education",
+              "base_path": "/browse/childcare-parenting/schools-education",
+              "content_id": "6e3014fa-5bd1-48b9-9aab-f7b1241afdb6",
+              "description": "Sending a child to school, financial support, dealing with the school",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-11T14:45:03Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Schools and education",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting",
+                    "web_url": "http://www.dev.gov.uk/browse/childcare-parenting"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting/schools-education",
+              "web_url": "http://www.dev.gov.uk/browse/childcare-parenting/schools-education"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/education/school-admissions-transport",
+              "base_path": "/browse/education/school-admissions-transport",
+              "content_id": "61778a6b-d0e8-4b75-85a9-8ec2e333581a",
+              "description": "Applying for a school place, home schooling and travel costs",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:41Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "School admissions and transport to school",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/education",
+                    "base_path": "/browse/education",
+                    "content_id": "4ba04d39-1f8c-4117-89f5-73ec4f1b48e8",
+                    "description": "Get help if you’re at school, planning to go on to further or higher education, looking for training or interested in a student or career development loan.",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Education and learning",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/education",
+                    "web_url": "http://www.dev.gov.uk/browse/education"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/education/school-admissions-transport",
+              "web_url": "http://www.dev.gov.uk/browse/education/school-admissions-transport"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/home-schooling-information-council",
+        "web_url": "http://www.dev.gov.uk/home-schooling-information-council"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/school-term-holiday-dates",
+        "base_path": "/school-term-holiday-dates",
+        "content_id": "8f3caf52-238a-478a-b2fd-36c43057d589",
+        "description": "Find your child's school term, half term and holiday dates on your local council's website",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2015-10-02T15:13:44Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "School term and holiday dates",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/childcare-parenting/schools-education",
+              "base_path": "/browse/childcare-parenting/schools-education",
+              "content_id": "6e3014fa-5bd1-48b9-9aab-f7b1241afdb6",
+              "description": "Sending a child to school, financial support, dealing with the school",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-11T14:45:03Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Schools and education",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting",
+                    "web_url": "http://www.dev.gov.uk/browse/childcare-parenting"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting/schools-education",
+              "web_url": "http://www.dev.gov.uk/browse/childcare-parenting/schools-education"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/education/school-life",
+              "base_path": "/browse/education/school-life",
+              "content_id": "99e2b248-baa4-4bf2-8a96-646fedd4d308",
+              "description": "Help with school costs, the curriculum and school attendance",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:50Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Schools and curriculum",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/education",
+                    "base_path": "/browse/education",
+                    "content_id": "4ba04d39-1f8c-4117-89f5-73ec4f1b48e8",
+                    "description": "Get help if you’re at school, planning to go on to further or higher education, looking for training or interested in a student or career development loan.",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Education and learning",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/education",
+                    "web_url": "http://www.dev.gov.uk/browse/education"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/education/school-life",
+              "web_url": "http://www.dev.gov.uk/browse/education/school-life"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/school-term-holiday-dates",
+        "web_url": "http://www.dev.gov.uk/school-term-holiday-dates"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/types-of-school",
+        "base_path": "/types-of-school",
+        "content_id": "4c029b5a-7c1c-4e6b-a893-d056be112756",
+        "description": "Types of school and how they're run - community schools, academies, free schools, faith schools, state boarding schools",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2016-01-05T17:24:38Z",
+        "schema_name": "guide",
+        "title": "Types of school",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/education/school-admissions-transport",
+              "base_path": "/browse/education/school-admissions-transport",
+              "content_id": "61778a6b-d0e8-4b75-85a9-8ec2e333581a",
+              "description": "Applying for a school place, home schooling and travel costs",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:41Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "School admissions and transport to school",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/education",
+                    "base_path": "/browse/education",
+                    "content_id": "4ba04d39-1f8c-4117-89f5-73ec4f1b48e8",
+                    "description": "Get help if you’re at school, planning to go on to further or higher education, looking for training or interested in a student or career development loan.",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Education and learning",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/education",
+                    "web_url": "http://www.dev.gov.uk/browse/education"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/education/school-admissions-transport",
+              "web_url": "http://www.dev.gov.uk/browse/education/school-admissions-transport"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/childcare-parenting/schools-education",
+              "base_path": "/browse/childcare-parenting/schools-education",
+              "content_id": "6e3014fa-5bd1-48b9-9aab-f7b1241afdb6",
+              "description": "Sending a child to school, financial support, dealing with the school",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-11T14:45:03Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Schools and education",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting",
+                    "web_url": "http://www.dev.gov.uk/browse/childcare-parenting"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting/schools-education",
+              "web_url": "http://www.dev.gov.uk/browse/childcare-parenting/schools-education"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/types-of-school",
+        "web_url": "http://www.dev.gov.uk/types-of-school"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D6",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-09-23T09:06:42Z",
+        "schema_name": "placeholder",
+        "title": "Department for Education",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-education",
+          "logo": {
+            "formatted_title": "Department <br/>for Education",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/department-for-education",
+        "web_url": "http://www.dev.gov.uk/government/organisations/department-for-education"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/childcare-parenting/schools-education",
+        "base_path": "/browse/childcare-parenting/schools-education",
+        "content_id": "6e3014fa-5bd1-48b9-9aab-f7b1241afdb6",
+        "description": "Sending a child to school, financial support, dealing with the school",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-08-11T14:45:03Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Schools and education",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/childcare-parenting",
+              "base_path": "/browse/childcare-parenting",
+              "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+              "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-07-15T11:40:43Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Childcare and parenting",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting",
+              "web_url": "http://www.dev.gov.uk/browse/childcare-parenting"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting/schools-education",
+        "web_url": "http://www.dev.gov.uk/browse/childcare-parenting/schools-education"
+      }
+    ],
+    "taxons": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/education/school-curriculum",
+        "base_path": "/education/school-curriculum",
+        "content_id": "7c75c541-403f-4cb1-9b34-4ddde816a80d",
+        "description": "Early years, key stages 1 to 5, GCSE and AS and A level reforms, tests, exams and assessments, PSHE and SMSC.",
+        "document_type": "taxon",
+        "locale": "en",
+        "public_updated_at": "2017-01-30T15:40:26Z",
+        "schema_name": "taxon",
+        "title": "School curriculum",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "School curriculum",
+          "notes_for_editors": ""
+        },
+        "links": {
+          "parent_taxons": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/education",
+              "base_path": "/education",
+              "content_id": "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
+              "description": "Early years learning, schools and academies, further and higher education, skills and vocational training, student funding.",
+              "document_type": "taxon",
+              "locale": "en",
+              "public_updated_at": "2017-01-30T15:40:09Z",
+              "schema_name": "taxon",
+              "title": "Education, training and skills",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "education, training and skills",
+                "notes_for_editors": ""
+              },
+              "links": {
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/education",
+              "web_url": "http://www.dev.gov.uk/education"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/education/school-curriculum",
+        "web_url": "http://www.dev.gov.uk/education/school-curriculum"
+      }
+    ],
+    "topics": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/topic/schools-colleges-childrens-services/curriculum-qualifications",
+        "base_path": "/topic/schools-colleges-childrens-services/curriculum-qualifications",
+        "content_id": "28e39d16-c279-46c6-a7cd-b0a807686928",
+        "description": "List of information about Curriculum and qualifications.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2016-12-15T16:08:00Z",
+        "schema_name": "topic",
+        "title": "Curriculum and qualifications",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/topic/schools-colleges-childrens-services/curriculum-qualifications",
+        "web_url": "http://www.dev.gov.uk/topic/schools-colleges-childrens-services/curriculum-qualifications"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "The national curriculum",
+        "public_updated_at": "2014-12-02T10:28:58Z",
+        "analytics_identifier": null,
+        "document_type": "guide",
+        "schema_name": "guide",
+        "base_path": "/national-curriculum",
+        "description": "The English national curriculum means children in different schools (at primary and secondary level) study the same subjects to similar standards - it's split into key stages with tests",
+        "api_path": "/api/content/national-curriculum",
+        "withdrawn": false,
+        "content_id": "be9f6021-f60a-47d2-a184-d1c31bc6eba0",
+        "locale": "en",
+        "api_url": "http://www.dev.gov.uk/api/content/national-curriculum",
+        "web_url": "http://www.dev.gov.uk/national-curriculum",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The English national curriculum means children in different schools (at primary and secondary level) study the same subjects to similar standards - it's split into key stages with tests",
+  "details": {
+    "parts": [
+      {
+        "title": "Overview",
+        "slug": "overview",
+        "body": "<p>The ‘basic’ school curriculum includes the <a href=\"/government/collections/national-curriculum\">‘national curriculum’</a>, as well as <a href=\"/national-curriculum/other-compulsory-subjects\">religious education and sex education</a>.</p>\n\n<p>The national curriculum is a set of subjects and standards used by <a href=\"/types-of-school\">primary and secondary schools</a> so children learn the same things. It covers what subjects are taught and the standards children should reach in each subject.</p>\n\n<p>Other <a href=\"/types-of-school\">types of school</a> like <a href=\"/types-of-school/academies\">academies</a> and <a href=\"/types-of-school/private-schools\">private schools</a> don’t have to follow the national curriculum. Academies must teach a broad and balanced curriculum including English, maths and science. They must also teach religious education.</p>\n\n<h2 id=\"key-stages\">Key stages</h2>\n\n<p>The national curriculum is organised into blocks of years called ‘key stages’ (KS). At the end of each key stage, the teacher will formally assess your child’s performance.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th>Age</th>\n      <th>Year</th>\n      <th>Key stage</th>\n      <th>Assessment</th>\n      <th> </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>3 to 4</td>\n      <td> </td>\n      <td><a href=\"/early-years-foundation-stage\">Early years</a></td>\n      <td> </td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>4 to 5</td>\n      <td>Reception</td>\n      <td><a href=\"/early-years-foundation-stage\">Early years</a></td>\n      <td>Teacher assessments (there’s also an optional assessment at the start of the year)</td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>5 to 6</td>\n      <td>Year 1</td>\n      <td>KS1</td>\n      <td>Phonics screening check</td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>6 to 7</td>\n      <td>Year 2</td>\n      <td>KS1</td>\n      <td>National tests and teacher assessments in English, maths and science</td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>7 to 8</td>\n      <td>Year 3</td>\n      <td>KS2</td>\n      <td> </td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>8 to 9</td>\n      <td>Year 4</td>\n      <td>KS2</td>\n      <td> </td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>9 to 10</td>\n      <td>Year 5</td>\n      <td>KS2</td>\n      <td> </td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>10 to 11</td>\n      <td>Year 6</td>\n      <td>KS2</td>\n      <td>National tests and teacher assessments in English and maths, and teacher assessments in science</td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>11 to 12</td>\n      <td>Year 7</td>\n      <td>KS3</td>\n      <td> </td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>12 to 13</td>\n      <td>Year 8</td>\n      <td>KS3</td>\n      <td> </td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>13 to 14</td>\n      <td>Year 9</td>\n      <td>KS3</td>\n      <td> </td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>14 to 15</td>\n      <td>Year 10</td>\n      <td>KS4</td>\n      <td>Some children take GCSEs</td>\n      <td> </td>\n    </tr>\n    <tr>\n      <td>15 to 16</td>\n      <td>Year 11</td>\n      <td>KS4</td>\n      <td>Most children take GCSEs or other national qualifications</td>\n      <td> </td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"assessments\">Assessments</h3>\n\n<p>By the end of each summer term the school must write a report on your child’s progress and talk it through with you.</p>\n\n<p>Children who are in years 2 and 6 at the moment will take the <a href=\"/guidance/scaled-scores\">new national primary curriculum tests</a> in 2016.</p>\n"
+      },
+      {
+        "title": "Key stage 1 and 2",
+        "slug": "key-stage-1-and-2",
+        "body": "<p>Compulsory national curriculum subjects at primary school are:</p>\n\n<ul>\n  <li>English</li>\n  <li>maths</li>\n  <li>science</li>\n  <li>design and technology</li>\n  <li>history</li>\n  <li>geography</li>\n  <li>art and design</li>\n  <li>music</li>\n  <li>physical education (PE), including swimming</li>\n  <li>computing</li>\n  <li>ancient and modern foreign languages (at key stage 2)</li>\n</ul>\n\n<p>Schools must provide <a href=\"/national-curriculum/other-compulsory-subjects\">religious education (RE)</a> but parents can ask for their children to be taken out of the whole lesson or part of it.</p>\n\n<p>Schools often also teach:</p>\n\n<ul>\n  <li>personal, social and health education (PSHE)</li>\n  <li>citizenship</li>\n  <li>modern foreign languages (at key stage 1)</li>\n</ul>\n\n<h2 id=\"tests-and-assessments\">Tests and assessments</h2>\n\n<h3 id=\"year-1-phonics-screening-check\">Year 1 phonics screening check</h3>\n\n<p>The check will take place in June when your child will read 40 words out loud to a teacher. You’ll find out how your child did, and their teacher will assess whether he or she needs extra help with reading. If your child doesn’t do well enough in the check they’ll have to do it again in Year 2.</p>\n\n<h3 id=\"key-stage-1\">Key stage 1</h3>\n\n<p>Key stage 1 tests cover:</p>\n\n<ul>\n  <li>English reading</li>\n  <li>English grammar, punctuation and spelling</li>\n  <li>maths</li>\n</ul>\n\n<p>Your child will take the tests in May. You can ask the school for the test results.</p>\n\n<p>You’ll be sent the results of your child’s teacher assessments automatically.</p>\n\n<h3 id=\"key-stage-2\">Key stage 2</h3>\n\n<p>Your child will take national tests in May when they reach the end of key stage 2. These test your child’s skills in:</p>\n\n<ul>\n  <li>English reading</li>\n  <li>English grammar, punctuation and spelling</li>\n  <li>maths</li>\n</ul>\n\n<p>The tests last less than 4 hours. You’ll get the results in July.</p>\n\n<p>The school will send you the results of your child’s tests and teacher assessments.</p>\n"
+      },
+      {
+        "title": "Key stage 3 and 4",
+        "slug": "key-stage-3-and-4",
+        "body": "<h2 id=\"key-stage-3\">Key stage 3</h2>\n\n<p>Compulsory national curriculum subjects are:</p>\n\n<ul>\n  <li>English</li>\n  <li>maths</li>\n  <li>science</li>\n  <li>history</li>\n  <li>geography</li>\n  <li>modern foreign languages</li>\n  <li>design and technology</li>\n  <li>art and design</li>\n  <li>music</li>\n  <li>physical education</li>\n  <li>citizenship</li>\n  <li>computing</li>\n</ul>\n\n<p>Schools must provide <a href=\"/national-curriculum/other-compulsory-subjects\">religious education (<abbr title=\"religious education\">RE</abbr>) and sex education</a> from key stage 3 but parents can ask for their children to be taken out of the whole lesson or part of it.</p>\n\n<h2 id=\"key-stage-4\">Key stage 4</h2>\n\n<p>During key stage 4 most pupils work towards national qualifications - usually GCSEs.</p>\n\n<p>The compulsory national curriculum subjects are the ‘core’ and ‘foundation’ subjects.</p>\n\n<p>Core subjects are:</p>\n\n<ul>\n  <li>English</li>\n  <li>maths</li>\n  <li>science</li>\n</ul>\n\n<p>Foundation subjects are:</p>\n\n<ul>\n  <li>computing</li>\n  <li>physical education</li>\n  <li>citizenship</li>\n</ul>\n\n<p>Schools must also offer at least one subject from each of these areas:</p>\n\n<ul>\n  <li>arts</li>\n  <li>design and technology</li>\n  <li>humanities</li>\n  <li>modern foreign languages</li>\n</ul>\n\n<p>They must also provide <a href=\"/national-curriculum/other-compulsory-subjects\">religious education (<abbr title=\"religious education\">RE</abbr>) and sex education</a> at key stage 4.</p>\n\n<h3 id=\"english-baccalaureate-ebacc\">English Baccalaureate (<abbr title=\"English Baccalaureate\">EBacc</abbr>)</h3>\n\n<p>In performance tables, the <abbr title=\"English Baccalaureate\">EBacc</abbr> shows how many students got a GCSE grade C or above in English, maths, 2 sciences, a language, and history or geography.</p>\n\n"
+      },
+      {
+        "title": "Other compulsory subjects",
+        "slug": "other-compulsory-subjects",
+        "body": "<p>Children must also study:</p>\n\n<ul>\n  <li>sex and relationships education (year 7 onwards)</li>\n  <li>religious education (<abbr title=\"religious education\">RE</abbr>)</li>\n</ul>\n\n<p>They may not have to take exams in these subjects.</p>\n\n<h2 id=\"sex-and-relationship-education\">Sex and relationship education</h2>\n\n<p>Sex and relationship education (<abbr title=\"Sex and relationship education\">SRE</abbr>) is compulsory from age 11 onwards. It involves teaching children about reproduction, sexuality and sexual health. It doesn’t promote early sexual activity or any particular sexual orientation.</p>\n\n<p>Some parts of sex and relationship education are compulsory - these are part of the national curriculum for science. Parents can withdraw their children from all other parts of sex and relationship education if they want.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>All schools must have a written policy on sex education, which they must make available to parents for free.</p>\n</div>\n\n<h2 id=\"religious-education\">Religious education</h2>\n\n<p>Schools have to teach <abbr title=\"religious education\">RE</abbr> but parents can withdraw their children for all or part of the lessons. Pupils can choose to withdraw themselves once they’re 18.</p>\n\n<p>Local councils are responsible for deciding the <abbr title=\"religious education\">RE</abbr> syllabus, but <a href=\"/types-of-school/faith-schools\">faith schools</a> and <a href=\"/types-of-school/academies\">academies</a> can set their own.</p>\n\n"
+      }
+    ],
+    "external_related_links": [
+
+    ]
+  }
+}

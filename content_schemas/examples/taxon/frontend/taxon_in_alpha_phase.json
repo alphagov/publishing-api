@@ -1,0 +1,50 @@
+{
+  "content_id": "63d98739-fc60-4e28-a65f-edb56000fd39",
+  "base_path": "/alpha-taxonomy/a-level",
+  "title": "Another level",
+  "description": null,
+  "public_updated_at": "2015-12-09T11:11:11.000+00:00",
+  "locale": "en",
+  "phase": "alpha",
+  "details": {
+    "visible_to_departmental_editors": false
+  },
+  "links": {
+    "parent_taxons": [
+      {
+        "content_id": "f6eef5ca-be55-41b2-98be-f72b3e649b84",
+        "api_path": "/api/content/alpha-taxonomy/curriculum-and-qualifications",
+        "base_path": "/alpha-taxonomy/curriculum-and-qualifications",
+        "title": "Curriculum and qualifications",
+        "api_url": "https://www.gov.uk/api/content/alpha-taxonomy/curriculum-and-qualifications",
+        "web_url": "https://www.gov.uk/alpha-taxonomy/curriculum-and-qualifications",
+        "locale": "en",
+        "phase": "live"
+      },
+      {
+        "content_id": "6b404e13-f681-44cb-b51f-bff084710fd9",
+        "api_path": "/api/content/alpha-taxonomy/driving-and-vehicles",
+        "base_path": "/alpha-taxonomy/driving-and-vehicles",
+        "title": "Driving and vehicles",
+        "api_url": "https://www.gov.uk/api/content/alpha-taxonomy/driving-and-vehicles",
+        "web_url": "https://www.gov.uk/alpha-taxonomy/driving-and-vehicles",
+        "locale": "en",
+        "phase": "live"
+      }
+    ],
+    "parent": [
+      {
+        "content_id": "f6eef5ca-be55-41b2-98be-f72b3e649b84",
+        "api_path": "/api/content/alpha-taxonomy/curriculum-and-qualifications",
+        "base_path": "/alpha-taxonomy/curriculum-and-qualifications",
+        "title": "Curriculum and qualifications",
+        "api_url": "https://www.gov.uk/api/content/alpha-taxonomy/curriculum-and-qualifications",
+        "web_url": "https://www.gov.uk/alpha-taxonomy/curriculum-and-qualifications",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "taxon",
+  "document_type": "taxon",
+  "updated_at": "2017-06-30T15:44:11.073Z"
+}

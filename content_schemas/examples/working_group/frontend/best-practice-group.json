@@ -1,0 +1,43 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/groups/bureaucracy-reference-group",
+  "content_id": "71f161bd-7653-4c4c-b106-4d3ae9fa22fa",
+  "document_type": "working_group",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-11-23T11:04:57.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "working_group",
+  "title": "Bureaucracy Reference Group",
+  "updated_at": "2017-03-27T12:11:14.442Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "available_translations": [
+      {
+        "title": "Bureaucracy Reference Group",
+        "public_updated_at": "2015-11-23T11:04:57Z",
+        "document_type": "working_group",
+        "schema_name": "working_group",
+        "base_path": "/government/groups/bureaucracy-reference-group",
+        "description": "The Bureaucracy Reference Group worked with the Department for Education to help cut down unnecessary administration of schools and children’s services.",
+        "api_path": "/api/content/government/groups/bureaucracy-reference-group",
+        "withdrawn": false,
+        "content_id": "71f161bd-7653-4c4c-b106-4d3ae9fa22fa",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/groups/bureaucracy-reference-group",
+        "web_url": "https://www.gov.uk/government/groups/bureaucracy-reference-group",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The Bureaucracy Reference Group worked with the Department for Education to help cut down unnecessary administration of schools and children’s services.",
+  "details": {
+    "email": "",
+    "body": "<div class=\"govspeak\"><p>This group has closed.</p>\n\n<h2 id=\"terms-of-reference\">Terms of reference</h2>\n\n<p>The Bureaucracy Reference Group helped the Department for Education (DfE) and local authorities to simplify their management of schools and children’s services. It also consulted the Association of Directors of Children’s Services.</p>\n\n<p>The group aimed to help reduce:</p>\n\n<ul>\n  <li>unnecessary detail in documents and communications</li>\n  <li>commissioning unnecessary evidence</li>\n  <li>unnecessary regulations for schools and children’s services</li>\n  <li>processes that will require teachers to take time away from teaching</li>\n</ul>\n\n<p>It encouraged better communication so that teachers, schools and children’s services professionals:</p>\n\n<ul>\n  <li>could access guidance on their statutory obligations easily</li>\n  <li>received guidance and communications that was easy to read and understand</li>\n  <li>received simple instructions on how to provide the data DfE and local authorities needed to hold schools and children’s services accountable</li>\n  <li>were clear about DfE’s policies on essential teaching areas</li>\n</ul>\n\n<h2 id=\"meeting-dates\">Meeting dates</h2>\n\n<p>The group met 6 times per year. The last meeting was held in July 2015.</p>\n\n<h2 id=\"membership\">Membership</h2>\n\n<p>The Reducing Bureaucracy Group was made up of primary, secondary and special school headteachers and teachers. It also includes business managers and governors from schools and academies.</p>\n\n<h2 id=\"further-information\">Further information</h2>\n<p>Read about <a href=\"https://www.gov.uk/government/publications/reducing-teachers-workload/reducing-teachers-workload\">reducing teachers’ workload</a>.</p>\n</div>"
+  }
+}

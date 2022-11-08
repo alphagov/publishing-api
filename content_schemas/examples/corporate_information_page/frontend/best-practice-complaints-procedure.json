@@ -1,0 +1,79 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/ministry-of-defence/about/complaints-procedure",
+  "content_id": "5f54e328-7631-11e4-a3cb-005056011aef",
+  "document_type": "complaints_procedure",
+  "first_published_at": "2014-08-04T12:51:37.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-07-06T09:46:47.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Complaints procedure",
+  "updated_at": "2018-01-10T12:27:07.298Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "13383-1502374089.854-10.3.3.1-410",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D17",
+        "api_path": "/api/content/government/organisations/ministry-of-defence",
+        "base_path": "/government/organisations/ministry-of-defence",
+        "content_id": "d994e55c-48c9-4795-b872-58d8ec98af12",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:59Z",
+        "schema_name": "placeholder",
+        "title": "Ministry of Defence",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-defence",
+          "logo": {
+            "formatted_title": "Ministry<br/>of Defence",
+            "crest": "mod"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-defence",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Complaints procedure",
+        "public_updated_at": "2016-07-06T09:46:47Z",
+        "document_type": "complaints_procedure",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/ministry-of-defence/about/complaints-procedure",
+        "description": "If you are unhappy with the service you get from the Ministry of Defence (MOD) or its agencies, there are different ways you can complain.",
+        "api_path": "/api/content/government/organisations/ministry-of-defence/about/complaints-procedure",
+        "withdrawn": false,
+        "content_id": "5f54e328-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-defence/about/complaints-procedure",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence/about/complaints-procedure",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "If you are unhappy with the service you get from the Ministry of Defence (MOD) or its agencies, there are different ways you can complain.",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"our-commitment\">Our commitment</h2>\n\n<p>At the <abbr title=\"Ministry of Defence\">MOD</abbr> we are committed to providing a high quality of service to everyone with whom we deal. We continually look at our existing performance and try to improve on it.</p>\n\n<p>You may be in a good position to judge how we are performing, and we need you to tell us if we get things wrong. We will listen to your complaints and treat them seriously and in confidence.</p>\n\n<p>We aim to put things right for you when it is possible and appropriate, learn from where we went wrong and make sure that we do not make the same mistake again.</p>\n\n<h2 id=\"how-to-complain\">How to complain</h2>\n\n<p>If you have a complaint, you should initially make it to the relevant part of <abbr title=\"Ministry of Defence\">MOD</abbr> involved in the matter, as they will usually be best placed to put things right. However, if you do not know who is responsible for the matter, then you can write to them via:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nThe Ministerial Correspondence Unit\n<br>Level 5, Zone A\n<br>Main Building\n<br>Whitehall\n<br>London SW1A 2HB\n<br>\n</p></div></div>\n\n<p>The department aims to issue a full response to your complaint within 20 working days of receiving it.</p>\n\n<p>If we cannot, we will tell you who is handling the complaint, and when they expect to be able to reply in full. It will help us to deal with your complaint if you can provide as much background information as possible.</p>\n\n<h2 id=\"what-to-do-if-youre-not-satisfied\">What to do if you’re not satisfied</h2>\n\n<p>If you are not satisfied with the way in which your complaint has been handled, you have the right to ask for an internal review of your case which will be carried out in the division where you made your initial complaint.</p>\n\n<p>You should normally be informed of who to contact to ask for an internal review as part of the response you receive to your initial complaint. If you do not know who to contact, or wish to refer the case to a part of the <abbr title=\"Ministry of Defence\">MOD</abbr> independent of the area that handled the initial complaint, you should write to:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nCorporate Strategy and Governance  \n<br>Level 3 Zone M\n<br>Main Building\n<br>Whitehall\n<br>London SW1A 2HB\n<br>\n</p></div></div>\n\n<p>If you remain dissatisfied after the internal review, you have the right to contact the Parliamentary Commissioner for Administration (the Ombudsman) through your Member of Parliament.</p>\n\n<p>The Ombudsman can be contacted at the following address:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nThe Office of the Parliamentary Commissioner for Administration\n<br>Millbank Tower\n<br>London SW1P 4QP\n<br>\n</p></div></div>\n\n<h2 id=\"common-law-claims--policy-division\">Common Law Claims &amp; Policy Division</h2>\n\n<p>Processing common-law, non-contractual compensation claims against and on behalf of the Ministry of Defence at home and abroad. <a href=\"https://www.gov.uk/government/publications/common-law-claims-policy-division\">More about Common Law Claims &amp; Policy Division</a>.</p>\n\n<h2 id=\"other-complaints-procedures-within-mod\">Other complaints procedures within <abbr title=\"Ministry of Defence\">MOD</abbr>\n</h2>\n\n<p>Complaints about requests for information made under the Freedom of Information (<abbr title=\"Freedom of information\">FOI</abbr>) Act or the Environmental Information Regulations (<abbr title=\"Environmental Information Regulations\">EIR</abbr>) 2004.</p>\n\n<p>Complaints regarding the handling of and response to requests for information <abbr title=\"Freedom of information\">FOI</abbr> Act 2000 or the <abbr title=\"Environmental Information Regulations\">EIR</abbr> 2004 should be addressed to:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\n<abbr title=\"Ministry of Defence\">MOD</abbr> Information Rights team\n<br>Ground floor, zone D\n<br>Main Building\n<br>Whitehall\n<br>London \n<br>SW1A 2HB\n<br>\n</p></div></div>\n\n<p>Email: <a href=\"mailto:cio-foi@mod.uk\">cio-foi@mod.uk</a></p>\n\n<h2 id=\"complaints-under-the-data-protection-act-1998\">Complaints under the Data Protection Act 1998</h2>\n\n<p>Details of the complaints procedure relating to the processing of personal data held by <abbr title=\"Ministry of Defence\">MOD</abbr> are contained in the replies to each subject access request. Complaints to the Departmental Data Protection Officer should be addressed to:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\n<abbr title=\"Ministry of Defence\">MOD</abbr> Information Rights team\n<br>Ground floor, zone D\n<br>Main Building\n<br>Whitehall\n<br>London SW1A 2HB \n<br>\n</p></div></div>\n\n<p>Email: <a href=\"mailto:cio-foi@mod.uk\">cio-foi@mod.uk</a></p>\n\n<h2 id=\"complaints-about-military-low-flying\">Complaints about military low-flying</h2>\n\n<p>For guidance on low flying, how to seek advise and how to complaint see our <a href=\"https://www.gov.uk/low-flying-in-your-area\">Low flying military aircraft</a> guide.</p>\n\n<h2 id=\"complaints-about-mod-police\">Complaints about <abbr title=\"Ministry of Defence\">MOD</abbr> Police</h2>\n\n<p>Copies of leaflets on how to make a complaint against the <abbr title=\"Ministry of Defence\">MOD</abbr> Police are available from local <abbr title=\"Ministry of Defence\">MOD</abbr> Police Units or from:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nMinistry of Defence Police HQ Wethersfield\n<br>Braintree\n<br>Essex\n<br>CM7 4AZ\n<br>\n</p></div></div>\n\n<p>Telephone: 01371 854 648</p>\n\n<h2 id=\"complaints-about-pensions\">Complaints about pensions</h2>\n\n<p>Separate advice can also be obtained about complaints relating to civilian pensions from:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nSenior Pension Manager\n<br>PPA Pensions\n<br>PO Box 42\n<br>Stockport\n<br>\n</p></div></div>\n\n<h2 id=\"complaints-about-defence-business-services-dbs\">Complaints about Defence Business Services (DBS)</h2>\n\n<p>Guidance for non <abbr title=\"Ministry of Defence\">MOD</abbr> civilian employees who would like to make a complaint to Defence Business Services (DBS).</p>\n\n<p><a href=\"https://www.gov.uk/government/publications/how-to-make-a-complaint-to-defence-business-services\">How to make a complaint to Defence Business Services</a></p>\n\n</div>",
+    "organisation": "d994e55c-48c9-4795-b872-58d8ec98af12",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

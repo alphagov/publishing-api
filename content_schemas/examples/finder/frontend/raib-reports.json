@@ -1,0 +1,127 @@
+{
+  "content_id": "bec582be-a95c-41f2-8a56-53dc19f45b76",
+  "base_path": "/raib-reports",
+  "title": "Rail Accident Investigation Branch reports",
+  "description": "",
+  "locale": "en",
+  "updated_at": "2015-07-21T12:45:27.470Z",
+  "public_updated_at": "2015-04-30T10:41:26.000+00:00",
+  "details": {
+    "beta": false,
+    "document_noun": "report",
+    "facets": [
+      {
+        "allowed_values": [
+          {
+            "label": "Heavy rail",
+            "value": "heavy-rail"
+          },
+          {
+            "label": "Light rail",
+            "value": "light-rail"
+          },
+          {
+            "label": "Metros",
+            "value": "metros"
+          },
+          {
+            "label": "Heritage railways",
+            "value": "heritage-railways"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "railway_type",
+        "name": "Railway type",
+        "preposition": "of type",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "Investigation report",
+            "value": "investigation-report"
+          },
+          {
+            "label": "Bulletin",
+            "value": "bulletin"
+          },
+          {
+            "label": "Interim report",
+            "value": "interim-report"
+          },
+          {
+            "label": "Discontinuation report",
+            "value": "discontinuation-report"
+          },
+          {
+            "label": "Safety digest",
+            "value": "safety-digest"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "report_type",
+        "name": "Report type",
+        "preposition": "of type",
+        "type": "text"
+      },
+      {
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "date_of_occurrence",
+        "name": "Date of occurrence",
+        "preposition": "occurred",
+        "short_name": "Occurred",
+        "type": "date"
+      }
+    ],
+    "filter": {
+      "document_type": "raib_report"
+    },
+    "format_name": "Rail Accident Investigation Branch report",
+    "show_summaries": false
+  },
+  "links": {
+    "email_alert_signup": [
+      {
+        "content_id": "81e62338-4644-4520-bbfc-6378855e9e43",
+        "title": "Rail Accident Investigation Branch reports",
+        "api_path": "/api/content/raib-reports/email-signup",
+        "base_path": "/raib-reports/email-signup",
+        "description": "You'll get an email each time a report is updated or a new report is published.",
+        "api_url": "https://www.gov.uk/api/content/raib-reports/email-signup",
+        "web_url": "https://www.gov.uk/raib-reports/email-signup",
+        "locale": "en"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "7c87edb4-1b32-4da2-bce8-f67fd9bb50db",
+        "title": "Rail Accident Investigation Branch",
+        "api_path": "/api/content/government/organisations/rail-accident-investigation-branch",
+        "base_path": "/government/organisations/rail-accident-investigation-branch",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/rail-accident-investigation-branch",
+        "web_url": "https://www.gov.uk/government/organisations/rail-accident-investigation-branch",
+        "locale": "en"
+      }
+    ],
+    "related": [
+
+    ],
+    "available_translations": [
+      {
+        "content_id": "bec582be-a95c-41f2-8a56-53dc19f45b76",
+        "title": "Rail Accident Investigation Branch reports",
+        "api_path": "/api/content/raib-reports",
+        "base_path": "/raib-reports",
+        "description": "",
+        "api_url": "https://www.gov.uk/api/content/raib-reports",
+        "web_url": "https://www.gov.uk/raib-reports",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "finder",
+  "document_type": "finder"
+}

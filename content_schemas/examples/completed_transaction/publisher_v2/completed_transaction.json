@@ -1,0 +1,35 @@
+{
+  "locale": "en",
+  "details": {
+    "external_related_links": [
+
+    ],
+    "promotion": {
+      "url": "http://www.register-to-vote.gov.uk",
+      "category": "register_to_vote"
+    }
+  },
+  "change_note": null,
+  "update_type": "minor",
+  "redirects": [
+
+  ],
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/transaction-finished"
+    },
+    {
+      "type": "exact",
+      "path": "/transaction-finished.json"
+    }
+  ],
+  "rendering_app": "frontend",
+  "title": "Your transaction is finished",
+  "base_path": "/transaction-finished",
+  "description": "You've finished this transaction",
+  "schema_name": "completed_transaction",
+  "document_type": "completed_transaction",
+  "public_updated_at": "2016-06-28T14:40:56.058+01:00",
+  "publishing_app": "publisher"
+}

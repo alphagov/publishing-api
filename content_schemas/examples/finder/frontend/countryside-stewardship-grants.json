@@ -1,0 +1,250 @@
+{
+  "content_id": "49e05ad1-8c76-49a1-b017-6b113a6bb7d5",
+  "base_path": "/countryside-stewardship-grants",
+  "title": "Countryside Stewardship grants",
+  "description": "",
+  "locale": "en",
+  "updated_at": "2015-07-21T12:45:36.897Z",
+  "public_updated_at": "2015-07-07T13:38:31.000+00:00",
+  "details": {
+    "beta": true,
+    "document_noun": "grant",
+    "facets": [
+      {
+        "allowed_values": [
+          {
+            "label": "Option",
+            "value": "option"
+          },
+          {
+            "label": "Capital item",
+            "value": "capital-item"
+          },
+          {
+            "label": "Supplement",
+            "value": "supplement"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "grant_type",
+        "name": "Grant type",
+        "preposition": "of type",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "Arable land",
+            "value": "arable-land"
+          },
+          {
+            "label": "Boundaries",
+            "value": "boundaries"
+          },
+          {
+            "label": "Coast",
+            "value": "coast"
+          },
+          {
+            "label": "Educational access",
+            "value": "educational-access"
+          },
+          {
+            "label": "Flood risk",
+            "value": "flood-risk"
+          },
+          {
+            "label": "Grassland",
+            "value": "grassland"
+          },
+          {
+            "label": "Historic environment",
+            "value": "historic-environment"
+          },
+          {
+            "label": "Livestock management",
+            "value": "livestock-management"
+          },
+          {
+            "label": "Organic land",
+            "value": "organic-land"
+          },
+          {
+            "label": "Priority habitats",
+            "value": "priority-habitats"
+          },
+          {
+            "label": "Trees (non-woodland)",
+            "value": "trees-non-woodland"
+          },
+          {
+            "label": "Uplands",
+            "value": "uplands"
+          },
+          {
+            "label": "Vegetation control",
+            "value": "vegetation-control"
+          },
+          {
+            "label": "Water quality",
+            "value": "water-quality"
+          },
+          {
+            "label": "Pollinators and wildlife",
+            "value": "wildlife-package"
+          },
+          {
+            "label": "Woodland",
+            "value": "woodland"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "land_use",
+        "name": "Land use",
+        "preposition": "for",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "Higher Tier",
+            "value": "higher-tier"
+          },
+          {
+            "label": "Mid Tier",
+            "value": "mid-tier"
+          },
+          {
+            "label": "Standalone capital items",
+            "value": "standalone-capital-items"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "tiers_or_standalone_items",
+        "name": "Tiers or standalone items",
+        "preposition": "for",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "Up to £100",
+            "value": "up-to-100"
+          },
+          {
+            "label": "£101 to £200",
+            "value": "101-to-200"
+          },
+          {
+            "label": "£201 to £300",
+            "value": "201-to-300"
+          },
+          {
+            "label": "£301 to £400",
+            "value": "301-to-400"
+          },
+          {
+            "label": "£401 to £500",
+            "value": "401-to-500"
+          },
+          {
+            "label": "More than £500",
+            "value": "more-than-500"
+          },
+          {
+            "label": "Up to 50% actual costs",
+            "value": "up-to-50-actual-costs"
+          },
+          {
+            "label": "More than 50% actual costs",
+            "value": "more-than-50-actual-costs"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "funding_amount",
+        "name": "Funding (per unit per year)",
+        "preposition": "of",
+        "type": "text"
+      }
+    ],
+    "filter": {
+      "document_type": "countryside_stewardship_grant"
+    },
+    "format_name": "Countryside Stewardship grant",
+    "show_summaries": false
+  },
+  "links": {
+    "email_alert_signup": [
+
+    ],
+    "organisations": [
+      {
+        "content_id": "fc483d53-551a-4bc0-952b-6bc0d900b31b",
+        "title": "Natural England",
+        "api_path": "/api/content/government/organisations/natural-england",
+        "base_path": "/government/organisations/natural-england",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/natural-england",
+        "web_url": "https://www.gov.uk/government/organisations/natural-england",
+        "locale": "en"
+      },
+      {
+        "content_id": "cb135a46-9a2b-4cf4-8c60-7448ae7de751",
+        "title": "Department for Environment, Food & Rural Affairs",
+        "api_path": "/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "base_path": "/government/organisations/department-for-environment-food-rural-affairs",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs",
+        "locale": "en"
+      },
+      {
+        "content_id": "a20c4a89-8133-4cb9-a93f-049115865524",
+        "title": "Forestry Commission",
+        "api_path": "/api/content/government/organisations/forestry-commission",
+        "base_path": "/government/organisations/forestry-commission",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/forestry-commission",
+        "web_url": "https://www.gov.uk/government/organisations/forestry-commission",
+        "locale": "en"
+      }
+    ],
+    "related": [
+      {
+        "content_id": "e3bd0d0b-5c06-4678-91d6-a0d18f16ae2c",
+        "title": "Countryside Stewardship manual",
+        "api_path": "/api/content/guidance/countryside-stewardship-manual",
+        "base_path": "/guidance/countryside-stewardship-manual",
+        "description": "This manual provides the information needed to apply for the new Countryside Stewardship scheme.",
+        "api_url": "https://www.gov.uk/api/content/guidance/countryside-stewardship-manual",
+        "web_url": "https://www.gov.uk/guidance/countryside-stewardship-manual",
+        "locale": "en"
+      },
+      {
+        "content_id": "2d704772-e145-4d21-a165-d5d102732411",
+        "title": "Countryside Stewardship manual and grants: print versions",
+        "api_path": "/api/content/government/publications/countryside-stewardship-manual-print-version",
+        "base_path": "/government/publications/countryside-stewardship-manual-print-version",
+        "description": "Find out about the Countryside Stewardship options and capital items requirements, and how to apply.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/countryside-stewardship-manual-print-version",
+        "web_url": "https://www.gov.uk/government/publications/countryside-stewardship-manual-print-version",
+        "locale": "en"
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "49e05ad1-8c76-49a1-b017-6b113a6bb7d5",
+        "title": "Countryside Stewardship grants",
+        "api_path": "/api/content/countryside-stewardship-grants",
+        "base_path": "/countryside-stewardship-grants",
+        "description": "",
+        "api_url": "https://www.gov.uk/api/content/countryside-stewardship-grants",
+        "web_url": "https://www.gov.uk/countryside-stewardship-grants",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "finder",
+  "document_type": "finder"
+}

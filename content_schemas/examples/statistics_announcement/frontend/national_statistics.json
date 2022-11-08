@@ -1,0 +1,41 @@
+{
+  "content_id": "e1553ea5-69e7-443e-a9b5-e5e8210097f5",
+  "base_path": "/government/statistics/announcements/uk-armed-forces-quarterly-personnel-report-october-2015",
+  "description": "Quarterly statistics on strengths, requirements, intakes and outflows from the UK armed forces by service for 2015.",
+  "details": {
+    "display_date": "January 2016",
+    "state": "provisional",
+    "format_sub_type": "national"
+  },
+  "links": {
+    "organisations": [
+      {
+        "content_id": "8b19c238-54e3-4e27-b0d7-60f8e2a677c9",
+        "title": "Ministry of Defence",
+        "api_path": "/api/content/government/organisations/ministry-of-defence",
+        "base_path": "/government/organisations/ministry-of-defence",
+        "api_url": "https://www.gov.uk/api/government/organisations/ministry-of-defence",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence",
+        "locale": "en",
+        "analytics_identifier": "L2"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "848b8564-328c-4787-bebb-9e1b60ccf0d7",
+        "title": "Defence and armed forces",
+        "api_path": "/api/content/government/topics/defence-and-armed-forces",
+        "base_path": "/government/topics/defence-and-armed-forces",
+        "api_url": "https://www.gov.uk/api/content/government/topics/defence-and-armed-forces",
+        "web_url": "https://www.gov.uk/government/topics/defence-and-armed-forces",
+        "locale": "en"
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2014-11-17T14:19:42.460Z",
+  "title": "UK armed forces quarterly personnel report: 1 October 2015",
+  "updated_at": "2014-11-17T14:19:42.460Z",
+  "schema_name": "statistics_announcement",
+  "document_type": "national_statistics_announcement"
+}

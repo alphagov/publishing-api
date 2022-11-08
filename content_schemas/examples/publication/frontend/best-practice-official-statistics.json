@@ -1,0 +1,238 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/statistics/fostering-in-england-1-april-2013-to-31-march-2014",
+  "content_id": "e7797693-90a9-4190-8658-cd52a4b87bfe",
+  "document_type": "official_statistics",
+  "first_published_at": "2015-01-14T09:30:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-05-14T08:30:16.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Fostering in England 1 April 2013 to 31 March 2014",
+  "updated_at": "2017-12-22T10:26:19.210Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "document_collections": [
+      {
+        "api_path": "/api/content/government/collections/childrens-social-care-statistics",
+        "base_path": "/government/collections/childrens-social-care-statistics",
+        "content_id": "b862b791-bc9c-486b-ad7d-a9942dbe1539",
+        "description": "Statistics from Ofsted including data for adoption, looked-after children, children's homes, children's services and fostering.",
+        "document_type": "document_collection",
+        "locale": "en",
+        "public_updated_at": "2017-11-29T09:45:05Z",
+        "schema_name": "document_collection",
+        "title": "Children's social care statistics",
+        "withdrawn": false,
+        "links": {
+          "documents": [
+            {
+              "api_path": "/api/content/government/statistics/fostering-in-england-1-april-2013-to-31-march-2014",
+              "base_path": "/government/statistics/fostering-in-england-1-april-2013-to-31-march-2014",
+              "content_id": "e7797693-90a9-4190-8658-cd52a4b87bfe",
+              "description": "Numbers and profile of foster carers and children in both local authority and independent services.",
+              "document_type": "official_statistics",
+              "locale": "en",
+              "public_updated_at": "2015-05-14T08:30:16Z",
+              "schema_name": "publication",
+              "title": "Fostering in England 1 April 2013 to 31 March 2014",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/statistics/fostering-in-england-1-april-2013-to-31-march-2014",
+              "web_url": "https://www.gov.uk/government/statistics/fostering-in-england-1-april-2013-to-31-march-2014"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/collections/childrens-social-care-statistics",
+        "web_url": "https://www.gov.uk/government/collections/childrens-social-care-statistics"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D106",
+        "api_path": "/api/content/government/organisations/ofsted",
+        "base_path": "/government/organisations/ofsted",
+        "content_id": "ad5f6169-ac7b-4382-9eb6-e58af71a2f00",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-07-04T14:35:36Z",
+        "schema_name": "placeholder",
+        "title": "Ofsted",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-education",
+          "logo": {
+            "formatted_title": "Ofsted",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/106/Ofsted-logo-gov.uk.png",
+              "alt_text": "Ofsted"
+            }
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ofsted",
+        "web_url": "https://www.gov.uk/government/organisations/ofsted"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/social-care",
+        "base_path": "/government/topics/social-care",
+        "content_id": "a90d4fac-5656-4745-9c16-08542f42c3ac",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:08Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Social care",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/social-care",
+        "web_url": "https://www.gov.uk/government/topics/social-care"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D106",
+        "api_path": "/api/content/government/organisations/ofsted",
+        "base_path": "/government/organisations/ofsted",
+        "content_id": "ad5f6169-ac7b-4382-9eb6-e58af71a2f00",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-07-04T14:35:36Z",
+        "schema_name": "placeholder",
+        "title": "Ofsted",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-education",
+          "logo": {
+            "formatted_title": "Ofsted",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/106/Ofsted-logo-gov.uk.png",
+              "alt_text": "Ofsted"
+            }
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ofsted",
+        "web_url": "https://www.gov.uk/government/organisations/ofsted"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Fostering in England 1 April 2013 to 31 March 2014",
+        "public_updated_at": "2015-05-14T08:30:16Z",
+        "document_type": "official_statistics",
+        "schema_name": "publication",
+        "base_path": "/government/statistics/fostering-in-england-1-april-2013-to-31-march-2014",
+        "description": "Numbers and profile of foster carers and children in both local authority and independent services.",
+        "api_path": "/api/content/government/statistics/fostering-in-england-1-april-2013-to-31-march-2014",
+        "withdrawn": false,
+        "content_id": "e7797693-90a9-4190-8658-cd52a4b87bfe",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/statistics/fostering-in-england-1-april-2013-to-31-march-2014",
+        "web_url": "https://www.gov.uk/government/statistics/fostering-in-england-1-april-2013-to-31-march-2014",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Numbers and profile of foster carers and children in both local authority and independent services.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>Data was submitted by 99% of all fostering services.</p>\n\n<p>Included is data relating to types of foster care, registrations and de-registrations, and a range of other subjects.</p>\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2015-05-14T09:30:16.000+01:00",
+        "note": "Quality report uploaded."
+      },
+      {
+        "public_timestamp": "2015-03-26T09:31:22.000+00:00",
+        "note": "Supplementary dataset to accompany the release of Fostering agencies data in England: 1 April 2013 to 31 March. Data in this release is time series 2011 to 2014 data.."
+      },
+      {
+        "public_timestamp": "2015-03-12T09:30:17.000+00:00",
+        "note": "Publication of Fostering in England 1 April 2013 to 31 March 2014 agency level data."
+      },
+      {
+        "public_timestamp": "2015-01-14T09:30:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1896326\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/416769/Fostering_in_England_1_April_2013_to_31_March_2014_time_series_dataset__2011_-_2014_.xls\"><img alt=\"\" src=\"/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1896326-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/416769/Fostering_in_England_1_April_2013_to_31_March_2014_time_series_dataset__2011_-_2014_.xls\">Fostering in England 1 April 2013 to 31 March 2014 time series dataset (2011 - 2014)</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">283KB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1896326-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1896326-accessibility-request\" data-controls=\"attachment-1896326-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1896326-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@ofsted.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20time%20series%20dataset%20%282011%20-%202014%29%0A%20%20Original%20format%3A%20xls%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20time%20series%20dataset%20%282011%20-%202014%29%27%20in%20an%20alternative%20format\">enquiries@ofsted.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1896327\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/412113/Fostering_in_England_1_April_2013_to_31_March_2014_agency_level_data.xls\"><img alt=\"\" src=\"/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1896327-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/412113/Fostering_in_England_1_April_2013_to_31_March_2014_agency_level_data.xls\">Fostering in England 1 April 2013 to 31 March 2014 agency level data</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">1020KB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1896327-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1896327-accessibility-request\" data-controls=\"attachment-1896327-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1896327-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@ofsted.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20agency%20level%20data%0A%20%20Original%20format%3A%20xls%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20agency%20level%20data%27%20in%20an%20alternative%20format\">enquiries@ofsted.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1896328\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/395001/Fostering_2013-14_key_findings.doc\"><img alt=\"\" src=\"/government/assets/pub-cover-doc-afe3b0a8a9511beeca890340170aee8b5649413f948e512c9b8ce432d8513d32.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1896328-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/395001/Fostering_2013-14_key_findings.doc\">Fostering in England 1 April 2013 to 31 March 2014 </a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">MS Word Document</span>, <span class=\"file-size\">612KB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1896328-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1896328-accessibility-request\" data-controls=\"attachment-1896328-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1896328-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@ofsted.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20%0A%20%20Original%20format%3A%20doc%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20%27%20in%20an%20alternative%20format\">enquiries@ofsted.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1896329\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/395004/Fostering_2013-14_key_findings.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/395004/thumbnail_Fostering_2013-14_key_findings.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1896329-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/395004/Fostering_2013-14_key_findings.pdf\">Fostering in England 1 April 2013 to 31 March 2014</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">582KB</span>, <span class=\"page-length\">27 pages</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1896329-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1896329-accessibility-request\" data-controls=\"attachment-1896329-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1896329-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@ofsted.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%0A%20%20Original%20format%3A%20pdf%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%27%20in%20an%20alternative%20format\">enquiries@ofsted.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1896330\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/394930/Fostering_annual_dataset_2013-14.xls\"><img alt=\"\" src=\"/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1896330-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/394930/Fostering_annual_dataset_2013-14.xls\">Fostering in England 1 April 2013 to 31 March 2014 dataset</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">350KB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1896330-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1896330-accessibility-request\" data-controls=\"attachment-1896330-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1896330-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@ofsted.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20dataset%0A%20%20Original%20format%3A%20xls%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20dataset%27%20in%20an%20alternative%20format\">enquiries@ofsted.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1896331\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/427241/Fostering_in_England_1_April_2013_to_31_March_2014_-_Quality_Report.doc\"><img alt=\"\" src=\"/government/assets/pub-cover-doc-afe3b0a8a9511beeca890340170aee8b5649413f948e512c9b8ce432d8513d32.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1896331-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/427241/Fostering_in_England_1_April_2013_to_31_March_2014_-_Quality_Report.doc\">Fostering in England 1 April 2013 to 31 March 2014 - Quality Report</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">MS Word Document</span>, <span class=\"file-size\">112KB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1896331-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1896331-accessibility-request\" data-controls=\"attachment-1896331-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1896331-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@ofsted.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20-%20Quality%20Report%0A%20%20Original%20format%3A%20doc%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Fostering%20in%20England%201%20April%202013%20to%2031%20March%202014%20-%20Quality%20Report%27%20in%20an%20alternative%20format\">enquiries@ofsted.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "ad5f6169-ac7b-4382-9eb6-e58af71a2f00"
+    ],
+    "national_applicability": {
+      "england": {
+        "label": "England",
+        "applicable": true
+      },
+      "northern_ireland": {
+        "label": "Northern Ireland",
+        "applicable": false,
+        "alternative_url": ""
+      },
+      "scotland": {
+        "label": "Scotland",
+        "applicable": false,
+        "alternative_url": ""
+      },
+      "wales": {
+        "label": "Wales",
+        "applicable": false,
+        "alternative_url": ""
+      }
+    },
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "first_public_at": "2015-01-14T09:30:00.000+00:00"
+  }
+}

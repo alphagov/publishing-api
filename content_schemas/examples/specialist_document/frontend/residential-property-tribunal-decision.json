@@ -1,0 +1,300 @@
+{
+  "base_path": "/residential-property-tribunal-descisions/a-decisions-has-been-made",
+  "content_id": "b7076709-3a07-46f6-b896-c019a362557e",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "details": {
+    "body": "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+    "change_history": [
+      {
+        "note": "First published.",
+        "public_timestamp": "2015-06-24T08:59:35+00:00"
+      }
+    ],
+    "max_cache_time": 10,
+    "metadata": {
+      "bulk_published": false,
+      "tribunal_decision_category": "park-homes",
+      "tribunal_decision_sub_category": "park-homes---pitch-fee",
+      "tribunal_decision_decision_date": "2018-01-01",
+      "hidden_indexable_content": ""
+    }
+  },
+  "document_type": "residential_property_tribunal_decision",
+  "links": {
+    "available_translations": [
+      {
+        "content_id": "b7076709-3a07-46f6-b896-c019a362557e",
+        "title": "A decision has been made",
+        "api_path": "/api/content/residential-property-tribunal-descisions/a-decisions-has-been-made",
+        "base_path": "/residential-property-tribunal-descisions/a-decisions-has-been-made",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "api_url": "https://www.gov.uk/api/content/residential-property-tribunal-descisions/a-decisions-has-been-made",
+        "web_url": "https://www.gov.uk/residential-property-tribunal-descisions/a-decisions-has-been-made",
+        "locale": "en"
+      }
+    ],
+    "finder": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/residential-property-tribunal-decisions",
+        "base_path": "/residential-property-tribunal-decisions",
+        "content_id": "ce2c1353-2fcb-4c85-ac35-a1c8c3e990cf",
+        "description": "Find decisions on Residential Property Tribunal cases in England, Wales and Scotland.",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2018-01-01T00:00:00+00:00",
+        "schema_name": "finder",
+        "title": "Residential property tribunal decisions",
+        "withdrawn": false,
+        "details": {
+          "facets": [
+            {
+              "key": "tribunal_decision_category",
+              "name": "Category",
+              "type": "text",
+              "preposition": "categorised as",
+              "display_as_result_metadata": false,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016"
+                },
+                {
+                  "label": "Leasehold disputes (management)",
+                  "value": "leasehold-disputes-management"
+                },
+                {
+                  "label": "Leasehold enfranchisement and extension",
+                  "value": "leasehold-enfranchisement-and-extension"
+                },
+                {
+                  "label": "Park homes",
+                  "value": "park-homes"
+                },
+                {
+                  "label": "Rents",
+                  "value": "rents"
+                },
+                {
+                  "label": "Right to Buy",
+                  "value": "right-to-buy"
+                },
+                {
+                  "label": "Tenant associations",
+                  "value": "tenant-associations"
+                }
+              ]
+            },
+            {
+              "key": "tribunal_decision_sub_category",
+              "name": "Sub-category",
+              "type": "text",
+              "preposition": "sub-categorised as",
+              "display_as_result_metadata": true,
+              "filterable": false,
+              "allowed_values": [
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Rent repayment orders",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---rent-repayment-orders"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Improvement notices",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---improvement-notices"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Prohibition orders",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---prohibition-orders"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Demolition and closing orders",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---demolition-and-closing-orders"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Emergency notices and orders",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---emergency-notices-and-orders"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Empty dwelling management orders",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---empty-dwelling-management-orders"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Houses in multiple occupation licensing",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---houses-in-multiple-occupation-licensing"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Selective licensing",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---selective-licensing"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Banning orders",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---banning-orders"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Civil financial penalties",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---civil-financial-penalties"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Management orders",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---management-orders"
+                },
+                {
+                  "label": "Housing Act 2004 and Housing and Planning Act 2016 - Overcrowding notices",
+                  "value": "housing-act-2004-and-housing-and-planning-act-2016---overcrowding-notices"
+                },
+                {
+                  "label": "Leasehold disputes (management) - Service charges",
+                  "value": "leasehold-disputes-management---service-charges"
+                },
+                {
+                  "label": "Leasehold disputes (management) - Administration charges",
+                  "value": "leasehold-disputes-management---administration-charges"
+                },
+                {
+                  "label": "Leasehold disputes (management) - Appointment of manager",
+                  "value": "leasehold-disputes-management---appointment-of-manager"
+                },
+                {
+                  "label": "Leasehold disputes (management) - Right to Manage",
+                  "value": "leasehold-disputes-management---right-to-manage"
+                },
+                {
+                  "label": "Leasehold disputes (management) - Variation of leases",
+                  "value": "leasehold-disputes-management---variation-of-leases"
+                },
+                {
+                  "label": "Leasehold disputes (management) - Breach of lease/forfeiture",
+                  "value": "leasehold-disputes-management---breach-of-lease-forfeiture"
+                },
+                {
+                  "label": "Leasehold disputes (management) - Estate charges/estate management schemes",
+                  "value": "leasehold-disputes-management---estate-charges-estate-management-schemes"
+                },
+                {
+                  "label": "Leasehold enfranchisement and extension - Flats - lease extension",
+                  "value": "leasehold-enfranchisement-and-extension---flats-lease-extension"
+                },
+                {
+                  "label": "Leasehold enfranchisement and extension - Houses - enfranchisement",
+                  "value": "leasehold-enfranchisement-and-extension---houses-enfranchisement"
+                },
+                {
+                  "label": "Leasehold enfranchisement and extension - Flats - collective enfranchisement",
+                  "value": "leasehold-enfranchisement-and-extension---flats-collective-enfranchisement"
+                },
+                {
+                  "label": "Leasehold enfranchisement and extension - Right of first refusal",
+                  "value": "leasehold-enfranchisement-and-extension---right-of-first-refusal"
+                },
+                {
+                  "label": "Park homes - Pitch fee",
+                  "value": "park-homes---pitch-fee"
+                },
+                {
+                  "label": "Park homes - Section 4 - any Question Under Act or Agreement",
+                  "value": "park-homes---section-4-any-question-under-act-or-agreement"
+                },
+                {
+                  "label": "Park homes - Local authority compliance notice",
+                  "value": "park-homes---local-authority-compliance-notice"
+                },
+                {
+                  "label": "Park homes - Appeal against/alteration of a site licence condition",
+                  "value": "park-homes---appeal-against-alteration-of-a-site-licence-condition"
+                },
+                {
+                  "label": "Park homes - Local authority decision - emergency action",
+                  "value": "park-homes---local-authority-decision-emergency-action"
+                },
+                {
+                  "label": "Park homes - Local authority site licence refusal/refusal to transfer",
+                  "value": "park-homes---local-authority-site-licence-refusal-refusal-to-transfer"
+                },
+                {
+                  "label": "Park homes - Site owner's failure to deposit site rules with local authority",
+                  "value": "park-homes---site-owners-failure-to-deposit-site-rules-with-local-authority"
+                },
+                {
+                  "label": "Park homes - Site rule change - consultation response",
+                  "value": "park-homes---site-rule-change-consultation-response"
+                },
+                {
+                  "label": "Park homes - Park home having a detrimental effect",
+                  "value": "park-homes---park-home-having-a-detrimental-effect"
+                },
+                {
+                  "label": "Park homes - Order relating to implied and express terms",
+                  "value": "park-homes---order-relating-to-implied-and-express-terms"
+                },
+                {
+                  "label": "Park homes - Recognition of residents association",
+                  "value": "park-homes---recognition-of-residents-association"
+                },
+                {
+                  "label": "Park homes - Refusal orders against giving/assigning home",
+                  "value": "park-homes---refusal-orders-against-giving-assigning-home"
+                },
+                {
+                  "label": "Park homes - Site licence - payment of annual fee",
+                  "value": "park-homes---site-licence-payment-of-annual-fee"
+                },
+                {
+                  "label": "Park homes - Order requiring written statement of terms",
+                  "value": "park-homes---order-requiring-written-statement-of-terms"
+                },
+                {
+                  "label": "Park homes - Temporary re-siting/return of resited park home",
+                  "value": "park-homes---temporary-re-siting-return-of-resited-park-home"
+                },
+                {
+                  "label": "Park homes - Entitlement to terminate an agreement for occupation",
+                  "value": "park-homes---entitlement-to-terminate-an-agreement-for-occupation"
+                },
+                {
+                  "label": "Rents - Market rent (assured shorthold tenancy)",
+                  "value": "rents---market-rent-assured-shorthold-tenancy"
+                },
+                {
+                  "label": "Rents - Fair rent",
+                  "value": "rents---fair-rent"
+                },
+                {
+                  "label": "Right to Buy - Right to Buy appeals - elderly persons",
+                  "value": "right-to-buy---right-to-buy-appeals-elderly-persons"
+                },
+                {
+                  "label": "Tenant associations - Recognition of tenants association",
+                  "value": "tenant-associations---recognition-of-tenants-association"
+                },
+                {
+                  "label": "Tenant associations - Request for information",
+                  "value": "tenant-associations---request-for-information"
+                }
+              ]
+            },
+            {
+              "key": "tribunal_decision_decision_date",
+              "name": "Decision date",
+              "short_name": "Decided",
+              "type": "date",
+              "display_as_result_metadata": true,
+              "filterable": true
+            }
+          ]
+        },
+        "phase": "beta",
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/residential-property-tribunal-decisions",
+        "web_url": "https://www.gov.uk/residential-property-tribunal-decisions"
+      }
+    ]
+  },
+  "locale": "en",
+  "phase": "beta",
+  "public_updated_at": "2018-01-01T01:01:01+00:00",
+  "rendering_app": "government-frontend",
+  "schema_name": "specialist_document",
+  "title": "A decision has been made",
+  "updated_at": "2018-01-01T01:01:01+00:00"
+}

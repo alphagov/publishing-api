@@ -1,0 +1,19 @@
+{
+  "base_path": "/robots.txt",
+  "title": "Instructions for crawler robots",
+  "description": "robots.txt provides rules for which parts of GOV.UK are permitted to be crawled by different bots.",
+  "locale": "en",
+  "public_updated_at": "2015-07-30T13:58:11+00:00",
+  "publishing_app": "static",
+  "rendering_app": "static",
+  "document_type": "special_route",
+  "schema_name": "special_route",
+  "routes": [
+    {
+      "path": "/robots.txt",
+      "type": "exact"
+    }
+  ],
+  "details": {
+  }
+}

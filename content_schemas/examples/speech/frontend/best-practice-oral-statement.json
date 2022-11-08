@@ -1,0 +1,197 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/speeches/stop-and-search-comprehensive-package-of-reform-for-police-stop-and-search-powers",
+  "content_id": "5f5332ea-7631-11e4-a3cb-005056011aef",
+  "document_type": "oral_statement",
+  "first_published_at": "2014-04-30T11:59:35.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-04-30T11:59:35.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "speech",
+  "title": "Reform of police stop and search powers",
+  "updated_at": "2018-01-10T12:50:20.248Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "1242-1502190428.938-10.3.3.1-410",
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D16",
+        "api_path": "/api/content/government/organisations/home-office",
+        "base_path": "/government/organisations/home-office",
+        "content_id": "06056197-bc69-4147-aa28-070bca132178",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:58Z",
+        "schema_name": "placeholder",
+        "title": "Home Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "home-office",
+          "logo": {
+            "formatted_title": "Home Office",
+            "crest": "ho"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/home-office",
+        "web_url": "https://www.gov.uk/government/organisations/home-office"
+      }
+    ],
+    "people": [
+      {
+        "api_path": "/api/content/government/people/theresa-may",
+        "base_path": "/government/people/theresa-may",
+        "content_id": "85291e63-c0f1-11e4-8223-005056011aef",
+        "document_type": "person",
+        "locale": "en",
+        "public_updated_at": "2017-06-09T16:13:13Z",
+        "schema_name": "placeholder",
+        "title": "The Rt Hon Theresa May MP",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/theresa-may",
+        "web_url": "https://www.gov.uk/government/people/theresa-may"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/crime-and-policing",
+        "base_path": "/government/topics/crime-and-policing",
+        "content_id": "fbfe60f4-f329-4264-810b-f2a0bd9da243",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:08Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Crime and policing",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/crime-and-policing",
+        "web_url": "https://www.gov.uk/government/topics/crime-and-policing"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D16",
+        "api_path": "/api/content/government/organisations/home-office",
+        "base_path": "/government/organisations/home-office",
+        "content_id": "06056197-bc69-4147-aa28-070bca132178",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:58Z",
+        "schema_name": "placeholder",
+        "title": "Home Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "home-office",
+          "logo": {
+            "formatted_title": "Home Office",
+            "crest": "ho"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/home-office",
+        "web_url": "https://www.gov.uk/government/organisations/home-office"
+      }
+    ],
+    "roles": [
+      {
+        "api_path": "/api/content/government/ministers/secretary-of-state-for-the-home-department",
+        "base_path": "/government/ministers/secretary-of-state-for-the-home-department",
+        "content_id": "845e5d77-c0f1-11e4-8223-005056011aef",
+        "document_type": "ministerial_role",
+        "locale": "en",
+        "public_updated_at": "2013-11-11T16:36:01Z",
+        "schema_name": "placeholder",
+        "title": "Secretary of State for the Home Department",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/secretary-of-state-for-the-home-department",
+        "web_url": "https://www.gov.uk/government/ministers/secretary-of-state-for-the-home-department"
+      }
+    ],
+    "speaker": [
+      {
+        "api_path": "/api/content/government/people/theresa-may",
+        "base_path": "/government/people/theresa-may",
+        "content_id": "85291e63-c0f1-11e4-8223-005056011aef",
+        "document_type": "person",
+        "locale": "en",
+        "public_updated_at": "2017-06-09T16:13:13Z",
+        "schema_name": "placeholder",
+        "title": "The Rt Hon Theresa May MP",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/theresa-may",
+        "web_url": "https://www.gov.uk/government/people/theresa-may"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Stop and search: Comprehensive package of reform for police stop and search powers",
+        "public_updated_at": "2014-04-30T11:59:35Z",
+        "document_type": "oral_statement",
+        "schema_name": "speech",
+        "base_path": "/government/speeches/stop-and-search-comprehensive-package-of-reform-for-police-stop-and-search-powers",
+        "description": "Home Secretary Theresa May gave a statement to Parliament on police stop and search powers. ",
+        "api_path": "/api/content/government/speeches/stop-and-search-comprehensive-package-of-reform-for-police-stop-and-search-powers",
+        "withdrawn": false,
+        "content_id": "5f5332ea-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/speeches/stop-and-search-comprehensive-package-of-reform-for-police-stop-and-search-powers",
+        "web_url": "https://www.gov.uk/government/speeches/stop-and-search-comprehensive-package-of-reform-for-police-stop-and-search-powers",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Home Secretary Theresa May gave a statement to Parliament on police stop and search powers. ",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>With permission, Mr Speaker, I would like to make a statement about the use of stop and search powers by the police.</p>\n\n<p>As I have told the House before, I have long been concerned about the use of stop and search.  While it is undoubtedly an important police power, when it is misused stop and search can be counter-productive.  First, it can be an enormous waste of police time.  Second, when innocent people are stopped and searched for no good reason, it is hugely damaging to the relationship between the police and the public.  In those circumstances it is an unacceptable affront to justice.</p>\n\n<p>That is why I commissioned Her Majesty’s Inspectorate of Constabulary to inspect every force in England and Wales to see how stop and search powers are used.  And it is why, last year, I launched a consultation to make sure members of the public – particularly young people and people from minority ethnic communities – could have their say.</p>\n\n<p>Today I am publishing a summary of the responses to the consultation and placing a copy in the House Library.  The consultation generated more than 5,000 responses, and it was striking that those on the receiving end of stop and search had very different attitudes to those who are not.  While 76% of people aged between 55 and 74 thought stop and search powers are effective, only 38% of people aged between 18 and 24 agreed.  While 66% of white people thought stop and search powers are effective, only 38% of black people agreed.</p>\n\n<p>The findings of the HMIC inspection were deeply concerning.  The inspectorate reported that 27% of the stop and search records they examined did not contain reasonable grounds to search people, even though many of these records had been endorsed by supervising officers.  If the HMIC sample is accurate, that means more than a quarter of the one million or so stops carried out under the Police and Criminal Evidence Act last year could have been illegal.</p>\n\n<p>This is not the only worrying statistic.  Official figures show that if you are black or from a minority ethnic background, you are up to seven times more likely to be stopped and searched by the police than if you are white, and only about ten per cent of stops result in an arrest.</p>\n\n<p>In London, thanks to the leadership of Sir Bernard Hogan-Howe, changes to stop and search show that it is possible to reduce the number of stops, improve the stop-to-arrest ratio and still cut crime.  Since February 2012, the Metropolitan Police have reduced their overall use of stop and search by 20%.  They have reduced no-suspicion stop and search by 90%.  In the same period, stabbings have fallen by a third and shootings by forty per cent.  Complaints against the police have gone down and the arrest ratio has improved.</p>\n\n<p>I want to see further progress in London and across the whole of England and Wales.  So I can tell the House that I intend to revise the Police and Criminal Evidence Act Code of Practice A to make clear what constitutes “reasonable grounds for suspicion” – the legal basis upon which police officers carry out the vast majority of stops.</p>\n\n<p>The revised code will emphasise that where officers are not using their powers properly they will be subject to formal performance or disciplinary proceedings.</p>\n\n<p>HMIC’s study into the use of stop and search revealed that more than half the police forces in the country are ignoring the requirement set out in the Police and Criminal Evidence Act Code of Practice A to make arrangements for public scrutiny of stop-and-search records. This is an important duty that should empower local communities to hold police forces to account, and so I have written to all chief constables and police and crime commissioners to tell them to adhere to the code.  I have told them that if they do not do so, the government will bring forward legislation to make this a statutory requirement.</p>\n\n<p>Earlier today I commissioned Alex Marshall, the chief executive of the College of Policing, to review the national training of stop and search with a view to developing robust professional standards for officers on probation, existing officers, supervisors and police leaders.  I have asked the College to include in this work unconscious bias awareness training to reduce the possibility of prejudice informing officers’ decisions.</p>\n\n<p>As part of that review, I have also asked the College to introduce an assessment of officers’ fitness to use stop and search powers.  I want this to send the clearest possible message – if officers do not pass this assessment, if they do not understand the law or they do not show they know how to use stop and search powers appropriately, they will not be allowed to use them.</p>\n\n<p>In order to save as much police time as possible, I have asked my officials in the Home Office to work with chief constables and police and crime commissioners to explore the possibility of recording information on the use of stop and search via the new Emergency Services Network.</p>\n\n<p>In addition to all these changes, I can tell the House that, this summer, the Home Office and the College of Policing will launch a new ‘Best Use of Stop and Search’ scheme.  This scheme already has the backing of the Metropolitan Police – the biggest user of stop and search in the country – and today I have written to all other police forces in England and Wales inviting them to sign up.</p>\n\n<p>Forces participating in the scheme will record the outcome of stops in more detail to show the link – or the lack of a link – between the object of the search and its outcome.  This will allow us to assess how well forces are interpreting the “reasonable grounds for suspicion” they are supposed to have to use their stop and search powers in accordance with law.  The scheme will also require forces to record a broader range of outcomes, such as penalty notices for disorder and cautions.  This will allow us to understand better how successful each stop and search really is.</p>\n\n<p>In order to improve the public’s understanding of the police, forces participating in the scheme will introduce lay observation policies, which enable members of the local community to apply to accompany police officers on patrol.</p>\n\n<p>The scheme will also require forces to introduce a stop and search complaints “community trigger” whereby the police must explain to the public how stop and search powers are being used where there is a large volume of complaints.</p>\n\n<p>Forces participating in the scheme will make clear that they will respect the case law established in ‘Roberts’ by using no-suspicion stop and search when it is “necessary to prevent incidents involving serious violence” rather than just “expedient” to do so.  They will raise the level of authorisation to a chief officer and that officer must reasonably believe that violence “will” take place rather than “may”, as things stand now.  This will bring no-suspicion stop and search more into line with the stop and search powers under Section 47A of the Terrorism Act 2000, and I hope it will reduce the number of no-suspicion stops significantly.</p>\n\n<p>The scheme will also require forces to limit the application of no-suspicion stop and search to fifteen hours.  It will also require them to communicate with local communities in advance and afterwards, so residents can be kept informed of the purpose and success of the operation.</p>\n\n<p>In addition to these changes, in order to improve transparency and accountability, we will add stop and search data to the government’s hugely successful and popular crime maps at www.police.uk.  I have also asked Her Majesty’s Chief Inspector of Constabulary to include the use of stop and search in HMIC’s new annual general inspections which begin towards the end of this year.  And I have commissioned HMIC to review all other police powers similar to stop and search – including Section 163 of the Road Traffic Act – with a view to eliminating any unfair or inappropriate use of those powers.</p>\n\n<p>Mr Speaker, the proposals I have outlined today amount to a comprehensive package of reform.  I believe that they should contribute to a significant reduction in the overall use of stop and search, better and more intelligence-led stop and search and improved stop-to-arrest ratios.  But I want to make myself absolutely clear: if the numbers do not come down, if stop and search does not become more targeted, if those stop-to-arrest ratios do not improve considerably, the government will return with primary legislation to make these things happen.</p>\n\n<p>Because, Mr Speaker, nobody wins when stop and search is misapplied.  It is a waste of police time.  It is unfair, especially to young, black men.  It is bad for public confidence in the police.  That is why these are the right reforms and it’s why I commend this statement to the House.</p>\n</div>",
+    "political": false,
+    "delivered_on": "2014-04-30T00:00:00+01:00",
+    "change_history": [
+      {
+        "public_timestamp": "2014-04-30T12:59:35.000+01:00",
+        "note": "First published."
+      }
+    ],
+    "image": {
+      "alt_text": "The Rt Hon Theresa May MP",
+      "url": "/government/uploads/system/uploads/person/image/6/PM_portrait_960x640.jpg"
+    },
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "first_public_at": "2014-04-30T12:59:35.000+01:00"
+  }
+}

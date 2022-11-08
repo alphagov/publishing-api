@@ -1,0 +1,80 @@
+{
+  "content_id": "63d98739-fc60-4e28-a65f-edb56000fd39",
+  "base_path": "/alpha-taxonomy/with_child_taxons",
+  "title": "Taxon with children",
+  "description": null,
+  "public_updated_at": "2015-12-09T11:11:11.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "details": {
+    "visible_to_departmental_editors": false
+  },
+  "links": {
+    "child_taxons": [
+      {
+        "api_path": "/api/content/education/further-and-higher-education-skills-and-vocational-training",
+        "base_path": "/education/further-and-higher-education-skills-and-vocational-training",
+        "content_id": "dd767840-363e-43ad-8835-c9ab516633de",
+        "description": "University and college qualifications. Apprenticeships, traineeships and internships. Funding for further education providers.",
+        "document_type": "taxon",
+        "locale": "en",
+        "phase": "live",
+        "public_updated_at": "2017-03-06T09:19:22Z",
+        "schema_name": "taxon",
+        "title": "Further and higher education, skills and vocational training",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Further and higher education, skills and vocational training",
+          "notes_for_editors": ""
+        },
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/education",
+              "base_path": "/education",
+              "content_id": "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
+              "description": "Schools and academies, further and higher education, apprenticeships and other skills training, student funding, early years.",
+              "document_type": "taxon",
+              "locale": "en",
+              "phase": "live",
+              "public_updated_at": "2018-01-18T13:25:17Z",
+              "schema_name": "taxon",
+              "title": "Education, training and skills",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "Education, training and skills",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": false
+              },
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/education",
+              "web_url": "https://www.gov.uk/education"
+            }
+          ]
+        }
+      }
+    ],
+    "root_taxon": [
+      {
+        "api_path": "/api/content/",
+        "base_path": "/",
+        "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+        "description": "",
+        "document_type": "homepage",
+        "locale": "en",
+        "public_updated_at": "2018-01-15T10:48:30Z",
+        "schema_name": "homepage",
+        "title": "GOV.UK homepage",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/",
+        "web_url": "https://www.gov.uk/"
+      }
+    ]
+  },
+  "schema_name": "taxon",
+  "document_type": "taxon",
+  "updated_at": "2017-06-30T15:44:11.073Z"
+}

@@ -1,0 +1,135 @@
+{
+  "title": "Get a divorce: step by step",
+  "publishing_app": "collections-publisher",
+  "rendering_app": "collections",
+  "routes": [
+    {
+      "path": "/get-a-divorce",
+      "type": "exact"
+    }
+  ],
+  "redirects": [
+
+  ],
+  "locale": "en",
+  "update_type": "major",
+  "public_updated_at": "2018-01-18T15:46:10.000+00:00",
+  "document_type": "step_by_step_nav",
+  "schema_name": "step_by_step_nav",
+  "base_path": "/get-a-divorce",
+  "description": "<p>How to file for divorce if you’re in England or Wales.</p><p>There is a different process if you’re <a href=\"/divorce/respond-to-a-divorce-petition\">responding to a divorce petition</a>, or if you’re in <a href=\"https://www.scotcourts.gov.uk/taking-action/divorce-and-dissolution-of-civil-partnership\">Scotland</a> or <a href=\"https://www.nidirect.gov.uk/articles/getting-divorcedissolution-civil-partnership\">Northern Ireland</a>.</p>",
+  "links": {
+  },
+  "details": {
+    "step_by_step_nav": {
+      "title": "Get a divorce: step by step",
+      "introduction": [
+        {
+          "content_type": "text/govspeak",
+          "content": "Check what you need to do to get a divorce."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Get support and advice",
+          "contents": [
+            {
+              "type": "paragraph",
+              "text": "You can get support and advice to help you deal with disputes and emotional stress."
+            },
+            {
+              "type": "list",
+              "contents": [
+                {
+                  "href": "https://www.relate.org.uk/relationship-help/help-separation-and-divorce",
+                  "text": "Get advice from Relate"
+                },
+                {
+                  "href": "http://www.counselling-directory.org.uk/adv-search.html",
+                  "text": "Find a counsellor",
+                  "context": "£35 to £60 per session"
+                },
+                {
+                  "href": "https://www.samaritans.org/how-we-can-help-you/contact-us",
+                  "text": "Contact the Samaritans if you need to speak to someone urgently"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Check if you can get divorced",
+          "contents": [
+            {
+              "type": "paragraph",
+              "text": "Your marriage must meet certain legal requirements for you to be able to get a divorce."
+            },
+            {
+              "type": "list",
+              "style": "required",
+              "contents": [
+                {
+                  "href": "/divorce",
+                  "text": "Check you can get a divorce"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Make arrangements for your children, money and property",
+          "contents": [
+            {
+              "type": "paragraph",
+              "text": "You should try to agree the arrangements for looking after your children and work out any money or property issues before you start your divorce."
+            },
+            {
+              "type": "list",
+              "style": "required",
+              "contents": [
+                {
+                  "href": "/looking-after-children-divorce",
+                  "text": "Make arrangements for your children"
+                },
+                {
+                  "href": "/money-property-when-relationship-ends",
+                  "text": "Divide your money and property"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "You should also check if your divorce will affect:"
+            },
+            {
+              "type": "list",
+              "style": "choice",
+              "contents": [
+                {
+                  "href": "/benefits-calculators",
+                  "text": "benefits you're eligible for"
+                },
+                {
+                  "href": "/report-benefits-change-circumstances",
+                  "text": "benefits you already receive"
+                },
+                {
+                  "href": "/contact-pension-service",
+                  "text": "your State Pension"
+                },
+                {
+                  "href": "/visas-when-you-separate-or-divorce",
+                  "text": "your UK visa status"
+                },
+                {
+                  "href": "/stay-in-home-during-separation-or-divorce",
+                  "text": "whether you can live in your current home"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

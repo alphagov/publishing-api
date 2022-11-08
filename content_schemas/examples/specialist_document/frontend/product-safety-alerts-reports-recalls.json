@@ -1,0 +1,383 @@
+{
+  "content_id": "574585b6-bf99-4cb1-be8b-628695f358d9",
+  "locale": "en",
+  "base_path": "/product-safety-alerts-reports-recalls/foo-bar-baz",
+  "title": "Example document",
+  "description": "Some example content",
+  "details": {
+    "body": "<h2 id=\"statutory-timetable\">Statutory timetable</h2>\n\n<table>\n  <thead>\n    <tr>\n      <th>Phase 1 date</th>\n      <th>Action</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>7 September 2015</td>\n      <td>Deadline for phase 1 decision (*)</td>\n    </tr>\n    <tr>\n      <td>10 to 24 July 2015</td>\n      <td>Invitation to comment</td>\n    </tr>\n    <tr>\n      <td>10 July 2015</td>\n      <td>Launch of merger inquiry</td>\n    </tr>\n  </tbody>\n</table>\n\n<p>(*) This date is the current statutory deadline by when the decision will be announced. If any change occurs, the information is refreshed as soon as practicable. However, the CMA cannot guarantee that the decision will be announced on or before this current deadline, as the deadline of a given case may change during the merger assessment process due to different reasons.</p>\n\n<h2 id=\"phase-1\">Phase 1</h2>\n\n<h3 id=\"invitation-to-comment-closes-24-july-2015\">Invitation to comment: closes 24 July 2015</h3>\n\n<p>10 July 2015: The CMA is considering whether it is or may be the case that this transaction has resulted in the creation of a relevant merger situation under the merger provisions of the Enterprise Act 2002 and, if so, whether the creation of that situation has resulted, or may be expected to result, in a substantial lessening of competition within any market or markets in the United Kingdom for goods or services.</p>\n\n<h3 id=\"launch-of-cma-merger-inquiry\">Launch of CMA merger inquiry</h3>\n\n<p>10 July 2015: The CMA announced the launch of its merger inquiry by notice to the parties.</p>\n\n<ul>\n  <li><a rel=\"external\" href=\"https://assets.digital.cabinet-office.gov.uk/media/559fc1b240f0b61564000047/Richemont-Yoox-NAP_commencement_of_initial_period_notice.pdf\">Commencement of initial period notice</a> (10.7.15)</li>\n</ul>\n\n<h3 id=\"contact\">Contact</h3>\n\n<p>Please send written representations about any competition issues to:</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\nSuzanne Van Scheijen\n<br />Competition and Markets Authority \n<br />Victoria House \n<br />Southampton Row \n<br />London \n<br />WC1B 4AD\n<br />\n</p></div></div>\n\n<p><a href=\"&#109;&#097;&#105;&#108;&#116;&#111;:&#083;&#117;&#122;&#097;&#110;&#110;&#101;&#046;&#086;&#097;&#110;&#083;&#099;&#104;&#101;&#105;&#106;&#101;&#110;&#064;&#099;&#109;&#097;&#046;&#103;&#115;&#105;&#046;&#103;&#111;&#118;&#046;&#117;&#107;\">&#083;&#117;&#122;&#097;&#110;&#110;&#101;&#046;&#086;&#097;&#110;&#083;&#099;&#104;&#101;&#105;&#106;&#101;&#110;&#064;&#099;&#109;&#097;&#046;&#103;&#115;&#105;&#046;&#103;&#111;&#118;&#046;&#117;&#107;</a></p>\n",
+    "metadata": {
+      "bulk_published": false,
+      "product_alert_type": "product-safety-alert",
+      "product_risk_level": "serious",
+      "product_category": "adaptors-plugs-sockets",
+      "product_measure_type": [
+        "ban-marketing-of-product-and-accompanying-measures",
+        "warning-consumers-of-risks"
+      ],
+      "product_recall_alert_date": "2014-01-01"
+    },
+    "max_cache_time": 10,
+    "change_history": [
+      {
+        "note": "First published.",
+        "public_timestamp": "2015-07-10T13:09:46+00:00"
+      }
+    ],
+    "headers": [
+      {
+        "text": "Statutory timetable",
+        "level": 2,
+        "id": "statutory-timetable"
+      },
+      {
+        "text": "Phase 1",
+        "level": 2,
+        "id": "phase-1",
+        "headers": [
+          {
+            "text": "Invitation to comment: closes 24 July 2015",
+            "level": 3,
+            "id": "invitation-to-comment-closes-24-july-2015"
+          },
+          {
+            "text": "Launch of CMA merger inquiry",
+            "level": 3,
+            "id": "launch-of-cma-merger-inquiry"
+          },
+          {
+            "text": "Contact",
+            "level": 3,
+            "id": "contact"
+          }
+        ]
+      }
+    ]
+  },
+  "public_updated_at": "2015-07-10T13:09:46+00:00",
+  "schema_name": "specialist_document",
+  "document_type": "product_safety_alert_report_recall",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D550",
+        "api_path": "/api/content/government/organisations/office-for-product-safety-and-standards",
+        "base_path": "/government/organisations/office-for-product-safety-and-standards",
+        "content_id": "a0ee18e7-9e1e-4ba1-aed5-f3f287dce752",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-03-10T16:23:14Z",
+        "schema_name": "organisation",
+        "title": "Office for Product Safety and Standards",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "formatted_title": "Office for Product Safety and Standards",
+            "crest": null
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/office-for-product-safety-and-standards",
+        "web_url": "https://www.gov.uk/government/organisations/office-for-product-safety-and-standards"
+      }
+    ],
+    "finder": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/product-safety-alerts",
+        "base_path": "/product-safety-alerts-reports-recalls",
+        "content_id": "a22b3f1f-2c91-49a1-a469-ff21d465c543",
+        "description": "Find product safety alerts, unsafe products and recalls",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2017-03-15T14:44:21Z",
+        "schema_name": "finder",
+        "title": "Office for Product Safety and Standards",
+        "withdrawn": false,
+        "details": {
+          "facets": [
+            {
+              "key": "product_alert_type",
+              "name": "Alert type",
+              "type": "text",
+              "preposition": "of type",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Product safety alert",
+                  "value": "product-safety-alert"
+                },
+                {
+                  "label": "Product safety report",
+                  "value": "product-safety-report"
+                },
+                {
+                  "label": "Product recall",
+                  "value": "product-recall"
+                }
+              ]
+            },
+            {
+              "key": "product_risk_level",
+              "name": "Risk level",
+              "type": "text",
+              "preposition": "that are",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Serious",
+                  "value": "serious"
+                },
+                {
+                  "label": "High",
+                  "value": "high"
+                },
+                {
+                  "label": "Medium",
+                  "value": "medium"
+                },
+                {
+                  "label": "Low",
+                  "value": "low"
+                },
+                {
+                  "label": "Not provided",
+                  "value": "not-provided"
+                }
+              ]
+            },
+            {
+              "key": "product_category",
+              "name": "Product category",
+              "type": "text",
+              "preposition": "of type",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Adaptors, Plugs and Sockets",
+                  "value": "adaptors-plugs-sockets"
+                },
+                {
+                  "label": "Chemical products",
+                  "value": "chemical-products"
+                },
+                {
+                  "label": "Childcare articles and children's equipment",
+                  "value": "childcare-articles-childrens-equipment"
+                },
+                {
+                  "label": "Clothing, textiles and fashion items",
+                  "value": "clothing-textiles-fashion"
+                },
+                {
+                  "label": "Communication and media equipment",
+                  "value": "communication-media-equipment"
+                },
+                {
+                  "label": "Computers and computer accessories",
+                  "value": "computers-and-accessories"
+                },
+                {
+                  "label": "Construction products",
+                  "value": "construction-products"
+                },
+                {
+                  "label": "Cosmetics",
+                  "value": "cosmetics"
+                },
+                {
+                  "label": "Electrical appliances and equipment",
+                  "value": "electrical-appliances-equipment"
+                },
+                {
+                  "label": "Entertainment and leisure products (indoors)",
+                  "value": "entertainment-leisure-products-indoors"
+                },
+                {
+                  "label": "Entertainment and leisure products (outdoors)",
+                  "value": "entertainment-leisure-products-outdoors"
+                },
+                {
+                  "label": "Explosive atmospheres equipment",
+                  "value": "explosive-atmospheres-equipment"
+                },
+                {
+                  "label": "Fireworks and Pyrotechnic Articles",
+                  "value": "fireworks-and-pyrotechnic-articles"
+                },
+                {
+                  "label": "Food imitating products",
+                  "value": "food-imitating-products"
+                },
+                {
+                  "label": "Furniture",
+                  "value": "furniture"
+                },
+                {
+                  "label": "Gas appliances and components",
+                  "value": "gas-appliances-and-components"
+                },
+                {
+                  "label": "Hand tools",
+                  "value": "hand-tools"
+                },
+                {
+                  "label": "Household decorative articles",
+                  "value": "household-decorative-articles"
+                },
+                {
+                  "label": "Hobby / sports equipment",
+                  "value": "hobby-sports-equipment"
+                },
+                {
+                  "label": "Jewellery",
+                  "value": "jewellery"
+                },
+                {
+                  "label": "Kitchen / cooking accessories",
+                  "value": "kitchen-cooking-accessories"
+                },
+                {
+                  "label": "Lifts",
+                  "value": "lifts"
+                },
+                {
+                  "label": "Lighting Products",
+                  "value": "lighting-products"
+                },
+                {
+                  "label": "Machinery",
+                  "value": "machinery"
+                },
+                {
+                  "label": "Measuring instruments",
+                  "value": "measuring-instruments"
+                },
+                {
+                  "label": "Motor vehicles",
+                  "value": "motor-vehicles"
+                },
+                {
+                  "label": "Other",
+                  "value": "other"
+                },
+                {
+                  "label": "Pressure equipment / vessels",
+                  "value": "pressure-equipment-vessels"
+                },
+                {
+                  "label": "Personal protective equipment (PPE)",
+                  "value": "personal-protective-equipment-ppe"
+                },
+                {
+                  "label": "Recreational crafts",
+                  "value": "recreational-crafts"
+                },
+                {
+                  "label": "Stationery",
+                  "value": "stationery"
+                },
+                {
+                  "label": "Toys",
+                  "value": "toys"
+                }
+              ]
+            },
+            {
+              "key": "product_measure_type",
+              "name": "Measure type",
+              "type": "text",
+              "preposition": "of type",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Ban on the marketing of the product and any accompanying measures",
+                  "value": "ban-marketing-of-product-and-accompanying-measures"
+                },
+                {
+                  "label": "Destruction of the product",
+                  "value": "destruction-of-the-product"
+                },
+                {
+                  "label": "Import rejected at border",
+                  "value": "import-rejected-at-border"
+                },
+                {
+                  "label": "Making the marketing of the product subject to prior conditions",
+                  "value": "making-marketing-of-product-subject-to-prior-conditions"
+                },
+                {
+                  "label": "Marking the product with appropriate warnings on the risks",
+                  "value": "marking-product-with-appropriate-warnings-on-risks"
+                },
+                {
+                  "label": "Recall of the product from end users",
+                  "value": "recall-of-product-from-end-users"
+                },
+                {
+                  "label": "Removal of the listing by the online marketplace",
+                  "value": "removal-of-listing-by-online-marketplace"
+                },
+                {
+                  "label": "Temporary ban on the supply, offer to supply and display of the product",
+                  "value": "temporary-ban-on-supply-offer-and-display-of-product"
+                },
+                {
+                  "label": "Warning consumers of the risks",
+                  "value": "warning-consumers-of-risks"
+                },
+                {
+                  "label": "Withdrawal of the product from the market",
+                  "value": "withdrawal-of-product-from-market"
+                },
+                {
+                  "label": "Other",
+                  "value": "other"
+                }
+              ]
+            },
+            {
+              "key": "product_recall_alert_date",
+              "name": "Recall/alert date",
+              "type": "date",
+              "preposition": "recalled/alerted",
+              "display_as_result_metadata": true,
+              "filterable": true
+            }
+          ]
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/product-safety-alerts-reports-recalls",
+        "web_url": "https://www.gov.uk/product-safety-alerts-reports-recalls"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "content_id": "27210998-66fb-4ff7-8fa8-7115936d296a",
+        "description": "Some example content",
+        "document_type": "product_safety_alerts_reports_recalls",
+        "public_updated_at": "2015-10-01T11:00:38Z",
+        "schema_name": "specialist_document",
+        "title": "Example document",
+        "base_path": "/product-safety-alerts-reports-recalls/example-document",
+        "locale": "en",
+        "api_path": "/api/content/product-safety-alerts-reports-recalls/example-document",
+        "withdrawn": false,
+        "api_url": "https://www.gov.uk/api/content/product-safety-alerts-reports-recalls/example-document",
+        "web_url": "https://www.gov.uk/product-safety-alerts-reports-recalls/example-document",
+        "links": {
+        }
+      }
+    ]
+  },
+  "updated_at": "2017-06-30T15:44:11.073Z"
+}

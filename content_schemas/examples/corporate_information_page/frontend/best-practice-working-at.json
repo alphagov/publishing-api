@@ -1,0 +1,88 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/environment-agency/about/recruitment",
+  "content_id": "5f561823-7631-11e4-a3cb-005056011aef",
+  "document_type": "recruitment",
+  "first_published_at": "2014-05-16T15:51:31.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-11-23T11:22:44.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Working for EA",
+  "updated_at": "2017-11-23T11:22:44.534Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "18259-1511436164.002-195.59.221.4-1579",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "EA199",
+        "api_path": "/api/content/government/organisations/environment-agency",
+        "base_path": "/government/organisations/environment-agency",
+        "content_id": "16628142-57b2-4611-bc03-5912785acee3",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-10-05T08:43:12Z",
+        "schema_name": "placeholder",
+        "title": "Environment Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Environment Agency",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/199/EA_logo_354.jpg",
+              "alt_text": "Environment Agency"
+            }
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/environment-agency",
+        "web_url": "https://www.gov.uk/government/organisations/environment-agency"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Working for EA",
+        "public_updated_at": "2017-11-23T11:22:44Z",
+        "document_type": "recruitment",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/environment-agency/about/recruitment",
+        "description": "How to apply for jobs, workplace benefits and entry level programmes at the Environment Agency (EA).\r\n",
+        "api_path": "/api/content/government/organisations/environment-agency/about/recruitment",
+        "withdrawn": false,
+        "content_id": "5f561823-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/environment-agency/about/recruitment",
+        "web_url": "https://www.gov.uk/government/organisations/environment-agency/about/recruitment",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "How to apply for jobs, workplace benefits and entry level programmes at the Environment Agency (EA).\r\n",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"apply-for-a-job\">Apply for a job</h2>\n\n<p>You can search for a job, including entry level programmes, on <a rel=\"external\" href=\"https://environmentagencyjobs.tal.net/vx/appcentre-1/candidate/\">our recruitment system</a>.</p>\n\n<p>We employ around 10,600 people throughout England in a variety of roles including:</p>\n\n<ul>\n  <li>scientists</li>\n  <li>geologists</li>\n  <li>engineers</li>\n  <li>project managers</li>\n  <li>planners</li>\n  <li>hydrologists</li>\n  <li>environment officers</li>\n  <li>graduates</li>\n  <li>nuclear assessors</li>\n  <li>policy advisors</li>\n  <li>enforcement officers</li>\n  <li>senior managers</li>\n  <li>support staff</li>\n</ul>\n\n<h2 id=\"what-we-offer-you\">What we offer you</h2>\n\n<p>There are a range of benefits available when you work with us.</p>\n\n<h3 id=\"pay-and-pension\">Pay and pension</h3>\n\n<p>We offer:</p>\n\n<ul>\n  <li>a competitive salary</li>\n  <li>a generous career average pension scheme</li>\n</ul>\n\n<h3 id=\"enhanced-benefits\">Enhanced benefits</h3>\n\n<p>These include:</p>\n\n<ul>\n  <li>holiday allowance related to grade and length of service, rising from 25 or 27 days to 30 days per year, plus 8 statutory public and bank holidays (pro-rata for part-time employees)</li>\n  <li>maternity, paternity and adoption leave scheme</li>\n  <li>leave for examinations, approved studies, public duties, special or reserve forces, environmental work, trade union representatives and health and safety representatives</li>\n  <li>a range of flexible working options, including flexi-time - these depend on business needs, but our aim is to help you achieve a positive work-life balance</li>\n</ul>\n\n<h3 id=\"health-and-wellbeing\">Health and wellbeing</h3>\n\n<p>We offer:</p>\n\n<ul>\n  <li>occupational health benefits, including counselling and advisory service, eye care service and access to Help (our employee assistance service)</li>\n  <li>interest free loans for season tickets and/or bicycles and safety equipment</li>\n  <li>childcare vouchers scheme</li>\n  <li>subsidised sports and social clubs</li>\n  <li>many other rewards, including shopping, leisure, fitness, finance and travel benefits and discounts</li>\n</ul>\n\n<h2 id=\"entry-level-programmes\">Entry level programmes</h2>\n\n<p>We offer a variety of entry level schemes, including a graduate programme, foundation degree, apprenticeships and placements.</p>\n\n<p><span id=\"attachment_2408325\" class=\"attachment-inline\">\n  <a href=\"/government/uploads/system/uploads/attachment_data/file/311850/Recruitment_Process_Entry_Level_Schemes.pdf\">Recruitment process for placements, apprenticeships and graduate programmes</a>\n  (<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">177KB</span>, <span class=\"page-length\">2 pages</span>)\n</span></p>\n\n<h3 id=\"engineering-graduate-programme\">Engineering graduate programme</h3>\n\n<p>We’re looking for graduates with a master’s degree in civil engineering and mechanical engineering to join our structured graduate training scheme in flood and coastal risk management.</p>\n\n<p>As a graduate engineer you’ll take on a mix of internal and external projects. They will help you build skills in everything from asset management to project feasibility, planning to design, and project management to site supervision.</p>\n\n<p>Once you’ve gained the full range of relevant skills, attributes and capabilities, you can complete your chartered professional review.</p>\n\n<p>You will follow a 3 to 4 year structured and well supported training programme that satisfies the requirements of either the Institute of Civil Engineering, the Institute of Engineering and Technology, or the Institute of Mechanical and Electrical Engineers, to become a chartered engineer.</p>\n\n<p>Once completed, you will be in a great position to apply for a wide range of suitable, professionally qualified roles within the Environment Agency.</p>\n\n<p>To be eligible for this scheme your degree or experience must satisfy the requirements of becoming a chartered engineer.</p>\n\n<p>We are recruiting for graduate engineers to start in September 2018 (other start dates may be considered). Interviews are likely to be held in February 2018.</p>\n\n<p><a rel=\"external\" href=\"https://environmentagencyjobs.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-2/candidate/jobboard/vacancy/1/adv/\">Apply for our graduate training scheme in flood and coastal risk management during November 2017</a>.</p>\n\n<p>Email <a href=\"mailto:gradengineers@environment-agency.gov.uk\">gradengineers@environment-agency.gov.uk</a> with queries about our graduate engineering scheme.</p>\n\n<h3 id=\"flood-and-coastal-engineering-foundation-degree\">Flood and coastal engineering foundation degree</h3>\n\n<p>This is a 2-year work-based learning programme we provide in partnership with Brunel University London and HR Wallingford.</p>\n\n<p>We’ll pay your tuition fees, saving you £9,250 per year. You’ll also get an allowance of £1,000 a month, exempt from tax and national insurance, while on your training placements.</p>\n\n<p>You’ll spend the first 6 months studying full time at Brunel University London followed by 6 months training at an Environment Agency or risk management authority office. You’ll also attend a week long summer school at HR Wallingford.</p>\n\n<p>The final year is split again, with 6 months studying at Brunel University and your final 6 months training in the workplace.</p>\n\n<p>Once you complete the foundation degree successfully you can then study for a bachelor of science degree in either one year (full time) or 2 years (part time).</p>\n\n<p><a rel=\"external\" href=\"http://www.brunel.ac.uk/Flood-and-Coastal-Engineering?gclid=CO3vpYespc8CFRMz0wodizgFOg\">Apply online to Brunel University London</a>.</p>\n\n<h3 id=\"flood-and-coastal-engineering-bsc\">Flood and coastal engineering BSc</h3>\n\n<p>The BSc top-up degree is for recent graduates of the Flood or river and coastal engineering foundation degree.</p>\n\n<p>You will study this as a 2-year, part-time degree if you have a sponsored place, or one-year, full-time if you are self-funding.</p>\n\n<p>Through intense modules and distance learning while in the workplace, you will enhance your knowledge of structural design, geotechnics and how to mitigate risk through environmental assessment and strategic management. You’ll also develop your skills in hydraulic modelling, flood estimation and engineering design.</p>\n\n<p>Find out more from <a rel=\"external\" href=\"http://www.brunel.ac.uk/Flood-and-Coastal-Engineering?gclid=CO3vpYespc8CFRMz0wodizgFOg\">Brunel University London</a> or email <a href=\"mailto:FaCE@environment-agency.gov.uk\">FaCE@environment-agency.gov.uk</a></p>\n\n<h3 id=\"flood-and-coastal-engineering-msc\">Flood and coastal engineering MSc</h3>\n<p>Our new Flood and coastal engineering MSc will maintain and enhance your skills and experience in flood management initiatives to protect communities from flooding.</p>\n\n<p>On the course you’ll develop your knowledge of structural design, geotechnics and how to manage and mitigate risk against extreme flood events through environmental assessment and strategic management. You’ll also develop your skills in hydraulic modelling, flood estimation and engineering design.</p>\n\n<p>This course is for graduates who have typically studied engineering, mathematics, environmental science, geography or geology and are now looking to become chartered engineers.</p>\n\n<p>If you have a sponsored place you will study for 2-years, part-time. if you are self-funding you will study for one-year, full-time.</p>\n\n<p>Read more from <a rel=\"external\" href=\"http://www.brunel.ac.uk/Flood-and-Coastal-Engineering?gclid=CO3vpYespc8CFRMz0wodizgFOg\">Brunel University London</a>.</p>\n\n<p>Email <a href=\"mailto:FaCE@environment-agency.gov.uk\">FaCE@environment-agency.gov.uk</a> to express your interest and ask for further information on sponsorship.</p>\n\n<p><a rel=\"external\" href=\"http://www.brunel.ac.uk/study/postgraduate/Flood-and-Coastal-Engineering-MSc\">Apply for a self-funded place at Brunel University London</a>.</p>\n\n<h3 id=\"geomatics-placement\">Geomatics placement</h3>\n<p>This is a year-long placement for students who are in their penultimate year of an undergraduate degree programme. The degree must include content on remote sensing and/or geographic information systems (GIS). It is for students committed to a career in geomatics and/or the environmental sector.</p>\n\n<p>Your placement year will be spent with our small team in our Bath office where you’ll be supported by your team leader, a geomatics expert, and an independent mentor. You’ll gain valid and relevant exposure to a wide range of geomatics activities. We offer a competitive package with a range of benefits and the opportunity to make a real difference to the environment.</p>\n\n<p>You must gain approval from your university before you apply for this placement. To register, email <a href=\"mailto:geomaticsinternships@environment-agency.gov.uk\">geomaticsinternships@environment-agency.gov.uk</a>.</p>\n\n<h2 id=\"apprenticeship-programmes\">Apprenticeship programmes</h2>\n\n<h3 id=\"finance-apprenticeships\">Finance apprenticeships</h3>\n\n<p>The finance apprenticeship combines training in the workplace with studying towards the Association of Chartered Certified Accountants (ACCA) Intermediate Certificate in Financial and Management Accounting.</p>\n\n<p>One of the leading financial training organisations will provide your study course. We will provide your salary, tuition and course fees, and equipment.</p>\n\n<p>We advertise finance apprenticeships on our <a rel=\"external\" href=\"https://environmentagencyjobs.tal.net/vx/appcentre-1/candidate/\">recruitment system.</a></p>\n\n<h3 id=\"assistant-scientist-apprenticeships\">Assistant scientist apprenticeships</h3>\n<p>The assistant scientist apprenticeship combines training in the workplace with studying towards the Advanced Apprenticeship in Laboratory Technician (Level 3).</p>\n\n<p>Local colleges will provide your study course and your workplace training will take place at one of our 3 laboratories in Exeter, Nottingham and Leeds. We will provide your salary, tuition and course fees, and equipment.</p>\n\n<p>We advertise assistant scientist apprenticeships on our <a rel=\"external\" href=\"https://environmentagencyjobs.tal.net/vx/appcentre-1/candidate/\">recruitment system.</a></p>\n\n<h3 id=\"facilities-management-apprenticeships\">Facilities management apprenticeships</h3>\n<p>The facilities management apprenticeship combines training in the workplace with study towards the City and Guilds level 2 certificate in facilities services. Your workplace training will take place at one of our offices. We will provide your salary, tuition and course fees, and equipment.\nWe advertise facilities management apprenticeships on our <a rel=\"external\" href=\"https://environmentagencyjobs.tal.net/vx/appcentre-1/candidate/\">recruitment system.</a></p>\n\n<h2 id=\"volunteering-opportunities\">Volunteering opportunities</h2>\n\n<h3 id=\"river-thames-volunteer-assistant-lock-keepers\">River Thames volunteer assistant lock keepers</h3>\n\n<p>We are recruiting volunteers to help our staff on the River Thames.</p>\n\n<p>We are responsible for 45 lock sites on the river, which are used by boaters throughout the year. During the summer months we see an increase in boat traffic as more people enjoy all the Thames has to offer. As a River Thames volunteer assistant lock keeper, you will help with the safe passage of boats through our locks.</p>\n\n<p>Working with an experienced lock and weir keeper, you will help in the day-to-day management of a lock site and give information, guidance and advice to river users as they pass through.  We will provide full training and uniform to successful applicants.</p>\n\n<p>If you would like to find out more about volunteering on the Thames, please contact the River Thames volunteer team on 01491 828360 or email <a href=\"mailto:thames.volunteers@environment-agency.gov.uk\">thames.volunteers@environment-agency.gov.uk</a>.</p>\n\n<h2 id=\"how-we-process-your-personal-data\">How we process your personal data</h2>\n\n<p>We are changing the way we process your personal data relating to financial transactions when we interact with you. Our services provider Shared Services Connected Limited (SSCL) may process some of this data offshore. For more information see <a href=\"https://www.gov.uk/government/publications/personal-data-processing-fair-processing-notice\">Personal data processing: fair processing notice</a>.</p>\n\n</div>",
+    "organisation": "16628142-57b2-4611-bc03-5912785acee3",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "change_history": [
+      {
+        "note": "We are now recruiting to our structured graduate training scheme in flood and coastal risk management. Details on how to apply have been added to the page.",
+        "public_timestamp": "2016-03-01T09:32:40.297Z"
+      }
+    ]
+  }
+}

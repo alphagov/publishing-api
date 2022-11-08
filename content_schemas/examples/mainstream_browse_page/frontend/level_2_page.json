@@ -1,0 +1,91 @@
+{
+  "content_id": "d086e95b-0e5e-46a3-97bc-d0672b111b7c",
+  "base_path": "/browse/benefits/entitlement",
+  "description": "When and how benefit payments are made, benefits adviser and benefit fraud",
+  "details": {
+  },
+  "links": {
+    "active_top_level_browse_page": [
+      {
+        "content_id": "fde24a9c-f304-4b8b-af67-39faabb3c821",
+        "title": "Benefits",
+        "api_path": "/api/content/browse/benefits",
+        "base_path": "/browse/benefits",
+        "description": "Includes tax credits, eligibility and appeals",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits",
+        "web_url": "https://www.gov.uk/browse/benefits",
+        "locale": "en"
+      }
+    ],
+    "top_level_browse_pages": [
+      {
+        "content_id": "fde24a9c-f304-4b8b-af67-39faabb3c821",
+        "title": "Benefits",
+        "api_path": "/api/content/browse/benefits",
+        "base_path": "/browse/benefits",
+        "description": "Includes tax credits, eligibility and appeals",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits",
+        "web_url": "https://www.gov.uk/browse/benefits",
+        "locale": "en"
+      },
+      {
+        "content_id": "2695b93d-aa9f-418a-847d-eaf63a474d75",
+        "title": "Births, deaths, marriages and care",
+        "api_path": "/api/content/browse/births-deaths-marriages",
+        "base_path": "/browse/births-deaths-marriages",
+        "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+        "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages",
+        "web_url": "https://www.gov.uk/browse/births-deaths-marriages",
+        "locale": "en"
+      },
+      {
+        "content_id": "14a1e0fd-2ee3-4816-b700-e3640f9c4533",
+        "title": "Business and self-employed",
+        "api_path": "/api/content/browse/business",
+        "base_path": "/browse/business",
+        "description": "Information about starting up and running a business in the UK, including help if you're self employed or a sole trader.",
+        "api_url": "https://www.gov.uk/api/content/browse/business",
+        "web_url": "https://www.gov.uk/browse/business",
+        "locale": "en"
+      }
+    ],
+    "second_level_browse_pages": [
+      {
+        "content_id": "d086e95b-0e5e-46a3-97bc-d0672b111b7c",
+        "title": "Benefits entitlement",
+        "api_path": "/api/content/browse/benefits/entitlement",
+        "base_path": "/browse/benefits/entitlement",
+        "description": "When and how benefit payments are made, benefits adviser and benefit fraud",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits/entitlement",
+        "web_url": "https://www.gov.uk/browse/benefits/entitlement",
+        "locale": "en"
+      },
+      {
+        "content_id": "c48318ab-26cf-4049-9c0f-3bc693cf41b7",
+        "title": "Benefits for families",
+        "api_path": "/api/content/browse/benefits/families",
+        "base_path": "/browse/benefits/families",
+        "description": "Includes Child Trust Funds, childcare and the Sure Start Maternity Grant",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits/families",
+        "web_url": "https://www.gov.uk/browse/benefits/families",
+        "locale": "en"
+      },
+      {
+        "content_id": "b8ecf6a5-ea0e-43d1-aa25-fb68bbe62554",
+        "title": "Carers and disability benefits",
+        "api_path": "/api/content/browse/benefits/disability",
+        "base_path": "/browse/benefits/disability",
+        "description": "Includes Disability Living Allowance, Carer's Allowance and Employment and Support Allowance",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits/disability",
+        "web_url": "https://www.gov.uk/browse/benefits/disability",
+        "locale": "en"
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2015-04-20T15:46:10.000+00:00",
+  "title": "Benefits entitlement",
+  "updated_at": "2015-04-20T15:50:11.000+00:00",
+  "schema_name": "mainstream_browse_page",
+  "document_type": "mainstream_browse_page"
+}

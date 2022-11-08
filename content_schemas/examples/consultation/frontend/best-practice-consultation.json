@@ -1,0 +1,198 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/consultations/furniture-fire-safety-regulations-proposed-amendments",
+  "content_id": "5fe29115-7631-11e4-a3cb-005056011aef",
+  "document_type": "consultation_outcome",
+  "first_published_at": "2014-08-07T09:30:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-11-12T10:11:52.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "consultation",
+  "title": "Furniture fire safety regulations: proposed amendments",
+  "updated_at": "2018-03-05T15:15:30.087Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D3",
+        "api_path": "/api/content/government/organisations/department-for-business-innovation-skills",
+        "base_path": "/government/organisations/department-for-business-innovation-skills",
+        "content_id": "569a9ee5-c195-4b7f-b9dc-edc17a09113f",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-08-01T15:38:37Z",
+        "schema_name": "placeholder",
+        "title": "Department for Business, Innovation & Skills",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "formatted_title": "Department <br/>for Business<br/>Innovation &amp; Skills",
+            "crest": "bis"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-business-innovation-skills",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-business-innovation-skills"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/consumer-rights-and-issues",
+        "base_path": "/government/topics/consumer-rights-and-issues",
+        "content_id": "9d7b90e5-625c-4203-a62a-be9be43d35f3",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:05Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Consumer rights and issues",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/consumer-rights-and-issues",
+        "web_url": "https://www.gov.uk/government/topics/consumer-rights-and-issues"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D3",
+        "api_path": "/api/content/government/organisations/department-for-business-innovation-skills",
+        "base_path": "/government/organisations/department-for-business-innovation-skills",
+        "content_id": "569a9ee5-c195-4b7f-b9dc-edc17a09113f",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-08-01T15:38:37Z",
+        "schema_name": "placeholder",
+        "title": "Department for Business, Innovation & Skills",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "formatted_title": "Department <br/>for Business<br/>Innovation &amp; Skills",
+            "crest": "bis"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-business-innovation-skills",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-business-innovation-skills"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/consumer-protection",
+        "base_path": "/government/policies/consumer-protection",
+        "content_id": "5c782deb-7631-11e4-a3cb-005056011aef",
+        "description": "What the government’s doing about consumer protection.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-05-14T17:50:48Z",
+        "schema_name": "policy",
+        "title": "Consumer protection",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/consumer-protection",
+        "web_url": "https://www.gov.uk/government/policies/consumer-protection"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Furniture fire safety regulations: proposed amendments",
+        "public_updated_at": "2015-11-12T10:11:52Z",
+        "document_type": "consultation_outcome",
+        "schema_name": "consultation",
+        "base_path": "/government/consultations/furniture-fire-safety-regulations-proposed-amendments",
+        "description": "Proposed changes to the UK's furniture flammability laws to improve safety, make UK furniture greener and bring savings to industry.",
+        "api_path": "/api/content/government/consultations/furniture-fire-safety-regulations-proposed-amendments",
+        "withdrawn": false,
+        "content_id": "5fe29115-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/consultations/furniture-fire-safety-regulations-proposed-amendments",
+        "web_url": "https://www.gov.uk/government/consultations/furniture-fire-safety-regulations-proposed-amendments",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Proposed changes to the UK's furniture flammability laws to improve safety, make UK furniture greener and bring savings to industry.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The <a rel=\"external\" href=\"http://www.legislation.gov.uk/uksi/1988/1324/contents/made\">Furniture and Furnishings (Fire) (Safety) Regulations 1988</a> set levels of fire resistance for domestic upholstered furniture, furnishings and other products containing upholstery.</p>\n\n<p>This consultation sets out the government’s intention to change the specification for the match test and the requirements for the cigarette test (both for covering fabrics) in the regulations.</p>\n</div>",
+    "closing_date": "2014-10-07T17:00:00.000+01:00",
+    "emphasised_organisations": [
+      "569a9ee5-c195-4b7f-b9dc-edc17a09113f"
+    ],
+    "opening_date": "2014-08-07T09:30:00.000+01:00",
+    "change_history": [
+      {
+        "public_timestamp": "2015-11-12T10:11:52.000+00:00",
+        "note": "Added responses."
+      },
+      {
+        "public_timestamp": "2015-03-25T12:00:10.000+00:00",
+        "note": "Published a 'summary of public responses' and 'technical annex' for the consultation on amendments to the furniture and furnishings (fire) (safety) regulations."
+      },
+      {
+        "public_timestamp": "2014-08-07T09:30:00.000+01:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1233009\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/342523/bis-14-980-furniture-fire-safety-regulations-consultation-document-august-2014-protected.docx\"><img alt=\"\" src=\"/government/assets/pub-cover-doc-afe3b0a8a9511beeca890340170aee8b5649413f948e512c9b8ce432d8513d32.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/342523/bis-14-980-furniture-fire-safety-regulations-consultation-document-august-2014-protected.docx\">Consultation on proposed amendments to Schedule 5 - The Match Test - Part 1 and Schedule 4 - The Cigarette Test - of the Furniture and Furnishings (Fire) (Safety) Regulations 1988</a></h2>\n    <p class=\"metadata\">\n        <span class=\"references\">\n          Ref: <span class=\"unique_reference\">BIS/14/980</span>\n        </span>\n        <span class=\"type\">MS Word Document</span>, <span class=\"file-size\">425KB</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1233010\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/339867/bis-14-1023-impact-assessment-of-proposed-amendments-to-schedule-5-the-match-test-part-1-and-schedule-4-the-cigarette-test-of-the-furniture-and-furnishings-fire-safety-regulations-1988.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/339867/thumbnail_bis-14-1023-impact-assessment-of-proposed-amendments-to-schedule-5-the-match-test-part-1-and-schedule-4-the-cigarette-test-of-the-furniture-and-furnishings-fire-safety-regulations-1988.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/339867/bis-14-1023-impact-assessment-of-proposed-amendments-to-schedule-5-the-match-test-part-1-and-schedule-4-the-cigarette-test-of-the-furniture-and-furnishings-fire-safety-regulations-1988.pdf\">Impact assessment on proposed amendments to Schedule 5 - The Match Test - Part 1 and Schedule 4 - The Cigarette Test - of the Furniture and Furnishings (Fire) (Safety) Regulations 1988</a></h2>\n    <p class=\"metadata\">\n        <span class=\"references\">\n          Ref: <span class=\"unique_reference\">BIS/14/1023</span>\n        </span>\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">1.1MB</span>, <span class=\"page-length\">27 pages</span>\n    </p>\n\n\n  </div>\n</section>"
+    ],
+    "final_outcome_detail": "<div class=\"govspeak\"><p>The Department for Business Innovation and Skills (BIS) will not go ahead with the proposed amendments in April 2015. Instead, the proposals on changes to the Furniture and Furnishings (Fire) Regulations testing regime will be considered as part of the full review of the regulations which was already underway.</p>\n</div>",
+    "final_outcome_documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1233011\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/456056/bis-15-140-consultation-on-amendments-to-the-furniture-and-furnishings-fire-safety-regulations.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/456056/thumbnail_bis-15-140-consultation-on-amendments-to-the-furniture-and-furnishings-fire-safety-regulations.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1233011-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/456056/bis-15-140-consultation-on-amendments-to-the-furniture-and-furnishings-fire-safety-regulations.pdf\">Consultation on amendments to the Furniture and Furnishings (Fire) (Safety) Regulations: summary of responses Schedule 5 - The Match Test - Part 1 and Schedule 4 - The Cigarette Test</a></h2>\n    <p class=\"metadata\">\n        <span class=\"references\">\n          Ref: <span class=\"unique_reference\">BIS/15/140</span>\n        </span>\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">277KB</span>, <span class=\"page-length\">12 pages</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1233011-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1233011-accessibility-request\" data-controls=\"attachment-1233011-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1233011-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@bis.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Consultation%20on%20amendments%20to%20the%20Furniture%20and%20Furnishings%20%28Fire%29%20%28Safety%29%20Regulations%3A%20summary%20of%20responses%20Schedule%205%20-%20The%20Match%20Test%20-%20Part%201%20and%20Schedule%204%20-%20The%20Cigarette%20Test%0A%20%20Original%20format%3A%20pdf%0A%20%20Unique%20reference%3A%20BIS%2F15%2F140%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Consultation%20on%20amendments%20to%20the%20Furniture%20and%20Furnishings%20%28Fire%29%20%28Safety%29%20Regulations%3A%20summary%20of%20responses%20Schedule%205%20-%20The%20Match%20Test%20-%20Part%201%20and%20Schedule%204%20-%20The%20Cigarette%20Test%27%20in%20an%20alternative%20format\">enquiries@bis.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1233012\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/416984/bis-15-150-technical-annex-systematic-rationale-for-modification-of-the-furniture-furnishings-fire-safety-regulations-in-relation-to-schedule-4-schedule-5.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/416984/thumbnail_bis-15-150-technical-annex-systematic-rationale-for-modification-of-the-furniture-furnishings-fire-safety-regulations-in-relation-to-schedule-4-schedule-5.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/416984/bis-15-150-technical-annex-systematic-rationale-for-modification-of-the-furniture-furnishings-fire-safety-regulations-in-relation-to-schedule-4-schedule-5.pdf\">Technical annex: systematic rationale for modification of the Furniture &amp; Furnishings (Fire) Regulations</a></h2>\n    <p class=\"metadata\">\n        <span class=\"references\">\n          Ref: <span class=\"unique_reference\">BIS/15/150</span>\n        </span>\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">831KB</span>, <span class=\"page-length\">29 pages</span>\n    </p>\n\n\n  </div>\n</section>"
+    ],
+    "public_feedback_detail": "<div class=\"govspeak\"><p>We received 113 written responses from:</p>\n\n<ul>\n  <li>manufacturing/retail sector, including relevant trade bodies (63)</li>\n  <li>testing sector (7)</li>\n  <li>academia (2)</li>\n  <li>chemical production and treatment processing sector (5)</li>\n  <li>Trading Standards (3)</li>\n  <li>fire and rescue (20)</li>\n  <li>other (13)</li>\n</ul>\n</div>",
+    "public_feedback_documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1274480\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/475591/FFR_consultation_2014_redacted_responses_A-H.zip\"><img alt=\"\" src=\"/government/assets/pub-cover-a380604bb953dc22ac9dcfbf3cc65598327f493c37b09ac497c45148cbaa21b1.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1274480-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/475591/FFR_consultation_2014_redacted_responses_A-H.zip\">Furniture fire safety regulations: proposed amendments - responses (A to H)</a></h2>\n    <p class=\"metadata\">\n        <span class=\"changed\">Published: <time class=\"date\" datetime=\"2015-03-25\">25 March 2015</time></span>\n        <span class=\"type\"><abbr title=\"Zip archive\">ZIP</abbr></span>, <span class=\"file-size\">95.6MB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1274480-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1274480-accessibility-request\" data-controls=\"attachment-1274480-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1274480-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@bis.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Furniture%20fire%20safety%20regulations%3A%20proposed%20amendments%20-%20responses%20%28A%20to%20H%29%0A%20%20Original%20format%3A%20zip%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Furniture%20fire%20safety%20regulations%3A%20proposed%20amendments%20-%20responses%20%28A%20to%20H%29%27%20in%20an%20alternative%20format\">enquiries@bis.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1274557\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/475617/FFR_consultation_2014_redacted_responses_H-W.zip\"><img alt=\"\" src=\"/government/assets/pub-cover-a380604bb953dc22ac9dcfbf3cc65598327f493c37b09ac497c45148cbaa21b1.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1274557-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/475617/FFR_consultation_2014_redacted_responses_H-W.zip\">Furniture fire safety regulations: proposed amendments - responses (H to W)</a></h2>\n    <p class=\"metadata\">\n        <span class=\"changed\">Published: <time class=\"date\" datetime=\"2015-03-25\">25 March 2015</time></span>\n        <span class=\"type\"><abbr title=\"Zip archive\">ZIP</abbr></span>, <span class=\"file-size\">50.8MB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1274557-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1274557-accessibility-request\" data-controls=\"attachment-1274557-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1274557-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@bis.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Furniture%20fire%20safety%20regulations%3A%20proposed%20amendments%20-%20responses%20%28H%20to%20W%29%0A%20%20Original%20format%3A%20zip%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Furniture%20fire%20safety%20regulations%3A%20proposed%20amendments%20-%20responses%20%28H%20to%20W%29%27%20in%20an%20alternative%20format\">enquiries@bis.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>"
+    ],
+    "public_feedback_publication_date": "2015-03-25T00:00:00+00:00",
+    "first_public_at": "2014-08-07T09:30:00.000+01:00",
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+        "consumer-protection"
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

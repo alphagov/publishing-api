@@ -1,0 +1,86 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/statistics/announcements/vehicle-licensing-statistics-november-2017",
+  "content_id": "5a9a9723-d889-4d39-9abd-460e81428419",
+  "document_type": "national_statistics_announcement",
+  "first_published_at": "2017-05-04T09:59:30.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-12-06T17:09:15.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "statistics_announcement",
+  "title": "Vehicle licensing statistics: November 2017",
+  "updated_at": "2018-01-10T14:05:51.289Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "29532-1512580155.096-165.225.81.20-9177",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:03Z",
+        "schema_name": "placeholder",
+        "title": "Department for Transport",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Department<br/>for Transport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/transport",
+        "base_path": "/government/topics/transport",
+        "content_id": "020cdae2-ee93-4fca-bfb7-3f5f8f5751d1",
+        "document_type": "policy_area",
+        "locale": "en",
+        "public_updated_at": "2013-07-22T09:04:54Z",
+        "schema_name": "placeholder",
+        "title": "Transport",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/transport",
+        "web_url": "https://www.gov.uk/government/topics/transport"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Vehicle licensing statistics: November 2017",
+        "public_updated_at": "2017-12-06T17:09:15Z",
+        "document_type": "national_statistics_announcement",
+        "schema_name": "statistics_announcement",
+        "base_path": "/government/statistics/announcements/vehicle-licensing-statistics-november-2017",
+        "description": "Monthly statistics on new registrations of vehicles in Great Britain.",
+        "api_path": "/api/content/government/statistics/announcements/vehicle-licensing-statistics-november-2017",
+        "withdrawn": false,
+        "content_id": "5a9a9723-d889-4d39-9abd-460e81428419",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/statistics/announcements/vehicle-licensing-statistics-november-2017",
+        "web_url": "https://www.gov.uk/government/statistics/announcements/vehicle-licensing-statistics-november-2017",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Monthly statistics on new registrations of vehicles in Great Britain.",
+  "details": {
+    "display_date": "11 January 2018 9:30am",
+    "state": "confirmed",
+    "format_sub_type": "national"
+  }
+}

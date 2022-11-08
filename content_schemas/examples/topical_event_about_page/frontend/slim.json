@@ -1,0 +1,30 @@
+{
+  "content_id": "695149c6-4b08-4cd8-b1cf-b5254955d648",
+  "base_path": "/government/topical-events/battle-of-the-somme-centenary-commemorations/about",
+  "title": "Battle of the Somme Centenary Commemorations",
+  "description": "2016 marks the centenary of the the Battle of the Somme.",
+  "details": {
+    "read_more": "Read more here",
+    "body": "<p>The commemoration is being lead by the Department for Culture, Media and Sport, on behalf of the UK Government, and the French Government, in partnership with Commonwealth War Graves Commission and the Royal British Legion, to build a programme of events which reflect the significance of the First World War Somme campaign</p>"
+  },
+  "links": {
+    "parent": [
+      {
+        "content_id": "8b19c222-54e3-4e27-b0d7-67f8e2a677c9",
+        "title": "Battle of the Somme Centenary",
+        "api_path": "/api/content/government/topical-events/battle-of-the-somme-centenary-commemorations",
+        "base_path": "/government/topical-events/battle-of-the-somme-centenary-commemorations",
+        "api_url": "https://www.gov.uk/api/content/government/topical-events/battle-of-the-somme-centenary-commemorations",
+        "web_url": "https://www.gov.uk/government/topical-events/battle-of-the-somme-centenary-commemorations",
+        "locale": "en",
+        "details": {
+        }
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2016-01-26T14:19:42.460Z",
+  "updated_at": "2016-01-26T14:20:42.460Z",
+  "schema_name": "topical_event_about_page",
+  "document_type": "topical_event_about_page"
+}

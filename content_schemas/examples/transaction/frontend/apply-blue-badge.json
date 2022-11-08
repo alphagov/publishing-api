@@ -1,0 +1,790 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/apply-blue-badge",
+  "content_id": "583e83bf-077e-4892-b8f0-52bfdf286fac",
+  "document_type": "transaction",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-04-06T15:38:36.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "transaction",
+  "title": "Apply for or renew a Blue Badge",
+  "updated_at": "2017-03-08T14:36:20.966Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "mainstream_browse_pages": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/disabilities/equipment",
+        "base_path": "/browse/disabilities/equipment",
+        "content_id": "48a1a4c2-23ac-44a8-b917-e72f629f2370",
+        "description": "Includes Disabled Students Allowances, Blue Badge and disabled access",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:50Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Disability equipment and transport",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/disabilities/equipment",
+        "web_url": "http://www.dev.gov.uk/browse/disabilities/equipment"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/driving/disability-health-condition",
+        "base_path": "/browse/driving/disability-health-condition",
+        "content_id": "bf25c800-46e1-468b-8d79-beec491cfa89",
+        "description": "",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2017-01-04T13:47:45Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Driving with medical conditions, Blue Badges and public transport if you're disabled",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/driving/disability-health-condition",
+        "web_url": "http://www.dev.gov.uk/browse/driving/disability-health-condition"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/driving/parking-public-transport-environment",
+        "base_path": "/browse/driving/parking-public-transport-environment",
+        "content_id": "11c4c5fa-9667-4a7a-825f-9e8256f0e225",
+        "description": "",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-11-14T18:52:32Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Parking, public transport and the environment",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/driving/parking-public-transport-environment",
+        "web_url": "http://www.dev.gov.uk/browse/driving/parking-public-transport-environment"
+      }
+    ],
+    "meets_user_needs": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/needs/apply-renew-or-update-details-for-a-blue-badge",
+        "base_path": "/needs/apply-renew-or-update-details-for-a-blue-badge",
+        "content_id": "bafbf425-f024-47a7-90e0-dc1c1fa10098",
+        "description": null,
+        "document_type": "need",
+        "locale": "en",
+        "public_updated_at": "2016-11-14T18:52:32Z",
+        "schema_name": "need",
+        "title": "As a disabled person or carer, I need to apply, renew or update details for a Blue Badge, so that I can park nearer to my home or places I visit (100308)",
+        "withdrawn": false,
+        "details": {
+          "applies_to_all_organisations": false,
+          "benefit": "I can park nearer to my home or places I visit",
+          "goal": "apply, renew or update details for a Blue Badge",
+          "impact": "Has consequences for the majority of your users",
+          "justifications": [
+            "It's something only government does",
+            "There is clear demand for it from users"
+          ],
+          "met_when": [
+            "understands eligibility criteria"
+          ],
+          "role": "disabled person or carer",
+          "yearly_need_views": 2191175,
+          "yearly_user_contacts": 597,
+          "need_id": "100308"
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/needs/apply-renew-or-update-details-for-a-blue-badge",
+        "web_url": "http://www.dev.gov.uk/needs/apply-renew-or-update-details-for-a-blue-badge"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/apply-for-disabled-bus-pass",
+        "base_path": "/apply-for-disabled-bus-pass",
+        "content_id": "161dfa96-538c-4955-8a1a-f8a0a6fa1bb9",
+        "description": "Contact your local council to find out who issues disabled bus passes in your area as part of the English National Concessionary Travel Scheme",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2015-07-21T16:59:38Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Apply for a disabled person's bus pass",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/disabilities/equipment",
+              "base_path": "/browse/disabilities/equipment",
+              "content_id": "48a1a4c2-23ac-44a8-b917-e72f629f2370",
+              "description": "Includes Disabled Students Allowances, Blue Badge and disabled access",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:50Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Disability equipment and transport",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/disabilities",
+                    "base_path": "/browse/disabilities",
+                    "content_id": "77d72043-cbf7-42bf-8b61-e970d854acc4",
+                    "description": "Includes your rights, benefits, carers and the Equality Act",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Disabled people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/disabilities",
+                    "web_url": "http://www.dev.gov.uk/browse/disabilities"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/disabilities/equipment",
+              "web_url": "http://www.dev.gov.uk/browse/disabilities/equipment"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/disability-health-condition",
+              "base_path": "/browse/driving/disability-health-condition",
+              "content_id": "bf25c800-46e1-468b-8d79-beec491cfa89",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-01-04T13:47:45Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving with medical conditions, Blue Badges and public transport if you're disabled",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/disability-health-condition",
+              "web_url": "http://www.dev.gov.uk/browse/driving/disability-health-condition"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/parking-public-transport-environment",
+              "base_path": "/browse/driving/parking-public-transport-environment",
+              "content_id": "11c4c5fa-9667-4a7a-825f-9e8256f0e225",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-11-14T18:52:32Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Parking, public transport and the environment",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/parking-public-transport-environment",
+              "web_url": "http://www.dev.gov.uk/browse/driving/parking-public-transport-environment"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/apply-for-disabled-bus-pass",
+        "web_url": "http://www.dev.gov.uk/apply-for-disabled-bus-pass"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/blue-badge-scheme-information-council",
+        "base_path": "/blue-badge-scheme-information-council",
+        "content_id": "92e804e2-a2c0-4fe8-93eb-9c6709307ae7",
+        "description": "Blue Badge parking permits let disabled drivers and passengers park nearer to where they're going - find out more about Blue Badges from your council",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2016-05-06T11:14:45Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Blue Badge scheme: information from your council",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/disability-health-condition",
+              "base_path": "/browse/driving/disability-health-condition",
+              "content_id": "bf25c800-46e1-468b-8d79-beec491cfa89",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-01-04T13:47:45Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving with medical conditions, Blue Badges and public transport if you're disabled",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/disability-health-condition",
+              "web_url": "http://www.dev.gov.uk/browse/driving/disability-health-condition"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/parking-public-transport-environment",
+              "base_path": "/browse/driving/parking-public-transport-environment",
+              "content_id": "11c4c5fa-9667-4a7a-825f-9e8256f0e225",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-11-14T18:52:32Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Parking, public transport and the environment",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/parking-public-transport-environment",
+              "web_url": "http://www.dev.gov.uk/browse/driving/parking-public-transport-environment"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/blue-badge-scheme-information-council",
+        "web_url": "http://www.dev.gov.uk/blue-badge-scheme-information-council"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/where-registered-disabled-drivers-can-park",
+        "base_path": "/where-registered-disabled-drivers-can-park",
+        "content_id": "4975530d-db71-4d06-8fca-e47e2561abe2",
+        "description": "If you're a Blue Badge holder, find out if your council provides parking spaces for you and where you can park",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2014-12-16T16:38:23Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Find out where Blue Badge holders can park",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/disabilities/equipment",
+              "base_path": "/browse/disabilities/equipment",
+              "content_id": "48a1a4c2-23ac-44a8-b917-e72f629f2370",
+              "description": "Includes Disabled Students Allowances, Blue Badge and disabled access",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:50Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Disability equipment and transport",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/disabilities",
+                    "base_path": "/browse/disabilities",
+                    "content_id": "77d72043-cbf7-42bf-8b61-e970d854acc4",
+                    "description": "Includes your rights, benefits, carers and the Equality Act",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Disabled people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/disabilities",
+                    "web_url": "http://www.dev.gov.uk/browse/disabilities"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/disabilities/equipment",
+              "web_url": "http://www.dev.gov.uk/browse/disabilities/equipment"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/disability-health-condition",
+              "base_path": "/browse/driving/disability-health-condition",
+              "content_id": "bf25c800-46e1-468b-8d79-beec491cfa89",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-01-04T13:47:45Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving with medical conditions, Blue Badges and public transport if you're disabled",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/disability-health-condition",
+              "web_url": "http://www.dev.gov.uk/browse/driving/disability-health-condition"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/parking-public-transport-environment",
+              "base_path": "/browse/driving/parking-public-transport-environment",
+              "content_id": "11c4c5fa-9667-4a7a-825f-9e8256f0e225",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-11-14T18:52:32Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Parking, public transport and the environment",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/parking-public-transport-environment",
+              "web_url": "http://www.dev.gov.uk/browse/driving/parking-public-transport-environment"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/where-registered-disabled-drivers-can-park",
+        "web_url": "http://www.dev.gov.uk/where-registered-disabled-drivers-can-park"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/driving-medical-conditions",
+        "base_path": "/driving-medical-conditions",
+        "content_id": "21574365-214c-49e1-a28a-bcec5f232ef9",
+        "description": "When to tell DVLA about a medical condition or disability - what will happen to your licence, exempt from vehicle tax, Motability scheme",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-02-06T16:22:16Z",
+        "schema_name": "guide",
+        "title": "Medical conditions, disabilities and driving",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/disabilities/equipment",
+              "base_path": "/browse/disabilities/equipment",
+              "content_id": "48a1a4c2-23ac-44a8-b917-e72f629f2370",
+              "description": "Includes Disabled Students Allowances, Blue Badge and disabled access",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:50Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Disability equipment and transport",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/disabilities",
+                    "base_path": "/browse/disabilities",
+                    "content_id": "77d72043-cbf7-42bf-8b61-e970d854acc4",
+                    "description": "Includes your rights, benefits, carers and the Equality Act",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Disabled people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/disabilities",
+                    "web_url": "http://www.dev.gov.uk/browse/disabilities"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/disabilities/equipment",
+              "web_url": "http://www.dev.gov.uk/browse/disabilities/equipment"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/driving-licences",
+              "base_path": "/browse/driving/driving-licences",
+              "content_id": "bbbfd4b9-10e4-4cae-b4b9-2797ffa6a036",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-02-18T20:38:27Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving licences",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/driving-licences",
+              "web_url": "http://www.dev.gov.uk/browse/driving/driving-licences"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/disability-health-condition",
+              "base_path": "/browse/driving/disability-health-condition",
+              "content_id": "bf25c800-46e1-468b-8d79-beec491cfa89",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-01-04T13:47:45Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving with medical conditions, Blue Badges and public transport if you're disabled",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/disability-health-condition",
+              "web_url": "http://www.dev.gov.uk/browse/driving/disability-health-condition"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/driving-medical-conditions",
+        "web_url": "http://www.dev.gov.uk/driving-medical-conditions"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/transport-disabled",
+        "base_path": "/transport-disabled",
+        "content_id": "84f80d04-d644-4cc4-bd8c-88a47699181d",
+        "description": "Transport on trains, planes, cars, taxis and minicabs, buses, coaches and wheelchairs for disabled people - Freedom Pass, Disabled Person's Railcard, concessionary bus pass and Shopmobility",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-06-12T14:34:54Z",
+        "schema_name": "guide",
+        "title": "Transport if you're disabled",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/disabilities/equipment",
+              "base_path": "/browse/disabilities/equipment",
+              "content_id": "48a1a4c2-23ac-44a8-b917-e72f629f2370",
+              "description": "Includes Disabled Students Allowances, Blue Badge and disabled access",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:50Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Disability equipment and transport",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/disabilities",
+                    "base_path": "/browse/disabilities",
+                    "content_id": "77d72043-cbf7-42bf-8b61-e970d854acc4",
+                    "description": "Includes your rights, benefits, carers and the Equality Act",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Disabled people",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/disabilities",
+                    "web_url": "http://www.dev.gov.uk/browse/disabilities"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/disabilities/equipment",
+              "web_url": "http://www.dev.gov.uk/browse/disabilities/equipment"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/disability-health-condition",
+              "base_path": "/browse/driving/disability-health-condition",
+              "content_id": "bf25c800-46e1-468b-8d79-beec491cfa89",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-01-04T13:47:45Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving with medical conditions, Blue Badges and public transport if you're disabled",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/disability-health-condition",
+              "web_url": "http://www.dev.gov.uk/browse/driving/disability-health-condition"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/transport-disabled",
+        "web_url": "http://www.dev.gov.uk/transport-disabled"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-12-20T14:44:50Z",
+        "schema_name": "placeholder",
+        "title": "Department for Transport",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Department<br/>for Transport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "http://www.dev.gov.uk/government/organisations/department-for-transport"
+      },
+      {
+        "analytics_identifier": "D4",
+        "api_path": "/api/content/government/organisations/department-for-communities-and-local-government",
+        "base_path": "/government/organisations/department-for-communities-and-local-government",
+        "content_id": "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-07-18T17:26:50Z",
+        "schema_name": "placeholder",
+        "title": "Department for Communities and Local Government",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-communities-and-local-government",
+          "logo": {
+            "formatted_title": "Department for <br/>Communities and<br/>Local Government",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/department-for-communities-and-local-government",
+        "web_url": "http://www.dev.gov.uk/government/organisations/department-for-communities-and-local-government"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/driving/disability-health-condition",
+        "base_path": "/browse/driving/disability-health-condition",
+        "content_id": "bf25c800-46e1-468b-8d79-beec491cfa89",
+        "description": "",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2017-01-04T13:47:45Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Driving with medical conditions, Blue Badges and public transport if you're disabled",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving",
+              "base_path": "/browse/driving",
+              "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+              "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-10-07T22:18:32Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving and transport",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+              "web_url": "http://www.dev.gov.uk/browse/driving"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/driving/disability-health-condition",
+        "web_url": "http://www.dev.gov.uk/browse/driving/disability-health-condition"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Apply for or renew a Blue Badge",
+        "public_updated_at": "2016-04-06T15:38:36Z",
+        "analytics_identifier": null,
+        "document_type": "transaction",
+        "schema_name": "transaction",
+        "base_path": "/apply-blue-badge",
+        "description": "Apply for or renew a Blue Badge, amend or cancel a saved application, track your application",
+        "api_path": "/api/content/apply-blue-badge",
+        "withdrawn": false,
+        "content_id": "583e83bf-077e-4892-b8f0-52bfdf286fac",
+        "locale": "en",
+        "api_url": "http://www.dev.gov.uk/api/content/apply-blue-badge",
+        "web_url": "http://www.dev.gov.uk/apply-blue-badge",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Apply for or renew a Blue Badge, amend or cancel a saved application, track your application",
+  "details": {
+    "introductory_paragraph": "<p>Answer questions about your disability, check your eligibility and fill in an application form to apply for or renew a Blue Badge. Your application will then be sent to your council for a decision.</p>\n",
+    "will_continue_on": "the Blue Badge eligibility tool",
+    "transaction_start_link": "https://bluebadge.direct.gov.uk/directgovapply.html",
+    "more_information": "<p>You’ll need the following to apply for or renew your Blue Badge</p>\n\n<ul>\n  <li>the details of your current Blue Badge (if you have one)</li>\n  <li>a digital or signed photo</li>\n  <li>your National Insurance number</li>\n  <li>proof of identification</li>\n  <li>proof of residency</li>\n</ul>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>Ask your council to find out how long before the expiry date you should renew.</p>\n</div>\n\n<h2 id=\"after-you-apply\">After you apply</h2>\n\n<p>You can:</p>\n\n<ul>\n  <li>amend or cancel your <a rel=\"external\" href=\"https://bluebadge.direct.gov.uk/directgovreturn.html\">saved Blue Badge application</a>\n</li>\n  <li><a rel=\"external\" href=\"https://bluebadge.direct.gov.uk/directgovtrack.html\">track your Blue Badge application</a></li>\n</ul>\n\n<p>If you’re refused, your council should tell you why you’re not eligible for a Blue Badge.</p>\n\n<p>You can ask them to reconsider your case if you don’t think all the important information you provided was taken into account.</p>\n\n<p>You can also re-apply if your mobility problems become more serious.</p>\n\n<h2 id=\"scotland-and-northern-ireland\">Scotland and Northern Ireland</h2>\n\n<p>There are different ways to <a rel=\"external\" href=\"https://www.mygov.scot/apply-blue-badge/\">apply if you’re in Scotland</a> or <a rel=\"external\" href=\"https://www.nidirect.gov.uk/information-and-services/motoring-and-transport/blue-badge-scheme\">Northern Ireland</a>.</p>\n\n<h2 id=\"questions\">Questions</h2>\n\n<p>For questions about the Blue Badge scheme, <a href=\"/blue-badge-scheme-information-council\">contact your local council</a> or the initial enquiry support service.</p>\n\n<div class=\"contact\">\n<p><strong>Blue Badge initial enquiry support service</strong> <br>\n<a href=\"mailto:bluebadge@northgateps.com\">bluebadge@northgateps.com</a> <br>\nTelephone (England): 0343 100 1000<br>\nTelephone (Scotland): 0343 100 1001  <br>\nTelephone (Wales): 0343 100 1002  <br>\n<a href=\"/call-charges\">Find out about call charges</a></p>\n</div>\n",
+    "external_related_links": [
+
+    ]
+  }
+}

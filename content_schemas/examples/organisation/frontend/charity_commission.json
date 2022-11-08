@@ -1,0 +1,1752 @@
+{
+  "analytics_identifier": "D98",
+  "base_path": "/government/organisations/charity-commission",
+  "content_id": "489e651f-34c8-4b34-bdd7-e13c2324cde3",
+  "document_type": "organisation",
+  "first_published_at": "2012-01-11T13:20:53.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2020-05-01T07:53:25.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "collections",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "organisation",
+  "title": "The Charity Commission",
+  "updated_at": "2020-05-01T10:53:52.977Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "30073-1588319605.267-10.13.4.55-540",
+  "links": {
+    "children": [
+      {
+        "content_id": "cc6fb165-bacc-4865-b3f6-a3f1068a6734",
+        "title": "Services and information - The Charity Commission",
+        "locale": "en",
+        "api_path": "/api/content/government/organisations/charity-commission/services-information",
+        "base_path": "/government/organisations/charity-commission/services-information",
+        "document_type": "services_and_information",
+        "public_updated_at": "2020-02-17T09:08:53Z",
+        "schema_name": "generic",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "content_id": "489e651f-34c8-4b34-bdd7-e13c2324cde3",
+              "title": "The Charity Commission",
+              "locale": "en",
+              "analytics_identifier": "D98",
+              "api_path": "/api/content/government/organisations/charity-commission",
+              "base_path": "/government/organisations/charity-commission",
+              "document_type": "organisation",
+              "schema_name": "organisation",
+              "withdrawn": false,
+              "details": {
+                "logo": {
+                  "formatted_title": "Charity Commission",
+                  "image": {
+                    "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/98/Home_page.jpg",
+                    "alt_text": "The Charity Commission"
+                  }
+                },
+                "brand": "department-for-business-innovation-skills",
+                "default_news_image": {
+                  "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/476/s300_press_release_image_2018_colour.png",
+                  "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/476/s960_press_release_image_2018_colour.png"
+                }
+              },
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/organisations/charity-commission",
+              "web_url": "https://www.gov.uk/government/organisations/charity-commission"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/charity-commission/services-information",
+        "web_url": "https://www.gov.uk/government/organisations/charity-commission/services-information"
+      }
+    ],
+    "ordered_board_members": [
+      {
+        "content_id": "2749c64e-9f2f-43ae-9f3b-e31256e6a609",
+        "title": "Helen Stephenson CBE",
+        "locale": "en",
+        "api_path": "/api/content/government/people/helen-stephenson",
+        "base_path": "/government/people/helen-stephenson",
+        "document_type": "person",
+        "public_updated_at": "2018-12-06T11:29:13Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3181/s465_Helen_Stephenson.png",
+            "alt_text": "Helen Stephenson CBE"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "ade95dc2-915f-40ff-97db-2d1beb171f6c",
+              "title": "Helen Stephenson CBE - Chief Executive Officer, Charity Commission",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-05-08T13:37:38Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-07-18T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4230
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8472c261-c0f1-11e4-8223-005056011aef",
+                    "title": "Chief Executive Officer, Charity Commission",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-05-08T13:37:31Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Chief Executive Officer (CEO), Charity Commission is responsible for its day-to-day management. This includes leading the commission’s senior management team.</p>\n\n<p>The CEO also has delegated responsibility for making sure the commission:</p>\n\n<ul>\n  <li>carries out its statutory duties and responsibilities and exercises its legal powers appropriately</li>\n  <li>develops plans, programmes and policies for the board to approve</li>\n  <li>carries out the board’s strategies and plans for the future, including its contribution to legislative reform</li>\n  <li>carries out the commission’s services in line with targets and performance indicators agreed by the board</li>\n</ul>\n\n<p>The CEO is accountable for the commission’s use of public funds, and reports on this to the Public Accounts Committee.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "406fa1db-a247-4c74-9ec3-56960d944fd8",
+              "title": "Helen Stephenson CBE - Board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-05-08T13:39:43Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2018-12-06T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5423
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84f88c8d-a24f-4f5b-a7da-652cc24ae1ec",
+                    "title": "Board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-05-08T13:39:16Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the Commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The Commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the Commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the Commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the Commission’s impact and effectiveness</li>\n  <li>make sure the Commission uses public funds prudently</li>\n</ul>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/helen-stephenson",
+        "web_url": "https://www.gov.uk/government/people/helen-stephenson"
+      },
+      {
+        "content_id": "852e89c1-c0f1-11e4-8223-005056011aef",
+        "title": "The Rt Hon Baroness Stowell of Beeston MBE",
+        "locale": "en",
+        "api_path": "/api/content/government/people/baroness-stowell-of-beeston",
+        "base_path": "/government/people/baroness-stowell-of-beeston",
+        "document_type": "person",
+        "public_updated_at": "2018-02-25T15:07:21Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/407/s465_1small.jpg",
+            "alt_text": "The Rt Hon Baroness Stowell of Beeston MBE"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "64617b66-021a-4467-970b-6d452a22e192",
+              "title": "The Rt Hon Baroness Stowell of Beeston MBE - Spokesman and Whip in the House of Lords, Baroness in Waiting",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:12:07Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2011-01-13T00:00:00+00:00",
+                "ended_on": "2013-10-07T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 503
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8461971c-c0f1-11e4-8223-005056011aef",
+                    "title": "Spokesman and Whip in the House of Lords, Baroness in Waiting",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/government-whip-baroness-in-waiting--2",
+                    "base_path": "/government/ministers/government-whip-baroness-in-waiting--2",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2013-05-09T09:57:15Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Government spokesman for Women and Equalities and the Department for Work and Pensions, and Whip for the Home Office and the Department for Culture, Media &amp; Sport.</p>\n\n<p>Lords Whips have the same constitutional position as departmental ministers. Their role in the House of Lords is different from that of Whips in the Commons, which is predominantly party management.</p>\n\n<p>A Lords Whip has an active role at the despatch box promoting and defending departmental policy which involves:</p>\n\n<ul>\n  <li>answering questions</li>\n  <li>responding to debates</li>\n  <li>taking through primary and secondary legislation</li>\n</ul>\n\n<p>If the department concerned does not have a departmental minister in the House of Lords, all of that department’s business will fall to a Whip.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/government-whip-baroness-in-waiting--2",
+                    "web_url": "https://www.gov.uk/government/ministers/government-whip-baroness-in-waiting--2"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "90c211e2-30c1-4e52-bc94-34563ad42515",
+              "title": "The Rt Hon Baroness Stowell of Beeston MBE - Parliamentary Under Secretary of State for Communities and Local Government",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:17:55Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2013-10-07T00:00:00+01:00",
+                "ended_on": "2014-07-15T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 1413
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "845e6e2b-c0f1-11e4-8223-005056011aef",
+                    "title": "Parliamentary Under Secretary of State for Communities and Local Government",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--19",
+                    "base_path": "/government/ministers/parliamentary-under-secretary-of-state--19",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2015-05-11T16:19:03Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The minister is responsible for:</p>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--19",
+                    "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--19"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "5a688c92-fa5f-422a-bb5e-ef3242c9a8b5",
+              "title": "The Rt Hon Baroness Stowell of Beeston MBE - Lord Privy Seal",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-08-12T13:11:20Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2014-07-15T00:00:00+01:00",
+                "ended_on": "2016-07-14T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 2052
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84753a02-c0f1-11e4-8223-005056011aef",
+                    "title": "Lord Privy Seal",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/lord-privy-seal",
+                    "base_path": "/government/ministers/lord-privy-seal",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2019-01-02T15:43:20Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Lord Privy Seal is responsible for the organisation of government business in the House, providing assistance to all Lords and offering advice on procedure. The Lord Privy Seal also expresses the collective feelings of the House on formal occasions, such as motions of thanks or congratulations.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/lord-privy-seal",
+                    "web_url": "https://www.gov.uk/government/ministers/lord-privy-seal"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "64ccc25e-1a2c-4c65-96e6-09f2ee5b84b6",
+              "title": "The Rt Hon Baroness Stowell of Beeston MBE - Leader of the House of Lords",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-08-07T15:26:48Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2014-07-15T00:00:00+01:00",
+                "ended_on": "2016-07-14T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 2049
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8475419e-c0f1-11e4-8223-005056011aef",
+                    "title": "Leader of the House of Lords",
+                    "locale": "en",
+                    "api_path": "/api/content/government/ministers/leader-of-the-house-of-lords",
+                    "base_path": "/government/ministers/leader-of-the-house-of-lords",
+                    "document_type": "ministerial_role",
+                    "public_updated_at": "2015-05-21T16:12:48Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Leader of the House of Lords is responsible for the organisation of government business in the House, providing assistance to all Lords and offering advice on procedure. The Leader also expresses the collective feelings of the House on formal occasions, such as motions of thanks or congratulations.</p>\n\n<p>Before July 2014, this role was covered by the <a href=\"https://www.gov.uk/government/ministers/office-of-the-leader-of-the-house-of-lords\">Leader of the House of Lords and Chancellor of the Duchy of Lancaster</a>.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/government/ministers/leader-of-the-house-of-lords",
+                    "web_url": "https://www.gov.uk/government/ministers/leader-of-the-house-of-lords"
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "de363679-2d1c-4c07-a152-289285a3c525",
+              "title": "The Rt Hon Baroness Stowell of Beeston MBE - Chair, Charity Commission",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:33:47Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2018-02-25T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4655
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8472c2bb-c0f1-11e4-8223-005056011aef",
+                    "title": "Chair, Charity Commission",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-02-25T14:37:36Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Chair is responsible for effectively and accurately representing the views of the Charity Commission Board in:</p>\n\n<ul>\n  <li>directing the commission’s strategic development, policies and plans</li>\n  <li>communicating the commission’s plans and achievements to charities and their users, commission staff, the government and the public</li>\n  <li>developing the commission’s relationships with government, sector bodies and other major stakeholders</li>\n</ul>\n\n<p>The Chair leads the board in making sure the Charity Commission:</p>\n\n<ul>\n  <li>carries out its statutory duties and responsibilities and exercises its legal powers appropriately</li>\n  <li>carries out the board’s plans for the future, including its contribution to legislative reform</li>\n  <li>carries out its services in line with agreed targets</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/baroness-stowell-of-beeston",
+        "web_url": "https://www.gov.uk/government/people/baroness-stowell-of-beeston"
+      },
+      {
+        "content_id": "6ee62b76-59da-4dab-a977-a2a489ef713e",
+        "title": "Aarti Thakor",
+        "locale": "en",
+        "api_path": "/api/content/government/people/aarti-thakor",
+        "base_path": "/government/people/aarti-thakor",
+        "document_type": "person",
+        "public_updated_at": "2018-05-21T10:07:34Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3516/s465_Aarti_Thakor_GOV.UK.jpg",
+            "alt_text": "Aarti Thakor"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "b2473998-5b17-46b8-a29a-1ee845590b44",
+              "title": "Aarti Thakor - Director of Legal Services",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-08T09:52:49Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2018-05-21T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4806
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "ed5a6ad4-5691-41ea-9158-659f1e413da2",
+                    "title": "Director of Legal Services",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-05-21T10:02:22Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Legal Director is responsible for leading and managing the legal services in the Charity Commission and assuring the legal integrity of the Commission’s regulatory work and policies.</p>\n\n<p>As well as giving legal advice on the Commission’s work, the legal team conducts:+</p>\n\n<ul>\n  <li>litigation in the Tribunal and Courts brought against or by the commission</li>\n  <li>novel, high profile and sensitive legal cases, particularly applications for registration</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/aarti-thakor",
+        "web_url": "https://www.gov.uk/government/people/aarti-thakor"
+      },
+      {
+        "content_id": "806838e1-a8ec-4a00-bc63-e3ec364251a7",
+        "title": "Helen Earner",
+        "locale": "en",
+        "api_path": "/api/content/government/people/helen-earner",
+        "base_path": "/government/people/helen-earner",
+        "document_type": "person",
+        "public_updated_at": "2019-08-07T15:43:44Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/4028/s465_helen_earner.png",
+            "alt_text": "Helen Earner"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "e7593e17-1e84-4650-9c26-1775bb8118e1",
+              "title": "Helen Earner - Director of Operations",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-08-07T15:43:44Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-08-05T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5687
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "4ca1b232-d7b2-46ce-a54c-b99f9bd0283e",
+                    "title": "Director of Operations",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-08-07T15:43:00Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Charity Commission Director of Operations is accountable for the Commission’s most serious and highest risk casework and for its ‘digital by default’ agenda.</p>\n\n<p>Driving maximum efficiency and effectiveness in the commission’s front line services and at the same time ensuring excellence in customer fulfillment is a key duty of this role. The Director of Operations leads the teams that carry out:</p>\n\n<ul>\n  <li>assessment and allocation of all incoming work to the Commission</li>\n  <li>registration of new charities</li>\n  <li>permissions and consents casework and some higher risk work (short of a formal inquiry, which is carried out by the Investigations, Monitoring and Enforcement directorate)</li>\n  <li>the annual return programme</li>\n  <li>the commission’s digital services</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/helen-earner",
+        "web_url": "https://www.gov.uk/government/people/helen-earner"
+      },
+      {
+        "content_id": "7d5d17fe-0cc0-4f09-826a-4750c5908431",
+        "title": "David Jones",
+        "locale": "en",
+        "api_path": "/api/content/government/people/david-jones--2",
+        "base_path": "/government/people/david-jones--2",
+        "document_type": "person",
+        "public_updated_at": "2015-06-04T08:10:42Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/2346/s465_David_Jones.png",
+            "alt_text": "David Jones"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "490a98c2-8f49-4120-9553-c52f5734df94",
+              "title": "David Jones - Director of Corporate Services",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:24:19Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2015-04-20T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 2780
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84784501-c0f1-11e4-8223-005056011aef",
+                    "title": "Director of Corporate Services",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2015-03-02T14:27:05Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Director of Corporate Services is accountable for supporting the Accounting Officer (Chief Executive Officer) in the effective management of the commission’s resources, ensuring that it runs smoothly, efficiently and economically, achieving value for money for the taxpayer.</p>\n\n<p>The commission aims for excellence in the way that it leads and develops its people, manages our finances, runs its estates, utilises technology and continually changes and improves.</p>\n\n<p>Ensuring that the commission’s standards and ‘control environment’ meet the high expectations placed on a publicly funded body, and that the commission is properly equipped and enabled so it can deliver effectively, the Director of Corporate Services is responsible for:</p>\n\n<ul>\n  <li>business assurance</li>\n  <li>governance</li>\n  <li>human resources</li>\n  <li>information and communication technology (ICT)</li>\n  <li>internal communication</li>\n  <li>projects including the commission’s transformation programme</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/david-jones--2",
+        "web_url": "https://www.gov.uk/government/people/david-jones--2"
+      },
+      {
+        "content_id": "8540aa29-c0f1-11e4-8223-005056011aef",
+        "title": "Mike Ashley",
+        "locale": "en",
+        "api_path": "/api/content/government/people/mike-ashley",
+        "base_path": "/government/people/mike-ashley",
+        "document_type": "person",
+        "public_updated_at": "2019-02-01T09:38:14Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/1985/s465_Mike_Ashley.jpg",
+            "alt_text": "Mike Ashley"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "eeb328dd-f535-43c9-a425-13d8297389bd",
+              "title": "Mike Ashley - Non-Executive Member of the Charity Commission Board",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-02-01T09:38:14Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2014-11-01T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 2786
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "4c6725f6-3d22-4d9b-8cfd-0ae0aa2316ea",
+                    "title": "Non-Executive Member of the Charity Commission Board",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-11-12T13:19:29Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "f34a3681-3773-4ac3-bff9-a8eb6035124b",
+              "title": "Mike Ashley - Non-Executive Chair",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-02-01T09:38:14Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2015-04-01T00:00:00+01:00",
+                "ended_on": "2018-08-31T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 4088
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "612d6da7-d6db-4475-a8c6-cacfe7e621e6",
+                    "title": "Non-Executive Chair",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-10-24T13:29:33Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Government non-executive chairs provide advice and bring an external perspective to the business of government departments. They do not have decision-making powers.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "f496f194-8b2f-48d3-9c47-0c98500445f4",
+              "title": "Mike Ashley - Non-Executive Board Member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-02-01T09:38:14Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2018-10-30T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5117
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "bdfc3e95-fe08-4421-ae6f-af691a244023",
+                    "title": "Non-Executive Board Member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-10-30T16:05:13Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Non-Executive Board Members are appointed on merit, reflecting ability and experience, for a fixed term, usually three years. They will exercise their role through influence and advice, supporting as well as challenging the Executive. They will advise on the clarity of strategic direction, performance, operational issues and the effective management of the Department. These responsibilities should be conducted both in and outside of Board meetings - the Executive should invite and involve the Non-Executives in key areas to ensure critical challenge and support.</p>\n\n<p>Non-Executives Board Members’ views on performance will be reported by the Lead Non-Executive Board Member in the Department’s Annual Report. Non-Executives’ views will also be fed back to the Prime Minister and the Government Lead Non-Executive through the Non-Executive Board Members’ Network.</p>\n\n<p>Non-Executive Board Members may be involved in the process for recruiting and appraising senior executives, and succession planning.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/mike-ashley",
+        "web_url": "https://www.gov.uk/government/people/mike-ashley"
+      },
+      {
+        "content_id": "c67e5a9e-7e53-4ccf-94e8-856a4fd5007f",
+        "title": "Joanne Prowse",
+        "locale": "en",
+        "api_path": "/api/content/government/people/joanne-prowse",
+        "base_path": "/government/people/joanne-prowse",
+        "document_type": "person",
+        "public_updated_at": "2020-01-23T12:55:05Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/4187/s465_joanne_prowse.png",
+            "alt_text": "Joanne Prowse"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "5cdce4f9-79a2-4116-a862-dc39dda524b5",
+              "title": "Joanne Prowse - Board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2020-01-20T16:21:00Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-11-14T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5976
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "d9aff14e-49b9-4cb0-af59-5b27016d00a3",
+                    "title": "Board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-03-31T14:44:02Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/joanne-prowse",
+        "web_url": "https://www.gov.uk/government/people/joanne-prowse"
+      },
+      {
+        "content_id": "34b73739-f3d9-4fef-b8c2-90cb64f67619",
+        "title": "Tony Cohen",
+        "locale": "en",
+        "api_path": "/api/content/government/people/tony-cohen",
+        "base_path": "/government/people/tony-cohen",
+        "document_type": "person",
+        "public_updated_at": "2018-12-31T15:00:10Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3755/s465_Tony_Cohen_web.jpg",
+            "alt_text": "Tony Cohen"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "976c8b22-6a6c-4e3e-a3cc-9f87ebd17a9a",
+              "title": "Tony Cohen - Board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-01-02T07:44:02Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-01-01T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5182
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "6d38404a-32d4-4dcc-ab39-b36c6a27c0ab",
+                    "title": "Board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-01-02T07:44:02Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the Commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The Commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the Commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the Commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the Commission’s impact and effectiveness</li>\n  <li>make sure the Commission uses public funds prudently</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/tony-cohen",
+        "web_url": "https://www.gov.uk/government/people/tony-cohen"
+      },
+      {
+        "content_id": "8544814d-c0f1-11e4-8223-005056011aef",
+        "title": "Kenneth Dibble",
+        "locale": "en",
+        "api_path": "/api/content/government/people/kenneth-dibble",
+        "base_path": "/government/people/kenneth-dibble",
+        "document_type": "person",
+        "public_updated_at": "2018-03-27T10:22:36Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/2194/s465_Kenneth_Dibble.png",
+            "alt_text": "Kenneth Dibble"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "5721114f-098d-4c89-88b1-9ac7c0f598db",
+              "title": "Kenneth Dibble - Board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:22:59Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2018-03-26T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 2520
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84784310-c0f1-11e4-8223-005056011aef",
+                    "title": "Board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-03-27T10:20:44Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence.</p>\n\n<p>They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The Commission’s Board members also:</p>\n\n<ul>\n  <li>\n    <p>monitor how the commission meets its statutory objectives and uses its legal powers</p>\n  </li>\n  <li>\n    <p>consider the commission’s management team’s performance, governance standards and delivery against plans</p>\n  </li>\n  <li>\n    <p>focus on maximising the commission’s impact and effectiveness</p>\n  </li>\n  <li>\n    <p>make sure the commission uses public funds prudently</p>\n  </li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/kenneth-dibble",
+        "web_url": "https://www.gov.uk/government/people/kenneth-dibble"
+      },
+      {
+        "content_id": "1d430a80-4cc3-45e5-bdd6-f9ace8b138f1",
+        "title": "Nina Hingorani-Crain",
+        "locale": "en",
+        "api_path": "/api/content/government/people/nina-hingorani-crain",
+        "base_path": "/government/people/nina-hingorani-crain",
+        "document_type": "person",
+        "public_updated_at": "2019-02-01T09:39:12Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": null
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "8eeda4d1-2034-4aa5-9eff-b5e0e8212db3",
+              "title": "Nina Hingorani-Crain - Board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-02-01T09:39:12Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-01-01T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5183
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "119aff1b-1579-442d-bb80-cd8181596364",
+                    "title": "Board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-12-31T14:46:40Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The Commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/nina-hingorani-crain",
+        "web_url": "https://www.gov.uk/government/people/nina-hingorani-crain"
+      },
+      {
+        "content_id": "800e3615-80a9-4f8d-beeb-b4ec5b402070",
+        "title": "Paul Martin CBE",
+        "locale": "en",
+        "api_path": "/api/content/government/people/paul-martin",
+        "base_path": "/government/people/paul-martin",
+        "document_type": "person",
+        "public_updated_at": "2019-02-01T09:40:02Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": null
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "740e8b53-5a88-437a-bc52-15484c98995a",
+              "title": "Paul Martin CBE - Board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-02-01T09:40:02Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2016-11-30T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 3830
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "71365ec7-b839-4a40-898d-d587aa24460e",
+                    "title": "Board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-03-31T14:44:02Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/paul-martin",
+        "web_url": "https://www.gov.uk/government/people/paul-martin"
+      },
+      {
+        "content_id": "1e36d080-3cf3-4c2a-8e45-7c4c7218e915",
+        "title": "Imran Gulamhuseinwala OBE",
+        "locale": "en",
+        "api_path": "/api/content/government/people/imran-gulamhuseinwala",
+        "base_path": "/government/people/imran-gulamhuseinwala",
+        "document_type": "person",
+        "public_updated_at": "2020-01-23T12:55:43Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/4188/s465_imran_gulamhuseinwala.png",
+            "alt_text": "Imran Gulamhuseinwala OBE"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "d46fa773-77e3-4b92-9fe1-ea6e66228f0b",
+              "title": "Imran Gulamhuseinwala - Board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2020-01-20T16:22:30Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-11-14T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5977
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "e5cec13c-2899-4564-9ee6-e90fb0fa20cb",
+                    "title": "Board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-03-31T14:44:10Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/imran-gulamhuseinwala",
+        "web_url": "https://www.gov.uk/government/people/imran-gulamhuseinwala"
+      },
+      {
+        "content_id": "ac7782a1-a93f-4021-88ec-9c4af89cbd16",
+        "title": "Ian Karet",
+        "locale": "en",
+        "api_path": "/api/content/government/people/ian-karet",
+        "base_path": "/government/people/ian-karet",
+        "document_type": "person",
+        "public_updated_at": "2018-12-31T15:16:18Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3756/s465_Ian_Karet_web.jpg",
+            "alt_text": "Ian Karet"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "700850ef-ac16-483b-99f0-30c1b4081af7",
+              "title": "Ian Karet - Board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-01-02T07:54:50Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-01-01T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5184
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "7a2a43f5-b3c8-490f-8470-a6ef6c394952",
+                    "title": "Board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-03-31T14:44:02Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/ian-karet",
+        "web_url": "https://www.gov.uk/government/people/ian-karet"
+      }
+    ],
+    "ordered_contacts": [
+      {
+        "content_id": "5e5b5bb1-a71a-4088-8ae4-23fc23aa438a",
+        "title": "Contact Centre ",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2020-04-28T15:15:29Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Find out how to get a password or log in to Charity Commission online services\r\nhttps://www.gov.uk/guidance/online-services-for-charities. \r\n\r\nThe coronavirus (COVID-19) crisis is affecting postal collections and deliveries. It may take us longer to respond to written correspondence. Our contact centre remains open so instead of using the post, please call us or use our enquiry form.",
+          "title": "Contact Centre ",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": null,
+          "phone_numbers": [
+            {
+              "title": "Open Monday to Friday, 9am to 5pm",
+              "number": "0300 066 9197"
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "0bab0771-3003-4298-91f0-89c1890bb530",
+        "title": "Enquiry form",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2018-09-22T12:59:07Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "We can only respond to an enquiry when the Charity Commission has to be involved.",
+          "title": "Enquiry form",
+          "contact_form_links": [
+            {
+              "link": "https://forms.charitycommission.gov.uk/enquiry-form/"
+            }
+          ],
+          "post_addresses": [
+
+          ],
+          "email_addresses": null,
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "b95c24e0-b3f9-4aff-91b4-144c7f95503f",
+        "title": "Complain about a charity",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2015-02-10T16:13:46Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "What to do if a charity won't deal with your complaint, or if you suspect illegal activity like terrorism or abuse.",
+          "title": "Complain about a charity",
+          "contact_form_links": [
+            {
+              "link": "https://www.gov.uk/complain-about-charity/"
+            }
+          ],
+          "post_addresses": [
+
+          ],
+          "email_addresses": null,
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "361b59f7-c1c3-41fd-96f3-44716fe9a829",
+        "title": "Report a serious incident in your charity",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2019-03-14T10:39:15Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Charity trustees must report serious incidents to us, and explain how incidents are being dealt with. \r\n\r\nFind out how to report serious incidents and what to report.\r\n\r\nhttps://www.gov.uk/guidance/how-to-report-a-serious-incident-in-your-charity \r\n",
+          "title": "Report a serious incident in your charity",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": null,
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "169d2455-d9d7-4cc8-9f83-af31b6fdfc7b",
+        "title": "Whistleblowing",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2019-06-21T08:57:36Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Find out what sort of wrongdoing you can report to the Charity Commission, and how to report it.\r\n\r\nhttps://www.gov.uk/guidance/report-serious-wrongdoing-at-a-charity-as-a-worker-or-volunteer",
+          "title": "Whistleblowing",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": null,
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "6c5a4d76-a60d-4b35-a818-41d485fa2bd6",
+        "title": "Freedom of Information (FOI) requests",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2019-03-14T10:41:51Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Read our privacy notice about how we process your data when you submit a Freedom of Information (FOI) request\r\nwww.gov.uk/government/publications/charity-commission-freedom-of-informationenvironmental-information-regulations-request-privacy-notice",
+          "title": "Freedom of Information (FOI) requests",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": [
+            {
+              "email": "FOIrequests@charitycommission.gov.uk"
+            }
+          ],
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      }
+    ],
+    "ordered_parent_organisations": [
+      {
+        "content_id": "fd62c5a4-714d-47fe-a612-595d1739251c",
+        "title": "Department for Digital, Culture, Media & Sport",
+        "locale": "en",
+        "analytics_identifier": "D5",
+        "api_path": "/api/content/government/organisations/department-for-digital-culture-media-sport",
+        "base_path": "/government/organisations/department-for-digital-culture-media-sport",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Department for<br/>Digital, Culture,<br/>Media &amp; Sport",
+            "crest": "single-identity"
+          },
+          "brand": "department-for-culture-media-sport",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/42/s300_100PS_960.jpg",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/42/s960_100PS_960.jpg"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-digital-culture-media-sport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-digital-culture-media-sport"
+      }
+    ],
+    "ordered_roles": [
+      {
+        "content_id": "8472c261-c0f1-11e4-8223-005056011aef",
+        "title": "Chief Executive Officer, Charity Commission",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-05-08T13:37:31Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Chief Executive Officer (CEO), Charity Commission is responsible for its day-to-day management. This includes leading the commission’s senior management team.</p>\n\n<p>The CEO also has delegated responsibility for making sure the commission:</p>\n\n<ul>\n  <li>carries out its statutory duties and responsibilities and exercises its legal powers appropriately</li>\n  <li>develops plans, programmes and policies for the board to approve</li>\n  <li>carries out the board’s strategies and plans for the future, including its contribution to legislative reform</li>\n  <li>carries out the commission’s services in line with targets and performance indicators agreed by the board</li>\n</ul>\n\n<p>The CEO is accountable for the commission’s use of public funds, and reports on this to the Public Accounts Committee.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "8472c2bb-c0f1-11e4-8223-005056011aef",
+        "title": "Chair, Charity Commission",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2018-02-25T14:37:36Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Chair is responsible for effectively and accurately representing the views of the Charity Commission Board in:</p>\n\n<ul>\n  <li>directing the commission’s strategic development, policies and plans</li>\n  <li>communicating the commission’s plans and achievements to charities and their users, commission staff, the government and the public</li>\n  <li>developing the commission’s relationships with government, sector bodies and other major stakeholders</li>\n</ul>\n\n<p>The Chair leads the board in making sure the Charity Commission:</p>\n\n<ul>\n  <li>carries out its statutory duties and responsibilities and exercises its legal powers appropriately</li>\n  <li>carries out the board’s plans for the future, including its contribution to legislative reform</li>\n  <li>carries out its services in line with agreed targets</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "8478384e-c0f1-11e4-8223-005056011aef",
+        "title": "Director of Communications and Policy",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2020-03-26T09:09:41Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Director Communications and Policy is accountable for policy development and media and stakeholder management, leading the teams that are responsible for:</p>\n\n<ul>\n  <li>exploiting the commission’s expertise and engaging with the sector and other stakeholders to:\n    <ul>\n      <li>formulate fit-for-purpose policy and guidance that reflects regulatory requirements and enables charities to flourish</li>\n      <li>develop research reports that share the commission’s unique perspectives and insights on charities in England and Wales</li>\n    </ul>\n  </li>\n  <li>media and stakeholder relations, including public and parliamentary affairs, to promote the commission, its work and reputation, ensuring that it has an audible and respected external voice</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "84784310-c0f1-11e4-8223-005056011aef",
+        "title": "Board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2018-03-27T10:20:44Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence.</p>\n\n<p>They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The Commission’s Board members also:</p>\n\n<ul>\n  <li>\n    <p>monitor how the commission meets its statutory objectives and uses its legal powers</p>\n  </li>\n  <li>\n    <p>consider the commission’s management team’s performance, governance standards and delivery against plans</p>\n  </li>\n  <li>\n    <p>focus on maximising the commission’s impact and effectiveness</p>\n  </li>\n  <li>\n    <p>make sure the commission uses public funds prudently</p>\n  </li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "847843ac-c0f1-11e4-8223-005056011aef",
+        "title": "Director of Investigations, Monitoring and Enforcement",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2015-03-02T14:15:49Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Director of Investigations, Monitoring and Enforcement (IME) plays a critical role in building the commission’s reputation as a robust, proactive, risk-based regulator.</p>\n\n<p>Leading on the commission’s corporate strategies on counter-terrorism, fraud and financial abuse, and safeguarding issues, and working influentially across government and with regulators and law enforcement agencies in the UK and internationally on the abuse of charities, the Director of IME is responsible for:</p>\n\n<ul>\n  <li>investigations: the commission’s most serious and high risk cases</li>\n  <li>monitoring: proactively identifying potential non-compliance, carrying out compliance inspections and regulatory visits</li>\n  <li>intelligence: providing intelligence and overseeing our relationships with other public authorities</li>\n  <li>accountancy: providing accountancy support on cases and undertaking proactive scrutiny of accounts</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "84784452-c0f1-11e4-8223-005056011aef",
+        "title": "Chief Operating Officer",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-05-08T13:25:54Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Chief Operating Officer is accountable for all but the commission’s most serious and highest risk casework and for its ‘digital by default’ agenda. Driving maximum efficiency and effectiveness in the commission’s frontline services and at the same time ensuring excellence in customer fulfilment is a key duty of this role. The COO leads the teams that carry out:</p>\n\n<ul>\n  <li>assessment and allocation of all incoming work to the commission</li>\n  <li>registration of new charities</li>\n  <li>permissions and consents casework and some higher risk work (short of a formal inquiry, which is carried out in Investigations, Monitoring and Enforcement)</li>\n  <li>the annual return programme</li>\n  <li>the commission’s web presence (via GOV.UK)</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "84784501-c0f1-11e4-8223-005056011aef",
+        "title": "Director of Corporate Services",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2015-03-02T14:27:05Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Director of Corporate Services is accountable for supporting the Accounting Officer (Chief Executive Officer) in the effective management of the commission’s resources, ensuring that it runs smoothly, efficiently and economically, achieving value for money for the taxpayer.</p>\n\n<p>The commission aims for excellence in the way that it leads and develops its people, manages our finances, runs its estates, utilises technology and continually changes and improves.</p>\n\n<p>Ensuring that the commission’s standards and ‘control environment’ meet the high expectations placed on a publicly funded body, and that the commission is properly equipped and enabled so it can deliver effectively, the Director of Corporate Services is responsible for:</p>\n\n<ul>\n  <li>business assurance</li>\n  <li>governance</li>\n  <li>human resources</li>\n  <li>information and communication technology (ICT)</li>\n  <li>internal communication</li>\n  <li>projects including the commission’s transformation programme</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "6d38404a-32d4-4dcc-ab39-b36c6a27c0ab",
+        "title": "Board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-01-02T07:44:02Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the Commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The Commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the Commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the Commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the Commission’s impact and effectiveness</li>\n  <li>make sure the Commission uses public funds prudently</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "4c6725f6-3d22-4d9b-8cfd-0ae0aa2316ea",
+        "title": "Non-Executive Member of the Charity Commission Board",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2018-11-12T13:19:29Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "71365ec7-b839-4a40-898d-d587aa24460e",
+        "title": "Board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-03-31T14:44:02Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "d9aff14e-49b9-4cb0-af59-5b27016d00a3",
+        "title": "Board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-03-31T14:44:02Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "7a2a43f5-b3c8-490f-8470-a6ef6c394952",
+        "title": "Board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-03-31T14:44:02Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "119aff1b-1579-442d-bb80-cd8181596364",
+        "title": "Board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2018-12-31T14:46:40Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The Commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "ca19d0cc-17ab-40c3-babd-0544799a878e",
+        "title": "Board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-03-31T14:44:02Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "e5cec13c-2899-4564-9ee6-e90fb0fa20cb",
+        "title": "Board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-03-31T14:44:10Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the commission’s impact and effectiveness</li>\n  <li>make sure the commission uses public funds prudently</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "ed5a6ad4-5691-41ea-9158-659f1e413da2",
+        "title": "Director of Legal Services",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2018-05-21T10:02:22Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Legal Director is responsible for leading and managing the legal services in the Charity Commission and assuring the legal integrity of the Commission’s regulatory work and policies.</p>\n\n<p>As well as giving legal advice on the Commission’s work, the legal team conducts:+</p>\n\n<ul>\n  <li>litigation in the Tribunal and Courts brought against or by the commission</li>\n  <li>novel, high profile and sensitive legal cases, particularly applications for registration</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "bdf96843-2018-4dc8-9793-6ba9af746ebf",
+        "title": "Deputy Chief Executive",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-05-08T13:29:32Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Deputy Chief Executive Officer for the Charity Commission works alongside the CEO, who is responsible for its day-to-day management. This includes leading the commission’s senior management team.</p>\n\n<p>The Deputy and CEO also have delegated responsibility for making sure the commission:</p>\n\n<ul>\n  <li>carries out its statutory duties and responsibilities and exercises its legal powers appropriately</li>\n  <li>develops plans, programmes and policies for the board to approve</li>\n  <li>carries out the board’s strategies and plans for the future, including its contribution to legislative reform</li>\n  <li>carries out the commission’s services in line with targets and performance indicators agreed by the board</li>\n</ul>\n\n<p>The Deputy and CEO are accountable for the commission’s use of public funds, and report on this to the Public Accounts Committee.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "84f88c8d-a24f-4f5b-a7da-652cc24ae1ec",
+        "title": "Board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-05-08T13:39:16Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Charity Commission Board members are ultimately responsible for all that the commission does. They set the commission’s values, business direction and strategy and make sure it acts fairly, responsibly, transparently, proportionately and ethically. Board members see that the Commission maintains its integrity and independence. They identify and manage risks and listen and respond to stakeholders.</p>\n\n<p>The Commission’s Board members also:</p>\n\n<ul>\n  <li>monitor how the Commission meets its statutory objectives and uses its legal powers</li>\n  <li>consider the Commission’s management team’s performance, governance standards and delivery against plans</li>\n  <li>focus on maximising the Commission’s impact and effectiveness</li>\n  <li>make sure the Commission uses public funds prudently</li>\n</ul>\n\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "4ca1b232-d7b2-46ce-a54c-b99f9bd0283e",
+        "title": "Director of Operations",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-08-07T15:43:00Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Charity Commission Director of Operations is accountable for the Commission’s most serious and highest risk casework and for its ‘digital by default’ agenda.</p>\n\n<p>Driving maximum efficiency and effectiveness in the commission’s front line services and at the same time ensuring excellence in customer fulfillment is a key duty of this role. The Director of Operations leads the teams that carry out:</p>\n\n<ul>\n  <li>assessment and allocation of all incoming work to the Commission</li>\n  <li>registration of new charities</li>\n  <li>permissions and consents casework and some higher risk work (short of a formal inquiry, which is carried out by the Investigations, Monitoring and Enforcement directorate)</li>\n  <li>the annual return programme</li>\n  <li>the commission’s digital services</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "content_id": "489e651f-34c8-4b34-bdd7-e13c2324cde3",
+        "title": "The Charity Commission",
+        "locale": "en",
+        "analytics_identifier": "D98",
+        "api_path": "/api/content/government/organisations/charity-commission",
+        "base_path": "/government/organisations/charity-commission",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Charity Commission",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/98/Home_page.jpg",
+              "alt_text": "The Charity Commission"
+            }
+          },
+          "brand": "department-for-business-innovation-skills",
+          "default_news_image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/476/s300_press_release_image_2018_colour.png",
+            "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/476/s960_press_release_image_2018_colour.png"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/charity-commission",
+        "web_url": "https://www.gov.uk/government/organisations/charity-commission"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "The Charity Commission",
+        "public_updated_at": "2020-05-01T07:53:25Z",
+        "analytics_identifier": "D98",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "base_path": "/government/organisations/charity-commission",
+        "api_path": "/api/content/government/organisations/charity-commission",
+        "withdrawn": false,
+        "content_id": "489e651f-34c8-4b34-bdd7-e13c2324cde3",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/charity-commission",
+        "web_url": "https://www.gov.uk/government/organisations/charity-commission",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "We register and regulate charities in England and Wales, to ensure that the public can support charities with confidence. Charity Commission is a non-ministerial department.",
+  "details": {
+    "acronym": "Charity Commission",
+    "alternative_format_contact_email": "usability@charitycommission.gov.uk",
+    "body": "<div class=\"govspeak\"><p>We register and regulate charities in England and Wales, to ensure that the public can support charities with confidence.</p>\n\n<p><abbr title=\"The Charity Commission\">Charity Commission</abbr> is a non-ministerial department.</p>\n</div>",
+    "brand": "department-for-business-innovation-skills",
+    "logo": {
+      "formatted_title": "Charity Commission",
+      "image": {
+        "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/98/Home_page.jpg",
+        "alt_text": "The Charity Commission"
+      }
+    },
+    "foi_exempt": false,
+    "ordered_corporate_information_pages": [
+      {
+        "title": "Complaints procedure",
+        "href": "/government/organisations/charity-commission/about/complaints-procedure"
+      },
+      {
+        "title": "Equality and diversity",
+        "href": "/government/organisations/charity-commission/about/equality-and-diversity"
+      },
+      {
+        "title": "Accessible documents policy",
+        "href": "/government/organisations/charity-commission/about/accessible-documents-policy"
+      },
+      {
+        "title": "Media enquiries",
+        "href": "/government/organisations/charity-commission/about/media-enquiries"
+      },
+      {
+        "title": "Our governance",
+        "href": "/government/organisations/charity-commission/about/our-governance"
+      },
+      {
+        "title": "Working for Charity Commission",
+        "href": "/government/organisations/charity-commission/about/recruitment"
+      },
+      {
+        "title": "Jobs",
+        "href": "https://www.civilservicejobs.service.gov.uk/csr/index.cgi?SID=dXNlcnNlYXJjaGNvbnRleHQ9NTY5ODkxNjUmcGFnZWFjdGlvbj1zZWFyY2hieWNvbnRleHRpZCZwYWdlY2xhc3M9Sm9icyZrZXk9ZmFpciZyZXFzaWc9MTUyNjQ3NjgzMS0zODdkNGU1YWQ0ODg0MWQ4ZTdjODAyNWJhZWNjZDJkMGQ1NmFjOWU1"
+      }
+    ],
+    "secondary_corporate_information_pages": "Read about the types of information we routinely publish in our <a class=\"brand__color\" href=\"/government/organisations/charity-commission/about/publication-scheme\">Publication scheme</a>. Our <a class=\"brand__color\" href=\"/government/organisations/charity-commission/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information. Read our policy on <a class=\"brand__color\" href=\"/government/organisations/charity-commission/about/social-media-use\">Social media use</a>. Find out <a class=\"brand__color\" href=\"/government/organisations/charity-commission/about-our-services\">About our services</a>.",
+    "ordered_featured_links": [
+      {
+        "title": "Find a charity",
+        "href": "https://apps.charitycommission.gov.uk/showcharity/registerofcharities/RegisterHomePage.aspx"
+      },
+      {
+        "title": "Online services for charities",
+        "href": "https://www.gov.uk/guidance/online-services-for-charities"
+      },
+      {
+        "title": "Prepare and send your annual return",
+        "href": "https://www.gov.uk/guidance/prepare-a-charity-annual-return"
+      },
+      {
+        "title": "Set up and register a charity",
+        "href": "https://www.gov.uk/set-up-a-charity"
+      },
+      {
+        "title": "Guidance",
+        "href": "https://www.gov.uk/guidance/charity-commission-guidance"
+      },
+      {
+        "title": "Complain about a charity",
+        "href": "https://www.gov.uk/complain-about-charity"
+      },
+      {
+        "title": "Contact the Charity Commission",
+        "href": "https://www.gov.uk/government/organisations/charity-commission#org-contacts"
+      }
+    ],
+    "ordered_featured_documents": [
+      {
+        "title": "Manage financial difficulties in your charity caused by coronavirus",
+        "href": "/guidance/manage-financial-difficulties-in-your-charity-caused-by-coronavirus",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/77133/press_release_image_2018_colour.png",
+          "alt_text": "The Charity Commission for England and Wales logo."
+        },
+        "summary": "<div class=\"govspeak\"><p>Guidance about coronavirus (COVID-19) related financial difficulties in charities and how to work through them.</p>\n</div>",
+        "public_updated_at": "2020-04-23T10:00:00.000+01:00",
+        "document_type": "Detailed guide"
+      },
+      {
+        "title": "Coronavirus (COVID-19) guidance for the charity sector",
+        "href": "/guidance/coronavirus-covid-19-guidance-for-the-charity-sector",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/76806/coronavirus_guidance.png",
+          "alt_text": "Image of text: \"Coronavirus guidance for the charity sector\""
+        },
+        "summary": "<div class=\"govspeak\"><p>Guidance to help with running your charity during the coronavirus (COVID-19) outbreak.</p>\n</div>",
+        "public_updated_at": "2020-04-07T18:11:00.000+01:00",
+        "document_type": "Detailed guide"
+      },
+      {
+        "title": "Generous donors urged to give safely to registered charities this Ramadan",
+        "href": "/government/news/generous-donors-urged-to-give-safely-to-registered-charities-this-ramadan",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/77190/ramadan_govuk.png",
+          "alt_text": "A woman at a window sending money out into the world. "
+        },
+        "summary": "<div class=\"govspeak\"><p>Regulator offers advice on ensuring charitable contributions reach the intended cause, including when giving online.</p>\n</div>",
+        "public_updated_at": "2020-04-23T11:52:00.000+01:00",
+        "document_type": "Press release"
+      },
+      {
+        "title": "Coronavirus (COVID-19): increased risk of fraud and cybercrime against charities",
+        "href": "/government/news/coronavirus-covid-19-increased-risk-of-fraud-and-cybercrime-against-charities",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/76964/screen_padlock_computer.png",
+          "alt_text": "A computer screen displaying a padlock. "
+        },
+        "summary": "<div class=\"govspeak\"><p>This alert provides information and advice for charities about coronavirus (COVID-19) related fraud and cybercrime.</p>\n</div>",
+        "public_updated_at": "2020-04-17T14:58:52.000+01:00",
+        "document_type": "News story"
+      },
+      {
+        "title": "Regulators urge safe giving to charities as communities respond to Coronavirus pandemic",
+        "href": "/government/news/regulators-urge-safe-giving-to-charities-as-communities-respond-to-coronavirus-pandemic",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/76280/safer_giving_coronavirus_keyboard.png",
+          "alt_text": "A keyboard with the words 'give safely' on the enter key. "
+        },
+        "summary": "<div class=\"govspeak\"><p>The Charity Commission and Fundraising Regulator urge people to ‘give safely’ as people continue to respond with generosity in the current crisis.</p>\n</div>",
+        "public_updated_at": "2020-03-19T16:51:00.000+00:00",
+        "document_type": "Press release"
+      },
+      {
+        "title": "Charity Commission alerts, decisions, reports and statements",
+        "href": "/government/collections/charity-commission-reports-decisions-alerts-and-statements",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/67015/inquiry_reports_homepage.png",
+          "alt_text": "Charity Commission reports and alerts"
+        },
+        "summary": "<div class=\"govspeak\"><p>Charity Commission case reports, decisions made, inquiry reports, regulatory alerts and statements on live cases.</p>\n</div>",
+        "public_updated_at": "2020-01-31T16:30:19.000+00:00",
+        "document_type": "Collection"
+      }
+    ],
+    "ordered_promotional_features": [
+
+    ],
+    "important_board_members": 2,
+    "organisation_featuring_priority": "service",
+    "organisation_govuk_status": {
+      "status": "live",
+      "url": null,
+      "updated_at": null
+    },
+    "organisation_type": "non_ministerial_department",
+    "organisation_political": false,
+    "social_media_links": [
+      {
+        "service_type": "twitter",
+        "title": "Twitter",
+        "href": "https://twitter.com/chtycommission"
+      },
+      {
+        "service_type": "youtube",
+        "title": "YouTube",
+        "href": "http://www.youtube.com/TheCharityCommission"
+      },
+      {
+        "service_type": "linkedin",
+        "title": "LinkedIn",
+        "href": "https://www.linkedin.com/company/charity-commission-for-england-and-wales"
+      },
+      {
+        "service_type": "blog",
+        "title": "Charity Commission blog",
+        "href": "https://charitycommission.blog.gov.uk/"
+      }
+    ],
+    "default_news_image": {
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/476/s300_press_release_image_2018_colour.png",
+      "high_resolution_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/476/s960_press_release_image_2018_colour.png"
+    }
+  }
+}

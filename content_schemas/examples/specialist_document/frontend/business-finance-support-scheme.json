@@ -1,0 +1,52 @@
+{
+  "content_id": "63f10fb1-b355-46f9-b090-bdd6c1c71870",
+  "public_updated_at": "2016-11-08T12:55:20+00:00",
+  "locale": "en",
+  "details": {
+    "body": "<p>Big Issue Invest helps scale up social enterprises and charities throughout the UK by providing loans and investments.</p>\n\n<h2 id=\"more-testing\">How much you can get</h2>\n\n<p>£20,000 - £3,000,000</p>\n",
+    "attachments": [
+
+    ],
+    "metadata": {
+      "business_sizes": [
+        "between-10-and-249",
+        "between-250-and-500",
+        "over-500",
+        "under-10"
+      ],
+      "business_stages": [
+        "established"
+      ],
+      "continuation_link": "http://www.bigissueinvest.com",
+      "industries": [
+        "business-and-finance",
+        "education",
+        "health",
+        "transport-and-distribution",
+        "travel-and-leisure",
+        "wholesale-and-retail"
+      ],
+      "types_of_support": [
+        "equity",
+        "finance",
+        "loan"
+      ],
+      "will_continue_on": "on the Big Issue Invest website"
+    },
+    "max_cache_time": 10,
+    "change_history": [
+      {
+        "note": "First published.",
+        "public_timestamp": "2015-07-09T08:17:10+00:00"
+      }
+    ]
+  },
+  "base_path": "/business-finance-support/big-issue-invest",
+  "description": "Big Issue Invest helps scale up social enterprises and charities throughout the UK by providing loans and investments",
+  "title": "Big Issue Invest",
+  "updated_at": "2016-11-08T12:55:20+00:00",
+  "schema_name": "specialist_document",
+  "document_type": "business_finance_support_scheme",
+  "links": {
+  }
+}

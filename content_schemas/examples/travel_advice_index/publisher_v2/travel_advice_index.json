@@ -1,0 +1,22 @@
+{
+  "base_path": "/foreign-travel-advice",
+  "title": "Foreign travel advice",
+  "description": "Latest travel advice by country including safety and security, entry requirements, travel warnings and health",
+  "public_updated_at": "2015-10-26T13:00:37+00:00",
+  "details": {
+    "email_signup_link": "/foreign-travel-advice/email-signup",
+    "max_cache_time": 10,
+    "publishing_request_id": "2546-1460985144476-19268198-3242"
+  },
+  "locale": "en",
+  "publishing_app": "travel-advice-publisher",
+  "rendering_app": "frontend",
+  "routes": [
+    {
+      "path": "/foreign-travel-advice/albania",
+      "type": "exact"
+    }
+  ],
+  "document_type": "travel_advice_index",
+  "schema_name": "travel_advice_index"
+}

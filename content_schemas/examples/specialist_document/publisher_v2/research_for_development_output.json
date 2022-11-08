@@ -1,0 +1,66 @@
+{
+  "base_path": "/research-for-development-outputs/example-research-output",
+  "title": "Example research output",
+  "description": "This is the summary of an example research output",
+  "document_type": "research_for_development_output",
+  "schema_name": "specialist_document",
+  "public_updated_at": "2015-02-11T13:45:00.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "rendering_app": "government-frontend",
+  "locale": "en",
+  "phase": "live",
+  "details": {
+    "body": [
+      {
+        "content_type": "text/html",
+        "content": "<h2 id=\"header\">Header</h2>\n\n<p>This is the long body of an example research output</p>\n\n<p>This is the long body of an example research output</p>\n\n<p>This is the long body of an example research output</p>\n\n<p>This is the long body of an example research output</p>\n\n<p>This is the long body of an example research output</p>\n\n<p>This is the long body of an example research output</p>\n\n<p>This is the long body of an example research output</p>\n\n<p>This is the long body of an example research output</p>\n\n<p>This is the long body of an example research output</p>\n\n<p>This is the long body of an example research output</p>\n"
+      },
+      {
+        "content_type": "text/govspeak",
+        "content": "## Header\r\n\r\nThis is the long body of an example research output\r\n\r\nThis is the long body of an example research output\r\n\r\nThis is the long body of an example research output\r\n\r\nThis is the long body of an example research output\r\n\r\nThis is the long body of an example research output\r\n\r\nThis is the long body of an example research output\r\n\r\nThis is the long body of an example research output\r\n\r\nThis is the long body of an example research output\r\n\r\nThis is the long body of an example research output\r\n\r\nThis is the long body of an example research output"
+      }
+    ],
+    "attachments": [
+      {
+        "attachment_type": "file",
+        "id": "1ab58021-cce5-49a3-9b84-4e0fa5d5c88e",
+        "content_id": "1ab58021-cce5-49a3-9b84-4e0fa5d5c88e",
+        "url": "https://assets.digital.cabinet-office.gov.uk/media/56e7fc15ed915d037a000004/example-research-doc.pdf",
+        "content_type": "application/pdf",
+        "title": "example research output doc",
+        "created_at": "2015-02-11T13:45:00.000+00:00",
+        "updated_at": "2015-02-13T13:45:00.000+00:00"
+      }
+    ],
+    "change_history": [
+
+    ],
+    "metadata": {
+      "bulk_published": true,
+      "review_status": "unreviewed",
+      "research_document_type": "book_chapter",
+      "country": [
+        "AL",
+        "AF"
+      ],
+      "theme": [
+        "agriculture",
+        "infrastructure"
+      ],
+      "authors": [
+        "Mr. Potato Head",
+        "Mrs. Potato Head"
+      ],
+      "first_published_at": "2016-07-01"
+    }
+  },
+  "routes": [
+    {
+      "path": "/research-for-development-output/example-research-output",
+      "type": "exact"
+    }
+  ],
+  "redirects": [
+
+  ]
+}

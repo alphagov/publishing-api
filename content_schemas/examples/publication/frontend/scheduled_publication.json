@@ -1,0 +1,47 @@
+{
+  "base_path": "/government/publications/a-scheduled-publication",
+  "content_id": "9802be23-bbdc-4e85-bb6a-a03b8954747e",
+  "title": "Title of a scheduled publication",
+  "description": "Description of a scheduled publication",
+  "locale": "en",
+  "updated_at": "2016-05-03T14:11:53.023Z",
+  "public_updated_at": "2016-05-03T14:11:50.000+00:00",
+  "publishing_scheduled_at": "2016-05-03T14:10:00.000+00:00",
+  "scheduled_publishing_delay_seconds": 110,
+  "details": {
+    "body": "Body text",
+    "documents": [
+
+    ],
+    "first_public_at": "2012-11-01T00:00:00.000+00:00",
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "political": false
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ]
+  },
+  "schema_name": "publication",
+  "document_type": "notice"
+}

@@ -1,0 +1,246 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/statistics/road-traffic-estimates-for-great-britain-january-to-march-2015",
+  "content_id": "dd668647-d5b5-4e2a-985e-54cad66e6fe0",
+  "document_type": "national_statistics",
+  "first_published_at": "2015-05-21T08:30:36.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-05-21T08:30:36.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Road traffic estimates for Great Britain: January to March 2015",
+  "updated_at": "2018-01-10T14:08:57.597Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "document_collections": [
+      {
+        "api_path": "/api/content/government/collections/road-traffic-statistics",
+        "base_path": "/government/collections/road-traffic-statistics",
+        "content_id": "5eb5f0ab-7631-11e4-a3cb-005056011aef",
+        "description": "Information and statistics on road traffic.",
+        "document_type": "document_collection",
+        "locale": "en",
+        "public_updated_at": "2017-11-30T09:30:39Z",
+        "schema_name": "document_collection",
+        "title": "Road traffic statistics",
+        "withdrawn": false,
+        "links": {
+          "documents": [
+            {
+              "api_path": "/api/content/government/statistics/road-traffic-estimates-for-great-britain-january-to-march-2015",
+              "base_path": "/government/statistics/road-traffic-estimates-for-great-britain-january-to-march-2015",
+              "content_id": "dd668647-d5b5-4e2a-985e-54cad66e6fe0",
+              "description": "Road traffic estimates by volume, vehicle type and road class in Great Britain, for the year ending March 2015. ",
+              "document_type": "national_statistics",
+              "locale": "en",
+              "public_updated_at": "2015-05-21T08:30:36Z",
+              "schema_name": "publication",
+              "title": "Road traffic estimates for Great Britain: January to March 2015",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/statistics/road-traffic-estimates-for-great-britain-january-to-march-2015",
+              "web_url": "https://www.gov.uk/government/statistics/road-traffic-estimates-for-great-britain-january-to-march-2015"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/collections/road-traffic-statistics",
+        "web_url": "https://www.gov.uk/government/collections/road-traffic-statistics"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:03Z",
+        "schema_name": "placeholder",
+        "title": "Department for Transport",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Department<br/>for Transport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/transport",
+        "base_path": "/government/topics/transport",
+        "content_id": "020cdae2-ee93-4fca-bfb7-3f5f8f5751d1",
+        "document_type": "policy_area",
+        "locale": "en",
+        "public_updated_at": "2013-07-22T09:04:54Z",
+        "schema_name": "placeholder",
+        "title": "Transport",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/transport",
+        "web_url": "https://www.gov.uk/government/topics/transport"
+      },
+      {
+        "api_path": "/api/content/government/topics/uk-economy",
+        "base_path": "/government/topics/uk-economy",
+        "content_id": "f10df7ae-e3a6-4f9c-b764-541f62c8e6cf",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:06Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "UK economy",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/uk-economy",
+        "web_url": "https://www.gov.uk/government/topics/uk-economy"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:03Z",
+        "schema_name": "placeholder",
+        "title": "Department for Transport",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Department<br/>for Transport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/road-network-and-traffic",
+        "base_path": "/government/policies/road-network-and-traffic",
+        "content_id": "5c7685d8-7631-11e4-a3cb-005056011aef",
+        "description": "A modern road network helps traffic move around the country more easily and is essential for economic growth. We’ve set out a long-term funding programme to create smooth, smart and sustainable roads. We’ll ensure that highways work is properly managed, and that parking enforcement on local roads is fair and effective.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-10-23T09:36:29Z",
+        "schema_name": "policy",
+        "title": "Road network and traffic",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/road-network-and-traffic",
+        "web_url": "https://www.gov.uk/government/policies/road-network-and-traffic"
+      }
+    ],
+    "related_statistical_data_sets": [
+      {
+        "api_path": "/api/content/government/statistical-data-sets/tra25-quarterly-estimates",
+        "base_path": "/government/statistical-data-sets/tra25-quarterly-estimates",
+        "content_id": "5c81c08e-7631-11e4-a3cb-005056011aef",
+        "description": "Quarterly road traffic statistics tables, produced by Department for Transport.",
+        "document_type": "statistical_data_set",
+        "locale": "en",
+        "public_updated_at": "2017-11-30T09:30:39Z",
+        "schema_name": "statistical_data_set",
+        "title": "Quarterly traffic estimates (TRA25)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/statistical-data-sets/tra25-quarterly-estimates",
+        "web_url": "https://www.gov.uk/government/statistical-data-sets/tra25-quarterly-estimates"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Road traffic estimates for Great Britain: January to March 2015",
+        "public_updated_at": "2015-05-21T08:30:36Z",
+        "document_type": "national_statistics",
+        "schema_name": "publication",
+        "base_path": "/government/statistics/road-traffic-estimates-for-great-britain-january-to-march-2015",
+        "description": "Road traffic estimates by volume, vehicle type and road class in Great Britain, for the year ending March 2015. ",
+        "api_path": "/api/content/government/statistics/road-traffic-estimates-for-great-britain-january-to-march-2015",
+        "withdrawn": false,
+        "content_id": "dd668647-d5b5-4e2a-985e-54cad66e6fe0",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/statistics/road-traffic-estimates-for-great-britain-january-to-march-2015",
+        "web_url": "https://www.gov.uk/government/statistics/road-traffic-estimates-for-great-britain-january-to-march-2015",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Road traffic estimates by volume, vehicle type and road class in Great Britain, for the year ending March 2015. ",
+  "details": {
+    "body": "<div class=\"govspeak\">\n<p>Comparing the year to end March 2015 with the same period in 2014:</p>\n\n<ul>\n  <li>all motor vehicle traffic increased by 1.8 %, to 312.4 billion vehicle miles</li>\n  <li>car traffic increased by 1.3 %</li>\n  <li>\n<abbr title=\"Light Goods Vehicles\">LGV</abbr> traffic increased by 5.1 %, reaching a new peak of 45.5 billion vehicle miles</li>\n  <li>traffic volumes increased across all road classifications</li>\n  <li>minor rural road traffic increased the most, rising 4.9 % to reach 44.1 billion vehicle miles</li>\n</ul>\n\n<h2 id=\"contact-us\">Contact us</h2>\n\n<div class=\"contact \" id=\"contact_1335\">\n  <div class=\"content\">\n <div class=\"vcard contact-inner\">\n\n  <p>Road traffic and vehicle speed statistics</p>\n\n <div class=\"email-url-number\">\n            <p class=\"email\">\n              <span class=\"type\">Email</span>\n              <a class=\"email\" href=\"mailto:roadtraff.stats@dft.gsi.gov.uk\">roadtraff.stats@dft.gsi.gov.uk</a>\n            </p>\n            <p class=\"tel\">\n              <span class=\"type\">Public enquiries</span>\n              020 7944 3095\n            </p>\n        </div>\n\n\n    </div>\n  </div>\n</div>\n\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2015-05-21T09:30:36.000+01:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1040858\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/428659/road-traffic-estimates-quarter-1-2015.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/428659/thumbnail_road-traffic-estimates-quarter-1-2015.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/428659/road-traffic-estimates-quarter-1-2015.pdf\">Road traffic estimates for Great Britain: January to March 2015 report</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">579KB</span>, <span class=\"page-length\">4 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1040859\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/428660/road-traffic-estimates-quarter-1-2015.zip\"><img alt=\"\" src=\"/government/assets/pub-cover-a380604bb953dc22ac9dcfbf3cc65598327f493c37b09ac497c45148cbaa21b1.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1040859-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/428660/road-traffic-estimates-quarter-1-2015.zip\">Road traffic estimates for Great Britain: January to March 2015 data tables</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Zip archive\">ZIP</abbr></span>, <span class=\"file-size\">717KB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1040859-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1040859-accessibility-request\" data-controls=\"attachment-1040859-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1040859-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:webmasterdft@dft.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Road%20traffic%20estimates%20for%20Great%20Britain%3A%20January%20to%20March%202015%20data%20tables%0A%20%20Original%20format%3A%20zip%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Road%20traffic%20estimates%20for%20Great%20Britain%3A%20January%20to%20March%202015%20data%20tables%27%20in%20an%20alternative%20format\">webmasterdft@dft.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "4c717efc-f47b-478e-a76d-ce1ae0af1946"
+    ],
+    "political": false,
+    "government": {
+      "title": "2015 Conservative government",
+      "slug": "2015-conservative-government",
+      "current": true
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+        "road-network-and-traffic"
+      ],
+      "topics": [
+
+      ]
+    },
+    "first_public_at": "2015-05-21T09:30:36.000+01:00"
+  }
+}

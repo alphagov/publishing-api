@@ -1,0 +1,47 @@
+{
+  "content_id": "19ed8498-37ed-4c8e-b0bf-accbb2cf5477",
+  "base_path": "/browse",
+  "description": "Almost everything on GOV.UK.",
+  "details": {
+  },
+  "links": {
+    "top_level_browse_pages": [
+      {
+        "content_id": "3c0557d1-518e-4a9b-8920-78524944a28c",
+        "title": "Benefits",
+        "api_path": "/api/content/browse/benefits",
+        "base_path": "/browse/benefits",
+        "description": "Includes tax credits, eligibility and appeals",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits",
+        "web_url": "https://www.gov.uk/browse/benefits",
+        "locale": "en"
+      },
+      {
+        "content_id": "94ecd143-c60f-4981-a914-242d0c3b0bd1",
+        "title": "Births, deaths, marriages and care",
+        "api_path": "/api/content/browse/births-deaths-marriages",
+        "base_path": "/browse/births-deaths-marriages",
+        "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+        "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages",
+        "web_url": "https://www.gov.uk/browse/births-deaths-marriages",
+        "locale": "en"
+      },
+      {
+        "content_id": "88c8dabd-ff05-4530-99ff-ecf3294a9949",
+        "title": "Business and self-employed",
+        "api_path": "/api/content/browse/business",
+        "base_path": "/browse/business",
+        "description": "Information about starting up and running a business in the UK, including help if you're self employed or a sole trader.",
+        "api_url": "https://www.gov.uk/api/content/browse/business",
+        "web_url": "https://www.gov.uk/browse/business",
+        "locale": "en"
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2015-04-20T15:46:10.000+00:00",
+  "title": "Browse",
+  "updated_at": "2015-04-20T15:50:11.000+00:00",
+  "schema_name": "mainstream_browse_page",
+  "document_type": "mainstream_browse_page"
+}

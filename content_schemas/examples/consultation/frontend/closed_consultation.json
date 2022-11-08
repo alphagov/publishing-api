@@ -1,0 +1,96 @@
+{
+  "content_id": "1aa96aac-d978-4de2-b717-0f54acb33883",
+  "base_path": "/government/consultations/review-of-museums-in-england",
+  "description": "An online call for evidence to inform a review of the museums sector in England",
+  "public_updated_at": "2016-09-05T14:00:00+01:00",
+  "title": "Review of Museums in England",
+  "updated_at": "2016-09-05T15:00:00Z",
+  "schema_name": "consultation",
+  "document_type": "closed_consultation",
+  "locale": "en",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The Museums Review will consider how museums and galleries across England can thrive and become even more inclusive. The Review will look at how the sector operates, the challenges it faces and the role of government-sponsored museums.</p>\n\n<p>To help inform this review, DCMS would welcome your feedback through our online Calls for Evidence (see links in attached document).</p>\n\n<p>The Calls for Evidence are open until 31 October 2016.</p>\n\n<p>The full Terms of Reference for the review can be found in the above document.</p>\n\n<p>If you have any queries about the review, please contact DCMS at museums.review@culture.gov.uk</p>\n</div>",
+    "first_public_at": "2016-09-05T14:00:00+01:00",
+    "opening_date": "2016-09-05T14:00:00+01:00",
+    "closing_date": "2016-10-31T17:00:00+01:00",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+        "5d37acc4-7631-11e4-a3cb-005056011aef"
+      ],
+      "policies": [
+        "5d37acc4-7631-11e4-a3cb-005056011aef"
+      ]
+    },
+    "government": {
+      "title": "2015 Conservative government",
+      "slug": "2015-conservative-government",
+      "current": true
+    },
+    "emphasised_organisations": [
+      "ebd15ade-73b2-4eaf-b1c3-43034a42eb37"
+    ],
+    "political": true,
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1704957\">\n<div class=\"attachment-thumb\">\n<a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/550519/Museums_ReviewTermsofReference-versionforweb.pdf\"><img alt=\"\" src=\"https://assets.digital.cabinet-office.gov.uk/government/uploads/system/uploads/attachment_data/file/550519/thumbnail_Museums_ReviewTermsofReference-versionforweb.pdf.png\"/></a>\n</div>\n<div class=\"attachment-details\">\n<h2 class=\"title\"><a aria-describedby=\"attachment-1704957-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/550519/Museums_ReviewTermsofReference-versionforweb.pdf\">Museums Review Terms of Reference</a></h2>\n <p class=\"metadata\">\n<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>,<span class=\"file-size\">109KB</span>, <span class=\"page-length\">8 pages</span>\n</p>\n\n\n<div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1704957-accessibility-help\">\n<h2>This file may not be suitable for users of assistive technology.\n<a class=\"toggler\" href=\"#attachment-1704957-accessibility-request\" data-controls=\"attachment-1704957-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n</h2>\n<p id=\"attachment-1704957-accessibility-request\" class=\"js-hidden\">\nIf you use assistive technology (eg a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Museums%20Review%20Terms%20of%20Reference%0A%20%20Original%20format%3A%20pdf%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Museums%20Review%20Terms%20of%20Reference%27%20in%20an%20alternative%20format\"></a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n</p>\n</div>\n</div>\n</section>"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "fd62c5a4-714d-47fe-a612-595d1739251c",
+        "title": "Department for Culture, Media & Sport",
+        "api_path": "/api/content/government/organisations/department-for-culture-media-sport",
+        "base_path": "/government/organisations/department-for-culture-media-sport",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-culture-media-sport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-culture-media-sport",
+        "locale": "en",
+        "document_type": "organisation",
+        "analytics_identifier": "D5"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "ad3928c0-68c6-404d-ad8b-b5ed631b05bd",
+        "title": "Arts and Culture",
+        "api_path": "/api/content/government/topics/arts-and-culture",
+        "base_path": "/government/topics/arts-and-culture",
+        "api_url": "https://www.gov.uk/api/content/government/world/topics/arts-and-culture",
+        "web_url": "https://www.gov.uk/government/world/topics/arts-and-culture",
+        "locale": "en"
+      }
+    ],
+    "policies": [
+      {
+        "content_id": "5d37acc4-7631-11e4-a3cb-005056011aef",
+        "title": "Museums and galleries",
+        "base_path": "/policies/museums-and-galleries",
+        "api_path": "/api/content/policies/museums-and-galleries",
+        "api_url": "https://www.gov.uk/api/content/policies/museums-and-galleries",
+        "web_url": "https://www.gov.uk/policies/museums-and-galleries",
+        "locale": "en"
+      }
+    ]
+  }
+}

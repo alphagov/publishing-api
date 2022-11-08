@@ -1,0 +1,23 @@
+{
+  "publishing_app": "service-manual-publisher",
+  "rendering_app": "service-manual-frontend",
+  "locale": "en",
+  "update_type": "major",
+  "base_path": "/service-manual/service-standard",
+  "public_updated_at": "2015-10-09T08:17:10+00:00",
+  "title": "Service Standard",
+  "description": "Service Standard",
+  "phase": "beta",
+  "routes": [
+    {
+      "path": "/service-manual/service-standard",
+      "type": "exact"
+    }
+  ],
+  "document_type": "service_manual_service_standard",
+  "schema_name": "service_manual_service_standard",
+  "details": {
+    "body": "All public facing transactional services must meet the standard. It’s used by departments and the Government Digital Service to check whether a service is good enough for public use.",
+    "poster_url": "http://example.com/service-standard-poster.pdf"
+  }
+}

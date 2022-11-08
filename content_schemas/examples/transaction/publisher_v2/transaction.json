@@ -1,0 +1,50 @@
+{
+  "access_limited": {
+    "auth_bypass_ids": [
+      "a0454ad5-3697-4e29-bf47-c51e6ed01051"
+    ]
+  },
+  "locale": "en",
+  "details": {
+    "external_related_links": [
+
+    ],
+    "more_information": [
+      {
+        "content": "Search for homes in Scotland on the [Scottish Assessors](http://www.saa.gov.uk) website.\r\n\r\n*[VOA]: Valuation Office Agency",
+        "content_type": "text/govspeak"
+      }
+    ],
+    "transaction_start_link": "http://cti.voa.gov.uk/cti/inits.asp",
+    "will_continue_on": "the Council Tax valuation list",
+    "introductory_paragraph": [
+      {
+        "content": "Find out the Council Tax band for a home in England or Wales by looking up its postcode.",
+        "content_type": "text/govspeak"
+      }
+    ]
+  },
+  "change_note": null,
+  "update_type": "minor",
+  "redirects": [
+
+  ],
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/council-tax-bands"
+    },
+    {
+      "type": "exact",
+      "path": "/council-tax-bands.json"
+    }
+  ],
+  "rendering_app": "frontend",
+  "title": "Check your Council Tax band",
+  "base_path": "/council-tax-bands",
+  "description": "Find out the Council Tax band for a property in England, Scotland or Wales by looking up the property's postcode online",
+  "schema_name": "transaction",
+  "document_type": "transaction",
+  "public_updated_at": "2015-01-14T13:47:41.000+00:00",
+  "publishing_app": "publisher"
+}

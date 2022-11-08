@@ -1,0 +1,78 @@
+{
+  "base_path": "/cma-cases/email-signup",
+  "description": "You'll get an email each time a case is updated or a new case is published.",
+  "document_type": "finder_email_signup",
+  "schema_name": "finder_email_signup",
+  "locale": "en",
+  "public_updated_at": "2016-04-26T11:19:42.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "rendering_app": "finder-frontend",
+  "title": "Competition and Markets Authority cases",
+  "update_type": "minor",
+  "routes": [
+    {
+      "path": "/cma-cases/email-signup",
+      "type": "exact"
+    }
+  ],
+  "details": {
+    "beta": false,
+    "email_filter_by": "case_type",
+    "subscription_list_title_prefix": {
+      "singular": "Competition and Markets Authority (CMA) cases with the following case type: ",
+      "plural": "Competition and Markets Authority (CMA) cases with the following case types: ",
+      "many": "Competition and Markets Authority (CMA) cases: "
+    },
+    "email_filter_facets": [
+      {
+        "facet_id": "case_type",
+        "facet_name": "Case types",
+        "required": true,
+        "facet_choices": [
+          {
+            "key": "ca98-and-civil-cartels",
+            "prechecked": false,
+            "radio_button_name": "CA98 and civil cartels",
+            "topic_name": "CA98 and civil cartels"
+          },
+          {
+            "key": "criminal-cartels",
+            "prechecked": false,
+            "radio_button_name": "Criminal cartels",
+            "topic_name": "criminal cartels"
+          },
+          {
+            "key": "markets",
+            "prechecked": false,
+            "radio_button_name": "Markets",
+            "topic_name": "markets"
+          },
+          {
+            "key": "mergers",
+            "prechecked": false,
+            "radio_button_name": "Mergers",
+            "topic_name": "mergers"
+          },
+          {
+            "key": "consumer-enforcement",
+            "prechecked": false,
+            "radio_button_name": "Consumer enforcement",
+            "topic_name": "consumer enforcement"
+          },
+          {
+            "key": "regulatory-references-and-appeals",
+            "prechecked": false,
+            "radio_button_name": "Regulatory references and appeals",
+            "topic_name": "regulatory references and appeals"
+          },
+          {
+            "key": "review-of-orders-and-undertakings",
+            "prechecked": false,
+            "radio_button_name": "Reviews of orders and undertakings",
+            "topic_name": "reviews of orders and undertakings"
+          }
+        ]
+      }
+    ]
+  }
+}

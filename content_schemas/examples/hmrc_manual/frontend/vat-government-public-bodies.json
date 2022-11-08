@@ -1,0 +1,146 @@
+{
+  "content_id": "e5c19314-6746-4141-9d11-5fbd449a9b2e",
+  "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies",
+  "title": "VAT Government and Public Bodies",
+  "description": "Guidance on VAT as it applies to local authorities and other government and public bodies.",
+  "locale": "en",
+  "updated_at": "2015-03-05T15:16:29.904Z",
+  "public_updated_at": "2015-02-11T13:45:00.000+00:00",
+  "first_published_at": "2015-02-11T13:45:00.000+00:00",
+  "details": {
+    "child_section_groups": [
+      {
+        "child_sections": [
+          {
+            "section_id": "VATGPB1000",
+            "title": "Introduction: contents",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb1000"
+          },
+          {
+            "section_id": "VATGPB2000",
+            "title": "Bodies governed by public law: contents",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb2000"
+          },
+          {
+            "section_id": "VATGPB3000",
+            "title": "Non-business activities: contents",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb3000"
+          },
+          {
+            "section_id": "VATGPB4000",
+            "title": "Section 33 bodies: contents",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb4000"
+          },
+          {
+            "section_id": "VATGPB5000",
+            "title": "Police authorities: contents",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb5000"
+          },
+          {
+            "section_id": "VATGPB6000",
+            "title": "Local government partnership programmes: contents",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb6000"
+          },
+          {
+            "section_id": "VATGPB7000",
+            "title": "Local authority education services: contents",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb7000"
+          },
+          {
+            "section_id": "VATGPB8000",
+            "title": "Other local authority activities: contents",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb8000"
+          },
+          {
+            "section_id": "VATGPB9000",
+            "title": "Government departments and health authorities: contents",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb9000"
+          }
+        ]
+      },
+      {
+        "child_sections": [
+          {
+            "section_id": "VATGPBUPDATE001",
+            "title": "VAT Government and public bodies: update index",
+            "description": "",
+            "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpbupdate001"
+          }
+        ],
+        "title": "Historic updates"
+      }
+    ],
+    "change_notes": [
+      {
+        "change_note": "Updated content",
+        "section_id": "VATGPB5390",
+        "title": "Police authorities: summary of activities: liabilities T to Z",
+        "published_at": "2015-03-05T15:16:20+00:00",
+        "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb5390"
+      },
+      {
+        "change_note": "Updated content",
+        "section_id": "VATGPB5370",
+        "title": "Police authorities: summary of activities: liabilities P",
+        "published_at": "2015-03-05T15:14:29+00:00",
+        "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb5370"
+      },
+      {
+        "change_note": "Updated content",
+        "section_id": "VATGPB5360",
+        "title": "Police authorities: summary of activities: liabilities N to O",
+        "published_at": "2015-03-05T15:12:55+00:00",
+        "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb5360"
+      },
+      {
+        "change_note": "Updated content",
+        "section_id": "VATGPB5350",
+        "title": "Police authorities: summary of activities: liabilities I to M",
+        "published_at": "2014-03-05T15:11:32+00:00",
+        "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies/vatgpb5350"
+      }
+    ],
+    "organisations": [
+      {
+        "title": "HM Revenue & Customs",
+        "abbreviation": "HMRC",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+      }
+    ]
+  },
+  "links": {
+    "available_translations": [
+      {
+        "content_id": "e5c19314-6746-4141-9d11-5fbd449a9b2e",
+        "title": "VAT Government and Public Bodies",
+        "api_path": "/api/content/hmrc-internal-manuals/vat-government-and-public-bodies",
+        "base_path": "/hmrc-internal-manuals/vat-government-and-public-bodies",
+        "api_url": "https://www.gov.uk/api/content/hmrc-internal-manuals/vat-government-and-public-bodies",
+        "web_url": "https://www.gov.uk/hmrc-internal-manuals/vat-government-and-public-bodies",
+        "locale": "en"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "title": "HM Revenue & Customs",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs",
+        "base_path": "/government/organisations/hm-revenue-customs",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "hmrc_manual",
+  "document_type": "hmrc_manual"
+}

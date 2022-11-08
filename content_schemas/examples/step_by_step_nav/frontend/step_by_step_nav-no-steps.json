@@ -1,0 +1,37 @@
+{
+  "title": "Get a divorce: step by step",
+  "content_id": "8ad782bd-8603-40eb-97c0-434cb22047cd",
+  "publishing_app": "collections-publisher",
+  "rendering_app": "collections",
+  "locale": "en",
+  "updated_at": "2018-01-18T15:46:10.000+00:00",
+  "public_updated_at": "2018-01-18T15:46:10.000+00:00",
+  "document_type": "step_by_step_nav",
+  "schema_name": "step_by_step_nav",
+  "base_path": "/get-a-divorce",
+  "description": "<p>How to file for divorce if you’re in England or Wales.</p><p>There is a different process if you’re <a href=\"/divorce/respond-to-a-divorce-petition\">responding to a divorce petition</a>, or if you’re in <a href=\"https://www.scotcourts.gov.uk/taking-action/divorce-and-dissolution-of-civil-partnership\">Scotland</a> or <a href=\"https://www.nidirect.gov.uk/articles/getting-divorcedissolution-civil-partnership\">Northern Ireland</a>.</p>",
+  "links": {
+    "pages_secondary_to_step_nav": [
+      {
+        "api_path": "/api/content/government/publications/car-and-small-van-driving-syllabus",
+        "base_path": "/government/publications/car-and-small-van-driving-syllabus",
+        "content_id": "5e5dc201-7631-11e4-a3cb-005056011aef",
+        "document_type": "guidance",
+        "locale": "en",
+        "public_updated_at": "2014-11-24T15:00:02.000+00:00",
+        "schema_name": "publication",
+        "title": "Learning to drive a car syllabus",
+        "withdrawn": false
+      }
+    ]
+  },
+  "details": {
+    "step_by_step_nav": {
+      "title": "Get a divorce: step by step",
+      "introduction": "<p>Check what you need to do to get a divorce.</p>",
+      "steps": [
+
+      ]
+    }
+  }
+}

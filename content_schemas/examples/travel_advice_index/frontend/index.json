@@ -1,0 +1,275 @@
+{
+  "content_id": "08d48cdd-6b50-43ff-a53b-beab47f4aab0",
+  "base_path": "/foreign-travel-advice",
+  "title": "Foreign travel advice",
+  "description": "Latest travel advice by country including safety and security, entry requirements, travel warnings and health",
+  "details": {
+    "email_signup_link": "/foreign-travel-advice/email-signup",
+    "max_cache_time": 10,
+    "publishing_request_id": "2546-1460985144476-19268198-3242"
+  },
+  "links": {
+    "children": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/foreign-travel-advice/afghanistan",
+        "base_path": "/foreign-travel-advice/afghanistan",
+        "content_id": "5a292f20-a9b6-46ea-b35f-584f8b3d7392",
+        "description": "Latest travel advice for Afghanistan including safety and security, entry requirements, travel warnings and health",
+        "document_type": "travel_advice",
+        "locale": "en",
+        "public_updated_at": "2015-01-01T00:00:00+00:00",
+        "schema_name": "travel_advice",
+        "title": "Afghanistan travel advice",
+        "withdrawn": false,
+        "details": {
+          "country": {
+            "slug": "afghanistan",
+            "name": "Afghanistan",
+            "synonyms": [
+
+            ]
+          },
+          "change_description": "Latest update: Summary - on 26 October 2015 a serious earthquake struck causing casualties around the country and affecting communications networks; if someone you know is likely to have been involved and you're unable to contact them, contact the British Embassy in Kabul"
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/foreign-travel-advice/afghanistan",
+        "web_url": "http://www.dev.gov.uk/foreign-travel-advice/afghanistan"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/foreign-travel-advice/austria",
+        "base_path": "/foreign-travel-advice/austria",
+        "content_id": "b662d0a3-c20d-4167-8056-b9c7d058d860",
+        "description": "Latest travel advice for Austria including safety and security, entry requirements, travel warnings and health",
+        "document_type": "travel_advice",
+        "locale": "en",
+        "public_updated_at": "2015-01-02T00:00:00+00:00",
+        "schema_name": "travel_advice",
+        "title": "Austria travel advice",
+        "withdrawn": false,
+        "details": {
+          "country": {
+            "slug": "austria",
+            "name": "Austria",
+            "synonyms": [
+
+            ]
+          },
+          "change_description": "Latest update: Summary – there’s ongoing disruption to rail and road transport; you should monitor local media and check with your transport provider or the Austrian Railways (OBB) website"
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/foreign-travel-advice/austria",
+        "web_url": "http://www.dev.gov.uk/foreign-travel-advice/austria"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/foreign-travel-advice/finland",
+        "base_path": "/foreign-travel-advice/finland",
+        "content_id": "f14f4107-1731-4dd8-a890-8defe459e15a",
+        "description": "Latest travel advice for Finland including safety and security, entry requirements, travel warnings and health",
+        "document_type": "travel_advice",
+        "locale": "en",
+        "public_updated_at": "2015-01-03T00:00:00+00:00",
+        "schema_name": "travel_advice",
+        "title": "Finland travel advice",
+        "withdrawn": false,
+        "details": {
+          "country": {
+            "slug": "finland",
+            "name": "Finland",
+            "synonyms": [
+              "arctic"
+            ]
+          },
+          "change_description": "Latest update: Summary – removal of advice on Northern Ireland football match"
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/foreign-travel-advice/finland",
+        "web_url": "http://www.dev.gov.uk/foreign-travel-advice/finland"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/foreign-travel-advice/india",
+        "base_path": "/foreign-travel-advice/india",
+        "content_id": "ea7e300b-24dd-40af-afde-fd690a2df678",
+        "description": "Latest travel advice for India including safety and security, entry requirements, travel warnings and health",
+        "document_type": "travel_advice",
+        "locale": "en",
+        "public_updated_at": "2015-01-04T00:00:00+00:00",
+        "schema_name": "travel_advice",
+        "title": "India travel advice",
+        "withdrawn": false,
+        "details": {
+          "country": {
+            "slug": "india",
+            "name": "India",
+            "synonyms": [
+
+            ]
+          },
+          "change_description": "Latest update: Summary – removal of advice on Assam floods and the curfew in Srinagar "
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/foreign-travel-advice/india",
+        "web_url": "http://www.dev.gov.uk/foreign-travel-advice/india"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/foreign-travel-advice/malaysia",
+        "base_path": "/foreign-travel-advice/malaysia",
+        "content_id": "126d47f7-5fd2-41ff-af17-b23564355e03",
+        "description": "Latest travel advice for Malaysia including safety and security, entry requirements, travel warnings and health",
+        "document_type": "travel_advice",
+        "locale": "en",
+        "public_updated_at": "2015-01-05T00:00:00+00:00",
+        "schema_name": "travel_advice",
+        "title": "Malaysia travel advice",
+        "withdrawn": false,
+        "details": {
+          "country": {
+            "slug": "malaysia",
+            "name": "Malaysia",
+            "synonyms": [
+              "Borneo"
+            ]
+          },
+          "change_description": "Latest update: Summary - haze can cause disruption to local, regional air travel and to government and private schools"
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/foreign-travel-advice/malaysia",
+        "web_url": "http://www.dev.gov.uk/foreign-travel-advice/malaysia"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/foreign-travel-advice/sao-tome-and-principe",
+        "base_path": "/foreign-travel-advice/sao-tome-and-principe",
+        "content_id": "a3605d0c-bf86-41f9-9f50-7bd577052c4c",
+        "description": "Latest travel advice for São Tomé and Principe including safety and security, entry requirements, travel warnings and health",
+        "document_type": "travel_advice",
+        "locale": "en",
+        "public_updated_at": "2015-12-08T17:02:23Z",
+        "schema_name": "travel_advice",
+        "title": "Sao Tome & Principe travel advice",
+        "withdrawn": false,
+        "details": {
+          "country": {
+            "slug": "sao-tome-and-principe",
+            "name": "São Tomé and Principe",
+            "synonyms": [
+              "Sao Tome and Principe",
+              "Sao Tome & Principe"
+            ]
+          },
+          "change_description": "Latest update: Entry requirements section - British nationals don’t need a visa to visit Sao Tome and Principe for up to 15 days; for longer stays, you should get a visa before you travel"
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/foreign-travel-advice/sao-tome-and-principe",
+        "web_url": "http://www.dev.gov.uk/foreign-travel-advice/sao-tome-and-principe"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/foreign-travel-advice/spain",
+        "base_path": "/foreign-travel-advice/spain",
+        "content_id": "24df0bb1-0ca1-4675-9237-528ecd3d17a5",
+        "description": "Latest travel advice for Spain including safety and security, entry requirements, travel warnings and health",
+        "document_type": "travel_advice",
+        "locale": "en",
+        "public_updated_at": "2015-01-06T00:00:00+00:00",
+        "schema_name": "travel_advice",
+        "title": "Spain travel advice",
+        "withdrawn": false,
+        "details": {
+          "country": {
+            "slug": "spain",
+            "name": "Spain",
+            "synonyms": [
+              "Ibiza",
+              "Majorca",
+              "Mallorca",
+              "Lanzarote",
+              "Barcelona",
+              "Benidorm",
+              "Tenerife",
+              "Canary Islands",
+              "Canaries",
+              "Gran Canaria"
+            ]
+          },
+          "change_description": "Latest update: Summary – information and advice for Manchester City fans travelling to Seville "
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/foreign-travel-advice/spain",
+        "web_url": "http://www.dev.gov.uk/foreign-travel-advice/spain"
+      }
+    ],
+    "mainstream_browse_pages": [
+      {
+        "content_id": "b9849cd6-61a7-42dc-8124-362d2c7d48b0",
+        "title": "Travel abroad",
+        "api_path": "/api/content/browse/abroad/travel-abroad",
+        "base_path": "/browse/abroad/travel-abroad",
+        "api_url": "https://www.gov.uk/api/content/browse/abroad/travel-abroad",
+        "web_url": "https://www.gov.uk/browse/abroad/travel-abroad",
+        "locale": "en"
+      },
+      {
+        "content_id": "bbb8985a-5451-4e9d-a601-8c55853a096c",
+        "title": "Living abroad",
+        "api_path": "/api/content/browse/abroad/living-abroad",
+        "base_path": "/browse/abroad/living-abroad",
+        "api_url": "https://www.gov.uk/api/content/browse/abroad/living-abroad",
+        "web_url": "https://www.gov.uk/browse/abroad/living-abroad",
+        "locale": "en"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "8b19c238-54e3-4e27-b0d7-60f8e2a677c9",
+        "title": "Foreign & Commonwealth Office",
+        "api_path": "/api/content/government/organisations/foreign-commonwealth-office",
+        "base_path": "/government/organisations/foreign-commonwealth-office",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/foreign-commonwealth-office",
+        "web_url": "https://www.gov.uk/government/government/organisations/foreign-commonwealth-office",
+        "locale": "en"
+      }
+    ],
+    "related": [
+      {
+        "content_id": "95f9c380-30bc-44c7-86b4-e9c9ef0fc272",
+        "title": "Hand luggage restrictions at UK airports",
+        "api_path": "/api/content/hand-luggage-restrictions",
+        "base_path": "/hand-luggage-restrictions",
+        "api_url": "https://www.gov.uk/api/content/hand-luggage-restrictions",
+        "web_url": "https://www.gov.uk/hand-luggage-restrictions",
+        "locale": "en"
+      },
+      {
+        "content_id": "e4d06cb9-9e2e-4e82-b802-0aad013ae16c",
+        "title": "Driving abroad",
+        "api_path": "/api/content/driving-abroad",
+        "base_path": "/driving-abroad",
+        "api_url": "https://www.gov.uk/api/content/driving-abroad",
+        "web_url": "https://www.gov.uk/driving-abroad",
+        "locale": "en"
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "08d48cdd-6b50-43ff-a53b-beab47f4aab0",
+        "title": "Foreign travel advice",
+        "api_path": "/api/content/foreign-travel-advice",
+        "base_path": "/foreign-travel-advice",
+        "api_url": "https://www.gov.uk/api/content/foreign-travel-advice",
+        "web_url": "https://www.gov.uk/foreign-travel-advice",
+        "locale": "en"
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2015-04-28T17:11:23+01:00",
+  "updated_at": "2015-08-28T17:16:43+01:00",
+  "schema_name": "travel_advice_index",
+  "document_type": "travel_advice_index"
+}

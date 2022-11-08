@@ -1,0 +1,579 @@
+{
+  "details": {
+    "external_related_links": [
+
+    ],
+    "more_information": "<p>Search for homes in Scotland on the <a rel=\"external\" href=\"http://www.saa.gov.uk\">Scottish Assessors</a> website.</p>\n\n",
+    "transaction_start_link": "http://cti.voa.gov.uk/cti/inits.asp",
+    "will_continue_on": "the Council Tax valuation list",
+    "introductory_paragraph": "<p>Find out the Council Tax band for a home in England or Wales by looking up its postcode.</p>\n",
+    "department_analytics_profile": "UA-12345-6"
+  },
+  "description": "Find out the Council Tax band for a property in England, Scotland or Wales by looking up the property's postcode online",
+  "links": {
+    "available_translations": [
+      {
+        "links": {
+        },
+        "web_url": "http://www.dev.gov.uk/council-tax-bands",
+        "api_url": "http://www.dev.gov.uk/api/content/council-tax-bands",
+        "locale": "en",
+        "content_id": "515c819e-34bd-421d-8261-eaa06c4786c5",
+        "withdrawn": false,
+        "title": "Check your Council Tax band",
+        "public_updated_at": "2015-01-14T13:47:41Z",
+        "analytics_identifier": null,
+        "document_type": "transaction",
+        "schema_name": "transaction",
+        "base_path": "/council-tax-bands",
+        "description": "Find out the Council Tax band for a property in England, Scotland or Wales by looking up the property's postcode online",
+        "api_path": "/api/content/council-tax-bands"
+      }
+    ],
+    "topics": [
+      {
+        "web_url": "http://www.dev.gov.uk/topic/local-government/council-tax",
+        "api_url": "http://www.dev.gov.uk/api/content/topic/local-government/council-tax",
+        "links": {
+        },
+        "withdrawn": false,
+        "title": "Council Tax",
+        "schema_name": "topic",
+        "analytics_identifier": null,
+        "api_path": "/api/content/topic/local-government/council-tax",
+        "base_path": "/topic/local-government/council-tax",
+        "content_id": "7eca7540-a65f-453e-b92f-df21b406d829",
+        "description": "List of information about Council Tax.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2017-01-26T10:26:48Z"
+      }
+    ],
+    "parent": [
+      {
+        "web_url": "http://www.dev.gov.uk/browse/housing-local-services/council-tax",
+        "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/council-tax",
+        "links": {
+          "parent": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+              "links": {
+              },
+              "withdrawn": false,
+              "title": "Housing and local services",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services",
+              "base_path": "/browse/housing-local-services",
+              "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+              "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:25:46Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Council Tax",
+        "schema_name": "mainstream_browse_page",
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/housing-local-services/council-tax",
+        "base_path": "/browse/housing-local-services/council-tax",
+        "content_id": "d958a860-3e80-4377-9d97-a491c77dbfc5",
+        "description": "Includes council tax appeals, bands, discounts and reductions",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-08-03T13:27:50Z"
+      }
+    ],
+    "organisations": [
+      {
+        "web_url": "http://www.dev.gov.uk/government/organisations/department-for-communities-and-local-government",
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/department-for-communities-and-local-government",
+        "links": {
+        },
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department for <br/>Communities and<br/>Local Government"
+          },
+          "brand": "department-for-communities-and-local-government"
+        },
+        "withdrawn": false,
+        "title": "Department for Communities and Local Government",
+        "schema_name": "placeholder",
+        "analytics_identifier": "D4",
+        "api_path": "/api/content/government/organisations/department-for-communities-and-local-government",
+        "base_path": "/government/organisations/department-for-communities-and-local-government",
+        "content_id": "2e7868a8-38f5-4ff6-b62f-9a15d1c22d28",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-07-18T17:26:50Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/government/organisations/valuation-office-agency",
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/valuation-office-agency",
+        "links": {
+        },
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Valuation Office Agency"
+          },
+          "brand": "hm-revenue-customs"
+        },
+        "withdrawn": false,
+        "title": "Valuation Office Agency",
+        "schema_name": "placeholder",
+        "analytics_identifier": "EA87",
+        "api_path": "/api/content/government/organisations/valuation-office-agency",
+        "base_path": "/government/organisations/valuation-office-agency",
+        "content_id": "ae98edb5-87b4-4a69-a31a-e0e5298f949d",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2014-12-01T10:49:55Z"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "web_url": "http://www.dev.gov.uk/council-tax",
+        "api_url": "http://www.dev.gov.uk/api/content/council-tax",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/council-tax",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/council-tax",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Housing and local services",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Council Tax",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/council-tax",
+              "base_path": "/browse/housing-local-services/council-tax",
+              "content_id": "d958a860-3e80-4377-9d97-a491c77dbfc5",
+              "description": "Includes council tax appeals, bands, discounts and reductions",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:27:50Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Council Tax",
+        "schema_name": "guide",
+        "analytics_identifier": null,
+        "api_path": "/api/content/council-tax",
+        "base_path": "/council-tax",
+        "content_id": "428c2bae-56c2-48bd-a917-3d04df0a63fd",
+        "description": "Your Council Tax bill - how to work it out, who has to pay, discounts and exemptions for students and disabled people, second homes, empty properties, paying the bill",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2014-11-21T15:54:42Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/council-tax-appeals",
+        "api_url": "http://www.dev.gov.uk/api/content/council-tax-appeals",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/council-tax",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/council-tax",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Housing and local services",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Council Tax",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/council-tax",
+              "base_path": "/browse/housing-local-services/council-tax",
+              "content_id": "d958a860-3e80-4377-9d97-a491c77dbfc5",
+              "description": "Includes council tax appeals, bands, discounts and reductions",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:27:50Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Council Tax appeals",
+        "schema_name": "guide",
+        "analytics_identifier": null,
+        "api_path": "/api/content/council-tax-appeals",
+        "base_path": "/council-tax-appeals",
+        "content_id": "96cc0e17-c228-4f0c-97f9-fb505b5d07a1",
+        "description": "How to challenge your Council Tax band, or appeal to your council or the Valuation Tribunal about a Council Tax bill, fine or completion notice",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2014-11-25T12:33:59Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/council-tax-arrears",
+        "api_url": "http://www.dev.gov.uk/api/content/council-tax-arrears",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/council-tax",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/council-tax",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Housing and local services",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Council Tax",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/council-tax",
+              "base_path": "/browse/housing-local-services/council-tax",
+              "content_id": "d958a860-3e80-4377-9d97-a491c77dbfc5",
+              "description": "Includes council tax appeals, bands, discounts and reductions",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:27:50Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Pay Council Tax arrears",
+        "schema_name": "generic_with_external_related_links",
+        "analytics_identifier": null,
+        "api_path": "/api/content/council-tax-arrears",
+        "base_path": "/council-tax-arrears",
+        "content_id": "6adfc952-86b2-4a05-9332-f835c5ee2423",
+        "description": "How your local council can help if you're struggling to pay Council Tax - and what action they can take to get any money you owe from you",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2014-11-25T12:31:22Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/apply-council-tax-reduction",
+        "api_url": "http://www.dev.gov.uk/api/content/apply-council-tax-reduction",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/benefits/heating",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/benefits/heating",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/benefits",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/benefits",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Benefits",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/benefits",
+                    "base_path": "/browse/benefits",
+                    "content_id": "f141fa95-0d79-4aed-8429-ed223a8f106a",
+                    "description": "Includes tax credits, eligibility and appeals",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Heating and housing benefits",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/benefits/heating",
+              "base_path": "/browse/benefits/heating",
+              "content_id": "280073f8-9553-4437-a83f-b129bc5f6799",
+              "description": "Includes Winter Fuel Payment and Cold Weather Payment",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:49Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/council-tax",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/council-tax",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Housing and local services",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Council Tax",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/council-tax",
+              "base_path": "/browse/housing-local-services/council-tax",
+              "content_id": "d958a860-3e80-4377-9d97-a491c77dbfc5",
+              "description": "Includes council tax appeals, bands, discounts and reductions",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:27:50Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Apply for Council Tax Reduction",
+        "schema_name": "generic_with_external_related_links",
+        "analytics_identifier": null,
+        "api_path": "/api/content/apply-council-tax-reduction",
+        "base_path": "/apply-council-tax-reduction",
+        "content_id": "d9b95f99-f3ce-4b88-900e-1cc58089c952",
+        "description": "Apply to your local council for Council Tax Reduction if you're on a low income or benefits - this has replaced Council Tax Benefit",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2013-03-26T15:20:14Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/apply-for-council-tax-discount",
+        "api_url": "http://www.dev.gov.uk/api/content/apply-for-council-tax-discount",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/council-tax",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/council-tax",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Housing and local services",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Council Tax",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/council-tax",
+              "base_path": "/browse/housing-local-services/council-tax",
+              "content_id": "d958a860-3e80-4377-9d97-a491c77dbfc5",
+              "description": "Includes council tax appeals, bands, discounts and reductions",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:27:50Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/local-councils",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/local-councils",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Housing and local services",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Local councils and services",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/local-councils",
+              "base_path": "/browse/housing-local-services/local-councils",
+              "content_id": "4f8f62a8-9ff9-45ab-b4f7-aec5d1cffbad",
+              "description": "Find and access local services",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:28:57Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Apply for a Council Tax discount",
+        "schema_name": "generic_with_external_related_links",
+        "analytics_identifier": null,
+        "api_path": "/api/content/apply-for-council-tax-discount",
+        "base_path": "/apply-for-council-tax-discount",
+        "content_id": "47b2fc1b-271a-41eb-833d-b9b4259d9222",
+        "description": "Check with your council if you're eligible for a discount on your Council Tax",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2012-05-02T16:27:19Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/pay-council-tax",
+        "api_url": "http://www.dev.gov.uk/api/content/pay-council-tax",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/council-tax",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/council-tax",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Housing and local services",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Council Tax",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/council-tax",
+              "base_path": "/browse/housing-local-services/council-tax",
+              "content_id": "d958a860-3e80-4377-9d97-a491c77dbfc5",
+              "description": "Includes council tax appeals, bands, discounts and reductions",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:27:50Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Pay your Council Tax",
+        "schema_name": "generic_with_external_related_links",
+        "analytics_identifier": null,
+        "api_path": "/api/content/pay-council-tax",
+        "base_path": "/pay-council-tax",
+        "content_id": "b7b077e3-e03a-4fea-a6a5-853f145dfcdf",
+        "description": "Pay Council Tax online or by other methods, like direct debit to your local council",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2012-05-02T16:27:17Z"
+      }
+    ],
+    "mainstream_browse_pages": [
+      {
+        "web_url": "http://www.dev.gov.uk/browse/housing-local-services/council-tax",
+        "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/council-tax",
+        "links": {
+        },
+        "withdrawn": false,
+        "title": "Council Tax",
+        "schema_name": "mainstream_browse_page",
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/housing-local-services/council-tax",
+        "base_path": "/browse/housing-local-services/council-tax",
+        "content_id": "d958a860-3e80-4377-9d97-a491c77dbfc5",
+        "description": "Includes council tax appeals, bands, discounts and reductions",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-08-03T13:27:50Z"
+      }
+    ]
+  },
+  "withdrawn_notice": {
+  },
+  "locale": "en",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "document_type": "transaction",
+  "content_id": "515c819e-34bd-421d-8261-eaa06c4786c5",
+  "base_path": "/council-tax-bands",
+  "analytics_identifier": null,
+  "phase": "live",
+  "public_updated_at": "2015-01-14T13:47:41.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "transaction",
+  "title": "Check your Council Tax band",
+  "updated_at": "2017-03-06T17:26:25.143Z"
+}

@@ -1,0 +1,166 @@
+{
+  "base_path": "/foreign-travel-advice/albania",
+  "title": "Albania travel advice",
+  "description": "Latest travel advice for Albania including safety and security, entry requirements, travel warnings and health",
+  "details": {
+    "summary": [
+      {
+        "content_type": "text/govspeak",
+        "content": "Over 80,000 British nationals visit Albania every year. Most visits are trouble-free."
+      },
+      {
+        "content_type": "text/html",
+        "content": "<p>Over 80,000 British nationals visit Albania every year. Most visits are trouble-free.</p>"
+      }
+    ],
+    "country": {
+      "name": "Albania",
+      "slug": "albania"
+    },
+    "updated_at": "2015-10-15T11:00:20+01:00",
+    "reviewed_at": "2015-10-15T11:00:20+01:00",
+    "change_description": "Latest Update - this advice has been reviewed and re-issued without amendment",
+    "alert_status": [
+
+    ],
+    "email_signup_link": "/foreign-travel-advice/email-signup",
+    "image": {
+      "url": "https://assets.digital.cabinet-office.gov.uk/media/513a0efbed915d425e000002/120613_Albania_Travel_Advice_WEB_Ed2_jpeg.jpg",
+      "content_type": "image/jpeg"
+    },
+    "document": {
+      "attachment_type": "file",
+      "id": "fecc20ab-73c2-4817-aafc-93745fc75f67",
+      "url": "https://assets.digital.cabinet-office.gov.uk/media/513a0efced915d4261000001/120613_Albania_Travel_Advice_Ed2_pdf.pdf",
+      "content_type": "application/pdf"
+    },
+    "parts": [
+      {
+        "slug": "safety-and-security",
+        "title": "Safety and security",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "### Crime\r\nContent about crime"
+          },
+          {
+            "content_type": "text/html",
+            "content": "<h3>Crime</h3><p>Content about crime</p>"
+          }
+        ]
+      },
+      {
+        "slug": "terrorism",
+        "title": "Terrorism",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "### Terrorism\r\nContent about terrorism"
+          },
+          {
+            "content_type": "text/html",
+            "content": "<h3>Terrorism</h3><p>Content about terrorism</p>"
+          }
+        ]
+      },
+      {
+        "slug": "local-laws-and-customs",
+        "title": "Local laws and customs",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "### Laws\r\nContent about laws"
+          },
+          {
+            "content_type": "text/html",
+            "content": "<h3>Laws</h3><p>Content about laws</p>"
+          }
+        ]
+      },
+      {
+        "slug": "entry-requirements",
+        "title": "Entry requirements",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "### Visas\r\nContent about visas"
+          },
+          {
+            "content_type": "text/html",
+            "content": "<h3>Visas</h3><p>Content about visas</p>"
+          }
+        ]
+      },
+      {
+        "slug": "health",
+        "title": "Health",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "### Health\r\nContent about health"
+          },
+          {
+            "content_type": "text/html",
+            "content": "<h3>Health</h3><p>Content about health</p>"
+          }
+        ]
+      },
+      {
+        "slug": "natural-disasters",
+        "title": "Natural disasters",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "### Disasters\r\nContent about disasters"
+          },
+          {
+            "content_type": "text/html",
+            "content": "<h3>Disasters</h3><p>Content about disasters</p>"
+          }
+        ]
+      },
+      {
+        "slug": "money",
+        "title": "Money",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "### Money\r\nContent about money"
+          },
+          {
+            "content_type": "text/html",
+            "content": "<h3>Money</h3><p>Content about money</p>"
+          }
+        ]
+      },
+      {
+        "slug": "contact-fco-travel-advice-team",
+        "title": "Contact FCO Travel Advice Team",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "### Contact\r\nThis email service..."
+          },
+          {
+            "content_type": "text/html",
+            "content": "<h3>Contact</h3><p>This email service...</p>"
+          }
+        ]
+      }
+    ],
+    "max_cache_time": 10,
+    "publishing_request_id": "2546-1460985144476-19268198-3242"
+  },
+  "locale": "en",
+  "public_updated_at": "2015-10-15T11:00:20+01:00",
+  "publishing_app": "travel-advice-publisher",
+  "rendering_app": "frontend",
+  "routes": [
+    {
+      "path": "/foreign-travel-advice/albania",
+      "type": "exact"
+    }
+  ],
+  "document_type": "travel_advice",
+  "schema_name": "travel_advice"
+}

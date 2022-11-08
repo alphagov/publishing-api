@@ -1,0 +1,19 @@
+{
+  "base_path": "/browse",
+  "description": "Almost everything on GOV.UK.",
+  "details": {
+  },
+  "locale": "en",
+  "public_updated_at": "2015-04-20T15:46:10.000+00:00",
+  "publishing_app": "collections-publisher",
+  "rendering_app": "collections",
+  "title": "Browse",
+  "routes": [
+    {
+      "path": "/browse",
+      "type": "exact"
+    }
+  ],
+  "document_type": "mainstream_browse_page",
+  "schema_name": "mainstream_browse_page"
+}

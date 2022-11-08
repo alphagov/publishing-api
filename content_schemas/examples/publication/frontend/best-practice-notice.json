@@ -1,0 +1,262 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/publications/walton-farms-limited-application-made-to-abstract-take-water",
+  "content_id": "69a50fc1-025f-45e4-a443-d2189c82496f",
+  "document_type": "notice",
+  "first_published_at": "2015-04-21T09:30:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-04-21T09:30:00.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Walton Farms Limited: application made to abstract (take) water",
+  "updated_at": "2017-12-19T11:44:04.039Z",
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "children": [
+      {
+        "api_path": "/api/content/government/publications/walton-farms-limited-application-made-to-abstract-take-water/walton-farms-limited-application-made-to-abstract-take-water",
+        "base_path": "/government/publications/walton-farms-limited-application-made-to-abstract-take-water/walton-farms-limited-application-made-to-abstract-take-water",
+        "content_id": "8787aca9-0d70-4fb6-893b-75a41beb2db3",
+        "document_type": "html_publication",
+        "locale": "en",
+        "public_updated_at": "2015-04-20T08:34:45Z",
+        "schema_name": "html_publication",
+        "title": "Walton Farms limited: application made to abstract (take) water",
+        "withdrawn": true,
+        "links": {
+          "parent": [
+            {
+              "api_path": "/api/content/government/publications/walton-farms-limited-application-made-to-abstract-take-water",
+              "base_path": "/government/publications/walton-farms-limited-application-made-to-abstract-take-water",
+              "content_id": "69a50fc1-025f-45e4-a443-d2189c82496f",
+              "description": "The Environment Agency has received 3 applications from Walton Farms Limited for licences to abstract (take) water.",
+              "document_type": "notice",
+              "locale": "en",
+              "public_updated_at": "2015-04-21T09:30:00Z",
+              "schema_name": "publication",
+              "title": "Walton Farms Limited: application made to abstract (take) water",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/publications/walton-farms-limited-application-made-to-abstract-take-water",
+              "web_url": "https://www.gov.uk/government/publications/walton-farms-limited-application-made-to-abstract-take-water"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/publications/walton-farms-limited-application-made-to-abstract-take-water/walton-farms-limited-application-made-to-abstract-take-water",
+        "web_url": "https://www.gov.uk/government/publications/walton-farms-limited-application-made-to-abstract-take-water/walton-farms-limited-application-made-to-abstract-take-water"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "EA199",
+        "api_path": "/api/content/government/organisations/environment-agency",
+        "base_path": "/government/organisations/environment-agency",
+        "content_id": "16628142-57b2-4611-bc03-5912785acee3",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-10-05T08:43:12Z",
+        "schema_name": "placeholder",
+        "title": "Environment Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Environment Agency",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/199/EA_logo_354.jpg",
+              "alt_text": "Environment Agency"
+            }
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/environment-agency",
+        "web_url": "https://www.gov.uk/government/organisations/environment-agency"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/consumer-rights-and-issues",
+        "base_path": "/government/topics/consumer-rights-and-issues",
+        "content_id": "9d7b90e5-625c-4203-a62a-be9be43d35f3",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:05Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Consumer rights and issues",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/consumer-rights-and-issues",
+        "web_url": "https://www.gov.uk/government/topics/consumer-rights-and-issues"
+      },
+      {
+        "api_path": "/api/content/government/topics/environment",
+        "base_path": "/government/topics/environment",
+        "content_id": "21c18504-c671-455d-a37c-0a6ecc73c4ed",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:09Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Environment",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/environment",
+        "web_url": "https://www.gov.uk/government/topics/environment"
+      },
+      {
+        "api_path": "/api/content/government/topics/government-efficiency-transparency-and-accountability",
+        "base_path": "/government/topics/government-efficiency-transparency-and-accountability",
+        "content_id": "0a12a282-10eb-4c83-9db4-16540ae5ab01",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:06Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Government efficiency, transparency and accountability",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/government-efficiency-transparency-and-accountability",
+        "web_url": "https://www.gov.uk/government/topics/government-efficiency-transparency-and-accountability"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "EA199",
+        "api_path": "/api/content/government/organisations/environment-agency",
+        "base_path": "/government/organisations/environment-agency",
+        "content_id": "16628142-57b2-4611-bc03-5912785acee3",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-10-05T08:43:12Z",
+        "schema_name": "placeholder",
+        "title": "Environment Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Environment Agency",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/199/EA_logo_354.jpg",
+              "alt_text": "Environment Agency"
+            }
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/environment-agency",
+        "web_url": "https://www.gov.uk/government/organisations/environment-agency"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/government-transparency-and-accountability",
+        "base_path": "/government/policies/government-transparency-and-accountability",
+        "content_id": "5d278051-7631-11e4-a3cb-005056011aef",
+        "description": "What the government’s doing about government transparency and accountability.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-05-26T15:15:26Z",
+        "schema_name": "policy",
+        "title": "Government transparency and accountability",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/government-transparency-and-accountability",
+        "web_url": "https://www.gov.uk/government/policies/government-transparency-and-accountability"
+      },
+      {
+        "api_path": "/api/content/government/policies/water-and-sewerage-services",
+        "base_path": "/government/policies/water-and-sewerage-services",
+        "content_id": "5d5e9c9d-7631-11e4-a3cb-005056011aef",
+        "description": "What the government’s doing about water and sewerage services.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-05-14T16:35:26Z",
+        "schema_name": "policy",
+        "title": "Water and sewerage services",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/water-and-sewerage-services",
+        "web_url": "https://www.gov.uk/government/policies/water-and-sewerage-services"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Walton Farms Limited: application made to abstract (take) water",
+        "public_updated_at": "2015-04-21T09:30:00Z",
+        "document_type": "notice",
+        "schema_name": "publication",
+        "base_path": "/government/publications/walton-farms-limited-application-made-to-abstract-take-water",
+        "description": "The Environment Agency has received 3 applications from Walton Farms Limited for licences to abstract (take) water.",
+        "api_path": "/api/content/government/publications/walton-farms-limited-application-made-to-abstract-take-water",
+        "withdrawn": true,
+        "content_id": "69a50fc1-025f-45e4-a443-d2189c82496f",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/publications/walton-farms-limited-application-made-to-abstract-take-water",
+        "web_url": "https://www.gov.uk/government/publications/walton-farms-limited-application-made-to-abstract-take-water",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The Environment Agency has received 3 applications from Walton Farms Limited for licences to abstract (take) water.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The Environment Agency consult the public on certain applications for the abstraction and impoundment of water.</p>\n\n<p>These notices explain:</p>\n\n<ul>\n  <li>what the application is about</li>\n  <li>which Environment Agency offices you can visit to see the application documents on the public register</li>\n  <li>when you need to comment by</li>\n</ul>\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2015-04-21T10:30:00.000+01:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1004914\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/publications/walton-farms-limited-application-made-to-abstract-take-water/walton-farms-limited-application-made-to-abstract-take-water\"><img alt=\"\" src=\"/government/assets/pub-cover-html-b0465911e56983d98c70f0e25fba24bc206d37e8c83d4addf6421dcf6022c6cd.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/publications/walton-farms-limited-application-made-to-abstract-take-water/walton-farms-limited-application-made-to-abstract-take-water\">Walton Farms limited: application made to abstract (take) water</a></h2>\n    <p class=\"metadata\">\n        <span class=\"references\">\n          Ref: <span class=\"unique_reference\">NPS/WR/018386, NPS/WR/018387 and NPS/WR/018390</span>\n        </span>\n        <span class=\"type\">HTML</span>\n    </p>\n\n\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "16628142-57b2-4611-bc03-5912785acee3"
+    ],
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+        "government-transparency-and-accountability",
+        "water-and-sewerage-services"
+      ],
+      "topics": [
+
+      ]
+    },
+    "first_public_at": "2015-04-21T10:30:00.000+01:00"
+  }
+}

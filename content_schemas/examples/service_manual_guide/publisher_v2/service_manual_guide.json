@@ -1,0 +1,39 @@
+{
+  "publishing_app": "service-manual-publisher",
+  "rendering_app": "service-manual-frontend",
+  "locale": "en",
+  "details": {
+    "body": "<h2 id=\"what\">What it is, why it works and how to do it</h2>\n<p>Agile methodologies will help you and your team to build world-class, user-centred services quickly and affordably.</p>\n",
+    "header_links": [
+      {
+        "title": "What is it, why it works and how to do it",
+        "href": "#what-is-it-why-it-works-and-how-to-do-it"
+      }
+    ],
+    "change_history": [
+      {
+        "public_timestamp": "2015-10-07T08:17:10+00:00",
+        "note": "This is our latest change"
+      },
+      {
+        "public_timestamp": "2015-09-09T08:17:10+00:00",
+        "note": "This is another change"
+      },
+      {
+        "public_timestamp": "2015-09-01T08:17:10+00:00",
+        "note": "Guidance first published"
+      }
+    ]
+  },
+  "base_path": "/service-manual/agile",
+  "description": "What agile is, why it works and how to do it",
+  "title": "Agile",
+  "routes": [
+    {
+      "path": "/service-manual/agile",
+      "type": "exact"
+    }
+  ],
+  "document_type": "service_manual_guide",
+  "schema_name": "service_manual_guide"
+}

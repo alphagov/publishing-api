@@ -1,0 +1,79 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/department-for-transport/about/our-energy-use",
+  "content_id": "5f54d127-7631-11e4-a3cb-005056011aef",
+  "document_type": "our_energy_use",
+  "first_published_at": "2013-06-18T16:06:17.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2013-06-18T15:06:17.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Our energy use",
+  "updated_at": "2018-01-10T14:07:46.710Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "13385-1502374085.870-10.3.3.1-410",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:03Z",
+        "schema_name": "placeholder",
+        "title": "Department for Transport",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Department<br/>for Transport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Our energy use",
+        "public_updated_at": "2013-06-18T15:06:17Z",
+        "document_type": "our_energy_use",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/department-for-transport/about/our-energy-use",
+        "description": "The Department for Transport's measures to reduce energy consumption and costs, and carbon emissions",
+        "api_path": "/api/content/government/organisations/department-for-transport/about/our-energy-use",
+        "withdrawn": false,
+        "content_id": "5f54d127-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-transport/about/our-energy-use",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-transport/about/our-energy-use",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The Department for Transport's measures to reduce energy consumption and costs, and carbon emissions",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The Department publishes, in real-time, the <a rel=\"external\" href=\"http://webview2.ecodriver.net/dft/\">energy used in its headquarters building</a>. We also make our <a rel=\"external\" href=\"http://data.gov.uk/dataset/dft-energy-use\" title=\"DFT energy use data\">energy use data</a> available in a format that can be reused.</p>\n\n<h3 id=\"more-efficient-building\">More efficient building</h3>\n\n<p>To make our headquarters in London more efficient, we:</p>\n\n<ul>\n  <li>are installing more energy-efficient lighting</li>\n  <li>have installed pulse meters on our electric and gas meters so we can identify and fix wastage</li>\n  <li>have switched off all unnecessary lighting in reception areas</li>\n  <li>have installed timers on all hot water heaters in tea-points so that they’re not on in the evenings or at weekends</li>\n  <li>have switched off and isolated all heaters in stairwells</li>\n</ul>\n\n<p>We are currently assessing the CO2 benefits of the above measures.</p>\n\n<section class=\"attachment embedded\" id=\"attachment_1615191\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/533916/dft-display-energy-certificate.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/533916/thumbnail_dft-display-energy-certificate.pdf.png\"></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1615191-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/533916/dft-display-energy-certificate.pdf\"><abbr title=\"Department for Transport\">DfT</abbr> Display Energy Certificate</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">299KB</span>, <span class=\"page-length\">1 page</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1615191-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1615191-accessibility-request\" data-controls=\"attachment-1615191-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1615191-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:webmasterdft@dft.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20DfT%20Display%20Energy%20Certificate%0A%20%20Original%20format%3A%20pdf%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27DfT%20Display%20Energy%20Certificate%27%20in%20an%20alternative%20format\">webmasterdft@dft.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>\n\n<h3 id=\"staff-behaviour-change\">Staff behaviour change</h3>\n\n<p>We also provide our staff with regular reminders and tips on how to save energy in the office, such as:</p>\n\n<ul>\n  <li>turning off monitors when away from the desk</li>\n  <li>greater use of video or telephone conferencing</li>\n  <li>using the stairs instead of the lift</li>\n  <li>displaying weekly energy use on news screens in the department</li>\n</ul>\n\n</div>",
+    "organisation": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

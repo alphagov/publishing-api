@@ -1,0 +1,170 @@
+{
+  "content_id": "6eb851bd-7631-11e4-a3cc-005026011aef",
+  "base_path": "/government/collections/financial-sanctions-regime-specific-consolidated-lists-and-releases-change-history",
+  "description": "This document series contains details of all regimes currently subject to financial sanctions.",
+  "public_updated_at": "2016-02-08T17:36:26.000+00:00",
+  "title": "Financial sanctions: Regime-specific lists and releases",
+  "updated_at": "2016-05-17T12:21:21.185Z",
+  "schema_name": "document_collection",
+  "document_type": "document_collection",
+  "locale": "en",
+  "details": {
+    "collection_groups": [
+      {
+        "title": "Documents",
+        "documents": [
+          "841f225a-80b2-44d5-ba13-a36c7a82b859",
+          "5e2fd762-7631-11e4-a3cb-005056011aef",
+          "5e2fd5e9-7631-11e4-a3cb-005056011aef"
+        ]
+      }
+    ],
+    "first_public_at": "2013-10-11T17:12:00+00:00",
+    "change_history": [
+      {
+        "public_timestamp": "2016-02-08T17:36:26+00:00",
+        "note": "Liberia removed - Council Regulation (EC) No 872/2004 imposing financial sanctions against Liberia has been repealed with effect from 6 October 2015."
+      },
+      {
+        "public_timestamp": "2016-01-22T12:36:47+00:00",
+        "note": "Updated to add - Financial Sanctions, UK freezing orders"
+      },
+      {
+        "public_timestamp": "2014-12-23T10:17:01+00:00",
+        "note": "Updated to include Yemen in collection"
+      },
+      {
+        "public_timestamp": "2014-07-15T16:24:28+00:00",
+        "note": "Updated to reflect latest HM Treasury notices, 15/07/14 Sudan (Reg 747/2014) and 15/07/14 South Sudan (Reg 748/2014)"
+      },
+      {
+        "public_timestamp": "2014-03-18T12:36:37+00:00",
+        "note": "added 'Financial sanctions, Ukraine (Sovereignty and Territorial Integrity)' to collection"
+      },
+      {
+        "public_timestamp": "2014-03-12T15:33:27+00:00",
+        "note": "added Central African Republic"
+      },
+      {
+        "public_timestamp": "2014-02-21T16:59:49+00:00",
+        "note": "added publication 'Financial sanctions, Ukraine'"
+      },
+      {
+        "public_timestamp": "2013-10-11T17:12:00+00:00",
+        "note": "First published."
+      }
+    ],
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+
+      ],
+      "policies": [
+
+      ]
+    },
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "political": false,
+    "emphasised_organisations": [
+      "1994e0e4-bd19-4966-bbd7-f293d6e90a6b"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "documents": [
+      {
+        "content_id": "5e2fd5e9-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2014-08-24T15:00:02+00:00",
+        "title": "Financial sanctions, Somalia",
+        "api_path": "/api/content/government/publications/financial-sanctions-somalia",
+        "base_path": "/government/publications/financial-sanctions-somalia",
+        "description": "Somalia is currently subject to financial sanctions. This document contains the current list of designated persons.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/financial-sanctions-somalia",
+        "web_url": "https://www.gov.uk/government/publications/financial-sanctions-somalia",
+        "locale": "en",
+        "document_type": "guidance"
+      },
+      {
+        "content_id": "5e2fd762-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2004-11-04T15:00:02+00:00",
+        "title": "Current list of designated persons, terrorism and terrorist financing",
+        "api_path": "/api/content/government/publications/current-list-of-designated-persons-terrorism-and-terrorist-financing",
+        "base_path": "/government/publications/current-list-of-designated-persons-terrorism-and-terrorist-financing",
+        "description": "This document provides a current list of designated persons currently subject to financial sanctions for believed involvement in terrorist activity.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/current-list-of-designated-persons-terrorism-and-terrorist-financing",
+        "web_url": "https://www.gov.uk/government/publications/current-list-of-designated-persons-terrorism-and-terrorist-financing",
+        "locale": "en",
+        "document_type": "guidance"
+      },
+      {
+        "content_id": "841f225a-80b2-44d5-ba13-a36c7a82b859",
+        "public_updated_at": "2007-12-15T15:00:02+00:00",
+        "title": "Financial Sanctions, UK freezing orders",
+        "api_path": "/api/content/government/publications/financial-sanctions-uk-freezing-orders",
+        "base_path": "/government/publications/financial-sanctions-uk-freezing-orders",
+        "description": "Somalia is currently subject to financial sanctions. This document contains the current list of designated persons.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/financial-sanctions-uk-freezing-orders",
+        "web_url": "https://www.gov.uk/government/publications/financial-sanctions-uk-freezing-orders",
+        "locale": "en",
+        "document_type": "guidance"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "1994e0e4-bd19-4966-bbd7-f293d6e90a6b",
+        "title": "HM Treasury",
+        "api_path": "/api/content/government/organisations/hm-treasury",
+        "base_path": "/government/organisations/hm-treasury",
+        "api_url": "https://www.gov.uk/api/organisations/hm-treasury",
+        "web_url": "https://www.gov.uk/government/organisations/hm-treasury",
+        "locale": "en",
+        "analytics_identifier": "D15"
+      },
+      {
+        "content_id": "e82999a0-79f0-4c77-a8f1-39135e7a123c",
+        "title": "Office of Financial Sanctions Implementation",
+        "api_path": "/api/content/government/organisations/office-of-financial-sanctions-implementation",
+        "base_path": "/government/organisations/office-of-financial-sanctions-implementation",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/office-of-financial-sanctions-implementation",
+        "web_url": "https://www.gov.uk/government/organisations/office-of-financial-sanctions-implementation",
+        "locale": "en",
+        "analytics_identifier": "OT1187"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "8034be95-4ac2-4fff-93c5-e7514ed9504a",
+        "title": "Tax and revenue",
+        "api_path": "/api/content/government/topics/tax-and-revenue",
+        "base_path": "/government/topics/tax-and-revenue",
+        "api_url": "https://www.gov.uk/api/content/government/world/topics/tax-and-revenue",
+        "web_url": "https://www.gov.uk/government/world/topics/tax-and-revenue",
+        "locale": "en"
+      }
+    ]
+  }
+}

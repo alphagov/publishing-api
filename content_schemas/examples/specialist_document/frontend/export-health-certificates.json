@@ -1,0 +1,1369 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/export-health-certificates/export-fish-to-spain",
+  "content_id": "8c26d04d-47ba-40df-ad20-82a87733fade",
+  "document_type": "export_health_certificate",
+  "first_published_at": "2018-09-14T13:30:36.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2018-09-14T13:30:36.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "publishing_scheduled_at": null,
+  "rendering_app": "government-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "specialist_document",
+  "title": "Export fish to Spain",
+  "updated_at": "2018-09-14T13:36:44.654Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "EA1079",
+        "api_path": "/api/content/government/organisations/animal-and-plant-health-agency",
+        "base_path": "/government/organisations/animal-and-plant-health-agency",
+        "content_id": "4ad67f14-6f9c-4fa4-80ab-687b6d81ea6f",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-03-13T14:15:19Z",
+        "schema_name": "organisation",
+        "title": "Animal and Plant Health Agency",
+        "withdrawn": false,
+        "details": {
+          "acronym": "APHA",
+          "body": "<div class=\"govspeak\"><p>We work to safeguard animal and plant health for the benefit of people, the environment and the economy.</p>\n\n<p><abbr title=\"Animal and Plant Health Agency\">APHA</abbr> is an executive agency, sponsored by the <a class=\"brand__color\" href=\"/government/organisations/department-for-environment-food-rural-affairs\">Department for Environment, Food &amp; Rural Affairs</a>, the <a class=\"brand__color\" href=\"/government/organisations/welsh-government\">Welsh Government</a> and <a class=\"brand__color\" href=\"/government/organisations/the-scottish-government\">The Scottish Government</a>.</p>\n</div>",
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Animal &amp;<br/>Plant Health<br/>Agency",
+            "crest": "single-identity"
+          },
+          "foi_exempt": false,
+          "ordered_corporate_information_pages": [
+            {
+              "title": "Equality and diversity",
+              "href": "/government/organisations/animal-and-plant-health-agency/about/equality-and-diversity"
+            },
+            {
+              "title": "Complaints procedure",
+              "href": "/government/organisations/animal-and-plant-health-agency/about/complaints-procedure"
+            },
+            {
+              "title": "Our governance",
+              "href": "/government/organisations/animal-and-plant-health-agency/about/our-governance"
+            },
+            {
+              "title": "Office access and opening times",
+              "href": "/government/organisations/animal-and-plant-health-agency/about/access-and-opening"
+            },
+            {
+              "title": "Research at APHA",
+              "href": "/government/organisations/animal-and-plant-health-agency/about/research"
+            },
+            {
+              "title": "Corporate reports",
+              "href": "/government/publications?departments%5B%5D=animal-and-plant-health-agency&publication_type=corporate-reports"
+            },
+            {
+              "title": "Transparency data",
+              "href": "/government/publications?departments%5B%5D=animal-and-plant-health-agency&publication_type=transparency-data"
+            },
+            {
+              "title": "Working for APHA",
+              "href": "/government/organisations/animal-and-plant-health-agency/about/recruitment"
+            },
+            {
+              "title": "Jobs",
+              "href": "https://www.civilservicejobs.service.gov.uk/csr"
+            }
+          ],
+          "secondary_corporate_information_pages": "Read about the types of information we routinely publish in our <a class=\"brand__color\" href=\"/government/organisations/animal-and-plant-health-agency/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"brand__color\" href=\"/government/organisations/animal-and-plant-health-agency/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"brand__color\" href=\"/government/organisations/animal-and-plant-health-agency/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information. Read our policy on <a class=\"brand__color\" href=\"/government/organisations/animal-and-plant-health-agency/about/social-media-use\">Social media use</a>. Find out <a class=\"brand__color\" href=\"/government/organisations/animal-and-plant-health-agency/about-our-services\">About our services</a>.",
+          "ordered_featured_links": [
+            {
+              "title": "Contact APHA",
+              "href": "https://www.gov.uk/government/organisations/animal-and-plant-health-agency/about/access-and-opening"
+            },
+            {
+              "title": "Vet Gateway",
+              "href": "http://apha.defra.gov.uk/vet-gateway/index.htm"
+            },
+            {
+              "title": "Animal disease test submissions and prices",
+              "href": "https://www.gov.uk/laboratory-test-price-lists"
+            },
+            {
+              "title": "Commercial products and services",
+              "href": "http://apha.defra.gov.uk/apha-scientific/index.htm"
+            },
+            {
+              "title": "Reporting notifiable disease in animals",
+              "href": "https://www.gov.uk/government/collections/notifiable-diseases-in-animals"
+            },
+            {
+              "title": "Importing and exporting live animals/animal products",
+              "href": "https://www.gov.uk/government/collections/guidance-on-importing-and-exporting-live-animals-or-animal-products"
+            },
+            {
+              "title": "Plant health controls and reporting pests and diseases",
+              "href": "https://www.gov.uk/plant-health-controls"
+            },
+            {
+              "title": "Plant varieties and seeds applications",
+              "href": "https://www.gov.uk/government/collections/guides-and-forms-for-plant-varieties-and-seeds-applications"
+            },
+            {
+              "title": "Science at APHA",
+              "href": "https://www.gov.uk/government/organisations/animal-and-plant-health-agency/about/research"
+            },
+            {
+              "title": "Sign up to animal disease alerts",
+              "href": "http://animalhealth.system-message.co.uk/AH_subscribe_index.php"
+            }
+          ],
+          "ordered_featured_documents": [
+            {
+              "title": "Science blog: Combating rural crime with animal forensics",
+              "href": "https://aphascience.blog.gov.uk/2018/08/20/combating-rural-crime-with-animal-forensics/",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/65058/central-sequencing-team.jpg",
+                "alt_text": "Central Sequencing Team Unit at APHA"
+              },
+              "summary": "<div class=\"govspeak\"><p>Saira Cawthraw talks about DNA profiling at APHA and its use in combating rural crime.</p>\n</div>",
+              "public_updated_at": "2018-08-20T00:00:00.000+01:00",
+              "document_type": "Blog post"
+            },
+            {
+              "title": "African swine fever risk reminder",
+              "href": "/government/news/african-swine-fever-risk-reminder",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/65049/pig-keeper-scraps.jpg",
+                "alt_text": "African swine fever infographic"
+              },
+              "summary": "<div class=\"govspeak\"><p>Pig keepers must not feed kitchen or catering waste to their pigs to help prevent the spread of African swine fever to the UK.</p>\n</div>",
+              "public_updated_at": "2018-08-14T15:55:44.000+01:00",
+              "document_type": "News story"
+            },
+            {
+              "title": "Government Vets blog: Reflecting on my first few months in post",
+              "href": "https://vets.blog.gov.uk/2018/08/13/reflecting-on-my-first-few-months-in-post/",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/64938/christine-middlemiss.jpg",
+                "alt_text": "Image of Christine Middlemiss"
+              },
+              "summary": "<div class=\"govspeak\"><p>UK Chief Veterinary Officer, Christine Middlemiss talks about what’s been getting her focus and what’s important to her after 5 months in post.</p>\n</div>",
+              "public_updated_at": "2018-08-13T00:00:00.000+01:00",
+              "document_type": "Blog post"
+            },
+            {
+              "title": "Poultry keepers urged to be vigilant of Newcastle Disease",
+              "href": "/government/news/poultry-keepers-urged-to-be-vigilant-of-newcastle-disease",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/64609/GettyImages-639108910-chickens.jpg",
+                "alt_text": "Getty image - Chickens"
+              },
+              "summary": "<div class=\"govspeak\"><p>Cases of Newcastle Disease reported in smallholder flocks and commercial poultry sites in Belgium, the Netherlands and Luxembourg</p>\n</div>",
+              "public_updated_at": "2018-07-25T16:22:00.000+01:00",
+              "document_type": "Press release"
+            },
+            {
+              "title": "Animal welfare enhanced by new code for laying hens and pullets",
+              "href": "/government/news/animal-welfare-enhanced-by-new-code-for-laying-hens-and-pullets",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/64853/hen-PL-1004419govuk.jpg",
+                "alt_text": "Hen image"
+              },
+              "summary": "<div class=\"govspeak\"><p>The laying hens and pullets welfare code has been updated as part of a programme of reforms to enhance the welfare of animals.</p>\n</div>",
+              "public_updated_at": "2018-08-08T09:30:04.000+01:00",
+              "document_type": "Press release"
+            },
+            {
+              "title": "New Animal and Plant Health Agency Veterinary Director appointed",
+              "href": "/government/news/appointment-of-new-animal-and-plant-health-agency-veterinary-director",
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/63868/andrew-soldan.jpg",
+                "alt_text": "Image of Andrew Soldan"
+              },
+              "summary": "<div class=\"govspeak\"><p>Andrew Soldan is appointed Veterinary Director at the Animal and Plant Health Agency (APHA).</p>\n</div>",
+              "public_updated_at": "2018-06-28T10:16:00.000+01:00",
+              "document_type": "News story"
+            }
+          ],
+          "ordered_promotional_features": [
+
+          ],
+          "ordered_ministers": [
+
+          ],
+          "ordered_board_members": [
+            {
+              "name_prefix": null,
+              "name": "Chris Hadkiss",
+              "role": "Chief Executive",
+              "href": "/government/people/chris-hadkiss",
+              "role_href": null,
+              "payment_type": null,
+              "attends_cabinet_type": null,
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/1914/Chris_Hadkis.jpg",
+                "alt_text": "Chris Hadkiss"
+              }
+            },
+            {
+              "name_prefix": null,
+              "name": "Ian Hewett",
+              "role": "Director of Service Delivery",
+              "href": "/government/people/ian-hewett--2",
+              "role_href": null,
+              "payment_type": null,
+              "attends_cabinet_type": null,
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3182/ian-hewett.jpg",
+                "alt_text": "Ian Hewett"
+              }
+            },
+            {
+              "name_prefix": null,
+              "name": "Kath Webster",
+              "role": "Director of Scientific Services",
+              "href": "/government/people/kath-webster",
+              "role_href": null,
+              "payment_type": null,
+              "attends_cabinet_type": null,
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/1916/Kath_Webster.jpg",
+                "alt_text": "Kath Webster"
+              }
+            },
+            {
+              "name_prefix": null,
+              "name": "Andrew Soldan",
+              "role": "Veterinary Director",
+              "href": "/government/people/andrew-soldan",
+              "role_href": null,
+              "payment_type": null,
+              "attends_cabinet_type": null,
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3565/andrew-soldan.jpg",
+                "alt_text": "Andrew Soldan"
+              }
+            },
+            {
+              "name_prefix": null,
+              "name": "Dave Webster",
+              "role": "Finance Director",
+              "href": "/government/people/dave-webster--2",
+              "role_href": null,
+              "payment_type": null,
+              "attends_cabinet_type": null,
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3033/dave-webster.jpg",
+                "alt_text": "Dave Webster"
+              }
+            },
+            {
+              "name_prefix": null,
+              "name": "Simon Hall",
+              "role": "Director for EU Exit and Trade",
+              "href": "/government/people/simon-hall",
+              "role_href": null,
+              "payment_type": null,
+              "attends_cabinet_type": null,
+              "image": {
+                "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/1915/simon-hall-office.jpg",
+                "alt_text": "Simon Hall"
+              }
+            }
+          ],
+          "ordered_military_personnel": [
+
+          ],
+          "ordered_traffic_commissioners": [
+
+          ],
+          "ordered_chief_professional_officers": [
+
+          ],
+          "ordered_special_representatives": [
+
+          ],
+          "important_board_members": 1,
+          "organisation_featuring_priority": "service",
+          "organisation_govuk_status": {
+            "status": "live",
+            "url": null,
+            "updated_at": null
+          },
+          "organisation_type": "executive_agency",
+          "social_media_links": [
+            {
+              "service_type": "twitter",
+              "title": "Twitter",
+              "href": "https://twitter.com/aphagovuk"
+            },
+            {
+              "service_type": "facebook",
+              "title": "Facebook",
+              "href": "https://www.facebook.com/APHAGov"
+            },
+            {
+              "service_type": "youtube",
+              "title": "YouTube",
+              "href": "https://www.youtube.com/channel/UCCz2mmKhYUpQJEviiAzOEqA"
+            },
+            {
+              "service_type": "blog",
+              "title": "APHA science blog",
+              "href": "https://aphascience.blog.gov.uk/"
+            }
+          ]
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/animal-and-plant-health-agency",
+        "web_url": "http://www.dev.gov.uk/government/organisations/animal-and-plant-health-agency"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "EA1079",
+        "api_path": "/api/content/government/organisations/animal-and-plant-health-agency",
+        "base_path": "/government/organisations/animal-and-plant-health-agency",
+        "content_id": "4ad67f14-6f9c-4fa4-80ab-687b6d81ea6f",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-03-13T14:15:19Z",
+        "schema_name": "organisation",
+        "title": "Animal and Plant Health Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Animal &amp;<br/>Plant Health<br/>Agency",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/animal-and-plant-health-agency",
+        "web_url": "http://www.dev.gov.uk/government/organisations/animal-and-plant-health-agency"
+      }
+    ],
+    "finder": [
+      {
+        "api_path": "/api/content/export-health-certificates",
+        "base_path": "/export-health-certificates",
+        "content_id": "a485fe3e-6e1e-4d37-a2cc-06177089d1ac",
+        "description": "Find export health certificates (EHCs) used for exporting live animals and products of animal origin",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2018-09-14T12:02:37Z",
+        "schema_name": "finder",
+        "title": "Export health certificates",
+        "withdrawn": false,
+        "details": {
+          "facets": [
+            {
+              "key": "destination_country",
+              "name": "Destination country",
+              "short_name": "Destination",
+              "type": "text",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Afghanistan",
+                  "value": "afghanistan"
+                },
+                {
+                  "label": "Albania",
+                  "value": "albania"
+                },
+                {
+                  "label": "Algeria",
+                  "value": "algeria"
+                },
+                {
+                  "label": "Andean Community of Peru, Bolivia, Colombia, Ecuador",
+                  "value": "andean-community-of-peru-bolivia-colombia-ecuador"
+                },
+                {
+                  "label": "Angola",
+                  "value": "angola"
+                },
+                {
+                  "label": "Anguilla",
+                  "value": "anguilla"
+                },
+                {
+                  "label": "Antigua",
+                  "value": "antigua"
+                },
+                {
+                  "label": "Argentina",
+                  "value": "argentina"
+                },
+                {
+                  "label": "Armenia",
+                  "value": "armenia"
+                },
+                {
+                  "label": "Ascension Island",
+                  "value": "ascension-island"
+                },
+                {
+                  "label": "Australia",
+                  "value": "australia"
+                },
+                {
+                  "label": "Austria",
+                  "value": "austria"
+                },
+                {
+                  "label": "Azerbaijan",
+                  "value": "azerbaijan"
+                },
+                {
+                  "label": "Bahamas",
+                  "value": "bahamas"
+                },
+                {
+                  "label": "Bahrain",
+                  "value": "bahrain"
+                },
+                {
+                  "label": "Bangladesh",
+                  "value": "bangladesh"
+                },
+                {
+                  "label": "Barbados",
+                  "value": "barbados"
+                },
+                {
+                  "label": "Belarus",
+                  "value": "belarus"
+                },
+                {
+                  "label": "Belgium",
+                  "value": "belgium"
+                },
+                {
+                  "label": "Belize",
+                  "value": "belize"
+                },
+                {
+                  "label": "Benin",
+                  "value": "benin"
+                },
+                {
+                  "label": "Bermuda",
+                  "value": "bermuda"
+                },
+                {
+                  "label": "Bhutan",
+                  "value": "bhutan"
+                },
+                {
+                  "label": "Bolivia",
+                  "value": "bolivia"
+                },
+                {
+                  "label": "Bosnia and Herzegovina",
+                  "value": "bosnia-and-herzegovina"
+                },
+                {
+                  "label": "Botswana",
+                  "value": "botswana"
+                },
+                {
+                  "label": "Brazil",
+                  "value": "brazil"
+                },
+                {
+                  "label": "British Virgin Islands",
+                  "value": "british-virgin-islands"
+                },
+                {
+                  "label": "Brunei",
+                  "value": "brunei"
+                },
+                {
+                  "label": "Bulgaria",
+                  "value": "bulgaria"
+                },
+                {
+                  "label": "Burkina Faso",
+                  "value": "burkina-faso"
+                },
+                {
+                  "label": "Burundi",
+                  "value": "burundi"
+                },
+                {
+                  "label": "Cambodia",
+                  "value": "cambodia"
+                },
+                {
+                  "label": "Cameroon",
+                  "value": "cameroon"
+                },
+                {
+                  "label": "Canada",
+                  "value": "canada"
+                },
+                {
+                  "label": "Cape Verde",
+                  "value": "cape-verde"
+                },
+                {
+                  "label": "Cayman Islands",
+                  "value": "cayman-islands"
+                },
+                {
+                  "label": "Central African Republic",
+                  "value": "central-african-republic"
+                },
+                {
+                  "label": "Chad",
+                  "value": "chad"
+                },
+                {
+                  "label": "Chile",
+                  "value": "chile"
+                },
+                {
+                  "label": "China",
+                  "value": "china"
+                },
+                {
+                  "label": "Colombia",
+                  "value": "colombia"
+                },
+                {
+                  "label": "Comoros",
+                  "value": "comoros"
+                },
+                {
+                  "label": "Congo, Democratic Republic of",
+                  "value": "congo-democratic-republic-of"
+                },
+                {
+                  "label": "Congo, Republic of",
+                  "value": "congo-republic-of"
+                },
+                {
+                  "label": "Costa Rica",
+                  "value": "costa-rica"
+                },
+                {
+                  "label": "Cote d'Ivoire",
+                  "value": "cote-d-ivoire"
+                },
+                {
+                  "label": "Croatia",
+                  "value": "croatia"
+                },
+                {
+                  "label": "Cuba",
+                  "value": "cuba"
+                },
+                {
+                  "label": "Cyprus",
+                  "value": "cyprus"
+                },
+                {
+                  "label": "Czech Republic",
+                  "value": "czech-republic"
+                },
+                {
+                  "label": "Denmark",
+                  "value": "denmark"
+                },
+                {
+                  "label": "Djibouti",
+                  "value": "djibouti"
+                },
+                {
+                  "label": "Dominica",
+                  "value": "dominica"
+                },
+                {
+                  "label": "Dominican Republic",
+                  "value": "dominican-republic"
+                },
+                {
+                  "label": "East Timor",
+                  "value": "east-timor"
+                },
+                {
+                  "label": "Ecuador",
+                  "value": "ecuador"
+                },
+                {
+                  "label": "Egypt",
+                  "value": "egypt"
+                },
+                {
+                  "label": "El Salvador",
+                  "value": "el-salvador"
+                },
+                {
+                  "label": "Equatorial Guinea",
+                  "value": "equatorial-guinea"
+                },
+                {
+                  "label": "Eritrea",
+                  "value": "eritrea"
+                },
+                {
+                  "label": "Estonia",
+                  "value": "estonia"
+                },
+                {
+                  "label": "Eswatini (previously Swaziland)",
+                  "value": "eswatini-previously-swaziland"
+                },
+                {
+                  "label": "Ethiopia",
+                  "value": "ethiopia"
+                },
+                {
+                  "label": "EU",
+                  "value": "eu"
+                },
+                {
+                  "label": "Eurasian Economic Union",
+                  "value": "eurasian-customs-union"
+                },
+                {
+                  "label": "Falkland Islands",
+                  "value": "falkland-islands"
+                },
+                {
+                  "label": "Faroe Islands",
+                  "value": "faroe-islands"
+                },
+                {
+                  "label": "Fiji",
+                  "value": "fiji"
+                },
+                {
+                  "label": "Finland",
+                  "value": "finland"
+                },
+                {
+                  "label": "France",
+                  "value": "france"
+                },
+                {
+                  "label": "French Polynesia",
+                  "value": "french-polynesia"
+                },
+                {
+                  "label": "Gabon",
+                  "value": "gabon"
+                },
+                {
+                  "label": "Gambia",
+                  "value": "gambia"
+                },
+                {
+                  "label": "Georgia",
+                  "value": "georgia"
+                },
+                {
+                  "label": "Germany",
+                  "value": "germany"
+                },
+                {
+                  "label": "Ghana",
+                  "value": "ghana"
+                },
+                {
+                  "label": "Gibraltar",
+                  "value": "gibraltar"
+                },
+                {
+                  "label": "Greece",
+                  "value": "greece"
+                },
+                {
+                  "label": "Great Britain",
+                  "value": "great-britain"
+                },
+                {
+                  "label": "Grenada",
+                  "value": "grenada"
+                },
+                {
+                  "label": "Guam",
+                  "value": "guam"
+                },
+                {
+                  "label": "Guatemala",
+                  "value": "guatemala"
+                },
+                {
+                  "label": "Guernsey",
+                  "value": "guernsey"
+                },
+                {
+                  "label": "Guinea",
+                  "value": "guinea"
+                },
+                {
+                  "label": "Guinea-Bissau",
+                  "value": "guinea-bissau"
+                },
+                {
+                  "label": "Guyana",
+                  "value": "guyana"
+                },
+                {
+                  "label": "Haiti",
+                  "value": "haiti"
+                },
+                {
+                  "label": "Hawaii",
+                  "value": "hawaii"
+                },
+                {
+                  "label": "Honduras",
+                  "value": "honduras"
+                },
+                {
+                  "label": "Hong Kong",
+                  "value": "hong-kong"
+                },
+                {
+                  "label": "Hungary",
+                  "value": "hungary"
+                },
+                {
+                  "label": "Iceland",
+                  "value": "iceland"
+                },
+                {
+                  "label": "India",
+                  "value": "india"
+                },
+                {
+                  "label": "Indonesia",
+                  "value": "indonesia"
+                },
+                {
+                  "label": "Iran",
+                  "value": "iran"
+                },
+                {
+                  "label": "Iraq",
+                  "value": "iraq"
+                },
+                {
+                  "label": "Isle Of Man",
+                  "value": "isle-of-man"
+                },
+                {
+                  "label": "Israel",
+                  "value": "israel"
+                },
+                {
+                  "label": "Italy",
+                  "value": "italy"
+                },
+                {
+                  "label": "Jamaica",
+                  "value": "jamaica"
+                },
+                {
+                  "label": "Japan",
+                  "value": "japan"
+                },
+                {
+                  "label": "Jersey",
+                  "value": "jersey"
+                },
+                {
+                  "label": "Jordan",
+                  "value": "jordan"
+                },
+                {
+                  "label": "Kazakhstan",
+                  "value": "kazakhstan"
+                },
+                {
+                  "label": "Kenya",
+                  "value": "kenya"
+                },
+                {
+                  "label": "Kiribati",
+                  "value": "kiribati"
+                },
+                {
+                  "label": "Kosovo",
+                  "value": "kosovo"
+                },
+                {
+                  "label": "Kuwait",
+                  "value": "kuwait"
+                },
+                {
+                  "label": "Kyrgyzstan",
+                  "value": "kyrgyzstan"
+                },
+                {
+                  "label": "Laos",
+                  "value": "laos"
+                },
+                {
+                  "label": "Latvia",
+                  "value": "latvia"
+                },
+                {
+                  "label": "Lebanon",
+                  "value": "lebanon"
+                },
+                {
+                  "label": "Lesotho",
+                  "value": "lesotho"
+                },
+                {
+                  "label": "Liberia",
+                  "value": "liberia"
+                },
+                {
+                  "label": "Libya",
+                  "value": "libya"
+                },
+                {
+                  "label": "Liechtenstein",
+                  "value": "liechtenstein"
+                },
+                {
+                  "label": "Lithuania",
+                  "value": "lithuania"
+                },
+                {
+                  "label": "Luxembourg",
+                  "value": "luxembourg"
+                },
+                {
+                  "label": "Macao",
+                  "value": "macao"
+                },
+                {
+                  "label": "Madagascar",
+                  "value": "madagascar"
+                },
+                {
+                  "label": "Malawi",
+                  "value": "malawi"
+                },
+                {
+                  "label": "Malaysia",
+                  "value": "malaysia"
+                },
+                {
+                  "label": "Maldives",
+                  "value": "maldives"
+                },
+                {
+                  "label": "Mali",
+                  "value": "mali"
+                },
+                {
+                  "label": "Malta",
+                  "value": "malta"
+                },
+                {
+                  "label": "Marshall Islands",
+                  "value": "marshall-islands"
+                },
+                {
+                  "label": "Mauritania",
+                  "value": "mauritania"
+                },
+                {
+                  "label": "Mauritius",
+                  "value": "mauritius"
+                },
+                {
+                  "label": "Mexico",
+                  "value": "mexico"
+                },
+                {
+                  "label": "Micronesia",
+                  "value": "micronesia"
+                },
+                {
+                  "label": "Moldova",
+                  "value": "moldova"
+                },
+                {
+                  "label": "Mongolia",
+                  "value": "mongolia"
+                },
+                {
+                  "label": "Montenegro",
+                  "value": "montenegro"
+                },
+                {
+                  "label": "Montserrat",
+                  "value": "montserrat"
+                },
+                {
+                  "label": "Morocco",
+                  "value": "morocco"
+                },
+                {
+                  "label": "Mozambique",
+                  "value": "mozambique"
+                },
+                {
+                  "label": "Myanmar",
+                  "value": "myanmar"
+                },
+                {
+                  "label": "Namibia",
+                  "value": "namibia"
+                },
+                {
+                  "label": "Nauru",
+                  "value": "nauru"
+                },
+                {
+                  "label": "Nepal",
+                  "value": "nepal"
+                },
+                {
+                  "label": "Netherlands",
+                  "value": "netherlands"
+                },
+                {
+                  "label": "New Caledonia",
+                  "value": "new-caledonia"
+                },
+                {
+                  "label": "New Zealand",
+                  "value": "new-zealand"
+                },
+                {
+                  "label": "Nicaragua",
+                  "value": "nicaragua"
+                },
+                {
+                  "label": "Niger",
+                  "value": "niger"
+                },
+                {
+                  "label": "Nigeria",
+                  "value": "nigeria"
+                },
+                {
+                  "label": "North Korea",
+                  "value": "north-korea"
+                },
+                {
+                  "label": "North Macedonia",
+                  "value": "north-macedonia"
+                },
+                {
+                  "label": "North Sudan",
+                  "value": "north-sudan"
+                },
+                {
+                  "label": "Northern Cyprus",
+                  "value": "northern-cyprus"
+                },
+                {
+                  "label": "Northern Ireland",
+                  "value": "northern-ireland"
+                },
+                {
+                  "label": "Norway",
+                  "value": "norway"
+                },
+                {
+                  "label": "Oman",
+                  "value": "oman"
+                },
+                {
+                  "label": "Pakistan",
+                  "value": "pakistan"
+                },
+                {
+                  "label": "Palau",
+                  "value": "palau"
+                },
+                {
+                  "label": "Palestine",
+                  "value": "palestine"
+                },
+                {
+                  "label": "Panama",
+                  "value": "panama"
+                },
+                {
+                  "label": "Papua New Guinea",
+                  "value": "papua-new-guinea"
+                },
+                {
+                  "label": "Paraguay",
+                  "value": "paraguay"
+                },
+                {
+                  "label": "Peru",
+                  "value": "peru"
+                },
+                {
+                  "label": "Philippines",
+                  "value": "philippines"
+                },
+                {
+                  "label": "Poland",
+                  "value": "poland"
+                },
+                {
+                  "label": "Portugal",
+                  "value": "portugal"
+                },
+                {
+                  "label": "Qatar",
+                  "value": "qatar"
+                },
+                {
+                  "label": "Republic of Ireland",
+                  "value": "republic-of-ireland"
+                },
+                {
+                  "label": "Romania",
+                  "value": "romania"
+                },
+                {
+                  "label": "Russia",
+                  "value": "russia"
+                },
+                {
+                  "label": "Rwanda",
+                  "value": "rwanda"
+                },
+                {
+                  "label": "Samoa",
+                  "value": "samoa"
+                },
+                {
+                  "label": "San Marino",
+                  "value": "san-marino"
+                },
+                {
+                  "label": "São Tomé and Principe",
+                  "value": "sao-tome-and-principe"
+                },
+                {
+                  "label": "Saudi Arabia",
+                  "value": "saudi-arabia"
+                },
+                {
+                  "label": "Senegal",
+                  "value": "senegal"
+                },
+                {
+                  "label": "Serbia",
+                  "value": "serbia"
+                },
+                {
+                  "label": "Seychelles",
+                  "value": "seychelles"
+                },
+                {
+                  "label": "Sierra Leone",
+                  "value": "sierra-leone"
+                },
+                {
+                  "label": "Singapore",
+                  "value": "singapore"
+                },
+                {
+                  "label": "Slovakia",
+                  "value": "slovakia"
+                },
+                {
+                  "label": "Slovenia",
+                  "value": "slovenia"
+                },
+                {
+                  "label": "Solomon Islands",
+                  "value": "solomon-islands"
+                },
+                {
+                  "label": "Somalia",
+                  "value": "somalia"
+                },
+                {
+                  "label": "South Africa",
+                  "value": "south-africa"
+                },
+                {
+                  "label": "South Korea",
+                  "value": "south-korea"
+                },
+                {
+                  "label": "South Sudan",
+                  "value": "south-sudan"
+                },
+                {
+                  "label": "Spain",
+                  "value": "spain"
+                },
+                {
+                  "label": "Sri Lanka",
+                  "value": "sri-lanka"
+                },
+                {
+                  "label": "St Helena",
+                  "value": "st-helena"
+                },
+                {
+                  "label": "St Kitts and Nevis",
+                  "value": "st-kitts-and-nevis"
+                },
+                {
+                  "label": "St Lucia",
+                  "value": "st-lucia"
+                },
+                {
+                  "label": "St Vincent and The Grenadines",
+                  "value": "st-vincent-and-the-grenadines"
+                },
+                {
+                  "label": "Sudan",
+                  "value": "sudan"
+                },
+                {
+                  "label": "Suriname",
+                  "value": "suriname"
+                },
+                {
+                  "label": "Swaziland (now Eswatini)",
+                  "value": "swaziland-now-eswatini"
+                },
+                {
+                  "label": "Sweden",
+                  "value": "sweden"
+                },
+                {
+                  "label": "Switzerland",
+                  "value": "switzerland"
+                },
+                {
+                  "label": "Syria",
+                  "value": "syria"
+                },
+                {
+                  "label": "Taiwan",
+                  "value": "taiwan"
+                },
+                {
+                  "label": "Tajikistan",
+                  "value": "tajikistan"
+                },
+                {
+                  "label": "Tanzania",
+                  "value": "tanzania"
+                },
+                {
+                  "label": "Thailand",
+                  "value": "thailand"
+                },
+                {
+                  "label": "Togo",
+                  "value": "togo"
+                },
+                {
+                  "label": "Tonga",
+                  "value": "tonga"
+                },
+                {
+                  "label": "Trinidad and Tobago",
+                  "value": "trinidad-and-tobago"
+                },
+                {
+                  "label": "Tristan Da Cunha",
+                  "value": "tristan-da-cunha"
+                },
+                {
+                  "label": "Tunisia",
+                  "value": "tunisia"
+                },
+                {
+                  "label": "Turkey",
+                  "value": "turkey"
+                },
+                {
+                  "label": "Turkmenistan",
+                  "value": "turkmenistan"
+                },
+                {
+                  "label": "Turks and Caicos Islands",
+                  "value": "turks-and-caicos-islands"
+                },
+                {
+                  "label": "Tuvalu",
+                  "value": "tuvalu"
+                },
+                {
+                  "label": "Uganda",
+                  "value": "uganda"
+                },
+                {
+                  "label": "Ukraine",
+                  "value": "ukraine"
+                },
+                {
+                  "label": "United Arab Emirates",
+                  "value": "united-arab-emirates"
+                },
+                {
+                  "label": "Uruguay",
+                  "value": "uruguay"
+                },
+                {
+                  "label": "USA",
+                  "value": "usa"
+                },
+                {
+                  "label": "Uzbekistan",
+                  "value": "uzbekistan"
+                },
+                {
+                  "label": "Vanuatu",
+                  "value": "vanuatu"
+                },
+                {
+                  "label": "Venezuela",
+                  "value": "venezuela"
+                },
+                {
+                  "label": "Vietnam",
+                  "value": "vietnam"
+                },
+                {
+                  "label": "Wallis and Futuna Islands",
+                  "value": "wallis-and-futuna-islands"
+                },
+                {
+                  "label": "Yemen",
+                  "value": "yemen"
+                },
+                {
+                  "label": "Zambia",
+                  "value": "zambia"
+                },
+                {
+                  "label": "Zimbabwe",
+                  "value": "zimbabwe"
+                }
+              ]
+            },
+            {
+              "key": "commodity_type",
+              "name": "Commodity type",
+              "short_name": "Commodity",
+              "type": "text",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Animal products including food",
+                  "value": "anima-products-including-food"
+                },
+                {
+                  "label": "Equine",
+                  "value": "equine"
+                },
+                {
+                  "label": "Fish",
+                  "value": "fish"
+                },
+                {
+                  "label": "Germplasm",
+                  "value": "germplasm"
+                },
+                {
+                  "label": "Live animals",
+                  "value": "live-animals"
+                },
+                {
+                  "label": "Livestock",
+                  "value": "livestock"
+                },
+                {
+                  "label": "Pets",
+                  "value": "pets"
+                }
+              ]
+            },
+            {
+              "key": "certificate_status",
+              "name": "Certificate status",
+              "type": "text",
+              "preposition": "with status",
+              "display_as_result_metadata": true,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Active",
+                  "value": "active"
+                },
+                {
+                  "label": "On hold",
+                  "value": "on-hold"
+                }
+              ]
+            }
+          ]
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/export-health-certificates",
+        "web_url": "http://www.dev.gov.uk/export-health-certificates"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Export chicken to Spain",
+        "public_updated_at": "2018-09-14T13:30:36Z",
+        "document_type": "export_health_certificate",
+        "schema_name": "specialist_document",
+        "base_path": "/export-health-certificates/export-chicken-to-spain",
+        "description": "dkjnfkjsd",
+        "api_path": "/api/content/export-health-certificates/export-chicken-to-spain",
+        "withdrawn": false,
+        "content_id": "8c26d04d-47ba-40df-ad20-82a87733fade",
+        "locale": "en",
+        "api_url": "http://www.dev.gov.uk/api/content/export-health-certificates/export-chicken-to-spain",
+        "web_url": "http://www.dev.gov.uk/export-health-certificates/export-chicken-to-spain",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "dkjnfkjsd",
+  "details": {
+    "body": "<p>jsndfkjs</p>\n",
+    "metadata": {
+      "certificate_status": "active",
+      "commodity_type": "fish",
+      "destination_country": [
+        "spain"
+      ]
+    },
+    "max_cache_time": 10,
+    "temporary_update_type": false,
+    "change_history": [
+      {
+        "note": "First published.",
+        "public_timestamp": "2018-09-14T13:30:35.699Z"
+      }
+    ]
+  }
+}

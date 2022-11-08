@@ -1,0 +1,2486 @@
+{
+  "content_id": "3917cb0e-0928-45b7-bf63-20f9bc113a7b",
+  "base_path": "/administrative-appeals-tribunal-decisions/example-utaac-decision",
+  "title": "Example UTAAC Decision",
+  "description": "Example text.",
+  "locale": "en",
+  "updated_at": "2016-04-05T14:41:08.625Z",
+  "public_updated_at": "2016-04-05T14:41:08.000+00:00",
+  "details": {
+    "metadata": {
+      "hidden_indexable_content": "Example text.",
+      "tribunal_decision_categories": [
+        "benefits-for-children",
+        "bereavement-and-death-benefits"
+      ],
+      "tribunal_decision_decision_date": "2015-08-30",
+      "tribunal_decision_judges": [
+        "angus-r"
+      ],
+      "tribunal_decision_sub_categories": [
+        "benefits-for-children-benefit-increases-for-children",
+        "bereavement-and-death-benefits-bereaved-parents-allowance"
+      ],
+      "bulk_published": false
+    },
+    "max_cache_time": 10,
+    "change_history": [
+      {
+        "public_timestamp": "2016-04-05T14:41:08+00:00",
+        "note": "First published."
+      }
+    ],
+    "body": "<p>Example text.</p>\n"
+  },
+  "phase": "beta",
+  "links": {
+    "available_translations": [
+      {
+        "content_id": "3917cb0e-0928-45b7-bf63-20f9bc113a7c",
+        "title": "Example UTAAC Decision",
+        "api_path": "/api/content/administrative-appeals-tribunal-decisions/example-utaac-decision",
+        "base_path": "/administrative-appeals-tribunal-decisions/example-utaac-decision",
+        "description": "Example text.",
+        "api_url": "https://www.gov.uk/api/content/administrative-appeals-tribunal-decisions/example-utaac-decision",
+        "web_url": "https://www.gov.uk/administrative-appeals-tribunal-decisions/example-utaac-decision",
+        "locale": "en"
+      }
+    ],
+    "finder": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/administrative-appeals-tribunal-decisions",
+        "base_path": "/administrative-appeals-tribunal-decisions",
+        "content_id": "e9e7fcff-bb0d-4723-af25-9f78d730f6f8",
+        "description": "Find decisions on appeals to the Upper Tribunal (Administrative Appeals Chamber), including social security and child support appeals.",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2017-03-15T14:44:21Z",
+        "schema_name": "finder",
+        "title": "Administrative appeals tribunal decisions",
+        "withdrawn": false,
+        "details": {
+          "facets": [
+            {
+              "key": "tribunal_decision_categories",
+              "name": "Categories",
+              "type": "text",
+              "preposition": "categorised as",
+              "display_as_result_metadata": false,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Benefits for children",
+                  "value": "benefits-for-children"
+                },
+                {
+                  "label": "Bereavement and death benefits",
+                  "value": "bereavement-and-death-benefits"
+                },
+                {
+                  "label": "Capital",
+                  "value": "capital"
+                },
+                {
+                  "label": "Care standards",
+                  "value": "care-standards"
+                },
+                {
+                  "label": "Child support",
+                  "value": "child-support"
+                },
+                {
+                  "label": "Claims and payments",
+                  "value": "claims-and-payments"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice ",
+                  "value": "commissioners-procedure-and-practice"
+                },
+                {
+                  "label": "Compensation recovery",
+                  "value": "compensation-recovery"
+                },
+                {
+                  "label": "Consumer credit",
+                  "value": "consumer-credit"
+                },
+                {
+                  "label": "Contributions and credits",
+                  "value": "contributions-and-credits"
+                },
+                {
+                  "label": "Criminal injuries compensation",
+                  "value": "criminal-injuries-compensation"
+                },
+                {
+                  "label": "Disability discrimination in schools",
+                  "value": "disability-discrimination-schools"
+                },
+                {
+                  "label": "DLA, AA, MA: general",
+                  "value": "dla-aa-ma-general"
+                },
+                {
+                  "label": "DLA, AA: personal care",
+                  "value": "dla-aa-personal-care"
+                },
+                {
+                  "label": "DLA, MA: mobility",
+                  "value": "dla-ma-mobility"
+                },
+                {
+                  "label": "Earnings and other income",
+                  "value": "earnings-and-other-income"
+                },
+                {
+                  "label": "Employment and support allowance",
+                  "value": "employment-and-support-allowance"
+                },
+                {
+                  "label": "Environment",
+                  "value": "environment"
+                },
+                {
+                  "label": "Equality Act",
+                  "value": "equality-act"
+                },
+                {
+                  "label": "Estate agents",
+                  "value": "estate-agents"
+                },
+                {
+                  "label": "European Union law",
+                  "value": "european-union-law"
+                },
+                {
+                  "label": "Forfeiture",
+                  "value": "forfeiture"
+                },
+                {
+                  "label": "Gambling",
+                  "value": "gambling"
+                },
+                {
+                  "label": "Housing and council tax benefits",
+                  "value": "housing-and-council-tax-benefits"
+                },
+                {
+                  "label": "Human rights law",
+                  "value": "human-rights-law"
+                },
+                {
+                  "label": "Immigration services",
+                  "value": "immigration-services"
+                },
+                {
+                  "label": "Incapacity benefits",
+                  "value": "incapacity-benefits"
+                },
+                {
+                  "label": "Income support and state pension credits",
+                  "value": "income-support-and-state-pension-credits"
+                },
+                {
+                  "label": "Industrial accidents",
+                  "value": "industrial-accidents"
+                },
+                {
+                  "label": "Industrial diseases",
+                  "value": "industrial-diseases"
+                },
+                {
+                  "label": "Industrial injuries benefits",
+                  "value": "industrial-injuries-benefits"
+                },
+                {
+                  "label": "Information rights",
+                  "value": "information-rights"
+                },
+                {
+                  "label": "Jobseekers allowance",
+                  "value": "jobseekers-allowance"
+                },
+                {
+                  "label": "Local government standards in England",
+                  "value": "local-government-standards-in-england"
+                },
+                {
+                  "label": "Marriage, civil partnerships and living together",
+                  "value": "marriage-civil-partnerships-and-living-together"
+                },
+                {
+                  "label": "Maternity benefits",
+                  "value": "maternity-benefits"
+                },
+                {
+                  "label": "Members of a household",
+                  "value": "members-of-a-household"
+                },
+                {
+                  "label": "Mental health",
+                  "value": "mental-health"
+                },
+                {
+                  "label": "Other current benefits",
+                  "value": "other-current-benefits"
+                },
+                {
+                  "label": "Other general regulatory appeals",
+                  "value": "other-general-regulatory-appeals"
+                },
+                {
+                  "label": "Other previous benefits",
+                  "value": "other-previous-benefits"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities",
+                  "value": "personal-independence-payment-daily-living-activities"
+                },
+                {
+                  "label": "Personal independence payment – general",
+                  "value": "personal-independence-payment-general"
+                },
+                {
+                  "label": "Personal independence payment – mobility activities",
+                  "value": "personal-independence-payment-mobility-activities"
+                },
+                {
+                  "label": "Primary health lists",
+                  "value": "primary-health-lists"
+                },
+                {
+                  "label": "Recovery of overpayments",
+                  "value": "recovery-of-overpayments"
+                },
+                {
+                  "label": "Remunerative work",
+                  "value": "remunerative-work"
+                },
+                {
+                  "label": "Residence and presence conditions",
+                  "value": "residence-and-presence-conditions"
+                },
+                {
+                  "label": "Retirement pensions",
+                  "value": "retirement-pensions"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews",
+                  "value": "revisions-supersessions-and-reviews"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups",
+                  "value": "safeguarding-vulnerable-groups"
+                },
+                {
+                  "label": "Special educational needs",
+                  "value": "special-educational-needs"
+                },
+                {
+                  "label": "Students",
+                  "value": "students"
+                },
+                {
+                  "label": "Tax credits and family credit",
+                  "value": "tax-credits-and-family-credit"
+                },
+                {
+                  "label": "Transport",
+                  "value": "transport"
+                },
+                {
+                  "label": "Tribunal procedure and practice",
+                  "value": "tribunal-procedure-and-practice"
+                },
+                {
+                  "label": "Universal Credit",
+                  "value": "universal-credit"
+                },
+                {
+                  "label": "Vaccine damage payments",
+                  "value": "vaccine-damage-payments"
+                },
+                {
+                  "label": "War pensions and armed forces compensation",
+                  "value": "war-pensions-and-armed-forces-compensation"
+                },
+                {
+                  "label": "Winter fuel payments",
+                  "value": "winter-fuel-payments"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases",
+                  "value": "transport-driving-instructor-cases"
+                },
+                {
+                  "label": "Transport - Quality Contract Schemes",
+                  "value": "transport-quality-contract-schemes"
+                }
+              ]
+            },
+            {
+              "key": "tribunal_decision_categories_name",
+              "name": "Categories name",
+              "type": "text",
+              "display_as_result_metadata": true,
+              "filterable": false
+            },
+            {
+              "key": "tribunal_decision_sub_categories",
+              "name": "Sub-categories",
+              "type": "text",
+              "preposition": "sub-categorised as",
+              "display_as_result_metadata": false,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Benefits for children - benefit increases for children",
+                  "value": "benefits-for-children-benefit-increases-for-children"
+                },
+                {
+                  "label": "Benefits for children - child benefit",
+                  "value": "benefits-for-children-child-benefit"
+                },
+                {
+                  "label": "Benefits for children - child care credit",
+                  "value": "benefits-for-children-child-care-credit"
+                },
+                {
+                  "label": "Benefits for children - guardians allowance",
+                  "value": "benefits-for-children-guardians-allowance"
+                },
+                {
+                  "label": "Benefits for children - other",
+                  "value": "benefits-for-children-other"
+                },
+                {
+                  "label": "Bereavement and death benefits - bereaved parents allowance",
+                  "value": "bereavement-and-death-benefits-bereaved-parents-allowance"
+                },
+                {
+                  "label": "Bereavement and death benefits - bereavement payments",
+                  "value": "bereavement-and-death-benefits-bereavement-payments"
+                },
+                {
+                  "label": "Bereavement and death benefits - other",
+                  "value": "bereavement-and-death-benefits-other"
+                },
+                {
+                  "label": "Bereavement and death benefits - social fund funeral payments",
+                  "value": "bereavement-and-death-benefits-social-fund-funeral-payments"
+                },
+                {
+                  "label": "Bereavement and death benefits - widowed mothers allowance",
+                  "value": "bereavement-and-death-benefits-widowed-mothers-allowance"
+                },
+                {
+                  "label": "Bereavement and death benefits - widowers allowance",
+                  "value": "bereavement-and-death-benefits-widowers-allowance"
+                },
+                {
+                  "label": "Bereavement and death benefits - widowers pension",
+                  "value": "bereavement-and-death-benefits-widowers-pension"
+                },
+                {
+                  "label": "Bereavement and death benefits - widows allowance",
+                  "value": "bereavement-and-death-benefits-widows-allowance"
+                },
+                {
+                  "label": "Bereavement and death benefits - widows payments",
+                  "value": "bereavement-and-death-benefits-widows-payments"
+                },
+                {
+                  "label": "Bereavement and death benefits - widows pension",
+                  "value": "bereavement-and-death-benefits-widows-pension"
+                },
+                {
+                  "label": "Capital - Children's capital",
+                  "value": "capital-children-s-capital"
+                },
+                {
+                  "label": "Capital - Disregards: business assets",
+                  "value": "capital-disregards-business-assets"
+                },
+                {
+                  "label": "Capital - Disregards: home and other premises",
+                  "value": "capital-disregards-home-and-other-premises"
+                },
+                {
+                  "label": "Capital - Disregards: other",
+                  "value": "capital-disregards-other"
+                },
+                {
+                  "label": "Capital - Disregards: pensions, policies and similar",
+                  "value": "capital-disregards-pensions-policies-and-similar"
+                },
+                {
+                  "label": "Capital - Disregards: personal injury/other compensation",
+                  "value": "capital-disregards-personal-injury-other-compensation"
+                },
+                {
+                  "label": "Capital - Income as capital",
+                  "value": "capital-income-as-capital"
+                },
+                {
+                  "label": "Capital - Joint holdings",
+                  "value": "capital-joint-holdings"
+                },
+                {
+                  "label": "Capital - Notional Capital: deprivation",
+                  "value": "capital-notional-capital-deprivation"
+                },
+                {
+                  "label": "Capital - Notional Capital: diminishment",
+                  "value": "capital-notional-capital-diminishment"
+                },
+                {
+                  "label": "Capital - Notional Capital: other",
+                  "value": "capital-notional-capital-other"
+                },
+                {
+                  "label": "Capital - Other",
+                  "value": "capital-other"
+                },
+                {
+                  "label": "Capital - Ownership/Possession",
+                  "value": "capital-ownership-possession"
+                },
+                {
+                  "label": "Capital - Valuation",
+                  "value": "capital-valuation"
+                },
+                {
+                  "label": "Care standards - other",
+                  "value": "care-standards-other"
+                },
+                {
+                  "label": "Care standards - registration of childcare providers",
+                  "value": "care-standards-registration-of-childcare-providers"
+                },
+                {
+                  "label": "Care Standards - registration of children's homes, residential family centres or fostering or adoption agencies",
+                  "value": "care-standards-registration-of-children-s-homes-residential-family-centres-or-fostering-or-adoption-agencies"
+                },
+                {
+                  "label": "Care standards - registration of health care",
+                  "value": "care-standards-registration-of-health-care"
+                },
+                {
+                  "label": "Care standards - registration of independent schools",
+                  "value": "care-standards-registration-of-independent-schools"
+                },
+                {
+                  "label": "Care standards - registration of social care (including nursing agencies)",
+                  "value": "care-standards-registration-of-social-care-including-nursing-agencies"
+                },
+                {
+                  "label": "Care standards - registration of social workers and other social care workers",
+                  "value": "care-standards-registration-of-social-workers-and-other-social-care-workers"
+                },
+                {
+                  "label": "Child support - applications",
+                  "value": "child-support-applications"
+                },
+                {
+                  "label": "Child support - calculation of income",
+                  "value": "child-support-calculation-of-income"
+                },
+                {
+                  "label": "Child support - cancellation",
+                  "value": "child-support-cancellation"
+                },
+                {
+                  "label": "Child support - child",
+                  "value": "child-support-child"
+                },
+                {
+                  "label": "Child support - effective date",
+                  "value": "child-support-effective-date"
+                },
+                {
+                  "label": "Child support - housing costs",
+                  "value": "child-support-housing-costs"
+                },
+                {
+                  "label": "Child support - interim maintenance assessments/decisions",
+                  "value": "child-support-interim-maintenance-assessments-decisions"
+                },
+                {
+                  "label": "Child support - jurisdiction",
+                  "value": "child-support-jurisdiction"
+                },
+                {
+                  "label": "Child support - maintenance assessments/calculations",
+                  "value": "child-support-maintenance-assessments-calculations"
+                },
+                {
+                  "label": "Child support - other",
+                  "value": "child-support-other"
+                },
+                {
+                  "label": "Child support - periods of assessment/calculation",
+                  "value": "child-support-periods-of-assessment-calculation"
+                },
+                {
+                  "label": "Child support - property and capital transfers",
+                  "value": "child-support-property-and-capital-transfers"
+                },
+                {
+                  "label": "Child support - receipt of benefit",
+                  "value": "child-support-receipt-of-benefit"
+                },
+                {
+                  "label": "Child support - travel to work costs",
+                  "value": "child-support-travel-to-work-costs"
+                },
+                {
+                  "label": "Child support - tribunal practice",
+                  "value": "child-support-tribunal-practice"
+                },
+                {
+                  "label": "Child support - variation/departure directions: diversion of income",
+                  "value": "child-support-variation-departure-directions-diversion-of-income"
+                },
+                {
+                  "label": "Child support - variation/departure directions: just and equitable",
+                  "value": "child-support-variation-departure-directions-just-and-equitable"
+                },
+                {
+                  "label": "Child support - variation/departure directions: lifestyle inconsistent",
+                  "value": "child-support-variation-departure-directions-lifestyle-inconsistent"
+                },
+                {
+                  "label": "Child support - variation/departure directions: other",
+                  "value": "child-support-variation-departure-directions-other"
+                },
+                {
+                  "label": "Claims and payments - appointment to act",
+                  "value": "claims-and-payments-appointment-to-act"
+                },
+                {
+                  "label": "Claims and payments - benefits claimed",
+                  "value": "claims-and-payments-benefits-claimed"
+                },
+                {
+                  "label": "Claims and payments - good cause",
+                  "value": "claims-and-payments-good-cause"
+                },
+                {
+                  "label": "Claims and payments - jurisdiction",
+                  "value": "claims-and-payments-jurisdiction"
+                },
+                {
+                  "label": "Claims and payments - late claim: housing and council tax benefits",
+                  "value": "claims-and-payments-late-claim-housing-and-council-tax-benefits"
+                },
+                {
+                  "label": "Claims and payments - late claim: other benefits",
+                  "value": "claims-and-payments-late-claim-other-benefits"
+                },
+                {
+                  "label": "Claims and payments - late payment",
+                  "value": "claims-and-payments-late-payment"
+                },
+                {
+                  "label": "Claims and payments - other",
+                  "value": "claims-and-payments-other"
+                },
+                {
+                  "label": "Claims and payments - period of claim",
+                  "value": "claims-and-payments-period-of-claim"
+                },
+                {
+                  "label": "Claims and payments - required information",
+                  "value": "claims-and-payments-required-information"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice  - Commissioners practice",
+                  "value": "commissioners-procedure-and-practice-commissioners-practice"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - Commissioners jurisdiction",
+                  "value": "commissioners-procedure-and-practice-commissioners-jurisdiction"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - Commissioners/ Upper Tribunal procedure",
+                  "value": "commissioners-procedure-and-practice-commissioners-upper-tribunal-procedure"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - evidence",
+                  "value": "commissioners-procedure-and-practice-evidence"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - fair hearing",
+                  "value": "commissioners-procedure-and-practice-fair-hearing"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - lapsing of appeals",
+                  "value": "commissioners-procedure-and-practice-lapsing-of-appeals"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - leave to appeal to Commissioners",
+                  "value": "commissioners-procedure-and-practice-leave-to-appeal-to-commissioners"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - leave to appeal to higher courts",
+                  "value": "commissioners-procedure-and-practice-leave-to-appeal-to-higher-courts"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - notice requirements",
+                  "value": "commissioners-procedure-and-practice-notice-requirements"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - other",
+                  "value": "commissioners-procedure-and-practice-other"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - precedence of decisions",
+                  "value": "commissioners-procedure-and-practice-precedence-of-decisions"
+                },
+                {
+                  "label": "Commissioners’ procedure and practice - representatives",
+                  "value": "commissioners-procedure-and-practice-representatives"
+                },
+                {
+                  "label": "Compensation recovery - cause of payment of benefits",
+                  "value": "compensation-recovery-cause-of-payment-of-benefits"
+                },
+                {
+                  "label": "Compensation recovery - other",
+                  "value": "compensation-recovery-other"
+                },
+                {
+                  "label": "Compensation recovery - scope of appeal",
+                  "value": "compensation-recovery-scope-of-appeal"
+                },
+                {
+                  "label": "Consumer credit - licensing",
+                  "value": "consumer-credit-licensing"
+                },
+                {
+                  "label": "Consumer credit - money laundering",
+                  "value": "consumer-credit-money-laundering"
+                },
+                {
+                  "label": "Consumer credit - other",
+                  "value": "consumer-credit-other"
+                },
+                {
+                  "label": "Contributions and credits - contribution conditions",
+                  "value": "contributions-and-credits-contribution-conditions"
+                },
+                {
+                  "label": "Contributions and credits - contributions",
+                  "value": "contributions-and-credits-contributions"
+                },
+                {
+                  "label": "Contributions and credits - credits and credited earnings",
+                  "value": "contributions-and-credits-credits-and-credited-earnings"
+                },
+                {
+                  "label": "Contributions and credits - other",
+                  "value": "contributions-and-credits-other"
+                },
+                {
+                  "label": "Criminal injuries compensation - claims",
+                  "value": "criminal-injuries-compensation-claims"
+                },
+                {
+                  "label": "Criminal injuries compensation - other",
+                  "value": "criminal-injuries-compensation-other"
+                },
+                {
+                  "label": "Criminal injuries compensation - reduction and withholding of awards",
+                  "value": "criminal-injuries-compensation-reduction-and-withholding-of-awards"
+                },
+                {
+                  "label": "DLA, AA, MA: general - accommodation costs",
+                  "value": "dla-aa-ma-general-accommodation-costs"
+                },
+                {
+                  "label": "DLA, AA, MA: general - age conditions",
+                  "value": "dla-aa-ma-general-age-conditions"
+                },
+                {
+                  "label": "DLA, AA, MA: general - other",
+                  "value": "dla-aa-ma-general-other"
+                },
+                {
+                  "label": "DLA, AA, MA: general - qualifying periods",
+                  "value": "dla-aa-ma-general-qualifying-periods"
+                },
+                {
+                  "label": "DLA, AA, MA: general - severe behavioural problems",
+                  "value": "dla-aa-ma-general-severe-behavioural-problems"
+                },
+                {
+                  "label": "DLA, AA, MA: general - severe mental disablement",
+                  "value": "dla-aa-ma-general-severe-mental-disablement"
+                },
+                {
+                  "label": "DLA, AA, MA: general - severe physical disablement",
+                  "value": "dla-aa-ma-general-severe-physical-disablement"
+                },
+                {
+                  "label": "DLA, AA, MA: general - terminal illness",
+                  "value": "dla-aa-ma-general-terminal-illness"
+                },
+                {
+                  "label": "DLA, AA: personal care - “cooking test”",
+                  "value": "dla-aa-personal-care-cooking-test"
+                },
+                {
+                  "label": "DLA, AA: personal care - attention: children under 16",
+                  "value": "dla-aa-personal-care-attention-children-under-16"
+                },
+                {
+                  "label": "DLA, AA: personal care - attention: daytime",
+                  "value": "dla-aa-personal-care-attention-daytime"
+                },
+                {
+                  "label": "DLA, AA: personal care - attention: night",
+                  "value": "dla-aa-personal-care-attention-night"
+                },
+                {
+                  "label": "DLA, AA: personal care - bodily functions",
+                  "value": "dla-aa-personal-care-bodily-functions"
+                },
+                {
+                  "label": "DLA, AA: personal care - other",
+                  "value": "dla-aa-personal-care-other"
+                },
+                {
+                  "label": "DLA, AA: personal care - supervision: children",
+                  "value": "dla-aa-personal-care-supervision-children"
+                },
+                {
+                  "label": "DLA, AA: personal care - supervision: continual daytime",
+                  "value": "dla-aa-personal-care-supervision-continual-daytime"
+                },
+                {
+                  "label": "DLA, AA: personal care - supervision: watching over at night",
+                  "value": "dla-aa-personal-care-supervision-watching-over-at-night"
+                },
+                {
+                  "label": "DLA, MA: mobility - children under 16",
+                  "value": "dla-ma-mobility-children-under-16"
+                },
+                {
+                  "label": "DLA, MA: mobility - exertion endangering life",
+                  "value": "dla-ma-mobility-exertion-endangering-life"
+                },
+                {
+                  "label": "DLA, MA: mobility - guidance or supervision",
+                  "value": "dla-ma-mobility-guidance-or-supervision"
+                },
+                {
+                  "label": "DLA, MA: mobility - inability to walk",
+                  "value": "dla-ma-mobility-inability-to-walk"
+                },
+                {
+                  "label": "DLA, MA: mobility - other",
+                  "value": "dla-ma-mobility-other"
+                },
+                {
+                  "label": "DLA, MA: mobility - virtual inability to walk",
+                  "value": "dla-ma-mobility-virtual-inability-to-walk"
+                },
+                {
+                  "label": "Earnings and other income - benefits",
+                  "value": "earnings-and-other-income-benefits"
+                },
+                {
+                  "label": "Earnings and other income - calculation: employed",
+                  "value": "earnings-and-other-income-calculation-employed"
+                },
+                {
+                  "label": "Earnings and other income - calculation: self employed",
+                  "value": "earnings-and-other-income-calculation-self-employed"
+                },
+                {
+                  "label": "Earnings and other income - capital treated as income",
+                  "value": "earnings-and-other-income-capital-treated-as-income"
+                },
+                {
+                  "label": "Earnings and other income - children's Income",
+                  "value": "earnings-and-other-income-children-s-income"
+                },
+                {
+                  "label": "Earnings and other income - Councillors",
+                  "value": "earnings-and-other-income-councillors"
+                },
+                {
+                  "label": "Earnings and other income - disregards",
+                  "value": "earnings-and-other-income-disregards"
+                },
+                {
+                  "label": "Earnings and other income - notional earnings",
+                  "value": "earnings-and-other-income-notional-earnings"
+                },
+                {
+                  "label": "Earnings and other income - notional income",
+                  "value": "earnings-and-other-income-notional-income"
+                },
+                {
+                  "label": "Earnings and other income - other",
+                  "value": "earnings-and-other-income-other"
+                },
+                {
+                  "label": "Earnings and other income - other income and payments",
+                  "value": "earnings-and-other-income-other-income-and-payments"
+                },
+                {
+                  "label": "Earnings and other income - termination and compensation payments",
+                  "value": "earnings-and-other-income-termination-and-compensation-payments"
+                },
+                {
+                  "label": "Employment and support allowance - attending medical examination",
+                  "value": "employment-and-support-allowance-attending-medical-examination"
+                },
+                {
+                  "label": "Employment and support allowance - contributory ESA",
+                  "value": "employment-and-support-allowance-contributory-esa"
+                },
+                {
+                  "label": "Employment and support allowance - effect of work",
+                  "value": "employment-and-support-allowance-effect-of-work"
+                },
+                {
+                  "label": "Employment and support allowance - exemptions from test",
+                  "value": "employment-and-support-allowance-exemptions-from-test"
+                },
+                {
+                  "label": "Employment and support allowance - income-related ESA",
+                  "value": "employment-and-support-allowance-income-related-esa"
+                },
+                {
+                  "label": "Employment and support allowance - medical evidence",
+                  "value": "employment-and-support-allowance-medical-evidence"
+                },
+                {
+                  "label": "Employment and support allowance - other",
+                  "value": "employment-and-support-allowance-other"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 1: mobilising unaided",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-1-mobilising-unaided"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 2: standing and sitting",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-2-standing-and-sitting"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 3: reaching",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-3-reaching"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 4: picking up and moving/transferring",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-4-picking-up-and-moving-transferring"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 5: manual dexterity",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-5-manual-dexterity"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 6: making self understood",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-6-making-self-understood"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 7: understanding communication",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-7-understanding-communication"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 8: navigation and maintaining safety",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-8-navigation-and-maintaining-safety"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 9: absence or loss of bowel/bladder control",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-9-absence-or-loss-of-bowel-bladder-control"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 10 :consiousness during waking moments",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-10-consiousness-during-waking-moments"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 11: learning tasks",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-11-learning-tasks"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 12: awareness of everyday hazards",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-12-awareness-of-everyday-hazards"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 13: initiating and completing personal action",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-13-initiating-and-completing-personal-action"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 14: coping with change",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-14-coping-with-change"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 15: getting about",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-15-getting-about"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 16: coping with social engagement",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-16-coping-with-social-engagement"
+                },
+                {
+                  "label": "Employment and support allowance - Post 28.3.11 WCA activity 17: appropriateness of behaviour with other people",
+                  "value": "employment-and-support-allowance-post-28-3-11-wca-activity-17-appropriateness-of-behaviour-with-other-people"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 1: walking",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-1-walking"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 2: standing and sitting",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-2-standing-and-sitting"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 3: bending or kneeling",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-3-bending-or-kneeling"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 4: reaching",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-4-reaching"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 5: picking up and moving",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-5-picking-up-and-moving"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 6: manual dexterity",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-6-manual-dexterity"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 7: speech",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-7-speech"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 8: hearing",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-8-hearing"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 9: vision",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-9-vision"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 10: continence",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-10-continence"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 11: remaining conscious",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-11-remaining-conscious"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 12: learning or comprehension",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-12-learning-or-comprehension"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 13: hazard awareness",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-13-hazard-awareness"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 14: memory and concentration",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-14-memory-and-concentration"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 15: execution of tasks",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-15-execution-of-tasks"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 16: initiating and sustaining personal action",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-16-initiating-and-sustaining-personal-action"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 17: coping with change",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-17-coping-with-change"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 18: getting about",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-18-getting-about"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 19: coping with social situations",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-19-coping-with-social-situations"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 20: propriety of behaviour",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-20-propriety-of-behaviour"
+                },
+                {
+                  "label": "Employment and support allowance - Pre 28.3.11 WCA activity 21: dealing with other people",
+                  "value": "employment-and-support-allowance-pre-28-3-11-wca-activity-21-dealing-with-other-people"
+                },
+                {
+                  "label": "Employment and support allowance - Regulation 29",
+                  "value": "employment-and-support-allowance-regulation-29"
+                },
+                {
+                  "label": "Employment and support allowance - Regulation 35",
+                  "value": "employment-and-support-allowance-regulation-35"
+                },
+                {
+                  "label": "Employment and support allowance - the assessment phase",
+                  "value": "employment-and-support-allowance-the-assessment-phase"
+                },
+                {
+                  "label": "Employment and support allowance - WCA: general",
+                  "value": "employment-and-support-allowance-wca-general"
+                },
+                {
+                  "label": "Employment and support allowance - Work-Focused Health Related Assessment (WFHRA): general",
+                  "value": "employment-and-support-allowance-work-focused-health-related-assessment-wfhra-general"
+                },
+                {
+                  "label": "Employment and support allowance - Work-Related Activity Assessment (WRAA): general",
+                  "value": "employment-and-support-allowance-work-related-activity-assessment-wraa-general"
+                },
+                {
+                  "label": "Employment and support allowance - WRAA Schedule 3 prescribed activities",
+                  "value": "employment-and-support-allowance-wraa-schedule-3-prescribed-activities"
+                },
+                {
+                  "label": "European Union law - Agreement on European Economic Area",
+                  "value": "european-union-law-agreement-on-european-economic-area"
+                },
+                {
+                  "label": "European Union law - Association and Cooperation Agreements",
+                  "value": "european-union-law-association-and-cooperation-agreements"
+                },
+                {
+                  "label": "European Union law - Council directive 76/207/EEC",
+                  "value": "european-union-law-council-directive-76-207-eec"
+                },
+                {
+                  "label": "European Union law - Council directive 79/7/EEC",
+                  "value": "european-union-law-council-directive-79-7-eec"
+                },
+                {
+                  "label": "European Union law - Council directive 86/378",
+                  "value": "european-union-law-council-directive-86-378"
+                },
+                {
+                  "label": "European Union law - Council regulation 574/72/EEC",
+                  "value": "european-union-law-council-regulation-574-72-eec"
+                },
+                {
+                  "label": "European Union law - Council regulations 1408/71/EEC and (EC) 883/2004",
+                  "value": "european-union-law-council-regulations-1408-71-eec-and-ec-883-2004"
+                },
+                {
+                  "label": "European Union law - discrimination by gender",
+                  "value": "european-union-law-discrimination-by-gender"
+                },
+                {
+                  "label": "European Union law - discrimination by nationality",
+                  "value": "european-union-law-discrimination-by-nationality"
+                },
+                {
+                  "label": "European Union law - free movement",
+                  "value": "european-union-law-free-movement"
+                },
+                {
+                  "label": "European Union law - other",
+                  "value": "european-union-law-other"
+                },
+                {
+                  "label": "European Union law - references to European Court",
+                  "value": "european-union-law-references-to-european-court"
+                },
+                {
+                  "label": "European Union law - workers",
+                  "value": "european-union-law-workers"
+                },
+                {
+                  "label": "Housing and council tax benefits - backdating",
+                  "value": "housing-and-council-tax-benefits-backdating"
+                },
+                {
+                  "label": "Housing and council tax benefits - council tax benefit",
+                  "value": "housing-and-council-tax-benefits-council-tax-benefit"
+                },
+                {
+                  "label": "Housing and council tax benefits - liability, commerciality and contrivance [regulations 8 and 9]",
+                  "value": "housing-and-council-tax-benefits-liability-commerciality-and-contrivance-regulations-8-and-9"
+                },
+                {
+                  "label": "Housing and council tax benefits - non-dependants",
+                  "value": "housing-and-council-tax-benefits-non-dependants"
+                },
+                {
+                  "label": "Housing and council tax benefits - occupation of the home, two homes and temporary absence [regulation 7]",
+                  "value": "housing-and-council-tax-benefits-occupation-of-the-home-two-homes-and-temporary-absence-regulation-7"
+                },
+                {
+                  "label": "Housing and council tax benefits - other",
+                  "value": "housing-and-council-tax-benefits-other"
+                },
+                {
+                  "label": "Housing and council tax benefits - payments that are eligible for HB [regulation 12 and Schedule 1]",
+                  "value": "housing-and-council-tax-benefits-payments-that-are-eligible-for-hb-regulation-12-and-schedule-1"
+                },
+                {
+                  "label": "Housing and council tax benefits - recovery of overpayments",
+                  "value": "housing-and-council-tax-benefits-recovery-of-overpayments"
+                },
+                {
+                  "label": "Housing and council tax benefits - rent restrictions",
+                  "value": "housing-and-council-tax-benefits-rent-restrictions"
+                },
+                {
+                  "label": "Human rights law - application of Human Rights Act",
+                  "value": "human-rights-law-application-of-human-rights-act"
+                },
+                {
+                  "label": "Human rights law - article 3 (torture)",
+                  "value": "human-rights-law-article-3-torture"
+                },
+                {
+                  "label": "Human rights law - article 6 (fair hearing)",
+                  "value": "human-rights-law-article-6-fair-hearing"
+                },
+                {
+                  "label": "Human rights law - article 8 (private and family life)",
+                  "value": "human-rights-law-article-8-private-and-family-life"
+                },
+                {
+                  "label": "Human rights law - article 9 (freedom of thought)",
+                  "value": "human-rights-law-article-9-freedom-of-thought"
+                },
+                {
+                  "label": "Human rights law - article 10 (freedom of expression)",
+                  "value": "human-rights-law-article-10-freedom-of-expression"
+                },
+                {
+                  "label": "Human rights law - article 12 (right to marry)",
+                  "value": "human-rights-law-article-12-right-to-marry"
+                },
+                {
+                  "label": "Human rights law - article 13 (redress)",
+                  "value": "human-rights-law-article-13-redress"
+                },
+                {
+                  "label": "Human rights law - article 14 (non-discrimination)",
+                  "value": "human-rights-law-article-14-non-discrimination"
+                },
+                {
+                  "label": "Human rights law - other",
+                  "value": "human-rights-law-other"
+                },
+                {
+                  "label": "Human rights law - other Convention articles",
+                  "value": "human-rights-law-other-convention-articles"
+                },
+                {
+                  "label": "Human rights law - Protocol 1 (protection of property)",
+                  "value": "human-rights-law-protocol-1-protection-of-property"
+                },
+                {
+                  "label": "Incapacity benefits - activity 1: walking",
+                  "value": "incapacity-benefits-activity-1-walking"
+                },
+                {
+                  "label": "Incapacity benefits - activity 2: stairs",
+                  "value": "incapacity-benefits-activity-2-stairs"
+                },
+                {
+                  "label": "Incapacity benefits -  activity 3: sitting",
+                  "value": "incapacity-benefits-activity-3-sitting"
+                },
+                {
+                  "label": "Incapacity benefits - activity 4: standing",
+                  "value": "incapacity-benefits-activity-4-standing"
+                },
+                {
+                  "label": "Incapacity benefits - activity 5: rising",
+                  "value": "incapacity-benefits-activity-5-rising"
+                },
+                {
+                  "label": "Incapacity benefits - activity 6: bending or kneeling",
+                  "value": "incapacity-benefits-activity-6-bending-or-kneeling"
+                },
+                {
+                  "label": "Incapacity benefits - activity 7: hands",
+                  "value": "incapacity-benefits-activity-7-hands"
+                },
+                {
+                  "label": "Incapacity benefits - activity 8: lifting and carrying",
+                  "value": "incapacity-benefits-activity-8-lifting-and-carrying"
+                },
+                {
+                  "label": "Incapacity benefits - activity 9: reaching",
+                  "value": "incapacity-benefits-activity-9-reaching"
+                },
+                {
+                  "label": "Incapacity benefits - activity 10: speech",
+                  "value": "incapacity-benefits-activity-10-speech"
+                },
+                {
+                  "label": "Incapacity benefits - activity 11: hearing",
+                  "value": "incapacity-benefits-activity-11-hearing"
+                },
+                {
+                  "label": "Incapacity benefits - activity 12: vision",
+                  "value": "incapacity-benefits-activity-12-vision"
+                },
+                {
+                  "label": "Incapacity benefits - activity 13: continence",
+                  "value": "incapacity-benefits-activity-13-continence"
+                },
+                {
+                  "label": "Incapacity benefits - activity 14: consciousness",
+                  "value": "incapacity-benefits-activity-14-consciousness"
+                },
+                {
+                  "label": "Incapacity benefits - attending medical examination",
+                  "value": "incapacity-benefits-attending-medical-examination"
+                },
+                {
+                  "label": "Incapacity benefits - awt/pca: general",
+                  "value": "incapacity-benefits-awt-pca-general"
+                },
+                {
+                  "label": "Incapacity benefits - exemptions from test",
+                  "value": "incapacity-benefits-exemptions-from-test"
+                },
+                {
+                  "label": "Incapacity benefits - incapable of work",
+                  "value": "incapacity-benefits-incapable-of-work"
+                },
+                {
+                  "label": "Incapacity benefits - increase for adult dependant",
+                  "value": "incapacity-benefits-increase-for-adult-dependant"
+                },
+                {
+                  "label": "Incapacity benefits - medical evidence",
+                  "value": "incapacity-benefits-medical-evidence"
+                },
+                {
+                  "label": "Incapacity benefits - mental health descriptors",
+                  "value": "incapacity-benefits-mental-health-descriptors"
+                },
+                {
+                  "label": "Incapacity benefits - other",
+                  "value": "incapacity-benefits-other"
+                },
+                {
+                  "label": "Incapacity benefits - periods of incapacity",
+                  "value": "incapacity-benefits-periods-of-incapacity"
+                },
+                {
+                  "label": "Income support and state pension credits - applicable amounts",
+                  "value": "income-support-and-state-pension-credits-applicable-amounts"
+                },
+                {
+                  "label": "Income support and state pension credits - deductions",
+                  "value": "income-support-and-state-pension-credits-deductions"
+                },
+                {
+                  "label": "Income support and state pension credits - housing costs",
+                  "value": "income-support-and-state-pension-credits-housing-costs"
+                },
+                {
+                  "label": "Income support and state pension credits - other: income support",
+                  "value": "income-support-and-state-pension-credits-other-income-support"
+                },
+                {
+                  "label": "Income support and state pension credits - other: state pension credit",
+                  "value": "income-support-and-state-pension-credits-other-state-pension-credit"
+                },
+                {
+                  "label": "Income support and state pension credits - urgent cases",
+                  "value": "income-support-and-state-pension-credits-urgent-cases"
+                },
+                {
+                  "label": "Industrial accidents - arising out of employment",
+                  "value": "industrial-accidents-arising-out-of-employment"
+                },
+                {
+                  "label": "Industrial accidents - declaration of accident",
+                  "value": "industrial-accidents-declaration-of-accident"
+                },
+                {
+                  "label": "Industrial accidents - in the course of employment",
+                  "value": "industrial-accidents-in-the-course-of-employment"
+                },
+                {
+                  "label": "Industrial accidents - industrial accident",
+                  "value": "industrial-accidents-industrial-accident"
+                },
+                {
+                  "label": "Industrial accidents - other",
+                  "value": "industrial-accidents-other"
+                },
+                {
+                  "label": "Industrial accidents - treated as in employment",
+                  "value": "industrial-accidents-treated-as-in-employment"
+                },
+                {
+                  "label": "Industrial diseases - A10 (deafness)",
+                  "value": "industrial-diseases-a10-deafness"
+                },
+                {
+                  "label": "Industrial diseases - A11 (vibration white finger)",
+                  "value": "industrial-diseases-a11-vibration-white-finger"
+                },
+                {
+                  "label": "Industrial diseases - A12 (carpel tunnel syndrome)",
+                  "value": "industrial-diseases-a12-carpel-tunnel-syndrome"
+                },
+                {
+                  "label": "Industrial diseases - A4 (task-specific focal dystonia)",
+                  "value": "industrial-diseases-a4-task-specific-focal-dystonia"
+                },
+                {
+                  "label": "Industrial diseases - A6 (beat knee)",
+                  "value": "industrial-diseases-a6-beat-knee"
+                },
+                {
+                  "label": "Industrial diseases - A8 (tenosynovitis)",
+                  "value": "industrial-diseases-a8-tenosynovitis"
+                },
+                {
+                  "label": "Industrial diseases - B diseases (biological agents)",
+                  "value": "industrial-diseases-b-diseases-biological-agents"
+                },
+                {
+                  "label": "Industrial diseases - C diseases (chemical agents)",
+                  "value": "industrial-diseases-c-diseases-chemical-agents"
+                },
+                {
+                  "label": "Industrial diseases - D1 (pneumoconiosis)",
+                  "value": "industrial-diseases-d1-pneumoconiosis"
+                },
+                {
+                  "label": "Industrial diseases - D1, D3 (asbestosis, silicosis)",
+                  "value": "industrial-diseases-d1-d3-asbestosis-silicosis"
+                },
+                {
+                  "label": "Industrial diseases - D12 (bronchitis and emphysema)",
+                  "value": "industrial-diseases-d12-bronchitis-and-emphysema"
+                },
+                {
+                  "label": "Industrial diseases - D4 (allergic rhinitis)",
+                  "value": "industrial-diseases-d4-allergic-rhinitis"
+                },
+                {
+                  "label": "Industrial diseases - D6 (nasal cancer)",
+                  "value": "industrial-diseases-d6-nasal-cancer"
+                },
+                {
+                  "label": "Industrial diseases - D7 (asthma)",
+                  "value": "industrial-diseases-d7-asthma"
+                },
+                {
+                  "label": "Industrial diseases - D8-11 (lung cancer)",
+                  "value": "industrial-diseases-d8-11-lung-cancer"
+                },
+                {
+                  "label": "Industrial diseases - date of onset",
+                  "value": "industrial-diseases-date-of-onset"
+                },
+                {
+                  "label": "Industrial diseases - other",
+                  "value": "industrial-diseases-other"
+                },
+                {
+                  "label": "Industrial diseases - other A diseases (physical agents)",
+                  "value": "industrial-diseases-other-a-diseases-physical-agents"
+                },
+                {
+                  "label": "Industrial diseases - other D diseases (miscellaneous)",
+                  "value": "industrial-diseases-other-d-diseases-miscellaneous"
+                },
+                {
+                  "label": "Industrial injuries benefits - aggregation of assessments",
+                  "value": "industrial-injuries-benefits-aggregation-of-assessments"
+                },
+                {
+                  "label": "Industrial injuries benefits - assessment of disablement",
+                  "value": "industrial-injuries-benefits-assessment-of-disablement"
+                },
+                {
+                  "label": "Industrial injuries benefits - industrial death benefit",
+                  "value": "industrial-injuries-benefits-industrial-death-benefit"
+                },
+                {
+                  "label": "Industrial injuries benefits - other",
+                  "value": "industrial-injuries-benefits-other"
+                },
+                {
+                  "label": "Industrial injuries benefits - reduced earnings allowance",
+                  "value": "industrial-injuries-benefits-reduced-earnings-allowance"
+                },
+                {
+                  "label": "Industrial injuries benefits - special hardship allowance",
+                  "value": "industrial-injuries-benefits-special-hardship-allowance"
+                },
+                {
+                  "label": "Industrial injuries benefits - workmen’s compensation supplement",
+                  "value": "industrial-injuries-benefits-workmen-s-compensation-supplement"
+                },
+                {
+                  "label": "Information rights - Data protection",
+                  "value": "information-rights-data-protection"
+                },
+                {
+                  "label": "Information rights - Environmental information - exceptions",
+                  "value": "information-rights-environmental-information-exceptions"
+                },
+                {
+                  "label": "Information rights - Environmental information - general",
+                  "value": "information-rights-environmental-information-general"
+                },
+                {
+                  "label": "Information rights - Freedom of information - absolute exemptions",
+                  "value": "information-rights-freedom-of-information-absolute-exemptions"
+                },
+                {
+                  "label": "Information rights - Freedom of Information - exceptions",
+                  "value": "information-rights-freedom-of-information-exceptions"
+                },
+                {
+                  "label": "Information rights - Freedom of information - public authority response",
+                  "value": "information-rights-freedom-of-information-public-authority-response"
+                },
+                {
+                  "label": "Information rights - Freedom of information - public interest test",
+                  "value": "information-rights-freedom-of-information-public-interest-test"
+                },
+                {
+                  "label": "Information rights - Freedom of information - qualified exemptions",
+                  "value": "information-rights-freedom-of-information-qualified-exemptions"
+                },
+                {
+                  "label": "Information rights - Freedom of information - right of access",
+                  "value": "information-rights-freedom-of-information-right-of-access"
+                },
+                {
+                  "label": "Information rights - Information rights: practice and procedure",
+                  "value": "information-rights-information-rights-practice-and-procedure"
+                },
+                {
+                  "label": "Jobseekers allowance - applicable amounts",
+                  "value": "jobseekers-allowance-applicable-amounts"
+                },
+                {
+                  "label": "Jobseekers allowance - availability for employment",
+                  "value": "jobseekers-allowance-availability-for-employment"
+                },
+                {
+                  "label": "Jobseekers allowance - deductions",
+                  "value": "jobseekers-allowance-deductions"
+                },
+                {
+                  "label": "Jobseekers allowance - housing costs",
+                  "value": "jobseekers-allowance-housing-costs"
+                },
+                {
+                  "label": "Jobseekers allowance - joint claims",
+                  "value": "jobseekers-allowance-joint-claims"
+                },
+                {
+                  "label": "Jobseekers allowance - other",
+                  "value": "jobseekers-allowance-other"
+                },
+                {
+                  "label": "Jobseekers allowance - urgent cases",
+                  "value": "jobseekers-allowance-urgent-cases"
+                },
+                {
+                  "label": "Jobseekers allowance - voluntary unemployment",
+                  "value": "jobseekers-allowance-voluntary-unemployment"
+                },
+                {
+                  "label": "Marriage, civil partnerships and living together - joint claims",
+                  "value": "marriage-civil-partnerships-and-living-together-joint-claims"
+                },
+                {
+                  "label": "Marriage, civil partnerships and living together - living together as husband and wife or civil partners",
+                  "value": "marriage-civil-partnerships-and-living-together-living-together-as-husband-and-wife-or-civil-partners"
+                },
+                {
+                  "label": "Marriage, civil partnerships and living together - other",
+                  "value": "marriage-civil-partnerships-and-living-together-other"
+                },
+                {
+                  "label": "Marriage, civil partnerships and living together - validity of marriage",
+                  "value": "marriage-civil-partnerships-and-living-together-validity-of-marriage"
+                },
+                {
+                  "label": "Maternity benefits - other",
+                  "value": "maternity-benefits-other"
+                },
+                {
+                  "label": "Maternity benefits - social fund maternity payment",
+                  "value": "maternity-benefits-social-fund-maternity-payment"
+                },
+                {
+                  "label": "Maternity benefits - state maternity allowance",
+                  "value": "maternity-benefits-state-maternity-allowance"
+                },
+                {
+                  "label": "Members of a household - children",
+                  "value": "members-of-a-household-children"
+                },
+                {
+                  "label": "Members of a household - other",
+                  "value": "members-of-a-household-other"
+                },
+                {
+                  "label": "Members of a household - temporarily living away",
+                  "value": "members-of-a-household-temporarily-living-away"
+                },
+                {
+                  "label": "Members of a household - treated as not being members",
+                  "value": "members-of-a-household-treated-as-not-being-members"
+                },
+                {
+                  "label": "Other current benefits - carer’s allowance",
+                  "value": "other-current-benefits-carer-s-allowance"
+                },
+                {
+                  "label": "Other current benefits - severe disablement allowance",
+                  "value": "other-current-benefits-severe-disablement-allowance"
+                },
+                {
+                  "label": "Other previous benefits - family income supplement",
+                  "value": "other-previous-benefits-family-income-supplement"
+                },
+                {
+                  "label": "Other previous benefits - industrial death benefit",
+                  "value": "other-previous-benefits-industrial-death-benefit"
+                },
+                {
+                  "label": "Other previous benefits - industrial injury benefit",
+                  "value": "other-previous-benefits-industrial-injury-benefit"
+                },
+                {
+                  "label": "Other previous benefits - invalidity benefit",
+                  "value": "other-previous-benefits-invalidity-benefit"
+                },
+                {
+                  "label": "Other previous benefits - other",
+                  "value": "other-previous-benefits-other"
+                },
+                {
+                  "label": "Other previous benefits - sickness benefit",
+                  "value": "other-previous-benefits-sickness-benefit"
+                },
+                {
+                  "label": "Other previous benefits - supplementary benefit",
+                  "value": "other-previous-benefits-supplementary-benefit"
+                },
+                {
+                  "label": "Other previous benefits - unemployment benefit",
+                  "value": "other-previous-benefits-unemployment-benefit"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 1: preparing food",
+                  "value": "personal-independence-payment-daily-living-activities-activity-1-preparing-food"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 2: taking nutrition",
+                  "value": "personal-independence-payment-daily-living-activities-activity-2-taking-nutrition"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 3: managing therapy or monitoring a health condition",
+                  "value": "personal-independence-payment-daily-living-activities-activity-3-managing-therapy-or-monitoring-a-health-condition"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 4: washing and bathing",
+                  "value": "personal-independence-payment-daily-living-activities-activity-4-washing-and-bathing"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 5: managing toilet needs or incontinence",
+                  "value": "personal-independence-payment-daily-living-activities-activity-5-managing-toilet-needs-or-incontinence"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 6: dressing and undressing",
+                  "value": "personal-independence-payment-daily-living-activities-activity-6-dressing-and-undressing"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 7: communicating verbally",
+                  "value": "personal-independence-payment-daily-living-activities-activity-7-communicating-verbally"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 8: reading and understanding signs, symbols and words",
+                  "value": "personal-independence-payment-daily-living-activities-activity-8-reading-and-understanding-signs-symbols-and-words"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 9: engaging with other people face to face",
+                  "value": "personal-independence-payment-daily-living-activities-activity-9-engaging-with-other-people-face-to-face"
+                },
+                {
+                  "label": "Personal independence payment – daily living activities - Activity 10: making budgeting decisions",
+                  "value": "personal-independence-payment-daily-living-activities-activity-10-making-budgeting-decisions"
+                },
+                {
+                  "label": "Personal independence payment – mobility activities - Mobility activity 1: planning and following journeys",
+                  "value": "personal-independence-payment-mobility-activities-mobility-activity-1-planning-and-following-journeys"
+                },
+                {
+                  "label": "Personal independence payment – mobility activities - Mobility activity 2: moving around",
+                  "value": "personal-independence-payment-mobility-activities-mobility-activity-2-moving-around"
+                },
+                {
+                  "label": "Recovery of overpayments - amount recoverable",
+                  "value": "recovery-of-overpayments-amount-recoverable"
+                },
+                {
+                  "label": "Recovery of overpayments - civil penalties",
+                  "value": "recovery-of-overpayments-civil-penalties"
+                },
+                {
+                  "label": "Recovery of overpayments - excess council tax benefit",
+                  "value": "recovery-of-overpayments-excess-council-tax-benefit"
+                },
+                {
+                  "label": "Recovery of overpayments - failure to disclose",
+                  "value": "recovery-of-overpayments-failure-to-disclose"
+                },
+                {
+                  "label": "Recovery of overpayments - liability of third parties",
+                  "value": "recovery-of-overpayments-liability-of-third-parties"
+                },
+                {
+                  "label": "Recovery of overpayments - misrepresentation",
+                  "value": "recovery-of-overpayments-misrepresentation"
+                },
+                {
+                  "label": "Recovery of overpayments - offset of benefits",
+                  "value": "recovery-of-overpayments-offset-of-benefits"
+                },
+                {
+                  "label": "Recovery of overpayments - other",
+                  "value": "recovery-of-overpayments-other"
+                },
+                {
+                  "label": "Remunerative work - calculation of hours of work",
+                  "value": "remunerative-work-calculation-of-hours-of-work"
+                },
+                {
+                  "label": "Remunerative work - engaged in work",
+                  "value": "remunerative-work-engaged-in-work"
+                },
+                {
+                  "label": "Remunerative work - expectation of payment",
+                  "value": "remunerative-work-expectation-of-payment"
+                },
+                {
+                  "label": "Remunerative work - other",
+                  "value": "remunerative-work-other"
+                },
+                {
+                  "label": "Remunerative work - treated as not in remunerative work",
+                  "value": "remunerative-work-treated-as-not-in-remunerative-work"
+                },
+                {
+                  "label": "Residence and presence conditions - habitual residence",
+                  "value": "residence-and-presence-conditions-habitual-residence"
+                },
+                {
+                  "label": "Residence and presence conditions - ordinary residence",
+                  "value": "residence-and-presence-conditions-ordinary-residence"
+                },
+                {
+                  "label": "Residence and presence conditions - other",
+                  "value": "residence-and-presence-conditions-other"
+                },
+                {
+                  "label": "Residence and presence conditions - persons from abroad",
+                  "value": "residence-and-presence-conditions-persons-from-abroad"
+                },
+                {
+                  "label": "Residence and presence conditions - persons subject to immigration control",
+                  "value": "residence-and-presence-conditions-persons-subject-to-immigration-control"
+                },
+                {
+                  "label": "Residence and presence conditions - presence",
+                  "value": "residence-and-presence-conditions-presence"
+                },
+                {
+                  "label": "Residence and presence conditions - residence",
+                  "value": "residence-and-presence-conditions-residence"
+                },
+                {
+                  "label": "Residence and presence conditions - right to reside",
+                  "value": "residence-and-presence-conditions-right-to-reside"
+                },
+                {
+                  "label": "Residence and presence conditions - temporary absence from Great Britain",
+                  "value": "residence-and-presence-conditions-temporary-absence-from-great-britain"
+                },
+                {
+                  "label": "Retirement pensions - deferred retirement",
+                  "value": "retirement-pensions-deferred-retirement"
+                },
+                {
+                  "label": "Retirement pensions - increases for spouse or dependant",
+                  "value": "retirement-pensions-increases-for-spouse-or-dependant"
+                },
+                {
+                  "label": "Retirement pensions - other",
+                  "value": "retirement-pensions-other"
+                },
+                {
+                  "label": "Retirement pensions -additional pensions and SERPS",
+                  "value": "retirement-pensions-additional-pensions-and-serps"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - change of circumstances",
+                  "value": "revisions-supersessions-and-reviews-change-of-circumstances"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - date of effect of decision",
+                  "value": "revisions-supersessions-and-reviews-date-of-effect-of-decision"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - ignorance of material fact",
+                  "value": "revisions-supersessions-and-reviews-ignorance-of-material-fact"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - late applications",
+                  "value": "revisions-supersessions-and-reviews-late-applications"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - mistake as to material fact",
+                  "value": "revisions-supersessions-and-reviews-mistake-as-to-material-fact"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - official error",
+                  "value": "revisions-supersessions-and-reviews-official-error"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - other",
+                  "value": "revisions-supersessions-and-reviews-other"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - reviews under the 1992 Act",
+                  "value": "revisions-supersessions-and-reviews-reviews-under-the-1992-act"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - revision: general",
+                  "value": "revisions-supersessions-and-reviews-revision-general"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - supersession: general",
+                  "value": "revisions-supersessions-and-reviews-supersession-general"
+                },
+                {
+                  "label": "Revisions, supersessions and reviews - supersession: incapacity",
+                  "value": "revisions-supersessions-and-reviews-supersession-incapacity"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Adults’ barred list",
+                  "value": "safeguarding-vulnerable-groups-adults-barred-list"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - Children’s barred list",
+                  "value": "safeguarding-vulnerable-groups-children-s-barred-list"
+                },
+                {
+                  "label": "Safeguarding vulnerable groups - other lists",
+                  "value": "safeguarding-vulnerable-groups-other-lists"
+                },
+                {
+                  "label": "Special educational needs - description of special educational needs",
+                  "value": "special-educational-needs-description-of-special-educational-needs"
+                },
+                {
+                  "label": "Special educational needs - discontinuing a statement",
+                  "value": "special-educational-needs-discontinuing-a-statement"
+                },
+                {
+                  "label": "Special educational needs - failure to make a statement",
+                  "value": "special-educational-needs-failure-to-make-a-statement"
+                },
+                {
+                  "label": "Special educational needs - other",
+                  "value": "special-educational-needs-other"
+                },
+                {
+                  "label": "Special educational needs - special educational provision - naming school",
+                  "value": "special-educational-needs-special-educational-provision-naming-school"
+                },
+                {
+                  "label": "Special educational needs - failure to prepare an EHC plan under Children & Families Act 2014",
+                  "value": "special-educational-needs-failure-to-prepare-an-ehc-plan-under-children-families-act-2014"
+                },
+                {
+                  "label": "Special educational needs - special educational provision - naming school or other institution in EHC plan",
+                  "value": "special-educational-needs-special-educational-provision-naming-school-or-other-institution-in-ehc-plan"
+                },
+                {
+                  "label": "Special educational needs - ceasing to maintain EHC plan",
+                  "value": "special-educational-needs-ceasing-to-maintain-ehc-plan"
+                },
+                {
+                  "label": "Special educational needs - special educational provision - other",
+                  "value": "special-educational-needs-special-educational-provision-other"
+                },
+                {
+                  "label": "Students - full-time course",
+                  "value": "students-full-time-course"
+                },
+                {
+                  "label": "Students - housing benefit exemption",
+                  "value": "students-housing-benefit-exemption"
+                },
+                {
+                  "label": "Students - loans and grant income",
+                  "value": "students-loans-and-grant-income"
+                },
+                {
+                  "label": "Students - other",
+                  "value": "students-other"
+                },
+                {
+                  "label": "Tax credits and family credit - couples and joint claims",
+                  "value": "tax-credits-and-family-credit-couples-and-joint-claims"
+                },
+                {
+                  "label": "Tax credits and family credit - deductions and income assessments",
+                  "value": "tax-credits-and-family-credit-deductions-and-income-assessments"
+                },
+                {
+                  "label": "Tax credits and family credit - disabled workers",
+                  "value": "tax-credits-and-family-credit-disabled-workers"
+                },
+                {
+                  "label": "Tax credits and family credit - housing costs",
+                  "value": "tax-credits-and-family-credit-housing-costs"
+                },
+                {
+                  "label": "Tax credits and family credit - other",
+                  "value": "tax-credits-and-family-credit-other"
+                },
+                {
+                  "label": "Tax credits and family credit - recovery, penalties and interest",
+                  "value": "tax-credits-and-family-credit-recovery-penalties-and-interest"
+                },
+                {
+                  "label": "Tax credits and family credit - responsible for child and child care credits",
+                  "value": "tax-credits-and-family-credit-responsible-for-child-and-child-care-credits"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases - Check tests",
+                  "value": "transport-driving-instructor-cases-check-tests"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases - Fit and proper person – assault",
+                  "value": "transport-driving-instructor-cases-fit-and-proper-person-assault"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases - Fit and proper person – dishonesty",
+                  "value": "transport-driving-instructor-cases-fit-and-proper-person-dishonesty"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases - Fit and proper person – drugs",
+                  "value": "transport-driving-instructor-cases-fit-and-proper-person-drugs"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases - Fit and proper person – general",
+                  "value": "transport-driving-instructor-cases-fit-and-proper-person-general"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases - Fit and proper person – imprisonment",
+                  "value": "transport-driving-instructor-cases-fit-and-proper-person-imprisonment"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases - Fit and proper person – indecency",
+                  "value": "transport-driving-instructor-cases-fit-and-proper-person-indecency"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases - Fit and proper person – motoring offences",
+                  "value": "transport-driving-instructor-cases-fit-and-proper-person-motoring-offences"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases - Trainee licences",
+                  "value": "transport-driving-instructor-cases-trainee-licences"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases – Other",
+                  "value": "transport-driving-instructor-cases-other"
+                },
+                {
+                  "label": "Transport - Driving Instructor cases – Procedure",
+                  "value": "transport-driving-instructor-cases-procedure"
+                },
+                {
+                  "label": "Transport - driving standards",
+                  "value": "transport-driving-standards"
+                },
+                {
+                  "label": "Transport - other",
+                  "value": "transport-other"
+                },
+                {
+                  "label": "Transport - Quality Contract Schemes - Bus",
+                  "value": "transport-quality-contract-schemes-bus"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Call-up letters",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-call-up-letters"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Decisions and reasons",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-decisions-and-reasons"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Discretionary Issues",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-discretionary-issues"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Disqualification   ",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-disqualification"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Financial Standing",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-financial-standing"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - International issues",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-international-issues"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Professional Competence",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-professional-competence"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Public Inquiries and Impounding Hearings",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-public-inquiries-and-impounding-hearings"
+                },
+                {
+                  "label": "Transport - traffic Commissioner and DoE (NI) Appeals - Public Service Vehicles",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-public-service-vehicles"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Regulatory Action",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-regulatory-action"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Repute & Fitness",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-repute-fitness"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Restricted Licences",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-restricted-licences"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Revocation, Suspension and Curtailment",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-revocation-suspension-and-curtailment"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Termination by law, withdrawal or surrender",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-termination-by-law-withdrawal-or-surrender"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals - Transport Managers",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-transport-managers"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals – Applications",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-applications"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals – Directors",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-directors"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals – Establishment",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-establishment"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals – Impounding",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-impounding"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner and DoE (NI) Appeals – Other",
+                  "value": "transport-traffic-commissioner-and-doe-ni-appeals-other"
+                },
+                {
+                  "label": "Transport - Traffic Commissioner cases",
+                  "value": "transport-traffic-commissioner-cases"
+                },
+                {
+                  "label": "Tribunal procedure and practice - costs",
+                  "value": "tribunal-procedure-and-practice-costs"
+                },
+                {
+                  "label": "Tribunal procedure and practice - evidence",
+                  "value": "tribunal-procedure-and-practice-evidence"
+                },
+                {
+                  "label": "Tribunal procedure and practice - fair hearing",
+                  "value": "tribunal-procedure-and-practice-fair-hearing"
+                },
+                {
+                  "label": "Tribunal procedure and practice - judicial review",
+                  "value": "tribunal-procedure-and-practice-judicial-review"
+                },
+                {
+                  "label": "Tribunal procedure and practice - lapsing of appeals",
+                  "value": "tribunal-procedure-and-practice-lapsing-of-appeals"
+                },
+                {
+                  "label": "Tribunal procedure and practice - leave/permission to appeal",
+                  "value": "tribunal-procedure-and-practice-leave-permission-to-appeal"
+                },
+                {
+                  "label": "Tribunal procedure and practice - notice requirements",
+                  "value": "tribunal-procedure-and-practice-notice-requirements"
+                },
+                {
+                  "label": "Tribunal procedure and practice - other",
+                  "value": "tribunal-procedure-and-practice-other"
+                },
+                {
+                  "label": "Tribunal procedure and practice - precedence of decisions",
+                  "value": "tribunal-procedure-and-practice-precedence-of-decisions"
+                },
+                {
+                  "label": "Tribunal procedure and practice - record of proceedings",
+                  "value": "tribunal-procedure-and-practice-record-of-proceedings"
+                },
+                {
+                  "label": "Tribunal procedure and practice - representatives",
+                  "value": "tribunal-procedure-and-practice-representatives"
+                },
+                {
+                  "label": "Tribunal procedure and practice - set aside applications",
+                  "value": "tribunal-procedure-and-practice-set-aside-applications"
+                },
+                {
+                  "label": "Tribunal procedure and practice - statements of reasons",
+                  "value": "tribunal-procedure-and-practice-statements-of-reasons"
+                },
+                {
+                  "label": "Tribunal procedure and practice - tribunal jurisdiction",
+                  "value": "tribunal-procedure-and-practice-tribunal-jurisdiction"
+                },
+                {
+                  "label": "Tribunal procedure and practice - tribunal membership and procedure",
+                  "value": "tribunal-procedure-and-practice-tribunal-membership-and-procedure"
+                },
+                {
+                  "label": "Tribunal procedure and practice - tribunal practice",
+                  "value": "tribunal-procedure-and-practice-tribunal-practice"
+                },
+                {
+                  "label": "War pensions and armed forces compensation - Armed Forces Compensation Scheme",
+                  "value": "war-pensions-and-armed-forces-compensation-armed-forces-compensation-scheme"
+                },
+                {
+                  "label": "War pensions and armed forces compensation - other",
+                  "value": "war-pensions-and-armed-forces-compensation-other"
+                },
+                {
+                  "label": "War pensions and armed forces compensation - procedure",
+                  "value": "war-pensions-and-armed-forces-compensation-procedure"
+                },
+                {
+                  "label": "War pensions and armed forces compensation - war pensions – assessment",
+                  "value": "war-pensions-and-armed-forces-compensation-war-pensions-assessment"
+                },
+                {
+                  "label": "War pensions and armed forces compensation - war pensions – entitlement",
+                  "value": "war-pensions-and-armed-forces-compensation-war-pensions-entitlement"
+                },
+                {
+                  "label": "War pensions and armed forces compensation - war pensions – specified decisions",
+                  "value": "war-pensions-and-armed-forces-compensation-war-pensions-specified-decisions"
+                }
+              ]
+            },
+            {
+              "key": "tribunal_decision_sub_categories_name",
+              "name": "Sub-categories name",
+              "type": "text",
+              "display_as_result_metadata": true,
+              "filterable": false
+            },
+            {
+              "key": "tribunal_decision_judges",
+              "name": "Judges",
+              "type": "text",
+              "preposition": "by judge",
+              "display_as_result_metadata": false,
+              "filterable": true,
+              "allowed_values": [
+                {
+                  "label": "Agnew, C",
+                  "value": "agnew-c"
+                },
+                {
+                  "label": "Angus, R",
+                  "value": "angus-r"
+                },
+                {
+                  "label": "Bano, A",
+                  "value": "bano-a"
+                },
+                {
+                  "label": "Beech, J",
+                  "value": "beech-j"
+                },
+                {
+                  "label": "Broderick, M",
+                  "value": "broderick-m"
+                },
+                {
+                  "label": "Brown, M",
+                  "value": "brown-m"
+                },
+                {
+                  "label": "Brunner, K",
+                  "value": "brunner-k"
+                },
+                {
+                  "label": "Burns, D",
+                  "value": "burns-d"
+                },
+                {
+                  "label": "Burton, F",
+                  "value": "burton-f"
+                },
+                {
+                  "label": "Caldwell, M",
+                  "value": "Caldwell-m"
+                },
+                {
+                  "label": "Carlisle, H",
+                  "value": "carlisle-h"
+                },
+                {
+                  "label": "Carnwath, R",
+                  "value": "carnwath-r"
+                },
+                {
+                  "label": "Charles, W",
+                  "value": "charles-w"
+                },
+                {
+                  "label": "Citron, Z",
+                  "value": "citron-z"
+                },
+                {
+                  "label": "Cole, G",
+                  "value": "cole-g"
+                },
+                {
+                  "label": "Farbey, J",
+                  "value": "farbey-j"
+                },
+                {
+                  "label": "Fellner, C",
+                  "value": "fellner-c"
+                },
+                {
+                  "label": "Fordham, M",
+                  "value": "fordham-m"
+                },
+                {
+                  "label": "Gamble, A",
+                  "value": "gamble-a"
+                },
+                {
+                  "label": "Goodman, M",
+                  "value": "goodman-m"
+                },
+                {
+                  "label": "Gray, P",
+                  "value": "gray-p"
+                },
+                {
+                  "label": "Green, A",
+                  "value": "green-a"
+                },
+                {
+                  "label": "Grey, E",
+                  "value": "grey-e"
+                },
+                {
+                  "label": "Hallett, V",
+                  "value": "hallett-v"
+                },
+                {
+                  "label": "Harris, M",
+                  "value": "harris-m"
+                },
+                {
+                  "label": "Heald, M",
+                  "value": "heald-m"
+                },
+                {
+                  "label": "Heggs, R",
+                  "value": "heggs-r"
+                },
+                {
+                  "label": "Hemingway, M",
+                  "value": "hemingway-m"
+                },
+                {
+                  "label": "Henty, J",
+                  "value": "henty-j"
+                },
+                {
+                  "label": "Hickinbottom, G",
+                  "value": "hickinbottom-g"
+                },
+                {
+                  "label": "Hinchliffe, M",
+                  "value": "hinchliffe-m"
+                },
+                {
+                  "label": "Hoolahan, A",
+                  "value": "hoolahan-a"
+                },
+                {
+                  "label": "Howell, P",
+                  "value": "howell-p"
+                },
+                {
+                  "label": "Humphrey, A",
+                  "value": "humphrey-a"
+                },
+                {
+                  "label": "Jacobs, E",
+                  "value": "jacobs-e"
+                },
+                {
+                  "label": "Johnson, M",
+                  "value": "johnson-m"
+                },
+                {
+                  "label": "Jupp, E",
+                  "value": "jupp-e"
+                },
+                {
+                  "label": "Knowles, G",
+                  "value": "knowles-g"
+                },
+                {
+                  "label": "Lane, S",
+                  "value": "lane-s"
+                },
+                {
+                  "label": "Levenson, H",
+                  "value": "levenson-h"
+                },
+                {
+                  "label": "Lloyd-Davies, A",
+                  "value": "lloyd-davies-a"
+                },
+                {
+                  "label": "Lunney, J",
+                  "value": "lunney-j"
+                },
+                {
+                  "label": "Machin, K",
+                  "value": "machin-k"
+                },
+                {
+                  "label": "Macmillan, M",
+                  "value": "macmillan-m"
+                },
+                {
+                  "label": "Mark, M",
+                  "value": "mark-m"
+                },
+                {
+                  "label": "Markus, K",
+                  "value": "markus-k"
+                },
+                {
+                  "label": "Martin, J",
+                  "value": "martin-j"
+                },
+                {
+                  "label": "May, D",
+                  "value": "may-d"
+                },
+                {
+                  "label": "McKenna, A",
+                  "value": "mckenna-a"
+                },
+                {
+                  "label": "Mesher, J",
+                  "value": "mesher-j"
+                },
+                {
+                  "label": "Mitchell, E",
+                  "value": "mitchell-e"
+                },
+                {
+                  "label": "Mitchell, J",
+                  "value": "mitchell-j"
+                },
+                {
+                  "label": "Mitchell, JG",
+                  "value": "mitchell-jg"
+                },
+                {
+                  "label": "Morcom, J",
+                  "value": "morcom-j"
+                },
+                {
+                  "label": "Mullan, K",
+                  "value": "mullan-k"
+                },
+                {
+                  "label": "Ovey, E",
+                  "value": "ovey-e"
+                },
+                {
+                  "label": "Pacey, S",
+                  "value": "pacey-s"
+                },
+                {
+                  "label": "Paines, N",
+                  "value": "paines-n"
+                },
+                {
+                  "label": "Parker, T",
+                  "value": "parker-t"
+                },
+                {
+                  "label": "Pearl, D",
+                  "value": "pearl-d"
+                },
+                {
+                  "label": "Perez, R",
+                  "value": "perez-r"
+                },
+                {
+                  "label": "Powell, J",
+                  "value": "powell-j"
+                },
+                {
+                  "label": "Poynter, R",
+                  "value": "poynter-r"
+                },
+                {
+                  "label": "Ramsay, A",
+                  "value": "ramsay-a"
+                },
+                {
+                  "label": "Reith, D",
+                  "value": "reith-d"
+                },
+                {
+                  "label": "Rice, D",
+                  "value": "rice-d"
+                },
+                {
+                  "label": "Rowland, M",
+                  "value": "rowland-m"
+                },
+                {
+                  "label": "Rowley, A",
+                  "value": "rowley-a"
+                },
+                {
+                  "label": "Sanders, R",
+                  "value": "sanders-r"
+                },
+                {
+                  "label": "Skinner, J",
+                  "value": "skinner-j"
+                },
+                {
+                  "label": "Smith, R",
+                  "value": "smith-r"
+                },
+                {
+                  "label": "Sutherland Williams, M",
+                  "value": "sutherland-williams-m"
+                },
+                {
+                  "label": "Stockman, O",
+                  "value": "stockman-o"
+                },
+                {
+                  "label": "Thomas, J",
+                  "value": "thomas-j"
+                },
+                {
+                  "label": "Three Judge Panel",
+                  "value": "three-judge-panel"
+                },
+                {
+                  "label": "Turnbull, C",
+                  "value": "turnbull-c"
+                },
+                {
+                  "label": "Walker, P",
+                  "value": "walker-p"
+                },
+                {
+                  "label": "Walker, W",
+                  "value": "walker-w"
+                },
+                {
+                  "label": "Ward, C",
+                  "value": "ward-c"
+                },
+                {
+                  "label": "West, M",
+                  "value": "west-m"
+                },
+                {
+                  "label": "Wheeler, A",
+                  "value": "wheeler-a"
+                },
+                {
+                  "label": "White, R",
+                  "value": "white-r"
+                },
+                {
+                  "label": "Wikeley, N",
+                  "value": "wikeley-n"
+                },
+                {
+                  "label": "Williams, D",
+                  "value": "williams-d"
+                },
+                {
+                  "label": "Wright, S",
+                  "value": "wright-s"
+                }
+              ]
+            },
+            {
+              "key": "tribunal_decision_judges_name",
+              "name": "Judges name",
+              "type": "text",
+              "display_as_result_metadata": true,
+              "filterable": false
+            },
+            {
+              "key": "tribunal_decision_decision_date",
+              "name": "Decision date",
+              "short_name": "Decided",
+              "type": "date",
+              "display_as_result_metadata": true,
+              "filterable": true
+            }
+          ]
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/administrative-appeals-tribunal-decisions",
+        "web_url": "https://www.gov.uk/administrative-appeals-tribunal-decisions"
+      }
+    ]
+  },
+  "schema_name": "specialist_document",
+  "document_type": "utaac_decision"
+}

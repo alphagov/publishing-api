@@ -1,0 +1,84 @@
+{
+  "base_path": "/government/statistical-data-sets/proportion-of-residents-who-walk-or-cycle-for-recreational-purposes-cw040",
+  "content_id": "5f51c855-7631-11e4-a3cb-005056011aef",
+  "title": "Proportion of residents who walk or cycle for recreational purposes (CW040)",
+  "description": "Walking and cycling statistics tables, produced by the Department for Transport.",
+  "locale": "en",
+  "updated_at": "2016-10-25T09:41:04.665Z",
+  "public_updated_at": "2015-06-23T08:30:18.000+00:00",
+  "schema_name": "statistical_data_set",
+  "document_type": "statistical_data_set",
+  "withdrawn_notice": {
+    "explanation": "<div class=\"govspeak\"><p>It has been superseded by <a href=\"https://www.gov.uk/government/statistics/local-area-walking-and-cycling-in-england-2014-to-2015\">Local area walking and cycling in England: 2014 to 2015</a></p></div>",
+    "withdrawn_at": "2016-07-12T09:52:00Z"
+  },
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"table-cw0401\">Table CW0401</h2><p><span id=\"attachment_1105142\" class=\"attachment-inline\"><a href=\"/government/uploads/system/uploads/attachment_data/file/441835/cw0401.xls\">Proportion of residents who cycle (any length) for recreational purposes at a given frequency: England, 2013 to 2014</a>(<span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">640KB</span>)</span></p><h2 id=\"table-cw0402\">Table CW0402</h2><p><span id=\"attachment_1105143\" class=\"attachment-inline\"><a href=\"/government/uploads/system/uploads/attachment_data/file/441834/cw0402.xls\">Proportion of residents who cycle (any length) for recreational purposes at a given frequency: England, 2013 to 2014</a>(<span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">376KB</span>)</span></p><h2 id=\"table-cw0411\">Table CW0411</h2><p><span id=\"attachment_1105144\" class=\"attachment-inline\"><a href=\"/government/uploads/system/uploads/attachment_data/file/441833/cw0411.xls\">Proportion of residents who walk (for at least 10 minutes) for recreational purposes at a given frequency: England 2013 to 2014</a>(<span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">686KB</span>)</span></p><h2 id=\"table-cw0412\">Table CW0412</h2><p><span id=\"attachment_1105146\" class=\"attachment-inline\"><a href=\"/government/uploads/system/uploads/attachment_data/file/441832/cw0412.xls\">Proportion of residents who walk (at least 10 minutes continuous) for recreational purposes a given number of times per week or month: England, 2013 to 2014</a>(<span class=\"type\">MS Excel Spreadsheet</span>, <span class=\"file-size\">276KB</span>)</span></p><h2 id=\"contact-us\">Contact us:</h2><div class=\"contact \" id=\"contact_1337\"><div class=\"content\"><div class=\"vcard contact-inner\"><p>Walking and cycling statistics</p><div class=\"email-url-number\"><p class=\"email\"><span class=\"type\">Email</span><a class=\"email\" href=\"mailto:subnational.stats@dft.gsi.gov.uk\">subnational.stats@dft.gsi.gov.uk</a></p><p class=\"tel\"><span class=\"type\">Public enquiries</span>020 7944 4746</p></div></div></div></div></div>",
+    "first_public_at": "2014-04-29T09:30:00+00:00",
+    "government": {
+      "current": false,
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government"
+    },
+    "political": false,
+    "change_history": [
+      {
+        "public_timestamp": "2015-06-23T09:30:00Z",
+        "note": "Updated statistical data sets."
+      },
+      {
+        "public_timestamp": "2014-04-29T09:30:00+01:00",
+        "note": "First published."
+      }
+    ],
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "emphasised_organisations": [
+      "de4e9dc6-cca4-43af-a594-682023b84d6c"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-06-03T13:12:51Z",
+        "title": "Department for Transport",
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/government/organisations/department-for-transport"
+      }
+    ]
+  }
+}

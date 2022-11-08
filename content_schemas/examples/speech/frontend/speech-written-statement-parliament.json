@@ -1,0 +1,111 @@
+{
+  "base_path": "/government/speeches/school-revenue-funding-settlement-for-2017-to-2018",
+  "content_id": "d89435af-d77e-41f7-a945-4c63878007fd",
+  "schema_name": "speech",
+  "document_type": "written_statement",
+  "first_published_at": "2016-05-12T17:07:00.000+00:00",
+  "title": "School revenue funding settlement for 2017 to 2018",
+  "description": "Written ministerial statement by Nick Gibb MP about funding arrangements for schools in 2017 to 2018.",
+  "locale": "en",
+  "updated_at": "2016-12-20T16:58:18.370Z",
+  "public_updated_at": "2016-12-20T16:58:14+00:00",
+  "details": {
+    "first_public_at": "2016-12-20T16:58:14+00:00",
+    "body": "<div class=\"govspeak\"><p>Today I am announcing details of schools revenue funding for 2017-18. This announcement includes the dedicated schools grant (<abbr title=\"dedicated schools grant\">DSG</abbr>), the education services grant (<abbr title=\"education services grant\">ESG</abbr>) transitional grant and the pupil premium.</p><p>The distribution of the <abbr title=\"dedicated schools grant\">DSG</abbr> to local authorities will continue to be set out in 3 spending blocks for each authority: a schools block, a high needs block and an early years block.</p><p>The schools block has been allocated on the basis of the schools block units of funding announced in the <a href=\"https://www.gov.uk/government/speeches/schools-funding\">Secretary of State’s statement to the House on 21 July 2016</a>. To protect schools from significant budget reductions, we will continue with a minimum funding guarantee that ensures no school loses more than 1.5% per pupil in its 2017-18 budget (excluding sixth form funding and <abbr title=\"education services grant\">ESG</abbr>) compared to 2016-17, and before the pupil premium is added.</p><p>We have been able to provide an additional £130 million for the <abbr title=\"dedicated schools grant\">DSG</abbr> high needs block. The high needs block supports provision for pupils and students with special educational needs and disabilities (SEND), up to the age of 25, and alternative provision for pupils who cannot receive their education in schools.</p><p>The <abbr title=\"dedicated schools grant\">DSG</abbr> early years block comprises funding for the 15 hours entitlement for 3- and 4-year-olds: the additional 15 hours for 3- and 4-year-old children of eligible working parents from September 2017; participation funding for 2-year-olds from the most disadvantaged backgrounds; the early years pupil premium; and the disability access fund. The provisional allocations for this block were announced in the Secretary of State’s statement of 1 December 2016.</p><p>The <abbr title=\"education services grant\">ESG</abbr> transitional grant for local authorities will be set at a financial year rate of £66 per pupil and paid for the period April to August 2017. We will also continue to provide a protection to limit the reduction of academies’ budgets as a result of the ending of <abbr title=\"education services grant\">ESG</abbr> from September 2017.</p><p>The pupil premium per pupil amounts for 2017-18 will be protected at the current rates, which are:</p><table>  <thead>    <tr>      <th>Pupils</th>      <th>Per pupil rate</th>    </tr>  </thead>  <tbody>    <tr>      <td>Disadvantaged pupils: primary</td>      <td>£1,320</td>    </tr>    <tr>      <td>Disadvantaged pupils: secondary</td>      <td>£935</td>    </tr>    <tr>      <td>Pupil premium plus: looked-after children (<abbr title=\"looked-after children\">LAC</abbr>) and those adopted from care or who leave care under a special guardianship order or child arrangements order (formally known as a residence order)</td>      <td>£1,900</td>    </tr>    <tr>      <td>Service children</td>      <td>£300</td>    </tr>  </tbody></table><p>A looked-after child is defined in the Children Act 1989 as one who is in the care if, or provided accommodation by, and English or Welsh local authority.</p><p>Pupil premium allocations for financial year 2017-18 will be published in June 2017 following the receipt of pupil number data from the spring 2017 <a href=\"https://www.gov.uk/topic/schools-colleges-childrens-services/data-collection-statistical-returns\">schools and alternative provision censuses</a>.</p><p>Details of these arrangements have been published on GOV.UK.</p></div>",
+    "location": "House of Commons",
+    "delivered_on": "2016-12-20T15:00:00+00:00",
+    "image": {
+      "alt_text": "Nick Gibb MP",
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/50/s465_Nick_Gibb_v2.jpg"
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "government": {
+      "title": "2015 Conservative government",
+      "slug": "2015-conservative-government",
+      "current": true
+    },
+    "political": true,
+    "emphasised_organisations": [
+      "ebd15ade-73b2-4eaf-b1c3-43034a42eb37"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "title": "Department for Education",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-education",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-education",
+        "locale": "en",
+        "analytics_identifier": "D6",
+        "document_type": "organisation"
+      },
+      {
+        "content_id": "b9fc8528-81d1-419b-8748-6c00be71044b",
+        "title": "Education Funding Agency",
+        "api_path": "/api/content/government/organisations/education-funding-agency",
+        "base_path": "/government/organisations/education-funding-agency",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/education-funding-agency",
+        "web_url": "https://www.gov.uk/government/organisations/education-funding-agency",
+        "locale": "en",
+        "analytics_identifier": "EA242",
+        "document_type": "organisation"
+      }
+    ],
+    "speaker": [
+      {
+        "content_id": "852930e9-c0f1-11e4-8223-005056011aef",
+        "title": "Nick Gibb MP",
+        "api_path": "/api/content/government/people/nick-gibb",
+        "base_path": "/government/people/nick-gibb",
+        "api_url": "https://www.gov.uk/api/content/government/people/nick-gibb",
+        "web_url": "https://www.gov.uk/government/people/nick-gibb",
+        "locale": "en",
+        "document_type": "person"
+      }
+    ],
+    "related_policies": [
+      {
+        "content_id": "5d278051-7631-11e4-a3cb-005056011aef",
+        "title": "School and college funding",
+        "api_path": "/api/content/government/policies/school-and-college-funding",
+        "base_path": "/government/policies/school-and-college-funding",
+        "api_url": "https://www.gov.uk/api/content/government/policies/school-and-college-funding",
+        "web_url": "https://www.gov.uk/government/policies/school-and-college-funding",
+        "locale": "en",
+        "document_type": "policy"
+      }
+    ]
+  }
+}

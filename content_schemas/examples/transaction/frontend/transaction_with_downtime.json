@@ -1,0 +1,349 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/co2-and-vehicle-tax-tools",
+  "content_id": "b7a76eab-38b0-4410-a3fa-0a8127ca7172",
+  "document_type": "transaction",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2012-10-09T18:06:32.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "transaction",
+  "title": "Car fuel and CO2 emissions data",
+  "updated_at": "2017-03-16T13:52:38.203Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "mainstream_browse_pages": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/driving/parking-public-transport-environment",
+        "base_path": "/browse/driving/parking-public-transport-environment",
+        "content_id": "11c4c5fa-9667-4a7a-825f-9e8256f0e225",
+        "description": "",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-11-14T18:52:32Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Parking, public transport and the environment",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving/parking-public-transport-environment",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving/parking-public-transport-environment"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/driving/manufacture-adapt-vehicle",
+        "base_path": "/browse/driving/manufacture-adapt-vehicle",
+        "content_id": "3eb6e3d4-9a22-4519-915f-b0b0dd55335a",
+        "description": "",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2017-03-02T22:57:23Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Manufacture or adapt a vehicle",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving/manufacture-adapt-vehicle",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving/manufacture-adapt-vehicle"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/driving/vehicle-tax-mot-insurance",
+        "base_path": "/browse/driving/vehicle-tax-mot-insurance",
+        "content_id": "c4cbf7d1-c44e-4f47-b2c8-380e0609f8b0",
+        "description": "",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-11-21T07:29:55Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Vehicle tax, MOT and insurance",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving/vehicle-tax-mot-insurance",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving/vehicle-tax-mot-insurance"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/calculate-vehicle-tax-rates",
+        "base_path": "/calculate-vehicle-tax-rates",
+        "content_id": "f8490f74-437e-467a-9fa3-0e5f60e0bee0",
+        "description": "Use the online tool to find the tax rate for all vehicle types",
+        "document_type": "transaction",
+        "locale": "en",
+        "public_updated_at": "2015-07-24T15:46:33Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Calculate vehicle tax rates",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/manufacture-adapt-vehicle",
+              "base_path": "/browse/driving/manufacture-adapt-vehicle",
+              "content_id": "3eb6e3d4-9a22-4519-915f-b0b0dd55335a",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-03-02T22:57:23Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Manufacture or adapt a vehicle",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving",
+                    "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving/manufacture-adapt-vehicle",
+              "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving/manufacture-adapt-vehicle"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/vehicle-tax-mot-insurance",
+              "base_path": "/browse/driving/vehicle-tax-mot-insurance",
+              "content_id": "c4cbf7d1-c44e-4f47-b2c8-380e0609f8b0",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-11-21T07:29:55Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Vehicle tax, MOT and insurance",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving",
+                    "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving/vehicle-tax-mot-insurance",
+              "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving/vehicle-tax-mot-insurance"
+            }
+          ]
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/calculate-vehicle-tax-rates",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/calculate-vehicle-tax-rates"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/vehicle-tax-rate-tables",
+        "base_path": "/vehicle-tax-rate-tables",
+        "content_id": "db364fa7-96c5-42c2-a3db-ce06d4a7c97e",
+        "description": "Tables showing the rates for vehicle tax for different types of vehicle",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2015-04-01T00:01:09Z",
+        "schema_name": "guide",
+        "title": "Vehicle tax rate tables",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/vehicle-tax-mot-insurance",
+              "base_path": "/browse/driving/vehicle-tax-mot-insurance",
+              "content_id": "c4cbf7d1-c44e-4f47-b2c8-380e0609f8b0",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-11-21T07:29:55Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Vehicle tax, MOT and insurance",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving",
+                    "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving/vehicle-tax-mot-insurance",
+              "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving/vehicle-tax-mot-insurance"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/manufacture-adapt-vehicle",
+              "base_path": "/browse/driving/manufacture-adapt-vehicle",
+              "content_id": "3eb6e3d4-9a22-4519-915f-b0b0dd55335a",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-03-02T22:57:23Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Manufacture or adapt a vehicle",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving",
+                    "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving/manufacture-adapt-vehicle",
+              "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving/manufacture-adapt-vehicle"
+            }
+          ]
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/vehicle-tax-rate-tables",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/vehicle-tax-rate-tables"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D9",
+        "api_path": "/api/content/government/organisations/department-for-transport",
+        "base_path": "/government/organisations/department-for-transport",
+        "content_id": "4c717efc-f47b-478e-a76d-ce1ae0af1946",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-12-20T14:44:50Z",
+        "schema_name": "placeholder",
+        "title": "Department for Transport",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Department<br/>for Transport",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/government/organisations/department-for-transport",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/government/organisations/department-for-transport"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/driving/parking-public-transport-environment",
+        "base_path": "/browse/driving/parking-public-transport-environment",
+        "content_id": "11c4c5fa-9667-4a7a-825f-9e8256f0e225",
+        "description": "",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-11-14T18:52:32Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Parking, public transport and the environment",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving",
+              "base_path": "/browse/driving",
+              "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+              "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-10-07T22:18:32Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving and transport",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving",
+              "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving"
+            }
+          ]
+        },
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/browse/driving/parking-public-transport-environment",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/browse/driving/parking-public-transport-environment"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Car fuel and CO2 emissions data",
+        "public_updated_at": "2012-10-09T18:06:32Z",
+        "analytics_identifier": null,
+        "document_type": "transaction",
+        "schema_name": "transaction",
+        "base_path": "/co2-and-vehicle-tax-tools",
+        "description": "Check fuel consumption, CO2 emissions and vehicle tax bands by make model and registration",
+        "api_path": "/api/content/co2-and-vehicle-tax-tools",
+        "withdrawn": false,
+        "content_id": "b7a76eab-38b0-4410-a3fa-0a8127ca7172",
+        "locale": "en",
+        "api_url": "https://www-origin.integration.publishing.service.gov.uk/api/content/co2-and-vehicle-tax-tools",
+        "web_url": "https://www-origin.integration.publishing.service.gov.uk/co2-and-vehicle-tax-tools",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Check fuel consumption, CO2 emissions and vehicle tax bands by make model and registration",
+  "details": {
+    "introductory_paragraph": "<p>Search for fuel consumption, CO2 emissions, and tax bands for new and used cars.</p>\n",
+    "will_continue_on": "the Vehicle Certification Agency (VCA) website",
+    "transaction_start_link": "http://carfueldata.dft.gov.uk",
+    "more_information": "<p>Find information about all new cars currently on sale in the UK, and used cars that were first registered on or after 1 March, 2001.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>A ‘new’ car is one that is currently available to buy or lease from a dealer and hasn’t been previously registered.</p>\n</div>\n\n<h2 id=\"new-and-used-cars\">New and used cars</h2>\n\n<p>You can search for new and used cars to find:</p>\n\n<ul>\n  <li>fuel consumption and <abbr title=\"carbon dioxide\">CO2</abbr> emissions (by make and model)</li>\n  <li>vehicle tax information (by make, model, registration date and current tax tables)</li>\n  <li>the cost of tax for all vehicle types</li>\n</ul>\n\n<h2 id=\"new-cars-only\">New cars only</h2>\n\n<p>For new cars only you can also search:</p>\n\n<ul>\n  <li>by tax band, including Band A (exempt from tax)</li>\n  <li>by fuel economy</li>\n  <li>for annual fuel running costs</li>\n  <li>by company car taxation, based on <abbr title=\"carbon dioxide\">CO2</abbr> bands</li>\n  <li>by alternative fuel types</li>\n</ul>\n\n",
+    "external_related_links": [
+
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "base_path": "/government/news/final-care-act-guidance-published",
+  "content_id": "60267088-7631-11e4-a3cb-005056011aef",
+  "document_type": "news_story",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "public_updated_at": "2016-02-29T09:24:10.000+00:00",
+  "schema_name": "news_article",
+  "title": "Final Care Act guidance published",
+  "updated_at": "2017-01-10T10:52:47.712Z",
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+        "title": "Department of Health",
+        "api_path": "/api/content/government/organisations/department-of-health",
+        "base_path": "/government/organisations/department-of-health",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health",
+        "locale": "en",
+        "analytics_identifier": "D12",
+        "document_type": "organisation"
+      }
+    ],
+    "related_policies": [
+      {
+        "content_id": "5d606d99-7631-11e4-a3cb-005056011aef",
+        "title": "Health and social care integration",
+        "api_path": "/api/content/government/policies/health-and-social-care-integration",
+        "base_path": "/government/policies/health-and-social-care-integration",
+        "api_url": "https://www.gov.uk/api/content/government/policies/health-and-social-care-integration",
+        "web_url": "https://www.gov.uk/government/policies/health-and-social-care-integration",
+        "locale": "en",
+        "document_type": "policy"
+      },
+      {
+        "content_id": "5d635d59-7631-11e4-a3cb-005056011aef",
+        "title": "Choice in health and social care",
+        "api_path": "/api/content/government/policies/choice-in-health-and-social-care",
+        "base_path": "/government/policies/choice-in-health-and-social-care",
+        "api_url": "https://www.gov.uk/api/content/government/policies/choice-in-health-and-social-care",
+        "web_url": "https://www.gov.uk/government/policies/choice-in-health-and-social-care",
+        "locale": "en",
+        "document_type": "policy"
+      }
+    ]
+  },
+  "description": "The Care Act regulations and guidance for local authorities have been strengthened as a result of consultation.",
+  "details": {
+    "image": {
+      "alt_text": "placeholder",
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/72/s465_RH_Flickr_image_960x640.jpg"
+    },
+    "body": "<div class=\"govspeak\"><p>The <a href=\"https://www.gov.uk/government/consultations/updating-our-care-and-support-system-draft-regulations-and-guidance\">government response</a> explains how the regulations and guidance, which come into effect from April 2015, have been revised as a result of the suggestions we received during the consultation.</p><p>We have made changes that include clarifying the guidance on adult safeguarding and revising the eligibility criteria to focus on outcomes and better address social isolation.</p><p>In addition to the <a href=\"https://www.gov.uk/government/consultations/updating-our-care-and-support-system-draft-regulations-and-guidance\">revised regulations</a> and <a href=\"https://www.gov.uk/government/publications/care-act-2014-statutory-guidance-for-implementation\">guidance for local authorities</a> there will be more materials to help those implementing the Care Act on <a rel=\"external\" href=\"http://www.local.gov.uk/care-support-reform\">the Local Government Association’s website.</a>. The <a href=\"https://www.gov.uk/government/publications/care-act-2014-part-1-factsheets\">Care Act factsheets</a> have also been updated.</p><p>The Care Act aims to make the social care system fairer and help people get better care.</p></div>",
+    "first_public_at": "2016-02-29T09:24:10.000+00:00",
+    "government": {
+      "current": false,
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government"
+    },
+    "emphasised_organisations": [
+      "7cd6bf12-bbe9-4118-8523-f927b0442156"
+    ],
+    "political": true,
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

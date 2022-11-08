@@ -1,0 +1,206 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/publications/adoption-and-fostering-understanding-attitudes-motivations-and-barriers",
+  "content_id": "5ef1cfc1-7631-11e4-a3cb-005056011aef",
+  "document_type": "research",
+  "first_published_at": "2013-03-01T00:00:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-06-24T10:02:19.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Adoption and fostering: understanding motivations and barriers",
+  "updated_at": "2018-01-10T12:35:07.396Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D6",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:01Z",
+        "schema_name": "placeholder",
+        "title": "Department for Education",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-education",
+          "logo": {
+            "formatted_title": "Department <br/>for Education",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-education",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-education"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/children-and-young-people",
+        "base_path": "/government/topics/children-and-young-people",
+        "content_id": "89a2270a-8c81-4336-b68c-3e4fb5ac319c",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:08Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Children and young people",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/children-and-young-people",
+        "web_url": "https://www.gov.uk/government/topics/children-and-young-people"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D6",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:01Z",
+        "schema_name": "placeholder",
+        "title": "Department for Education",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-education",
+          "logo": {
+            "formatted_title": "Department <br/>for Education",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-education",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-education"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/looked-after-children-and-adoption",
+        "base_path": "/government/policies/looked-after-children-and-adoption",
+        "content_id": "5d64654b-7631-11e4-a3cb-005056011aef",
+        "description": "What the government’s doing about looked-after children and adoption.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-05-14T17:17:23Z",
+        "schema_name": "policy",
+        "title": "Looked-after children and adoption",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/looked-after-children-and-adoption",
+        "web_url": "https://www.gov.uk/government/policies/looked-after-children-and-adoption"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Adoption and fostering: understanding motivations and barriers",
+        "public_updated_at": "2014-06-24T10:02:19Z",
+        "document_type": "research",
+        "schema_name": "publication",
+        "base_path": "/government/publications/adoption-and-fostering-understanding-attitudes-motivations-and-barriers",
+        "description": "Research into the attitudes of potential adopters and foster carers.",
+        "api_path": "/api/content/government/publications/adoption-and-fostering-understanding-attitudes-motivations-and-barriers",
+        "withdrawn": false,
+        "content_id": "5ef1cfc1-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/publications/adoption-and-fostering-understanding-attitudes-motivations-and-barriers",
+        "web_url": "https://www.gov.uk/government/publications/adoption-and-fostering-understanding-attitudes-motivations-and-barriers",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Research into the attitudes of potential adopters and foster carers.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>These reports include findings from a research project commissioned by the Department for Education into the barriers preventing people from adopting children. They also provide a clearer understanding of the potential market for adopter and foster carer recruitment in England.</p>\n\n<p>The market research, conducted by Kindred and Work Research, involved 18 extended interviews with individuals and couples, as well as an online survey of 4,948 adults based in England.</p>\n\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2014-06-24T11:02:19.000+01:00",
+        "note": "'Identifying effective marketing methods to engage potential adopters' marketing report added."
+      },
+      {
+        "public_timestamp": "2013-03-01T00:00:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1700238\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/265798/dfe_adoption_and_fostering_marketing_proposal.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/265798/thumbnail_dfe_adoption_and_fostering_marketing_proposal.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/265798/dfe_adoption_and_fostering_marketing_proposal.pdf\">Understanding attitudes, motivations and barriers to adoption and fostering</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">220KB</span>, <span class=\"page-length\">17 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1700239\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/322051/Department_for_Education_adoption_research_report_FINAL.PDF\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/322051/thumbnail_Department_for_Education_adoption_research_report_FINAL.PDF.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/322051/Department_for_Education_adoption_research_report_FINAL.PDF\">Identifying effective marketing methods to engage potential adopters</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">726KB</span>, <span class=\"page-length\">25 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1700240\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/265802/adoption_and_fostering_-_appendix_one.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/265802/thumbnail_adoption_and_fostering_-_appendix_one.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/265802/adoption_and_fostering_-_appendix_one.pdf\">Appendix 1: details of priority audience groups</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">118KB</span>, <span class=\"page-length\">8 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1700241\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/265805/adoption_and_fostering_-_methodological_appendix.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/265805/thumbnail_adoption_and_fostering_-_methodological_appendix.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/265805/adoption_and_fostering_-_methodological_appendix.pdf\">Appendix 2: additional methodological background</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">192KB</span>, <span class=\"page-length\">10 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1700242\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/265806/understanding_attitudes_to_adoption_and_fostering_qualitative_findings.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/265806/thumbnail_understanding_attitudes_to_adoption_and_fostering_qualitative_findings.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/265806/understanding_attitudes_to_adoption_and_fostering_qualitative_findings.pdf\">Appendix 3: qualitative findings</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">541KB</span>, <span class=\"page-length\">40 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_1700243\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/265807/dfe_research_quantitative_debrief_presentation.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/265807/thumbnail_dfe_research_quantitative_debrief_presentation.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/265807/dfe_research_quantitative_debrief_presentation.pdf\">Appendix 4: quantitative survey</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">256KB</span>, <span class=\"page-length\">50 pages</span>\n    </p>\n\n\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "ebd15ade-73b2-4eaf-b1c3-43034a42eb37"
+    ],
+    "national_applicability": {
+      "england": {
+        "label": "England",
+        "applicable": true
+      },
+      "northern_ireland": {
+        "label": "Northern Ireland",
+        "applicable": false,
+        "alternative_url": ""
+      },
+      "scotland": {
+        "label": "Scotland",
+        "applicable": false,
+        "alternative_url": ""
+      },
+      "wales": {
+        "label": "Wales",
+        "applicable": false,
+        "alternative_url": ""
+      }
+    },
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+        "looked-after-children-and-adoption"
+      ],
+      "topics": [
+
+      ]
+    },
+    "first_public_at": "2013-03-01T00:00:00.000+00:00"
+  }
+}

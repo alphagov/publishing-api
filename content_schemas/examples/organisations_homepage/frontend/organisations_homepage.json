@@ -1,0 +1,109 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations",
+  "content_id": "fde62e52-dfb6-42ae-b336-2c4faf068101",
+  "document_type": "finder",
+  "first_published_at": "2017-03-17T15:09:33.000+00:00",
+  "locale": "en",
+  "need_ids": [
+
+  ],
+  "phase": "live",
+  "public_updated_at": "2018-04-04T09:11:52.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "whitehall-frontend",
+  "schema_name": "organisations_homepage",
+  "title": "Departments, agencies and public bodies",
+  "updated_at": "2018-04-04T09:11:53.270Z",
+  "links": {
+    "available_translations": [
+      {
+        "title": "Departments, agencies and public bodies",
+        "public_updated_at": "2018-04-04T09:11:52Z",
+        "analytics_identifier": null,
+        "document_type": "finder",
+        "schema_name": "organisations_homepage",
+        "base_path": "/government/organisations",
+        "api_path": "/api/content/government/organisations",
+        "content_id": "fde62e52-dfb6-42ae-b336-2c4faf068101",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations",
+        "web_url": "https://www.gov.uk/government/organisations",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Information from government departments, agencies and public bodies, including news, campaigns, policies and contact details.",
+  "details": {
+    "ordered_executive_offices": [
+      {
+        "title": "Prime Minister's Office, 10 Downing Street",
+        "href": "/government/organisations/prime-ministers-office-10-downing-street",
+        "brand": "cabinet-office",
+        "logo": {
+          "formatted_title": "Prime Minister&#39;s Office, 10 Downing Street",
+          "crest": "eo"
+        },
+        "format": "Executive office",
+        "slug": "prime-ministers-office-10-downing-street",
+        "content_id": "705dbea4-8bd7-422e-ba9c-254557f77f81",
+        "separate_website": false,
+        "works_with": {
+        }
+      }
+    ],
+    "ordered_ministerial_departments": [
+      {
+        "title": "Attorney General's Office",
+        "href": "/government/organisations/attorney-generals-office",
+        "brand": "attorney-generals-office",
+        "logo": {
+          "formatted_title": "Attorney <br/>General&#39;s <br/>Office",
+          "crest": "single-identity"
+        },
+        "format": "Ministerial department",
+        "slug": "attorney-generals-office",
+        "content_id": "25aacd68-dc0c-4041-9c3a-df59a5357c23",
+        "separate_website": false,
+        "works_with": {
+          "non_ministerial_department": [
+            {
+              "title": "Crown Prosecution Service",
+              "href": "/government/organisations/crown-prosecution-service"
+            },
+            {
+              "title": "Government Legal Department",
+              "href": "/government/organisations/government-legal-department"
+            },
+            {
+              "title": "Serious Fraud Office",
+              "href": "/government/organisations/serious-fraud-office"
+            }
+          ],
+          "other": [
+            {
+              "title": "HM Crown Prosecution Service Inspectorate",
+              "href": "/government/organisations/hm-crown-prosecution-service-inspectorate"
+            }
+          ]
+        }
+      }
+    ],
+    "ordered_non_ministerial_departments": [
+
+    ],
+    "ordered_agencies_and_other_public_bodies": [
+
+    ],
+    "ordered_high_profile_groups": [
+
+    ],
+    "ordered_public_corporations": [
+
+    ],
+    "ordered_devolved_administrations": [
+
+    ]
+  }
+}

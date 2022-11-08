@@ -1,0 +1,101 @@
+{
+  "base_path": "/government/case-studies/terence-age-33-stoke-on-trent",
+  "content_id": "3933c3df-9fdd-4a56-99cd-9a9351cbbf99",
+  "title": "Terence, age 33, Stoke-on-Trent",
+  "publishing_request_id": null,
+  "description": "'My experience with Shaw Trust was very positive and I received all the support I needed to get back into work.'",
+  "locale": "en",
+  "updated_at": "2014-12-08T15:26:28.258Z",
+  "public_updated_at": "2013-04-15T16:12:55.000+00:00",
+  "withdrawn_notice": {
+    "explanation": "<div class=\"govspeak\"><p>We’ve withdrawn this case study and published newer <a href=\"https://www.gov.uk/government/collections/work-programme-real-life-stories\">Work Programme real life stories</a>.</p></div>",
+    "withdrawn_at": "2014-08-22T10:29:02+01:00"
+  },
+  "details": {
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+
+      ],
+      "policies": [
+
+      ]
+    },
+    "body": "<div class=\"govspeak\"><p>Following the death of his wife Terence has been caring full-time for his two children, one of whom has a physical disability and medical condition and requires a lot of support.</p>\n\n<p>Terence was unemployed for over 14 years when he joined the Work Programme with Shaw Trust.</p>\n\n<p>Terence was keen to find work in the care industry but was concerned that his lack of qualifications, his childcare commitments and long period of unemployment could impact on him finding a job.</p>\n\n<p>An adviser worked with Terence so that he received tailored support with his CV to reflect the type of work he was looking for, as well as interview preparation and basic IT skills.</p>\n\n<p>Terence was delighted when he secured a permanent job as a support worker that allowed him to continue caring for his children.</p>\n\n<p>Terence found the support he received from the Shaw Trust made all the difference: </p>\n\n<blockquote>\n  <p class=\"last-child\">The fact that my adviser rang me after interviews and the ongoing support I received really helped build my confidence.</p>\n</blockquote>\n\n<p>The Work Programme is part funded by the European Social Fund.</p></div>",
+    "format_display_type": "case_study",
+    "first_public_at": "2013-04-15T17:12:55+01:00",
+    "change_history": [
+      {
+        "public_timestamp": "2013-04-15T17:12:55+01:00",
+        "note": "First published."
+      }
+    ],
+    "image": {
+      "url": "https://assets.digital.cabinet-office.gov.uk/government/uploads/system/uploads/image_data/file/6029/s300_terence-stoke-960.jpg",
+      "alt_text": "Terence",
+      "caption": null
+    },
+    "emphasised_organisations": [
+      "dbeaa22b-fb0c-49b0-b44e-0ca6cb52b381"
+    ]
+  },
+  "links": {
+    "organisations": [
+      {
+        "content_id": "dbeaa22b-fb0c-49b0-b44e-0ca6cb52b381",
+        "title": "Department for Work and Pensions",
+        "api_path": "/api/content/government/organisations/department-for-work-pensions",
+        "base_path": "/government/organisations/department-for-work-pensions",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-work-pensions",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-work-pensions",
+        "locale": "en",
+        "document_type": "organisation"
+      }
+    ],
+    "related_policies": [
+      {
+        "content_id": "155c22d4-c1f9-40fc-bbe4-4a19df82b164",
+        "title": "Helping people to find and stay in work",
+        "api_path": "/api/content/government/policies/helping-people-to-find-and-stay-in-work",
+        "base_path": "/government/policies/helping-people-to-find-and-stay-in-work",
+        "api_url": "https://www.gov.uk/api/content/government/policies/helping-people-to-find-and-stay-in-work",
+        "web_url": "https://www.gov.uk/government/policies/helping-people-to-find-and-stay-in-work",
+        "locale": "en",
+        "document_type": "policy"
+      }
+    ],
+    "world_locations": [
+
+    ],
+    "worldwide_organisations": [
+
+    ],
+    "available_translations": [
+      {
+        "content_id": "3933c3df-9fdd-4a56-99cd-9a9351cbbf99",
+        "title": "Terence, age 33, Stoke-on-Trent",
+        "api_path": "/api/content/government/case-studies/terence-age-33-stoke-on-trent",
+        "base_path": "/government/case-studies/terence-age-33-stoke-on-trent",
+        "api_url": "https://www.gov.uk/api/content/government/case-studies/terence-age-33-stoke-on-trent",
+        "web_url": "https://www.gov.uk/government/case-studies/terence-age-33-stoke-on-trent",
+        "locale": "en"
+      }
+    ],
+    "document_collections": [
+      {
+        "content_id": "19ed8498-37ed-4c8e-b0bf-accbb2cf5477",
+        "title": "Work Programme real life stories",
+        "api_path": "/api/content/government/case-studies/terence-age-33-stoke-on-trent",
+        "base_path": "/government/collections/work-programme-real-life-stories",
+        "api_url": "https://www.gov.uk/api/content/government/collections/work-programme-real-life-stories",
+        "web_url": "https://www.gov.uk/government/collections/work-programme-real-life-stories",
+        "locale": "en",
+        "document_type": "document_collection"
+      }
+    ]
+  },
+  "schema_name": "case_study",
+  "document_type": "case_study"
+}

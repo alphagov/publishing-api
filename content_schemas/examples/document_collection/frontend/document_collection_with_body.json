@@ -1,0 +1,137 @@
+{
+  "content_id": "5eb851bc-7631-11e4-a3cb-005056011aef",
+  "base_path": "/government/collections/financial-sanctions-regime-specific-consolidated-lists-and-releases",
+  "description": "This document series contains details of all regimes currently subject to financial sanctions.",
+  "public_updated_at": "2013-10-11T17:12:00.000+00:00",
+  "title": "Financial sanctions: Regime-specific lists and releases",
+  "updated_at": "2016-05-17T12:21:21.185Z",
+  "schema_name": "document_collection",
+  "document_type": "document_collection",
+  "locale": "en",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>Each regime page provides a current list of asset freeze targets designated by the United Nations (UN), European Union and United Kingdom, under legislation relating to current financial sanctions regimes.</p>\n\n<h2 id=\"consolidated-list\">Consolidated list</h2>\n\n<p>The <a rel=\"external\" href=\"https://www.gov.uk/government/publications/financial-sanctions-consolidated-list-of-targets\">current consolidated list of asset freeze targets</a> designated by the United Nations, European Union and United Kingdom, under legislation relating to current financial sanctions regimes, is also available.</p>\n\n<h3 id=\"subscribing-to-financial-sanctions-mailing-list\">Subscribing to financial sanctions mailing list</h3>\n\n<p><a rel=\"external\" href=\"http://engage.hm-treasury.gov.uk/fin-sanc-subscribe/\">Subscribe to our free e-mail alerts</a> for information on updates to the Treasury’s consolidated list of targets of financial sanctions in effect in the UK.</p>\n\n<p>Enquiries relating to asset freezing or other financial sanctions should be submitted to HM Treasury either by email to <a href=\"mailto:financialsanctions@hmtreasury.gsi.gov.uk\">financialsanctions@hmtreasury.gsi.gov.uk</a> or by post to Financial Sanctions, HM Treasury, 1 Horse Guards Road, London SW1A 2HQ.</p>\n\n<h3 id=\"further-information\">Further information</h3>\n\n<p>For further information on financial sanctions see the <a href=\"https://www.gov.uk/sanctions-embargoes-and-restrictions\">guide to sanctions, embargoes and restrictions.</a></p>\n</div>",
+    "collection_groups": [
+      {
+        "title": "Documents",
+        "documents": [
+          "841f225a-80b2-44d5-ba13-a36c7a82b859",
+          "5e2fd762-7631-11e4-a3cb-005056011aef",
+          "5e2fd5e9-7631-11e4-a3cb-005056011aef"
+        ]
+      }
+    ],
+    "first_public_at": "2013-10-11T17:12:00.000+00:00",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+
+      ],
+      "policies": [
+
+      ]
+    },
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "political": false,
+    "emphasised_organisations": [
+      "1994e0e4-bd19-4966-bbd7-f293d6e90a6b"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "documents": [
+      {
+        "content_id": "5e2fd5e9-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2014-08-24T15:00:02+00:00",
+        "title": "Financial sanctions, Somalia",
+        "api_path": "/api/content/government/publications/financial-sanctions-somalia",
+        "base_path": "/government/publications/financial-sanctions-somalia",
+        "description": "Somalia is currently subject to financial sanctions. This document contains the current list of designated persons.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/financial-sanctions-somalia",
+        "web_url": "https://www.gov.uk/government/publications/financial-sanctions-somalia",
+        "locale": "en",
+        "document_type": "guidance"
+      },
+      {
+        "content_id": "5e2fd762-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2004-11-04T15:00:02+00:00",
+        "title": "Current list of designated persons, terrorism and terrorist financing",
+        "api_path": "/api/content/government/publications/current-list-of-designated-persons-terrorism-and-terrorist-financing",
+        "base_path": "/government/publications/current-list-of-designated-persons-terrorism-and-terrorist-financing",
+        "description": "This document provides a current list of designated persons currently subject to financial sanctions for believed involvement in terrorist activity.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/current-list-of-designated-persons-terrorism-and-terrorist-financing",
+        "web_url": "https://www.gov.uk/government/publications/current-list-of-designated-persons-terrorism-and-terrorist-financing",
+        "locale": "en",
+        "document_type": "guidance"
+      },
+      {
+        "content_id": "841f225a-80b2-44d5-ba13-a36c7a82b859",
+        "public_updated_at": "2007-12-15T15:00:02+00:00",
+        "title": "Financial Sanctions, UK freezing orders",
+        "api_path": "/api/content/government/publications/financial-sanctions-uk-freezing-orders",
+        "base_path": "/government/publications/financial-sanctions-uk-freezing-orders",
+        "description": "Somalia is currently subject to financial sanctions. This document contains the current list of designated persons.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/financial-sanctions-uk-freezing-orders",
+        "web_url": "https://www.gov.uk/government/publications/financial-sanctions-uk-freezing-orders",
+        "locale": "en",
+        "document_type": "guidance"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "1994e0e4-bd19-4966-bbd7-f293d6e90a6b",
+        "title": "HM Treasury",
+        "api_path": "/api/content/government/organisations/hm-treasury",
+        "base_path": "/government/organisations/hm-treasury",
+        "api_url": "https://www.gov.uk/api/organisations/hm-treasury",
+        "web_url": "https://www.gov.uk/government/organisations/hm-treasury",
+        "locale": "en",
+        "analytics_identifier": "D15"
+      },
+      {
+        "content_id": "e82999a0-79f0-4c77-a8f1-39135e7a123c",
+        "title": "Office of Financial Sanctions Implementation",
+        "api_path": "/api/content/government/organisations/office-of-financial-sanctions-implementation",
+        "base_path": "/government/organisations/office-of-financial-sanctions-implementation",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/office-of-financial-sanctions-implementation",
+        "web_url": "https://www.gov.uk/government/organisations/office-of-financial-sanctions-implementation",
+        "locale": "en",
+        "analytics_identifier": "OT1187"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "8034be95-4ac2-4fff-93c5-e7514ed9504a",
+        "title": "Tax and revenue",
+        "api_path": "/api/content/government/topics/tax-and-revenue",
+        "base_path": "/government/topics/tax-and-revenue",
+        "api_url": "https://www.gov.uk/api/content/government/world/topics/tax-and-revenue",
+        "web_url": "https://www.gov.uk/government/world/topics/tax-and-revenue",
+        "locale": "en"
+      }
+    ]
+  }
+}

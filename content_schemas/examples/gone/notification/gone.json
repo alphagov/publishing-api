@@ -1,0 +1,9 @@
+{
+  "base_path": "/some-base-path",
+  "locale": "en",
+  "content_id": "a4c02333-7dbf-4fc3-925a-87afc8aff73a",
+  "document_type": "gone",
+  "govuk_request_id": "abc",
+  "payload_version": 123,
+  "schema_name": "gone"
+}

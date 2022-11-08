@@ -1,0 +1,316 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/intellectual-property-office/about",
+  "content_id": "5f5a21fa-7631-11e4-a3cb-005056011aef",
+  "document_type": "about",
+  "first_published_at": "2014-02-14T08:34:51.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-04-29T09:54:00.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "About us",
+  "updated_at": "2018-01-09T15:25:01.623Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "23640-1515511464.405-212.250.142.210-19753",
+  "links": {
+    "corporate_information_pages": [
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/procurement",
+        "base_path": "/government/organisations/intellectual-property-office/about/procurement",
+        "content_id": "5f6278c5-7631-11e4-a3cb-005056011aef",
+        "description": "How we buy goods and services, and how you can work with us.\r\n",
+        "document_type": "procurement",
+        "locale": "en",
+        "public_updated_at": "2014-09-23T07:17:42Z",
+        "schema_name": "corporate_information_page",
+        "title": "Procurement at IPO",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/procurement",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/procurement"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/recruitment",
+        "base_path": "/government/organisations/intellectual-property-office/about/recruitment",
+        "content_id": "5f62666c-7631-11e4-a3cb-005056011aef",
+        "description": "Career opportunities and workplace benefits at IPO.",
+        "document_type": "recruitment",
+        "locale": "en",
+        "public_updated_at": "2016-11-02T10:14:13Z",
+        "schema_name": "corporate_information_page",
+        "title": "Working for IPO",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/recruitment",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/recruitment"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/complaints-procedure",
+        "base_path": "/government/organisations/intellectual-property-office/about/complaints-procedure",
+        "content_id": "5f626704-7631-11e4-a3cb-005056011aef",
+        "description": "How to make a complaint about the Intellectual Property Office’s service.\r\n",
+        "document_type": "complaints_procedure",
+        "locale": "en",
+        "public_updated_at": "2014-06-12T15:51:04Z",
+        "schema_name": "corporate_information_page",
+        "title": "Complaints procedure",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/complaints-procedure",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/complaints-procedure"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/equality-and-diversity",
+        "base_path": "/government/organisations/intellectual-property-office/about/equality-and-diversity",
+        "content_id": "5f6269da-7631-11e4-a3cb-005056011aef",
+        "description": "We publish regular information about what our equality objectives are and how we're meeting them.",
+        "document_type": "equality_and_diversity",
+        "locale": "en",
+        "public_updated_at": "2016-04-01T09:00:16Z",
+        "schema_name": "corporate_information_page",
+        "title": "Equality and diversity",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/equality-and-diversity",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/equality-and-diversity"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/our-energy-use",
+        "base_path": "/government/organisations/intellectual-property-office/about/our-energy-use",
+        "content_id": "5f626a7b-7631-11e4-a3cb-005056011aef",
+        "description": "Details of the Intellectual Property Office’s energy use in all our buildings and our work to reduce waste.\r\n",
+        "document_type": "our_energy_use",
+        "locale": "en",
+        "public_updated_at": "2017-05-12T07:53:55Z",
+        "schema_name": "corporate_information_page",
+        "title": "Our energy use",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/our-energy-use",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/our-energy-use"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/research",
+        "base_path": "/government/organisations/intellectual-property-office/about/research",
+        "content_id": "5f627c4d-7631-11e4-a3cb-005056011aef",
+        "description": "We carry out and commission research relating to intellectual property, patent applications, trade marks and copyright.",
+        "document_type": "research",
+        "locale": "en",
+        "public_updated_at": "2017-09-04T08:00:16Z",
+        "schema_name": "corporate_information_page",
+        "title": "Research at IPO",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/research",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/research"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/media-enquiries",
+        "base_path": "/government/organisations/intellectual-property-office/about/media-enquiries",
+        "content_id": "5fa70c7b-7631-11e4-a3cb-005056011aef",
+        "description": "You should contact our press office if you have a media query or you’re a journalist.",
+        "document_type": "media_enquiries",
+        "locale": "en",
+        "public_updated_at": "2015-11-30T15:15:23Z",
+        "schema_name": "corporate_information_page",
+        "title": "Media enquiries",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/media-enquiries",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/media-enquiries"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/our-governance",
+        "base_path": "/government/organisations/intellectual-property-office/about/our-governance",
+        "content_id": "5f626b1d-7631-11e4-a3cb-005056011aef",
+        "description": "The main steering board, audit committee and other governance groups of the IPO. \r\n",
+        "document_type": "our_governance",
+        "locale": "en",
+        "public_updated_at": "2018-01-08T10:06:08Z",
+        "schema_name": "corporate_information_page",
+        "title": "Our governance",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/our-governance",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/our-governance"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/access-and-opening",
+        "base_path": "/government/organisations/intellectual-property-office/about/access-and-opening",
+        "content_id": "602b4d3d-7631-11e4-a3cb-005056011aef",
+        "description": "Times and days we are open for business and our location and contact details.",
+        "document_type": "access_and_opening",
+        "locale": "en",
+        "public_updated_at": "2017-12-05T14:12:47Z",
+        "schema_name": "corporate_information_page",
+        "title": "Office access and opening times",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/access-and-opening",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/access-and-opening"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/personal-information-charter",
+        "base_path": "/government/organisations/intellectual-property-office/about/personal-information-charter",
+        "content_id": "5f626935-7631-11e4-a3cb-005056011aef",
+        "description": "How we treat your personal information and how to check what details we hold.\r\n",
+        "document_type": "personal_information_charter",
+        "locale": "en",
+        "public_updated_at": "2014-06-12T15:48:52Z",
+        "schema_name": "corporate_information_page",
+        "title": "Personal information charter",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/personal-information-charter",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/personal-information-charter"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/publication-scheme",
+        "base_path": "/government/organisations/intellectual-property-office/about/publication-scheme",
+        "content_id": "5fefe086-7631-11e4-a3cb-005056011aef",
+        "description": "Each government department has a publication scheme, which makes information available to the public about how it operates and how it spends its budget.",
+        "document_type": "publication_scheme",
+        "locale": "en",
+        "public_updated_at": "2017-09-12T07:19:22Z",
+        "schema_name": "corporate_information_page",
+        "title": "Publication scheme",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/publication-scheme",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/publication-scheme"
+      },
+      {
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about/welsh-language-scheme",
+        "base_path": "/government/organisations/intellectual-property-office/about/welsh-language-scheme",
+        "content_id": "5f62809c-7631-11e4-a3cb-005056011aef",
+        "description": "We treat the English and Welsh languages equally when conducting public business in Wales.\r\n",
+        "document_type": "welsh_language_scheme",
+        "locale": "en",
+        "public_updated_at": "2017-08-23T07:51:27Z",
+        "schema_name": "corporate_information_page",
+        "title": "Welsh language scheme",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about/welsh-language-scheme",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about/welsh-language-scheme"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "EA34",
+        "api_path": "/api/content/government/organisations/intellectual-property-office",
+        "base_path": "/government/organisations/intellectual-property-office",
+        "content_id": "5d6f9583-991f-413d-ae83-be7274e5eae4",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-02-17T11:00:13Z",
+        "schema_name": "placeholder",
+        "title": "Intellectual Property Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "formatted_title": "Intellectual<br/>Property <br/>Office",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "About us",
+        "public_updated_at": "2016-04-29T09:54:00Z",
+        "document_type": "about",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/intellectual-property-office/about",
+        "description": "The Intellectual Property Office (IPO) is the official UK government body responsible for intellectual property (IP) rights including patents, designs, trade marks and copyright.\r\n",
+        "api_path": "/api/content/government/organisations/intellectual-property-office/about",
+        "withdrawn": false,
+        "content_id": "5f5a21fa-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/intellectual-property-office/about",
+        "web_url": "https://www.gov.uk/government/organisations/intellectual-property-office/about",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The Intellectual Property Office (IPO) is the official UK government body responsible for intellectual property (IP) rights including patents, designs, trade marks and copyright.\r\n",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>We operate and maintain a clear and accessible intellectual property system in the UK, which encourages innovation and helps the economy and society to benefit from knowledge and ideas. We help people get the right type of protection for their creation or invention.</p>\n\n<h2 id=\"who-we-are\">Who we are</h2>\n\n<p>The Intellectual Property Office became the operating name of The Patent Office on 2 April 2007. The Patent Office was set up in 1852 to grant patents, although the origins of the patent system date back a further 400 years.</p>\n\n<p>We’re now a team of over 1,000, with offices in Newport and London. The team is made up of specialists in rights-granting, IT, finance and HR.</p>\n\n<p>We have <abbr title=\"International Organization for Standardization\">ISO</abbr> accreditation for the following:</p>\n\n<ul>\n  <li>\n<a rel=\"external\" href=\"http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=46486\"><abbr title=\"International Organization for Standardization\">ISO</abbr> 9001</a> for our patents pre-granting process and patents search service</li>\n  <li>\n<a rel=\"external\" href=\"http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=54534\"><abbr title=\"International Organization for Standardization\">ISO</abbr> 27001</a> for our IT security</li>\n  <li>\n<a rel=\"external\" href=\"https://www.iso.org/standard/60857.html\"><abbr title=\"International Organization for Standardization\">ISO</abbr> 14001</a> for our environmental management system</li>\n  <li>\n<a rel=\"external\" href=\"http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=46486\"><abbr title=\"International Organization for Standardization\">ISO</abbr> 9001</a> for its UK trade mark application process - from fee payment up to registration of the trade mark</li>\n</ul>\n\n<p>The quality policies are available on request.</p>\n\n<p>In addition, we also hold Investor in People and Customer Excellence awards for our training and development of staff and commitment to customer service respectively.</p>\n\n<h2 id=\"our-responsibilities\">Our responsibilities</h2>\n\n<p>We’re responsible for:</p>\n\n<ul>\n  <li>\n<abbr title=\"intellectual property\">IP</abbr> policy</li>\n  <li>educating businesses and consumers about <abbr title=\"intellectual property\">IP</abbr> rights and responsibilities</li>\n  <li>supporting <abbr title=\"intellectual property\">IP</abbr> enforcement</li>\n  <li>granting UK patents, trade marks and design rights</li>\n</ul>\n\n<h2 id=\"our-priorities\">Our priorities</h2>\n\n<p>From 2016 to 2017, our priorities will be to:</p>\n\n<ul>\n  <li>\n    <p>delivering excellent customer services for patents, trade marks and designs, whilst making access easier by expanding our digital offering</p>\n  </li>\n  <li>\n    <p>contributing to the UK’s goal of delivering an open, flexible Digital Single Market</p>\n  </li>\n  <li>\n    <p>further improve how the UK <abbr title=\"intellectual property\">IP</abbr> framework is perceived and functions by making it harder to make unjustified threats around <abbr title=\"intellectual property\">IP</abbr> disputes, increasing the evidence base around <abbr title=\"intellectual property\">IP</abbr> and innovation and what makes the best place to patent, and educating consumers, especially the young, to value <abbr title=\"intellectual property\">IP</abbr> rights</p>\n  </li>\n  <li>\n    <p>helping <abbr title=\"intellectual property\">IP</abbr> rich UK businesses confidently approach international trade by working to improve global <abbr title=\"intellectual property\">IP</abbr> systems through negotiation, direct bilateral engagement (eg China) and by providing specific help and advice through our attaches</p>\n  </li>\n  <li>\n    <p>providing leadership, coordination and strategic direction to enforcement activities, working with the Police Intellectual Property Crime Unit, HMRC, Trading Standards and industry</p>\n  </li>\n  <li>\n    <p>increasing the number of businesses that better understand how to manage and exploit their <abbr title=\"intellectual property\">IP</abbr>, including exploring a greater regional presence and better <abbr title=\"intellectual property\">IP</abbr> trading</p>\n  </li>\n  <li>\n    <p>achieving a return on capital employed of at least 4% and an efficiency gain of 3.5%</p>\n  </li>\n</ul>\n\n</div>",
+    "corporate_information_groups": [
+      {
+        "name": "Access our information",
+        "contents": [
+          {
+            "title": "Our organisation chart",
+            "url": "https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/404564/corporate_organogram.pdf"
+          },
+          "5f626704-7631-11e4-a3cb-005056011aef",
+          "5f6269da-7631-11e4-a3cb-005056011aef",
+          "5f626a7b-7631-11e4-a3cb-005056011aef",
+          "5f627c4d-7631-11e4-a3cb-005056011aef",
+          "5fa70c7b-7631-11e4-a3cb-005056011aef",
+          "5f626b1d-7631-11e4-a3cb-005056011aef",
+          "602b4d3d-7631-11e4-a3cb-005056011aef",
+          {
+            "title": "Corporate reports",
+            "path": "/government/publications?departments%5B%5D=intellectual-property-office&publication_type=corporate-reports"
+          },
+          {
+            "title": "Transparency data",
+            "path": "/government/publications?departments%5B%5D=intellectual-property-office&publication_type=transparency-data"
+          }
+        ]
+      },
+      {
+        "name": "Jobs and contracts",
+        "contents": [
+          "5f6278c5-7631-11e4-a3cb-005056011aef",
+          "5f62666c-7631-11e4-a3cb-005056011aef",
+          {
+            "title": "Jobs",
+            "url": "https://www.civilservicejobs.service.gov.uk/csr"
+          }
+        ]
+      }
+    ],
+    "organisation": "5d6f9583-991f-413d-ae83-be7274e5eae4",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "change_history": [
+      {
+        "note": "[ISO 9001] for its UK trade mark application process - from fee payment up to registration of the trade mark added.",
+        "public_timestamp": "2016-02-29T09:24:10.700Z"
+      }
+    ]
+  }
+}

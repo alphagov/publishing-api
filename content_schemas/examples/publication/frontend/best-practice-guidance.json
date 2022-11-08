@@ -1,0 +1,488 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/publications/car-and-small-van-driving-syllabus",
+  "content_id": "5e5dc201-7631-11e4-a3cb-005056011aef",
+  "document_type": "guidance",
+  "first_published_at": "2013-08-23T08:10:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-11-24T15:00:02.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Learning to drive a car syllabus",
+  "updated_at": "2018-01-01T19:27:14.784Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "2205-1506519728.980-213.160.121.250-1876",
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "document_collections": [
+      {
+        "api_path": "/api/content/government/collections/national-driving-and-riding-standards",
+        "base_path": "/government/collections/national-driving-and-riding-standards",
+        "content_id": "5eb731c7-7631-11e4-a3cb-005056011aef",
+        "description": "The standards set out what it takes to be a safe and responsible driver and rider and provide training to drivers and riders.",
+        "document_type": "document_collection",
+        "locale": "en",
+        "public_updated_at": "2013-08-23T08:10:00Z",
+        "schema_name": "document_collection",
+        "title": "National standards for driving and riding",
+        "withdrawn": false,
+        "links": {
+          "documents": [
+            {
+              "api_path": "/api/content/government/publications/car-and-small-van-driving-syllabus",
+              "base_path": "/government/publications/car-and-small-van-driving-syllabus",
+              "content_id": "5e5dc201-7631-11e4-a3cb-005056011aef",
+              "description": "The syllabus sets out a way of teaching people the skills, knowledge and understanding they need to be a safe and responsible car or light van driver.",
+              "document_type": "guidance",
+              "locale": "en",
+              "public_updated_at": "2014-11-24T15:00:02Z",
+              "schema_name": "publication",
+              "title": "Learning to drive a car syllabus",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/publications/car-and-small-van-driving-syllabus",
+              "web_url": "https://www.gov.uk/government/publications/car-and-small-van-driving-syllabus"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/collections/national-driving-and-riding-standards",
+        "web_url": "https://www.gov.uk/government/collections/national-driving-and-riding-standards"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "EA570",
+        "api_path": "/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "base_path": "/government/organisations/driver-and-vehicle-standards-agency",
+        "content_id": "d39237a5-678b-4bb5-a372-eb2cb036933d",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-12-12T21:20:49Z",
+        "schema_name": "placeholder",
+        "title": "Driver and Vehicle Standards Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Driver &amp; Vehicle<br/>Standards<br/>Agency",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "web_url": "https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency"
+      }
+    ],
+    "parent": [
+      {
+        "api_path": "/api/content/topic/driving-motorcyle-instructors/improving-training-skills",
+        "base_path": "/topic/driving-motorcyle-instructors/improving-training-skills",
+        "content_id": "13c0788e-ed54-4b91-ac96-bac7f795c390",
+        "description": "List of information about Improving your training skills.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2017-02-24T16:33:23Z",
+        "schema_name": "topic",
+        "title": "Improving your training skills",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/topic/driving-motorcyle-instructors/improving-training-skills",
+        "web_url": "https://www.gov.uk/topic/driving-motorcyle-instructors/improving-training-skills"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/transport",
+        "base_path": "/government/topics/transport",
+        "content_id": "020cdae2-ee93-4fca-bfb7-3f5f8f5751d1",
+        "document_type": "policy_area",
+        "locale": "en",
+        "public_updated_at": "2013-07-22T09:04:54Z",
+        "schema_name": "placeholder",
+        "title": "Transport",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/transport",
+        "web_url": "https://www.gov.uk/government/topics/transport"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "EA570",
+        "api_path": "/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "base_path": "/government/organisations/driver-and-vehicle-standards-agency",
+        "content_id": "d39237a5-678b-4bb5-a372-eb2cb036933d",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-12-12T21:20:49Z",
+        "schema_name": "placeholder",
+        "title": "Driver and Vehicle Standards Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Driver &amp; Vehicle<br/>Standards<br/>Agency",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "web_url": "https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/road-safety",
+        "base_path": "/government/policies/road-safety",
+        "content_id": "5c76858b-7631-11e4-a3cb-005056011aef",
+        "description": "The UK has one of the best road safety records in the world, but we can do more to prevent deaths and serious injuries. We’re working to improve driver skills, knowledge and attitudes through campaigns such as Think! We’re ensuring that drivers and vehicles are licensed and safe, and bringing in laws to make roads safer.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2015-08-10T14:19:24Z",
+        "schema_name": "policy",
+        "title": "Road safety",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/road-safety",
+        "web_url": "https://www.gov.uk/government/policies/road-safety"
+      }
+    ],
+    "topics": [
+      {
+        "api_path": "/api/content/topic/driving-motorcyle-instructors/improving-training-skills",
+        "base_path": "/topic/driving-motorcyle-instructors/improving-training-skills",
+        "content_id": "13c0788e-ed54-4b91-ac96-bac7f795c390",
+        "description": "List of information about Improving your training skills.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2017-02-24T16:33:23Z",
+        "schema_name": "topic",
+        "title": "Improving your training skills",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/topic/driving-motorcyle-instructors/improving-training-skills",
+        "web_url": "https://www.gov.uk/topic/driving-motorcyle-instructors/improving-training-skills"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Learning to drive a car syllabus",
+        "public_updated_at": "2014-11-24T15:00:02Z",
+        "document_type": "guidance",
+        "schema_name": "publication",
+        "base_path": "/government/publications/car-and-small-van-driving-syllabus",
+        "description": "The syllabus sets out a way of teaching people the skills, knowledge and understanding they need to be a safe and responsible car or light van driver.",
+        "api_path": "/api/content/government/publications/car-and-small-van-driving-syllabus",
+        "withdrawn": false,
+        "content_id": "5e5dc201-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/publications/car-and-small-van-driving-syllabus",
+        "web_url": "https://www.gov.uk/government/publications/car-and-small-van-driving-syllabus",
+        "links": {
+        }
+      }
+    ],
+    "secondary_to_step_navs": [
+      {
+        "title": "Learn to drive a car: step by step",
+        "content_id": "e01e924b-9c7c-4c71-8241-66a575c2f61f",
+        "publishing_app": "collections-publisher",
+        "rendering_app": "collections",
+        "locale": "en",
+        "updated_at": "2018-01-18T15:46:10.000+00:00",
+        "public_updated_at": "2018-01-18T15:46:10.000+00:00",
+        "document_type": "step_by_step_nav",
+        "schema_name": "step_by_step_nav",
+        "base_path": "/learn-to-drive-a-car",
+        "description": "Learn to drive a car in the UK - get a provisional licence, take driving lessons, prepare for your theory test, book your practical test.",
+        "links": {
+        },
+        "details": {
+          "step_by_step_nav": {
+            "title": "Learn to drive a car: step by step",
+            "introduction": "<p>Check what you need to do to learn to drive.</p>",
+            "steps": [
+              {
+                "title": "Check you're allowed to drive",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "Most people can start learning to drive when they’re 17."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/vehicles-can-drive",
+                        "text": "Check what age you can drive"
+                      },
+                      {
+                        "href": "/legal-obligations-drivers-riders",
+                        "text": "Requirements for driving legally"
+                      },
+                      {
+                        "href": "/driving-eyesight-rules",
+                        "text": "Driving eyesight rules"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Get a provisional driving licence",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/apply-first-provisional-driving-licence",
+                        "text": "Apply for your first provisional driving licence",
+                        "context": "£34"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Driving lessons and practice",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to take lessons or practice."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/guidance/the-highway-code",
+                        "text": "The Highway Code"
+                      },
+                      {
+                        "href": "/driving-lessons-learning-to-drive",
+                        "text": "Taking driving lessons"
+                      },
+                      {
+                        "href": "/find-driving-schools-and-lessons",
+                        "text": "Find driving schools, lessons and instructors"
+                      },
+                      {
+                        "href": "/government/publications/car-show-me-tell-me-vehicle-safety-questions",
+                        "text": "Practise vehicle safety questions"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Prepare for your theory test",
+                "logic": "and",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/theory-test/revision-and-practice",
+                        "text": "Theory test revision and practice"
+                      },
+                      {
+                        "href": "/take-practice-theory-test",
+                        "text": "Take a practice theory test"
+                      },
+                      {
+                        "href": "https://www.safedrivingforlife.info/shop/product/official-dvsa-theory-test-kit-app-app",
+                        "text": "Theory and hazard perception test app"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your theory test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to book your theory test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-theory-test",
+                        "text": "Book your theory test",
+                        "context": "£23"
+                      },
+                      {
+                        "href": "/theory-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-theory-test",
+                        "text": "Change your theory test appointment"
+                      },
+                      {
+                        "href": "/check-theory-test",
+                        "text": "Check your theory test appointment details"
+                      },
+                      {
+                        "href": "/cancel-theory-test",
+                        "text": "Cancel your theory test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your driving test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You must pass your theory test before you can book your driving test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-driving-test",
+                        "text": "Book your driving test",
+                        "context": "£62"
+                      },
+                      {
+                        "href": "/driving-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "text": "Change your driving test appointment"
+                      },
+                      {
+                        "href": "/check-driving-test",
+                        "text": "Check your driving test appointment details"
+                      },
+                      {
+                        "href": "/cancel-driving-test",
+                        "text": "Cancel your driving test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "When you pass",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You can start driving as soon as you pass your driving test."
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "You must have an insurance policy that allows you to drive without supervision."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/pass-plus",
+                        "text": "Find out about Pass Plus training courses"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "description": "The syllabus sets out a way of teaching people the skills, knowledge and understanding they need to be a safe and responsible car or light van driver.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The syllabus is for:</p>\n\n<ul>\n  <li>learner drivers</li>\n  <li>full licence holders</li>\n  <li>driver trainers</li>\n</ul>\n\n<p>It tells you what the trainee:</p>\n\n<ul>\n  <li>needs to cover</li>\n  <li>will learn</li>\n  <li>needs to be able to do</li>\n  <li>needs to know and understand</li>\n</ul>\n\n<p>Contact the Driver and Vehicle Standards Agency (<abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>) if you have:</p>\n\n<ul>\n  <li>questions about the syllabus</li>\n  <li>ideas about how it could be improved</li>\n</ul>\n\n<div class=\"contact \" id=\"contact_1930\">\n  <div class=\"content\">\n   <div class=\"vcard contact-inner\">\n\n <p>\n<abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr> national driver and rider standards</p>\n\n  <div class=\"email-url-number\">\n            <p class=\"email\">\n              <span class=\"type\">Email</span>\n              <a class=\"email\" href=\"mailto:national.standards@dvsa.gov.uk\">national.standards@dvsa.gov.uk</a>\n            </p>\n        </div>\n\n\n    </div>\n  </div>\n</div>\n\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2014-11-24T15:00:02.000+00:00",
+        "note": "Added information about the increased considerations that need to be taken when driving in bad weather, using sat nav systems, and updated references of ‘Driving Standards Agency’ to ‘Driver and Vehicle Standards Agency’."
+      },
+      {
+        "public_timestamp": "2013-08-23T09:10:00.000+01:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_2305864\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/377664/car-and-light-van-driving-syllabus.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/377664/thumbnail_car-and-light-van-driving-syllabus.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-2305864-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/377664/car-and-light-van-driving-syllabus.pdf\">Car and light van driving syllabus (category B)</a></h2>\n    <p class=\"metadata\">\n        <span class=\"references\">\n          Ref: <span class=\"unique_reference\">DVSA/NS/B/Sy</span>\n        </span>\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">696KB</span>, <span class=\"page-length\">35 pages</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-2305864-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-2305864-accessibility-request\" data-controls=\"attachment-2305864-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-2305864-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:gov.uk.publishing@dvsa.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Car%20and%20light%20van%20driving%20syllabus%20%28category%20B%29%0A%20%20Original%20format%3A%20pdf%0A%20%20Unique%20reference%3A%20DVSA%2FNS%2FB%2FSy%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Car%20and%20light%20van%20driving%20syllabus%20%28category%20B%29%27%20in%20an%20alternative%20format\">gov.uk.publishing@dvsa.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "d39237a5-678b-4bb5-a372-eb2cb036933d"
+    ],
+    "national_applicability": {
+      "england": {
+        "label": "England",
+        "applicable": true
+      },
+      "northern_ireland": {
+        "label": "Northern Ireland",
+        "applicable": false,
+        "alternative_url": ""
+      },
+      "scotland": {
+        "label": "Scotland",
+        "applicable": true
+      },
+      "wales": {
+        "label": "Wales",
+        "applicable": true
+      }
+    },
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+        "road-safety"
+      ],
+      "topics": [
+        "13c0788e-ed54-4b91-ac96-bac7f795c390"
+      ]
+    },
+    "first_public_at": "2013-08-23T09:10:00.000+01:00"
+  }
+}

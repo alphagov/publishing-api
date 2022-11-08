@@ -1,0 +1,66 @@
+{
+  "content_id": "053d245d-b1cd-4807-9dbc-ce78654121d1",
+  "public_updated_at": "2015-10-09T08:17:10+00:00",
+  "locale": "en",
+  "details": {
+  },
+  "links": {
+    "children": [
+      {
+        "content_id": "18250ea0-947c-4e01-a4dd-cffabaf2fd6f",
+        "title": "Helping people to use your service",
+        "base_path": "/service-manual/helping-people-to-use-your-service",
+        "description": "Help and encourage people to use your digital service: assisted digital, digital take-up, user support.",
+        "api_url": "https://www.gov.uk/api/content/service-manual/helping-people-to-use-your-service",
+        "web_url": "https://www.gov.uk/service-manual/helping-people-to-use-your-service",
+        "locale": "en",
+        "schema_name": "service_manual_topic",
+        "document_type": "service_manual_topic",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "ac4411b3-3c3b-4c80-a263-45e54eaca4df",
+        "title": "Funding and procurement",
+        "base_path": "/service-manual/funding-and-procurement",
+        "description": "How to get money, buy things and use the Digital Marketplace.",
+        "api_url": "https://www.gov.uk/api/content/service-manual/funding-and-procurement",
+        "web_url": "https://www.gov.uk/service-manual/funding-and-procurement",
+        "locale": "en",
+        "schema_name": "service_manual_topic",
+        "document_type": "service_manual_topic",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "370e00b2-3c79-4816-aaa9-1a7059e6155d",
+        "title": "Agile delivery",
+        "api_path": "/api/content/service-manual/agile-delivery",
+        "base_path": "/service-manual/agile-delivery",
+        "description": "How to work in an agile way: principles, tools and governance.",
+        "api_url": "https://www.gov.uk/api/content/service-manual/agile-delivery",
+        "web_url": "https://www.gov.uk/service-manual/agile-delivery",
+        "locale": "en",
+        "schema_name": "service_manual_topic",
+        "document_type": "service_manual_topic",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "1d665d61-24dc-4143-b7d5-6f94a49b50e0",
+        "title": "Measuring success",
+        "base_path": "/service-manual/measuring-success",
+        "description": "How to use data to improve your service: KPIs, reporting, analytics tools and techniques.",
+        "api_url": "https://www.gov.uk/api/content/service-manual/measuring-success",
+        "web_url": "https://www.gov.uk/service-manual/measuring-success",
+        "locale": "en",
+        "schema_name": "service_manual_topic",
+        "document_type": "service_manual_topic",
+        "analytics_identifier": null
+      }
+    ]
+  },
+  "base_path": "/service-manual",
+  "description": "Helping government teams create and run great digital services that meet the Service Standard.",
+  "title": "Service manual",
+  "updated_at": "2015-10-12T08:54:30+00:00",
+  "schema_name": "service_manual_homepage",
+  "document_type": "service_manual_homepage"
+}

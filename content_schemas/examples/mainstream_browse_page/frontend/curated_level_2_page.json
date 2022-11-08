@@ -1,0 +1,108 @@
+{
+  "content_id": "1a0ec400-632d-4af5-ad96-f18dc028d9ba",
+  "base_path": "/browse/benefits/entitlement-with-list",
+  "description": "When and how benefit payments are made, benefits adviser and benefit fraud",
+  "details": {
+    "groups": [
+      {
+        "name": "Fraud",
+        "contents": [
+          "/benefit-fraud",
+          "/national-benefit-fraud-hotline",
+          "/benefit-integrity-centres"
+        ]
+      },
+      {
+        "name": "Complaints",
+        "contents": [
+          "/complain-debt-management",
+          "/complain-independent-case-examiner"
+        ]
+      }
+    ]
+  },
+  "links": {
+    "active_top_level_browse_page": [
+      {
+        "content_id": "778bb9da-db42-4855-b0a2-1470246a5568",
+        "title": "Benefits",
+        "api_path": "/api/content/browse/benefits",
+        "base_path": "/browse/benefits",
+        "description": "Includes tax credits, eligibility and appeals",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits",
+        "web_url": "https://www.gov.uk/browse/benefits",
+        "locale": "en"
+      }
+    ],
+    "top_level_browse_pages": [
+      {
+        "content_id": "778bb9da-db42-4855-b0a2-1470246a5568",
+        "title": "Benefits",
+        "api_path": "/api/content/browse/benefits",
+        "base_path": "/browse/benefits",
+        "description": "Includes tax credits, eligibility and appeals",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits",
+        "web_url": "https://www.gov.uk/browse/benefits",
+        "locale": "en"
+      },
+      {
+        "content_id": "05cd9691-ed36-4cb2-9576-ce7cb81e1936",
+        "title": "Births, deaths, marriages and care",
+        "api_path": "/api/content/browse/births-deaths-marriages",
+        "base_path": "/browse/births-deaths-marriages",
+        "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+        "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages",
+        "web_url": "https://www.gov.uk/browse/births-deaths-marriages",
+        "locale": "en"
+      },
+      {
+        "content_id": "426debef-4aad-423e-8597-4851f9015b5f",
+        "title": "Business and self-employed",
+        "api_path": "/api/content/browse/business",
+        "base_path": "/browse/business",
+        "description": "Information about starting up and running a business in the UK, including help if you're self employed or a sole trader.",
+        "api_url": "https://www.gov.uk/api/content/browse/business",
+        "web_url": "https://www.gov.uk/browse/business",
+        "locale": "en"
+      }
+    ],
+    "second_level_browse_pages": [
+      {
+        "content_id": "1a0ec400-632d-4af5-ad96-f18dc028d9ba",
+        "title": "Benefits entitlement",
+        "api_path": "/api/content/browse/benefits/entitlement-with-list",
+        "base_path": "/browse/benefits/entitlement-with-list",
+        "description": "When and how benefit payments are made, benefits adviser and benefit fraud",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits/entitlement",
+        "web_url": "https://www.gov.uk/browse/benefits/entitlement",
+        "locale": "en"
+      },
+      {
+        "content_id": "7fd9bd20-f18c-495b-aac4-e05489be2b87",
+        "title": "Benefits for families",
+        "api_path": "/api/content/browse/benefits/families",
+        "base_path": "/browse/benefits/families",
+        "description": "Includes Child Trust Funds, childcare and the Sure Start Maternity Grant",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits/families",
+        "web_url": "https://www.gov.uk/browse/benefits/families",
+        "locale": "en"
+      },
+      {
+        "content_id": "f6a1202c-8491-49eb-94ce-cdddb55806da",
+        "title": "Carers and disability benefits",
+        "api_path": "/api/content/browse/benefits/disability",
+        "base_path": "/browse/benefits/disability",
+        "description": "Includes Disability Living Allowance, Carer's Allowance and Employment and Support Allowance",
+        "api_url": "https://www.gov.uk/api/content/browse/benefits/disability",
+        "web_url": "https://www.gov.uk/browse/benefits/disability",
+        "locale": "en"
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2015-04-20T15:46:10.000+00:00",
+  "title": "Benefits entitlement",
+  "updated_at": "2015-04-20T15:50:11.000+00:00",
+  "schema_name": "mainstream_browse_page",
+  "document_type": "mainstream_browse_page"
+}

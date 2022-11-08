@@ -1,0 +1,86 @@
+{
+  "base_path": "/government/news/fish-washed-up-on-cornwall-beach",
+  "content_id": "4ae92ddf-5ba6-4ec4-a7d5-7648ea4c9ffd",
+  "document_type": "government_response",
+  "first_published_at": "2016-12-28T00:00:19.000+00:00",
+  "locale": "en",
+  "public_updated_at": "2016-12-28T00:00:19.000+00:00",
+  "schema_name": "news_article",
+  "title": "Fish washed up on Cornwall beach",
+  "updated_at": "2017-01-10T10:52:47.712Z",
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "8d56bb52-2f79-4b6d-9fc6-6d7dcc4f7586",
+        "title": "Marine Management Organisation",
+        "api_path": "/api/content/government/organisations/marine-management-organisation",
+        "base_path": "/government/organisations/marine-management-organisation",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/marine-management-organisation",
+        "web_url": "https://www.gov.uk/government/organisations/marine-management-organisation",
+        "locale": "en",
+        "analytics_identifier": "PB57",
+        "document_type": "organisation"
+      }
+    ],
+    "related_policies": [
+      {
+        "content_id": "5d5e94fa-7631-11e4-a3cb-005056011aef",
+        "title": "Marine environment",
+        "api_path": "/api/content/government/policies/marine-environment",
+        "base_path": "/government/policies/marine-environment",
+        "api_url": "https://www.gov.uk/api/content/government/policies/marine-environment",
+        "web_url": "https://www.gov.uk/government/policies/marine-environment",
+        "locale": "en",
+        "document_type": "policy"
+      }
+    ]
+  },
+  "description": "The Marine Management Organisation response to reports of a large number of dead fish being washed ashore in Cornwall.",
+  "details": {
+    "image": {
+      "alt_text": "St Michael's Mount Cornwall",
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/image_data/file/59446/s465_iStock-183412793.jpg"
+    },
+    "body": "<div class=\"govspeak\"><p>We are aware of a large number of dead fish which washed ashore on Marazion beach, Cornwall, on 17 December.</p><p>We are working with others, such as the <a rel=\"external\" href=\"http://www.cornwall-ifca.gov.uk/\">Cornwall Inshore Fisheries and Conservation Authority</a>, to look into this.</p><p>We have discussed the issue with the Marine Conservation Society and are looking at the activity of vessels in the area. It is however too early to say what the cause might be.</p><p>We advise against eating any of the remaining fish as the timing and cause of their death has not been established.</p></div>",
+    "first_public_at": "2016-12-28T00:00:19.000+00:00",
+    "government": {
+      "current": true,
+      "slug": "2015-conservative-government",
+      "title": "2015 Conservative government"
+    },
+    "emphasised_organisations": [
+      "8d56bb52-2f79-4b6d-9fc6-6d7dcc4f7586"
+    ],
+    "political": false,
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

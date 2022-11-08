@@ -1,0 +1,139 @@
+{
+  "content_id": "e9e7fcff-bb0d-4723-af25-9f78d730f6f8",
+  "base_path": "/administrative-appeals-tribunal-decisions",
+  "title": "Administrative appeals tribunal decisions",
+  "description": "Find decisions on appeals to the Upper Tribunal (Administrative Appeals Chamber), including social security and child support appeals.",
+  "locale": "en",
+  "updated_at": "2016-04-06T11:04:06.312Z",
+  "public_updated_at": "2016-04-05T08:20:40.000+00:00",
+  "details": {
+    "document_noun": "decision",
+    "filter": {
+      "document_type": "utaac_decision"
+    },
+    "format_name": "Administrative appeals tribunal decision",
+    "show_summaries": true,
+    "summary": "<p>Find decisions on appeals to the Upper Tribunal (Administrative Appeals Chamber), including social security and child support appeals.</p><p>Includes decisions after January 2016. Find details of <a rel=\"external\" href=\"http://www.osscsc.gov.uk/Aspx/default.aspx\">older cases.</a></p>",
+    "facets": [
+      {
+        "key": "tribunal_decision_categories",
+        "name": "Categories",
+        "type": "text",
+        "preposition": "categorised as",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "allowed_values": [
+          {
+            "label": "Benefits for children",
+            "value": "benefits-for-children"
+          },
+          {
+            "label": "Bereavement and death benefits",
+            "value": "bereavement-and-death-benefits"
+          }
+        ]
+      },
+      {
+        "key": "tribunal_decision_categories_name",
+        "name": "Categories name",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": false
+      },
+      {
+        "key": "tribunal_decision_sub_categories",
+        "name": "Sub-categories",
+        "type": "text",
+        "preposition": "sub-categorised as",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "allowed_values": [
+          {
+            "label": "Benefits for children - benefit increases for children",
+            "value": "benefits-for-children-benefit-increases-for-children"
+          },
+          {
+            "label": "Bereavement and death benefits - bereaved parents allowance",
+            "value": "bereavement-and-death-benefits-bereaved-parents-allowance"
+          }
+        ]
+      },
+      {
+        "key": "tribunal_decision_sub_categories_name",
+        "name": "Sub-categories name",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": false
+      },
+      {
+        "key": "tribunal_decision_judges",
+        "name": "Judges",
+        "type": "text",
+        "preposition": "by judge",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "allowed_values": [
+          {
+            "label": "Angus, R",
+            "value": "angus-r"
+          },
+          {
+            "label": "Bano, A",
+            "value": "bano-a"
+          }
+        ]
+      },
+      {
+        "key": "tribunal_decision_judges_name",
+        "name": "Judges name",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": false
+      },
+      {
+        "key": "tribunal_decision_decision_date",
+        "name": "Decision date",
+        "short_name": "Decided",
+        "type": "date",
+        "display_as_result_metadata": true,
+        "filterable": true
+      }
+    ]
+  },
+  "phase": "beta",
+  "analytics_identifier": null,
+  "links": {
+    "organisations": [
+
+    ],
+    "related": [
+
+    ],
+    "email_alert_signup": [
+      {
+        "content_id": "13e59efa-6c0d-48e8-a0b9-092b62cdc912",
+        "title": "Administrative appeals tribunal decisions",
+        "api_path": "/api/content/administrative-appeals-tribunal-decisions/email-signup",
+        "base_path": "/administrative-appeals-tribunal-decisions/email-signup",
+        "description": "You'll get an email each time a decision is updated or a new decision is published.",
+        "api_url": "https://www.gov.uk/api/content/administrative-appeals-tribunal-decisions/email-signup",
+        "web_url": "https://www.gov.uk/administrative-appeals-tribunal-decisions/email-signup",
+        "locale": "en"
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "e9e7fcff-bb0d-4723-af25-9f78d730f6f8",
+        "title": "Administrative appeals tribunal decisions",
+        "api_path": "/api/content/administrative-appeals-tribunal-decisions",
+        "base_path": "/administrative-appeals-tribunal-decisions",
+        "description": "Find decisions on appeals to the Upper Tribunal (Administrative Appeals Chamber), including social security and child support appeals.",
+        "api_url": "https://www.gov.uk/api/content/administrative-appeals-tribunal-decisions",
+        "web_url": "https://www.gov.uk/administrative-appeals-tribunal-decisions",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "finder",
+  "document_type": "finder"
+}

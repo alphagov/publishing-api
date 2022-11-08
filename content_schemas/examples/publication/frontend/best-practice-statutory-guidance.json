@@ -1,0 +1,425 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/publications/schemes-for-financing-schools",
+  "content_id": "5f1843f8-7631-11e4-a3cb-005056011aef",
+  "document_type": "statutory_guidance",
+  "first_published_at": "2013-03-26T09:00:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-12-17T12:06:08.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Schemes for financing schools",
+  "updated_at": "2018-01-10T12:37:06.928Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "document_collections": [
+      {
+        "api_path": "/api/content/government/collections/statutory-guidance-schools",
+        "base_path": "/government/collections/statutory-guidance-schools",
+        "content_id": "5ef4d375-7631-11e4-a3cb-005056011aef",
+        "description": "The Department for Education’s statutory guidance publications for schools and local authorities.",
+        "document_type": "document_collection",
+        "locale": "en",
+        "public_updated_at": "2017-08-10T09:15:31Z",
+        "schema_name": "document_collection",
+        "title": "Schools: statutory guidance",
+        "withdrawn": false,
+        "links": {
+          "documents": [
+            {
+              "api_path": "/api/content/government/publications/schemes-for-financing-schools",
+              "base_path": "/government/publications/schemes-for-financing-schools",
+              "content_id": "5f1843f8-7631-11e4-a3cb-005056011aef",
+              "description": "Statutory guidance for local authorities on producing and amending school financing schemes.",
+              "document_type": "statutory_guidance",
+              "locale": "en",
+              "public_updated_at": "2015-12-17T12:06:08Z",
+              "schema_name": "publication",
+              "title": "Schemes for financing schools",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/publications/schemes-for-financing-schools",
+              "web_url": "https://www.gov.uk/government/publications/schemes-for-financing-schools"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/collections/statutory-guidance-schools",
+        "web_url": "https://www.gov.uk/government/collections/statutory-guidance-schools"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D6",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:01Z",
+        "schema_name": "placeholder",
+        "title": "Department for Education",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-education",
+          "logo": {
+            "formatted_title": "Department <br/>for Education",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-education",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-education"
+      },
+      {
+        "analytics_identifier": "EA242",
+        "api_path": "/api/content/government/organisations/education-funding-agency",
+        "base_path": "/government/organisations/education-funding-agency",
+        "content_id": "b9fc8528-81d1-419b-8748-6c00be71044b",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2017-03-31T23:54:26Z",
+        "schema_name": "placeholder",
+        "title": "Education Funding Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-education",
+          "logo": {
+            "formatted_title": "Education<br/>Funding<br/>Agency",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/education-funding-agency",
+        "web_url": "https://www.gov.uk/government/organisations/education-funding-agency"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/schools",
+        "base_path": "/government/topics/schools",
+        "content_id": "88d627cb-0ae5-4fc9-b5ac-bb7eb6fddf72",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:08Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Schools",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/schools",
+        "web_url": "https://www.gov.uk/government/topics/schools"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D6",
+        "api_path": "/api/content/government/organisations/department-for-education",
+        "base_path": "/government/organisations/department-for-education",
+        "content_id": "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:01Z",
+        "schema_name": "placeholder",
+        "title": "Department for Education",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-education",
+          "logo": {
+            "formatted_title": "Department <br/>for Education",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-education",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-education"
+      }
+    ],
+    "taxons": [
+      {
+        "api_path": "/api/content/education/local-authority-schools-financial-reporting-and-assurance",
+        "base_path": "/education/local-authority-schools-financial-reporting-and-assurance",
+        "content_id": "bcb4bdf3-5807-4421-a427-7dfe78d5f6d5",
+        "description": "Financial management and efficiency, reporting frameworks, identify potential fraud, assurance guidance.",
+        "document_type": "taxon",
+        "locale": "en",
+        "public_updated_at": "2017-02-27T11:26:58Z",
+        "schema_name": "taxon",
+        "title": "Local authority schools financial reporting and assurance",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Local authority schools financial reporting and assurance",
+          "notes_for_editors": ""
+        },
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/education/school-and-academy-financial-management-and-assurance",
+              "base_path": "/education/school-and-academy-financial-management-and-assurance",
+              "content_id": "1a26ae19-00f2-4be1-b9b6-aa72876a0278",
+              "description": "Reporting for academies and local authorities, school procurement, risk protection arrangement (RPA), payments and compliance",
+              "document_type": "taxon",
+              "locale": "en",
+              "public_updated_at": "2017-06-29T12:55:30Z",
+              "schema_name": "taxon",
+              "title": "School and academy financial management and assurance",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "School and academy financial management and assurance",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": false
+              },
+              "links": {
+                "parent_taxons": [
+                  {
+                    "api_path": "/api/content/education",
+                    "base_path": "/education",
+                    "content_id": "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
+                    "description": "Schools and academies, further and higher education, apprenticeships and other skills training, student funding, early years.",
+                    "document_type": "taxon",
+                    "locale": "en",
+                    "public_updated_at": "2017-06-29T13:05:25Z",
+                    "schema_name": "taxon",
+                    "title": "Education, training and skills",
+                    "withdrawn": false,
+                    "details": {
+                      "internal_name": "education, training and skills",
+                      "notes_for_editors": "",
+                      "visible_to_departmental_editors": false
+                    },
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/education",
+                    "web_url": "https://www.gov.uk/education"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/education/school-and-academy-financial-management-and-assurance",
+              "web_url": "https://www.gov.uk/education/school-and-academy-financial-management-and-assurance"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/education/local-authority-schools-financial-reporting-and-assurance",
+        "web_url": "https://www.gov.uk/education/local-authority-schools-financial-reporting-and-assurance"
+      },
+      {
+        "api_path": "/api/content/education/local-authority-schools-funding",
+        "base_path": "/education/local-authority-schools-funding",
+        "content_id": "738e53f4-97df-4d9e-a2f1-8f733d526d84",
+        "description": "Schools block funding, dedicated schools grant, education services grant, authority proforma tool, fund allocation and spending.",
+        "document_type": "taxon",
+        "locale": "en",
+        "public_updated_at": "2017-02-27T09:47:34Z",
+        "schema_name": "taxon",
+        "title": "Local authority schools funding",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Local authority schools funding",
+          "notes_for_editors": ""
+        },
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/education/funding-for-different-types-of-schools-and-settings",
+              "base_path": "/education/funding-for-different-types-of-schools-and-settings",
+              "content_id": "c657bea7-3b82-4103-9d7c-8d9725f87ede",
+              "description": "Funding for early years, academies, alternative provision, local authority schools, special schools, 16 to 19 year olds.",
+              "document_type": "taxon",
+              "locale": "en",
+              "public_updated_at": "2017-06-29T13:01:34Z",
+              "schema_name": "taxon",
+              "title": "Funding for different types of schools and settings",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "Funding for different types of schools and settings",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": false
+              },
+              "links": {
+                "parent_taxons": [
+                  {
+                    "api_path": "/api/content/education/school-and-academy-funding",
+                    "base_path": "/education/school-and-academy-funding",
+                    "content_id": "90e8a226-8d40-4c1f-91e4-36a712b34e57",
+                    "description": "Free school meals, pupil premium and other school premiums, teacher training funding, school places.",
+                    "document_type": "taxon",
+                    "locale": "en",
+                    "public_updated_at": "2017-04-26T14:10:32Z",
+                    "schema_name": "taxon",
+                    "title": "School and academy funding",
+                    "withdrawn": false,
+                    "details": {
+                      "internal_name": "School and academy funding",
+                      "notes_for_editors": ""
+                    },
+                    "links": {
+                      "parent_taxons": [
+                        {
+                          "api_path": "/api/content/education",
+                          "base_path": "/education",
+                          "content_id": "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
+                          "description": "Schools and academies, further and higher education, apprenticeships and other skills training, student funding, early years.",
+                          "document_type": "taxon",
+                          "locale": "en",
+                          "public_updated_at": "2017-06-29T13:05:25Z",
+                          "schema_name": "taxon",
+                          "title": "Education, training and skills",
+                          "withdrawn": false,
+                          "details": {
+                            "internal_name": "education, training and skills",
+                            "notes_for_editors": "",
+                            "visible_to_departmental_editors": false
+                          },
+                          "links": {
+                          },
+                          "api_url": "https://www.gov.uk/api/content/education",
+                          "web_url": "https://www.gov.uk/education"
+                        }
+                      ]
+                    },
+                    "api_url": "https://www.gov.uk/api/content/education/school-and-academy-funding",
+                    "web_url": "https://www.gov.uk/education/school-and-academy-funding"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/education/funding-for-different-types-of-schools-and-settings",
+              "web_url": "https://www.gov.uk/education/funding-for-different-types-of-schools-and-settings"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/education/local-authority-schools-funding",
+        "web_url": "https://www.gov.uk/education/local-authority-schools-funding"
+      }
+    ],
+    "topics": [
+      {
+        "api_path": "/api/content/topic/schools-colleges-childrens-services/school-college-funding-finance",
+        "base_path": "/topic/schools-colleges-childrens-services/school-college-funding-finance",
+        "content_id": "91a00dfb-bef5-4c90-ae08-5feeb4f8ba40",
+        "description": "List of information about School and college funding and finance.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2016-12-15T16:11:15Z",
+        "schema_name": "topic",
+        "title": "School and college funding and finance",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/topic/schools-colleges-childrens-services/school-college-funding-finance",
+        "web_url": "https://www.gov.uk/topic/schools-colleges-childrens-services/school-college-funding-finance"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Schemes for financing schools",
+        "public_updated_at": "2015-12-17T12:06:08Z",
+        "document_type": "statutory_guidance",
+        "schema_name": "publication",
+        "base_path": "/government/publications/schemes-for-financing-schools",
+        "description": "Statutory guidance for local authorities on producing and amending school financing schemes.",
+        "api_path": "/api/content/government/publications/schemes-for-financing-schools",
+        "withdrawn": false,
+        "content_id": "5f1843f8-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/publications/schemes-for-financing-schools",
+        "web_url": "https://www.gov.uk/government/publications/schemes-for-financing-schools",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Statutory guidance for local authorities on producing and amending school financing schemes.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>This statutory guidance is for local authorities.</p>\n\n<p>Local authorities are required to publish schemes for financing schools, setting out the financial relationship between them and the schools they maintain.</p>\n\n<p>This guidance explains the provisions a scheme must include.</p>\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2015-12-17T12:06:08.000+00:00",
+        "note": "Updated to include admissions appeals in the list of services local authorities can charge maintained schools for."
+      },
+      {
+        "public_timestamp": "2015-08-19T09:30:03.000+01:00",
+        "note": "Updated document to directed revisions concerning the publication of a register of governors’ business interests and the categorisation of finance leases."
+      },
+      {
+        "public_timestamp": "2014-02-26T10:48:40.000+00:00",
+        "note": "Updated guidance document."
+      },
+      {
+        "public_timestamp": "2013-03-26T09:00:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1331256\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/486440/Scheme_for_Financing_Schools_Dec_2015.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/486440/thumbnail_Scheme_for_Financing_Schools_Dec_2015.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/486440/Scheme_for_Financing_Schools_Dec_2015.pdf\">Schemes for financing schools</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">353KB</span>, <span class=\"page-length\">53 pages</span>\n    </p>\n\n\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "ebd15ade-73b2-4eaf-b1c3-43034a42eb37",
+      "b9fc8528-81d1-419b-8748-6c00be71044b"
+    ],
+    "national_applicability": {
+      "england": {
+        "label": "England",
+        "applicable": true
+      },
+      "northern_ireland": {
+        "label": "Northern Ireland",
+        "applicable": false,
+        "alternative_url": ""
+      },
+      "scotland": {
+        "label": "Scotland",
+        "applicable": false,
+        "alternative_url": ""
+      },
+      "wales": {
+        "label": "Wales",
+        "applicable": false,
+        "alternative_url": ""
+      }
+    },
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+        "91a00dfb-bef5-4c90-ae08-5feeb4f8ba40"
+      ]
+    },
+    "first_public_at": "2013-03-26T09:00:00.000+00:00"
+  }
+}

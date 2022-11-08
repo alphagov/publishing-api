@@ -1,0 +1,73 @@
+{
+  "title": "The national curriculum ",
+  "base_path": "/national-curriculum",
+  "description": "The national curriculum means primary and secondary school children study the same subjects to similar standards. It's split into key stages with tests.",
+  "schema_name": "guide",
+  "document_type": "guide",
+  "public_updated_at": "2014-12-02T10:28:58.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "routes": [
+    {
+      "path": "/national-curriculum",
+      "type": "prefix"
+    },
+    {
+      "path": "/national-curriculum.json",
+      "type": "exact"
+    }
+  ],
+  "redirects": [
+
+  ],
+  "update_type": "major",
+  "change_note": null,
+  "details": {
+    "parts": [
+      {
+        "title": "Overview",
+        "slug": "overview",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "The national curriculum is a set of subjects and standards used by [primary and secondary schools](/types-of-school \"Types of school\") so children learn the same things. It covers what subjects are taught and the standards children should reach in each subject.\r\n\r\nOther [types of school](/types-of-school \"Types of school\") like [academies](/types-of-school/academies \"Academies\") and [private schools](/types-of-school/private-schools \"Private schools\") don't have to follow the national curriculum. Academies must teach a broad and balanced curriculum including English, maths and science. They must also teach religious education.\r\n\r\n##Key stages\r\n\r\nThe national curriculum is organised into blocks of years called 'key stages' (KS). At the end of each key stage, your child’s teacher will formally assess their performance to measure your child’s progress.\r\n\r\n|Age    |Year |Key stage|Assessment|Average level of attainment\r\n|--|--|--|--|--|\r\n3-4| |Early years|||\r\n4-5|Reception|Early years||\r\n5-6|Year 1|KS1|\r\n6-7|Year 2|KS1|Teacher assessments in English, maths and science|2\r\n7-8|Year 3|KS2|\r\n8-9|Year 4|KS2||\r\n9-10|Year 5|KS2||\r\n10-11  |Year 6|KS2|National tests and teacher assessments in English, maths and science|4\r\n11-12 |Year 7|KS3|Teacher assessments\r\n12-13 |Year 8|KS3|Teacher assessments\r\n13-14 |Year 9|KS3|Teacher assessments|5/6\r\n14-15| Year 10|KS4|Some children take GCSEs\r\n15-16|Year 11|KS4|Most children take GCSEs or other national qualifications\r\n\r\n###Levels of attainment\r\n\r\nFor each subject there's a 'programme of study'. It describes what children should learn. There are also 'attainment targets' - usually split into 8 levels for each subject. You'll get a school report at the end of the year telling you what level your child is at. [Read more about what children will learn.](http://curriculum.qcda.gov.uk/index.aspx \"National Curriculum online\"){:rel=\"external\"}\r\n\r\n###Early years\r\n\r\nThe [Early Years Foundation Scheme](https://www.education.gov.uk/publications/standard/publicationDetail/Page1/DCSF-00261-2008 \"Early Years Foundation Scheme\"){:rel=\"external\"} sets standards for the learning, development and care of children from birth to 5. It must be followed by all childminders, preschools and nurseries. It has levels of development most children can be expected to reach by age 5."
+          }
+        ]
+      },
+      {
+        "title": "Other compulsory subjects",
+        "slug": "other-compulsory-subjects",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "There are other subjects children must study - these may not lead to exams:\r\n\r\n- careers education (year 9 onwards)\r\n- citizenship\r\n- information and communication technology (ICT)\r\n- physical education\r\n- sex and relationships education (year 7 onwards)\r\n- religious education\r\n\r\n##Sex and relationship education\r\n\r\nCompulsory from age 11 onwards, sex and relationship education (SRE) involves teaching children about reproduction, sexuality and sexual health. The importance of stable relationships (eg marriage) and family life are emphasised. SRE doesn't promote early sexual activity and it doesn't promote any particular sexual orientation.\r\n\r\nSome elements of sex and relationship education are mandatory - these are part of the national curriculum for science. Parents can withdraw their children from all other parts of sex and relationship education if they want.\r\n\r\n##Religious education\r\n\r\nSchools also have to teach religious education but parents can withdraw their children for all or part of the lessons. Local councils are responsible for deciding on a syllabus.\r\n\r\n*[SRE]: Sex and relationship education"
+          }
+        ]
+      },
+      {
+        "title": "Key Stage 1 & 2",
+        "slug": "key-stage-1-2",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "Compulsory subjects:\r\n\r\n- English\r\n- Maths\r\n- Science\r\n- Design and technology\r\n- Information and Communication Technology (ICT)\r\n- History\r\n- Geography\r\n- Art and design\r\n- Music\r\n- Physical education (PE)\r\n\r\nSchools often also teach:\r\n\r\n- personal, social and health education (PSHE)\r\n- citizenship\r\n- modern foreign languages\r\n\r\n[Read about what children will learn at Key Stage 1 and 2.](http://curriculum.qcda.gov.uk/key-stages-1-and-2/subjects/index.aspx \"National curriculum online subjects\"){:rel=\"external\"}\r\n\r\n##Tests\r\n\r\n###Key Stage 1\r\n\r\nKey Stage 1 tests cover:\r\n\r\n- reading\r\n- writing\r\n- maths\r\n- science\r\n\r\nThe tests are taken when the school chooses. You'll get the results but they're only used to help the teacher assess your child's work.\r\n\r\n###Key Stage 2\r\n\r\nKey Stage 2 tests cover:\r\n\r\n- English: reading, writing (including handwriting) and spelling\r\n- maths (including mental arithmetic)\r\n- science (only schools selected to participate in a national sample)\r\n\r\nThe tests are taken on set days in mid-May and last under 5.5 hours. You will get the results of these tests."
+          }
+        ]
+      },
+      {
+        "title": "Key Stage 3 & 4",
+        "slug": "key-stage-3-4",
+        "body": [
+          {
+            "content_type": "text/govspeak",
+            "content": "##Tests\r\n\r\n###Key Stage 3\r\n\r\nCompulsory subjects:\r\n\r\n- English \r\n- maths \r\n- science \r\n- history \r\n- geography \r\n- modern foreign languages\r\n- design and technology \r\n- Information and Communication Technology (ICT)\r\n- art and design\r\n- music \r\n- physical education \r\n- citizenship\r\n- religious education\r\n\r\n###Key Stage 4\r\n\r\nDuring Key Stage 4 most pupils work towards national qualifications - usually GCSEs.\r\n\r\nSubjects children have to study:\r\n\r\n- English\r\n- maths\r\n- science\r\n- Information and Communication Technology (ICT)\r\n- physical education\r\n- citizenship\r\n\r\nSchools must also offer at least 1 subject from each of these areas:\r\n\r\n- arts\r\n- design and technology\r\n- humanities\r\n- modern foreign languages"
+          }
+        ]
+      }
+    ],
+    "external_related_links": [
+
+    ]
+  },
+  "locale": "en"
+}

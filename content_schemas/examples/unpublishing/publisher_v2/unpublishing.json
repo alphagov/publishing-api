@@ -1,0 +1,22 @@
+{
+  "base_path": "/government/case-studies/bubble-trouble",
+  "title": "Bubble and trouble",
+  "description": "A case study about bubble and trouble.",
+  "locale": "en",
+  "public_updated_at": "2014-04-30T23:01:51.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "details": {
+    "explanation": "This is now redundant",
+    "unpublished_at": "2014-05-01T14:59:17+01:00",
+    "alternative_url": null
+  },
+  "routes": [
+    {
+      "path": "/government/case-studies/bubble-trouble",
+      "type": "exact"
+    }
+  ],
+  "document_type": "unpublishing",
+  "schema_name": "unpublishing"
+}

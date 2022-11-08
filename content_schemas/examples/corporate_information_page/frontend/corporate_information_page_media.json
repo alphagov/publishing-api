@@ -1,0 +1,79 @@
+{
+  "base_path": "/government/organisations/department-of-health/about/media-enquiries",
+  "content_id": "5f54ec49-7631-11e4-a3cb-005056011aef",
+  "title": "Media enquiries",
+  "description": "Contact our Media Centre if you are a journalist with a media enquiry or interview request.",
+  "locale": "en",
+  "updated_at": "2016-05-03T14:11:53.023Z",
+  "public_updated_at": "2016-05-03T14:11:50.000+00:00",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The Department of Health Media Centre is open Monday to Friday, 8am to 7pm. Outside these hours, call the duty press officer on 07050 073 581.</p><p><a rel=\"external\" href=\"https://healthmedia.blog.gov.uk/contact/\">See full contact details and resources for health journalists on the DH Media Centre blog</a>.</p></div>",
+    "organisation": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  },
+  "links": {
+    "organisations": [
+      {
+        "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+        "title": "Department of Health",
+        "api_path": "/api/content/government/organisations/department-of-health",
+        "base_path": "/government/organisations/department-of-health",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health",
+        "locale": "en",
+        "analytics_identifier": "D12",
+        "details": {
+          "brand": "department-of-health",
+          "logo": {
+            "formatted_title": "Department<br/>of Health",
+            "crest": "single-identity"
+          }
+        }
+      }
+    ],
+    "parent": [
+      {
+        "content_id": "223d5519-da25-4210-8fec-52d77a7d2af6",
+        "title": "About us",
+        "api_path": "/api/content/government/organisations/department-of-health/about",
+        "base_path": "/government/organisations/department-of-health/about",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health/about",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health/about",
+        "locale": "en",
+        "links": {
+          "parent": [
+            {
+              "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+              "title": "Department of Health",
+              "api_path": "/api/content/government/organisations/department-of-health",
+              "base_path": "/government/organisations/department-of-health",
+              "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health",
+              "web_url": "https://www.gov.uk/government/organisations/department-of-health",
+              "locale": "en",
+              "analytics_identifier": "D12",
+              "details": {
+                "brand": "department-of-health",
+                "logo": {
+                  "formatted_title": "Department<br/>of Health",
+                  "crest": "single-identity"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "schema_name": "corporate_information_page",
+  "document_type": "media_enquiries"
+}

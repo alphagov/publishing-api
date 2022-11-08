@@ -1,0 +1,43 @@
+{
+  "content_id": "e1553ea5-69e7-443e-a9b5-e5e8210097f5",
+  "base_path": "/government/statistics/announcements/diagnostic-imaging-dataset-for-september-2015--1",
+  "description": "The Diagnostic Imaging Dataset (DID) is a new central collection of detailed information about diagnostic imaging tests carried out on NHS patients, extracted from local Radiology Information Systems (RISs) and submitted monthly. The DID captures information about referral source and patient type, details of the test (type of test and body site), demographic information such as GP registered practice, patient postcode, ethnicity, gender and date of birth, plus items about waiting times for each diagnostic imaging event, from time of test request through to time of reporting. The Health and Social Care Information Centre collect the dataset at patient level. It is reported here in summary form.",
+  "details": {
+    "display_date": "20 January 2016 9:30am",
+    "state": "confirmed",
+    "format_sub_type": "official",
+    "previous_display_date": "19 January 2016 9:30am",
+    "latest_change_note": "Amended after inputting an error."
+  },
+  "links": {
+    "organisations": [
+      {
+        "content_id": "8b19c238-54e3-4e27-b0d7-60f8e2a677c9",
+        "title": "NHS England",
+        "api_path": "/api/content/government/organisations/nhs-commissioning-board",
+        "base_path": "/government/organisations/nhs-commissioning-board",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/nhs-commissioning-board",
+        "web_url": "https://www.gov.uk/government/organisations/nhs-commissioning-board",
+        "locale": "en",
+        "analytics_identifier": "L2"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "848b8564-328c-4787-bebb-9e1b60ccf0d7",
+        "title": "National Health Service",
+        "api_path": "/api/content/government/topics/national-health-service",
+        "base_path": "/government/topics/national-health-service",
+        "api_url": "https://www.gov.uk/api/content/government/topics/national-health-service",
+        "web_url": "https://www.gov.uk/government/topics/national-health-service",
+        "locale": "en"
+      }
+    ]
+  },
+  "locale": "en",
+  "public_updated_at": "2016-01-17T14:19:42.460Z",
+  "title": "Diagnostic imaging dataset for September 2015",
+  "updated_at": "2016-01-17T14:19:42.460Z",
+  "schema_name": "statistics_announcement",
+  "document_type": "official_statistics_announcement"
+}

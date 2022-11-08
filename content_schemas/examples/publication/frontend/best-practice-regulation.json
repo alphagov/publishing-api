@@ -1,0 +1,599 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/publications/regulatory-article-ra-2135-medical-requirements",
+  "content_id": "5fecc60b-7631-11e4-a3cb-005056011aef",
+  "document_type": "regulation",
+  "first_published_at": "2014-11-14T11:37:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-05-25T14:23:23.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Regulatory Article (RA) 2135: aircrew medical requirements",
+  "updated_at": "2018-01-10T12:28:56.944Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "document_collections": [
+      {
+        "api_path": "/api/content/government/collections/2000-series-flying-regulations-fly",
+        "base_path": "/government/collections/2000-series-flying-regulations-fly",
+        "content_id": "5fa831a5-7631-11e4-a3cb-005056011aef",
+        "description": "Individual Regulatory Articles (RA) relating to the 2000 series. ",
+        "document_type": "document_collection",
+        "locale": "en",
+        "public_updated_at": "2016-04-12T14:24:20Z",
+        "schema_name": "document_collection",
+        "title": "2000 series: flying regulations (FLY)",
+        "withdrawn": false,
+        "links": {
+          "documents": [
+            {
+              "api_path": "/api/content/government/publications/regulatory-article-ra-2135-medical-requirements",
+              "base_path": "/government/publications/regulatory-article-ra-2135-medical-requirements",
+              "content_id": "5fecc60b-7631-11e4-a3cb-005056011aef",
+              "description": "RA covering aircrew medical requirements required by the MAA regulatory publications in order to carry out duties as authorised.",
+              "document_type": "regulation",
+              "locale": "en",
+              "public_updated_at": "2016-05-25T14:23:23Z",
+              "schema_name": "publication",
+              "title": "Regulatory Article (RA) 2135: aircrew medical requirements",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/publications/regulatory-article-ra-2135-medical-requirements",
+              "web_url": "https://www.gov.uk/government/publications/regulatory-article-ra-2135-medical-requirements"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/collections/2000-series-flying-regulations-fly",
+        "web_url": "https://www.gov.uk/government/collections/2000-series-flying-regulations-fly"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D17",
+        "api_path": "/api/content/government/organisations/ministry-of-defence",
+        "base_path": "/government/organisations/ministry-of-defence",
+        "content_id": "d994e55c-48c9-4795-b872-58d8ec98af12",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:59Z",
+        "schema_name": "placeholder",
+        "title": "Ministry of Defence",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-defence",
+          "logo": {
+            "formatted_title": "Ministry<br/>of Defence",
+            "crest": "mod"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-defence",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence"
+      },
+      {
+        "analytics_identifier": "OT1071",
+        "api_path": "/api/content/government/organisations/military-aviation-authority",
+        "base_path": "/government/organisations/military-aviation-authority",
+        "content_id": "b9f31e72-291a-4cfd-927e-667a46279465",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-03-18T16:01:40Z",
+        "schema_name": "placeholder",
+        "title": "Military Aviation Authority",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-defence",
+          "logo": {
+            "formatted_title": "Military<br/>Aviation<br/>Authority",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/1071/unnamed.jpg",
+              "alt_text": "Military Aviation Authority"
+            }
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/military-aviation-authority",
+        "web_url": "https://www.gov.uk/government/organisations/military-aviation-authority"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/defence-and-armed-forces",
+        "base_path": "/government/topics/defence-and-armed-forces",
+        "content_id": "b360d7b0-664d-4030-93f9-ee8bff36ab53",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:07Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Defence and armed forces",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/defence-and-armed-forces",
+        "web_url": "https://www.gov.uk/government/topics/defence-and-armed-forces"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D17",
+        "api_path": "/api/content/government/organisations/ministry-of-defence",
+        "base_path": "/government/organisations/ministry-of-defence",
+        "content_id": "d994e55c-48c9-4795-b872-58d8ec98af12",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:59Z",
+        "schema_name": "placeholder",
+        "title": "Ministry of Defence",
+        "withdrawn": false,
+        "details": {
+          "brand": "ministry-of-defence",
+          "logo": {
+            "formatted_title": "Ministry<br/>of Defence",
+            "crest": "mod"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/ministry-of-defence",
+        "web_url": "https://www.gov.uk/government/organisations/ministry-of-defence"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Regulatory Article (RA) 2135: aircrew medical requirements",
+        "public_updated_at": "2016-05-25T14:23:23Z",
+        "document_type": "regulation",
+        "schema_name": "publication",
+        "base_path": "/government/publications/regulatory-article-ra-2135-medical-requirements",
+        "description": "RA covering aircrew medical requirements required by the MAA regulatory publications in order to carry out duties as authorised.",
+        "api_path": "/api/content/government/publications/regulatory-article-ra-2135-medical-requirements",
+        "withdrawn": false,
+        "content_id": "5fecc60b-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/publications/regulatory-article-ra-2135-medical-requirements",
+        "web_url": "https://www.gov.uk/government/publications/regulatory-article-ra-2135-medical-requirements",
+        "links": {
+        }
+      }
+    ],
+    "secondary_to_step_navs": [
+      {
+        "title": "Learn to drive a car: step by step",
+        "content_id": "e01e924b-9c7c-4c71-8241-66a575c2f61f",
+        "publishing_app": "collections-publisher",
+        "rendering_app": "collections",
+        "locale": "en",
+        "updated_at": "2018-01-18T15:46:10.000+00:00",
+        "public_updated_at": "2018-01-18T15:46:10.000+00:00",
+        "document_type": "step_by_step_nav",
+        "schema_name": "step_by_step_nav",
+        "base_path": "/learn-to-drive-a-car",
+        "description": "Learn to drive a car in the UK - get a provisional licence, take driving lessons, prepare for your theory test, book your practical test.",
+        "links": {
+          "pages_secondary_to_step_nav": [
+            {
+              "api_path": "/api/content/government/publications/car-and-small-van-driving-syllabus",
+              "base_path": "/government/publications/car-and-small-van-driving-syllabus",
+              "content_id": "5e5dc201-7631-11e4-a3cb-005056011aef",
+              "document_type": "guidance",
+              "locale": "en",
+              "public_updated_at": "2014-11-24T15:00:02.000+00:00",
+              "schema_name": "publication",
+              "title": "Learning to drive a car syllabus",
+              "withdrawn": false
+            }
+          ]
+        },
+        "details": {
+          "step_by_step_nav": {
+            "title": "Learn to drive a car: step by step",
+            "introduction": "<p>Check what you need to do to learn to drive.</p>",
+            "steps": [
+              {
+                "title": "Check you're allowed to drive",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "Most people can start learning to drive when they’re 17."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/vehicles-can-drive",
+                        "text": "Check what age you can drive"
+                      },
+                      {
+                        "href": "/legal-obligations-drivers-riders",
+                        "text": "Requirements for driving legally"
+                      },
+                      {
+                        "href": "/driving-eyesight-rules",
+                        "text": "Driving eyesight rules"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Get a provisional driving licence",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/apply-first-provisional-driving-licence",
+                        "text": "Apply for your first provisional driving licence",
+                        "context": "£34"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Driving lessons and practice",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to take lessons or practice."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/guidance/the-highway-code",
+                        "text": "The Highway Code"
+                      },
+                      {
+                        "href": "/driving-lessons-learning-to-drive",
+                        "text": "Taking driving lessons"
+                      },
+                      {
+                        "href": "/find-driving-schools-and-lessons",
+                        "text": "Find driving schools, lessons and instructors"
+                      },
+                      {
+                        "href": "/government/publications/car-show-me-tell-me-vehicle-safety-questions",
+                        "text": "Practise vehicle safety questions"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Prepare for your theory test",
+                "logic": "and",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/theory-test/revision-and-practice",
+                        "text": "Theory test revision and practice"
+                      },
+                      {
+                        "href": "/take-practice-theory-test",
+                        "text": "Take a practice theory test"
+                      },
+                      {
+                        "href": "https://www.safedrivingforlife.info/shop/product/official-dvsa-theory-test-kit-app-app",
+                        "text": "Theory and hazard perception test app"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your theory test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to book your theory test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-theory-test",
+                        "text": "Book your theory test",
+                        "context": "£23"
+                      },
+                      {
+                        "href": "/theory-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-theory-test",
+                        "text": "Change your theory test appointment"
+                      },
+                      {
+                        "href": "/check-theory-test",
+                        "text": "Check your theory test appointment details"
+                      },
+                      {
+                        "href": "/cancel-theory-test",
+                        "text": "Cancel your theory test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your driving test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You must pass your theory test before you can book your driving test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-driving-test",
+                        "text": "Book your driving test",
+                        "context": "£62"
+                      },
+                      {
+                        "href": "/driving-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "text": "Change your driving test appointment"
+                      },
+                      {
+                        "href": "/check-driving-test",
+                        "text": "Check your driving test appointment details"
+                      },
+                      {
+                        "href": "/cancel-driving-test",
+                        "text": "Cancel your driving test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "When you pass",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You can start driving as soon as you pass your driving test."
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "You must have an insurance policy that allows you to drive without supervision."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/pass-plus",
+                        "text": "Find out about Pass Plus training courses"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "title": "Get a divorce: step by step",
+        "content_id": "8ad782bd-8603-40eb-97c0-434cb22047cd",
+        "publishing_app": "collections-publisher",
+        "rendering_app": "collections",
+        "locale": "en",
+        "updated_at": "2018-01-18T15:46:10.000+00:00",
+        "public_updated_at": "2018-01-18T15:46:10.000+00:00",
+        "document_type": "step_by_step_nav",
+        "schema_name": "step_by_step_nav",
+        "base_path": "/get-a-divorce",
+        "description": "<p>How to file for divorce if you’re in England or Wales.</p><p>There is a different process if you’re <a href=\"/divorce/respond-to-a-divorce-petition\">responding to a divorce petition</a>, or if you’re in <a href=\"https://www.scotcourts.gov.uk/taking-action/divorce-and-dissolution-of-civil-partnership\">Scotland</a> or <a href=\"https://www.nidirect.gov.uk/articles/getting-divorcedissolution-civil-partnership\">Northern Ireland</a>.</p>",
+        "links": {
+          "pages_secondary_to_step_nav": [
+            {
+              "api_path": "/api/content/government/publications/regulatory-article-ra-2135-medical-requirements",
+              "base_path": "/government/publications/regulatory-article-ra-2135-medical-requirements",
+              "content_id": "624666b3-cbdc-4622-8820-5dde7e0059e5",
+              "document_type": "regulation",
+              "locale": "en",
+              "public_updated_at": "2016-05-25T14:23:23.000+00:00",
+              "schema_name": "publication",
+              "title": "Regulatory Article (RA) 2135: aircrew medical requirements",
+              "withdrawn": false
+            }
+          ]
+        },
+        "details": {
+          "step_by_step_nav": {
+            "title": "Get a divorce: step by step",
+            "introduction": "<p>Check what you need to do to get a divorce.</p>",
+            "steps": [
+              {
+                "title": "Get support and advice",
+                "optional": true,
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You can get support and advice to help you deal with disputes and emotional stress."
+                  },
+                  {
+                    "type": "list",
+                    "contents": [
+                      {
+                        "href": "https://www.relate.org.uk/relationship-help/help-separation-and-divorce",
+                        "text": "Get advice from Relate"
+                      },
+                      {
+                        "href": "http://www.counselling-directory.org.uk/adv-search.html",
+                        "text": "Find a counsellor",
+                        "context": "£35 to £60 per session"
+                      },
+                      {
+                        "href": "https://www.samaritans.org/how-we-can-help-you/contact-us",
+                        "text": "Contact the Samaritans if you need to speak to someone urgently"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Check if you can get divorced",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "Your marriage must meet certain legal requirements for you to be able to get a divorce."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/divorce",
+                        "text": "Check you can get a divorce"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Make arrangements for your children, money and property",
+                "optional": true,
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You should try to agree the arrangements for looking after your children and work out any money or property issues before you start your divorce."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/looking-after-children-divorce",
+                        "text": "Make arrangements for your children"
+                      },
+                      {
+                        "href": "/money-property-when-relationship-ends",
+                        "text": "Divide your money and property"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "You should also check if your divorce will affect:"
+                  },
+                  {
+                    "type": "list",
+                    "style": "choice",
+                    "contents": [
+                      {
+                        "href": "/benefits-calculators",
+                        "text": "benefits you're eligible for"
+                      },
+                      {
+                        "href": "/report-benefits-change-circumstances",
+                        "text": "benefits you already receive"
+                      },
+                      {
+                        "href": "/contact-pension-service",
+                        "text": "your State Pension"
+                      },
+                      {
+                        "href": "/visas-when-you-separate-or-divorce",
+                        "text": "your UK visa status"
+                      },
+                      {
+                        "href": "/stay-in-home-during-separation-or-divorce",
+                        "text": "whether you can live in your current home"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "description": "RA covering aircrew medical requirements required by the MAA regulatory publications in order to carry out duties as authorised.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The purpose of Regulatory Articles (<abbr title=\"Regulatory Articles\">RA</abbr>) is to provide the framework of policy, rules, directives, standards, processes and the associated direction, advice and guidance, which governs military aviation activity and against which air safety is assessed. The regulator develops regulations in response to applicable UK law, <abbr title=\"Ministry of Defence\">MOD</abbr> needs, legal changes and recommendations resulting from both assurance or investigation functions.</p>\n\n<h3 id=\"related-information\">Related information:</h3>\n\n<ul>\n  <li><a href=\"https://www.gov.uk/government/collections/maa-regulatory-publications\"><abbr title=\"Military Aviation Authority\">MAA</abbr> regulatory publications</a></li>\n  <li><a href=\"https://www.gov.uk/government/collections/maa-regulatory-publications-overarching-documents\">Overarching documents</a></li>\n  <li>Regulatory Articles (<abbr title=\"Regulatory Articles\">RA</abbr>)\n    <ul>\n      <li><a href=\"https://www.gov.uk/government/collections/1000-series-general-regulations-gen\">1000 series (<abbr title=\"General Regulations\">GEN</abbr>)</a></li>\n      <li><a href=\"https://www.gov.uk/government/collections/2000-series-flying-regulations-fly\">2000 series (<abbr title=\"Flying Regulations\">FLY</abbr>)</a></li>\n      <li><a href=\"https://www.gov.uk/government/collections/3000-series-air-traffic-management-regulations-atm\">3000 series (<abbr title=\"Air Traffic Management Regulations\">ATM</abbr>)</a></li>\n      <li><a href=\"https://www.gov.uk/government/collections/4000-series-continuing-airworthiness-engineering-regulations-cae\">4000 series (<abbr title=\"Continuing Airworthiness Engineering Regulations\">CAE</abbr>)</a></li>\n      <li><a href=\"https://www.gov.uk/government/collections/5000-series-design-and-modification-engineering-regulations-dme\">5000 series (<abbr title=\"Type Airworthiness Engineering Regulations\">TAE</abbr>)</a></li>\n    </ul>\n  </li>\n  <li><a href=\"https://www.gov.uk/government/collections/maa-manuals\"><abbr title=\"Military Aviation Authority\">MAA</abbr> Manuals</a></li>\n</ul>\n\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2016-05-25T15:23:23.000+01:00",
+        "note": "Issue 6 has been published under NAA 16/12."
+      },
+      {
+        "public_timestamp": "2015-06-30T11:00:09.000+01:00",
+        "note": "Issue 5 has been published under NAA 15/28. Title has also changed to aircrew medical requirements"
+      },
+      {
+        "public_timestamp": "2015-01-06T10:17:43.000+00:00",
+        "note": "Issue 4 has been published under NAA 15/01"
+      },
+      {
+        "public_timestamp": "2014-11-14T11:37:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1938898\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/525799/RA2135_Issue_6.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/525799/thumbnail_RA2135_Issue_6.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/525799/RA2135_Issue_6.pdf\">RA 2135: aircrew medical requirements</a></h2>\n    <p class=\"metadata\">\n        <span class=\"references\">\n          Ref: <span class=\"unique_reference\">Issue 6</span>\n        </span>\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">131KB</span>, <span class=\"page-length\">8 pages</span>\n    </p>\n\n\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "d994e55c-48c9-4795-b872-58d8ec98af12"
+    ],
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "first_public_at": "2014-11-14T11:37:00.000+00:00"
+  }
+}

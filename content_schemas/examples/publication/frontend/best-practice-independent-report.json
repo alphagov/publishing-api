@@ -1,0 +1,185 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/publications/health-working-group-report-on-child-sexual-exploitation",
+  "content_id": "5ef80bd2-7631-11e4-a3cb-005056011aef",
+  "document_type": "independent_report",
+  "first_published_at": "2014-01-15T17:38:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-05-12T09:13:18.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Child sexual exploitation: health working group report",
+  "updated_at": "2018-01-10T15:15:10.764Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D12",
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care",
+        "base_path": "/government/organisations/department-of-health-and-social-care",
+        "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T14:42:42Z",
+        "schema_name": "placeholder",
+        "title": "Department of Health and Social Care",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-of-health",
+          "logo": {
+            "formatted_title": "Department<br/>of Health &amp;<br/>Social Care",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/public-health",
+        "base_path": "/government/topics/public-health",
+        "content_id": "26d3fe8e-5ed5-4430-99e9-af78d44cddd2",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:07Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Public health",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/public-health",
+        "web_url": "https://www.gov.uk/government/topics/public-health"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D12",
+        "api_path": "/api/content/government/organisations/department-of-health-and-social-care",
+        "base_path": "/government/organisations/department-of-health-and-social-care",
+        "content_id": "7cd6bf12-bbe9-4118-8523-f927b0442156",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T14:42:42Z",
+        "schema_name": "placeholder",
+        "title": "Department of Health and Social Care",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-of-health",
+          "logo": {
+            "formatted_title": "Department<br/>of Health &amp;<br/>Social Care",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-of-health-and-social-care",
+        "web_url": "https://www.gov.uk/government/organisations/department-of-health-and-social-care"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Child sexual exploitation: health working group report",
+        "public_updated_at": "2014-05-12T09:13:18Z",
+        "document_type": "independent_report",
+        "schema_name": "publication",
+        "base_path": "/government/publications/health-working-group-report-on-child-sexual-exploitation",
+        "description": "Recommendations to improve the health and wellbeing of children who have experienced sexual exploitation.",
+        "api_path": "/api/content/government/publications/health-working-group-report-on-child-sexual-exploitation",
+        "withdrawn": false,
+        "content_id": "5ef80bd2-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/publications/health-working-group-report-on-child-sexual-exploitation",
+        "web_url": "https://www.gov.uk/government/publications/health-working-group-report-on-child-sexual-exploitation",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Recommendations to improve the health and wellbeing of children who have experienced sexual exploitation.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The child sexual exploitation health working group report makes recommendations to improve the health and wellbeing of children who have experienced sexual exploitation. It is designed to help health services improve prevention techniques and to achieve the best possible results for affected children and young people.</p>\n\n<p>The Department of Health’s response to the report focuses on the action that is currently taking place to improve the identification, support and healthcare service provision of sexually exploited children and young people.</p>\n\n<p>The independent health working group was chaired by the Department of Health. By implementing the recommendations, health practitioners can help protect children, identify and intervene in cases of child sexual exploitation and help with recovery.</p>\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2014-05-12T10:13:18.000+01:00",
+        "note": "Added the Department of Health's response to the recommendations in the child sexual exploitation health working group report. "
+      },
+      {
+        "public_timestamp": "2014-01-15T17:38:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_595682\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/310392/Child_sexual_exploitation.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/310392/thumbnail_Child_sexual_exploitation.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/310392/Child_sexual_exploitation.pdf\">Health working group report on child sexual exploitation: response to the recomendations</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">178KB</span>, <span class=\"page-length\">13 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_595683\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/279189/Child_Sexual_Exploitation_accessible_version.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/279189/thumbnail_Child_Sexual_Exploitation_accessible_version.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/279189/Child_Sexual_Exploitation_accessible_version.pdf\">Health Working Group Report on Child Sexual Exploitation</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">1.78MB</span>, <span class=\"page-length\">81 pages</span>\n    </p>\n\n\n  </div>\n</section>",
+      "<section class=\"attachment embedded\" id=\"attachment_595684\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/284679/35774_2901509_Child_Sexual_Exploitation_Summary_web.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/284679/thumbnail_35774_2901509_Child_Sexual_Exploitation_Summary_web.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/uploads/system/uploads/attachment_data/file/284679/35774_2901509_Child_Sexual_Exploitation_Summary_web.pdf\">Health working group report on child sexual exploitation: executive summary</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">86.2KB</span>, <span class=\"page-length\">12 pages</span>\n    </p>\n\n\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "7cd6bf12-bbe9-4118-8523-f927b0442156"
+    ],
+    "national_applicability": {
+      "england": {
+        "label": "England",
+        "applicable": true
+      },
+      "northern_ireland": {
+        "label": "Northern Ireland",
+        "applicable": false,
+        "alternative_url": ""
+      },
+      "scotland": {
+        "label": "Scotland",
+        "applicable": false,
+        "alternative_url": ""
+      },
+      "wales": {
+        "label": "Wales",
+        "applicable": false,
+        "alternative_url": ""
+      }
+    },
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "first_public_at": "2014-01-15T17:38:00.000+00:00"
+  }
+}

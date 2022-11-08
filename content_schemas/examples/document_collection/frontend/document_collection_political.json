@@ -1,0 +1,255 @@
+{
+  "content_id": "5ab733c7-7631-11e4-a3fb-115956011aef",
+  "base_path": "/government/collections/national-driving-and-riding-standards-political",
+  "description": "The standards set out what it takes to be a safe and responsible driver and rider and provide training to drivers and riders.",
+  "public_updated_at": "2016-02-29T09:24:10.000+00:00",
+  "title": "National standards for driving and riding",
+  "updated_at": "2016-05-17T11:27:14.152Z",
+  "schema_name": "document_collection",
+  "document_type": "document_collection",
+  "locale": "en",
+  "withdrawn_notice": {
+  },
+  "details": {
+    "collection_groups": [
+      {
+        "title": "Car and light van",
+        "body": "<div class=\"govspeak\">\n<p>The standard sets out what you must be able to do and what you must know and understand to be a safe and responsible car and light van driver. The syllabus sets out a way of teaching people that knowledge and those skills.</p>\n</div>",
+        "documents": [
+          "5e5dc1ab-7631-11e4-a3cb-005056011aef",
+          "5e5dc201-7631-11e4-a3cb-005056011aef",
+          "5e5dd324-7631-11e4-a3cb-005056011aef"
+        ]
+      },
+      {
+        "title": "Moped and motorcycle",
+        "body": "<div class=\"govspeak\">\n<p>The standard sets out what you must be able to do and what you must know and understand to be a safe and responsible car and light van driver. The syllabus sets out a way of teaching people that knowledge and those skills.</p>\n</div>",
+        "documents": [
+          "5e5dc29b-7631-11e4-a3cb-005056011aef",
+          "5e5ddbe8-7631-11e4-a3cb-005056011aef"
+        ]
+      },
+      {
+        "title": "Lorry",
+        "body": "<div class=\"govspeak\">\n<p>The standard sets out what you must be able to do and what you must know and understand to be a safe and responsible lorry driver.</p>\n</div>",
+        "documents": [
+          "5e5ddb9c-7631-11e4-a3cb-005056011aef"
+        ]
+      },
+      {
+        "title": "Bus and coach",
+        "body": "<div class=\"govspeak\">\n<p>The standard sets out what you must be able to do and what you must know and understand to be a safe and responsible bus and coach driver.</p>\n</div>",
+        "documents": [
+          "5e5ddaac-7631-11e4-a3cb-005056011aef"
+        ]
+      },
+      {
+        "title": "Driver and rider trainer",
+        "body": "<div class=\"govspeak\">\n<p>The standard sets out what you must be able to do and what you must know and understand to provide training to drivers and riders.</p>\n</div>",
+        "documents": [
+          "5e5ddcc9-7631-11e4-a3cb-005056011aef"
+        ]
+      },
+      {
+        "title": "Developed driving competence",
+        "body": "<div class=\"govspeak\">\n<p>The standard sets out what you must be able to do and what you must know and understand to show developed driving competence.</p>\n</div>",
+        "documents": [
+          "5e5dc159-7631-11e4-a3cb-005056011aef"
+        ]
+      }
+    ],
+    "first_public_at": "2016-02-29T09:24:10.000+00:00",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "topics": [
+
+      ],
+      "policies": [
+
+      ]
+    },
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "political": true,
+    "emphasised_organisations": [
+      "d39237a5-678b-4bb5-a372-eb2cb036933d"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "documents": [
+      {
+        "content_id": "5e5dd324-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2014-02-24T15:00:02+00:00",
+        "title": "Car and light van driver competence framework",
+        "api_path": "/api/content/government/publications/car-and-light-van-driver-competence-framework",
+        "base_path": "/government/publications/car-and-light-van-driver-competence-framework",
+        "description": "The research, statistics and professional opinions which form the basis of the 'National standard for driving cars and light vans'.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/car-and-light-van-driver-competence-framework",
+        "web_url": "https://www.gov.uk/government/publications/car-and-light-van-driver-competence-framework",
+        "locale": "en",
+        "schema_name": "placeholder_publication",
+        "document_type": "guidance",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "5e5ddbe8-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2004-11-04T15:00:02+00:00",
+        "title": "Moped and motorcycle rider competence framework",
+        "api_path": "/api/content/government/publications/competence-framework-for-moped-and-motorcycle-riders",
+        "base_path": "/government/publications/competence-framework-for-moped-and-motorcycle-riders",
+        "description": "The research, statistics and professional opinions which form the basis of the 'National standard for riding mopeds and motorcycles'.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/competence-framework-for-moped-and-motorcycle-riders",
+        "web_url": "https://www.gov.uk/government/publications/competence-framework-for-moped-and-motorcycle-riders",
+        "locale": "en",
+        "schema_name": "placeholder_publication",
+        "document_type": "guidance",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "5e5dc201-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2013-05-15T15:00:02+00:00",
+        "title": "Car and light van driving syllabus",
+        "api_path": "/api/content/government/publications/car-and-small-van-driving-syllabus",
+        "base_path": "/government/publications/car-and-small-van-driving-syllabus",
+        "description": "A way of teaching people the skills, knowledge and understanding they need to be a safe and responsible driver.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/car-and-small-van-driving-syllabus",
+        "web_url": "https://www.gov.uk/government/publications/car-and-small-van-driving-syllabus",
+        "locale": "en",
+        "schema_name": "placeholder_publication",
+        "document_type": "guidance",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "5e5dc159-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2001-07-09T15:00:02+00:00",
+        "title": "National standard for developed driving competence",
+        "api_path": "/api/content/government/publications/national-standard-for-developed-driving-competence",
+        "base_path": "/government/publications/national-standard-for-developed-driving-competence",
+        "description": "What you must be able to do and what you must know and understand to show developed driving competence.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-developed-driving-competence",
+        "web_url": "https://www.gov.uk/government/publications/national-standard-for-developed-driving-competence",
+        "locale": "en",
+        "schema_name": "placeholder_publication",
+        "document_type": "guidance",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "5e5ddcc9-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2014-01-24T15:00:02+00:00",
+        "title": "National standard for driver and rider training",
+        "api_path": "/api/content/government/publications/national-standard-for-driver-and-rider-training",
+        "base_path": "/government/publications/national-standard-for-driver-and-rider-training",
+        "description": "What you must be able to do and what you must know and understand to provide training to drivers and riders.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-driver-and-rider-training",
+        "web_url": "https://www.gov.uk/government/publications/national-standard-for-driver-and-rider-training",
+        "locale": "en",
+        "schema_name": "placeholder_publication",
+        "document_type": "guidance",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "5e5ddaac-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2010-06-12T15:00:02+00:00",
+        "title": "National standard for driving buses and coaches",
+        "api_path": "/api/content/government/publications/national-standard-for-driving-buses-and-coaches",
+        "base_path": "/government/publications/national-standard-for-driving-buses-and-coaches",
+        "description": "What you must be able to do and what you must know and understand to be a safe and responsible bus or coach driver.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-driving-buses-and-coaches",
+        "web_url": "https://www.gov.uk/government/publications/national-standard-for-driving-buses-and-coaches",
+        "locale": "en",
+        "schema_name": "placeholder_publication",
+        "document_type": "guidance",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "5e5ddb9c-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2009-08-05T15:00:02+00:00",
+        "title": "National standard for driving lorries",
+        "api_path": "/api/content/government/publications/national-standard-for-driving-lorries",
+        "base_path": "/government/publications/national-standard-for-driving-lorries",
+        "description": "What you must be able to do and what you must know and understand to be a safe and responsible lorry driver.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-driving-lorries",
+        "web_url": "https://www.gov.uk/government/publications/national-standard-for-driving-lorries",
+        "locale": "en",
+        "schema_name": "placeholder_publication",
+        "document_type": "guidance",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "5e5dc29b-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "1994-01-22T15:00:02+00:00",
+        "title": "National standard for riding mopeds and motorcycles",
+        "api_path": "/api/content/government/publications/national-standard-for-riding-mopeds-and-motorcycles",
+        "base_path": "/government/publications/national-standard-for-riding-mopeds-and-motorcycles",
+        "description": "What you must be able to do and what you must know and understand to be a safe and responsible moped or motorcycle rider.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-riding-mopeds-and-motorcycles",
+        "web_url": "https://www.gov.uk/government/publications/national-standard-for-riding-mopeds-and-motorcycles",
+        "locale": "en",
+        "schema_name": "placeholder_publication",
+        "document_type": "guidance",
+        "analytics_identifier": null
+      },
+      {
+        "content_id": "5e5dc1ab-7631-11e4-a3cb-005056011aef",
+        "public_updated_at": "2007-03-16T15:00:02+00:00",
+        "title": "National standard for driving cars and light vans",
+        "api_path": "/api/content/government/publications/national-standard-for-driving-cars-and-light-vans",
+        "base_path": "/government/publications/national-standard-for-driving-cars-and-light-vans",
+        "description": "What you must be able to do and what you must know and understand to be a safe and responsible car driver.",
+        "api_url": "https://www.gov.uk/api/content/government/publications/national-standard-for-driving-cars-and-light-vans",
+        "web_url": "https://www.gov.uk/government/publications/national-standard-for-driving-cars-and-light-vans",
+        "locale": "en",
+        "schema_name": "placeholder_publication",
+        "document_type": "guidance",
+        "analytics_identifier": null
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "d39237a5-678b-4bb5-a372-eb2cb036933d",
+        "title": "Driver and Vehicle Standards Agency",
+        "api_path": "/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "base_path": "/government/organisations/driver-and-vehicle-standards-agency",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "web_url": "https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency",
+        "locale": "en",
+        "analytics_identifier": "EA570"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "8034be95-4ac2-4fff-93c5-e7514ed9504a",
+        "title": "Tax and revenue",
+        "api_path": "/api/content/government/topics/tax-and-revenue",
+        "base_path": "/government/topics/tax-and-revenue",
+        "api_url": "https://www.gov.uk/api/content/government/world/topics/tax-and-revenue",
+        "web_url": "https://www.gov.uk/government/world/topics/tax-and-revenue",
+        "locale": "en"
+      }
+    ]
+  }
+}

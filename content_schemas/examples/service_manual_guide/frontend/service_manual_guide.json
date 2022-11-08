@@ -1,0 +1,69 @@
+{
+  "content_id": "fb81a47b-7c8f-4280-b6c7-b6fa25822222",
+  "public_updated_at": "2015-10-09T08:17:10+00:00",
+  "locale": "en",
+  "details": {
+    "body": "<h2 id=\"what\">What it is, why it works and how to do it</h2>\n<p>Agile methodologies will help you and your team to build world-class, user-centred services quickly and affordably.</p>\n",
+    "header_links": [
+      {
+        "title": "What is it, why it works and how to do it",
+        "href": "#what-is-it-why-it-works-and-how-to-do-it"
+      }
+    ],
+    "change_note": "This is our latest change.",
+    "change_history": [
+      {
+        "public_timestamp": "2015-10-07T08:17:10+00:00",
+        "note": "This is our latest change"
+      },
+      {
+        "public_timestamp": "2015-09-09T08:17:10+00:00",
+        "note": "This is another change"
+      },
+      {
+        "public_timestamp": "2015-09-01T08:17:10+00:00",
+        "note": "Guidance first published"
+      }
+    ]
+  },
+  "links": {
+    "content_owners": [
+      {
+        "content_id": "e5f09422-bf55-417c-b520-8a42cb409814",
+        "title": "Agile delivery community",
+        "api_path": "/api/content/service-manual/communities/agile-delivery-community",
+        "base_path": "/service-manual/communities/agile-delivery-community",
+        "description": "Agile delivery community takes care of...",
+        "api_url": "https://www.gov.uk/api/content/service-manual/communities/agile-delivery-community",
+        "web_url": "https://www.gov.uk/service-manual/communities/agile-delivery-community",
+        "locale": "en",
+        "analytics_identifier": null,
+        "links": {
+        }
+      }
+    ],
+    "service_manual_topics": [
+      {
+        "content_id": "370e00b2-3c79-4816-aaa9-1a7059e6155d",
+        "title": "Agile",
+        "api_path": "/api/content/service-manual/agile",
+        "base_path": "/service-manual/agile",
+        "description": "",
+        "api_url": "https://www.gov.uk/api/content/service-manual/agile",
+        "web_url": "https://www.gov.uk/service-manual/agile",
+        "locale": "en",
+        "schema_name": "service_manual_topic",
+        "document_type": "service_manual_topic",
+        "analytics_identifier": null,
+        "links": {
+        }
+      }
+    ]
+  },
+  "base_path": "/service-manual/agile/agile-delivery",
+  "description": "What agile is, why it works and how to do it",
+  "title": "Agile Delivery",
+  "updated_at": "2015-10-12T08:54:30+00:00",
+  "schema_name": "service_manual_guide",
+  "document_type": "service_manual_guide"
+}

@@ -1,0 +1,263 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/news/new-frank-adverts-mark-tenth-anniversary--2",
+  "content_id": "5dc52233-7631-11e4-a3cb-005056011aef",
+  "document_type": "press_release",
+  "first_published_at": "2013-01-28T00:00:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2013-01-28T00:00:00.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "news_article",
+  "title": "New FRANK adverts mark tenth anniversary",
+  "updated_at": "2018-01-10T12:30:14.920Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "document_collections": [
+      {
+        "api_path": "/api/content/government/collections/frank",
+        "base_path": "/government/collections/frank",
+        "content_id": "5eb76722-7631-11e4-a3cb-005056011aef",
+        "description": "This series brings together all documents relating to FRANK",
+        "document_type": "document_collection",
+        "locale": "en",
+        "public_updated_at": "2013-04-08T00:00:00Z",
+        "schema_name": "document_collection",
+        "title": "FRANK",
+        "withdrawn": false,
+        "links": {
+          "documents": [
+            {
+              "api_path": "/api/content/government/news/new-frank-adverts-mark-tenth-anniversary--2",
+              "base_path": "/government/news/new-frank-adverts-mark-tenth-anniversary--2",
+              "content_id": "5dc52233-7631-11e4-a3cb-005056011aef",
+              "description": "New campaign reminding young people to talk to FRANK for factual and trustworthy drugs advice was launched by the Home Office today.",
+              "document_type": "press_release",
+              "locale": "en",
+              "public_updated_at": "2013-01-28T00:00:00Z",
+              "schema_name": "news_article",
+              "title": "New FRANK adverts mark tenth anniversary",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/government/news/new-frank-adverts-mark-tenth-anniversary--2",
+              "web_url": "https://www.gov.uk/government/news/new-frank-adverts-mark-tenth-anniversary--2"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/collections/frank",
+        "web_url": "https://www.gov.uk/government/collections/frank"
+      }
+    ],
+    "people": [
+      {
+        "api_path": "/api/content/government/people/jeremy-browne",
+        "base_path": "/government/people/jeremy-browne",
+        "content_id": "8529337c-c0f1-11e4-8223-005056011aef",
+        "document_type": "person",
+        "locale": "en",
+        "public_updated_at": "2016-07-19T14:23:28Z",
+        "schema_name": "placeholder",
+        "title": "Jeremy Browne",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/jeremy-browne",
+        "web_url": "https://www.gov.uk/government/people/jeremy-browne"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D16",
+        "api_path": "/api/content/government/organisations/home-office",
+        "base_path": "/government/organisations/home-office",
+        "content_id": "06056197-bc69-4147-aa28-070bca132178",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:58Z",
+        "schema_name": "placeholder",
+        "title": "Home Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "home-office",
+          "logo": {
+            "formatted_title": "Home Office",
+            "crest": "ho"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/home-office",
+        "web_url": "https://www.gov.uk/government/organisations/home-office"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/national-health-service",
+        "base_path": "/government/topics/national-health-service",
+        "content_id": "7aa4e8aa-0466-414c-bfa8-36e4f3c9fdf9",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:07Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "National Health Service",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/national-health-service",
+        "web_url": "https://www.gov.uk/government/topics/national-health-service"
+      },
+      {
+        "api_path": "/api/content/government/topics/public-health",
+        "base_path": "/government/topics/public-health",
+        "content_id": "26d3fe8e-5ed5-4430-99e9-af78d44cddd2",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:07Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Public health",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/public-health",
+        "web_url": "https://www.gov.uk/government/topics/public-health"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D16",
+        "api_path": "/api/content/government/organisations/home-office",
+        "base_path": "/government/organisations/home-office",
+        "content_id": "06056197-bc69-4147-aa28-070bca132178",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:07:58Z",
+        "schema_name": "placeholder",
+        "title": "Home Office",
+        "withdrawn": false,
+        "details": {
+          "brand": "home-office",
+          "logo": {
+            "formatted_title": "Home Office",
+            "crest": "ho"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/home-office",
+        "web_url": "https://www.gov.uk/government/organisations/home-office"
+      }
+    ],
+    "related_policies": [
+      {
+        "api_path": "/api/content/government/policies/drug-misuse-and-dependency",
+        "base_path": "/government/policies/drug-misuse-and-dependency",
+        "content_id": "5d645426-7631-11e4-a3cb-005056011aef",
+        "description": "Drug misuse harms the health and wellbeing of too many people. We want to reduce the number misusing illegal and other harmful drugs and increase the number who successfully recover from drug dependence. We want to restrict the supply of drugs by identifying and prosecuting those involved in the drug trade, and confiscating the proceeds of crime.",
+        "document_type": "policy",
+        "locale": "en",
+        "public_updated_at": "2016-04-22T10:33:52Z",
+        "schema_name": "policy",
+        "title": "Drug misuse and dependency",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/policies/drug-misuse-and-dependency",
+        "web_url": "https://www.gov.uk/government/policies/drug-misuse-and-dependency"
+      }
+    ],
+    "roles": [
+      {
+        "api_path": "/api/content/government/ministers/minister-of-state--21",
+        "base_path": "/government/ministers/minister-of-state--21",
+        "content_id": "84616464-c0f1-11e4-8223-005056011aef",
+        "document_type": "placeholder_ministerial_role",
+        "locale": "en",
+        "public_updated_at": "2013-11-12T10:58:13Z",
+        "schema_name": "placeholder_ministerial_role",
+        "title": "Minister of State for Crime Prevention",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/minister-of-state--21",
+        "web_url": "https://www.gov.uk/government/ministers/minister-of-state--21"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "New FRANK adverts mark tenth anniversary",
+        "public_updated_at": "2013-01-28T00:00:00Z",
+        "document_type": "press_release",
+        "schema_name": "news_article",
+        "base_path": "/government/news/new-frank-adverts-mark-tenth-anniversary--2",
+        "description": "New campaign reminding young people to talk to FRANK for factual and trustworthy drugs advice was launched by the Home Office today.",
+        "api_path": "/api/content/government/news/new-frank-adverts-mark-tenth-anniversary--2",
+        "withdrawn": false,
+        "content_id": "5dc52233-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/news/new-frank-adverts-mark-tenth-anniversary--2",
+        "web_url": "https://www.gov.uk/government/news/new-frank-adverts-mark-tenth-anniversary--2",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "New campaign reminding young people to talk to FRANK for factual and trustworthy drugs advice was launched by the Home Office today.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>The TV sponsorship, radio and online advertising campaign is aimed at 13 to 18 year olds and adopts a humorous tone by playing on drug terminology. The three adverts are designed to highlight the confusion many young people feel when it comes to drugs and to point them to FRANK for the facts.</p>\n\n<p>Home office crime prevention minister Jeremy Browne said:</p>\n\n<p>‘Distorted information from their peers and popular culture can lead young people to feel confused about drugs and the risks they pose. FRANK aims to give them the skills and confidence they need to reject drugs and offers parents information to help them talk to their children about drugs.</p>\n\n<p>‘We know FRANK works, 67 per cent of young people say they would use it if they needed drugs advice.’</p>\n\n<p>One advert depicts a group of butchers passing around a ‘joint’ of meat at a party, another shows a young gymnast having a bad ‘comedown’ when an acrobatic stunt goes wrong, whilst in the final ad a newsagent starts rapping when a young man enters his shop to buy a ‘wrap’. The viewer is then asked ‘Confused by drugs? Talk to FRANK.’ The adverts will run for six months on youth channels, starting tonight during programmes such as ‘Keeping up with the Kardashians’ and ‘8 Out of 10 Cats.’</p>\n\n<p>This year, marking its tenth year in service the FRANK website will be extended to include an online live chat facility with a fully trained FRANK advisor who will provide advice each day between 2pm and 6pm.</p>\n\n<p>FRANK provides a friendly, confidential and non-judgemental service to anyone wanting help, information or advice about drugs through a helpline, website, email and text message service. The service has run continuously since its launch ten years ago and has built up significant credibility and trust amongst young people, many of whom have grown up with FRANK. 76 per cent say they trust FRANK to provide reliable information.</p>\n\n<p>Over 35 million people have used the FRANK website since its launch and millions have called the FRANK helpline to speak to specially trained advisors. The adverts launched today will help ensure FRANK remains a trustworthy source for young people seeking drugs advice.</p>\n\n<p>FRANK’s existence has also coincided with a sustained fall in drug use among young people, from 28.3 per cent of 16 to 24 year olds claiming to have taken drugs in 2003/04 (when FRANK was created) to 19.3 per cent in 2011/12.</p>\n\n<h2 id=\"background\">Background</h2>\n\n<p>1. FRANK is the national drugs information and advice service (for England) provided by the Home Office, the Department of Health and the Department for Education. FRANK provides a universally accessible service for anyone wanting help, information or advice about any aspect of drugs.</p>\n\n<p>2. According to a 2011 independent survey of 400 11 to 18 year olds carried out for the home office:</p>\n\n<ul>\n  <li>The majority (76 per cent) said they trusted FRANK to provide reliable information.</li>\n  <li>67 per cent said they would use FRANK if they needed drug advice</li>\n</ul>\n\n<p>3. Between 2003/04, when the service launched, and 2011/12 3,438,373 people called the FRANK helpline and 35,711,958 visited the website.</p>\n\n<p>4. The crime survey for England and Wales (previously known as the british crime survey) shows that the percentage of 16 to 24 year olds claiming to have taken drugs has fallen by nine per cent from 28.3 per cent in 2003/04 (when FRANK was created) to 19.3 per cent in 2011/12.</p>\n\n<p>5. Contact FRANK:</p>\n\n<ul>\n  <li>website: <a rel=\"external\" href=\"http://www.talktofrank.com\">www.talktofrank.com</a>\n</li>\n  <li>Call 0800 776600</li>\n  <li>Text 82111</li>\n</ul>\n</div>",
+    "emphasised_organisations": [
+      "06056197-bc69-4147-aa28-070bca132178"
+    ],
+    "change_history": [
+      {
+        "public_timestamp": "2013-01-28T00:00:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "image": {
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/default_news_organisation_image_data/file/153/s300_home-office.jpg",
+      "caption": null,
+      "alt_text": "placeholder"
+    },
+    "first_public_at": "2013-01-28T00:00:00.000+00:00",
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+        "drug-misuse-and-dependency"
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

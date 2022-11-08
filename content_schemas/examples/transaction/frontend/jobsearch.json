@@ -1,0 +1,753 @@
+{
+  "details": {
+    "external_related_links": [
+      {
+        "title": "Safer Jobs: advice on avoiding job scams",
+        "url": "http://www.safer-jobs.com/"
+      }
+    ],
+    "more_information": "<h2 id=\"registration\">Registration</h2>\n\n<p><a rel=\"external\" href=\"https://myaccount.gateway.gov.uk/RegisterOrLogon.aspx?gwv=1.0&amp;gwrealm=urn:TransformingLabourMarketServices&amp;gwlang=en-GB&amp;gwtheme=directgov&amp;gwcategory=IND&amp;gwaction=REGISTER_UID&amp;gwreply=https%3a%2f%2fjobsearch.direct.gov.uk%2fFedHandler.ashx&amp;gwreplytext=Universal+Jobmatch\">Register with Universal Jobmatch</a> to save job searches, upload your CV, set up email alerts and keep track of your past applications.</p>\n\n<p>Make a note of your Government Gateway number when you register, you’ll need it later to sign in.</p>\n\n<p>You must also verify your email address by clicking the link in the confirmation email. Check your spam folders if it’s not in your inbox.</p>\n\n<h2 id=\"help\">Help</h2>\n\n<p>Read the <a rel=\"external\" href=\"https://jobsearch.direct.gov.uk/Help/Faq.aspx\">Universal Jobmatch frequently asked questions</a> for help with the service.</p>\n\n<p><a rel=\"external\" href=\"https://jobsearch.direct.gov.uk/FedHandler.ashx\">Login to Universal Jobmatch</a> and use the contact form if you already have an account and can’t find the answer to your problem.</p>\n\n<p>Use the <a rel=\"external\" href=\"https://jobsearch.direct.gov.uk/ContactUs.aspx\">Universal Jobmatch general contact form</a> if you have problems logging in or if you don’t have an account.</p>\n\n<p>Search for jobs in Northern Ireland with <a rel=\"external\" href=\"http://www.jobcentreonline.com\">Jobcentre Online</a>.</p>\n\n<p>Universal Jobmatch has replaced the Jobcentre Plus job search tool.</p>\n",
+    "transaction_start_link": "https://jobsearch.direct.gov.uk/JobSearch/PowerSearch.aspx",
+    "will_continue_on": "Universal Jobmatch",
+    "introductory_paragraph": "<p>Search and apply for full or part-time jobs in Great Britain and abroad.</p>\n\n<p><a rel=\"external\" href=\"https://jobsearch.direct.gov.uk/FedHandler.ashx\">Log in to Universal Jobmatch</a> if you have an account.</p>\n\n<p><a rel=\"external\" href=\"https://jobsearch.direct.gov.uk/Account/LoginHelp.aspx\">Reset your password or user ID</a> if you’ve forgotten them.</p>\n\n<p>You can still search and apply for jobs without an account.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>This page is also available in Welsh (<a href=\"/chwilio-am-swydd\">Cymraeg</a>).</p>\n</div>\n"
+  },
+  "description": "Find a job using the Universal Jobmatch service - jobseekers can match their CV and skills to jobs posted by companies",
+  "links": {
+    "available_translations": [
+      {
+        "links": {
+        },
+        "web_url": "http://www.dev.gov.uk/jobsearch",
+        "api_url": "http://www.dev.gov.uk/api/content/jobsearch",
+        "locale": "en",
+        "content_id": "a01fcb59-5dc8-4bf5-b06d-dd567a6d2f5f",
+        "withdrawn": false,
+        "title": "Find a job with Universal Jobmatch",
+        "public_updated_at": "2014-11-26T11:26:56Z",
+        "analytics_identifier": null,
+        "document_type": "transaction",
+        "schema_name": "transaction",
+        "base_path": "/jobsearch",
+        "description": "Find a job using the Universal Jobmatch service - jobseekers can match their CV and skills to jobs posted by companies",
+        "api_path": "/api/content/jobsearch"
+      }
+    ],
+    "parent": [
+      {
+        "web_url": "http://www.dev.gov.uk/browse/working/finding-job",
+        "api_url": "http://www.dev.gov.uk/api/content/browse/working/finding-job",
+        "links": {
+          "parent": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/working",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/working",
+              "links": {
+              },
+              "withdrawn": false,
+              "title": "Working, jobs and pensions",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/working",
+              "base_path": "/browse/working",
+              "content_id": "a24f0662-bbfe-4b77-9ec0-e73240e88b9a",
+              "description": "Includes holidays and finding a job",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-04-08T10:48:40Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Finding a job",
+        "schema_name": "mainstream_browse_page",
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/working/finding-job",
+        "base_path": "/browse/working/finding-job",
+        "content_id": "eceb3053-43d1-4a49-873d-85ff9ade7066",
+        "description": "Job search, Jobseeker's Allowance (JSA), volunteering, apprenticeships and job offers",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:43Z"
+      }
+    ],
+    "organisations": [
+      {
+        "web_url": "http://www.dev.gov.uk/government/organisations/department-for-work-pensions",
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/department-for-work-pensions",
+        "links": {
+        },
+        "details": {
+          "logo": {
+            "crest": "single-identity",
+            "formatted_title": "Department<br/>for Work &amp; <br/>Pensions"
+          },
+          "brand": "department-for-work-pensions"
+        },
+        "withdrawn": false,
+        "title": "Department for Work and Pensions",
+        "schema_name": "placeholder",
+        "analytics_identifier": "D10",
+        "api_path": "/api/content/government/organisations/department-for-work-pensions",
+        "base_path": "/government/organisations/department-for-work-pensions",
+        "content_id": "b548a09f-8b35-4104-89f4-f1a40bf3136d",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-12-16T11:37:21Z"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "web_url": "http://www.dev.gov.uk/advertise-job",
+        "api_url": "http://www.dev.gov.uk/api/content/advertise-job",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/employing-people/recruiting-hiring",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/employing-people/recruiting-hiring",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/employing-people",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/employing-people",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Employing people",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/employing-people",
+                    "base_path": "/browse/employing-people",
+                    "content_id": "a0a4c44e-5e8a-44f6-9e64-32ab2c9ba065",
+                    "description": "Includes pay, contracts and hiring",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:44Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Recruiting and hiring",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/employing-people/recruiting-hiring",
+              "base_path": "/browse/employing-people/recruiting-hiring",
+              "content_id": "18316184-f6ff-4581-a487-83935a490074",
+              "description": "Advertise a job, Disclosure and Barring (DBS) checks, discrimination law and apprenticeships",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:45Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Advertise a job with Universal Jobmatch",
+        "schema_name": "generic_with_external_related_links",
+        "analytics_identifier": null,
+        "api_path": "/api/content/advertise-job",
+        "base_path": "/advertise-job",
+        "content_id": "6ed386d1-37bc-4c4e-80b2-92fe96af73f5",
+        "description": "Employers can use Universal Jobmatch to advertise jobs online and automatically match them to suitable jobseekers",
+        "document_type": "transaction",
+        "locale": "en",
+        "public_updated_at": "2014-11-26T11:28:41Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/jobseekers-allowance",
+        "api_url": "http://www.dev.gov.uk/api/content/jobseekers-allowance",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/benefits/entitlement",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/benefits/entitlement",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/benefits",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/benefits",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Benefits",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/benefits",
+                    "base_path": "/browse/benefits",
+                    "content_id": "f141fa95-0d79-4aed-8429-ed223a8f106a",
+                    "description": "Includes tax credits, eligibility and appeals",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Benefits entitlement",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/benefits/entitlement",
+              "base_path": "/browse/benefits/entitlement",
+              "content_id": "c8d06606-7af8-45b8-aa65-84ef19e15a9b",
+              "description": "Includes when and how benefit payments are made, benefits calculators and benefit fraud",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-07-07T13:02:21Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/benefits/jobseekers-allowance",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/benefits/jobseekers-allowance",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/benefits",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/benefits",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Benefits",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/benefits",
+                    "base_path": "/browse/benefits",
+                    "content_id": "f141fa95-0d79-4aed-8429-ed223a8f106a",
+                    "description": "Includes tax credits, eligibility and appeals",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Jobseeker's Allowance and low income benefits",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/benefits/jobseekers-allowance",
+              "base_path": "/browse/benefits/jobseekers-allowance",
+              "content_id": "b29e0536-505b-4b33-b71a-135efeee211e",
+              "description": "Includes Income Support, Budgeting Loans and Pension Credit",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:49Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/working/finding-job",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/working/finding-job",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/working",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/working",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Working, jobs and pensions",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/working",
+                    "base_path": "/browse/working",
+                    "content_id": "a24f0662-bbfe-4b77-9ec0-e73240e88b9a",
+                    "description": "Includes holidays and finding a job",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Finding a job",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/working/finding-job",
+              "base_path": "/browse/working/finding-job",
+              "content_id": "eceb3053-43d1-4a49-873d-85ff9ade7066",
+              "description": "Job search, Jobseeker's Allowance (JSA), volunteering, apprenticeships and job offers",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:43Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Jobseeker's Allowance (JSA)",
+        "schema_name": "guide",
+        "analytics_identifier": null,
+        "api_path": "/api/content/jobseekers-allowance",
+        "base_path": "/jobseekers-allowance",
+        "content_id": "122fdb0f-471c-4dcc-986b-8c3691ceacf8",
+        "description": "Jobseeker's Allowance (JSA) is an unemployment benefit you can claim while looking for work - how to apply online, eligibility, rates, rapid reclaim, JSA interview",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2014-12-17T15:08:44Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/apply-apprenticeship",
+        "api_url": "http://www.dev.gov.uk/api/content/apply-apprenticeship",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/working/finding-job",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/working/finding-job",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/working",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/working",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Working, jobs and pensions",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/working",
+                    "base_path": "/browse/working",
+                    "content_id": "a24f0662-bbfe-4b77-9ec0-e73240e88b9a",
+                    "description": "Includes holidays and finding a job",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Finding a job",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/working/finding-job",
+              "base_path": "/browse/working/finding-job",
+              "content_id": "eceb3053-43d1-4a49-873d-85ff9ade7066",
+              "description": "Job search, Jobseeker's Allowance (JSA), volunteering, apprenticeships and job offers",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:43Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/education/find-course",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/education/find-course",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/education",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/education",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Education and learning",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/education",
+                    "base_path": "/browse/education",
+                    "content_id": "4ba04d39-1f8c-4117-89f5-73ec4f1b48e8",
+                    "description": "Get help if you’re at school, planning to go on to further or higher education, looking for training or interested in a student or career development loan.",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Apprenticeships, 14 to 19 education and training for work",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/education/find-course",
+              "base_path": "/browse/education/find-course",
+              "content_id": "fb3e06cb-1790-44b7-8067-39a900be9240",
+              "description": "Includes finding a course, finding an apprenticeship, 16 to 19 Bursary Fund",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:57:16Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Find an apprenticeship",
+        "schema_name": "generic_with_external_related_links",
+        "analytics_identifier": null,
+        "api_path": "/api/content/apply-apprenticeship",
+        "base_path": "/apply-apprenticeship",
+        "content_id": "45ad868a-2e79-4029-991b-c29559d7eb29",
+        "description": "Register your profile, search vacancies and apply for an apprenticeship - you must be 16 or over",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2014-12-09T10:00:07Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/moving-from-benefits-to-work",
+        "api_url": "http://www.dev.gov.uk/api/content/moving-from-benefits-to-work",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/benefits/entitlement",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/benefits/entitlement",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/benefits",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/benefits",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Benefits",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/benefits",
+                    "base_path": "/browse/benefits",
+                    "content_id": "f141fa95-0d79-4aed-8429-ed223a8f106a",
+                    "description": "Includes tax credits, eligibility and appeals",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Benefits entitlement",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/benefits/entitlement",
+              "base_path": "/browse/benefits/entitlement",
+              "content_id": "c8d06606-7af8-45b8-aa65-84ef19e15a9b",
+              "description": "Includes when and how benefit payments are made, benefits calculators and benefit fraud",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-07-07T13:02:21Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/benefits/jobseekers-allowance",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/benefits/jobseekers-allowance",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/benefits",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/benefits",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Benefits",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/benefits",
+                    "base_path": "/browse/benefits",
+                    "content_id": "f141fa95-0d79-4aed-8429-ed223a8f106a",
+                    "description": "Includes tax credits, eligibility and appeals",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Jobseeker's Allowance and low income benefits",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/benefits/jobseekers-allowance",
+              "base_path": "/browse/benefits/jobseekers-allowance",
+              "content_id": "b29e0536-505b-4b33-b71a-135efeee211e",
+              "description": "Includes Income Support, Budgeting Loans and Pension Credit",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:49Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/working/finding-job",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/working/finding-job",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/working",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/working",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Working, jobs and pensions",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/working",
+                    "base_path": "/browse/working",
+                    "content_id": "a24f0662-bbfe-4b77-9ec0-e73240e88b9a",
+                    "description": "Includes holidays and finding a job",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Finding a job",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/working/finding-job",
+              "base_path": "/browse/working/finding-job",
+              "content_id": "eceb3053-43d1-4a49-873d-85ff9ade7066",
+              "description": "Job search, Jobseeker's Allowance (JSA), volunteering, apprenticeships and job offers",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:43Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Help with moving from benefits to work",
+        "schema_name": "guide",
+        "analytics_identifier": null,
+        "api_path": "/api/content/moving-from-benefits-to-work",
+        "base_path": "/moving-from-benefits-to-work",
+        "content_id": "ddab1211-399a-4a31-91a0-bdcd1a542af1",
+        "description": "Find out about help you can get moving from benefits to work - work trials, programmes and clubs, New Enterprise Allowance, help with drug or alcohol problems, carer support",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2014-12-03T17:35:34Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/apprenticeships-guide",
+        "api_url": "http://www.dev.gov.uk/api/content/apprenticeships-guide",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/education/find-course",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/education/find-course",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/education",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/education",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Education and learning",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/education",
+                    "base_path": "/browse/education",
+                    "content_id": "4ba04d39-1f8c-4117-89f5-73ec4f1b48e8",
+                    "description": "Get help if you’re at school, planning to go on to further or higher education, looking for training or interested in a student or career development loan.",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Apprenticeships, 14 to 19 education and training for work",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/education/find-course",
+              "base_path": "/browse/education/find-course",
+              "content_id": "fb3e06cb-1790-44b7-8067-39a900be9240",
+              "description": "Includes finding a course, finding an apprenticeship, 16 to 19 Bursary Fund",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:57:16Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/working/finding-job",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/working/finding-job",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/working",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/working",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Working, jobs and pensions",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/working",
+                    "base_path": "/browse/working",
+                    "content_id": "a24f0662-bbfe-4b77-9ec0-e73240e88b9a",
+                    "description": "Includes holidays and finding a job",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:40Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Finding a job",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/working/finding-job",
+              "base_path": "/browse/working/finding-job",
+              "content_id": "eceb3053-43d1-4a49-873d-85ff9ade7066",
+              "description": "Job search, Jobseeker's Allowance (JSA), volunteering, apprenticeships and job offers",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:43Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Become an apprentice",
+        "schema_name": "guide",
+        "analytics_identifier": null,
+        "api_path": "/api/content/apprenticeships-guide",
+        "base_path": "/apprenticeships-guide",
+        "content_id": "b95f3e83-a8d1-40fa-843c-cb712861707d",
+        "description": "How to become an apprentice – what you can expect, levels of apprenticeships, pay and training, how to make an application, what to expect, complain about your apprenticeship",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2014-12-09T10:00:07Z"
+      },
+      {
+        "web_url": "http://www.dev.gov.uk/find-registered-childminder",
+        "api_url": "http://www.dev.gov.uk/api/content/find-registered-childminder",
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "web_url": "http://www.dev.gov.uk/browse/childcare-parenting/childcare",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting/childcare",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/childcare-parenting",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/childcare-parenting",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Childcare and parenting",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Childcare",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/childcare-parenting/childcare",
+              "base_path": "/browse/childcare-parenting/childcare",
+              "content_id": "1159936b-be05-44cb-b52c-87b3c9153959",
+              "description": "Finding childcare, financial support for childcare and childcare for school-age children",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-10-27T13:50:02Z"
+            },
+            {
+              "web_url": "http://www.dev.gov.uk/browse/births-deaths-marriages/child-adoption",
+              "api_url": "http://www.dev.gov.uk/api/content/browse/births-deaths-marriages/child-adoption",
+              "links": {
+                "parent": [
+                  {
+                    "web_url": "http://www.dev.gov.uk/browse/births-deaths-marriages",
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/births-deaths-marriages",
+                    "links": {
+                    },
+                    "withdrawn": false,
+                    "title": "Births, deaths, marriages and care",
+                    "schema_name": "mainstream_browse_page",
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/births-deaths-marriages",
+                    "base_path": "/browse/births-deaths-marriages",
+                    "content_id": "f5fe5c9e-e5f1-4b76-9b07-a0af649c440c",
+                    "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z"
+                  }
+                ]
+              },
+              "withdrawn": false,
+              "title": "Having a child, parenting and adoption",
+              "schema_name": "mainstream_browse_page",
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/births-deaths-marriages/child-adoption",
+              "base_path": "/browse/births-deaths-marriages/child-adoption",
+              "content_id": "932a86f4-4916-4d9f-99cb-dfd34d7ee5d1",
+              "description": "Legal rights, birth certificates, parental rights and child maintenance",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:48Z"
+            }
+          ]
+        },
+        "withdrawn": false,
+        "title": "Find a registered childminder",
+        "schema_name": "generic_with_external_related_links",
+        "analytics_identifier": null,
+        "api_path": "/api/content/find-registered-childminder",
+        "base_path": "/find-registered-childminder",
+        "content_id": "2f2ee25a-30c8-4ded-a160-88783f978206",
+        "description": "Contact your local council to find a registered childminder - Family Information Service, early years education, childcare and family support in your area",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2015-11-05T09:27:23Z"
+      }
+    ],
+    "meets_user_needs": [
+      {
+        "web_url": "http://www.dev.gov.uk/needs/show-i-am-searching-for-a-job",
+        "api_url": "http://www.dev.gov.uk/api/content/needs/show-i-am-searching-for-a-job",
+        "links": {
+        },
+        "details": {
+          "need_id": "100001",
+          "applies_to_all_organisations": false,
+          "benefit": "I can find a job I can apply for, and continue to receive JSA during my jobsearch ",
+          "goal": "show I am searching for a job",
+          "impact": "Has consequences for the majority of your users",
+          "justifications": [
+            "There is clear demand for it from users",
+            "It's something the government provides/does/pays for"
+          ],
+          "met_when": [
+            "can access and sign in to Universal Jobmatch"
+          ],
+          "role": "unemployed jobseeker",
+          "yearly_user_contacts": 6504
+        },
+        "withdrawn": false,
+        "title": "As a unemployed jobseeker, I need to show I am searching for a job, so that I can find a job I can apply for, and continue to receive JSA during my jobsearch (100001)",
+        "schema_name": "need",
+        "analytics_identifier": null,
+        "api_path": "/api/content/needs/show-i-am-searching-for-a-job",
+        "base_path": "/needs/show-i-am-searching-for-a-job",
+        "content_id": "bf5665a4-e7f5-4141-96a3-3f46c77aec1b",
+        "description": null,
+        "document_type": "need",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:43Z"
+      }
+    ],
+    "mainstream_browse_pages": [
+      {
+        "web_url": "http://www.dev.gov.uk/browse/working/finding-job",
+        "api_url": "http://www.dev.gov.uk/api/content/browse/working/finding-job",
+        "links": {
+        },
+        "withdrawn": false,
+        "title": "Finding a job",
+        "schema_name": "mainstream_browse_page",
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/working/finding-job",
+        "base_path": "/browse/working/finding-job",
+        "content_id": "eceb3053-43d1-4a49-873d-85ff9ade7066",
+        "description": "Job search, Jobseeker's Allowance (JSA), volunteering, apprenticeships and job offers",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:43Z"
+      }
+    ]
+  },
+  "withdrawn_notice": {
+  },
+  "locale": "en",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "document_type": "transaction",
+  "content_id": "a01fcb59-5dc8-4bf5-b06d-dd567a6d2f5f",
+  "base_path": "/jobsearch",
+  "analytics_identifier": null,
+  "phase": "live",
+  "public_updated_at": "2014-11-26T11:26:56.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "transaction",
+  "title": "Find a job with Universal Jobmatch",
+  "updated_at": "2017-03-06T18:00:18.755Z"
+}

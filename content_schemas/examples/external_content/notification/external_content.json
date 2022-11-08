@@ -1,0 +1,40 @@
+{
+  "analytics_identifier": null,
+  "base_path": null,
+  "content_id": "e0db9761-0e25-427b-935a-5de71608100b",
+  "description": "Free, unbiased, independent advice and tools to help you manage your money better",
+  "details": {
+    "url": "https://www.moneyadviceservice.org.uk/",
+    "hidden_search_terms": [
+      "money advice",
+      "financial advice",
+      "mas"
+    ]
+  },
+  "document_type": "external_content",
+  "email_document_supertype": "other",
+  "expanded_links": {
+  },
+  "first_published_at": "2017-05-01T19:32:04Z",
+  "government_document_supertype": "other",
+  "govuk_request_id": "abc",
+  "links": {
+  },
+  "locale": "en",
+  "navigation_document_supertype": "other",
+  "payload_version": 123,
+  "phase": "live",
+  "public_updated_at": "2017-12-14T09:50:00Z",
+  "publishing_app": "search-admin",
+  "redirects": [
+
+  ],
+  "rendering_app": null,
+  "routes": [
+
+  ],
+  "schema_name": "external_content",
+  "title": "Money Advice Service",
+  "update_type": "major",
+  "user_journey_document_supertype": "other"
+}

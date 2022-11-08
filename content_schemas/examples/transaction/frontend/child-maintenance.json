@@ -1,0 +1,524 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/calculate-your-child-maintenance",
+  "content_id": "42c2e944-7977-4297-b142-aa9406756dd2",
+  "document_type": "transaction",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-06-30T14:40:01.000+00:00",
+  "publishing_app": "smartanswers",
+  "rendering_app": "frontend",
+  "schema_name": "transaction",
+  "title": "Child maintenance calculator",
+  "updated_at": "2017-06-30T14:40:01.917Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "26015-1498833601.417-10.3.3.1-395",
+  "links": {
+    "mainstream_browse_pages": [
+      {
+        "api_path": "/api/content/browse/childcare-parenting/divorce-separation-legal",
+        "base_path": "/browse/childcare-parenting/divorce-separation-legal",
+        "content_id": "0d29abb4-efb3-4fd7-b798-f707b03a1e6a",
+        "description": "Child maintenance and disagreements about parentage",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-09-02T12:41:19Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Divorce, separation and legal issues",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting/divorce-separation-legal",
+        "web_url": "https://www.gov.uk/browse/childcare-parenting/divorce-separation-legal"
+      },
+      {
+        "api_path": "/api/content/browse/births-deaths-marriages/marriage-divorce",
+        "base_path": "/browse/births-deaths-marriages/marriage-divorce",
+        "content_id": "a1c39054-4fd5-44e9-8d1d-0c7acd57a6a4",
+        "description": "Includes getting married abroad, decree absolutes and looking after children",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2017-06-08T15:46:37Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Marriage, civil partnership and divorce",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages/marriage-divorce",
+        "web_url": "https://www.gov.uk/browse/births-deaths-marriages/marriage-divorce"
+      },
+      {
+        "api_path": "/api/content/browse/births-deaths-marriages/child-adoption",
+        "base_path": "/browse/births-deaths-marriages/child-adoption",
+        "content_id": "932a86f4-4916-4d9f-99cb-dfd34d7ee5d1",
+        "description": "Legal rights, birth certificates, parental rights and child maintenance",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-06-24T13:56:48Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Having a child, parenting and adoption",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages/child-adoption",
+        "web_url": "https://www.gov.uk/browse/births-deaths-marriages/child-adoption"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "api_path": "/api/content/child-maintenance",
+        "base_path": "/child-maintenance",
+        "content_id": "9718cd62-c165-4fc5-88cd-5d723b1bc314",
+        "description": "Child maintenance - how to work it out, how the Child Support Agency and Child Maintenance Service can help, complaints, appeals ",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2014-12-01T15:54:12Z",
+        "schema_name": "guide",
+        "title": "Use the Child Maintenance Service or Child Support Agency (CSA)",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "api_path": "/api/content/browse/births-deaths-marriages/child-adoption",
+              "base_path": "/browse/births-deaths-marriages/child-adoption",
+              "content_id": "932a86f4-4916-4d9f-99cb-dfd34d7ee5d1",
+              "description": "Legal rights, birth certificates, parental rights and child maintenance",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:48Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Having a child, parenting and adoption",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/births-deaths-marriages",
+                    "base_path": "/browse/births-deaths-marriages",
+                    "content_id": "f5fe5c9e-e5f1-4b76-9b07-a0af649c440c",
+                    "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Births, deaths, marriages and care",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages",
+                    "web_url": "https://www.gov.uk/browse/births-deaths-marriages"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages/child-adoption",
+              "web_url": "https://www.gov.uk/browse/births-deaths-marriages/child-adoption"
+            },
+            {
+              "api_path": "/api/content/browse/childcare-parenting/divorce-separation-legal",
+              "base_path": "/browse/childcare-parenting/divorce-separation-legal",
+              "content_id": "0d29abb4-efb3-4fd7-b798-f707b03a1e6a",
+              "description": "Child maintenance and disagreements about parentage",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-09-02T12:41:19Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Divorce, separation and legal issues",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting",
+                    "web_url": "https://www.gov.uk/browse/childcare-parenting"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting/divorce-separation-legal",
+              "web_url": "https://www.gov.uk/browse/childcare-parenting/divorce-separation-legal"
+            },
+            {
+              "api_path": "/api/content/browse/births-deaths-marriages/marriage-divorce",
+              "base_path": "/browse/births-deaths-marriages/marriage-divorce",
+              "content_id": "a1c39054-4fd5-44e9-8d1d-0c7acd57a6a4",
+              "description": "Includes getting married abroad, decree absolutes and looking after children",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-06-08T15:46:37Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Marriage, civil partnership and divorce",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/births-deaths-marriages",
+                    "base_path": "/browse/births-deaths-marriages",
+                    "content_id": "f5fe5c9e-e5f1-4b76-9b07-a0af649c440c",
+                    "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Births, deaths, marriages and care",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages",
+                    "web_url": "https://www.gov.uk/browse/births-deaths-marriages"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages/marriage-divorce",
+              "web_url": "https://www.gov.uk/browse/births-deaths-marriages/marriage-divorce"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/child-maintenance",
+        "web_url": "https://www.gov.uk/child-maintenance"
+      },
+      {
+        "api_path": "/api/content/arranging-child-maintenance-yourself",
+        "base_path": "/arranging-child-maintenance-yourself",
+        "content_id": "d4e3eea4-e502-447e-a3eb-cb93cbf55a32",
+        "description": "How to arrange child maintenance yourself without using the Child Maintenance Service - family-based arrangements",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2016-04-13T13:13:51Z",
+        "schema_name": "answer",
+        "title": "Arranging child maintenance yourself",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "api_path": "/api/content/browse/births-deaths-marriages/child-adoption",
+              "base_path": "/browse/births-deaths-marriages/child-adoption",
+              "content_id": "932a86f4-4916-4d9f-99cb-dfd34d7ee5d1",
+              "description": "Legal rights, birth certificates, parental rights and child maintenance",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:48Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Having a child, parenting and adoption",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/births-deaths-marriages",
+                    "base_path": "/browse/births-deaths-marriages",
+                    "content_id": "f5fe5c9e-e5f1-4b76-9b07-a0af649c440c",
+                    "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Births, deaths, marriages and care",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages",
+                    "web_url": "https://www.gov.uk/browse/births-deaths-marriages"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages/child-adoption",
+              "web_url": "https://www.gov.uk/browse/births-deaths-marriages/child-adoption"
+            },
+            {
+              "api_path": "/api/content/browse/childcare-parenting/divorce-separation-legal",
+              "base_path": "/browse/childcare-parenting/divorce-separation-legal",
+              "content_id": "0d29abb4-efb3-4fd7-b798-f707b03a1e6a",
+              "description": "Child maintenance and disagreements about parentage",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-09-02T12:41:19Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Divorce, separation and legal issues",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting",
+                    "web_url": "https://www.gov.uk/browse/childcare-parenting"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting/divorce-separation-legal",
+              "web_url": "https://www.gov.uk/browse/childcare-parenting/divorce-separation-legal"
+            },
+            {
+              "api_path": "/api/content/browse/births-deaths-marriages/marriage-divorce",
+              "base_path": "/browse/births-deaths-marriages/marriage-divorce",
+              "content_id": "a1c39054-4fd5-44e9-8d1d-0c7acd57a6a4",
+              "description": "Includes getting married abroad, decree absolutes and looking after children",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-06-08T15:46:37Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Marriage, civil partnership and divorce",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/births-deaths-marriages",
+                    "base_path": "/browse/births-deaths-marriages",
+                    "content_id": "f5fe5c9e-e5f1-4b76-9b07-a0af649c440c",
+                    "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Births, deaths, marriages and care",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages",
+                    "web_url": "https://www.gov.uk/browse/births-deaths-marriages"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages/marriage-divorce",
+              "web_url": "https://www.gov.uk/browse/births-deaths-marriages/marriage-divorce"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/arranging-child-maintenance-yourself",
+        "web_url": "https://www.gov.uk/arranging-child-maintenance-yourself"
+      },
+      {
+        "api_path": "/api/content/how-child-maintenance-is-worked-out",
+        "base_path": "/how-child-maintenance-is-worked-out",
+        "content_id": "fcc24c49-45e5-4e17-bb2a-efc9a0fbc34f",
+        "description": "Use the child maintenance calculator to work out how much child maintenance to pay - or see how the Child Support Agency and Child Maintenance Service work out maintenance, and the rates they use ",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2016-02-11T15:15:25Z",
+        "schema_name": "guide",
+        "title": "How child maintenance is worked out",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "api_path": "/api/content/browse/childcare-parenting/divorce-separation-legal",
+              "base_path": "/browse/childcare-parenting/divorce-separation-legal",
+              "content_id": "0d29abb4-efb3-4fd7-b798-f707b03a1e6a",
+              "description": "Child maintenance and disagreements about parentage",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-09-02T12:41:19Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Divorce, separation and legal issues",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/childcare-parenting",
+                    "base_path": "/browse/childcare-parenting",
+                    "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+                    "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-07-15T11:40:43Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Childcare and parenting",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting",
+                    "web_url": "https://www.gov.uk/browse/childcare-parenting"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting/divorce-separation-legal",
+              "web_url": "https://www.gov.uk/browse/childcare-parenting/divorce-separation-legal"
+            },
+            {
+              "api_path": "/api/content/browse/births-deaths-marriages/child-adoption",
+              "base_path": "/browse/births-deaths-marriages/child-adoption",
+              "content_id": "932a86f4-4916-4d9f-99cb-dfd34d7ee5d1",
+              "description": "Legal rights, birth certificates, parental rights and child maintenance",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-06-24T13:56:48Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Having a child, parenting and adoption",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/births-deaths-marriages",
+                    "base_path": "/browse/births-deaths-marriages",
+                    "content_id": "f5fe5c9e-e5f1-4b76-9b07-a0af649c440c",
+                    "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Births, deaths, marriages and care",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages",
+                    "web_url": "https://www.gov.uk/browse/births-deaths-marriages"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages/child-adoption",
+              "web_url": "https://www.gov.uk/browse/births-deaths-marriages/child-adoption"
+            },
+            {
+              "api_path": "/api/content/browse/births-deaths-marriages/marriage-divorce",
+              "base_path": "/browse/births-deaths-marriages/marriage-divorce",
+              "content_id": "a1c39054-4fd5-44e9-8d1d-0c7acd57a6a4",
+              "description": "Includes getting married abroad, decree absolutes and looking after children",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2017-06-08T15:46:37Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Marriage, civil partnership and divorce",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "api_path": "/api/content/browse/births-deaths-marriages",
+                    "base_path": "/browse/births-deaths-marriages",
+                    "content_id": "f5fe5c9e-e5f1-4b76-9b07-a0af649c440c",
+                    "description": "Parenting, civil partnerships, divorce and lasting power of attorney",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-04-08T10:48:39Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Births, deaths, marriages and care",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages",
+                    "web_url": "https://www.gov.uk/browse/births-deaths-marriages"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/births-deaths-marriages/marriage-divorce",
+              "web_url": "https://www.gov.uk/browse/births-deaths-marriages/marriage-divorce"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/how-child-maintenance-is-worked-out",
+        "web_url": "https://www.gov.uk/how-child-maintenance-is-worked-out"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D10",
+        "api_path": "/api/content/government/organisations/department-for-work-pensions",
+        "base_path": "/government/organisations/department-for-work-pensions",
+        "content_id": "b548a09f-8b35-4104-89f4-f1a40bf3136d",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-12-16T11:37:21Z",
+        "schema_name": "placeholder",
+        "title": "Department for Work and Pensions",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-work-pensions",
+          "logo": {
+            "formatted_title": "Department<br/>for Work &amp; <br/>Pensions",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-work-pensions",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-work-pensions"
+      }
+    ],
+    "parent": [
+      {
+        "api_path": "/api/content/browse/childcare-parenting/divorce-separation-legal",
+        "base_path": "/browse/childcare-parenting/divorce-separation-legal",
+        "content_id": "0d29abb4-efb3-4fd7-b798-f707b03a1e6a",
+        "description": "Child maintenance and disagreements about parentage",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-09-02T12:41:19Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Divorce, separation and legal issues",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "api_path": "/api/content/browse/childcare-parenting",
+              "base_path": "/browse/childcare-parenting",
+              "content_id": "451c8029-6fe3-41cf-80e8-717debd317bd",
+              "description": "Includes giving birth, fostering, adopting, benefits for children, childcare and schools",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-07-15T11:40:43Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Childcare and parenting",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting",
+              "web_url": "https://www.gov.uk/browse/childcare-parenting"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/browse/childcare-parenting/divorce-separation-legal",
+        "web_url": "https://www.gov.uk/browse/childcare-parenting/divorce-separation-legal"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Child maintenance calculator",
+        "public_updated_at": "2017-06-30T14:40:01Z",
+        "document_type": "smart_answer",
+        "schema_name": "generic_with_external_related_links",
+        "base_path": "/calculate-your-child-maintenance",
+        "api_path": "/api/content/calculate-your-child-maintenance",
+        "withdrawn": false,
+        "content_id": "42c2e944-7977-4297-b142-aa9406756dd2",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/calculate-your-child-maintenance",
+        "web_url": "https://www.gov.uk/calculate-your-child-maintenance",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": null,
+  "details": {
+    "external_related_links": [
+      {
+        "title": "Child Maintenance Options - How much should be paid",
+        "url": "http://www.cmoptions.org/en/maintenance/how-much.asp"
+      },
+      {
+        "title": "Child Maintenance Options - Ways to pay",
+        "url": "http://www.cmoptions.org/en/maintenance/ways-to-pay.asp"
+      }
+    ],
+    "start_button_text": "Calculate your child maintenance"
+  }
+}

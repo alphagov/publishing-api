@@ -1,0 +1,95 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/department-for-work-pensions/about/welsh-language-scheme",
+  "content_id": "5f54e57d-7631-11e4-a3cb-005056011aef",
+  "document_type": "welsh_language_scheme",
+  "first_published_at": "2016-12-09T13:42:32.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-11-15T14:51:56.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Welsh language scheme",
+  "updated_at": "2018-01-10T13:02:19.482Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "14218-1512387984.750-62.239.159.6-1513",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D10",
+        "api_path": "/api/content/government/organisations/department-for-work-pensions",
+        "base_path": "/government/organisations/department-for-work-pensions",
+        "content_id": "b548a09f-8b35-4104-89f4-f1a40bf3136d",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2018-01-09T10:08:03Z",
+        "schema_name": "placeholder",
+        "title": "Department for Work and Pensions",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-work-pensions",
+          "logo": {
+            "formatted_title": "Department<br/>for Work &amp; <br/>Pensions",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-work-pensions",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-work-pensions"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Cynllun iaith Gymraeg",
+        "public_updated_at": "2017-11-15T14:51:56Z",
+        "document_type": "welsh_language_scheme",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/department-for-work-pensions/about/welsh-language-scheme.cy",
+        "description": "Wrth ymgymryd â busnes cyhoeddus yng Nghymru, mae’r ieithoedd Cymraeg a Saesneg yn cael eu trin ar sail cyfartal.",
+        "api_path": "/api/content/government/organisations/department-for-work-pensions/about/welsh-language-scheme.cy",
+        "withdrawn": false,
+        "content_id": "5f54e57d-7631-11e4-a3cb-005056011aef",
+        "locale": "cy",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-work-pensions/about/welsh-language-scheme.cy",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-work-pensions/about/welsh-language-scheme.cy",
+        "links": {
+        }
+      },
+      {
+        "title": "Welsh language scheme",
+        "public_updated_at": "2017-11-15T14:51:56Z",
+        "document_type": "welsh_language_scheme",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/department-for-work-pensions/about/welsh-language-scheme",
+        "description": "When conducting public business in Wales, English and Welsh languages are treated equally.",
+        "api_path": "/api/content/government/organisations/department-for-work-pensions/about/welsh-language-scheme",
+        "withdrawn": false,
+        "content_id": "5f54e57d-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-work-pensions/about/welsh-language-scheme",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-work-pensions/about/welsh-language-scheme",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "When conducting public business in Wales, English and Welsh languages are treated equally.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>Our Welsh language scheme explains how the Department for Work and Pensions provides its services in Welsh. The scheme uses the guidelines issued by the Welsh Language Board.</p>\n\n<p>We published our latest Welsh language scheme on 15 November 2017.</p>\n\n<section class=\"attachment embedded\" id=\"attachment_2427850\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/664693/dwp-welsh-language-scheme-2017.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/664693/thumbnail_dwp-welsh-language-scheme-2017.pdf.png\"></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-2427850-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/664693/dwp-welsh-language-scheme-2017.pdf\">DWP Welsh language scheme</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">411KB</span>, <span class=\"page-length\">42 pages</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-2427850-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-2427850-accessibility-request\" data-controls=\"attachment-2427850-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-2427850-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:accessible.formats@dwp.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20DWP%20Welsh%20language%20scheme%0A%20%20Original%20format%3A%20pdf%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27DWP%20Welsh%20language%20scheme%27%20in%20an%20alternative%20format\">accessible.formats@dwp.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>\n\n<section class=\"attachment embedded\" id=\"attachment_2427851\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/664694/cynllun-iaith-gymraeg-yr-adran-gwaith-a-phensiynau-2017.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/664694/thumbnail_cynllun-iaith-gymraeg-yr-adran-gwaith-a-phensiynau-2017.pdf.png\"></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-2427851-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/664694/cynllun-iaith-gymraeg-yr-adran-gwaith-a-phensiynau-2017.pdf\">DWP Cynllun Iaith Gymraeg</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">434KB</span>, <span class=\"page-length\">42 pages</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-2427851-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-2427851-accessibility-request\" data-controls=\"attachment-2427851-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-2427851-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:accessible.formats@dwp.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20DWP%20Cynllun%20Iaith%20Gymraeg%0A%20%20Original%20format%3A%20pdf%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27DWP%20Cynllun%20Iaith%20Gymraeg%27%20in%20an%20alternative%20format\">accessible.formats@dwp.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>\n\n</div>",
+    "organisation": "b548a09f-8b35-4104-89f4-f1a40bf3136d",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}

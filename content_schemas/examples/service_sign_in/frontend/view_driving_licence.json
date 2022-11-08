@@ -1,0 +1,47 @@
+{
+  "base_path": "/view-driving-licence/sign-in",
+  "content_id": "514754a3-3cac-4335-a676-f8987e3478fe",
+  "document_type": "service_sign_in",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-05-28T15:46:51.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "government-frontend",
+  "schema_name": "service_sign_in",
+  "title": "View Driving Licence",
+  "description": "Sign-in pages for view driving licence",
+  "updated_at": "2017-02-09T14:34:06.890Z",
+  "links": {
+    "parent": [
+      {
+        "content_id": "bee455d5-5a4f-440a-88be-eb65ae8fde7d",
+        "base_path": "/view-driving-licence",
+        "schema_name": "transaction",
+        "description": "Find out what information DVLA holds about your driving licence or create a check code to share your driving record, for example to hire a car",
+        "document_type": "transaction",
+        "locale": "en",
+        "public_updated_at": "2015-01-15T16:17:28.000+00:00",
+        "title": "View or share your driving licence information"
+      }
+    ]
+  },
+  "details": {
+    "choose_sign_in": {
+      "title": "Prove your identity to continue",
+      "slug": "choose-sign-in",
+      "options": [
+        {
+          "text": "Use your driving licence and National Insurance number",
+          "url": "https://www.viewdrivingrecord.service.gov.uk/driving-record/licence-number",
+          "hint_text": "Your driving licence must have been issued in England, Scotland or Wales."
+        },
+        {
+          "text": "Use GOV.UK Verify",
+          "hint_text": "You can use an existing identity account or create a new one. It usually takes about 5 minutes to create an account.",
+          "url": "https://www.viewdrivingrecord.service.gov.uk/verify/start"
+        }
+      ]
+    }
+  }
+}

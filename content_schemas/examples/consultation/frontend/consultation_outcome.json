@@ -1,0 +1,96 @@
+{
+  "content_id": "2384975c-68b4-4d13-a130-7ef95bd24e61",
+  "base_path": "/government/consultations/employee-share-schemes-nic-elections",
+  "description": "A consultation on whether companies with non tax-advantaged share schemes require the continued availability of a National Insurance Contribution (NIC) election.",
+  "public_updated_at": "2016-10-18T09:30:00.000+00:00",
+  "title": "Employee Share Schemes: NIC elections",
+  "updated_at": "2016-10-18T09:30:00Z",
+  "schema_name": "consultation",
+  "document_type": "consultation_outcome",
+  "locale": "en",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>A NIC election is the means of legally transferring to the employee the Employer’s Class 1 NIC obligation on the occasion of chargeable events in connection with employment-related securities options, and with restricted or convertible employment-related securities. This consultation is designed to gather views and evidence from companies with nontax-advantaged share schemes about whether there is a need for the continued availability of a NIC election. NIC agreements will continue to be available.</p>\n\n<p>The consultation is particularly relevant for accounting and legal advisers of companies which offer non tax-advantaged share schemes, particularly multinational companies with UK employees.</p>\n</div>",
+    "first_public_at": "2016-04-20T16:00:00+01:00",
+    "opening_date": "2016-04-20T16:00:00+01:00",
+    "closing_date": "2016-07-13T22:45:00+01:00",
+    "change_history": [
+      {
+        "public_timestamp": "2016-10-18T09:30:00+00:00",
+        "note": "Published summary of responses document."
+      },
+      {
+        "public_timestamp": "2016-04-20T16:00:00+00:00",
+        "note": "First published."
+      }
+    ],
+    "government": {
+      "title": "2015 Conservative government",
+      "slug": "2015-conservative-government",
+      "current": true
+    },
+    "political": false,
+    "emphasised_organisations": [
+      "6667cce2-e809-4e21-ae09-cb0bdc1ddda3"
+    ],
+    "final_outcome_detail": "This document is the response to the consultation on the ability to make National Insurance Contributions elections.",
+    "final_outcome_documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_1763883\">\n<div class=\"attachment-thumb\">\n<a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/560439/Employee_Share_Schemes-NIC_elections-summary_responses.pdf\"><img alt=\"\" src=\"https://assets.digital.cabinet-office.gov.uk/government/uploads/system/uploads/attachment_data/file/560439/thumbnail_Employee_Share_Schemes-NIC_elections-summary_responses.pdf.png\" /></a>\n</div>\n<div class=\"attachment-details\">\n<h2 class=\"title\"><a aria-describedby=\"attachment-1763883-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/560439/Employee_Share_Schemes-NIC_elections-summary_responses.pdf\">Employee Share Schemes: NIC elections - consulation response</a></h2>\n<p class=\"metadata\">\n<span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">258KB</span>, <span class=\"page-length\">7 pages</span>\n</p>\n\n\n<div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1763883-accessibility-help\">\n<h2>This file may not be suitable for users of assistive technology.\n<a class=\"toggler\" href=\"#attachment-1763883-accessibility-request\" data-controls=\"attachment-1763883-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n</h2>\n<p id=\"attachment-1763883-accessibility-request\" class=\"js-hidden\">\nIf you use assistive technology (eg a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Employee%20Share%20Schemes%3A%20NIC%20elections%20-%20consulation%20response%0A%20%20Original%20format%3A%20pdf%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Employee%20Share%20Schemes%3A%20NIC%20elections%20-%20consulation%20response%27%20in%20an%20alternative%20format\"></a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n</p>\n</div>\n</div>\n</section>"
+    ],
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "d4fbc1b9-d47d-4386-af04-ac909f868f92",
+        "title": "2015 Conservative government",
+        "locale": "en",
+        "api_path": "/api/content/government/2015-conservative-government",
+        "base_path": "/government/2015-conservative-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2015-05-08T00:00:00+00:00",
+          "ended_on": null,
+          "current": true
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2015-conservative-government",
+        "web_url": "https://www.gov.uk/government/2015-conservative-government"
+      }
+    ],
+    "organisations": [
+      {
+        "content_id": "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
+        "title": "HM Revenue & Customs",
+        "api_path": "/api/content/government/organisations/hm-revenue-customs",
+        "base_path": "/government/organisations/hm-revenue-customs",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/hm-revenue-customs",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs",
+        "locale": "en",
+        "document_type": "organisation",
+        "analytics_identifier": "D25"
+      }
+    ],
+    "policy_areas": [
+      {
+        "content_id": "8034be95-4ac2-4fff-93c5-e7514ed9504a",
+        "title": "Tax and revenue",
+        "api_path": "/api/content/government/topics/tax-and-revenue",
+        "base_path": "/government/topics/tax-and-revenue",
+        "api_url": "https://www.gov.uk/api/content/government/world/topics/tax-and-revenue",
+        "web_url": "https://www.gov.uk/government/world/topics/tax-and-revenue",
+        "locale": "en"
+      }
+    ]
+  }
+}

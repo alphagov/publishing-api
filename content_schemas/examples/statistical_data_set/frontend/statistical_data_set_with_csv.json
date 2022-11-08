@@ -1,0 +1,79 @@
+{
+  "base_path": "/government/statistical-data-sets/mot-testing-data-for-great-britain",
+  "content_id": "8f8d90e7-5289-4942-82f3-ed03b1a0ac10",
+  "title": "MOT testing data for Great Britain",
+  "description": "Statistical data sets about MOT testing including results by vehicle type, failures by type of defect, and MOT test stations and testers.",
+  "locale": "en",
+  "updated_at": "2016-11-16T15:39:49.732Z",
+  "public_updated_at": "2016-11-16T15:39:49.732+00:00",
+  "schema_name": "statistical_data_set",
+  "document_type": "statistical_data_set",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"about-this-data-set\">About this data set</h2><p>This data set comes from data held by the Driver and Vehicle Standards Agency (<abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>).</p><p>It isn’t classed as an ‘official statistic’. This means it’s not subject to scrutiny and assessment by the UK Statistics Authority.</p><h2 id=\"mot-test-results-by-class\">MOT test results by class</h2><p>The MOT test checks that your vehicle meets road safety and environmental standards. Different types of vehicles (eg cars and motorcycles) fall into different ‘classes’.</p><p>This data table shows the number of initial tests. It doesn’t include abandoned tests, aborted tests, or retests.</p><p>The initial fail rate is the rate for vehicles as they were brought for the MOT. The final fail rate excludes vehicles that pass the test after rectification of minor defects at the time of the test.</p><section class=\"attachment embedded\" id=\"attachment_1286048\"><div class=\"attachment-thumb\"><img alt=\"\" src=\"https://assets.publishing.service.gov.uk/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\"></div><div class=\"attachment-details\"><h2 class=\"title\">MOT test results by class of vehicle</h2><p class=\"metadata\"><span class=\"references\">Ref: <span class=\"unique_reference\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>/MOT/01</span></span><span class=\"preview\"><strong><a href=\"/government/uploads/system/uploads/attachment_data/file/479486/dvsa-mot-01-mot-test-results-by-class-of-vehicle.csv/preview\">View online</a></strong></span><span class=\"download\"><a href=\"/government/uploads/system/uploads/attachment_data/file/479486/dvsa-mot-01-mot-test-results-by-class-of-vehicle.csv\"><strong>Download CSV</strong>1.74KB</a></span></p></div></section><h2 id=\"initial-failures-by-defect-category\">Initial failures by defect category</h2><p>These tables give data for the following classes of vehicles:</p><ul><li>class 1 and 2 vehicles - motorcycles</li><li>class 3 and 4 vehicles - cars and light vans up to 3,000kg</li><li>class 5 vehicles - private passenger vehicles with more than 12 seats</li><li>class 7 vehicles - goods vehicles between 3,000kg and 3,500kg gross vehicle weight</li></ul><p>All figures are for vehicles as they were brought in for the MOT.</p><p>A failed test usually has multiple failure items.</p><p>The percentage of tests is worked out as the number of tests with one or more failure items in the defect as a percentage of total tests.</p><p>The percentage of defects is worked out as the total defects in the category as a percentage of total defects for all categories.</p><p>The average defects per initial test failure is worked out as the total failure items as a percentage of total tests failed plus tests that passed after rectification of a minor defect at the time of the test.</p><section class=\"attachment embedded\" id=\"attachment_1286049\"><div class=\"attachment-thumb\"><img alt=\"\" src=\"https://assets.publishing.service.gov.uk/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\"></div><div class=\"attachment-details\"><h2 class=\"title\">MOT class 1 and 2 vehicles: initial failures by defect category</h2><p class=\"metadata\"><span class=\"references\">Ref: <span class=\"unique_reference\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>/MOT/02</span></span><span class=\"preview\"><strong><a href=\"/government/uploads/system/uploads/attachment_data/file/482187/dvsa-mot-02-mot-class-1-and-2-vehicles-initial-failures-by-defect-category.csv/preview\">View online</a></strong></span><span class=\"download\"><a href=\"/government/uploads/system/uploads/attachment_data/file/482187/dvsa-mot-02-mot-class-1-and-2-vehicles-initial-failures-by-defect-category.csv\"><strong>Download CSV</strong>1.76KB</a></span></p></div></section><section class=\"attachment embedded\" id=\"attachment_1286050\"><div class=\"attachment-thumb\"><img alt=\"\" src=\"https://assets.publishing.service.gov.uk/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\"></div><div class=\"attachment-details\"><h2 class=\"title\">MOT class 3 and 4 vehicles: initial failures by defect category</h2><p class=\"metadata\"><span class=\"references\">Ref: <span class=\"unique_reference\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>/MOT/03</span></span><span class=\"preview\"><strong><a href=\"/government/uploads/system/uploads/attachment_data/file/482188/dvsa-mot-03-mot-class-3-and-4-vehicles-initial-failures-by-defect-category.csv/preview\">View online</a></strong></span><span class=\"download\"><a href=\"/government/uploads/system/uploads/attachment_data/file/482188/dvsa-mot-03-mot-class-3-and-4-vehicles-initial-failures-by-defect-category.csv\"><strong>Download CSV</strong>2.14KB</a></span></p></div></section><section class=\"attachment embedded\" id=\"attachment_1286059\"><div class=\"attachment-thumb\"><img alt=\"\" src=\"https://assets.publishing.service.gov.uk/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\"></div><div class=\"attachment-details\"><h2 class=\"title\">MOT class 5 vehicles: initial failures by defect category</h2><p class=\"metadata\"><span class=\"references\">Ref: <span class=\"unique_reference\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>/MOT/04</span></span><span class=\"preview\"><strong><a href=\"/government/uploads/system/uploads/attachment_data/file/482189/dvsa-mot-04-mot-class-5-vehicles-initial-failures-by-defect-category.csv/preview\">View online</a></strong></span><span class=\"download\"><a href=\"/government/uploads/system/uploads/attachment_data/file/482189/dvsa-mot-04-mot-class-5-vehicles-initial-failures-by-defect-category.csv\"><strong>Download CSV</strong>1.97KB</a></span></p></div></section><section class=\"attachment embedded\" id=\"attachment_1286060\"><div class=\"attachment-thumb\"><img alt=\"\" src=\"https://assets.publishing.service.gov.uk/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\"></div><div class=\"attachment-details\"><h2 class=\"title\">MOT class 7 vehicles: initial failures by defect category</h2><p class=\"metadata\"><span class=\"references\">Ref: <span class=\"unique_reference\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>/MOT/05</span></span><span class=\"preview\"><strong><a href=\"/government/uploads/system/uploads/attachment_data/file/482190/dvsa-mot-05-mot-class-7-vehicles-initial-failures-by-defect-category.csv/preview\">View online</a></strong></span><span class=\"download\"><a href=\"/government/uploads/system/uploads/attachment_data/file/482190/dvsa-mot-05-mot-class-7-vehicles-initial-failures-by-defect-category.csv\"><strong>Download CSV</strong>1.86KB</a></span></p></div></section><h2 id=\"mot-test-stations-and-testers\">MOT test stations and testers</h2><p>You must have an authorised test station to carry out MOTs, and you have to be approved as a ‘nominated tester’ (NT). Other MOT stations include:</p><ul><li>post office operated test stations</li><li>designated local authorities</li><li>the Crown</li><li>some police authorities</li></ul><section class=\"attachment embedded\" id=\"attachment_1286069\"><div class=\"attachment-thumb\"><img alt=\"\" src=\"https://assets.publishing.service.gov.uk/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\"></div><div class=\"attachment-details\"><h2 class=\"title\">MOT test stations and testers</h2><p class=\"metadata\"><span class=\"references\">Ref: <span class=\"unique_reference\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>/MOT/06</span></span><span class=\"preview\"><strong><a href=\"/government/uploads/system/uploads/attachment_data/file/479492/dvsa-mot-06-mot-test-stations-and-testers.csv/preview\">View online</a></strong></span><span class=\"download\"><a href=\"/government/uploads/system/uploads/attachment_data/file/479492/dvsa-mot-06-mot-test-stations-and-testers.csv\"><strong>Download CSV</strong>202Bytes</a></span></p></div></section><h2 id=\"action-against-mot-authorised-examiners-and-nominated-testers\">Action against MOT authorised examiners and nominated testers</h2><p><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr> can take disciplinary action or stop you operating as a testing station or tester if your service is not good enough.</p><section class=\"attachment embedded\" id=\"attachment_1286070\"><div class=\"attachment-thumb\"><img alt=\"\" src=\"https://assets.publishing.service.gov.uk/government/assets/pub-cover-spreadsheet-471052e0d03e940bbc62528a05ac204a884b553e4943e63c8bffa6b8baef8967.png\"></div><div class=\"attachment-details\"><h2 class=\"title\">Action against authorised examiners and nominated testers</h2><p class=\"metadata\"><span class=\"references\">Ref: <span class=\"unique_reference\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>/MOT/07</span></span><span class=\"preview\"><strong><a href=\"/government/uploads/system/uploads/attachment_data/file/479493/dvsa-mot-07-action-against-authorised-examiners-and-nominated-tests.csv/preview\">View online</a></strong></span><span class=\"download\"><a href=\"/government/uploads/system/uploads/attachment_data/file/479493/dvsa-mot-07-action-against-authorised-examiners-and-nominated-tests.csv\"><strong>Download CSV</strong>1.14KB</a></span></p></div></section></div>",
+    "first_public_at": "2016-11-16T15:39:49.732+00:00",
+    "government": {
+      "current": false,
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government"
+    },
+    "political": false,
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "emphasised_organisations": [
+      "d39237a5-678b-4bb5-a372-eb2cb036933d"
+    ]
+  },
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "EA570",
+        "api_path": "/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "base_path": "/government/organisations/driver-and-vehicle-standards-agency",
+        "content_id": "d39237a5-678b-4bb5-a372-eb2cb036933d",
+        "locale": "en",
+        "title": "Driver and Vehicle Standards Agency",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "web_url": "https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency"
+      }
+    ],
+    "document_collections": [
+      {
+        "content_id": "bfa77b83-120a-445f-810c-1a3b1cd58a8a",
+        "title": "Vehicle testing, enforcement, approval and safety defect data",
+        "api_path": "/api/content/government/collections/vehicle-testing-enforcement-approval-and-safety-defect-data",
+        "base_path": "/government/collections/vehicle-testing-enforcement-approval-and-safety-defect-data",
+        "api_url": "https://www.gov.uk/api/content/government/collections/vehicle-testing-enforcement-approval-and-safety-defect-data",
+        "web_url": "https://www.gov.uk/government/collections/vehicle-testing-enforcement-approval-and-safety-defect-data",
+        "locale": "en"
+      }
+    ]
+  }
+}

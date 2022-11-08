@@ -1,0 +1,320 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/report-stray-dog",
+  "content_id": "06465dbe-dcac-4e0b-8143-ae5f8526d493",
+  "document_type": "local_transaction",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2015-11-09T15:52:07.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "local_transaction",
+  "title": "Report a stray dog",
+  "updated_at": "2017-02-09T15:54:12.666Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "mainstream_browse_pages": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/housing-local-services/noise-neighbours",
+        "base_path": "/browse/housing-local-services/noise-neighbours",
+        "content_id": "ae8c76fb-16ac-4c8a-94e1-47de716896af",
+        "description": "Includes neighbour disputes, reporting noise nuisance, pest control and looking after pets",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-08-03T13:29:40Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Noise, neighbours, pets and pests",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/noise-neighbours",
+        "web_url": "http://www.dev.gov.uk/browse/housing-local-services/noise-neighbours"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/report-dog-fouling",
+        "base_path": "/report-dog-fouling",
+        "content_id": "deedb81e-449c-4c1f-a9af-7f6896a9a531",
+        "description": "The local council must keep public areas like parks, playgrounds and pavements clear of dog mess - report a dog fouling problem to the local council",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2012-05-02T16:27:21Z",
+        "schema_name": "local_transaction",
+        "title": "Report a dog fouling problem",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/noise-neighbours",
+              "base_path": "/browse/housing-local-services/noise-neighbours",
+              "content_id": "ae8c76fb-16ac-4c8a-94e1-47de716896af",
+              "description": "Includes neighbour disputes, reporting noise nuisance, pest control and looking after pets",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:29:40Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Noise, neighbours, pets and pests",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Housing and local services",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/noise-neighbours",
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/noise-neighbours"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/recycling-rubbish",
+              "base_path": "/browse/housing-local-services/recycling-rubbish",
+              "content_id": "f4267150-2591-4c47-856a-25795c71f303",
+              "description": "Includes collecting large waste items, garden waste and reporting problems",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:34:35Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Recycling, rubbish, streets and roads",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Housing and local services",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/recycling-rubbish",
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/recycling-rubbish"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/report-dog-fouling",
+        "web_url": "http://www.dev.gov.uk/report-dog-fouling"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/check-council-missing-dog",
+        "base_path": "/check-council-missing-dog",
+        "content_id": "31cad4a6-fc96-4807-a3d1-16b21f7eb943",
+        "description": "Report your missing or lost dog to the council's dog warden service",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2015-11-09T15:52:33Z",
+        "schema_name": "local_transaction",
+        "title": "Check if the council has your missing dog",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/noise-neighbours",
+              "base_path": "/browse/housing-local-services/noise-neighbours",
+              "content_id": "ae8c76fb-16ac-4c8a-94e1-47de716896af",
+              "description": "Includes neighbour disputes, reporting noise nuisance, pest control and looking after pets",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:29:40Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Noise, neighbours, pets and pests",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Housing and local services",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/noise-neighbours",
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/noise-neighbours"
+            },
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services/local-councils",
+              "base_path": "/browse/housing-local-services/local-councils",
+              "content_id": "4f8f62a8-9ff9-45ab-b4f7-aec5d1cffbad",
+              "description": "Find and access local services",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:28:57Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Local councils and services",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/housing-local-services",
+                    "base_path": "/browse/housing-local-services",
+                    "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+                    "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2015-08-03T13:25:46Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Housing and local services",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+                    "web_url": "http://www.dev.gov.uk/browse/housing-local-services"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/local-councils",
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services/local-councils"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/check-council-missing-dog",
+        "web_url": "http://www.dev.gov.uk/check-council-missing-dog"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D7",
+        "api_path": "/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "base_path": "/government/organisations/department-for-environment-food-rural-affairs",
+        "content_id": "de4e9dc6-cca4-43af-a594-682023b84d6c",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-12-09T12:38:41Z",
+        "schema_name": "placeholder",
+        "title": "Department for Environment, Food & Rural Affairs",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-environment-food-rural-affairs",
+          "logo": {
+            "formatted_title": "Department<br/>for Environment<br/>Food &amp; Rural Affairs",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/department-for-environment-food-rural-affairs",
+        "web_url": "http://www.dev.gov.uk/government/organisations/department-for-environment-food-rural-affairs"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/housing-local-services/noise-neighbours",
+        "base_path": "/browse/housing-local-services/noise-neighbours",
+        "content_id": "ae8c76fb-16ac-4c8a-94e1-47de716896af",
+        "description": "Includes neighbour disputes, reporting noise nuisance, pest control and looking after pets",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2015-08-03T13:29:40Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Noise, neighbours, pets and pests",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/housing-local-services",
+              "base_path": "/browse/housing-local-services",
+              "content_id": "61d038ad-ba54-40a1-b6ca-18b390138b41",
+              "description": "Includes owning or renting, council services, planning and building, neighbours, noise and pets",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2015-08-03T13:25:46Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Housing and local services",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services",
+              "web_url": "http://www.dev.gov.uk/browse/housing-local-services"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/housing-local-services/noise-neighbours",
+        "web_url": "http://www.dev.gov.uk/browse/housing-local-services/noise-neighbours"
+      }
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "base_path": "/report-stray-dog",
+        "content_id": "06465dbe-dcac-4e0b-8143-ae5f8526d493",
+        "description": "If you find a stray dog and can't contact the owner, you must report it to the council",
+        "document_type": "local_transaction",
+        "locale": "en",
+        "public_updated_at": "2015-11-09T15:52:07Z",
+        "schema_name": "local_transaction",
+        "title": "Report a stray dog",
+        "api_path": "/api/content/report-stray-dog",
+        "withdrawn": false,
+        "api_url": "http://www.dev.gov.uk/api/content/report-stray-dog",
+        "web_url": "http://www.dev.gov.uk/report-stray-dog",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "If you find a stray dog and can't contact the owner, you must report it to the council",
+  "details": {
+    "lgsl_code": 432,
+    "lgil_code": 101,
+    "service_tiers": [
+      "county",
+      "unitary"
+    ],
+    "introduction": "<p>If you find a stray dog and can’t contact the owner, you must report it to the council.</p>\n",
+    "more_information": "<h2 id=\"keeping-a-stray-dog\">Keeping a stray dog</h2>\n\n<p>You must return a stray dog to its owner if you know who the owner is. Otherwise you must contact your local council.</p>\n\n<p>Tell the council you want to keep the dog. They’ll probably check you’re suitable as a dog owner before you can adopt it.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>Even if you adopt it, the legal ownership of the dog is never transferred to you.</p>\n</div>\n\n<p>This means that the original owner could claim their dog back at any time, even if you’ve had the dog for several months or years.</p>\n\n",
+    "need_to_know": "<ul>\n  <li>Available in England and Wales only</li>\n</ul>\n",
+    "external_related_links": [
+
+    ]
+  }
+}

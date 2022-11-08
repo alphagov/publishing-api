@@ -1,0 +1,173 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/publications/right-to-request-flexible-working-impact-assessment-revised-cost-to-business",
+  "content_id": "5f1d8e9b-7631-11e4-a3cb-005056011aef",
+  "document_type": "impact_assessment",
+  "first_published_at": "2014-03-14T13:57:00.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2014-03-14T13:57:00.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "publication",
+  "title": "Right to request flexible working: revised cost to business",
+  "updated_at": "2017-11-08T19:13:10.848Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": null,
+  "links": {
+    "government": [
+      {
+        "content_id": "591c83aa-3b74-437d-a342-612bddd97572",
+        "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+        "locale": "en",
+        "api_path": "/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "base_path": "/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "document_type": "government",
+        "details": {
+          "started_on": "2010-05-12T00:00:00+00:00",
+          "ended_on": "2015-05-08T00:00:00+00:00",
+          "current": false
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+        "web_url": "https://www.gov.uk/government/2010-to-2015-conservative-and-liberal-democrat-coalition-government"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "D3",
+        "api_path": "/api/content/government/organisations/department-for-business-innovation-skills",
+        "base_path": "/government/organisations/department-for-business-innovation-skills",
+        "content_id": "569a9ee5-c195-4b7f-b9dc-edc17a09113f",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-08-01T15:38:37Z",
+        "schema_name": "placeholder",
+        "title": "Department for Business, Innovation & Skills",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "formatted_title": "Department <br/>for Business<br/>Innovation &amp; Skills",
+            "crest": "bis"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-business-innovation-skills",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-business-innovation-skills"
+      }
+    ],
+    "policy_areas": [
+      {
+        "api_path": "/api/content/government/topics/business-and-enterprise",
+        "base_path": "/government/topics/business-and-enterprise",
+        "content_id": "eaffa04f-549d-4ece-90dd-c23a44703a53",
+        "document_type": "policy_area",
+        "locale": "en",
+        "public_updated_at": "2013-07-22T16:15:27Z",
+        "schema_name": "placeholder",
+        "title": "Business and enterprise",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/business-and-enterprise",
+        "web_url": "https://www.gov.uk/government/topics/business-and-enterprise"
+      },
+      {
+        "api_path": "/api/content/government/topics/employment",
+        "base_path": "/government/topics/employment",
+        "content_id": "88f76819-ccbe-4bcd-90b8-9e7d38f2f7b4",
+        "document_type": "placeholder_policy_area",
+        "locale": "en",
+        "public_updated_at": "2016-02-04T11:25:05Z",
+        "schema_name": "placeholder_policy_area",
+        "title": "Employment",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/topics/employment",
+        "web_url": "https://www.gov.uk/government/topics/employment"
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "analytics_identifier": "D3",
+        "api_path": "/api/content/government/organisations/department-for-business-innovation-skills",
+        "base_path": "/government/organisations/department-for-business-innovation-skills",
+        "content_id": "569a9ee5-c195-4b7f-b9dc-edc17a09113f",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-08-01T15:38:37Z",
+        "schema_name": "placeholder",
+        "title": "Department for Business, Innovation & Skills",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-business-innovation-skills",
+          "logo": {
+            "formatted_title": "Department <br/>for Business<br/>Innovation &amp; Skills",
+            "crest": "bis"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-business-innovation-skills",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-business-innovation-skills"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Right to request flexible working: revised cost to business",
+        "public_updated_at": "2014-03-14T13:57:00Z",
+        "document_type": "impact_assessment",
+        "schema_name": "publication",
+        "base_path": "/government/publications/right-to-request-flexible-working-impact-assessment-revised-cost-to-business",
+        "description": "Impact assessment on the extension of the right to request flexible working to all employees.",
+        "api_path": "/api/content/government/publications/right-to-request-flexible-working-impact-assessment-revised-cost-to-business",
+        "withdrawn": false,
+        "content_id": "5f1d8e9b-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/publications/right-to-request-flexible-working-impact-assessment-revised-cost-to-business",
+        "web_url": "https://www.gov.uk/government/publications/right-to-request-flexible-working-impact-assessment-revised-cost-to-business",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Impact assessment on the extension of the right to request flexible working to all employees.",
+  "details": {
+    "body": "<div class=\"govspeak\"><p>Since the original publication of this assessment in November 2012, the Better Regulation Executive has updated the inflation assumptions that are used to discount the costs and benefits of all policies. As a result, the equivalent annual net cost to business of the policies assessed has fallen to £10.31 million (down from £11.79 million). The remaining analysis is unchanged.</p>\n\n<p>This document relates to the <a href=\"https://www.gov.uk/government/consultations/consultation-on-modern-workplaces\">consultation on modern workplaces</a>.</p>\n</div>",
+    "change_history": [
+      {
+        "public_timestamp": "2014-03-14T13:57:00.000+00:00",
+        "note": "First published."
+      }
+    ],
+    "documents": [
+      "<section class=\"attachment embedded\" id=\"attachment_741464\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/289815/bis-14-656-modern-workplaces-right-to-request-flexible-working-impact-assessment.pdf\"><img alt=\"\" src=\"/government/uploads/system/uploads/attachment_data/file/289815/thumbnail_bis-14-656-modern-workplaces-right-to-request-flexible-working-impact-assessment.pdf.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-741464-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/289815/bis-14-656-modern-workplaces-right-to-request-flexible-working-impact-assessment.pdf\">Modern workplaces: right to request flexible working impact assessment - revised equivalent annual net cost to business</a></h2>\n    <p class=\"metadata\">\n        <span class=\"references\">\n          Ref: <span class=\"unique_reference\">BIS/14/656</span>\n        </span>\n        <span class=\"type\"><abbr title=\"Portable Document Format\">PDF</abbr></span>, <span class=\"file-size\">361KB</span>, <span class=\"page-length\">5 pages</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-741464-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-741464-accessibility-request\" data-controls=\"attachment-741464-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-741464-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:enquiries@bis.gsi.gov.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Modern%20workplaces%3A%20right%20to%20request%20flexible%20working%20impact%20assessment%20-%20revised%20equivalent%20annual%20net%20cost%20to%20business%0A%20%20Original%20format%3A%20pdf%0A%20%20Unique%20reference%3A%20BIS%2F14%2F656%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Modern%20workplaces%3A%20right%20to%20request%20flexible%20working%20impact%20assessment%20-%20revised%20equivalent%20annual%20net%20cost%20to%20business%27%20in%20an%20alternative%20format\">enquiries@bis.gsi.gov.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>"
+    ],
+    "emphasised_organisations": [
+      "569a9ee5-c195-4b7f-b9dc-edc17a09113f"
+    ],
+    "political": false,
+    "government": {
+      "title": "2010 to 2015 Conservative and Liberal Democrat coalition government",
+      "slug": "2010-to-2015-conservative-and-liberal-democrat-coalition-government",
+      "current": false
+    },
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    },
+    "first_public_at": "2014-03-14T13:57:00.000+00:00"
+  }
+}

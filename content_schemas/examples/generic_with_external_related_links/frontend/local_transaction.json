@@ -1,0 +1,49 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/pay-council-tax",
+  "content_id": "7c6cae47-9806-4964-bb74-c67a0733b240",
+  "document_type": "local_transaction",
+  "first_published_at": "2016-11-09T15:39:23.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-11-10T12:58:31.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "generic_with_external_related_links",
+  "title": "Pay Council Tax",
+  "updated_at": "2016-11-10T12:58:32.344Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "parent": [
+
+    ],
+    "available_translations": [
+      {
+        "analytics_identifier": null,
+        "content_id": "7c6cae47-9806-4964-bb74-c67a0733b240",
+        "description": null,
+        "document_type": "local_transaction",
+        "public_updated_at": "2016-11-10T12:58:31Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Pay Council Tax",
+        "base_path": "/pay-council-tax",
+        "locale": "en",
+        "api_path": "/api/pay-council-tax.json",
+        "api_url": "https://www.gov.uk/api/pay-council-tax.json",
+        "web_url": "https://www.gov.uk/pay-council-tax",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "",
+  "details": {
+    "external_related_links": [
+      {
+        "title": "Check your Council Tax band",
+        "url": "https://www.gov.uk/council-tax-bands"
+      }
+    ]
+  }
+}

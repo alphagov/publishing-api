@@ -1,0 +1,324 @@
+{
+  "content_id": "9b2e22e1-a222-4cda-9799-de7ce56088b0",
+  "base_path": "/guidance/content-design",
+  "title": "Content design: planning, writing and managing content",
+  "description": "Planning and managing digital content to meet the needs the public has of government.",
+  "locale": "en",
+  "updated_at": "2015-04-27T12:54:38.685Z",
+  "public_updated_at": "2015-04-27T12:54:27.000+00:00",
+  "details": {
+    "body": "<p>Vis nostro intellegebat at. Impedit pericula duo ne, pri nonumes ullamcorper in. Oratio invidunt et his, ele, at principes similique nam. No eam eleifend euripidis intellegat, sensibus theophrastus consectetuer.\nSumo solum quaestio has cu. Eu oblique euismod deleniti eum, congue necessitatibus ne sit.\nNo eum mutat soleat definiebas, ut argumentum efficiantur delicatissimi ius. At feugait adversarium vel. At cum mutat numquam graecis. Sit appareat adolescens constituto eu, te eleifend postulant theophrastus eam\nIf you would like to receive email updates for daily ice cream flavours, send us a hand written note.\nVel ut iudico dolore. Vix ne diam iuvaret referrentur, eam nisl accusamus temporibus ne.If you like yoga <a href=\"/lloydsfactsheet\">click here</a>.</p>\n",
+    "child_section_groups": [
+      {
+        "title": "Contents",
+        "child_sections": [
+          {
+            "title": "What is content design?",
+            "description": "Introduction to content design.",
+            "base_path": "/guidance/content-design/what-is-content-design"
+          },
+          {
+            "title": "User needs",
+            "description": "How to write and record a user need for GOV.UK.",
+            "base_path": "/guidance/content-design/user-needs"
+          },
+          {
+            "title": "Planning content",
+            "description": "Find out how to decide if something is suitable for GOV.UK, what the content lifecycle is and why accessibility must be planned for.",
+            "base_path": "/guidance/content-design/planning-content"
+          }
+        ]
+      }
+    ],
+    "change_notes": [
+      {
+        "base_path": "/guidance/content-design/what-is-content-design",
+        "title": "What is content design?",
+        "change_note": "New section added.",
+        "published_at": "2014-10-06T19:49:25Z"
+      },
+      {
+        "base_path": "/guidance/content-design/user-needs",
+        "title": "User needs",
+        "change_note": "New section added.",
+        "published_at": "2014-10-06T19:49:25Z"
+      },
+      {
+        "base_path": "/guidance/content-design/planning-content",
+        "title": "Planning content",
+        "change_note": "New section added.",
+        "published_at": "2014-10-06T19:49:25Z"
+      },
+      {
+        "base_path": "/guidance/content-design/content-types",
+        "title": "Content types",
+        "change_note": "New section added.",
+        "published_at": "2014-10-06T19:49:25Z"
+      }
+    ],
+    "organisations": [
+      {
+        "title": "Government Digital Service",
+        "abbreviation": "GDS",
+        "web_url": "https://www.gov.uk/government/organisations/government-digital-service"
+      }
+    ]
+  },
+  "links": {
+    "part_of_step_navs": [
+      {
+        "api_path": "/api/content/learn-to-drive-a-car",
+        "base_path": "/learn-to-drive-a-car",
+        "content_id": "e01e924b-9c7c-4c71-8241-66a575c2f61f",
+        "description": "Learn to drive a car in the UK - get a provisional licence, take driving lessons, prepare for your theory test, book your practical test.",
+        "document_type": "step_by_step_nav",
+        "locale": "en",
+        "public_updated_at": "2018-03-02T11:53:13Z",
+        "schema_name": "step_by_step_nav",
+        "title": "Learn to drive a car: step by step",
+        "withdrawn": false,
+        "details": {
+          "step_by_step_nav": {
+            "title": "Learn to drive a car: step by step",
+            "introduction": [
+              {
+                "content_type": "text/govspeak",
+                "content": "Check what you need to do to learn to drive."
+              }
+            ],
+            "steps": [
+              {
+                "title": "Check you're allowed to drive",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "Most people can start learning to drive when they’re 17."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/vehicles-can-drive",
+                        "text": "Check what age you can drive"
+                      },
+                      {
+                        "href": "/legal-obligations-drivers-riders",
+                        "text": "Requirements for driving legally"
+                      },
+                      {
+                        "href": "/driving-eyesight-rules",
+                        "text": "Driving eyesight rules"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Get a provisional driving licence",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/apply-first-provisional-driving-licence",
+                        "text": "Apply for your first provisional driving licence",
+                        "context": "£34 - £43"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Driving lessons and practice",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to take lessons or practice."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/guidance/the-highway-code",
+                        "text": "The Highway Code"
+                      },
+                      {
+                        "href": "/driving-lessons-learning-to-drive",
+                        "text": "Taking driving lessons"
+                      },
+                      {
+                        "href": "/find-driving-schools-and-lessons",
+                        "text": "Find driving schools, lessons and instructors"
+                      },
+                      {
+                        "href": "/government/publications/car-show-me-tell-me-vehicle-safety-questions",
+                        "text": "Practise vehicle safety questions"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Prepare for your theory test",
+                "logic": "and",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/theory-test/revision-and-practice",
+                        "text": "Theory test revision and practice"
+                      },
+                      {
+                        "href": "/take-practice-theory-test",
+                        "text": "Take a practice theory test"
+                      },
+                      {
+                        "href": "https://www.safedrivingforlife.info/shop/product/official-dvsa-theory-test-kit-app-app",
+                        "text": "Theory and hazard perception test app"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your theory test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to book your theory test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-theory-test",
+                        "text": "Book your theory test",
+                        "context": "£23"
+                      },
+                      {
+                        "href": "/theory-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-theory-test",
+                        "text": "Change your theory test appointment"
+                      },
+                      {
+                        "href": "/check-theory-test",
+                        "text": "Check your theory test appointment details"
+                      },
+                      {
+                        "href": "/cancel-theory-test",
+                        "text": "Cancel your theory test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your driving test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You must pass your theory test before you can book your driving test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-driving-test",
+                        "text": "Book your driving test",
+                        "context": "£62"
+                      },
+                      {
+                        "href": "/driving-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-driving-test",
+                        "text": "Change your driving test appointment"
+                      },
+                      {
+                        "href": "/check-driving-test",
+                        "text": "Check your driving test appointment details"
+                      },
+                      {
+                        "href": "/cancel-driving-test",
+                        "text": "Cancel your driving test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "When you pass",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You can start driving as soon as you pass your driving test."
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "You must have an insurance policy that allows you to drive without supervision."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/pass-plus",
+                        "text": "Find out about Pass Plus training courses"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "links": {
+          "pages_part_of_step_nav": [
+            {
+              "api_path": "/api/content/theory-test",
+              "base_path": "/theory-test",
+              "content_id": "b5d8c773-3a31-45f2-838d-255afef5511a",
+              "description": "When to book your car theory test, what to take with you, how the multiple-choice questions and hazard perception test work, and the pass mark",
+              "document_type": "guide",
+              "locale": "en",
+              "public_updated_at": "2016-12-20T13:49:20Z",
+              "schema_name": "guide",
+              "title": "Theory test: cars",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/theory-test",
+              "web_url": "https://www.gov.uk/theory-test"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/learn-to-drive-a-car",
+        "web_url": "https://www.gov.uk/learn-to-drive-a-car"
+      }
+    ],
+    "available_translations": [
+      {
+        "content_id": "9b2e22e1-a222-4cda-9799-de7ce56088b0",
+        "title": "Content design: planning, writing and managing content",
+        "api_path": "/api/content/guidance/content-design",
+        "base_path": "/guidance/content-design",
+        "api_url": "https://www.gov.uk/api/content/guidance/content-design",
+        "web_url": "https://www.gov.uk/guidance/content-design",
+        "locale": "en"
+      }
+    ]
+  },
+  "schema_name": "manual",
+  "document_type": "manual"
+}

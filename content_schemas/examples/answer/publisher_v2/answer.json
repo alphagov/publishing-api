@@ -1,0 +1,40 @@
+{
+  "title": "Gwasanaethau ar-lein Cyllid a Thollau EM yn y Gymraeg",
+  "base_path": "/gwasanaethau-ar-lein-cymraeg-cthem",
+  "description": "Gallwch ddefnyddio’r gwasanaethau canlynol gan Gyllid a Thollau Ei Mawrhydi (CThEM) ar-lein yn y Gymraeg - Hunanasesu, TAW, Treth Gorfforaeth, Talu Wrth Ennill Ar-lein i gyflogwyr, Elusennau Ar-lein, Toll Peiriannau Hapchwarae",
+  "schema_name": "answer",
+  "document_type": "answer",
+  "public_updated_at": "2015-05-28T16:46:51.000+01:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "routes": [
+    {
+      "path": "/gwasanaethau-ar-lein-cymraeg-cthem",
+      "type": "exact"
+    },
+    {
+      "path": "/gwasanaethau-ar-lein-cymraeg-cthem.json",
+      "type": "exact"
+    }
+  ],
+  "redirects": [
+
+  ],
+  "update_type": "minor",
+  "change_note": null,
+  "details": {
+    "body": [
+      {
+        "content_type": "text/govspeak",
+        "content": "Gallwch ddefnyddio’r gwasanaethau canlynol gan Gyllid a Thollau Ei Mawrhydi (CThEM) ar-lein yn y Gymraeg:\r\n\r\n- Hunanasesiad\r\n- TAW\r\n- Treth Gorfforaeth\r\n- Talu Wrth Ennill Ar-lein i gyflogwyr\r\n- Elusennau Ar-lein\r\n- Toll Peiriannau Hapchwarae  \r\n- Y Crynodeb Treth Blynyddol \r\n- Gwasanaeth Car Cwmni TWE \r\n- Gwneud Cais am Lwfans Priodasol\r\n- Gwasanaeth Talu \r\n- Gwasanaeth Cynorthwywyr y Gellir Ymddiried Ynddynt \r\n- Gwasanaeth Buddiannau drwy'r Gyflogres\r\n- Cael cyfriflen Pensiwn y Wladwriaeth\r\n\r\n##Cofrestru ar gyfer trethi\r\n\r\nRhaid i chi [gofrestru ar gyfer trethi](https://online.hmrc.gov.uk/registration/newbusiness/introduction?lang=cym) cyn i chi gofrestru ar gyfer:\r\n\r\n- Treth Gorfforaeth\r\n- Hunanasesiad\r\n- TAW\r\n- Talu Wrth Ennill Ar-lein i gyflogwyr\r\n\r\n^Peidiwch â defnyddio acenion ar lafariaid pan fyddwch yn llenwi’r ffurflenni ar-lein.^\r\n\r\nBydd CThEM yn anfon y canlynol atoch:\r\n\r\n- Eich Cyfeirnod Unigryw y Trethdalwr ar gyfer Hunanasesiad neu Dreth Gorfforaeth\r\n- Rhif cofrestru ar gyfer TAW\r\n\r\nBydd angen y rhain arnoch pan fyddwch yn cofrestru i ddefnyddio gwasanaethau ar-lein.\r\n\r\n##Cofrestru ar gyfer y gwasanaeth\r\n\r\nByd angen ID Defnyddiwr a chyfrinair arnoch cyn y byddwch yn gallu mewngofnodi a defnyddio’r gwasanaeth.  \r\n\r\ns1. Ewch i [wasanaethau ar-lein CThEM](https://online.hmrc.gov.uk/login?lang=cym) a chlicio ‘Cofrestru’.  \r\ns2. Dilynwch y camau i gofrestru ar gyfer y gwasanaeth sydd ei angen arnoch.  \r\ns3. Byddwch yn cael ID Defnyddiwr a bydd yn rhaid i chi ddewis cyfrinair.   \r\n\r\n\r\n##Dechrau defnyddio’r gwasanaeth\r\n\r\nBydd angen cod cychwyn arnoch i ddechrau defnyddio’r holl wasanaethau hyn, ac eithrio TAW. Anfonir hwn atoch cyn pen saith diwrnod gwaith ar ôl i chi gofrestru. Os ydych chi’n byw dramor, gall gymryd hyd at 21 diwrnod i gyrraedd.\r\n\r\nRhowch eich cyfrif ar waith drwy [fewngofnodi](https://online.hmrc.gov.uk/login?lang=cym) cyn pen 28 diwrnod i'r dyddiad a nodir ar y llythyr. Os na fyddwch yn gwneud hyn, bydd y cod yn dod i ben a bydd yn rhaid i chi ofyn am un newydd.\r\n\r\n^Cysylltwch â [llinellau cymorth Cymraeg CThEM](/government/organisations/hm-revenue-customs/contact?search%5Bname%5D=&search%5Bcontact_group_id%5D=37) os oes angen help arnoch i ddefnyddio unrhyw un o’r gwasanaethau.^\r\n\r\n##Talu Wrth Ennill Ar-lein\r\n\r\nOs ydych chi’n gyflogwr newydd, bydd angen i chi ddefnyddio [Offer TWE Sylfaenol](/basic-paye-tools) neu [feddalwedd cyflogres](/payroll-software) arall i gyflwyno gwybodaeth am y gyflogres i CThEM.\r\n\r\n##Negeseuon e-bost gwe-rwydo a sgamiau treth\r\n\r\nNi fydd CThEM byth yn defnyddio negeseuon testun na negeseuon e-bost i wneud y canlynol:\r\n\r\n- rhoi gwybod i chi am ddirwy neu ad-daliad treth\r\n- gofyn am wybodaeth am daliadau personol\r\n\r\nAnfonwch unrhyw negeseuon e-bost amheus at <gwasanaeth.cymraeg@hmrc.gsi.gov.uk> neu tarwch olwg ar [arweiniad ar adnabod sgamiau](/government/publications/genuine-hmrc-contact-and-recognising-phishing-emails.cy) CThEM os nad ydych chi’n siŵr.\r\n\r\n*[CThEM]:Gyllid a Thollau Ei Mawrhydi"
+      }
+    ],
+    "external_related_links": [
+      {
+        "url": "https://online.hmrc.gov.uk/login?lang=cym",
+        "title": "Gwasanaethau ar-lein"
+      }
+    ]
+  },
+  "locale": "cy"
+}

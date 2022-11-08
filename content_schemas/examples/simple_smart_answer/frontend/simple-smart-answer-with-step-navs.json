@@ -1,0 +1,681 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/become-a-driving-instructor",
+  "content_id": "bc1c2f06-8601-452b-8f18-37520ba7d1f8",
+  "document_type": "simple_smart_answer",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2017-02-22T13:50:49.000+00:00",
+  "publishing_app": "publisher",
+  "rendering_app": "frontend",
+  "schema_name": "simple_smart_answer",
+  "title": "Become a driving instructor",
+  "updated_at": "2017-02-23T10:35:08.669Z",
+  "withdrawn_notice": {
+  },
+  "links": {
+    "part_of_step_navs": [
+      {
+        "api_path": "/api/content/learn-to-drive-a-car",
+        "base_path": "/learn-to-drive-a-car",
+        "content_id": "e01e924b-9c7c-4c71-8241-66a575c2f61f",
+        "description": "Learn to drive a car in the UK - get a provisional licence, take driving lessons, prepare for your theory test, book your practical test.",
+        "document_type": "step_by_step_nav",
+        "locale": "en",
+        "public_updated_at": "2018-03-02T11:53:13Z",
+        "schema_name": "step_by_step_nav",
+        "title": "Learn to drive a car: step by step",
+        "withdrawn": false,
+        "details": {
+          "step_by_step_nav": {
+            "title": "Learn to drive a car: step by step",
+            "introduction": [
+              {
+                "content_type": "text/govspeak",
+                "content": "Check what you need to do to learn to drive."
+              }
+            ],
+            "steps": [
+              {
+                "title": "Check you're allowed to drive",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "Most people can start learning to drive when they’re 17."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/vehicles-can-drive",
+                        "text": "Check what age you can drive"
+                      },
+                      {
+                        "href": "/legal-obligations-drivers-riders",
+                        "text": "Requirements for driving legally"
+                      },
+                      {
+                        "href": "/driving-eyesight-rules",
+                        "text": "Driving eyesight rules"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Get a provisional driving licence",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/apply-first-provisional-driving-licence",
+                        "text": "Apply for your first provisional driving licence",
+                        "context": "£34 - £43"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Driving lessons and practice",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to take lessons or practice."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/guidance/the-highway-code",
+                        "text": "The Highway Code"
+                      },
+                      {
+                        "href": "/driving-lessons-learning-to-drive",
+                        "text": "Taking driving lessons"
+                      },
+                      {
+                        "href": "/find-driving-schools-and-lessons",
+                        "text": "Find driving schools, lessons and instructors"
+                      },
+                      {
+                        "href": "/government/publications/car-show-me-tell-me-vehicle-safety-questions",
+                        "text": "Practise vehicle safety questions"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Prepare for your theory test",
+                "logic": "and",
+                "contents": [
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/theory-test/revision-and-practice",
+                        "text": "Theory test revision and practice"
+                      },
+                      {
+                        "href": "/take-practice-theory-test",
+                        "text": "Take a practice theory test"
+                      },
+                      {
+                        "href": "https://www.safedrivingforlife.info/shop/product/official-dvsa-theory-test-kit-app-app",
+                        "text": "Theory and hazard perception test app"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your theory test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You need a provisional driving licence to book your theory test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-theory-test",
+                        "text": "Book your theory test",
+                        "context": "£23"
+                      },
+                      {
+                        "href": "/theory-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-theory-test",
+                        "text": "Change your theory test appointment"
+                      },
+                      {
+                        "href": "/check-theory-test",
+                        "text": "Check your theory test appointment details"
+                      },
+                      {
+                        "href": "/cancel-theory-test",
+                        "text": "Cancel your theory test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Book and manage your driving test",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You must pass your theory test before you can book your driving test."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/book-driving-test",
+                        "text": "Book your driving test",
+                        "context": "£62"
+                      },
+                      {
+                        "href": "/driving-test/what-to-take",
+                        "text": "What to take to your test"
+                      },
+                      {
+                        "href": "/change-driving-test",
+                        "text": "Change your driving test appointment"
+                      },
+                      {
+                        "href": "/check-driving-test",
+                        "text": "Check your driving test appointment details"
+                      },
+                      {
+                        "href": "/cancel-driving-test",
+                        "text": "Cancel your driving test"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "When you pass",
+                "contents": [
+                  {
+                    "type": "paragraph",
+                    "text": "You can start driving as soon as you pass your driving test."
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "You must have an insurance policy that allows you to drive without supervision."
+                  },
+                  {
+                    "type": "list",
+                    "style": "required",
+                    "contents": [
+                      {
+                        "href": "/pass-plus",
+                        "text": "Find out about Pass Plus training courses"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "links": {
+          "pages_part_of_step_nav": [
+            {
+              "api_path": "/api/content/theory-test",
+              "base_path": "/theory-test",
+              "content_id": "b5d8c773-3a31-45f2-838d-255afef5511a",
+              "description": "When to book your car theory test, what to take with you, how the multiple-choice questions and hazard perception test work, and the pass mark",
+              "document_type": "guide",
+              "locale": "en",
+              "public_updated_at": "2016-12-20T13:49:20Z",
+              "schema_name": "guide",
+              "title": "Theory test: cars",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "https://www.gov.uk/api/content/theory-test",
+              "web_url": "https://www.gov.uk/theory-test"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/learn-to-drive-a-car",
+        "web_url": "https://www.gov.uk/learn-to-drive-a-car"
+      }
+    ],
+    "mainstream_browse_pages": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/driving/teaching-people-to-drive",
+        "base_path": "/browse/driving/teaching-people-to-drive",
+        "content_id": "ae54d8dc-0d05-4b30-8d56-30b5d65b43d6",
+        "description": "",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-12-21T23:58:27Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Teaching people to drive",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/driving/teaching-people-to-drive",
+        "web_url": "http://www.dev.gov.uk/browse/driving/teaching-people-to-drive"
+      }
+    ],
+    "ordered_related_items": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/apply-to-become-a-driving-instructor",
+        "base_path": "/apply-to-become-a-driving-instructor",
+        "content_id": "ae837bea-d848-4e84-86a3-6122457b7b1d",
+        "description": "Apply to start qualifying as an approved driving instructor (ADI) with the Driver and Vehicle Standards Agency (DVSA)",
+        "document_type": "transaction",
+        "locale": "en",
+        "public_updated_at": "2014-11-26T12:54:52Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Apply to become a driving instructor",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/teaching-people-to-drive",
+              "base_path": "/browse/driving/teaching-people-to-drive",
+              "content_id": "ae54d8dc-0d05-4b30-8d56-30b5d65b43d6",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-12-21T23:58:27Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Teaching people to drive",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/teaching-people-to-drive",
+              "web_url": "http://www.dev.gov.uk/browse/driving/teaching-people-to-drive"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/apply-to-become-a-driving-instructor",
+        "web_url": "http://www.dev.gov.uk/apply-to-become-a-driving-instructor"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/approved-driving-instructor-adi-fees",
+        "base_path": "/approved-driving-instructor-adi-fees",
+        "content_id": "12774fd5-4984-4c4e-8588-74505de040ea",
+        "description": "Fees for taking the approved driving instructor (ADI) qualifying tests, and registering as an ADI with the Driver and Vehicle Standards Agency (DVSA)",
+        "document_type": "answer",
+        "locale": "en",
+        "public_updated_at": "2014-11-26T12:53:30Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Approved driving instructor (ADI) fees",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/teaching-people-to-drive",
+              "base_path": "/browse/driving/teaching-people-to-drive",
+              "content_id": "ae54d8dc-0d05-4b30-8d56-30b5d65b43d6",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-12-21T23:58:27Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Teaching people to drive",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/teaching-people-to-drive",
+              "web_url": "http://www.dev.gov.uk/browse/driving/teaching-people-to-drive"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/approved-driving-instructor-adi-fees",
+        "web_url": "http://www.dev.gov.uk/approved-driving-instructor-adi-fees"
+      },
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/manage-approved-driving-instructor-registration",
+        "base_path": "/manage-approved-driving-instructor-registration",
+        "content_id": "e189f4b6-39e8-4805-8a77-2c4c6ad2d58c",
+        "description": "Display, renew (including criminal records check), cancel, keep up to date and report lost or stolen approved driving instruction certificates (ADI)",
+        "document_type": "guide",
+        "locale": "en",
+        "public_updated_at": "2014-11-24T18:11:44Z",
+        "schema_name": "generic_with_external_related_links",
+        "title": "Manage your approved driving instructor (ADI) registration",
+        "withdrawn": false,
+        "links": {
+          "mainstream_browse_pages": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving/teaching-people-to-drive",
+              "base_path": "/browse/driving/teaching-people-to-drive",
+              "content_id": "ae54d8dc-0d05-4b30-8d56-30b5d65b43d6",
+              "description": "",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-12-21T23:58:27Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Teaching people to drive",
+              "withdrawn": false,
+              "links": {
+                "parent": [
+                  {
+                    "analytics_identifier": null,
+                    "api_path": "/api/content/browse/driving",
+                    "base_path": "/browse/driving",
+                    "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+                    "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+                    "document_type": "mainstream_browse_page",
+                    "locale": "en",
+                    "public_updated_at": "2016-10-07T22:18:32Z",
+                    "schema_name": "mainstream_browse_page",
+                    "title": "Driving and transport",
+                    "withdrawn": false,
+                    "links": {
+                    },
+                    "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+                    "web_url": "http://www.dev.gov.uk/browse/driving"
+                  }
+                ]
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving/teaching-people-to-drive",
+              "web_url": "http://www.dev.gov.uk/browse/driving/teaching-people-to-drive"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/manage-approved-driving-instructor-registration",
+        "web_url": "http://www.dev.gov.uk/manage-approved-driving-instructor-registration"
+      }
+    ],
+    "organisations": [
+      {
+        "analytics_identifier": "EA570",
+        "api_path": "/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "base_path": "/government/organisations/driver-and-vehicle-standards-agency",
+        "content_id": "d39237a5-678b-4bb5-a372-eb2cb036933d",
+        "description": null,
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2016-11-18T12:50:04Z",
+        "schema_name": "placeholder",
+        "title": "Driver and Vehicle Standards Agency",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-for-transport",
+          "logo": {
+            "formatted_title": "Driver &amp; Vehicle<br/>Standards<br/>Agency",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/government/organisations/driver-and-vehicle-standards-agency",
+        "web_url": "http://www.dev.gov.uk/government/organisations/driver-and-vehicle-standards-agency"
+      }
+    ],
+    "parent": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/browse/driving/teaching-people-to-drive",
+        "base_path": "/browse/driving/teaching-people-to-drive",
+        "content_id": "ae54d8dc-0d05-4b30-8d56-30b5d65b43d6",
+        "description": "",
+        "document_type": "mainstream_browse_page",
+        "locale": "en",
+        "public_updated_at": "2016-12-21T23:58:27Z",
+        "schema_name": "mainstream_browse_page",
+        "title": "Teaching people to drive",
+        "withdrawn": false,
+        "links": {
+          "parent": [
+            {
+              "analytics_identifier": null,
+              "api_path": "/api/content/browse/driving",
+              "base_path": "/browse/driving",
+              "content_id": "03531ffd-314b-4fed-9361-fa9816005c31",
+              "description": "Apply for a driving licence, tax your vehicle, book your driving test, and find out the legal requirements for buying, owning, importing or scrapping a car or motorcycle, and read about your rights and responsibilities as a driver",
+              "document_type": "mainstream_browse_page",
+              "locale": "en",
+              "public_updated_at": "2016-10-07T22:18:32Z",
+              "schema_name": "mainstream_browse_page",
+              "title": "Driving and transport",
+              "withdrawn": false,
+              "links": {
+              },
+              "api_url": "http://www.dev.gov.uk/api/content/browse/driving",
+              "web_url": "http://www.dev.gov.uk/browse/driving"
+            }
+          ]
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/browse/driving/teaching-people-to-drive",
+        "web_url": "http://www.dev.gov.uk/browse/driving/teaching-people-to-drive"
+      }
+    ],
+    "topics": [
+      {
+        "analytics_identifier": null,
+        "api_path": "/api/content/topic/driving-motorcyle-instructors/approved-driving-instructors",
+        "base_path": "/topic/driving-motorcyle-instructors/approved-driving-instructors",
+        "content_id": "bb85c76f-b660-4426-a1c3-37313a2cea81",
+        "description": "Services and information for approved driving instructors (ADIs), including qualifying and managing your registration.",
+        "document_type": "topic",
+        "locale": "en",
+        "public_updated_at": "2016-09-30T15:13:23Z",
+        "schema_name": "topic",
+        "title": "Approved driving instructors (ADIs)",
+        "withdrawn": false,
+        "links": {
+        },
+        "api_url": "http://www.dev.gov.uk/api/content/topic/driving-motorcyle-instructors/approved-driving-instructors",
+        "web_url": "http://www.dev.gov.uk/topic/driving-motorcyle-instructors/approved-driving-instructors"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Become a driving instructor",
+        "public_updated_at": "2017-02-22T13:50:49Z",
+        "analytics_identifier": null,
+        "document_type": "simple_smart_answer",
+        "schema_name": "simple_smart_answer",
+        "base_path": "/become-a-driving-instructor",
+        "description": "Find out if you can become an approved driving instructor (ADI) and what you need to do to qualify",
+        "api_path": "/api/content/become-a-driving-instructor",
+        "withdrawn": false,
+        "content_id": "bc1c2f06-8601-452b-8f18-37520ba7d1f8",
+        "locale": "en",
+        "api_url": "http://www.dev.gov.uk/api/content/become-a-driving-instructor",
+        "web_url": "http://www.dev.gov.uk/become-a-driving-instructor",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Find out if you can become an approved driving instructor (ADI) and what you need to do to qualify",
+  "details": {
+    "start_button_text": "Start now",
+    "body": "<p>Find out if you can become an approved driving instructor (<abbr title=\"approved driving instructor\">ADI</abbr>) in Great Britain and what you need to do to qualify.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>There’s a different process in <a rel=\"external\" href=\"http://www.nidirect.gov.uk/index/information-and-services/motoring/driving-for-a-living/driving-instructors/how-to-become-an-approved-driving-instructor-adi.htm\">Northern Ireland.</a></p>\n</div>\n\n",
+    "nodes": [
+      {
+        "kind": "question",
+        "slug": "question-1",
+        "title": "Are you already registered as a driving instructor in another EU country?",
+        "options": [
+          {
+            "label": "Yes",
+            "slug": "yes",
+            "next_node": "outcome-1"
+          },
+          {
+            "label": "No",
+            "slug": "no",
+            "next_node": "question-2"
+          }
+        ]
+      },
+      {
+        "kind": "question",
+        "slug": "question-2",
+        "title": "How old are you?",
+        "options": [
+          {
+            "label": "21 or over",
+            "slug": "21-or-over",
+            "next_node": "question-3"
+          },
+          {
+            "label": "20 or under",
+            "slug": "20-or-under",
+            "next_node": "outcome-2"
+          }
+        ]
+      },
+      {
+        "kind": "question",
+        "slug": "question-3",
+        "title": "Have you had a full car driving licence for at least 3 years?",
+        "options": [
+          {
+            "label": "Yes",
+            "slug": "yes",
+            "next_node": "question-4"
+          },
+          {
+            "label": "No",
+            "slug": "no",
+            "next_node": "outcome-3"
+          }
+        ]
+      },
+      {
+        "kind": "question",
+        "slug": "question-4",
+        "title": "What type of car is your driving licence for?",
+        "options": [
+          {
+            "label": "Manual",
+            "slug": "manual",
+            "next_node": "outcome-4"
+          },
+          {
+            "label": "Automatic",
+            "slug": "automatic",
+            "next_node": "outcome-5"
+          }
+        ]
+      },
+      {
+        "kind": "outcome",
+        "slug": "outcome-1",
+        "title": "You can apply to transfer your driving instructor registration to Great Britain",
+        "options": [
+
+        ],
+        "body": "<ol class=\"steps\">\n<li>\n<p>Apply to register your non-GB driving licence if you got yours in another <a href=\"/eu-eea\"><abbr title=\"European Union\">EU</abbr> country</a>.</p>\n</li>\n<li>\n<p>Apply to the Driver and Vehicle Standards Agency (<abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>) to transfer your instructor registration.</p>\n</li>\n</ol>\n\n<h2 id=\"register-your-non-gb-driving-licence\">Register your non-GB driving licence</h2>\n\n<p>Download and fill in <a href=\"/government/publications/d9-application-to-register-a-non-gb-driving-licence\">D9 - Application to register a non-GB driving licence</a> and send it to <abbr title=\"Driver and Vehicle Licensing Agency\">DVLA</abbr>.</p>\n\n<div class=\"address\"><div class=\"adr org fn\"><p>\n\n<abbr title=\"Driver and Vehicle Licensing Agency\">DVLA</abbr>\n<br>Swansea\n<br>SA99 1BH\n<br>\n</p></div></div>\n\n<h2 id=\"transfer-your-registration\">Transfer your registration</h2>\n\n<p>When you’ve registered your non-GB licence you can <a href=\"/transfer-driving-instructor-registration-gb\">transfer your driving instructor registration to Great Britain</a>.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>You must read <a href=\"/guide-to-the-approved-driving-instructor-register\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>’s guide to the <abbr title=\"approved driving instructor\">ADI</abbr> register</a>.</p>\n</div>\n\n"
+      },
+      {
+        "kind": "outcome",
+        "slug": "outcome-2",
+        "title": "You can’t become an approved driving instructor (ADI) until you're 21",
+        "options": [
+
+        ],
+        "body": "<p>You have to be 21 or older to supervise a learner driver.</p>\n\n<p>You can usually apply to start the qualifying process 6 months before your 21st birthday. This is because it will take at least 6 months to qualify as an <abbr title=\"approved driving instructor\">ADI</abbr>.</p>\n\n<div role=\"note\" aria-label=\"Help\" class=\"application-notice help-notice\">\n<p>It’s against the law for you to charge a fee to teach someone to drive if you’re not an <abbr title=\"approved driving instructor\">ADI</abbr>.</p>\n</div>\n\n"
+      },
+      {
+        "kind": "outcome",
+        "slug": "outcome-3",
+        "title": "You can’t become an approved driving instructor (ADI) until you've had a full licence for 3 years or more",
+        "options": [
+
+        ],
+        "body": "<p>You have to have had your full licence for at least 3 years to supervise a learner driver.</p>\n\n<p>You can usually apply to start the qualifying process 6 months before the 3rd anniversary of getting your full licence. This is because it will take at least 6 months to qualify as an <abbr title=\"approved driving instructor\">ADI</abbr>.</p>\n\n<div role=\"note\" aria-label=\"Help\" class=\"application-notice help-notice\">\n<p>It’s against the law for you to charge a fee to teach someone to drive if you’re not an <abbr title=\"approved driving instructor\">ADI</abbr>.</p>\n</div>\n\n"
+      },
+      {
+        "kind": "outcome",
+        "slug": "outcome-4",
+        "title": "You can start applying to become an approved driving instructor (ADI)",
+        "options": [
+
+        ],
+        "body": "<ol class=\"steps\">\n<li>\n<p><a href=\"/criminal-record-check-become-driving-instructor\">Get a criminal record check to become an <abbr title=\"approved driving instructor\">ADI</abbr></a>.</p>\n</li>\n<li>\n<p>Read the <a href=\"/guidance/guide-to-the-approved-driving-instructor-register\">guide to the <abbr title=\"approved driving instructor\">ADI</abbr> register</a>.</p>\n</li>\n<li>\n<p><a href=\"/apply-to-become-a-driving-instructor\">Apply to start the <abbr title=\"approved driving instructor\">ADI</abbr> qualifying process</a>.</p>\n</li>\n<li>\n<p>Take <a href=\"/driving-instructor-training\">training to qualify as an <abbr title=\"approved driving instructor\">ADI</abbr></a>.</p>\n</li>\n<li>\n<p>Take and pass the 3 <abbr title=\"approved driving instructor\">ADI</abbr> qualifying tests.</p>\n</li>\n<li>\n<p>Apply for your first <abbr title=\"approved driving instructor\">ADI</abbr> badge.</p>\n</li>\n</ol>\n\n<h2 id=\"motoring-offences-and-other-convictions\">Motoring offences and other convictions</h2>\n\n<p>Your application can be refused if you have:</p>\n\n<ul>\n  <li>been banned from driving</li>\n  <li>6 or more penalty points</li>\n  <li>been convicted of any non-motoring offences</li>\n</ul>\n\n<p>The <abbr title=\"approved driving instructor\">ADI</abbr> Registrar will consider whether or not you’re <a href=\"/government/publications/suitability-of-ex-offenders-to-become-or-remain-a-driving-instructor\">suitable to become a driving instructor</a>.</p>\n\n<p>Your application is unlikely to be accepted if you’ve been:</p>\n\n<ul>\n  <li>convicted of a sexual, violent, financial or drug-related crime</li>\n  <li>banned from working with children</li>\n</ul>\n\n"
+      },
+      {
+        "kind": "outcome",
+        "slug": "outcome-5",
+        "title": "You can start applying to become an approved driving instructor (ADI)",
+        "options": [
+
+        ],
+        "body": "<ol class=\"steps\">\n<li>\n<p><a href=\"/criminal-record-check-become-driving-instructor\">Get a criminal record check to become an <abbr title=\"approved driving instructor\">ADI</abbr></a>.</p>\n</li>\n<li>\n<p>Read the <a href=\"/guidance/guide-to-the-approved-driving-instructor-register\">guide to the <abbr title=\"approved driving instructor\">ADI</abbr> register</a>.</p>\n</li>\n<li>\n<p><a href=\"/apply-to-become-a-driving-instructor\">Apply to start the <abbr title=\"approved driving instructor\">ADI</abbr> qualifying process</a>.</p>\n</li>\n<li>\n<p>Take <a href=\"/driving-instructor-training\">training to qualify as an <abbr title=\"approved driving instructor\">ADI</abbr></a>.</p>\n</li>\n<li>\n<p>Take and pass the 3 <abbr title=\"approved driving instructor\">ADI</abbr> qualifying tests.</p>\n</li>\n<li>\n<p>Apply for your first <abbr title=\"approved driving instructor\">ADI</abbr> badge.</p>\n</li>\n</ol>\n\n<h2 id=\"teaching-in-an-automatic-car\">Teaching in an automatic car</h2>\n\n<div role=\"note\" aria-label=\"Help\" class=\"application-notice help-notice\">\n<p>You must only teach people to drive in an automatic car.</p>\n</div>\n\n<h3 id=\"if-you-want-to-teach-in-a-manual-car\">If you want to teach in a manual car</h3>\n<p>You must pass the <a href=\"/practical-driving-test-for-cars\">car driving test</a> in a manual car and then wait 3 years.</p>\n\n<h3 id=\"automatic-licence-because-you-have-a-disability\">Automatic licence because you have a disability</h3>\n<p>You might need to take an extra assessment if you’ve got an automatic licence because you have a disability. This is to prove that you can keep control of your car in an emergency. The Driver and Vehicle Standards Agency (<abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>) will tell you if you need to do this.</p>\n\n<h2 id=\"motoring-offences-and-other-convictions\">Motoring offences and other convictions</h2>\n\n<p>Your application can be refused if you have:</p>\n\n<ul>\n  <li>been banned from driving</li>\n  <li>6 or more penalty points</li>\n  <li>been convicted of any non-motoring offences</li>\n</ul>\n\n<p>The <abbr title=\"approved driving instructor\">ADI</abbr> Registrar will consider whether or not you’re <a href=\"/government/publications/suitability-of-ex-offenders-to-become-or-remain-a-driving-instructor\">suitable to become a driving instructor</a>.</p>\n\n<p>Your application is unlikely to be accepted if you’ve been:</p>\n\n<ul>\n  <li>convicted of a sexual, violent, financial or drug-related crime</li>\n  <li>banned from working with children</li>\n</ul>\n\n"
+      },
+      {
+        "kind": "outcome",
+        "slug": "outcome-6",
+        "title": "You can start applying to become an approved driving instructor (ADI)",
+        "options": [
+
+        ],
+        "body": "<ol class=\"steps\">\n<li>\n<p>Get a criminal record check for driving instructors.</p>\n</li>\n<li>\n<p>Apply to the Driver and Vehicle Standards Agency (<abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>) to start the qualifying process.</p>\n</li>\n<li>\n<p>Take and pass the 3 <abbr title=\"approved driving instructor\">ADI</abbr> qualifying tests.</p>\n</li>\n<li>\n<p>Apply for your first <abbr title=\"approved driving instructor\">ADI</abbr> badge.</p>\n</li>\n</ol>\n\n<h2 id=\"criminal-record-check\">Criminal record check</h2>\n\n<p>You need to <a href=\"/criminal-record-check-become-driving-instructor\">get a criminal record check to become a driving instructor</a>. You can’t use any other type of criminal record check.</p>\n\n<h2 id=\"apply-to-dvsa\">Apply to <abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>\n</h2>\n\n<p>When you have your criminal record disclosure, you can <a href=\"/apply-to-become-a-driving-instructor\">apply to become an <abbr title=\"approved driving instructor\">ADI</abbr></a>.</p>\n\n<div role=\"note\" aria-label=\"Information\" class=\"application-notice info-notice\">\n<p>You must read <a href=\"/guide-to-the-approved-driving-instructor-register\"><abbr title=\"Driver and Vehicle Standards Agency\">DVSA</abbr>’s guide to the <abbr title=\"approved driving instructor\">ADI</abbr> register</a>.</p>\n</div>\n\n"
+      }
+    ],
+    "external_related_links": [
+
+    ]
+  }
+}

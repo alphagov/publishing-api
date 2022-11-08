@@ -1,0 +1,2369 @@
+{
+  "analytics_identifier": "D1197",
+  "base_path": "/government/organisations/department-for-exiting-the-european-union",
+  "content_id": "f323e83c-868b-4bcb-b6e2-a8f9bb40397e",
+  "document_type": "organisation",
+  "first_published_at": "2016-07-14T18:15:21.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2020-05-01T07:58:11.000+00:00",
+  "publishing_app": "whitehall",
+  "publishing_scheduled_at": null,
+  "rendering_app": "collections",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "organisation",
+  "title": "Department for Exiting the European Union",
+  "updated_at": "2020-05-01T10:54:18.205Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "30073-1588319891.535-10.13.4.55-540",
+  "links": {
+    "ordered_board_members": [
+      {
+        "content_id": "852c1322-c0f1-11e4-8223-005056011aef",
+        "title": "Clare Moriarty",
+        "locale": "en",
+        "api_path": "/api/content/government/people/clare-moriarty",
+        "base_path": "/government/people/clare-moriarty",
+        "document_type": "person",
+        "public_updated_at": "2019-05-01T14:38:57Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/256/s465_ClareMoriarty-IMG_1422-960x640.jpg",
+            "alt_text": "Clare Moriarty"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "e2a4e514-c645-4a21-a2af-56efd39b246e",
+              "title": "Clare Moriarty - Director General Corporate",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-05-01T14:38:57Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2012-01-01T00:00:00+00:00",
+                "ended_on": "2012-12-01T00:00:00+00:00",
+                "current": false,
+                "person_appointment_order": 360
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84615eab-c0f1-11e4-8223-005056011aef",
+                    "title": "Director General Corporate",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2012-11-12T14:31:12Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>To contribute to the collective leadership of <abbr title=\"Department for Transport\">DfT</abbr> as a Board and Executive Committee member and lead the corporate group. The main areas of responsibility are:</p>\n\n<ul>\n  <li>corporate functions - finance, HR, property, corporate procurement, IT, communications, shared services</li>\n  <li>change management</li>\n  <li>corporate governance</li>\n  <li>internal audit</li>\n  <li>performance management of <abbr title=\"Department for Transport\">DfT</abbr>’s motoring agencies</li>\n</ul>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "43a771af-00c9-4b6b-9268-c74dac76e575",
+              "title": "Clare Moriarty - Director General Rail Group",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-05-01T14:38:57Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2013-01-07T00:00:00+00:00",
+                "ended_on": "2015-07-19T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 568
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8461ace8-c0f1-11e4-8223-005056011aef",
+                    "title": "Director General Rail Group",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-04-26T14:46:27Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>To contribute to the collective leadership of the Department for Transport as a Board and Executive Committee member and lead of the Rail Group.</p>\n\n<p>To contribute to the collective leadership of the Department for Transport as a Board and Executive Committee member and lead of the Rail Group.</p>\n\n<p>The Director General, Rail Group has overall responsibility for:</p>\n\n<ul>\n  <li>developing strategy and policy for the rail sector in the context of broader government policy</li>\n  <li>managing the department’s overall expenditure on rail services and infrastructure</li>\n  <li>ensuring delivery of major projects and programmes including the:\n    <ul>\n      <li>£5 billion Intercity Express Programme</li>\n      <li>£6 billion Thameslink programme</li>\n      <li>£14.7 billion Crossrail programme (jointly with Transport for London)</li>\n    </ul>\n  </li>\n  <li>delivering the ongoing programme of rail franchises</li>\n  <li>effective sponsorship of:\n    <ul>\n      <li>Network Rail</li>\n      <li>Office of Rail and Road</li>\n      <li>Rail Accidents Investigation Branch</li>\n      <li>British Transport Police</li>\n    </ul>\n  </li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "a7766f69-de99-4f1c-977b-aff510d52737",
+              "title": "Clare Moriarty - Permanent Secretary",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-07-18T15:18:53Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2015-08-03T00:00:00+01:00",
+                "ended_on": "2019-03-29T00:00:00+00:00",
+                "current": false,
+                "person_appointment_order": 2860
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84613d4b-c0f1-11e4-8223-005056011aef",
+                    "title": "Permanent Secretary",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2015-10-21T14:39:53Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Responsible for the overall management of the Department.</p>\n\n<ul>\n  <li>Principal Accounting Officer for <abbr title=\"Department for Environment, Food and Rural Affairs\">Defra</abbr>\n</li>\n  <li>Member of the <abbr title=\"Department for Environment, Food and Rural Affairs\">Defra</abbr> Board</li>\n</ul>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "b209a92c-353a-4add-927f-d4b7f535248f",
+              "title": "Clare Moriarty - Permanent Secretary (Department for Exiting the European Union)",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-07-18T15:22:12Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-04-01T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5335
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "01e18839-44c6-4923-bffc-5625eb039197",
+                    "title": "Permanent Secretary (Department for Exiting the European Union)",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-03-31T14:44:08Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Permanent Secretary for the Department for Exiting the European Union supports the Secretary of State in the work of the department.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/clare-moriarty",
+        "web_url": "https://www.gov.uk/government/people/clare-moriarty"
+      },
+      {
+        "content_id": "852e9849-c0f1-11e4-8223-005056011aef",
+        "title": "Simon Ridley",
+        "locale": "en",
+        "api_path": "/api/content/government/people/simon-ridley",
+        "base_path": "/government/people/simon-ridley",
+        "document_type": "person",
+        "public_updated_at": "2018-01-10T16:24:49Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/466/s465_Simon_Ridley_960x640.jpg",
+            "alt_text": "Simon Ridley"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "82e621a3-558c-438f-b328-7d28a1efc030",
+              "title": "Simon Ridley - Director General, Local Government and Public Services",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:12:17Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2013-01-07T00:00:00+00:00",
+                "ended_on": "2013-05-03T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 565
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8461480f-c0f1-11e4-8223-005056011aef",
+                    "title": "Director General, Local Government and Public Services",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-01-10T16:16:41Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The <abbr title=\"Ministry of Housing, Communities and Local Government\">MHCLG</abbr> board’s role is to advise and support ministers on the operational implications and effectiveness of policy proposals and help turn policy from ideas into actions and results.</p>\n\n<p>Part of <abbr title=\"Ministry of Housing, Communities and Local Government\">MHCLG</abbr>’s leadership team, and an executive member of its board, the Director General for Local Government and Public Services helps with that task. The Local Government and Public Services Group has responsibility for local government, communities and public service reform.</p>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "4f47c55f-1a14-4ce7-8940-0e35eb0ccfa6",
+              "title": "Simon Ridley - Chief Executive, Planning Inspectorate",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-11-08T08:44:16Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2014-07-01T00:00:00+01:00",
+                "ended_on": "2015-09-18T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 1930
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84616c31-c0f1-11e4-8223-005056011aef",
+                    "title": "Chief Executive, Planning Inspectorate",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-11-08T08:44:16Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Chief Executive is personally responsible for the effective management of the Planning Inspectorate in accordance with the framework document (which describes the Inspectorate’s relationship with the Ministry of Housing, Communities and Local Government’s (MHCLG)) and in accordance with the normal Civil Service rules on propriety and securing value for money.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "50970df4-81ce-4a30-9e3f-9e8f4e7f5b65",
+              "title": "Simon Ridley - Director General, Decentralisation and Growth",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-09-30T11:33:14Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2015-09-21T00:00:00+01:00",
+                "ended_on": "2019-07-05T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 2958
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "3c933597-a443-4360-8ca4-3e00e111df35",
+                    "title": "Director General, Decentralisation and Growth",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-01-10T16:26:15Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The <abbr title=\"Ministry of Housing, Communities and Local Government\">MHCLG</abbr> board’s role is to advise and support ministers on the operational implications and effectiveness of policy proposals and help turn policy from ideas into actions and results.</p>\n\n<p>Part of <abbr title=\"Ministry of Housing, Communities and Local Government\">MHCLG</abbr>’s leadership team and an executive member of its board, the Director General, Decentralisation and Growth helps with that task.</p>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "b638f5c1-3c4b-4652-b86e-812c3e850912",
+              "title": "Simon Ridley - Director General",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-27T11:28:25Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-11-27T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5889
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "a613c96c-7631-4aaf-bafc-891e045e097b",
+                    "title": "Director General",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-03-31T14:44:08Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/simon-ridley",
+        "web_url": "https://www.gov.uk/government/people/simon-ridley"
+      },
+      {
+        "content_id": "135ada5b-b31f-4d35-a185-32f5feb729ce",
+        "title": "Margaret Stephens",
+        "locale": "en",
+        "api_path": "/api/content/government/people/margaret-stephens",
+        "base_path": "/government/people/margaret-stephens",
+        "document_type": "person",
+        "public_updated_at": "2017-07-19T14:19:19Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3183/s465_Margaret_Stephens_govuk2_.jpg",
+            "alt_text": "Margaret Stephens"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "a36b1fcf-f560-4c41-ae21-d3d2e3bae457",
+              "title": "Margaret Stephens - Chair of Audit and Risk Assurance Committee",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:31:37Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-04-13T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4234
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8ba5881c-41d5-425d-b794-507c3e5e6a36",
+                    "title": "Chair of Audit and Risk Assurance Committee",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-04-21T14:15:42Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "056698ac-0350-4677-9d12-a7f15f61cd4f",
+              "title": "Margaret Stephens - Non-executive board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:31:37Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-04-13T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4233
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "45a9f8f7-101f-49a5-928a-a84c0dd7e235",
+                    "title": "Non-executive board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-07-19T14:15:08Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/margaret-stephens",
+        "web_url": "https://www.gov.uk/government/people/margaret-stephens"
+      },
+      {
+        "content_id": "99909acf-bb26-4278-90bc-61637ddc6cc3",
+        "title": "Susan Hooper",
+        "locale": "en",
+        "api_path": "/api/content/government/people/susan-hooper",
+        "base_path": "/government/people/susan-hooper",
+        "document_type": "person",
+        "public_updated_at": "2017-07-19T14:30:41Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3184/s465_Susan_Hooper_Govuk2.jpg",
+            "alt_text": "Susan Hooper"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "e17f38e3-f2d9-416a-8466-c81254bd9ee6",
+              "title": "Susan Hooper - Non-executive board member",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:31:37Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-04-20T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4235
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "e9fcbb20-9d75-4ae1-91d2-7c52b03eeee5",
+                    "title": "Non-executive board member",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-07-19T14:31:45Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/susan-hooper",
+        "web_url": "https://www.gov.uk/government/people/susan-hooper"
+      },
+      {
+        "content_id": "853b84bb-c0f1-11e4-8223-005056011aef",
+        "title": "Tom Shinner",
+        "locale": "en",
+        "api_path": "/api/content/government/people/tom-shinner",
+        "base_path": "/government/people/tom-shinner",
+        "document_type": "person",
+        "public_updated_at": "2018-02-07T11:21:56Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/1372/s465_TOM_SHINNER_govuk.jpg",
+            "alt_text": "Tom Shinner"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "1a9ca704-7b48-4e67-bfdc-a6c10faee337",
+              "title": "Tom Shinner - Director of Strategy",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:18:39Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2013-12-30T00:00:00+00:00",
+                "ended_on": "2016-07-15T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 1607
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "84616b7b-c0f1-11e4-8223-005056011aef",
+                    "title": "Director of Strategy",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2014-03-18T11:04:35Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Director of Strategy is a member of the Department for Education Board, the performance committee and management committee.</p>\n\n<p>The role includes:</p>\n\n<ul>\n  <li>advising the Secretary of State, the Permanent Secretary and the <abbr title=\"Department for Education\">DfE</abbr> board on strategy and policy</li>\n  <li>leading and managing the department’s strategy unit, performance unit, implementation group and policy advisers</li>\n  <li>leading the department’s strategic and financial planning, including overseeing the <abbr title=\"Department for Education\">DfE</abbr>’s contribution to HM Treasury spending reviews</li>\n  <li>assessing the department’s performance, reporting progress to the board and ministers, and ensuring risk is managed effectively</li>\n  <li>supporting the effective implementation of high-priority initiatives</li>\n</ul>\n\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "f2108e8b-e111-4cab-b8ee-56bd9310a452",
+              "title": "Tom Shinner - Director for Policy and Delivery Coordination",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:33:39Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2016-07-13T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4634
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "9ff5631d-5dff-4c9f-8926-d381f147223d",
+                    "title": "Director for Policy and Delivery Coordination",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-02-07T11:18:47Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>Leading on the department’s work to coordinate the domestic policy implications of exit, across government departments, to seize the opportunities and ensure a smooth process of exit.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/tom-shinner",
+        "web_url": "https://www.gov.uk/government/people/tom-shinner"
+      },
+      {
+        "content_id": "df3b3be9-9566-4602-b437-dfa6bfc1a6c7",
+        "title": "Chris Jones",
+        "locale": "en",
+        "api_path": "/api/content/government/people/chris-jones",
+        "base_path": "/government/people/chris-jones",
+        "document_type": "person",
+        "public_updated_at": "2018-07-25T09:59:23Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/2845/s465_Chris_Jones_Govuk_2.jpg",
+            "alt_text": "Chris Jones"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "56c011c3-a633-4e33-84b7-adcff6fe171c",
+              "title": "Chris Jones - Director for Justice, Security and Migration",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-07-25T14:56:53Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2016-07-13T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 3609
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "aa5a5d02-2dc4-4855-af1f-413020c21776",
+                    "title": "Director for Justice, Security and Migration",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-03-31T14:44:08Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "1556f45d-a7a9-49df-9a05-922e25c5bb79",
+              "title": "Chris Jones - DExEU Chief Scientific Adviser",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-07-25T14:56:53Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-10-12T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4481
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "de560f3f-5888-4c02-9e18-f40d81eae272",
+                    "title": "DExEU Chief Scientific Adviser",
+                    "locale": "en",
+                    "document_type": "chief_scientific_advisor_role",
+                    "public_updated_at": "2017-12-12T13:46:36Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/chris-jones",
+        "web_url": "https://www.gov.uk/government/people/chris-jones"
+      },
+      {
+        "content_id": "94fdbb3c-0877-4ac4-8a14-8c9efcedc73b",
+        "title": "Chris Hobley",
+        "locale": "en",
+        "api_path": "/api/content/government/people/chris-hobley",
+        "base_path": "/government/people/chris-hobley",
+        "document_type": "person",
+        "public_updated_at": "2017-11-29T12:40:37Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3248/s465_Chris_Hobley_govuk.jpg",
+            "alt_text": "Chris Hobley"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "998528fb-d96a-4959-aed1-27e1d529d8e9",
+              "title": "Chris Hobley - Director of Market Access and Budget ",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:32:15Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-10-02T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4354
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "033cd913-be6e-48f1-b695-45f7896d64c4",
+                    "title": "Co-Director of Market Access and Budget ",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-11-27T11:53:50Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/chris-hobley",
+        "web_url": "https://www.gov.uk/government/people/chris-hobley"
+      },
+      {
+        "content_id": "d25a4ee5-1378-40a8-bfe3-fe02cd3af618",
+        "title": "Eoin Parker",
+        "locale": "en",
+        "api_path": "/api/content/government/people/eoin-parker",
+        "base_path": "/government/people/eoin-parker",
+        "document_type": "person",
+        "public_updated_at": "2019-06-03T12:19:41Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3431/s465_Untitled-1.jpg",
+            "alt_text": "Eoin Parker"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "a356e443-2fac-4e22-b219-984dc0eb2850",
+              "title": "Eoin Parker - Co-Director - Market Access and Budget Directorate & DExEU Chief Scientific Adviser",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-06-03T12:20:18Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2018-01-01T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4694
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "75f9580a-0f91-4f31-911c-9a369c798c1e",
+                    "title": "Co-Director - Market Access and Budget Directorate & DExEU Chief Scientific Adviser",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-06-03T12:20:18Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/eoin-parker",
+        "web_url": "https://www.gov.uk/government/people/eoin-parker"
+      },
+      {
+        "content_id": "a4734b62-e04c-4d49-b9ac-0ec4433b5bd7",
+        "title": "Olivier Evans",
+        "locale": "en",
+        "api_path": "/api/content/government/people/olivier-evans",
+        "base_path": "/government/people/olivier-evans",
+        "document_type": "person",
+        "public_updated_at": "2019-07-30T14:59:41Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/2746/s465_olivier.evans.jpg",
+            "alt_text": "Olivier Evans"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "1858ab5e-6a97-4bb5-8726-9584e48df7b3",
+              "title": "Olivier Evans - Director for Communications and Stakeholders",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-12-05T11:51:09Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-04-23T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5909
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "be011b81-9326-4c07-862b-d03c219eabfa",
+                    "title": "Director for Communications and Stakeholders",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-10-30T13:37:32Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "ff259240-8d87-4c72-94e0-08203a582787",
+              "title": "Olivier Evans - Deputy Head of Mission, British Embassy Mexico City",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-07-30T14:59:41Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2015-08-01T00:00:00+01:00",
+                "ended_on": "2019-03-31T00:00:00+00:00",
+                "current": false,
+                "person_appointment_order": 3386
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "846a4c60-c0f1-11e4-8223-005056011aef",
+                    "title": "Deputy Head of Mission, British Embassy Mexico City",
+                    "locale": "en",
+                    "document_type": "deputy_head_of_mission_role",
+                    "public_updated_at": "2013-03-21T21:07:37Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The Deputy Head of Mission is a senior diplomat and typically a key advisor to the Ambassador or High Commissioner. The Deputy is responsible for the daily management of an overseas Embassy or High Commission. They will represent the UK’s interests in the absence of the Ambassador as Chargé d’Affaires. A senior ranking Deputy may also take the title Minister. Smaller missions may not have a Deputy Head.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/olivier-evans",
+        "web_url": "https://www.gov.uk/government/people/olivier-evans"
+      },
+      {
+        "content_id": "dc3bb43e-5a34-4275-bb2e-1004f41ffdea",
+        "title": "Joanna Key",
+        "locale": "en",
+        "api_path": "/api/content/government/people/joanna-key",
+        "base_path": "/government/people/joanna-key",
+        "document_type": "person",
+        "public_updated_at": "2017-11-03T16:25:01Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/2847/s465_JOANNA_KEY_govuk.jpg",
+            "alt_text": "Joanna Key"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "135b6c5c-4835-4516-aa61-7079f8fc89c1",
+              "title": "Joanna Key -  Director for Legislation and Constitution",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:32:34Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2016-07-01T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4408
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8fecb008-9c56-4dd5-b2fd-80946a5f82f1",
+                    "title": " Director for Legislation and Constitution",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-11-03T16:03:29Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/joanna-key",
+        "web_url": "https://www.gov.uk/government/people/joanna-key"
+      },
+      {
+        "content_id": "59288779-1499-4747-8394-89e07b1d4e3d",
+        "title": "Anna Clunes",
+        "locale": "en",
+        "api_path": "/api/content/government/people/anna-clunes",
+        "base_path": "/government/people/anna-clunes",
+        "document_type": "person",
+        "public_updated_at": "2019-05-01T08:27:42Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/2946/s465_Anna_Clunes.jpg",
+            "alt_text": "Anna Clunes"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "a5a1fa85-cf99-4dfa-a0c2-1b8c448cfdcf",
+              "title": "Anna Clunes - Director of Security, Territories and Ongoing Business",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-05-01T08:27:42Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-10-01T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4407
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "311d43db-747c-4aaf-89d1-afda4a87c4c2",
+                    "title": "Director of Security, Territories and Ongoing Business",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-04-30T14:57:26Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/anna-clunes",
+        "web_url": "https://www.gov.uk/government/people/anna-clunes"
+      },
+      {
+        "content_id": "95709a96-3c25-4e67-8d21-e82feec05798",
+        "title": "Helen Mills",
+        "locale": "en",
+        "api_path": "/api/content/government/people/helen-mills",
+        "base_path": "/government/people/helen-mills",
+        "document_type": "person",
+        "public_updated_at": "2019-10-04T11:37:46Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3280/s465_Helen_Mills_Govuk.jpg",
+            "alt_text": "Helen Mills"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "72a38b26-2a06-471c-9873-86108e440a5b",
+              "title": "Helen Mills - Director for Corporate Centre",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-10-04T11:38:55Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-09-01T00:00:00+01:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4411
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "1c5ead12-b190-4a57-b67d-ee06af5d7822",
+                    "title": "Co-Director for Corporate Centre",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-11-27T12:05:24Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The corporate centre is responsible for:</p>\n\n<ul>\n  <li>Estates, information technology and shared services</li>\n  <li>Finance, commercial and data</li>\n  <li>Human resources</li>\n  <li>Security, business continuity and information management</li>\n  <li>Strategy, correspondence and FOI</li>\n  <li>Ministerial Private Office</li>\n  <li>Priority Projects Unit</li>\n</ul>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/helen-mills",
+        "web_url": "https://www.gov.uk/government/people/helen-mills"
+      },
+      {
+        "content_id": "ccaf773a-c92b-45c2-835b-9a8016cfd0f5",
+        "title": "Nathan Phillips",
+        "locale": "en",
+        "api_path": "/api/content/government/people/nathan-phillips",
+        "base_path": "/government/people/nathan-phillips",
+        "document_type": "person",
+        "public_updated_at": "2018-03-23T11:02:28Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3325/s465_Nathan-PhillipsGOVUK.jpg",
+            "alt_text": "Nathan Phillips"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "1a31a545-fe9a-4c9a-aaf1-41e8307278b2",
+              "title": "Nathan Phillips - Director for Planning and Analysis",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2018-06-07T14:32:58Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-12-01T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 4487
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "9b5098ae-1294-40a1-8c93-76f4ff2670f7",
+                    "title": "Director for Planning and Analysis",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-12-14T11:53:56Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "34bd4ed4-8e92-45f4-a5b4-d468e7af7843",
+              "title": "Nathan Phillips - Director for Business Engagement & Readiness",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-27T11:48:55Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-11-27T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5890
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "501ef090-a399-4a80-91b9-af772654fb2a",
+                    "title": "Director for Business Engagement & Readiness",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-11-27T11:47:30Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/nathan-phillips",
+        "web_url": "https://www.gov.uk/government/people/nathan-phillips"
+      },
+      {
+        "content_id": "5dbc57cb-23d9-4d65-9f30-14fc935c84c0",
+        "title": "Rhys Bowen",
+        "locale": "en",
+        "api_path": "/api/content/government/people/rhys-bowen",
+        "base_path": "/government/people/rhys-bowen",
+        "document_type": "person",
+        "public_updated_at": "2019-07-03T09:20:40Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3324/s465_unnamed.jpg",
+            "alt_text": "Rhys Bowen"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "c84260a1-7c44-4fdb-a8d1-0599f05cc60b",
+              "title": "Rhys Bowen - Director for International Agreements and Trade",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-27T11:58:30Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2017-12-01T00:00:00+00:00",
+                "ended_on": "2019-11-25T00:00:00+00:00",
+                "current": false,
+                "person_appointment_order": 4486
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "20bd7d17-9a18-4781-861b-d836cfe42158",
+                    "title": "Director for International Agreements and Trade",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2017-11-03T16:24:04Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "4b916748-8994-47aa-b64d-8b13b9d519ec",
+              "title": "Rhys Bowen - Director for Negotiations Strategy",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-27T11:56:46Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-11-27T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5891
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "f238925d-cd4f-404d-9d23-76dfdd010f75",
+                    "title": "Director for Negotiations Strategy",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-11-27T11:56:20Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/rhys-bowen",
+        "web_url": "https://www.gov.uk/government/people/rhys-bowen"
+      },
+      {
+        "content_id": "e5e5a6ce-14d6-426d-8512-7f81205932af",
+        "title": "Rebecca Evernden",
+        "locale": "en",
+        "api_path": "/api/content/government/people/rebecca-evernden",
+        "base_path": "/government/people/rebecca-evernden",
+        "document_type": "person",
+        "public_updated_at": "2017-06-06T15:26:24Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/3009/s465_re960.jpg",
+            "alt_text": "Rebecca Evernden"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "e30a740b-f155-4467-a8bc-ba8919421bc6",
+              "title": "Rebecca Evernden - Director, International (jobshare), UK Space Agency",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-08-16T13:55:12Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2016-06-06T00:00:00+01:00",
+                "ended_on": "2019-06-02T00:00:00+01:00",
+                "current": false,
+                "person_appointment_order": 3901
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "8472c900-c0f1-11e4-8223-005056011aef",
+                    "title": "Director, International (jobshare), UK Space Agency",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2018-02-19T16:20:01Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "<p>The primary responsibility of the Directors of Policy is to provide advice on civil space activities to the Minister for Universities and Science (and other ministers as required). They also lead on regulation, EU policy, security and international communications.</p>\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "c5e3a72a-2ff1-495a-8728-21cc63264318",
+              "title": "Rebecca Evernden - Co-Director for Citizens and Networks",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-11-27T12:00:42Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-11-27T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5892
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "7c30f62b-c58f-4d77-9df2-adb804376aef",
+                    "title": "Co-Director for Citizens and Networks",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-11-27T12:00:17Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/rebecca-evernden",
+        "web_url": "https://www.gov.uk/government/people/rebecca-evernden"
+      },
+      {
+        "content_id": "b9fd4a74-e99a-4727-94a5-aba1cc2867e1",
+        "title": "Colin Dingwall",
+        "locale": "en",
+        "api_path": "/api/content/government/people/colin-dingwall",
+        "base_path": "/government/people/colin-dingwall",
+        "document_type": "person",
+        "public_updated_at": "2019-12-05T14:20:51Z",
+        "schema_name": "person",
+        "withdrawn": false,
+        "details": {
+          "image": {
+            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/person/image/4162/s465_Colin_D.png",
+            "alt_text": "Colin Dingwall"
+          }
+        },
+        "links": {
+          "role_appointments": [
+            {
+              "content_id": "5a0af73e-c0b7-4892-9c43-927d7e9e5ebf",
+              "title": "Colin Dingwall - Co-Director for Domestic Policy & Implementation (Policy)",
+              "locale": "en",
+              "document_type": "role_appointment",
+              "public_updated_at": "2019-12-05T14:22:11Z",
+              "schema_name": "role_appointment",
+              "withdrawn": false,
+              "details": {
+                "started_on": "2019-12-05T00:00:00+00:00",
+                "ended_on": null,
+                "current": true,
+                "person_appointment_order": 5911
+              },
+              "links": {
+                "role": [
+                  {
+                    "content_id": "9687e692-e43f-4df4-b940-9dabde9dae7f",
+                    "title": "Co-Director for Domestic Policy & Implementation (Implementation)",
+                    "locale": "en",
+                    "document_type": "board_member_role",
+                    "public_updated_at": "2019-12-05T14:22:35Z",
+                    "schema_name": "role",
+                    "withdrawn": false,
+                    "details": {
+                      "body": "\n",
+                      "role_payment_type": null
+                    },
+                    "links": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/people/colin-dingwall",
+        "web_url": "https://www.gov.uk/government/people/colin-dingwall"
+      }
+    ],
+    "ordered_contacts": [
+      {
+        "content_id": "90424844-c358-48ce-ae78-dd3a3eeafcd7",
+        "title": "General enquiries ",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2016-11-22T16:38:09Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "General enquiries ",
+          "contact_form_links": [
+            {
+              "link": "https://email.dexeu.cabinetoffice.gov.uk/"
+            }
+          ],
+          "post_addresses": [
+            {
+              "title": " Correspondence Team",
+              "street_address": "9 Downing Street\r\n",
+              "locality": "London",
+              "postal_code": "SW1A 2AS",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": null,
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "acb39ae2-45e6-4d6d-9617-4914bf79cc67",
+        "title": "Media enquiries",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2016-11-22T12:59:38Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "Media enquiries",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": [
+            {
+              "email": "mediaoffice@dexeu.gov.uk"
+            }
+          ],
+          "phone_numbers": [
+            {
+              "title": "Media Office",
+              "number": "020 7276 0432"
+            }
+          ]
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "2827ffd4-44a9-4b57-aa1c-b1b7c8bbc57c",
+        "title": "Stakeholder submissions",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2017-03-28T12:13:13Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "If you are an organisation, company or group wishing to submit material to DExEU, please use the contact details above.",
+          "title": "Stakeholder submissions",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "street_address": "9 Downing Street",
+              "locality": "London",
+              "postal_code": "SW1A 2AS",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": [
+            {
+              "email": "stakeholder.engagement@dexeu.gov.uk"
+            }
+          ],
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "fe0bedd8-2111-43cc-9615-d9ba0cd8296a",
+        "title": "Guidance on exiting the European Union",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2017-04-18T14:41:57Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "https://www.gov.uk/guidance/exiting-the-european-union",
+          "title": "Guidance on exiting the European Union",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": null,
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "faafc17f-2da5-4a87-b231-5ec9dd46f0da",
+        "title": "Personal Information",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2018-06-20T15:40:08Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": "Our Personal Information Charter explains how we handle your information when you contact us. It also explains how to make a data protection request for your personal information: https://www.gov.uk/government/organisations/department-for-exiting-the-european-union/about/personal-information-charter",
+          "title": "Personal Information",
+          "contact_form_links": null,
+          "post_addresses": [
+
+          ],
+          "email_addresses": null,
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      }
+    ],
+    "ordered_foi_contacts": [
+      {
+        "content_id": "adc3c9fe-42a7-485b-bb56-39f569b19c1a",
+        "title": "Freedom of information requests",
+        "locale": "en",
+        "document_type": "contact",
+        "public_updated_at": "2017-02-23T10:18:39Z",
+        "schema_name": "contact",
+        "withdrawn": false,
+        "details": {
+          "description": null,
+          "title": "Freedom of information requests",
+          "contact_form_links": null,
+          "post_addresses": [
+            {
+              "title": "DExEU FOI Team",
+              "street_address": "LG20, 9 Downing Street\r\n",
+              "locality": "London",
+              "postal_code": "SW1A 2AG",
+              "world_location": "United Kingdom",
+              "iso2_country_code": "gb"
+            }
+          ],
+          "email_addresses": [
+            {
+              "title": "DExEU FOI Team",
+              "email": "foi@dexeu.gov.uk"
+            }
+          ],
+          "phone_numbers": null
+        },
+        "links": {
+        }
+      }
+    ],
+    "ordered_roles": [
+      {
+        "content_id": "6c404bd0-a07d-41b4-96c9-7339abe82418",
+        "title": "Secretary of State for Exiting the European Union",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/secretary-of-state-for-exiting-the-european-union",
+        "base_path": "/government/ministers/secretary-of-state-for-exiting-the-european-union",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2019-09-03T15:57:15Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Secretary of State is responsible for the work of the Department for Exiting the European Union.</p>\n\n<p>Responsibilities include:</p>\n\n<p>● Direct negotiations with the European Union</p>\n\n<p>● Conducting the negotiations on behalf of the Prime Minister including supporting bilateral discussions on EU exit with Brussels, Member States and other countries</p>\n\n<p>● Working closely with the UK’s devolved administrations, Parliament, and a wide range of other interested parties on the approach to negotiations</p>\n\n<p>● Leading and co-ordinating cross-government work to seize the opportunities of EU Exit and ensure a smooth process of exit on the best possible terms</p>\n\n<p>● Overall leadership and direction of the Department</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/secretary-of-state-for-exiting-the-european-union",
+        "web_url": "https://www.gov.uk/government/ministers/secretary-of-state-for-exiting-the-european-union"
+      },
+      {
+        "content_id": "01e18839-44c6-4923-bffc-5625eb039197",
+        "title": "Permanent Secretary (Department for Exiting the European Union)",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-03-31T14:44:08Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Permanent Secretary for the Department for Exiting the European Union supports the Secretary of State in the work of the department.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "3f40d13f-1938-447f-9e05-f6e0f832e81f",
+        "title": "Minister of State",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/minister-of-state--38",
+        "base_path": "/government/ministers/minister-of-state--38",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2016-07-17T12:30:10Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Minister of State will support the work of the Department for Exiting the European Union.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/minister-of-state--38",
+        "web_url": "https://www.gov.uk/government/ministers/minister-of-state--38"
+      },
+      {
+        "content_id": "56d01121-3d33-4f78-857f-c516709e9940",
+        "title": "Parliamentary Under Secretary of State",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--58",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state--58",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2016-07-18T12:12:23Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Parliamentary Under Secretary of State will support the work of the Department for Exiting the European Union.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--58",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--58"
+      },
+      {
+        "content_id": "9def0232-597e-4dbe-947e-0eebaead8ee5",
+        "title": "Parliamentary Under Secretary of State",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--59",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state--59",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2018-08-30T11:06:29Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Parliamentary Under Secretary of State will support the work of the Department for Exiting the European Union.</p>\n\n<ul>\n  <li>Market Access &amp; Budget</li>\n  <li>Migration &amp; Citizens’ Rights</li>\n  <li>Implementation Period</li>\n  <li>Devolved Administrations, Overseas Territories and Crown Dependencies</li>\n  <li>Business Engagement</li>\n  <li>Northern Ireland and Ireland</li>\n  <li>EU (Withdrawal Agreement) Bill support</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--59",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--59"
+      },
+      {
+        "content_id": "a613c96c-7631-4aaf-bafc-891e045e097b",
+        "title": "Director General",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-03-31T14:44:08Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "20bd7d17-9a18-4781-861b-d836cfe42158",
+        "title": "Director for International Agreements and Trade",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-11-03T16:24:04Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "f002ad59-bdab-4205-9606-9eea4b2327f7",
+        "title": "Director for Cross-Government Policy Coordination",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-10-30T13:36:23Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Leading on the department’s work to coordinate the domestic policy implications of exit, across government departments, to seize the opportunities and ensure a smooth process of exit.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "aa5a5d02-2dc4-4855-af1f-413020c21776",
+        "title": "Director for Justice, Security and Migration",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-03-31T14:44:08Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "033cd913-be6e-48f1-b695-45f7896d64c4",
+        "title": "Co-Director of Market Access and Budget ",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-11-27T11:53:50Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "dd5ebbcf-2b7e-4e4e-b5ec-4d8b65b405ba",
+        "title": "Director of Strategy and Planning ",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-03-31T14:44:08Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "0c5509ec-ba52-497f-a9a2-58dc7f33482f",
+        "title": "Second Permanent Secretary ",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-04-11T10:23:57Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Second Permanent Secretary will have responsibility for managing the department’s overall policy and legislative programme.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "b36c85a8-5b9d-415c-94d0-15e3a74b2264",
+        "title": "Director General",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-04-11T16:14:35Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>With a focus on the EU institutions and member states</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "8ba5881c-41d5-425d-b794-507c3e5e6a36",
+        "title": "Chair of Audit and Risk Assurance Committee",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-04-21T14:15:42Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "3d4f2022-be92-4ba5-baa4-02bfceb93cc9",
+        "title": "Director of Strategy and Coordination",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-04-01T13:21:20Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "d91f7496-8951-441a-b1a8-2ec84fdf2067",
+        "title": "Minister of State",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/minister-of-state--54",
+        "base_path": "/government/ministers/minister-of-state--54",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2019-09-03T15:43:50Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<ul>\n  <li>Departmental business in the House of Lords</li>\n  <li>EU ongoing business (including JMC(E) and General Affairs Council)</li>\n  <li>Civil Society Engagement</li>\n  <li>EU Institutions</li>\n  <li>Business engagement</li>\n  <li>No deal business in the House of Lords</li>\n</ul>\n\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/minister-of-state--54",
+        "web_url": "https://www.gov.uk/government/ministers/minister-of-state--54"
+      },
+      {
+        "content_id": "2c86bcd9-54a2-4468-8c35-b636e5e1efe0",
+        "title": "Director of Planning and Analysis",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-06-13T12:12:05Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "a33173bc-4364-48a9-a339-90439666cc69",
+        "title": "Parliamentary Under Secretary of State",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--79",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state--79",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2018-08-30T11:07:25Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The Parliamentary Under Secretary of State will support the work of the Department for Exiting the European Union.</p>\n\n<ul>\n  <li>Policy Coordination &amp; Delivery</li>\n  <li>Contingency Planning</li>\n  <li>International Agreements and trade</li>\n  <li>Borders</li>\n  <li>Secondary legislation</li>\n  <li>EU (Withdrawal Agreement) Bill support</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--79",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--79"
+      },
+      {
+        "content_id": "45a9f8f7-101f-49a5-928a-a84c0dd7e235",
+        "title": "Non-executive board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-07-19T14:15:08Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "e9fcbb20-9d75-4ae1-91d2-7c52b03eeee5",
+        "title": "Non-executive board member",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-07-19T14:31:45Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "be011b81-9326-4c07-862b-d03c219eabfa",
+        "title": "Director for Communications and Stakeholders",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-10-30T13:37:32Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "3ce3ab4b-a2b0-4580-9835-a9b2c98d380d",
+        "title": "Director for Institutions and Member States",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-10-30T13:37:51Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "9ec8a9ee-bbc1-4fc8-8383-17b3a743cd22",
+        "title": "Legal Advisor",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-10-30T13:38:41Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "8fecb008-9c56-4dd5-b2fd-80946a5f82f1",
+        "title": " Director for Legislation and Constitution",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-11-03T16:03:29Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "fd584bc7-d2a5-4c10-8505-9ce58a3c551f",
+        "title": " Director of Legislation and Constitution",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-11-01T13:33:15Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "311d43db-747c-4aaf-89d1-afda4a87c4c2",
+        "title": "Director of Security, Territories and Ongoing Business",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-04-30T14:57:26Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "a4888267-7f52-40e0-9331-848827c7112c",
+        "title": "Acting Director General",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-11-01T13:35:57Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "1c5ead12-b190-4a57-b67d-ee06af5d7822",
+        "title": "Co-Director for Corporate Centre",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-11-27T12:05:24Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The corporate centre is responsible for:</p>\n\n<ul>\n  <li>Estates, information technology and shared services</li>\n  <li>Finance, commercial and data</li>\n  <li>Human resources</li>\n  <li>Security, business continuity and information management</li>\n  <li>Strategy, correspondence and FOI</li>\n  <li>Ministerial Private Office</li>\n  <li>Priority Projects Unit</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "0b70d5aa-ddbc-49a2-bf95-09d492295240",
+        "title": "Director for Finance and Corporate Centre",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-11-03T16:19:33Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>The corporate centre is responsible for:</p>\n\n<ul>\n  <li>Estates, information technology and shared services</li>\n  <li>Finance, commercial and data</li>\n  <li>Human resources</li>\n  <li>Security, business continuity and information management</li>\n  <li>Strategy, correspondence and FOI</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "9b5098ae-1294-40a1-8c93-76f4ff2670f7",
+        "title": "Director for Planning and Analysis",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2017-12-14T11:53:56Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "2d0a6ab1-9c15-4b80-8b3b-eb084af99fd4",
+        "title": "Parliamentary Under Secretary of State",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--93",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state--93",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2018-11-20T17:44:09Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<ul>\n  <li>EU (Withdrawal Agreement) Bill</li>\n  <li>Vote on the final deal</li>\n  <li>English Regions</li>\n  <li>Security Partnership &amp; Justice</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--93",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--93"
+      },
+      {
+        "content_id": "9ff5631d-5dff-4c9f-8926-d381f147223d",
+        "title": "Director for Policy and Delivery Coordination",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2018-02-07T11:18:47Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<p>Leading on the department’s work to coordinate the domestic policy implications of exit, across government departments, to seize the opportunities and ensure a smooth process of exit.</p>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "75f9580a-0f91-4f31-911c-9a369c798c1e",
+        "title": "Co-Director - Market Access and Budget Directorate & DExEU Chief Scientific Adviser",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-06-03T12:20:18Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "bb47ce9d-8218-40b1-b004-bf337a216a9d",
+        "title": "Director General",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2018-03-23T11:09:35Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "b4271f11-40b6-4acc-be6f-efa867025efd",
+        "title": "Director General EU Exit Implementation ",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2018-10-04T08:16:57Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "06fd19f8-4c80-49f9-8e4c-a60112fa6a48",
+        "title": "Parliamentary Under Secretary of State",
+        "locale": "en",
+        "api_path": "/api/content/government/ministers/parliamentary-under-secretary-of-state--112",
+        "base_path": "/government/ministers/parliamentary-under-secretary-of-state--112",
+        "document_type": "ministerial_role",
+        "public_updated_at": "2019-09-03T15:51:07Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "<ul>\n  <li>Legislation and constitution</li>\n  <li>Citizens and networks (including justice, data and Near Neighbours)</li>\n  <li>Market access, trade and Future Economic Partnership</li>\n  <li>Security</li>\n  <li>Northern Ireland and Ireland</li>\n  <li>Business engagement (including SME champion)</li>\n  <li>Devolved Administrations</li>\n  <li>English Regions</li>\n  <li>Overseas Territories and Crown Dependencies</li>\n</ul>\n",
+          "role_payment_type": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/ministers/parliamentary-under-secretary-of-state--112",
+        "web_url": "https://www.gov.uk/government/ministers/parliamentary-under-secretary-of-state--112"
+      },
+      {
+        "content_id": "501ef090-a399-4a80-91b9-af772654fb2a",
+        "title": "Director for Business Engagement & Readiness",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-11-27T11:47:30Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "f238925d-cd4f-404d-9d23-76dfdd010f75",
+        "title": "Director for Negotiations Strategy",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-11-27T11:56:20Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "7c30f62b-c58f-4d77-9df2-adb804376aef",
+        "title": "Co-Director for Citizens and Networks",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-11-27T12:00:17Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "2bef36b3-0106-4191-814e-9d1ecbc36da5",
+        "title": "Co-Director for Citizens and Networks",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-11-27T12:01:41Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "9687e692-e43f-4df4-b940-9dabde9dae7f",
+        "title": "Co-Director for Domestic Policy & Implementation (Implementation)",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-12-05T14:22:35Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "fbbc310a-4f79-4044-a51d-665e36e4dae0",
+        "title": "Co-Director for Corporate Centre",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-11-27T12:10:17Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      },
+      {
+        "content_id": "32ac87f5-11df-4b47-bdb7-dbf4d84edfb6",
+        "title": "Director for Communications and Stakeholders",
+        "locale": "en",
+        "document_type": "board_member_role",
+        "public_updated_at": "2019-12-05T11:48:30Z",
+        "schema_name": "role",
+        "withdrawn": false,
+        "details": {
+          "body": "\n",
+          "role_payment_type": null
+        },
+        "links": {
+        }
+      }
+    ],
+    "primary_publishing_organisation": [
+      {
+        "content_id": "f323e83c-868b-4bcb-b6e2-a8f9bb40397e",
+        "title": "Department for Exiting the European Union",
+        "locale": "en",
+        "analytics_identifier": "D1197",
+        "api_path": "/api/content/government/organisations/department-for-exiting-the-european-union",
+        "base_path": "/government/organisations/department-for-exiting-the-european-union",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Department<br/>for Exiting the<br/>European Union",
+            "crest": "single-identity"
+          },
+          "brand": "department-of-energy-climate-change",
+          "default_news_image": null
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-exiting-the-european-union",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-exiting-the-european-union"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Department for Exiting the European Union",
+        "public_updated_at": "2020-05-01T07:58:11Z",
+        "analytics_identifier": "D1197",
+        "document_type": "organisation",
+        "schema_name": "organisation",
+        "base_path": "/government/organisations/department-for-exiting-the-european-union",
+        "api_path": "/api/content/government/organisations/department-for-exiting-the-european-union",
+        "withdrawn": false,
+        "content_id": "f323e83c-868b-4bcb-b6e2-a8f9bb40397e",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/department-for-exiting-the-european-union",
+        "web_url": "https://www.gov.uk/government/organisations/department-for-exiting-the-european-union",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "The Department for Exiting the European Union (DExEU) was a ministerial department from 14 July 2016 to 31 January 2020. It was responsible for overseeing negotiations to leave the EU. For information about the relationship between the UK and the EU, see the Cabinet Office and the Prime Minister’s Office, 10 Downing Street .",
+  "details": {
+    "acronym": "DExEU",
+    "alternative_format_contact_email": "correspondence@dexeu.gov.uk",
+    "body": "The Department for Exiting the European Union (DExEU) was a ministerial department from 14 July 2016 to 31 January 2020. It was responsible for overseeing negotiations to leave the EU.",
+    "brand": "department-of-energy-climate-change",
+    "logo": {
+      "formatted_title": "Department<br/>for Exiting the<br/>European Union",
+      "crest": "single-identity"
+    },
+    "foi_exempt": false,
+    "ordered_corporate_information_pages": [
+      {
+        "title": "Jobs",
+        "href": "https://www.civil-service-careers.gov.uk/departments/working-for-the-department-for-exiting-the-european-union/"
+      }
+    ],
+    "secondary_corporate_information_pages": "Read about the types of information we routinely publish in our <a class=\"brand__color\" href=\"/government/organisations/department-for-exiting-the-european-union/about/publication-scheme\">Publication scheme</a>. Our <a class=\"brand__color\" href=\"/government/organisations/department-for-exiting-the-european-union/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
+    "ordered_featured_links": [
+
+    ],
+    "ordered_featured_documents": [
+      {
+        "title": "New Protocol on Ireland/Northern Ireland and Political Declaration",
+        "href": "/government/publications/new-protocol-on-irelandnorthern-ireland-and-political-declaration",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/73775/UK_EU_flags_gov_uk.jpg",
+          "alt_text": "UK and EU flags"
+        },
+        "summary": "<div class=\"govspeak\"><p>New Protocol on Ireland/Northern Ireland and Political Declaration as presented at the October European Council.</p>\n</div>",
+        "public_updated_at": "2019-10-18T18:57:34.000+01:00",
+        "document_type": "Policy paper"
+      },
+      {
+        "title": "Get ready for Brexit",
+        "href": "https://www.gov.uk/brexit",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/73946/get_ready_for_brexit_gov_uk.jpg",
+          "alt_text": "Get ready for Brexit campaign logo"
+        },
+        "summary": "<div class=\"govspeak\"><p>If the withdrawal agreement is not signed by the UK and the EU, the UK could still leave with no deal. Find out what you, your family, or your business need to do if the UK leaves the EU with no deal.</p>\n</div>",
+        "public_updated_at": null,
+        "document_type": "Campaign"
+      },
+      {
+        "title": "EU (Withdrawal Agreement) Bill",
+        "href": "/government/publications/eu-withdrawal-agreement-bill",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/73834/UK_EU_flags_gov_uk.jpg",
+          "alt_text": "UK and EU flags"
+        },
+        "summary": "<div class=\"govspeak\"><p>The EU (Withdrawal Agreement) Bill is required to ratify the Withdrawal Agreement, as agreed between the United Kingdom and the European Union, and implement the Agreements (EU, EEA EFTA and Swiss) in domestic law.  This Bill ensures that the United Kingdom is able to fulfil its international obligations, and leave the European Union with a deal.</p>\n</div>",
+        "public_updated_at": "2019-12-19T16:06:34.000+00:00",
+        "document_type": "Policy paper"
+      },
+      {
+        "title": "Secretary of State speech at breakfast event hosted by Europa Press in Madrid",
+        "href": "/government/speeches/secretary-of-state-speech-at-breakfast-event-hosted-by-europa-press-in-madrid",
+        "image": {
+          "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/feature/image/73236/SoS_Spain_Speech.png",
+          "alt_text": "Steve Barclay"
+        },
+        "summary": "<div class=\"govspeak\"><p>Secretary of State Steve Barclay’s speech at a breakfast event hosted by Europa Press in Madrid, Spain earlier today.</p>\n</div>",
+        "public_updated_at": "2019-09-19T10:28:00.000+01:00",
+        "document_type": "Speech"
+      }
+    ],
+    "ordered_promotional_features": [
+
+    ],
+    "important_board_members": 1,
+    "organisation_featuring_priority": "news",
+    "organisation_govuk_status": {
+      "status": "no_longer_exists",
+      "url": "",
+      "updated_at": "2020-01-31T00:00:00.000+00:00"
+    },
+    "organisation_type": "ministerial_department",
+    "organisation_political": true,
+    "social_media_links": [
+      {
+        "service_type": "twitter",
+        "title": "Twitter - @DExEUgov",
+        "href": "https://twitter.com/DExEUgov"
+      },
+      {
+        "service_type": "facebook",
+        "title": "Facebook - DExEU",
+        "href": "https://www.facebook.com/dexeugov/"
+      },
+      {
+        "service_type": "instagram",
+        "title": "Instagram - @DExEUgov",
+        "href": "https://www.instagram.com/dexeugov/"
+      }
+    ]
+  }
+}

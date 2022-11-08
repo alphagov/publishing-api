@@ -1,0 +1,81 @@
+{
+  "base_path": "/cma-cases/email-signup",
+  "description": "You'll get an email each time a case is updated or a new case is published.",
+  "document_type": "finder_email_signup",
+  "schema_name": "finder_email_signup",
+  "locale": "en",
+  "public_updated_at": "2016-04-26T11:19:42.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "rendering_app": "finder-frontend",
+  "title": "Competition and Markets Authority cases",
+  "update_type": "minor",
+  "routes": [
+    {
+      "path": "/cma-cases/email-signup",
+      "type": "exact"
+    }
+  ],
+  "details": {
+    "beta": false,
+    "email_filter_facets": [
+      {
+        "facet_id": "facet_one",
+        "facet_name": "Facet one",
+        "facet_choices": [
+          {
+            "key": "facet-one-filter-one",
+            "radio_button_name": "Filter one",
+            "topic_name": "filter one",
+            "prechecked": false
+          },
+          {
+            "key": "facet-one-filter-two",
+            "radio_button_name": "Filter two",
+            "topic_name": "filter two",
+            "prechecked": false
+          }
+        ]
+      },
+      {
+        "facet_id": "facet_two",
+        "facet_name": "Facet two",
+        "facet_choices": [
+          {
+            "key": "facet-two-filter-one",
+            "radio_button_name": "Filter one",
+            "topic_name": "filter one",
+            "prechecked": false
+          },
+          {
+            "key": "facet-two-filter-two",
+            "radio_button_name": "Filter two",
+            "topic_name": "filter two",
+            "prechecked": false
+          }
+        ]
+      },
+      {
+        "facet_id": "facet_three",
+        "facet_name": "Facet three",
+        "option_lookup": {
+          "option_one": [
+            "option_one_value_one",
+            "option_one_value_two"
+          ],
+          "option_two": [
+            "option_two_value_one"
+          ],
+          "option_three": [
+            "option_three_value_one",
+            "option_three_value_two"
+          ]
+        }
+      }
+    ],
+    "subscription_list_title_prefix": {
+      "singular": "Competition and Markets Authority (CMA) cases with the following case type: ",
+      "plural": "Competition and Markets Authority (CMA) cases with the following case types: ",
+      "many": "Competition and Markets Authority (CMA) cases: "
+    }
+  }
+}

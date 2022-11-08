@@ -1,0 +1,79 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/government/organisations/civil-nuclear-constabulary/about/procurement",
+  "content_id": "5f65b4c4-7631-11e4-a3cb-005056011aef",
+  "document_type": "procurement",
+  "first_published_at": "2016-02-29T09:24:10.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2016-03-10T07:45:37.000+00:00",
+  "publishing_app": "whitehall",
+  "rendering_app": "government-frontend",
+  "schema_name": "corporate_information_page",
+  "title": "Procurement at CNC",
+  "updated_at": "2017-08-10T14:11:22.741Z",
+  "withdrawn_notice": {
+  },
+  "publishing_request_id": "1243-1502374272.820-10.3.3.1-410",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "OT1063",
+        "api_path": "/api/content/government/organisations/civil-nuclear-constabulary",
+        "base_path": "/government/organisations/civil-nuclear-constabulary",
+        "content_id": "c507c878-87d8-4e4b-bd3a-35eff619f99b",
+        "document_type": "organisation",
+        "locale": "en",
+        "public_updated_at": "2015-07-24T14:52:30Z",
+        "schema_name": "placeholder",
+        "title": "Civil Nuclear Constabulary",
+        "withdrawn": false,
+        "details": {
+          "brand": "department-of-energy-climate-change",
+          "logo": {
+            "formatted_title": "Civil Nuclear Constabulary",
+            "crest": "single-identity"
+          }
+        },
+        "links": {
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/civil-nuclear-constabulary",
+        "web_url": "https://www.gov.uk/government/organisations/civil-nuclear-constabulary"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Procurement at CNC",
+        "public_updated_at": "2016-03-10T07:45:37Z",
+        "document_type": "procurement",
+        "schema_name": "corporate_information_page",
+        "base_path": "/government/organisations/civil-nuclear-constabulary/about/procurement",
+        "description": "Supplying goods and services to the Civil Nuclear Constabulary (CNC).\r\n",
+        "api_path": "/api/content/government/organisations/civil-nuclear-constabulary/about/procurement",
+        "withdrawn": false,
+        "content_id": "5f65b4c4-7631-11e4-a3cb-005056011aef",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/government/organisations/civil-nuclear-constabulary/about/procurement",
+        "web_url": "https://www.gov.uk/government/organisations/civil-nuclear-constabulary/about/procurement",
+        "links": {
+        }
+      }
+    ]
+  },
+  "description": "Supplying goods and services to the Civil Nuclear Constabulary (CNC).\r\n",
+  "details": {
+    "body": "<div class=\"govspeak\"><h2 id=\"doing-business-with-the-cnc\">Doing business with the <abbr title=\"Civil Nuclear Constabulary\">CNC</abbr>\n</h2>\n\n<p>Our contracts and procurement team prepares tenders, drafts terms and evaluates offers.</p>\n\n<p>We may post tender notices through:</p>\n\n<ul>\n  <li><a rel=\"external\" href=\"https://www.bluelight.gov.uk/portal/cms.nsf/vHomePage/fSection?OpenDocument\">the Bluelight ProContract website</a></li>\n  <li>\n<a rel=\"external\" href=\"http://www.ojec.com/\">the Official Journal of the European Union</a>, where required by the European Union Procurement Directive</li>\n  <li><a rel=\"external\" href=\"https://online.contractsfinder.businesslink.gov.uk/\">Contracts Finder</a></li>\n</ul>\n\n<p>There are a number of opportunities coming up as follows</p>\n\n<ul>\n  <li>Radio Equipment for the Site Security Control Rooms</li>\n  <li>Employee Assistance Programme</li>\n  <li>MOE Shotguns</li>\n  <li>Survey Software</li>\n</ul>\n\n<p>If you’re interested in either of these procurement opportunities send an email to <a href=\"mailto:procurement@cnc.pnn.police.uk\">procurement@cnc.pnn.police.uk</a> with the specific procurement opportunity referenced in the subject line.</p>\n\n<h2 id=\"standard-supplier-terms-and-conditions\">Standard supplier terms and conditions</h2>\n\n<p>Purchases we make are subject to our terms and conditions, but some purchases may be subject to a special set of terms and conditions.</p>\n\n<section class=\"attachment embedded\" id=\"attachment_1449328\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/506587/Short_Form_T_Cs__Goods_FINAL.doc\"><img alt=\"\" src=\"/government/assets/pub-cover-doc-afe3b0a8a9511beeca890340170aee8b5649413f948e512c9b8ce432d8513d32.png\"></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1449328-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/506587/Short_Form_T_Cs__Goods_FINAL.doc\">Short form terms and conditions - goods</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">MS Word Document</span>, <span class=\"file-size\">154KB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1449328-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1449328-accessibility-request\" data-controls=\"attachment-1449328-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1449328-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:press.office@cnc.pnn.police.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Short%20form%20terms%20and%20conditions%20-%20goods%0A%20%20Original%20format%3A%20doc%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Short%20form%20terms%20and%20conditions%20-%20goods%27%20in%20an%20alternative%20format\">press.office@cnc.pnn.police.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>\n\n<section class=\"attachment embedded\" id=\"attachment_1449329\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/uploads/system/uploads/attachment_data/file/506588/Short_Form_T_Cs__Services_FINAL.doc\"><img alt=\"\" src=\"/government/assets/pub-cover-doc-afe3b0a8a9511beeca890340170aee8b5649413f948e512c9b8ce432d8513d32.png\"></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a aria-describedby=\"attachment-1449329-accessibility-help\" href=\"/government/uploads/system/uploads/attachment_data/file/506588/Short_Form_T_Cs__Services_FINAL.doc\">Short form terms and conditions - services</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">MS Word Document</span>, <span class=\"file-size\">159KB</span>\n    </p>\n\n\n      <div data-module=\"toggle\" class=\"accessibility-warning\" id=\"attachment-1449329-accessibility-help\">\n        <h2>This file may not be suitable for users of assistive technology.\n          <a class=\"toggler\" href=\"#attachment-1449329-accessibility-request\" data-controls=\"attachment-1449329-accessibility-request\" data-expanded=\"false\">Request an accessible format.</a>\n        </h2>\n        <p id=\"attachment-1449329-accessibility-request\" class=\"js-hidden\">\n          If you use assistive technology (such as a screen reader) and need a\nversion of this document in a more accessible format, please email <a href=\"mailto:press.office@cnc.pnn.police.uk?body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Short%20form%20terms%20and%20conditions%20-%20services%0A%20%20Original%20format%3A%20doc%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A%20%20%20%20%20%20&amp;subject=Request%20for%20%27Short%20form%20terms%20and%20conditions%20-%20services%27%20in%20an%20alternative%20format\">press.office@cnc.pnn.police.uk</a>.\nPlease tell us what format you need. It will help us if you say what assistive technology you use.\n\n        </p>\n      </div>\n  </div>\n</section>\n\n</div>",
+    "organisation": "c507c878-87d8-4e4b-bd3a-35eff619f99b",
+    "tags": {
+      "browse_pages": [
+
+      ],
+      "policies": [
+
+      ],
+      "topics": [
+
+      ]
+    }
+  }
+}
