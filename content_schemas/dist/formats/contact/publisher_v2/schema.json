@@ -1,0 +1,601 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": [
+    "details",
+    "document_type",
+    "publishing_app",
+    "schema_name",
+    "title"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "access_limited": {
+      "$ref": "#/definitions/access_limited"
+    },
+    "analytics_identifier": {
+      "$ref": "#/definitions/analytics_identifier"
+    },
+    "auth_bypass_ids": {
+      "description": "A list of ids that will allow access to this item for non-authenticated users",
+      "$ref": "#/definitions/guid_list"
+    },
+    "base_path": {
+      "$ref": "#/definitions/absolute_path_optional"
+    },
+    "bulk_publishing": {
+      "type": "boolean"
+    },
+    "change_note": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "description": {
+      "$ref": "#/definitions/description_optional"
+    },
+    "details": {
+      "$ref": "#/definitions/details"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "contact"
+      ]
+    },
+    "first_published_at": {
+      "$ref": "#/definitions/first_published_at"
+    },
+    "last_edited_at": {
+      "description": "Last time when the content received a major or minor update.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "policy_areas": {
+          "description": "A largely deprecated tag currently only used to power email alerts.",
+          "$ref": "#/definitions/guid_list"
+        }
+      }
+    },
+    "locale": {
+      "$ref": "#/definitions/locale"
+    },
+    "need_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "phase": {
+      "description": "The service design phase of this content item - https://www.gov.uk/service-manual/phases",
+      "type": "string",
+      "enum": [
+        "alpha",
+        "beta",
+        "live"
+      ]
+    },
+    "previous_version": {
+      "type": "string"
+    },
+    "public_updated_at": {
+      "$ref": "#/definitions/public_updated_at"
+    },
+    "publishing_app": {
+      "$ref": "#/definitions/publishing_app_name"
+    },
+    "redirects": {
+      "type": "array",
+      "additionalItems": false,
+      "items": {}
+    },
+    "rendering_app": {
+      "$ref": "#/definitions/rendering_app_optional"
+    },
+    "routes": {
+      "$ref": "#/definitions/routes_optional"
+    },
+    "schema_name": {
+      "type": "string",
+      "enum": [
+        "contact"
+      ]
+    },
+    "title": {
+      "$ref": "#/definitions/title"
+    },
+    "update_type": {
+      "$ref": "#/definitions/update_type"
+    }
+  },
+  "definitions": {
+    "description": {
+      "type": "string"
+    },
+    "absolute_path": {
+      "description": "A path only. Query string and/or fragment are not allowed.",
+      "type": "string",
+      "pattern": "^/(([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})+(/([a-zA-Z0-9._~!$&'()*+,;=:@-]|%[0-9a-fA-F]{2})*)*)?$"
+    },
+    "absolute_path_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/absolute_path"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "access_limited": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "auth_bypass_ids": {
+          "description": "Deprecated: auth_bypass_ids should be sent as a separate field",
+          "$ref": "#/definitions/guid_list"
+        },
+        "organisations": {
+          "description": "A list of organisation content ids permitted access to this item",
+          "$ref": "#/definitions/guid_list"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "analytics_identifier": {
+      "description": "A short identifier we send to Google Analytics for multi-valued fields. This means we avoid the truncated values we would get if we sent the path or slug of eg organisations.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "description_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/description"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "details": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contact_form_links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "contact_groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "slug",
+              "title"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "slug": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "contact_type": {
+          "type": "string"
+        },
+        "description": {
+          "description": "DEPRECATED: this has the same name and data as the top level descriptions field, which should be used instead",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "email_addresses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "email"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "feature_on_homepage": {
+          "type": "boolean"
+        },
+        "language": {
+          "type": "string"
+        },
+        "more_info_contact_form": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "more_info_email_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "more_info_phone_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "more_info_post_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "more_info_webchat": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "phone_numbers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "number"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "best_time_to_call": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "fax": {
+                "type": "string"
+              },
+              "international_phone": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string"
+              },
+              "open_hours": {
+                "type": "string"
+              },
+              "textphone": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "post_addresses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "street_address",
+              "world_location"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "iso2_country_code": {
+                "description": "The ISO 3166-1 alpha-2 code for the world location, used to determine how address is rendered",
+                "type": "string"
+              },
+              "locality": {
+                "type": "string"
+              },
+              "postal_code": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "street_address": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "world_location": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "query_response_time": {
+          "type": [
+            "string",
+            "boolean"
+          ]
+        },
+        "quick_links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          },
+          "maxItems": 3
+        },
+        "slug": {
+          "type": "string"
+        },
+        "title": {
+          "description": "DEPRECATED: this has the same name and data as the top level title field, which should be used instead",
+          "type": "string"
+        }
+      }
+    },
+    "first_published_at": {
+      "description": "The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "guid": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+    },
+    "guid_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/guid"
+      },
+      "uniqueItems": true
+    },
+    "locale": {
+      "type": "string",
+      "enum": [
+        "ar",
+        "az",
+        "be",
+        "bg",
+        "bn",
+        "cs",
+        "cy",
+        "da",
+        "de",
+        "dr",
+        "el",
+        "en",
+        "es",
+        "es-419",
+        "et",
+        "fa",
+        "fi",
+        "fr",
+        "gd",
+        "gu",
+        "he",
+        "hi",
+        "hr",
+        "hu",
+        "hy",
+        "id",
+        "is",
+        "it",
+        "ja",
+        "ka",
+        "kk",
+        "ko",
+        "lt",
+        "lv",
+        "ms",
+        "mt",
+        "ne",
+        "nl",
+        "no",
+        "pa",
+        "pa-pk",
+        "pl",
+        "ps",
+        "pt",
+        "ro",
+        "ru",
+        "si",
+        "sk",
+        "sl",
+        "so",
+        "sq",
+        "sr",
+        "sv",
+        "sw",
+        "ta",
+        "th",
+        "tk",
+        "tr",
+        "uk",
+        "ur",
+        "uz",
+        "vi",
+        "yi",
+        "zh",
+        "zh-hk",
+        "zh-tw"
+      ]
+    },
+    "public_updated_at": {
+      "description": "When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "publishing_app_name": {
+      "description": "The application that published this item.",
+      "type": "string",
+      "enum": [
+        "account-api",
+        "calculators",
+        "calendars",
+        "collections-publisher",
+        "contacts",
+        "content-publisher",
+        "content-tagger",
+        "email-alert-frontend",
+        "external-link-tracker",
+        "feedback",
+        "frontend",
+        "government-frontend",
+        "hmrc-manuals-api",
+        "info-frontend",
+        "licencefinder",
+        "local-links-manager",
+        "manuals-publisher",
+        "maslow",
+        "performanceplatform-big-screen-view",
+        "publisher",
+        "rummager",
+        "search-admin",
+        "search-api",
+        "service-manual-publisher",
+        "share-sale-publisher",
+        "short-url-manager",
+        "smartanswers",
+        "special-route-publisher",
+        "specialist-publisher",
+        "static",
+        "tariff",
+        "travel-advice-publisher",
+        "whitehall"
+      ]
+    },
+    "rendering_app": {
+      "description": "The application that renders this item.",
+      "type": "string",
+      "enum": [
+        "account-api",
+        "calculators",
+        "calendars",
+        "collections",
+        "content-store",
+        "email-alert-frontend",
+        "email-campaign-frontend",
+        "feedback",
+        "finder-frontend",
+        "frontend",
+        "government-frontend",
+        "info-frontend",
+        "licencefinder",
+        "performanceplatform-big-screen-view",
+        "rummager",
+        "search-api",
+        "service-manual-frontend",
+        "smartanswers",
+        "spotlight",
+        "static",
+        "tariff",
+        "whitehall-admin",
+        "whitehall-frontend"
+      ]
+    },
+    "rendering_app_optional": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/rendering_app"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "routes_optional": {
+      "type": "array",
+      "items": {
+        "ref": "#/definitions/route"
+      }
+    },
+    "title": {
+      "type": "string"
+    },
+    "update_type": {
+      "enum": [
+        "major",
+        "minor",
+        "republish"
+      ]
+    }
+  }
+}
