@@ -21,26 +21,26 @@ module SchemaGenerator
         publisher_content_schema = PublisherContentSchemaGenerator.new(
           format, global_definitions
         ).generate
-        Schema.write("dist/formats/#{schema_name}/publisher_v2/schema.json", publisher_content_schema)
+        Schema.write("content_schemas/dist/formats/#{schema_name}/publisher_v2/schema.json", publisher_content_schema)
 
         publisher_links_schema = PublisherLinksSchemaGenerator.new(
           format, global_definitions
         ).generate
-        Schema.write("dist/formats/#{schema_name}/publisher_v2/links.json", publisher_links_schema)
+        Schema.write("content_schemas/dist/formats/#{schema_name}/publisher_v2/links.json", publisher_links_schema)
       end
 
       if format.generate_notification?
         notification_schema = NotificationSchemaGenerator.new(
           format, global_definitions
         ).generate
-        Schema.write("dist/formats/#{schema_name}/notification/schema.json", notification_schema)
+        Schema.write("content_schemas/dist/formats/#{schema_name}/notification/schema.json", notification_schema)
       end
 
       if format.generate_frontend?
         frontend_schema = FrontendSchemaGenerator.new(
           format, global_definitions
         ).generate
-        Schema.write("dist/formats/#{schema_name}/frontend/schema.json", frontend_schema)
+        Schema.write("content_schemas/dist/formats/#{schema_name}/frontend/schema.json", frontend_schema)
       end
     rescue InvalidFormat => e
       raise "Could not generate #{schema_name} as the format file is invalid. #{e.message}"
@@ -49,7 +49,7 @@ module SchemaGenerator
     end
 
     def self.load_global_definitions
-      definitions_path = "formats/shared/definitions/**/{[!_]*}.jsonnet"
+      definitions_path = "content_schemas/formats/shared/definitions/**/{[!_]*}.jsonnet"
       Dir.glob(definitions_path).inject({}) do |memo, file_path|
         memo.merge(Jsonnet.load(file_path))
       end

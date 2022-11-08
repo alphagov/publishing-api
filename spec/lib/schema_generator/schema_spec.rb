@@ -1,5 +1,4 @@
 require "spec_helper"
-require "schema_generator/schema"
 
 RSpec.describe SchemaGenerator::Schema do
   describe ".ordered_schema" do

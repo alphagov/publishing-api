@@ -193,10 +193,7 @@ module SchemaGenerator
       end
 
       def allowed_document_types_path
-        File.expand_path(
-          "../govuk_content_schemas/allowed_document_types.yml",
-          __dir__,
-        )
+        File.expand_path("./content_schemas/allowed_document_types.yml")
       end
     end
 

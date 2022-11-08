@@ -34,7 +34,7 @@ module SchemaGenerator
     end
 
     def default_properties
-      Jsonnet.load("formats/shared/default_properties/publisher.jsonnet")
+      Jsonnet.load("content_schemas/formats/shared/default_properties/publisher.jsonnet")
     end
 
     def derived_properties
