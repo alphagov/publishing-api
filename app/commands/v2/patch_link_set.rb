@@ -96,11 +96,11 @@ module Commands
         queue = bulk_publishing? ? DownstreamDraftWorker::LOW_QUEUE : DownstreamDraftWorker::HIGH_QUEUE
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
-          content_id:,
-          locale:,
-          orphaned_content_ids:,
-          update_dependencies:,
-          source_command: "patch_link_set",
+          "content_id" => content_id,
+          "locale" => locale,
+          "orphaned_content_ids" => orphaned_content_ids,
+          "update_dependencies" => update_dependencies,
+          "source_command" => "patch_link_set",
         )
       end
 
@@ -108,12 +108,12 @@ module Commands
         queue = bulk_publishing? ? DownstreamLiveWorker::LOW_QUEUE : DownstreamLiveWorker::HIGH_QUEUE
         DownstreamLiveWorker.perform_async_in_queue(
           queue,
-          content_id:,
-          locale:,
-          message_queue_event_type: "links",
-          orphaned_content_ids:,
-          update_dependencies:,
-          source_command: "patch_link_set",
+          "content_id" => content_id,
+          "locale" => locale,
+          "message_queue_event_type" => "links",
+          "orphaned_content_ids" => orphaned_content_ids,
+          "update_dependencies" => update_dependencies,
+          "source_command" => "patch_link_set",
         )
       end
 

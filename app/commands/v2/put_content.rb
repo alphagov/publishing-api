@@ -215,12 +215,12 @@ module Commands
 
         DownstreamDraftWorker.perform_async_in_queue(
           queue,
-          content_id:,
-          locale:,
-          update_dependencies: edition_diff.present?,
-          orphaned_content_ids: orphaned_links,
-          source_command: "put_content",
-          source_fields: edition_diff.has_previous_edition? ? edition_diff.fields : [],
+          "content_id" => content_id,
+          "locale" => locale,
+          "update_dependencies" => edition_diff.present?,
+          "orphaned_content_ids" => orphaned_links,
+          "source_command" => "put_content",
+          "source_fields" => edition_diff.has_previous_edition? ? edition_diff.fields.map(&:to_s) : [],
         )
       end
     end

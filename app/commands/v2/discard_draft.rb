@@ -39,12 +39,12 @@ module Commands
 
         DownstreamDiscardDraftWorker.perform_async_in_queue(
           DownstreamDiscardDraftWorker::HIGH_QUEUE,
-          base_path: draft.base_path,
-          content_id:,
-          locale:,
-          update_dependencies: true,
-          source_command: "discard_draft",
-          source_document_type: @document_type,
+          "base_path" => draft.base_path,
+          "content_id" => content_id,
+          "locale" => locale,
+          "update_dependencies" => true,
+          "source_command" => "discard_draft",
+          "source_document_type" => @document_type,
         )
       end
 

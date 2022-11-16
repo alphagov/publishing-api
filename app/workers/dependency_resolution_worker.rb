@@ -5,7 +5,7 @@ class DependencyResolutionWorker
   sidekiq_options queue: :dependency_resolution
 
   def perform(args = {})
-    assign_attributes(args.deep_symbolize_keys)
+    assign_attributes(args)
 
     send_source_stats
 
@@ -27,13 +27,13 @@ private
               :source_fields
 
   def assign_attributes(args)
-    @content_id = args.fetch(:content_id)
-    @locale = args.fetch(:locale)
-    @content_store = args.fetch(:content_store).constantize
-    @orphaned_content_ids = args.fetch(:orphaned_content_ids, [])
-    @source_command = args[:source_command]
-    @source_document_type = args[:source_document_type]
-    @source_fields = args.fetch(:source_fields, [])
+    @content_id = args.fetch("content_id")
+    @locale = args.fetch("locale")
+    @content_store = args.fetch("content_store").constantize
+    @orphaned_content_ids = args.fetch("orphaned_content_ids", [])
+    @source_command = args["source_command"]
+    @source_document_type = args["source_document_type"]
+    @source_fields = args.fetch("source_fields", [])
   end
 
   def orphaned_content_ids_for_locale
@@ -84,12 +84,12 @@ private
 
     DownstreamDraftWorker.perform_async_in_queue(
       DownstreamDraftWorker::LOW_QUEUE,
-      content_id: dependent_content_id,
-      locale:,
-      update_dependencies: false,
-      dependency_resolution_source_content_id: content_id,
-      source_command:,
-      source_fields:,
+      "content_id" => dependent_content_id,
+      "locale" => locale,
+      "update_dependencies" => false,
+      "dependency_resolution_source_content_id" => content_id,
+      "source_command" => source_command,
+      "source_fields" => source_fields,
     )
   end
 
@@ -98,13 +98,13 @@ private
 
     DownstreamLiveWorker.perform_async_in_queue(
       DownstreamLiveWorker::LOW_QUEUE,
-      content_id: dependent_content_id,
-      locale:,
-      message_queue_event_type: "links",
-      update_dependencies: false,
-      dependency_resolution_source_content_id: content_id,
-      source_command:,
-      source_fields:,
+      "content_id" => dependent_content_id,
+      "locale" => locale,
+      "message_queue_event_type" => "links",
+      "update_dependencies" => false,
+      "dependency_resolution_source_content_id" => content_id,
+      "source_command" => source_command,
+      "source_fields" => source_fields,
     )
   end
 end

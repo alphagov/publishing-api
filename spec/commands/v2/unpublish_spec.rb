@@ -176,12 +176,12 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:, locale:, source_command: "unpublish"),
+            a_hash_including("content_id" => content_id, "locale" => locale, "source_command" => "unpublish"),
           )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:, locale:, source_command: "unpublish"),
+            a_hash_including("content_id" => content_id, "locale" => locale, "source_command" => "unpublish"),
           )
 
         described_class.call(payload)
@@ -303,7 +303,7 @@ RSpec.describe Commands::V2::Unpublish do
           expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
             .with(
               "downstream_high",
-              a_hash_including(content_id:, locale:),
+              a_hash_including("content_id" => content_id, "locale" => locale),
             )
 
           described_class.call(payload_with_allow_draft)
@@ -420,12 +420,12 @@ RSpec.describe Commands::V2::Unpublish do
 
       it "includes orphaned content ids downstream live" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
-          .with("downstream_high", a_hash_including(orphaned_content_ids: [link_a]))
+          .with("downstream_high", a_hash_including("orphaned_content_ids" => [link_a]))
       end
 
       it "excludes orphaned content ids downstream draft as they were handled in put content" do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
-          .with("downstream_high", hash_excluding(:orphaned_content_ids))
+          .with("downstream_high", hash_excluding("orphaned_content_ids"))
       end
     end
 
@@ -520,7 +520,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:),
+            a_hash_including("content_id" => content_id),
           )
 
         described_class.call(payload)
@@ -530,7 +530,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamDraftWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:),
+            a_hash_including("content_id" => content_id),
           )
 
         described_class.call(payload)
@@ -540,7 +540,7 @@ RSpec.describe Commands::V2::Unpublish do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue)
           .with(
             "downstream_high",
-            a_hash_including(content_id:),
+            a_hash_including("content_id" => content_id),
           )
 
         described_class.call(payload)

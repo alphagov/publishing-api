@@ -8,10 +8,10 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
   subject(:worker_perform) do
     described_class.new.perform(
-      content_id:,
-      locale:,
-      content_store:,
-      orphaned_content_ids: orphaned_link_content_ids,
+      "content_id" => content_id,
+      "locale" => locale,
+      "content_store" => content_store,
+      "orphaned_content_ids" => orphaned_link_content_ids,
     )
   end
 
@@ -40,10 +40,10 @@ RSpec.describe DependencyResolutionWorker, :perform do
     expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
       "downstream_low",
       a_hash_including(
-        :content_id,
-        :locale,
-        message_queue_event_type: "links",
-        update_dependencies: false,
+        "content_id",
+        "locale",
+        "message_queue_event_type" => "links",
+        "update_dependencies" => false,
       ),
     )
     worker_perform
@@ -60,11 +60,11 @@ RSpec.describe DependencyResolutionWorker, :perform do
     it "sends content ids downstream" do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
-        a_hash_including(content_id:),
+        a_hash_including("content_id"),
       )
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
-        a_hash_including(content_id: orphaned_link_content_ids.first),
+        a_hash_including("content_id" => orphaned_link_content_ids.first),
       )
     end
 
@@ -74,7 +74,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       it "doesn't send content ids downstream" do
         expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id: orphaned_link_content_ids.first),
+          a_hash_including("content_id" => orphaned_link_content_ids.first),
         )
       end
     end
@@ -85,7 +85,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       it "doesn't send content ids downstream" do
         expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id: orphaned_link_content_ids.first),
+          a_hash_including("content_id" => orphaned_link_content_ids.first),
         )
       end
     end
@@ -96,7 +96,7 @@ RSpec.describe DependencyResolutionWorker, :perform do
       it "doesn't send content ids downstream" do
         expect(DownstreamDraftWorker).to_not receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id: orphaned_link_content_ids.first),
+          a_hash_including("content_id" => orphaned_link_content_ids.first),
         )
       end
     end
@@ -115,15 +115,15 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id:,
-          locale: "en",
+          "content_id",
+          "locale" => "en",
         ),
       )
 
       described_class.new.perform(
-        content_id: "123",
-        locale: "en",
-        content_store: "Adapters::ContentStore",
+        "content_id" => "123",
+        "locale" => "en",
+        "content_store" => "Adapters::ContentStore",
       )
     end
 
@@ -131,15 +131,15 @@ RSpec.describe DependencyResolutionWorker, :perform do
       expect(DownstreamDraftWorker).to receive(:perform_async_in_queue).with(
         anything,
         a_hash_including(
-          content_id:,
-          locale: "en",
+          "content_id",
+          "locale" => "en",
         ),
       )
 
       described_class.new.perform(
-        content_id: "123",
-        locale: "en",
-        content_store: "Adapters::DraftContentStore",
+        "content_id" => "123",
+        "locale" => "en",
+        "content_store" => "Adapters::DraftContentStore",
       )
     end
   end
@@ -155,20 +155,20 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
       after do
         described_class.new.perform(
-          content_id:,
-          locale: "en",
-          content_store: "Adapters::ContentStore",
+          "content_id" => content_id,
+          "locale" => "en",
+          "content_store" => "Adapters::ContentStore",
         )
       end
 
       it "downstreams all but the locale specified" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "fr"),
+          a_hash_including("content_id", "locale" => "fr"),
         )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "es"),
+          a_hash_including("content_id", "locale" => "es"),
         )
       end
     end
@@ -184,24 +184,24 @@ RSpec.describe DependencyResolutionWorker, :perform do
 
       after do
         described_class.new.perform(
-          content_id:,
-          content_store: "Adapters::ContentStore",
-          locale: "en",
+          "content_id" => content_id,
+          "content_store" => "Adapters::ContentStore",
+          "locale" => "en",
         )
       end
 
       it "downstreams all but the locale specified" do
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "en"),
+          a_hash_including("content_id" => content_id, "locale" => "en"),
         )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "fr"),
+          a_hash_including("content_id" => content_id, "locale" => "fr"),
         )
         expect(DownstreamLiveWorker).to receive(:perform_async_in_queue).with(
           anything,
-          a_hash_including(content_id:, locale: "es"),
+          a_hash_including("content_id" => content_id, "locale" => "es"),
         )
       end
     end
@@ -210,12 +210,12 @@ RSpec.describe DependencyResolutionWorker, :perform do
   context "with source information" do
     after do
       described_class.new.perform(
-        content_id:,
-        content_store: "Adapters::ContentStore",
-        locale: "en",
-        source_command: "patch_link_set",
-        source_document_type: "answer",
-        source_fields: %w[description details.body],
+        "content_id" => content_id,
+        "content_store" => "Adapters::ContentStore",
+        "locale" => "en",
+        "source_command" => "patch_link_set",
+        "source_document_type" => "answer",
+        "source_fields" => %w[description details.body],
       )
     end
 

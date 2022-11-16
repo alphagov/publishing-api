@@ -172,13 +172,13 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
       it "sends the source command to the worker" do
         expect(DependencyResolutionWorker).to receive(:perform_async)
-          .with(a_hash_including(source_command: "command"))
+          .with(a_hash_including("source_command" => "command"))
         subject.perform(arguments)
       end
 
       it "sends the document type to the worker" do
         expect(DependencyResolutionWorker).to receive(:perform_async)
-          .with(a_hash_including(source_document_type: "document_type"))
+          .with(a_hash_including("source_document_type" => "document_type"))
         subject.perform(arguments.merge("source_document_type" => "document_type"))
       end
     end
@@ -219,7 +219,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
 
   describe "conflict protection" do
     let(:content_id) { edition.content_id }
-    let(:logger) { Sidekiq::Logging.logger }
+    let(:logger) { Sidekiq::Logger }
 
     before do
       create(:live_edition, base_path: "/foo")
@@ -231,7 +231,7 @@ RSpec.describe DownstreamDiscardDraftWorker do
     end
 
     it "logs the conflict" do
-      expect(Sidekiq::Logging.logger).to receive(:warn)
+      expect(Sidekiq::Logger).to receive(:warn)
         .with(%r{Cannot discard '/foo'})
       subject.perform(arguments)
     end

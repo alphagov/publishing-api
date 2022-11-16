@@ -122,20 +122,20 @@ module Commands
 
         DownstreamDraftWorker.perform_async_in_queue(
           DownstreamDraftWorker::HIGH_QUEUE,
-          content_id: document.content_id,
-          locale: document.locale,
-          update_dependencies: true,
-          source_command: "unpublish",
+          "content_id" => document.content_id,
+          "locale" => document.locale,
+          "update_dependencies" => true,
+          "source_command" => "unpublish",
         )
 
         DownstreamLiveWorker.perform_async_in_queue(
           DownstreamLiveWorker::HIGH_QUEUE,
-          content_id: document.content_id,
-          locale: document.locale,
-          update_dependencies: true,
-          orphaned_content_ids:,
-          message_queue_event_type: "unpublish",
-          source_command: "unpublish",
+          "content_id" => document.content_id,
+          "locale" => document.locale,
+          "update_dependencies" => true,
+          "orphaned_content_ids" => orphaned_content_ids,
+          "message_queue_event_type" => "unpublish",
+          "source_command" => "unpublish",
         )
       end
 

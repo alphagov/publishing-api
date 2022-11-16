@@ -80,13 +80,13 @@ private
 
   def enqueue_dependencies
     DependencyResolutionWorker.perform_async(
-      content_store: Adapters::ContentStore,
-      content_id:,
-      locale:,
-      orphaned_content_ids:,
-      source_command:,
-      source_document_type: edition.document_type,
-      source_fields:,
+      "content_store" => "Adapters::ContentStore",
+      "content_id" => content_id,
+      "locale" => locale,
+      "orphaned_content_ids" => orphaned_content_ids,
+      "source_command" => source_command,
+      "source_document_type" => edition.document_type,
+      "source_fields" => source_fields,
     )
   end
 
