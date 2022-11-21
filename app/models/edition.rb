@@ -230,13 +230,13 @@ class Edition < ApplicationRecord
   def api_url
     return unless api_path
 
-    Plek.new.website_root + api_path
+    Plek.website_root + api_path
   end
 
   def web_url
     return unless base_path
 
-    Plek.new.website_root + base_path
+    Plek.website_root + base_path
   end
 
 private
